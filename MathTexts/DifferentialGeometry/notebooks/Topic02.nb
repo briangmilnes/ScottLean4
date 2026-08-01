@@ -1,0 +1,2974 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     74700,       2695]*)
+(*NotebookOutlinePosition[     75670,       2726]*)
+(*  CellTagsIndexPosition[     75626,       2722]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "15-499B Computational Algebra\n",
+  StyleBox["Fall 2000\nCarnegie Mellon University",
+    FontSize->24]
+}], "Title",
+  TextAlignment->Center],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana S. Scott 2000",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["31 August 2000",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle"],
+
+Cell[TextData[{
+  StyleBox["Topic 2.",
+    FontWeight->"Bold",
+    FontSlant->"Plain"],
+  StyleBox[" Tilings",
+    FontSlant->"Plain"]
+}], "Subsubtitle",
+  CellMargins->{{Inherited, Inherited}, {0, Inherited}}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Tiling the Checkerboard",
+  FontSlant->"Plain"]], "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Dominoes", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Run these initializations", "Subsubsection"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["spelling warning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are usually not too helpful, unless you are putting together a large \
+package of programs and examples."
+}], "Text"],
+
+Cell[BoxData[
+    \(Off[General::"\<spell\>"]; Off[General::"\<spell1\>"]\)], "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  "Many of our ",
+  StyleBox["examples",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can be expressed as ",
+  StyleBox["rectangular matrices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and they may be eaqsier to understand ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " some simple ",
+  StyleBox["color graphics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(ShowMatrix[mat_, color_] := 
+      Show[Graphics[RasterArray[Reverse[mat] /. \[InvisibleSpace]color]], 
+        AspectRatio \[Rule] Automatic]\)], "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  "The following is just one possible ",
+  StyleBox["rule for colors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for display of integer matrices.  The idea is that ",
+  Cell[BoxData[
+      \(0\)],
+    FontWeight->"Bold"],
+  " represents ",
+  StyleBox["white",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  " represents ",
+  StyleBox["black",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", while the integers ",
+  Cell[BoxData[
+      StyleBox[\({2, 3,  ... , n + 1}\),
+        FontWeight->"Bold"]]],
+  "  produce a choice from a ",
+  StyleBox["spectrum",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(ColorRule[n_] := 
+      Join[{0 \[Rule] RGBColor[1, 1, 1], 1 \[Rule] RGBColor[0, 0, 0]}, 
+        Table[m + 1 \[Rule] Hue[m\/n], {m, n}]]\)], "Input",
+  InitializationCell->True],
+
+Cell["Here is how the colors look:", "Text"],
+
+Cell[BoxData[{
+    \(MatrixForm[{Range[0, 10], Reverse[Range[0, 10]]}]\), "\n", 
+    \(\(ShowMatrix[{Range[0, 10], Reverse[Range[0, 10]]}, 
+        ColorRule[9]];\)\)}], "Input"],
+
+Cell[TextData[{
+  "Here are two, common ways of having a ",
+  StyleBox["regular, periodic coloring",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of rectangular boards,"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(CheckerA[n_, m_, k_] := 
+        Table[Mod[i + j, k], {i, 0, n - 1}, {j, 0, m - 1}];\)\), "\n", 
+    \(\(CheckerS[n_, m_, k_] := 
+        Table[Mod[i - j, k], {i, 0, n - 1}, {j, 0, m - 1}];\)\)}], "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  "The first example has ",
+  StyleBox["four colors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(ShowMatrix[CheckerA[8, 8, 4], ColorRule[2]];\)\)], "Input"],
+
+Cell[TextData[{
+  "If you prefer to have ",
+  StyleBox["black",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " represent ",
+  Cell[BoxData[
+      \(0\)],
+    FontWeight->"Bold"],
+  ", you can do it this way:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(ShowMatrix[CheckerA[8, 8, 4] + 1, ColorRule[3]];\)\)], "Input"],
+
+Cell["Here is the other pattern:", "Text"],
+
+Cell[BoxData[
+    \(\(ShowMatrix[CheckerS[8, 8, 4] + 1, ColorRule[3]];\)\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A very old problem", "Subsubsection"],
+
+Cell[TextData[{
+  "Consider the ",
+  Cell[BoxData[
+      StyleBox[\(8\ x\ 8\),
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["checkerboard",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (or, if you prefer, ",
+  StyleBox["chessboard",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "):"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[\[IndentingNewLine]Graphics[\[IndentingNewLine]{Table[
+              Line[{{i, 0}, {i, 8}}], {i, 0, 8}], 
+            Table[Line[{{0, i}, {8, i}}], {i, 0, 
+                8}]}], \[IndentingNewLine]AspectRatio \[Rule] 
+          Automatic];\)\)], "Input"],
+
+Cell[TextData[{
+  "Clearly it can be ",
+  StyleBox["tiled by dominoes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (= ",
+  Cell[BoxData[
+      StyleBox[\(1  x\ 2\),
+        FontWeight->"Bold"]]],
+  " rectangles) just by piling them up as ",
+  StyleBox["bricks",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[
+        Graphics[{Table[
+              Line[{{2  i, 0}, {2  i, 8}}], {i, 0, 
+                4}], \[IndentingNewLine]Table[
+              Line[{{0, i}, {8, i}}], {i, 0, 8}]}], 
+        AspectRatio \[Rule] Automatic];\)\)], "Input"],
+
+Cell[TextData[{
+  "The same would be true of any ",
+  Cell[BoxData[
+      \(2\ n\ x\ m\)],
+    FontWeight->"Bold"],
+  " board.  But if the shape of the board is ",
+  StyleBox["irregular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the answer is not so clear."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["The Old Problem.",
+    FontWeight->"Bold"],
+  "  ",
+  StyleBox["Can the ",
+    FontSize->18],
+  StyleBox["mutilated checkerboard",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" (that is, with a pair of ",
+    FontSize->18],
+  StyleBox["opposite corners missing",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[") be ",
+    FontSize->18],
+  StyleBox["tiled by dominoes",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["?  ",
+    FontSize->18]
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]],
+
+Cell["Here is the picture:", "Text"],
+
+Cell[BoxData[
+    \(\(Show[
+        Graphics[{Table[
+              Line[{{i, If[i == 8, 1, 0]}, {i, If[i == 0, 7, 8]}}], {i, 0, 
+                8}], Table[
+              Line[{{If[i == 8, 1, 0], i}, {If[i == 0, 7, 8], i}}], {i, 0, 
+                8}]}], AspectRatio \[Rule] Automatic];\)\)], "Input"],
+
+Cell[TextData[{
+  "Comment.",
+  StyleBox["  In attempting a tiling, dominoes can be placed either in a ",
+    FontWeight->"Plain"],
+  StyleBox["horizontal",
+    FontSlant->"Italic"],
+  StyleBox[" or ",
+    FontWeight->"Plain"],
+  StyleBox["vertical",
+    FontSlant->"Italic"],
+  StyleBox[" position, as in this well known brick-paving pattern:",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[BoxData[
+    \(\(Show[
+        Graphics[{Table[
+              Line[{{i, If[i == 3, 2, 0]}, {i, If[i == 1, 2, 4]}}], {i, 0, 
+                4}], Table[
+              Line[{{If[i == 1, 2, 0], i}, {If[i == 3, 2, 4], i}}], {i, 0, 
+                4}]}], AspectRatio \[Rule] Automatic];\)\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A very old solution", "Subsubsection"],
+
+Cell[TextData[{
+  "To ",
+  StyleBox["see",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the solution, we have to remember that the checkerboard is ",
+  StyleBox["colored",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with a ",
+  StyleBox["checkerboard pattern",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(ShowMatrix[
+        1 + CheckerA[8, 8, 2]\ 2, \[InvisibleSpace]ColorRule[
+          2]];\)\)], "Input"],
+
+Cell[TextData[{
+  "Now, each domino (whether vertical or horizontal) will cover",
+  StyleBox[" one red square",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["one black square",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  And, in the ",
+  StyleBox["whole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " checkerboard, there are ",
+  StyleBox["as many",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " blacks as reds.  However, in the ",
+  StyleBox["mutilated",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " board, there are ",
+  StyleBox["fewer",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " blacks than reds:"
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"opps", "=", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"1", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "1"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\n", \(ShowMatrix[
+        1 + CheckerA[8, 8, 2] 2 - opps, \[InvisibleSpace]ColorRule[
+          2]];\)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Therefore",
+    FontSize->18],
+  StyleBox[", the mutilated board ",
+    FontSize->18,
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["cannot",
+    FontSize->18],
+  StyleBox[" be covered, because a tiling would have to cover the ",
+    FontSize->18,
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["same number",
+    FontSize->18],
+  StyleBox[" of black as red squares.  ",
+    FontSize->18,
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["QED.",
+    FontSize->18,
+    FontSlant->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  Background->RGBColor[1, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["An algebraic solution", "Subsubsection",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "Consider all the algebraic ",
+  StyleBox["monomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(x\^i\ y\^j\),
+        FontWeight->"Bold"]],
+    ImageRegion->{{0, 1}, {0, 1}}],
+  " in two variables.  We can arrange a limited number of them in the form of \
+a rectangular matrix:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(\(Mono[n_, m_]\)[x_, y_] := 
+        Table[x\^i\ y\^j, {i, 0, n - 1}, {j, 0, m - 1}];\)\), "\n", 
+    \(MatrixForm[\(Mono[8, 8]\)[x, y]]\)}], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "The ",
+  Cell[BoxData[
+      \(i\)],
+    FontWeight->"Bold"],
+  " indexes a ",
+  StyleBox["row",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and the ",
+  Cell[BoxData[
+      \(j\)],
+    FontWeight->"Bold"],
+  " indexes a ",
+  StyleBox["column",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Note that the indexing naturally starts counting from ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ".  We have shown an ",
+  Cell[BoxData[
+      \(8\ x\ 8\)],
+    FontWeight->"Bold"],
+  " arrangement above, but we could use any dimensions.  In other words, the \
+monomial ",
+  Cell[BoxData[
+      StyleBox[\(x\^i\ y\^j\),
+        FontWeight->"Bold"]],
+    ImageRegion->{{0, 1}, {0, 1}}],
+  " is just a place-holder for the ",
+  StyleBox["square",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with corner coordinates ",
+  Cell[BoxData[
+      \({i, j}\)],
+    FontWeight->"Bold"],
+  ", assuming we put ",
+  Cell[BoxData[
+      \({0, 0}\)],
+    FontWeight->"Bold"],
+  " in the upper, left corner, and move ",
+  StyleBox["down",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the ",
+  Cell[BoxData[
+      \(x\)],
+    FontWeight->"Bold"],
+  "-direction as ",
+  Cell[BoxData[
+      \(i\)],
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["increases",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So, we have an ",
+  StyleBox["algebraic notation ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "for the checkerboard (and any rectangular board)."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Warning.",
+    FontColor->RGBColor[1, 0, 0]],
+  " This indexing above is the ",
+  StyleBox["matrix convention",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on indexing, not the ",
+  StyleBox["graphing convention",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " used in the Calculus.  Often indices for matrices start counting from ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  " rather than from ",
+  Cell[BoxData[
+      \(0\)],
+    FontWeight->"Bold"],
+  ". "
+}], "Text",
+  FontSize->18,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "We can also ",
+  StyleBox["sum up",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " all these monomials to form a ",
+  StyleBox["rectangular polynomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(\(RP[n_, m_]\)[x_, 
+          y_] := \[Sum]\+\(i = 0\)\%\(n - 1\)\ \(\[Sum]\+\(j = 0\)\%\(m - 1\)\
+\(x\^i\) y\^j\);\)\), "\[IndentingNewLine]", 
+    \(\(RP[8, 8]\)[x, y]\)}], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  StyleBox["Note.",
+    FontWeight->"Bold",
+    FontColor->RGBColor[1, 0, 0]],
+  " This polynomial contains the ",
+  StyleBox["same information",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as the matrix of monomials.  And ",
+  StyleBox["any polynomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with coefficients all ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  "s represents ",
+  StyleBox["some",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " 2-dimensional configuration of squares.  We call this the ",
+  StyleBox["shape polynomial ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of the configuration."
+}], "Text",
+  FontSize->18,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "Note, too, that the substitution of ",
+  Cell[BoxData[
+      \(\(-1\)\)],
+    FontWeight->"Bold"],
+  " for the variables in the ",
+  StyleBox["matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " results in the familiar ",
+  StyleBox["checkerboard pattern",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (where we interpret ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  " as ",
+  StyleBox["black",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  Cell[BoxData[
+      \(\(-1\)\)],
+    FontWeight->"Bold"],
+  " as ",
+  StyleBox["red",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ").  (Why?)  Here it is:"
+}], "Text"],
+
+Cell[BoxData[
+    \(MatrixForm[\(Mono[8, 8]\)[\(-1\), \(-1\)]]\)], "Input"],
+
+Cell[TextData[{
+  " The ",
+  StyleBox["polynomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", on the otherhand, ",
+  StyleBox["vanishes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", for this substitution.  (Why?)"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(RP[8, 8]\)[\(-1\), \(-1\)]\)], "Input"],
+
+Cell[TextData[{
+  "This is in fact an ",
+  StyleBox["algebraic verification",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that there are the same number of ",
+  StyleBox["reds",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as ",
+  StyleBox["blacks",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The vanishing of the polynomial can be seen in another way if we ",
+  StyleBox["factor",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " it: "
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[\(RP[8, 8]\)[x, y]]\)], "Input"],
+
+Cell[TextData[{
+  "Now, the shape polynomial representing the ",
+  StyleBox["mutilated checkerboard",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is computed as follows; and, clearly, it ",
+  StyleBox["does not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " vanish under the subsitution. (Why?)"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(RP[8, 8]\)[x, y] - 1 - x\^7\ y\^7\), "\n", 
+    \(% /. \[InvisibleSpace]{x \[Rule] \(-1\), y \[Rule] \(-1\)}\)}], "Input"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["dominoes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (horizontal and vertical) are of course represented by these shape \
+polynomials polynomials."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(RP[1, 2]\)[x, y]\), "\[IndentingNewLine]", 
+    \(\(RP[2, 1]\)[x, y]\)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  StyleBox["  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "What does this next polynomial represent?"
+}], "Text",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]],
+
+Cell[BoxData[
+    \(Expand[x\^i\ y\^j\ \((1 + y)\)]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Answer.",
+    FontWeight->"Bold"],
+  " It represents the ",
+  StyleBox["horizontal ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "domino ",
+  StyleBox["translated over",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " so its first square starts at matrix position ",
+  Cell[BoxData[
+      \({i, j}\)],
+    FontWeight->"Bold"],
+  " rather than ",
+  Cell[BoxData[
+      StyleBox[\({0, 0}\),
+        FontWeight->"Bold"]]],
+  ".  \nAnd we can supply a similar interpretation for the polynompal ",
+  Cell[BoxData[
+      StyleBox[\(x\^i\ y\^j\ \((1 + x)\)\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  FontSize->18,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Next Question. ",
+    FontWeight->"Bold"],
+  " What does a polynomial ",
+  Cell[BoxData[
+      \(A\ \((1 + x)\) + B\ \((1 + y)\)\)],
+    FontWeight->"Bold"],
+  " represent, where ",
+  Cell[BoxData[
+      \(A\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \(B\)],
+    FontWeight->"Bold"],
+  " are arbitrary polynomials (say, with coefficients just ",
+  Cell[BoxData[
+      \(0\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  ") in ",
+  Cell[BoxData[
+      \(x\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \(y\)],
+    FontWeight->"Bold"],
+  "?  "
+}], "Text",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]],
+
+Cell[TextData[{
+  StyleBox["Answer.",
+    FontWeight->"Bold"],
+  " ",
+  "It represents ",
+  StyleBox["many copies",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two dominoes placed at different positions.  "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "So, if we expand ",
+  Cell[BoxData[
+      \(A\ \((1 + x)\) + B\ \((1 + y)\)\)],
+    FontWeight->"Bold"],
+  " and find no coefficients greater that ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  ", then we know that the copies of the dominoes are ",
+  StyleBox["non overlapping",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Therefore",
+  StyleBox[", a true equation of the form \n                                  \
+  ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(A\ \((1 + x)\) + B\ \((1 + y)\) == \(RP[8, 8]\)[x, y] - 
+            1 - \(x\^7\) y\^7\),
+        FontSlant->"Plain"]],
+    FontWeight->"Bold"],
+  " \n",
+  StyleBox["would result if we had a ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "tiling",
+  StyleBox[" of the mutilated checkerboard.  However, there can be ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "no",
+  StyleBox[" true equation of this form, because ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "obviously",
+  StyleBox[" the left-hand side ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "vanishes",
+  StyleBox[" under the substitution ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[\({x \[Rule] \(-1\), y \[Rule] \(-1\)}\),
+        FontSlant->"Plain"]]],
+  StyleBox[", while the right-hand side ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "does not",
+  StyleBox[". ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["QED.",
+    FontSlant->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Commentary.",
+    FontWeight->"Bold"],
+  "  This is really the \"same\" proof as the old ",
+  StyleBox["black/red",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " coloring proof, but\[LongDash]in this algebraic form\[LongDash]very \
+little ",
+  StyleBox["discovery",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "is needed to find the argument.  Indeed, the polynomial ",
+  Cell[BoxData[
+      \(\(RP[8, 8]\)[x, y]\)],
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is just a ",
+  StyleBox["notation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for the ",
+  StyleBox["checkerboard",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and the polynomial ",
+  Cell[BoxData[
+      \(A\ \((1 + x)\) + B\ \((1 + y)\)\)],
+    FontWeight->"Bold"],
+  " is just a ",
+  StyleBox["notation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for a desired ",
+  StyleBox["configuration of dominoes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But as soon as we have adopted the ",
+  StyleBox["algebraic language",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we see that the polynomial for the configuration ",
+  StyleBox["vanishes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for an ",
+  StyleBox["obvious subsitution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So it is natural to try out the mutilated polynomial, and we find it ",
+  StyleBox["does not vanish",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  In other words, a very ",
+  StyleBox["mechanical",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " application of algebra has done all the work in checking that the \
+mutilated checkerboard has ",
+  StyleBox["more",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["reds",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["than",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["blacks",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  No special insight was needed, once the algebraic formulation was \
+fixed."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "So what?",
+  StyleBox[" The main point is that this method is open to considerable ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "generalization",
+  StyleBox[" to other problems.",
+    FontWeight->"Plain",
+    FontSlant->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Trominoes", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Run these initializations", "Subsubsection"],
+
+Cell["In case you have not run those of the last section.", "Text"],
+
+Cell[BoxData[
+    \(Off[General::"\<spell\>"]; Off[General::"\<spell1\>"]\)], "Input",
+  InitializationCell->True],
+
+Cell[BoxData[
+    \(\(\(Mono[n_, m_]\)[x_, y_] := 
+        Table[x\^i\ y\^j, {i, 0, n - 1}, {j, 0, m - 1}];\)\)], "Input",
+  InitializationCell->True,
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[BoxData[
+    \(\(\(RP[n_, m_]\)[x_, 
+          y_] := \[Sum]\+\(i = 0\)\%\(n - 1\)\ \(\[Sum]\+\(j = 0\)\%\(m - 1\)\
+\(x\^i\) y\^j\);\)\)], "Input",
+  InitializationCell->True,
+  ImageRegion->{{0, 1}, {0, 1}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Trominoes and rectangular boards", "Subsubsection",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "A ",
+  StyleBox["tromino",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is the generalization to ",
+  StyleBox["three squares",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a domino.  Up to equivalence by rotations and reflections, there are \
+just ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " such configurations:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[
+        Graphics[{Line[{{0, 0}, {2, 0}}], Line[{{3, 0}, {6, 0}}], 
+            Line[{{1, 1}, {2, 1}}], Line[{{0, 2}, {1, 2}}], 
+            Line[{{3, 1}, {6, 1}}], Line[{{0, 0}, {0, 2}}], 
+            Line[{{1, 1}, {1, 2}}], Line[{{2, 0}, {2, 1}}], 
+            Line[{{3, 0}, {3, 1}}], Line[{{6, 0}, {6, 1}}]}], 
+        AspectRatio \[Rule] Automatic];\)\)], "Input"],
+
+Cell[TextData[{
+  "The first is called the ",
+  StyleBox["hook",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " tromino, and the second, the ",
+  StyleBox["straight ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "tromino.  "
+}], "Text"],
+
+Cell[TextData[{
+  "It is obvious that if a whole ",
+  Cell[BoxData[
+      \(n\ x\ m\)],
+    FontWeight->"Bold"],
+  " rectangle can be tiled by trominoes, then either ",
+  Cell[BoxData[
+      \(n\)],
+    FontWeight->"Bold"],
+  " or ",
+  Cell[BoxData[
+      \(m\)],
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["divisible by",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      \(3\)],
+    FontWeight->"Bold"],
+  ".  (Why?)  The next cases after the trivial ",
+  Cell[BoxData[
+      \(1\ x\ 3\)],
+    FontWeight->"Bold"],
+  " case are the ",
+  Cell[BoxData[
+      \(2\ x\ 3\)],
+    FontWeight->"Bold"],
+  " rectangle and the ",
+  Cell[BoxData[
+      \(3\ x\ 3\)],
+    FontWeight->"Bold"],
+  " square, and each have basically ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " tilings (up to rotation and reflection).  They are closely related, as is \
+seen from the pictures."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(Show[
+        Graphics[{Line[{{0, 0}, {2, 0}}], Line[{{1, 1}, {2, 1}}], 
+            Line[{{1, 1}, {1, 2}}], Line[{{0, 2}, {1, 2}}], 
+            Line[{{0, 3}, {2, 3}}], Line[{{0, 0}, {0, 3}}], 
+            Line[{{2, 0}, {2, 3}}], Line[{{4, 0}, {4, 2}}], 
+            Line[{{7, 0}, {7, 2}}], Line[{{4, 0}, {7, 0}}], 
+            Line[{{4, 1}, {7, 1}}], Line[{{4, 2}, {7, 2}}]}], 
+        AspectRatio \[Rule] Automatic];\)\[IndentingNewLine]\), "\n", 
+    \(\(Show[
+        Graphics[{Line[{{0, 0}, {3, 0}}], Line[{{1, 1}, {2, 1}}], 
+            Line[{{1, 1}, {1, 2}}], Line[{{0, 2}, {1, 2}}], 
+            Line[{{0, 3}, {3, 3}}], Line[{{0, 0}, {0, 3}}], 
+            Line[{{2, 0}, {2, 3}}], Line[{{3, 0}, {3, 3}}], 
+            Line[{{4, 0}, {4, 3}}], Line[{{7, 0}, {7, 3}}], 
+            Line[{{4, 0}, {7, 0}}], Line[{{4, 1}, {7, 1}}], 
+            Line[{{4, 2}, {7, 2}}], Line[{{4, 3}, {7, 3}}]}], 
+        AspectRatio \[Rule] Automatic];\)\)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Conclusion. ",
+    FontWeight->"Bold"],
+  "Clearly, then, any ",
+  Cell[BoxData[
+      \(3\ n\ x\ m\)],
+    FontWeight->"Bold"],
+  " rectangle can be covered\[LongDash]often in many ways\[LongDash]by the ",
+  StyleBox["straight",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " tromino.  Moreover, any ",
+  Cell[BoxData[
+      \(3\ n\ x\ 2\ m\)],
+    FontWeight->"Bold"],
+  " rectangle can be covered by ",
+  StyleBox["hooks",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " alone.  (Why?)"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using polynomials", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["It is often harder to see what can be done with ",
+    FontSlant->"Plain"],
+  StyleBox["larger",
+    FontWeight->"Bold"],
+  StyleBox[" configurations (possibly mutilated), and we turn to ",
+    FontSlant->"Plain"],
+  StyleBox["algebra",
+    FontWeight->"Bold"],
+  StyleBox[" for help.  In terms of ",
+    FontSlant->"Plain"],
+  StyleBox["polynomials",
+    FontWeight->"Bold"],
+  StyleBox[", the ",
+    FontSlant->"Plain"],
+  StyleBox["straight tromino",
+    FontWeight->"Bold"],
+  StyleBox[" has ",
+    FontSlant->"Plain"],
+  StyleBox["two",
+    FontWeight->"Bold"],
+  StyleBox[" different basic representations:\n                            ",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(1 + x + x\^2\),
+        FontWeight->"Bold",
+        FontSlant->"Plain"]]],
+  StyleBox["  (vertical) and  ",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      \(1 + y + y\^2\)],
+    FontWeight->"Bold",
+    FontSlant->"Plain"],
+  " ",
+  StyleBox[" (horizontal);\nwhile the ",
+    FontSlant->"Plain"],
+  StyleBox["hook tromino",
+    FontWeight->"Bold"],
+  StyleBox[" has ",
+    FontSlant->"Plain"],
+  StyleBox["four",
+    FontWeight->"Bold"],
+  StyleBox[" representations:\n                            ",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(1 + x + y\),
+        FontWeight->"Bold",
+        FontSlant->"Plain"]]],
+  StyleBox[",  ",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      \(x + y + x\ y\)],
+    FontWeight->"Bold",
+    FontSlant->"Plain"],
+  StyleBox[",  ",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      \(1 + x + x\ y\)],
+    FontWeight->"Bold",
+    FontSlant->"Plain"],
+  StyleBox[",  and  ",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      \(1 + y + x\ y\)],
+    FontWeight->"Bold",
+    FontSlant->"Plain"],
+  StyleBox[".\nThese correspond to the various rotations and reflections of \
+the shapes.",
+    FontSlant->"Plain"]
+}], "Text",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  "The polynomial ",
+  Cell[BoxData[
+      StyleBox[\(1 + x + x\^2\),
+        FontWeight->"Bold",
+        FontSlant->"Plain"]]],
+  " is an interesting one.  It has no ",
+  StyleBox["real roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", as the following graph illustrates:"
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Plot", "[", 
+        StyleBox[\(1 + x + x\^2, {x, \(-3\), 2}\),
+          FontWeight->"Bold",
+          FontSlant->"Plain"], 
+        StyleBox["]",
+          FontWeight->"Bold",
+          FontSlant->"Plain"]}], 
+      StyleBox[";",
+        FontWeight->"Bold",
+        FontSlant->"Plain"]}]], "Input"],
+
+Cell[TextData[{
+  "By introducing ",
+  StyleBox["complex numbers ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "(which we will study in detail later), we can produce a root for this \
+polynomial which we will call ",
+  Cell[BoxData[
+      \(w\)],
+    FontWeight->"Bold"],
+  ".  For the time being, we will find we can work with ",
+  Cell[BoxData[
+      \(w\)],
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["symbolically",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Thus, we decree algebraically ",
+  Cell[BoxData[
+      RowBox[{
+        RowBox[{
+          StyleBox["1",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], 
+          StyleBox["+",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], 
+          StyleBox["w",
+            FontWeight->"Bold",
+            FontSlant->"Plain"], "+", 
+          StyleBox[\(w\^2\),
+            FontWeight->"Bold",
+            FontSlant->"Plain"]}], 
+        StyleBox["==",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], 
+        StyleBox["0",
+          FontWeight->"Bold",
+          FontSlant->"Plain"]}]]],
+  ".  Since ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[
+          RowBox[{\((\(-1\) + w)\), " ", 
+            RowBox[{"(", 
+              RowBox[{
+                StyleBox["1",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], 
+                StyleBox["+",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], 
+                StyleBox["w",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "+", 
+                StyleBox[\(w\^2\),
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"]}], 
+              StyleBox[")",
+                FontWeight->"Bold",
+                FontSlant->"Plain"]}]}],
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], 
+        StyleBox[\(w\^3 - 1\),
+          FontWeight->"Bold",
+          FontSlant->"Plain"]}]]],
+  ", we may conclude that ",
+  Cell[BoxData[
+      StyleBox[\(w\^3 == 1\),
+        FontWeight->"Bold",
+        FontSlant->"Plain"]]],
+  ", and so ",
+  Cell[BoxData[
+      \(w\^2 == 1\/w\)],
+    FontWeight->"Bold"],
+  ".  It also follows that ",
+  Cell[BoxData[
+      StyleBox[\(w\^4 == w\),
+        FontWeight->"Bold",
+        FontSlant->"Plain"]]],
+  ".  We can additionally see that ",
+  Cell[BoxData[
+      \(w\^2\)],
+    FontWeight->"Bold"],
+  " is the ",
+  StyleBox["other root",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the basic equation, and that ",
+  Cell[BoxData[
+      \(w\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \(w\^2\)],
+    FontWeight->"Bold"],
+  " are distinct.  (Why?)"
+}], "Text"],
+
+Cell[TextData[{
+  "The key algebraic observation is that all polynomials in ",
+  Cell[BoxData[
+      \(w\)],
+    FontWeight->"Bold"],
+  " with numerical coefficients can be reduced to a ",
+  StyleBox["normal form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by envoking ",
+  Cell[BoxData[
+      StyleBox[\(PolynomialMod[poly, {1 + w + w\^2}]\),
+        FontWeight->"Bold"]]],
+  ".  If the polynomial is a ",
+  StyleBox["multiple",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of  ",
+  Cell[BoxData[
+      StyleBox[\(1 + w + w\^2\),
+        FontWeight->"Bold"]]],
+  ", then it reduces to ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ".  Here are examples:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(PolynomialMod[\((1 + w)\)\^5 + \((1 - w\^2)\)\^4, {1 + w + 
+          w\^2}]\[IndentingNewLine]\), "\[IndentingNewLine]", 
+    \(PolynomialMod[\((1 + w + w\^2)\)\^5 + \((1 - w\^3)\)\^4, {1 + w + 
+          w\^2}]\[IndentingNewLine]\), "\[IndentingNewLine]", 
+    \(Factor[\((1 + w + w\^2)\)\^5 + \((1 - w\^3)\)\^4]\)}], "Input"],
+
+Cell[TextData[{
+  "For the purposes of our further investigation here, there are two \
+interesting substitutions to make involving ",
+  Cell[BoxData[
+      \(w\)],
+    FontWeight->"Bold"],
+  " into polynomials in ",
+  Cell[BoxData[
+      \(x\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \(y\)],
+    FontWeight->"Bold"],
+  ", namely the substitutions ",
+  Cell[BoxData[
+      \({x \[Rule] w, y \[Rule] w\^2}\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \({x \[Rule] w, y \[Rule] w}\)],
+    FontWeight->"Bold"],
+  " .  Under these the polynomials for the ",
+  StyleBox["straight trominoes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " vanish (by ",
+  StyleBox["design",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " through the very choice of ",
+  Cell[BoxData[
+      \(w\)],
+    FontWeight->"Bold"],
+  ").  "
+}], "Text"],
+
+Cell[TextData[{
+  "Here is how the ",
+  StyleBox["hook trominoes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " fare:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(PolynomialMod[{1 + x + y, x + y + x\ y, 1 + x + x\ y, 
+          1 + y + x\ y} /. \[InvisibleSpace]{x \[Rule] w, 
+          y \[Rule] w\^2}, {1 + w + w\^2}]\[IndentingNewLine]\), "\n", 
+    \(PolynomialMod[{1 + x + y, x + y + x\ y, 1 + x + x\ y, 
+          1 + y + x\ y} /. \[InvisibleSpace]{x \[Rule] w, y \[Rule] w}, {1 + 
+          w + w\^2}]\)}], "Input"],
+
+Cell[TextData[{
+  "In other words, the polynomials of these four shapes vanish under the ",
+  StyleBox["first",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " subsitution:"
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{\(s\_1\), "=", " ", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"1", "1", "0", "0", "1", "0"},
+                {"1", "0", "0", "1", "1", "0"},
+                {"0", "0", "0", "0", "0", "0"},
+                {"1", "0", "0", "1", "1", "1"},
+                {"1", "0", "0", "0", "0", "0"},
+                {"1", "0", "0", "0", "0", "0"}
+                }], ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[s\_1, 
+        ColorRule[1]];\)}], "Input"],
+
+Cell[TextData[{
+  "Call that set ",
+  Cell[BoxData[
+      FormBox[
+        StyleBox[\(S\_1\),
+          FontWeight->"Bold"], TraditionalForm]]],
+  ".  The second set ",
+  Cell[BoxData[
+      \(TraditionalForm\`S\_2\)],
+    FontWeight->"Bold"],
+  "vanishes under the ",
+  StyleBox["second",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " substitution:"
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{\(s\_2\), "=", " ", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"1", "0", "0", "1", "1", "0"},
+                {"1", "1", "0", "0", "1", "0"},
+                {"0", "0", "0", "0", "0", "0"},
+                {"1", "0", "0", "1", "1", "1"},
+                {"1", "0", "0", "0", "0", "0"},
+                {"1", "0", "0", "0", "0", "0"}
+                }], ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[s\_2, 
+        ColorRule[1]];\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Trominoes and mutilated boards", "Subsubsection",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell["We now try out some other questions about tiling.  ", "Text"],
+
+Cell[TextData[{
+  StyleBox["Example 1.  ",
+    FontWeight->"Bold"],
+  "First, the ",
+  Cell[BoxData[
+      \(4\ x\ 4\)],
+    FontWeight->"Bold"],
+  " square ",
+  StyleBox["cannot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " be tiled by trominoes, because the number of squares is ",
+  StyleBox["not divisible by",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      \(3\)],
+    FontWeight->"Bold"],
+  ".  However, the ",
+  StyleBox["mutilated square",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can be tiled by straight trominoes:"
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"tile", "=", " ", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"0", "2", "2", "2"},
+                {"3", "4", "5", "6"},
+                {"3", "4", "5", "6"},
+                {"3", "4", "5", "6"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[tile, 
+        ColorRule[5]];\)}], "Input"],
+
+Cell[TextData[{
+  "And, indeed, the polynomial representing the mutilated square vanishes \
+under ",
+  StyleBox["both",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " subsitutions.  (Why?)"
+}], "Text"],
+
+Cell[BoxData[{
+    \(PolynomialMod[\(RP[4, 4]\)[w, w\^2] - 1, {1 + w + w\^2}]\), "\n", 
+    \(PolynomialMod[\(RP[4, 4]\)[w, w] - 1, {1 + w + w\^2}]\)}], "Input"],
+
+Cell[TextData[{
+  "Moreover, we have the following ",
+  StyleBox["polynomial identity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(RP[4, 4]\)[x, y] - 1 == 
+      Expand[x\ \((1 + y)\)\ \((1 + y\^2)\)\ \((1 + x + x\^2)\) + 
+          y\ \((1 + y + y\^2)\)]\)], "Input"],
+
+Cell["And this corresponds to the tiling illustrated.  (Why?)", "Text"],
+
+Cell[TextData[{
+  StyleBox["Example 2.  ",
+    FontWeight->"Bold"],
+  "Let us turn to the mutilated ",
+  Cell[BoxData[
+      \(5\ x\ 5\)],
+    FontWeight->"Bold"],
+  " square:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(PolynomialMod[\(RP[5, 5]\)[w, w\^2] - 1, {1 + w + w\^2}]\), "\n", 
+    \(PolynomialMod[\(RP[5, 5]\)[w, w] - 1, {1 + w + w\^2}]\)}], "Input"],
+
+Cell[TextData[{
+  "Under the first subsitution it vanishes, but under the second it ",
+  StyleBox["does not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This proves that it ",
+  StyleBox["cannot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " be tiled from shapes from the set ",
+  Cell[BoxData[
+      \(TraditionalForm\`S\_2\)],
+    FontWeight->"Bold"],
+  ", and hence not by straight trominoes.  "
+}], "Text"],
+
+Cell[TextData[{
+  "For a tiling by the first set ",
+  Cell[BoxData[
+      \(TraditionalForm\`S\_1\)],
+    FontWeight->"Bold"],
+  " we have to think a little."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"five1", "=", " ", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"0", "1", "2", "2", "2"},
+                {"1", "1", "3", "3", "3"},
+                {"7", "8", "4", "4", "4"},
+                {"7", "8", "5", "5", "5"},
+                {"7", "8", "6", "6", "6"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[five1, 
+        ColorRule[7]];\)}], "Input"],
+
+Cell[TextData[{
+  "That wasn't too hard.  And there should be ",
+  StyleBox["generalizations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Example 3.  ",
+    FontWeight->"Bold"],
+  "We can also eliminate a ",
+  StyleBox["different",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " square.  Here is the computation for removing the ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " square."
+}], "Text"],
+
+Cell[BoxData[{
+    \(PolynomialMod[\(RP[5, 5]\)[x, y] - \(x\^2\) 
+            y\^2 /. \[InvisibleSpace]{x \[Rule] w, y \[Rule] w\^2}, {1 + w + 
+          w\^2}]\), "\n", 
+    \(PolynomialMod[\(RP[5, 5]\)[x, y] - \(x\^2\) 
+            y\^2 /. \[InvisibleSpace]{x \[Rule] w, y \[Rule] w}, {1 + w + 
+          w\^2}]\)}], "Input"],
+
+Cell["\<\
+Wow, thy both vanish.  We again have to think a little.  Now, here \
+is a tiling using hooks from the second set.\
+\>", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"five2", "=", " ", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"4", "4", "2", "2", "2"},
+                {"3", "4", "5", "5", "3"},
+                {"3", "5", "0", "5", "3"},
+                {"3", "5", "5", "4", "3"},
+                {"2", "2", "2", "4", "4"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[five2, 
+        ColorRule[5]];\)}], "Input"],
+
+Cell["And here is a tiling from the first set (a mirror image)", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"five2", "=", " ", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"4", "4", "2", "2", "2"},
+                {"3", "4", "5", "5", "3"},
+                {"3", "5", "0", "5", "3"},
+                {"3", "5", "5", "4", "3"},
+                {"2", "2", "2", "4", "4"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[Reverse[five2], 
+        ColorRule[5]];\)}], "Input"],
+
+Cell["Oh, yes, we only need straight trominoes.", "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"five3", "=", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"3", "2", "1", "1", "1"},
+                {"3", "2", "4", "4", "4"},
+                {"3", "2", "0", "2", "3"},
+                {"4", "4", "4", "2", "3"},
+                {"1", "1", "1", "2", "3"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\n", \(ShowMatrix[five3, ColorRule[3]];\)}], "Input"],
+
+Cell[TextData[{
+  "What should the ",
+  StyleBox["generalizations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " be here to larger squares or rectangles?"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Example 4.  ",
+    FontWeight->"Bold"],
+  "Now, here is a ",
+  StyleBox["quite different ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "pattern with the number of squares divisible by ",
+  Cell[BoxData[
+      \(3\)],
+    FontWeight->"Bold"],
+  ".  We call it the ",
+  StyleBox["ragged square",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"rag", "=", " ", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"0", "0", "0", "1", "0", "0", "0"},
+                {"0", "0", "1", "1", "1", "0", "0"},
+                {"0", "1", "1", "1", "1", "1", "0"},
+                {"1", "1", "1", "0", "1", "1", "1"},
+                {"0", "1", "1", "1", "1", "1", "0"},
+                {"0", "0", "1", "1", "1", "0", "0"},
+                {"0", "0", "0", "1", "0", "0", "0"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[2  rag, 
+        ColorRule[3]];\), "\[IndentingNewLine]", \(Plus @@ 
+      Flatten[rag]\)}], "Input"],
+
+Cell[TextData[{
+  "And we can use a ",
+  StyleBox["trick",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" with matrices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to get the corresponding polynomial.  (Why?  What is the trick?)"
+}], "Text"],
+
+Cell[BoxData[
+    \(ragpoly = Plus @@ Flatten[rag\ \(Mono[7, 7]\)[x, y]]\)], "Input"],
+
+Cell[TextData[{
+  "Under ",
+  StyleBox["neither",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two subtitutions does the polynomial vanish:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(PolynomialMod[
+      ragpoly /. {x \[Rule] w, y \[Rule] w\^2}, {1 + w + w\^2}]\), "\n", 
+    \(PolynomialMod[
+      ragpoly /. {x \[Rule] w, y \[Rule] w}, {1 + w + w\^2}]\)}], "Input"],
+
+Cell[TextData[{
+  "Therefore, the ragged square ",
+  StyleBox["cannot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " be tiled by either of the two sets",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      \(TraditionalForm\`S\_1\)],
+    FontWeight->"Bold"],
+  "or ",
+  Cell[BoxData[
+      \(TraditionalForm\`S\_2\)],
+    FontWeight->"Bold"],
+  ".  It ",
+  StyleBox["can",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " be tiled, however,  by using ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the hooks:"
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"ragtile", "=", " ", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"0", "0", "0", "4", "0", "0", "0"},
+                {"0", "0", "2", "4", "4", "0", "0"},
+                {"0", "2", "2", "3", "3", "4", "0"},
+                {"4", "4", "3", "0", "3", "4", "4"},
+                {"0", "4", "3", "3", "2", "2", "0"},
+                {"0", "0", "4", "4", "2", "0", "0"},
+                {"0", "0", "0", "4", "0", "0", "0"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[ragtile, 
+        ColorRule[4]];\)}], "Input"],
+
+Cell[TextData[{
+  "Should there be some ",
+  StyleBox["generalizations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  Here is a different pattern:"
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"crosstile", "=", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"0", "0", "0", "0", "4", "0", "0", "0", "0"},
+                {"0", "0", "0", "5", "4", "4", "0", "0", "0"},
+                {"0", "0", "5", "5", "3", "3", "4", "0", "0"},
+                {"0", "5", "3", "3", "0", "3", "4", "4", "0"},
+                {"5", "5", "3", "0", "0", "0", "3", "5", "5"},
+                {"0", "4", "4", "3", "0", "3", "3", "5", "0"},
+                {"0", "0", "4", "3", "3", "5", "5", "0", "0"},
+                {"0", "0", "0", "4", "4", "5", "0", "0", "0"},
+                {"0", "0", "0", "0", "4", "0", "0", "0", "0"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\[IndentingNewLine]", \(ShowMatrix[crosstile, 
+        ColorRule[4]];\)}], "Input"],
+
+Cell[TextData[{
+  "Should there also be some ",
+  StyleBox["generalizations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Example 5.  ",
+    FontWeight->"Bold"],
+  "The ",
+  Cell[BoxData[
+      StyleBox[\(8\ x\ 8\),
+        FontWeight->"Bold"]]],
+  " board has ",
+  Cell[BoxData[
+      \(64\)],
+    FontWeight->"Bold"],
+  " squares, and ",
+  Cell[BoxData[
+      \(64 - 1 == 3\ 21\)],
+    FontWeight->"Bold"],
+  ".  Now there are many squares that could be removed, but by reflections \
+and rotations we need only consider a few in the ",
+  StyleBox["north-west corner",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Here is a picture."
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"holes", "=", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"1", "1", "1", "1", "0", "0", "0", "0"},
+                {"0", "1", "1", "1", "0", "0", "0", "0"},
+                {"0", "0", "1", "1", "0", "0", "0", "0"},
+                {"0", "0", "0", "1", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"},
+                {"0", "0", "0", "0", "0", "0", "0", "0"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\n", \(ShowMatrix[2 + holes, ColorRule[3]];\)}], "Input"],
+
+Cell[TextData[{
+  "Since",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      \(8 - 2 \[Equal] 6\)],
+    FontWeight->"Bold"],
+  ", it is clear that if we remove the corner square, we can use a hook and \
+straight trominoes to tile the region.  (Why?)  But the question is: ",
+  StyleBox["Can we use straight trominoes alone?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text"],
+
+Cell[TextData[{
+  "Here is the polynomial for leaving a ",
+  StyleBox["hole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the square:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(hsq[i_, j_] := \ \(RP[8, 8]\)[x, y] - \(x\^i\) y\^j;\)\)], "Input"],
+
+Cell["We now try our two substitutions in the north-west corner.", "Text"],
+
+Cell[BoxData[
+    \(Table[
+        PolynomialMod[
+          hsq[i, j] /. \[InvisibleSpace]{x \[Rule] w, y \[Rule] w\^2}, {1 + 
+              w + w\^2}], {i, 0, 3}, {j, 0, 3}] // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    \(Table[
+        PolynomialMod[
+          hsq[i, j] /. \[InvisibleSpace]{x \[Rule] w, y \[Rule] w}, {1 + w + 
+              w\^2}], {i, 0, 3}, {j, 0, 3}] // MatrixForm\)], "Input"],
+
+Cell[TextData[{
+  "The patterns of zeros are quite different for the two subsitutions, and \
+there is only one zero in common.  The algebraic computation definitely shows \
+that all other cases are ",
+  StyleBox["impossible",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " using just straight trominoes.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Unfortunately the algebra does not show us whether the remaining case is \
+possible.  We have to think.  Here is a ",
+  StyleBox["hint",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[{
+    RowBox[{
+      RowBox[{"fill", "=", 
+        TagBox[
+          RowBox[{"(", "\[NoBreak]", GridBox[{
+                {"2", "2", "1", "1", "1", "3", "3", "3"},
+                {"2", "2", "1", "1", "1", "3", "3", "3"},
+                {"2", "2", "0", "2", "2", "3", "3", "3"},
+                {"1", "1", "1", "2", "2", "3", "3", "3"},
+                {"1", "1", "1", "2", "2", "3", "3", "3"},
+                {"4", "4", "4", "4", "4", "4", "4", "4"},
+                {"4", "4", "4", "4", "4", "4", "4", "4"},
+                {"4", "4", "4", "4", "4", "4", "4", "4"}
+                }], "\[NoBreak]", ")"}],
+          (MatrixForm[ #]&)]}], 
+      ";"}], "\n", \(ShowMatrix[fill, ColorRule[3]];\)}], "Input"],
+
+Cell["\<\
+Fine!  A tiling with straight pieces is indeed possible.  \
+(Why?)\
+\>", "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Questions and Projects", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Questions ",
+  StyleBox["[55 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2.1. ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.1.",
+    FontWeight->"Bold"],
+  "  Can you write a ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " expression that will take any polynomial ",
+  Cell[BoxData[
+      \(p\)],
+    FontWeight->"Bold"],
+  " in two variable ",
+  Cell[BoxData[
+      \(x\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \(y\)],
+    FontWeight->"Bold"],
+  " and return ",
+  Cell[BoxData[
+      \(CF[p]\)],
+    FontWeight->"Bold"],
+  ", the ",
+  StyleBox["matrix of coefficients",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  And is there a ",
+  StyleBox["simple",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " vector/matrix notation for getting the original polynomial back from the \
+matrix?   Test your work."
+}], "Text",
+  Background->RGBColor[0.909987, 0.597864, 0.52781]],
+
+Cell[TextData[{
+  StyleBox["Hint.",
+    FontWeight->"Bold"],
+  "  First try to determine the ",
+  StyleBox["size",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the required matrix.  Look for the command ",
+  Cell[BoxData[
+      StyleBox["Exponent",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2.2. ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.2.  ",
+    FontWeight->"Bold"],
+  "Any polynomial ",
+  Cell[BoxData[
+      \(A\)],
+    FontWeight->"Bold"],
+  " in the variables ",
+  Cell[BoxData[
+      \(x\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \(y\)],
+    FontWeight->"Bold"],
+  " with only coefficents of ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  " is certainly the ",
+  StyleBox["shape polynomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of some (finite) configuration of squares.  ",
+  StyleBox["Without doing any algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", argue that there must be a choice of exponents ",
+  Cell[BoxData[
+      \(n\)],
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      \(m\)],
+    FontWeight->"Bold"],
+  " so that the expansion of the product ",
+  Cell[BoxData[
+      \(\((1 + x\^n + y\^m + x\^n\ y\^m)\)\ A\)],
+    FontWeight->"Bold"],
+  " is also a polynomial with only coefficents of ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  "."
+}], "Text",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2.3. ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.3.  ",
+    FontWeight->"Bold"],
+  "We found the following tilings earlier of ",
+  StyleBox["mutilated",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " boards.  "
+}], "Text",
+  Background->RGBColor[0.929992, 0.535042, 0.446403]],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .3125 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.31746 0.00744048 0.31746 [
+[ 0 0 0 0 ]
+[ 1 .3125 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 0 m
+1 0 L
+1 .3125 L
+0 .3125 L
+closepath
+clip
+newpath
+% Start of sub-graphic
+p
+0.0238095 0.00744048 0.321429 0.30506 MathSubStart
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.190476 0.0238095 0.190476 [
+[ 0 0 0 0 ]
+[ 1 1 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 0 m
+1 0 L
+1 1 L
+0 1 L
+closepath
+clip
+newpath
+% Start of colorimage (RGB)
+p
+.02381 .02381 translate
+.95238 .95238 scale
+15 string
+5 5 8 [5 0 0 5 0 0] {
+\tcurrentfile
+\t1 index
+\treadhexstring
+\tpop
+}  false 3 Mcolorimage
+FF00DBFF00004900FF4900FF4900FF
+FF00DBFF00000092FF0092FF0092FF
+FF00DBFF000000FF9200FF9200FF92
+00000000000049FF0049FF0049FF00
+FFFFFF000000FFDB00FFDB00FFDB00
+pop
+P
+% End of image
+MathSubEnd
+P
+% End of sub-graphic
+% Start of sub-graphic
+p
+0.35119 0.00744048 0.64881 0.30506 MathSubStart
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.190476 0.0238095 0.190476 [
+[ 0 0 0 0 ]
+[ 1 1 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 0 m
+1 0 L
+1 1 L
+0 1 L
+closepath
+clip
+newpath
+% Start of colorimage (RGB)
+p
+.02381 .02381 translate
+.95238 .95238 scale
+15 string
+5 5 8 [5 0 0 5 0 0] {
+\tcurrentfile
+\t1 index
+\treadhexstring
+\tpop
+}  false 3 Mcolorimage
+CCFF00CCFF00CCFF000066FF0066FF
+00FF66CC00FFCC00FF0066FF00FF66
+00FF66CC00FFFFFFFFCC00FF00FF66
+00FF660066FFCC00FFCC00FF00FF66
+0066FF0066FFCCFF00CCFF00CCFF00
+pop
+P
+% End of image
+MathSubEnd
+P
+% End of sub-graphic
+% Start of sub-graphic
+p
+0.678571 0.00744048 0.97619 0.30506 MathSubStart
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.136054 0.0238095 0.136054 [
+[ 0 0 0 0 ]
+[ 1 1 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 0 m
+1 0 L
+1 1 L
+0 1 L
+closepath
+clip
+newpath
+% Start of colorimage (RGB)
+p
+.02381 .02381 translate
+.95238 .95238 scale
+21 string
+7 7 8 [7 0 0 7 0 0] {
+\tcurrentfile
+\t1 index
+\treadhexstring
+\tpop
+}  false 3 Mcolorimage
+FFFFFFFFFFFFFFFFFF8000FFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFF8000FF8000FF80FF00FFFFFFFFFFFF
+FFFFFF8000FF00FFFF00FFFF80FF0080FF00FFFFFF
+8000FF8000FF00FFFFFFFFFF00FFFF8000FF8000FF
+FFFFFF80FF0080FF0000FFFF00FFFF8000FFFFFFFF
+FFFFFFFFFFFF80FF008000FF8000FFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFF8000FFFFFFFFFFFFFFFFFFFF
+pop
+P
+% End of image
+MathSubEnd
+P
+% End of sub-graphic
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{339, 106},
+  ImageMargins->{{0, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40006W0000Q1000`40O003h00OogooZ7oo003oOonX
+Ool00?moojQoo`00ogooZ7oo003oOonXOol00?moojQoo`00ogooZ7oo000=OolHO1/IO01891lAOom8
+In0`0Im6OolA@1m1Ool000eooaQl6aUl04PT7a5oodQWh301WdIooa507d5oo`003Goo67`K6G`0B2@O
+4GooB6OP<06OAWoo4D0O@Goo000=OolHO1/IO01891lAOom8In0`0Im6OolA@1m1Ool000eooaQl6aUl
+04PT7a5oodQWh301WdIooa507d5oo`003Goo67`K6G`0B2@O4GooB6OP<06OAWoo4D0O@Goo000=OolH
+O1/IO01891lAOom8In0`0Im6OolA@1m1Ool000eooaQl6aUl04PT7a5oodQWh301WdIooa507d5oo`00
+3Goo67`K6G`0B2@O4GooB6OP<06OAWoo4D0O@Goo000=OolHO1/IO01891lAOom8In0`0Im6OolA@1m1
+Ool000eooaQl6aUl04PT7a5oodQWh301WdIooa507d5oo`003Goo67`K6G`0B2@O4GooB6OP<06OAWoo
+4D0O@Goo000=OolHO1/IO01891lAOom8In0`0Im6OolA@1m1Ool000eooaQl6aUl04PT7a5oodQWh301
+WdIooa507d5oo`003Goo67`K6G`0B2@O4GooB6OP<06OAWoo4D0O@Goo000=OolHO1/IO01891lAOom8
+In0`0Im6OolA@1m1Ool000eooaQl6aUl04PT7a5oodQWh301WdIooa507d5oo`003Goo67`K6G`0B2@O
+4GooB6OP<06O=7oo8d0O4D?P<7oo000=OolHO1/IO01891lAOom8In0`0IldOolS@1lA@n0`Ool000eo
+oaQl6aUl04PT7a5oodQWh301WcAoob=07a53h31oo`003Goo67`K6G`0B2@O4GooB6OP<06O=7oo8d0O
+4D?P<7oo000=OolHO1/IO01891lAOom8In0`0IldOolS@1lA@n0`Ool000eooaQl6aUl04PT7a5oodQW
+h301WcAoob=07a53h31oo`003Goo67`K6G`0B2@O4GooB6OP<06O=7oo8d0O4D?P<7oo000=OolHO1/I
+O0180UlAOolH0n``I1lH0IlH0n`dOolS@1lA@n0`Ool000eooaQl6aUl04P2Ga5ooaP3k31T7aP1WaP3
+k3Aoob=07a53h31oo`003Goo67`K6G`0B09O4Goo60?/<6@O606O60?/=7oo8d0O4D?P<7oo000=OolH
+O1/IO0180UlAOolH0n``I1lH0IlH0n`dOolS@1lA@n0`Ool000eooaQl6aUl04P2Ga5ooaP3k31T7aP1
+WaP3k3Aoob=07a53h31oo`003Goo67`K6G`0B09O4Goo60?/<6@O606O60?/=7oo8d0O4D?P<7oo000=
+OolHO1/IO0180UlAOolH0n``I1lH0IlH0n`dOolS@1lA@n0`Ool000eooaQl6aUl04P2Ga5ooaP3k31T
+7aP1WaP3k3Aoob=07a53h31oo`003Goo67`K6G`0B09O4Goo60?/<6@O606O60?/=7oo8d0O4D?P<7oo
+000=OolHO1/IO0180UlAOolH0n``I1lH0IlH0n`dOolS@1lA@n0`Ool000eooaQl6aUl04P2Ga5ooaP3
+k31T7aP1WaP3k2=ooa507b<3ob93h1moo`003Goo67`K6G`0B09O4Goo60?/<6@O606O60?/8goo4D0O
+8`?o8T?P7goo000=OolHO1/IO0180UlAOolH0n``I1lH0IlH0n`SOolA@1lS0olR@n0OOol000eooaQl
+6aUl04P2Ga5ooaP3k31T7aP1WaP3k2=ooa507b<3ob93h1moo`003Goo67`K6G`0B09O4Goo60?/<6@O
+606O60?/8goo4D0O8`?o8T?P7goo000=OolHO1/IO0180UlAOolH0n``I1lH0IlH0n`SOolA@1lS0olR
+@n0OOol000eooaQl6aUl04P2Ga5ooaP3k31T7aP1WaP3k2=ooa507b<3ob93h1moo`003Goo67`K6G`0
+B09O4Goo60?/<6@O606O60?/8goo4D0O8`?o8T?P7goo000=OolHO1/IO0180UlAOolH0n``I1lH0IlH
+0n`SOolA@1lS0olR@n0OOol000eooaQl6aUl04P2Ga5ooaP3k31T7aP1WaP3k2=ooa507b<3ob93h1mo
+o`003Goo67`K6G`0B09O4Goo60?/<6@O606O60?/8goo4D0O8`?o8T?P7goo000=OolHO1/IO0180UlA
+OolH0n``I1lH0IlH0n`SOolA@1lS0olR@n0OOol000eooaQl6aUl04P2Ga5ooaP3k31T7aP1WaP3k2=o
+oa507b<3ob93h1moo`003Goo67`K6G`0B0?b4Goo60?/66@O67oo66@O60?/8goo4D0O8`?o8T?P7goo
+000=OolHO1/IO0180o8AOolH0n`HI1lHOolHI1lH0n`SOolA@1lS0olR@n0OOol000eooaQl6aUl04P3
+lQ5ooaP3k1QT7aQooaQT7aP3k2=ooa507b<3ob93h1moo`003Goo67`K6G`0B0?b4Goo60?/66@O67oo
+66@O60?/8goo4D0O8`?o8T?P7goo000=OolHO1/IO0180o8AOolH0n`HI1lHOolHI1lH0n`BOolR@1lB
+0olAOolA0olR@1l>Ool000eooaQl6aUl04P3lQ5ooaP3k1QT7aQooaQT7aP3k19oob907a83oa5ooa43
+ob907`ioo`003Goo67`K6G`0B0?b4Goo60?/66@O67oo66@O60?/4Woo8T0O4P?o4Goo4@?o8T0O3Woo
+000=OolHO1/IO0180o8AOolH0n`HI1lHOolHI1lH0n`BOolR@1lB0olAOolA0olR@1l>Ool000eooaQl
+6aUl04P3lQ5ooaP3k1QT7aQooaQT7aP3k19oob907a83oa5ooa43ob907`ioo`003Goo67`K6G`0B0?b
+4Goo60?/66@O67oo66@O60?/4Woo8T0O4P?o4Goo4@?o8T0O3Woo000=OolHO1/IO0180o8AOolH0n`H
+I1lHOolHI1lH0n`BOolR@1lB0olAOolA0olR@1l>Ool000eooaQl6aUl04P3lQ5ooaP3k1QT7aQooaQT
+7aP3k19oob907a83oa5ooa43ob907`ioo`003Goo67`K6G`0B0?b4Goo60?/66@O67oo66@O60?/4Woo
+8T0O4P?o4Goo4@?o8T0O3Woo000=OolHO1/IO0180o8AOolH0n`HI1lHOolHI1lH0n`BOolR@1lB0olA
+OolA0olR@1l>Ool000eooaQl6aUl04P3lQ5ooaP3k1QT7aQooaQT7aP3k19oob907a83oa5ooa43ob90
+7`ioo`003Goo67`K6G`0B0?b4Goo60?/66@O67oo66@O60?/4Woo8T0O4P?o4Goo4@?o8T0O3Woo000=
+OolHO1/IO0180o8AOolH0n`HI1lHOolHI1lH0n`BOolR@1lB0olAOolA0olR@1l>Ool000eooaQl6aUl
+04P3lQ5ooaP3k1QT7aQooaQT7aP3k19oob907a83oa5ooa43ob907`ioo`003Goo67`K6G`0B0?b4Goo
+60?/66@O67oo66@O60?/4Woo8T0O4P?o4Goo4@?o8T0O3Woo000=OolHO1/IO0180o8AOolH0n`HI1lH
+OolHI1lH0n`BOolR@1lB0olAOolA0olR@1l>Ool000eooaQl6aUl04P3lQ5ooaP3k1QT7aQooaQT7aP3
+k19oob907a83oa5ooa43ob907`ioo`003Goo67`K6G`0B0?b4Goo60?/66@O67oo66@O60?/8goo8d?P
+8P?o4D0O7goo000=OolHO1/IO0180o8AOolH0n`HI1lHOolHI1lH0n`SOolS@n0R0olA@1lOOol000eo
+oaQl6aUl04P3lQ5ooaP3k1QT7aQooaQT7aP3k2=oob=3h283oa507amoo`003Goo<@00B2OP4Goo60?/
+606O<6@O60?/8goo8d?P8P?o4D0O7goo000=Oola00189n0AOolH0n`H0Il`I1lH0n`SOolS@n0R0olA
+@1lOOol000eooc4004PWh15ooaP3k1P1Wc1T7aP3k2=oob=3h283oa507amoo`003Goo<@00B2OP4Goo
+60?/606O<6@O60?/8goo8d?P8P?o4D0O7goo000=Oola00189n0AOolH0n`H0Il`I1lH0n`SOolS@n0R
+0olA@1lOOol000eooc4004PWh15ooaP3k1P1Wc1T7aP3k2=oob=3h283oa507amoo`003Goo<@00B2OP
+4Goo60?/606O<6@O60?/8goo8d?P8P?o4D0O7goo000=Oola00189n0AOolH0n`H0Il`I1lH0n`SOolS
+@n0R0olA@1lOOol000eooc4004PWh15ooaP3k1P1Wc1T7aP3k2=oob=3h283oa507amoo`003Goo<@00
+B2OP4Goo60?/606O<6@O60?/8goo8d?P8P?o4D0O7goo000=Oola00189n0AOolH0n`H0Il`I1lH0n`S
+OolS@n0R0olA@1lOOol000eooc4004PWh15ooaP3k1P1Wc1T7aP3k2=oob=3h283oa507amoo`003Goo
+<@00B2OP4Goo60?/606O<6@O60?/8goo8d?P8P?o4D0O7goo000=Oola00189n0AOolH0n`H0Il`I1lH
+0n`SOolS@n0R0olA@1lOOol000eooc4004PWh15ooaP3k1P1Wc1T7aP3k3Aooa93h2907c1oo`003Goo
+<@00B2OP4Goo60?/606O<6@O60?/=7oo4T?P8T0O<7oo000=Oola00189n0AOolH0n`H0Il`I1lH0n`d
+OolB@n0R@1l`Ool000eooc4004PWh15ooaP3k1P1Wc1T7aP3k3Aooa93h2907c1oo`003Goo<@00B2OP
+4Goo60?/606O<6@O60?/=7oo4T?P8T0O<7oo000=Oola00189n0AOolH0n`H0Il`I1lH0n`dOolB@n0R
+@1l`Ool000eooc4004PWh15ooaP3k1P1Wc1T7aP3k3Aooa93h2907c1oo`003Goo<@00B2OP4Goo60?/
+606O<6@O60?/=7oo4T?P8T0O<7oo000=Oola00189n0AOolH0n`H0Il`I1lH0n`dOolB@n0R@1l`Ool0
+00eooc4004PWh15ooaP3k1P1Wc1T7aP3k3Aooa93h2907c1oo`009Goo6@00B7mP4Goo<06OB6OP=7oo
+4T?P8T0O<7oo000UOolI0018Of0AOol`0Im8In0dOolB@n0R@1l`Ool002EooaT004QoH15ooc01WdQW
+h3Aooa93h2907c1oo`009Goo6@00B7mP4Goo<06OB6OP=7oo4T?P8T0O<7oo000UOolI0018Of0AOol`
+0Im8In0dOolB@n0R@1l`Ool002EooaT004QoH15ooc01WdQWh3Aooa93h2907c1oo`009Goo6@00B7mP
+4Goo<06OB6OP=7oo4T?P8T0O<7oo000UOolI0018Of0AOol`0Im8In16OolA@1m1Ool002EooaT004Qo
+H15ooc01WdQWh4Iooa507d5oo`009Goo6@00B7mP4Goo<06OB6OPAWoo4D0O@Goo000UOolI0018Of0A
+Ool`0Im8In16OolA@1m1Ool002EooaT004QoH15ooc01WdQWh4Iooa507d5oo`009Goo6@00B7mP4Goo
+<06OB6OPAWoo4D0O@Goo000UOolI0018Of0AOol`0Im8In16OolA@1m1Ool002EooaT004QoH15ooc01
+WdQWh4Iooa507d5oo`009Goo6@00B7mP4Goo<06OB6OPAWoo4D0O@Goo000UOolI0018Of0AOol`0Im8
+In16OolA@1m1Ool002EooaT004QoH15ooc01WdQWh4Iooa507d5oo`009Goo6@00B7mP4Goo<06OB6OP
+AWoo4D0O@Goo000UOolI0018Of0AOol`0Im8In16OolA@1m1Ool002EooaT004QoH15ooc01WdQWh4Io
+oa507d5oo`009Goo6@00B7mP4Goo<06OB6OPAWoo4D0O@Goo000UOolI0018Of0AOol`0Im8In16OolA
+@1m1Ool00?moojQoo`00ogooZ7oo003oOonXOol00?moojQoo`00ogooZ7oo003oOonXOol00?moojQo
+o`00\
+\>"],
+  ImageRangeCache->{{{0, 422.75}, {131.5, 0}} -> {-0.0823144, -0.0234425, \
+0.00935728, 0.00935728}, {{10.9375, 136.188}, {128.312, 3.125}} -> \
+{-0.585029, -0.258702, 0.0524219, 0.0524219}, {{148.75, 273.938}, {128.312, \
+3.125}} -> {-6.36324, -0.258702, 0.0524219, 0.0524219}, {{286.5, 411.75}, \
+{128.312, 3.125}} -> {-16.9981, -0.362184, 0.0733909, 0.0733909}}],
+
+Cell[TextData[{
+  "What ",
+  StyleBox["decompositions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the form\n                   ",
+  Cell[BoxData[
+      StyleBox[\(A\ \((x + y + x\ y)\) + B\ \((1 + x + x\^2)\) + 
+            C\ \((1 + y + y\^2)\) + \  ... \),
+        FontWeight->"Bold"]]],
+  "\nof the ",
+  StyleBox["shape polynomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of each of the boards do these tilings represent? \nAnd be sure to ",
+  StyleBox["check algebraically",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that your answers are correct!"
+}], "Text",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2.4. ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.4.  ",
+    FontWeight->"Bold"],
+  "We found with the ",
+  Cell[BoxData[
+      \(8\ x\ 8\)],
+    FontWeight->"Bold"],
+  " board with one square removed, there was only ",
+  StyleBox["one case",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " where a tiling with ",
+  StyleBox["straight",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " trominoes was possible.  What about the ",
+  Cell[BoxData[
+      \(5\ x\ 5\)],
+    FontWeight->"Bold"],
+  " board?  What about ",
+  Cell[BoxData[
+      \(11\ x\ 11\)],
+    FontWeight->"Bold"],
+  "?"
+}], "Text",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Project 2.1. ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsection"],
+
+Cell[TextData[{
+  StyleBox["The Next Question.  ",
+    FontWeight->"Bold"],
+  "As we essentially proved, the mutilated checkerboard with any two squares \
+of ",
+  StyleBox["the same ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "color removed cannot be tiled by dominoes.  The next question ought to \
+have been: What if we remove two squares of ",
+  StyleBox["opposite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " colors?  ",
+  StyleBox["Can we tile such a board?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]],
+
+Cell[TextData[{
+  "Suggestion.",
+  StyleBox["  Try a proof by ",
+    FontWeight->"Plain"],
+  StyleBox["mathematical induction",
+    FontSlant->"Italic"],
+  StyleBox[".  The theorem should be general and involve boards of the size ",
+    
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(2\ n\ x\ m\)]],
+  StyleBox[", where ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(n \[GreaterEqual] 1\)]],
+  StyleBox[", and ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(m \[GreaterEqual] 2\)]],
+  StyleBox[".  In the first case of ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(2\ x\ m\)]],
+  StyleBox[" boards, try to use as many ",
+    FontWeight->"Plain"],
+  StyleBox["horizontal",
+    FontSlant->"Italic"],
+  StyleBox[" dominoes as possible.  In going from ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(2\ n\ x\ m\)]],
+  StyleBox[" to ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(2\ \((n + 1)\)\ x\ m\)]],
+  StyleBox[" boards, cut the larger board by a horizontal line so that there \
+is a  ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(2\ x\ m\)]],
+  StyleBox[" board above the line a ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(2\ n\ x\ m\)]],
+  StyleBox[" board below the line, and consider the cases of where the two \
+squares have been removed.",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Project 2.2. ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsection"],
+
+Cell[TextData[{
+  StyleBox["A Question of Hooks.",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["Given a positive integer ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(n\)],
+    FontWeight->"Bold"],
+  StyleBox[", can we use hooks to exactly cover any ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(2\^n\ x\ 2\^n\),
+        FontWeight->"Bold"]]],
+  StyleBox[" board which has had ",
+    FontWeight->"Plain"],
+  StyleBox["one square",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" removed?  The question concerns ",
+    FontWeight->"Plain"],
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" square, not just a corner square.",
+    FontWeight->"Plain"]
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  Background->RGBColor[0.909987, 0.523537, 0.436805]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Project 2.3. ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsection"],
+
+Cell[TextData[{
+  "Definition.",
+  StyleBox["  ",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox["A ",
+    FontWeight->"Plain"],
+  StyleBox["tetromino",
+    FontSlant->"Italic"],
+  StyleBox[" is a configuration for ",
+    FontWeight->"Plain"],
+  StyleBox["four",
+    FontSlant->"Italic"],
+  StyleBox[" squares (glued together along ",
+    FontWeight->"Plain"],
+  StyleBox["edges",
+    FontSlant->"Italic"],
+  StyleBox[", of course).",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Question 1.",
+  StyleBox[" Up to rotation and reflection, ",
+    FontWeight->"Plain"],
+  StyleBox["how many",
+    FontSlant->"Italic"],
+  StyleBox[" tetrominoes are there?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]],
+
+Cell[TextData[{
+  StyleBox["Question 2. ",
+    FontWeight->"Bold"],
+  "Can the ",
+  Cell[BoxData[
+      \(8\ x\ 8\)],
+    FontWeight->"Bold"],
+  " checkerboard with ",
+  StyleBox["all four corners",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " removed be covered by ",
+  StyleBox["straight",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " tetrominoes?  Would a  ",
+  StyleBox["few ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "crooked pieces help?"
+}], "Text",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]],
+
+Cell[TextData[{
+  StyleBox["Question 3. ",
+    FontWeight->"Bold"],
+  "Can the ",
+  Cell[BoxData[
+      \(8\ x\ 7\)],
+    FontWeight->"Bold"],
+  " checkerboard with ",
+  StyleBox["all four corners",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " removed be covered by ",
+  StyleBox["straight",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " tetrominoes?  Would a  ",
+  StyleBox["few ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "crooked pieces help?"
+}], "Text",
+  Background->RGBColor[0.909987, 0.523537, 0.436805]],
+
+Cell[TextData[{
+  "Hint.",
+  StyleBox["  In discussing ",
+    FontWeight->"Plain"],
+  StyleBox["trominoes",
+    FontSlant->"Italic"],
+  StyleBox[", we used substitutions by formal complex numbers ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(w\)]],
+  StyleBox[" and ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(w\^2\)]],
+  StyleBox[", and we needed to use ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(PolynomialMod\)]],
+  StyleBox[".  For ",
+    FontWeight->"Plain"],
+  StyleBox["tetrominoes",
+    FontSlant->"Italic"],
+  StyleBox[", you will not need symbolic computation at all, but you can \
+subsitute the complex unit ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(\[ImaginaryI]\)]],
+  StyleBox[" or its negative ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(\(-\[ImaginaryI]\)\)]],
+  StyleBox[" directly.  The connection with ",
+    FontWeight->"Plain"],
+  StyleBox["trominoes",
+    FontSlant->"Italic"],
+  StyleBox[" has to do with the fact that ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(\[ImaginaryI]\^4 == 1\)]],
+  StyleBox[" and these polynomials vanish:",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[BoxData[{
+    \(1 + \[ImaginaryI] + \[ImaginaryI]\^2 + \[ImaginaryI]\^3\), "\
+\[IndentingNewLine]", 
+    \(1 - \[ImaginaryI] + \[ImaginaryI]\^2 - \[ImaginaryI]\^3\)}], "Input"],
+
+Cell["Check out in particular these patterns of values:", "Text"],
+
+Cell[BoxData[{
+    \(MatrixForm[\(Mono[8, 
+          8]\)[\[ImaginaryI], \[ImaginaryI]]]\), "\[IndentingNewLine]", 
+    \(MatrixForm[\(Mono[8, 
+          8]\)[\[ImaginaryI], \(-\[ImaginaryI]\)]]\)}], "Input"]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"4.0 for Macintosh",
+ScreenRectangle->{{0, 1024}, {0, 748}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Presentation",
+WindowSize->{1000, 720},
+WindowMargins->{{Automatic, 2}, {Automatic, 23}},
+Magnification->1.25,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00<0001804P000000]P2:?oQon82n@960dL5:0?l0080001804P000000]P2:001
+0000I00000400`<300000BL?00400@00000000000000060801T1T00000000000
+00000000000000000000000000000000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1717, 49, 160, 5, 135, "Title"],
+Cell[1880, 56, 250, 9, 76, "Subtitle"],
+Cell[2133, 67, 210, 7, 55, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2368, 78, 84, 1, 92, "Section"],
+
+Cell[CellGroupData[{
+Cell[2477, 83, 30, 0, 78, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2532, 87, 50, 0, 65, "Subsubsection"],
+Cell[2585, 89, 228, 7, 76, "Text"],
+Cell[2816, 98, 114, 2, 68, "Input",
+  InitializationCell->True],
+Cell[2933, 102, 424, 17, 76, "Text"],
+Cell[3360, 121, 203, 4, 118, "Input",
+  InitializationCell->True],
+Cell[3566, 127, 729, 30, 76, "Text"],
+Cell[4298, 159, 198, 4, 134, "Input",
+  InitializationCell->True],
+Cell[4499, 165, 44, 0, 48, "Text"],
+Cell[4546, 167, 178, 3, 93, "Input"],
+Cell[4727, 172, 190, 6, 42, "Text"],
+Cell[4920, 180, 256, 5, 93, "Input",
+  InitializationCell->True],
+Cell[5179, 187, 137, 6, 48, "Text"],
+Cell[5319, 195, 81, 1, 68, "Input"],
+Cell[5403, 198, 227, 10, 42, "Text"],
+Cell[5633, 210, 85, 1, 68, "Input"],
+Cell[5721, 213, 42, 0, 42, "Text"],
+Cell[5766, 215, 85, 1, 68, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5888, 221, 43, 0, 37, "Subsubsection"],
+Cell[5934, 223, 314, 14, 48, "Text"],
+Cell[6251, 239, 282, 5, 168, "Input"],
+Cell[6536, 246, 340, 14, 48, "Text"],
+Cell[6879, 262, 259, 6, 118, "Input"],
+Cell[7141, 270, 288, 10, 76, "Text"],
+Cell[7432, 282, 676, 27, 102, "Text"],
+Cell[8111, 311, 36, 0, 48, "Text"],
+Cell[8150, 313, 302, 6, 193, "Input"],
+Cell[8455, 321, 437, 14, 96, "Text"],
+Cell[8895, 337, 302, 6, 193, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9234, 348, 44, 0, 37, "Subsubsection"],
+Cell[9281, 350, 347, 14, 48, "Text"],
+Cell[9631, 366, 125, 3, 68, "Input"],
+Cell[9759, 371, 690, 26, 104, "Text"],
+Cell[10452, 399, 785, 17, 295, "Input"],
+Cell[11240, 418, 646, 25, 102, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11923, 448, 79, 1, 37, "Subsubsection"],
+Cell[12005, 451, 357, 12, 76, "Text"],
+Cell[12365, 465, 206, 4, 101, "Input"],
+Cell[12574, 471, 1540, 64, 160, "Text"],
+Cell[14117, 537, 580, 22, 102, "Text"],
+Cell[14700, 561, 246, 10, 48, "Text"],
+Cell[14949, 573, 239, 5, 141, "Input"],
+Cell[15191, 580, 748, 27, 133, "Text"],
+Cell[15942, 609, 687, 30, 76, "Text"],
+Cell[16632, 641, 75, 1, 68, "Input"],
+Cell[16710, 644, 249, 10, 48, "Text"],
+Cell[16962, 656, 61, 1, 68, "Input"],
+Cell[17026, 659, 485, 18, 76, "Text"],
+Cell[17514, 679, 59, 1, 68, "Input"],
+Cell[17576, 682, 326, 10, 76, "Text"],
+Cell[17905, 694, 145, 2, 96, "Input"],
+Cell[18053, 698, 209, 7, 48, "Text"],
+Cell[18265, 707, 105, 2, 93, "Input"],
+Cell[18373, 711, 243, 8, 68, "Text"],
+Cell[18619, 721, 64, 1, 75, "Input"],
+Cell[18686, 724, 693, 26, 145, "Text"],
+Cell[19382, 752, 719, 33, 96, "Text"],
+Cell[20104, 787, 268, 10, 68, "Text"],
+Cell[20375, 799, 378, 14, 76, "Text"],
+Cell[20756, 815, 1298, 46, 204, "Text"],
+Cell[22057, 863, 2210, 80, 264, "Text"],
+Cell[24270, 945, 347, 12, 68, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[24666, 963, 31, 0, 42, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[24722, 967, 50, 0, 65, "Subsubsection"],
+Cell[24775, 969, 67, 0, 48, "Text"],
+Cell[24845, 971, 114, 2, 68, "Input",
+  InitializationCell->True],
+Cell[24962, 975, 183, 4, 75, "Input",
+  InitializationCell->True],
+Cell[25148, 981, 213, 5, 112, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[25398, 991, 90, 1, 37, "Subsubsection"],
+Cell[25491, 994, 397, 15, 76, "Text"],
+Cell[25891, 1011, 395, 7, 193, "Input"],
+Cell[26289, 1020, 251, 10, 48, "Text"],
+Cell[26543, 1032, 939, 39, 104, "Text"],
+Cell[27485, 1073, 978, 17, 443, "Input"],
+Cell[28466, 1092, 575, 21, 96, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[29078, 1118, 42, 0, 65, "Subsubsection"],
+Cell[29123, 1120, 1914, 70, 236, "Text"],
+Cell[31040, 1192, 314, 11, 48, "Text"],
+Cell[31357, 1205, 342, 11, 71, "Input"],
+Cell[31702, 1218, 496, 19, 76, "Text"],
+Cell[32201, 1239, 2297, 83, 108, "Text"],
+Cell[34501, 1324, 714, 26, 104, "Text"],
+Cell[35218, 1352, 349, 5, 175, "Input"],
+Cell[35570, 1359, 871, 35, 104, "Text"],
+Cell[36444, 1396, 139, 6, 48, "Text"],
+Cell[36586, 1404, 380, 6, 176, "Input"],
+Cell[36969, 1412, 191, 6, 48, "Text"],
+Cell[37163, 1420, 565, 14, 236, "Input"],
+Cell[37731, 1436, 370, 15, 48, "Text"],
+Cell[38104, 1453, 565, 14, 236, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[38706, 1472, 88, 1, 65, "Subsubsection"],
+Cell[38797, 1475, 67, 0, 48, "Text"],
+Cell[38867, 1477, 592, 24, 76, "Text"],
+Cell[39462, 1503, 441, 12, 178, "Input"],
+Cell[39906, 1517, 208, 7, 48, "Text"],
+Cell[40117, 1526, 161, 2, 99, "Input"],
+Cell[40281, 1530, 155, 6, 48, "Text"],
+Cell[40439, 1538, 159, 3, 71, "Input"],
+Cell[40601, 1543, 71, 0, 48, "Text"],
+Cell[40675, 1545, 188, 8, 48, "Text"],
+Cell[40866, 1555, 161, 2, 99, "Input"],
+Cell[41030, 1559, 432, 14, 76, "Text"],
+Cell[41465, 1575, 170, 6, 48, "Text"],
+Cell[41638, 1583, 506, 13, 207, "Input"],
+Cell[42147, 1598, 164, 6, 48, "Text"],
+Cell[42314, 1606, 324, 12, 48, "Text"],
+Cell[42641, 1620, 327, 6, 99, "Input"],
+Cell[42971, 1628, 137, 3, 42, "Text"],
+Cell[43111, 1633, 506, 13, 207, "Input"],
+Cell[43620, 1648, 72, 0, 48, "Text"],
+Cell[43695, 1650, 515, 13, 207, "Input"],
+Cell[44213, 1665, 57, 0, 48, "Text"],
+Cell[44273, 1667, 475, 12, 207, "Input"],
+Cell[44751, 1681, 175, 6, 48, "Text"],
+Cell[44929, 1689, 398, 16, 76, "Text"],
+Cell[45330, 1707, 717, 16, 291, "Input"],
+Cell[46050, 1725, 269, 9, 48, "Text"],
+Cell[46322, 1736, 85, 1, 68, "Input"],
+Cell[46410, 1739, 168, 6, 48, "Text"],
+Cell[46581, 1747, 205, 4, 99, "Input"],
+Cell[46789, 1753, 574, 24, 76, "Text"],
+Cell[47366, 1779, 666, 15, 266, "Input"],
+Cell[48035, 1796, 170, 6, 48, "Text"],
+Cell[48208, 1804, 861, 17, 324, "Input"],
+Cell[49072, 1823, 145, 6, 42, "Text"],
+Cell[49220, 1831, 563, 21, 76, "Text"],
+Cell[49786, 1854, 728, 15, 295, "Input"],
+Cell[50517, 1871, 399, 12, 70, "Text"],
+Cell[50919, 1885, 159, 6, 48, "Text"],
+Cell[51081, 1893, 89, 1, 72, "Input"],
+Cell[51173, 1896, 74, 0, 48, "Text"],
+Cell[51250, 1898, 201, 4, 96, "Input"],
+Cell[51454, 1904, 198, 4, 96, "Input"],
+Cell[51655, 1910, 325, 8, 76, "Text"],
+Cell[51983, 1920, 223, 7, 76, "Text"],
+Cell[52209, 1929, 722, 15, 295, "Input"],
+Cell[52934, 1946, 90, 3, 48, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[53085, 1956, 41, 0, 56, "Section"],
+
+Cell[CellGroupData[{
+Cell[53151, 1960, 109, 4, 78, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[53285, 1968, 116, 4, 65, "Subsubsection"],
+Cell[53404, 1974, 833, 33, 124, "Text"],
+Cell[54240, 2009, 342, 13, 68, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[54619, 2027, 116, 4, 37, "Subsubsection"],
+Cell[54738, 2033, 1115, 45, 152, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[55890, 2083, 116, 4, 37, "Subsubsection"],
+Cell[56009, 2089, 273, 9, 68, "Text"],
+Cell[56285, 2100, 10036, 264, 143, 3044, 173, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[66324, 2366, 661, 20, 188, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[67022, 2391, 116, 4, 37, "Subsubsection"],
+Cell[67141, 2397, 650, 25, 96, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[67840, 2428, 112, 4, 78, "Subsection"],
+Cell[67955, 2434, 667, 21, 124, "Text"],
+Cell[68625, 2457, 1354, 48, 160, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[70016, 2510, 112, 4, 78, "Subsection"],
+Cell[70131, 2516, 817, 28, 96, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[70985, 2549, 112, 4, 78, "Subsection"],
+Cell[71100, 2555, 541, 21, 68, "Text"],
+Cell[71644, 2578, 305, 10, 68, "Text"],
+Cell[71952, 2590, 540, 21, 96, "Text"],
+Cell[72495, 2613, 540, 21, 96, "Text"],
+Cell[73038, 2636, 1171, 42, 132, "Text"],
+Cell[74212, 2680, 181, 3, 99, "Input"],
+Cell[74396, 2685, 65, 0, 48, "Text"],
+Cell[74464, 2687, 208, 4, 93, "Input"]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

@@ -1,0 +1,1775 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     38090,       1533]*)
+(*NotebookOutlinePosition[     39059,       1564]*)
+(*  CellTagsIndexPosition[     39015,       1560]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "15-499B Computational Algebra\n",
+  StyleBox["Fall 2000\nCarnegie Mellon University",
+    FontSize->24]
+}], "Title",
+  TextAlignment->Center],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana S. Scott 2000",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["30 August 2000",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle"],
+
+Cell[TextData[{
+  StyleBox["Topic 1.",
+    FontWeight->"Bold",
+    FontSlant->"Plain"],
+  StyleBox[" Making Change",
+    FontSlant->"Plain"]
+}], "Subsubtitle",
+  CellMargins->{{Inherited, Inherited}, {-10, Inherited}},
+  TextAlignment->Left],
+
+Cell[CellGroupData[{
+
+Cell["Making Change for a $20 Bill ", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Don't forget the motto!", "Subsection"],
+
+Cell[TextData[{
+  StyleBox["Jesus saves!",
+    FontSize->72,
+    FontColor->RGBColor[1, 0, 0]],
+  StyleBox["\n",
+    FontSize->72],
+  StyleBox["And so should you.",
+    FontSize->72,
+    FontColor->RGBColor[1, 0, 0]]
+}], "Text",
+  TextAlignment->Center],
+
+Cell[TextData[StyleBox["Save your files frequently!",
+  FontSize->36,
+  FontColor->RGBColor[0, 1, 0]]], "Text",
+  TextAlignment->Center]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["An old question", "Subsection"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  How many ways are there to ",
+  StyleBox["make change",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for a ",
+  StyleBox["$20",
+    FontWeight->"Bold"],
+  " bill?"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]],
+
+Cell[TextData[{
+  "Equivalently, the question is a simple form of the so-called ",
+  StyleBox["linear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["Diophantine problems",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question",
+    FontSize->18,
+    FontWeight->"Bold"],
+  StyleBox[".  For a given integer ",
+    FontSize->18],
+  Cell[BoxData[
+      StyleBox[\(n \[LessEqual] 2000\),
+        FontSize->18,
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontSize->18],
+  StyleBox["how many",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" solutions in ",
+    FontSize->18],
+  StyleBox["non-negative",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSize->18],
+  StyleBox["integers",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" are there to the equation:\n",
+    FontSize->18],
+  "               ",
+  Cell[BoxData[
+      \(a + 5\ b + 10\ c + 25\ d + 50\ e + 100\ f + 500\ g + 1000\ h + 
+          2000\ i == n\)],
+    FontWeight->"Bold"],
+  StyleBox["  ? ",
+    FontWeight->"Bold"]
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->14,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "A ",
+  StyleBox["different ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "problem is ",
+  StyleBox["to find",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at least one solution (or, all of them) when you know one exists. "
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using recursion", "Subsection",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[CellGroupData[{
+
+Cell["Run this initialization", "Subsubsection"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["spelling warning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are usually not too helpful, unless you are putting together a large \
+package of programs and examples."
+}], "Text"],
+
+Cell[BoxData[
+    \(Off[General::"\<spell\>"]; Off[General::"\<spell1\>"];\)], "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Counting solutions", "Subsubsection"],
+
+Cell[TextData[{
+  "For any set ",
+  Cell[BoxData[
+      \(s\)],
+    FontWeight->"Bold"],
+  " of ",
+  StyleBox["denominations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we can count the number of ways to make change for a given amount ",
+  Cell[BoxData[
+      \(n\)],
+    FontWeight->"Bold"],
+  " with a definition ",
+  StyleBox["by recursion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as follows (working from the ",
+  StyleBox["top",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " denominations down):"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[BoxData[{
+    \(ClearAll[CH]\), "\[IndentingNewLine]", 
+    \(\(\(CH[s_]\)[n_] := 0 /; n < 0;\)\), "\n", 
+    \(\(\(CH[s_]\)[0] := 1;\)\), "\n", 
+    \(\(\(CH[{}]\)[n_] := 0;\)\), "\n", 
+    \(\(\(CH[{p_}]\)[n_] := If[Mod[n, p] == 0, 1, 0];\)\), "\n", 
+    \(\(\(CH[{q__, p_}]\)[
+          n_] := \(\(CH[{q, p}]\)[
+            n] = \(CH[{q, p}]\)[n - p] + \(CH[{q}]\)[n]\);\)\)}], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "In words, this definition says that to compute ",
+  Cell[BoxData[
+      \(\(CH[s]\)[n]\)],
+    FontWeight->"Bold"],
+  ", the number of ways to make change for an amount ",
+  Cell[BoxData[
+      \(n\)],
+    FontWeight->"Bold"],
+  " using the sequence of denominations in ",
+  Cell[BoxData[
+      \(s\)],
+    FontWeight->"Bold"],
+  ", one follows these rules:"
+}], "Text"],
+
+Cell[TextData[{
+  "\t",
+  StyleBox["1.",
+    FontWeight->"Bold"],
+  " You cannot make change for a ",
+  StyleBox["negative amount",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".\n\t",
+  StyleBox["2.",
+    FontWeight->"Bold"],
+  " There is only one way to make change for a ",
+  StyleBox["zero amount",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ": do nothing!\n\t",
+  StyleBox["3.",
+    FontWeight->"Bold"],
+  " When there are ",
+  StyleBox["no dominations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " available, there is ",
+  StyleBox["no way",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to make change.\n\t",
+  StyleBox["4.",
+    FontWeight->"Bold"],
+  " When only ",
+  StyleBox["one denomination",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is available, change can be made in ",
+  StyleBox["only one way",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, and only if, the amount is ",
+  StyleBox["divisible",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by the denomination.\n\t",
+  StyleBox["5.",
+    FontWeight->"Bold"],
+  " When ",
+  StyleBox["several denominations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are available, you have the choice of ",
+  StyleBox["using",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " or ",
+  StyleBox["not using",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the largest of them in making change.  If you ",
+  StyleBox["do",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " want to use the largest, then you need compute the number of ways of \
+making change when the largest denomination is ",
+  StyleBox["subtracted",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from the amount.  If you ",
+  StyleBox["do not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " want to use the largest, then ",
+  StyleBox["throw it out ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "and compute without it."
+}], "Text",
+  Background->RGBColor[0.909987, 0.6916, 0.789914]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Testing the program", "Subsubsection"],
+
+Cell[TextData[{
+  "Here are the usual ",
+  StyleBox["USA",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["denominations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (in ",
+  StyleBox["cents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as units)",
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(USA = {1, 5, 10, 25, 50, 100, 500, 1000, 2000};\)\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "We can then compute the answers for ",
+  StyleBox["typical",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " bills:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(CH[USA]\)[100]\), "\n", 
+    \(\(CH[USA]\)[200]\), "\n", 
+    \(\(CH[USA]\)[500]\), "\n", 
+    \(\(CH[USA]\)[1000]\), "\n", 
+    \(\(CH[USA]\)[2000]\)}], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "Clearly, the number of combinations increases ",
+  StyleBox["exponentially",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with the amount to be changed.  We check this out in terms of multiples \
+of ",
+  StyleBox["dollars",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(graph1 = ListPlot[Table[\(CH[USA]\)[i\ 100], {i, 20}]];\)\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using other denominations", "Subsubsection"],
+
+Cell[TextData[{
+  "Note that the first set of denominations",
+  StyleBox[" left out ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "the seldom-used $2 bill.  Here are the results when it is included."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(USA2 = {1, 5, 10, 25, 50, 100, 200, 500, 1000, 2000};\)\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[BoxData[{
+    \(\(CH[USA2]\)[100]\), "\n", 
+    \(\(CH[USA2]\)[200]\), "\n", 
+    \(\(CH[USA2]\)[500]\), "\n", 
+    \(\(CH[USA2]\)[1000]\), "\n", 
+    \(\(CH[USA2]\)[2000]\)}], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "The graph pretty much looks ",
+  StyleBox["the same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(graph2 = ListPlot[Table[\(CH[USA2]\)[i\ 100], {i, 20}]];\)\)], "Input"],
+
+Cell[TextData[{
+  "We can ",
+  StyleBox["compare",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the two graphs.  When we get up to the $20 bill, however, there is quite \
+a difference."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[{graph1, graph2}, \ 
+        PlotRange \[Rule] {{0, 21}, {0, \ 1.65\ 10\^8}}];\)\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A suggestion", "Subsubsection"],
+
+Cell[TextData[{
+  "Now, in everyday life, the change you get in ",
+  StyleBox["pennies",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a great nuisance.  Let us see what happens if pennies are ",
+  StyleBox["dropped",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(USA3 = {5, 10, 25, 50, 100, 200, 500, 1000, 2000};\)\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[BoxData[{
+    \(\(CH[USA3]\)[100]\), "\n", 
+    \(\(CH[USA3]\)[200]\), "\n", 
+    \(\(CH[USA3]\)[500]\), "\n", 
+    \(\(CH[USA3]\)[1000]\), "\n", 
+    \(\(CH[USA3]\)[2000]\)}], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "The numbers seem ",
+  StyleBox["smaller",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(graph3 = ListPlot[Table[\(CH[USA3]\)[i\ 100], {i, 20}]];\)\)], "Input"],
+
+Cell["Here is the comparison.", "Text"],
+
+Cell[BoxData[
+    \(\(Show[{graph1, graph2, graph3}, 
+        PlotRange \[Rule] {{0, 21}, {0, 1.65\ 10\^8}}];\)\)], "Input"],
+
+Cell["\<\
+That is a dramatic difference!  
+
+\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Conclusion?",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["  The 1-cent coin should be ",
+    FontSize->18],
+  StyleBox["eliminated!",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[1, 0.72697, 0.580011]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using algebra", "Subsection",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[CellGroupData[{
+
+Cell["Generating functions", "Subsubsection"],
+
+Cell[TextData[{
+  "Soon after the Calculus was invented, it was noted that ",
+  StyleBox["infinite series",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " could be employed to ",
+  StyleBox["count",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " certain sequences of results.  In a series such as ",
+  Cell[BoxData[
+      StyleBox[\(1 + 2\ x + 4\ x\^2 + 8\ x\^3 + 16\ x\^4 +  ... \),
+        FontWeight->"Bold"]]],
+  " the ",
+  StyleBox["coefficient",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the term ",
+  Cell[BoxData[
+      \(x\^n\)],
+    FontWeight->"Bold"],
+  "gives the ",
+  Cell[BoxData[
+      \(n\)],
+    FontWeight->"Bold"],
+  "th result.  Such series are called ",
+  StyleBox["generating functions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for the sequences of coefficients.  We will show that the generating \
+function for ",
+  StyleBox["making change",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is as follows."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Gen[s_] := 
+        1\/\(\[Product]\+\(i = 1\)\%\(Length[s]\)\((1 - x\^s\
+\[LeftDoubleBracket]i\[RightDoubleBracket])\)\);\)\)], "Input"],
+
+Cell["Specifically, we find:", "Text"],
+
+Cell[BoxData[
+    \(Gen[USA]\)], "Input"],
+
+Cell[TextData[{
+  "Of course, an explanation of ",
+  StyleBox["why",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " this generating function does the job is needed.  First, look at what the \
+very simple generating function ",
+  Cell[BoxData[
+      StyleBox[\(1\/\(1 - x\)\),
+        FontWeight->"Bold"]]],
+  " is as a series:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Series[1\/\(1 - x\), {x, 0, 1000}]\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "There is no question of ",
+  StyleBox["convergence",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to come in here, as we use these series (",
+  StyleBox["i.e.",
+    FontSlant->"Italic"],
+  ", Taylor series) purely in a ",
+  StyleBox["formal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", ",
+  StyleBox["algebraic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " way.  As we can see, for ",
+  " ",
+  Cell[BoxData[
+      StyleBox[\(1\/\(1 - x\)\),
+        FontWeight->"Bold"]]],
+  " we get all coefficients equal to ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  ".  Here is what we get for  ",
+  Cell[BoxData[
+      StyleBox[\(1\/\(1 - x\^5\)\),
+        FontWeight->"Bold"]]],
+  " :"
+}], "Text"],
+
+Cell[BoxData[
+    \(Series[1\/\(1 - x\^5\), {x, 0, 1000}]\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "In other words, ",
+  Cell[BoxData[
+      \(x\^5\)],
+    FontWeight->"Bold"],
+  " has been ",
+  StyleBox["substituted",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for ",
+  Cell[BoxData[
+      \(x\)],
+    FontWeight->"Bold"],
+  " in the previous result.  Thus, in the new series, the coefficients of \
+terms where the exponent is divisible by ",
+  Cell[BoxData[
+      \(5\)],
+    FontWeight->"Bold"],
+  " are now ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  ",",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and all others are ",
+  Cell[BoxData[
+      \(0\)],
+    FontWeight->"Bold"],
+  ".  The series for ",
+  Cell[BoxData[
+      StyleBox[\(1\/\(1 - x\^n\)\),
+        FontWeight->"Bold"]]],
+  " would be similar.  But what happens when these various series are ",
+  StyleBox["multiplied together",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  Here is a small, finite example."
+}], "Text"],
+
+Cell[BoxData[
+    \(Expand[\((1 + x + x\^2 + x\^3 + x\^4 + x\^5)\)\ \((1 + x\^5 + x\^10 + 
+            x\^15 + x\^20 + x\^25)\)\ \((1 + x\^10 + x\^20 + x\^30 + x\^40 + 
+            x\^50)\)]\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "We can interpret the ",
+  StyleBox["input",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as meaning that to start out we have available only 5 ",
+  StyleBox["pennies",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the same number of ",
+  StyleBox["nickels",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and the same number of ",
+  StyleBox["quarters",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This adds up to 80 cents, and so that is the ",
+  StyleBox["maximum amount",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " we can make change for in this illustration.  Now, when we multiply two \
+polynomials in ",
+  Cell[BoxData[
+      \(x\)],
+    FontWeight->"Bold"],
+  " together, the exponents in a product ",
+  StyleBox["add",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and then terms with ",
+  StyleBox["like exponents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " have to be ",
+  StyleBox["collected",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " together.  Look at this multiplication:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\((\[Sum]\+\(i = 0\)\%5 a\_i\ x\^i)\)\ \(\[Sum]\+\(i = 0\)\%5 b\_i\ \
+x\^i\)\[IndentingNewLine]\), "\[IndentingNewLine]", 
+    \(Expand[%]\[IndentingNewLine]\), "\n", 
+    \(Collect[%, {x}]\)}], "Input"],
+
+Cell[TextData[{
+  "Consider the term ",
+  Cell[BoxData[
+      StyleBox[\(x\^8\ \((a\_5\ b\_3 + a\_4\ b\_4 + a\_3\ b\_5)\)\),
+        FontWeight->"Bold"]]],
+  " here.  The subscripts show all the combinations of available exponents \
+that add up to ",
+  Cell[BoxData[
+      \(8\)],
+    FontWeight->"Bold"],
+  ".  Now, if there are ",
+  Cell[BoxData[
+      \(a\_5\)],
+    FontWeight->"Bold"],
+  " ways of getting ",
+  Cell[BoxData[
+      \(5\)],
+    FontWeight->"Bold"],
+  " in the first term, and ",
+  Cell[BoxData[
+      StyleBox[\(b\_3\),
+        FontWeight->"Bold"]]],
+  "ways of getting ",
+  Cell[BoxData[
+      \(3\)],
+    FontWeight->"Bold"],
+  " in the second, then we have a contribution of ",
+  Cell[BoxData[
+      \(a\_5\ b\_3\)],
+    FontWeight->"Bold"],
+  " ways of getting ",
+  Cell[BoxData[
+      \(8\)],
+    FontWeight->"Bold"],
+  " altogether.  The total number of contributions that will give us ",
+  Cell[BoxData[
+      \(8\)],
+    FontWeight->"Bold"],
+  " is finally ",
+  Cell[BoxData[
+      StyleBox[\((a\_5\ b\_3 + a\_4\ b\_4 + a\_3\ b\_5)\),
+        FontWeight->"Bold"]]],
+  ".  This explains why multiplication counts the number of contributions \
+achieving a particular sum.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Of course, for the stated problem we have to go to ",
+  StyleBox["infinite series",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to allow for arbitrarily large combinations of coins.  Fortunately, ",
+  StyleBox["any one term",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the product of infinite series requires only a ",
+  StyleBox["finite number",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of contributions.   We now try this out."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Counting the solutions again", "Subsubsection"],
+
+Cell[BoxData[
+    \(Series[Gen[USA], {x, 0, 2000}] // Timing\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[BoxData[
+    \(Series[Gen[USA2], {x, 0, 2000}] // Timing\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[BoxData[
+    \(Series[Gen[USA3], {x, 0, 2000}] // Timing\)], "Input",
+  ImageRegion->{{0, 1}, {0, 1}}],
+
+Cell[TextData[{
+  "We see that the previous results about the $20-dollar bill are ",
+  StyleBox["confirmed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ": "
+}], "Text",
+  GeneratedCell->False,
+  CellAutoOverwrite->False],
+
+Cell[BoxData[
+    \({\(CH[USA]\)[2000], \(CH[USA2]\)[2000], \(CH[USA3]\)[2000]}\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Conclusion?  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["Often ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" saves us the trouble of ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["thinking",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Plain",
+    FontSlant->"Plain"]
+}], "Text",
+  Background->RGBColor[1, 0.72697, 0.580011]],
+
+Cell[TextData[{
+  "Warning.",
+  StyleBox["  ",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox["Algebra has a mind of its own!",
+    FontSlant->"Italic"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "In other words, you may have to think hard to understand exactly what an \
+algebraic result is ",
+  StyleBox["telling us",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Questions and Projects", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Questions ",
+  StyleBox["[110 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1.1. ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  StyleBox["How many ways",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are there to change a ",
+  StyleBox["$50",
+    FontWeight->"Bold"],
+  " bill in the USA?  (Be clear on denominations used.) And ",
+  StyleBox["without",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " pennies?  And what if we allowed ",
+  StyleBox["both",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the dollar bill ",
+  StyleBox["and",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the dollar coin?"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1.2. ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "When we gave the recursive definition of ",
+  Cell[BoxData[
+      \(\(CH[s]\)[n]\)],
+    FontWeight->"Bold"],
+  ", we assumed that the denominations ",
+  Cell[BoxData[
+      \(s\)],
+    FontWeight->"Bold"],
+  " were arranged in ",
+  StyleBox["increasing order",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  That aided the intuitive explanation of the recursion, but was that \
+assumption necessary?"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1.3. ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.  ",
+    FontWeight->"Bold"],
+  StyleBox["How different ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "are other currencies (say, English, French,  or German)?"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1.4. ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 4.  ",
+    FontWeight->"Bold"],
+  "Discuss the ",
+  StyleBox["virtue",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (or ",
+  StyleBox["lack",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of virtue) of the two monetary systems that use these two sets of \
+denominations:"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]],
+
+Cell[BoxData[
+    \(BIN\  = \ Table[2\^n, {n, 0, 12}]\)], "Input"],
+
+Cell[BoxData[
+    \(TER\  = \ Table[3\^n, {n, 0, 7}]\)], "Input"],
+
+Cell[TextData[{
+  "In particular, explain",
+  " the ",
+  StyleBox["significance",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of these two products (after expansion!)."
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]],
+
+Cell[BoxData[
+    \(prod2 = \[Product]\+\(n = 0\)\%12\((1 + x\^\(2\^n\))\)\)], "Input"],
+
+Cell[BoxData[
+    \(prod3 = \[Product]\+\(n = 0\)\%7\((1 + x\^\(3\^n\) + 
+            x\^\(2\ 3\^n\))\)\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1.5. ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 5.  ",
+    FontWeight->"Bold"],
+  "Suppose, in the original ",
+  Cell[BoxData[
+      \(USA\)],
+    FontWeight->"Bold"],
+  " system of denominations, you only had a fund of ",
+  Cell[BoxData[
+      \(10\)],
+    FontWeight->"Bold"],
+  " instances of each denomination.  How many ways can you then change a ",
+  StyleBox["$20",
+    FontWeight->"Bold"],
+  " bill?  A ",
+  StyleBox["$100",
+    FontWeight->"Bold"],
+  " bill?"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1.6. ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 6.  ",
+    FontWeight->"Bold"],
+  "In your pocket you have ",
+  Cell[BoxData[
+      \(4\)],
+    FontWeight->"Bold"],
+  " pennies, ",
+  Cell[BoxData[
+      \(2\)],
+    FontWeight->"Bold"],
+  " nickels, ",
+  Cell[BoxData[
+      \(1\)],
+    FontWeight->"Bold"],
+  " dime and ",
+  Cell[BoxData[
+      \(3\)],
+    FontWeight->"Bold"],
+  " quarters.  Show that you can make exact change for any amount up to ",
+  Cell[BoxData[
+      \(99\)],
+    FontWeight->"Bold"],
+  " cents.  For some of these amounts there are several ways to make change.  \
+Can you explain why?"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1.7. ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 7.  ",
+    FontWeight->"Bold"],
+  "There once was a ",
+  StyleBox["crazy king",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " who decreed that in his country the ",
+  StyleBox["only",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " denominations minted could be ",
+  Cell[BoxData[
+      \({3, 7}\)],
+    FontWeight->"Bold"],
+  ".  He also had to decree that ",
+  StyleBox["no one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " could charge any of these prices:  ",
+  Cell[BoxData[
+      \({1, 2, 4, 5, 8, 11}\)],
+    FontWeight->"Bold"],
+  ".  Was he ",
+  StyleBox["that",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " crazy?  And suppose the king's coins were worth ",
+  StyleBox["30",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["70",
+    FontWeight->"Bold"],
+  " cents USA, respectively.  ",
+  StyleBox["How many ways",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " could you change ",
+  StyleBox["$20",
+    FontWeight->"Bold"],
+  " into his funny currency?"
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Project 1.1. ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Finding all solutions.", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Instructions. ",
+    FontWeight->"Bold"],
+  "To work on this project, you have to work out ",
+  StyleBox["Question 1.7",
+    FontWeight->"Bold"],
+  " above."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["The problem.  ",
+    FontWeight->"Bold"],
+  "We can ",
+  StyleBox["count",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the number of solutions in non-negative integers of the Diophantine \
+equation ",
+  Cell[BoxData[
+      \(a\ x + b\ y + c\ z == n\)],
+    FontWeight->"Bold"],
+  " by running ",
+  Cell[BoxData[
+      \(\(CH[{a, b, c}]\)[n]\)],
+    FontWeight->"Bold"],
+  ".  But to ",
+  StyleBox["find",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the solutions we need another program.  This is what ",
+  Cell[BoxData[
+      StyleBox[\(\(MakeChange[{a, b}]\)[n]\),
+        FontWeight->"Bold"]]],
+  " does for the equation ",
+  Cell[BoxData[
+      \(a\ x + b\ y == n\)],
+    FontWeight->"Bold"],
+  ".  The problem is to extend the method from ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to ",
+  StyleBox["three",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " variables.  The results should be ",
+  StyleBox["checked",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by running ",
+  Cell[BoxData[
+      \(CH\)],
+    FontWeight->"Bold"],
+  ".  A hint as to how to do this is given by example."
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["An example", "Subsubsection"],
+
+Cell[TextData[{
+  Cell[BoxData[
+      StyleBox[\(\(MakeChange[{a, b}]\)[c]\),
+        FontWeight->"Bold"]]],
+  " uses an algorithm from number theory to solve ",
+  Cell[BoxData[
+      StyleBox[\(a\ x + b\ y \[Equal] c\),
+        FontWeight->"Bold"]]],
+  " for non-negative integers.  First, it generates an ",
+  StyleBox["integer solution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the equation ",
+  Cell[BoxData[
+      \(a\ v + b\ w == GCD[a, b]\)],
+    FontWeight->"Bold"],
+  " with ",
+  Cell[BoxData[
+      \(ExtendedGCD[a, b]\)],
+    FontWeight->"Bold"],
+  ".  Multiplying both sides of this equation by ",
+  Cell[BoxData[
+      StyleBox[\(c\/GCD[a, b]\),
+        FontWeight->"Bold"]]],
+  ", it obtains an integer solution to ",
+  Cell[BoxData[
+      \(a\ x + b\ y == c\)],
+    FontWeight->"Bold"],
+  ", assuming that at least one such solution exists (if none exist, then ",
+  Cell[BoxData[
+      \(c\)],
+    FontWeight->"Bold"],
+  " will not be divisible by ",
+  Cell[BoxData[
+      \(GCD[a, b]\)],
+    FontWeight->"Bold"],
+  ").  Given this one solution to the equation, the ",
+  StyleBox["infinite family",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of all integer solutions is then ",
+  StyleBox["parameterized",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by an integer ",
+  Cell[BoxData[
+      \(i\)],
+    FontWeight->"Bold"],
+  ".  Finally, the range of ",
+  Cell[BoxData[
+      \(i\)],
+    FontWeight->"Bold"],
+  " values over which the solutions are ",
+  StyleBox["non-negative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is identified, and the parameterization is evaluated at those points."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(MakeChange[{a_, b_}]\)[
+        c_]\  := \[IndentingNewLine]Module[{u, v, 
+          w}, \[IndentingNewLine]{u, {v, w}} = 
+          ExtendedGCD[a, b]; \[IndentingNewLine]If[Mod[c, u] === 0, 
+          Table[{v\ c + i\ b, w\ c - i\ a}/u, {i, Ceiling[\(-v\)\ c/b], 
+              Floor[w\ c/a]}], {}]\[IndentingNewLine]]\)], "Input"],
+
+Cell[TextData[{
+  "Thus, the equation ",
+  Cell[BoxData[
+      StyleBox[\(3\ x + 7\ y == 1320\),
+        FontWeight->"Bold"]]],
+  "  can be solved with ",
+  Cell[BoxData[
+      FormBox[
+        StyleBox["MakeChange",
+          FontFamily->"Courier",
+          FontWeight->"Bold"], TraditionalForm]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(sol1 = \(MakeChange[{3, 7}]\)[1320]\), "\n", 
+    \(Length[sol1]\)}], "Input"],
+
+Cell[TextData[{
+  "We verify ",
+  StyleBox["the count ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of the number of solutions by using our previous program:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(CH[{3, 7}]\)[1320]\)], "Input"],
+
+Cell[TextData[{
+  "By the way, can you explain why the following shows all the solutions are \
+",
+  StyleBox["correct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(({3, 7} . # &)\) /@ sol1\)], "Input"],
+
+Cell[TextData[{
+  "And keeping in mind that ",
+  Cell[BoxData[
+      FormBox[
+        StyleBox[\(\(MakeChange[{3, 7}]\)[1320]\),
+          FontFamily->"Courier",
+          FontWeight->"Bold"], TraditionalForm]]],
+  " solves the equation ",
+  Cell[BoxData[
+      StyleBox[\(3\ x + 7\ y == 1320\),
+        FontWeight->"Bold"]]],
+  ", can you explain the relationship between the solutions found in ",
+  Cell[BoxData[
+      \(sol1\)],
+    FontWeight->"Bold"],
+  " to those in ",
+  Cell[BoxData[
+      \(sol2\)],
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(sol2 = \(MakeChange[{15, 35}]\)[1320]\)], "Input"],
+
+Cell[TextData[{
+  "Equations with ",
+  StyleBox["extra constants",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", such as ",
+  Cell[BoxData[
+      StyleBox[\(3\ x + 7\ y + 22 == 1320\),
+        FontWeight->"Bold"]]],
+  ", can also be solved with ",
+  Cell[BoxData[
+      FormBox[
+        StyleBox["MakeChange",
+          FontFamily->"Courier",
+          FontWeight->"Bold"], TraditionalForm]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[{
+    \(sol3 = \(MakeChange[{3, 7}]\)[1320 - 22]\), "\n", 
+    \(Length[sol3]\)}], "Input"],
+
+Cell[TextData[{
+  "Here is another way to check that all the solutions do indeed ",
+  StyleBox["satisfy",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the equation. Do you see why?"
+}], "Text"],
+
+Cell[BoxData[
+    \(3\ x + 7\ y + 22 == 
+        1320 /. \[InvisibleSpace]\((\(Thread[{x, y} \[Rule] #1] &\) /@ 
+          sol3)\)\)], "Input"],
+
+Cell[TextData[{
+  "Here are the solutions for ",
+  Cell[BoxData[
+      StyleBox[\(3\ x + 7\ y + 33 \[Equal] 1320\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(sol4 = \(MakeChange[{3, 7}]\)[1320 - 33]\), "\n", 
+    \(Length[sol4]\)}], "Input"],
+
+Cell["And the verification.", "Text"],
+
+Cell[BoxData[
+    \(3\ x + 7\ y + 33 == 
+        1320 /. \[InvisibleSpace]\((\(Thread[{x, y} \[Rule] #1] &\) /@ 
+          sol4)\)\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Now",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can you see how to find ",
+  StyleBox["all solutions ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of the equation ",
+  Cell[BoxData[
+      StyleBox[\(3\ x + 7\ y + 11\ z == 1320\),
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Project 1.2. ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[0, 0, 1]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Finding a \"best\" solution.", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["The problem.  ",
+    FontWeight->"Bold"],
+  "Given \"denominations\", assumed ",
+  "to be in ",
+  StyleBox["increasing order",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ",",
+  "\n                               ",
+  Cell[BoxData[
+      \(s \[Equal] {s\[LeftDoubleBracket]1\[RightDoubleBracket]\ , 
+          s\[LeftDoubleBracket]2\[RightDoubleBracket]\ ,  ... , 
+          s\[LeftDoubleBracket]k\[RightDoubleBracket]\ }\)],
+    FontWeight->"Bold"],
+  ", ",
+  " \nwe know we can ",
+  StyleBox["count",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the number of solutions in non-negative integers of the general \
+Diophantine equation\n                                ",
+  Cell[BoxData[
+      \(\(s\[LeftDoubleBracket]1\[RightDoubleBracket]\ x\_1 + 
+              s\[LeftDoubleBracket]2\[RightDoubleBracket]\ x\_2 +  ... \) + 
+          s\[LeftDoubleBracket]k\[RightDoubleBracket]\ x\_k == n\)],
+    FontWeight->"Bold"],
+  "  \nby running ",
+  Cell[BoxData[
+      \(CH[s, n]\)],
+    FontWeight->"Bold"],
+  ".  So, if the count is ",
+  StyleBox["positive",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we know ",
+  StyleBox["there is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a solution.  We would like ",
+  StyleBox["to find",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the (unique) solution that uses ",
+  StyleBox["the least number",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  Cell[BoxData[
+      \(s\[LeftDoubleBracket]1\[RightDoubleBracket]\)],
+    FontWeight->"Bold"],
+  " coins, ",
+  StyleBox["the least number",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  Cell[BoxData[
+      \(s\[LeftDoubleBracket]2\[RightDoubleBracket]\)],
+    FontWeight->"Bold"],
+  " coins, ",
+  StyleBox["etc. ",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["Hint: ",
+    FontWeight->"Bold"],
+  "A recursive program calling up ",
+  Cell[BoxData[
+      \(CH\)],
+    FontWeight->"Bold"],
+  " many times should do it.  But, be careful about ",
+  StyleBox["efficiency",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  And, be sure to ",
+  StyleBox["justify",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " your solution."
+}], "Text",
+  ImageRegion->{{0, 1}, {0, 1}},
+  FontSize->18,
+  Background->RGBColor[1, 0.507027, 0.490028]],
+
+Cell[TextData[{
+  StyleBox["Warning:",
+    FontWeight->"Bold"],
+  " In running your program, it may be necessary to set the ",
+  Cell[BoxData[
+      \($RecursionLimit\)],
+    FontWeight->"Bold"],
+  " to ",
+  Cell[BoxData[
+      \(n\)],
+    FontWeight->"Bold"],
+  " (or a little larger)."
+}], "Text",
+  Background->RGBColor[1, 1, 0]]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"4.0 for Macintosh",
+ScreenRectangle->{{0, 1024}, {0, 748}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Presentation",
+WindowSize->{956, 721},
+WindowMargins->{{-2, Automatic}, {Automatic, 1}},
+Magnification->1.25,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00<0001804P000000]P2:?oQon82n@960dL5:0?l0080001804P000000]P2:001
+0000I00000400`<300000BL?00400@00000000000000060801T1T00000000000
+00000000000000000000000000000000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1717, 49, 160, 5, 135, "Title"],
+Cell[1880, 56, 250, 9, 76, "Subtitle"],
+Cell[2133, 67, 241, 8, 42, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2399, 79, 48, 0, 92, "Section"],
+
+Cell[CellGroupData[{
+Cell[2472, 83, 45, 0, 78, "Subsection"],
+Cell[2520, 85, 253, 10, 228, "Text"],
+Cell[2776, 97, 136, 3, 73, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[2949, 105, 37, 0, 42, "Subsection"],
+Cell[2989, 107, 350, 14, 71, "Text"],
+Cell[3342, 123, 263, 10, 48, "Text"],
+Cell[3608, 135, 1004, 40, 140, "Text"],
+Cell[4615, 177, 271, 10, 48, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4923, 192, 70, 1, 42, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[5018, 197, 48, 0, 65, "Subsubsection"],
+Cell[5069, 199, 228, 7, 76, "Text"],
+Cell[5300, 208, 115, 2, 68, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5452, 215, 43, 0, 37, "Subsubsection"],
+Cell[5498, 217, 582, 23, 76, "Text"],
+Cell[6083, 242, 427, 9, 193, "Input"],
+Cell[6513, 253, 389, 14, 76, "Text"],
+Cell[6905, 269, 2022, 75, 340, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8964, 349, 44, 0, 37, "Subsubsection"],
+Cell[9011, 351, 308, 15, 48, "Text"],
+Cell[9322, 368, 117, 2, 68, "Input"],
+Cell[9442, 372, 153, 6, 48, "Text"],
+Cell[9598, 380, 218, 6, 168, "Input"],
+Cell[9819, 388, 319, 11, 70, "Text"],
+Cell[10141, 401, 92, 1, 68, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10270, 407, 50, 0, 65, "Subsubsection"],
+Cell[10323, 409, 220, 6, 48, "Text"],
+Cell[10546, 417, 123, 2, 68, "Input"],
+Cell[10672, 421, 223, 6, 168, "Input"],
+Cell[10898, 429, 140, 6, 42, "Text"],
+Cell[11041, 437, 93, 1, 68, "Input"],
+Cell[11137, 440, 206, 7, 42, "Text"],
+Cell[11346, 449, 120, 2, 71, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11503, 456, 37, 0, 65, "Subsubsection"],
+Cell[11543, 458, 296, 10, 76, "Text"],
+Cell[11842, 470, 120, 2, 68, "Input"],
+Cell[11965, 474, 223, 6, 168, "Input"],
+Cell[12191, 482, 128, 6, 42, "Text"],
+Cell[12322, 490, 93, 1, 68, "Input"],
+Cell[12418, 493, 39, 0, 42, "Text"],
+Cell[12460, 495, 124, 2, 71, "Input"],
+Cell[12587, 499, 58, 4, 122, "Text"],
+Cell[12648, 505, 322, 12, 71, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[13019, 523, 68, 1, 42, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[13112, 528, 45, 0, 65, "Subsubsection"],
+Cell[13160, 530, 990, 35, 132, "Text"],
+Cell[14153, 567, 159, 3, 105, "Input"],
+Cell[14315, 572, 38, 0, 48, "Text"],
+Cell[14356, 574, 41, 1, 68, "Input"],
+Cell[14400, 577, 346, 11, 74, "Text"],
+Cell[14749, 590, 100, 2, 94, "Input"],
+Cell[14852, 594, 764, 30, 74, "Text"],
+Cell[15619, 626, 103, 2, 94, "Input"],
+Cell[15725, 630, 942, 38, 108, "Text"],
+Cell[16670, 670, 236, 4, 99, "Input"],
+Cell[16909, 676, 1100, 39, 126, "Text"],
+Cell[18012, 717, 224, 4, 213, "Input"],
+Cell[18239, 723, 1212, 44, 154, "Text"],
+Cell[19454, 769, 497, 14, 104, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[19988, 788, 53, 0, 65, "Subsubsection"],
+Cell[20044, 790, 106, 2, 68, "Input"],
+Cell[20153, 794, 107, 2, 59, "Input"],
+Cell[20263, 798, 107, 2, 59, "Input"],
+Cell[20373, 802, 229, 8, 42, "Text"],
+Cell[20605, 812, 92, 1, 68, "Input"],
+Cell[20700, 815, 522, 20, 62, "Text"],
+Cell[21225, 837, 234, 9, 68, "Text"],
+Cell[21462, 848, 209, 7, 48, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[21732, 862, 41, 0, 56, "Section"],
+
+Cell[CellGroupData[{
+Cell[21798, 866, 110, 4, 78, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[21933, 874, 116, 4, 65, "Subsubsection"],
+Cell[22052, 880, 683, 25, 133, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[22772, 910, 116, 4, 65, "Subsubsection"],
+Cell[22891, 916, 590, 20, 133, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[23518, 941, 116, 4, 37, "Subsubsection"],
+Cell[23637, 947, 316, 10, 71, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[23990, 962, 116, 4, 37, "Subsubsection"],
+Cell[24109, 968, 433, 16, 102, "Text"],
+Cell[24545, 986, 66, 1, 69, "Input"],
+Cell[24614, 989, 65, 1, 69, "Input"],
+Cell[24682, 992, 286, 10, 71, "Text"],
+Cell[24971, 1004, 87, 1, 108, "Input"],
+Cell[25061, 1007, 116, 2, 108, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[25214, 1014, 116, 4, 65, "Subsubsection"],
+Cell[25333, 1020, 565, 21, 102, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[25935, 1046, 116, 4, 65, "Subsubsection"],
+Cell[26054, 1052, 707, 28, 133, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[26798, 1085, 116, 4, 37, "Subsubsection"],
+Cell[26917, 1091, 1148, 44, 195, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[28114, 1141, 112, 4, 42, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[28251, 1149, 47, 0, 65, "Subsubsection"],
+Cell[28301, 1151, 230, 8, 68, "Text"],
+Cell[28534, 1161, 1293, 48, 195, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[29864, 1214, 35, 0, 37, "Subsubsection"],
+Cell[29902, 1216, 1667, 57, 223, "Text"],
+Cell[31572, 1275, 354, 6, 193, "Input"],
+Cell[31929, 1283, 318, 12, 48, "Text"],
+Cell[32250, 1297, 99, 2, 93, "Input"],
+Cell[32352, 1301, 180, 6, 42, "Text"],
+Cell[32535, 1309, 53, 1, 68, "Input"],
+Cell[32591, 1312, 187, 7, 42, "Text"],
+Cell[32781, 1321, 59, 1, 68, "Input"],
+Cell[32843, 1324, 551, 20, 70, "Text"],
+Cell[33397, 1346, 70, 1, 68, "Input"],
+Cell[33470, 1349, 420, 16, 42, "Text"],
+Cell[33893, 1367, 104, 2, 93, "Input"],
+Cell[34000, 1371, 202, 6, 42, "Text"],
+Cell[34205, 1379, 143, 3, 68, "Input"],
+Cell[34351, 1384, 164, 6, 42, "Text"],
+Cell[34518, 1392, 104, 2, 93, "Input"],
+Cell[34625, 1396, 37, 0, 42, "Text"],
+Cell[34665, 1398, 143, 3, 68, "Input"],
+Cell[34811, 1403, 328, 13, 42, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[35188, 1422, 112, 4, 42, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[35325, 1430, 53, 0, 65, "Subsubsection"],
+Cell[35381, 1432, 2334, 81, 367, "Text"],
+Cell[37718, 1515, 332, 13, 68, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

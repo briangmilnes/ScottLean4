@@ -17,6 +17,7 @@ are linked per section.
 | `FromGregoireRosu/` | 2 | 296K | Mesnard et al. LPTP (arXiv, CC-BY) PDF + `sqrt2.pl` |
 | `cheatsheets/` | 1 | 176K | Lean community tactics cheatsheet |
 | `MathTexts/ProjectiveGeometry/` | 11 | 80M | 5 public-domain texts (Veblen & Young Vols 1–2, Cremona, Filon, Whitehead) as PDF + OCR text, plus `README.md` survey |
+| `MathTexts/DifferentialGeometry/` | 12 | 32M | 4 freely-posted DG lecture notes (Robbin–Salamon, Sharipov, Shifrin, DiffGeomNotes) as PDF + text + 4 notebooks; do Carmo scan kept local (commercial, image-only) |
 | `docs/` | 4 | — | this file + the detail docs below |
 | `plans/`, `reports/` | — | — | placeholders |
 
