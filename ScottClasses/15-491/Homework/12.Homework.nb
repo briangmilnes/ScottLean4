@@ -1,0 +1,596 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     11478,        487]*)
+(*NotebookOutlinePosition[     12205,        513]*)
+(*  CellTagsIndexPosition[     12161,        509]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 12   Projective Geometry\n",
+  StyleBox["Homework",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it.\nName the file: \
+12.yourlastname.nb\nPlease hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Monday, 16 November",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[".\nSave it in your subdirectory of\nthe class handin directory.",
+    FontSize->12,
+    FontWeight->"Bold"]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[StyleBox["Name: xxxxxxxxx",
+  FontSize->16]], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "1. Degeneracy and singularity ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question",
+    FontWeight->"Bold"],
+  "  Which of the following cubics are ",
+  StyleBox["degenerate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " or ",
+  StyleBox["singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and why?\n\t",
+  StyleBox["(1)",
+    FontWeight->"Bold"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(\((x + y + z)\)\^3\),
+        FontWeight->"Bold"]]],
+  "\n\t",
+  StyleBox["(2) ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(\((x + y)\)\^3\),
+          FontWeight->"Bold"], 
+        StyleBox["+",
+          FontWeight->"Bold"], 
+        StyleBox[\(z\^3\),
+          FontWeight->"Bold"]}]]],
+  "\n\t",
+  StyleBox["(3)",
+    FontWeight->"Bold"],
+  "  ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{\(x\^3\), "+", 
+          SuperscriptBox[
+            StyleBox["y",
+              FontWeight->"Bold"], "3"], "+", 
+          SuperscriptBox[
+            StyleBox["z",
+              FontWeight->"Bold"], "3"]}],
+        FontWeight->"Bold"]]],
+  "\n\t",
+  StyleBox["(4)",
+    FontWeight->"Bold"],
+  "  ",
+  Cell[BoxData[
+      StyleBox[\(y\^3 + x\^2\ z + 2\ y\^2\ z + y\ z\^2\),
+        FontWeight->"Bold"]]],
+  "\n\t",
+  StyleBox["(5)",
+    FontWeight->"Bold"],
+  "  ",
+  Cell[BoxData[
+      StyleBox[\(z\^3 + x\ y\^2\),
+        FontWeight->"Bold"]]]
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "2. A pencil of cubics ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  The pencil of cubics can be based on degenerate cubics, for example, \
+consider ",
+  Cell[BoxData[
+      StyleBox[\(s\ x\ y\ z + t\ \((x - y)\) \((x\^2 + y\^2 - z\^2)\)\),
+        FontWeight->"Bold"]]],
+  ".  Can you find ",
+  Cell[BoxData[
+      StyleBox["8",
+        FontWeight->"Bold"]]],
+  " points common to ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " these cubics?  Why can you ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " find ",
+  Cell[BoxData[
+      StyleBox["9",
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2. ",
+    FontWeight->"Bold"],
+  " Are there ",
+  StyleBox["non-degenerate and non-singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " cubics in this pencil?  Aside from all passing through the ",
+  Cell[BoxData[
+      StyleBox["8",
+        FontWeight->"Bold"]]],
+  " points, do they share ",
+  StyleBox["any other feature",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "3. Inflection points ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Find the three ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " inflection points of the cubic ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\^2 + y\ z\^2 + z\ x\^2\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint.",
+    FontWeight->"Bold"],
+  "  If you try to solve algebraic equations, then maybe ",
+  Cell[BoxData[
+      StyleBox["ComplexSimplify",
+        FontWeight->"Bold"]]],
+  " will put the answers in a more readable form."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  What about the ",
+  StyleBox["other six",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " inflection points?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint.",
+    FontWeight->"Bold"],
+  "  Only look at them ",
+  StyleBox["numerically",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "4. Conic polars of a cubic ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1  ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  Given a cubic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " and a point ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ", the ",
+  StyleBox["conic polar ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " relative to ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is the conic ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, p]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Three questions:",
+  StyleBox["\n(1) ",
+    FontWeight->"Bold"],
+  "Why is the conic polar of a nd cubic (= ",
+  StyleBox["non-degenerate cubic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") always ",
+  StyleBox["well defined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?",
+  StyleBox["\n(2) ",
+    FontWeight->"Bold"],
+  "Is ",
+  StyleBox["every",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " nd conic the conic polar of ",
+  StyleBox["some",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point with respect to ",
+  StyleBox["some",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " nd cubic?",
+  StyleBox["\n(3)",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["Fix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a nd cubic.  Is ",
+  StyleBox["every",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " nd conic the conic polar of ",
+  StyleBox["some",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point with respect to ",
+  StyleBox["this",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " cubic?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2  ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  StyleBox["Fix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a ",
+  StyleBox["pencil",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " generated by two nd cubics.  Is ",
+  StyleBox["every",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " conic the conic ",
+  StyleBox["polar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of some point with respect to ",
+  StyleBox["some",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " cubic in this pencil?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{783, 554},
+WindowMargins->{{Automatic, 183}, {129, Automatic}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 178, 7, 73, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1890, 58, 99, 2, 28, "Text"],
+Cell[1992, 62, 451, 14, 120, "Subsubtitle"],
+Cell[2446, 78, 74, 1, 60, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2545, 83, 178, 6, 46, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2748, 93, 111, 4, 37, "Subsubsection"],
+Cell[2862, 99, 1392, 58, 194, "Text"]
+}, Closed]],
+Cell[4269, 160, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4443, 168, 170, 6, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[4638, 178, 113, 4, 37, "Subsubsection"],
+Cell[4754, 184, 687, 26, 62, "Text"]
+}, Closed]],
+Cell[5456, 213, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[5618, 220, 113, 4, 37, "Subsubsection"],
+Cell[5734, 226, 475, 17, 62, "Text"]
+}, Closed]],
+Cell[6224, 246, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6398, 254, 169, 6, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[6592, 264, 113, 4, 37, "Subsubsection"],
+Cell[6708, 270, 342, 13, 44, "Text"],
+Cell[7053, 285, 297, 9, 44, "Text"]
+}, Closed]],
+Cell[7365, 297, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[7527, 304, 113, 4, 37, "Subsubsection"],
+Cell[7643, 310, 232, 9, 44, "Text"],
+Cell[7878, 321, 213, 9, 44, "Text"]
+}, Closed]],
+Cell[8106, 333, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8280, 341, 175, 6, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[8480, 351, 114, 4, 37, "Subsubsection"],
+Cell[8597, 357, 639, 29, 44, "Text"],
+Cell[9239, 388, 1181, 50, 134, "Text"]
+}, Closed]],
+Cell[10435, 441, 137, 3, 29, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[10597, 448, 114, 4, 37, "Subsubsection"],
+Cell[10714, 454, 596, 24, 44, "Text"]
+}, Closed]],
+Cell[11325, 481, 137, 3, 29, "Subsubsection"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

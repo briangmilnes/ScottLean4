@@ -1,0 +1,2241 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     49419,       1935]*)
+(*NotebookOutlinePosition[     50346,       1965]*)
+(*  CellTagsIndexPosition[     50302,       1961]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 2   Projective Geometry\n",
+  StyleBox["Extra Material on Complex Numbers",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\n\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["6 September 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["The Roots of Unity, Again", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Relating them", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Question 1.", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "Look again at the ",
+  StyleBox["5th",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of ",
+  StyleBox["unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and of ",
+  StyleBox["minus unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[BoxData[
+    \(RootPlot[z\^5 == 1, z, 10, \n\t
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-1.1\), 1.1}}]; \n
+    RootPlot[z\^5 == \(-1\), z, 10, \n\t
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-1.1\), 1.1}}]; \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Animate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the two pictures and ask how the two arrangements of points are ",
+  StyleBox["related",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". And generalize this question to any ",
+  StyleBox["odd",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " power."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Answer", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  "If ",
+  Cell[BoxData[
+      StyleBox[\(n == 2\ k + 1\),
+        FontWeight->"Bold"]]],
+  " is an odd number, then ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  " is an ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " root of ",
+  StyleBox["+1", "InlineInput",
+    FontWeight->"Bold"],
+  " if, and only if, ",
+  StyleBox["-z", "InlineInput",
+    FontWeight->"Bold"],
+  " is an ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "root of ",
+  StyleBox["-1", "InlineInput",
+    FontWeight->"Bold"],
+  ".  This is obvious because, by algebra, ",
+  Cell[BoxData[
+      StyleBox[\(\((\(-z\))\)\^n == \(-z\^n\)\),
+        FontWeight->"Bold"]]],
+  ", when ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " is odd. (This was also obvious in the pictures.)"
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Question 2.", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "Look again at the ",
+  StyleBox["6th",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of ",
+  StyleBox["unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and of ",
+  StyleBox["minus unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[BoxData[
+    \(RootPlot[z\^6 == 1, z, 10, \n\t
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-1.1\), 1.1}}]; \n
+    RootPlot[z\^6 == \(-1\), z, 10, \n\t
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-1.1\), 1.1}}]; \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Animate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the two pictures and ask how the two arrangements of points are ",
+  StyleBox["related",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". And generalize this question to any ",
+  StyleBox["even",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " power."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Answer", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  "Ah, ha, the relationship is not so easy, since if ",
+  Cell[BoxData[
+      StyleBox[\(n == 2\ k\),
+        FontWeight->"Bold"]]],
+  " is an even number, then  ",
+  Cell[BoxData[
+      StyleBox[\(\((\(-z\))\)\^n == z\^n\),
+        FontWeight->"Bold"]]],
+  ", and the minus trick does ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " work.  But the ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of unity \[LongDash] or any other complex number of absolute value \
+",
+  StyleBox["1", "InlineInput",
+    FontWeight->"Bold"],
+  " \[LongDash] always form a ",
+  StyleBox["regular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["n-gon",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Therefore, any one picture is the ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of another one.  "
+}], "Text"],
+
+Cell[TextData[{
+  "From the animation, we see that the angle of rotation is ",
+  StyleBox["half",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the angle used in forming the ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  "-gon.  So, let ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  " be a ",
+  StyleBox["kth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " root of ",
+  StyleBox["I", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Then, ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  " is an ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " root of ",
+  StyleBox["+1", "InlineInput",
+    FontWeight->"Bold"],
+  " if, and only if, ",
+  StyleBox["w*z", "InlineInput"],
+  " is an ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "root of ",
+  StyleBox["-1", "InlineInput",
+    FontWeight->"Bold"],
+  ".  This is (almost) obvious because, by algebra, we have:\n            ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(\((w\ z)\)\^n\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[\(\(w\^n\) z\^n\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], \(\(w\^\(2\ k\)\) z\^n\), "==", 
+        \(\(w\^\(k\ 2\)\) z\^n\), "==", \(\(I\^2\) z\^n\), "==", 
+        \(-z\^n\)}]],
+    FontWeight->"Bold"],
+  ",",
+  StyleBox["\n",
+    FontWeight->"Bold"],
+  "because ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " is even.  So, one picture is the rotation of the other by the angle of ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "By the way, it is easy to check that ",
+  Cell[BoxData[
+      \(w\^2\)],
+    FontWeight->"Bold"],
+  "is an ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " root of unity.  If we take ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " with the ",
+  StyleBox["least positive angles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then ",
+  Cell[BoxData[
+      StyleBox[\(w\^2 == z\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  " has ",
+  StyleBox["half",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the angle of ",
+  StyleBox["z", "InlineInput"],
+  "."
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Adding them", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Question 1.", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "What is the ",
+  StyleBox["sum",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of all the ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of ",
+  StyleBox["unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Answer", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["Here are two trials.", "Text"],
+
+Cell[BoxData[
+    \(Plus@@\((z /. Solve[z\^5 == 1, z])\)\)], "Input"],
+
+Cell[BoxData[
+    \(Plus@@\((z /. Solve[z\^6 == 1, z])\)\)], "Input"],
+
+Cell["\<\
+Hmmm.  The first is not too helpful in that form.  Do it \
+again.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Plus@@\((z /. Solve[z\^5 == 1, z])\) // ComplexSimplify\)], "Input"],
+
+Cell[TextData[{
+  "That is better.  The ",
+  StyleBox["conjecture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is that the sum is ",
+  StyleBox["always",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Because of the regular arrangement, we can always let ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " be the root with ",
+  StyleBox["least positive angle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and then the whole set of roots is ",
+  Cell[BoxData[
+      StyleBox[\({1, z, z\^2,  ... , z\^\(n - 1\)}\),
+        FontWeight->"Bold"]]],
+  ".  Let is look at a particular sum in algebraic form."
+}], "Text"],
+
+Cell[BoxData[
+    \(sum7 = Plus@@\(z\^Range[0, 6]\)\)], "Input"],
+
+Cell[TextData[{
+  "We are thinking here of the ",
+  StyleBox["7th",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of unity.  Let us multiply by ",
+  Cell[BoxData[
+      StyleBox[\(1 - z\),
+        FontWeight->"Bold"]]],
+  ".  (This is an old algebraic trick!)"
+}], "Text"],
+
+Cell[BoxData[
+    \(\((1 - z)\) sum7 // Expand\)], "Input"],
+
+Cell[TextData[{
+  "Yes!  That ",
+  StyleBox["must be ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Question 2.", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "What is the ",
+  StyleBox["sum",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of all the ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of ",
+  StyleBox["minus unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Answer", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " algebra will not work.  But if the set ",
+  Cell[BoxData[
+      StyleBox[\({1, z, z\^2,  ... , z\^\(n - 1\)}\),
+        FontWeight->"Bold"]]],
+  " gives the ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of unity, then, by a suitable choice of ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  ", the set \n                    ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["{",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["w",
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          StyleBox[\(w\ z\),
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          StyleBox[
+            RowBox[{"w", 
+              StyleBox[" ",
+                FontWeight->"Bold"], 
+              StyleBox[\(z\^2\),
+                FontWeight->"Bold"]}],
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          StyleBox["...",
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          StyleBox[\(w\ z\^\(n - 1\)\),
+            FontWeight->"Bold"]}], 
+        StyleBox["}",
+          FontWeight->"Bold"]}]]],
+  "\ngives the ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of ",
+  StyleBox["minus unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", as we saw earlier.  The sum is again ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  ". (Why?)"
+}], "Text"],
+
+Cell[TextData[{
+  "By the way, if the complex numbers (",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") ",
+  Cell[BoxData[
+      StyleBox[\({z\_0, z\_1, z\_2,  ... , z\_\(n - 1\)}\),
+        FontWeight->"Bold"]]],
+  " form a regular ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  "-gon, then the average  ",
+  Cell[BoxData[
+      StyleBox[\(\(\(z\_0 + z\_1 + z\_2 +  ... \) + z\_\(n - 1\)\)\/n\),
+        FontWeight->"Bold"]]],
+  " \[LongDash] taken as a vector sum \[LongDash]is the point at the ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the polygon (",
+  StyleBox["the center of gravity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ").  With the roots of ",
+  StyleBox["\[PlusMinus]1", "InlineInput"],
+  ", the center is at ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  ".  This is another (geometric) reason why the sum of the roots of unity or \
+minus unity must be ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  ". "
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Multiplying them", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Question 1.", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "What is the ",
+  StyleBox["product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of all the ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of ",
+  StyleBox["unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Answer", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["We do some trials.", "Text"],
+
+Cell[BoxData[
+    \(Times@@\((z /. Solve[z\^6 == 1, z])\)\)], "Input"],
+
+Cell[BoxData[
+    \(Times@@\((z /. Solve[z\^7 == 1, z])\)\)], "Input"],
+
+Cell[BoxData[
+    \(Table[Times@@\((z /. Solve[z\^n == 1, z])\), {n, 1, 10}]\)], "Input"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["conjecture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is that the product is ",
+  StyleBox["1", "InlineInput",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["n", "InlineInput"],
+  " is ",
+  StyleBox["odd",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["-1", "InlineInput"],
+  " if ",
+  StyleBox["n", "InlineInput"],
+  " is ",
+  StyleBox["even",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Here is the algebraic proof.  If ",
+  StyleBox["z", "InlineInput"],
+  " is an ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " root of unity, then so is ",
+  StyleBox["Conjugate[z]", "InlineInput"],
+  StyleBox[
+  ", in view of the automorphism principle.  But, we know,\n                 \
+",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(z\ Conjugate[z] == Abs[z]\^2 == 1\),
+        FontWeight->"Bold"]]],
+  StyleBox[",\nin this case.",
+    FontWeight->"Plain"]
+}], "Text"],
+
+Cell[TextData[{
+  "Now, when ",
+  StyleBox["n", "InlineInput"],
+  " is ",
+  StyleBox["odd",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the roots of unity group themselves into ",
+  Cell[BoxData[
+      StyleBox[\(\(n - 1\)\/2\),
+        FontWeight->"Bold"]]],
+  " conjugate ",
+  StyleBox["pairs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers together with the real number ",
+  StyleBox["+1", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Clearly, then, the product of all of them is ",
+  StyleBox["+1", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Next, when ",
+  StyleBox["n", "InlineInput"],
+  " is ",
+  StyleBox["even",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the roots of unity group themselves into ",
+  Cell[BoxData[
+      StyleBox[\(\(n - 2\)\/2\),
+        FontWeight->"Bold"]]],
+  " conjugate ",
+  StyleBox["pairs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers together with the ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " real number ",
+  StyleBox["\[PlusMinus]1", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Clearly, then, the product of all of them is ",
+  StyleBox["-1", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Question 2.", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "What is the ",
+  StyleBox["product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of all the ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots of ",
+  StyleBox["minus unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Answer", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["We do some trials, as before.", "Text"],
+
+Cell[BoxData[
+    \(Table[Times@@\((z /. Solve[z\^n == \(-1\), z])\), {n, 1, 10}]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["conjecture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is that the product is ",
+  StyleBox["-1", "InlineInput",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["n", "InlineInput"],
+  " is ",
+  StyleBox["odd",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["1", "InlineInput"],
+  " if ",
+  StyleBox["n", "InlineInput"],
+  " is ",
+  StyleBox["even",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Algebra to the rescue.  If ",
+  StyleBox["z", "InlineInput"],
+  " is an ",
+  StyleBox["nth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " root of minus unity, then so is ",
+  StyleBox["Conjugate[z]", "InlineInput"],
+  StyleBox[
+  ", again, in view of the automorphism principle.  And, we know that\n       \
+          ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(z\ Conjugate[z] == Abs[z]\^2 == 1\),
+        FontWeight->"Bold"]]],
+  StyleBox[",\nas before.",
+    FontWeight->"Plain"]
+}], "Text"],
+
+Cell[TextData[{
+  "Now, when ",
+  StyleBox["n", "InlineInput"],
+  " is ",
+  StyleBox["odd",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the roots of minus unity group themselves into ",
+  Cell[BoxData[
+      StyleBox[\(\(n - 1\)\/2\),
+        FontWeight->"Bold"]]],
+  " conjugate ",
+  StyleBox["pairs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers together with the real number ",
+  StyleBox["-1", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Clearly, then, the product of all of them is ",
+  StyleBox["-1", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Next, when ",
+  StyleBox["n", "InlineInput"],
+  " is ",
+  StyleBox["even",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", none of the the roots of minus unity is ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", so they group themselves into ",
+  Cell[BoxData[
+      StyleBox[\(n\/2\),
+        FontWeight->"Bold"]]],
+  " conjugate ",
+  StyleBox["pairs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers. Clearly, then, the product of all of them is ",
+  StyleBox["+1", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The Mandelbrot Set", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Definitions", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Mandelbrot", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Note: ",
+    FontWeight->"Bold"],
+  "See the material from Bernt Wahl: ",
+  StyleBox["Exploring Fractals on the Macintosh",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " given out in class for historical background."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "At the height of the excitement over \"chaos theory\", the ",
+  StyleBox["Economist",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " magazine said that the Mandelbrot set is \"the most complicated thing \
+ever studied by mathematicians.\"  This is nonsense, of course.  Despite the \
+fact that many properties of the Mandelbrot set are quite hard to prove (say, \
+that it is topologically simply connected), it has an easy definition.  \
+Despite the fact that it is very wiggly on its boundary, there are \
+higher-dimensional analogues that are even more complicated and harder to \
+analyze.  And this complication is nothing compared to many questions faced \
+by mathematicians in topological dynamics, for example.  But, let us not \
+disparage the good set, and let us see how it is defined using ",
+  StyleBox["complex numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontSlant->"Italic"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  A point ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " (a complex number) is in the Mandelbrot set ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " if, and only if, the iteration  ",
+  Cell[BoxData[
+      StyleBox[\(z\_0 = \ 0\),
+        FontWeight->"Bold"]]],
+  ",  ",
+  Cell[BoxData[
+      StyleBox[\(z\_\(n + 1\) = z\_n\%2 + c\),
+        FontWeight->"Bold"]]],
+  "  remains ",
+  StyleBox["bounded",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in absolute value for all ",
+  StyleBox["n", "InlineInput"],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "On a computer it is hard to carry out an ",
+  StyleBox["infinite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " iteration, so we are glad that there is a result (which we cannot prove \
+here) which helps limit drastically ",
+  StyleBox["some",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the computation."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The above iteration \[LongDash] for a given number ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " \[LongDash] is ",
+  StyleBox["unbounded",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, and only if at some stage ",
+  StyleBox["n", "InlineInput"],
+  " we find ",
+  Cell[BoxData[
+      \(\( | z\_n | \( > \ 2\)\)\)],
+    FontWeight->"Bold"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Note that the automorphism principle for the ",
+  StyleBox["Conjugate", "InlineInput"],
+  " operation implies:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Proposition.",
+    FontWeight->"Bold"],
+  "  A given number ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " is in the Mandelbrot set ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  "  if, and only if  ",
+  StyleBox["Conjugate[c]", "InlineInput"],
+  " is also in the set."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "The reason is that the conjugate of the iteration for ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " is is the iteration for ",
+  StyleBox["Conjugate[c]", "InlineInput"],
+  ".  So, one is bounded if, and only if, the other is.  In other words, the \
+Mandelbrot set is ",
+  StyleBox["symmetric",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " about the real axis."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Julia", "Subsubsection"],
+
+Cell[TextData[{
+  "There are closely related sets called ",
+  StyleBox["Julia sets",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  Given a complex number ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " , the Julia set ",
+  Cell[BoxData[
+      StyleBox[\(J\_c\),
+        FontWeight->"Bold"]]],
+  " consists of those complex numbers ",
+  StyleBox["d", "InlineInput"],
+  " such that the iteration  ",
+  Cell[BoxData[
+      StyleBox[\(z\_0 = \ d\),
+        FontWeight->"Bold"]]],
+  ",  ",
+  Cell[BoxData[
+      RowBox[{" ", 
+        StyleBox[\(z\_\(n + 1\) = z\_n\%2 + c\),
+          FontWeight->"Bold"]}]]],
+  "  remains ",
+  StyleBox["bounded",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in absolute value for all ",
+  StyleBox["n", "InlineInput"],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["The following statements are easy to prove.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Proposition.",
+    FontWeight->"Bold"],
+  "  A given number ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " is in the Mandelbrot set ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  "  if, and only if  ",
+  StyleBox["0", "InlineInput"],
+  " is in the Julia set ",
+  Cell[BoxData[
+      StyleBox[\(J\_c\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proposition.",
+    FontWeight->"Bold"],
+  "  A complex number ",
+  StyleBox["d", "InlineInput",
+    FontWeight->"Bold"],
+  " is in the Julia set ",
+  Cell[BoxData[
+      StyleBox[\(J\_c\),
+        FontWeight->"Bold"]]],
+  "  if, and only if  ",
+  StyleBox["-d", "InlineInput"],
+  " is in ",
+  Cell[BoxData[
+      StyleBox[\(J\_c\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "In other words, every Julia set is ",
+  StyleBox["symmetric",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " about origin ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[".", "InlineInput"]
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Some computations", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Mandelbrot", "Subsubsection"],
+
+Cell[TextData[{
+  "There are ",
+  StyleBox["scores",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of programs for various computers that do the computations and the \
+graphics for the Mandelbrot and Julia sets very, very efficiently.  However, \
+we can do some limited, but interesting exploration in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " with actually very little programming \[LongDash] in order to illustrate \
+the use of ",
+  StyleBox["complex arithmetic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Since, we will have to do a lot of iteration, we remove ",
+  StyleBox["for the time being",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " any built-in limits on recursion."
+}], "Text"],
+
+Cell[BoxData[
+    \(\($RecursionLimit = \[Infinity]; \)\)], "Input"],
+
+Cell[TextData[{
+  "Let ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " be a given, fixed ",
+  StyleBox["complex number",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Let ",
+  StyleBox["i", "InlineInput",
+    FontWeight->"Bold"],
+  " be a ",
+  StyleBox["cut-off value",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for doing an iteration.  Then, a ",
+  StyleBox["stage",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "of the iteration is said to be ",
+  StyleBox["good",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "if either the cut-off has been reached or if the ",
+  StyleBox["value",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "of the iteration is small in absolute value ",
+  StyleBox["and",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the ",
+  StyleBox["next",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " iteration is still good.  Here is a ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " definition.  ",
+  "The way the command ",
+  Cell[BoxData[
+      StyleBox[\(Good[0, c, 0, 100]\),
+        FontWeight->"Bold"]]],
+  " works is that it starts the iteration from ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  ", and as soon as a value is found of absolute value greater than ",
+  StyleBox["2", "InlineInput",
+    FontWeight->"Bold"],
+  ", is says ",
+  StyleBox["False", "InlineInput",
+    FontWeight->"Bold"],
+  ".  However, if the absolute-value limit is not exceeded by stage ",
+  StyleBox["100", "InlineInput",
+    FontWeight->"Bold"],
+  ", it says ",
+  StyleBox["True", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Good[n_, c_, z_, i_] := 
+      If[\tn == i, \ True, \n\t
+        If[Abs[z] > 2, False, Good[n + 1, c, z\^2 + c, i]]]\)], "Input"],
+
+Cell[TextData[{
+  "We can make a table of calculations for some of the reals ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " between ",
+  StyleBox["-3", "InlineInput"],
+  " and ",
+  StyleBox["+3", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Table[{c, Good[0, c, 0, 100]}, {c, \(-3\), 3, 0.1}] // TableForm\)], 
+  "Input"],
+
+Cell[TextData[{
+  "And  here is a table of calculations for some complex ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " between ",
+  StyleBox["-3-3 I", "InlineInput"],
+  " and ",
+  StyleBox["3+3 I", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Table[{c + I\ c, Good[0, c\  + \ I\ c, 0, 100]}, \n
+        \t\t{c, \(-3\), 3, 0.1}] // TableForm\)], "Input"],
+
+Cell[TextData[{
+  "Looking at the two tables we calculated, we can say that all ",
+  StyleBox["False", "InlineInput",
+    FontWeight->"Bold"],
+  " entries are ",
+  StyleBox["definitely",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["not in",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the Mandelbrot set.  The ",
+  StyleBox["True", "InlineInput",
+    FontWeight->"Bold"],
+  " entries, on the other hand, are ",
+  StyleBox["likely",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to be in the set, ",
+  StyleBox["but we are not 100% sure",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  To be more careful, more calculation is needed.  For example, in the \
+interval from ",
+  StyleBox["-2.5", "InlineInput",
+    FontWeight->"Bold"],
+  " to ",
+  StyleBox["+1", "InlineInput",
+    FontWeight->"Bold"],
+  ", we can up the cut-off limit, take smaller steps, and we find:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Table[{c, Good[0, c, 0, 200]}, {c, \(-2.5\), 1, 0.05}] // TableForm\)], 
+  "Input"],
+
+Cell[TextData[{
+  "So, we see that many, many numbers outside the interval from ",
+  StyleBox["-2", "InlineInput",
+    FontWeight->"Bold"],
+  " to ",
+  StyleBox["+0.25", "InlineInput",
+    FontWeight->"Bold"],
+  " are in fact excluded.  And indeed, if a ",
+  StyleBox["positive",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " number is excluded, then so are all ",
+  StyleBox["larger",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " numbers.  (Why?) It is also easy to see that any number less that ",
+  StyleBox["-2", "InlineInput",
+    FontWeight->"Bold"],
+  " is also excluded. Here are some calculations."
+}], "Text"],
+
+Cell[BoxData[
+    \(NestList[#\^2 - 2&, 0, 10] // TableForm\)], "Input"],
+
+Cell[TextData[{
+  "The iteration for ",
+  StyleBox["c==-2", "InlineInput",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["stablizes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at ",
+  StyleBox["2", "InlineInput",
+    FontWeight->"Bold"],
+  ".  So ",
+  StyleBox["-2", "InlineInput",
+    FontWeight->"Bold"],
+  " is definitely ",
+  StyleBox["in",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the Mandelbrot set.  Here is a number just below."
+}], "Text"],
+
+Cell[BoxData[
+    \(NestList[#\^2 - 2.0001&, 0, 10] // TableForm\)], "Input"],
+
+Cell[TextData[{
+  "At stage ",
+  StyleBox["n==2", "InlineInput",
+    FontWeight->"Bold"],
+  ", the value is already over ",
+  StyleBox["2", "InlineInput",
+    FontWeight->"Bold"],
+  ".  It then inches up, and as soon it gets to ",
+  StyleBox["3", "InlineInput",
+    FontWeight->"Bold"],
+  " it ",
+  StyleBox["explodes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So, ",
+  StyleBox["-2.0001", "InlineInput"],
+  " is ",
+  StyleBox["not in",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the set.  But will it ",
+  StyleBox["always",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " explode eventually for any number below ",
+  StyleBox["-2", "InlineInput"],
+  "?  Here is a ",
+  StyleBox["symbolic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " computation."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(NestList[#\^2 - 2 - 1\/k&, 0, 10] // ExpandAll\) // TableForm\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Hmm.  It is a little hard to read.  It looks as though when ",
+  StyleBox["k", "InlineInput",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["positive",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the iteration for the choice of ",
+  Cell[BoxData[
+      StyleBox[\(c == \(-2\) - 1\/k\),
+        FontWeight->"Bold"]]],
+  " exceeds ",
+  StyleBox["2", "InlineInput",
+    FontWeight->"Bold"],
+  " at stage ",
+  StyleBox["n==2", "InlineInput",
+    FontWeight->"Bold"],
+  ", and then it inches up at stage ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " by more than some quantity ",
+  Cell[BoxData[
+      StyleBox[\(m\_n\/k\),
+        FontWeight->"Bold"]]],
+  ", where ",
+  Cell[BoxData[
+      StyleBox[\(m\_n\),
+        FontWeight->"Bold"]]],
+  " is a strictly increasing integer sequence.  If we could ",
+  StyleBox["prove",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that, we would know that ",
+  StyleBox["every",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " number less than ",
+  StyleBox["-2", "InlineInput",
+    FontWeight->"Bold"],
+  " is excluded.  (Why?) And, probably the proof is not too difficult!  "
+}], "Text"],
+
+Cell[TextData[{
+  "Let us examine next ",
+  Cell[BoxData[
+      StyleBox[\(c == 1\/4\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(NestList[#\^2 + 1\/4&, 0, 10] // TableForm\n\), 
+    \(\(% // N\) // TableForm\)}], "Input"],
+
+Cell[TextData[{
+  "It looks as though the iterates are inching up very slowly \[LongDash] but \
+will they become unbounded?  We look at some ",
+  StyleBox["critical ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "points for the iteration."
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[z == z\^2 + 1\/4, z]\)], "Input"],
+
+Cell[TextData[{
+  "Of course!  We should have seen before that ",
+  Cell[BoxData[
+      StyleBox[\(1\/2\),
+        FontWeight->"Bold"]]],
+  " is an important point.  Obviously, if ",
+  Cell[BoxData[
+      \(0 \[LessEqual] z \[LessEqual] 1\/2\)],
+    FontWeight->"Bold"],
+  ", then ",
+  Cell[BoxData[
+      StyleBox[\(z\^2 + 1\/4 \[LessEqual] 1\/2\),
+        FontWeight->"Bold"]]],
+  ".  Therefore, the iterates for ",
+  StyleBox["all numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " where we have ",
+  Cell[BoxData[
+      \(0 \[LessEqual] c \[LessEqual] 1\/4\)],
+    FontWeight->"Bold"],
+  " must be ",
+  StyleBox["bounded",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  For larger ",
+  StyleBox["c", "InlineInput"],
+  ", we can check the critical points."
+}], "Text"],
+
+Cell[BoxData[
+    \(Map[Apart, Solve[z == z^2 + 1/4 + 1/k, z], {3}]\)], "Input"],
+
+Cell[TextData[{
+  "These are complex, and so we do not get any hint about bounds for \
+convergence.  Let's do an example.  It takes many iterations to get above ",
+  Cell[BoxData[
+      StyleBox[\(1\/2\),
+        FontWeight->"Bold"]]],
+  ".  It takes even more to ",
+  StyleBox["explode",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Nest[N[#\^2 + 0.25000001, 30]&, 0, 20000]\n\), 
+    \(Nest[N[#\^2 + 0.25000001, 30]&, 0, 30000]\n\), 
+    \(Nest[N[#\^2 + 0.25000001, 30]&, 0, 31000]\n\), 
+    \(Nest[N[#\^2 + 0.25000001, 30]&, 0, 32000]\)}], "Input"],
+
+Cell["\<\
+A symbolic computation gives more of an indication as to what \
+happens.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(NestList[#1\^2 + 0.25 + 1/k&, 0, 10] // ExpandAll\) // TableForm\)], 
+  "Input"],
+
+Cell["\<\
+One has to be careful about interpreting floating-point, \
+approximate computations, but the above seems to give a good hint that there \
+is inching up in a way that will finally explode.\
+\>", "Text"],
+
+Cell[TextData[{
+  "Next, we try a ",
+  StyleBox["complex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["c", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(c = 0.5\ I + 0.2; \n
+    If[Good[0, c, 0, 200], \n\tnl = NestList[#1\^2 + c&, 0, 300]; \n\t
+      \(ArgandPlot[nl, 4, AxesOrigin \[Rule] {0, 0}, 
+          PlotRange -> {{\(-2\), 2}, {\(-2\), 2}}];\), \n\t\t"\<BAD\>"]\)], 
+  "Input"],
+
+Cell["\<\
+It would seem that the iterates converge to a limit (and, hence, \
+are bounded).  A small change is bad, however.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(c = 0.6\ I + 0.2; \n
+    If[Good[0, c, 0, 200], \n\tnl = NestList[#1\^2 + c&, 0, 300]; \n\t
+      \(ArgandPlot[nl, 4, AxesOrigin \[Rule] {0, 0}, 
+          PlotRange -> {{\(-2\), 2}, {\(-2\), 2}}];\), \n\t\t"\<BAD\>"]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "We can see the iterates do escape from the circle ",
+  StyleBox["|z|==2", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(c = 0.6\ I + 0.2; \nnl = NestList[#1\^2 + c&, 0, 16]; \n\t
+    ArgandPlot[nl, 4, AxesOrigin \[Rule] {0, 0}]; \)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Julia", "Subsubsection"],
+
+Cell[TextData[{
+  "The computations for particular starting points for Julia sets are very \
+similar to what we just tried out for the Mandelbrot set.  So, there is not \
+much point showing any here.  It will be more interesting to look at the \
+comparative behavior of inputs over a whole ",
+  StyleBox["square of values",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the complex plane."
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Some broader pictures", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Mandelbrot", "Subsubsection"],
+
+Cell["\<\
+First, a rather rough picture of the set, obtained from just \
+checking whether points are good or bad.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(DensityPlot[
+      If[Good[0, x + I\ y, 0, 100], 0, 1], {x, \(-\(9\/4\)\), 3\/4}, {y, 
+        \(-\(3\/2\)\), 3\/2}, \n\tMesh \[Rule] False, PlotPoints \[Rule] 50]; 
+    \)\)], "Input",
+  AnimationCycleOffset->1,
+  AnimationCycleRepetitions->Infinity],
+
+Cell["To get more detail, more plot points are required.", "Text"],
+
+Cell[BoxData[
+    \(\(DensityPlot[
+      If[Good[0, x + I\ y, 0, 100], 0, 1], {x, \(-\(9\/4\)\), 3\/4}, {y, 
+        \(-\(3\/2\)\), 3\/2}, \n\tMesh \[Rule] False, 
+      PlotPoints \[Rule] 200]; \)\)], "Input",
+  AnimationCycleOffset->0,
+  AnimationCycleRepetitions->0],
+
+Cell[TextData[{
+  "We can see even more detail by zooming in on a ",
+  StyleBox["smaller square",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Note:",
+    FontWeight->"Bold"],
+  "  The following picture takes quite a long time to compute."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[BoxData[
+    \(\(DensityPlot[
+      If[Good[0, x + I\ y, 0, 100], 0, 1], {x, \(-\(1\/2\)\), 1\/2}, {y, 
+        1\/4, 5\/4}, \n\tMesh \[Rule] False, PlotPoints \[Rule] 200]; \)\)], 
+  "Input",
+  AnimationCycleOffset->0,
+  AnimationCycleRepetitions->0],
+
+Cell[TextData[{
+  "Well, we have shown that ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " can ",
+  StyleBox["prototype",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " such computations, but special-purpose software is to be preferred for \
+efficient displays."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Julia", "Subsubsection"],
+
+Cell[TextData[{
+  "To get a picture of ",
+  Cell[BoxData[
+      StyleBox[\(J\_c\),
+        FontWeight->"Bold"]]],
+  ", keep ",
+  StyleBox["c", "InlineInput"],
+  " ",
+  StyleBox["fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and vary the ",
+  StyleBox["starting point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the iteration.  Here is an example."
+}], "Text"],
+
+Cell[BoxData[
+    \(c = 0.5\ I\  - 0.1; \n
+    DensityPlot[
+      If[Good[0, c, x + I\ y, 100], 0, 1], {x, \(-2\), 2}, {y, \(-2\), 2}, \n
+      \tMesh \[Rule] False, PlotPoints \[Rule] 50]; \)], "Input",
+  AnimationCycleOffset->1,
+  AnimationCycleRepetitions->Infinity],
+
+Cell[TextData[{
+  "That picture is quite crude, since we used only a 50x50-mesh.  Here is a \
+more refined picture at a more interesting value of ",
+  StyleBox["c", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(c = 0.75\ I\  - 0.1; \n
+    DensityPlot[
+      If[Good[0, c, x + I\ y, 100], 0, 1], {x, \(-2\), 2}, {y, \(-2\), 2}, \n
+      \tMesh \[Rule] False, PlotPoints \[Rule] 100]; \)], "Input",
+  AnimationCycleOffset->1,
+  AnimationCycleRepetitions->Infinity],
+
+Cell["More detail becomes apparent as we zoom in.", "Text",
+  AnimationCycleOffset->0,
+  AnimationCycleRepetitions->0],
+
+Cell[BoxData[
+    \(c = 0.75\ I\  - 0.1; \n
+    DensityPlot[If[Good[0, c, x + I\ y, 100], 0, 1], \n
+      \t{x, \(-1.5\), 0}, {y, 0, 1.5}, \n\tMesh \[Rule] False, 
+      PlotPoints \[Rule] 100]; \)], "Input",
+  AnimationCycleOffset->0,
+  AnimationCycleRepetitions->0],
+
+Cell[BoxData[
+    \(c = 0.75\ I\  - 0.1; \n
+    DensityPlot[If[Good[0, c, x + I\ y, 100], 0, 1], \n
+      \t{x, \(-1.4\), \(-0.6\)}, {y, 0.2, 1}, \n\tMesh \[Rule] False, 
+      PlotPoints \[Rule] 100]; \)], "Input",
+  AnimationCycleOffset->0,
+  AnimationCycleRepetitions->0],
+
+Cell[BoxData[
+    \(c = 0.75\ I\  - 0.1; \n
+    DensityPlot[If[Good[0, c, x + I\ y, 100], 0, 1], \n
+      \t{x, \(-1.4\), \(-1\)}, {y, 0.4, 0.8}, \n\tMesh \[Rule] False, 
+      PlotPoints \[Rule] 100]; \)], "Input",
+  AnimationCycleOffset->0,
+  AnimationCycleRepetitions->0],
+
+Cell[BoxData[
+    \(c = 0.75\ I\  - 0.1; \n
+    DensityPlot[If[Good[0, c, x + I\ y, 100], 0, 1], \n
+      \t{x, \(-1.3\), \(-1.1\)}, {y, 0.5, 0.7}, \n\tMesh \[Rule] False, 
+      PlotPoints \[Rule] 100]; \)], "Input",
+  AnimationCycleOffset->0,
+  AnimationCycleRepetitions->0],
+
+Cell[TextData[{
+  "This begins to illustrate the character a fractal often has: ",
+  StyleBox[
+  "The closer you look, the more it seems to be just as complicated. ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "In other words, at no level of magnification does a piece of the boundary \
+of the set smooth out."
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Gaussian Primes", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Definition", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  A ",
+  StyleBox["Gaussian integer",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a complex number of the form ",
+  Cell[BoxData[
+      StyleBox[\(n + I\ m\),
+        FontWeight->"Bold"]]],
+  ", with both real and imaginary parts being ",
+  StyleBox["integers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "It turns out that the Gaussian integers have many properties of the \
+ordinary integers, but there are algebraic differences.  For example,  ",
+  StyleBox["factorization",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " may turn out quite differently than expected."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " has the use of Gaussian integers built in.  For example: with the option \
+",
+  StyleBox["GaussianIntegers\[Rule]False", "InlineInput"],
+  ", factorization is done over the ordinary ring of integers, ",
+  StyleBox["Z", "InlineInput"],
+  ".   However, with ",
+  StyleBox["GaussianIntegers\[Rule]True", "InlineInput"],
+  ", factorization is done over the ring of integers with ",
+  StyleBox["I", "InlineInput"],
+  " adjoined, ",
+  StyleBox["Z[I]", "InlineInput"],
+  ".   In ",
+  StyleBox["Z", "InlineInput"],
+  ", the integer ",
+  StyleBox["13", "InlineInput"],
+  " is prime, but in ",
+  StyleBox["Z[I]", "InlineInput"],
+  "  it can be factored. Here are the factors:"
+}], "Text"],
+
+Cell[BoxData[
+    StyleBox[\(FactorInteger[13, \ GaussianIntegers\  -> \ True]\),
+      "MRs"]], "Input"],
+
+Cell[BoxData[
+    \(\(-I\)\ \((2 + 3\ I)\) \((3 + 2\ I)\)\)], "Input"],
+
+Cell[TextData[{
+  "By the way, as the above computation shows, the complex Gaussian primes \
+used when we employ the option ",
+  StyleBox["GaussianIntegers\[Rule]True", "InlineInput"],
+  " have both real and imaginary parts ",
+  StyleBox["positive",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Note, too, that the first entry in the list given by ",
+  StyleBox["FactorInteger", "InlineInput"],
+  " with ",
+  StyleBox["GaussianIntegers -> True", "InlineInput"],
+  " may be ",
+  StyleBox["-1", "InlineInput"],
+  " or ",
+  StyleBox["-I", "InlineInput"],
+  ". "
+}], "Text"],
+
+Cell["\<\
+The reason for this convention is that multiplication by the \"unit\
+\" Gaussian integers can change the sign of a part of a Gaussian \
+interger.\
+\>", "Text"],
+
+Cell[BoxData[
+    \({1, I, \(-1\), \(-I\)} \((n + I\ m)\) // ComplexSimplify[{}]\)], "Input"],
+
+Cell[TextData[{
+  "Therefore after multiplication by such a unit, we can assume the prime \
+lies in the first (",
+  StyleBox["i.e.",
+    FontSlant->"Italic"],
+  ", ",
+  StyleBox["positive",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") quadrant.  Of course, there are primes along the real and the imaginary \
+axis."
+}], "Text"],
+
+Cell[TextData[{
+  "By the automorphism principle, a non-trivial factorization of a Gaussian \
+integer can be converted into a factorization of its",
+  StyleBox[" conjugate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Now compute:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Conjugate[\((n\  + \ I\ m)\)] I\  // \ ComplexSimplify\)], "Input"],
+
+Cell[TextData[{
+  "In other words, if ",
+  Cell[BoxData[
+      StyleBox[\(n + I\ m\),
+        FontWeight->"Bold"]]],
+  " has a factoriztion, then so does ",
+  Cell[BoxData[
+      StyleBox[\(m + I\ n\),
+        FontWeight->"Bold"]]],
+  ".  Therefore, the Gaussian primes are symmetric about the diagonal line ",
+  StyleBox["x==y", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell["Try some other \"primes\"!", "Text"],
+
+Cell[BoxData[
+    StyleBox[\(FactorInteger[17, \ GaussianIntegers\  -> \ True]\),
+      "MRs"]], "Input"],
+
+Cell[TextData[{
+  "Ouch, ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a prime.  But, finally:"
+}], "Text"],
+
+Cell[BoxData[
+    StyleBox[\(FactorInteger[19, \ GaussianIntegers\  -> \ True]\),
+      "MRs"]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Complex examples", "Subsubsection"],
+
+Cell["Properly complex examples can also be factored:", "Text"],
+
+Cell[BoxData[
+    StyleBox[\(FactorInteger[I + 7, \ GaussianIntegers\  -> \ True]\),
+      "MRs"]], "Input"],
+
+Cell["But here is an actual complex prime:", "Text"],
+
+Cell[BoxData[
+    StyleBox[\(FactorInteger[3 + 2\ I, \ GaussianIntegers\  -> \ True]\),
+      "MRs"]], "Input"],
+
+Cell["We can make some listings with a little table building.", "Text"],
+
+Cell[BoxData[
+    \(GInt[n_] := Flatten@Table[i + I\ j, {i, 0, n}, {j, 0, n}]\)], "Input"],
+
+Cell[BoxData[
+    \(GInt[3]\)], "Input"],
+
+Cell["Out of any such list, we can select the primes.", "Text"],
+
+Cell[BoxData[
+    \(GPrimes[n_] := 
+      Select[GInt[n], PrimeQ[#, GaussianIntegers \[Rule] True]&]\)], "Input"],
+
+Cell[BoxData[
+    \(GPrimes[3]\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Some pictures", "Subsubsection"],
+
+Cell["\<\
+Now that we have a listing, we can plot them to see hw they are \
+distributed.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(ArgandPlot[GPrimes[31], 5]; \)\)], "Input"],
+
+Cell["\<\
+Some integer primes are Gaussian primes, some are not.  Here is a \
+bigger picture:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(ArgandPlot[GPrimes[51], 4]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(ArgandPlot[GPrimes[101], 4]; \)\)], "Input"],
+
+Cell["\<\
+The Gaussian primes seem to be \"fairly thick on the ground\", but \
+there are many unsolved problems about their distribution.  In any case they \
+illustrate some interesting features of complex arithmetic.\
+\>", "Text"]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{778, 548},
+WindowMargins->{{Automatic, 3}, {Automatic, 1}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00l0001804P000000_P2B?ofoo833P9F;085:0?l0@00005X0FP000003]P;J001
+0@00I00100000@0200000BL?00400000000000000000030001000000000@0?o>
+okX?AP^^0201000000000000000001T1\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 202, 7, 68, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1914, 58, 264, 9, 94, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2203, 71, 44, 0, 53, "Section"],
+
+Cell[CellGroupData[{
+Cell[2272, 75, 35, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2332, 79, 36, 0, 52, "Subsubsection"],
+Cell[2371, 81, 385, 17, 54, "Text"],
+Cell[2759, 100, 231, 4, 117, "Input"],
+Cell[2993, 106, 399, 14, 72, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3429, 125, 63, 1, 29, "Subsubsection"],
+Cell[3495, 128, 895, 35, 83, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4427, 168, 36, 0, 29, "Subsubsection"],
+Cell[4466, 170, 385, 17, 54, "Text"],
+Cell[4854, 189, 231, 4, 117, "Input"],
+Cell[5088, 195, 400, 14, 72, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5525, 214, 63, 1, 29, "Subsubsection"],
+Cell[5591, 217, 933, 34, 105, "Text"],
+Cell[6527, 253, 1713, 63, 147, "Text"],
+Cell[8243, 318, 733, 33, 60, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9025, 357, 33, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[9083, 361, 36, 0, 52, "Subsubsection"],
+Cell[9122, 363, 375, 17, 54, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9534, 385, 63, 1, 29, "Subsubsection"],
+Cell[9600, 388, 36, 0, 38, "Text"],
+Cell[9639, 390, 69, 1, 56, "Input"],
+Cell[9711, 393, 69, 1, 48, "Input"],
+Cell[9783, 396, 89, 3, 33, "Text"],
+Cell[9875, 401, 88, 1, 56, "Input"],
+Cell[9966, 404, 295, 13, 33, "Text"],
+Cell[10264, 419, 439, 13, 83, "Text"],
+Cell[10706, 434, 64, 1, 56, "Input"],
+Cell[10773, 437, 286, 10, 60, "Text"],
+Cell[11062, 449, 59, 1, 54, "Input"],
+Cell[11124, 452, 179, 8, 38, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11340, 465, 36, 0, 29, "Subsubsection"],
+Cell[11379, 467, 381, 17, 54, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11797, 489, 63, 1, 52, "Subsubsection"],
+Cell[11863, 492, 1628, 59, 124, "Text"],
+Cell[13494, 553, 1054, 34, 131, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[14597, 593, 38, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[14660, 597, 36, 0, 52, "Subsubsection"],
+Cell[14699, 599, 379, 17, 54, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[15115, 621, 63, 1, 52, "Subsubsection"],
+Cell[15181, 624, 34, 0, 38, "Text"],
+Cell[15218, 626, 70, 1, 56, "Input"],
+Cell[15291, 629, 70, 1, 48, "Input"],
+Cell[15364, 632, 89, 1, 47, "Input"],
+Cell[15456, 635, 489, 23, 38, "Text"],
+Cell[15948, 660, 532, 18, 124, "Text"],
+Cell[16483, 680, 599, 22, 86, "Text"],
+Cell[17085, 704, 687, 26, 86, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[17809, 735, 36, 0, 29, "Subsubsection"],
+Cell[17848, 737, 385, 17, 54, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[18270, 759, 63, 1, 52, "Subsubsection"],
+Cell[18336, 762, 45, 0, 38, "Text"],
+Cell[18384, 764, 97, 2, 54, "Input"],
+Cell[18484, 768, 489, 23, 38, "Text"],
+Cell[18976, 793, 540, 18, 124, "Text"],
+Cell[19519, 813, 605, 22, 86, "Text"],
+Cell[20127, 837, 604, 23, 86, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[20792, 867, 37, 0, 33, "Section"],
+
+Cell[CellGroupData[{
+Cell[20854, 871, 33, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[20912, 875, 35, 0, 52, "Subsubsection"],
+Cell[20950, 877, 297, 9, 76, "Text"],
+Cell[21250, 888, 960, 19, 217, "Text"],
+Cell[22213, 909, 669, 25, 76, "Text"],
+Cell[22885, 936, 358, 11, 83, "Text"],
+Cell[23246, 949, 487, 18, 76, "Text"],
+Cell[23736, 969, 142, 4, 38, "Text"],
+Cell[23881, 975, 372, 13, 76, "Text"],
+Cell[24256, 990, 417, 12, 83, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[24710, 1007, 30, 0, 52, "Subsubsection"],
+Cell[24743, 1009, 152, 6, 38, "Text"],
+Cell[24898, 1017, 764, 29, 99, "Text"],
+Cell[25665, 1048, 59, 0, 38, "Text"],
+Cell[25727, 1050, 441, 17, 76, "Text"],
+Cell[26171, 1069, 441, 18, 54, "Text"],
+Cell[26615, 1089, 249, 9, 38, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[26913, 1104, 39, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[26977, 1108, 35, 0, 52, "Subsubsection"],
+Cell[27015, 1110, 739, 20, 150, "Text"],
+Cell[27757, 1132, 68, 1, 54, "Input"],
+Cell[27828, 1135, 1890, 71, 172, "Text"],
+Cell[29721, 1208, 149, 3, 76, "Input"],
+Cell[29873, 1213, 245, 9, 38, "Text"],
+Cell[30121, 1224, 100, 2, 74, "Input"],
+Cell[30224, 1228, 248, 9, 33, "Text"],
+Cell[30475, 1239, 130, 2, 74, "Input"],
+Cell[30608, 1243, 964, 32, 123, "Text"],
+Cell[31575, 1277, 103, 2, 74, "Input"],
+Cell[31681, 1281, 636, 19, 100, "Text"],
+Cell[32320, 1302, 72, 1, 56, "Input"],
+Cell[32395, 1305, 470, 19, 56, "Text"],
+Cell[32868, 1326, 77, 1, 56, "Input"],
+Cell[32948, 1329, 803, 31, 78, "Text"],
+Cell[33754, 1362, 99, 2, 73, "Input"],
+Cell[33856, 1366, 1184, 41, 129, "Text"],
+Cell[35043, 1409, 136, 6, 41, "Text"],
+Cell[35182, 1417, 113, 2, 116, "Input"],
+Cell[35298, 1421, 259, 7, 56, "Text"],
+Cell[35560, 1430, 59, 1, 73, "Input"],
+Cell[35622, 1433, 793, 28, 88, "Text"],
+Cell[36418, 1463, 80, 1, 54, "Input"],
+Cell[36501, 1466, 356, 11, 81, "Text"],
+Cell[36860, 1479, 238, 4, 180, "Input"],
+Cell[37101, 1485, 96, 3, 33, "Text"],
+Cell[37200, 1490, 102, 2, 76, "Input"],
+Cell[37305, 1494, 211, 4, 78, "Text"],
+Cell[37519, 1500, 165, 8, 38, "Text"],
+Cell[37687, 1510, 253, 5, 156, "Input"],
+Cell[37943, 1517, 137, 3, 56, "Text"],
+Cell[38083, 1522, 253, 5, 156, "Input"],
+Cell[38339, 1529, 126, 4, 33, "Text"],
+Cell[38468, 1535, 142, 2, 96, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[38647, 1542, 30, 0, 29, "Subsubsection"],
+Cell[38680, 1544, 412, 9, 105, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[39141, 1559, 43, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[39209, 1563, 35, 0, 52, "Subsubsection"],
+Cell[39247, 1565, 127, 3, 60, "Text"],
+Cell[39377, 1570, 273, 6, 144, "Input"],
+Cell[39653, 1578, 66, 0, 38, "Text"],
+Cell[39722, 1580, 269, 6, 144, "Input"],
+Cell[39994, 1588, 165, 6, 38, "Text"],
+Cell[40162, 1596, 169, 5, 54, "Text"],
+Cell[40334, 1603, 256, 6, 144, "Input"],
+Cell[40593, 1611, 293, 10, 60, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[40923, 1626, 30, 0, 52, "Subsubsection"],
+Cell[40956, 1628, 390, 16, 60, "Text"],
+Cell[41349, 1646, 269, 6, 114, "Input"],
+Cell[41621, 1654, 198, 5, 60, "Text"],
+Cell[41822, 1661, 271, 6, 114, "Input"],
+Cell[42096, 1669, 118, 2, 38, "Text"],
+Cell[42217, 1673, 267, 6, 114, "Input"],
+Cell[42487, 1681, 274, 6, 114, "Input"],
+Cell[42764, 1689, 274, 6, 114, "Input"],
+Cell[43041, 1697, 276, 6, 114, "Input"],
+Cell[43320, 1705, 331, 8, 83, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[43712, 1720, 34, 0, 33, "Section"],
+
+Cell[CellGroupData[{
+Cell[43771, 1724, 35, 0, 52, "Subsubsection"],
+Cell[43809, 1726, 445, 17, 76, "Text"],
+Cell[44257, 1745, 303, 7, 83, "Text"],
+Cell[44563, 1754, 750, 21, 128, "Text"],
+Cell[45316, 1777, 105, 2, 54, "Input"],
+Cell[45424, 1781, 70, 1, 54, "Input"],
+Cell[45497, 1784, 581, 17, 105, "Text"],
+Cell[46081, 1803, 169, 4, 60, "Text"],
+Cell[46253, 1809, 93, 1, 54, "Input"],
+Cell[46349, 1812, 337, 11, 83, "Text"],
+Cell[46689, 1825, 255, 7, 60, "Text"],
+Cell[46947, 1834, 87, 1, 54, "Input"],
+Cell[47037, 1837, 363, 12, 60, "Text"],
+Cell[47403, 1851, 42, 0, 38, "Text"],
+Cell[47448, 1853, 105, 2, 54, "Input"],
+Cell[47556, 1857, 136, 6, 38, "Text"],
+Cell[47695, 1865, 105, 2, 54, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[47837, 1872, 41, 0, 29, "Subsubsection"],
+Cell[47881, 1874, 63, 0, 38, "Text"],
+Cell[47947, 1876, 108, 2, 54, "Input"],
+Cell[48058, 1880, 52, 0, 38, "Text"],
+Cell[48113, 1882, 111, 2, 54, "Input"],
+Cell[48227, 1886, 71, 0, 38, "Text"],
+Cell[48301, 1888, 90, 1, 54, "Input"],
+Cell[48394, 1891, 40, 1, 54, "Input"],
+Cell[48437, 1894, 63, 0, 38, "Text"],
+Cell[48503, 1896, 113, 2, 74, "Input"],
+Cell[48619, 1900, 43, 1, 54, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[48699, 1906, 38, 0, 29, "Subsubsection"],
+Cell[48740, 1908, 102, 3, 38, "Text"],
+Cell[48845, 1913, 65, 1, 54, "Input"],
+Cell[48913, 1916, 107, 3, 38, "Text"],
+Cell[49023, 1921, 65, 1, 54, "Input"],
+Cell[49091, 1924, 66, 1, 54, "Input"],
+Cell[49160, 1927, 231, 4, 83, "Text"]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

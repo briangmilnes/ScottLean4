@@ -1,0 +1,836 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     19723,        683]*)
+(*NotebookOutlinePosition[     20650,        713]*)
+(*  CellTagsIndexPosition[     20606,        709]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 5   Projective Geometry\n",
+  StyleBox["Homework 5",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it\nName the file: 05.Homework.nb\n\
+Please hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Monday, 28 September",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[" \nSave it in your subdirectory of\nthe class handin directory ",
+    FontSize->12,
+    FontWeight->"Bold"]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["Name: xxxxxxxxx", "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "1. Two harmonic ranges ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 1.",
+  StyleBox["  Consider the following two quadruples of points (one on the ",
+    FontWeight->"Plain"],
+  "x",
+  StyleBox["-axis and one on the ",
+    FontWeight->"Plain"],
+  "y",
+  StyleBox["-axis):",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, Subscript]; \n
+    \n{A\_1, A\_2, A\_3, A\_4} = {w, u, a\ u + w, \(-a\)\ u + w}; 
+    \n{B\_1, B\_2, B\_3, B\_4} = {w, b\ v + w, c\ v + w, 
+        c\ v + \((\(2\ c\)\/b - 1)\)\ w}; \)], "Input"],
+
+Cell[TextData[{
+  "Can you give ",
+  StyleBox["two proofs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that the three lines below are ",
+  StyleBox["concurrent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  And at what ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(l\_2 = PE[A\_2, B\_2]; \nl\_3 = PE[A\_3, B\_3]; \n
+    l\_4 = PE[A\_4, B\_4]; \)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "Can you ",
+  StyleBox["draw some figures",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to illustrate the theorem? "
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "2. Crossratio identities ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Can you prove the validity of the following formula involving various of \
+the crossratios among distinct, ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points ",
+  Cell[BoxData[
+      StyleBox[\(P\_1, Q\_1, A\_1, B\_1, C\_1\),
+        FontWeight->"Bold"]]],
+  "? \n",
+  Cell[BoxData[
+      StyleBox[
+        \(RP[P\_1, Q\_1, A\_1, B\_1]\ RP[P\_1, Q\_1, B\_1, C\_1] == 
+          RP[P\_1, Q\_1, A\_1, C\_1]\),
+        FontWeight->"Bold"]]]
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "Give ",
+  StyleBox["both",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " algebraic and geometrical reasons why the following three crossratios \
+are",
+  StyleBox[" the same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(ClearAll[a, b, c, d]\), 
+    \(\(RP[a\ u + w, b\ u + w, \n\t\ \ \ \ \ c\ u + w, d\ u + w] // Expand
+        \) // Factor\n\), 
+    \(\(RP[\((s\ a + t)\)\ u + w, \((s\ b + t)\)\ u + w, \n\t\t\ \ 
+          \((s\ c + t)\)\ u + w, \((s\ d + t)\)\ u + w] // Expand\) // Factor
+      \n\), 
+    \(RP[u\/a + w, u\/b + w, u\/c + w, u\/d + w]\)}], "Input"],
+
+Cell[BoxData[
+    \(\(\((a - c)\)\ \((b - d)\)\)\/\(\((b - c)\)\ \((a - d)\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(\((a - c)\)\ \((b - d)\)\)\/\(\((b - c)\)\ \((a - d)\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(\((a - c)\)\ \((b - d)\)\)\/\(\((b - c)\)\ \((a - d)\)\)\)], "Output"]
+}, Closed]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "3. Permuting points in crossratios ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Hint on ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" features:",
+    FontWeight->"Bold"],
+  "  Compute the values of the following expressions to see what happens:"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, d, Subscript]; Permutations[{1, 2, 3}]\)], "Input"],
+
+Cell[BoxData[
+    \({{1, 2, 3}, {1, 3, 2}, {2, 1, 3}, {2, 3, 1}, {3, 1, 2}, {3, 2, 1}}\)], 
+  "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \({A[1], A[2], A[3], A[4]} = {u, v, u + v, a\ u + v}; \n\n
+    RP@@\(A/@{1, 2, 3, 4}\)\n\), 
+    \(RP@@\(A/@{1, 2, 4, 3}\)\)}], "Input"],
+
+Cell[BoxData[
+    \(a\)], "Output"],
+
+Cell[BoxData[
+    \(1\/a\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.   ",
+    FontWeight->"Bold"],
+  "Can you find the crossratios of all ",
+  StyleBox["permutations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the four points shown above to determine in general ",
+  StyleBox["how many different values",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " there are for the crossratio?  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.   ",
+    FontWeight->"Bold"],
+  "If one of them is ",
+  StyleBox["complex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", will they ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " be complex?  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.  ",
+    FontWeight->"Bold"],
+  "Which permutations give the",
+  StyleBox[" same ratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as the original four points?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "4. The regular pentagon ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Set-up: ",
+    FontWeight->"Bold"],
+  "Here is a picture of the ",
+  StyleBox["regular pentagon",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with vertices placed symmetrically around the ",
+  StyleBox["origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (How ever did Scott find this?)"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Draw[
+      N[{{w, "\<O\>"}, u + w, \n\t\t\t
+          \((\(-\(1\/4\)\) + \@5\/4)\)\ u + 1\/2\ \@\(5\/2 + \@5\/2\)\ v + w, 
+          \n\t\t\t\((\(-\(1\/4\)\) - \@5\/4)\)\ u + 
+            1\/2\ \@\(5\/2 - \@5\/2\)\ v + w, \n\t\t\t
+          \((\(-\(1\/4\)\) - \@5\/4)\)\ u - 1\/2\ \@\(5\/2 - \@5\/2\)\ v + w, 
+          \n\t\t\t\((\(-\(1\/4\)\) + \@5\/4)\)\ u - 
+            1\/2\ \@\(5\/2 + \@5\/2\)\ v + w}]]; \)\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: 1 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 12  scalefont  setfont
+% Scaling calculations
+0.468623 0.328582 0.5 0.328582 [
+[ 0 0 0 0 ]
+[ 1 1 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 0 m
+1 0 L
+1 1 L
+0 1 L
+closepath
+clip
+newpath
+0 0 0 r
+.02 w
+.46862 .5 Mdot
+.79721 .5 Mdot
+.57016 .8125 Mdot
+.20279 .69314 Mdot
+.20279 .30686 Mdot
+.57016 .1875 Mdot
+gsave
+.46862 .5 -56.8047 -23.25 Mabsadd m
+1 1 Mabs scale
+currentpoint translate
+0 22 translate 1 -1 scale
+gsave
+0.000000 0.000000 0.000000 setrgbcolor
+1.000000 setlinewidth
+gsave
+newpath
+ 61.000000 18.000000 moveto
+ 558.000000 18.000000 lineto
+ 558.000000 4.000000 lineto
+ 61.000000 4.000000 lineto
+ 61.000000 18.000000 lineto
+closepath
+clip newpath
+63.000000 14.000000 moveto
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 12.000000 scalefont
+[1 0 0 -1 0 0 ] makefont setfont
+0.000000 0.000000 0.000000 setrgbcolor
+0.000000 0.000000 rmoveto
+63.000000 14.000000 moveto
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 12.000000 scalefont
+[1 0 0 -1 0 0 ] makefont setfont
+0.000000 0.000000 0.000000 setrgbcolor
+(O) show
+70.187500 14.000000 moveto
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 12.000000 scalefont
+[1 0 0 -1 0 0 ] makefont setfont
+0.000000 0.000000 0.000000 setrgbcolor
+0.000000 0.000000 rmoveto
+1.000000 setlinewidth
+grestore
+grestore
+%%DocumentNeededResources: font Courier
+%%DocumentSuppliedResources:
+%%DocumentNeededFonts: Courier
+%%DocumentSuppliedFonts:
+%%DocumentFonts: font Courier
+grestore
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  ImageSize->{288, 288},
+  ImageMargins->{{0, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40005X0001J0P10`4000010?ooooooc14A4IW<0<`0
+c<bII_l00?mVc?ooIS/k>gYjN[Vi^OShn03ooeGooj[oofIVVFKo09TcVIW<<l`0olbIVOl0<omVoooo
+ZSlo?ginO[fm_Oclo5D00:X00?l006IVc6Ko<iTcc9W<I/`c0<bIc?l0I_nI00<30d92@X61PL30`000
+EED0EJX0EOl0EFIVofKoIYTcoiW<VL`c<lbIool0VOnI<`L71dI6AXF5QLC4a000ZUD0ZZX0Z_l0ZVJI
+06KoVIUV09W<c<`cI/c<0?l0c?nIIP/;2dY:BXV9RLS8b000oeD0ojX0ool0ofJI<fKoc9UV<iW<ol`c
+VLc<<ol0oonIV@l?3di>CXf=SLc<c01E05EE0:YE0?mE06JIIVKooiUVIYWo0<`cc<c<I_lc0?nIc1<C
+4e9BDY6ATM3@d01EEEEEEJYEEOmEEFJIVIT009UVVIWo<l`colc<VOlc<onIoaLG5eIFEYFEUMCDe01E
+ZUEEZZYEZ_mEZVJIc9T0<iUVc9WoI/aV0<c<c?lcI_o<01/K6eYJFYVIVMSHf01EoeEEojYEoomEofJI
+oiT0IYUVoiWoVLaV<lc<oolcVOo<<alO7eiNGYfMWMcLg02Z05FZ0:ZZ0?nZ06K<09T0VIVI09Woc<aV
+I/co0?lcc?o<IR<S8f9RHZ6QXN3Ph02ZEEFZEJZZEOnZEFK<<iT0c9VI<iWoolaVVLco<olcooo<VBLW
+9fIVIZFUYNCTi02ZZUFZZZZZZ_nZZVK<IYT0oiVII/`00<aVc<coI_mV0?o<c2/[:fYZJZVYZNSXj02Z
+oeFZojZZoonZofK<VITc09VIVL`0<laVolcoVOmV<oo<obl_;fi^KZf][Nc/k03o05Go0:[o0?oo06K<
+c9Tc<iVIc<`0I/bI0<coc?mVI_oo03<c<g9bL[6a/O3`l03oEEGoEJ[oEOooEFK<oiTcIYVIol`0VLbI
+<lcooomVVOoo<cLg=gIfM[Fe]OCdm03oZUGoZZ[oZP000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000</00onJ0000bP05oiT0003900OoV0000<T01onH0000b@07oiP0003:00GoV@000</00onJ0000
+o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000
+o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000
+o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000
+o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000o`1Y0000A`03ool07`0004H01Ooo01h0001500Oo
+o`0M0000A@07ool07@0004D01ooo01d0001600Goo`0N0000A`03ool07`000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000;801?nb0000/@000ol000020003o`000:l0002`0003
+o`0000@000?o0000[P000;0000?o000010000ol0002^0000/0000ol000040003o`000:h0002`0003
+o`0000@000?o0000[P000;0000?o000010000ol0002^0000/@000ol000020003o`000:l0002b00Co
+/P000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000:L00omc00?oB0000:H01Oma00Go
+A`000:D01om_00OoAP000:D01om_00OoAP000:D01om_00OoAP000:H01Oma00GoA`000:L00omc00?o
+B0000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@0004L00ooo01l0001600Goo`0N0000A@07ool07@0004D01ooo01d0001500Oo
+o`0M0000AP05ool07P0004L00ooo01l0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0
+003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0
+003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0
+003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0003o06T0
+003;00?oVP000<X01OnI0000b@07oiP0003900OoV0000<T01onH0000bP05oiT0003;00?oVP000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0J@000?l0
+J@000?l0J@000?l0J@000?l0J@000001\
+\>"],
+  ImageRangeCache->{{{0, 359}, {359, 0}} -> {-1.42621, -1.52171, 0.0105968, 
+  0.0105968}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1  ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 1.",
+  StyleBox["  At each vertex there are ",
+    FontWeight->"Plain"],
+  StyleBox["two sides ",
+    FontSlant->"Italic"],
+  StyleBox["and ",
+    FontWeight->"Plain"],
+  StyleBox["two diagonals",
+    FontSlant->"Italic"],
+  StyleBox[".  What is their ",
+    FontWeight->"Plain"],
+  StyleBox["crossratio",
+    FontSlant->"Italic"],
+  StyleBox["?  (Say, take the order side, diagonal, diagonal, side.)",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2  ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 2.",
+  StyleBox["  What crossratio will the lines joining the ",
+    FontWeight->"Plain"],
+  StyleBox["origin",
+    FontSlant->"Italic"],
+  StyleBox[" to ",
+    FontWeight->"Plain"],
+  StyleBox["four",
+    FontSlant->"Italic"],
+  StyleBox[" of the vertices have?  (Take ",
+    FontWeight->"Plain"],
+  StyleBox["consecutive",
+    FontSlant->"Italic"],
+  StyleBox[" vertices!)",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Warning: ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " gives quite different answers depending on which four vertices you \
+choose.  By symmetry the answers should all be the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  They are, but ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " \[LongDash] as far as Scott could manage it \[LongDash] does not simplify \
+one expression to the other.  So, find the ",
+  StyleBox["simplest one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!"
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{732, 553},
+WindowMargins->{{4, Automatic}, {Automatic, 1}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00X0005X0FP000003W0;@?oCojH?B`^J89L5:0?l0000005X0FP000003W0;@05X
+0N0;@00400P00000020002L?00410@00000000000000000000X1T0<bd4R0501T
+@TYCE`0000000@00om?oYPm;2iX00000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 179, 7, 68, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1891, 58, 99, 2, 28, "Text"],
+Cell[1993, 62, 447, 14, 120, "Subsubtitle"],
+Cell[2443, 78, 38, 0, 58, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2506, 82, 171, 6, 43, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2702, 92, 113, 4, 35, "Subsubsection"],
+Cell[2818, 98, 325, 12, 76, "Text"],
+Cell[3146, 112, 233, 4, 156, "Input"],
+Cell[3382, 118, 364, 15, 76, "Text"],
+Cell[3749, 135, 111, 2, 94, "Input"]
+}, Closed]],
+Cell[3875, 140, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[4037, 147, 112, 4, 35, "Subsubsection"],
+Cell[4152, 153, 242, 9, 54, "Text"]
+}, Closed]],
+Cell[4409, 165, 137, 3, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4583, 173, 173, 6, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[4781, 183, 113, 4, 35, "Subsubsection"],
+Cell[4897, 189, 591, 19, 84, "Text"]
+}, Closed]],
+Cell[5503, 211, 137, 3, 35, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[5665, 218, 113, 4, 35, "Subsubsection"],
+Cell[5781, 224, 355, 14, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[6161, 242, 369, 7, 173, "Input"],
+Cell[6533, 251, 92, 1, 64, "Output"],
+Cell[6628, 254, 92, 1, 64, "Output"],
+Cell[6723, 257, 92, 1, 64, "Output"]
+}, Closed]]
+}, Closed]],
+Cell[6842, 262, 137, 3, 35, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7016, 270, 183, 6, 27, "Subsection",
+  Evaluatable->False],
+Cell[7202, 278, 309, 10, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[7536, 292, 89, 1, 47, "Input"],
+Cell[7628, 295, 103, 2, 71, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7768, 302, 155, 3, 107, "Input"],
+Cell[7926, 307, 35, 1, 51, "Output"],
+Cell[7964, 310, 38, 1, 64, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8039, 316, 113, 4, 27, "Subsubsection"],
+Cell[8155, 322, 422, 13, 99, "Text"]
+}, Closed]],
+Cell[8592, 338, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[8754, 345, 113, 4, 35, "Subsubsection"],
+Cell[8870, 351, 315, 13, 54, "Text"]
+}, Closed]],
+Cell[9200, 367, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[9362, 374, 112, 4, 35, "Subsubsection"],
+Cell[9477, 380, 256, 9, 54, "Text"]
+}, Closed]],
+Cell[9748, 392, 137, 3, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9922, 400, 172, 6, 27, "Subsection",
+  Evaluatable->False],
+Cell[10097, 408, 383, 13, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[10505, 425, 450, 8, 281, "Input"],
+Cell[10958, 435, 6487, 154, 296, 1880, 91, "GraphicsData", 
+"PostScript", "Graphics",
+  Evaluatable->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[17482, 594, 114, 4, 27, "Subsubsection"],
+Cell[17599, 600, 522, 18, 76, "Text"]
+}, Closed]],
+Cell[18136, 621, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[18298, 628, 114, 4, 35, "Subsubsection"],
+Cell[18415, 634, 496, 18, 76, "Text"],
+Cell[18914, 654, 641, 20, 121, "Text"]
+}, Closed]],
+Cell[19570, 677, 137, 3, 27, "Subsubsection"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

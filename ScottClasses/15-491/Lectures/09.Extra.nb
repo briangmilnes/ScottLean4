@@ -1,0 +1,864 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     23593,        719]*)
+(*NotebookOutlinePosition[     24556,        750]*)
+(*  CellTagsIndexPosition[     24512,        746]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 9   Projective Geometry\n",
+  StyleBox["Extra Material on ",
+    FontSize->18],
+  StyleBox["n",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["th Powers",
+    FontSize->18]
+}], "Title"],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["22 October 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle",
+  FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell["Three cubes", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.  ",
+    FontWeight->"Bold"],
+  "To show ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the sum of three cubes of linear polynomials."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Solution.  ",
+    FontWeight->"Bold"],
+  "Suppose we could write ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\  == \ l\^3 + m\^3 + n\^3\),
+        FontWeight->"Bold"]]],
+  ".  Note that ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\),
+        FontWeight->"Bold"]]],
+  " has three ",
+  StyleBox["double points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(PD[x\ y\ z, #\^2]&\)\ /@\ {u, v, w}\)], "Input"],
+
+Cell[BoxData[
+    \({0, 0, 0}\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "But \[LongDash] as we already know in any case \[LongDash] it has no ",
+  StyleBox["triple point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Tidy[PD[x\ y\ z, a\ u + b\ v + c\ w]]\)], "Input"],
+
+Cell[BoxData[
+    \(c\ x\ y + b\ x\ z + a\ y\ z\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Now, if ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\),
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the sum of three cubes of linear polynomials, they cannot reduce to all \
+multiples of the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " linear polynomial, because a curve such as ",
+  Cell[BoxData[
+      StyleBox[\(l\^3\),
+        FontWeight->"Bold"]]],
+  " has ",
+  StyleBox["only",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "triple points."
+}], "Text"],
+
+Cell[TextData[{
+  "Soi if the lines ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["m",
+        FontWeight->"Bold"]]],
+  " , and ",
+  Cell[BoxData[
+      StyleBox["n",
+        FontWeight->"Bold"]]],
+  " are ",
+  StyleBox["independent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then we can transform them to ",
+  Cell[BoxData[
+      StyleBox["x",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["y",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  " by a projective transformation.  But, their cubic sum has ",
+  StyleBox["no",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["double point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at all."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PD[x\^3 + y\^3 + z\^3, \((a\ u + b\ v + c\ w)\)\^2] // Tidy\)], "Input"],
+
+Cell[BoxData[
+    \(6\ a\^2\ x + 6\ b\^2\ y + 6\ c\^2\ z\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Therefore that case is impossible.  If, on the other hand, the lines are ",
+  
+  StyleBox["dependent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then \[LongDash] after a suitable transformation to ",
+  Cell[BoxData[
+      StyleBox["x",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["y",
+        FontWeight->"Bold"]]],
+  " , and ",
+  Cell[BoxData[
+      StyleBox[\(\[Lambda]\ x + \[Mu]\ y\),
+        FontWeight->"Bold"]]],
+  " \[LongDash] we see the sum has a triple point. "
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PD[x\^3 + y\^3 + \((\[Lambda]\ x + \[Mu]\ y)\)\^3, w] // Tidy\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "However, the \"curve\" ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\),
+        FontWeight->"Bold"]]],
+  " \[LongDash] after ",
+  StyleBox["every",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " projective transformation \[LongDash] has ",
+  StyleBox["3 ",
+    FontWeight->"Bold"],
+  "double points but ",
+  StyleBox["no",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " triple point.  Hence,  ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\),
+        FontWeight->"Bold"]]],
+  " is not a sum of three cubes. ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  Note that we have shown by this method that the cubic polynomial\n\t\t\t\
+",
+  Cell[BoxData[
+      StyleBox[\(x\^3 + y\^3 + \((\[Lambda]\ x + \[Mu]\ y)\)\^3\),
+        FontWeight->"Bold"]]],
+  "  \n",
+  StyleBox["always factors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " into linear factors.  ",
+  StyleBox["However, we already knew that homogeneous polynomials in ",
+    FontWeight->"Plain"],
+  StyleBox["two variables",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" always factor!  ",
+    FontWeight->"Plain"]
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "To factor, we just have to solve the equation for ",
+  Cell[BoxData[
+      StyleBox[\(t == x/y\),
+        FontWeight->"Bold"]]],
+  " in the usual way."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{"Solve", "[", 
+      StyleBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{\(t\^3\), "+", \(1\^3\), "+", 
+              SuperscriptBox[
+                RowBox[{"(", 
+                  RowBox[{
+                    RowBox[{"\[Lambda]", " ", 
+                      StyleBox["t",
+                        FontWeight->"Bold"]}], "+", 
+                    RowBox[{"\[Mu]", " ", 
+                      StyleBox["1",
+                        FontWeight->"Bold"]}]}], ")"}], "3"]}], "==", "0"}], 
+          ",", \({t}\)}],
+        FontWeight->"Bold"], 
+      StyleBox["]",
+        FontWeight->"Bold"]}]], "Input"],
+
+Cell[BoxData[
+    \({{t \[Rule] 
+          \(-\(\(\[Lambda]\^2\ \[Mu]\)\/\(1 + \[Lambda]\^3\)\)\) - 
+            \((3\ 2\^\(1/3\)\ \[Lambda]\ \[Mu]\^2)\)/
+              \((\((1 + \[Lambda]\^3)\)\ 
+                  \((\(-54\)\ \[Lambda]\^6\ \[Mu]\^3 + 
+                        81\ \[Lambda]\^3\ \((1 + \[Lambda]\^3)\)\ \[Mu]\^3 - 
+                        27\ \((1 + \[Lambda]\^3)\)\^2\ \((1 + \[Mu]\^3)\) + 
+                        27\ \((1 + \[Lambda]\^3)\)\ 
+                          \@\(1 + 2\ \[Lambda]\^3 + \[Lambda]\^6 + 
+                              2\ \[Mu]\^3 - 2\ \[Lambda]\^3\ \[Mu]\^3 + 
+                              \[Mu]\^6\))\)^\((1/3)\))\) + 
+            \((\(-54\)\ \[Lambda]\^6\ \[Mu]\^3 + 
+                    81\ \[Lambda]\^3\ \((1 + \[Lambda]\^3)\)\ \[Mu]\^3 - 
+                    27\ \((1 + \[Lambda]\^3)\)\^2\ \((1 + \[Mu]\^3)\) + 
+                    27\ \((1 + \[Lambda]\^3)\)\ 
+                      \@\(1 + 2\ \[Lambda]\^3 + \[Lambda]\^6 + 2\ \[Mu]\^3 - 
+                          2\ \[Lambda]\^3\ \[Mu]\^3 + \[Mu]\^6\))\)^\((1/3)\)/
+              \((3\ 2\^\(1/3\)\ \((1 + \[Lambda]\^3)\))\)}, {
+        t \[Rule] 
+          \(-\(\(\[Lambda]\^2\ \[Mu]\)\/\(1 + \[Lambda]\^3\)\)\) + 
+            \((3\ \((1 + I\ \@3)\)\ \[Lambda]\ \[Mu]\^2)\)/
+              \((2\^\(2/3\)\ \((1 + \[Lambda]\^3)\)\ 
+                  \((\(-54\)\ \[Lambda]\^6\ \[Mu]\^3 + 
+                        81\ \[Lambda]\^3\ \((1 + \[Lambda]\^3)\)\ \[Mu]\^3 - 
+                        27\ \((1 + \[Lambda]\^3)\)\^2\ \((1 + \[Mu]\^3)\) + 
+                        27\ \((1 + \[Lambda]\^3)\)\ 
+                          \@\(1 + 2\ \[Lambda]\^3 + \[Lambda]\^6 + 
+                              2\ \[Mu]\^3 - 2\ \[Lambda]\^3\ \[Mu]\^3 + 
+                              \[Mu]\^6\))\)^\((1/3)\))\) - 
+            \((\((1 - I\ \@3)\)\ 
+                  \((\(-54\)\ \[Lambda]\^6\ \[Mu]\^3 + 
+                        81\ \[Lambda]\^3\ \((1 + \[Lambda]\^3)\)\ \[Mu]\^3 - 
+                        27\ \((1 + \[Lambda]\^3)\)\^2\ \((1 + \[Mu]\^3)\) + 
+                        27\ \((1 + \[Lambda]\^3)\)\ 
+                          \@\(1 + 2\ \[Lambda]\^3 + \[Lambda]\^6 + 
+                              2\ \[Mu]\^3 - 2\ \[Lambda]\^3\ \[Mu]\^3 + 
+                              \[Mu]\^6\))\)^\((1/3)\))\)/
+              \((6\ 2\^\(1/3\)\ \((1 + \[Lambda]\^3)\))\)}, {
+        t \[Rule] 
+          \(-\(\(\[Lambda]\^2\ \[Mu]\)\/\(1 + \[Lambda]\^3\)\)\) + 
+            \((3\ \((1 - I\ \@3)\)\ \[Lambda]\ \[Mu]\^2)\)/
+              \((2\^\(2/3\)\ \((1 + \[Lambda]\^3)\)\ 
+                  \((\(-54\)\ \[Lambda]\^6\ \[Mu]\^3 + 
+                        81\ \[Lambda]\^3\ \((1 + \[Lambda]\^3)\)\ \[Mu]\^3 - 
+                        27\ \((1 + \[Lambda]\^3)\)\^2\ \((1 + \[Mu]\^3)\) + 
+                        27\ \((1 + \[Lambda]\^3)\)\ 
+                          \@\(1 + 2\ \[Lambda]\^3 + \[Lambda]\^6 + 
+                              2\ \[Mu]\^3 - 2\ \[Lambda]\^3\ \[Mu]\^3 + 
+                              \[Mu]\^6\))\)^\((1/3)\))\) - 
+            \((\((1 + I\ \@3)\)\ 
+                  \((\(-54\)\ \[Lambda]\^6\ \[Mu]\^3 + 
+                        81\ \[Lambda]\^3\ \((1 + \[Lambda]\^3)\)\ \[Mu]\^3 - 
+                        27\ \((1 + \[Lambda]\^3)\)\^2\ \((1 + \[Mu]\^3)\) + 
+                        27\ \((1 + \[Lambda]\^3)\)\ 
+                          \@\(1 + 2\ \[Lambda]\^3 + \[Lambda]\^6 + 
+                              2\ \[Mu]\^3 - 2\ \[Lambda]\^3\ \[Mu]\^3 + 
+                              \[Mu]\^6\))\)^\((1/3)\))\)/
+              \((6\ 2\^\(1/3\)\ \((1 + \[Lambda]\^3)\))\)}}\)], "Output"]
+}, Closed]],
+
+Cell["\<\
+Ugh, the roots are not much fun to look at.  But there you \
+are!\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Many powers", "Subsubsection"],
+
+Cell[TextData[{
+  "Marko Petkovsek (a former CMU student), found the \"triangular\" \
+configuration showing how to get one maximal independent set of ",
+  StyleBox["n",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "th powers.  He then converted this insight into a (somewhat long) program \
+for ",
+  StyleBox["finding",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a representation of any monomial as a linear combination of powers.  Here \
+is the program (fortunately made to work again by Aleks Nanevski):"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(BeginPackage["\<Monomials`\>"]; \)\), 
+    \(\(GeneratePartition::"\<usage\>" = 
+      "\<GeneratePartition[n, v] generates all ordered partitions of n into v \
+parts.\>"; \)\), 
+    \(\(Convert::"\<usage\>" = 
+      "\<Convert[mon, Start -> s, Step -> h] expresses monomial mon of degree \
+n as a linear combination of n-th powers of linear forms. The optional \
+parameters affect the choice of  coefficients in these forms.\>"; \)\), 
+    \(\(ConvertAll::"\<usage\>" = 
+      "\<ConvertAll[n, v, Start -> s, Step -> h,  Vars -> {x,y,z,..}] \
+expresses all monomials of degree n as linear  combinations of n-th powers of \
+linear forms. The optional parameters  affect the choice of coefficients and \
+variables in these forms.\>"; \)\), 
+    \(\(Start::"\<usage\>" = "\<\>"; \)\), 
+    \(\(Step::"\<usage\>" = "\<\>"; \)\), 
+    \(\(Vars::"\<usage\>" = "\<\>"; \)\), 
+    \(\(Begin["\<`Private`\>"]; \)\), 
+    \(\((GeneratePartition[n_, v_] := {{n}} /; v \[LessEqual] 1; 
+      GeneratePartition[n_, v_] := 
+        Join@@Table[
+              \((Prepend[#1, i]&)\)/@GeneratePartition[n - i, v - 1], {i, n, 
+                0, \(-1\)}] /; v > 1; Unprotect[Power]; 0\^0 = 1; 
+      \((Protect[Power]; )\))\); \n
+    \((VarNames[v_] := 
+        Module[{j}, 
+          Table[ToExpression["\<Monomials`Private`x\>"<>ToString[j]], {j, 
+              v}]]; \((
+        Options[ConvertAll] = {Start \[Rule] 0, Step \[Rule] 1}; )\))\); 
+    \((ConvertAll[n_, v_, opts___] := 
+        \(ConvertAll[n, v, opts] = 
+          Module[{homog, part, matrix, m, rhs, lhs, soln, i, j, s, h, vars}, 
+            homog = GeneratePartition[n, v]; part = Rest/@homog; 
+            m = Length[part]; s = \(Start /. {opts}\) /. Options[ConvertAll]; 
+            h = \(Step /. {opts}\) /. Options[ConvertAll]; 
+            vars = \(Vars /. {opts}\) /. {Vars \[RuleDelayed] VarNames[v]}; 
+            rhs = Table[
+                ToExpression["\<Monomials`private`l\>"<>ToString[j]], {j, 
+                  m}]; matrix = 
+              Table[Times@@
+                  \(\((s + part\[LeftDoubleBracket]i\[RightDoubleBracket]\ h)
+                        \)\^part\[LeftDoubleBracket]j
+                        \[RightDoubleBracket]\), {i, m}, {j, m}]; 
+            soln = 
+              Expand[LinearSolve[matrix, rhs]\/Table[
+                      Multinomial@@
+                        homog\[LeftDoubleBracket]i\[RightDoubleBracket], {i, 
+                        m}]] /. 
+                Table[rhs\[LeftDoubleBracket]j\[RightDoubleBracket] \[Rule] 
+                    \((Prepend[
+                            s + part\[LeftDoubleBracket]j
+                                  \[RightDoubleBracket]\ h, 1] . vars)\)\^n, {
+                    j, m}]]\); 
+      \((Options[Convert] = {Start \[Rule] 0, Step \[Rule] 1}; )\))\); 
+    \((Convert[mon_, opts___] := 
+        Module[{trueVars, coeff, n, v, expos, list, i, j, temp}, \n\t\t\t
+          trueVars = Variables[mon]; \n\t\t\t
+          coeff = mon /. Thread[trueVars \[Rule] 1]; \n\t\t\t
+          v = Length[trueVars]; \n\t\t\t
+          expos = \((Exponent[mon, #1]&)\)/@trueVars; \n\t\t\t
+          n = Plus@@expos; \n\t\t\tlist = GeneratePartition[n, v]; 
+          temp = \(ConvertAll[n, v, opts, Vars \[Rule] trueVars]
+                \)\[LeftDoubleBracket]\(\(Position[list, expos]
+                    \)\[LeftDoubleBracket]1
+                  \[RightDoubleBracket]\)\[LeftDoubleBracket]1
+                \[RightDoubleBracket]\[RightDoubleBracket]; 
+          Plus@@\(\((coeff\ #1&)\)/@
+              If[Head[temp] === Plus, List@@temp, {temp}]\)]; )\)\), 
+    \(\(End[]; \)\), 
+    \(\(EndPackage[]; \)\)}], "Input",
+  InitializationCell->True],
+
+Cell["Here is the description of the main routine:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?Convert\)\)], "Input"],
+
+Cell[BoxData[
+    \("Convert[mon, Start -> s, Step -> h] expresses monomial mon of degree n \
+as a linear combination of n-th powers of linear forms. The optional \
+parameters affect the choice of  coefficients in these forms."\)], "Print"]
+}, Closed]],
+
+Cell["Here are some tests:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Convert[4\ x\ y]\), 
+    \(Convert[4\ x\ y, Start \[Rule] \(-1\)]\), 
+    \(Convert[4\ x\ y, Start \[Rule] \(-4\)]\)}], "Input"],
+
+Cell[BoxData[
+    \(\(-3\)\ x\^2 + 4\ \((x + y)\)\^2 - \((x + 2\ y)\)\^2\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\((x - y)\)\^2\) + \((x + y)\)\^2\)], "Output"],
+
+Cell[BoxData[
+    \(5\ \((x - 4\ y)\)\^2 - 12\ \((x - 3\ y)\)\^2 + 7\ \((x - 2\ y)\)\^2\)], 
+  "Output"]
+}, Closed]],
+
+Cell["Here is a representation for all the cubic monomials:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(TableForm[
+      Transpose[{Bxyz[3], \((Convert[#1, Start \[Rule] \(-1\)]&)\)/@Bxyz[3]}]]
+      \)], "Input"],
+
+Cell[BoxData[
+    TagBox[GridBox[{
+          {\(x\^3\), \(x\^3\)},
+          {\(x\^2\ y\), 
+            \(\(-\(x\^3\/6\)\) - 1\/9\ \((x - y)\)\^3 + 
+              1\/3\ \((x + y)\)\^3 - 1\/18\ \((x + 2\ y)\)\^3\)},
+          {\(x\ y\^2\), 
+            \(\(-\(x\^3\/3\)\) + 1\/6\ \((x - y)\)\^3 + 
+              1\/6\ \((x + y)\)\^3\)},
+          {\(y\^3\), \(y\^3\)},
+          {\(x\^2\ z\), 
+            \(\(-\(x\^3\/6\)\) - 1\/9\ \((x - z)\)\^3 + 
+              1\/3\ \((x + z)\)\^3 - 1\/18\ \((x + 2\ z)\)\^3\)},
+          {\(x\ y\ z\), 
+            \(\(-\(x\^3\/6\)\) + 1\/12\ \((x - y)\)\^3 + 
+              1\/12\ \((x + y)\)\^3 + 1\/12\ \((x - z)\)\^3 - 
+              1\/12\ \((x + y - z)\)\^3 + 1\/12\ \((x + z)\)\^3 - 
+              1\/12\ \((x - y + z)\)\^3\)},
+          {\(y\^2\ z\), 
+            \(\(-\(y\^3\/6\)\) - 1\/9\ \((y - z)\)\^3 + 
+              1\/3\ \((y + z)\)\^3 - 1\/18\ \((y + 2\ z)\)\^3\)},
+          {\(x\ z\^2\), 
+            \(\(-\(x\^3\/3\)\) + 1\/6\ \((x - z)\)\^3 + 
+              1\/6\ \((x + z)\)\^3\)},
+          {\(y\ z\^2\), 
+            \(\(-\(y\^3\/3\)\) + 1\/6\ \((y - z)\)\^3 + 
+              1\/6\ \((y + z)\)\^3\)},
+          {\(z\^3\), \(z\^3\)}
+          },
+        RowSpacings->1,
+        ColumnSpacings->3,
+        RowAlignments->Baseline,
+        ColumnAlignments->{Left}],
+      (TableForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "In the case of ",
+  Cell[BoxData[
+      \(x\ y\ z\)]],
+  ", we see this does not give the ",
+  StyleBox["shortest ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "representation:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Expand[
+      \((x - y - z)\)\^3 - \((x + y - z)\)\^3 - \((x - y + z)\)\^3 + 
+        \((x + y + z)\)\^3]\)], "Input"],
+
+Cell[BoxData[
+    \(24\ x\ y\ z\)], "Output"]
+}, Closed]],
+
+Cell["\<\
+We also note the program works for polynomials in more than three \
+variables (but it often gets slower):\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Convert[48\ w\ x\ y\ z]\), 
+    \(Expand[%]\)}], "Input"],
+
+Cell[BoxData[
+    \(\(-5\)\ w\^4 + 6\ \((w + x)\)\^4 - \((w + 2\ x)\)\^4 + 
+      6\ \((w + y)\)\^4 - 7\ \((w + x + y)\)\^4 + \((w + 2\ x + y)\)\^4 - 
+      \((w + 2\ y)\)\^4 + \((w + x + 2\ y)\)\^4 + 6\ \((w + z)\)\^4 - 
+      7\ \((w + x + z)\)\^4 + \((w + 2\ x + z)\)\^4 - 7\ \((w + y + z)\)\^4 + 
+      8\ \((w + x + y + z)\)\^4 - \((w + 2\ x + y + z)\)\^4 + 
+      \((w + 2\ y + z)\)\^4 - \((w + x + 2\ y + z)\)\^4 - \((w + 2\ z)\)\^4 + 
+      \((w + x + 2\ z)\)\^4 + \((w + y + 2\ z)\)\^4 - 
+      \((w + x + y + 2\ z)\)\^4\)], "Output"],
+
+Cell[BoxData[
+    \(48\ w\ x\ y\ z\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Convert[240\ v\ w\ x\ y\ z]\), 
+    \(Expand[%]\)}], "Input"],
+
+Cell[BoxData[
+    \(6\ v\^5 - 7\ \((v + w)\)\^5 + \((v + 2\ w)\)\^5 - 7\ \((v + x)\)\^5 + 
+      8\ \((v + w + x)\)\^5 - \((v + 2\ w + x)\)\^5 + \((v + 2\ x)\)\^5 - 
+      \((v + w + 2\ x)\)\^5 - 7\ \((v + y)\)\^5 + 8\ \((v + w + y)\)\^5 - 
+      \((v + 2\ w + y)\)\^5 + 8\ \((v + x + y)\)\^5 - 
+      9\ \((v + w + x + y)\)\^5 + \((v + 2\ w + x + y)\)\^5 - 
+      \((v + 2\ x + y)\)\^5 + \((v + w + 2\ x + y)\)\^5 + \((v + 2\ y)\)\^5 - 
+      \((v + w + 2\ y)\)\^5 - \((v + x + 2\ y)\)\^5 + 
+      \((v + w + x + 2\ y)\)\^5 - 7\ \((v + z)\)\^5 + 8\ \((v + w + z)\)\^5 - 
+      \((v + 2\ w + z)\)\^5 + 8\ \((v + x + z)\)\^5 - 
+      9\ \((v + w + x + z)\)\^5 + \((v + 2\ w + x + z)\)\^5 - 
+      \((v + 2\ x + z)\)\^5 + \((v + w + 2\ x + z)\)\^5 + 
+      8\ \((v + y + z)\)\^5 - 9\ \((v + w + y + z)\)\^5 + 
+      \((v + 2\ w + y + z)\)\^5 - 9\ \((v + x + y + z)\)\^5 + 
+      10\ \((v + w + x + y + z)\)\^5 - \((v + 2\ w + x + y + z)\)\^5 + 
+      \((v + 2\ x + y + z)\)\^5 - \((v + w + 2\ x + y + z)\)\^5 - 
+      \((v + 2\ y + z)\)\^5 + \((v + w + 2\ y + z)\)\^5 + 
+      \((v + x + 2\ y + z)\)\^5 - \((v + w + x + 2\ y + z)\)\^5 + 
+      \((v + 2\ z)\)\^5 - \((v + w + 2\ z)\)\^5 - \((v + x + 2\ z)\)\^5 + 
+      \((v + w + x + 2\ z)\)\^5 - \((v + y + 2\ z)\)\^5 + 
+      \((v + w + y + 2\ z)\)\^5 + \((v + x + y + 2\ z)\)\^5 - 
+      \((v + w + x + y + 2\ z)\)\^5\)], "Output"],
+
+Cell[BoxData[
+    \(240\ v\ w\ x\ y\ z\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "We can also convert ",
+  StyleBox["polynomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by just converting each term:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\((Convert[#1, Start \[Rule] \(-1\)]&)\)/@\((x\^3 - 4\ y\ z\^2)\)\), 
+    \(Expand[%]\)}], "Input"],
+
+Cell[BoxData[
+    \(x\^3 + \(4\ y\^3\)\/3 - 2\/3\ \((y - z)\)\^3 - 2\/3\ \((y + z)\)\^3\)], 
+  "Output"],
+
+Cell[BoxData[
+    \(x\^3 - 4\ y\ z\^2\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Convert/@\((x\^3 - 4\ y\ z\^2 + x\ y\ z - x\^2\ y)\)\), 
+    \(Expand[%]\)}], "Input"],
+
+Cell[BoxData[
+    \(\(35\ x\^3\)\/18 - \(4\ y\^3\)\/3 - 17\/12\ \((x + y)\)\^3 + 
+      7\/12\ \((x + 2\ y)\)\^3 - 1\/9\ \((x + 3\ y)\)\^3 - 
+      5\/12\ \((x + z)\)\^3 + 10\/3\ \((y + z)\)\^3 + 
+      1\/2\ \((x + y + z)\)\^3 - 1\/12\ \((x + 2\ y + z)\)\^3 + 
+      1\/12\ \((x + 2\ z)\)\^3 - 8\/3\ \((y + 2\ z)\)\^3 - 
+      1\/12\ \((x + y + 2\ z)\)\^3 + 2\/3\ \((y + 3\ z)\)\^3\)], "Output"],
+
+Cell[BoxData[
+    \(x\^3 - x\^2\ y + x\ y\ z - 4\ y\ z\^2\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "We note that it should really only take ",
+  Cell[BoxData[
+      StyleBox["10",
+        FontWeight->"Bold"]]],
+  " terms at most in such a representation of a cubic, so the powers are ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " independent. "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Every homogeneous polynomial of degree ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " has a ",
+  StyleBox["shortest ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "represention as a sum (linear combination) of ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  "th powers.  (We already know the upper bound on the number, but is that ",
+  StyleBox["tight",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?)  How can the ",
+  StyleBox["length",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of such a shortest representation be found \[LongDash] and an ",
+  StyleBox["example",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the representation as well."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Presentation",
+WindowSize->{772, 563},
+WindowMargins->{{4, Automatic}, {0, Automatic}},
+Magnification->1.25,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00<0001804P000000]P2:?oQon82n@960dL5:0?l0080001804P000000]P2:001
+0000I00000400`<300000BL?00400@0000000000000006P801T1T00000000000
+00000000000000000000000000000000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 242, 10, 98, "Title"],
+Cell[1954, 61, 274, 10, 76, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[2253, 75, 36, 0, 65, "Subsubsection"],
+Cell[2292, 77, 328, 13, 68, "Text"],
+Cell[2623, 92, 403, 16, 76, "Text"],
+
+Cell[CellGroupData[{
+Cell[3051, 112, 70, 1, 70, "Input"],
+Cell[3124, 115, 43, 1, 64, "Output"]
+}, Closed]],
+Cell[3182, 119, 185, 6, 42, "Text"],
+
+Cell[CellGroupData[{
+Cell[3392, 129, 70, 1, 68, "Input"],
+Cell[3465, 132, 61, 1, 64, "Output"]
+}, Closed]],
+Cell[3541, 136, 619, 25, 98, "Text"],
+Cell[4163, 163, 843, 38, 76, "Text"],
+
+Cell[CellGroupData[{
+Cell[5031, 205, 92, 1, 70, "Input"],
+Cell[5126, 208, 70, 1, 66, "Output"]
+}, Closed]],
+Cell[5211, 212, 542, 19, 98, "Text"],
+
+Cell[CellGroupData[{
+Cell[5778, 235, 97, 2, 70, "Input"],
+Cell[5878, 239, 35, 1, 64, "Output"]
+}, Closed]],
+Cell[5928, 243, 594, 23, 70, "Text"],
+Cell[6525, 268, 655, 21, 176, "Text"],
+Cell[7183, 291, 182, 6, 48, "Text"],
+
+Cell[CellGroupData[{
+Cell[7390, 301, 640, 18, 70, "Input"],
+Cell[8033, 321, 3588, 58, 989, "Output"]
+}, Closed]],
+Cell[11636, 382, 89, 3, 42, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11762, 390, 36, 0, 37, "Subsubsection"],
+Cell[11801, 392, 536, 13, 160, "Text"],
+Cell[12340, 407, 3700, 70, 1641, "Input",
+  InitializationCell->True],
+Cell[16043, 479, 60, 0, 48, "Text"],
+
+Cell[CellGroupData[{
+Cell[16128, 483, 45, 1, 68, "Input"],
+Cell[16176, 486, 240, 3, 133, "Print"]
+}, Closed]],
+Cell[16431, 492, 36, 0, 42, "Text"],
+
+Cell[CellGroupData[{
+Cell[16492, 496, 149, 3, 118, "Input"],
+Cell[16644, 501, 86, 1, 66, "Output"],
+Cell[16733, 504, 70, 1, 66, "Output"],
+Cell[16806, 507, 104, 2, 66, "Output"]
+}, Closed]],
+Cell[16925, 512, 69, 0, 42, "Text"],
+
+Cell[CellGroupData[{
+Cell[17019, 516, 129, 3, 93, "Input"],
+Cell[17151, 521, 1361, 33, 434, "Output"]
+}, Closed]],
+Cell[18527, 557, 217, 9, 42, "Text"],
+
+Cell[CellGroupData[{
+Cell[18769, 570, 138, 3, 70, "Input"],
+Cell[18910, 575, 45, 1, 64, "Output"]
+}, Closed]],
+Cell[18970, 579, 129, 3, 70, "Text"],
+
+Cell[CellGroupData[{
+Cell[19124, 586, 78, 2, 93, "Input"],
+Cell[19205, 590, 543, 8, 206, "Output"],
+Cell[19751, 600, 48, 1, 64, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[19836, 606, 82, 2, 84, "Input"],
+Cell[19921, 610, 1382, 21, 486, "Output"],
+Cell[21306, 633, 52, 1, 64, "Output"]
+}, Closed]],
+Cell[21373, 637, 164, 6, 42, "Text"],
+
+Cell[CellGroupData[{
+Cell[21562, 647, 120, 2, 95, "Input"],
+Cell[21685, 651, 104, 2, 86, "Output"],
+Cell[21792, 655, 51, 1, 66, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[21880, 661, 107, 2, 86, "Input"],
+Cell[21990, 665, 396, 6, 227, "Output"],
+Cell[22389, 673, 71, 1, 66, "Output"]
+}, Closed]],
+Cell[22475, 677, 304, 10, 70, "Text"],
+Cell[22782, 689, 795, 27, 152, "Text"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

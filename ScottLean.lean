@@ -1,4 +1,41 @@
--- Root module of the ScottLean library. It imports every module in the library,
--- so `import ScottLean` pulls in everything. Add new modules under `ScottLean/`
--- and import them here.
+-- Root module of the ScottLean library.
+-- Imports Basic plus every auto-generated Dana Scott paper formalization.
 import ScottLean.Basic
+import ScottLean.Scott.BayerGonusBenzmullerScott2023CategoryTheoryInIsabelleHOL
+import ScottLean.Scott.BenzmullerScott2016AxiomatizingCategoryTheoryInFreeLogic
+import ScottLean.Scott.DataTypesAsLattices
+import ScottLean.Scott.FourmanScott1979SheavesAndLogic
+import ScottLean.Scott.Furber2021InterpretingLambdaCalculus
+import ScottLean.Scott.MyhillScott1971OrdinalDefinability
+import ScottLean.Scott.RabinScottFiniteAutomata
+import ScottLean.Scott.Scott1958ConvergentSequences
+import ScottLean.Scott.Scott1959ConstructingModels
+import ScottLean.Scott.Scott1961MeasurableCardinals
+import ScottLean.Scott.Scott1962AlgebrasOfSets
+import ScottLean.Scott.Scott1962QuinesIndividuals
+import ScottLean.Scott.Scott1964InvariantBorelSets
+import ScottLean.Scott.Scott1965DenumerablyLongFormulas
+import ScottLean.Scott.Scott1967DefinitionalSuggestionsAutomataTheory
+import ScottLean.Scott.Scott1967ExistenceAndDescription
+import ScottLean.Scott.Scott1967IndependenceCH
+import ScottLean.Scott.Scott1968ExtendingTopologicalInterpretation
+import ScottLean.Scott.Scott1969BooleanModelsAndNonstandardAnalysis
+import ScottLean.Scott.Scott1969OnCompletingOrderedFields
+import ScottLean.Scott.Scott1970AdviceOnModalLogic
+import ScottLean.Scott.Scott1970ConstructiveValidity
+import ScottLean.Scott.Scott1970ExtendingTopologicalInterpretationII
+import ScottLean.Scott.Scott1970OutlineMathematicalTheoryComputation
+import ScottLean.Scott.Scott1971OnEngenderingAnIllusionOfUnderstanding
+import ScottLean.Scott.Scott1972ContinuousLattices
+import ScottLean.Scott.Scott1974AxiomatizingSetTheory
+import ScottLean.Scott.Scott1974DoesManyValuedLogicHaveAnyUse
+import ScottLean.Scott.Scott1975CombinatorsAndClasses
+import ScottLean.Scott.Scott1979IdentityAndExistence
+import ScottLean.Scott.Scott1980LambdaCalculusModelsPhilosophy
+import ScottLean.Scott.Scott1980RelatingTheoriesLambdaCalculus
+import ScottLean.Scott.Scott1982SomeOrderedSetsComputerScience
+import ScottLean.Scott.Scott1998ANewCategory
+import ScottLean.Scott.Scott2007AlgebraicInterpretationOfQuantifiers
+import ScottLean.Scott.ScottSuppes1958FoundationalAspectsTheoriesOfMeasurement
+import ScottLean.Scott.TiemensScottBenzmullerBenda2019CategoricalAxiomatizationOfModeloids
+import ScottLean.Scott.TypeTheoreticalAlternative

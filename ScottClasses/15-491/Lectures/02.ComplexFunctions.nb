@@ -1,0 +1,2786 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     65812,       2387]*)
+(*NotebookOutlinePosition[     66587,       2415]*)
+(*  CellTagsIndexPosition[     66543,       2411]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 2   Projective Geometry\n",
+  StyleBox["Complex functions",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\n\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["2 September 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Understanding Complex Functions",
+  FontWeight->"Bold"]], "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Polynomials",
+  FontWeight->"Bold"]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Explaining CartesianMap", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["The Problem.  ",
+    FontWeight->"Bold"],
+  "The difficulty of picturing the behavior of functions from ",
+  StyleBox["Complex",
+    FontWeight->"Bold"],
+  " to ",
+  StyleBox["Complex",
+    FontWeight->"Bold"],
+  " is that the complex numbers are naturally represented in ",
+  StyleBox["2 dimensions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The graph of a complex function, then, has to be represented in ",
+  StyleBox["4 dimensions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!  As that is impossible to do with ordinary graphics, we try to find some \
+other methods of getting a feeling for a complex function as a transformation \
+of the two-dimensional complex plane into itself."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["An Answer.",
+    FontWeight->"Bold"],
+  "   One easy tactic is to focus on a number of related points and then to \
+see how they are transformed.  By taking a fairly large number of points in a \
+representative part of the plane, we begin to see what the mapping is doing.  \
+The primary method is that of a ",
+  StyleBox["grid",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " which is taken to be  rectangular.  The creation of the transform of this \
+grid (at least to a reasonable degree of approximation) is carried out by the \
+program ",
+  StyleBox["CartesianMap",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Information["\<CartesianMap\>", LongForm \[Rule] False]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Comment.  ",
+    FontWeight->"Bold"],
+  "Polar coordinates can also be used and are often helpful for \
+visualization.  Use the command ",
+  StyleBox["PolarMap",
+    FontWeight->"Bold"],
+  "."
+}], "SmallText",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Since the ",
+  StyleBox["identity function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a transformation that does nothing, we can then see by comparison what \
+the grid to be transformed by some other function looks like."
+}], "Text"],
+
+Cell[BoxData[
+    \(f[z_] := z; \n
+    ii = CartesianMap[f, {0, 1, 0.1}, {0, 1, 0.1}, 
+        PlotRange \[Rule] {{\(-0.1\), 1.1}, {\(-0.1\), 1.1}}]; \)], "Input"],
+
+Cell[TextData[{
+  "The next transformation that comes to mind is a Euclidean transformation \
+of the form ",
+  StyleBox[" z\[Rule]a+b z",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(f[z_] := 1 + I + \((2 - I)\)\ z; \n
+    tt = CartesianMap[f, {0, 1, 0.1}, {0, 1, 0.1}, 
+        PlotRange \[Rule] {{0, 4}, {\(-0.1\), 3.2}}]; \)], "Input"],
+
+Cell[TextData[{
+  "And we see that the unit square has been translated, stretched, and \
+rotated.  We can in fact show the original grid and the transformed grid \
+together by the mapping   ",
+  StyleBox["z\[Rule]1+I+(2-I) z",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[{ii, tt}, PlotRange \[Rule] {{\(-0.1\), 4}, {\(-0.1\), 3.2}}]; 
+    \)\)], "Input"],
+
+Cell[TextData[{
+  "Note that the factor of magnification of this transformation is ",
+  Cell[BoxData[
+      StyleBox[\(\@5\),
+        FontWeight->"Bold"]]],
+  ".  (Why?)"
+}], "Text"],
+
+Cell[TextData[{
+  "Our next most favorite transformation is, of course, ",
+  Cell[BoxData[
+      StyleBox[\(z \[Rule] z\^2\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^2; \)\), 
+    \(\(CartesianMap[f, {0, 1, 0.1}, {0, 1, 0.1}, 
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-0.2\), 2.1}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "And we see the square has undergone a considerable ",
+  StyleBox["distortion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  ",
+  "In fact, what happened to the original four corners?  We can check:"
+}], "Text"],
+
+Cell[BoxData[
+    \(f/@{0, 1, 1 + I, I}\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Problem: ",
+    FontWeight->"Bold"],
+  "An interesting question is to figure out ",
+  StyleBox["what curves",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " we are seeing there as the images of the formerly straight grid lines."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Solution:",
+    FontWeight->"Bold"],
+  "  Take the vertical line at position ",
+  StyleBox["1/2",
+    FontWeight->"Bold"],
+  " on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis, for example.  In ",
+  StyleBox["Complex",
+    FontWeight->"Bold"],
+  " notation, it can be expressed as the parametric form ",
+  StyleBox["1/2 + I t",
+    FontWeight->"Bold"],
+  ", where ",
+  StyleBox["t",
+    FontWeight->"Bold"],
+  " is an independent real variable.  Now, just substitute this for ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " in the formula for the function."
+}], "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[f[1\/2 + I\ t]]\)], "Input"],
+
+Cell[TextData[{
+  "We should associate this as ",
+  StyleBox["(1/4 - t",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[") + I t",
+    FontWeight->"Bold"],
+  ".  We then recognize the curve as a parabola lying on its side and opening \
+to the left.  Let us plot the line and its image curve."
+}], "Text"],
+
+Cell[BoxData[
+    \(Eliminate[{1\/4\ \((4 - t\^2)\) == x, t == y}, t]\)], "Input"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{4\ x == 1 - 4\ y\^2, x == 1\/2}, \n
+      \t{x, \(-4.1\), 1.1}, {y, \(-4.1\), 4.1}, \n\t
+      AxesOrigin \[Rule] {0, 0}]; \)\)], "Input"],
+
+Cell[TextData[{
+  "This same method can be applied to the other lines of the original \
+rectangular grid\[LongDash]or to ",
+  StyleBox["any other line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the plane."
+}], "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[f[1 - 2\ t + I\ \((1 + t)\)]]\)], "Input"],
+
+Cell[BoxData[
+    \(Eliminate[{1 - 2\ t == x, 1 + t == y}, t]\)], "Input"],
+
+Cell[BoxData[
+    \(Eliminate[{3\ \((\(-2\)\ t + t\^2)\) == x, 
+        \(-2\)\ \((\(-1\) + t + 2\ t\^2)\) == y}, t]\)], "Input"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{x == 3 - 2\ y, 
+        x\^2 + x\ \((\(-108\) + 24\ y)\) == 324 - 144\ y - 9\ y\^2}, {x, 
+        \(-4.1\), 4.1}, {y, \(-4.1\), 4.1}, \n\tAxesOrigin \[Rule] {0, 0}]; 
+    \)\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exploring powers", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Let us look at other grids and other powers of z in the formula for \
+the complex mapping.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(f[z_] := \((1 + I)\)\ z\^2; \n\n
+    CartesianMap[f, {0, 1}, {0, 1}, 
+      PlotRange \[Rule] {{\(-2.5\), 2}, {\(-1.5\), 2.5}}]; \)], "Input"],
+
+Cell["\<\
+There we see the first squaring image followed by a rotation and \
+change of scale.  Here is the image of a different rectangle.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^2; \)\), 
+    \(\(CartesianMap[f, {\(-1\), 1, 0.1}, {0, 1, 0.1}, 
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-2.1\), 2.1}}]; \)\)}], "Input"],
+
+Cell["Now what happened to the corners?  And on to the cubes.", "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^3; \)\), 
+    \(\(CartesianMap[f, {0, 1}, {0, 1}, 
+      PlotRange \[Rule] {{\(-2\), 2}, {\(-1\), 2.5}}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^3; \)\), 
+    \(\(CartesianMap[f, {0, 1}, {\(-1\), 1}, 
+      PlotRange \[Rule] {{\(-2\), 2}, {\(-2.5\), 2.5}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "Can you explain the overlap?  Note that now we are getting into ",
+  StyleBox["cubic curves",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   To see them, let us look at one thin strip from the grid."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^3; \)\), 
+    \(\(CartesianMap[f, {0.4, 0.5, 0.1}, {\(-1\), 1}, 
+      PlotRange \[Rule] {{\(-2\), 0.5}, {\(-1\), 1}}]; \)\)}], "Input"],
+
+Cell["We can check one of these lines parametrically.", "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[f[1\/2 + I\ t]]\)], "Input"],
+
+Cell[BoxData[
+    \(Eliminate[{x == 1\/8 - \(3\ t\^2\)\/2, y == \(3\ t\)\/4 - t\^3}, t]\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{x == 1\/2, 6\ x + 15\ x\^2 + 8\ x\^3 == 1 - 27\ y\^2}, {
+        x, \(-4.1\), 4.1}, {y, \(-4.1\), 5.1}, AxesOrigin \[Rule] {0, 0}, 
+      PlotPoints \[Rule] 100]; \)\)], "Input"],
+
+Cell[TextData[{
+  "This turns out to be a well known type of  ",
+  StyleBox["cubic curve",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", which we will study in detail in the latter part of this course.  By the \
+way, why does the curve cross the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis at the point ",
+  StyleBox["-1",
+    FontWeight->"Bold"],
+  " ?"
+}], "Text"],
+
+Cell["\<\
+And, as we might expect, the higher the power, the more the square \
+is twisted around.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^4; \)\), 
+    \(\(CartesianMap[f, {0, 1}, {0, 1}, 
+      PlotRange \[Rule] {{\(-4\), 1.1}, {\(-2\), 2}}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^5; \)\), 
+    \(\(CartesianMap[f, {0, 1}, {0, 1}, 
+      PlotRange \[Rule] {{\(-4\), 2}, {\(-4\), 2}}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^5; \)\), 
+    \(\(CartesianMap[f, {\(-1\), 1, 0.1}, {\(-1\), 1, 0.1}, 
+      PlotRange \[Rule] {{\(-4\), 4}, {\(-4\), 4}}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^6; \)\), 
+    \(\(CartesianMap[f, {0, 1}, {0, 1}, 
+      PlotRange \[Rule] {{\(-4\), 4}, {\(-8\), 2}}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^6; \)\), 
+    \(\(CartesianMap[f, {\(-1\), 1, 0.1}, {\(-1\), 1, 0.1}, 
+      PlotRange \[Rule] {{\(-4\), 4}, {\(-8\), 8}}]; \)\)}], "Input"],
+
+Cell["Finally, a look at a higher-degree curve.", "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^7; \)\), 
+    \(\(CartesianMap[f, {0.9, 1, 0.1}, {\(-1\), 1, 0.1}, 
+      PlotRange \[Rule] {{\(-5\), 11}, {\(-9\), 9}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "Unfortunately, several minutes of computation could not find the formula \
+for such a curve ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["Elimination",
+    FontWeight->"Bold"],
+  " from the parametric form:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[f[1\/2 + I\ t]]\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Trying polynomial functions", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[
+"Consider now a \[OpenCurlyDoubleQuote]random\[CloseCurlyDoubleQuote] \
+polynomial.  (Trust me, I typed it in at random!)  The unit square is even \
+more distorted under such a transformation. "], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := 3\ z\^3 - z\^2 + I\ z - 1; \)\), 
+    \(\(CartesianMap[f, {0, 1}, {0, 1}, 
+      PlotRange \[Rule] {{\(-8\), 1.1}, {\(-4\), 6}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  " But look at the image of the big square going from ",
+  StyleBox["-1",
+    FontWeight->"Bold"],
+  " to ",
+  StyleBox["+1",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(f[z_] := 3\ z\^3 - z\^2 + I\ z - 1; \n
+    CartesianMap[f, {\(-1\), 1}, {\(-1\), 1}, 
+      PlotRange \[Rule] {{\(-8\), 8}, {\(-10\), 8}}]; \)], "Input"],
+
+Cell[TextData[{
+  "We see it raps right around the origin.  This is a ",
+  StyleBox["graphical proof ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "that this particular polynomial has a root !  Indeed, a numerical \
+calculation of the roots of this polynomial shows that (by luck!) all three \
+roots were captured in the square we graphed. "
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[z]; \nNSolve[3\ z\^3 - z\^2 + I\ z - 1 == 0, z]\), 
+    \(\(RootPlot[3\ z\^3 - z\^2 + I\ z - 1 == 0, z, 10, 
+      PlotRange \[Rule] {{\(-1\), 1}, {\(-1\), 1}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "This example has a germ of an idea for showing that  ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (complex) non-constant polynomial have roots  \[LongDash] which does not \
+mean you can ",
+  StyleBox["find",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " them other than by approximation.  For cubics there are indeed formulae \
+for the roots, but the symbolic form may not be very helpful in relating them \
+to something you know.  For example, a combination cube roots and square \
+roots results too often in an algebraic mess (at least with this  ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " implementation):"
+}], "Text"],
+
+Cell[BoxData[{
+    \(roots = Solve[3\ z\^3 - z\^2 + I\ z - 1 == 0, z]\), 
+    \(N[roots]\)}], "Input"],
+
+Cell[TextData[{
+  " Part of the problem here is that ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " does not try to simplify the square root  ",
+  Cell[BoxData[
+      StyleBox[\(\@\(60264 - 16038\ I\)\),
+        FontWeight->"Bold"]]],
+  ".  But, every complex number ",
+  StyleBox["has",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a square root.  So, let us see if we can do something about this by \
+finding a ",
+  StyleBox["formula ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "for the square root of any complex number.  "
+}], "Text"],
+
+Cell["First, here is the square of a complex number:", "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[\((a + I\ b)\)\^2]\)], "Input"],
+
+Cell[TextData[{
+  "So, if ",
+  StyleBox["re + I im ",
+    FontWeight->"Bold"],
+  "is any given complex number, we have to solve these equations to find the \
+square roots."
+}], "Text"],
+
+Cell[BoxData[
+    \(sol = Solve[{re == a\^2 - b\^2, im == 2\ a\ b}, {a, b}]\)], "Input"],
+
+Cell[TextData[{
+  "These formulae are hard to read because the same subexpression comes in \
+over and over.  But ",
+  Cell[BoxData[
+      \(\@\(im\^2 + re\^2\)\)],
+    FontWeight->"Bold"],
+  " is just the absolute value of the given number, so we can introduce a \
+symbolic name"
+}], "Text"],
+
+Cell[BoxData[
+    \(sol = sol /. {\@\(im\^2 + re\^2\) \[Rule] abs}\)], "Input"],
+
+Cell[TextData[{
+  "This looks better.  But, there are ",
+  StyleBox["four",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " answers, when we want only ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " square toots.  Since, however, the quantity",
+  Cell[BoxData[
+      StyleBox[\(\(-abs\) - re\),
+        FontWeight->"Bold"]]],
+  " will always be non positive (Why?), we can forget about the first two \
+solutions and concentrate on the real solutions."
+}], "Text"],
+
+Cell[BoxData[
+    \(sol = Simplify[sol\[LeftDoubleBracket]{3, 4}\[RightDoubleBracket]]\)], 
+  "Input"],
+
+Cell["\<\
+Since one pair is just the minus of the other, we need only check \
+the validity of the answer for one pair:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Expand[
+      \(\((a + I\ b)\)\^2 /. 
+          sol\[LeftDoubleBracket]2\[RightDoubleBracket]\) /. {
+          abs \[Rule] \@\(im\^2 + re\^2\)}]\)], "Input"],
+
+Cell["\<\
+And the formula works!  Let's try it in a more condensed form:\
+\>",
+   "Text"],
+
+Cell[BoxData[{
+    \(\(z = 60264 - 16038\ I; \)\), 
+    \(w = \(\@\(Abs[z] - Re[z]\)\ \((Abs[z] + z)\)\)\/\(\@2\ Im[z]\); \n
+    Expand[w\^2]\)}], "Input"],
+
+Cell[TextData[{
+  "We might even be able to make ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " look better by sorting out the real and imaginary parts."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(\ w\  = \ \(w\  // \ Simplify\)\  // \ ComplexSimplify\)\)], "Input"],
+
+Cell["Since there is a common factor, we can isolate it., ", "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[Simplify[w\/\(3\ \@\(\(-372\) + 3\ \@16465\)\)]]\)], 
+  "Input"],
+
+Cell["\<\
+So, here below is a pretty good form (with some minor arithmetic \
+simplification).\
+\>", "Text"],
+
+Cell[BoxData[
+    \(w = 
+      3\ \(\@\(\(-372\) + 3\ \@16465\)\) 
+        \((3\ I - 1\/11\ \((124 + \@16465)\))\); Expand[w\^2]\)], "Input"],
+
+Cell["So, we can put this into the formula for one of the roots.", "Text"],
+
+Cell[BoxData[{
+    \(Clear[z]\), 
+    \(\(z /. roots\[LeftDoubleBracket]1\[RightDoubleBracket]\) /. {
+        \@\(60264 - 16038\ I\) \[Rule] w}\)}], "Input"],
+
+Cell[TextData[{
+  "Oh well, there are still cube roots to cope with \[LongDash] especially in \
+the denominator of a fraction.  And then \[LongDash] even after rationalizing \
+the denominator \[LongDash] there is still the problem of finding a good \
+expression for the cube root of a complex number.  As this is directly \
+related to the problem of the ",
+  StyleBox["Trisection of the Angle ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "(Why?), there is probably no reason to work at this example further."
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Rational functions",
+  FontWeight->"Bold"]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Examining some rational functions", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Let us go back to a square grid (taken a bit off center).", "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z; \)\), 
+    \(\(aa = 
+      CartesianMap[f, {0.4, 2}, {0.4, 2}, 
+        PlotRange \[Rule] {{\(-0.1\), 2.1}, {\(-0.1\), 2.1}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "It turns out that the transformation",
+  StyleBox[" z \[Rule] 1/z ",
+    FontWeight->"Bold"],
+  "throws the image below the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := 1\/z; \)\), 
+    \(\(CartesianMap[f, {0.4, 2}, {0.4, 2}, 
+      PlotRange \[Rule] {{\(-0.1\), 1.5}, {\(-1.5\), 0.1}}]; \)\)}], "Input"],
+
+Cell["\<\
+So, if we take a conjugate first, it all comes out in the first \
+quadrant.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := 1\/Conjugate[z]; \)\), 
+    \(\(bb = 
+      CartesianMap[f, {0.4, 2}, {0.4, 2}, 
+        PlotRange \[Rule] {{\(-0.1\), 1.5}, {\(-0.1\), 1.5}}, 
+        PlotStyle \[Rule] {Thickness[0.006]}]; \)\)}], "Input"],
+
+Cell["\<\
+Now let us show the original grid and the image relative to the \
+unit circle.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(Show[{aa, Graphics[Circle[{0, 0}, 1]], bb}, 
+      PlotRange \[Rule] {{\(-1.1\), 2.1}, {\(-1.1\), 2.1}}]; \)\)], "Input"],
+
+Cell[TextData[{
+  "It is easy to check that the transformation ",
+  StyleBox["z \[Rule] 1/Conjugate[z]",
+    FontWeight->"Bold"],
+  " leaves the points of the unit circle fixed, and otherwise it  ",
+  StyleBox["inverts",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the inside and the outside of the circle.  What is somewhat remarkable is \
+that the curves in the resulting image grid are all ",
+  StyleBox["arcs of circles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", as we show in the next section."
+}], "Text"],
+
+Cell[TextData[{
+  "In general, any  ",
+  StyleBox["fractional linear transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "produces a similar picture."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := \(\(-1\) + 3\ z\)\/\(2 - z\); \)\), 
+    \(\(CartesianMap[f, {3, 9}, {3, 9}]; \)\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Inverting some lines", "Subsubsection"],
+
+Cell["\<\
+The function that inverts the plane with respect to the unit circle \
+is:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(f[z_] := 1\/Conjugate[z]; \)\)], "Input"],
+
+Cell[TextData[{
+  "The question to be investegated is: ",
+  StyleBox["What are the images of  lines?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  " The inversion of a line with respect to the unit circle is a circle \
+passing through the origin."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof.",
+    FontWeight->"Bold"],
+  "  As before, we use some ",
+  StyleBox["symbolic computation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "to make the proof.  As the situation of a line and a circle is completely \
+symmetric about the perpendicular to the line from the center of the circle, \
+",
+  StyleBox["without loss of generality,",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " we can take lines ",
+  StyleBox["perpendicular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.  Here are the real and imaginary components of the image of such a \
+line passing through the real point  ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[1\/Conjugate[a + I\ t]]\)], "Input"],
+
+Cell[TextData[{
+  "Do these points lie on a circle?  We have to get an equation in ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  " to answer this.  We use a method we used before."
+}], "Text"],
+
+Cell[BoxData[
+    \(eq = 
+      Eliminate[{x == a\/\(a\^2 + t\^2\), y == t\/\(a\^2 + t\^2\)}, t]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "We can simplify the equation by dividing both sides by  ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\((Apart[#\/a]&)\)/@eq\)], "Input"],
+
+Cell["\<\
+We can check that this equation represents a circle by comparing it \
+with a well known standard form.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(ExpandAll[\((x - 1\/\(2  a\))\)\^2 + y\^2 == \((1\/\(2  a\))\)\^2]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "In other words, we have a circle of radius  ",
+  Cell[BoxData[
+      \(1\/\(2  a\)\)],
+    FontWeight->"Bold"],
+  " centered at the point ",
+  Cell[BoxData[
+      StyleBox[\(1\/\(2 a\)\),
+        FontWeight->"Bold"]]],
+  " on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis."
+}], "Text"],
+
+Cell[TextData[{
+  "Strictly speaking, we still should argue additionally that the points ",
+  Cell[BoxData[
+      \({a\/\(a\^2 + t\^2\), t\/\(a\^2 + t\^2\)}\)],
+    FontWeight->"Bold"],
+  " sweep out ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the circle (",
+  StyleBox["except",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for the point ",
+  StyleBox["{0, 0}",
+    FontWeight->"Bold"],
+  ", which requires ",
+  StyleBox["t",
+    FontWeight->"Bold"],
+  " to become infinite).  But this is easy to do."
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[{\(-\(x\/a\)\) + x\^2 == \(-y\^2\), x == a\/\(a\^2 + t\^2\), 
+        y == t\/\(a\^2 + t\^2\)}, t]\)], "Input"],
+
+Cell[TextData[{
+  "That's it.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Painting surfaces with colors", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " enables us to make three-dimensional plots of surfaces with equations of \
+the form  ",
+  Cell[BoxData[
+      StyleBox[\(z == f[x, y]\),
+        FontWeight->"Bold"]]],
+  ".  The command       \n",
+  Cell[BoxData[
+      StyleBox[\(Plot3D[f[x, y], {x, xmin, xmax}, {y, ymin, ymax}]\),
+        FontWeight->"Bold"]]],
+  "\ngenerates a three-dimensional plot of ",
+  Cell[BoxData[
+      StyleBox[\(f[x, y]\),
+        FontWeight->"Bold"]]],
+  " over the specified rectangle as a function of ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  ".  While the command \n",
+  Cell[BoxData[
+      StyleBox[
+        \(Plot3D[{f[x, y], s[x, y]}, {x, xmin, xmax}, {y, ymin, ymax}]\),
+        FontWeight->"Bold"]]],
+  "\ngenerates a three-dimensional plot in which the height of the surface is \
+specified by ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  ", and the shading or color is specified by ",
+  StyleBox["s",
+    FontWeight->"Bold"],
+  ".  Here is an ordinary plot of the first kind."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Plot3D[Sin[x] + Sin[y], \n\t{x, \(-10\), 10}, {y, \(-10\), 10}, \n\t
+      PlotPoints \[Rule] 100, Mesh \[Rule] False]; \)\)], "Input"],
+
+Cell["\<\
+The shading seen here is automatically generated as if three \
+colored light were shining on the points of the surface from different \
+angles.  Here now is a plot where the color is user defined.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(Plot3D[
+      Evaluate[{Sin[x] + Sin[y], 
+          Hue[1\/4\ \((2 + Sin[x] + Sin[y])\), 1, 1]}], {x, \(-10\), 10}, {y, 
+        \(-10\), 10}, \n\tPlotPoints \[Rule] 200, Mesh \[Rule] False]; \)\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Now, for a complex function ",
+  Cell[BoxData[
+      StyleBox[\(f[x + I\ y]\),
+        FontWeight->"Bold"]]],
+  ", the height can be thought of as ",
+  Cell[BoxData[
+      StyleBox[\(Abs[f[x + I\ y]]\),
+        FontWeight->"Bold"]]],
+  ".  But this is only ",
+  StyleBox["part",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the complex value  ",
+  Cell[BoxData[
+      StyleBox[\(z == f[x + I\ y]\),
+        FontWeight->"Bold"]]],
+  ".  The rest of the the value is determined by ",
+  Cell[BoxData[
+      StyleBox[\(Arg[f[x + I\ y]]\),
+        FontWeight->"Bold"]]],
+  ".  To ",
+  StyleBox["see",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " this value, we need to ",
+  StyleBox["paint",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the surface with ",
+  Cell[BoxData[
+      StyleBox[\(ArgColor[z]\),
+        FontWeight->"Bold"]]],
+  ", which gives a color value whose hue is proportional to the argument of \
+the complex number ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  ".  Using this scheme, then, here is a picture of the ",
+  StyleBox["identity function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " over the complex numbers."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z; \)\), 
+    \(\(Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, {x, \(-3\), 3}, {y, 
+        \(-3\), 3}, \n\tBoxRatios \[Rule] {1, 1, 1}, \n\t
+      PlotPoints \[Rule] 31]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "We see a cone, because the height, ",
+  Cell[BoxData[
+      StyleBox[\(Abs[x + I\ y]\),
+        FontWeight->"Bold"]]],
+  ", is the same as the distance of the point ",
+  StyleBox["{x, y}",
+    FontWeight->"Bold"],
+  " from the origin.  We see ",
+  StyleBox["only one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " spectrum, because the identity function makes no change in the argument \
+of the complex number ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  ".  Here is a picture without the mesh."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z; \)\), 
+    \(\(Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, {x, \(-3\), 3}, {y, 
+        \(-3\), 3}, \n\tBoxRatios \[Rule] {1, 1, 1}, \n\t
+      PlotPoints \[Rule] 31, \n\tMesh \[Rule] False]; \)\)}], "Input"],
+
+Cell["\<\
+Next, we can try the same kind of plot of the squaring \
+function.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^2; \)\), 
+    \(\(Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, 
+      \ {x, \(-3\), 3}, {y, \(-3\), 3}, \n\tBoxRatios \[Rule] {1, 1, 1}, \n\t
+      PlotPoints \[Rule] 31]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "We see a rounder surface with some qualities of a parabola; and we see now \
+",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " spectra, because squaring ",
+  StyleBox["doubles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the argument.  Here is a related function with ",
+  StyleBox["two imaginary roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^2 + 4; \)\), 
+    \(\(Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, {x, \(-3\), 3}, {y, 
+        \(-3\), 3}, \n\tBoxRatios \[Rule] {1, 1, 1}, \n\t
+      PlotPoints \[Rule] 31]; \)\)}], "Input"],
+
+Cell[TextData[
+"We see two spectra again, and we see a surface that is pushed down to zero \
+at two points \[LongDash] but is non zero otherwise.  Next we try the cubing \
+function."], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^3; \)\), 
+    \(\(Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, \n
+      \t{x, \(-3\), 3}, {y, \(-3\), 3}, \n\tBoxRatios \[Rule] {1, 1, 1}, \ \n
+      \tPlotPoints \[Rule] 31]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "Of course we see ",
+  StyleBox["three",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " spectra and a surface of revolution. (Why?)  On to the 4th power:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^4; \)\), 
+    \(\(Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, \n
+      \t{x, \(-3\), 3}, {y, \(-3\), 3}, \n\tBoxRatios \[Rule] {1, 1, 1}, \n\t
+      PlotPoints \[Rule] 51, \n\tMesh \[Rule] False]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "The results are as expected, because we know that  ",
+  Cell[BoxData[
+      StyleBox[\(Abs[z\^n] == Abs[z]\^n\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(Arg[z\^n] == n\ Arg[z]\),
+        FontWeight->"Bold"]]],
+  ".  And, finally, we try the plot of a polynomial with three roots."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := 3\ z\^3 - z\^2 + I\ z - 1; \)\), 
+    \(\(Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, \n
+      \t{x, \(-1\), 1}, {y, \(-1\), 1}, \n\tBoxRatios \[Rule] {1, 1, 1}, \n\t
+      PlotPoints \[Rule] 51, \n\tMesh \[Rule] False]; \)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(Show[%, ViewPoint \[Rule] {1.673, \(-1.411\), \(-2.543\)}]; \)\)], 
+  "Input"],
+
+Cell[TextData[{
+  "The surface is somewhat distorted, but the behavior for large values of ",
+  Cell[BoxData[
+      StyleBox[\(Abs[x + I\ y]\),
+        FontWeight->"Bold"]]],
+  " will be very much like  ",
+  Cell[BoxData[
+      StyleBox[\(z\^3\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell["Next, we can try some rational functions.", "Text"],
+
+Cell[BoxData[
+    \(f[z_] := \(z + 1\)\/\(z - 1\); \n
+    Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, {x, \(-2\), 2}, {y, 
+        \(-2\), 2}, PlotRange \[Rule] {{\(-2\), 2}, {\(-2\), 2}, {0, 6}}, 
+      BoxRatios \[Rule] {1, 1, 1.5}, PlotPoints \[Rule] 100, \n\t
+      Mesh \[Rule] False]; \)], "Input"],
+
+Cell[TextData[{
+  "The plot is somewhat truncated in order to fit into the box.  At ",
+  Cell[BoxData[
+      StyleBox[\(z == 1\),
+        FontWeight->"Bold"]]],
+  " the function is infinite \[LongDash] this is called a ",
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the function.  Here is a view from below."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[%, ViewPoint \[Rule] {1.673, \(-1.411\), \(-2.543\)}]; \)\)], 
+  "Input"],
+
+Cell[TextData[{
+  "The zero of the function at ",
+  Cell[BoxData[
+      StyleBox[\(z == \(-1\)\),
+        FontWeight->"Bold"]]],
+  " is clearly visible.  "
+}], "Text"],
+
+Cell["\<\
+And here is a rational function of higher degree with two poles and \
+two zeros.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := \(z\^2 - 1\)\/\(z\^2 + 1\); \)\), 
+    \(\(Plot3D[{Abs[f[x + I\ y]], ArgColor[f[x + I\ y]]}, {x, \(-2\), 2}, {y, 
+        \(-2\), 2}, PlotRange \[Rule] {{\(-2\), 2}, {\(-2\), 2}, {0, 6}}, 
+      BoxRatios \[Rule] {1, 1, 1.5}, PlotPoints \[Rule] 100, \n\t
+      Mesh \[Rule] False]; \)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(Show[%, ViewPoint \[Rule] {1.673, \(-1.411\), \(-2.543\)}]; \)\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Sometimes a better idea of a function can be obtained by plotting the real \
+and imaginary parts ",
+  StyleBox["separately",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := \(z\^2 - 1\)\/\(z\^2 + 1\); \)\), 
+    \(\(Plot3D[{Re[f[x + I\ y]], ArgColor[f[x + I\ y]]}, {x, \(-2\), 2}, {y, 
+        \(-2\), 2}, 
+      PlotRange \[Rule] {{\(-2\), 2}, {\(-2\), 2}, {\(-6\), 6}}, 
+      BoxRatios \[Rule] {1, 1, 3}, \n\tPlotPoints \[Rule] 100, \n\t
+      Mesh \[Rule] False]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := \(z\^2 - 1\)\/\(z\^2 + 1\); \)\), 
+    \(\(Plot3D[{Im[f[x + I\ y]], ArgColor[f[x + I\ y]]}, {x, \(-2\), 2}, {y, 
+        \(-2\), 2}, 
+      PlotRange \[Rule] {{\(-2\), 2}, {\(-2\), 2}, {\(-6\), 6}}, 
+      BoxRatios \[Rule] {1, 1, 3}, \n\tPlotPoints \[Rule] 100, \n\t
+      Mesh \[Rule] False]; \)\)}], "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Exploring Transcendental Functions (Optional)",
+  FontWeight->"Bold"]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Some transcendental functions", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "The well-known functions  ",
+  StyleBox["Sin[z]",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Cos[z]",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Tan[z] ",
+    FontWeight->"Bold"],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(E\^z\),
+        FontWeight->"Bold"]]],
+  " all have natural definitions for complex arguments.  Here are a few \
+pictures about them showing images of grids.  With ",
+  StyleBox["Sin ",
+    FontWeight->"Bold"],
+  "something odd is certainly happening arount the image point  1."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := Sin[z]; \)\), 
+    \(\(CartesianMap[f, {0, 1, 0.1}, {0, 1, 0.1}, 
+      PlotRange \[Rule] {{\(-0.1\), 1.5}, {\(-0.1\), 1.3}}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := Sin[z]; \)\), 
+    \(\(CartesianMap[f, {0, \[Pi], 0.05\ \[Pi]}, {0, \[Pi], 0.05\ \[Pi]}, 
+      PlotRange \[Rule] {{\(-2\), 15}, {\(-12\), 12}}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := Sin[z]; \)\), 
+    \(\(CartesianMap[f, {0, \[Pi], 0.05\ \[Pi]}, {0, \[Pi], 0.05\ \[Pi]}, 
+      PlotRange \[Rule] {{\(-0.1\), 4}, {\(-2\), 2}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "The function ",
+  StyleBox["Tan",
+    FontWeight->"Bold"],
+  " makes nice pictures.  Something odd happens at image points ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  ", however."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := Tan[z]; \)\), 
+    \(\(CartesianMap[f, {\(-1\), 1}, {\(-1\), 1}, 
+      PlotRange \[Rule] {{\(-\(\[Pi]\/2\)\), \[Pi]\/2}, {\(-1.3\), 1.3}}]; 
+    \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := Tan[z]; \)\), 
+    \(\(CartesianMap[
+      f, {\(-\[Pi]\), \[Pi], 0.05\ \[Pi]}, {\(-\[Pi]\), \[Pi], 0.05\ \[Pi]}, 
+      PlotRange \[Rule] {{\(-7\), 7}, {\(-7\), 7}}]; \)\)}], "Input"],
+
+Cell["\<\
+The exponential function has a well known behavior for reals:\
+\>", 
+  "Text"],
+
+Cell[BoxData[{
+    \(E\^Range[0, 3]\), 
+    \(N[%]\)}], "Input"],
+
+Cell[TextData[{
+  "For ",
+  StyleBox["imaginary",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " numbers, there is quite a different phenomenon:  "
+}], "Text"],
+
+Cell[BoxData[{
+    \(E\^\(I\ Range[0, 8]\)\), 
+    \(N[%]\), 
+    \(\(ArgandPlot[%]; \)\)}], "Input"],
+
+Cell["\<\
+This can be explained by the remarkable formula relating the \
+exponential and trigonometric functions.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Factor[ComplexSimplify[E\^\(a + I\ b\)]]\)], "Input"],
+
+Cell[TextData[{
+  "The proof of this formula can best be given using the  ",
+  StyleBox["powerseries expansions ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of the functions \[LongDash] and that shows the result also holds when ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["b ",
+    FontWeight->"Bold"],
+  "are complex.  We do not have time to pursue this here, unfortunately.  "
+}], "Text"],
+
+Cell["Here is a grid mapping for the exponential.", "Text"],
+
+Cell[BoxData[
+    \(f[z_] := E\^z; \n
+    CartesianMap[f, {0, 2, 0.1}, {0, 5, 0.1}, \ \n\t
+      PlotRange \[Rule] {{\(-8\), 8}, {\(-8\), 8}}]; \)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The conformal property", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Question. ",
+    FontWeight->"Bold"],
+  " In drawing the images of polynomials, rational functions and \
+transcendental functions of rectangular grids, the curves obtained in the \
+images always seemed to intersect ",
+  StyleBox["at right angles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "! (Go back to check this out.)  ",
+  StyleBox[" Why is this true?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer.",
+    FontWeight->"Bold"],
+  "  Here is a brief sketch of a proof (which can be considerably \
+generalized).  The key idea is that it turns out that the notion of  \
+derivative can be extended to complex functions, with many properties of \
+ordinary derivatives  \[LongDash] especially ",
+  StyleBox["the chain rule",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] provided the functions are \[OpenCurlyDoubleQuote]nice\
+\[CloseCurlyDoubleQuote].   All,  the functions we have been talking about \
+are nice.  (Trust me!  However, ",
+  StyleBox["Conjugate[z]",
+    FontWeight->"Bold"],
+  "  is an exception.)"
+}], "Text"],
+
+Cell[TextData[{
+  "Now a line in the plane has the parametric form  ",
+  StyleBox["a + b t",
+    FontWeight->"Bold"],
+  ", where ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  " are complex numbers, and where t is a real parameter.  If  ",
+  Cell[BoxData[
+      StyleBox[\(f[z]\),
+        FontWeight->"Bold"]]],
+  " is one of these nice functions, then ",
+  Cell[BoxData[
+      StyleBox[\(f[a + b\ t]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "traces out a curve."
+}], "Text"],
+
+Cell[TextData[{
+  "Next, taking a deravative with respect to ",
+  StyleBox["t ",
+    FontWeight->"Bold"],
+  "we get the answer",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{
+          RowBox[{
+            SuperscriptBox["f", "\[Prime]",
+              MultilineFunction->None], "[", \(a + b\ t\), "]"}], " ", "b"}],
+        FontWeight->"Bold"]]],
+  ".  Using the definition of dervative, it can be shown easily that this \
+complex number represents the ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["vector",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the curve at the point,  and its length is the ",
+  StyleBox["speed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  the moving point is travelling at time ,",
+  StyleBox["t",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Note next that ",
+  StyleBox[" a + I b t",
+    FontWeight->"Bold"],
+  " represents parametrically a ",
+  StyleBox["perpendicular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["line ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "to the first line, and that the two lines intersect  at ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " (when ",
+  StyleBox["t == 0",
+    FontWeight->"Bold"],
+  ").  By differentiation, the tangent vectors to the two curves ",
+  StyleBox[" f[a + b t]",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["f[a + I b t] ",
+    FontWeight->"Bold"],
+  "at",
+  StyleBox[" t == 0 ",
+    FontWeight->"Bold"],
+  "are:\n\t",
+  Cell[BoxData[
+      RowBox[{
+        RowBox[{
+          RowBox[{
+            SuperscriptBox["f", "\[Prime]",
+              MultilineFunction->None], "[", \(a + b\ t\), "]"}], " ", "b"}], 
+        "/.", 
+        RowBox[{\({t \[Rule] 0}\), "==", 
+          RowBox[{
+            RowBox[{
+              SuperscriptBox["f", "\[Prime]",
+                MultilineFunction->None], "[", "a", "]"}], " ", "b"}]}]}]],
+    FontWeight->"Bold"],
+  " and \n\t",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{
+          RowBox[{
+            RowBox[{
+              SuperscriptBox["f", "\[Prime]",
+                MultilineFunction->None], "[", 
+              RowBox[{"a", 
+                StyleBox["+",
+                  FontWeight->"Bold"], \(I\ b\ t\)}], "]"}], " ", "I", " ", 
+            "t"}], "/.", 
+          RowBox[{\({t \[Rule] 0}\), "==", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["f", "\[Prime]",
+                  MultilineFunction->None], "[", "a", "]"}], " ", "I", " ", 
+              "b"}]}]}],
+        FontWeight->"Bold"]]],
+  ",\nrespectively."
+}], "Text"],
+
+Cell[TextData[{
+  "These two tangent vectors are clearly perpendicular.  So, the two curves \
+intersect at right angles. ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Warning:  The result does not generally hold for functions involving  ",
+  StyleBox["Conjugate",
+    FontWeight->"Bold"],
+  ", as can be seen in the next plot.  The problem with the above proof is \
+that the properties of differentiation in a complex variable do not work for \
+the function ",
+  StyleBox["Conjugate[z]",
+    FontWeight->"Bold"],
+  " \[LongDash] partly because it is an orientation-reversing transformation \
+and  ",
+  Cell[BoxData[
+      StyleBox[\(1\/z\),
+        FontWeight->"Bold"]]],
+  "  is not."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[BoxData[{
+    \(\(f[z_] := \(z\^2 + I\)\/\(Conjugate[z]\^2 - 3\); \)\), 
+    \(\(CartesianMap[f, {\(-1\), 1, 0.1}, {\(-1\), 1, 0.1}, 
+      PlotRange \[Rule] {{\(-0.7\), 0.3}, {\(-0.75\), 0.25}}]; \)\)}], "Input"]
+}, Closed]],
+
+Cell[TextData[{
+  "Plotting transcendental functions",
+  StyleBox[" << Under Revision",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solving Equations in Complex Numbers",
+  FontWeight->"Bold"]], "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Existence of roots",
+  FontWeight->"Bold"]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Simple roots", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "We noted earlier that every complex number ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " has a ",
+  StyleBox["square root",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " given by the formula:",
+  Cell[BoxData[
+      \(TextForm
+      \`\(\@\(Abs[z] - Re[z]\)\ \((Abs[z] + z)\)\)\/\(\@2\ Im[z]\)\)], 
+    "Text",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Another popular formula is built into ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[\(ComplexSimplify[{z}]\)[\@z]]\)], "Input"],
+
+Cell[BoxData[
+    \(TextForm
+    \`\@Abs[z]\ 
+      \((Cos[1\/2\ ArcTan[Re[z], Im[z]]] + I\ Sin[1\/2\ ArcTan[Re[z], Im[z]]])
+        \)\)], "Text",
+  FontWeight->"Bold"],
+
+Cell[TextData[{
+  "In words \[LongDash] as justified by the geometric interpretation of \
+complex multiplication \[LongDash] we can say that the square root is found \
+by dividing ",
+  StyleBox["Arg[z] ",
+    FontWeight->"Bold"],
+  StyleBox["in half",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and by taking the ordinary ",
+  StyleBox["(real) square root",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["Abs[z]",
+    FontWeight->"Bold"],
+  ".  This principle is a particular case of the formula for finding (one) \
+fractional power of a complex number given in polar form:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\((r\ \((Cos[\[Theta]] + I\ Sin[\[Theta]])\))\)\^\(n/m\) \[Rule] \ \ 
+      \(r\^\(n/m\)\) Cos[\(n\ \[Theta]\)\/m] + I\ Sin[\(n\ \[Theta]\)\/m]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "But remember any non-zero complex number has  ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  square roots. (Just take the minus of one of the formuals above.)  And, \
+similarly, any non-zero  complex number has ",
+  StyleBox["m",
+    FontWeight->"Bold"],
+  " distinct ",
+  StyleBox["mth",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " roots.  The question is how to choose ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of them."
+}], "Text"],
+
+Cell[TextData[{
+  "This is where the more precise use of ArcTan[x, y] comes in.  The \
+difficulty is that ArcTan[z] is a multiple-valued function, in the sense that \
+there are many solutions to the equation z == Tan[w] for a given value of z.  \
+Here is the ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " function:"
+}], "Text"],
+
+Cell["?ArcTan ", "Input"],
+
+Cell[TextData[{
+  "This is rather brief.  Keeping in mind the value of  ",
+  Cell[BoxData[
+      StyleBox[\(\[Pi]\/2\),
+        FontWeight->"Bold"]]],
+  ",we have to find what ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " does about angles in different quadrants."
+}], "Text"],
+
+Cell[BoxData[{
+    \(N[\[Pi]\/2]\), 
+    \(N[ArcTan[5\/3]]\)}], "Input"],
+
+Cell[TextData[{
+  "In general when both ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["y ",
+    FontWeight->"Bold"],
+  "are positive (that is, ",
+  StyleBox["{x, y}",
+    FontWeight->"Bold"],
+  " is in the first quadrant), then ",
+  StyleBox["ArcTan[y/x]",
+    FontWeight->"Bold"],
+  " should be between ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(\[Pi]\/2\),
+        FontWeight->"Bold"]]],
+  ", and it should be the same as ",
+  StyleBox["ArcTan[x,y]",
+    FontWeight->"Bold"],
+  ".  ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " 3.0 has built this in:"
+}], "Text"],
+
+Cell["ArcTan[3,5]", "Input"],
+
+Cell["Now if we go to the other quadrants, we find:", "Text"],
+
+Cell[BoxData[
+    \(ArcTan[\(-3\), 5]\)], "Input"],
+
+Cell["ArcTan[-3,-5]", "Input"],
+
+Cell["ArcTan[3,-5]", "Input"],
+
+Cell[TextData[{
+  "So we see that ArcTan[x,y] lies between the limits  \[Pi] and  -\[Pi] .  \
+In fact, in the limiting case when ",
+  StyleBox["y\[Rule]0",
+    FontWeight->"Bold"],
+  " , we find:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ArcTan[\(-1\), 0]\)], "Input"],
+
+Cell[BoxData[
+    \(\((N[#1, 20]&)\)[\(-\[Pi]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(\((N[#1, 20]&)\)[ArcTan[\(-1\), \(-0.00000001\)]]\)], "Input"],
+
+Cell[TextData[{
+  "These numbers are explained because ",
+  StyleBox["Tan[u] == u",
+    FontWeight->"Bold"],
+  "  is  almost true for values of ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  "  very close to  ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Tan[0.00000001]\)], "Input"],
+
+Cell[BoxData[
+    \(ArcTan[0.00000001]\)], "Input"],
+
+Cell[TextData[{
+  "We may assume that ",
+  StyleBox["ArcTan[x, y]",
+    FontWeight->"Bold"],
+  " never gets to -\[Pi].  This means that there is a ",
+  StyleBox[" discontinuity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " along the negative half of the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.  Here are two pictures of the function."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Plot3D[ArcTan[x, y], {x, \(-8\), 8}, {y, \(-8\), 8}, 
+      PlotPoints \[Rule] 30]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(Plot3D[{ArcTan[x, y], ArgColor[x + I\ y]}, {x, \(-8\), 8}, {y, 
+        \(-8\), 8}, PlotPoints \[Rule] 50]; \)\)], "Input"],
+
+Cell[TextData[{
+  "These pictures are perhaps a little deceptive, as we have to cut them \
+along the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and the ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-axes to see what happens at ",
+  StyleBox["{0,0}",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Plot3D[{ArcTan[x, y], ArgColor[x + I\ y]}, {x, \(-1\), 1}, {y, 0, 4}, 
+      PlotPoints \[Rule] 30]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(Plot3D[{ArcTan[x, y], ArgColor[x + I\ y]}, {x, 0, 1}, {y, \(-4\), 4}, 
+      PlotPoints \[Rule] 30]; \)\)], "Input"],
+
+Cell[TextData[{
+  "There is a singularity at the origin.  And ",
+  StyleBox["ArcTan[1, y] == ArcTan[y]",
+    FontWeight->"Bold"],
+  ", as can be seen in the picture.  Here are some other special values."
+}], "Text"],
+
+Cell[BoxData[
+    \(ArcTan[0, 0]\)], "Input"],
+
+Cell[BoxData[
+    \(ArcTan[0, 1]\)], "Input"],
+
+Cell[BoxData[
+    \(ArcTan[0, \(-1\)]\)], "Input"],
+
+Cell[BoxData[
+    \(ArcTan[\(-1\), 0]\)], "Input"],
+
+Cell[BoxData[
+    \(ArcTan[1, 0]\)], "Input"],
+
+Cell["In summary:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Convention. ",
+    FontWeight->"Bold"],
+  " The value of ",
+  StyleBox["ArcTan[x, y]",
+    FontWeight->"Bold"],
+  " (provided not both arguments are ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  ") is the angle that the line through the points ",
+  StyleBox["{x,y}",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["{0,0}",
+    FontWeight->"Bold"],
+  " makes with the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis with the direction of rotation to sweep out the angle taken as ",
+  StyleBox["positive",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "for  ",
+  StyleBox["y \[GreaterEqual] 0",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["negative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for ",
+  StyleBox["y<0",
+    FontWeight->"Bold"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "This also means that the ",
+  StyleBox["intuitively correct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " expansion in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " should be:\n         ",
+  StyleBox["ComplexExpand[Arg[a + I b]] == ArcTan[a, b]",
+    FontWeight->"Bold"],
+  ".\nUnfortunately, the current implementation does the ",
+  StyleBox["opposite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This is why we redefined ",
+  StyleBox["ComplexSimplify",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(ComplexSimplify[Arg[a + I\ b]]\), 
+    \(ComplexExpand[ArcTan[a, b]]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "The ",
+  StyleBox["Quadratic Formula",
+    FontSlant->"Italic"],
+  "."
+}], "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "To review: Take a quadratic equation.  Under what conditions on ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " coefficients will the roots be ",
+  StyleBox["complex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[a, b, z]; \)\), 
+    \(Solve[a\ z\^2 + b\ z + c == 0, z]\)}], "Input"],
+
+Cell[TextData[{
+  "The answers are real ",
+  StyleBox["unless",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      \(b\^2 - 4\ a\ c\)]],
+  " is ",
+  StyleBox["negative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question. ",
+    FontWeight->"Bold"],
+  " Does the formula work for ",
+  StyleBox["complex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " coefficients?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Answer. ",
+    FontWeight->"Bold"],
+  "Yes, just substitute in and work it out by algebra."
+}], "Text"],
+
+Cell[BoxData[
+    \(a\ z\^2 + b\ z + c /. Solve[a\ z\^2 + b\ z + c == 0, z]\)], "Input"],
+
+Cell["% // Simplify", "Input"],
+
+Cell[TextData[{
+  "Of course, we needed to know that we choose a square root for a complex \
+number ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " in the above formulas so that ",
+  StyleBox["formally",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ,\n                          ",
+  Cell[BoxData[
+      \(\((\@u)\)\^2 == u\)]],
+  ".  \nBut, as we showed earlier, this is always possible.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Higher degrees", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Consider the following very simple ",
+  StyleBox["cubic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial."
+}], "Text"],
+
+Cell[BoxData[
+    \(F[z_] := z\^3 - 3\ z - 1\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " solves for the roots of this polynomial as follows."
+}], "Text"],
+
+Cell[BoxData[
+    \(rts = Solve[F[z] == 0, z]\)], "Input"],
+
+Cell[TextData[{
+  "That is somewhat messy, but not too bad.  The ordinary reading of these \n\
+expressions would ",
+  StyleBox["seem",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to indicate that the roots are all complex.  However, here is a picture \
+of the three roots."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[F[z] == 0, z, 5, 
+      PlotRange \[Rule] {{\(-2\), 2}, {\(-1\), 1}}]; \)\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Whoa!",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Wait a little minute!  What is going on here?  These computations seem \
+to show that all the roots are all ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This seems strange indeed.  Going back to the symbolic representation, \
+we may examine the answers numerically."
+}], "Text"],
+
+Cell[BoxData[{
+    \(N[rts]\), 
+    \(N[rts, 30]\)}], "Input"],
+
+Cell[TextData[{
+  "The roots are ",
+  StyleBox["nearly",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " real, but is \"nearly\" good enough?  In order to get symbolic \
+expressions that show at face value roots are actually real, we have to \
+employ ",
+  StyleBox["ComplexSimplify",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Map[ComplexSimplify, rts, {3}]\)], "Input"],
+
+Cell[TextData[{
+  "Now it is clear.  They ",
+  StyleBox["are",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " real. "
+}], "Text"],
+
+Cell[TextData[{
+  "Here is what ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " does to a more general cubic equation:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[a, b, c]; \)\), 
+    \(Solve[z\^3 + a\ z + b == 0, z]\)}], "Input"],
+
+Cell[TextData[{
+  "And here are the roots of a ",
+  StyleBox["4th",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "-degree equation."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[z\^4 + 3\ z\^3 - z\^2 + z + 17 == 0, z]; \)\)], "Input"],
+
+Cell["And here are the exact values:", "Text"],
+
+Cell[BoxData[
+    \(Solve[z\^4 + 3\ z\^3 - z\^2 + z + 17 == 0, z]\)], "Input"],
+
+Cell["% // N", "Input"],
+
+Cell[TextData[{
+  "This is what ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " does to a more general equation:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[a, b, c]; \)\), 
+    \(Solve[z\^4 + a\ z\^2 + b\ z + c == 0, z]\)}], "Input"],
+
+Cell[TextData[{
+  "The algebraic expressions do not seem to be very helpful. Nevertheless, \
+one can use them to give an ",
+  StyleBox["explicit proof",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that every equation of the ",
+  StyleBox["4th",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " degree\[LongDash]even with complex coefficients\[LongDash]has a root."
+}], "Text"],
+
+Cell[TextData[{
+  "This next example is an animation that shows how the roots of a certain ",
+  StyleBox["8th-",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "degree polynomial change as the ",
+  StyleBox["constant term",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is varied from negative to positive."
+}], "Text"],
+
+Cell[BoxData[
+    \(equation = 
+      1\/2 + 2\ x - 2\ x\^2 - 2\ x\^3 + 2\ x\^4 + x\^5 - 2\ x\^6 + x\^8 + 
+          c == 0\)], "Input"],
+
+Cell[BoxData[
+    \(Do[RootPlot[equation, x, 5, \ 
+        PlotRange \[Rule] {{\(-2\), 2}, {\(-1.5\), 1.5}}], {c, \(-6\), 6, 
+        0.6}]\)], "Input"],
+
+Cell[TextData[{
+  "This animation looks best when run ",
+  StyleBox["cyclically",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  To run it, select the bracket enclosing this section and press  ",
+  StyleBox["Command Y",
+    FontWeight->"Bold"],
+  "."
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["The Fundamental Theorem of Algebra",
+  FontWeight->"Bold"]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["A heuristic proof", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  " Every non-constant polynomial ",
+  StyleBox["p[z] ",
+    FontWeight->"Bold"],
+  "has a complex root."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "We give a heuristic proof ",
+  StyleBox["by example",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But the style of argument is general and can be mad entirely rigorous."
+}], "Text"],
+
+Cell[TextData[{
+  "Here is an example of a ",
+  StyleBox["cubic polynomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", with complex coefficients. "
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[p, z]; \np[z_] = z\^3 - I\ z\^2 - z + 2 + 2\ I; \)], "Input"],
+
+Cell["By numerical computation, we see it has three roots.", "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[p[z] == 0, z]; \)\)], "Input"],
+
+Cell[TextData[{
+  "We are going to use the plot of the images of a ",
+  StyleBox["circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " the command ",
+  StyleBox["ParametricPlot",
+    FontWeight->"Bold"],
+  " to show that roots ",
+  StyleBox["must",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " exist.  We define the image of a circle of radius  r as follows:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(curve[p_, r_, ops___] := \n
+      ParametricPlot[{Re[p[r\ E\^\(I\ \[Theta]\)]], 
+          Im[p[r\ E\^\(I\ \[Theta]\)]]}, \n\t\t{\[Theta], 0, 2\ \[Pi]}, \n\t\t
+        AspectRatio \[Rule] Automatic, \n\t\tops]; \)\)], "Input"],
+
+Cell[TextData[{
+  "We now plot the images as the radius ",
+  StyleBox["decreases",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from ",
+  StyleBox["2",
+    FontWeight->"Bold"],
+  " to ",
+  StyleBox["0.1",
+    FontWeight->"Bold"],
+  " (by steps of  ",
+  StyleBox["0.1",
+    FontWeight->"Bold"],
+  ").  (The starting radius ",
+  StyleBox["2",
+    FontWeight->"Bold"],
+  " ws chosen because it is appropriate for this particular polynomial.)"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Do[
+      curve[p, 2 - i, \n\t\t\ \ \ \ \ \ 
+        PlotRange \[Rule] {{\(-16\), 16}, {\(-16\), 16}}], {i, 0, 1.9, 0.1}]; 
+    \)\)], "Input"],
+
+Cell[TextData[{
+  "To get the impact of these pictures, one has to imagine the change of \
+radius as being done ",
+  StyleBox["continuously",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  When the radius is ",
+  StyleBox["large",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the image curve loops around the origin, ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  ", three times (because the term ",
+  Cell[BoxData[
+      StyleBox[\(z\^3\),
+        FontWeight->"Bold"]]],
+  " dominates all the other terms of this polynomial).  When the radius is ",
+  StyleBox["very small",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", however, the image curve is very close to the constant term of the \
+polynomial, which can be assumed to be non zero.  (Why?)"
+}], "Text"],
+
+Cell[TextData[{
+  "By decreasing the input radius continuously, we see there must be (three) \
+times when the loops ",
+  StyleBox["pass through the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But the values of the points ",
+  Cell[BoxData[
+      StyleBox[\(r\ E\^\(I\ \[Theta]\)\),
+        FontWeight->"Bold"]]],
+  "on the circle when this happens must then be the sought-for ",
+  StyleBox["roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Polynomials in more variables", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Theorem.  Every ",
+  StyleBox["non-constant ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "polynomial  ",
+  Cell[BoxData[
+      \(p[z\_1, z\_2,  ... , z\_n]\)],
+    FontWeight->"Bold"],
+  " in several variables has a ",
+  StyleBox["complex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " root."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof.",
+    FontWeight->"Bold"],
+  "  We are going to argue by ",
+  StyleBox["induction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the number of variables.  The Fundamental Theorem gives us the answer \
+for  ",
+  StyleBox["n == 1",
+    FontWeight->"Bold"],
+  ".  But we also need a companion statement:"
+}], "Text"],
+
+Cell[TextData[{
+  "Theorem.  Every ",
+  StyleBox["non-zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial ",
+  Cell[BoxData[
+      StyleBox[\(p[z\_1, z\_2,  ... , z\_n]\),
+        FontWeight->"Bold"]]],
+  "  in several variables has a valuation making it ",
+  StyleBox["non",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "In the case of ",
+  StyleBox["one variable",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " when ",
+  StyleBox["n == 1",
+    FontWeight->"Bold"],
+  ", write the polynomial in decreasing powers as:\n   ",
+  Cell[BoxData[
+      \(\(p[z] == \ \(a\_k\) z\^k + \(a\_\(k - 1\)\) z\^\(k - 1\) + \  ... 
+          \) + \(a\_1\) z + a\_0\)],
+    FontWeight->"Bold"],
+  " , where ",
+  Cell[BoxData[
+      \(a\_k\)],
+    FontWeight->"Bold"],
+  " is non zero.\nNow the term  ",
+  Cell[BoxData[
+      StyleBox[\(z\^k\),
+        FontWeight->"Bold"]]],
+  " dominates, so for ",
+  StyleBox["\[LeftBracketingBar]z\[RightBracketingBar]",
+    FontWeight->"Bold"],
+  " large enough, we can show that\n               ",
+  Cell[BoxData[
+      StyleBox[
+        \( | a\_k\ z\^k | 
+          \( > \( | 
+              \(\(a\_\(k - 1\)\ z\^\(k - 1\) + \) ... \) + a\_1\ z + a\_0 | 
+              \)\)\),
+        FontWeight->"Bold"]]],
+  ".\nHence, for ",
+  StyleBox["\[LeftBracketingBar]z\[RightBracketingBar]",
+    FontWeight->"Bold"],
+  " large, ",
+  Cell[BoxData[
+      StyleBox[\(p[z]\),
+        FontWeight->"Bold"]]],
+  " cannot be zero.  (This part of the proof needs to be filled out a little. \
+ But, we can see why this is true in the pictures shown earlier in this \
+Notebook.)"
+}], "Text"],
+
+Cell[TextData[{
+  "Now, a non-constant polynomial in ",
+  StyleBox["n > 1",
+    FontWeight->"Bold"],
+  " variables can be written in the form:"
+}], "Text"],
+
+Cell[TextData[Cell[BoxData[
+    \(\(p[z\_1, z\_2,  ... , z\_n] == \ 
+          a\_k[z\_1, z\_2,  ... , z\_\(n - 1\)] z\_n\^k + \n\t\t
+            a\_\(k - 1\)[z\_1, z\_2,  ... , z\_\(n - 1\)] 
+              z\_n\^\(k - 1\) +  ... \) + 
+      a\_1[z\_1, z\_2,  ... , z\_\(n - 1\)] z\_n + \ 
+      a\_0[z\_1, z\_2,  ... , z\_\(n - 1\)]\)],
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "Where ",
+  Cell[BoxData[
+      StyleBox[\(a\_k[z\_1, z\_2,  ... , z\_\(n - 1\)]\),
+        FontWeight->"Bold"]]],
+  " is a non-zero polynomial.  (To be more precise, one may have to ",
+  StyleBox["permute the variables",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to make sure that the variable called ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(z\_n\),
+          FontWeight->"Bold"], " "}]]],
+  "actually ",
+  StyleBox["occurs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the polynomial \[LongDash] and ",
+  Cell[BoxData[
+      StyleBox[\(k > 0\),
+        FontWeight->"Bold"]]],
+  " \[LongDash] since otherwise the polynomial is ",
+  StyleBox["constant",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".)"
+}], "Text"],
+
+Cell[TextData[{
+  "Now, after making a subsitution for the variables ",
+  Cell[BoxData[
+      StyleBox[\(z\_1, z\_2,  ... , z\_\(n - 1\)\),
+        FontWeight->"Bold"]]],
+  " so that  ",
+  Cell[BoxData[
+      StyleBox[\(a\_k[z\_1, z\_2,  ... , z\_\(n - 1\)]\),
+        FontWeight->"Bold"]]],
+  " is non zero, we can choose values of  ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(z\_n\),
+          FontWeight->"Bold"], " "}]]],
+  " so that either the polynomial is zero or non zero at will.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Working",
+WindowToolbars->{},
+WindowSize->{732, 553},
+WindowMargins->{{173, Automatic}, {Automatic, 123}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 186, 7, 73, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1898, 58, 264, 9, 100, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2187, 71, 140, 3, 55, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2352, 78, 123, 3, 46, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2500, 85, 48, 0, 37, "Subsubsection"],
+Cell[2551, 87, 785, 21, 98, "Text"],
+Cell[3339, 110, 648, 16, 82, "Text"],
+Cell[3990, 128, 88, 1, 47, "Input"],
+Cell[4081, 131, 270, 9, 41, "SmallText"],
+Cell[4354, 142, 268, 7, 83, "Text"],
+Cell[4625, 151, 163, 3, 94, "Input"],
+Cell[4791, 156, 180, 6, 60, "Text"],
+Cell[4974, 164, 175, 3, 94, "Input"],
+Cell[5152, 169, 269, 7, 83, "Text"],
+Cell[5424, 178, 110, 2, 74, "Input"],
+Cell[5537, 182, 182, 6, 40, "Text"],
+Cell[5722, 190, 174, 6, 38, "Text"],
+Cell[5899, 198, 173, 3, 96, "Input"],
+Cell[6075, 203, 240, 7, 60, "Text"],
+Cell[6318, 212, 52, 1, 54, "Input"],
+Cell[6373, 215, 308, 9, 76, "Text"],
+Cell[6684, 226, 608, 22, 104, "Text"],
+Cell[7295, 250, 64, 1, 72, "Input"],
+Cell[7362, 253, 410, 12, 84, "Text"],
+Cell[7775, 267, 82, 1, 73, "Input"],
+Cell[7860, 270, 174, 3, 128, "Input"],
+Cell[8037, 275, 233, 7, 60, "Text"],
+Cell[8273, 284, 78, 1, 54, "Input"],
+Cell[8354, 287, 74, 1, 54, "Input"],
+Cell[8431, 290, 129, 2, 76, "Input"],
+Cell[8563, 294, 222, 4, 116, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8822, 303, 89, 2, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[8914, 307, 114, 3, 60, "Text"],
+Cell[9031, 312, 162, 3, 116, "Input"],
+Cell[9196, 317, 152, 3, 60, "Text"],
+Cell[9351, 322, 178, 3, 96, "Input"],
+Cell[9532, 327, 71, 0, 36, "Text"],
+Cell[9606, 329, 157, 3, 96, "Input"],
+Cell[9766, 334, 164, 3, 96, "Input"],
+Cell[9933, 339, 240, 6, 60, "Text"],
+Cell[10176, 347, 171, 3, 96, "Input"],
+Cell[10350, 352, 63, 0, 36, "Text"],
+Cell[10416, 354, 64, 1, 72, "Input"],
+Cell[10483, 357, 103, 2, 76, "Input"],
+Cell[10589, 361, 214, 3, 128, "Input"],
+Cell[10806, 366, 384, 13, 81, "Text"],
+Cell[11193, 381, 111, 3, 60, "Text"],
+Cell[11307, 386, 157, 3, 96, "Input"],
+Cell[11467, 391, 155, 3, 96, "Input"],
+Cell[11625, 396, 175, 3, 96, "Input"],
+Cell[11803, 401, 155, 3, 96, "Input"],
+Cell[11961, 406, 175, 3, 88, "Input"],
+Cell[12139, 411, 57, 0, 32, "Text"],
+Cell[12199, 413, 173, 3, 96, "Input"],
+Cell[12375, 418, 258, 9, 60, "Text"],
+Cell[12636, 429, 64, 1, 72, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[12737, 435, 100, 2, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[12840, 439, 219, 3, 60, "Text"],
+Cell[13062, 444, 178, 3, 96, "Input"],
+Cell[13243, 449, 185, 8, 32, "Text"],
+Cell[13431, 459, 173, 3, 96, "Input"],
+Cell[13607, 464, 362, 8, 104, "Text"],
+Cell[13972, 474, 208, 3, 117, "Input"],
+Cell[14183, 479, 694, 17, 149, "Text"],
+Cell[14880, 498, 102, 2, 76, "Input"],
+Cell[14985, 502, 570, 18, 106, "Text"],
+Cell[15558, 522, 62, 0, 37, "Text"],
+Cell[15623, 524, 67, 1, 56, "Input"],
+Cell[15693, 527, 184, 6, 60, "Text"],
+Cell[15880, 535, 88, 1, 56, "Input"],
+Cell[15971, 538, 291, 8, 84, "Text"],
+Cell[16265, 548, 79, 1, 70, "Input"],
+Cell[16347, 551, 496, 15, 104, "Text"],
+Cell[16846, 568, 102, 2, 53, "Input"],
+Cell[16951, 572, 132, 3, 60, "Text"],
+Cell[17086, 577, 177, 4, 70, "Input"],
+Cell[17266, 583, 89, 3, 37, "Text"],
+Cell[17358, 588, 155, 3, 140, "Input"],
+Cell[17516, 593, 166, 5, 60, "Text"],
+Cell[17685, 600, 91, 1, 53, "Input"],
+Cell[17779, 603, 68, 0, 37, "Text"],
+Cell[17850, 605, 100, 2, 88, "Input"],
+Cell[17953, 609, 107, 3, 37, "Text"],
+Cell[18063, 614, 141, 3, 100, "Input"],
+Cell[18207, 619, 74, 0, 37, "Text"],
+Cell[18284, 621, 157, 3, 81, "Input"],
+Cell[18444, 626, 530, 10, 128, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[19023, 642, 130, 3, 33, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[19178, 649, 106, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[19287, 653, 73, 0, 38, "Text"],
+Cell[19363, 655, 178, 4, 94, "Input"],
+Cell[19544, 661, 209, 8, 38, "Text"],
+Cell[19756, 671, 167, 3, 116, "Input"],
+Cell[19926, 676, 99, 3, 38, "Text"],
+Cell[20028, 681, 239, 5, 140, "Input"],
+Cell[20270, 688, 102, 3, 38, "Text"],
+Cell[20375, 693, 143, 2, 74, "Input"],
+Cell[20521, 697, 535, 14, 105, "Text"],
+Cell[21059, 713, 179, 6, 38, "Text"],
+Cell[21241, 721, 126, 2, 96, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[21404, 728, 45, 0, 29, "Subsubsection"],
+Cell[21452, 730, 97, 3, 37, "Text"],
+Cell[21552, 735, 63, 1, 80, "Input"],
+Cell[21618, 738, 163, 5, 37, "Text"],
+Cell[21784, 745, 212, 6, 53, "Text"],
+Cell[21999, 753, 766, 25, 104, "Text"],
+Cell[22768, 780, 72, 1, 80, "Input"],
+Cell[22843, 783, 244, 8, 60, "Text"],
+Cell[23090, 793, 112, 3, 78, "Input"],
+Cell[23205, 798, 136, 5, 37, "Text"],
+Cell[23344, 805, 55, 1, 78, "Input"],
+Cell[23402, 808, 126, 3, 37, "Text"],
+Cell[23531, 813, 102, 2, 78, "Input"],
+Cell[23636, 817, 315, 13, 42, "Text"],
+Cell[23954, 832, 554, 20, 64, "Text"],
+Cell[24511, 854, 137, 2, 78, "Input"],
+Cell[24651, 858, 90, 4, 37, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[24778, 867, 102, 2, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[24883, 871, 1108, 35, 243, "Text"],
+Cell[25994, 908, 157, 2, 94, "Input"],
+Cell[26154, 912, 220, 4, 83, "Text"],
+Cell[26377, 918, 232, 5, 164, "Input"],
+Cell[26612, 925, 1204, 42, 172, "Text"],
+Cell[27819, 969, 225, 4, 134, "Input"],
+Cell[28047, 975, 536, 17, 105, "Text"],
+Cell[28586, 994, 249, 4, 154, "Input"],
+Cell[28838, 1000, 90, 3, 38, "Text"],
+Cell[28931, 1005, 228, 4, 136, "Input"],
+Cell[29162, 1011, 427, 15, 83, "Text"],
+Cell[29592, 1028, 232, 4, 136, "Input"],
+Cell[29827, 1034, 192, 3, 60, "Text"],
+Cell[30022, 1039, 232, 4, 136, "Input"],
+Cell[30257, 1045, 191, 6, 60, "Text"],
+Cell[30451, 1053, 254, 4, 156, "Input"],
+Cell[30708, 1059, 346, 10, 83, "Text"],
+Cell[31057, 1071, 275, 4, 156, "Input"],
+Cell[31335, 1077, 100, 2, 54, "Input"],
+Cell[31438, 1081, 295, 10, 60, "Text"],
+Cell[31736, 1093, 57, 0, 38, "Text"],
+Cell[31796, 1095, 310, 5, 176, "Input"],
+Cell[32109, 1102, 352, 10, 78, "Text"],
+Cell[32464, 1114, 100, 2, 54, "Input"],
+Cell[32567, 1118, 167, 6, 38, "Text"],
+Cell[32737, 1126, 104, 3, 38, "Text"],
+Cell[32844, 1131, 330, 5, 180, "Input"],
+Cell[33177, 1138, 100, 2, 54, "Input"],
+Cell[33280, 1142, 211, 7, 60, "Text"],
+Cell[33494, 1151, 343, 6, 200, "Input"],
+Cell[33840, 1159, 343, 6, 200, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[34232, 1171, 157, 3, 33, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[34414, 1178, 102, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[34519, 1182, 536, 19, 105, "Text"],
+Cell[35058, 1203, 175, 3, 94, "Input"],
+Cell[35236, 1208, 194, 3, 94, "Input"],
+Cell[35433, 1213, 193, 3, 94, "Input"],
+Cell[35629, 1218, 212, 8, 56, "Text"],
+Cell[35844, 1228, 194, 4, 126, "Input"],
+Cell[36041, 1234, 216, 4, 93, "Input"],
+Cell[36260, 1240, 88, 3, 37, "Text"],
+Cell[36351, 1245, 64, 2, 76, "Input"],
+Cell[36418, 1249, 166, 6, 38, "Text"],
+Cell[36587, 1257, 101, 3, 96, "Input"],
+Cell[36691, 1262, 127, 3, 60, "Text"],
+Cell[36821, 1267, 73, 1, 59, "Input"],
+Cell[36897, 1270, 423, 12, 83, "Text"],
+Cell[37323, 1284, 59, 0, 38, "Text"],
+Cell[37385, 1286, 157, 3, 94, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[37579, 1294, 95, 2, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[37677, 1298, 490, 14, 121, "Text"],
+Cell[38170, 1314, 675, 16, 150, "Text"],
+Cell[38848, 1332, 562, 21, 83, "Text"],
+Cell[39413, 1355, 842, 29, 105, "Text"],
+Cell[40258, 1386, 1786, 61, 179, "Text"],
+Cell[42047, 1449, 180, 5, 60, "Text"],
+Cell[42230, 1456, 582, 16, 150, "Text"],
+Cell[42815, 1474, 218, 3, 123, "Input"]
+}, Closed]],
+Cell[43048, 1480, 190, 6, 29, "Subsubsection",
+  Evaluatable->False]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[43287, 1492, 145, 3, 35, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[43457, 1499, 130, 3, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[43612, 1506, 85, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[43700, 1510, 382, 15, 86, "Text"],
+Cell[44085, 1527, 129, 5, 39, "Text"],
+Cell[44217, 1534, 70, 1, 62, "Input"],
+Cell[44290, 1537, 169, 5, 97, "Text"],
+Cell[44462, 1544, 622, 18, 149, "Text"],
+Cell[45087, 1564, 179, 3, 96, "Input"],
+Cell[45269, 1569, 525, 18, 109, "Text"],
+Cell[45797, 1589, 340, 8, 103, "Text"],
+Cell[46140, 1599, 25, 0, 52, "Input"],
+Cell[46168, 1601, 289, 9, 63, "Text"],
+Cell[46460, 1612, 72, 2, 112, "Input"],
+Cell[46535, 1616, 643, 27, 112, "Text"],
+Cell[47181, 1645, 28, 0, 52, "Input"],
+Cell[47212, 1647, 61, 0, 37, "Text"],
+Cell[47276, 1649, 50, 1, 54, "Input"],
+Cell[47329, 1652, 30, 0, 52, "Input"],
+Cell[47362, 1654, 29, 0, 52, "Input"],
+Cell[47394, 1656, 208, 6, 61, "Text"],
+Cell[47605, 1664, 50, 1, 54, "Input"],
+Cell[47658, 1667, 61, 1, 54, "Input"],
+Cell[47722, 1670, 82, 1, 54, "Input"],
+Cell[47807, 1673, 269, 11, 64, "Text"],
+Cell[48079, 1686, 48, 1, 54, "Input"],
+Cell[48130, 1689, 51, 1, 54, "Input"],
+Cell[48184, 1692, 370, 12, 85, "Text"],
+Cell[48557, 1706, 121, 2, 75, "Input"],
+Cell[48681, 1710, 145, 2, 96, "Input"],
+Cell[48829, 1714, 345, 15, 61, "Text"],
+Cell[49177, 1731, 138, 2, 75, "Input"],
+Cell[49318, 1735, 138, 2, 75, "Input"],
+Cell[49459, 1739, 215, 5, 85, "Text"],
+Cell[49677, 1746, 45, 1, 54, "Input"],
+Cell[49725, 1749, 45, 1, 47, "Input"],
+Cell[49773, 1752, 50, 1, 47, "Input"],
+Cell[49826, 1755, 50, 1, 47, "Input"],
+Cell[49879, 1758, 45, 1, 47, "Input"],
+Cell[49927, 1761, 27, 0, 32, "Text"],
+Cell[49957, 1763, 846, 34, 152, "Text"],
+Cell[50806, 1799, 553, 19, 146, "Text"],
+Cell[51362, 1820, 103, 2, 75, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[51502, 1827, 158, 7, 28, "Subsubsection",
+  Evaluatable->False],
+Cell[51663, 1836, 282, 10, 61, "Text"],
+Cell[51948, 1848, 102, 2, 76, "Input"],
+Cell[52053, 1852, 267, 13, 40, "Text"],
+Cell[52323, 1867, 234, 9, 56, "Text"],
+Cell[52560, 1878, 131, 4, 40, "Text"],
+Cell[52694, 1884, 88, 1, 56, "Input"],
+Cell[52785, 1887, 30, 0, 52, "Input"],
+Cell[52818, 1889, 457, 15, 120, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[53312, 1909, 87, 2, 28, "Subsubsection",
+  Evaluatable->False],
+Cell[53402, 1913, 155, 6, 40, "Text"],
+Cell[53560, 1921, 57, 1, 56, "Input"],
+Cell[53620, 1924, 136, 4, 39, "Text"],
+Cell[53759, 1930, 58, 1, 54, "Input"],
+Cell[53820, 1933, 295, 8, 109, "Text"],
+Cell[54118, 1943, 117, 2, 75, "Input"],
+Cell[54238, 1947, 402, 11, 106, "Text"],
+Cell[54643, 1960, 62, 2, 75, "Input"],
+Cell[54708, 1964, 332, 11, 85, "Text"],
+Cell[55043, 1977, 63, 1, 54, "Input"],
+Cell[55109, 1980, 136, 6, 40, "Text"],
+Cell[55248, 1988, 142, 5, 39, "Text"],
+Cell[55393, 1995, 99, 2, 76, "Input"],
+Cell[55495, 1999, 151, 6, 40, "Text"],
+Cell[55649, 2007, 87, 1, 56, "Input"],
+Cell[55739, 2010, 46, 0, 37, "Text"],
+Cell[55788, 2012, 78, 1, 56, "Input"],
+Cell[55869, 2015, 23, 0, 52, "Input"],
+Cell[55895, 2017, 136, 5, 39, "Text"],
+Cell[56034, 2024, 109, 2, 76, "Input"],
+Cell[56146, 2028, 391, 11, 106, "Text"],
+Cell[56540, 2041, 332, 10, 82, "Text"],
+Cell[56875, 2053, 136, 3, 117, "Input"],
+Cell[57014, 2058, 152, 3, 96, "Input"],
+Cell[57169, 2063, 271, 9, 64, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[57489, 2078, 146, 3, 32, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[57660, 2085, 90, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[57753, 2089, 214, 8, 54, "Text"],
+Cell[57970, 2099, 212, 6, 60, "Text"],
+Cell[58185, 2107, 172, 6, 38, "Text"],
+Cell[58360, 2115, 90, 1, 76, "Input"],
+Cell[58453, 2118, 68, 0, 38, "Text"],
+Cell[58524, 2120, 61, 1, 54, "Input"],
+Cell[58588, 2123, 441, 16, 78, "Text"],
+Cell[59032, 2141, 248, 4, 136, "Input"],
+Cell[59283, 2147, 460, 18, 83, "Text"],
+Cell[59746, 2167, 165, 4, 94, "Input"],
+Cell[59914, 2173, 791, 23, 82, "Text"],
+Cell[60708, 2198, 535, 17, 46, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[61280, 2220, 102, 2, 37, "Subsubsection",
+  Evaluatable->False],
+Cell[61385, 2224, 375, 15, 44, "Text"],
+Cell[61763, 2241, 360, 12, 46, "Text"],
+Cell[62126, 2255, 472, 19, 44, "Text"],
+Cell[62601, 2276, 1300, 42, 166, "Text"],
+Cell[63904, 2320, 155, 5, 28, "Text"],
+Cell[64062, 2327, 369, 7, 41, "Text"],
+Cell[64434, 2336, 777, 27, 46, "Text"],
+Cell[65214, 2365, 558, 17, 46, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

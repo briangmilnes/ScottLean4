@@ -1,0 +1,2650 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     68412,       2363]*)
+(*NotebookOutlinePosition[     69339,       2393]*)
+(*  CellTagsIndexPosition[     69295,       2389]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 5   Projective Geometry\n",
+  StyleBox["The Crossratio",
+    FontSize->18]
+}], "Title"],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["20 September 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle",
+  FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell["The Notion of Crossratio", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Definition and formulae", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["The definition", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Proposition.  ",
+    FontWeight->"Bold"],
+  "Suppose ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  " are any three ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points on a line.  We can always adjust ",
+  StyleBox["multiples",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  " to be able to write ",
+  Cell[BoxData[
+      StyleBox[\(C\_1 == A\_1 + B\_1\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof.  ",
+    FontWeight->"Bold"],
+  "The reason is pretty obvious, since ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a linear combination of the other two \[LongDash] so we adjust  ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  " by the necessary multiples.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  " Since points are always represented by ",
+  StyleBox["non-zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " forms, the equation above always makes the point represented by ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["different from",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the other two \[LongDash] provided, of course, they represent different \
+points."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Note that, with this simple linear notation, we can then think \[LongDash] \
+if we wish \[LongDash] of ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  " as being the ",
+  StyleBox["point at infinity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the line, the point ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "as being the ",
+  StyleBox["zero point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  " as the ",
+  StyleBox["unit point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontSlant->"Italic"],
+  "   Indeed, this is the way we have previously used the three points ",
+  Cell[BoxData[
+      StyleBox[\({u, w, u + w}\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "\[LongDash] in that order \[LongDash]",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis with exactly this interpretation.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Now, any ",
+  StyleBox["fourth point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the line determined by ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "can be written in homogeneous coordinates as  ",
+  Cell[BoxData[
+      StyleBox[\(D\_1 == a\ A\_1 + b\ B\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[".  ",
+    FontWeight->"Bold"],
+  "Clearly, this point is ",
+  StyleBox["uniquely determined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (that is, the linear form is determined up to a scalar multiple)  as long \
+as we know the ",
+  StyleBox["ratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  ",
+  Cell[BoxData[
+      StyleBox[\(a\/b\),
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comments.  (1) ",
+    FontWeight->"Bold"],
+  "Note that if we assume ",
+  Cell[BoxData[
+      StyleBox[\(D\_1\),
+        FontWeight->"Bold"]]],
+  " is really a distinct, fourth point, then neither ",
+  StyleBox["a", "InlineInput",
+    FontWeight->"Bold"],
+  " nor ",
+  StyleBox["b", "InlineInput",
+    FontWeight->"Bold"],
+  " is zero.  However, in case ",
+  StyleBox["b", "InlineInput",
+    FontWeight->"Bold"],
+  " is in fact ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the ratio has to be taken as ",
+  StyleBox["ComplexInfinity", "InlineInput",
+    FontWeight->"Bold"],
+  ".  This corresponds to taking non-zero multiples of ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  ", which is being considered as the point at infinity.  \n",
+  StyleBox["(2) ",
+    FontWeight->"Bold"],
+  "We can also see there is a ",
+  StyleBox["one-one correspondence",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " between ratios and points on the line \[LongDash] assuming, of course \
+that the three given points ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  " are ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "Partly for historical and partly for notational reasons, the ratio ",
+  Cell[BoxData[
+      StyleBox[\(a\/b\),
+        FontWeight->"Bold"]]],
+  " determined here is called the ",
+  StyleBox["crossratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "of the four points  ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(D\_1\),
+        FontWeight->"Bold"]]],
+  ".  ",
+  "\n",
+  "In our ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " implementation the calculation of the crossratio is computed by ",
+  Cell[BoxData[
+      StyleBox[\(RP[A\_1, B\_1, C\_1, D\_1]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Warning. ",
+    FontWeight->"Bold"],
+  " This command (and the analogous one for lines) may not work exactly right \
+when the coefficients of the forms are  ",
+  StyleBox["floating-point numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The problem is that some error checks require exact comparison of \
+forms.  ",
+  StyleBox["We hope to fix this.",
+    FontWeight->"Bold"]
+}], "Text",
+  Background->RGBColor[1, 0, 1]],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "There is a completely ",
+  StyleBox["dual notion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the ",
+  StyleBox["crossratio of four lines in a pencil",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (that is, lines all going through the same point).  ",
+  "\n",
+  "In our ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " implementation the calculation of the crossratio is computed by ",
+  Cell[BoxData[
+      StyleBox[\(RL[l\_1, m\_1, n\_1, k\_1]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Remember.  ",
+    FontWeight->"Bold"],
+  "The basic idea of the crossratio is one of",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["relative homogeneous coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of points on a line (or, dually, of lines in a pencil).  That is, \
+relative to the given points  ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  ", what information do we need to determine ",
+  Cell[BoxData[
+      StyleBox[\(D\_1\),
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Subsubsection"],
+
+Cell[TextData[{
+  "For ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the implementation of ",
+  StyleBox["RP", "InlineInput",
+    FontWeight->"Bold"],
+  " follows exactly the above definition as just discussed.  For ",
+  StyleBox["lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we compute ",
+  Cell[BoxData[
+      StyleBox["RL",
+        FontWeight->"Bold"]]],
+  " in the same way, because in a pencil of lines, the form representing any \
+one is a linear combination of the forms of any two distinct points in the \
+pencil."
+}], "Text"],
+
+Cell[TextData[{
+  "Here are some examples given with increasing generality.  The first \
+computation corresponds to our discussion using the standard points on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.  Things will work the same way for other collinear points."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, d]; \nRP[u, w, u + w, a\ u + b\ w]\)], "Input"],
+
+Cell["\<\
+If you try non-collinear points or non-distinct points, you get an \
+error.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(RP[u, w, u + w, a\ u + b\ w + v]\), 
+    \(RP[u, w, b\ u, a\ u + b\ w]\), 
+    \(RP[u, w + v, u + w, a\ u + b\ w]\)}], "Input"],
+
+Cell["\<\
+In the case of Cartesian coordinates, we have just the coordinate \
+itself.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(RP[u, w, u + w, a\ u + w]\)], "Input"],
+
+Cell[TextData[{
+  "If we change the ",
+  StyleBox["unit point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the units of ratios have to be adjusted."
+}], "Text"],
+
+Cell[BoxData[
+    \(RP[u, w, c\ u + w, a\ u + b\ w]\)], "Input"],
+
+Cell["\<\
+Using homogeneous coordinates for the unit point gives more \
+symmetry to the answer,\
+\>", "Text"],
+
+Cell[BoxData[
+    \(RP[u, w, c\ u + d\ w, a\ u + b\ w]\)], "Input"],
+
+Cell[TextData[{
+  "If we use Cartesian coordinates for ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points, then some linear combinations come in."
+}], "Text"],
+
+Cell[BoxData[
+    \(RP[a\ u + w, b\ u + w, c\ u + w, d\ u + w]\)], "Input"],
+
+Cell[TextData[{
+  "And finally, taking completely general homogeneous coordinates for points \
+on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis gives us this formula:"
+}], "Text"],
+
+Cell[BoxData[
+    \(RP[a\_1\ u + a\_2\ w, b\_1\ u + b\_2\ w, c\_1\ u + c\_2\ w, 
+      d\_1\ u + d\_2\ w]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Comment:  ",
+    FontWeight->"Bold"],
+  "In many books, this formula is used for the  ",
+  StyleBox["definition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", but unfortunately it does not provide very directly the ",
+  StyleBox["meaning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "or explain the ",
+  StyleBox["usefulness ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of the quantity."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Warning: ",
+  StyleBox["Remember, ",
+    FontWeight->"Plain"],
+  StyleBox["division by",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Plain"],
+  "0",
+  StyleBox[" is possible!  Consider the following:",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[1, 0, 1]],
+
+Cell[BoxData[
+    \(RP[u, w, u + w, u]\)], "Input"],
+
+Cell[TextData[{
+  "This is conceptually the right answer, however; because the point ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " is indeed ",
+  StyleBox["\[OpenCurlyDoubleQuote]at infinity\[CloseCurlyDoubleQuote]",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  And it fits with the limiting case of the following as ",
+  StyleBox["b\[Rule]0", "InlineInput"],
+  " in the limit."
+}], "Text"],
+
+Cell[TextData[{
+  "Warning: ",
+  StyleBox["Complex ratios",
+    FontSlant->"Italic"],
+  StyleBox[" are possible as well!  Consider the following:",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[1, 0, 1]],
+
+Cell[BoxData[
+    \(RP[u, w, u + w, a\ u + \((1 + I)\)\ w]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Note.  ",
+    FontWeight->"Bold"],
+  "We have as yet not made much use of ",
+  StyleBox["complex scalars",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", but they will be needed very much in working with ",
+  StyleBox["conic sections",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and other ",
+  StyleBox["curves",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Consider, now, ",
+  StyleBox["four lines ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "through the origin."
+}], "Text"],
+
+Cell[BoxData[
+    \(RL[x, y, x - y, b\ x\  - \ a\ y]\)], "Input"],
+
+Cell[TextData[{
+  "What is the ",
+  StyleBox["interpretation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of this calculation?  In fact, ",
+  Cell[BoxData[
+      StyleBox[\(b\/a\),
+        FontWeight->"Bold"]]],
+  "is the ",
+  StyleBox["slope",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the line  ",
+  Cell[BoxData[
+      \(a\ y == b\ x\)],
+    FontWeight->"Bold"],
+  "  in ordinary Cartesian coordinates.  This fits with our intuition, as the \
+",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-axis has ",
+  StyleBox["infinite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " slope, the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis has ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " slope, and the diagonal line  ",
+  Cell[BoxData[
+      StyleBox[\(y == x\),
+        FontWeight->"Bold"]]],
+  " has ",
+  StyleBox["unit",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " slope.  So, the crossratio of lines through the origin computed with \
+respect to the ",
+  StyleBox["standard lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is just a computation of ",
+  StyleBox["slope",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "And where does that line of slope ",
+  Cell[BoxData[
+      StyleBox[\(b\/a\),
+        FontWeight->"Bold"]]],
+  " cut the vertical line  ",
+  Cell[BoxData[
+      StyleBox[\(x == 1\),
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text"],
+
+Cell[BoxData[
+    \(PE[b\ x - a\ y, x - z]\)], "Input"],
+
+Cell[BoxData[
+    \(RP[v, u + w, u + v + w, %]\)], "Input"],
+
+Cell[TextData[{
+  "It cuts at a point making the ",
+  StyleBox["same crossratio ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "with the standard points ",
+  Cell[BoxData[
+      RowBox[{
+        SuperscriptBox["v", "\[Prime]",
+          MultilineFunction->None], ",", \(u + w\), ",", \(u + v + w\)}]],
+    FontWeight->"Bold"],
+  " on that line \[LongDash] and, of course, that is the way we always view \
+the finding of the slope of the line threough the origin."
+}], "Text"],
+
+Cell[BoxData[
+    \(a = 3; b = 5; \n
+    Draw[{y, b\ x - a\ y, x - z, x - a\ z, 
+        w, {a\ u + b\ v + w, "\<b\>"}, {a\ u + w, "\<a\>"}, {
+          a\ u + b\ v + a\ w, "\<b/a\>"}, 
+        v, {u + w, "\<1\>"}, {u + v + w, "\<1\>"}}]; \)], "Input"],
+
+Cell["\<\
+The idea illustrated here will come back for disucssion when we \
+prove the \"Transfer Theorem\" in the next section.\
+\>", "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using crossratios", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Positioning points on a line", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "By design, if we choose the ",
+  StyleBox["infinity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and ",
+  StyleBox["unit points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on a line as given, then ",
+  StyleBox["any ratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " produces for us a ",
+  StyleBox["uniquely determined ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "point on the line.  This is ",
+  StyleBox["inverse operation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the computation of a crossratio, and it is implemented as the \
+operation ",
+  StyleBox["XP", "InlineInput",
+    FontWeight->"Bold"],
+  ".  There is a ",
+  StyleBox["dual operation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for lines called ",
+  StyleBox["XL", "InlineInput",
+    FontWeight->"Bold"],
+  ".  They can be called with either homogeneous or Cartesian coordinates."
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[a, b, c, d]; \nXP[u, w, u + w, a, b]\n\), 
+    \(XP[u, w, u + w, a]\)}], "Input"],
+
+Cell["What happens if we try to find the point at infinity?", "Text"],
+
+Cell[BoxData[
+    \(XP[u, w, u + w, ComplexInfinity]\)], "Input"],
+
+Cell["\<\
+And that answer is correct.  Note that the following equation is \
+also correct:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(RP[u, v, u + v, XP[u, v, u + v, a]] == a\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["But",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the reverse order ",
+  StyleBox["does not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " give a true result in general;"
+}], "Text",
+  FontWeight->"Plain"],
+
+Cell[BoxData[
+    \(XP[u, w, u + w, RP[u, w, u + w, a\ u + b\ w]] == a\ u + b\ w\)], "Input"],
+
+Cell[TextData[{
+  "The reason is that points are only determined ",
+  StyleBox["up to scalar multiples",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The two expressions are multiples of each other, but not identical.  We \
+recall that a ",
+  StyleBox["test",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for such dependence can be made with ",
+  StyleBox["PE", "InlineInput",
+    FontWeight->"Bold"],
+  " in this way:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PE[XP[u, w, u + w, RP[u, w, u + w, a\ u + b\ w]], a\ u + b\ w]\)], 
+  "Input"],
+
+Cell["Here are some error cases.", "Text"],
+
+Cell[BoxData[{
+    \(XP[u, u, v, 1]\), 
+    \(XP[u, v, w, 2]\), 
+    \(XP[u, u + v, u + 2  v, 3]\), 
+    \(XP[u, u + v, 2  u + 2  v, 3]\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Harmonic tetrads", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Definition. ",
+    FontWeight->"Bold"],
+  "Four points on a line are said to form a",
+  StyleBox[" harmonic tetrad",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " if the crossratio is equal to ",
+  StyleBox["-1",
+    FontWeight->"Bold"],
+  ".   "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["Here is the paradigm case: ", "Text"],
+
+Cell[BoxData[
+    \(XP[u, w, a\ u + w, \(-1\)]\)], "Input"],
+
+Cell[TextData[{
+  "That is to say, if we think of ",
+  StyleBox["u", "InlineInput",
+    FontWeight->"Bold"],
+  " as the point at infinity and of  ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  " as the zero point, then ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + w\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(\(-a\)\ u + w\),
+        FontWeight->"Bold"]]],
+  " are just ",
+  StyleBox["negatives of one another",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the relative cordinate system.   Here are further examples:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(RP[u, w, a\ u + w, \(-a\)\ u + w]\), 
+    \(RP[u, w, a\ u + b\ w, \(-a\)\ u + b\ w]\), 
+    \(XP[u, w, a\ u + b\ w, \(-1\)]\)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Definition. ",
+    FontWeight->"Bold"],
+  "When ",
+  Cell[BoxData[
+      StyleBox[\(RP[\(A\_\(1, \)\) B\_1, \(C\_\(1, \)\) D\_1] == \(-1\)\),
+        FontWeight->"Bold"]]],
+  " we also say the first pair of points  ",
+  Cell[BoxData[
+      StyleBox[\(\(A\_\(1, \)\) B\_1\),
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["separate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      \(\(C\_\(1, \)\) D\_1\)],
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["harmonically",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["Here is another important example:", "Text"],
+
+Cell[BoxData[
+    \(RP[a\ u + w, b\ u + w, \((a\/2 + b\/2)\)\ u + w, u]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  In terms of ordinary coordinates we can say that that the two points ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + w\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(b\ u + w\),
+        FontWeight->"Bold"]]],
+  " show above are separated harmonically by their ",
+  StyleBox["midpoint",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["the point at infinity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "Recall that the ",
+  StyleBox["construction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of harmonic tetrads is effected through the use of ",
+  StyleBox["quadrangles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". Does the algebraic computation of a crossratio accomplish the same \
+result?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Indeed, consider a very standard quadrangle with vertices\n\t\t",
+  Cell[BoxData[
+      StyleBox[\({w, u + w, v + w, u + v + w}\),
+        FontWeight->"Bold"]]],
+  ".  \nThe diagonal points of this quadrangle are ",
+  Cell[BoxData[
+      StyleBox[\({u, v, u + v + 2\ w}\),
+        FontWeight->"Bold"]]],
+  ".  The two lines through the diagonal point ",
+  Cell[BoxData[
+      StyleBox[\(u + v + 2\ w\),
+        FontWeight->"Bold"]]],
+  " connecting with the vertices separate the two lines to the other diagonal \
+points harmonically, as we can show:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[Subscript]\n\), 
+    \(D\_1 = PE[PE[w, u + v + w], PE[u + w, v + w]]; l\_1 = PE[D\_1, w]; \n
+    l\_2 = PE[D\_1, u + w]; \nl\_3 = PE[D\_1, v]; \nl\_4 = PE[D\_1, u]; \n
+    RL[l\_1, l\_2, l\_3, l\_4]\n\), 
+    \(\(Draw[{x, y, x - z, y - z, \n
+        \t\t{u + w, "\<u+w\>"}, {v + w, "\<v+w\>"}, {w, "\<w\>"}, {u + v + w, 
+          "\<u+v+w\>"}, {D\_1, \*"\"\<\!\(D\_1\)\>\""}, \n
+        \t\t\t{l\_1, \*"\"\<\!\(l\_1\)\>\""}, {l\_2, 
+          \*"\"\<\!\(l\_2\)\>\""}, {l\_3, \*"\"\<\!\(l\_3\)\>\""}, {l\_4, 
+          \*"\"\<\!\(l\_4\)\>\""}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "When we discuss  transformations, we will argue that this standard \
+quadrangle can be mapped by a projective transformation to ",
+  StyleBox["any other quadrangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", thus showing the uniqueness of the determination of the 4th harmonic for \
+the choice of any three distinct points on any line.  (We can also check out \
+the uniqueness of the construction by computation, since crossratios uniquely \
+determine points.) "
+}], "Text"],
+
+Cell[TextData[{
+  "We will also find that more generally crossratios are ",
+  StyleBox["preserved",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by projective transformations."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[
+"Pappus\[CloseCurlyQuote] Theorem and perspectivities"], "Subsubsection"],
+
+Cell["\<\
+Let us return to the proof of the theorem of Pappus from the last \
+chapter.  Here is the construction we used, resulting in a formula for the \
+Pappus line:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(ClearAll[Subscript]; \nA\_1 = a\_1\ u + b\_1\ w; 
+    A\_2 = a\_2\ u + b\_2\ w; A\_3 = a\_3\ u + b\_3\ w; 
+    B\_1 = c\_1\ v + d\_1\ w; B\_2 = c\_2\ v + d\_2\ w; 
+    B\_3 = c\_3\ v + d\_3\ w; 
+    C\_1 = Tidy[PE[PE[A\_2, B\_3], PE[A\_3, B\_2]]]; 
+    C\_2 = Tidy[PE[PE[A\_1, B\_3], PE[A\_3, B\_1]]]; 
+    C\_3 = Tidy[PE[PE[A\_1, B\_2], PE[A\_2, B\_1]]]; 
+    pappus = Tidy[PE[C\_1, C\_2]]; pappus = Map[Factor, pappus, {2}]; 
+    pappus = Tidy[Expand[pappus\/\(a\_3\ c\_3\)]]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Question. ",
+    FontWeight->"Bold"],
+  " When does the Papus line pass through the ",
+  StyleBox["intersection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two ",
+  StyleBox["given",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " lines (which we took above as ",
+  StyleBox["x", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["y", "InlineInput",
+    FontWeight->"Bold"],
+  " with intersection ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  ")?  "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Solution.  ",
+    FontWeight->"Bold"],
+  "Since we have a formula for the Pappus line, we can get a formula in terms \
+of the coefficients of the points that vanishes if, and only if, the Pappus \
+line passes through the required point:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[pappus, w]\)], "Input"],
+
+Cell["\<\
+The only trouble with this algebraic condition is that it does not \
+have an apparent geometric meaning!  Since it looks like a determinant, \
+however, we are luck that there is a geometrically meaningful combination \
+that gives the same answer:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(PD[PE[A\_3, B\_3], PE[PE[A\_1, B\_1], PE[A\_2, B\_2]]]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  "The Pappus line for a hexagon passes theough the intersection of the two \
+given lines if and only if the triple ",
+  Cell[BoxData[
+      StyleBox[\({A\_1, A\_2, A\_3}\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["perspective",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the triple ",
+  Cell[BoxData[
+      StyleBox[\({B\_1, B\_2, B\_3}\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+Equivalently, we can also see that the condition for being in \
+perspective from a common center is the same as having an equal crossratio \
+with the intersection point:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(RP[w, A\_1, A\_2, A\_3]\)], "Input"],
+
+Cell[BoxData[
+    \(Together[RP[w, A\_1, A\_2, A\_3] - RP[w, B\_1, B\_2, B\_3]]\)], "Input"],
+
+Cell[TextData[{
+  "For this conclusion we are assuming that the points are ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at the intersection.  Then the vanishing of this fraction is equivalent \
+to the vanishing of the determinant we calculated before."
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Preservation of Crossratio", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["The transfer theorem", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["The theorem", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell["\<\
+The following theorem is very, very important for understanding \
+many of the results of projective geometry.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  If a line \[LongDash] not through the center \[LongDash] cuts four lines \
+in a pencil, then the crossratio of the four points of intersection is  ",
+  StyleBox["the same as",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the crossratio of the four lines in the pencil. "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof: ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (By example.)  To prove this, we can begin, say, with four points on a \
+standard line, three of which are in given fixed positions with the fourth in \
+a general position, but providing a known crossratio."
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[a, b, c, Subscript]\n\), 
+    \({P\_1, P\_2, P\_3, P\_4} = {3\ u + w, u + w, u - w, a\ u + b\ w}; \n
+    RP[P\_1, P\_2, P\_3, P\_4]\)}], "Input"],
+
+Cell[TextData[{
+  "Now, choose an arbitrary point ",
+  Cell[BoxData[
+      StyleBox[\(Q\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "in the plane, and connect it to the four points.  This will make four \
+lines in the pencil at  ",
+  Cell[BoxData[
+      StyleBox[\(Q\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[BoxData[
+    \(Q\_1 = c\_1\ u + c\_2\ v + c\_3\ w; \n
+    \n{l\_1, l\_2, l\_3, l\_4} = 
+      \((PE[Q\_1, #1]&)\)/@{P\_1, P\_2, P\_3, P\_4}; \n\n
+    Tidy/@{l\_1, l\_2, l\_3, l\_4} // TableForm\)], "Input"],
+
+Cell[TextData[{
+  "It is hard to see whether we have achieved anything good here; however, we \
+should calculate the crossratio of these four lines in the pencilat  ",
+  Cell[BoxData[
+      StyleBox[\(Q\_1\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(RL[l\_1, l\_2, l\_3, l\_4]\)], "Input"],
+
+Cell[TextData[{
+  "As desired, the result is the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for the lines as for the points. ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "We can draw a picture of the typical configuration.  We note this diagram \
+is ",
+  StyleBox["self-dual",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (with one special point and one special line, and with four points on the \
+line and four lines through the point).  The lines in the pencil are said to \
+be ",
+  StyleBox["in perspective",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  with the points on the line.  And we emphasize again that ",
+  StyleBox["such a perspective correspondence preserves crossratio.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  PageBreakAbove->True],
+
+Cell[BoxData[
+    \(a = 12; b = 2; \nc\_1 = 6; c\_2 = 3; c\_3 = 1; \n
+    Draw[{y, \n
+        \t\t{l\_1, \*"\"\<\!\(l\_1\)\>\""}, {l\_2, \*"\"\<\!\(l\_2\)\>\""}, {
+          l\_3, \*"\"\<\!\(l\_3\)\>\""}, {l\_4, \*"\"\<\!\(l\_4\)\>\""}, \n
+        \t\t{P\_1, \*"\"\<\!\(P\_1\)\>\""}, {P\_2, \*"\"\<\!\(P\_2\)\>\""}, {
+          P\_3, \*"\"\<\!\(P\_3\)\>\""}, {P\_4, \*"\"\<\!\(P\_4\)\>\""}, {
+          Q\_1, \*"\"\<\!\(Q\_1\)\>\""}}]; \)], "Input"],
+
+Cell[TextData[{
+  "We remark again that the calculation in the proof was done with ",
+  StyleBox["special points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We can just as well take ",
+  StyleBox["general points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (say, on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis) as follows:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, Subscript]; 
+    \n{P\_1, P\_2, P\_3, P\_4} = {a\_1\ u + b\_1\ w, a\_2\ u + b\_2\ w, 
+        a\_3\ u + b\_3\ w, a\_4\ u + b\_4\ w}; \n
+    RP[P\_1, P\_2, P\_3, P\_4]\)], "Input"],
+
+Cell["\<\
+This was the general formula we noted earlier for four arbitrary \
+points on the line.  Now we can check the four points.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Q\_1 = c\_1\ u + c\_2\ v + c\_3\ w; {l\_1, l\_2, l\_3, l\_4} = 
+      \((PE[Q\_1, #1]&)\)/@{P\_1, P\_2, P\_3, P\_4}; 
+    RL[l\_1, l\_2, l\_3, l\_4]\)], "Input"],
+
+Cell[TextData[{
+  "The two crossrations are indeed the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", but if we look at the lines, it does not seem especially obvious that \
+the ",
+  Cell[BoxData[
+      StyleBox[\(c\_i\),
+        FontWeight->"Bold"]]],
+  "\[CloseCurlyQuote]s will all ",
+  StyleBox["cancel out",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(TableForm[Tidy/@{l\_1, l\_2, l\_3, l\_4}]\)], "Input"],
+
+Cell[TextData[{
+  "However, there is ",
+  StyleBox["a general algebraic reason",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " why this must be so, which we will discuss later in terms of ",
+  StyleBox["transformations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Transformations between lines", "Subsubsection"],
+
+Cell[TextData[{
+  "Before we go on to more general considerations, we first draw some useful \
+conclusions from the foregoing.  If we introduce another line into the \
+picture, it also cuts the pencil in four points.  By applying the Transfer \
+Theorem  ",
+  StyleBox["twice",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we may conclude:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  "If four lines in a pencil are cut by ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " lines ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "\[LongDash] neither passing through the center \[LongDash] then the four \
+points on the first line have the ",
+  StyleBox["same crossratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as the four corresponding points on the second line."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "In words we can say that a perspectivity always ",
+  StyleBox["preserves crossratios",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Here is the picture for the theorem."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, Subscript]; \n
+    \n{P\_1, P\_2, P\_3, P\_4} = {3\ u + w, u + w, u - w, 12\ u + 2\ w}; \n\n
+    Q\_1 = 3\ u + 4\ v + w; \n
+    \n{l\_1, l\_2, l\_3, l\_4} = 
+      \((PE[Q\_1, #]&)\)/@{P\_1, P\_2, P\_3, P\_4}; \n
+    \n{R\_1, R\_2, R\_3, R\_4} = 
+      \((PE[2  x - 3  y, #]&)\)/@{l\_1, l\_2, l\_3, l\_4}; \n\n
+    Draw[{l\_1, l\_2, l\_3, l\_4, y, 2  x - 3  y, \n
+        \t\t{P\_1, \*"\"\<\!\(P\_1\)\>\""}, {P\_2, \*"\"\<\!\(P\_2\)\>\""}, {
+          P\_3, \*"\"\<\!\(P\_3\)\>\""}, {P\_4, \*"\"\<\!\(P\_4\)\>\""}, 
+        \t\t{R\_1, \*"\"\<\!\(R\_1\)\>\""}, {R\_2, \*"\"\<\!\(R\_2\)\>\""}, {
+          R\_3, \*"\"\<\!\(R\_3\)\>\""}, {R\_4, \*"\"\<\!\(R\_4\)\>\""}, {
+          Q\_1, \*"\"\<\!\(Q\_1\)\>\""}}]; \)], "Input"],
+
+Cell[TextData[{
+  "Now, because compositions of perspective correspondences are the ",
+  StyleBox["projectivities",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " or",
+  StyleBox[" projective transformations ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "between lines, we have at once: "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  "  Projective transformations (between lines) preserve crossratios.  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "We should remember that all ideas have a ",
+  StyleBox["dual ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "form in projective geometry, and so lines in two ",
+  StyleBox["pencils",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can be in perspective.  If so, the crossratios are equal.  Here is a \
+picture and a test."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, 
+      Subscript]; {P\_1, P\_2, P\_3, P\_4} = {\(-5\) u + w, w, 5\ u + w, 
+        20\ u + w}; Q\_1 = 3\ u + 3\ v + w; Q\_2 = 5\ u - 15\ v + w; \n
+    \n{l\_1, l\_2, l\_3, l\_4} = 
+      \((PE[Q\_1, #1]&)\)/@{P\_1, P\_2, P\_3, P\_4}; {m\_1, m\_2, m\_3, 
+        m\_4} = \((PE[Q\_2, #1]&)\)/@{P\_1, P\_2, P\_3, P\_4}; \n\n
+    Draw[{l\_1, l\_2, l\_3, l\_4, y, m\_1, m\_2, m\_3, m\_4, \n
+        \t\t{P\_1, \*"\"\<\!\(P\_1\)\>\""}, {P\_2, \*"\"\<\!\(P\_2\)\>\""}, {
+          P\_3, \*"\"\<\!\(P\_3\)\>\""}, {P\_4, \*"\"\<\!\(P\_4\)\>\""}, {
+          Q\_1, \*"\"\<\!\(Q\_1\)\>\""}, {Q\_2, \*"\"\<\!\(Q\_2\)\>\""}}]; 
+    \)], "Input"],
+
+Cell[BoxData[
+    \({RL[l\_1, l\_2, l\_3, l\_4], RL[m\_1, m\_2, m\_3, m\_4]}\)], "Input"],
+
+Cell[TextData[{
+  "Just as with ranges of points, we can go on to speak of projective \
+transformations between two pencils of lines.  In both cases, projective \
+transformations (as compositions of perspectives) preserve crossratios.  The \
+big question is: ",
+  StyleBox[
+  "Can there be any other transformations which preserve crossratios?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  A one-one correspondence between the points on one line and the points \
+on another line preserving crossratios ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " always a projectivity."
+}], "Text",
+  PageBreakAbove->True,
+  PageBreakWithin->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  "[First case.]  Suppose first that the two lines are ",
+  StyleBox["distinct.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Call them ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Then we can choose three distinct points on ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  ", say ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(A\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(A\_3\),
+        FontWeight->"Bold"]]],
+  ", ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at the intersection of the two lines, whose images,  say ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(C\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(C\_3\),
+        FontWeight->"Bold"]]],
+  ", are also not at that intersection.  Define a new line:  ",
+  Cell[BoxData[
+      StyleBox[\(m = PE[A\_1, C\_2]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Now choose a point ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " collinear with ",
+  Cell[BoxData[
+      StyleBox[\(A\_2\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(C\_2\),
+        FontWeight->"Bold"]]],
+  " not on any of the three lines.  Using ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " as the center of the perspectivity, project the line ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  " onto the line ",
+  StyleBox["m", "InlineInput",
+    FontWeight->"Bold"],
+  ".  The image points of ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(A\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(A\_3\),
+        FontWeight->"Bold"]]],
+  " are called ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B\_3\),
+        FontWeight->"Bold"]]],
+  ".  We see that ",
+  Cell[BoxData[
+      StyleBox[\(A\_1 == B\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and",
+  StyleBox["  ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(C\_2 == B\_2\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "The point ",
+  Cell[BoxData[
+      StyleBox[\(B\_3\),
+        FontWeight->"Bold"]]],
+  " will not lie on either ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  " or ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Define a new point by:\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(Q = PE[PE[A\_1, C\_1], PE[B\_3, C\_3]]\),
+        FontWeight->"Bold"]]],
+  ".\nThen the perspectivity with center ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  " maps ",
+  StyleBox["m", "InlineInput",
+    FontWeight->"Bold"],
+  " onto",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " and sends ",
+  Cell[BoxData[
+      StyleBox[\(B\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B\_3\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(C\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(C\_3\),
+        FontWeight->"Bold"]]],
+  ", by construction.  The composition of the two perspectivities clearly \
+sends ",
+  Cell[BoxData[
+      StyleBox[\(A\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(A\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(A\_3\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox[\(C\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(C\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(C\_3\),
+        FontWeight->"Bold"]]],
+  ".   (",
+  StyleBox["Note:",
+    FontWeight->"Bold"],
+  " we discussed this construction previously.) "
+}], "Text"],
+
+Cell[TextData[{
+  "Since arbitrary points on a line are ",
+  StyleBox["uniquely determined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by their crossratios with respect to a given triple of points, then this \
+composition must be ",
+  StyleBox["the same as",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the given crossratio-preserving transformation."
+}], "Text"],
+
+Cell[TextData[{
+  "[Second case.]  If we started with ",
+  Cell[BoxData[
+      StyleBox[\(l == n\),
+        FontWeight->"Bold"]]],
+  ", then all we have to do is project ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  " onto a ",
+  StyleBox["different",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " line by one perspectivity and then use the first part of the argument.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Thus, one, two, or three perspectivities suffice to obtain by composition  \
+",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " crossratio-preserving transformation between lines.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["A picture may make the construction clearer.", "Text",
+  PageBreakAbove->True],
+
+Cell[BoxData[{
+    \(A\_1 = \(-7\) u - 14  v + w; A\_2 = 5  u + 10\ v + w; 
+    A\_3 = 9  u + 18\ v + w; \nl = y - 2  x; \nC\_1 = 6  u + w; 
+    C\_2 = 14\ u + w; C\_3 = 25\ u + w; \nn = y; \n\(m = PE[A\_1, C\_2]; 
+    \)\), 
+    \(P = A\_2 - 3\ C\_2; \n\(B\_3 = PE[m, PE[P, A\_3]]; \)\), 
+    \(\(Q = PE[PE[A\_1, C\_1], PE[B\_3, C\_3]]; \)\), 
+    \(\(Draw[{{l, "\<l\>"}, {n, "\<n\>"}, {m, "\<m\>"}, {P, "\<P\>"}, {Q, 
+          "\<Q\>"}, {A\_1, \*"\"\<\!\(A\_1\),\!\(B\_1\)\>\""}, {A\_2, 
+          \*"\"\<\!\(A\_2\)\>\""}, {A\_3, \*"\"\<\!\(A\_3\)\>\""}, {C\_1, 
+          \*"\"\<\!\(C\_1\)\>\""}, {C\_2, 
+          \*"\"\<\!\(B\_2\),\!\(C\_2\)\>\""}, {C\_3, 
+          \*"\"\<\!\(C\_3\)\>\""}, {B\_3, \*"\"\<\!\(B\_3\)\>\""}, \n\t\t
+        PE[A\_1, P], PE[A\_2, P], PE[A\_3, P], \n\t\tPE[C\_1, Q], 
+        PE[C\_2, Q], PE[C\_3, Q]}]; \)\)}], "Input"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, l, m, n, P, Q, Subscript]\)], "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Finding linear transformations", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Comparing relative coordinates", "Subsubsection"],
+
+Cell[TextData[{
+  "Just as all points on a line are represented by linear combinations of two \
+of the points on the given line, dually all lines in a pencil are linear \
+combinations of two of the lines.  Let us consider two, arbitrary ",
+  StyleBox["lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["q", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["r", "InlineInput",
+    FontWeight->"Bold"],
+  ".  The pencil they determine consists of all lines ",
+  Cell[BoxData[
+      StyleBox[\(a\ q + b\ r\),
+        FontWeight->"Bold"]]],
+  ".  Now take a third,  ",
+  StyleBox["fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " line ",
+  StyleBox["m", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "(",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the pencil) and let it cut across the lines in the pencil.  We obtain \
+in the familiar way we have used many times a correspondence between lines in \
+the pencil and points on the line.  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "What is the relationship between the relative coodinates in the pencil and \
+the points in the linear range?  "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell["Here is the calculation.", "Text"],
+
+Cell[BoxData[
+    \(q = a\_1\ x + a\_2\ y + a\_3\ z; \nr = b\_1\ x + b\_2\ y + b\_3\ z; \n
+    l = a\ q + b\ r; \nm = c\_1\ x + c\_2\ y + c\_3\ z; \n
+    Map[Collect[#, {a, b}]&, Tidy[PE[l, m]], {2}]\)], "Input"],
+
+Cell[TextData[{
+  "The conclusion to be seen is that the coordinates of points on the line \
+are ",
+  StyleBox["linear combinations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "of the coodinates of the lines in the pencil.  Another way to see this is \
+to remember that ",
+  StyleBox["PE",
+    FontWeight->"Bold"],
+  " is a ",
+  StyleBox["bilinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["operation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". "
+}], "Text"],
+
+Cell[BoxData[
+    \(Map[Collect[#, {a, b}]&, \n\tTidy[a\ PE[q, m] + b\ PE[r, m]], {2}]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "In other words, the variable line ",
+  Cell[BoxData[
+      StyleBox[\(l == a\ q + b\ r\),
+        FontWeight->"Bold"]]],
+  " is transformed into the variable point ",
+  Cell[BoxData[
+      StyleBox[\(a\ PE[q, m] + b\ PE[r, m]\),
+        FontWeight->"Bold"]]],
+  ".  This is clearly a linear transformation between two 2-dimensional \
+vector spaces.  Combining this observation with our other arguments proves:"
+}], "Text"],
+
+Cell[TextData[{
+  "Theorem.",
+  StyleBox[
+  "  A projective transformation between ranges (or between pencils or \
+between a pencil and a range) is always a ",
+    FontWeight->"Plain"],
+  StyleBox["linear transformation",
+    FontSlant->"Italic"],
+  StyleBox[" in terms of coordinates.",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "Next, we want to investigate the ",
+  StyleBox["converse",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "Do linear transformations ",
+  StyleBox["always",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " produce projective transformation?  "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "If we can prove that they ",
+  StyleBox["preserve crossratios",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the answer will be yes, in view of what we proved earlier. To do \
+this, we look at the definition of crossratio of four typical points on a \
+line."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, l, m, p, q, r, Subscript]; \n
+    \n{P\_1, P\_2, P\_3, P\_4} = {a\_1\ u + b\_1\ w, a\_2\ u + b\_2\ w, 
+        a\_3\ u + b\_3\ w, a\_4\ u + b\_4\ w}; \n\n
+    RP[P\_1, P\_2, P\_3, P\_4]\)], "Input"],
+
+Cell[TextData[{
+  "In traditional notation, this expression can be written more vividly as a \
+fraction of fractions, where the numerators and denominators are ",
+  StyleBox["2x2",
+    FontWeight->"Bold"],
+  " determinants. (Some books give the definition this way.)"
+}], "Text"],
+
+Cell[BoxData[
+    FormBox[
+      FractionBox[
+        RowBox[{"(", 
+          FractionBox[
+            TagBox[
+              RowBox[{"\[LeftBracketingBar]", 
+                TagBox[
+                  TagBox[
+                    TagBox[
+                      TagBox[GridBox[{
+                            {
+                              StyleBox[\(a\_1\),
+                                "InlineInput",
+                                FontSlant->"Italic"], \(b\_1\)},
+                            {\(a\_3\), \(b\_3\)}
+                            },
+                          RowSpacings->1,
+                          ColumnSpacings->3,
+                          RowAlignments->Baseline,
+                          ColumnAlignments->{Left}],
+                        (TableForm[ #, TableDepth -> 2]&)],
+                      (TableForm[ #, TableDepth -> 1]&)],
+                    (TableForm[ #, TableDepth -> TensorRank[ 
+                        Unevaluated[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a1, b1}, {a3, b3}}, TableDepth -> 
+                              2], TableDepth -> 1]]]]&)],
+                  (TableForm[ #, TableDepth -> TensorRank[ 
+                      Unevaluated[ 
+                        TableForm[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a1, b1}, {a3, b3}}, TableDepth -> 
+                              2], TableDepth -> 1], TableDepth -> 
+                          TensorRank[ 
+                            Unevaluated[ 
+                              TableForm[ 
+                                
+                                TableForm[ {{a1, b1}, {a3, b3}}, 
+                                  TableDepth -> 2], TableDepth -> 
+                                1]]]]]]]&)], "\[RightBracketingBar]"}],
+              {Det}], 
+            TagBox[
+              RowBox[{"\[LeftBracketingBar]", 
+                TagBox[
+                  TagBox[
+                    TagBox[
+                      TagBox[GridBox[{
+                            {\(a\_2\), \(b\_2\)},
+                            {\(a\_3\), \(b\_3\)}
+                            },
+                          RowSpacings->1,
+                          ColumnSpacings->3,
+                          RowAlignments->Baseline,
+                          ColumnAlignments->{Left}],
+                        (TableForm[ #, TableDepth -> 2]&)],
+                      (TableForm[ #, TableDepth -> 1]&)],
+                    (TableForm[ #, TableDepth -> TensorRank[ 
+                        Unevaluated[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a1, b1}, {a3, b3}}, TableDepth -> 
+                              2], TableDepth -> 1]]]]&)],
+                  (TableForm[ #, TableDepth -> TensorRank[ 
+                      Unevaluated[ 
+                        TableForm[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a2, b2}, {a3, b3}}, TableDepth -> 
+                              2], TableDepth -> 1], TableDepth -> 
+                          TensorRank[ 
+                            Unevaluated[ 
+                              TableForm[ 
+                                
+                                TableForm[ {{a1, b1}, {a3, b3}}, 
+                                  TableDepth -> 2], TableDepth -> 
+                                1]]]]]]]&)], "\[RightBracketingBar]"}],
+              {Det}]], ")"}], 
+        RowBox[{"(", 
+          FractionBox[
+            TagBox[
+              RowBox[{"\[LeftBracketingBar]", 
+                TagBox[
+                  TagBox[
+                    TagBox[
+                      TagBox[GridBox[{
+                            {\(a\_1\), \(b\_1\)},
+                            {\(a\_4\), \(b\_4\)}
+                            },
+                          RowSpacings->1,
+                          ColumnSpacings->3,
+                          RowAlignments->Baseline,
+                          ColumnAlignments->{Left}],
+                        (TableForm[ #, TableDepth -> 2]&)],
+                      (TableForm[ #, TableDepth -> 1]&)],
+                    (TableForm[ #, TableDepth -> TensorRank[ 
+                        Unevaluated[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a1, b1}, {a3, b3}}, TableDepth -> 
+                              2], TableDepth -> 1]]]]&)],
+                  (TableForm[ #, TableDepth -> TensorRank[ 
+                      Unevaluated[ 
+                        TableForm[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a1, b1}, {a4, b4}}, TableDepth -> 
+                              2], TableDepth -> 1], TableDepth -> 
+                          TensorRank[ 
+                            Unevaluated[ 
+                              TableForm[ 
+                                
+                                TableForm[ {{a1, b1}, {a3, b3}}, 
+                                  TableDepth -> 2], TableDepth -> 
+                                1]]]]]]]&)], "\[RightBracketingBar]"}],
+              {Det}], 
+            TagBox[
+              RowBox[{"\[LeftBracketingBar]", 
+                TagBox[
+                  TagBox[
+                    TagBox[
+                      TagBox[GridBox[{
+                            {\(a\_2\), \(b\_2\)},
+                            {\(a\_4\), \(b\_4\)}
+                            },
+                          RowSpacings->1,
+                          ColumnSpacings->3,
+                          RowAlignments->Baseline,
+                          ColumnAlignments->{Left}],
+                        (TableForm[ #, TableDepth -> 2]&)],
+                      (TableForm[ #, TableDepth -> 1]&)],
+                    (TableForm[ #, TableDepth -> TensorRank[ 
+                        Unevaluated[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a1, b1}, {a3, b3}}, TableDepth -> 
+                              2], TableDepth -> 1]]]]&)],
+                  (TableForm[ #, TableDepth -> TensorRank[ 
+                      Unevaluated[ 
+                        TableForm[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a2, b2}, {a4, b4}}, TableDepth -> 
+                              2], TableDepth -> 1], TableDepth -> 
+                          TensorRank[ 
+                            Unevaluated[ 
+                              TableForm[ 
+                                
+                                TableForm[ {{a1, b1}, {a3, b3}}, 
+                                  TableDepth -> 2], TableDepth -> 
+                                1]]]]]]]&)], "\[RightBracketingBar]"}],
+              {Det}]], ")"}]], TraditionalForm]], "Text",
+  CellFrame->True,
+  TextAlignment->Center,
+  FontSize->24,
+  FontWeight->"Bold",
+  Background->GrayLevel[0.849989]],
+
+Cell[TextData[{
+  "When we make a linear transformation, then the coordinates such as ",
+  Cell[BoxData[
+      StyleBox[\({a\_1, b\_1}\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "are replaced by two different linear combinations.  In general, we can \
+always do this by a ",
+  StyleBox["matrix transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    FormBox[
+      RowBox[{\({a\_1, b\_1}\), ".", 
+        RowBox[{"(", GridBox[{
+              {"\[Alpha]", "\[Beta]"},
+              {"\[Gamma]", "\[Delta]"}
+              }], ")"}]}], TraditionalForm]], "Input"],
+
+Cell[TextData[{
+  "By the way, to have a proper one-one transformation, the matrix has to be \
+",
+  StyleBox["non singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  And, if there are ",
+  StyleBox["two sets",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of coordinates, we can use ",
+  StyleBox["matrix multiplication:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text"],
+
+Cell[BoxData[
+    FormBox[
+      RowBox[{
+        RowBox[{
+          RowBox[{"(", GridBox[{
+                {\(a\_1\), \(b\_1\)},
+                {\(a\_3\), \(b\_3\)}
+                }], ")"}], ".", 
+          RowBox[{"(", GridBox[{
+                {"\[Alpha]", "\[Beta]"},
+                {"\[Gamma]", "\[Delta]"}
+                }], ")"}]}], "//", "MatrixForm"}], TraditionalForm]], "Input"],
+
+Cell["We invoke now a well known theorem of algebra:", "Text"],
+
+Cell[TextData[{
+  "Theorem.",
+  StyleBox[
+  "  The determinant of the product of two (square) matrices is the product \
+of the two determinants.",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "Here is a ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " verification in the ",
+  StyleBox["2x2",
+    FontWeight->"Bold"],
+  " case:"
+}], "Text"],
+
+Cell[BoxData[
+    FormBox[
+      RowBox[{"ExpandAll", "(", 
+        RowBox[{
+          TagBox[
+            RowBox[{"\[LeftBracketingBar]", 
+              RowBox[{
+                RowBox[{"(", GridBox[{
+                      {\(a\_1\), \(b\_1\)},
+                      {\(a\_3\), \(b\_3\)}
+                      }], ")"}], ".", 
+                RowBox[{"(", GridBox[{
+                      {"\[Alpha]", "\[Beta]"},
+                      {"\[Gamma]", "\[Delta]"}
+                      }], ")"}]}], "\[RightBracketingBar]"}],
+            {Det}], "==", 
+          RowBox[{
+            TagBox[
+              RowBox[{"\[LeftBracketingBar]", 
+                RowBox[{"(", GridBox[{
+                      {\(a\_1\), \(b\_1\)},
+                      {\(a\_3\), \(b\_3\)}
+                      }], ")"}], "\[RightBracketingBar]"}],
+              {Det}], " ", 
+            TagBox[
+              RowBox[{"\[LeftBracketingBar]", 
+                RowBox[{"(", GridBox[{
+                      {"\[Alpha]", "\[Beta]"},
+                      {"\[Gamma]", "\[Delta]"}
+                      }], ")"}], "\[RightBracketingBar]"}],
+              {Det}]}]}], ")"}], TraditionalForm]], "Input"],
+
+Cell[TextData[{
+  "Now, returning to the crossratio, if we replace all the coordinates of the \
+points with linear combinations (using the ",
+  StyleBox["same matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " throughout, of course), then the new crossratio can be computed by ",
+  StyleBox["factoring out the determinant ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  Cell[BoxData[
+      FormBox[
+        RowBox[{"|", GridBox[{
+              {"\[Alpha]", "\[Beta]"},
+              {"\[Gamma]", "\[Delta]"}
+              }], "|"}], TraditionalForm]],
+    FontWeight->"Bold"],
+  " in ",
+  StyleBox["all four positions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the big fraction.  But then this quantity will ",
+  StyleBox["cancel out ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of of the fraction completely, leaving us with the crossratio ",
+  StyleBox["we started with",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This argument proves:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Linear transformations of coordinates ",
+  StyleBox["always",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " preserve crossratios."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "Non-singular linear transformation are understood here.  It is also \
+important to note here that we do not have to just transfer coordinates of \
+points to cordinates of points, we can apply this principle to ",
+  StyleBox["any transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " between combinations using just two homogeneous coordinates.  This is \
+what we saw earlier in going between points on a line and lines in a pencil."
+}], "Text"],
+
+Cell["Putting all these proofs together we obtain:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Linear transformations and projective transformations (between ranges \
+and/or pencils to ranges and/or pencils) come to the ",
+  StyleBox["same thing",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "Strictly speaking, when we think of a projective transformation as being \
+represented by a matrix, then any non-zero, scalar multiple of the matrix \
+represents the ",
+  StyleBox["same transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (Why?)"
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Intersecting lines in two pencils", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "One way to create a projective transformation between ranges of points on \
+two lines (or pencils of lines through two points)  is first to choose ",
+  StyleBox["three elements",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in each collection to correspond, and then to make the others correspond \
+by ",
+  StyleBox["equality of crossratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "If we think of the four points ",
+  StyleBox["{u+w, v+w, -u+w, -v+w}",
+    FontWeight->"Bold"],
+  " as lying on the ",
+  StyleBox["unit circle",
+    FontSlant->"Italic"],
+  "  centered at the origin ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  ", then by joing the left and right points along the x-axis and using the \
+tangent at ",
+  StyleBox["u+w",
+    FontWeight->"Bold"],
+  " (which is parallel to the y-axis) we obtain the following correspoining \
+triples in two pencils:"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[{
+    \(Apply[
+      PE, {{\(-u\) + w, v + w}, {\(-u\) + w, u + w}, {\(-u\) + w, 
+          \(-v\) + w}}, {1}]\n\), 
+    \(Apply[PE, {{u + w, v + w}, \n\t\t{u + w, v}, {u + w, \(-v\) + w}}, {1}]
+      \)}], "Input",
+  AspectRatioFixed->False],
+
+Cell["Here is a picture of the points and lines in question.", "Text"],
+
+Cell[BoxData[
+    \(\(pic = 
+      Draw[{\(-u\) + w, v + w, u + w, \(-v\) + w, \n
+          \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(-x\) + y - z, 2\ y, x + y + z, \n
+          \t\t\ \ \ \ \ \ \ \ \ \(-x\) - y + z, \(-x\) + z, x - y - z}]; 
+    \)\)], "Input"],
+
+Cell["We can also sketch in the circle.", "Text"],
+
+Cell[BoxData[
+    \(\(Show[{pic, 
+        Graphics[{\ Thickness[0.007], RGBColor[1, 0, 0], \ 
+            Circle[{0, 0}, 1]}]}, AspectRatio \[Rule] Automatic]; \)\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Now we ",
+  StyleBox["intersect",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " corresponding lines in the two pencils to get a point as a function of \
+the crossratio, we find:"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(point = 
+      Map[Collect[#1, {a}]&, 
+        Tidy[PE[XL[\(-x\) + y - z, 2\ y, x + y + z, a], \ \ \n
+            \t\t\t\t\ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+            XL[\(-x\) - y + z, \(-x\) + z, x - y - z, a]]], \n\t\t{2}]\)], 
+  "Input",
+  AspectRatioFixed->False],
+
+Cell["It looks even better in homogeneous form:", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(point = 
+      Map[Collect[#1, {a}]&, 
+        Tidy[PE[XL[\(-x\) + y - z, 2\ y, x + y + z, a, b], \ \n
+            \t\t\t\t\ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+            XL[\(-x\) - y + z, \(-x\) + z, x - y - z, a, b]]], {2}]\)], 
+  "Input",
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "We see here a ",
+  StyleBox["quadratic parametrization",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the \"moving\" point.  To understand where this point runs, we \
+substitute its coordinates into a special quadratic form:"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(x\^2 + y\^2 - z\^2 /. Thread[{x, y, z} \[Rule] CP[point]]\)], "Input",
+  AspectRatioFixed->False],
+
+Cell["\<\
+The answer is perhaps not too informative.  Let us expand it:\
+\>", 
+  "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(Expand[%]\)], "Input",
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "The conclusion is that ",
+  StyleBox["the moving point lies on the unit circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!  This is a special case of a general property of ",
+  StyleBox["conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " we will return to many times.  Here is a picture for the set up.  (Try it \
+with different values for the parameters.)"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(a = \(-1\); b = 1; \n\t\n
+    Show[{Draw[{point, PE[point, \(-u\) + w], PE[point, u + w]}], pic, 
+        Graphics[{\ Thickness[0.007], RGBColor[1, 0, 0], \ 
+            Circle[{0, 0}, 1]}]}, AspectRatio \[Rule] Automatic, \n
+      PlotRange -> {{\(-2\), 2}, {\(-2\), 2}}]; \)], "Input"],
+
+Cell[TextData[{
+  "More generally, if we choose ",
+  StyleBox["any two points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the circle, then a \"moving point\" sets up a linear transformation \
+between the two pencils.  Here is a further illustration."
+}], "Text"],
+
+Cell[BoxData[
+    \(a = 5/2; b = 1; \np\_1 = point; \na = 4; b = 1; \np\_2 = point; \n
+    a = 5; b = 1; \np\_3 = point; \na = 10; b = 1; \np\_4 = point; \n
+    Show[{Draw[{p\_1, PE[p\_1, \(-v\) + w], PE[p\_1, u + w], \n\t\t\tp\_2, 
+            PE[p\_2, \(-v\) + w], PE[p\_2, u + w], \n\t\t\tp\_3, 
+            PE[p\_3, \(-v\) + w], PE[p\_3, u + w], \n\t\t\tp\_4, 
+            PE[p\_4, \(-v\) + w], PE[p\_4, u + w], \n\t\t\tu + w, 
+            \(-v\) + w}], \ \n\t\t\ \ \ 
+        Graphics[{\ Thickness[0.007], RGBColor[1, 0, 0], \ 
+            Circle[{0, 0}, 1]}]}, AspectRatio \[Rule] Automatic, \n
+      PlotRange -> {{\(-2\), 2}, {\(-2\), 2}}]; \)], "Input"],
+
+Cell["\<\
+We can calculate the crossratios involved, and we will of course \
+find they are the same.\
+\>", "Text"],
+
+Cell[BoxData[
+    \({RL[PE[p\_1, \(-v\) + w], PE[p\_2, \(-v\) + w], PE[p\_3, \(-v\) + w], 
+        PE[p\_4, \(-v\) + w]], \n\t
+      RL[PE[p\_1, u + w], PE[p\_2, u + w], PE[p\_3, u + w], PE[p\_4, u + w]]}
+      \)], "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{732, 553},
+WindowMargins->{{4, Automatic}, {Automatic, 1}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00l0001804P000000_P2B?ofoo833P9F;085:0?l0@00005X0FP000003]P;J001
+0@00I00100000@0200000BL?00400000000000000000030001000000000@0?o>
+okX?AP^^0201000000000000000001T1\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 111, 4, 68, "Title"],
+Cell[1823, 55, 276, 10, 56, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[2124, 69, 92, 2, 53, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2241, 75, 45, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2311, 79, 87, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[2401, 83, 864, 37, 76, "Text"],
+Cell[3268, 122, 569, 22, 60, "Text"],
+Cell[3840, 146, 543, 18, 99, "Text"],
+Cell[4386, 166, 1142, 43, 128, "Text"],
+Cell[5531, 211, 905, 35, 108, "Text"],
+Cell[6439, 248, 1474, 53, 198, "Text"],
+Cell[7916, 303, 1006, 40, 134, "Text"],
+Cell[8925, 345, 463, 13, 121, "Text"],
+Cell[9391, 360, 635, 22, 131, "Text"],
+Cell[10029, 384, 762, 28, 99, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10828, 417, 33, 0, 29, "Subsubsection"],
+Cell[10864, 419, 584, 19, 105, "Text"],
+Cell[11451, 440, 289, 6, 83, "Text"],
+Cell[11743, 448, 85, 1, 74, "Input"],
+Cell[11831, 451, 99, 3, 33, "Text"],
+Cell[11933, 456, 148, 3, 94, "Input"],
+Cell[12084, 461, 99, 3, 33, "Text"],
+Cell[12186, 466, 58, 1, 54, "Input"],
+Cell[12247, 469, 177, 6, 33, "Text"],
+Cell[12427, 477, 64, 1, 54, "Input"],
+Cell[12494, 480, 109, 3, 56, "Text"],
+Cell[12606, 485, 67, 1, 54, "Input"],
+Cell[12676, 488, 189, 6, 60, "Text"],
+Cell[12868, 496, 75, 1, 54, "Input"],
+Cell[12946, 499, 190, 6, 56, "Text"],
+Cell[13139, 507, 118, 2, 54, "Input"],
+Cell[13260, 511, 532, 19, 94, "Text"],
+Cell[13795, 532, 327, 13, 54, "Text"],
+Cell[14125, 547, 51, 1, 54, "Input"],
+Cell[14179, 550, 403, 11, 56, "Text"],
+Cell[14585, 563, 239, 8, 54, "Text"],
+Cell[14827, 573, 71, 1, 54, "Input"],
+Cell[14901, 576, 460, 17, 72, "Text"],
+Cell[15364, 595, 148, 6, 38, "Text"],
+Cell[15515, 603, 65, 1, 54, "Input"],
+Cell[15583, 606, 1231, 50, 126, "Text"],
+Cell[16817, 658, 249, 10, 41, "Text"],
+Cell[17069, 670, 55, 1, 54, "Input"],
+Cell[17127, 673, 59, 1, 47, "Input"],
+Cell[17189, 676, 483, 13, 78, "Text"],
+Cell[17675, 691, 252, 5, 134, "Input"],
+Cell[17930, 698, 141, 3, 56, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[18120, 707, 39, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[18184, 711, 102, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[18289, 715, 1028, 37, 128, "Text"],
+Cell[19320, 754, 111, 2, 114, "Input"],
+Cell[19434, 758, 69, 0, 38, "Text"],
+Cell[19506, 760, 65, 1, 54, "Input"],
+Cell[19574, 763, 104, 3, 38, "Text"],
+Cell[19681, 768, 73, 1, 54, "Input"],
+Cell[19757, 771, 253, 10, 38, "Text"],
+Cell[20013, 783, 93, 1, 54, "Input"],
+Cell[20109, 786, 451, 14, 83, "Text"],
+Cell[20563, 802, 98, 2, 74, "Input"],
+Cell[20664, 806, 42, 0, 38, "Text"],
+Cell[20709, 808, 149, 4, 114, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[20895, 817, 41, 0, 29, "Subsubsection"],
+Cell[20939, 819, 368, 14, 76, "Text"],
+Cell[21310, 835, 43, 0, 38, "Text"],
+Cell[21356, 837, 59, 1, 54, "Input"],
+Cell[21418, 840, 628, 22, 83, "Text"],
+Cell[22049, 864, 158, 3, 94, "Input"],
+Cell[22210, 869, 695, 27, 76, "Text"],
+Cell[22908, 898, 50, 0, 38, "Text"],
+Cell[22961, 900, 84, 1, 74, "Input"],
+Cell[23048, 903, 578, 21, 99, "Text"],
+Cell[23629, 926, 427, 14, 99, "Text"],
+Cell[24059, 942, 582, 15, 147, "Text"],
+Cell[24644, 959, 592, 10, 314, "Input"],
+Cell[25239, 971, 506, 10, 128, "Text"],
+Cell[25748, 983, 197, 6, 60, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[25982, 994, 88, 1, 48, "Subsubsection"],
+Cell[26073, 997, 181, 4, 60, "Text"],
+Cell[26257, 1003, 510, 9, 236, "Input"],
+Cell[26770, 1014, 574, 22, 76, "Text"],
+Cell[27347, 1038, 277, 6, 83, "Text"],
+Cell[27627, 1046, 46, 1, 54, "Input"],
+Cell[27676, 1049, 270, 5, 83, "Text"],
+Cell[27949, 1056, 87, 1, 54, "Input"],
+Cell[28039, 1059, 513, 18, 99, "Text"],
+Cell[28555, 1079, 193, 4, 83, "Text"],
+Cell[28751, 1085, 56, 1, 54, "Input"],
+Cell[28810, 1088, 92, 1, 54, "Input"],
+Cell[28905, 1091, 378, 11, 83, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[29344, 1109, 94, 2, 33, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[29463, 1115, 42, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[29530, 1119, 85, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[29618, 1123, 133, 3, 60, "Text"],
+Cell[29754, 1128, 393, 10, 99, "Text"],
+Cell[30150, 1140, 311, 7, 83, "Text"],
+Cell[30464, 1149, 175, 3, 114, "Input"],
+Cell[30642, 1154, 391, 14, 60, "Text"],
+Cell[31036, 1170, 211, 4, 134, "Input"],
+Cell[31250, 1176, 257, 7, 60, "Text"],
+Cell[31510, 1185, 59, 1, 54, "Input"],
+Cell[31572, 1188, 217, 8, 38, "Text"],
+Cell[31792, 1198, 639, 17, 128, "Text",
+  PageBreakAbove->True],
+Cell[32434, 1217, 449, 7, 154, "Input"],
+Cell[32886, 1226, 373, 13, 60, "Text"],
+Cell[33262, 1241, 214, 4, 114, "Input"],
+Cell[33479, 1247, 145, 3, 60, "Text"],
+Cell[33627, 1252, 181, 3, 94, "Input"],
+Cell[33811, 1257, 410, 15, 60, "Text"],
+Cell[34224, 1274, 74, 1, 54, "Input"],
+Cell[34301, 1277, 296, 10, 60, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[34634, 1292, 54, 0, 29, "Subsubsection"],
+Cell[34691, 1294, 361, 9, 105, "Text"],
+Cell[35055, 1305, 527, 17, 99, "Text"],
+Cell[35585, 1324, 211, 6, 60, "Text"],
+Cell[35799, 1332, 763, 13, 334, "Input"],
+Cell[36565, 1347, 316, 10, 60, "Text"],
+Cell[36884, 1359, 183, 5, 54, "Text"],
+Cell[37070, 1366, 367, 11, 83, "Text"],
+Cell[37440, 1379, 670, 11, 234, "Input"],
+Cell[38113, 1392, 89, 1, 54, "Input"],
+Cell[38205, 1395, 406, 9, 105, "Text"],
+Cell[38614, 1406, 373, 12, 76, "Text",
+  PageBreakAbove->True,
+  PageBreakWithin->False],
+Cell[38990, 1420, 1335, 54, 105, "Text"],
+Cell[40328, 1476, 1369, 58, 105, "Text"],
+Cell[41700, 1536, 1842, 79, 169, "Text"],
+Cell[43545, 1617, 385, 11, 83, "Text"],
+Cell[43933, 1630, 406, 13, 83, "Text"],
+Cell[44342, 1645, 283, 9, 60, "Text"],
+Cell[44628, 1656, 84, 1, 38, "Text",
+  PageBreakAbove->True],
+Cell[44715, 1659, 856, 14, 334, "Input"],
+Cell[45574, 1675, 76, 1, 54, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[45699, 1682, 52, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[45776, 1686, 55, 0, 52, "Subsubsection"],
+Cell[45834, 1688, 1066, 33, 172, "Text"],
+Cell[46903, 1723, 226, 6, 76, "Text"],
+Cell[47132, 1731, 40, 0, 38, "Text"],
+Cell[47175, 1733, 212, 3, 134, "Input"],
+Cell[47390, 1738, 551, 21, 78, "Text"],
+Cell[47944, 1761, 102, 2, 74, "Input"],
+Cell[48049, 1765, 441, 11, 100, "Text"],
+Cell[48493, 1778, 379, 12, 99, "Text"],
+Cell[48875, 1792, 145, 6, 38, "Text"],
+Cell[49023, 1800, 256, 9, 54, "Text"],
+Cell[49282, 1811, 304, 8, 83, "Text"],
+Cell[49589, 1821, 236, 4, 154, "Input"],
+Cell[49828, 1827, 279, 6, 78, "Text"],
+Cell[50110, 1835, 7036, 158, 225, "Text"],
+Cell[57149, 1995, 412, 13, 83, "Text"],
+Cell[57564, 2010, 228, 6, 74, "Input"],
+Cell[57795, 2018, 406, 14, 78, "Text"],
+Cell[58204, 2034, 393, 11, 74, "Input"],
+Cell[58600, 2047, 62, 0, 33, "Text"],
+Cell[58665, 2049, 238, 8, 76, "Text"],
+Cell[58906, 2059, 176, 8, 38, "Text"],
+Cell[59085, 2069, 1170, 30, 74, "Input"],
+Cell[60258, 2101, 1010, 30, 159, "Text"],
+Cell[61271, 2133, 252, 9, 54, "Text"],
+Cell[61526, 2144, 480, 9, 128, "Text"],
+Cell[62009, 2155, 60, 0, 38, "Text"],
+Cell[62072, 2157, 322, 10, 76, "Text"],
+Cell[62397, 2169, 297, 8, 83, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[62731, 2182, 107, 2, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[62841, 2186, 486, 14, 105, "Text",
+  Evaluatable->False],
+Cell[63330, 2202, 560, 18, 105, "Text",
+  Evaluatable->False],
+Cell[63893, 2222, 255, 6, 134, "Input"],
+Cell[64151, 2230, 70, 0, 33, "Text"],
+Cell[64224, 2232, 249, 5, 94, "Input"],
+Cell[64476, 2239, 49, 0, 33, "Text"],
+Cell[64528, 2241, 178, 4, 94, "Input"],
+Cell[64709, 2247, 266, 9, 56, "Text",
+  Evaluatable->False],
+Cell[64978, 2258, 284, 7, 114, "Input"],
+Cell[65265, 2267, 106, 2, 33, "Text",
+  Evaluatable->False],
+Cell[65374, 2271, 282, 7, 114, "Input"],
+Cell[65659, 2280, 317, 9, 56, "Text",
+  Evaluatable->False],
+Cell[65979, 2291, 117, 2, 56, "Input"],
+Cell[66099, 2295, 137, 5, 33, "Text",
+  Evaluatable->False],
+Cell[66239, 2302, 69, 2, 54, "Input"],
+Cell[66311, 2306, 462, 13, 78, "Text",
+  Evaluatable->False],
+Cell[66776, 2321, 307, 5, 194, "Input"],
+Cell[67086, 2328, 277, 7, 78, "Text"],
+Cell[67366, 2337, 662, 10, 374, "Input"],
+Cell[68031, 2349, 114, 3, 56, "Text"],
+Cell[68148, 2354, 224, 4, 114, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

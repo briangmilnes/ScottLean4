@@ -1,0 +1,3216 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     80705,       2863]*)
+(*NotebookOutlinePosition[     81865,       2902]*)
+(*  CellTagsIndexPosition[     81821,       2898]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 14   Projective Geometry\n",
+  StyleBox["Return to Euclidean Geometry",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontSize->36],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["30 November 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle",
+  FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell["Euclidean Geometry", "Section"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Euclidean transformations",
+  FontWeight->"Bold"]], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Transforming the line at infinity and the circular points", 
+  "Subsubsection"],
+
+Cell[TextData[{
+  "Projective geometry is a generalization of ordinary geometry \[LongDash] \
+one might say it is a ",
+  StyleBox["completion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by adjoining the line at infinity and by using complex numbers.  But \
+there is a reverse procedure as well: deriving the Euclidean world from the \
+projective."
+}], "Text"],
+
+Cell[TextData[{
+  "In order to understand the connection between projective and Euclidean \
+geometry, we note first that we previoisly verified algebraically that ",
+  StyleBox["circles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are exactly the conics which pass through the two, fixed, complex, \
+so-called ",
+  StyleBox["circular points at infinity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", namely the two points ",
+  Cell[BoxData[
+      StyleBox[\(u \[PlusMinus] I\ v\),
+        FontWeight->"Bold"]]],
+  ".  Hence, we define:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  ",
+  StyleBox["Euclidean transformations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are the projective transformations which map circles to circles.  There \
+are two kinds: the ",
+  StyleBox["direct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " transformations that the leave the points ",
+  Cell[BoxData[
+      StyleBox[\(u \[PlusMinus] I\ v\),
+        FontWeight->"Bold"]]],
+  " fixed, and the ",
+  StyleBox["opposite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " transformations that reverse the two points."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["It follows at once that we have:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  " The Euclidean transformations form a ",
+  StyleBox["subgroup",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the group of all projectiove transformations, and the opposite \
+transformations form a smaller subgroup.  The product of two opposite \
+Euclidean transformations is a direct transformation, the inverse of an \
+opposite transformation is opposite, the product of a direct and an opposite \
+transformation is an opposite transformation."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  Technically we can say that the direct transformations form a ",
+  StyleBox["normal subgroup",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the group of Euclidean transformations of ",
+  StyleBox["index 2",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  Every ",
+  StyleBox["direct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " Euclidean transformation is equivalent to one of the form:\n\t\t\t",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"(", GridBox[{
+              {\(a\_1\), \(a\_2\), "0"},
+              {\(-a\_2\), \(a\_1\), "0"},
+              {\(c\_1\), \(c\_2\), "1"}
+              }], ")"}],
+        FontWeight->"Bold"]]],
+  "\nThe ",
+  StyleBox["opposite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "transformations are those equivalent to one of the form:\n\t\t\t",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"(", GridBox[{
+              {\(a\_1\), \(a\_2\), "0"},
+              {\(a\_2\), \(-a\_1\), "0"},
+              {\(c\_1\), \(c\_2\), "1"}
+              }], ")"}],
+        FontWeight->"Bold"]]]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  First let us take a general matrix defining a projective \
+transformation:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[M, a, b, c, Subscript]; \n
+    M = {{a\_1, a\_2, a\_3}, {b\_1, b\_2, b\_3}, {c\_1, c\_2, c\_3}}; \)], 
+  "Input"],
+
+Cell[TextData[{
+  "The following quantities must be ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ", if the transformation leaves ",
+  Cell[BoxData[
+      StyleBox[\(u + I\ v\),
+        FontWeight->"Bold"]]],
+  " fixed:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(PE[\(TP[M]\)[u + I\ v], u + I\ v] // CL\) // ExpandAll\)], "Input"],
+
+Cell[TextData[{
+  "We can say the same about ",
+  Cell[BoxData[
+      StyleBox[\(u - I\ v\),
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(PE[\(TP[M]\)[u - I\ v], u - I\ v] // CL\) // ExpandAll\)], "Input"],
+
+Cell["We can then see what this means:", "Text"],
+
+Cell[BoxData[
+    \(sol = 
+      Solve[{\(-I\)\ a\_3 + b\_3 == 0, a\_3 + I\ b\_3 == 0, 
+          I\ a\_1 - a\_2 - b\_1 - I\ b\_2 == 0, I\ a\_3 + b\_3 == 0, 
+          a\_3 - I\ b\_3 == 0, \(-I\)\ a\_1 - a\_2 - b\_1 + I\ b\_2 == 0}, 
+        Reverse[{a\_1, a\_2, a\_3, b\_1, b\_2, b\_3, c\_1, c\_2, c\_3}]]\)], 
+  "Input"],
+
+Cell["\<\
+So here is the form the matrix has to have, along with its \
+determinant:\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(MatrixForm[M /. sol\[LeftDoubleBracket]1\[RightDoubleBracket]]\), 
+    \(Det[%] // Factor\)}], "Input"],
+
+Cell[TextData[{
+  "Since the transformation has to be non singular, we see ",
+  Cell[BoxData[
+      StyleBox[\(c\_3 \[NotEqual] 0\),
+        FontWeight->"Bold"]]],
+  ".  Thus, we can ",
+  StyleBox["divide",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by that scalar obtaining the first stated form.  "
+}], "Text"],
+
+Cell["We turn next to the opposite transformations:", "Text"],
+
+Cell[BoxData[
+    \(\(PE[\(TP[M]\)[u - I\ v], u + I\ v] // CL\) // ExpandAll\)], "Input"],
+
+Cell[BoxData[
+    \(\(PE[\(TP[M]\)[u + I\ v], u - I\ v] // CL\) // ExpandAll\)], "Input"],
+
+Cell[BoxData[
+    \(sol = 
+      Solve[{\(-I\)\ a\_3 - b\_3 == 0, a\_3 - I\ b\_3 == 0, 
+          I\ a\_1 - a\_2 + b\_1 + I\ b\_2 == 0, I\ a\_3 - b\_3 == 0, 
+          a\_3 + I\ b\_3 == 0, \(-I\)\ a\_1 - a\_2 + b\_1 - I\ b\_2 == 0}, 
+        Reverse[{a\_1, a\_2, a\_3, b\_1, b\_2, b\_3, c\_1, c\_2, c\_3}]]\)], 
+  "Input"],
+
+Cell["\<\
+So here is the form the matrix has to have, along with its \
+determinant:\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(MatrixForm[M /. sol\[LeftDoubleBracket]1\[RightDoubleBracket]]\), 
+    \(Det[%] // Factor\)}], "Input"],
+
+Cell[TextData[{
+  "By the same argument as before, we can divide by ",
+  Cell[BoxData[
+      StyleBox[\(c\_3\),
+        FontWeight->"Bold"]]],
+  ".  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+Look at a typical direct transformation, a special opposite one, \
+and their product:\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(M = {{a\_1, a\_2, 0}, {\(-a\_2\), a\_1, 0}, {c\_1, c\_2, 1}}; \n
+    R = {{0, 1, 0}, {1, 0, 0}, {0, 0, 1}}; \n\nM . R // MatrixForm\n\), 
+    \(M . R . R // MatrixForm\)}], "Input"],
+
+Cell[TextData[{
+  "In general, multiplication of a matrix by ",
+  Cell[BoxData[
+      StyleBox["R",
+        FontWeight->"Bold"]]],
+  " interchanges the first ans second rows of the matrix.  For the special \
+case of Euclidean transformations, we have checked:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The mapping ",
+  Cell[BoxData[
+      StyleBox[\(M\  \[Rule] \ M . R\),
+        FontWeight->"Bold"]]],
+  " takes every (matrix representing a) direct Euclidean transformation to an \
+opposite one, and every opposite one to a direct one.  The transformation \
+composed with itself is the identity."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  What is the ",
+  StyleBox["geometric",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["meaning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the transformation represented by ",
+  Cell[BoxData[
+      StyleBox["R",
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell["\<\
+The answer is left to the reader (but we shall return to it).  \
+Another question that is interesting to answer is:\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  By definition, Euclidean transformations leave the ",
+  StyleBox["pair",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of points ",
+  Cell[BoxData[
+      StyleBox[\({u + I\ v, u - I\ v}\),
+        FontWeight->"Bold"]]],
+  " fixed (as a set) and hence the line ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  " at infinity fixed.  (Why?) Which of the Euclidean transformations leave ",
+  
+  StyleBox["all ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "points at infinity fixed?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " Inasmuch as ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points are already fixed by direct transformations, it is sufficient to \
+see when they leave another point fixed.  (Why?)"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(PE[\(TP[M]\)[u], u] // CL\) // ExpandAll\)], "Input"],
+
+Cell["So, here is the form we seek:", "Text"],
+
+Cell[BoxData[
+    \(M /. a\_2 \[Rule] 0 // MatrixForm\)], "Input"],
+
+Cell[TextData[{
+  "That is the answer.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+These transformations must form another subgroup.  (Why?)   Are \
+there other, related subgroups?\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Which Euclidean transformations leave ",
+  StyleBox["all ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "points at infinity fixed, as well as ",
+  StyleBox["the",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  We check what happens to ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(PE[\(TP[M]\)[w], w] // CL\) // ExpandAll\)], "Input"],
+
+Cell["\<\
+So, here is the form we seek (continuing on from the previous \
+question):\
+\>", "Text"],
+
+Cell[BoxData[
+    \(M\_1 = M /. {a\_2 \[Rule] 0, c\_1 \[Rule] 0, c\_2 \[Rule] 0}; \t\n
+    M\_1 // MatrixForm\)], "Input"],
+
+Cell["\<\
+Let us check what this kind of transformation does to an ordinary \
+point in the plane.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(TP[M\_1]\)[r\ u + s\ v + w]\)], "Input"],
+
+Cell[TextData[{
+  "Aside from the irritating order ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " writes things in, we see that this just means that each coordinate is \
+multiplied by the same factor (namely, ",
+  Cell[BoxData[
+      StyleBox[\(a\_1\),
+        FontWeight->"Bold"]]],
+  ").  And this factor has to be ",
+  StyleBox["non zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (Why?)  So this is a uniform ",
+  StyleBox["change of scale",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " or a ",
+  StyleBox["similitude",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["around the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The subgroup of such similitudes is isomorphic to the ",
+  StyleBox["multiplicative group",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the non-zero scalars.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Which Euclidean transformations leave ",
+  StyleBox["the",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " fixed?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Just as before, we find a simplification in the third row:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PE[\(TP[M]\)[w], w] // CL\)], "Input"],
+
+Cell["So, here is the form we seek :", "Text"],
+
+Cell[BoxData[{
+    \(M\_2 = M /. {c\_1 \[Rule] 0, c\_2 \[Rule] 0}; \t\n
+    M\_2 // MatrixForm\), 
+    \(Det[M\_2]\)}], "Input"],
+
+Cell[TextData[{
+  "What is the ",
+  StyleBox["meaning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of such transformations?  If we combine ",
+  Cell[BoxData[
+      StyleBox[\(M\_2\),
+        FontWeight->"Bold"]]],
+  "with a suitable similitude:"
+}], "Text"],
+
+Cell[BoxData[
+    \(M\_3 = Inverse[M\_1 /. a\_1 \[Rule] \@\(a\_1\%2 + a\_2\%2\)]; \n
+    M\_3 // MatrixForm\)], "Input"],
+
+Cell[TextData[{
+  "We get a matrix with determinant ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Det[M\_2 . M\_3] // Together\), 
+    \(M\_2 . M\_3 // MatrixForm\)}], "Input"],
+
+Cell[TextData[{
+  "This is the matrix for a ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " through angle ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"ArcTan", "[", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["a",
+                FontWeight->"Bold"], "2"], "/", \(a\_1\)}], "]"}],
+        FontWeight->"Bold"]]],
+  "about the origin.  So, the transformations leaving the origin fixed are \
+represented by a combination of a rotation and a similitude.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Warning.",
+    FontWeight->"Bold"],
+  "  The last conclusion may be a little hard to interpret for ",
+  StyleBox["complex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " matrices. "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  In general, a ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a direct Euclidean transformation of determinant 1 leaving a point \
+fixed (the ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the rotation)."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["\<\
+An interesting question is to determine when the composition of two \
+rotations is again a rotation.  But we shall not pursue that here.\
+\>", 
+  "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Are there ",
+  StyleBox["other",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " obvious subgroups?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Here is one:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(T = {{1, 0, 0}, {0, 1, 0}, {c\_1, c\_2, 1}}; \n
+    U = {{1, 0, 0}, {0, 1, 0}, {d\_1, d\_2, 1}}; \nT // MatrixForm\), 
+    \(U // MatrixForm\)}], "Input"],
+
+Cell["And we find:", "Text"],
+
+Cell[BoxData[{
+    \(Inverse[T] // MatrixForm\), 
+    \(T . U // MatrixForm\)}], "Input"],
+
+Cell[TextData[{
+  "So we have a ",
+  StyleBox["subgroup",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!  What is the meaning of these transformations?  Let us check how they \
+transform points:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(TP[T]\)[r\ u + s\ v + w]\)], "Input"],
+
+Cell[TextData[{
+  "Such transformations are just ",
+  StyleBox["translations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by a vector.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Note that if we think of linear combinations of ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " as being Euclidean vectors, then we get the transformations for \
+translations as projective transformation as well by transforming \
+quadrangles:"
+}], "Text"],
+
+Cell[BoxData[
+    \(vect = \(c\_1\) u + \(c\_2\) v; \n
+    MQP[{u + I\ v, u - I\ v, u + w, \ v + w}, \n
+        \t\ \ \ \ \ \ \ {u + I\ v, u - I\ v, u + w\  + vect, 
+          v + w\  + vect}] // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    \(MQP[{w, u + w, \ v + w, u + v + w}, \ \ \n
+        \t\ \ \ \ \ \ \ {w, u + w, \ v + w, u + v + w} + vect] // MatrixForm
+      \)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Real geometry and orientation", "Subsubsection"],
+
+Cell["\<\
+We consider again the direct and opposite Euclidean \
+transformations:\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[a, b, c, M, R, Subscript]; \n
+    M = {{a\_1, a\_2, 0}, {\(-a\_2\), a\_1, 0}, {c\_1, c\_2, 1}}; \n
+    R = {{0, 1, 0}, {1, 0, 0}, {0, 0, 1}}; \nM // MatrixForm\), 
+    \(M . R // MatrixForm\)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Question. ",
+    FontWeight->"Bold"],
+  "Which Euclidean transformations map real points to real points? "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " Check the origin first under ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(TP[M]\)[w]\)], "Input"],
+
+Cell[TextData[{
+  "Thus, both ",
+  Cell[BoxData[
+      StyleBox[\(c\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(c\_2\),
+        FontWeight->"Bold"]]],
+  " have to be real, if real points are to be mapped to real points..  Let us \
+check another real point: "
+}], "Text"],
+
+Cell[BoxData[
+    \(\(TP[M]\)[u + w]\)], "Input"],
+
+Cell[TextData[{
+  "Thus, both ",
+  Cell[BoxData[
+      StyleBox[\(a\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(a\_2\),
+        FontWeight->"Bold"]]],
+  " are real.  Since ",
+  Cell[BoxData[
+      StyleBox["R",
+        FontWeight->"Bold"]]],
+  " obviously maps real points to real points, we can say the ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " Euclidean transformations are those that can be represented by a ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  These transforms obviously form a subgroup.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "What is the meaning of ",
+  Cell[BoxData[
+      StyleBox["R",
+        FontWeight->"Bold"]]],
+  "?  It is clear that it leaves the origin fixed and interchanges the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "- and ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-axes.  More generally we see from the computation "
+}], "Text"],
+
+Cell[BoxData[
+    \(\(TP[R]\)[r\ u + s\ v + w]\)], "Input"],
+
+Cell[TextData[{
+  "that ",
+  Cell[BoxData[
+      StyleBox["R",
+        FontWeight->"Bold"]]],
+  " interchanges the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "- and ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-coordinates of every point.  Thus we have the transformation of ",
+  StyleBox["reflection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " about the diagonal line ",
+  Cell[BoxData[
+      StyleBox[\(x - y\),
+        FontWeight->"Bold"]]],
+  ".  Indeed, we find:"
+}], "Text"],
+
+Cell[BoxData[
+    \(TL[R]/@{x, y, z, x - y}\)], "Input"],
+
+Cell[TextData[{
+  "Another interesting exercise \[LongDash] which, alas, we do not have the \
+time to solve explicitly \[LongDash] is to find the formula for ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " reflections (about any line) and to prove:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The ",
+  StyleBox["opposite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " Euclidean transformations of determinant ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  " are exactly the compositions of a ",
+  StyleBox["reflection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in a line and a ",
+  StyleBox["translation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " parallel to that line."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "As a reflection is a key example of an ",
+  StyleBox["orientation reversing ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " transformation, we can see that ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the opposite transformations are orientation reversing.  The direct \
+transformations are therefore the ",
+  StyleBox["orientation preserving",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " transformations.  It can also be proved that:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The ",
+  StyleBox["direct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " Euclidean transformations of determinant ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  " are either ",
+  StyleBox["rotations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " about a center or ",
+  StyleBox["translations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["similitudes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are all orientation preserving, and so we see there are a number of \
+subgroups to be singled out here ",
+  StyleBox["including",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " those that preserve real points, giving us the transformations of \
+ordinary geometry."
+}], "Text"],
+
+Cell["Here is an example of a rotation and a reflection:", "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[M, R, Subscript]; \n
+    M = {{Cos[\[Pi]/3], Sin[\[Pi]/3], 0}, {\(-Sin[\[Pi]/3]\), Cos[\[Pi]/3], 
+          0}, {3, 2, 1}}; \nR = {{0, 1, 0}, {1, 0, 0}, {0, 0, 1}}; \n
+    MatrixForm[M]\), 
+    \(MatrixForm[R]\)}], "Input"],
+
+Cell[TextData[{
+  "Now, if we look at a configuration of lines and their transforms under ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  " and under ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["M",
+          FontWeight->"Bold"], 
+        StyleBox[".",
+          FontWeight->"Bold"], 
+        StyleBox["R",
+          FontWeight->"Bold"]}]]],
+  ", we can see the first is orientation preserving and the second is \
+orientation reversing."
+}], "Text"],
+
+Cell[BoxData[
+    \(l\_1 = x - 5  y - z; \nl\_2 = x + y - z; \nl\_3 = x + 2\ y - 3\ z; \n
+    ImplicitPlot[{l\_1 == 0, l\_2 == 0, l\_3 == 0, \n\t\t
+          \(TL[M]\)[l\_1] == 0, \n\t\t\(TL[M]\)[l\_2] == 0, \n\t\t
+          \(TL[M]\)[l\_3] == 0} /. z \[Rule] 1, \n
+      \t{x, \(-2\), 5}, {y, \(-2\), 5}, \n
+      PlotStyle \[Rule] 
+        \ {{Thickness[0.005], Black}, {Thickness[0.005], Black}, {
+            Thickness[0.005], Black}, {Thickness[0.005], Red}, \n
+          \t\t\t{Thickness[0.005], Red}, {Thickness[0.005], Red}}]; \)], 
+  "Input"],
+
+Cell[BoxData[
+    \(l\_1 = x - 5  y - z; \nl\_2 = x + y - z; \nl\_3 = x + 2\ y - 3\ z; \n
+    ImplicitPlot[{l\_1 == 0, l\_2 == 0, l\_3 == 0, \n\t\t
+          \(TL[M . R]\)[l\_1] == 0, \n\t\t\(TL[M . R]\)[l\_2] == 0, \n\t\t
+          \(TL[M . R]\)[l\_3] == 0} /. z \[Rule] 1, \n
+      \t{x, \(-2\), 5}, {y, \(-2\), 5}, \n
+      PlotStyle \[Rule] 
+        \ {{Thickness[0.005], Black}, {Thickness[0.005], Black}, {
+            Thickness[0.005], Black}, {Thickness[0.005], Red}, \n
+          \t\t\t{Thickness[0.005], Red}, {Thickness[0.005], Red}}]; \)], 
+  "Input"],
+
+Cell["\<\
+We cannot make the red and black triangles in the second picture \
+coincide by \"sliding\" alone:  we have to turn one of them over.\
+\>", "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Some definitions and constructions",
+  FontWeight->"Bold"]], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Perpendicular lines and congruent segments", "Subsubsection"],
+
+Cell[TextData[{
+  "Consider the ",
+  StyleBox["involution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the line at infinity defined by finding the ",
+  StyleBox["harmonic conjugate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a point with respect to the two circular points.  Here is a \
+definition:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, Subscript]; \n
+    XP[u + I\ v, u - I\ v, a\ u + b\ v, \(-1\)]\)], "Input"],
+
+Cell[TextData[{
+  "The common factor ",
+  Cell[BoxData[
+      StyleBox["I",
+        FontWeight->"Bold"]]],
+  " does not matter, and we are just looking at a version of the linear \
+transformation ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v \[Rule] b\ u - a\ v\),
+        FontWeight->"Bold"]]],
+  ", which amounts to an ",
+  StyleBox["involution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the line at infinity.   "
+}], "Text"],
+
+Cell[TextData[{
+  "This transformation at infinity can be ",
+  StyleBox["transferred",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to any pencil through any point in the usual way.  Here is the result for \
+the pencil at the origin:"
+}], "Text"],
+
+Cell[BoxData[
+    \(XL[PE[\ w, u + I\ v], PE[I\ w, u - I\ v], a\ x\  + \ b\ y, \(-1\)]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Again, the common factor ",
+  Cell[BoxData[
+      StyleBox["I",
+        FontWeight->"Bold"]]],
+  " does not matter, and we are looking at the linear transformation ",
+  Cell[BoxData[
+      StyleBox[\(a\ x + b\ y \[Rule] b\ x - a\ y\ \),
+        FontWeight->"Bold"]]],
+  ".  Considering the ",
+  StyleBox["slopes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of lines, we find that the ",
+  StyleBox["geometric meaning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of this transformation is that any line through the origin is transformed \
+to the corresponding ",
+  StyleBox["perpendicular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " line.  We will have to discuss the full justification for the following \
+definition; but, so far, we can say it works for ordinary lines."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  " Two lines (neither of which are at infinity) are ",
+  StyleBox["perpendicular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, and only if, ",
+  StyleBox["either",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " they pass through the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " circular point at infinity ",
+  StyleBox["or",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the circular points separate their intersections with the line at \
+infinity ",
+  StyleBox["harmonically",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "The point of looking at the construction of a perpendicular by means of \
+crossratios is that \[LongDash] once we have fixed the circular points at \
+infinity \[LongDash] the construction is ",
+  StyleBox["definable in projective geometry",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But, we also want to make this idea into a program (or construction) \
+for ",
+  StyleBox["finding",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the perpendicular to a line passing through a point.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Unfortunately, the command ",
+  Cell[BoxData[
+      StyleBox[\(XP[u + I\ v, u - I\ v, a\ u + b\ v, \(-1\)]\),
+        FontWeight->"Bold"]]],
+  " does not work for the third point being one of the first two (circular) \
+points, so we use the projective transformation of rotation through ",
+  Cell[BoxData[
+      StyleBox[\(\[Pi]\/2\),
+        FontWeight->"Bold"]]],
+  " to as an expedient to gain the same effect.  This transformation leaves \
+the circular points ",
+  StyleBox["fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", as desired.   Here follows the text of the ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " code.  (The command itself in defined in ",
+  Cell[BoxData[
+      StyleBox[\(Implementations . nb\),
+        FontWeight->"Bold"]]],
+  ".)\n\t",
+  Cell[BoxData[
+      StyleBox[
+        \(Perp[p_, l_] := \n\t
+          Tidy[PE[p, \ 
+              \(TP[{{0, 1, 0}, {\(-1\), 0, 0}, {0, 0, 1}}]\)[PE[l, z]]]]\),
+        FontSize->13,
+        FontWeight->"Bold"]],
+    Background->RGBColor[1, 1, 0]]
+}], "Text"],
+
+Cell["Here is a test:", "Text"],
+
+Cell[BoxData[
+    \(Perp[r\ u + s\ v + w, a\ x\  + \ b\ y\  + c\ z]\)], "Input"],
+
+Cell[TextData[{
+  "It has the right slope.  Here is the ",
+  StyleBox["foot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the perpendicular:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(Tidy[PE[a\ x + b\ y + c\ z, Perp[r\ u + s\ v + w, a\ x + b\ y + c\ z]]]
+      \), 
+    \(PE[%, r\ u + s\ v + w] // Factor\), 
+    \(PD[a\ x + b\ y + c\ z, r\ u + s\ v + w]\)}], "Input"],
+
+Cell[TextData[{
+  "We see the foot of the perpendicular is the ",
+  StyleBox["same point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as the given point ",
+  StyleBox["if, and only if,",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the point ",
+  StyleBox["lies on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the given line \[LongDash] as would be expected.  Here is a picture:"
+}], "Text"],
+
+Cell[BoxData[
+    \(a = 4; b = 1; c = \(-1\); \n
+    ImplicitPlot[{a\ x + b\ y + c\ z == 0, 
+          Perp[u - v + w, a\ x + b\ y + c\ z] == 0} /. z \[Rule] 1, \n
+      \t{x, \(-3\), 3}, {y, \(-3\), 3}, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.007], Black}, {Thickness[0.007], Red}}]; \)], 
+  "Input"],
+
+Cell["We have to watch out for complex coefficients! ", "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "   Can you show how complex coordinates differ from the real case?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "Consider the line joining the origin to one of the circular points."
+}], "Text"],
+
+Cell[BoxData[
+    \(PE[w, u + I\ v]\)], "Input"],
+
+Cell["Now, erect the perpendicular:", "Text"],
+
+Cell[BoxData[
+    \(Perp[w, \(-I\)\ x + y] I // Tidy\)], "Input"],
+
+Cell[TextData[{
+  "What?!  It is the same line!?  Under our definitions, the line  ",
+  Cell[BoxData[
+      StyleBox[\(\(-I\)\ x + y\),
+        FontWeight->"Bold"]]],
+  "  (which is equivalent to ",
+  Cell[BoxData[
+      StyleBox[\(\ x + I\ y\),
+        FontWeight->"Bold"]]],
+  ") is infact ",
+  StyleBox["perpendicular to itself",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[". ",
+    FontSlant->"Italic"],
+  " Why?  In the reals, the quantity ",
+  Cell[BoxData[
+      StyleBox[\(a\^2 + b\^2\),
+        FontWeight->"Bold"]]],
+  " is never zero, unless both ",
+  Cell[BoxData[
+      StyleBox["a",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " are zero; in the complex numbers, it is another story.  This algebraic \
+fact is at the basis of the situation we found.  Here is the calculation that \
+shows why:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(Perp[w, a\ x + b\ y]\), 
+    \(PE[%, a\ x + b\ y] // Factor\)}], "Input"],
+
+Cell["\<\
+Now, drop a perpenduclar from another point (not at infinity):\
+\>",
+   "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c]; \n
+    Perp[a\ u + b\ v + w, \(-I\)\ x + y]\ I // Tidy\)], "Input"],
+
+Cell["These lines are are all parallel (of course):", "Text"],
+
+Cell[BoxData[
+    \(PE[\(-I\)\ x + y, \(-I\)\ x + y + \((I\ a - b)\)\ z]/\((I\ a - b)\) // 
+      Together\)], "Input"],
+
+Cell["And they are perpendicular to themselves:", "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c]; \n
+    Perp[a\ u + b\ v + w, \(-I\)\ x + y + \((I\ a - b)\)\ z]\ I // Tidy\)], 
+  "Input"],
+
+Cell[TextData[{
+  "This shows how complex coefficients create self-perpendicular lines.  \
+These lines are the lines passing through one of the circular points.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Note.",
+    FontWeight->"Bold"],
+  "  From the dictionary: ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"],
+  " = ",
+  StyleBox["quod erat demonstrandum",
+    FontSlant->"Italic"],
+  " = which was to be demonstrated or proved; ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"],
+  " = ",
+  StyleBox["quod erat faciendum ",
+    FontSlant->"Italic"],
+  "= which was to be done or constructed."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "We can also use the construction of the foot of the perpendicular to make \
+a ",
+  StyleBox["construction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the ",
+  StyleBox["reflection around any line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontSlant->"Italic"],
+  "  Here is one way: take the line, take a point, drop the perendicular, go \
+over an equal amount to the other side of the line.  If we do this for two \
+special points, we determine the reflection.  Here is an example:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(l = 2\ x\  - \ 3  y - 4  z; \n
+    refl = MQP[{u + I\ v, u - I\ v, u + w, v + w}, \n
+        \t\ \ \ \ \ \ \ {u - I\ v, u + I\ v, \n\t\t
+          XP[PE[z, Perp[u + w, l]], PE[l, Perp[u + w, l]], u + w, \(-1\)], \n
+          \t\ \ XP[PE[z, Perp[v + w, l]], PE[l, Perp[v + w, l]], v + w, 
+            \(-1\)]}]; \n\nrefl // MatrixForm\n\), 
+    \(\(TL[refl]\)[l]\), 
+    \(m = 4  x - 2  y - 1  z; \n\(TL[refl]\)[m]\n\), 
+    \(\(ImplicitPlot[{l == 0, m == 0, \n\t\t\(TL[refl]\)[m] == 0} /. 
+        z \[Rule] 1, \n\t{x, \(-3\), 3}, {y, \(-3\), 3}, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.007], Black}, {Thickness[0.007], Red}, \n
+          \t\ \ \ \t{Thickness[0.007], Red}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "The black line above is called the ",
+  StyleBox["axis",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the reflection.  Note that the red lines make equal and opposite ",
+  StyleBox["angles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with the axis.  (This corresponds to the physical idea of the reflection \
+of a light ray off a mirror.)"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Can the above example be made into a program?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  The problem comes when the line through the two points (we have just \
+used ",
+  Cell[BoxData[
+      StyleBox[\({u + w, v + w}\),
+        FontWeight->"Bold"]]],
+  ") is perpendicular to the given line.  Another problem is that the given \
+line should not be ",
+  StyleBox["self-perpendicular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  An easier procedure than the above to determine the transformation uses \
+the fact that all the points on an axis of reflection ",
+  StyleBox["remain fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  If we can find two distinct points on the line, we just leave them \
+fixed.  Since the line cannot pass through the circular points, if we just \
+find one point ",
+  StyleBox["off",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the given line, we can connect that to the two circular points and get \
+two points ",
+  StyleBox["on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the line.  Here follows the suggested program.  (The command itself in \
+defined in ",
+  Cell[BoxData[
+      StyleBox[\(Implementations . nb\),
+        FontWeight->"Bold"]]],
+  ".)"
+}], "Text"],
+
+Cell[TextData[{
+  "\t\t",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[
+          \(Refl[l_] := 
+            \((MQP[{u + I\ v, u - I\ v, #1, #2}, \n
+                    \t\t\t\[NonBreakingSpace]\[NonBreakingSpace]\
+\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\
+\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\
+\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]{u - I\ v, 
+                      u + I\ v, #1, #2}]&)\)@@
+              \(({PE[l, PE[u + I\ v, #]], PE[l, PE[u - I\ v, #]]}&)\)[
+                \((If[#3 \[NotEqual] 0, w, #1\ u + #2\ v + w]&)\)@@CL[l]]\),
+          FontSize->14,
+          FontWeight->"Bold"], 
+        StyleBox[";",
+          FontSize->15,
+          FontWeight->"Bold"]}]],
+    Background->RGBColor[1, 1, 0]]
+}], "Text"],
+
+Cell["Let us make some tests:", "Text"],
+
+Cell[BoxData[{
+    \(Refl[x - y] // MatrixForm\), 
+    \(Refl[x + y] // MatrixForm\)}], "Input"],
+
+Cell["So far so good.", "Text"],
+
+Cell[BoxData[
+    \(Refl[x - I\ y] // MatrixForm\)], "Input"],
+
+Cell["\<\
+Opps!  Wrong kind of input!  That line passes through a circular \
+point:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(PD[x - I\ y, #]&\)/@{u + I\ v, u - I\ v}\)], "Input"],
+
+Cell["Look at related lines:", "Text"],
+
+Cell[BoxData[
+    \(Refl[x - a\ I\ y] // MatrixForm\)], "Input"],
+
+Cell[TextData[{
+  "To get well defined results here, the scalar ",
+  Cell[BoxData[
+      StyleBox["a",
+        FontWeight->"Bold"]]],
+  " must not be ",
+  Cell[BoxData[
+      StyleBox[\(\[PlusMinus]1\),
+        FontWeight->"Bold"]]],
+  ".  Those values give the two lines through the origin also through a \
+circular point.  Here is another test:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(l = 2\ x\  + \ 3  y - 4  z; \nRefl[l] // MatrixForm\n\), 
+    \(\(TL[Refl[l]]\)[l]\), 
+    \(m = 4  x - 5  y + 3  z; \n\(TL[Refl[l]]\)[m]\n\), 
+    \(\(ImplicitPlot[{l == 0, m == 0, \n\t\t\(TL[Refl[l]]\)[m] == 0} /. 
+        z \[Rule] 1, \n\t{x, \(-3\), 3}, {y, \(-3\), 3}, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.007], Black}, {Thickness[0.007], Red}, \n
+          \t\ \ \ \t{Thickness[0.007], Red}}]; \)\)}], "Input"],
+
+Cell["And another:", "Text"],
+
+Cell[BoxData[
+    \(l = 2\ x\  + \ 3  y - 4  z; \nf\  = \ 2  x\^2 + 3  y\^2 - 6  z\^2; \n
+    g = \ \(TL[Refl[l]]\)[f]; \n\n
+    ImplicitPlot[{l == 0, f == 0, g == 0} /. z \[Rule] 1, \n
+      \t{x, \(-3\), 3}, {y, \(-3\), 4}, \n\tPlotPoints\  -> \ 100, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.007], Black}, \n\t\t\t{Thickness[0.007], Red}, 
+          \n\t\ \ \ \t{Thickness[0.007], Red}}]; \)], "Input"],
+
+Cell[TextData[{
+  "Seems fine.  (But it may not work for ",
+  StyleBox["symbolic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " input!)  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "Can you draw perpendiculars using a ",
+  StyleBox["circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "The ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a circle is the ",
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the line at infinity.  Here is a general computation:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[f, g, a, b, c, Subscript]; 
+    f = \((x - a\_1\ z)\)\^2 + \((y - b\_1\ z)\)\^2 - c\_1\%2\ z\^2; \n
+    g = Envel[f]\), 
+    \(Tidy[PD[z, g\/2]]\), 
+    \(PD[f, a\_1\ u + b\_1\ v + w]\)}], "Input"],
+
+Cell[TextData[{
+  "So, according to the pole-polar definition, the point ",
+  Cell[BoxData[
+      StyleBox[\(u\ a\_1 + v\ b\_1 + w\),
+        FontWeight->"Bold"]]],
+  " is indeed the ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (as can be seen from the way the polynomial for ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is written).  "
+}], "Text"],
+
+Cell[TextData[{
+  "Now, a well known property of a circle is that the ",
+  StyleBox["tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at the ends of a diameter are ",
+  StyleBox["perpendicular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the diameter.  Since we can find a diameter ",
+  StyleBox["parallel",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to any given line, we can then find the ",
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a diameter at infinity in order to pin down the perpendicular \
+direction.  Keeping the above ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ", its center ",
+  Cell[BoxData[
+      StyleBox[\(a\_1\ u + b\_1\ v + w\),
+        FontWeight->"Bold"]]],
+  ", and its envelope ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " fixed, we can make the following construction and test it:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(pc[p_, l_] := PE[p, PD[PE[a\_1\ u + b\_1\ v + w, PE[l, z]], g]]; \n\n
+    Tidy/@Factor[pc[r\ u + s\ v + w, a\ x + b\ y + c\ z]]\n\), 
+    \(Perp[r\ u + s\ v + w, a\ x + b\ y + c\ z]\)}], "Input"],
+
+Cell[TextData[{
+  "The lines are the same \[LongDash] except for that factor of ",
+  Cell[BoxData[
+      StyleBox[\(\(-2\) c\_1\%2\),
+        FontWeight->"Bold"]]],
+  ".  But, if ",
+  Cell[BoxData[
+      StyleBox[\(c\_1 == 0\),
+        FontWeight->"Bold"]]],
+  ", the circle ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["degenerate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (that is, of radius ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ").  The construction of perpendiculars of course cannot work in that case. \
+ Either way, we can use the idea of a circle to determine perpendicular \
+lines.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "What about defining the notion of ",
+  StyleBox["congruence",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for ",
+  StyleBox["segments",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Suppose we have two pairs ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "1"], ",", \(q\_1\)}], "}"}],
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "2"], ",", \(q\_2\)}], "}"}],
+        FontWeight->"Bold"]]],
+  " of ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points not at infinity.  (Equal points make segments of length ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  And those are only zero segments.  We skip this case.)  We then make a \
+",
+  StyleBox["parallelogram",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " using ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{\(p\_1\), ",", \(q\_1\), ",", 
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "2"]}], "}"}],
+        FontWeight->"Bold"]]],
+  ", completing it to ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            StyleBox[\(p\_1\),
+              FontWeight->"Bold"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            StyleBox[\(q\_1\),
+              FontWeight->"Bold"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            StyleBox[
+              SubscriptBox[
+                StyleBox["p",
+                  FontWeight->"Bold"], "2"],
+              FontWeight->"Bold"], ",", \(q\_3\)}], "}"}],
+        FontWeight->"Bold"]]],
+  ".  In any parallelogram, the opposite sides are equal segments, so ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "1"], ",", \(q\_1\)}], "}"}],
+        FontWeight->"Bold"]]],
+  " is equal (as a segment) to ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "2"], ",", \(q\_3\)}], "}"}],
+        FontWeight->"Bold"]]],
+  ".  Unfortunately, we do not have ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{\(q\_2\), "==", 
+          SubscriptBox[
+            StyleBox["q",
+              FontWeight->"Bold"], "3"]}],
+        FontWeight->"Bold"]]],
+  ", so we draw the ",
+  StyleBox["circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at center ",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  " passing through ",
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  ". If the given point ",
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  " lies on this circle, we can say ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "1"], ",", \(q\_1\)}], "}"}],
+        FontWeight->"Bold"]]],
+  " is equal (as a segment) to ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "2"], ",", \(q\_2\)}], "}"}],
+        FontWeight->"Bold"]]],
+  ".  Let's try to program this construction and draw a picture.  The main \
+problem is ",
+  StyleBox["how to determine the circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  Here follows one construction.  (The command itself in defined in ",
+  Cell[BoxData[
+      StyleBox[\(Implementations . nb\),
+        FontWeight->"Bold"]]],
+  ".)"
+}], "Text"],
+
+Cell[TextData[{
+  "\t\t",
+  Cell[BoxData[
+      StyleBox[
+        \(Circ[p_, q_] := 
+          Module[{l, m, n, qq, rr}, \n\t\tl = PE[p, q]; \n\t\t
+            qq = \ XP[p, PE[l, z], q, \(-1\)]; \n\t\tm = Perp[qq, l]; \n\t\t
+            n = l + m; \n\t\trr = PE[n, Perp[q, n]]; \n\t\t
+            P2P[u + I\ v, u - I\ v, \ q, qq, rr]]; \),
+        FontWeight->"Bold"]],
+    Background->RGBColor[1, 1, 0]]
+}], "Text"],
+
+Cell["Let's test it.", "Text"],
+
+Cell[BoxData[
+    \(Circ[w, 5\ u + w] // Factor\)], "Input"],
+
+Cell[TextData[{
+  "Clearly, unwanted factors may have to be eliminated.  Now, we can program \
+a ",
+  StyleBox["test",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for congruence.  (The command itself in defined in ",
+  Cell[BoxData[
+      StyleBox[\(Implementations . nb\),
+        FontWeight->"Bold"]]],
+  ".)"
+}], "Text"],
+
+Cell[TextData[{
+  "\t\t",
+  Cell[BoxData[
+      StyleBox[
+        \(Cong[p_, q_, pp_, qq_] := 
+          Module[{r, s, qqq, f}, \n\t\tr = PE[PE[p, q], z]; \n\t\t
+            s = PE[PE[p, pp], z]; \n\t\tqqq = PE[PE[q, s], PE[pp, r]]; \n\t\t
+            f = Circ[pp, qqq]; \n\t\tExpandAll[PD[f, qq\^2] == 0]]\),
+        FontWeight->"Bold"]],
+    Background->RGBColor[1, 1, 0]]
+}], "Text"],
+
+Cell["Some tests:", "Text"],
+
+Cell[BoxData[{
+    \(Cong[w, 3  u + w, \ 4  v + w, 7  v + w]\), 
+    \(Cong[w, 3  u + w, \ 4  v + w, \(-7\) v + w]\), 
+    \(Cong[w, 3  u + w, \ \(-4\) v + w, \(-7\) v + w]\)}], "Input"],
+
+Cell[TextData[{
+  "It seems to work!  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Euclidean properties of circles and parabolas", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "A ",
+  StyleBox["circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a non-degererate conic passing through the two circular points at \
+infinity, ",
+  StyleBox[Cell[BoxData[
+      StyleBox[\(u \[PlusMinus] I\ v\),
+        FontWeight->"Bold"]]]],
+  ".  The ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the circle is the pole of the line at infinity.  A ",
+  StyleBox["diameter",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a circle is a line passing through the center (which is the same as a \
+polar of a point at infinity)."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "We note that the ",
+  StyleBox["diameter",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " determined by a circular point at infinity is the same as the ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at that point, because a line through a circular point is perpendicular \
+to ",
+  StyleBox["itself",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell["We proved the following theorem in effect before:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The tangents at the intersection points of a diameter with a circle are \
+perpendicular to the diameter.  Otherwise stated, the perpendicular (or ",
+  StyleBox["normal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") to a tangent at a point on a circle is a diameter."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["Here is another important property of a circle:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  Every circle is carried onto itself by ",
+  StyleBox["reflection about a diameter",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " not passing through a circular point."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " Let ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  " be a diameter, and let ",
+  Cell[BoxData[
+      StyleBox["m",
+        FontWeight->"Bold"]]],
+  " be the prependicular at the center.  It is also a diameter.  The \
+intersection points of ",
+  Cell[BoxData[
+      StyleBox["m",
+        FontWeight->"Bold"]]],
+  " with the circle harmonically separate the center from the point on ",
+  Cell[BoxData[
+      StyleBox["m",
+        FontWeight->"Bold"]]],
+  " at infinity, and so the two points are ",
+  StyleBox["interchanged",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " under ",
+  Cell[BoxData[
+      StyleBox[\(Refl[l]\),
+        FontWeight->"Bold"]]],
+  ", reflection about ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  ".  But the points of intersection of  ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  " with the circle are ",
+  StyleBox["left fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by the transformation ",
+  Cell[BoxData[
+      StyleBox[\(Refl[l]\),
+        FontWeight->"Bold"]]],
+  ".  Since the circle passes through the two circular points, and since \
+\[LongDash] by definition \[LongDash] ",
+  Cell[BoxData[
+      StyleBox[\(Refl[l]\),
+        FontWeight->"Bold"]]],
+  " interchanges these points, we have ",
+  StyleBox["six",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points of the given circle \[LongDash] no three collinear \[LongDash] \
+which are all again mapped to points on the same circle.  Since it only takes \
+",
+  StyleBox["five",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points to uniquely determine a conic, it follows that ",
+  Cell[BoxData[
+      StyleBox[\(Refl[l]\),
+        FontWeight->"Bold"]]],
+  " mapps the circle onto itself.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Recalling that the ",
+  StyleBox["midpoint",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a segment is the 4th harmonic with respect to the intersection of the \
+line determined by the segment witht the line at infinity, the foregoing \
+theorem justifies this conclusion: "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  "  Any chord of a circle is ",
+  StyleBox["bisected",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by a perpendicular diameter."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Reflection about the diameter has to interchange the endpoints of the \
+chord.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+Let us turn some other kinds of conics.  Having fixed the line at \
+infinity and the two circular points, the definition of a parabola and \
+significant points and lines associated with it can be given in projective \
+terms.  \
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "A ",
+  StyleBox["parabola",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a non-degererate conic ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the line at infinity at a ",
+  StyleBox["non-circular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point.  The ",
+  StyleBox["focus",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the parabola is the intersection of the pair of other tangents from \
+the circular points to the curve.  The ",
+  StyleBox["directrix ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of the parabola is the polar of the focus.  The ",
+  StyleBox["axis",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the parabola is the join of the focus to the point of tangency at \
+infinity.  The ",
+  StyleBox["vertex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the parabola is the other intersection of the axis with the curve."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "It is clear from the form of this definition that Euclidean \
+transformations (whether direct or opposite) map parabolas to parabolas, \
+carrying along their focii, axes, ",
+  StyleBox["etc",
+    FontSlant->"Italic"],
+  ".  We can also easily prove by projective transformations that a parabola \
+has a ",
+  StyleBox["symmetry property",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  "Every parabola is carried onto itself by ",
+  StyleBox["reflection about its axis",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  The two circular points and the focus form a ",
+  StyleBox["circumscribed triangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " around the parabola.  The directrix, being the polar of the focus is also \
+the join of the two points of tangency of the tangents from the circular \
+points passing through the focus.  The point at infinity on the directrix has \
+its polar passing through the focus.  However, that polar must pass through \
+the point at infinity on the parabola.  (Why?)  So the polar ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the axis.  Also the tangent at the vertex must be ",
+  StyleBox["parallel",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the directrix. (Why?)"
+}], "Text"],
+
+Cell[TextData[{
+  "Now, consider that the parabola is ",
+  StyleBox["uniquely determined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by the two tangents (and points of tangency) joining the focus with the \
+circular points together with the point at infinity where the parabola is \
+tangent to the line at infinity.   So, if we take the projective \
+transformation that interchanges the two tangents and points of tangency and \
+interchanges the circular points, we will have a opposite ",
+  StyleBox["Euclidean",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " transformation leaving the focus fixed.  It must map the parabola onto \
+itself and map the directrix onto itself.  (Why?)  Hence, the vertex is left \
+fixed and the point at infinity on the parabola is also fixed.  Thus, the \
+axis is left ",
+  StyleBox["pointwise fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But the point at infinity on the directrix and the point at infinity on \
+the parabola must separate the circular points ",
+  StyleBox["harmonically",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "; therefore, the diretrix is ",
+  StyleBox["perpendicular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the axis.  (Why?) Since the directrix must be mapped onto itself by \
+the projective transformation (Why?), this is enough to determine that the \
+transformation ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the reflection around the axis.  ",
+  StyleBox["Q.E.D.  ",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[
+"And, note, in this proof we learned more about the vertex and directrix.  In \
+addition, we can conclude \[LongDash] because the directrix is the polar of \
+the focus \[LongDash] that the vertex is the midpoint of the segment on the \
+axis between the focus and the intersection of the axis and the directrix."], 
+  "Text"],
+
+Cell["\<\
+The other interesting properties of the parabola can be proved very \
+geometrically from the definition above together with properties of general \
+conics we have already established, but it is more expedient to use an \
+equation in normal form.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Every parabola is equivalent by means of ",
+  StyleBox["Euclidean transformations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to one defined by an equation of the form:   ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(y\ z\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[\(a\ x\^2\),
+          FontWeight->"Bold"]}]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " First, we take the general conic:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[f, a, b, c, Subscript]; \n
+    f = Table[a\_i, {i, 6}] . Bxyz[2]\)], "Input"],
+
+Cell[TextData[{
+  "To be a parabola it is supposed to be tangent to the line at infinity.  \
+Now, by a ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " we can move the point of tangency to ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  ".  That would mean that the following quantity must be ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(PE[PD[f, v], z] // Expand\)], "Input"],
+
+Cell[TextData[{
+  "That forces two coefficients to be ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ".  Next, by a ",
+  StyleBox["translation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ",  we can move one point ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at infinity to any other, and leave the points at infinity fixed:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(T = {{1, 0, 0}, {0, 1, 0}, {c, d, 1}}; \n\(TP[T]\)[u]\), 
+    \(\(TP[T]\)[v]\), 
+    \(\(TP[T]\)[w]\)}], "Input"],
+
+Cell[TextData[{
+  "Therefore, we can make sure the parabola ",
+  StyleBox["passes through",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the point ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  "; and so:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[f, w\^2]\)], "Input"],
+
+Cell[TextData[{
+  "But, we do not just want ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " to be any point: it should be the ",
+  StyleBox["vertex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[". ",
+    FontSlant->"Italic"],
+  " Since the tangent at the vertex has to perpendicular to the axis of the \
+parabola, the tangent has to be the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.  Therefore, the following quantity has to be zero:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PE[PD[f, w], y] // Tidy\)], "Input"],
+
+Cell[TextData[{
+  "So, four coefficients are ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ", and the conic has this form (after dividing out a coefficient that \
+cannot be ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " and renaming the other one):"
+}], "Text"],
+
+Cell[BoxData[
+    \(f = 
+      f /. {a\_1 \[Rule] \(-a\), a\_2 \[Rule] 0, a\_3 \[Rule] 0, 
+          a\_4 \[Rule] 0, a\_5 \[Rule] 1, a\_6 \[Rule] 0}\)], "Input"],
+
+Cell[TextData[{
+  "Note that ",
+  Cell[BoxData[
+      StyleBox["a",
+        FontWeight->"Bold"]]],
+  " is not ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ".  Now a ",
+  StyleBox["similitude",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " could multiply both ",
+  Cell[BoxData[
+      StyleBox["x",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["y",
+        FontWeight->"Bold"]]],
+  " by the same factor, but then ",
+  Cell[BoxData[
+      StyleBox[\(x\^2\),
+        FontWeight->"Bold"]]],
+  " is multiplied by the ",
+  StyleBox["square",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the factor.  After dividing out the factor it will only be left in the \
+ ",
+  Cell[BoxData[
+      StyleBox[\(x\^2\),
+        FontWeight->"Bold"]]],
+  " term.  The factor ",
+  Cell[BoxData[
+      StyleBox[\(1\/a\),
+        FontWeight->"Bold"]]],
+  " could be used for example.  So after the similitude, we could get to ",
+  Cell[BoxData[
+      StyleBox[\(\(-x\^2\) + y\ z\),
+        FontWeight->"Bold"]]],
+  ", which is the ",
+  StyleBox["standard parabola",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But we will leave the quantity ",
+  Cell[BoxData[
+      StyleBox["a",
+        FontWeight->"Bold"]]],
+  " in the equation, since the rotation and the translation did not change \
+the scale.  This gives us the normal form we sought.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Another way of phrasing the last theorem is to say that ",
+  StyleBox["all parabolas are similar under Euclidean transformations.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Where is the focus of the parabola ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(y\ z\),
+          FontWeight->"Bold"], 
+        StyleBox[" ",
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[" ",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{"a", " ", 
+            SuperscriptBox[
+              StyleBox["x",
+                FontWeight->"Bold"], "2"]}],
+          FontWeight->"Bold"]}]]],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  First we need to find where the tangents from the circular points meet \
+the parabola."
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[f, a, b, c, d, e, Subscript]; \nf = \(-a\)\ x\^2 + y\ z; \n
+    Solve[{f == 0, PD[f, u + I\ v] == 0, z == 1}, {x, y, z}]\), 
+    \(Solve[{f == 0, PD[f, u - I\ v] == 0, z == 1}, {x, y, z}]\)}], "Input"],
+
+Cell["\<\
+Next, we have to claculate the intersection of the two \
+tangents:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(PE[PE[u + I\ v, I\/\(2\ a\)\ u - 1\/\(4\ a\)\ v + w], 
+          PE[u - I\ v, \(-\(I\/\(2\ a\)\)\)\ u - 1\/\(4\ a\)\ v + w]]/
+        \((\(-2\) I)\) // Tidy\)], "Input"],
+
+Cell[TextData[{
+  "And we found the focus to be the point ",
+  StyleBox[Cell[BoxData[
+      \(v\/\(4  a\) + w\)],
+    FontWeight->"Bold"]],
+  StyleBox["."],
+  "   ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+The next theorem explains why the focus of the parabola is so \
+called.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  " Lines parallel to the axis of the parabola are ",
+  StyleBox["reflected",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by the tangent at the point of intersection to lines passing through the \
+focus."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "First, we need to parameterize the points of the parabola."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[f, s, t, par, \ refl]; \nf = \(-a\)\ x\^2 + y\ z; \n
+    par[s_, t_] := t\ s\ u + a\ t\^2\ v + s\^2\ w; \nPD[f, par[s, t]\^2]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Next, we calculate the ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the ",
+  StyleBox["normal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (= perpendicular to the tangent), and the ",
+  StyleBox["reflection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the line parallel to the axis:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(tan[s_, t_] := PD[f, par[s, t]]; \n\n
+    norm[s_, t_] := Tidy[Last[Factor[Perp[par[s, t], tan[s, t]]]]]; \n\n
+    refl[s_, t_] := 
+      Tidy[Last[
+          Factor[XL[tan[s, t], norm[s, t], PE[v, par[s, t]], \(-1\)]]]]; \ 
+    \)\)], "Input"],
+
+Cell["Here are the formulae for the three lines just defined:", "Text"],
+
+Cell[BoxData[{
+    \(tan[s, t]\), 
+    \(norm[s, t]\), 
+    \(refl[s, t]\)}], "Input"],
+
+Cell["\<\
+Now we test whether the reflected line passes through the \
+focus:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(PD[refl[s, t], v\/\(4\ a\) + w]\)], "Input"],
+
+Cell[TextData[{
+  "It works.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+Here is a picture showing several rays and their reflections.\
+\>", 
+  "Text"],
+
+Cell[BoxData[
+    \(t\_1 = Table[PE[v, par[s, t/2]] == 0, {t, 1, 5}]; 
+    t\_2 = Table[refl[s, t/2] == 0, {t, 1, 5}]; \n
+    ImplicitPlot[
+      Join[{f == 0}, t\_1, t\_2] /. {s \[Rule] 1, a \[Rule] 1/2, 
+          z \[Rule] 1}, {x, \(-4\), 4}, {y, \(-2\), 4}]; \)], "Input"],
+
+Cell["Next, we establish another important property.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The for a parabola, a ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the curve, the ",
+  StyleBox["focus",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the ",
+  StyleBox["foot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the perpendicular to the directrix, and the ",
+  StyleBox["intersection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the tangent with the axis form a ",
+  StyleBox["rhombus",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Therefore, the parabola is the locus of points ",
+  StyleBox["equidistant",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from the focus and the directrix."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  A rhombus is a parallelogram with ",
+  StyleBox["four equal sides",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (The opposite sides of any parallelogram are always equal.)  A rhombus \
+is also a parallelogram with ",
+  StyleBox["perpendicular diagonals",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[". ",
+    FontSlant->"Italic"],
+  StyleBox["(T",
+    FontWeight->"Bold"],
+  "he diagonals of any parallelogram always bisect each other.)  So, we have \
+to prove two special lines are perpendicular.  Here is the tangent at a \
+point:"
+}], "Text"],
+
+Cell[BoxData[
+    \(tan[s, t]\)], "Input"],
+
+Cell["Here is the directrix:", "Text"],
+
+Cell[BoxData[
+    \(PD[f, \ v\/\(4\ a\) + w]\)], "Input"],
+
+Cell["\<\
+Here is the line joining the focus to the intersection of the line \
+parallel to the axis (= the perpendicular to the directrix through the \
+point):\
+\>", "Text"],
+
+Cell[BoxData[
+    \(PE[v\/\(4\ a\) + w, PE[PE[v, par[s, t]], y + z\/\(4\ a\)]] // Factor
+      \)], "Input"],
+
+Cell["And here is the perpendicular to the tangent from the focus:", "Text"],
+
+Cell[BoxData[
+    \(Perp[v\/\(4\ a\) + w, tan[s, t]] // Factor\)], "Input"],
+
+Cell[TextData[{
+  "It is the same line!  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["We can draw a picture to illustrate the theorem.", "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{f == 0, y + z\/\(4\ a\) == 0, \n\t\ttan[s, t] == 0, \n
+          \t\tPE[v\/\(4\ a\) + w, par[s, t]] == 0, \n\t\t
+          PE[v, par[s, t]] == 0, \n\t\t
+          PE[PE[x, tan[s, t]], PE[y + z\/\(4\ a\), PE[v, par[s, t]]]] == 0, \n
+          \tPE[v\/\(4\ a\) + w, PE[y + z\/\(4\ a\), PE[v, par[s, t]]]] == 
+            0} /. {s \[Rule] 1, t \[Rule] 2.4, a \[Rule] 1\/3, z \[Rule] 1}, 
+      \n\t{x, \(-4\), 5}, {y, \(-3\), 5}]; \)\)], "Input"],
+
+Cell["\<\
+It is obvious that the two perpendicular lines intersect on the \
+tangent at the vertex.  (Why?)  There is another interesting property \
+involving tangents and the directrix.  This time we draw a picture \
+first:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{f == 0, y + z\/\(4\ a\) == 0, \n\t\ttan[s, t] == 0, \n\t
+          Perp[\tPE[y + z\/\(4\ a\), tan[s, t]], tan[s, t]] == 0} /. {
+          s \[Rule] 1, t \[Rule] 2.4, a \[Rule] 1\/3, z \[Rule] 1}, \n
+      \t{x, \(-4\), 5}, {y, \(-3\), 5}]; \)\)], "Input"],
+
+Cell["Ah, ha!  We should try to prove:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The ",
+  StyleBox["directrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a parabola is the locus of the intersections of pairs of ",
+  StyleBox["perpendicular tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the curve."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  First, we compute the envelope:"
+}], "Text"],
+
+Cell[BoxData[
+    \(g = Envel[f]\)], "Input"],
+
+Cell[TextData[
+"Then \[LongDash] as in the diagram \[LongDash] we check that the \
+perpendicular line is indeed a tangent."], "Text"],
+
+Cell[BoxData[
+    \(PD[Perp[\tPE[y + z\/\(4\ a\), tan[s, t]], tan[s, t]]\^2, g]\)], "Input"],
+
+Cell[TextData[{
+  "It is!  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  What if we reflected rays ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " parallel to the axis off the parabola?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " It seems unlikely that we can expect the reflected rays all to pass \
+through a point.  Perhaps, however, they are all tangent to a nice curve.  To \
+check this out, we have to find a formula for the rays.  Let ",
+  Cell[BoxData[
+      StyleBox[\(b\ u + c\ v\),
+        FontWeight->"Bold"]]],
+  " be the ponit at infinity through which they all pass.  The ray coming \
+from there to the point ",
+  Cell[BoxData[
+      StyleBox[\(par[s, t]\),
+        FontWeight->"Bold"]]],
+  " is therefore ",
+  Cell[BoxData[
+      StyleBox[\(PE[b\ u + c\ v, par[s, t]]\),
+        FontWeight->"Bold"]]],
+  ".  The reflected ray is then computed as follows:"
+}], "Text"],
+
+Cell[BoxData[
+    \(refl2[s_, t_] := 
+      Map[Factor, 
+        Tidy[Last[
+            Factor[XL[tan[s, t], norm[s, t], PE[b\ u + c\ v, par[s, t]], 
+                \(-1\)]]]], {2}]; \nrefl2[s, t]\)], "Input"],
+
+Cell[TextData[{
+  "A little complicated, being a ",
+  StyleBox["4",
+    FontWeight->"Bold"],
+  "th-degree parameterization.  We can figure out what the algebraic \
+realtionship between the coordinates of such a family of rays is by using the \
+",
+  Cell[BoxData[
+      StyleBox["Eliminate",
+        FontWeight->"Bold"]]],
+  " command."
+}], "Text"],
+
+Cell[BoxData[
+    \(h = 
+      Tidy[{1, \(-1\)} . 
+          List@@Eliminate[{
+                s\^2\ \((c\ s\^2 - 4\ a\ b\ s\ t - 4\ a\^2\ c\ t\^2)\) == u, 
+                s\^2\ \((b\ s\^2 + 4\ a\ c\ s\ t - 4\ a\^2\ b\ t\^2)\) == v, 
+                \(-t\)\ \((c\ s\^3 - 3\ a\ b\ s\^2\ t - 4\ a\^3\ b\ t\^3)
+                      \) == w}, {s, t}]]\)], "Input"],
+
+Cell[TextData[{
+  "It could be worse!  Unfortunately, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " could not compute the dual ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-curve with these symbolic coefficients.  So, we have to be content with a \
+special case:"
+}], "Text"],
+
+Cell[BoxData[
+    \(k = 
+      Dual[Envel[Dual[h /. {a \[Rule] 1\/3, b \[Rule] 1, c \[Rule] \(-1\)}]]]
+        \)], "Input"],
+
+Cell[TextData[{
+  "It is only a cubic!  Since the envelope ",
+  Cell[BoxData[
+      StyleBox["h",
+        FontWeight->"Bold"]]],
+  " was found by a parameterization, it is a good guess that ",
+  Cell[BoxData[
+      StyleBox["k",
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We will know in a moment when we draw a picture."
+}], "Text"],
+
+Cell[BoxData[
+    \(rays\_1 = Table[PE[b\ u + c\ v, par[s, t\/2]] == 0, {t, 1, 8}]; 
+    rays\_2 = Table[refl2[s, t\/2] == 0, {t, 1, 8}]; 
+    ImplicitPlot[
+      Join[{f == 0, k == 0}, rays\_1, rays\_2] /. {a \[Rule] 1\/3, 
+          b \[Rule] 1, c \[Rule] \(-1\), s \[Rule] 1, z \[Rule] 1}, \n
+      \t{x, \(-12\), 6}, {y, \(-2\), 10}, \n\tPlotPoints \[Rule] 100, \n\t
+      PlotStyle \[Rule] 
+        Join[{{Thickness[0.006], Blue}, {Thickness[0.006], Red}}, 
+          Table[Black, {16}]]]; \)], "Input"],
+
+Cell[TextData[{
+  "It looks as if the (singular) cubic is ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the parabola.  Perhaps we can check this by finding the points of \
+intersection of the two curves."
+}], "Text"],
+
+Cell[BoxData[
+    \(sol = 
+      Solve[{f == 0, k == 0, z == 1} /. {a \[Rule] 1\/3, b \[Rule] 1, 
+            c \[Rule] \(-1\), s \[Rule] 1}, {x, y, z}]\)], "Input"],
+
+Cell["\<\
+Part of that looks OK.  We can get a better idea if we check the \
+numerical values.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(N[sol] // MatrixForm\)], "Input"],
+
+Cell[TextData[{
+  "Good!  ",
+  StyleBox["Six",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " intersections.  The double one ought to be the the point of tangency (and \
+we will check that), there are two complex intersections, and there are two \
+other real ones \[LongDash] one of which we have already seen in the above \
+picture.  Here is a snapshot of the two curves to show that other real \
+intersection:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{f == 0, k == 0} /. {a \[Rule] 1\/3, b \[Rule] 1, 
+          c \[Rule] \(-1\), z \[Rule] 1}, \n
+      \t{x, \(-20\), 20}, {y, \(-10\), 100}, \n\tPlotPoints \[Rule] 200, \n\t
+      PlotStyle \[Rule] {{Thickness[0.006], Blue}, {Thickness[0.006], Red}}]; 
+    \)\)], "Input"],
+
+Cell[TextData[
+"Finally, we check the point of tangency \[LongDash] after setting the \
+parameters in the two curves."], "Text"],
+
+Cell[BoxData[
+    \(f = f /. {a \[Rule] 1\/3}; \n
+    k = \(-\(k\/7776\)\) /. {a \[Rule] 1\/3, b \[Rule] 1, c \[Rule] \(-1\)}; 
+    \np = \(-\(3\/2\)\) u + \(3\/4\) v + w; \)], "Input"],
+
+Cell[BoxData[{
+    \(PD[f, p] // Tidy\), 
+    \(PD[f, p\^2] // Tidy\)}], "Input"],
+
+Cell[BoxData[{
+    \(PD[k, p\^2] // Tidy\), 
+    \(PD[k, p\^3] // Tidy\)}], "Input"],
+
+Cell[TextData[{
+  "Very good!  The two curves have common tangents at the point ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " of intersection; hence, they are tangent.  That is probably enough about \
+parabolas!  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Question.",
+  StyleBox[
+  " What happends if we reflect a bundle of parallel lines off a circular \
+mirror?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " We work as before, using now a parameterization of the unit circle this \
+time.  We will take rays passing through the point ",
+  Cell[BoxData[
+      StyleBox[\(u + v\),
+        FontWeight->"Bold"]]],
+  " at infinity."
+}], "Text"],
+
+Cell[BoxData[
+    \(circ[s_, t_] := \ 
+      2\ s\ t\ u + \((s\^2 - t\^2)\)\ v + \((s\^2 + t\^2)\)\ w; \n
+    tan[s_, t_] := PD[x\^2 + y\^2 - z\^2, circ[s, t]]; \n
+    norm[s_, t_] := Tidy[Last[Factor[Perp[circ[s, t], tan[s, t]]]]]; \n
+    refl[s_, t_] := 
+      Tidy[Last[
+          Factor[XL[tan[s, t], norm[s, t], PE[u + v, circ[s, t]], \(-1\)]]]]; 
+    \)], "Input"],
+
+Cell["We note that all the normals pass through the origin:", "Text"],
+
+Cell[BoxData[
+    \(norm[s, t]\)], "Input"],
+
+Cell["The reflected rays are a bit more complex, however:", "Text"],
+
+Cell[BoxData[
+    \(refl[s, t]\)], "Input"],
+
+Cell[BoxData[
+    \(Map[Factor, %, {2}]\)], "Input"],
+
+Cell["We then find by elimination the envelope they touch:", "Text"],
+
+Cell[BoxData[
+    \(caus = 
+      Tidy[{1, \(-1\)} . 
+          List@@Eliminate[{
+                \((s\^4 + 4\ s\^3\ t - 6\ s\^2\ t\^2 - 4\ s\ t\^3 + t\^4)
+                    \) == u, 
+                \((s\^4 - 4\ s\^3\ t - 6\ s\^2\ t\^2 + 4\ s\ t\^3 + t\^4)
+                    \) == v, 
+                \((s\^2 - 2\ s\ t - t\^2)\)\ \((s\^2 + t\^2)\) == w\ }, {s, 
+                t}]]\)], "Input"],
+
+Cell[TextData[{
+  "That is of the ",
+  StyleBox["4",
+    FontWeight->"Bold"],
+  "th degree, but what of the dual curve?"
+}], "Text"],
+
+Cell[BoxData[
+    \(dual = Dual[Envel[Dual[caus]]]\)], "Input"],
+
+Cell[TextData[{
+  "That is a ",
+  StyleBox["6",
+    FontWeight->"Bold"],
+  "th-degree curve, and here is its position realtive to the given circle:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{x\^2 + y\^2 - z\^2 == 0, dual == 0} /. {z \[Rule] 1}, {
+        x, \(-2\), 2}, {y, \(-2\), 2}, PlotPoints \[Rule] 200, \n\t
+      PlotStyle \[Rule] {{Thickness[0.006], Blue}, {Thickness[0.006], Red}}]; 
+    \)\)], "Input"],
+
+Cell["\<\
+And we can show a selection of the rays and their reflections:\
+\>",
+   "Text"],
+
+Cell[BoxData[
+    \(rays\_1 = Table[PE[u + v, circ[1, t/2]] == 0, {t, \(-12\), \(-1\)}]; 
+    rays\_2 = Table[refl[1, t/2] == 0, {t, \(-12\), \(-1\)}]; \n\n
+    ImplicitPlot[
+      Join[{x\^2 + y\^2 - z\^2 == 0, dual == 0}, rays\_1, rays\_2] /. {
+          z \[Rule] 1}, \n\t{x, \(-1.2\), 1.2}, {y, \(-1.2\), 1.2}, \n\t
+      PlotPoints \[Rule] 100, 
+      PlotStyle \[Rule] 
+        Join[{{Thickness[0.006], Blue}, {Thickness[0.006], Red}}, 
+          Table[Black, {24}]]]; \)], "Input"],
+
+Cell[TextData[{
+  "Such curves are called ",
+  StyleBox["caustics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and in particular cases for the circle and the parbola we have been able \
+to find their equations.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Working",
+WindowToolbars->{},
+CellGrouping->Automatic,
+WindowSize->{791, 554},
+WindowMargins->{{111, Automatic}, {171, Automatic}},
+PrintingPageRange->{Automatic, Automatic},
+PrintingOptions->{"PaperSize"->{612, 792},
+"PaperOrientation"->"Portrait",
+"Magnification"->1},
+PrivateNotebookOptions->{"ColorPalette"->{RGBColor, 128}},
+ShowCellLabel->True,
+ShowCellTags->False,
+RenderingOptions->{"ObjectDithering"->True,
+"RasterDithering"->False},
+CharacterEncoding->"MacintoshAutomaticEncoding",
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 190, 7, 75, "Title",
+  Evaluatable->False],
+Cell[1902, 58, 275, 10, 61, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[2202, 72, 37, 0, 55, "Section"],
+
+Cell[CellGroupData[{
+Cell[2264, 76, 89, 1, 46, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2378, 81, 85, 1, 37, "Subsubsection"],
+Cell[2466, 84, 371, 9, 46, "Text"],
+Cell[2840, 95, 569, 16, 64, "Text"],
+Cell[3412, 113, 661, 22, 62, "Text"],
+Cell[4076, 137, 48, 0, 28, "Text"],
+Cell[4127, 139, 569, 13, 80, "Text"],
+Cell[4699, 154, 388, 13, 44, "Text"],
+Cell[5090, 169, 945, 32, 170, "Text"],
+Cell[6038, 203, 179, 6, 28, "Text"],
+Cell[6220, 211, 142, 3, 63, "Input"],
+Cell[6365, 216, 258, 10, 28, "Text"],
+Cell[6626, 228, 89, 1, 47, "Input"],
+Cell[6718, 231, 141, 6, 28, "Text"],
+Cell[6862, 239, 89, 1, 47, "Input"],
+Cell[6954, 242, 48, 0, 28, "Text"],
+Cell[7005, 244, 322, 6, 79, "Input"],
+Cell[7330, 252, 97, 3, 28, "Text"],
+Cell[7430, 257, 124, 2, 63, "Input"],
+Cell[7557, 261, 323, 10, 28, "Text"],
+Cell[7883, 273, 61, 0, 28, "Text"],
+Cell[7947, 275, 89, 1, 47, "Input"],
+Cell[8039, 278, 89, 1, 47, "Input"],
+Cell[8131, 281, 322, 6, 79, "Input"],
+Cell[8456, 289, 97, 3, 28, "Text"],
+Cell[8556, 294, 124, 2, 63, "Input"],
+Cell[8683, 298, 208, 8, 28, "Text"],
+Cell[8894, 308, 109, 3, 28, "Text"],
+Cell[9006, 313, 202, 3, 127, "Input"],
+Cell[9211, 318, 272, 7, 46, "Text"],
+Cell[9486, 327, 410, 11, 62, "Text"],
+Cell[9899, 340, 399, 17, 44, "Text"],
+Cell[10301, 359, 139, 3, 28, "Text"],
+Cell[10443, 364, 633, 22, 62, "Text"],
+Cell[11079, 388, 314, 10, 28, "Text"],
+Cell[11396, 400, 75, 1, 47, "Input"],
+Cell[11474, 403, 45, 0, 28, "Text"],
+Cell[11522, 405, 66, 1, 47, "Input"],
+Cell[11591, 408, 99, 4, 28, "Text"],
+Cell[11693, 414, 121, 3, 28, "Text"],
+Cell[11817, 419, 419, 17, 44, "Text"],
+Cell[12239, 438, 205, 9, 28, "Text"],
+Cell[12447, 449, 75, 1, 47, "Input"],
+Cell[12525, 452, 98, 3, 28, "Text"],
+Cell[12626, 457, 122, 2, 63, "Input"],
+Cell[12751, 461, 111, 3, 28, "Text"],
+Cell[12865, 466, 62, 1, 47, "Input"],
+Cell[12930, 469, 936, 32, 64, "Text"],
+Cell[13869, 503, 313, 13, 44, "Text"],
+Cell[14185, 518, 164, 5, 28, "Text"],
+Cell[14352, 525, 58, 1, 47, "Input"],
+Cell[14413, 528, 46, 0, 28, "Text"],
+Cell[14462, 530, 128, 3, 79, "Input"],
+Cell[14593, 535, 268, 10, 28, "Text"],
+Cell[14864, 547, 120, 2, 74, "Input"],
+Cell[14987, 551, 139, 6, 28, "Text"],
+Cell[15129, 559, 99, 2, 63, "Input"],
+Cell[15231, 563, 574, 18, 46, "Text"],
+Cell[15808, 583, 262, 9, 44, "Text"],
+Cell[16073, 594, 390, 14, 44, "Text"],
+Cell[16466, 610, 163, 4, 28, "Text"],
+Cell[16632, 616, 221, 9, 44, "Text"],
+Cell[16856, 627, 118, 5, 28, "Text"],
+Cell[16977, 634, 175, 3, 95, "Input"],
+Cell[17155, 639, 28, 0, 28, "Text"],
+Cell[17186, 641, 89, 2, 63, "Input"],
+Cell[17278, 645, 215, 7, 28, "Text"],
+Cell[17496, 654, 59, 1, 47, "Input"],
+Cell[17558, 657, 206, 8, 28, "Text"],
+Cell[17767, 667, 378, 12, 46, "Text"],
+Cell[18148, 681, 219, 4, 79, "Input"],
+Cell[18370, 687, 159, 3, 63, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[18566, 695, 54, 0, 37, "Subsubsection"],
+Cell[18623, 697, 94, 3, 28, "Text"],
+Cell[18720, 702, 233, 4, 111, "Input"],
+Cell[18956, 708, 179, 5, 44, "Text"],
+Cell[19138, 715, 208, 9, 28, "Text"],
+Cell[19349, 726, 45, 1, 47, "Input"],
+Cell[19397, 729, 307, 11, 28, "Text"],
+Cell[19707, 742, 49, 1, 47, "Input"],
+Cell[19759, 745, 742, 28, 46, "Text"],
+Cell[20504, 775, 347, 12, 46, "Text"],
+Cell[20854, 789, 59, 1, 47, "Input"],
+Cell[20916, 792, 497, 20, 46, "Text"],
+Cell[21416, 814, 56, 1, 47, "Input"],
+Cell[21475, 817, 288, 7, 46, "Text"],
+Cell[21766, 826, 551, 21, 62, "Text"],
+Cell[22320, 849, 515, 15, 46, "Text"],
+Cell[22838, 866, 506, 21, 44, "Text"],
+Cell[23347, 889, 389, 12, 46, "Text"],
+Cell[23739, 903, 66, 0, 28, "Text"],
+Cell[23808, 905, 253, 5, 111, "Input"],
+Cell[24064, 912, 480, 16, 46, "Text"],
+Cell[24547, 930, 551, 10, 207, "Input"],
+Cell[25101, 942, 563, 10, 207, "Input"],
+Cell[25667, 954, 156, 3, 28, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[25872, 963, 98, 1, 46, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[25995, 968, 67, 0, 37, "Subsubsection"],
+Cell[26065, 970, 340, 11, 46, "Text"],
+Cell[26408, 983, 113, 2, 63, "Input"],
+Cell[26524, 987, 445, 15, 46, "Text"],
+Cell[26972, 1004, 255, 7, 28, "Text"],
+Cell[27230, 1013, 102, 2, 47, "Input"],
+Cell[27335, 1017, 836, 24, 64, "Text"],
+Cell[28174, 1043, 706, 26, 62, "Text"],
+Cell[28883, 1071, 537, 13, 64, "Text"],
+Cell[29423, 1086, 1068, 31, 114, "Text"],
+Cell[30494, 1119, 31, 0, 28, "Text"],
+Cell[30528, 1121, 80, 1, 47, "Input"],
+Cell[30611, 1124, 166, 6, 28, "Text"],
+Cell[30780, 1132, 206, 4, 79, "Input"],
+Cell[30989, 1138, 422, 14, 46, "Text"],
+Cell[31414, 1154, 309, 7, 79, "Input"],
+Cell[31726, 1163, 63, 0, 28, "Text"],
+Cell[31792, 1165, 180, 5, 44, "Text"],
+Cell[31975, 1172, 173, 5, 28, "Text"],
+Cell[32151, 1179, 48, 1, 47, "Input"],
+Cell[32202, 1182, 45, 0, 28, "Text"],
+Cell[32250, 1184, 65, 1, 47, "Input"],
+Cell[32318, 1187, 904, 30, 64, "Text"],
+Cell[33225, 1219, 94, 2, 63, "Input"],
+Cell[33322, 1223, 89, 3, 28, "Text"],
+Cell[33414, 1228, 106, 2, 63, "Input"],
+Cell[33523, 1232, 61, 0, 28, "Text"],
+Cell[33587, 1234, 119, 2, 47, "Input"],
+Cell[33709, 1238, 57, 0, 28, "Text"],
+Cell[33769, 1240, 129, 3, 63, "Input"],
+Cell[33901, 1245, 221, 5, 46, "Text"],
+Cell[34125, 1252, 461, 17, 62, "Text"],
+Cell[34589, 1271, 558, 15, 64, "Text"],
+Cell[35150, 1288, 721, 13, 287, "Input"],
+Cell[35874, 1303, 393, 11, 46, "Text"],
+Cell[36270, 1316, 161, 5, 44, "Text"],
+Cell[36434, 1323, 1244, 36, 100, "Text"],
+Cell[37681, 1361, 820, 20, 103, "Text"],
+Cell[38504, 1383, 39, 0, 28, "Text"],
+Cell[38546, 1385, 96, 2, 63, "Input"],
+Cell[38645, 1389, 31, 0, 28, "Text"],
+Cell[38679, 1391, 61, 1, 47, "Input"],
+Cell[38743, 1394, 97, 3, 28, "Text"],
+Cell[38843, 1399, 75, 1, 47, "Input"],
+Cell[38921, 1402, 38, 0, 28, "Text"],
+Cell[38962, 1404, 64, 1, 47, "Input"],
+Cell[39029, 1407, 359, 11, 46, "Text"],
+Cell[39391, 1420, 448, 8, 207, "Input"],
+Cell[39842, 1430, 28, 0, 28, "Text"],
+Cell[39873, 1432, 411, 7, 177, "Input"],
+Cell[40287, 1441, 205, 8, 28, "Text"],
+Cell[40495, 1451, 232, 9, 44, "Text"],
+Cell[40730, 1462, 378, 15, 28, "Text"],
+Cell[41111, 1479, 227, 5, 113, "Input"],
+Cell[41341, 1486, 410, 14, 46, "Text"],
+Cell[41754, 1502, 950, 31, 64, "Text"],
+Cell[42707, 1535, 216, 3, 111, "Input"],
+Cell[42926, 1540, 747, 26, 46, "Text"],
+Cell[43676, 1568, 316, 13, 44, "Text"],
+Cell[43995, 1583, 3838, 133, 118, "Text"],
+Cell[47836, 1718, 416, 11, 122, "Text"],
+Cell[48255, 1731, 30, 0, 28, "Text"],
+Cell[48288, 1733, 60, 1, 47, "Input"],
+Cell[48351, 1736, 333, 11, 46, "Text"],
+Cell[48687, 1749, 386, 10, 107, "Text"],
+Cell[49076, 1761, 27, 0, 28, "Text"],
+Cell[49106, 1763, 186, 3, 79, "Input"],
+Cell[49295, 1768, 97, 4, 28, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[49429, 1777, 70, 0, 37, "Subsubsection"],
+Cell[49502, 1779, 706, 23, 62, "Text"],
+Cell[50211, 1804, 425, 15, 46, "Text"],
+Cell[50639, 1821, 65, 0, 28, "Text"],
+Cell[50707, 1823, 390, 10, 62, "Text"],
+Cell[51100, 1835, 63, 0, 28, "Text"],
+Cell[51166, 1837, 290, 9, 44, "Text"],
+Cell[51459, 1848, 1946, 67, 118, "Text"],
+Cell[53408, 1917, 316, 8, 46, "Text"],
+Cell[53727, 1927, 250, 9, 44, "Text"],
+Cell[53980, 1938, 231, 8, 28, "Text"],
+Cell[54214, 1948, 250, 5, 46, "Text"],
+Cell[54467, 1955, 1057, 35, 98, "Text"],
+Cell[55527, 1992, 424, 12, 46, "Text"],
+Cell[55954, 2006, 294, 11, 44, "Text"],
+Cell[56251, 2019, 842, 21, 82, "Text"],
+Cell[57096, 2042, 1561, 38, 154, "Text"],
+Cell[58660, 2082, 339, 5, 46, "Text"],
+Cell[59002, 2089, 269, 5, 46, "Text"],
+Cell[59274, 2096, 515, 18, 44, "Text"],
+Cell[59792, 2116, 137, 5, 28, "Text"],
+Cell[59932, 2123, 106, 2, 63, "Input"],
+Cell[60041, 2127, 435, 15, 46, "Text"],
+Cell[60479, 2144, 58, 1, 47, "Input"],
+Cell[60540, 2147, 401, 14, 46, "Text"],
+Cell[60944, 2163, 134, 3, 95, "Input"],
+Cell[61081, 2168, 251, 10, 28, "Text"],
+Cell[61335, 2180, 44, 1, 51, "Input"],
+Cell[61382, 2183, 500, 16, 46, "Text"],
+Cell[61885, 2201, 56, 1, 47, "Input"],
+Cell[61944, 2204, 314, 11, 28, "Text"],
+Cell[62261, 2217, 161, 3, 47, "Input"],
+Cell[62425, 2222, 1462, 54, 85, "Text"],
+Cell[63890, 2278, 218, 6, 28, "Text"],
+Cell[64111, 2286, 594, 22, 44, "Text"],
+Cell[64708, 2310, 192, 6, 28, "Text"],
+Cell[64903, 2318, 231, 3, 97, "Input"],
+Cell[65137, 2323, 90, 3, 28, "Text"],
+Cell[65230, 2328, 189, 3, 63, "Input"],
+Cell[65422, 2333, 222, 9, 31, "Text"],
+Cell[65647, 2344, 95, 3, 28, "Text"],
+Cell[65745, 2349, 324, 10, 44, "Text"],
+Cell[66072, 2361, 163, 5, 28, "Text"],
+Cell[66238, 2368, 170, 3, 103, "Input"],
+Cell[66411, 2373, 374, 14, 28, "Text"],
+Cell[66788, 2389, 266, 6, 111, "Input"],
+Cell[67057, 2397, 71, 0, 28, "Text"],
+Cell[67131, 2399, 86, 3, 79, "Input"],
+Cell[67220, 2404, 90, 3, 28, "Text"],
+Cell[67313, 2409, 64, 1, 60, "Input"],
+Cell[67380, 2412, 89, 4, 28, "Text"],
+Cell[67472, 2418, 88, 3, 28, "Text"],
+Cell[67563, 2423, 276, 5, 63, "Input"],
+Cell[67842, 2430, 62, 0, 28, "Text"],
+Cell[67907, 2432, 801, 29, 62, "Text"],
+Cell[68711, 2463, 666, 20, 64, "Text"],
+Cell[69380, 2485, 42, 1, 40, "Input"],
+Cell[69425, 2488, 38, 0, 20, "Text"],
+Cell[69466, 2490, 57, 1, 49, "Input"],
+Cell[69526, 2493, 173, 4, 31, "Text"],
+Cell[69702, 2499, 108, 2, 49, "Input"],
+Cell[69813, 2503, 76, 0, 20, "Text"],
+Cell[69892, 2505, 75, 1, 49, "Input"],
+Cell[69970, 2508, 100, 4, 20, "Text"],
+Cell[70073, 2514, 64, 0, 20, "Text"],
+Cell[70140, 2516, 479, 7, 187, "Input"],
+Cell[70622, 2525, 237, 5, 31, "Text"],
+Cell[70862, 2532, 291, 4, 128, "Input"],
+Cell[71156, 2538, 48, 0, 20, "Text"],
+Cell[71207, 2540, 367, 13, 36, "Text"],
+Cell[71577, 2555, 136, 5, 20, "Text"],
+Cell[71716, 2562, 45, 1, 40, "Input"],
+Cell[71764, 2565, 133, 2, 20, "Text"],
+Cell[71900, 2569, 92, 1, 50, "Input"],
+Cell[71995, 2572, 86, 4, 20, "Text"],
+Cell[72084, 2578, 255, 9, 36, "Text"],
+Cell[72342, 2589, 744, 20, 55, "Text"],
+Cell[73089, 2611, 210, 5, 58, "Input"],
+Cell[73302, 2618, 347, 11, 31, "Text"],
+Cell[73652, 2631, 362, 7, 63, "Input"],
+Cell[74017, 2640, 292, 9, 31, "Text"],
+Cell[74312, 2651, 124, 3, 51, "Input"],
+Cell[74439, 2656, 410, 14, 32, "Text"],
+Cell[74852, 2672, 508, 9, 150, "Input"],
+Cell[75363, 2683, 252, 7, 32, "Text"],
+Cell[75618, 2692, 165, 3, 51, "Input"],
+Cell[75786, 2697, 108, 3, 20, "Text"],
+Cell[75897, 2702, 53, 1, 40, "Input"],
+Cell[75953, 2705, 431, 10, 43, "Text"],
+Cell[76387, 2717, 307, 5, 88, "Input"],
+Cell[76697, 2724, 128, 2, 20, "Text"],
+Cell[76828, 2728, 185, 3, 105, "Input"],
+Cell[77016, 2733, 81, 2, 50, "Input"],
+Cell[77100, 2737, 84, 2, 52, "Input"],
+Cell[77187, 2741, 300, 9, 31, "Text"],
+Cell[77490, 2752, 220, 8, 36, "Text"],
+Cell[77713, 2762, 322, 10, 32, "Text"],
+Cell[78038, 2774, 370, 8, 84, "Input"],
+Cell[78411, 2784, 69, 0, 20, "Text"],
+Cell[78483, 2786, 43, 1, 40, "Input"],
+Cell[78529, 2789, 67, 0, 20, "Text"],
+Cell[78599, 2791, 43, 1, 40, "Input"],
+Cell[78645, 2794, 52, 1, 40, "Input"],
+Cell[78700, 2797, 68, 0, 20, "Text"],
+Cell[78771, 2799, 400, 9, 63, "Input"],
+Cell[79174, 2810, 132, 5, 20, "Text"],
+Cell[79309, 2817, 63, 1, 40, "Input"],
+Cell[79375, 2820, 160, 5, 20, "Text"],
+Cell[79538, 2827, 258, 4, 61, "Input"],
+Cell[79799, 2833, 89, 3, 20, "Text"],
+Cell[79891, 2838, 488, 9, 113, "Input"],
+Cell[80382, 2849, 283, 9, 32, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

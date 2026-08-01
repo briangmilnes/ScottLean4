@@ -1,0 +1,3103 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     73044,       2813]*)
+(*NotebookOutlinePosition[     73971,       2843]*)
+(*  CellTagsIndexPosition[     73927,       2839]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 7   Projective Geometry\n",
+  StyleBox["General Curves and Polydifferentiation",
+    FontSize->18]
+}], "Title"],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["28 September 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle",
+  FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell["Polynomials and Curves", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Homogeneous polynomials", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Some algebraic definitions and key facts", "Subsubsection",
+  FontWeight->"Bold"],
+
+Cell[TextData[{
+  "We will work with ",
+  StyleBox["polynomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in our two (dual) sets of variables, namely, ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["uvw.",
+    FontWeight->"Bold"]
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Definition. ",
+    FontWeight->"Bold"],
+  "By a ",
+  StyleBox["monomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " we mean an expression of the form",
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  Cell[BoxData[
+      StyleBox[\(x\^i\ y\^j\ z\^k\),
+        FontSlant->"Plain"]],
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    CellFrame->True,
+    FontWeight->"Bold"],
+  StyleBox["(or ",
+    CellFrame->True],
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[
+          SuperscriptBox[
+            StyleBox["u",
+              FontSlant->"Plain"], "i"],
+          FontWeight->"Bold"], 
+        StyleBox[" ",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], 
+        StyleBox[
+          SuperscriptBox[
+            StyleBox["v",
+              FontSlant->"Plain"], "j"],
+          FontWeight->"Bold"], 
+        StyleBox[" ",
+          FontWeight->"Bold",
+          FontSlant->"Plain"], 
+        StyleBox[
+          SuperscriptBox[
+            StyleBox["w",
+              FontSlant->"Plain"], "k"],
+          FontWeight->"Bold"]}]]],
+  StyleBox["),",
+    CellFrame->True],
+  " where the ",
+  StyleBox["degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the monomial is calculated by the sum  ",
+  Cell[BoxData[
+      StyleBox[\(i + j + k\),
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text",
+  CellFrame->False,
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Here are lists of the ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-monomials up to degree ",
+  StyleBox["6",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(TableForm[{Bxyz/@Range[0, 5]}]\)], "Input"],
+
+Cell["Let us look at the cardinalitie of these sets:", "Text"],
+
+Cell[BoxData[
+    \(Map[Length, %, {2}]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The number of monomials (in three variables) of degree ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " is \t\t    \n\t\t",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(1\/2\ \((2 + 3\ n + n\^2)\)\),
+          FontWeight->"Bold"], 
+        StyleBox[" ",
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          CellFrame->True,
+          FontWeight->"Bold"], 
+        StyleBox[" ",
+          FontWeight->"Bold"], 
+        StyleBox[\(1\/2\ \((n + 1)\)\ \((n + 2)\)\),
+          FontWeight->"Bold"]}]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Proof.",
+  StyleBox["  Think of a monomial the form",
+    FontWeight->"Plain"],
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  Cell[BoxData[
+      StyleBox[\(x\^i\ y\^j\ z\^k\),
+        FontSlant->"Plain"]],
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    CellFrame->True,
+    FontWeight->"Bold"],
+  StyleBox["where ",
+    CellFrame->True,
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(i + j + k == n\)]],
+  StyleBox[".  The possible choices of ",
+    CellFrame->True,
+    FontWeight->"Plain"],
+  StyleBox["i", "InlineInput",
+    CellFrame->True],
+  StyleBox[" are integers in ",
+    CellFrame->True,
+    FontWeight->"Plain"],
+  StyleBox["Range[0, n]", "InlineInput",
+    CellFrame->True],
+  StyleBox[".  Once ",
+    CellFrame->True,
+    FontWeight->"Plain"],
+  StyleBox["i", "InlineInput",
+    CellFrame->True],
+  StyleBox[" is chosen, then ",
+    CellFrame->True,
+    FontWeight->"Plain"],
+  StyleBox["j", "InlineInput",
+    CellFrame->True],
+  StyleBox[" will be chosen from ",
+    CellFrame->True,
+    FontWeight->"Plain"],
+  StyleBox["Range[0, n-i]", "InlineInput",
+    CellFrame->True],
+  StyleBox[".  After that, the value of ",
+    CellFrame->True,
+    FontWeight->"Plain"],
+  StyleBox["k", "InlineInput",
+    CellFrame->True],
+  StyleBox[
+  " is fixed.  Therefore, the total number of choices is given by the formula \
+",
+    CellFrame->True,
+    FontWeight->"Plain"],
+  StyleBox["Mathematica",
+    CellFrame->True,
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox[" can work out symbolically this way:",
+    CellFrame->True,
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[BoxData[{
+    \(ss = Together[\[Sum]\+\(i = 0\)\%n\((n + 1 - i)\)]\), 
+    \(Factor[ss]\)}], "Input"],
+
+Cell["Q.E.D.", "Text",
+  FontWeight->"Bold"],
+
+Cell["\<\
+Here is a test that the formula is giving us the right \
+numbers:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Function[n, 1\/2\ \((2 + 3\ n + n\^2)\)]/@Range[0, 6]\)], "Input"],
+
+Cell[TextData[{
+  "From our experience in algebra, we know that a  ",
+  StyleBox["polynomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", of course, is just ",
+  StyleBox["a linear combination",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of monomials with scalars as coefficients.  And scalar multiples, sums \
+and products of polynomials are again regarded as polynomials. We should \
+imagine the polynomials as expanded out as a sum of multiples of monomials, \
+and the ",
+  StyleBox["degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a (mixed) polynomial is the ",
+  StyleBox["highest degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of any monomial in its (unique) expansion.  We will work with a special \
+class of polynomials."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Definition. ",
+    FontWeight->"Bold"],
+  "A polynomial is  ",
+  StyleBox["homogeneous",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of its monomials are of the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  "Every polynomial is uniquely the sum of non-zero homogeneous polynomials \
+of different degrees."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof.",
+    FontWeight->"Bold"],
+  " Expand out the polynomial and then group the monomials of like degree \
+together. ",
+  StyleBox["Q.E.D. ",
+    FontWeight->"Bold"]
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "The decomposition of a polynomial into homogeneous parts can be computed \
+in the following way.  Make a substitution of the form ",
+  Cell[BoxData[
+      StyleBox[\({x \[Rule] t\ x, y \[Rule] t\ y, z \[Rule] t\ z}\),
+        FontWeight->"Bold"]]],
+  ", and then group together the coefficient list of powers of ",
+  StyleBox["t", "InlineInput",
+    FontWeight->"Bold"],
+  " (which is a primitive ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  operation).   We recall that ",
+  StyleBox["CoefficientList[poly, var]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " gives a list of coefficients of powers of ",
+  StyleBox["var", "InlineInput",
+    FontWeight->"Bold"],
+  " in ",
+  StyleBox["poly", "InlineInput",
+    FontWeight->"Bold"],
+  ", starting with power ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  Here is an example on a random polynomial: "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(poly = 
+      x\^2\ \((y - z)\)\^6 + \((x\^2 + y + 2)\)\^7 + \((1 + z)\)\^14\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(TableForm[
+      CoefficientList[
+        poly /. {x \[Rule] t\ x, y \[Rule] t\ y, z \[Rule] t\ z}, t]]\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(Expand[poly] == Plus@@%\)], "Input"],
+
+Cell["\<\
+This result suggests the following test for being homogeneous:\
+\>",
+   "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  "A polynomial ",
+  Cell[BoxData[
+      StyleBox[\(f[x, y, z]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is homogeneous of degree ",
+  Cell[BoxData[
+      StyleBox["n",
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["if, and only if,",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " it satisfies the equation:  \n\t\t",
+  Cell[BoxData[
+      StyleBox[\(f[k\ x, k\ y, k\ z] == k\^n\ f[x, y, z]\),
+        FontWeight->"Bold"]]],
+  ", \nfor all scalars ",
+  Cell[BoxData[
+      StyleBox["k",
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "The full proof requires some facts from commutative algebra reviewed in \
+the next section. The result implies that if one representation of a \
+projective point in homogeneous coordinates satisfies the equation  ",
+  Cell[BoxData[
+      StyleBox[\(f[x, y, z] == 0\),
+        FontWeight->"Bold"]]],
+  ",  then so does ",
+  StyleBox["every other",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " representation.  "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "In other words, ",
+  StyleBox["a homogeneous xyz-polynomial has geometric significance ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "as defining a ",
+  StyleBox["locus of points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[1, 0.4, 1]],
+
+Cell[TextData[{
+  StyleBox["Comment.  ",
+    FontWeight->"Bold"],
+  "A ",
+  StyleBox["locus",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  is a place where something happens.  Among geometric objects we find \
+various types, such as points, lines, curves, transformations, and so on.  \
+When certain conditions are given, we speak of the ",
+  StyleBox["locus of all objects",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  "(of a given type)",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["satisfying the conditions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[". ",
+    FontSlant->"Italic"],
+  " There is really no difference between the words ",
+  StyleBox["locus ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "and ",
+  StyleBox["set",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", except that locus has a more geometric flavor."
+}], "Text",
+  Background->RGBColor[1, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Some basic theorems from algebra", "Subsubsection"],
+
+Cell[TextData[{
+  "Some of the following facts are easy to prove and some are hard.  Whether \
+time should be taken in an undergraduate course to prove them depends on the \
+instructor, on the time available, and on the preparation of the students.  \
+For the time being, we are content to ",
+  StyleBox["list",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the results.  The first theorem we discussed in some detail during the \
+first two weeks when we talked about ",
+  StyleBox["The Fundamental Theorem of Algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Over the ",
+  StyleBox["complex numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", every polynomial in ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " variable of degree ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " can be factored into ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["linear factors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Hence, a polynomial equation ",
+  Cell[BoxData[
+      StyleBox[\(f[z] == 0\),
+        FontWeight->"Bold"]]],
+  " has exactly ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " roots, provided that ",
+  StyleBox["multiplicities",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are counted."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell["The following theorem requires more algebraic insight.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  "Every ",
+  StyleBox["multivariate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial can be factored into ",
+  StyleBox["irreducible factors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that cannot be further factored.  The factorization is ",
+  StyleBox["unique",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " up to scalar multiples."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "The theorem includes the principle that if an irreducible polynomial \
+divides a product of polynomials, then it must divide (",
+  StyleBox["i.e.,",
+    FontSlant->"Italic"],
+  " be a factor of) one or the other of the polynomials in the product."
+}], "Text"],
+
+Cell[TextData[{
+  "The theorem holds over many rings, not just over the complex numbers.  One \
+should ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " conclude that multivariate polynomials can be factored into ",
+  StyleBox["linear factors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", however, since that is far from the truth.  (An example is the \
+polynomial  ",
+  Cell[BoxData[
+      StyleBox[\(x\^2 + y\^2 - z\^2\),
+        FontWeight->"Bold"]]],
+  ", as we shall be able to prove later.)  Since we will be concerned mainly \
+with homogeneous polynomials, we need the following."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "If a ",
+  StyleBox["homogeneous",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial factors, then the factors are themselves ",
+  StyleBox["homogeneous",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+The following theorems are key to showing that the algebra we do \
+with polynomials fits the geometry.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "A (homogeneous) polynomial of several variables that vanishes at all ",
+  StyleBox["rational",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "It is also sufficient to consider only ",
+  StyleBox["integer",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points.  The theorem is often used to say that if a polynomial does not \
+reduce formally to ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  " (by algebraic laws), then there is a ",
+  StyleBox["substitution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of numerical values for the variables so that the value of the polynomial \
+is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["Finally, we note that zeros identify factors.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  "If",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "is an ",
+  StyleBox["irreducible",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial, and if ",
+  Cell[BoxData[
+      StyleBox[\(f[x, y, z] == 0\),
+        FontWeight->"Bold"]]],
+  " always implies ",
+  Cell[BoxData[
+      StyleBox[\(g[x, y, z] == 0\),
+        FontWeight->"Bold"]]],
+  ", then the polynomial ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " is a ",
+  StyleBox["factor",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Curves, envelopes, and intersections", "Subsection",
+  Evaluatable->False,
+  PageBreakAbove->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Curves and envelopes", "Subsubsection"],
+
+Cell[TextData[{
+  "In the algebraic approach, an object in (projective) geometry is usually \
+given by its (homogeneous) coordinates.  Because homogeneous coordinates \
+multiplied through by a common scalar represent the same object, conditions \
+in projective geometry are often given as a set of ",
+  StyleBox["homogeneous polynomial equations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The locus defined by a set of equations is generallly called a ",
+  StyleBox["variety",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition. ",
+    FontWeight->"Bold"],
+  "In the projective plane, the locus of zeros of a homogeneous ",
+  StyleBox["xyz-",
+    FontWeight->"Bold"],
+  "polynomial of degree ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " is called a ",
+  StyleBox["curve of degree n",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "A curve is ",
+  StyleBox["degenerate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "(or ",
+  StyleBox["reducible",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") if the polynomial defining it can be factored into factors of lower \
+degree.  "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "One of the theorems of commutative algebra mentioned earlier assures us \
+that a non-degenerate curve (as a locus of points) determines its polynomial \
+uniquely up to a scalar multiple.  (Why?)  Note that a degenerate curve (as a \
+set) can always be represented of as the ",
+  StyleBox["union",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of non-degenerate curves.  (Why?)  Note, too, that a factor can occur \
+several times, and a ",
+  StyleBox["power",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a polynomial determines the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " locus of zeros as the original polynomial."
+}], "Text"],
+
+Cell[TextData[{
+  "We have not spoken of dual polynomials very much, since the ",
+  StyleBox["algebraic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " facts are the same.  But, geometirically, duality is very interesting."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold",
+    Background->None],
+  StyleBox["In the projective plane, the locus of zeros of a homogeneous ",
+    Background->None],
+  StyleBox["uvw-",
+    FontWeight->"Bold",
+    Background->None],
+  StyleBox["polynomial of degree ",
+    Background->None],
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold",
+    Background->None],
+  StyleBox[" is called a ",
+    Background->None],
+  StyleBox["dual",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    Background->None],
+  StyleBox[" ",
+    FontSlant->"Italic",
+    Background->None],
+  StyleBox["curve of degree n",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    Background->None],
+  StyleBox[".",
+    FontSlant->"Italic",
+    Background->None],
+  StyleBox["  ",
+    Background->None]
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Comment.  ",
+    FontWeight->"Bold"],
+  "Since a dual curve is a locus of ",
+  StyleBox["lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we can visualize this as the ",
+  StyleBox["envelope",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a curve being swept out by the lines.  An interesting ",
+  StyleBox["problem",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is whether the set of ",
+  StyleBox["tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  to a curve form a dual curve as a locus.  To solve this question, we \
+have to wait until we can define precisely what it means to be a tangent \
+line.  In general, there is a somewhat difficult algebraic problem of \
+relating curves and envelopes."
+}], "Text",
+  Background->RGBColor[1, 0.4, 1]],
+
+Cell[TextData[{
+  StyleBox["Linear equations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " have lines (or, dually, pencils) as their loci.  Lines ",
+  StyleBox["are",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " curves, but they are not very curved!  The first interesting case is that \
+of the ",
+  StyleBox["conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Historically, a ",
+  StyleBox["conic section",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  is defined as the intersection of a plane with a cone.  If we developed \
+this definition and used higher-dimensional spaces, we would find that \
+certain cones (as surfaces) were characterized by rather simple quadratic \
+equations.  In any plane we could set up ",
+  StyleBox["local coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  The locus of the intersection would be found by substituting these \
+coordinates into the equation for the cone.  Thus, the equation for a conic \
+section is always a ",
+  StyleBox["quadratic equation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "For expediency we use this",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["algebraic definition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with quadratic polynomials as the definition of  a conic section, but it \
+ought to be justified by proving that ",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  quadratic equation can be obtained by taking a section of a cone.  We \
+will have to be satisfied by showing later that all (non-degenerate) conics \
+are projective images of ",
+  StyleBox["circles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "We will treat the space of quadratic homogeneous polynomials as a ",
+  StyleBox["vector space",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " giving us a ",
+  StyleBox["projective space of conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  In alphabetical order there are nine quadratic monomials in the set"
+}], "Text"],
+
+Cell[TextData[{
+  Cell[BoxData[
+      RowBox[{"                ", 
+        StyleBox[\({x\^2, x\ y, x\ z, y\ x, y\^2, y\ z, z\ x, z\ y, z\^2}\),
+          FontWeight->"Bold"]}]]],
+  ","
+}], "Text"],
+
+Cell[TextData[{
+  "but, after communitivity is applied, there are only ",
+  StyleBox["six",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Therefore, the ",
+  StyleBox["linear-space dimension",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the space of quadratic homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials is ",
+  StyleBox["6",
+    FontWeight->"Bold"],
+  ", but the ",
+  StyleBox["projective dimension",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is ",
+  StyleBox["5",
+    FontWeight->"Bold"],
+  ".  We will count dimensions for higher-degree polynomials later."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "A conic is ",
+  StyleBox["degenerate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  if it factors into ",
+  StyleBox["linear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  factors.  "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["\<\
+The locus of points on such a conic is thus the union of two lines \
+(or, possibly, one line counted twice).  Theorems about conics are developed \
+in later lectures, including a test for degeneracy. \
+\>", "Text"],
+
+Cell["\<\
+Here is a hint about thinking of spaces of curves as geometruc \
+spaces in their own right.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "In any linear space, a ",
+  StyleBox["pencil ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is any two-dimensional subspace.  (A ",
+  StyleBox["ray",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  is a one-dimensional subspace.)  In projective terms, a pencil is a \
+line",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "in the projective space.  In the space of quadratic polynomials, we speak \
+of a",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["pencil of conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[1, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Intersecting lines with curves and curves with curves", "Subsubsection"],
+
+Cell["\<\
+There is indeed a geometric meaning to the degree of a polynomial \
+defining a curve.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  A line through a point ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on a curve of degree ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["cuts",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (or ",
+  StyleBox["intersects",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") the curve in exactly ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " points (counting multiplicities of roots).  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof.",
+    FontWeight->"Bold"],
+  "  Let ",
+  Cell[BoxData[
+      StyleBox[\(f[x, y, z]\),
+        FontWeight->"Bold"]]],
+  " be a homogeneous polynomial of degree ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Let ",
+  Cell[BoxData[
+      StyleBox["P",
+        FontWeight->"Bold"]]],
+  " be a point  not on the curve ",
+  Cell[BoxData[
+      StyleBox[\(f[x, y, z] == 0\),
+        FontWeight->"Bold"]]],
+  ".  (There must be such!  Why?)  The points ",
+  StyleBox["distinct from",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox["P",
+        FontWeight->"Bold"]]],
+  " on a line through ",
+  Cell[BoxData[
+      StyleBox["P",
+        FontWeight->"Bold"]]],
+  " can be parameterized by (non-homogeneous) linear forms (in a variable ",
+  StyleBox["t", "InlineInput",
+    FontWeight->"Bold"],
+  ", say) by writing ",
+  Cell[BoxData[
+      StyleBox[\(t\ P + Q\),
+        FontWeight->"Bold"]]],
+  ", where ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is a ",
+  StyleBox["second point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the line.  ",
+  StyleBox["Substituting",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the coordinates of this point on the line into the equation, we get a \
+polynomial of degree ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " in the single variable ",
+  StyleBox["t", "InlineInput",
+    FontWeight->"Bold"],
+  ".  This polynomial has ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " roots, corresponding exactly to ",
+  StyleBox["the intersections of the line with the curve",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Thus, a line intersects a ",
+  StyleBox["conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in one or two points.  And, please note, that because we use complex \
+numbers, algebraic equations in one variable ",
+  StyleBox["always",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  have solutions; so, a line ",
+  StyleBox["always",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  intersects a curve.  There is a more general result."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["B\[EAcute]zout's Theorem.  ",
+    FontWeight->"Bold"],
+  "If ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " are homogeneous polynomials of degrees ",
+  Cell[BoxData[
+      StyleBox["n",
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["m",
+        FontWeight->"Bold"]]],
+  ", and if the two curves ",
+  Cell[BoxData[
+      StyleBox[\(f == 0\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(g == 0\),
+        FontWeight->"Bold"]]],
+  " intersect in",
+  StyleBox[" more than",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(n\ m\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "points, then ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " share a non-trivial common factor.  And, if the polynomials ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  "  ",
+  StyleBox["do not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["  ",
+    FontWeight->"Bold"],
+  "share a non-trivial common factor, then the two curves intersect in \
+exactly ",
+  Cell[BoxData[
+      StyleBox[\(n\ m\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "points (again counting multiplicities suitably).  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "The proof is quite hard and requires some rather subtle algebra.  We \
+cannot prove it in this course, but we can take it as a guideline for the ",
+  StyleBox["reasonableness",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of various results we find by computation."
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Polydifferentiation and Duality", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Polydifferentiation", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Defining polydifferentiation", "Subsubsection"],
+
+Cell[TextData[{
+  "In order to define and investigate properties of curves defined by \
+polynomials, we have to turn to the use of ",
+  StyleBox["differentiation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "Consider the space of all ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials as a space of (continuous) infinitely differentiable \
+multivariate functions.  On such functions ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  ",",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "the ",
+  StyleBox["operators of",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["partial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["differentiation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", namely,\n\t\t\t",
+  StyleBox["\[PartialD]/\[PartialD]x", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["\[PartialD]/\[PartialD]y", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["\[PartialD]/\[PartialD]z", "InlineInput",
+    FontWeight->"Bold"],
+  ",\nare ",
+  StyleBox["associative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["commutative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (under composition).  This is proved in calculus books about functions of \
+several variables.  And the use of complex numbers makes no difference."
+}], "Text"],
+
+Cell[TextData[{
+  "Now, these  compositions are also ",
+  StyleBox["linear operators",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and any ",
+  StyleBox["linear combination",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of  linear operators is again a linear operator.  Moreover, composition \
+of linear operators distributes over all linear combinations of operators; \
+hence, we conclude:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "The differential operators generate a ",
+  StyleBox["commutative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["algebra of operators",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  "
+}], "Text",
+  CellFrame->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "It is therefore possible to define a ",
+  StyleBox["ring homomorphism",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  from the (free) ring of ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials to these operators on the ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials.  Or, more simply, we can just ",
+  StyleBox["interpret",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials as ",
+  StyleBox["being",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " partial differential operators on ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials.  That is, think of \n\t\t",
+  StyleBox["u == \[PartialD]/\[PartialD]x", "InlineInput",
+    FontWeight->"Bold"],
+  ",  ",
+  StyleBox["v == \[PartialD]/\[PartialD]y", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["w == \[PartialD]/\[PartialD]z", "InlineInput",
+    FontWeight->"Bold"],
+  " \nin a ",
+  StyleBox["symbolic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " sense; next, think of ",
+  StyleBox["multiplication",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as ",
+  StyleBox["composition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of operators; and, finally, think of ",
+  StyleBox["addition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as ",
+  StyleBox["summing",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " linear operators pointwise.  We will see later that this ring \
+homomorphism is actually an ",
+  StyleBox["isomorphism",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "We note that a first-degree differentiation of a homogeneous polynomial is \
+again a homogeneous polynomial of one lower degree.  Compositions of \
+operators will continue to lower the degree and keep the result homogeneous.  \
+Thus, any ",
+  StyleBox["homogeneous",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomial determines a differential operator that will take a \
+homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial of a certain degree and map it to a lower-degree homogeneous \
+polynomial, where the degree has been lowered by ",
+  StyleBox["exactly",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the degree of the operator."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "This way just described of interpreting polynomials of one kind as \
+differential operators on polynomilas of another kind is called ",
+  StyleBox["polydifferentiation.  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "If the degree of an operator is greater than the degree of of the \
+polynomial, then the value of the differentiation is obviously ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We can therefore forget about those cases.  In doing so, we will take \
+the opportunity of making the definition of polydifferentiation ",
+  StyleBox["symmetric ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "in a certain sense.  "
+}], "Text"],
+
+Cell[TextData[{
+  "In particular, if ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " is a homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial, and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " is a homogeneous ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomial, then ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is defined as the result of allowing the polynomial of ",
+  StyleBox["lower degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to operate on the polynomial of ",
+  StyleBox["higher",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "as a differential operator.  We shall argue later that:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "In case the two polynomials have the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " degree,",
+  StyleBox[
+  " it does not matter which of the polynomials is regarded as the operator.",
+    
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  CellFrame->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "In case ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " are linear polynomial, then ",
+  StyleBox["PD[f, g]", "InlineInput",
+    FontWeight->"Bold"],
+  " computed by differentiation is the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  as the ordinary dot product ."
+}], "Text",
+  CellFrame->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+Why?  Because in the linear case differentiation just cancels \
+variables leaving the coefficients standing alone.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(PD[a\_1\ x + a\_2\ y + a\_3\ z, b\_1\ u + b\_2\ v + b\_3\ w]\)], "Input"],
+
+Cell[TextData[{
+  "Now, dot product gave us a duality between points and lines, we thus will \
+employ the more general polydifferentiation to give us ",
+  StyleBox["duality at",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["higher degrees",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[
+"Polydifferential graded algebra for \[OpenCurlyDoubleQuote]general\
+\[CloseCurlyDoubleQuote] polynomials"], "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell["\<\
+Here are some examples of using polydifferentiation.  First some \
+simple differentiation giving first derivatives.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, d, e, f, Subscript]; \nf\_1 = x\^2 + y\^2 - a\ z\^2; 
+    \nf\_2 = b\ x\ y + c\ y\ z + \((d\  + e)\) z\ x; \)], "Input"],
+
+Cell[BoxData[
+    \(TableForm[\((PD[f\_1\ f\_2, #]&)\)/@Buvw[1]]\)], "Input"],
+
+Cell[TextData[{
+  "If we want to see homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials, we have to ",
+  StyleBox["\"tidy up\"",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(TableForm[Tidy/@\((\((PD[f\_1\ f\_2, #]&)\)/@Buvw[1])\)]\)], "Input"],
+
+Cell[TextData[{
+  "But we can take ",
+  StyleBox["linear combinations ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of derivatives as well."
+}], "Text"],
+
+Cell[BoxData[
+    \(ans = PD[f\_1\ f\_2, u - 2\ v + 3\ w]\)], "Input"],
+
+Cell[BoxData[
+    \(ans = Expand[ans] // Tidy\)], "Input"],
+
+Cell[TextData[{
+  "And we can ckeck a ",
+  StyleBox["Law of Differentiation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(ans == 
+      Tidy[PD[f\_1, u - 2\ v + 3\ w]\ f\_2 + PD[f\_2, u - 2\ v + 3\ w]\ f\_1]
+        \)], "Input"],
+
+Cell["Now here are the second derivatives.", "Text"],
+
+Cell[BoxData[
+    \(TableForm[\((PD[f\_1\ f\_2, #]&)\)/@Buvw[2]]\)], "Input"],
+
+Cell[BoxData[
+    \(TableForm[Tidy/@\(\((PD[f\_1\ f\_2, #]&)\)/@Buvw[2]\)]\)], "Input"],
+
+Cell[TextData[{
+  "And so on.  But, suppose we ",
+  StyleBox["declare",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the symbols ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " to have the following properties:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, g, Subscript]; \)\), 
+    \(f /: DegP[f] = 3; \ng /: DegP[g] = 3; \)}], "Input"],
+
+Cell["\<\
+This, then is all we know about them, and otherwise they are \
+general. \
+\>", "Text"],
+
+Cell["\<\
+??f
+??g\
+\>", "Input"],
+
+Cell[TextData[{
+  "If we calculate with them, then they behave as ",
+  StyleBox["variables",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "for polynomials of degree ",
+  StyleBox["3",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[a\ f + b\ g, w\ u\^2 + c\ w\ v\ w]\)], "Input"],
+
+Cell["\<\
+In fact, our rules will give this differential expression a degree:\
+\
+\>", "Text"],
+
+Cell["DegP[%]", "Input"],
+
+Cell[TextData[{
+  "Now, we can go on to form algebraic combinations of ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  "  and ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[f\^2 + f\ g + g\^2, w\ u\^2 + c\ u\ v\ w]\)], "Input"],
+
+Cell["Expand[%]", "Input"],
+
+Cell["DegP[%]", "Input"],
+
+Cell[TextData[{
+  "Application.",
+  StyleBox[
+  "  Symbolic computation with symbolic polynomial variables will be very \
+helpful in giving ",
+    FontWeight->"Plain"],
+  StyleBox["proofs",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Warning.",
+    FontWeight->"Bold"],
+  " For ",
+  StyleBox["subscripted variables",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we unfortunately cannot declare their degrees separately.  Instead, we \
+have to associate the declaration with ",
+  StyleBox["Subscript", "InlineInput"],
+  " so we can clear it later."
+}], "Text",
+  Background->RGBColor[1, 0.4, 1]],
+
+Cell[BoxData[
+    \(ClearAll[f, g, Subscript]; \nSubscript /: DegP[f\_1] = 4; \n
+    Subscript /: DegP[g\_1] = 4; \n\(?f\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(?Subscript\)\)], "Input"],
+
+Cell[BoxData[
+    \(ClearAll[Subscript]; \n\(?Subscript\)\)], "Input"],
+
+Cell[TextData[{
+  "As more a preview of things to come, we do some further examples   First \
+we make a list of several very \"basic\" operators of low degree ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " monomials."
+}], "Text"],
+
+Cell[BoxData[
+    \(ops = Join[Buvw[0], Buvw[1], Buvw[2], Buvw[3]]\)], "Input"],
+
+Cell[TextData[{
+  "Remember, the interpretation of polynomials as differential operator is \
+going to be given by ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  ". ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "Here are the results for a ",
+  StyleBox["symbolic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial."
+}], "Text"],
+
+Cell["\<\
+ClearAll[f];
+f/: DegP[f] = 3;
+TableForm[Join[{{\"Derivative\",\"Operator\"}},
+                 {PD[f,#],#}&/@ops]]\
+\>", "Input"],
+
+Cell["Now here is a specific polynomial.", "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f]; \)\), 
+    \(\(f = x\^5 + y\^2\ z\^3 + x\^2\ y\ z\^2; \)\), 
+    \(TableForm[
+      Join[{{"\<Derivative\>", "\<Operator\>"}}, \(({PD[f, #1], #1}&)\)/@ops]]
+      \)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Characterizing polydifferentiation", "Subsubsection",
+  PageBreakAbove->True],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  "The following ",
+  StyleBox["five",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " algebraic properties ",
+  StyleBox["uniquely determine",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the operation ",
+  StyleBox["PD",
+    FontWeight->"Bold"],
+  " of polydifferentiation operating on pairs of dual homogeneous \
+polynomials."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["\t1. Applicability. ",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["Input.  ",
+    FontWeight->"Bold"],
+  StyleBox["The expression",
+    FontWeight->"Plain"],
+  "  ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["for polydifferentiation is \tintended to be",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["meaningful",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[",  provided that",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["is a homogeneous",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  StyleBox["-polynomial \tand ",
+    FontWeight->"Plain"],
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["is a ",
+    FontWeight->"Plain"],
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  StyleBox["-homogeneous polynomial.  \n\t",
+    FontWeight->"Plain"],
+  StyleBox["Output.  ",
+    FontWeight->"Bold"],
+  "When the polynomials are homogeneous, then  ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  " is a \t\thomogeneous polynomial of degree exactly ",
+  StyleBox["the absolute value of the \t\tdifference of the degrees",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " (or the ",
+  StyleBox["zero polynomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", which has no \tdefinite degree \[LongDash] but is given degree ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  " by convention).  \n\tIf ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " are of the ",
+  StyleBox["same degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then  ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  " is a ",
+  StyleBox["scalar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  \n\tIf ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " has the",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["larger degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then  ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is an ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial (or ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  ").  \n\tIf ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " has the",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["larger degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is a ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomial (or ",
+  StyleBox["0", "InlineInput",
+    FontWeight->"Bold"],
+  ")."
+}], "Text",
+  TextAlignment->Left,
+  Background->RGBColor[0.2, 1, 0.6]],
+
+Cell[TextData[{
+  StyleBox["\t2. Bilinearity.  ",
+    FontWeight->"Bold"],
+  "The expression ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  " for polydifferentiation is ",
+  StyleBox["bilinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in \tboth its arguments."
+}], "Text",
+  Background->RGBColor[0.2, 1, 0.6]],
+
+Cell[TextData[{
+  StyleBox["\t3. Associativity.  ",
+    FontWeight->"Bold"],
+  "The operation ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is ",
+  StyleBox["associative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", in the sense that these four \tequations hold:\n",
+  StyleBox["\t\t",
+    FontFamily->"Courier"],
+  Cell[BoxData[
+      StyleBox[\(PD[f, 1] == f\),
+        FontWeight->"Bold"]]],
+  StyleBox["\t\t\t\n\t\t",
+    FontFamily->"Courier"],
+  Cell[BoxData[
+      StyleBox[\(PD[1, g] == g\),
+        FontWeight->"Bold"]]],
+  StyleBox[" \t\t\t\n",
+    FontFamily->"Courier"],
+  StyleBox["\t\t",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(PD[f, g\_1\ g\_2] == PD[PD[f, g\_1], g\_2]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" \t\t\t\n\t\t",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(PD[f\_1\ f\_2, g] == PD[f\_1, PD[f\_2, g]]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" \t\t\t\n\t",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  StyleBox["provided that",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  the product polynomials do not dominate in degree."
+}], "Text",
+  Background->RGBColor[0.2, 1, 0.6]],
+
+Cell[TextData[{
+  StyleBox["\t4. Orthogonality. ",
+    FontWeight->"Bold"],
+  " The vector space of ",
+  StyleBox["linear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials is \t",
+  StyleBox["dual",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  to the vector space of ",
+  StyleBox["linear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " homogeneous ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials with ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "as \tthe ",
+  StyleBox["bilinear dual paring",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The two dual bases are ",
+  Cell[BoxData[
+      StyleBox[\({x, y, z}\),
+        FontWeight->"Bold"]]],
+  "and",
+  Cell[BoxData[
+      StyleBox[\({u, v, w}\),
+        FontWeight->"Bold"]]],
+  ", \trespectively.  "
+}], "Text",
+  PageBreakAbove->True,
+  Background->RGBColor[0.2, 1, 0.6]],
+
+Cell[TextData[{
+  StyleBox["\t5. Derivationality.",
+    FontWeight->"Bold"],
+  "  ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  " is a ",
+  StyleBox["derivative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["operator",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", which means that for ",
+  StyleBox["linear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  \tpolynomials ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "we have:\n\t\t",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[
+          RowBox[{"PD", "[", 
+            RowBox[{
+              RowBox[{
+                SubscriptBox[
+                  StyleBox["f",
+                    FontWeight->"Bold"], "1"], \(f\_2\)}], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              StyleBox["g",
+                FontWeight->"Bold"]}], "]"}],
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            RowBox[{
+              RowBox[{
+                StyleBox["PD",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["f",
+                      FontWeight->"Bold"], "1"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  StyleBox["g",
+                    FontWeight->"Bold"]}], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}], 
+              StyleBox[" ",
+                FontWeight->"Bold"], 
+              StyleBox[\(f\_2\),
+                FontWeight->"Bold"]}], "+", 
+            RowBox[{
+              RowBox[{
+                StyleBox["PD",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["f",
+                      FontWeight->"Bold"], "2"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  StyleBox["g",
+                    FontWeight->"Bold"]}], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}], " ", \(f\_1\)}]}],
+          FontWeight->"Bold"]}]]],
+  "\n\t\t",
+  Cell[BoxData[
+      StyleBox[
+        \(PD[f, g\_1\ g\_2] == PD[f, g\_1]\ g\_2 + PD[f, g\_2]\ g\_1\),
+        FontWeight->"Bold"]]]
+}], "Text",
+  Background->RGBColor[0.2, 1, 0.6]],
+
+Cell[TextData[{
+  StyleBox["Proof of the theorem: ",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["PD",
+    FontWeight->"Bold"],
+  " is defined by using the ring of partial differential operators, and the \
+above are all true (and well known) properties of partial differentiation.  \
+The reason that polydifferentiation is uniquely determined by these five \
+properties shown is that every polynomial is a sum of monomials, and when ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  " and",
+  StyleBox[" g",
+    FontWeight->"Bold"],
+  " are monomials, then the value of ",
+  StyleBox["PD[f, g]",
+    FontWeight->"Bold"],
+  " is completely determined by the laws of associativity and \
+derivationality.  By bilineraity the values on arbitrary polynomials must \
+threrfore also uniquely be determined.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["Here is one check involving the variables:", "Text",
+  PageBreakAbove->True],
+
+Cell["Outer[PD,Bxyz[1],Buvw[1]] // MatrixForm", "Input"],
+
+Cell[TextData[{
+  "And this is exactly what it means to have dual bases at degree ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["For powers of polynomials and for ",
+    FontWeight->"Plain"],
+  StyleBox["linear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" polynomials ",
+    FontWeight->"Plain"],
+  StyleBox["f",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["and",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["we have the rules:",
+    FontWeight->"Plain"],
+  "\n\t",
+  Cell[BoxData[
+      \(PD[f\_1\%n, g] == n\ PD[f\_1, g]\ f\_1\%\(n - 1\)\)]],
+  "\n\t",
+  Cell[BoxData[
+      \(PD[f, g\_1\%m] == m\ PD[f, g\_1]\ g\_1\%\(m - 1\)\)]],
+  "\n",
+  StyleBox["If",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["m \[LessEqual] n", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[", we have (by iteration of the above formulae) the rules:",
+    FontWeight->"Plain"],
+  "\n\t",
+  Cell[BoxData[
+      \(PD[f\^n, g\^m] == 
+        \(\(\(n!\)\ \)\/\(\((n - m)\)!\)\) PD[f, g]\^m\ f\^\(n - m\)\)]],
+  "\n",
+  StyleBox["If ",
+    FontWeight->"Plain"],
+  StyleBox["n \[LessEqual] m", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[", we have",
+    FontWeight->"Plain"],
+  "\n",
+  Cell[BoxData[
+      RowBox[{"\t          ", 
+        StyleBox[\(PD[f\^n, g\^m]\),
+          FontWeight->"Bold"]}]]],
+  StyleBox[" == ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(\(m!\)\/\(\((m - n)\)!\)\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\^n\ f\^\(m - n\)\),
+        FontWeight->"Bold"]]],
+  "\n",
+  StyleBox["If ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(n == m\)]],
+  StyleBox[", we have",
+    FontWeight->"Plain"],
+  "\n",
+  Cell[BoxData[
+      RowBox[{"\t          ", 
+        StyleBox[\(PD[f\^n, g\^n]\),
+          FontWeight->"Bold"]}]]],
+  StyleBox[" == ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(n!\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\^n\),
+        FontWeight->"Bold"]]],
+  StyleBox["\t\t\t\t\t\t",
+    FontWeight->"Bold"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Strictly speaking, the above equations have to be proved by ",
+  StyleBox["mathematical induction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the exponents."
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Duality and evaluation", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["The dual vector spaces of polynomials", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "The linear spaces (each of dimension ",
+  Cell[BoxData[
+      StyleBox[\(1\/2\ \((n + 1)\)\ \((n + 2)\)\),
+        FontWeight->"Bold"]]],
+  ") of ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  "th-degree homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials and ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  "th-degree ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials are ",
+  StyleBox["dual",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to each other under ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  " as the ",
+  StyleBox["bilinear paring",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof (mostly by example): ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " This is the formal statement that justifies the conclusion that when ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " have the same degree, it does not matter in evaluating ",
+  StyleBox["PD[f, g]", "InlineInput",
+    FontWeight->"Bold"],
+  " which we take as the ",
+  StyleBox["function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and which we take as the ",
+  StyleBox["operator",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   The set-up is thus completely symmetric in the symbols.  This is a ",
+  StyleBox["sweeping expansion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the idea of duality between points and lines, as that concerns just \
+the polynomials of degre ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Esentially, in considering polynomials of a given degree as forming a ",
+  StyleBox["vector space",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the ",
+  StyleBox["bases",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can be chosen as the ",
+  StyleBox["monomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (In the higher degree cases, an adjustment of a ",
+  StyleBox["scalar factor",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is required in order to get exactly a ",
+  StyleBox["dual basis",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".)  Recall that the ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  "th-degree monomials are of the form ",
+  Cell[BoxData[
+      StyleBox[\(x\^i\ y\^j\ z\^k\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " where ",
+  Cell[BoxData[
+      StyleBox[\(i + j + k == n\),
+        FontWeight->"Bold"]]],
+  StyleBox[". ",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+Here follow examples (we have seen before) of the various bases.  \
+First the quadatic case.\
+\>", "Text"],
+
+Cell["{Bxyz[2],Buvw[2]}//TableForm", "Input"],
+
+Cell[TextData[{
+  "The matrix of ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  " combination is diagonal.  Why?"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(pd = Outer[PD, Bxyz[2], Buvw[2]]; \)\), 
+    \(MatrixForm[pd]\)}], "Input"],
+
+Cell[TextData[{
+  "We had to get a ",
+  StyleBox["diagonal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " matrix because in a polydifferentiation between monomials of the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " degree, say, ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"PD", "[", 
+          RowBox[{\(x\^i\ y\^j\ z\^k\), ",", 
+            RowBox[{
+              SuperscriptBox["u", 
+                SuperscriptBox["i", "\[Prime]",
+                  MultilineFunction->None]], " ", 
+              SuperscriptBox["v", 
+                SuperscriptBox["j", "\[Prime]",
+                  MultilineFunction->None]], " ", 
+              SuperscriptBox["w", 
+                SuperscriptBox["k", "\[Prime]",
+                  MultilineFunction->None]]}]}], "]"}],
+        FontWeight->"Bold"]]],
+  ", if the two triples of exponents are not the same, the answer has to be ",
+  
+  StyleBox["0.", "InlineInput"],
+  "  (Why?)  "
+}], "Text"],
+
+Cell["We next throw in some square roots.", "Text"],
+
+Cell["\<\
+npd = Sqrt[Inverse[pd]];
+npd // MatrixForm\
+\>", "Input"],
+
+Cell["The modified bases are:", "Text"],
+
+Cell[BoxData[
+    \({Bxyz[2] . npd, Buvw[2] . npd} // TableForm\)], "Input"],
+
+Cell[TextData[{
+  "We try ",
+  StyleBox["PD ",
+    FontWeight->"Bold"],
+  "again."
+}], "Text"],
+
+Cell[BoxData[
+    \(MatrixForm[Outer[PD, Bxyz[2] . npd, Buvw[2] . npd]]\)], "Input"],
+
+Cell[TextData[{
+  "Now we have ",
+  StyleBox["dual bases",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " according to the usual definition from Linear Algebra.  The thrid degree \
+case is similar."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(pd = Outer[PD, Bxyz[3], Buvw[3]]; \)\), 
+    \(MatrixForm[pd]\)}], "Input"],
+
+Cell["\<\
+npd = Sqrt[Inverse[pd]];
+npd //MatrixForm\
+\>", "Input"],
+
+Cell[BoxData[
+    \({Bxyz[3] . npd, Buvw[3] . npd} // TableForm\)], "Input"],
+
+Cell[BoxData[
+    \(MatrixForm[Outer[PD, Bxyz[3] . npd, Buvw[3] . npd]]\)], "Input"],
+
+Cell[TextData[{
+  "And it should be clear that the method extends to all degrees.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The Evaluation Theorem", "Subsubsection"],
+
+Cell[TextData[{
+  "Any polynomial ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " may be considered as defining a ",
+  StyleBox["function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  by evaluating it at particular complex numbers.  Treating polynomials as \
+",
+  StyleBox["expressions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", this evaluation can be done, of course, by a",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["substitution:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  Cell[BoxData[
+      StyleBox[\(f /. {x \[Rule] a, y \[Rule] b, z \[Rule] c}\),
+        FontWeight->"Bold"]]],
+  ".  We now make a very important step to relate ",
+  StyleBox["evaluation to polydifferentiation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Evaluation Theorem. ",
+    FontWeight->"Bold"],
+  "If ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  " is a homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial of degree ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  ", and if ",
+  StyleBox["g", "InlineInput",
+    FontWeight->"Bold"],
+  " is the linear form ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  ", then we find\n",
+  StyleBox["\t\t",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[
+        \(PD[f, g\^n] == \(n!\)\ f /. {x \[Rule] a, y \[Rule] b, z \[Rule] c}
+            \),
+        FontWeight->"Bold"]]],
+  ",\nor, if we used a notation of ",
+  StyleBox["(homogeneous) polynomial functions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then we could write:\n",
+  StyleBox["\t\t",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[
+        \(PD[f[x, y, z], \((a\ u + b\ v + c\ w)\)\^n] == 
+          \(n!\)\ f[a, b, c]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "In view of ",
+  StyleBox["bilinearity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  ", this need only be checked for ",
+  StyleBox["monomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  ".  In this case the result is proved by the associative law using ",
+  StyleBox["induction on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "That is, if ",
+  Cell[BoxData[
+      StyleBox[\(f == f\_1\ t\),
+        FontWeight->"Bold"]]],
+  ", where ",
+  StyleBox["t", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is one of the variables ",
+  StyleBox["x, y, z", "InlineInput",
+    FontWeight->"Bold"],
+  ", then"
+}], "Text"],
+
+Cell[TextData[{
+  "\t",
+  Cell[BoxData[
+      StyleBox[
+        \(PD[f\_1\ t, g\^n] == PD[f\_1, PD[t, g\^n]] == 
+          n\ PD[t, g]\ PD[f\_1, g\^\(n - 1\)]\),
+        Background->GrayLevel[1]]]]
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[TextData[{
+  "Now, ",
+  Cell[BoxData[
+      StyleBox[\(PD[t, g] == t /. {x \[Rule] a, y \[Rule] b, z \[Rule] c}\),
+        FontWeight->"Bold"]]],
+  ", as is easily checked by bilinearity and duality.  Then, by the inductive \
+hypothesis, the right-hand side equals"
+}], "Text"],
+
+Cell[TextData[Cell[BoxData[
+    \(\(\ \ \ \ \ \ 
+    \(n\ t\  /. 
+        \ {x \[Rule] a, y \[Rule] b, z \[Rule] c} \(\((n - 1)\)!\)\ 
+          f\_1\) /. {x \[Rule] a, y \[Rule] b, z \[Rule] c}\)\)],
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "The desired answer now emerges, because substitution ",
+  StyleBox["commutes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with multiplication. ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Note.",
+    FontWeight->"Bold"],
+  "  The ",
+  StyleBox["dual theorem",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  " interchanged holds as well, since the characterization theorem  for ",
+  StyleBox["PD ",
+    FontWeight->"Bold"],
+  "is completely symmetric.  "
+}], "Text",
+  Background->RGBColor[1, 0.4, 1]],
+
+Cell[TextData[{
+  StyleBox["Geometric Application.  ",
+    FontWeight->"Bold"],
+  "Suppose that ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is a homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial of degree ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " and suppose that ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " is the linear form ",
+  Cell[BoxData[
+      StyleBox[\(a\ u\  + \ b\ v\  + \ c\ w\),
+        FontWeight->"Bold"]]],
+  ", representing a ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The equation ",
+  Cell[BoxData[
+      StyleBox[\(f == 0\),
+        FontWeight->"Bold"]]],
+  " represents a ",
+  StyleBox["curve",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and the condition for",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["the point to lie on the curve",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["  ",
+    FontWeight->"Bold"],
+  "can be written as\n\t\t ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      \(PD[f, g\^n] == 0\)],
+    FontWeight->"Bold"],
+  ". "
+}], "Text",
+  Background->RGBColor[1, 0.300008, 0.300008]],
+
+Cell[TextData[{
+  "This is a direct generalization of what we did for points and lines, and \
+it is the key fact that connects the ",
+  StyleBox["algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and the ",
+  StyleBox["geometry",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The dual equation\n\t\t ",
+  Cell[BoxData[
+      \(PD[f\^n, g] == 0\)],
+    FontWeight->"Bold"],
+  " \n(where ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is linear and ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " is a homogeneous ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomial of degree ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  ") is the condition for the line ",
+  Cell[BoxData[
+      StyleBox[\(f == 0\),
+        FontWeight->"Bold"]]],
+  " to lie on the ",
+  StyleBox["envelope",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  Cell[BoxData[
+      StyleBox[\(g == 0\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell["Here is an example of evaluation with a monomial:", "Text"],
+
+Cell[BoxData[
+    \(PD[x\^2\ y\^3\ z, \((a\ u + b\ v + c\ w)\)\^6]\)], "Input"],
+
+Cell["Here is a 4th-degree check of this important property:", "Text"],
+
+Cell[BoxData[{
+    \(PD[x\^4 + 3\ x\^2\ y\^2 - 8\ z\^3\ y, \((a\ u + b\ v + c\ w)\)\^4]\n
+    \), 
+    \(Factor[%]\)}], "Input"],
+
+Cell["Here is a 3rd-degree check in dual form:", "Text"],
+
+Cell[BoxData[
+    \(PD[\((a\ x + b\ y + c\ z)\)\^3, d\ u\ v\ w + e\ u\^2\ v]\)], "Input"],
+
+Cell["\<\
+The Evaluation Theorem also allows us to make a key deduction.\
+\>",
+   "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  "  A homogeneous ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomial (or ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial) is uniquely determined by its behavior as a partial \
+differential operator."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  " Applying a ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomial to a ",
+  StyleBox["power",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a linear form just evaluates it at a certain triple (in view of the ",
+  StyleBox["dual",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the Evaluation Theorem).  But a polynomial is formally determined by \
+its behavior as a ",
+  StyleBox["polynomial function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Otherwise said, this proves that the ring of partial differential \
+operators on polynomials is ",
+  StyleBox["isomorphic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the polynomial ring.  We can also derive many important ",
+  StyleBox["geometric",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " consequences from the Evaluation Theorem, as we will see in future work.  \
+"
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{782, 550},
+WindowMargins->{{1, Automatic}, {Automatic, 1}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00X0001804P000000^<2@?ogonh33`9B89L5:0?l0000005X0FP000003Vl;@05X
+0N0;@00400P0000002000BL?00410@00000000000000000000X1T0000020101T
+@TYCE`0000000@00om?oYPm;2iX00000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 135, 4, 68, "Title"],
+Cell[1847, 55, 276, 10, 56, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[2148, 69, 41, 0, 53, "Section"],
+
+Cell[CellGroupData[{
+Cell[2214, 73, 94, 2, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2333, 79, 87, 1, 52, "Subsubsection"],
+Cell[2423, 82, 325, 13, 60, "Text",
+  Evaluatable->False],
+Cell[2751, 97, 1499, 59, 76, "Text",
+  Evaluatable->False],
+Cell[4253, 158, 175, 8, 38, "Text"],
+Cell[4431, 168, 63, 1, 54, "Input"],
+Cell[4497, 171, 62, 0, 33, "Text"],
+Cell[4562, 173, 52, 1, 54, "Input"],
+Cell[4617, 176, 633, 22, 84, "Text"],
+Cell[5253, 200, 1672, 63, 128, "Text"],
+Cell[6928, 265, 106, 2, 108, "Input"],
+Cell[7037, 269, 44, 1, 33, "Text"],
+Cell[7084, 272, 89, 3, 38, "Text"],
+Cell[7176, 277, 86, 1, 73, "Input"],
+Cell[7265, 280, 847, 24, 145, "Text",
+  Evaluatable->False],
+Cell[8115, 306, 528, 23, 76, "Text",
+  Evaluatable->False],
+Cell[8646, 331, 259, 8, 76, "Text",
+  Evaluatable->False],
+Cell[8908, 341, 257, 9, 60, "Text",
+  Evaluatable->False],
+Cell[9168, 352, 1012, 30, 150, "Text",
+  Evaluatable->False],
+Cell[10183, 384, 112, 3, 56, "Input"],
+Cell[10298, 389, 139, 4, 67, "Input"],
+Cell[10440, 395, 56, 1, 47, "Input"],
+Cell[10499, 398, 89, 3, 33, "Text"],
+Cell[10591, 403, 731, 29, 140, "Text",
+  Evaluatable->False],
+Cell[11325, 434, 499, 14, 105, "Text",
+  Evaluatable->False],
+Cell[11827, 450, 361, 13, 76, "Text",
+  Evaluatable->False],
+Cell[12191, 465, 977, 33, 144, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[13205, 503, 57, 0, 52, "Subsubsection"],
+Cell[13265, 505, 644, 16, 128, "Text",
+  Evaluatable->False],
+Cell[13912, 523, 951, 37, 99, "Text",
+  Evaluatable->False],
+Cell[14866, 562, 70, 0, 38, "Text"],
+Cell[14939, 564, 532, 19, 76, "Text",
+  Evaluatable->False],
+Cell[15474, 585, 278, 6, 83, "Text"],
+Cell[15755, 593, 635, 17, 128, "Text"],
+Cell[16393, 612, 387, 15, 76, "Text",
+  Evaluatable->False],
+Cell[16783, 629, 126, 3, 60, "Text"],
+Cell[16912, 634, 485, 19, 76, "Text",
+  Evaluatable->False],
+Cell[17400, 655, 614, 22, 105, "Text"],
+Cell[18017, 679, 61, 0, 38, "Text"],
+Cell[18081, 681, 938, 41, 76, "Text",
+  Evaluatable->False]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[19068, 728, 132, 3, 33, "Subsection",
+  Evaluatable->False,
+  PageBreakAbove->False],
+
+Cell[CellGroupData[{
+Cell[19225, 735, 45, 0, 52, "Subsubsection"],
+Cell[19273, 737, 559, 13, 128, "Text"],
+Cell[19835, 752, 415, 15, 76, "Text"],
+Cell[20253, 769, 416, 16, 76, "Text"],
+Cell[20672, 787, 702, 18, 150, "Text"],
+Cell[21377, 807, 243, 6, 60, "Text"],
+Cell[21623, 815, 850, 33, 76, "Text"],
+Cell[22476, 850, 824, 24, 144, "Text"],
+Cell[23303, 876, 1163, 33, 195, "Text"],
+Cell[24469, 911, 635, 19, 105, "Text"],
+Cell[25107, 932, 361, 10, 83, "Text"],
+Cell[25471, 944, 196, 6, 38, "Text"],
+Cell[25670, 952, 636, 23, 105, "Text"],
+Cell[26309, 977, 320, 13, 54, "Text"],
+Cell[26632, 992, 224, 4, 83, "Text"],
+Cell[26859, 998, 115, 3, 38, "Text"],
+Cell[26977, 1003, 699, 25, 99, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[27713, 1033, 78, 0, 52, "Subsubsection"],
+Cell[27794, 1035, 109, 3, 38, "Text"],
+Cell[27906, 1040, 588, 23, 76, "Text"],
+Cell[28497, 1065, 1815, 67, 172, "Text"],
+Cell[30315, 1134, 488, 15, 83, "Text"],
+Cell[30806, 1151, 1701, 70, 144, "Text"],
+Cell[32510, 1223, 305, 7, 83, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[32876, 1237, 50, 0, 33, "Section"],
+
+Cell[CellGroupData[{
+Cell[32951, 1241, 89, 2, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[33065, 1247, 53, 0, 52, "Subsubsection"],
+Cell[33121, 1249, 233, 7, 60, "Text"],
+Cell[33357, 1258, 1219, 43, 192, "Text"],
+Cell[34579, 1303, 423, 12, 83, "Text"],
+Cell[35005, 1317, 390, 16, 54, "Text"],
+Cell[35398, 1335, 1678, 61, 214, "Text"],
+Cell[37079, 1398, 759, 21, 172, "Text"],
+Cell[37841, 1421, 338, 9, 76, "Text"],
+Cell[38182, 1432, 479, 12, 105, "Text"],
+Cell[38664, 1446, 924, 35, 105, "Text"],
+Cell[39591, 1483, 401, 15, 76, "Text"],
+Cell[39995, 1500, 512, 19, 76, "Text"],
+Cell[40510, 1521, 138, 3, 60, "Text"],
+Cell[40651, 1526, 93, 1, 54, "Input"],
+Cell[40747, 1529, 331, 11, 56, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[41115, 1545, 189, 4, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[41307, 1551, 139, 3, 60, "Text"],
+Cell[41449, 1556, 158, 2, 96, "Input"],
+Cell[41610, 1560, 77, 1, 54, "Input"],
+Cell[41690, 1563, 219, 9, 33, "Text"],
+Cell[41912, 1574, 89, 1, 54, "Input"],
+Cell[42004, 1577, 162, 6, 33, "Text"],
+Cell[42169, 1585, 70, 1, 54, "Input"],
+Cell[42242, 1588, 58, 1, 47, "Input"],
+Cell[42303, 1591, 145, 6, 33, "Text"],
+Cell[42451, 1599, 127, 3, 74, "Input"],
+Cell[42581, 1604, 52, 0, 33, "Text"],
+Cell[42636, 1606, 77, 1, 54, "Input"],
+Cell[42716, 1609, 87, 1, 47, "Input"],
+Cell[42806, 1612, 314, 12, 56, "Text"],
+Cell[43123, 1626, 115, 2, 94, "Input"],
+Cell[43241, 1630, 96, 3, 38, "Text"],
+Cell[43340, 1635, 32, 3, 68, "Input"],
+Cell[43375, 1640, 275, 11, 33, "Text"],
+Cell[43653, 1653, 70, 1, 56, "Input"],
+Cell[43726, 1656, 93, 3, 33, "Text"],
+Cell[43822, 1661, 24, 0, 52, "Input"],
+Cell[43849, 1663, 185, 8, 33, "Text"],
+Cell[44037, 1673, 77, 1, 56, "Input"],
+Cell[44117, 1676, 26, 0, 44, "Input"],
+Cell[44146, 1678, 24, 0, 44, "Input"],
+Cell[44173, 1680, 323, 12, 72, "Text"],
+Cell[44499, 1694, 398, 12, 99, "Text"],
+Cell[44900, 1708, 135, 2, 114, "Input"],
+Cell[45038, 1712, 47, 1, 47, "Input"],
+Cell[45088, 1715, 70, 1, 67, "Input"],
+Cell[45161, 1718, 233, 6, 56, "Text"],
+Cell[45397, 1726, 79, 1, 54, "Input"],
+Cell[45479, 1729, 357, 13, 56, "Text"],
+Cell[45839, 1744, 139, 5, 100, "Input"],
+Cell[45981, 1751, 50, 0, 33, "Text"],
+Cell[46034, 1753, 213, 5, 116, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[46284, 1763, 83, 1, 29, "Subsubsection",
+  PageBreakAbove->True],
+Cell[46370, 1766, 454, 17, 76, "Text"],
+Cell[46827, 1785, 3138, 128, 294, "Text"],
+Cell[49968, 1915, 357, 13, 76, "Text"],
+Cell[50328, 1930, 1284, 45, 236, "Text"],
+Cell[51615, 1977, 1006, 41, 121, "Text",
+  PageBreakAbove->True],
+Cell[52624, 2020, 2645, 89, 140, "Text"],
+Cell[55272, 2111, 855, 23, 172, "Text"],
+Cell[56130, 2136, 82, 1, 38, "Text",
+  PageBreakAbove->True],
+Cell[56215, 2139, 56, 0, 52, "Input"],
+Cell[56274, 2141, 143, 5, 33, "Text"],
+Cell[56420, 2148, 2197, 88, 337, "Text"],
+Cell[58620, 2238, 203, 6, 60, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[58872, 2250, 44, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[58941, 2254, 62, 0, 52, "Subsubsection"],
+Cell[59006, 2256, 773, 32, 102, "Text"],
+Cell[59782, 2290, 961, 30, 128, "Text"],
+Cell[60746, 2322, 989, 36, 105, "Text"],
+Cell[61738, 2360, 116, 3, 60, "Text"],
+Cell[61857, 2365, 45, 0, 52, "Input"],
+Cell[61905, 2367, 140, 5, 38, "Text"],
+Cell[62048, 2374, 98, 2, 74, "Input"],
+Cell[62149, 2378, 978, 29, 83, "Text"],
+Cell[63130, 2409, 51, 0, 38, "Text"],
+Cell[63184, 2411, 67, 3, 68, "Input"],
+Cell[63254, 2416, 39, 0, 38, "Text"],
+Cell[63296, 2418, 76, 1, 54, "Input"],
+Cell[63375, 2421, 94, 5, 38, "Text"],
+Cell[63472, 2428, 84, 1, 54, "Input"],
+Cell[63559, 2431, 217, 7, 60, "Text"],
+Cell[63779, 2440, 98, 2, 74, "Input"],
+Cell[63880, 2444, 66, 3, 68, "Input"],
+Cell[63949, 2449, 76, 1, 54, "Input"],
+Cell[64028, 2452, 84, 1, 54, "Input"],
+Cell[64115, 2455, 142, 4, 38, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[64294, 2464, 47, 0, 29, "Subsubsection"],
+Cell[64344, 2466, 816, 27, 105, "Text"],
+Cell[65163, 2495, 1112, 41, 172, "Text"],
+Cell[66278, 2538, 641, 26, 60, "Text"],
+Cell[66922, 2566, 339, 14, 38, "Text"],
+Cell[67264, 2582, 231, 8, 38, "Text"],
+Cell[67498, 2592, 282, 7, 60, "Text"],
+Cell[67783, 2601, 232, 5, 32, "Text"],
+Cell[68018, 2608, 232, 8, 60, "Text"],
+Cell[68253, 2618, 454, 18, 76, "Text"],
+Cell[68710, 2638, 1204, 49, 153, "Text"],
+Cell[69917, 2689, 1043, 42, 147, "Text"],
+Cell[70963, 2733, 65, 0, 38, "Text"],
+Cell[71031, 2735, 79, 1, 56, "Input"],
+Cell[71113, 2738, 70, 0, 33, "Text"],
+Cell[71186, 2740, 128, 3, 96, "Input"],
+Cell[71317, 2745, 56, 0, 33, "Text"],
+Cell[71376, 2747, 89, 1, 56, "Input"],
+Cell[71468, 2750, 89, 3, 33, "Text"],
+Cell[71560, 2755, 334, 12, 76, "Text"],
+Cell[71897, 2769, 678, 25, 83, "Text"],
+Cell[72578, 2796, 426, 12, 83, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

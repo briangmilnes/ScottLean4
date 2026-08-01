@@ -1,0 +1,5614 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[    139598,       5168]*)
+(*NotebookOutlinePosition[    140324,       5194]*)
+(*  CellTagsIndexPosition[    140280,       5190]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 11   Projective Geometry\n",
+  StyleBox["Poles, Polars, and Projectivities for Conics",
+    FontSize->18]
+}], "Title"],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["8 November 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle",
+  FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell["Poles and Polars for Conics", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Polarity with respect to a conic", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Definitions and basic properties", "Subsubsection"],
+
+Cell["\<\
+Differentiation of a conic with respect to a point is an \
+interesting and important transformation from points to lines.  The operation \
+has a special name.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition. ",
+    FontWeight->"Bold"],
+  "If ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is a conic, then ",
+  StyleBox["PD[f,p]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is a line, called the ",
+  StyleBox["polar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the point ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " with respect to the conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " is called the ",
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "of this line.  "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Definition. ",
+    FontWeight->"Bold"],
+  "Two points ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " are ",
+  StyleBox["conjugate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to a conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " if each is on the polar of the other.  Algebraically this means that ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, p\ q] == 0\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"]
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Note:",
+    FontWeight->"Bold"],
+  " All such definitions can be stated in a ",
+  StyleBox["dual form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (Do this!)"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell["\<\
+The points on the conic have a special property.  The proofs are \
+very easy.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Proposition.  ",
+    FontWeight->"Bold"],
+  "A point ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " lies on its ",
+  StyleBox["own polar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, and only if, it lies on the conic; and in that case the polar ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the tangent to the conic at the point."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "The polar of ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["PD[f,p]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  ".  If the point lies on the polar, then we have\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(0 == PD[PD[f, p], p] == PD[f, p\^2]\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "\nAnd so the point lies on the conic.  This proof is reversible.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Proposition.  ",
+    FontWeight->"Bold"],
+  "If a point ",
+  StyleBox["p ",
+    FontWeight->"Bold"],
+  "is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the conic, then its polar is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " tangent to the conic."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof: ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " The polar of ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["PD[f,p]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  ".  Suppose the polar ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a tangent to the conic.  Then there is a point ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " on the conic so that the polar represents the same line as the tangent at \
+",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  StyleBox[".  ",
+    FontWeight->"Bold"],
+  "That means we have an equation:\n\t\t\t",
+  Cell[BoxData[
+      StyleBox[\(PD[f, p] == a\ PD[f, q]\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "\nDifferentiating both sides by ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " we find that ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, p\ q] == 0\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  "because ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["on the curve",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Now differentiate both sides of the same equation by ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ", and we find that ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{
+          RowBox[{"PD", "[", 
+            RowBox[{
+              StyleBox["f",
+                FontWeight->"Bold"], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              SuperscriptBox[
+                StyleBox["p",
+                  FontWeight->"Bold"], "2"]}], "]"}], "==", "0"}],
+        FontWeight->"Bold"]]],
+  StyleBox[".  ",
+    FontWeight->"Bold"],
+  "And so the point ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " lies on the conic.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+From the above and from previous discussions of tangents we can \
+conclude:\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.  ",
+    FontWeight->"Bold"],
+  "The polar of a point ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " intersects a non-degererate conic at the ",
+  StyleBox["two points of tangency",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the tangents from ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " to the conic.  The points of intersection are ",
+  StyleBox["equal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, and only if, the point ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the conic (and, therefore, on the polar)."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+Note we can turn this conclusion around:  if we are given are two \
+distinct points on a non-degenerate conic, then the line joining the two \
+points is the polar of the intersection of the two tangents at the points.    \
+But there is a more general result, since the points do not have to lie on \
+the conic.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  " If ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is a non-degenerate conic and ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " are two distinct points, then ",
+  StyleBox["PE[q,r]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " must represent the same line as ",
+  StyleBox["PD[f,PE[PD[f,q],PD[f,r]]]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  ".  In words we can say that:\n ",
+  StyleBox[
+  "The intersection of the polars of two points is the pole of the line \
+joining them.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Because all non-degenerate conics are ",
+  StyleBox["projectively equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we can be content with a symbolic proof for a ",
+  StyleBox["particular conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[f, a, b, c, q, r, Subscript]; \nf = x\^2 + y\^2 + z\^2; \n
+    q = a\_1\ u + b\_1\ v + c\_1\ w; \nr = a\_2\ u + b\_2\ v + c\_2\ w; \n
+    Tidy[PE[q, r]]\), 
+    \(Tidy[1\/8\ PD[f, PE[PD[f, q], PD[f, r]]]]\)}], "Input"],
+
+Cell[TextData[{
+  "The lines represented are seen to be the same.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "But there is an even ",
+  StyleBox["more general",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " statement continuing what was just proved."
+}], "Text"],
+
+Cell[TextData[{
+  "Corollary.",
+  StyleBox["  If ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(f\)]],
+  StyleBox[" is a non-degenerate conic and the point ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(q\)]],
+  StyleBox[" moves along a ",
+    FontWeight->"Plain"],
+  StyleBox["line",
+    FontSlant->"Italic"],
+  StyleBox[", then the polars ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(PD[f, q]\)]],
+  StyleBox[" are all ",
+    FontWeight->"Plain"],
+  StyleBox["concurrent",
+    FontSlant->"Italic"],
+  StyleBox[
+  " at the pole of the line.  This transformation from a range of points to a \
+pencil of lines",
+    FontWeight->"Plain"],
+  StyleBox["  preserves crossratios",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Proof:",
+  StyleBox["  The transformation  ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(q \[Rule] PD[f, q]\),
+        FontSlant->"Plain"]]],
+  StyleBox[" ",
+    FontSlant->"Plain"],
+  StyleBox["is a ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "linear transformation",
+  StyleBox[" from the vector space ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(\(\[DoubleStruckCapitalC]\^1\)[u, v, w]\),
+        FontSlant->"Plain"]]],
+  StyleBox[" to ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[\(\(\[DoubleStruckCapitalC]\^1\)[x, y, z]\),
+        FontSlant->"Plain"]]],
+  StyleBox[
+  ".  Hence, collinear (dependent) points must go over into concurrent lines \
+and crossratios must be preserved.  (Why?)  From the formula of the last \
+theorem we identify this point of concurrency as the pole of the line \
+containg the points ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox["q",
+        FontSlant->"Plain"]]],
+  StyleBox[".  ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["Q.E.D.",
+    FontSlant->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  "As was pointed out earlier, there are going to be many consequences from \
+this theorem involving ",
+  StyleBox["crossratios",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Examples.  ",
+    FontWeight->"Bold"],
+  "We illustrate the theorem with some pictures.  First a hyperbola."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, q]; \)\), 
+    \(\(f = 2\ x\ y + 3\ y\ z + x\ z; \)\), 
+    \(q[t_] := t\ \((\(-2\)\ u + w)\) + \((1 - t)\)\ \((\(-v\) + w)\); \n\n
+    ImplicitPlot[
+      Join[{f == 0, PE[q[0], q[1]] == 0}, 
+          Table[PD[f, q[t]] == 0, {t, \(-3\), 3}]] /. z \[Rule] 1, {x, 
+        \(-5\), 5}, {y, \(-5\), 5}, AxesOrigin \[Rule] {0, 0}, 
+      PlotStyle \[Rule] 
+        Join[{{Thickness[0.005], Red}, {Thickness[0.005], Blue}}, 
+          Table[Black, {7}]]]; \)}], "Input"],
+
+Cell["And we can change the conic to an ellipse.", "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, q]; \)\), 
+    \(\(f = x\^2\/4 + y\^2\/2 - z\^2; \)\), 
+    \(\(q[t_] := t\ \((\(-2\)\ u + w)\) + \((1 - t)\)\ \((\(-v\) + w)\); 
+    \)\), 
+    \(\(ImplicitPlot[
+      Join[{f == 0, PE[q[0], q[1]] == 0}, 
+          Table[PD[f, q[t]] == 0, {t, \(-3\), 3}]] /. z \[Rule] 1, {x, 
+        \(-5\), 5}, {y, \(-5\), 5}, AxesOrigin \[Rule] {0, 0}, 
+      PlotStyle \[Rule] 
+        Join[{{Thickness[0.005], Red}, {Thickness[0.005], Blue}}, 
+          Table[Black, {7}]]]; \)\)}], "Input"],
+
+Cell["\<\
+Or we can let the point move along a diagonal line outside the \
+conic. \
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, q]; \)\), 
+    \(\(f = x\^2\/3 + y\^2\/5 - z\^2; \)\), 
+    \(q[t_] := w + 4\ u + t\ \((w + 4\ v)\); 
+    ImplicitPlot[
+      Join[{f == 0, PE[q[0], q[1]] == 0}, 
+          Table[PD[f, q[t]] == 0, {t, \(-5\), 5}]] /. z \[Rule] 1, {x, 
+        \(-5\), 10}, {y, \(-5\), 7}, Axes \[Rule] None, 
+      PlotStyle \[Rule] 
+        Join[{{Thickness[0.005], Red}, {Thickness[0.005], Blue}}, 
+          Table[Black, {11}]]]; \)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Self-polar triangles\t", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell["\<\
+Polarity with respect to a conic can create many special \
+configurations of points and lines.  Here is one typical one.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition. ",
+    FontWeight->"Bold"],
+  "A triangle of points ",
+  Cell[BoxData[
+      StyleBox[\({p, q, r}\),
+        FontWeight->"Bold"]]],
+  " is said to be ",
+  StyleBox["self-polar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to a conic",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " if each side is the polar of the opposite vertex (which is the same as \
+saying that any two distinct vertices are conjugate).  Algebraically this \
+means that  \n\t\t",
+  Cell[BoxData[
+      StyleBox[\(PD[f, p\ q] == PD[f, q\ r] == PD[f, p\ r] == 0\),
+        FontWeight->"Bold"]]]
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["\<\
+Self-polar triangles arise in configurations involving quadrangles, \
+for example.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The three ",
+  StyleBox["diagonal points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a non-degenerate ",
+  StyleBox["quadrangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with all four of its vertices on a conic always form a ",
+  StyleBox["self-polar triangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "We can do the calculation with respect to ",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " convenient conic.  So here are four ",
+  StyleBox["symbolic points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (which we can assume are distinct) on the ",
+  StyleBox["unit circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[{
+    \(ClearAll[f, p, t, d, Subscript]\), 
+    \(f = x\^2 + y\^2 - z\^2; \n
+    p\_1 = \((t\_1\%2 - 1)\)\ u + 2\ t\_1\ v + \((t\_1\%2 + 1)\)\ w; 
+    p\_2 = \((t\_2\%2 - 1)\)\ u + 2\ t\_2\ v + \((t\_2\%2 + 1)\)\ w; 
+    p\_3 = \((t\_3\%2 - 1)\)\ u + 2\ t\_3\ v + \((t\_3\%2 + 1)\)\ w; 
+    p\_4 = \((t\_4\%2 - 1)\)\ u + 2\ t\_4\ v + \((t\_4\%2 + 1)\)\ w; 
+    Expand[\((PD[f, #1\^2]&)\)/@{p\_1, p\_2, p\_3, p\_4}]\)}], "Input",
+  AspectRatioFixed->False],
+
+Cell["\<\
+We compute the three diagonal points (no need to see the symbolic \
+answers).\
+\>", "Text"],
+
+Cell[BoxData[
+    \(d\_1 = PE[PE[p\_1, p\_3], PE[p\_2, p\_4]]; \n
+    d\_2 = PE[PE[p\_1, p\_4], PE[p\_2, p\_3]]; \n
+    d\_3 = PE[PE[p\_1, p\_2], PE[p\_3, p\_4]]; \)], "Input",
+  AspectRatioFixed->False],
+
+Cell["We now check that we have a self-polar triangle.", "Text"],
+
+Cell[BoxData[
+    \(Expand[{PD[f, d\_1\ d\_2], PD[f, d\_2\ d\_3], PD[f, d\_3\ d\_1]}]\)], 
+  "Input",
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "It is true!  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.  ",
+    FontWeight->"Bold"],
+  "Note that the parameterization leaves out ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point on the conic.  (Why?)  But this does not reduce generality since we \
+are only concerned with a finite number of points on the curve."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell["\<\
+And here is a picture with special values for the parameters. \
+\>",
+   "Text"],
+
+Cell[BoxData[
+    \(t\_1 = 0; t\_2 = 1; t\_3 = 2; t\_4 = \(-20\); \n
+    ImplicitPlot[{f == 0, \n\t\tPD[f, d\_1] == 0, PD[f, d\_2] == 0, 
+          PD[f, d\_3] == 0, \n\t\t\ \ PE[p\_1, p\_3] == 0, 
+          PE[p\_2, p\_4] == 0, \n\t\ \ \tPE[p\_1, p\_4] == 0, 
+          PE[p\_2, p\_3] == 0, PE[p\_1, p\_2] == 0, PE[p\_3, p\_4] == 0} /. {
+          z \[Rule] 1}, {x, \(-2\), 5}, {y, \(-2\), 2}, \n\t
+      Axes \[Rule] None, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.004], Red}, Green, Green, Green, Black, Black, 
+          Black, Black, Black, Black}, PlotPoints \[Rule] 100]; \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Comment. ",
+    FontWeight->"Bold"],
+  " This picture shows us one way of constructing polars: Take a point.  By \
+drawing two convenient lines, make it a diagonal point of a quadrangle with \
+vertices on the conic.  Now ",
+  StyleBox["join",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the the other two diagonal points.  Remember, the polar intersects the \
+conic at the points the tangents from the pole touch the conic.  So, the \
+picture also shows how to find these points from a quadrangle that is easy to \
+draw."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell["Let us consider some special cases.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Example 1.  ",
+    FontWeight->"Bold"],
+  "The first case of a ",
+  StyleBox["degenerate conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a pair of ",
+  StyleBox["distinct lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".",
+  StyleBox["  ",
+    FontWeight->"Bold"],
+  "As a typical case we can take ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["f",
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[\(x\ y\),
+          FontWeight->"Bold"]}]]],
+  " which gives us the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "- and ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-axes.  We find a degeneracy because the polars are always lines passing \
+through ",
+  StyleBox["the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "(or, more generally, theought the intersection of the two lines)."
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[x\ y, a\ u + b\ v + c\ w]\)], "Input"],
+
+Cell[BoxData[
+    \(PD[b\ x + a\ y, a\ u + b\ v + c\ w]\)], "Input"],
+
+Cell[BoxData[
+    \(PD[x\ y, \((a\ u + b\ v + c\ w)\)\^2]\)], "Input"],
+
+Cell["\<\
+In this case, if four points lie two-by-two on the two lines (none \
+at the intersection), one of the diagonal points is the intersection, and the \
+two sides of the self polar triange passing through the intersection divide \
+the two given lines harmonically.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(PE[w, a\ u + b\ v + c\ w]\)], "Input"],
+
+Cell[BoxData[
+    \(RL[x, y, b\ x + a\ y, \(-b\)\ x + a\ y]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Example 2.  ",
+    FontWeight->"Bold"],
+  "The typical case of a line ",
+  StyleBox["counted twice",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can be represented by ",
+  Cell[BoxData[
+      StyleBox[\(y\^2\),
+        FontWeight->"Bold"]]],
+  ", which give the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis counted twice.  There is only one polar."
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[y\^2, a\ u + b\ v + c\ w]\)], "Input"],
+
+Cell[TextData[{
+  "All points on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis are double points.  This is too degenerate to make interesting \
+configurations."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Example 3.  ",
+    FontWeight->"Bold"],
+  "We calculate next the polar of the non-degenerate ",
+  StyleBox["unit circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to an arbitrary point (and divide out an unwanted numerical \
+factor):"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, p]; \)\), 
+    \(\(f = x\^2 + y\^2 - z\^2; \)\), 
+    \(\(p = a\ u + b\ v + c\ w; \)\), 
+    \(Tidy[1\/2\ PD[f, p]]\)}], "Input"],
+
+Cell[TextData[{
+  "That is quite a nice formula.  As we have proved, this line passes through \
+the points where the tangents from ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " meet the conic.  To find algebraically the ",
+  StyleBox["points of tangency",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] and the tangents themselves \[LongDash] we should be able to \
+solve for the intersection of this line with the conic.  We have programmed a \
+general routine for doing so, called ",
+  Cell[BoxData[
+      StyleBox["ConicTangents",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(?ConicTangents\)\)], "Input"],
+
+Cell[BoxData[
+    \(qq = ConicTangents[f, a\ x + b\ y - c\ z]\)], "Input"],
+
+Cell["\<\
+The general formula for the case of the circle is not so bad (but \
+the program will work with any conic).  Let us check that the points are on \
+the circle.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(Together[Expand[PD[f, qq\[LeftDoubleBracket]1\[RightDoubleBracket]\^2]]]
+      \), 
+    \(Together[Expand[PD[f, qq\[LeftDoubleBracket]2\[RightDoubleBracket]\^2]]]
+      \)}], "Input"],
+
+Cell[TextData[{
+  "Here are the formulae for the ",
+  StyleBox["tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(tan\_1 = 
+      Tidy[Together[
+          Expand[1\/2\ PD[f, qq\[LeftDoubleBracket]1\[RightDoubleBracket]]\ 
+              \((a\^2 + b\^2)\)]]]\), 
+    \(tan\_2 = 
+      Tidy[Together[
+          Expand[1\/2\ PD[f, qq\[LeftDoubleBracket]2\[RightDoubleBracket]]\ 
+              \((a\^2 + b\^2)\)]]]\)}], "Input"],
+
+Cell[TextData[{
+  "Now, let us look at the ",
+  StyleBox["intersection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two tangents."
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[PE[tan\_1, tan\_2]]\)], "Input"],
+
+Cell[TextData[{
+  "And we get back to the ",
+  StyleBox["original point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!"
+}], "Text"],
+
+Cell[TextData[{
+  "We draw pictures for several ",
+  StyleBox["specific points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f]; \)\), 
+    \(\(f = x\^2 + y\^2 - z\^2; \)\), 
+    \(\(polars = 
+      \((PD[f, #1]&)\)/@{\(-2\)\ u - 2\ v + w, 2\ u + 5\ v + w, 
+          \(-4\)\ u + 3\ v + w}; \)\), 
+    \(\(tans = \((ConicTangents[f, #1]&)\)/@polars; \)\), 
+    \(\(ImplicitPlot[
+      Flatten[{f == 0, \((#1 == 0&)\)/@polars, 
+            \(({PD[f, #1\[LeftDoubleBracket]1\[RightDoubleBracket]] == 0, 
+                    PD[f, #1\[LeftDoubleBracket]2\[RightDoubleBracket]] == 
+                      0}&)\)/@tans}] /. z \[Rule] 1, {x, \(-5\), 5}, {y, 
+        \(-5\), 5}, Axes \[Rule] None, PlotPoints \[Rule] 100, 
+      PlotStyle 
+        \[Rule] {Black, Red, Green, Blue, Red, Red, Green, Green, Blue, 
+          Blue}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "And here is an easy proof using ",
+  StyleBox["pencils",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["duality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (The theorem could also be stated in dual form.)"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  If ",
+  StyleBox["two pairs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of opposite sides of ",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " non-degenerate quadrangle are conjugate with respect to a ",
+  StyleBox["dual conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then so is the third side."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "Let the pairs of opposite sides be:  \n\t\t",
+  Cell[BoxData[
+      StyleBox[\({{l\_1, l\_2}, {m\_1, m\_2}, {n\_1, n\_2}}\),
+        FontWeight->"Bold"]]],
+  ". \nThe products of the pairs are all (degenerate) conics passing through \
+the four points.  But the conics through the four points form a ",
+  StyleBox["pencil",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Hence,  the following sort of linear relation must hold:  \n\t\t\t",
+  Cell[BoxData[
+      \(a\ l\_1\ l\_2 + b\ m\_1\ m\_2 == n\_1\ n\_2\)],
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Now if  ",
+  Cell[BoxData[
+      StyleBox[\(l\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(l\_2\),
+        FontWeight->"Bold"]]],
+  StyleBox[",",
+    FontWeight->"Bold"],
+  " as well as ",
+  Cell[BoxData[
+      StyleBox[\(m\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(m\_2\),
+        FontWeight->"Bold"]]],
+  ", are conjugate with respect to a (dual) conic ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  ", we have:\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(PD[l\_1\ l\_2, g] == 0 == PD[m\_1\ m\_2, g]\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "\nBut, by bilinearity, it follows at once that ",
+  Cell[BoxData[
+      StyleBox[\(PD[n\_1\ n\_2, g] == 0\),
+        FontWeight->"Bold"]]],
+  ", as desired.",
+  StyleBox[" Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  So, what does polarity with respect to ordinary ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-conics have to do with polarity with respect to dual ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-conics?  We answer this in the next section."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Hessians, dual conics, and correlations", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Relating polarity to the Hessian", "Subsubsection"],
+
+Cell["\<\
+As we have seen the pole of a line with respect to a conic can be \
+determined by intersecting two polars of two points on the line; but we can \
+also use the dual conic as well. \
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  Let ",
+  Cell[BoxData[
+      StyleBox[\(g = Envel[f]\),
+        FontWeight->"Bold"]]],
+  "be the dual conic of a  ",
+  StyleBox["non-degenerate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ".  Then for points ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and lines ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  " we have:\n\t",
+  Cell[BoxData[
+      StyleBox[\(PD[PD[f, p], g]\),
+        FontWeight->"Bold"]]],
+  " represents the ",
+  StyleBox["same point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " , and\n\t",
+  Cell[BoxData[
+      StyleBox[\(PD[f, PD[l, g]]\),
+        FontWeight->"Bold"]]],
+  " represents the ",
+  StyleBox["same line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  ".\nIn other words:\n",
+  StyleBox[
+  "The pole with respect to the dual conic of the polar of a point with \
+respect to a given conic is the original point.  Polarity with respect to a \
+conic is a one-one correspondence, and the inverse transformation is polarity \
+with respect to the dual conic.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  We will check this out by symbolic computation.  First, here is the \
+general conic and its dual."
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[f, a, b, c, Subscript]; \n
+    f = Table[a\_i, {i, 6}] . Bxyz[2]\), 
+    \(g = Envel[f]\)}], "Input"],
+
+Cell["\<\
+Now, take a general point and work out the first combination.\
+\>", 
+  "Text"],
+
+Cell[BoxData[{
+    \(p = a\ u + b\ v + c\ w; \nFactor[PD[PD[f, p], g]]\), 
+    \(Expand[PE[p, %]]\)}], "Input"],
+
+Cell[TextData[{
+  "This computation establishes the result, because the factor we see for ",
+  Cell[BoxData[
+      StyleBox[\(PD[PD[f, p], g]\),
+        FontWeight->"Bold"]]],
+  " is just twice the Hessian determinant."
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[Det[MHP[f]]]\)], "Input"],
+
+Cell[TextData[{
+  "And we proved already that this quantitity is only ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " for the degenerate conics.  If we modify ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  "  by this constant factor, then we get a perfect match."
+}], "Text"],
+
+Cell[BoxData[
+    \(p = a\ u + b\ v + c\ w; \n
+    Factor[PD[PD[f, p], g/\((2  Det[MHP[f]])\)]]\)], "Input"],
+
+Cell["Now for the other combination.", "Text"],
+
+Cell[BoxData[{
+    \(l = a\ x + b\ y + c\ z; \nFactor[PD[f, PD[l, g]]]\), 
+    \(Expand[PE[l, %]]\)}], "Input"],
+
+Cell["And, after modification:", "Text"],
+
+Cell[BoxData[
+    \(l = a\ x + b\ y + c\ z; \n
+    Factor[PD[f, PD[l, g/\((2  Det[MHP[f]])\)]]]\)], "Input"],
+
+Cell[TextData[{
+  "It is the same story.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  Note that this theorem is one way of showing that the ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " given by the formula ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " indeed the envelope of  ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ", and the dual envelope of ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " is ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " again."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "The Hessian matrix also makes the ",
+  StyleBox["computation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of duals and poles and polars easy.  Consider a (slightly different form) \
+of a general conic and its Hessian matrix, and note the ",
+  StyleBox["equality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the following two computations:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[f, hes, a, b, c, Subscript]; \n
+    f = {a\_1, 2\ a\_2, a\_3, 2\ a\_4, 2\ a\_5, a\_6} . Bxyz[2]; \n
+    hes = MHP[f]; \nTidy[PD[f, a\ u + b\ v + c\ w]]\), 
+    \(Tidy[{x, y, z} . hes . {a, b, c}]\)}], "Input"],
+
+Cell["In otherwords, we have proved:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  " If ",
+  StyleBox["hes",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " is is the Hessian matrix of a conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ", then when ",
+  StyleBox["{a,b,c}",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " are ",
+  StyleBox["point coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we find that ",
+  StyleBox["hes.{a,b,c}",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " gives the ",
+  StyleBox["line coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  of the ",
+  StyleBox["polar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to the conic. Therefore, the ",
+  StyleBox["inverse matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["hes",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " will transform",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["line coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " into point coordinates of the ",
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the ",
+  StyleBox["line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Note.",
+    FontWeight->"Bold"],
+  "  As the Hessian is a ",
+  StyleBox["symmetric matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we can write the polar of a point ",
+  Cell[BoxData[
+      StyleBox[\(a\ u\  + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  " as ",
+  StyleBox["{a,b,c}.hes",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " as well.  The pole of  a line  ",
+  Cell[BoxData[
+      StyleBox[\(a\ x\  + b\ y + c\ z\),
+        FontWeight->"Bold"]]],
+  " is then ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(Inverse[hes] . {a, b, c}\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox[\({a, b, c}\),
+            FontWeight->"Bold"], 
+          StyleBox[".",
+            FontWeight->"Bold"], 
+          StyleBox[\(Inverse[hes]\),
+            FontWeight->"Bold"]}]}]]],
+  ".  One problem with vector notation, however, is that you sometimes forget \
+what the vectors stand for!"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Example.",
+    FontWeight->"Bold"],
+  " Recall that we proved that if ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is a non-degenerate conic and ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " are two distinct points, then the pole of the line ",
+  StyleBox["PE[q,r]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " must be the same point as that represented by ",
+  StyleBox["PE[PD[f,q],PD[f,r]]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  ", the intersection of two polars.  We can check the property now by using \
+the Hessian.  We can use for this example any particular non-degenerate \
+conic.  We then calculate the pole of a line joining two points in two \
+different ways."
+}], "Text"],
+
+Cell[BoxData[{
+  \(ClearAll[conic, hes, a, b, c, d, e, f, p, q, r, \n\tSubscript]; \n
+    conic\  = \ x\ y\  + \ y\ z\  + z\ x; \nhes = MHP[conic]; \n
+    invhes\  = \ Inverse[hes]; \nq = \ a\ u + b\ v + c\ w; \n
+    r = \ d\ u + e\ v + f\ w; \nline = Tidy[PE[q, r]]\), 
+  \(pole = Tidy[2 {u, v, w} . invhes . CL[line]]\), 
+    RowBox[{"Tidy", "[", 
+      StyleBox[\(PE[PD[conic, q], PD[conic, r]]\),
+        FontFamily->"Courier",
+        FontWeight->"Bold"], 
+      StyleBox["]",
+        FontFamily->"Courier",
+        FontWeight->"Bold"]}]}], "Input"],
+
+Cell["The two points are indeed the same.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  The advantage of the Hessian is that the pole comes directly from the \
+coordinates of a line without having to find two points on that line.  \
+Finding ",
+  Cell[BoxData[
+      StyleBox[\(Inverse[hes]\),
+        FontWeight->"Bold"]]],
+  " is, however, about as much work as finding the envelope of a conic.  Of \
+course, finding envelopes applies as well to curves of ",
+  StyleBox["higher degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Examples of dual conics and Hessians", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Example 1. ",
+    FontWeight->"Bold"],
+  "Let us consider the general conic and its Hessian:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, g, hes, a, Subscript]; \)\), 
+    \(f = {a\_1, 2\ a\_2, a\_3, 2\ a\_4, 2\ a\_5, a\_6} . Bxyz[2]; \n
+    hes = MHP[f]; \nhes // MatrixForm\)}], "Input"],
+
+Cell[TextData[{
+  "We have just been using the inverse of the matrix ",
+  Cell[BoxData[
+      StyleBox["hes",
+        FontWeight->"Bold"]]],
+  " to caculate poles of lines with respect to a given conic.  We simplify \
+the inverse here to avoid fractions.  It is the answer to an interesting \
+question, as we shall show."
+}], "Text"],
+
+Cell[BoxData[
+    \(DH[hes_] := 
+      Module[{hh, seq}, 
+        seq := Flatten[
+            hes]; {{\(-\((hh[5]\ hh[7])\)\) + hh[4]\ hh[8], 
+              hh[2]\ hh[7] - hh[1]\ hh[8], 
+              \(-\((hh[2]\ hh[4])\)\) + hh[1]\ hh[5]}, {
+              hh[5]\ hh[6] - hh[3]\ hh[8], 
+              \(-\((hh[2]\ hh[6])\)\) + hh[0]\ hh[8], 
+              hh[2]\ hh[3] - hh[0]\ hh[5]}, {
+              \(-\((hh[4]\ hh[6])\)\) + hh[3]\ hh[7], 
+              hh[1]\ hh[6] - hh[0]\ hh[7], 
+              \(-\((hh[1]\ hh[3])\)\) + hh[0]\ hh[4]}} /. 
+          Thread[Table[hh[i], {i, 0, 8}] \[Rule] seq]]\)], "Input"],
+
+Cell["\<\
+We check that it is indeed the multiple of the inverse matrix. \
+\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(\((hes . DH[hes])\)/Det[hes] // ExpandAll\) // MatrixForm\)], "Input"],
+
+Cell[TextData[{
+  "So, let us form the ",
+  StyleBox["dual polynomial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " using this new matrix:"
+}], "Text"],
+
+Cell["g = Tidy[{u,v,w}.DH[hes].{u,v,w}/4]", "Input"],
+
+Cell["\<\
+Now compute the envelope of the conic using the general \
+method:\
+\>", "Text"],
+
+Cell["Envel[f]", "Input"],
+
+Cell["They are the same!  We have proved once again:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  Given the conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ", the dual ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " just constructed ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " the Hessian matrix in fact represents the ",
+  StyleBox["envelope",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  of the curve ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ". "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  The ",
+  StyleBox["pair",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of transformations \n\t\t\t",
+  Cell[BoxData[
+      StyleBox[\(p \[Rule] PD[f, p]\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(l \[Rule] PD[l, g]\),
+        FontWeight->"Bold"]]],
+  "\ndetermined by a conic and its dual map points to lines and lines to \
+points.  These are ",
+  StyleBox["linear transformations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and they preserve ",
+  StyleBox["crossratios",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Also if point ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["lies on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " line ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  ", then \[LongDash] by what we have calculated \[LongDash] point ",
+  Cell[BoxData[
+      StyleBox[\(PD[l, g]\),
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["lies on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " line ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, p]\),
+        FontWeight->"Bold"]]],
+  ". (Why?) This kind of transformational switch between points and lines is \
+called a ",
+  StyleBox["polarity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  And",
+  StyleBox[" any such",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polarity is determined by a pair of dual conics (or a symmetric matrix).  \
+(Why?)"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Metacomment.  ",
+    FontWeight->"Bold"],
+  "Polarities give us another view of the ",
+  StyleBox["Principle of Duality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", since if a configuration of points and lines has some nice property, \
+then the use of a polarity turns it into a dual configuration with the dual \
+property."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Example 2.  ",
+    FontWeight->"Bold"],
+  "The ",
+  StyleBox["double dual property",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can also be checked as follows (provided the matrix ",
+  StyleBox["hes",
+    FontWeight->"Bold"],
+  " is non singular):"
+}], "Text"],
+
+Cell[BoxData[
+    \(Simplify[Factor[DH[DH[hes]]]\/Det[hes]] // MatrixForm\)], "Input"],
+
+Cell[TextData[{
+  "For a ",
+  StyleBox["degenerate conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that factors into two lines, the Hessian is a singular matrix:"
+}], "Text"],
+
+Cell["hes = MHP[(x+ y + z)(x-y)]", "Input"],
+
+Cell["\<\
+The dual is the square of the point of intersection of the two \
+lines:\
+\>", "Text"],
+
+Cell["g = Factor[{u,v,w}.DH[hes].{u,v,w}]", "Input"],
+
+Cell["PE[(x+ y + z),(x-y)]", "Input"],
+
+Cell["The double dual is then zero:", "Text"],
+
+Cell["DH[DH[hes]]", "Input"],
+
+Cell[TextData[{
+  StyleBox["Remark.  ",
+    FontWeight->"Bold"],
+  "The dual of the degenerate conic ",
+  StyleBox["x y",
+    FontWeight->"Bold"],
+  " (as given by the minors of the Hessian) is ",
+  Cell[BoxData[
+      \(w\^2\)],
+    FontWeight->"Bold"],
+  ".  This is the pencil of lines passing through the double point of the \
+conic (and counted twice), so it seems that the dual equation is satisfied \
+not only by the tangents, but rather by all the lines which have degree of \
+contact ",
+  StyleBox["2",
+    FontWeight->"Bold"],
+  " or more with the conic.  If you take a square like ",
+  Cell[BoxData[
+      StyleBox[\(x\^2\),
+        FontWeight->"Bold"]]],
+  ", all the minors and hence the dual are zero, which is reasonable, since \
+every line has degree of contact at least ",
+  StyleBox["2",
+    FontWeight->"Bold"],
+  " with a double line.  This means, however, that the dual of the dual of ",
+  StyleBox["x y",
+    FontWeight->"Bold"],
+  ", for example, is zero."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "In complex numbers, it is not possible to give an equation in ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["v",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["w ",
+    FontWeight->"Bold"],
+  "that would be satisfied by exactly two lines.  One could do that in the \
+real field -- for example, an equation satisfied by the coefficients of ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["y ",
+    FontWeight->"Bold"],
+  "and of no other line would be ",
+  Cell[BoxData[
+      StyleBox[\(\((v\^2 + w\^2)\)\ \((u\^2 + w\^2)\) == 0\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Example 3.",
+    FontWeight->"Bold"],
+  "  Consider a ",
+  StyleBox["dual conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  ".  Let ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " be two fixed points.  What is the ",
+  StyleBox["locus",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of points ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " such that the lines joining ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and joining ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " are ",
+  StyleBox["conjugate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " ?   "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Answer.",
+    FontWeight->"Bold"],
+  " It is a ",
+  StyleBox["conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " passing through ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  StyleBox[".  ",
+    FontWeight->"Bold"],
+  "We might as well take ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " in a standard form:"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, g, p, q, r, a, b, c, Subscript]; \)\), 
+    \(\(g = u\^2 + v\^2 + w\^2; \)\), 
+    \(p = a\_1\ u + a\_2\ v + a\_3\ w; \nq = b\_1\ u + b\_2\ v + b\_3\ w; \n
+    r = c\_1\ u + c\_2\ v + c\_3\ w; \)}], "Input"],
+
+Cell[TextData[{
+  "The pair of lines we are interested in can be wrapped up as a ",
+  StyleBox["degenerate conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as follows:"
+}], "Text"],
+
+Cell[BoxData[
+    \(lines = Tidy[Expand[PE[p, r]\ PE[q, r]]]\)], "Input"],
+
+Cell[TextData[{
+  "The condition about conjugacy means exactly that the expression ",
+  Cell[BoxData[
+      StyleBox[\(PD[lines, g]\),
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["vanishes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This gives us a ",
+  StyleBox["quadratic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["equation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the coordinates of the point ",
+  StyleBox["r",
+    FontWeight->"Bold"],
+  " which we can express as a polynomial as follows as follows:"
+}], "Text"],
+
+Cell[BoxData[
+    \(f = 
+      Tidy[PD[lines, g] /. {c\_1 \[Rule] x, c\_2 \[Rule] y, c\_3 \[Rule] z}]
+        \)], "Input"],
+
+Cell["\<\
+We now check that both of the given points lie on this conic:\
+\>", 
+  "Text"],
+
+Cell[BoxData[
+    \({Expand[PD[f, p\^2]], Expand[PD[f, q\^2]]}\)], "Input"],
+
+Cell[TextData[{
+  "It should also be checked that ",
+  StyleBox["every point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the conic comes up this way."
+}], "Text"],
+
+Cell["We will now prove by the methods we have developed the: ", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  T",
+    FontWeight->"Bold"],
+  "he ",
+  StyleBox["eight tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at the ",
+  StyleBox["four intersections",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of two conics are all tangent to ",
+  StyleBox["another conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "Consider a convenient (and non-degenerate) conic passing through some \
+given points:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(ff = 
+      Tidy[1\/6\ P2P[\(-u\) + w, v + w, 2\ u + w, u + v + w, \(-v\) + w]]\), 
+    \(Det[MHP[ff]]\)}], "Input"],
+
+Cell["It passes through the following four points by construction:", "Text"],
+
+Cell[BoxData[{
+    \(\(pp = {\(-u\) + w, v + w, 2\ u + w, u + v + w}; \)\), 
+    \(\((PD[ff, #1\^2]&)\)/@pp\)}], "Input"],
+
+Cell["Here are the tangents at those points:", "Text"],
+
+Cell[BoxData[{
+    \(\(tt = Tidy/@\(\((PD[ff, #1]&)\)/@pp\); \)\), 
+    \(TableForm[tt]\)}], "Input"],
+
+Cell["Now consider a more general conic:", "Text"],
+
+Cell[BoxData[
+    \(ll = 
+      PE[pp\[LeftDoubleBracket]1\[RightDoubleBracket], 
+        pp\[LeftDoubleBracket]2\[RightDoubleBracket]]; \n
+    mm = PE[pp\[LeftDoubleBracket]3\[RightDoubleBracket], 
+        pp\[LeftDoubleBracket]4\[RightDoubleBracket]]; \n
+    gg = Tidy[a\ ff + b\ ll\ mm]\)], "Input"],
+
+Cell["It is not generally degenerate:", "Text"],
+
+Cell[BoxData[
+    \(Factor[Det[MHP[gg]]]\)], "Input"],
+
+Cell["It passes through the same four points:", "Text"],
+
+Cell[BoxData[
+    \(Expand[\((PD[gg, #1\^2]&)\)/@pp]\)], "Input"],
+
+Cell[TextData[{
+  "Indeed, since we have a ",
+  StyleBox["pencil of conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", this is the most general conic through the four points.  Here are the \
+tangents:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ss = Tidy/@\(\((PD[gg, #1]&)\)/@pp\); \)\), 
+    \(TableForm[ss]\)}], "Input"],
+
+Cell[TextData[{
+  "We have ",
+  StyleBox["eight lines ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "on ",
+  StyleBox["four points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We calculate a conic (in dual form) which has ",
+  StyleBox["five",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of these lines as tangents:"
+}], "Text"],
+
+Cell[BoxData[
+    \(hh = Tidy[Last[Factor[P2L@@Join[tt, Rest[ss]]]]]\)], "Input"],
+
+Cell[TextData[{
+  "This dual conic touches ",
+  StyleBox["all eight lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(Expand[\((PD[#1\^2, hh]&)\)/@Join[tt, ss]]\)], "Input"],
+
+Cell[TextData[{
+  "That is as good as a proof, since we can always choose the first conic and \
+the four points as we please.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+And here is the conic with these eight tangents in point form.\
+\>",
+   "Text"],
+
+Cell[BoxData[
+    \(kk = Factor/@Tidy[Dual[Envel[Dual[hh]]]]\)], "Input"],
+
+Cell["And here is one picture:", "Text"],
+
+Cell[BoxData[
+    \(a = 1/3; b = 1; \n
+    ImplicitPlot[{ff == 0, gg == 0, kk == 0, \n\t\t\ \ 
+          tt\[LeftDoubleBracket]1\[RightDoubleBracket] == 0, 
+          tt\[LeftDoubleBracket]2\[RightDoubleBracket] == 0, \n\t\t\ \ 
+          tt\[LeftDoubleBracket]3\[RightDoubleBracket] == 0, 
+          tt\[LeftDoubleBracket]4\[RightDoubleBracket] == 0, \n\t\t\ \ 
+          ss\[LeftDoubleBracket]1\[RightDoubleBracket] == 0, 
+          ss\[LeftDoubleBracket]2\[RightDoubleBracket] == 0, \n\t\t\ \ 
+          ss\[LeftDoubleBracket]3\[RightDoubleBracket] == 0, 
+          ss\[LeftDoubleBracket]4\[RightDoubleBracket] == 0} /. {
+          z \[Rule] 1}, \n\t{x, \(-3\), 4}, {y, \(-3\), 8}, \n\t
+      Axes \[Rule] None, PlotPoints \[Rule] 100, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.005], \ Blue}, {Thickness[0.005], \ Green}, {
+            Thickness[0.005], \ Red}, Black, Black, Black, Black, Black, 
+          Black, Black, Black}]; \)], "Input"],
+
+Cell[TextData[{
+  "We see additionaly that the conic ",
+  StyleBox["kk",
+    FontWeight->"Bold"],
+  " generally does not pass through the four points unless ",
+  StyleBox["ff",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["gg",
+    FontWeight->"Bold"],
+  " are the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " conic."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b]; \nExpand[\((PD[kk, #1\^2]&)\)/@pp]\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Correlations", "Subsubsection"],
+
+Cell[TextData[{
+  "Polarity with respect to a conic is a special case of a ",
+  StyleBox["correlation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " between points and lines.  Here is the general definition:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  "A pair of non-singular linear mappings \n\t\t",
+  StyleBox[" ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[
+        \(CorP : \(\[DoubleStruckCapitalC]\^1\)[u, v, w] \[Rule] 
+          \(\[DoubleStruckCapitalC]\^1\)[x, y, z]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "and\n\t\t ",
+  Cell[BoxData[
+      StyleBox[
+        \(CorL : \(\[DoubleStruckCapitalC]\^1\)[x, y, z] \[Rule] 
+          \(\[DoubleStruckCapitalC]\^1\)[u, v, w]\),
+        FontWeight->"Bold"]]],
+  "\nis said to be a ",
+  StyleBox["correlation ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "provided that for all lines ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  " and points ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " we have:\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(PD[l, p] == PD[CorP[p], CorL[l]]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "It is easy to argue by linear-algebra theory that either of the two \
+mappings is ",
+  StyleBox["uniquely",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["determined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by the other, because the spaces are in a dual pairing and the inverse of \
+one mapping is just the ",
+  StyleBox["adjoint",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the other.  Indeed, correlations are a type of dual to projective \
+transformations, in a sense we can make precise."
+}], "Text"],
+
+Cell[TextData[{
+  "Recall that ",
+  Cell[BoxData[
+      StyleBox["Dual",
+        FontWeight->"Bold"]]],
+  " was defined to ",
+  StyleBox["interchange",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials with the ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials by a subtitution of variables.  We can say more:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  "The pair of non-singular linear mappings \n\t\t",
+  StyleBox[" ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      StyleBox[
+        \(Dual : \(\[DoubleStruckCapitalC]\^1\)[u, v, w] \[Rule] 
+          \(\[DoubleStruckCapitalC]\^1\)[x, y, z]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "and\n\t\t ",
+  Cell[BoxData[
+      StyleBox[
+        \(Dual : \(\[DoubleStruckCapitalC]\^1\)[x, y, z] \[Rule] 
+          \(\[DoubleStruckCapitalC]\^1\)[u, v, w]\),
+        FontWeight->"Bold"]]],
+  "\n",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a correlation",
+  StyleBox[".",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  We should not be confused that the ",
+  StyleBox["same name",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is being used for the two mappings, as the spaces are disjoint sets (save \
+for the ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " element, which is mapped to ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " in any case)."
+}], "Text"],
+
+Cell[TextData[{
+  "The point here is that ",
+  StyleBox["polydifferentiation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a ",
+  StyleBox["formally defined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " operation on polynomials that does not depend on which ",
+  StyleBox["names",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are chosen for the variables.  We only have to pair ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " with ",
+  Cell[BoxData[
+      StyleBox["x",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " with ",
+  Cell[BoxData[
+      StyleBox["y",
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " with ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  ". From then on, the computation of a differentiation ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  "depends only on the ",
+  StyleBox["structure",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the polynomials (and their coefficients, of course).  Hence, the \
+equation \n\t\t",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(Dual[PD[f, g]]\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[\(PD[Dual[g], Dual[f]]\),
+          FontWeight->"Bold"]}]]],
+  " \nholds for polynomials (of the appropriate types) of any degrees.  In \
+the case of linear polynomials (where ",
+  Cell[BoxData[
+      StyleBox[\(PD[l, p]\),
+        FontWeight->"Bold"]]],
+  " is a scalar), this shows that we have a correlation.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "We can also conclude that for any correlation, the composition ",
+  Cell[BoxData[
+      StyleBox[\(Dual[CorP[p]]\),
+        FontWeight->"Bold"]]],
+  "is a projective transformation with the action on lines being given by the \
+composition ",
+  Cell[BoxData[
+      StyleBox[\(Dual[CorL[l]]\),
+        FontWeight->"Bold"]]],
+  ".  Since projective transformations can be computed by ",
+  StyleBox["matrices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and since generally ",
+  Cell[BoxData[
+      StyleBox[\(Dual[Dual[f]] == f\),
+        FontWeight->"Bold"]]],
+  ", we find: "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  For any pair of mappings ",
+  Cell[BoxData[
+      StyleBox["CorP",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["CorL",
+        FontWeight->"Bold"]]],
+  " forming a correlation, there exists a unique non-singular matrix ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  " such that for all points and lines ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  " we can write: \n\t\t",
+  Cell[BoxData[
+      StyleBox[\(CorP[p] == Dual[\(TP[M]\)[p]]\),
+        FontWeight->"Bold"]]],
+  "  and\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(CorL[l] == Dual[\(TL[M]\)[l]]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+There are two ways we can write the connection between matrices and \
+correlations, and the following theorem gives us the exact connection between \
+to two matrices needed.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  For any non-singular matrix ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  ", and for all points and lines ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  ", we have:\n\t",
+  Cell[BoxData[
+      StyleBox[
+        \(Dual[\(TP[M]\)[p]] == \(TL[Inverse[Transpose[M]]]\)[Dual[p]]\),
+        FontWeight->"Bold"]]],
+  "  and\n\t",
+  Cell[BoxData[
+      StyleBox[
+        \(Dual[\(TL[M]\)[l]] == \(TP[Inverse[Transpose[M]]]\)[Dual[l]]\),
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "Consider a general matrix and general point:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[M, a, b, c, Subscript]; \n
+    M = {{a\_1, a\_2, a\_3}, {b\_1, b\_2, b\_3}, {c\_1, c\_2, c\_3}}; \n
+    p = \ r\ u + s\ v + t\ w; \)], "Input"],
+
+Cell["We compute first on a basis element:", "Text"],
+
+Cell[BoxData[
+    \(Dual[\(TP[M]\)[u]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(TL[Inverse[Transpose[M]]]\)[Dual[u]]\)], "Input"],
+
+Cell["\<\
+Hmmm.  That does not look hopeful.  But, we can try a \
+simplification.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(% // Together\)], "Input"],
+
+Cell[TextData[{
+  "Whew!  It works.  And it ",
+  StyleBox["should",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " work for the other basis elements.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["Finally, we can tie up the connection with polarities.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  "A pair of mappings ",
+  Cell[BoxData[
+      StyleBox["CorP",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["CorL",
+        FontWeight->"Bold"]]],
+  " forming a correlation is said to be ",
+  StyleBox["involutive",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " provided that for all points and lines ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["l",
+        FontWeight->"Bold"]]],
+  ", we have:\n\t     ",
+  Cell[BoxData[
+      StyleBox[\(CorL[CorP[p]] == p\),
+        FontWeight->"Bold"]]],
+  ",  and ",
+  Cell[BoxData[
+      StyleBox[\(CorP[CorL[l]] == l\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  A pair of mappings ",
+  Cell[BoxData[
+      StyleBox["CorP",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["CorL",
+        FontWeight->"Bold"]]],
+  " forming an involutive correlation is in fact a polarity with respect to a \
+non-degenerate conic."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  The equation ",
+  Cell[BoxData[
+      StyleBox[\(CorL[CorP[p]] == p\),
+        FontWeight->"Bold"]]],
+  " translates into the following according to what we proved earlier:\n\t",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[
+          RowBox[{"Dual", "[", 
+            RowBox[{\(TL[M]\), "[", 
+              StyleBox[\(Dual[\(TP[M]\)[p]]\),
+                FontWeight->"Bold"], 
+              StyleBox["]",
+                FontWeight->"Bold"]}], "]"}],
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox["\n",
+          FontWeight->"Bold"], 
+        StyleBox["\t\t",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{\(TP[Inverse[Transpose[M]]]\), "[", 
+            RowBox[{"Dual", "[", 
+              StyleBox[\(Dual[\(TP[M]\)[p]]\),
+                FontWeight->"Bold"], 
+              StyleBox["]",
+                FontWeight->"Bold"]}], 
+            StyleBox["]",
+              FontWeight->"Bold"]}],
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox["\n",
+          FontWeight->"Bold"], 
+        StyleBox["\t\t",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{\(TP[Inverse[Transpose[M]]]\), 
+            StyleBox["[",
+              FontWeight->"Bold"], 
+            StyleBox[\(\(TP[M]\)[p]\),
+              FontWeight->"Bold"], 
+            StyleBox["]",
+              FontWeight->"Bold"]}],
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox["\t\t   ",
+          FontWeight->"Bold"], 
+        StyleBox["\n",
+          FontWeight->"Bold"], 
+        StyleBox["\t  ",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{\(TP[TP[M] . Inverse[Transpose[M]]]\), 
+            StyleBox["[",
+              FontWeight->"Bold"], 
+            StyleBox["p",
+              FontWeight->"Bold"], 
+            StyleBox["]",
+              FontWeight->"Bold"]}],
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox["p",
+          FontWeight->"Bold"]}]]]
+}], "Text"],
+
+Cell[TextData[{
+  "This means that \n\t",
+  Cell[BoxData[
+      StyleBox[\(TP[M] . Inverse[Transpose[M]] == IdentityMatrix[3]\),
+        FontWeight->"Bold"]]],
+  ".\nBut then we conclude that ",
+  Cell[BoxData[
+      StyleBox[\(TP[M] == Transpose[M]\),
+        FontWeight->"Bold"]]],
+  ", which is the same as being a ",
+  StyleBox["symmetric matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Since ",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " non-singular symmetric matrix ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the Hessian matrix of some conic, we can see that every involutive \
+correlation comes from a conic.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Example.",
+    FontWeight->"Bold"],
+  "  Which conic corresponds to ",
+  Cell[BoxData[
+      StyleBox["Dual",
+        FontWeight->"Bold"]]],
+  "?  Here it is:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[f, a, b, c, Subscript]; \nf = 1\/2\ \((x\^2 + y\^2 + z\^2)\); 
+    \ng = Envel[f]\/2; \np = a\ u + b\ v + c\ w; \nl = a\ x + b\ y + c\ z; \n
+    PD[f, p]\), 
+    \(PD[l, g]\)}], "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Projectivities on a Conic", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Defining crossratios", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["The crossratio of four points on a conic", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "As we have remarked before, because ",
+  Cell[BoxData[
+      StyleBox["PD",
+        FontWeight->"Bold"]]],
+  " is a linear operation, it follows  ",
+  StyleBox["at once",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (!)",
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "that if ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is a (non-degenerate) conic",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and if we have  four points  ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_4\),
+        FontWeight->"Bold"]]],
+  " on a ",
+  StyleBox["line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["PD",
+          FontWeight->"Bold"], 
+        StyleBox["[",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["f",
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          SubscriptBox[
+            StyleBox["q",
+              FontWeight->"Bold"], "1"]}], 
+        StyleBox["]",
+          FontWeight->"Bold"]}]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["PD",
+          FontWeight->"Bold"], 
+        StyleBox["[",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["f",
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          SubscriptBox[
+            StyleBox["q",
+              FontWeight->"Bold"], "1"]}], 
+        StyleBox["]",
+          FontWeight->"Bold"]}]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["PD",
+          FontWeight->"Bold"], 
+        StyleBox["[",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["f",
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          SubscriptBox[
+            StyleBox["q",
+              FontWeight->"Bold"], "1"]}], 
+        StyleBox["]",
+          FontWeight->"Bold"]}]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["PD",
+          FontWeight->"Bold"], 
+        StyleBox["[",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["f",
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          SubscriptBox[
+            StyleBox["q",
+              FontWeight->"Bold"], "1"]}], 
+        StyleBox["]",
+          FontWeight->"Bold"]}]]],
+  " are four ",
+  StyleBox["concurrent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " lines in a ",
+  StyleBox["pencil",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (concurrent at the ",
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the line).  Moreover, owing to the ",
+  StyleBox["linearity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the transformation, the crossratio of the points must be ",
+  StyleBox["the same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as the crossratio of the lines.  (Why?) "
+}], "Text"],
+
+Cell[TextData[{
+  "Here is ",
+  StyleBox["another fact",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (noticed in special cases before) about equality of crossratios."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Construction.  ",
+    FontWeight->"Bold"],
+  "Let ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " be ",
+  StyleBox["distinct points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on a ",
+  StyleBox["non-degenerate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  A line through ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "intersects ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " at a unique second point; hence, we can join the point ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " to this point as well.",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " The construction just defined gives a ",
+  StyleBox["one-one correspondence",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] determined by the ",
+  StyleBox["choice",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " \[LongDash] between lines in the pencil at ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and lines in the pencil at ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  " The correspondence is ",
+  StyleBox["projective",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and, hence, ",
+  StyleBox["preserves crossratios",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof for a particular conic:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Consider the following conic:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f]; \)\), 
+    \(\(f = x\ y + x\ z + y\ z; \)\)}], "Input"],
+
+Cell["It passes through the vertices of the \"Basis Triangle\":", "Text"],
+
+Cell[BoxData[
+    \(\((PD[f, #1\^2]&)\)/@{u, v, w}\)], "Input"],
+
+Cell["\<\
+The tangents at those points form another triangle in which the \
+conic is inscribed:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\((PD[f, #1]&)\)/@{u, v, w}\)], "Input"],
+
+Cell["Here are the vertices of the circumscribed triangle:", "Text"],
+
+Cell[BoxData[
+    \(PES[{y + z, x + z, x + y}]\)], "Input"],
+
+Cell[TextData[{
+  "Note that the lines joining these vertices to the original triple of \
+points are ",
+  StyleBox["concurrent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[PE[w, u + v - w], PE[PE[u, \(-u\) + v + w], PE[v, u - v + w]]]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Now let us consider corresponding lines at the two points ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["v:",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[BoxData[
+    \({PES[{y + z, z, y}], PES[{z, x + z, x}]}\)], "Input"],
+
+Cell[BoxData[
+    \(Thread[F[{y + z, z, y}, {z, x + z, x}]] /. F \[Rule] PE\)], "Input"],
+
+Cell[TextData[{
+  "Now associating three lines in one pencil to three lines in the second \
+pencil uniquely determines a ",
+  StyleBox["projective correspondence",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So, consider an arbitrary point ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "in the plane.  We join the point to ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " and to ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " and calculate the crossratios:"
+}], "Text"],
+
+Cell[BoxData[
+    \(aa = RL[y + z, z, y, PE[u, a\ u + b\ v + c\ w]]\)], "Input"],
+
+Cell[BoxData[
+    \(bb = RL[z, x + z, x, PE[v, a\ u + b\ v + c\ w]]\)], "Input"],
+
+Cell["\<\
+We can check that these crossratios are equal if, and only if, the \
+point lies on the conic by calculating the difference:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Together[bb - aa]\)], "Input"],
+
+Cell[TextData[{
+  "In terms of a crossratio ",
+  StyleBox["a/b",
+    FontWeight->"Bold"],
+  " we can also parameterize the points on the conic:"
+}], "Text"],
+
+Cell[BoxData[
+    \(p = PE[XL[y + z, z, y, a, b], XL[z, x + z, x, a, b]]\)], "Input"],
+
+Cell[BoxData[
+    \(Expand[PD[f, p\^2]]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Proof for a symbolic conic:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  We attempt a ",
+  StyleBox["symbolic proof",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by declaring ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " to be a conic, ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " to be two points on the conic, and ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " to be the intersection of the tangents at those two points."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, p, q, r, s, a, b]; \)\), 
+    \(\(f /: DegP[f] = 2; \)\), 
+    \(\(\((\((#1 /: DegP[#1] = 1)\)&)\)/@{p, q, r}; \)\), 
+    \(\(p /: PD[PD[f, p], p] = 0; \)\), 
+    \(\(q /: PD[PD[f, q], q] = 0; \)\), 
+    \(\(r /: PD[PD[f, p], r] = 0; \)\), 
+    \(\(r /: PD[PD[f, q], r] = 0; \)\), 
+    \(\(q /: PD[PD[f, p], q] = c; \)\), 
+    \(\(r /: PD[PD[f, r], r] = d; \)\)}], "Input"],
+
+Cell[TextData[{
+  "Now let ",
+  Cell[BoxData[
+      StyleBox["s",
+        FontWeight->"Bold"]]],
+  " be an arbitrary point on the tangent through ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  StyleBox[":",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[BoxData[
+    \(\(s = a\ q + b\ r; \)\)], "Input"],
+
+Cell[TextData[{
+  "We then find the other point on the conic on the line joining ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["s",
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(t = Collect[PD[f, s\^2]\ p - 2\ PD[f, p\ s]\ s, {p, q, r}]\)], "Input"],
+
+Cell[TextData[{
+  "We now compare the lines joining ",
+  Cell[BoxData[
+      StyleBox["t",
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and to ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[PE[p, t]]\)], "Input"],
+
+Cell[BoxData[
+    \(Factor[PE[q, t]]\)], "Input"],
+
+Cell[TextData[{
+  "We see at once that there is a ",
+  StyleBox["linear transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " taking one line to the other.  This shows there is a projective \
+correspondence betwee the pencil at ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " and the pencil at ",
+  StyleBox["q.  Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "If ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " is a conic, and if ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(p\_3\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(p\_4\),
+        FontWeight->"Bold"]]],
+  " are four points ",
+  StyleBox["on the conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the ",
+  StyleBox["crossratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the four points, written ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"RP2", "[", 
+          RowBox[{"f", ",", 
+            StyleBox[\(p\_1\),
+              FontWeight->"Bold"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            StyleBox[" ",
+              FontWeight->"Bold"], 
+            StyleBox[\(p\_2\),
+              FontWeight->"Bold"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            StyleBox[" ",
+              FontWeight->"Bold"], 
+            StyleBox[\(p\_3\),
+              FontWeight->"Bold"], 
+            StyleBox[",",
+              FontWeight->"Bold"], " ", 
+            StyleBox[\(p\_4\),
+              FontWeight->"Bold"]}], "]"}],
+        FontWeight->"Bold"]]],
+  ", can be calculated as a crossratio of four lines by using the tangent at \
+",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " as follows:\n",
+  Cell[BoxData[
+      RowBox[{"\t\t", 
+        StyleBox[
+          \(RP2[f_, p1_, p2_, p3_, p4_]\  := \ \n
+            \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+            RL[PD[f, p1], PE[p1, p2], PE[p1, p3], PE[p1, p4]]; \),
+          FontWeight->"Bold"]}]]]
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["We rerun the earlier example:", "Text"],
+
+Cell[BoxData[
+    \(ClearAll[f]; \nf = x\ y + x\ z + y\ z; \)], "Input"],
+
+Cell[BoxData[
+    \(RP2[f, u, v, w, a\ \((\(-a\) + b)\)\ u + \((a - b)\)\ b\ v - a\ b\ w]
+      \)], "Input"],
+
+Cell["\<\
+The following corollary follows directly from the above \
+considerations.  (Why?)\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  "  Let ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["s",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["t",
+        FontWeight->"Bold"]]],
+  " be five points, no three collinear.  Then the equation of the ",
+  StyleBox["unique conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " passing through these points can be written as\n\t",
+  Cell[BoxData[
+      RowBox[{
+        RowBox[{
+          StyleBox["(",
+            FontSize->14,
+            FontWeight->"Bold"], 
+          
+          StyleBox[
+            \(RL[PE[p, r], PE[p, s], PE[p, t], PE[p, a\ u + b\ v + c\ w]] == 
+              \ \ \ \ \ \n\t
+              RL[PE[q, r], PE[q, s], PE[q, t], PE[q, a\ u + b\ v + c\ w]]\),
+            FontSize->14,
+            FontWeight->"Bold"], 
+          StyleBox[")",
+            FontSize->14,
+            FontWeight->"Bold"]}], 
+        StyleBox["/.",
+          FontSize->14,
+          FontWeight->"Bold"], 
+        StyleBox[\({a \[Rule] x, b \[Rule] y, c \[Rule] z}\),
+          FontSize->14,
+          FontWeight->"Bold"]}]]]
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Pascal's Theorem", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell["Here is the famous generalization of Pappus' Theorem:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  " If the six vertices ",
+  Cell[BoxData[
+      StyleBox[\({p\_1, p\_2, p\_3, p\_4, p\_5, p\_6}\),
+        FontWeight->"Bold"]]],
+  " of a ",
+  StyleBox["hexagon",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are placed on a ",
+  StyleBox["conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the three intersections of ",
+  StyleBox["opposite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " pairs of sides are ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  The six vertices of a hexagon need to be given ",
+  StyleBox["in order",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  A different order is a different hexagon."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["First Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " By transformations, we can choose four points of the six points as the \
+points of the quadrangle of reference."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[p, a, b, c, f, Subscript]; 
+    \n{p\_1, p\_2, p\_3, p\_4, p\_5, p\_6} = {u, v, w, u + v + w, 
+        a\_1\ u + a\_2\ v + a\_3\ w, b\_1\ u + b\_2\ v + b\_3\ w}; \)], 
+  "Input"],
+
+Cell[TextData[{
+  "The conic through ",
+  StyleBox["five",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the points is:"
+}], "Text"],
+
+Cell[BoxData[
+    \(f = Tidy[P2P[p\_1, p\_2, p\_3, p\_4, p\_5]]\)], "Input"],
+
+Cell["\<\
+Now we compute the three intersections of the opposite sides:\
+\>", 
+  "Text"],
+
+Cell[BoxData[{
+    \(q = Tidy[PE[PE[p\_1, p\_2], PE[p\_4, p\_5]]]\), 
+    \(r = Tidy[PE[PE[p\_2, p\_3], PE[p\_5, p\_6]]]\), 
+    \(s = Tidy[PE[PE[p\_3, p\_4], PE[p\_6, p\_1]]]\)}], "Input"],
+
+Cell[TextData[{
+  "We can then ask for the condition (which is a quantity that should be ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  ") that the three points be collinear:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Expand[PD[PE[q, r], s]]\)], "Input"],
+
+Cell[TextData[{
+  "But let us also ask for the condition (= ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  ") that the sixth point is on the conic:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Expand[\(-\(1\/2\)\)\ PD[f, p\_6\%2]]\)], "Input"],
+
+Cell[TextData[{
+  "That means that ",
+  Cell[BoxData[
+      StyleBox[\(p\_6\),
+        FontWeight->"Bold"]]],
+  " is on the conic ",
+  StyleBox["if, and only if",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the ",
+  StyleBox["3",
+    FontWeight->"Bold"],
+  " points ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  ",",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["s",
+        FontWeight->"Bold"]]],
+  " are collinear!  ",
+  StyleBox["Q.E.D.  (And a little more.)",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Second Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " We procede ",
+  StyleBox["without",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    FontColor->RGBColor[1, 0, 0]],
+  " ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ".  (This proof is taken from a textbook.)  We recall that a conic is the ",
+  
+  StyleBox[
+  "locus of intersections of pairs of projectively related lines in two \
+pencils",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (The conic is non-degenerate providing that the correspondence is not a \
+perspectivity.)  The conic passes through the ",
+  StyleBox["centers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two pencils.  Moreover ",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " conic can be obtained this way: just pick two points on the conic as \
+centers, and relate the two pencils by joining the centers with points on the \
+conic.  (This is the key result that justifies speaking of the crossratio of \
+four points on a conic.)"
+}], "Text"],
+
+Cell[TextData[{
+  "Well, suppose we have six points on a conic, which we will call\n\t\t",
+  Cell[BoxData[
+      StyleBox[\({p\_1, p\_2, p\_3, q\_1, q\_2, q\_3}\),
+        FontWeight->"Bold"]]],
+  " \nthis time.  Define the intersections of the opposite sides as follows:\n\
+\t\t",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(r\_ij\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{"PE", "[", 
+            RowBox[{
+              RowBox[{
+                StyleBox["PE",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["p",
+                      FontWeight->"Bold"], "i"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  SubscriptBox[
+                    StyleBox["q",
+                      FontWeight->"Bold"], "j"]}], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              RowBox[{
+                StyleBox["PE",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["p",
+                      FontWeight->"Bold"], "j"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  SubscriptBox[
+                    StyleBox["q",
+                      FontWeight->"Bold"], "i"]}], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}]}], "]"}],
+          FontWeight->"Bold"]}]]],
+  ",\nwhere ",
+  Cell[BoxData[
+      StyleBox["ij",
+        FontWeight->"Bold"]]],
+  " is replaced by ",
+  Cell[BoxData[
+      StyleBox["12",
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["23",
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["31",
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  We have to show that these three points are collinear.  So let us define\
+\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(axis == PE[r\_12, r\_31]\),
+        FontWeight->"Bold"]]],
+  ".\nThis line must cut the conic in at least one point ",
+  Cell[BoxData[
+      StyleBox[\(r\_c\),
+        FontWeight->"Bold"]]],
+  " (which may be complex!).  Define in addition:\n\t\t",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(r\_11\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{"PE", "[", 
+            RowBox[{
+              StyleBox["axis",
+                FontWeight->"Bold"], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              RowBox[{
+                StyleBox["PE",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["p",
+                      FontWeight->"Bold"], "1"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  SubscriptBox[
+                    StyleBox["q",
+                      FontWeight->"Bold"], "1"]}], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}]}], "]"}],
+          FontWeight->"Bold"]}]]],
+  " and ",
+  StyleBox[" \t\t\n\t\t",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(r\_33\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{"PE", "[", 
+            RowBox[{
+              StyleBox["axis",
+                FontWeight->"Bold"], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              RowBox[{
+                StyleBox["PE",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["p",
+                      FontWeight->"Bold"], "3"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  SubscriptBox[
+                    StyleBox["q",
+                      FontWeight->"Bold"], "3"]}], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}]}], "]"}],
+          FontWeight->"Bold"]}]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Now from ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " as the center, the four points ",
+  Cell[BoxData[
+      StyleBox[\(r\_c\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(p\_3\),
+        FontWeight->"Bold"]]],
+  " on the conic are projected onto the the ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  " to the four points ",
+  Cell[BoxData[
+      StyleBox[\(r\_c\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(r\_11\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(r\_12\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(r\_31\),
+        FontWeight->"Bold"]]],
+  ".  Then taking ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " as the center, these same points on the ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  " are projected to the points ",
+  Cell[BoxData[
+      StyleBox[\(r\_c\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  "  on the conic again.  And remember that these projections ",
+  StyleBox["preserve crossratios",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "We can just as well take as centers ",
+  Cell[BoxData[
+      StyleBox[\(p\_3\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  ".   From ",
+  Cell[BoxData[
+      StyleBox[\(p\_3\),
+        FontWeight->"Bold"]]],
+  " we project the quadruple of points  ",
+  Cell[BoxData[
+      StyleBox[\(r\_c\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  " on the conic to the  points ",
+  Cell[BoxData[
+      StyleBox[\(r\_c\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(r\_31\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(r\_p\),
+        FontWeight->"Bold"]]],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(r\_33\),
+        FontWeight->"Bold"]]],
+  " on the ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  ", where, of course, we define :\n\t\t",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"rp", "==", 
+          RowBox[{"PE", "[", 
+            RowBox[{
+              StyleBox["axis",
+                FontWeight->"Bold"], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              RowBox[{
+                StyleBox["PE",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["p",
+                      FontWeight->"Bold"], "3"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  SubscriptBox[
+                    StyleBox["q",
+                      FontWeight->"Bold"], "2"]}], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}]}], "]"}]}],
+        FontWeight->"Bold"]]],
+  ".  \nNext, from ",
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  ", we project the points   ",
+  Cell[BoxData[
+      StyleBox[\(r\_c\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(p\_3\),
+        FontWeight->"Bold"]]],
+  " to points  ",
+  Cell[BoxData[
+      StyleBox[\(r\_c\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(r\_31\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(r\_q\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(r\_33\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "on the ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  ", where, similarly, we define: \n\t\t",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"rq", " ", "=", " ", 
+          RowBox[{"PE", "[", 
+            RowBox[{
+              StyleBox["axis",
+                FontWeight->"Bold"], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              StyleBox[" ",
+                FontWeight->"Bold"], 
+              RowBox[{
+                StyleBox["PE",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["p",
+                      FontWeight->"Bold"], "2"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  SubscriptBox[
+                    StyleBox["q",
+                      FontWeight->"Bold"], "3"]}], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}]}], "]"}]}],
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Because we already know that the crossratios are the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", it follows that the points ",
+  Cell[BoxData[
+      StyleBox[\(r\_p\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(r\_q\),
+        FontWeight->"Bold"]]],
+  " are the same.  But these points lie on the lines ",
+  Cell[BoxData[
+      StyleBox[\(PE[p\_3, q\_2]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(PE[p\_2, q\_3]\),
+        FontWeight->"Bold"]]],
+  ", respectively.",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "Therefore, ",
+  Cell[BoxData[
+      StyleBox[\(r\_p == r\_q == r\_23\),
+        FontWeight->"Bold"]]],
+  ", and that means that ",
+  Cell[BoxData[
+      StyleBox[\(r\_23\),
+        FontWeight->"Bold"]]],
+  " is on the ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  " and, so, is collinear with ",
+  Cell[BoxData[
+      StyleBox[\(r\_12\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(r\_31\),
+        FontWeight->"Bold"]]],
+  StyleBox[".  Q.E.D.  ",
+    FontWeight->"Bold"],
+  "(",
+  StyleBox["Whew! This proof needs a picture!",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ")"
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Projective transformations", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Projectivities on a conic", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell["\<\
+Having defined crossratio of four points on a conic, we can use \
+that notion to define what we mean by projective transformation.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "A ",
+  StyleBox["projective transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (or ",
+  StyleBox["projectivity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") between points from one (non-degenerate) conic onto another is a one-one \
+transformation that preserves crossratios."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Example 1.",
+    FontWeight->"Bold"],
+  "  Suppose two conics ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " intersect at a point ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ".  For any point ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " on ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " find the other intersection of ",
+  Cell[BoxData[
+      StyleBox[\(PE[p, q]\),
+        FontWeight->"Bold"]]],
+  "with ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  ".  This is a one-one correspondence between points on ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " and points on ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  ".  (We just have to be a little careful to say what we mean when ",
+  Cell[BoxData[
+      StyleBox[\(p == q\),
+        FontWeight->"Bold"]]],
+  " or ",
+  Cell[BoxData[
+      StyleBox[\(PE[p, q]\),
+        FontWeight->"Bold"]]],
+  "is a tangent to ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  ".)  Since crossratios are preserved from points on the first conic to \
+lines in the pencil at  ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ", and since crossratios are again preserved from the pencil to the second \
+conic, this is indeed a projective transformation."
+}], "Text"],
+
+Cell[TextData[{
+  "Here is an example of ",
+  StyleBox["tangent conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[f, g, p, q, r, s, t, Subscript]\), 
+    \(f = x\^2 + y\^2 - z\^2; \ng = 4 \((x - 3  z)\)\^2 + 2  y\^2 - 16  z\^2; 
+    \np = u + w; \n
+    r[t_]\ \  := \((t\^2 - 1)\)\ u + 2\ t\ v + \((t\^2 + 1)\)\ w; \n
+    ImplicitPlot[
+      Join[{f == 0, g == 0}, Table[PE[p, r[1/t]] == 0, {t, 1, 4}]] /. {
+          z \[Rule] 1}, {x, \(-5\), 6}, {y, \(-5\), 5}, Axes \[Rule] None, 
+      PlotPoints \[Rule] 100]; \)}], "Input",
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Example 2.",
+    FontWeight->"Bold"],
+  "  Let ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  " be the (non-singular) matrix for a projective transformation ",
+  Cell[BoxData[
+      StyleBox[\(TP[M]\),
+        FontWeight->"Bold"]]],
+  " of the plane onto itself, this transformation will be a projective \
+transformation  in the sense of our definition of the points of one conic  ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " onto the points of the image conic ",
+  Cell[BoxData[
+      StyleBox[\(\(TL[M]\)[f]\),
+        FontWeight->"Bold"]]],
+  ".  (Why?)  (",
+  StyleBox["Hint:",
+    FontWeight->"Bold"],
+  " Set up a pencil at one point on the conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " and see what happens to that pencil under the transformation determined \
+by ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  ".)"
+}], "Text"],
+
+Cell[TextData[{
+  "Let us prove the ",
+  StyleBox["converse",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the observation of Example 2.  Note that the situation with ",
+  StyleBox["conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is quite different from that with ",
+  StyleBox["lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (Why?)"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  A projectivity from one non-degenerate conic onto another results from a \
+",
+  StyleBox["unique",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " projective transformation of the plane onto itself."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof: ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "We argue in the way we did to prove that any two (non-degenerate) conics \
+are projectively equivalent.  Let ",
+  Cell[BoxData[
+      StyleBox[\({p, q, r}\),
+        FontWeight->"Bold"]]],
+  "be a triple of ",
+  StyleBox["distinct points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the first conic.  Let ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SuperscriptBox["p", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["q", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["r", "\[Prime]",
+              MultilineFunction->None]}], "}"}],
+        FontWeight->"Bold"]]],
+  "be the triple of their ",
+  StyleBox["images",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the second conic.  The points in the second triple are of course \
+pairwise distinct.  Consider the tangents to the first conic at the points ",
+  Cell[BoxData[
+      StyleBox[\({p, q}\),
+        FontWeight->"Bold"]]],
+  ".  Those tangents are distinct and intersect at a point ",
+  Cell[BoxData[
+      StyleBox["s",
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["not on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "\tthe conic.  Consider the tangents to the second conic at ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SuperscriptBox["p", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["q", "\[Prime]",
+              MultilineFunction->None]}], "}"}],
+        FontWeight->"Bold"]]],
+  " and let ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["s", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  "be their intersection.  The two quadruples of points ",
+  Cell[BoxData[
+      StyleBox[\({p, q, r, s}\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SuperscriptBox["p", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["q", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["r", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["s", "\[Prime]",
+              MultilineFunction->None]}], "}"}],
+        FontWeight->"Bold"]]],
+  " are such that in each no three are collinear; hence, there is a ",
+  StyleBox["unique",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " projective transformation taking the first quadrangle onto the other."
+}], "Text"],
+
+Cell[TextData[{
+  "This configuration of three points on a conic and the tangents at two of \
+them, however, uniquely determines the conic \[LongDash] as we proved \
+earlier.  Therefore, the projective transformation of the plane takes the \
+first conic to the other.  But, on a conic (as on a line) three points and \
+their images uniquely determin a projectivity.  S, the projective \
+transformation of the plane has to agree with the given projectivity from one \
+conic to the other.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "As we know, projective transformations between lines can be given \
+geometric constructions using (compositions) of perspectivities.  In the case \
+of the transfomations of a conic onto itself, the construction is in a way ",
+  StyleBox["much simpler",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We remark that a transformation with ",
+  Cell[BoxData[
+      StyleBox["3",
+        FontWeight->"Bold"]]],
+  " fixed points, must be the identity transformation.  (Why?)  Thus, we can \
+always suppose there are many pairs of ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " corresponding points."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  If, on a fixed non-degenerate conic, the distinct pairs of distinct \
+points  ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  " correspond under a projective transformation of the conic onto itself, \
+then the lines ",
+  Cell[BoxData[
+      StyleBox[\(PE[p\_1, q\_2]\),
+        FontWeight->"Bold"]]],
+  " and  ",
+  Cell[BoxData[
+      StyleBox[\(PE[p\_2, q\_1]\),
+        FontWeight->"Bold"]]],
+  " intersect on a ",
+  StyleBox["fixed line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (called the ",
+  StyleBox["axis",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the transformation)."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof: ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " Let  ",
+  Cell[BoxData[
+      StyleBox[\(p\_3\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  " be a distinct ",
+  StyleBox["third",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " corresponding pair.  Then we then have the data for ",
+  StyleBox["Pascal's Theorem",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and there is a common axis line determined by the intersections of the \
+lines ",
+  Cell[BoxData[
+      StyleBox[\(PE[p\_i, q\_j]\),
+        FontWeight->"Bold"]]],
+  " and  ",
+  Cell[BoxData[
+      StyleBox[\(PE[p\_j, q\_i]\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  As in the proof of the theorem, we can take ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " as centers of pencils and project the conic onto the axis and then back \
+onto the conic again, preserving crossratios.  This makes ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  ",",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  ", and",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(p\_3\),
+        FontWeight->"Bold"]]],
+  " correspond to ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  ",",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  " respectively.  But these two triples determine the transformation ",
+  StyleBox["uniquely",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". (Why?)  As the third pair can be chosen ",
+  StyleBox["arbitrarily",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we can then conclude that the desired intersections always fall on the \
+same axis.",
+  StyleBox[" Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  By using the method of this theorem, any ",
+  StyleBox["non-identity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " projectivity of a conic onto itself can thus be uniquely determined ",
+  StyleBox["and constructed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by giving the ",
+  StyleBox["axis",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["one pair",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of distinct corresponding points (not on the axis).  Note that by this \
+construction the",
+  StyleBox[" intersections of the axis with the conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are exactly the ",
+  StyleBox["fixed points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Note, too, that the axis and the pair of corresponding points may be \
+chosen arbitrarily."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 0]],
+
+Cell["Here is a picture for constructing one such projectivity.", "Text"],
+
+Cell[BoxData[
+    \(ClearAll[f, p, q, pp, qq, point, axis, Subscript]; \n
+    f = x\^2 + y\^2 - 4  z\^2; \np = 2\ v + w; \nq = \(-2\) u + w; \n
+    point = 3 \((v + w)\) + 2 \((u + w)\); \naxis = PE[v + w, u + w]; \n
+    pp = PD[f, point\^2]\ q - 2\ PD[f, q\ point]\ point; \n
+    qq = PD[f, point\^2]\ p - 2\ PD[f, p\ point]\ point; \n
+    ImplicitPlot[{f == 0, axis == 0, \n\t\tPE[p, point] == 0, 
+          PE[q, point] == 0} /. {z -> 1}, \n\t{x, \(-3\), 3}, {y, \(-3\), 3}, 
+      \nPlotStyle -> {{Thickness[0.005], \ Blue}, {Thickness[0.005], Red}, 
+          Black, Black}]; \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  "  Any non-identity projectivity of a ",
+  StyleBox["conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " onto itself has only ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " or ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " fixed points."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  "  Any non-identity projectivity of a ",
+  StyleBox["line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " onto itself has only ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " or ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " fixed points."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "From this construction we can also prove a kind of ",
+  StyleBox["converse",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to Pascal's Theorem."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  "  If six points \[LongDash] no three collinear \[LongDash] forming a \
+hexagon have the intersections of opposite pairs of sides collinear, then the \
+six points lie on a conic."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Take the six points in order around the hexagon as in this list ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["{",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "1"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            SubscriptBox[
+              StyleBox["q",
+                FontWeight->"Bold"], "2"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            SubscriptBox[
+              StyleBox["p",
+                FontWeight->"Bold"], "3"], ",", \(q\_1\), ",", \(p\_2\), ",", 
+            \(q\_3\)}],
+          FontWeight->"Bold"], 
+        StyleBox["}",
+          FontWeight->"Bold"]}]]],
+  ". The five points ",
+  Cell[BoxData[
+      RowBox[{
+        RowBox[{
+          StyleBox["{",
+            FontWeight->"Bold"], 
+          StyleBox[
+            RowBox[{
+              SubscriptBox[
+                StyleBox["p",
+                  FontWeight->"Bold"], "1"], ",", 
+              SubscriptBox[
+                StyleBox["q",
+                  FontWeight->"Bold"], "2"], ",", 
+              SubscriptBox[
+                StyleBox["p",
+                  FontWeight->"Bold"], "3"], ",", \(q\_1\), ",", \(p\_2\)}],
+            FontWeight->"Bold"], 
+          StyleBox["}",
+            FontWeight->"Bold"]}], 
+        StyleBox[" ",
+          FontWeight->"Bold"]}]]],
+  "determine a non-degenerate conic.  Use the line joining the intersections \
+of the opposite pairs of sides as an ",
+  StyleBox["axis",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for a projectivity on the conic making ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " correspond.  Then the construction ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " the axis will make ",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  " correspond and  ",
+  Cell[BoxData[
+      StyleBox[\(p\_3\),
+        FontWeight->"Bold"]]],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(q\_3\),
+        FontWeight->"Bold"]]],
+  " correspond.  But, this puts  on the conic!  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.",
+    FontWeight->"Bold"],
+  "  We had already proved this conclusion by symbolic computation in the \
+first proof of Pascal's Theorem.  (Why?)"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell["\<\
+We can also use the construction of projectivities to prove another \
+theorem about dual conics.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The joins of corresponding points under a projectivity on a non- \
+degenerate conic envelop another conic."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " We divide the calculation into ",
+  StyleBox["two cases",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Case 1:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "The axis is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " tangent to the conic.  In this case we can transform the configuration so \
+that the axis is ",
+  Cell[BoxData[
+      StyleBox[\(z == PE[u, v]\),
+        FontWeight->"Bold"]]],
+  ", with ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " on the conic, and so that one pair of corresponding points is ",
+  Cell[BoxData[
+      StyleBox[\(w \[Rule] u + v + w\),
+        FontWeight->"Bold"]]],
+  ".  The general form of the conic passing through these four points is \
+easily seen to be these conics forming a pencil: ",
+  Cell[BoxData[
+      StyleBox[\(a\ y \((x - z)\) + b\ z \((x - y)\)\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        RowBox[{"PD", "[", 
+          RowBox[{
+            StyleBox[\(a\ y \((x - z)\) + b\ z \((x - y)\)\),
+              FontWeight->"Bold"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            SuperscriptBox[
+              StyleBox["#",
+                FontWeight->"Bold"], "2"]}], 
+          StyleBox["]",
+            FontWeight->"Bold"]}], 
+        StyleBox["&",
+          FontWeight->"Bold"]}], "/@", 
+      StyleBox[\({u, v, w, u + v + w}\),
+        FontWeight->"Bold"]}]], "Input"],
+
+Cell[TextData[{
+  "So, we carry out the construction of the projectivity using variable \
+points ",
+  Cell[BoxData[
+      StyleBox[\(s\ u + t\ v\),
+        FontWeight->"Bold"]]],
+  " on the axis."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{\(ClearAll[f, p, q, pp, qq, a, b, s, t, Subscript]\), ";", 
+      RowBox[{"f", "=", 
+        StyleBox[\(a\ y \((x - z)\) + b\ z \((x - y)\)\),
+          FontWeight->"Bold"]}], 
+      StyleBox[";",
+        FontWeight->"Bold"], "\n", \(p = w\), ";", "\n", \(q = u + v + w\), 
+      ";", "\n", 
+      \(pp = PD[f, \((s\ u + t\ v)\)\^2]\ q - 
+          2\ PD[f, q\ \((s\ u + t\ v)\)]\ \((s\ u + t\ v)\)\), ";", "\n", 
+      \(qq = PD[f, \((s\ u + t\ v)\)\^2]\ p - 
+          2\ PD[f, p\ \((s\ u + t\ v)\)]\ \((s\ u + t\ v)\)\), ";", "\n", 
+      "\n", \(line = Map[Factor, Tidy/@Factor[PE[pp, qq]], {3}]\)}]], "Input"],
+
+Cell[TextData[{
+  "The formula for the moving line is not so bad.  If ",
+  Cell[BoxData[
+      StyleBox[\(a == 0\),
+        FontWeight->"Bold"]]],
+  ", we have a degenerate conic, so we can drop that factor.  If either ",
+  Cell[BoxData[
+      StyleBox[\(s == 0\),
+        FontWeight->"Bold"]]],
+  " or ",
+  Cell[BoxData[
+      StyleBox[\(t == 0\),
+        FontWeight->"Bold"]]],
+  ", the moving point on the axis is in a special position, and it would seem \
+the the rest of the formula takes care of that case.  So, we drop those \
+factors as well:"
+}], "Text"],
+
+Cell[BoxData[
+    \(line = Last[line]\)], "Input"],
+
+Cell["We then compute five of the lines:", "Text"],
+
+Cell[BoxData[
+    \(five = \(\((line /. {t -> 1, s -> #})\)&\)/@Range[5]\)], "Input"],
+
+Cell["\<\
+Now we can find the dual conic which is touched by these five \
+lines.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(dual = Factor/@Last[Tidy/@Factor[P2L@@five]]\)], "Input"],
+
+Cell["\<\
+The formula is simple enough!  Let us check that the general form \
+of the moving line touches that conic:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(PD[line\^2, dual] // Expand\)], "Input"],
+
+Cell[TextData[{
+  "It does!  That proves the theorem in this case.  We can also find the ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-form of the conic to which all these lines are tangent:"
+}], "Text"],
+
+Cell[BoxData[
+    \(touch = Dual[Envel[Dual[dual]]]\)], "Input"],
+
+Cell["When is this conic degenerate?", "Text"],
+
+Cell[BoxData[
+    \(Det[MHP[touch]] // Factor\)], "Input"],
+
+Cell[TextData[{
+  "We already know ",
+  Cell[BoxData[
+      StyleBox[\(a == 0\),
+        FontWeight->"Bold"]]],
+  " is bad.  What about ",
+  Cell[BoxData[
+      StyleBox[\(a == \(-2\) b\),
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text"],
+
+Cell[BoxData[
+    \(touch /. {a \[Rule] 2, b \[Rule] \(-1\)} // Factor\)], "Input"],
+
+Cell[BoxData[
+    \(dual /. {a \[Rule] 2, b \[Rule] \(-1\)} // Factor\)], "Input"],
+
+Cell[TextData[{
+  "Ah, all the lines have to pass through the point ",
+  Cell[BoxData[
+      StyleBox[\(u + v + 2\ w\),
+        FontWeight->"Bold"]]],
+  ".  This means that the projectivity is very special \[LongDash] and we \
+look at that special case in the next section."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Case 2:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "The axis ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " tangent to the conic.  In this case we can transform the configuration so \
+that the axis is ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  ", with ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " the point of tangency, and so that one pair of corresponding points is, \
+say, ",
+  Cell[BoxData[
+      StyleBox[\(u + w \[Rule] v + w\),
+        FontWeight->"Bold"]]],
+  ".  The general form of the conic satisfying these conditions is easily \
+seen to be these conics forming a pencil: ",
+  Cell[BoxData[
+      StyleBox[\(c\ y \((y - z)\) + d\ z \((x + y - z)\)\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{\(ClearAll[c, d]\), ";", "\n", 
+      RowBox[{
+        RowBox[{
+          RowBox[{"PD", "[", 
+            StyleBox[\(c\ y \((y - z)\) + d\ z \((x + y - z)\), #\),
+              FontWeight->"Bold"], 
+            StyleBox["]",
+              FontWeight->"Bold"]}], 
+          StyleBox["&",
+            FontWeight->"Bold"]}], 
+        StyleBox["/@",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["{",
+            FontWeight->"Bold"], 
+          RowBox[{
+            SuperscriptBox[
+              StyleBox["u",
+                FontWeight->"Bold"], "2"], ",", "u", ",", \(\((u + w)\)\^2\), 
+            ",", \(\((v + w)\)\^2\)}], "}"}]}]}]], "Input"],
+
+Cell["We do the similar calculations as before.", "Text"],
+
+Cell[BoxData[
+    RowBox[{\(ClearAll[f, p, q, pp, qq, c, d, s, t, Subscript]\), ";", 
+      RowBox[{"f", "=", 
+        StyleBox[\(c\ y \((y - z)\) + d\ z \((x + y - z)\)\),
+          FontWeight->"Bold"]}], 
+      StyleBox[";",
+        FontWeight->"Bold"], "\n", \(p = u + w\), ";", "\n", \(q = v + w\), 
+      ";", "\n", 
+      \(pp = PD[f, \((s\ u + t\ v)\)\^2]\ q - 
+          2\ PD[f, q\ \((s\ u + t\ v)\)]\ \((s\ u + t\ v)\)\), ";", "\n", 
+      \(qq = PD[f, \((s\ u + t\ v)\)\^2]\ p - 
+          2\ PD[f, p\ \((s\ u + t\ v)\)]\ \((s\ u + t\ v)\)\), ";", "\n", 
+      "\n", \(line = Map[Factor, Tidy/@Factor[PE[pp, qq]], {3}]\)}]], "Input"],
+
+Cell[BoxData[
+    \(line = Last[line]\)], "Input"],
+
+Cell[BoxData[
+    \(five = \(\((line /. {t -> 1, s -> #})\)&\)/@Range[5]\)], "Input"],
+
+Cell[BoxData[
+    \(dual = Factor/@Last[Tidy/@Factor[P2L@@five]]\)], "Input"],
+
+Cell[BoxData[
+    \(PD[line\^2, dual] // Expand\)], "Input"],
+
+Cell[BoxData[
+    \(touch = Dual[Envel[Dual[dual]]]\)], "Input"],
+
+Cell[BoxData[
+    \(Det[MHP[touch]] // Factor\)], "Input"],
+
+Cell[TextData[{
+  "Clearly ",
+  Cell[BoxData[
+      StyleBox[\(c == 0\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(d == 0\),
+        FontWeight->"Bold"]]],
+  " are bad, but otherwise the desired result holds.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["We attempt a picture to illustrate the theorem.", "Text"],
+
+Cell[BoxData[
+    \(c = \(-8\); d = 2; \n
+    ImplicitPlot[
+      Join[{f == 0, touch == 0}, 
+          \((line == 0 /. {t \[Rule] 1, s \[Rule] #1}&)\)/@
+            \((2  Range[\(-3\), 3])\)] /. {z \[Rule] 1}, \n
+      \t{x, \(-2\), 10}, {y, \(-3\), 3}, \n\tPlotPoints -> 100, \ \n\t
+      Axes \[Rule] None, \n
+      PlotStyle -> {{Thickness[0.004], Red}, \n\t{Thickness[0.004], Blue}, \n
+          \t\t\tBlack, Black, Black, Black, \n\t\t\tBlack, Black, Black}]; 
+    \)], "Input"],
+
+Cell[TextData[{
+  "The conic touched by the lines joining corresponding points is also \
+tangent to the line ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  " at the point ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[touch, u]\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Involutions on a conic", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  An ",
+  StyleBox["involution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a projective transformation of a projective space onto itself which ",
+  StyleBox["is not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the identity but whose composition with itself ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the identity transformation.  "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "If ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " is mapped to ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " under an involution, then ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " must be mapped to ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ".  We say that ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " have been ",
+  StyleBox["interchanged",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by the transformation."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  A projective transformation of a conic onto itself which interchanges  ",
+  
+  StyleBox["one pair",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of distinct points is in fact an ",
+  StyleBox["involution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof: ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "Let ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " be distinct points that are interchanged by a given  transformation.  Let \
+",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  " be a third point (that is also not one of the two possible fixed points), \
+and let it be mapped to ",
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  ".  We have four distinct points on the conic forming a quadrangle.  By the \
+theorem on harmonic properties, the ",
+  StyleBox["diagonal points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the quadrangle form a ",
+  StyleBox["self-polar triangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to the given conic.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Define:\n\t",
+  Cell[BoxData[
+      StyleBox[\(center == PE[PE[p\_1, q\_1], PE[p\_2, q\_2]]\),
+        FontWeight->"Bold"]]],
+  StyleBox["\n\t",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["axis",
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["PE",
+            FontWeight->"Bold"], 
+          StyleBox["[",
+            FontWeight->"Bold"], 
+          RowBox[{
+            RowBox[{
+              StyleBox["PE",
+                FontWeight->"Bold"], 
+              StyleBox["[",
+                FontWeight->"Bold"], 
+              RowBox[{
+                RowBox[{
+                  StyleBox["PE",
+                    FontWeight->"Bold"], 
+                  StyleBox["[",
+                    FontWeight->"Bold"], 
+                  RowBox[{
+                    SubscriptBox[
+                      StyleBox["p",
+                        FontWeight->"Bold"], "1"], 
+                    StyleBox[",",
+                      FontWeight->"Bold"], 
+                    SubscriptBox[
+                      StyleBox["q",
+                        FontWeight->"Bold"], "2"]}], 
+                  StyleBox["]",
+                    FontWeight->"Bold"]}], 
+                StyleBox[",",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  StyleBox["PE",
+                    FontWeight->"Bold"], 
+                  StyleBox["[",
+                    FontWeight->"Bold"], 
+                  RowBox[{
+                    SubscriptBox[
+                      StyleBox["p",
+                        FontWeight->"Bold"], "2"], 
+                    StyleBox[",",
+                      FontWeight->"Bold"], 
+                    SubscriptBox[
+                      StyleBox["q",
+                        FontWeight->"Bold"], "1"]}], 
+                  StyleBox["]",
+                    FontWeight->"Bold"]}]}], 
+              StyleBox["]",
+                FontWeight->"Bold"]}], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            StyleBox["\n",
+              FontWeight->"Bold"], 
+            StyleBox["\t\t              ",
+              FontWeight->"Bold"], 
+            RowBox[{
+              StyleBox["PE",
+                FontWeight->"Bold"], 
+              StyleBox["[",
+                FontWeight->"Bold"], 
+              RowBox[{
+                RowBox[{
+                  StyleBox["PE",
+                    FontWeight->"Bold"], 
+                  StyleBox["[",
+                    FontWeight->"Bold"], 
+                  RowBox[{
+                    SubscriptBox[
+                      StyleBox["p",
+                        FontWeight->"Bold"], "1"], 
+                    StyleBox[",",
+                      FontWeight->"Bold"], 
+                    SubscriptBox[
+                      StyleBox["p",
+                        FontWeight->"Bold"], "2"]}], 
+                  StyleBox["]",
+                    FontWeight->"Bold"]}], 
+                StyleBox[",",
+                  FontWeight->"Bold"], 
+                RowBox[{
+                  StyleBox["PE",
+                    FontWeight->"Bold"], 
+                  StyleBox["[",
+                    FontWeight->"Bold"], 
+                  RowBox[{
+                    SubscriptBox[
+                      StyleBox["q",
+                        FontWeight->"Bold"], "1"], 
+                    StyleBox[",",
+                      FontWeight->"Bold"], 
+                    SubscriptBox[
+                      StyleBox["q",
+                        FontWeight->"Bold"], "2"]}], 
+                  StyleBox["]",
+                    FontWeight->"Bold"]}]}], 
+              StyleBox["]",
+                FontWeight->"Bold"]}]}], 
+          StyleBox["]",
+            FontWeight->"Bold"]}]}]],
+    FontWeight->"Bold"],
+  StyleBox["\n",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  "Then using projections from ",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  " onto the axis and back, we see that ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " are interchanged.  But, because the ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  " is the ",
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the ",
+  Cell[BoxData[
+      StyleBox["center",
+        FontWeight->"Bold"]]],
+  ", this construction of the transformation will interchange ",
+  StyleBox["any other pair",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of corresponding points.",
+  StyleBox["  Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+We have actually proved more about involutions in the above \
+argument. \
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.",
+    FontWeight->"Bold"],
+  "  The lines joining ",
+  StyleBox["corresponding points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of an involution on a conic all pass through the ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (which gives an easy ",
+  StyleBox["construction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of any involution).  Hence, an involution on a conic has ",
+  StyleBox["exactly",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " two fixed points (which may be complex).  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Example.  ",
+    FontWeight->"Bold"],
+  "Let two given non-singular conics pass through a common point ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ".  Let ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " be a point ",
+  StyleBox["not on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " either of them.  Consider the the ",
+  StyleBox["pencil",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of lines through ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  ".   Any line in this pencil cuts the first conic in two points.  The two \
+lines through these two points from ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " cut the second conic in two further points.  We can prove that the lines \
+joining these two points form a ",
+  StyleBox["second pencil",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " passing through a common point ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  ".  First we draw a picture."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[{
+    \(ClearAll[f, g, p, q, r, s, t, Subscript]\), 
+    \(f = x\^2 + y\^2 - z\^2; \ng = \((x - 3  z)\)\^2 + y\^2 - 4  z\^2; \n
+    p = u + w; \nq = 2  u + 3  v + w; \n
+    r[t_]\ \  := \((t\^2 - 1)\)\ u + 2\ t\ v + \((t\^2 + 1)\)\ w; \n
+    s[t_]\ \  := PD[f, q\^2]\ r[t] - 2  PD[f, r[t]\ q]\ q; \n
+    rr[t_] := PD[g, r[t]\^2]\ p - 2\ PD[g, p\ r[t]]\ r[t]; \n
+    ss[t_] := PD[g, s[t]\^2]\ p - 2\ PD[g, p\ s[t]]\ s[t]; \)}], "Input",
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[
+      Join[{f == 0, g == 0}, 
+          Flatten[Table[{PE[q, r[t]] == 0, PE[p, r[t]] == 0, 
+                PE[p, s[t]] == 0, PE[rr[t], ss[t]] == 0}, {t, 1, 3}]]] /. {
+          z \[Rule] 1}, {x, \(-5\), 6}, {y, \(-7\), 5}, Axes \[Rule] None, 
+      PlotPoints \[Rule] 100]; \)\)], "Input"],
+
+Cell["\<\
+Of course, the pairs of points on the small circle are pairs in an \
+involution, and the transfer through the tangent point makes an involution on \
+the large circle.  Hence, by the general theorem, the joins of corresponding \
+pairs have to form a pencil.\
+\>", "Text"],
+
+Cell["We can also argue for this result by symbolic computation.", "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[a, b, c, d, e, f, g, p, q, r, s, t, Subscript]\), 
+    \(f /: DegP[f] = 2; \ng /: DegP[g] = 2; \np /: DegP[p] = 1; \n
+    q /: DegP[q] = 1; \nr /: DegP[r] = 1; \np /: PD[PD[f, p], p] = 0; \n
+    p /: PD[PD[g, p], p] = 0; \nr /: PD[PD[f, r], r] = 0; \)}], "Input"],
+
+Cell[BoxData[
+    \(\(rr = \(-PD[f, q\^2]\) r + 2  PD[f, q\ r] q; \)\)], "Input"],
+
+Cell[BoxData[
+    \(PD[f, rr\^2] // ExpandAll\)], "Input"],
+
+Cell[BoxData[{
+    \(s = \ \ \ \ \ \(-PD[g, r\^2]\) p + 2  PD[g, r\ p] r\n\), 
+    \(ss = Collect[\(-PD[g, rr\^2]\) p + 2  PD[g, rr\ p] rr, {p, q, r}]\)}], 
+  "Input"],
+
+Cell[BoxData[
+    \(Collect[PE[s, ss], {PE[p, q], PE[p, r], PE[q, r]}]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  " Any projectivity on a conic (and, therefore, on a line) is the product of \
+",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " involutions (in infinitely many ways)."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  Let the line ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  " be the axis for the projectivity on the conic, and let ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " be points on the conic ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the axis (non-fixed points), where the first is mapped to the second \
+under the projectivity.    "
+}], "Text"],
+
+Cell[TextData[{
+  "Now, let ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " any point on the ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  " not on the conic.  Join ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " and find where the line intersects the conic.  From that point draw a \
+line through ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  ", and find where the line intersects ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  ".  Call this point ",
+  Cell[BoxData[
+      StyleBox["s",
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "By using ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["s",
+        FontWeight->"Bold"]]],
+  " as centers for two involutions on the conic, we see that, by \
+construction, ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " is mapped to",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " under the product of the two involutions.  Moreover, the two fixed points \
+are left fixed under the product of the two involutions.  Therefore, if the \
+fixed points are  ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the product of the two involutions is the desired projectivity. (Why? \
+Because the images of three distinct points determine a one-dimensonal \
+projective mapping.)"
+}], "Text"],
+
+Cell[TextData[{
+  "On the other hand, if the fixed points are ",
+  StyleBox["equal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (and so the axis is a ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the conic), then take another pair ",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  " in the projectivity.  We know the lines joining ",
+  Cell[BoxData[
+      StyleBox[\(p\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  " and joining ",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(q\_1\),
+        FontWeight->"Bold"]]],
+  " meet on the axis.  A simple application of Pascal's Theorem shows that \
+the product of the involutions mapps ",
+  Cell[BoxData[
+      StyleBox[\(p\_2\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox[\(q\_2\),
+        FontWeight->"Bold"]]],
+  ".",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " So the product of the involutions ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the projectivity. (A picture would be useful!)"
+}], "Text"],
+
+Cell[TextData[{
+  "This construction started with an arbitrary choice of ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " on the ",
+  Cell[BoxData[
+      StyleBox["axis",
+        FontWeight->"Bold"]]],
+  ".  Thus, there are infinitely many ways in which the decomposition can be \
+done.",
+  StyleBox[" Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{768, 552},
+WindowMargins->{{71, Automatic}, {Automatic, 157}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 142, 4, 73, "Title"],
+Cell[1854, 55, 274, 10, 61, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[2153, 69, 46, 0, 55, "Section"],
+
+Cell[CellGroupData[{
+Cell[2224, 73, 103, 2, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2352, 79, 57, 0, 52, "Subsubsection"],
+Cell[2412, 81, 182, 4, 60, "Text"],
+Cell[2597, 87, 842, 37, 76, "Text"],
+Cell[3442, 126, 698, 28, 76, "Text"],
+Cell[4143, 156, 244, 9, 54, "Text"],
+Cell[4390, 167, 101, 3, 38, "Text"],
+Cell[4494, 172, 446, 16, 76, "Text"],
+Cell[4943, 190, 564, 20, 102, "Text"],
+Cell[5510, 212, 384, 16, 54, "Text"],
+Cell[5897, 230, 2023, 78, 192, "Text"],
+Cell[7923, 310, 99, 3, 38, "Text"],
+Cell[8025, 315, 706, 26, 99, "Text"],
+Cell[8734, 343, 334, 6, 105, "Text"],
+Cell[9071, 351, 797, 30, 131, "Text"],
+Cell[9871, 383, 373, 13, 60, "Text"],
+Cell[10247, 398, 248, 4, 177, "Input"],
+Cell[10498, 404, 126, 4, 33, "Text"],
+Cell[10627, 410, 179, 6, 38, "Text"],
+Cell[10809, 418, 828, 32, 99, "Text"],
+Cell[11640, 452, 1257, 43, 128, "Text"],
+Cell[12900, 497, 215, 7, 60, "Text"],
+Cell[13118, 506, 148, 4, 38, "Text"],
+Cell[13269, 512, 501, 10, 234, "Input"],
+Cell[13773, 524, 58, 0, 33, "Text"],
+Cell[13834, 526, 516, 11, 243, "Input"],
+Cell[14353, 539, 96, 3, 33, "Text"],
+Cell[14452, 544, 465, 10, 243, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[14954, 559, 96, 2, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[15053, 563, 144, 3, 60, "Text"],
+Cell[15200, 568, 737, 24, 131, "Text"],
+Cell[15940, 594, 106, 3, 38, "Text"],
+Cell[16049, 599, 509, 19, 76, "Text",
+  Evaluatable->False],
+Cell[16561, 620, 519, 19, 60, "Text",
+  Evaluatable->False],
+Cell[17083, 641, 468, 8, 188, "Input"],
+Cell[17554, 651, 101, 3, 33, "Text"],
+Cell[17658, 656, 203, 4, 94, "Input"],
+Cell[17864, 662, 64, 0, 38, "Text"],
+Cell[17931, 664, 128, 3, 54, "Input"],
+Cell[18062, 669, 91, 4, 33, "Text"],
+Cell[18156, 675, 371, 10, 99, "Text"],
+Cell[18530, 687, 89, 3, 38, "Text"],
+Cell[18622, 692, 598, 10, 254, "Input"],
+Cell[19223, 704, 604, 14, 139, "Text"],
+Cell[19830, 720, 51, 0, 38, "Text"],
+Cell[19884, 722, 968, 37, 105, "Text"],
+Cell[20855, 761, 61, 1, 54, "Input"],
+Cell[20919, 764, 68, 1, 47, "Input"],
+Cell[20990, 767, 70, 1, 48, "Input"],
+Cell[21063, 770, 284, 5, 78, "Text"],
+Cell[21350, 777, 58, 1, 54, "Input"],
+Cell[21411, 780, 72, 1, 47, "Input"],
+Cell[21486, 783, 406, 15, 56, "Text"],
+Cell[21895, 800, 61, 1, 56, "Input"],
+Cell[21959, 803, 183, 6, 56, "Text"],
+Cell[22145, 811, 300, 9, 60, "Text"],
+Cell[22448, 822, 164, 4, 137, "Input"],
+Cell[22615, 828, 629, 17, 123, "Text"],
+Cell[23247, 847, 51, 1, 54, "Input"],
+Cell[23301, 850, 74, 1, 47, "Input"],
+Cell[23378, 853, 181, 4, 56, "Text"],
+Cell[23562, 859, 204, 4, 78, "Input"],
+Cell[23769, 865, 142, 6, 33, "Text"],
+Cell[23914, 873, 330, 8, 160, "Input"],
+Cell[24247, 883, 160, 6, 33, "Text"],
+Cell[24410, 891, 59, 1, 54, "Input"],
+Cell[24472, 894, 141, 6, 33, "Text"],
+Cell[24616, 902, 148, 6, 38, "Text"],
+Cell[24767, 910, 747, 15, 276, "Input"],
+Cell[25517, 927, 276, 10, 56, "Text"],
+Cell[25796, 939, 462, 17, 76, "Text"],
+Cell[26261, 958, 654, 18, 179, "Text"],
+Cell[26918, 978, 912, 36, 124, "Text"],
+Cell[27833, 1016, 361, 11, 76, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[28243, 1033, 61, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[28329, 1037, 57, 0, 52, "Subsubsection"],
+Cell[28389, 1039, 203, 4, 83, "Text"],
+Cell[28595, 1045, 1466, 56, 272, "Text"],
+Cell[30064, 1103, 202, 6, 60, "Text"],
+Cell[30269, 1111, 131, 3, 94, "Input"],
+Cell[30403, 1116, 88, 3, 38, "Text"],
+Cell[30494, 1121, 111, 2, 94, "Input"],
+Cell[30608, 1125, 231, 6, 60, "Text"],
+Cell[30842, 1133, 52, 1, 54, "Input"],
+Cell[30897, 1136, 326, 10, 60, "Text"],
+Cell[31226, 1148, 108, 2, 74, "Input"],
+Cell[31337, 1152, 46, 0, 38, "Text"],
+Cell[31386, 1154, 111, 2, 94, "Input"],
+Cell[31500, 1158, 40, 0, 33, "Text"],
+Cell[31543, 1160, 108, 2, 74, "Input"],
+Cell[31654, 1164, 101, 4, 38, "Text"],
+Cell[31758, 1170, 619, 25, 76, "Text"],
+Cell[32380, 1197, 395, 11, 83, "Text"],
+Cell[32778, 1210, 239, 4, 134, "Input"],
+Cell[33020, 1216, 46, 0, 33, "Text"],
+Cell[33069, 1218, 1480, 63, 121, "Text"],
+Cell[34552, 1283, 1066, 36, 144, "Text"],
+Cell[35621, 1321, 875, 27, 150, "Text"],
+Cell[36499, 1350, 554, 12, 234, "Input"],
+Cell[37056, 1364, 51, 0, 33, "Text"],
+Cell[37110, 1366, 569, 16, 121, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[37716, 1387, 61, 0, 29, "Subsubsection"],
+Cell[37780, 1389, 133, 4, 38, "Text"],
+Cell[37916, 1395, 186, 3, 114, "Input"],
+Cell[38105, 1400, 333, 8, 78, "Text"],
+Cell[38441, 1410, 614, 13, 254, "Input"],
+Cell[39058, 1425, 89, 3, 38, "Text"],
+Cell[39150, 1430, 92, 1, 54, "Input"],
+Cell[39245, 1433, 161, 6, 33, "Text"],
+Cell[39409, 1441, 52, 0, 52, "Input"],
+Cell[39464, 1443, 89, 3, 33, "Text"],
+Cell[39556, 1448, 25, 0, 52, "Input"],
+Cell[39584, 1450, 62, 0, 33, "Text"],
+Cell[39649, 1452, 568, 24, 76, "Text"],
+Cell[40220, 1478, 1590, 60, 230, "Text"],
+Cell[41813, 1540, 409, 11, 99, "Text"],
+Cell[42225, 1553, 299, 11, 60, "Text"],
+Cell[42527, 1566, 86, 1, 77, "Input"],
+Cell[42616, 1569, 188, 6, 33, "Text"],
+Cell[42807, 1577, 43, 0, 52, "Input"],
+Cell[42853, 1579, 95, 3, 33, "Text"],
+Cell[42951, 1584, 52, 0, 52, "Input"],
+Cell[43006, 1586, 37, 0, 44, "Input"],
+Cell[43046, 1588, 45, 0, 33, "Text"],
+Cell[43094, 1590, 28, 0, 52, "Input"],
+Cell[43125, 1592, 1024, 29, 184, "Text"],
+Cell[44152, 1623, 632, 22, 105, "Text"],
+Cell[44787, 1647, 1216, 56, 83, "Text",
+  Evaluatable->False],
+Cell[46006, 1705, 580, 26, 60, "Text",
+  Evaluatable->False],
+Cell[46589, 1733, 242, 4, 136, "Input"],
+Cell[46834, 1739, 193, 6, 60, "Text"],
+Cell[47030, 1747, 73, 1, 54, "Input"],
+Cell[47106, 1750, 581, 21, 78, "Text"],
+Cell[47690, 1773, 123, 3, 54, "Input"],
+Cell[47816, 1778, 88, 3, 33, "Text"],
+Cell[47907, 1783, 75, 1, 56, "Input"],
+Cell[47985, 1786, 177, 6, 33, "Text"],
+Cell[48165, 1794, 72, 0, 38, "Text"],
+Cell[48240, 1796, 420, 17, 76, "Text"],
+Cell[48663, 1815, 190, 6, 60, "Text"],
+Cell[48856, 1823, 137, 3, 96, "Input"],
+Cell[48996, 1828, 76, 0, 33, "Text"],
+Cell[49075, 1830, 121, 2, 76, "Input"],
+Cell[49199, 1834, 54, 0, 33, "Text"],
+Cell[49256, 1836, 101, 2, 74, "Input"],
+Cell[49360, 1840, 50, 0, 33, "Text"],
+Cell[49413, 1842, 302, 6, 94, "Input"],
+Cell[49718, 1850, 47, 0, 33, "Text"],
+Cell[49768, 1852, 53, 1, 54, "Input"],
+Cell[49824, 1855, 55, 0, 33, "Text"],
+Cell[49882, 1857, 65, 1, 56, "Input"],
+Cell[49950, 1860, 226, 7, 56, "Text"],
+Cell[50179, 1869, 101, 2, 74, "Input"],
+Cell[50283, 1873, 360, 14, 56, "Text"],
+Cell[50646, 1889, 81, 1, 54, "Input"],
+Cell[50730, 1892, 143, 6, 33, "Text"],
+Cell[50876, 1900, 75, 1, 56, "Input"],
+Cell[50954, 1903, 186, 5, 56, "Text"],
+Cell[51143, 1910, 89, 3, 38, "Text"],
+Cell[51235, 1915, 73, 1, 54, "Input"],
+Cell[51311, 1918, 40, 0, 33, "Text"],
+Cell[51354, 1920, 953, 16, 274, "Input"],
+Cell[52310, 1938, 362, 15, 56, "Text"],
+Cell[52675, 1955, 83, 1, 76, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[52795, 1961, 37, 0, 29, "Subsubsection"],
+Cell[52835, 1963, 229, 6, 60, "Text"],
+Cell[53067, 1971, 1131, 41, 182, "Text"],
+Cell[54201, 2014, 574, 17, 105, "Text"],
+Cell[54778, 2033, 404, 16, 60, "Text"],
+Cell[55185, 2051, 876, 32, 150, "Text"],
+Cell[56064, 2085, 496, 18, 83, "Text"],
+Cell[56563, 2105, 1742, 63, 236, "Text"],
+Cell[58308, 2170, 617, 19, 105, "Text"],
+Cell[58928, 2191, 862, 33, 163, "Text"],
+Cell[59793, 2226, 197, 4, 83, "Text"],
+Cell[59993, 2232, 710, 27, 163, "Text"],
+Cell[60706, 2261, 149, 5, 38, "Text"],
+Cell[60858, 2268, 172, 3, 94, "Input"],
+Cell[61033, 2273, 52, 0, 38, "Text"],
+Cell[61088, 2275, 51, 1, 54, "Input"],
+Cell[61142, 2278, 71, 1, 47, "Input"],
+Cell[61216, 2281, 95, 3, 33, "Text"],
+Cell[61314, 2286, 46, 1, 54, "Input"],
+Cell[61363, 2289, 217, 8, 33, "Text"],
+Cell[61583, 2299, 70, 0, 38, "Text"],
+Cell[61656, 2301, 855, 35, 108, "Text"],
+Cell[62514, 2338, 389, 14, 76, "Text"],
+Cell[62906, 2354, 2213, 71, 149, "Text"],
+Cell[65122, 2427, 754, 25, 169, "Text"],
+Cell[65879, 2454, 199, 8, 38, "Text"],
+Cell[66081, 2464, 216, 4, 224, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[66358, 2475, 44, 0, 35, "Section"],
+
+Cell[CellGroupData[{
+Cell[66427, 2479, 42, 0, 65, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[66494, 2483, 114, 2, 51, "Subsubsection",
+  Evaluatable->False],
+Cell[66611, 2487, 3450, 137, 150, "Text"],
+Cell[70064, 2626, 188, 6, 38, "Text"],
+Cell[70255, 2634, 1577, 66, 144, "Text"],
+Cell[71835, 2702, 323, 13, 54, "Text"],
+Cell[72161, 2717, 157, 5, 38, "Text"],
+Cell[72321, 2724, 91, 2, 74, "Input"],
+Cell[72415, 2728, 73, 0, 38, "Text"],
+Cell[72491, 2730, 63, 1, 56, "Input"],
+Cell[72557, 2733, 109, 3, 33, "Text"],
+Cell[72669, 2738, 60, 1, 54, "Input"],
+Cell[72732, 2741, 68, 0, 33, "Text"],
+Cell[72803, 2743, 59, 1, 54, "Input"],
+Cell[72865, 2746, 196, 7, 33, "Text"],
+Cell[73064, 2755, 101, 2, 74, "Input"],
+Cell[73168, 2759, 184, 7, 33, "Text"],
+Cell[73355, 2768, 73, 1, 54, "Input"],
+Cell[73431, 2771, 88, 1, 47, "Input"],
+Cell[73522, 2774, 660, 23, 100, "Text"],
+Cell[74185, 2799, 80, 1, 54, "Input"],
+Cell[74268, 2802, 80, 1, 47, "Input"],
+Cell[74351, 2805, 147, 3, 56, "Text"],
+Cell[74501, 2810, 50, 1, 54, "Input"],
+Cell[74554, 2813, 156, 5, 33, "Text"],
+Cell[74713, 2820, 85, 1, 54, "Input"],
+Cell[74801, 2823, 52, 1, 48, "Input"],
+Cell[74856, 2826, 688, 27, 78, "Text"],
+Cell[75547, 2855, 408, 9, 214, "Input"],
+Cell[75958, 2866, 267, 11, 38, "Text"],
+Cell[76228, 2879, 54, 1, 54, "Input"],
+Cell[76285, 2882, 246, 10, 38, "Text"],
+Cell[76534, 2894, 91, 1, 56, "Input"],
+Cell[76628, 2897, 297, 14, 33, "Text"],
+Cell[76928, 2913, 49, 1, 54, "Input"],
+Cell[76980, 2916, 49, 1, 47, "Input"],
+Cell[77032, 2919, 374, 12, 78, "Text"],
+Cell[77409, 2933, 2006, 73, 144, "Text"],
+Cell[79418, 3008, 45, 0, 38, "Text"],
+Cell[79466, 3010, 72, 1, 74, "Input"],
+Cell[79541, 3013, 109, 2, 54, "Input"],
+Cell[79653, 3017, 105, 3, 33, "Text"],
+Cell[79761, 3022, 1384, 51, 145, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[81182, 3078, 90, 2, 28, "Subsubsection",
+  Evaluatable->False],
+Cell[81275, 3082, 69, 0, 41, "Text"],
+Cell[81347, 3084, 686, 27, 83, "Text",
+  Evaluatable->False],
+Cell[82036, 3113, 285, 9, 83, "Text"],
+Cell[82324, 3124, 221, 6, 67, "Text"],
+Cell[82548, 3132, 207, 4, 105, "Input"],
+Cell[82758, 3138, 143, 6, 41, "Text"],
+Cell[82904, 3146, 76, 1, 57, "Input"],
+Cell[82983, 3149, 88, 3, 41, "Text"],
+Cell[83074, 3154, 189, 3, 105, "Input"],
+Cell[83266, 3159, 186, 5, 67, "Text"],
+Cell[83455, 3166, 56, 1, 57, "Input"],
+Cell[83514, 3169, 159, 5, 41, "Text"],
+Cell[83676, 3176, 70, 1, 75, "Input"],
+Cell[83749, 3179, 638, 29, 67, "Text"],
+Cell[84390, 3210, 1082, 32, 220, "Text"],
+Cell[85475, 3244, 4551, 145, 374, "Text"],
+Cell[90029, 3391, 1943, 79, 118, "Text"],
+Cell[91975, 3472, 4078, 154, 224, "Text"],
+Cell[96056, 3628, 1325, 53, 144, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[97430, 3687, 48, 0, 65, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[97503, 3691, 99, 2, 51, "Subsubsection",
+  Evaluatable->False],
+Cell[97605, 3695, 154, 3, 60, "Text"],
+Cell[97762, 3700, 472, 16, 99, "Text",
+  Evaluatable->False],
+Cell[98237, 3718, 1538, 58, 172, "Text"],
+Cell[99778, 3778, 140, 6, 38, "Text"],
+Cell[99921, 3786, 472, 9, 220, "Input"],
+Cell[100396, 3797, 974, 33, 123, "Text"],
+Cell[101373, 3832, 389, 14, 60, "Text"],
+Cell[101765, 3848, 319, 10, 76, "Text"],
+Cell[102087, 3860, 2674, 81, 217, "Text"],
+Cell[104764, 3943, 547, 10, 150, "Text"],
+Cell[105314, 3955, 667, 17, 150, "Text"],
+Cell[105984, 3974, 1049, 41, 121, "Text",
+  Evaluatable->False],
+Cell[107036, 4017, 2216, 84, 195, "Text",
+  Evaluatable->False],
+Cell[109255, 4103, 1012, 33, 144, "Text",
+  Evaluatable->False],
+Cell[110270, 4138, 73, 0, 38, "Text"],
+Cell[110346, 4140, 594, 9, 300, "Input"],
+Cell[110943, 4151, 416, 17, 76, "Text"],
+Cell[111362, 4170, 415, 17, 76, "Text"],
+Cell[111780, 4189, 183, 6, 38, "Text"],
+Cell[111966, 4197, 292, 7, 76, "Text"],
+Cell[112261, 4206, 2460, 85, 150, "Text"],
+Cell[114724, 4293, 226, 6, 76, "Text"],
+Cell[114953, 4301, 120, 3, 60, "Text"],
+Cell[115076, 4306, 221, 6, 76, "Text"],
+Cell[115300, 4314, 216, 9, 38, "Text"],
+Cell[115519, 4325, 918, 31, 128, "Text"],
+Cell[116440, 4358, 554, 17, 56, "Input"],
+Cell[116997, 4377, 208, 7, 56, "Text"],
+Cell[117208, 4386, 640, 12, 237, "Input"],
+Cell[117851, 4400, 563, 16, 100, "Text"],
+Cell[118417, 4418, 50, 1, 54, "Input"],
+Cell[118470, 4421, 50, 0, 33, "Text"],
+Cell[118523, 4423, 85, 1, 54, "Input"],
+Cell[118611, 4426, 94, 3, 33, "Text"],
+Cell[118708, 4431, 77, 1, 54, "Input"],
+Cell[118788, 4434, 130, 3, 60, "Text"],
+Cell[118921, 4439, 60, 1, 56, "Input"],
+Cell[118984, 4442, 207, 5, 60, "Text"],
+Cell[119194, 4449, 64, 1, 54, "Input"],
+Cell[119261, 4452, 46, 0, 38, "Text"],
+Cell[119310, 4454, 58, 1, 54, "Input"],
+Cell[119371, 4457, 237, 10, 38, "Text"],
+Cell[119611, 4469, 83, 1, 54, "Input"],
+Cell[119697, 4472, 82, 1, 54, "Input"],
+Cell[119782, 4475, 286, 7, 60, "Text"],
+Cell[120071, 4484, 837, 28, 128, "Text"],
+Cell[120911, 4514, 692, 20, 96, "Input"],
+Cell[121606, 4536, 57, 0, 38, "Text"],
+Cell[121666, 4538, 644, 12, 237, "Input"],
+Cell[122313, 4552, 50, 1, 54, "Input"],
+Cell[122366, 4555, 85, 1, 54, "Input"],
+Cell[122454, 4558, 77, 1, 54, "Input"],
+Cell[122534, 4561, 60, 1, 56, "Input"],
+Cell[122597, 4564, 64, 1, 54, "Input"],
+Cell[122664, 4567, 58, 1, 54, "Input"],
+Cell[122725, 4570, 302, 12, 38, "Text"],
+Cell[123030, 4584, 63, 0, 38, "Text"],
+Cell[123096, 4586, 484, 10, 254, "Input"],
+Cell[123583, 4598, 283, 11, 60, "Text"],
+Cell[123869, 4611, 45, 1, 54, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[123951, 4617, 96, 2, 28, "Subsubsection",
+  Evaluatable->False],
+Cell[124050, 4621, 552, 19, 99, "Text",
+  Evaluatable->False],
+Cell[124605, 4642, 719, 32, 60, "Text",
+  Evaluatable->False],
+Cell[125327, 4676, 433, 16, 76, "Text",
+  Evaluatable->False],
+Cell[125763, 4694, 953, 32, 128, "Text"],
+Cell[126719, 4728, 4814, 151, 219, "Text"],
+Cell[131536, 4881, 96, 3, 38, "Text"],
+Cell[131635, 4886, 637, 21, 99, "Text"],
+Cell[132275, 4909, 1146, 40, 150, "Text",
+  Evaluatable->False],
+Cell[133424, 4951, 475, 8, 227, "Input"],
+Cell[133902, 4961, 326, 6, 174, "Input"],
+Cell[134231, 4969, 280, 5, 78, "Text"],
+Cell[134514, 4976, 74, 0, 38, "Text"],
+Cell[134591, 4978, 293, 4, 214, "Input"],
+Cell[134887, 4984, 81, 1, 56, "Input"],
+Cell[134971, 4987, 58, 1, 56, "Input"],
+Cell[135032, 4990, 167, 3, 90, "Input"],
+Cell[135202, 4995, 83, 1, 47, "Input"],
+Cell[135288, 4998, 304, 10, 72, "Text"],
+Cell[135595, 5010, 611, 22, 83, "Text"],
+Cell[136209, 5034, 760, 31, 83, "Text"],
+Cell[136972, 5067, 899, 29, 150, "Text"],
+Cell[137874, 5098, 1310, 50, 128, "Text"],
+Cell[139187, 5150, 371, 13, 60, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

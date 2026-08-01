@@ -1,0 +1,1030 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     21118,        870]*)
+(*NotebookOutlinePosition[     21843,        896]*)
+(*  CellTagsIndexPosition[     21799,        892]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 6   Projective Geometry\n",
+  StyleBox["Homework",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it\nName the file: 06.Homework.nb\n\
+Please hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Monday, 5 October",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[" \nSave it in your subdirectory of\nthe class handin directory ",
+    FontSize->12,
+    FontWeight->"Bold"]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["Name: xxxxxxxxx", "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "1. Linear transformations and crossratios ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Let us consider points ",
+  Cell[BoxData[
+      StyleBox[\(A == a\ u + b\ w\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.  Given a 2x2 matrix ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  ", we can define the ",
+  StyleBox["linear transformation of points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (on this line to other points on the same line) in terms of homogeneous \
+coordinates as follows:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(L[M_]\)[A_] := 
+      Tidy[{A /. {u \[Rule] 1, w \[Rule] 0}, 
+            A /. {u \[Rule] 0, w \[Rule] 1}} . M . {u, w}]\)], "Input"],
+
+Cell[TextData[{
+  "Question 1.",
+  StyleBox["  For the points ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \({a\ u + w, b\ u + w, c\ u + w, d\ u + w}\)]],
+  StyleBox[" with the known crossratio ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(\(\((a - c)\)\ \((b - d)\)\)\/\(\((b - c)\)\ \((a - d)\)\)\)]],
+  StyleBox[
+  ", can you verify (again) that for an arbitrary linear transformation",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["of these points with \n\t",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(M = {{m\_11, m\_12}, {m\_21, m\_22}}\)]],
+  " \n",
+  StyleBox["the cross ratio will be ",
+    FontWeight->"Plain"],
+  StyleBox["preserved",
+    FontSlant->"Italic"],
+  StyleBox["?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 2.",
+  StyleBox[" What linear transformation ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(L[M]\)]],
+  StyleBox[" maps the four points ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(A\_i\)]],
+  StyleBox[" to the four points ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(B\_i\)]],
+  StyleBox[" given below?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(ClearAll[a, b, c, d, e, Subscript]; \nA\_1 = 1  u + w; 
+    B\_1 = \((e + 1)\)\ u + w; \nA\_2 = 2\ u + w; B\_2 = \((e + 2)\)\ u + w; 
+    \nA\_3 = 3\ u + w; B\_3 = \((e + 3)\)\ u + w; \nA\_4 = 4\ u + w; 
+    B\_4 = \((e + 4)\)\ u + w; \nRP[A\_1, A\_2, A\_3, A\_4]\), 
+    \(RP[B\_1, B\_2, B\_3, B\_4]\)}], "Input"],
+
+Cell[BoxData[
+    \(4\/3\)], "Output"],
+
+Cell[BoxData[
+    \(4\/3\)], "Output"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3  ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 3.",
+  StyleBox["  Can you find a linear transformation that will map \n\t",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \({u, w, u + w}\)]],
+  StyleBox["  to ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \({w, u + w, a\ u + b\ w}\)]],
+  StyleBox["?  \nIf not, does that mean that no ",
+    FontWeight->"Plain"],
+  StyleBox["projective transformation",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox[
+  "can move the three points represented by the first triple to the points \
+represented by the second triple?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["", "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "2. Projectively equivalent figures ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "The Question  ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "Can you use ",
+  StyleBox["matrices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to determine which of the following pairs of configurations of points and \
+lines ",
+  StyleBox["are equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " under a projective transformation?  \nIn case they ",
+  StyleBox["are equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", give a matrix for a transformation that maps one into the other.  \nIn \
+case they are ",
+  StyleBox["not equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", give a reason for your answer."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(\({cf11, cf12} = {{u, v, w, u + v + w}, {v, w, u + v + w, u}}; \)\)], 
+  "Input",
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(\({cf21, cf22} = {{u, v, w, u + v + w}, {v, w, u + w, u + v + w}}; 
+    \)\)], "Input",
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(\({cf31, 
+        cf32} = {{x, x + y, x + y + z, x - y + z}, {2\ x + 3\ y, x - y, z, 
+          y}}; \)\)], "Input",
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(\({cf41, 
+        cf42} = {{u, u + v, u + v + w, PE[x - y, x + y]}, {5\ u + w, 
+          8\ u - 2\ v + 2\ w, 8\ u - 2\ v + 3\ w, PE[x + 4\ y, x - y]}}; 
+    \)\)], "Input",
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(\({cf51, 
+        cf52} = {{PE[u, u + v], PE[u, u + v - w], x - y, x + y}, {
+          PE[v, v + w], PE[v, u + 2\ v + 2\ w], \(-y\) + z, 2\ x - y - z}}; 
+    \)\)], "Input",
+  AspectRatioFixed->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["", "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "3. Some specific transformations ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1",
+  " ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 1.  ",
+  StyleBox["Thinking of ",
+    FontWeight->"Plain"],
+  StyleBox["w", "InlineInput"],
+  StyleBox[" as the ",
+    FontWeight->"Plain"],
+  StyleBox["origin",
+    FontSlant->"Italic"],
+  StyleBox[" and ",
+    FontWeight->"Plain"],
+  StyleBox["u + w", "InlineInput"],
+  StyleBox[" ", "InlineInput",
+    FontWeight->"Plain"],
+  StyleBox["and ",
+    FontWeight->"Plain"],
+  StyleBox["v + w", "InlineInput"],
+  StyleBox[" as the ",
+    FontWeight->"Plain"],
+  StyleBox["unit points",
+    FontSlant->"Italic"],
+  StyleBox[" on the ",
+    FontWeight->"Plain"],
+  "x",
+  StyleBox["-axis and ",
+    FontWeight->"Plain"],
+  "y",
+  StyleBox["-axis, respectively, can you give the ",
+    FontWeight->"Plain"],
+  StyleBox["projective form",
+    FontSlant->"Italic"],
+  StyleBox[" for the matrices of the following ",
+    FontWeight->"Plain"],
+  StyleBox["Euclidean",
+    FontSlant->"Italic"],
+  StyleBox[" transformations?\n\t",
+    FontWeight->"Plain"],
+  "(a)",
+  StyleBox["  A ",
+    FontWeight->"Plain"],
+  StyleBox["rotation",
+    FontSlant->"Italic"],
+  StyleBox[" about the origin through angle ",
+    FontWeight->"Plain"],
+  "\[CurlyPhi]",
+  StyleBox[";\n\t",
+    FontWeight->"Plain"],
+  "(b)",
+  StyleBox[" A ",
+    FontWeight->"Plain"],
+  StyleBox["reflection",
+    FontSlant->"Italic"],
+  StyleBox[" about the line ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(x + y == 0\)]],
+  StyleBox[";\n\t",
+    FontWeight->"Plain"],
+  "(c)",
+  StyleBox[" A ",
+    FontWeight->"Plain"],
+  StyleBox["translation",
+    FontSlant->"Italic"],
+  StyleBox[" of ",
+    FontWeight->"Plain"],
+  StyleBox["w", "InlineInput"],
+  StyleBox[" to a point ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(a\ u + b\ v + w\)]],
+  StyleBox[".\nIn each case show what happens to a point ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(c\ u + d\ v\)]],
+  " ",
+  StyleBox["on the line at infinity.",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2",
+  " ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Can you find matrix representations of the general form of \
+transformations that do the following?\n",
+  StyleBox["\t(a)",
+    FontWeight->"Bold"],
+  " Leave the points ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["v",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " fixed.\n\t",
+  StyleBox["(b)",
+    FontWeight->"Bold"],
+  " Leave the points ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["v",
+    FontWeight->"Bold"],
+  " fixed.\n\t",
+  StyleBox["(c)",
+    FontWeight->"Bold"],
+  " Leave the point ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " fixed.\n\t",
+  StyleBox["(d)",
+    FontWeight->"Bold"],
+  " Leave the line ",
+  StyleBox["x+y+z",
+    FontWeight->"Bold"],
+  " fixed.  (And is there a pretty answer?)\n\t",
+  StyleBox["(e)",
+    FontWeight->"Bold"],
+  " Leave ",
+  StyleBox["all the points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the line ",
+  StyleBox["x+y+z",
+    FontWeight->"Bold"],
+  " fixed."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["", "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "4. Programming checks/constructions  ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Suppose",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "I have a ",
+  StyleBox["long",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["list of linear forms with numerical coefficients",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " representing ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Call it ",
+  StyleBox["list",
+    FontWeight->"Bold"],
+  ".  I want to check whether any of the forms are either ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  " or whether two of them represent the ",
+  StyleBox["same point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  If so, I want to ",
+  StyleBox["eliminate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the trivial and redundant forms.  \n",
+  StyleBox["Can you write a program ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  Cell[BoxData[
+      StyleBox[\(RedP[list_] := \),
+        FontWeight->"Bold"]]],
+  StyleBox["........  ",
+    FontWeight->"Bold"],
+  StyleBox["that will do this elimination? ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \nBe sure to ",
+  StyleBox["test",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " your program."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Extra Credit.  ",
+    FontWeight->"Bold"],
+  "How could this program be used to check if one set of points was ",
+  StyleBox["included",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "in another?"
+}], "Text",
+  Background->RGBColor[1, 0.700008, 0.700008]],
+
+Cell[TextData[{
+  "Hints.  ",
+  StyleBox["(Not all of these need be used.)  \n",
+    FontWeight->"Plain"],
+  "(1)",
+  StyleBox[
+  " Don't forget to expand the terms of the list to avoid overlooking trivial \
+forms such as this form (which expands to ",
+    FontWeight->"Plain"],
+  "0",
+  StyleBox["):   ",
+    FontWeight->"Plain"],
+  "-3 u - 3 v + 3 (u+v) ",
+  StyleBox[".  \n",
+    FontWeight->"Plain"],
+  "(2) ",
+  StyleBox["The triple-equal exprerssion ",
+    FontWeight->"Plain"],
+  StyleBox["Expand[pp]===0",
+    FontFamily->"Courier"],
+  StyleBox[" is the test for being \"formally\" ",
+    FontWeight->"Plain"],
+  "0",
+  StyleBox[".  \n",
+    FontWeight->"Plain"],
+  "(3) ",
+  StyleBox["Select[list,crit]",
+    FontFamily->"Courier"],
+  StyleBox[" picks out all elements",
+    FontWeight->"Plain"],
+  " ei ",
+  StyleBox["of list for which",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["crit[ei]",
+    FontFamily->"Courier"],
+  " ",
+  StyleBox["is",
+    FontWeight->"Plain"],
+  " True.  \n(4) ",
+  StyleBox["MemberQ[list,form] ",
+    FontFamily->"Courier"],
+  StyleBox["returns ",
+    FontWeight->"Plain"],
+  "True ",
+  StyleBox["if an element of ",
+    FontWeight->"Plain"],
+  StyleBox["list",
+    FontFamily->"Courier"],
+  StyleBox[" matches",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["form",
+    FontFamily->"Courier"],
+  StyleBox[",",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["and",
+    FontWeight->"Plain"],
+  " False ",
+  StyleBox["otherwise.",
+    FontWeight->"Plain"],
+  " \n(5)",
+  StyleBox["  The ",
+    FontWeight->"Plain"],
+  StyleBox["Mathematica",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox[" command",
+    FontWeight->"Plain"],
+  StyleBox[" Complement[eall, e1, e2, ... ] ",
+    FontFamily->"Courier"],
+  StyleBox["gives the elements in",
+    FontWeight->"Plain"],
+  " eall ",
+  StyleBox["which are ",
+    FontWeight->"Plain"],
+  StyleBox["not",
+    FontSlant->"Italic"],
+  StyleBox[" in any of the",
+    FontWeight->"Plain"],
+  " ei.",
+  StyleBox["  \n",
+    FontWeight->"Plain"],
+  "(6)",
+  StyleBox["  The test for two forms ",
+    FontWeight->"Plain"],
+  StyleBox["p1",
+    FontFamily->"Courier"],
+  " ",
+  StyleBox["and ",
+    FontWeight->"Plain"],
+  StyleBox["p2",
+    FontFamily->"Courier"],
+  StyleBox[" representing the ",
+    FontWeight->"Plain"],
+  StyleBox["same point",
+    FontSlant->"Italic"],
+  StyleBox[" (",
+    FontWeight->"Plain"],
+  StyleBox["i.e.",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox[", being the same up to a common scalar multiple) is that ",
+    FontWeight->"Plain"],
+  StyleBox["PE[p1,p2]",
+    FontFamily->"Courier"],
+  StyleBox[" expands to the ",
+    FontWeight->"Plain"],
+  "0",
+  StyleBox[" ",
+    FontWeight->"Plain"],
+  "xyz",
+  StyleBox["-form.  \n",
+    FontWeight->"Plain"],
+  "(7)",
+  StyleBox["  A ",
+    FontWeight->"Plain"],
+  StyleBox["recursive definition",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox["of ",
+    FontWeight->"Plain"],
+  "RedP",
+  StyleBox[" ",
+    FontWeight->"Plain"],
+  StyleBox["is acceptable.", "Subsubsection",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 2.",
+  StyleBox["  Given a (long) list of forms representing ",
+    FontWeight->"Plain"],
+  StyleBox["distinct points",
+    FontSlant->"Italic"],
+  StyleBox[
+  ", how do we get the (probably longer) list of forms representing ",
+    FontWeight->"Plain"],
+  StyleBox[
+  "all the lines joining all pairs of points, but without repetitions?",
+    FontSlant->"Italic"],
+  StyleBox["  Call the procedure ",
+    FontWeight->"Plain"],
+  StyleBox["JoinPoints", "InlineInput"],
+  StyleBox[".  \nBe sure to ",
+    FontWeight->"Plain"],
+  StyleBox["test",
+    FontSlant->"Italic"],
+  StyleBox[" your programs.",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Extra Credit.  ",
+    FontWeight->"Bold"],
+  StyleBox["And how would we know whether ",
+    FontWeight->"Plain"],
+  StyleBox["at least one triple of three points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" in the original list were ",
+    FontWeight->"Plain"],
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["?",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[1, 0.700008, 0.700008]],
+
+Cell[TextData[{
+  StyleBox["Hints: (1)  ",
+    FontWeight->"Bold"],
+  StyleBox["Outer[f, list1, list2, ... ]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " gives the generalized ",
+  StyleBox["outer product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the ",
+  StyleBox["listi",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  ", forming ",
+  StyleBox["all possible combinations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with ",
+  StyleBox["f",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " of the elements in each of them.  \n",
+  StyleBox["(2) ",
+    FontWeight->"Bold"],
+  StyleBox["Flatten", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "reduces lists of lists to a ",
+  StyleBox["simple list",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".\n",
+  StyleBox["(2) ",
+    FontWeight->"Bold"],
+  "The operation ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["Length[list]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " gives the ",
+  StyleBox["length",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a list."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["", "Text"]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{782, 553},
+WindowMargins->{{54, Automatic}, {Automatic, 89}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 177, 7, 73, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1889, 58, 99, 2, 28, "Text"],
+Cell[1991, 62, 444, 14, 120, "Subsubtitle"],
+Cell[2438, 78, 38, 0, 58, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2501, 82, 141, 4, 46, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2667, 90, 112, 4, 37, "Subsubsection"],
+Cell[2782, 96, 560, 20, 46, "Text"],
+Cell[3345, 118, 155, 3, 47, "Input"],
+Cell[3503, 123, 799, 27, 127, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4339, 155, 137, 3, 37, "Subsubsection"],
+Cell[4479, 160, 16, 0, 28, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4532, 165, 112, 4, 29, "Subsubsection"],
+Cell[4647, 171, 447, 18, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[5119, 193, 335, 5, 143, "Input"],
+Cell[5457, 200, 38, 1, 63, "Output"],
+Cell[5498, 203, 38, 1, 63, "Output"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5585, 210, 137, 3, 29, "Subsubsection"],
+Cell[5725, 215, 16, 0, 28, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5778, 220, 114, 4, 29, "Subsubsection"],
+Cell[5895, 226, 699, 23, 122, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6631, 254, 137, 3, 37, "Subsubsection"],
+Cell[6771, 259, 16, 0, 28, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6836, 265, 183, 6, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[7044, 275, 116, 4, 37, "Subsubsection"],
+Cell[7163, 281, 767, 25, 122, "Text",
+  Evaluatable->False],
+Cell[7933, 308, 128, 3, 47, "Input"],
+Cell[8064, 313, 134, 3, 47, "Input"],
+Cell[8201, 318, 163, 4, 47, "Input"],
+Cell[8367, 324, 220, 5, 63, "Input"],
+Cell[8590, 331, 220, 5, 63, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8847, 341, 137, 3, 37, "Subsubsection"],
+Cell[8987, 346, 16, 0, 28, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9052, 352, 132, 4, 30, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[9209, 360, 119, 5, 37, "Subsubsection"],
+Cell[9331, 367, 2004, 79, 182, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11372, 451, 137, 3, 37, "Subsubsection"],
+Cell[11512, 456, 16, 0, 28, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11565, 461, 119, 5, 37, "Subsubsection"],
+Cell[11687, 468, 1170, 51, 194, "Text",
+  Evaluatable->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[12894, 524, 137, 3, 37, "Subsubsection"],
+Cell[13034, 529, 16, 0, 28, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[13099, 535, 136, 4, 30, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[13260, 543, 113, 4, 37, "Subsubsection"],
+Cell[13376, 549, 1313, 50, 122, "Text"],
+Cell[14692, 601, 331, 11, 44, "Text"],
+Cell[15026, 614, 3166, 131, 256, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[18229, 750, 137, 3, 37, "Subsubsection"],
+Cell[18369, 755, 16, 0, 28, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[18422, 760, 113, 4, 37, "Subsubsection"],
+Cell[18538, 766, 720, 23, 92, "Text"],
+Cell[19261, 791, 483, 16, 44, "Text"],
+Cell[19747, 809, 1150, 47, 106, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[20934, 861, 137, 3, 37, "Subsubsection"],
+Cell[21074, 866, 16, 0, 28, "Text"]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

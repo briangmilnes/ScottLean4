@@ -1,0 +1,4901 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[    119467,       4437]*)
+(*NotebookOutlinePosition[    120422,       4468]*)
+(*  CellTagsIndexPosition[    120378,       4464]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 13   Projective Geometry\n",
+  StyleBox["Classification of Cubics",
+    FontSize->18]
+}], "Title"],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["30 November 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle",
+  FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell["Classifying Singular Cubics", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["A normal form for cuspidal cubics", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Projective equivalence of cuspidal cubics", "Subsubsection"],
+
+Cell["\<\
+Curves can look very different when we graph them, but projective \
+transformations (especially those using complex numbers) can show that curves \
+are in fact really the same under a change of coordinate systems.  We treat \
+the cubics with a cusp first.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  All cuspidal cubics are projectively equivalent."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "We know that a cuspidal cubic has ",
+  StyleBox["one cusp",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (with a double tangent) and (at least) ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["inflection point ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "(distinct from the cusp).  Consider such a curve ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ".  By a projective transformation, we can move the cusp to ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " and the inflection to ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  ".  Now, consider the ",
+  StyleBox["two tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " at these ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points.  These have to be ",
+  StyleBox["distinct lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So we can make another projective transformation leaving ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " fixed and moving the ",
+  StyleBox["intersection of the tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "Any point on the double tangent to ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  ", the cusp,",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "has to be a ",
+  StyleBox["double point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the conic polar, ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, w]\),
+        FontWeight->"Bold"]]],
+  ".  Thus, we find ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, w\ u] == 0\),
+        FontWeight->"Bold"]]],
+  ".  Also, the tangent to the curve at ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " is a factor of ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, v]\),
+        FontWeight->"Bold"]]],
+  ", so ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " lies on this locus as well.  These considerations give us the following \
+equations about the three points as related to the curve.  We enter them as \
+declarations about the curve and these significant points."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, u, v, w]; \)\), 
+    \(f /: DegP[f] = 3; \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+    Nil["\<f is a cubic\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, w\^3]]; \ \ \ \ 
+    Nil["\<w is on curve\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, u\ w\^2]]; \ 
+    Nil["\<w is a double point\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, v\ w\^2]]; 
+    \ \n\(\((v /: # = 0)\)&\)[PD[f, v\^3]]; \ \ \ \ \ 
+    Nil["\<v is on the curve\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, w\ u\^2]]; \ 
+    Nil["\<u is on tangent at w\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, w\ u\ v]]; 
+    Nil["\<u dble pt on tangent\>"]; \n\(\((v /: # = 0)\)&\)[PD[f, v\^2\ u]]; 
+    \ \ Nil["\<u is on tangent at v\>"]; \n
+    \(\((v /: # = 0)\)&\)[PD[f, v\ u\^2]]; \ \ 
+    Nil["\<u is on conic polar\>"]; \)}], "Input",
+  FontSize->15],
+
+Cell[TextData[{
+  "Let us now see how the curve ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " behaves with respect to the ",
+  Cell[BoxData[
+      StyleBox["10",
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-monomials:"
+}], "Text"],
+
+Cell["PD[f,#]&/@Buvw[3]", "Input"],
+
+Cell[TextData[{
+  StyleBox["Good!  All but 2 are zeroed out.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "   So, to reach a final form, the vectors ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " can be altered by ",
+  StyleBox["scalar factors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " using a projective transformation in order to make the two non-zero \
+values shown above ",
+  StyleBox["anything we please",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (Note, complex numbers may be required for this passage.)"
+}], "Text"],
+
+Cell["\<\
+Let us see what we would actually like.  Since the third \
+derivatives of the polynomial essentially give its coefficients, we should \
+try a simple-looking cubic with just two terms:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(f = x\^3 - y\^2\ z; \)\)], "Input"],
+
+Cell["What does this do the the monomial basis?", "Text"],
+
+Cell[BoxData[
+    \(\((PD[f, #1]&)\)/@Buvw[3]\)], "Input"],
+
+Cell[TextData[{
+  "Excellent!  We can make our given, arbitrary cuspidal cubic into ",
+  StyleBox["this one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if we like.  We have thus shown that all these cubics are ",
+  StyleBox["projectively equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["Here, by the way is its degenerate Hessian:", "Text"],
+
+Cell["h = Det[MHP[f]]", "Input"],
+
+Cell["\<\
+And the following computation proves there is only one inflection \
+point.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Solve[{f == 0, h == 0, x == 1}, {x, y, z}]\)], "Input"],
+
+Cell[BoxData[
+    \(Solve[{f == 0, h == 0, y == 1}, {x, y, z}]\)], "Input"],
+
+Cell[BoxData[
+    \(Solve[{f == 0, h == 0, z == 1}, {x, y, z}]\)], "Input"],
+
+Cell["Here is a picture of the real part of these two curves.", "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{f == 0, x == 0, y == 0} /. z \[Rule] 1, {x, \(-1\), 
+        3}, {y, \(-4\), 4}, Axes \[Rule] None, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.006], Black}, {Thickness[0.006], Red}, {
+            Thickness[0.006], Red}}]; \)\)], "Input"],
+
+Cell["\<\
+We can also peek at part of an imaginary section of the curve.\
+\>",
+   "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[\((f /. {y \[Rule] I\ y, z \[Rule] 1})\) == 0, \n
+      \t{x, \(-3\), 1}, {y, \(-4\), 4}, \n\tAxesOrigin \[Rule] {0, 0}]; 
+    \)\)], "Input"],
+
+Cell[TextData[{
+  "We can also bring the infinite points ",
+  Cell[BoxData[
+      StyleBox[\({u, v}\),
+        FontWeight->"Bold"]]],
+  " down where we can see them by a projective transformation."
+}], "Text"],
+
+Cell[BoxData[{
+    \(mm = {{3, 0, 1}, {0, 2, 1}, {0, 0, 1\/10}}; \n\(TP[mm]\)[u]\), 
+    \(\(TP[mm]\)[v]\), 
+    \(\(TL[mm]\)[f] == 0\)}], "Input"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{\(TL[mm]\)[f] == 0, \(TL[mm]\)[x] == 0, \n\t\t
+          \(TL[mm]\)[y] == 0, \(TL[mm]\)[PD[f, v\^2]] == 0} /. z \[Rule] 1, \n
+      \t{x, \(-3\), 5}, {y, \(-2\), 4}, \n\tAxes \[Rule] None, 
+      PlotPoints \[Rule] 151, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.006], Black}, {Thickness[0.006], Red}, \n
+          \t\t\t{Thickness[0.006], Red}, {Thickness[0.006], Blue}}]; \)\)], 
+  "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The cuspidal cubic as an Abelian group", "Subsubsection"],
+
+Cell[TextData[{
+  "Here is a ",
+  StyleBox["parameterization",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the standard curve.  There are many excellent properties of this \
+parameterization.  We note that all the points on the curve, save for the \
+cusp ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  ", can be reached by it. (Why?)"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[f]; \nf = x\^3 - y\^2\ z; \nP[a_] := a\ u + v + a\^3\ w; \n
+    PD[f, P[a]\^3]\)], "Input"],
+
+Cell[TextData[{
+  "If we want to accomodate ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " we would have take ",
+  Cell[BoxData[
+      StyleBox[\(a == ComplexInfinity\),
+        FontWeight->"Bold"]]],
+  ".  Obviously the parametrization is also ",
+  StyleBox["one-to-one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " between all (finite) complex numbers and all points on the curve (except \
+for the cusp)."
+}], "Text"],
+
+Cell[TextData[{
+  "We can show that there is only one point (namely ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  ", given by ",
+  Cell[BoxData[
+      StyleBox[\(a == 0\),
+        FontWeight->"Bold"]]],
+  ") where the Hessian of the conic polar vanishes \[LongDash] just as we \
+expected.  That means this is the only ",
+  StyleBox["inflection point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We will call ",
+  StyleBox["v",
+    FontWeight->"Bold"],
+  " the ",
+  StyleBox["zero point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the curve",
+  StyleBox[".",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[BoxData[
+    \(Det[MHP[PD[f, P[a]]]]\)], "Input"],
+
+Cell[TextData[{
+  "Suppose ",
+  Cell[BoxData[
+      StyleBox[\(P[a]\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(P[b]\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(P[c]\),
+        FontWeight->"Bold"]]],
+  " are three points on the curve.  When are they ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  Of course, the condition is the vanishing of the following:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[PD[PE[P[a], P[b]], P[c]]]\)], "Input"],
+
+Cell[TextData[{
+  "So we see that the condition is that ",
+  StyleBox["either",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " two of the points are ",
+  StyleBox["equal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", ",
+  StyleBox["or",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that  ",
+  Cell[BoxData[
+      StyleBox[\(a + b + c == 0\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Suppose ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_1]\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_2]\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_3]\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_4]\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_5]\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_6]\),
+        FontWeight->"Bold"]]],
+  " are ",
+  StyleBox["six distinct points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the curve.  When do they all lie on a ",
+  StyleBox["conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  The condition is that the following quantity should be zero: "
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[PD[P2P[P[a\_1], P[a\_2], P[a\_3], P[a\_4], P[a\_5]], P[a\_6]\^2]]
+      \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Pretty amazing!",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  The condition is that ",
+  Cell[BoxData[
+      StyleBox[\(a\_1 + a\_2 + a\_3 + a\_4 + a\_5 + a\_6 == 0\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  Hence, if three of these points are collinear, then so are the other \
+three.  If no subtriple is collinear, this will be a non-degenerate conic."
+}], "Text"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["geometric meaning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the parameterization can also be explained by taking lines from points \
+on the cubic to the ",
+  StyleBox["cusp",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(PE[w, P[a]]\)], "Input"],
+
+Cell[TextData[{
+  "So, the point ",
+  StyleBox["P[a]",
+    FontWeight->"Bold"],
+  " makes a line with the origin of slope ",
+  StyleBox["1/a",
+    FontWeight->"Bold"],
+  ".  The intersection of this line with the line ",
+  StyleBox["y == 1",
+    FontWeight->"Bold"],
+  " is at the point with Cartesian coordinates ",
+  StyleBox["{a, 1}",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(PE[PE[w, P[a]], z - y]\)], "Input"],
+
+Cell["\<\
+So that translates the points on the cubic to points on a line with \
+the parameterizations closely related.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold"],
+  "Excluding the cusp, all the other points on the cuspidal cubic form a ",
+  StyleBox["group",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " isomorphic to the ",
+  StyleBox["additive group",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["of the complex numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The inflection point plays the role of the ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the group."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "Let ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  " be any cuspidal cubic, and let ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " be the inflection point.  The ",
+  StyleBox["additive group operation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can be defined by carrying out the following steps."
+}], "Text"],
+
+Cell[TextData[{
+  "\t",
+  StyleBox["(1) ",
+    FontWeight->"Bold"],
+  "Take two points on the curve and join them by a line.  \n\t",
+  StyleBox["(2) ",
+    FontWeight->"Bold"],
+  "Find the third intersection of this line with the cubic.  \n\t",
+  StyleBox["(3) ",
+    FontWeight->"Bold"],
+  "Join this point with the zero point.  \n\t",
+  StyleBox["(4) ",
+    FontWeight->"Bold"],
+  "Find the third intersection of this second line with the curve.  \n\t",
+  StyleBox["(5) ",
+    FontWeight->"Bold"],
+  "That unique point is the answer, called the ",
+  StyleBox["sum",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two points."
+}], "Text",
+  Background->RGBColor[0, 1, 0.2]],
+
+Cell[TextData[{
+  "In step ",
+  StyleBox["(1)",
+    FontWeight->"Bold"],
+  ", we have to use the tangent line to the cubic in case the two given \
+points are equal.  In the case of the inflection point ",
+  StyleBox["n ",
+    FontWeight->"Bold"],
+  "itself, all the lines are the inflectional tangent, and so the sum of ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " with itself is again ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  ".  Thus, it is a ",
+  StyleBox["netural element",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "It is also easily seen that the sum with ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " and any other point ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " on the curve is ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " \[LongDash] so ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " is a ",
+  StyleBox["zero element",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as well.   "
+}], "Text"],
+
+Cell[TextData[{
+  "The other group properties are not so easy to see, and we resort to the \
+normal form and the parametric representation of the curve.  Note that the \
+construction of the group operation is given entirely in ",
+  StyleBox["projective terms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and so is completely ",
+  StyleBox["invariant",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " under projective transformations.  So that means there is ",
+  StyleBox["no loss of generality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in going to the canonical form for the cubic."
+}], "Text"],
+
+Cell[TextData[{
+  "What we found in specifying the parametrization ",
+  Cell[BoxData[
+      \(P[a]\)],
+    FontWeight->"Bold"],
+  " is that \n\t",
+  StyleBox["(i) ",
+    FontWeight->"Bold"],
+  "it gave in a one-one fashion all points on the curve save for the ",
+  StyleBox["cusp",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", \n\t",
+  StyleBox["(ii)",
+    FontWeight->"Bold"],
+  " the ",
+  StyleBox["inflection point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " was ",
+  Cell[BoxData[
+      \(P[0]\)],
+    FontWeight->"Bold"],
+  ", and \n\t",
+  StyleBox["(iii)",
+    FontWeight->"Bold"],
+  " three points ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_1]\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_2]\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_3]\),
+        FontWeight->"Bold"]]],
+  "on the curve were ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, \t       and only if,  ",
+  Cell[BoxData[
+      RowBox[{
+        RowBox[{
+          StyleBox[\(a\_1\),
+            FontWeight->"Bold"], 
+          StyleBox["+",
+            FontWeight->"Bold"], \(a\_2\), 
+          StyleBox["+",
+            FontWeight->"Bold"], 
+          StyleBox[" ",
+            FontWeight->"Bold"], 
+          StyleBox[\(a\_3\),
+            FontWeight->"Bold"]}], 
+        StyleBox[" ",
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[" ",
+          FontWeight->"Bold"], 
+        StyleBox["0",
+          FontWeight->"Bold"]}]],
+    FontWeight->"Bold"],
+  ".  \nHence, steps ",
+  StyleBox["(1) ",
+    FontWeight->"Bold"],
+  "and ",
+  StyleBox["(2)  ",
+    FontWeight->"Bold"],
+  "will take us from points ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_1]\),
+        FontWeight->"Bold"]]],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(P[a\_2]\),
+        FontWeight->"Bold"]]],
+  "on the curve to point ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          RowBox[{
+            StyleBox[\(-a\_1\),
+              FontWeight->"Bold"], 
+            StyleBox["-",
+              FontWeight->"Bold"], \(a\_2\)}], "]"}],
+        FontWeight->"Bold"]]],
+  "on the curve.  Then steps ",
+  StyleBox["(3) ",
+    FontWeight->"Bold"],
+  "and",
+  StyleBox[" (4)",
+    FontWeight->"Bold"],
+  " will take us from points ",
+  Cell[BoxData[
+      StyleBox[\(P[0]\),
+        FontWeight->"Bold"]]],
+  "and  ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          RowBox[{
+            StyleBox[\(-a\_1\),
+              FontWeight->"Bold"], 
+            StyleBox["-",
+              FontWeight->"Bold"], \(a\_2\)}], "]"}],
+        FontWeight->"Bold"]]],
+  "on the curve to the point ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          RowBox[{
+            StyleBox[\(a\_1\),
+              FontWeight->"Bold"], "+", 
+            StyleBox[\(a\_2\),
+              FontWeight->"Bold"]}], "]"}],
+        FontWeight->"Bold"]]],
+  "on the curve.  Since the correspondence is one to one, this is an ",
+  StyleBox["isomorphism",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with the additive group of complex numbers.  Therefore, the geometric \
+construction gives an operation satisfying the group properties.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Note that the additive group of complex numbers is ",
+  StyleBox["torsion free ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "(",
+  StyleBox["i.e.",
+    FontSlant->"Italic"],
+  ", whenever ",
+  Cell[BoxData[
+      StyleBox[\(k\ x == 0\),
+        FontWeight->"Bold"]]],
+  StyleBox[",",
+    FontWeight->"Bold"],
+  " then ",
+  Cell[BoxData[
+      StyleBox[\(x == 0\),
+        FontWeight->"Bold"]]],
+  ").  This property (for ",
+  Cell[BoxData[
+      StyleBox[\(k == 3\),
+        FontWeight->"Bold"]]],
+  ") is related to the fact that the cuspidal cubic can have ",
+  StyleBox["only one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " inflection point. "
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A normal form for nodal cubics", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Projective equivalence of nodal cubics", "Subsubsection"],
+
+Cell["Here is the second theorem to be proved.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  All nodal cubics are projectively equivalent."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "A nodal cubic has ",
+  StyleBox["one node",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", which is a double point with distinct tangents.  Consider such a curve ",
+  
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "By a projective transformation, we can move the node to ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  ".  Now consider the two tangents at ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  ".  These have to be distinct lines.  So we can make another projective \
+transformation bringing ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " to these two tangents, one on each.  These considerations give us the \
+following five equations about these points as related to the curve:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[f, u, v, w]; \)\), 
+    \(f /: DegP[f] = 3; \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+    Nil["\<f is a cubic\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, w\^3]]; \ \ \ 
+    Nil["\<w is on the cubic\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, u\ w\^2]]; 
+    Nil["\<w will be a dble pt\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, v\ w\^2]]; 
+    Nil["\<ditto\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, w\ u\^2]]; 
+    Nil["\<u on the conic polar\>"]; \n\(\((w /: # = 0)\)&\)[PD[f, w\ v\^2]]; 
+    Nil["\<v on the conic polar\>"]; \)}], "Input",
+  FontSize->15],
+
+Cell[TextData[{
+  "Let us now see how the curve ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " behaves with respect to the ",
+  Cell[BoxData[
+      StyleBox["10",
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-monomials:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\((PD[f, #1]&)\)/@Buvw[3]\)], "Input"],
+
+Cell[TextData[{
+  "Unfortunately, this does not as yet give ",
+  StyleBox["enough zeros",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Note that the results above would not change if we replaced ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " and ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " by other points on the two tangents at ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  ".  Thus, consider replacing ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " by ",
+  Cell[BoxData[
+      StyleBox[\(u\  + \ a\ w\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " by ",
+  Cell[BoxData[
+      StyleBox[\(v + b\ w\),
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[f, \((v + b\ w)\) \((u + a\ w)\)\^2]\)], "Input"],
+
+Cell[BoxData[
+    \(PD[f, \((u + a\ w)\) \((v + b\ w)\)\^2]\)], "Input"],
+
+Cell[TextData[{
+  "Clearly, then, there would be values of ",
+  Cell[BoxData[
+      StyleBox["a",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " that would make these zero.  Thus, ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " projective transformations we can assume these additional equations:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(\((v /: # = 0)\)&\)[PD[f, v\ u\^2]]; \ \ 
+    Nil["\<v on tangent at u\>"]; \n\(\((v /: # = 0)\)&\)[PD[f, u\ v\^2]]; 
+    \ \ Nil["\<u is on tangent v\>"]; \)], "Input"],
+
+Cell["Now, let us see how things look:", "Text"],
+
+Cell[BoxData[
+    \(\((PD[f, #]&)\)/@Buvw[3]\)], "Input"],
+
+Cell[TextData[{
+  "Good!  All but 3 are now zeroed out.   So, as a ",
+  StyleBox["final step",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we remark that the vectors ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " can be altered by scalar factors to make the three non-zero values \
+anything we please.  Let us see what we would like have best.  Here is the \
+obvious kind of cubic:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f = x\^3 + y\^3 - 6\ x\ y\ z; \)\), 
+    \(\(ImplicitPlot[{f == 0} /. z \[Rule] 1, \n
+      \t{x, \(-4\), 4}, {y, \(-4\), 4}, \n\tAxesOrigin \[Rule] {0, 0}, 
+      PlotPoints \[Rule] 70, PlotStyle \[Rule] {Thickness[0.006]}]; \)\)}], 
+  "Input"],
+
+Cell["What does this do the the monomial basis?", "Text"],
+
+Cell[BoxData[
+    \(\((PD[f, #1]&)\)/@Buvw[3]\)], "Input"],
+
+Cell[TextData[{
+  "Excellent!  We can make our given, arbitrary nodal cubic into ",
+  StyleBox["this one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if we like.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+Here, by the way is its Hessian (with a numerical factor \
+eliminated):\
+\>", "Text"],
+
+Cell[BoxData[
+    \(h = Det[\(-\(MHP[f]\/6\)\)]\)], "Input"],
+
+Cell["\<\
+This is a similar curve sharing the same double point and with the \
+same tangents there:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{f == 0, h == 0} /. z \[Rule] 1, \n
+      \t{x, \(-4\), 4}, {y, \(-4\), 4}, \n\tPlotPoints \[Rule] 100, \n\t
+      AxesOrigin \[Rule] {0, 0}, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.006], Black}, {Thickness[0.006], Red}}]; \)\)], 
+  "Input"],
+
+Cell[TextData[{
+  "We can see that ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " is indeed a double point of both the curve and the Hessian."
+}], "Text"],
+
+Cell[BoxData[
+    \({PD[f, w], PD[h, w]}\)], "Input"],
+
+Cell[TextData[{
+  "The most obvious inflection point is  ",
+  Cell[BoxData[
+      StyleBox[\(u - v\),
+        FontWeight->"Bold"]]],
+  " with tangent line ",
+  Cell[BoxData[
+      StyleBox[\(x + y + 2\ z\),
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \({PD[f, \((u - v)\)\^3], PD[h, \((u - v)\)\^3]}\)], "Input"],
+
+Cell[BoxData[
+    \({Factor[PD[f, u - v]], Factor[PD[h, u - v]]}\)], "Input"],
+
+Cell[TextData[{
+  "The other inflection points use the other complex cube roots of ",
+  Cell[BoxData[
+      StyleBox[\(-1\),
+        FontWeight->"Bold"]]],
+  ".  They also lie on the line at infinity."
+}], "Text"],
+
+Cell[BoxData[
+    \(TableForm[Solve[{f == 0, h == 0} /. x \[Rule] 1, {y, z}]]\)], "Input"],
+
+Cell["We can write these easier in a symbolic form.", "Text"],
+
+Cell[BoxData[
+    \(\(a = \((\(-1\))\)\^\(1/3\); \)\)], "Input"],
+
+Cell[TextData[{
+  "Of course we know  ",
+  Cell[BoxData[
+      StyleBox[\(a == 1\/2\ \((1 + I\ \@3)\)\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell["\<\
+Here are the three inflection points and the double points of the \
+conic polars.\
+\>", "Text"],
+
+Cell[BoxData[
+    \({p\_1, p\_2, p\_3} = {u - v, u + a\ v, a\ u + v}; {r\_1, r\_2, r\_3} = {
+        u + v - w, a\^2\ u + v + a\ w, u + a\^2\ v + a\ w}; \n\n
+    \((PD[f, #1\^3]&)\)/@{p\_1, p\_2, p\_3} == 
+      \((PD[h, #1\^3]&)\)/@{r\_1, r\_2, r\_3} == 
+      ExpandAll[{PD[f, p\_1\ r\_1], PD[f, p\_2\ r\_2], 
+          PD[f, p\_3\ r\_3]}] == {0, 0, 0}\)], "Input"],
+
+Cell["\<\
+The three inflection points are collinear, and the line joining two \
+double points always passes through one of the inflection points.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Det[MP[{p\_1, p\_2, p\_3}]] == \n\tDet[MP[{p\_1, r\_2, r\_3}]] == \n\t
+      Det[MP[{p\_2, r\_1, r\_3}]] == \n\tDet[MP[{p\_3, r\_1, r\_2}]] == 0\)], 
+  "Input"],
+
+Cell[TextData[{
+  "The only problem with these nice algebraic formulae is that they involve ",
+  
+  StyleBox["complex numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and cannot be seen directly.  What we can do, however, is to map the \
+inflection points to real points and then graph the transform of the curve.  \
+Here is one transformation that could be used."
+}], "Text"],
+
+Cell[BoxData[
+    \(tt = 
+      FullSimplify[
+        MQP[{p\_1, p\_2, r\_1, r\_2}, {w, u + w, 2\ v + w, 2\ u + v + w}]]; \n
+    MatrixForm[tt]\)], "Input"],
+
+Cell[TextData[{
+  "That is not such a messy matrix!  Here is the transform of the polynomial \
+",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(g = Tidy[2\ \(TL[tt]\)[f]]\)], "Input"],
+
+Cell["Here is the Hessian of the curve.", "Text"],
+
+Cell[BoxData[
+    \(k = Tidy[1\/864\ Det[MHP[g]]]\)], "Input"],
+
+Cell["We now graph them together.", "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{g == 0, k == 0} /. z \[Rule] 1, \n
+      \t{x, \(-4\), 6}, {y, \(-4\), 4}, PlotPoints \[Rule] 100, 
+      AxesOrigin \[Rule] {0, 0}, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.007], Black}, {Thickness[0.007], Red}}]; \)\)], 
+  "Input"],
+
+Cell["\<\
+The three inflection points are apparent, and the three double \
+points of the conic polars can be imagined.  For example, here is one of \
+those points.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Tidy[FullSimplify[Tidy[1\/5\ \(TP[tt]\)[r\_3]\ 2]]]\)], "Input"],
+
+Cell["\<\
+Perhaps, there is a slight mystery as to what has happened to the \
+double point of the original curve.  Here it is:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(d = Tidy[1\/16\ \(TP[tt]\)[w]\ 9\ \((2\/3 + \(2\ I\)\/\@3)\)]\)], 
+  "Input"],
+
+Cell[TextData[{
+  StyleBox["But it is real!",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  " Is this correct?  We need to check for this being a double point of the \
+curve (and the Hessian)."
+}], "Text"],
+
+Cell[BoxData[
+    \(ExpandAll[{PD[g, d\^2], PD[k, d\^2]}]\)], "Input"],
+
+Cell[TextData[{
+  "Well it satisfies the tests.  But it does not show up as a double point in \
+the picture.  ",
+  StyleBox["Why?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  "
+}], "Text"],
+
+Cell[TextData[{
+  "The reason is that it is the only real point on a complex branch of the \
+curve ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  ", and so it is \"passing through\" the real plane at ",
+  StyleBox["just one point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The ",
+  Cell[BoxData[
+      StyleBox["ImplicitPlot",
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "program does not plot single points, and so we cannot see it.  But it is \
+there on the curve.  The same remarks apply to the Hessian."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox[
+  "Another proof that all nodal cubics are projectively equivalent: ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "The plan of this proof is to make projective transformations until the \
+general polynomial is in a ",
+  StyleBox["canonical form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Here is a general cubic to start with:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, cubic, Subscript]; \n
+    cubic = Bxyz[3] . {a\_1, a\_2, a\_3, a\_4, a\_5, a\_6, a\_7, a\_8, a\_9, 
+          a\_10}\)], "Input"],
+
+Cell[TextData[{
+  "We want ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " to be a node for this curve, since wherever the node is it can be \
+transformed to the origin.  The condition for the node is:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[cubic, w\^2] == 0\)], "Input"],
+
+Cell[TextData[{
+  "This linear form can only vanish when the ",
+  StyleBox["three coefficients ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "vanish.  Let us make this assignment and look again at the form of the \
+cubic:"
+}], "Text"],
+
+Cell[BoxData[
+    \({a\_8, a\_9, a\_10} = {0, 0, 0}; cubic\)], "Input"],
+
+Cell[TextData[{
+  "There are two tangents at the node.  We can make an aditional \
+transformation to make the two tangents to be the lines ",
+  Cell[BoxData[
+      StyleBox["x",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["y",
+        FontWeight->"Bold"]]],
+  ".  First we want to see what the tangents look like:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[cubic, w]\)], "Input"],
+
+Cell[TextData[{
+  "For this to factor into a multiple of  ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\),
+        FontWeight->"Bold"]]],
+  " the outer coefficients must be zero."
+}], "Text"],
+
+Cell[BoxData[
+    \({a\_5, a\_7} = {0, 0}; cubic\)], "Input"],
+
+Cell["Note that the mixed terms have a common factor:", "Text"],
+
+Cell[BoxData[
+    \(Factor[%\[LeftDoubleBracket]2\[RightDoubleBracket] + %
+          \[LeftDoubleBracket]3\[RightDoubleBracket] + %\[LeftDoubleBracket]5
+          \[RightDoubleBracket]]\)], "Input"],
+
+Cell[TextData[{
+  "We can make a projective transformation that leaves ",
+  Cell[BoxData[
+      StyleBox["x",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["y",
+        FontWeight->"Bold"]]],
+  " fixed but takes ",
+  Cell[BoxData[
+      StyleBox[\(x\ a\_2 + y\ a\_3 + z\ a\_6\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  ".  This would reduce the cubic to:"
+}], "Text"],
+
+Cell[BoxData[
+    \(cubic = %%\[LeftDoubleBracket]1\[RightDoubleBracket] + %%
+          \[LeftDoubleBracket]4\[RightDoubleBracket] + x\ y\ z\)], "Input"],
+
+Cell[TextData[{
+  "Using appropriate dilations along the ",
+  StyleBox["x-",
+    FontWeight->"Bold"],
+  "and ",
+  StyleBox["y-",
+    FontWeight->"Bold"],
+  "axes, we can get rid of the two remaining coefficients:"
+}], "Text"],
+
+Cell[BoxData[
+    \(cubic = 
+      cubic /. {x \[Rule] x\/a\_1\%\(1/3\), y \[Rule] y\/a\_4\%\(1/3\), 
+          z \[Rule] a\_1\%\(1/3\)\ a\_4\%\(1/3\)\ z}\)], "Input"],
+
+Cell[TextData[{
+  "We have thus shown that ",
+  StyleBox["every",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " nodal cubic is projectively equivalent to ",
+  StyleBox["this specific curve",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Hence, they are all projectively equivalent.",
+  StyleBox["  Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The nodal cubic as an Abelian group ", "Subsubsection"],
+
+Cell[TextData[{
+  "Consider our ",
+  StyleBox["standard nodal cubic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[f, a, Subscript]; \nf = x\^3 + y\^3 - 6\ x\ y\ z; \)], "Input"],
+
+Cell[TextData[{
+  "The following is its ",
+  StyleBox["rational parameterization",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "(obtained by a method discussed previously):"
+}], "Text"],
+
+Cell[BoxData[
+    \(P[a_] := 6\ a\ u + 6\ a\^2\ v + \((1 + a\^3)\)\ w; \n
+    Expand[PD[f, P[a]\^3]]\)], "Input"],
+
+Cell[TextData[{
+  "We can find a nice condition in terms for the parameterization for three \
+points on the curve to be ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[PD[PE[P[a\_1], P[a\_2]], P[a\_3]]]\)], "Input"],
+
+Cell[TextData[{
+  "This is zero for distinct points just in case ",
+  Cell[BoxData[
+      StyleBox[\(a\_1\ a\_2\ a\_3 == \(-1\)\),
+        FontWeight->"Bold"]]],
+  ".  Note the following point on the curve:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(Tidy[P[1]\/2]\), 
+    \(PD[f, P[1]\^3]\)}], "Input"],
+
+Cell[TextData[{
+  "We call this the ",
+  StyleBox["unit point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  Here is the condition for points to be collinear with it:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[PD[PE[P[a\_1], P[a\_2]], P[1]]]\)], "Input"],
+
+Cell[TextData[{
+  "This algebra suggests looking at the point ",
+  Cell[BoxData[
+      StyleBox[\(P[I]\),
+        FontWeight->"Bold"]]],
+  " and and the tangent at that point."
+}], "Text"],
+
+Cell[BoxData[{
+    \(P[I]\), 
+    \(t = Tidy[Last[Factor[PD[f, P[I]\^2]]]]\)}], "Input"],
+
+Cell[TextData[{
+  "It seems likely that the point ",
+  Cell[BoxData[
+      StyleBox[\(P[1]\),
+        FontWeight->"Bold"]]],
+  " lies on this tangent.  A similar conclusion would hold for the tangent at \
+",
+  Cell[BoxData[
+      StyleBox[\(P[\(-I\)]\),
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[t, P[1]]\)], "Input"],
+
+Cell[TextData[{
+  "Are there any other tangents at ",
+  Cell[BoxData[
+      StyleBox[\(P[1]\),
+        FontWeight->"Bold"]]],
+  "?  To answer this question, we have to find the envelope of the curve."
+}], "Text"],
+
+Cell[BoxData[
+    \(e = Envel[f]\)], "Input"],
+
+Cell[TextData[{
+  "It is of the ",
+  StyleBox["4",
+    FontWeight->"Bold"],
+  "th degree, and the point ",
+  Cell[BoxData[
+      StyleBox[\(P[1]\),
+        FontWeight->"Bold"]]],
+  " is \"tangental\".  "
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[Expand[PD[PD[f, P[1]\^2]\^3, e]]]\)], "Input"],
+
+Cell[TextData[{
+  "So the pencil at that point cuts the dual curve ",
+  StyleBox["twice",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Hence, there are only ",
+  StyleBox["three tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " possible at the point (one of them being counted twice)."
+}], "Text"],
+
+Cell["\<\
+And here is the condition for six points on the curve to lie on a \
+conic.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Factor[PD[P2P[P[a\_1], P[a\_2], P[a\_3], P[a\_4], P[a\_5]], P[a\_6]\^2]]
+      \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["That took a little time, but the result is ",
+    FontWeight->"Plain"],
+  StyleBox["great!",
+    FontSlant->"Italic"],
+  StyleBox[" Namely,  ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{
+          RowBox[{
+            SubscriptBox[
+              StyleBox["a",
+                FontWeight->"Bold"], "1"], " ", 
+            SubscriptBox[
+              StyleBox["a",
+                FontWeight->"Bold"], "2"], " ", 
+            SubscriptBox[
+              StyleBox["a",
+                FontWeight->"Bold"], "3"], " ", 
+            SubscriptBox[
+              StyleBox["a",
+                FontWeight->"Bold"], "4"], " ", 
+            SubscriptBox[
+              StyleBox["a",
+                FontWeight->"Bold"], "5"], " ", 
+            SubscriptBox[
+              StyleBox["a",
+                FontWeight->"Bold"], "6"]}], " ", "==", " ", "1"}],
+        FontWeight->"Bold"]],
+    FontWeight->"Plain"],
+  StyleBox[" is the condition for distinct points ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          SubscriptBox[
+            StyleBox["a",
+              FontWeight->"Bold"], "1"], "]"}],
+        FontWeight->"Bold"]],
+    FontWeight->"Plain"],
+  ", ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          SubscriptBox[
+            StyleBox["a",
+              FontWeight->"Bold"], "2"], "]"}],
+        FontWeight->"Bold"]],
+    FontWeight->"Plain"],
+  ", ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          SubscriptBox[
+            StyleBox["a",
+              FontWeight->"Bold"], "3"], "]"}],
+        FontWeight->"Bold"]],
+    FontWeight->"Plain"],
+  ", ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          SubscriptBox[
+            StyleBox["a",
+              FontWeight->"Bold"], "4"], "]"}],
+        FontWeight->"Bold"]],
+    FontWeight->"Plain"],
+  ", ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          SubscriptBox[
+            StyleBox["a",
+              FontWeight->"Bold"], "5"], "]"}],
+        FontWeight->"Bold"]],
+    FontWeight->"Plain"],
+  ", ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"P", "[", 
+          SubscriptBox[
+            StyleBox["a",
+              FontWeight->"Bold"], "6"], "]"}],
+        FontWeight->"Bold"]],
+    FontWeight->"Plain"],
+  StyleBox["on the cubic",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["to lie on a ",
+    FontWeight->"Plain"],
+  StyleBox["conic",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Excluding the one parameter value ",
+  Cell[BoxData[
+      StyleBox[\(a == 0\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "(which corresponds to the node ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  "), all the other points on the nodal cubic form a group isomorphic to the \
+",
+  StyleBox["multiplicative group",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the non-zero complex numbers.  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "The group operation can be defined as follows:  Take ",
+  StyleBox["two points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the curve.  Join them by a ",
+  StyleBox["line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Find the ",
+  StyleBox["third intersection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of this line with the cubic.  Join this point with the ",
+  StyleBox["unit point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Find the ",
+  StyleBox["third intersection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of this second line with the curve.  That point is the answer, called the \
+",
+  StyleBox["product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two points.  (This is exactly the ",
+  StyleBox["same procedure",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as we carried out for the cuspidal cubic \[LongDash] except we are using \
+a ",
+  StyleBox["different",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " curve with a ",
+  StyleBox["different",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " shape and, so, get a ",
+  StyleBox["different",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " structure.)  "
+}], "Text"],
+
+Cell[TextData[{
+  "The proof that the operation just defined corresponds to ",
+  StyleBox["multiplication",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " the parameterization uses the results above characterizing the collinear \
+points on the curve.  In particular, we note that the two triples of points\n\
+\t",
+  Cell[BoxData[
+      StyleBox[\({P[a], P[b], P[\(-\(1\/a . b\)\)]}\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\({P[a\ b], P[1], P[\(-\(1\/a . b\)\)]}\),
+        FontWeight->"Bold"]]],
+  "\nare always ",
+  StyleBox["collinear triples",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  That shows how to get from ",
+  Cell[BoxData[
+      StyleBox[\(P[a]\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(P[b]\),
+        FontWeight->"Bold"]]],
+  " to their \"product\" according to the geometric construction.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "By the way, the line joining ",
+  Cell[BoxData[
+      StyleBox[\(P[a]\),
+        FontWeight->"Bold"]]],
+  " on the curve to the origin ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "has slope ",
+  Cell[BoxData[
+      StyleBox["a",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[a]; \)\), 
+    \(Factor[PE[w, P[a]]]\)}], "Input"],
+
+Cell[TextData[{
+  "We of course know that the multiplicative group of complex numbers has ",
+  StyleBox["non-trivial cube roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ",  because the equation ",
+  Cell[BoxData[
+      StyleBox[\(z\^3 == 1\),
+        FontWeight->"Bold"]]],
+  " has non-trivial solutions.",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " (The technical term is that the group has ",
+  StyleBox["torsion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".)  On the other hand, the ",
+  StyleBox["additive group",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " has ",
+  StyleBox["no",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " non-trivial solutions to the equation ",
+  Cell[BoxData[
+      StyleBox[\(3\ z == 0\),
+        FontWeight->"Bold"]]],
+  ".  Therefore, the group structures of the ",
+  StyleBox["nodal cubic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and the ",
+  StyleBox["cuspidal cubic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are definitely ",
+  StyleBox["non isomorphic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (And so this is another reason those two curves are ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " projectively equivalent.)  As we discussed earlier, the solutions to ",
+  Cell[BoxData[
+      StyleBox[\(z\^3 == \(-1\)\),
+        FontWeight->"Bold"]]],
+  " correspond to the ",
+  StyleBox["three inflection points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Since the cubic has been made into a group, we can look at some of its ",
+  StyleBox["subgroups",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Here is a portion of one."
+}], "Text"],
+
+Cell[BoxData[
+    \(grp = Table[P[2\^\(i/3\)], {i, \(-15\), 15}]; \n\(pict = Draw[grp]; 
+    \)\)], "Input"],
+
+Cell["\<\
+The points are arranged arount the top bow of the curve.  If we \
+continued the exponents to hogher powers, the points would converge to the \
+double point but not reach it.  From the recipe for making the group \
+operation, we can derive some interesting configurations.  For example, let \
+us join some of the points in the subgroup together in a systemetic way and \
+then graph the results.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(lines = {
+        N[PE[grp\[LeftDoubleBracket]3\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]15\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]4\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]14\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]5\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]13\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]6\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]12\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]7\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]11\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]8\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]10\[RightDoubleBracket]]] == 0, \n\t\t
+        N[PD[f, grp\[LeftDoubleBracket]9\[RightDoubleBracket]\^2]] == 0, \n
+        \t\tN[PE[grp\[LeftDoubleBracket]7\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]18\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]8\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]17\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]9\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]16\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]10\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]15\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]11\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]14\[RightDoubleBracket]]] == 0, 
+        N[PE[grp\[LeftDoubleBracket]12\[RightDoubleBracket], 
+              grp\[LeftDoubleBracket]13\[RightDoubleBracket]]] == 0}; \)\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[Join[lines, {f == 0}] /. z \[Rule] 1, \n
+      \t{x, \(-4\), 4}, {y, \(-4\), 4}, AxesOrigin \[Rule] {0, 0}, 
+      PlotPoints \[Rule] 70, 
+      PlotStyle 
+        \[Rule] {{Thickness[0.007], Blue}, {Thickness[0.007], Blue}, {
+            Thickness[0.007], Blue}, {Thickness[0.007], Blue}, {
+            Thickness[0.007], Blue}, {Thickness[0.007], Blue}, {
+            Thickness[0.007], Blue}, {Thickness[0.007], Green}, {
+            Thickness[0.007], Green}, {Thickness[0.007], Green}, {
+            Thickness[0.007], Green}, {Thickness[0.007], Green}, {
+            Thickness[0.007], Green}, {Thickness[0.008], Black}}]; \)\)], 
+  "Input"],
+
+Cell[TextData[{
+  "We get two pencils of lines with their centers lying on the curve.  Note \
+that we could keep drawing this grid using the lines already drawn in to \
+start and by finding intersections with the curve.  This suggests that there \
+is a crossratio result involved, and indeed any four consecutive points in \
+any such subgroup make a ",
+  StyleBox["constant crossratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(RL[PE[w, P[a\^n]], PE[w, P[a\^\(n + 1\)]], PE[w, P[a\^\(n + 2\)]], 
+      PE[w, P[a\^\(n + 3\)]]]\)], "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Classifying Non-singular Cubics", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Normal forms for non-singular cubics", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["The three normal forms", "Subsubsection"],
+
+Cell["\<\
+There are three theorems about normal forms producing simple but \
+rather different- looking equations.  We will need to examine the \
+relationships between them.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Every non-singular cubic is ",
+  StyleBox["projectively equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to one defined by an equation of the form:\n\t\t\t",
+  Cell[BoxData[
+      StyleBox[\(y\^2\ z == x\ \((x - z)\)\ \((x - e\ z)\)\),
+        FontWeight->"Bold"]]],
+  ",\t\nwhere ",
+  StyleBox["e",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["neither",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["nor",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  ".\t"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Every non-singular cubic is ",
+  StyleBox["projectively equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to one defined by an equation of the form:\n\t\t\t",
+  Cell[BoxData[
+      StyleBox[\(y\^2\ z == 4\ x\^3 - x\ z\^2\ g\_2 - z\^3\ g\_3\),
+        FontWeight->"Bold"]]],
+  ",\nwhere ",
+  Cell[BoxData[
+      StyleBox[\(g\_2\%3 - 27\ g\_3\%2\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ".\t"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Note:",
+    FontWeight->"Bold"],
+  "  The choice of notation here is related to the use of the Weierstra\[SZ] \
+",
+  StyleBox["\[WeierstrassP]",
+    FontFamily->"Symbol",
+    FontWeight->"Plain"],
+  " function and the parameterization of cubics.  This function is described \
+in lecture notebook 15."
+}], "Text",
+  FontWeight->"Plain",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Every non-singular cubic is ",
+  StyleBox["projectively equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to one defined by an equation of the form:\n\t\t\t",
+  Cell[BoxData[
+      StyleBox[\(x\^3 + y\^3 + z\^3 == 3 k\ x\ y\ z\),
+        FontWeight->"Bold"]]],
+  ",\nwhere ",
+  Cell[BoxData[
+      StyleBox[\(k\^3\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The first normal form", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Proof of the theorem:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  To understand the condition imposed on ",
+  StyleBox["e",
+    FontWeight->"Bold"],
+  ", we rewrite the normal-form polynomial as follows in order to see the \
+coefficients:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[f, g, h, Subscript]\), 
+    \(f = Tidy[y\^2\ z - x\ \((x - z)\)\ \((x - e\ z)\)]\)}], "Input"],
+
+Cell[TextData[{
+  "Of course, the original form was chosen so we could see that the curve \
+must intersect the ",
+  Cell[BoxData[
+      StyleBox["x",
+        FontWeight->"Bold"]]],
+  "-axis where ",
+  Cell[BoxData[
+      StyleBox[\(x == 0\),
+        FontWeight->"Bold"]]],
+  " or ",
+  Cell[BoxData[
+      StyleBox[\(x == 1\),
+        FontWeight->"Bold"]]],
+  " or ",
+  Cell[BoxData[
+      StyleBox[\(x == e\),
+        FontWeight->"Bold"]]],
+  ".  We are making sure these three intersections are ",
+  StyleBox["distinct ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "by the condition on ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  ".  Note that, in the expanded form, the pair of coefficients",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      RowBox[{"{", 
+        StyleBox[\(\((1 + e)\), \(-e\)\),
+          FontWeight->"Bold"], 
+        StyleBox["}",
+          FontWeight->"Bold"]}]],
+    FontWeight->"Bold"],
+  " sum to ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  ", and the pairs ",
+  Cell[BoxData[
+      StyleBox[\({2, \(-1\)}\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\({1, 0}\),
+        FontWeight->"Bold"]]],
+  " are the ones excluded."
+}], "Text"],
+
+Cell["Here is the Hessian curve: ", "Text"],
+
+Cell[BoxData[
+    \(h = Tidy[1\/8\ Det[MHP[f]]]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Unfortunately",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", it is hard to see off hand whether this curve is singular or not."
+}], "Text"],
+
+Cell[TextData[{
+  "Returning to the general curve, we recall that a non-singular cubic has ",
+  StyleBox["no",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " double points and (we hope) ",
+  StyleBox["nine",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (distinct) ",
+  StyleBox["inflection points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Consider such a curve ",
+  Cell[BoxData[
+      StyleBox[\(f\_0\),
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.  ",
+    FontWeight->"Bold"],
+  "Strictly speaking, at the outset of the discussion all we need is the \
+existence of ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " inflection \[LongDash] and we have that, because the non-zero Hessian ",
+  StyleBox["must",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " intersect the curve at least once.  When we get the right normal form and \
+see that the Hessian has ",
+  StyleBox["no double points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then we will ",
+  StyleBox["know",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " there have to be ",
+  StyleBox["nine",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " inflections."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Let one inflection point of the curve ",
+  Cell[BoxData[
+      StyleBox[\(f\_0\),
+        FontWeight->"Bold"]]],
+  " be the point ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ".  We know that the conic polar ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"PD", "[", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["f",
+                FontWeight->"Bold"], "0"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            StyleBox["p",
+              FontWeight->"Bold"]}], "]"}],
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "at that point degenerates into",
+  StyleBox[" two distinct lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", one of which is the ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the curve.  Let ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " be the ",
+  StyleBox["double point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the conic polar (which means that the derivative ",
+  Cell[BoxData[
+      StyleBox[\(PD[f\_0, p\ q] == 0\),
+        FontWeight->"Bold"]]],
+  ").  The point ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " will ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " be on the cubic, since the only point on the curve also on the tangent \
+has to be",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " itself.  (Why?)"
+}], "Text"],
+
+Cell[TextData[{
+  "Now the conic polar hits the curve at ",
+  StyleBox["the points of tangency",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the tangents drawn from ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ", so (aside from ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ") there should be  ",
+  StyleBox["three",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of these, all ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with with ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  ".  (Why?)  If two of these points were equal (say, at a point ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " on the intersection of the conic polar and the cubic), then the line \
+joining ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " would be tangent to the curve.  This would mean we would have\n\t",
+  Cell[BoxData[
+      StyleBox[
+        \(PD[f\_0, p\ r\^2] == PD[f\_0, q\ r\^2] == PD[f\_0, r\ r\^2] == 0\),
+        FontWeight->"Bold"]]],
+  ".\nBut then, because the three points ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " are ",
+  StyleBox["independent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ",",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      RowBox[{
+        RowBox[{"PD", "[", 
+          RowBox[{
+            SubscriptBox[
+              StyleBox["f",
+                FontWeight->"Bold"], "0"], ",", \(r\^2\)}], "]"}], "==", 
+        "0"}]],
+    FontWeight->"Bold"],
+  " would follow, which is ",
+  StyleBox["impossible",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " because the curve ",
+  StyleBox["does not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " have a ",
+  StyleBox["double point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "Let ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " be one of the intersection points (and keep in mind there are two others, \
+with all three distinct).  By a suitable projective transformation, we can \
+move ",
+  Cell[BoxData[
+      StyleBox[\({p, \ q, \ r}\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox[\({u, \ v, \ w}\),
+        FontWeight->"Bold"]]],
+  ".  The other two intersections of the conic polar to the inflection point \
+are then along the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.  One of the other points can be made into ",
+  Cell[BoxData[
+      StyleBox[\(u + w\),
+        FontWeight->"Bold"]]],
+  " by an additional projective transformation leaving ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " fixed ",
+  StyleBox["as points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (not as vectors, of course).   Finally the third intersection can be \
+notated as ",
+  Cell[BoxData[
+      StyleBox[\(e\ u + w\),
+        FontWeight->"Bold"]]],
+  ", where ",
+  Cell[BoxData[
+      StyleBox[\(e \[NotEqual] 0\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(e \[NotEqual] 1\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  (Why?)  Let us call the ",
+  StyleBox["transformed curve",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(f\_1\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.  ",
+    FontWeight->"Bold"],
+  "We remark that the crossratio of the points ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(u + w\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(e\ u + w\),
+        FontWeight->"Bold"]]],
+  " is simply ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " itself.  This number (or more precisely the ",
+  StyleBox["six numbers generated",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from it by ",
+  StyleBox["permuting",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the four points and taking crossratios) will be shown to be the ",
+  StyleBox["projective invariant",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the curve among non-singular cubics.  The reason is that this ratio is \
+determined by the tangent at the inflection point and the three other \
+tangents from that point.  The key observation here is that the ",
+  StyleBox["same set of ratios",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is determined at ",
+  StyleBox["each",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the nine inflection points.  That is how we get a projective \
+invariant.  (Why?)"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "These considerations about the ",
+  StyleBox["convenient placing of points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " give us in the first place six equations about thes points ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w}\),
+        FontWeight->"Bold"]]],
+  " as related to the transformed curve:\n\t",
+  StyleBox["Equation\t\t\t   Meaning",
+    FontWeight->"Bold"],
+  "\n(1)\t ",
+  Cell[BoxData[
+      \(PD[f\_1, v\^3] == 0\)],
+    FontWeight->"Bold"],
+  "\t\t    \"",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " is on the cubic\"\n(2)\t ",
+  Cell[BoxData[
+      \(PD[f\_1, w\^3] == 0\)],
+    FontWeight->"Bold"],
+  "\t\t    \"",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " is on the cubic\"\n(3)\t ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{
+          RowBox[{"PD", "[", 
+            StyleBox[\(f\_1, u\ v\^2\),
+              FontWeight->"Bold"], "]"}], "==", "0"}],
+        FontWeight->"Bold"]]],
+  "      \t    \"",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " is on the tangent at ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  "\"\n(4)\t ",
+  Cell[BoxData[
+      \(PD[f\_1, u\^2\ v] == 0\)],
+    FontWeight->"Bold"],
+  "\t    \"",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " is on the conic polar of ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  "\"\n(5)\t ",
+  Cell[BoxData[
+      \(PD[f\_1, u\ v\ w] == 0\)],
+    FontWeight->"Bold"],
+  "\t    \"",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " becomes double point of conic polar\"\n(6)\t ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{
+          RowBox[{"PD", "[", 
+            RowBox[{
+              SubscriptBox[
+                StyleBox["f",
+                  FontWeight->"Bold"], "1"], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              StyleBox[\(v\ w\^2\),
+                FontWeight->"Bold"]}], "]"}], "==", "0"}],
+        FontWeight->"Bold"]]],
+  "\t    \"",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  " is on the tangent at ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  "\""
+}], "Text"],
+
+Cell[TextData[{
+  "The import of equations (3)\[Dash](5) is to make ",
+  Cell[BoxData[
+      StyleBox[\(PD[f\_1, u\ v] == 0\),
+        FontWeight->"Bold"]]],
+  ".  (Why?)  And, these conditions are enough to make ",
+  StyleBox["all points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v\),
+        FontWeight->"Bold"]]],
+  " on the line ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  " lie on the conic polar ",
+  Cell[BoxData[
+      StyleBox[\(PD[f\_1, v]\),
+        FontWeight->"Bold"]]],
+  ". "
+}], "Text"],
+
+Cell[TextData[{
+  "Now ",
+  Cell[BoxData[
+      StyleBox[\(f\_1\),
+        FontWeight->"Bold"]]],
+  " starts out as a cubic polynomial, which in general can be given the \
+following general form."
+}], "Text"],
+
+Cell[BoxData[
+    \(f\_1 = {a\_1, 3\ a\_2, 3\ a\_3, a\_4, 3\ a\_5, 6\ a\_6, 3\ a\_7, 
+          3\ a\_8, 3\ a\_9, a\_10} . Bxyz[3]\)], "Input"],
+
+Cell[TextData[{
+  "But this polynomial has to ",
+  StyleBox["annihilate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " these six monomials as remarked above."
+}], "Text"],
+
+Cell[BoxData[
+    \(\((PD[f\_1, #]&)\)/@{u\^2\ v, u\ v\^2, v\^3, u\ v\ w, v\ w\^2, w\^3}
+        \)], "Input"],
+
+Cell[TextData[{
+  "Of course!  It means that the corresponding ",
+  StyleBox["coefficients",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " vanish.  So, this is what ",
+  Cell[BoxData[
+      StyleBox[\(f\_1\),
+        FontWeight->"Bold"]]],
+  "has to be:"
+}], "Text"],
+
+Cell[BoxData[
+    \(f\_1 = {a\_1, 0, 0, 0, 3\ a\_5, 0, 3\ a\_7, 3\ a\_8, 0, 0} . 
+        Bxyz[3]\)], "Input"],
+
+Cell[TextData[{
+  "Now, ",
+  Cell[BoxData[
+      StyleBox[\(a\_1\),
+        FontWeight->"Bold"]]],
+  " cannot be zero, since otherwise the polynomial would ",
+  StyleBox["factor",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So, by a projective transformation, we can assume ",
+  Cell[BoxData[
+      StyleBox[\(a\_7 == \(-\(a\_1\/3\)\)\),
+        FontWeight->"Bold"]]],
+  ", because that is the only term involving ",
+  Cell[BoxData[
+      StyleBox["y",
+        FontWeight->"Bold"]]],
+  ".  (Why?)  We can thus transform the polynomial to:"
+}], "Text"],
+
+Cell[BoxData[
+    \(f\_2 = {a\_1, 0, 0, 0, 3\ a\_5, 0, \(-a\_1\), 3\ a\_8, 0, 0} . 
+        Bxyz[3]\)], "Input"],
+
+Cell[TextData[{
+  "Now we can divide through by ",
+  Cell[BoxData[
+      StyleBox[\(-a\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  StyleBox["rename",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the other coefficients:  Thus, every non-singular cubic can be \
+transformed into equivalent to this:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, e]; \n
+    f\_3 = {\(-1\), 0, 0, 0, a, 0, 1, b, 0, 0} . Bxyz[3]\)], "Input"],
+
+Cell[TextData[{
+  "However, we must remember that the original cubic was transformed to pass \
+through two ",
+  StyleBox["other points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points on the ",
+  StyleBox["x-",
+    FontWeight->"Bold"],
+  "axis.  Let us find the values of ",
+  Cell[BoxData[
+      StyleBox["a",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " that make this true."
+}], "Text"],
+
+Cell[BoxData[
+    \(sol = 
+      Solve[{PD[f\_3, \((u + w)\)\^3] == 0, 
+          PD[f\_3, \((e\ u + w)\)\^3] == 0}, {a, b}]\)], "Input"],
+
+Cell["We then rewrite the polynomial for the last time.", "Text"],
+
+Cell[BoxData[
+    \(f\_3 = f\_3 /. sol\[LeftDoubleBracket]1\[RightDoubleBracket]\)], "Input"],
+
+Cell[TextData[{
+  "And this is the result we wanted.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["Here is a way to generate pictures.", "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[0 == f\_3 /. {z \[Rule] 1, e \[Rule] \(-2\)}, \n
+      \t{x, \(-3\), 3}, {y, \(-3\), 3}, \n\tAxesOrigin \[Rule] {0, 0}, 
+      PlotPoints \[Rule] 50, PlotStyle \[Rule] {Thickness[0.006]}]; \)\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[0 == f\_3 /. {z \[Rule] 1, e \[Rule] 3}, \n
+      \t{x, \(-3\), 4}, {y, \(-3\), 3}, \n\tAxesOrigin \[Rule] {0, 0}, 
+      PlotPoints \[Rule] 50, PlotStyle \[Rule] {Thickness[0.006]}]; \)\)], 
+  "Input"],
+
+Cell["And note the following crossratio.  ", "Text"],
+
+Cell[BoxData[
+    \(RP[u, w, u + w, 3  u + w]\)], "Input"],
+
+Cell[TextData[{
+  "In the course of the proof, we came across an ",
+  StyleBox["intermediate form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So, we ask:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Is a cubic of the form ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(-x\^3\),
+          FontWeight->"Bold"], 
+        StyleBox["+",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            StyleBox["\[Alpha]",
+              FontWeight->"Bold"], " ", 
+            StyleBox[\(x\^2\),
+              FontWeight->"Bold"], 
+            StyleBox[" ",
+              FontWeight->"Bold"], 
+            StyleBox["z",
+              FontWeight->"Bold"]}],
+          FontWeight->"Bold"], 
+        StyleBox["+",
+          FontWeight->"Bold"], 
+        StyleBox[\(y\^2\ z\),
+          FontWeight->"Bold"], 
+        StyleBox["+",
+          FontWeight->"Bold"], 
+        StyleBox[\(\[Beta]\ x\ z\^2\),
+          FontWeight->"Bold"]}]]],
+  " ",
+  StyleBox["ever",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " singular?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Answer:",
+  StyleBox[" If ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  "both",
+  StyleBox[" ",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  Cell[BoxData[
+      \(\[Alpha] == \[Beta] == 0\)],
+    FontSlant->"Plain"],
+  StyleBox[
+  ", we already know the cubic is singular.  We can attack the more general \
+question of the double point directly.",
+    FontWeight->"Plain",
+    FontSlant->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[BoxData[
+    RowBox[{\(ClearAll[g]\), ";", "\n", 
+      RowBox[{"g", "=", 
+        RowBox[{
+          StyleBox[\(-x\^3\),
+            FontWeight->"Bold"], 
+          StyleBox["+",
+            FontWeight->"Bold"], 
+          StyleBox[
+            RowBox[{
+              StyleBox["\[Alpha]",
+                FontWeight->"Bold"], " ", 
+              StyleBox[\(x\^2\),
+                FontWeight->"Bold"], 
+              StyleBox[" ",
+                FontWeight->"Bold"], 
+              StyleBox["z",
+                FontWeight->"Bold"]}],
+            FontWeight->"Bold"], 
+          StyleBox["+",
+            FontWeight->"Bold"], 
+          StyleBox[\(y\^2\ z\),
+            FontWeight->"Bold"], 
+          StyleBox["+",
+            FontWeight->"Bold"], 
+          StyleBox[\(\[Beta]\ x\ z\^2\),
+            FontWeight->"Bold"]}]}], 
+      StyleBox[";",
+        FontWeight->"Bold"], "\n", 
+      \(trial = PD[g, \((a\ u\  + \ b\ v\  + c\ w)\)\^2] // Tidy\)}]], "Input"],
+
+Cell[TextData[{
+  "Hmmmm.  For that to be the ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " form, ",
+  StyleBox["either",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["or",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox["c",
+        FontWeight->"Bold"]]],
+  " has to be ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ".  If they ",
+  StyleBox["both",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["vanish",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the point we are trying make a double point is just equivalent to ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  ".  And:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[g, u\^2]\)], "Input"],
+
+Cell[TextData[{
+  "We see it is ",
+  StyleBox["never",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a double point.   "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Case 1.  ",
+    FontWeight->"Bold"],
+  "Suppose ",
+  Cell[BoxData[
+      StyleBox[\(b == 0\),
+        FontWeight->"Bold"]]],
+  ".  We can assume ",
+  Cell[BoxData[
+      StyleBox[\(c == 1\),
+        FontWeight->"Bold"]]],
+  ".  (Why?)  So, we try to see when the remaining coefficients could \
+possibly be ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Eliminate[{\((2\ b\^2 + 2\ a\^2\ \[Alpha] + 4\ a\ c\ \[Beta])\) == 0, \ 
+        \((\(-6\)\ a\^2 + 4\ a\ c\ \[Alpha] + 2\ c\^2\ \[Beta])\) == 0, 
+        b == 0, c == 1}, {a, b, c}]\)], "Input"],
+
+Cell[TextData[{
+  "Assuming we can ",
+  StyleBox["trust",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ", it looks as though ",
+  Cell[BoxData[
+      StyleBox[\(\[Beta] == 0\),
+        FontWeight->"Bold"]]],
+  " or ",
+  Cell[BoxData[
+      StyleBox[\(\[Beta] == \(-\(\[Alpha]\^2\/4\)\)\),
+        FontWeight->"Bold"]]],
+  " are the only posibilities.  In the first case we have an obvious double \
+point:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(g /. \[Beta] \[Rule] 0\n\t\t\t\t\), 
+    \(PD[%, w\^2]\)}], "Input"],
+
+Cell["In the second case, we have to do more work.", "Text"],
+
+Cell[BoxData[{
+    \(g /. {\[Beta] \[Rule] \(-\(\[Alpha]\^2\/4\)\)}\n\t\t\t\t\), 
+    \(PD[%, \((a\ u\  + w)\)\^2] // Tidy\)}], "Input"],
+
+Cell[TextData[{
+  "Since ",
+  Cell[BoxData[
+      StyleBox["\[Alpha]",
+        FontWeight->"Bold"]]],
+  " is not ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " (Why?), neither can ",
+  Cell[BoxData[
+      StyleBox[\(a == 0\),
+        FontWeight->"Bold"]]],
+  ", if this is to be the ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " form.  (Why?)  From the vanishing of the second coefficient we see ",
+  Cell[BoxData[
+      StyleBox[\(a == \[Alpha]\/2\),
+        FontWeight->"Bold"]]],
+  ".  Does this kill the first coefficient?"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(-6\)\ a\^2 + 4\ a\ \[Alpha] - \[Alpha]\^2\/2 /. {
+        a \[Rule] \[Alpha]\/2}\)], "Input"],
+
+Cell["Yes.  Whew!!  ", "Text"],
+
+Cell[TextData[{
+  StyleBox["Case 2.  ",
+    FontWeight->"Bold"],
+  "Suppose ",
+  Cell[BoxData[
+      StyleBox[\(c == 0\),
+        FontWeight->"Bold"]]],
+  ".  We can assume ",
+  Cell[BoxData[
+      StyleBox[\(b == 1\),
+        FontWeight->"Bold"]]],
+  ".  (Why?)  So, we try to see when the remaining coefficients could \
+possibly be ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Eliminate[{\((2\ b\^2 + 2\ a\^2\ \[Alpha] + 4\ a\ c\ \[Beta])\) == 0, \ 
+        \((\(-6\)\ a\^2 + 4\ a\ c\ \[Alpha] + 2\ c\^2\ \[Beta])\) == 0, 
+        c == 0, b == 1}, {a, b, c}]\)], "Input"],
+
+Cell[TextData[{
+  "No solutions!  Do we believe it?  Hmmm.  Yes, it is obvious.  (Why?) \
+Whew!!!!  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["So we have proved:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  A",
+    FontWeight->"Bold"],
+  " cubic of the form ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(-x\^3\),
+          FontWeight->"Bold"], 
+        StyleBox["+",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            StyleBox["\[Alpha]",
+              FontWeight->"Bold"], " ", 
+            StyleBox[\(x\^2\),
+              FontWeight->"Bold"], 
+            StyleBox[" ",
+              FontWeight->"Bold"], 
+            StyleBox["z",
+              FontWeight->"Bold"]}],
+          FontWeight->"Bold"], 
+        StyleBox["+",
+          FontWeight->"Bold"], 
+        StyleBox[\(y\^2\ z\),
+          FontWeight->"Bold"], 
+        StyleBox["+",
+          FontWeight->"Bold"], 
+        StyleBox[\(\[Beta]\ x\ z\^2\),
+          FontWeight->"Bold"]}]]],
+  " is ",
+  StyleBox["singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, and only if,  ",
+  Cell[BoxData[
+      StyleBox[\(\[Beta] == 0\),
+        FontWeight->"Bold"]]],
+  " or ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[
+          RowBox[{\(\[Alpha]\^2\), "+", 
+            RowBox[{"4", 
+              StyleBox["\[Beta]",
+                FontWeight->"Bold"]}]}],
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox["0",
+          FontWeight->"Bold"]}]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "And note that in each of the two cases we identified the ",
+  StyleBox["double point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The second normal form", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Proof of the theorem:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "The second version of the normal form uses a projective transformation \
+from a previous type of cubic of the ",
+  StyleBox["crossing points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the ",
+  StyleBox["x-",
+    FontWeight->"Bold"],
+  "axis by means of a carefully chosen translation together with a change of \
+scale on the ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  " axis.  First we give the general form of the matrix of such a \
+transformation:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, d, e, f, g, M, Subscript]; \n
+    M = MQP[{w, u + w, v + w, v + u + w}, \n
+        \t\t{a\ u + b\ w, \((1 + a)\)\ u + b\ w, c\ v + a\ u + b\ w, 
+          c\ v + \((1 + a)\)\ u + b\ w}]; \nM // MatrixForm\)], "Input"],
+
+Cell[TextData[{
+  "Then, by \"intuiting\" the right substitutions for ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["c",
+    FontWeight->"Bold"],
+  " and by multiplying ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "by a scalar, we simplify ",
+  Cell[BoxData[
+      StyleBox[\(f\_1\),
+        FontWeight->"Bold"]]],
+  ".  Clearly, the parameter ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " is not ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " if ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  " is to be ",
+  StyleBox["non singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(f\_1 = \(-x\^3\) + \((1 + e)\)\ x\^2\ z + y\^2\ z - e\ x\ z\^2; \n
+    f\_2 = Map[Factor, 
+        Tidy[\(TL[M\/2\^\(2/3\)]\)[f\_1] /. {
+              a \[Rule] \(-\(1\/3\)\)\ \((1 + e)\), c \[Rule] 2\/\@b}], {2}]
+        \)], "Input"],
+
+Cell[TextData[{
+  "Now, we can simplify the first coefficient involving ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " by solving this equation for ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[4\ \((1 - e + e\^2)\) == 3\ \(b\^2\) g\_2, {e}]\)], "Input"],
+
+Cell["Let us try one of these substitutions and some algebra:", "Text"],
+
+Cell[BoxData[
+    \(f\_2 = 
+      Map[Factor, 
+        Tidy[Together[
+            f\_2 /. e \[Rule] 
+                1\/2\ \((1 + \@3\ \@\(\(-1\) + b\^2\ g\_2\))\)]], {2}]\)], 
+  "Input"],
+
+Cell[TextData[{
+  StyleBox["Amazing! ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  It is the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial with a use of ",
+  StyleBox["different names",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for part of the coefficients: we got rid of any mention of ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " and confined ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " to the one coefficient.  The question is whether that last coefficient \
+can become ",
+  StyleBox["any other number",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(g\_3\),
+        FontWeight->"Bold"]]],
+  "with a suitable choice of ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  "?   ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "'s algebra, unfortunately, is rather too much of a ",
+  StyleBox["black box",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to be able to see exactly how the conclusion is reached.  For instance, \
+if we ask whether ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " can be ",
+  StyleBox["eliminated",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from the following equation, we find:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Eliminate[{
+        \(\((\(-4\) + b\^2\ g\_2)\)\ \@\(\(-1\) + b\^2\ g\_2\)\)\/\(3\ \@3\ 
+              b\^3\) == g\_3}, {b}]\)], "Input"],
+
+Cell[TextData[{
+  "we get a",
+  StyleBox[" ",
+    FontColor->RGBColor[0, 0.700008, 0]],
+  StyleBox["go-ahead",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    FontColor->RGBColor[0, 0.700008, 0]],
+  StyleBox[".",
+    FontColor->RGBColor[0, 0.700008, 0]],
+  "  ",
+  StyleBox["But",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", when we try to ",
+  StyleBox["see",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the solution, we get ",
+  StyleBox["very long",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " expressions:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[
+      \((\(-4\) + b\^2\ g\_2)\)\ 
+          \@\(\(-1\) + b\^2\ g\_2\)/\((3\ \@3\ b\^3)\) == g\_3, {b}]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "These six solutions are hard to interpret.  In particular, it looks as \
+though the quantity ",
+  Cell[BoxData[
+      StyleBox[\(g\_2\%3 - 27\ g\_3\%2\),
+        FontWeight->"Bold"]]],
+  " has to be ",
+  StyleBox["non zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We have to find a way to check up on this in another context.  "
+}], "Text"],
+
+Cell[TextData[{
+  "So we conclude \[LongDash] ",
+  StyleBox["somewhat by faith, alas",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] that by a suitable choice of ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " the normal form can be made into the following polynomial:"
+}], "Text"],
+
+Cell[BoxData[
+    \(f\_3 = {\(-4\), 0, 0, 0, 0, 0, 1, g\_2, 0, g\_3} . Bxyz[3]\)], "Input"],
+
+Cell[TextData[{
+  "As an ",
+  StyleBox["equation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for a cubic, we usually write:"
+}], "Text"],
+
+Cell[BoxData[
+    \(y\^2\ z == y\^2\ z - f\_3\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Intermediate Question.  ",
+    FontWeight->"Bold"],
+  "Could such a cubic be singular?    "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "We had best make a direct attack again."
+}], "Text"],
+
+Cell[BoxData[
+    \(check = Tidy[PD[f\_3, \((a\ u + b\ v + c\ w)\)\^2]]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Case 1.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  "We try ",
+  Cell[BoxData[
+      StyleBox[\(b == 0\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(c == 1\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(check /. {b \[Rule] 0, c \[Rule] 1}\)], "Input"],
+
+Cell[BoxData[
+    \(Eliminate[{\ \((\(-24\)\ a\^2 + 2\ g\_2)\) == 0, \ 
+        \((4\ a\ g\_2 + 6\ g\_3)\) == 0}, {a}]\)], "Input"],
+
+Cell["Ah, that looks familiar!", "Text"],
+
+Cell[TextData[{
+  StyleBox["Case 2.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  "We try ",
+  Cell[BoxData[
+      StyleBox[\(b == 1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(c == 0\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(check /. {b \[Rule] 1, c \[Rule] 0}\)], "Input"],
+
+Cell[TextData[{
+  "Never vanishes!  The investigation is complete.  Singularity happens only \
+when ",
+  Cell[BoxData[
+      StyleBox[\(g\_2\%3 - 27\ g\_3\%2\),
+        FontWeight->"Bold"]]],
+  " is",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ".  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["Here is something else we should ask.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Can we get any better information about the Hessian?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  All we can do is to try.  Here is the Hessian:"
+}], "Text"],
+
+Cell[BoxData[
+    \(h\_3 = Tidy[\(-\(1\/8\)\)\ Det[MHP[f\_3]]]\)], "Input"],
+
+Cell["Here is the dual curve (= envelope):", "Text"],
+
+Cell[BoxData[
+    \(d\_3 = Envel[f\_3]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Case 1.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  If ",
+  Cell[BoxData[
+      StyleBox[\(g\_2 == 0\),
+        FontWeight->"Bold"]]],
+  ", then the Hessian factors into three non-concurrent lines."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(-12\)\ x\ \((y - \@3\ z\ \@g\_3)\)\ \((y + \@3\ z\ \@g\_3)\) // Expand
+      \)], "Input"],
+
+Cell["Here are the intersections.", "Text"],
+
+Cell[BoxData[{
+    \(PE[\ x, \ \((y - \@3\ z\ \@g\_3)\)]\n\), 
+    \(PE[\ x, \ \((y + \@3\ z\ \@g\_3)\)]\n\), 
+    \(PE[\ y - \@3\ z\ \@g\_3, \ \((y + \@3\ z\ \@g\_3)\)]\)}], "Input"],
+
+Cell[TextData[{
+  "But ",
+  StyleBox["none",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the lines is a tangent!  (Why?  Look:)"
+}], "Text"],
+
+Cell[BoxData[
+    \(\((PD[#\^6, d\_3]&)\)/@{\(-12\)\ x, y - \@3\ z\ \@g\_3, 
+          y + \@3\ z\ \@g\_3} /. g\_2 \[Rule] 0\)], "Input"],
+
+Cell[TextData[{
+  "And ",
+  StyleBox["none",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the intersections is on the curve."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(PD[f\_3 /. g\_2 \[Rule] 0, #\^3]&\)\ /@
+      \ {w + \@3\ v\ \@g\_3, w - \@3\ v\ \@g\_3, \n2\ \@3\ u\ \@g\_3}\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Ha, ha!  The curve ",
+  StyleBox["must",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " have ",
+  Cell[BoxData[
+      StyleBox["9",
+        FontWeight->"Bold"]]],
+  " inflection points! "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Case 2.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  If ",
+  Cell[BoxData[
+      StyleBox[\(g\_2\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["non zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then we projectively transform the Hessian."
+}], "Text"],
+
+Cell[BoxData[
+    \(Tidy[
+      \(-\(h\_3\/g\_2\%2\)\) /. {x \[Rule] g\_2\ z, z \[Rule] x, 
+          y \[Rule] \(\@g\_2\ y\)\/\@12}]\)], "Input"],
+
+Cell[TextData[{
+  "Ho,ho!  Now, we proved earlier that a cubic of the form ",
+  Cell[BoxData[
+      StyleBox[
+        \(\(-x\^3\) + y\^2\ z + x\^2\ z\ \[Alpha] + x\ z\^2\ \[Beta]\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, and only if,  ",
+  Cell[BoxData[
+      StyleBox[\(\[Beta] == 0\),
+        FontWeight->"Bold"]]],
+  " or ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[
+          RowBox[{\(\[Alpha]\^2\), "+", 
+            RowBox[{"4", 
+              StyleBox["\[Beta]",
+                FontWeight->"Bold"]}]}],
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox["0",
+          FontWeight->"Bold"]}]]],
+  ".  Since ",
+  Cell[BoxData[
+      StyleBox[\(g\_2\),
+        FontWeight->"Bold"]]],
+  " is non zero, we need only check the vanishing of:"
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{
+        StyleBox[\(\[Alpha]\^2 + 4 \[Beta]\),
+          FontWeight->"Bold"], 
+        StyleBox["/.",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["{",
+            FontWeight->"Bold"], 
+          RowBox[{
+            RowBox[{
+              StyleBox["\[Alpha]",
+                FontWeight->"Bold"], 
+              StyleBox["\[Rule]",
+                FontWeight->"Bold"], 
+              RowBox[{
+                StyleBox["-",
+                  FontWeight->"Bold"], \(\(36\ \ g\_3\)\/g\_2\)}]}], 
+            StyleBox[",",
+              FontWeight->"Bold"], \(\[Beta] \[Rule] \(-12\)\ g\_2\)}], 
+          "}"}]}], "//", "Factor"}]], "Input"],
+
+Cell[TextData[{
+  "Rah! Rah! Rah!  We already know why it is nonzero, so the Hessian is non \
+singular!  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Therefore",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", by investigating normal forms we have proved a key conclusion:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  T",
+    FontWeight->"Bold"],
+  "he non-singular cubic always has ",
+  StyleBox["nine inflections",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["One other thought:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Just to be sure, should we not ask whether we can  ",
+  StyleBox["get back ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "from the second normal form to the first?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Answer:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  To follow the backward path, we need to compare the polynomial:\n\t",
+  Cell[BoxData[
+      StyleBox[\(\(-4\)\ x\^3 + y\^2\ z + x\ z\^2\ g\_2 + z\^3\ g\_3\),
+        FontWeight->"Bold"]]],
+  "\nto the polynomial we found by transformation above:\n\t",
+  Cell[BoxData[
+      StyleBox[
+        \(\(-4\)\ x\^3 + y\^2\ z + 
+          \(4\ \((1 - e + e\^2)\)\ x\ z\^2\)\/\(3\ b\^2\) + 
+          \(4\ \((\(-2\) + e)\)\ \((1 + e)\)\ \((\(-1\) + 2\ e)\)\ 
+              z\^3\)\/\(27\ b\^3\)\),
+        FontWeight->"Bold"]]]
+}], "Text"],
+
+Cell[TextData[{
+  "We find that we need is to have:\n",
+  Cell[BoxData[
+      StyleBox[\(4\ \((1 - e + e\^2)\) == b\^2\ 3\ g\_2\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[
+        \(4\ \((\(-2\) + e)\)\ \((1 + e)\)\ \((\(-1\) + 2\ e)\) == \ 
+          \(b\^3\) 27\ g\_3\),
+        FontWeight->"Bold"]]],
+  ".\nLet us eliminate ",
+  Cell[BoxData[
+      StyleBox["b",
+        FontWeight->"Bold"]]],
+  " from this equation."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{\(ClearAll[e]\), ";", "\n", 
+      RowBox[{"equ", "=", "\n", 
+        RowBox[{"Factor", "/@", 
+          RowBox[{"Eliminate", "[", 
+            RowBox[{
+              RowBox[{"{", 
+                RowBox[{
+                  StyleBox[\(4\ \((1 - e + e\^2)\) == b\^2\ 3\ g\_2\),
+                    FontWeight->"Bold"], " ", ",", " ", 
+                  
+                  StyleBox[
+                    \(4\ \((\(-2\) + e)\)\ \((1 + e)\)\ 
+                        \((\(-1\) + 2\ e)\) == \ \(b\^3\) 27\ g\_3\),
+                    FontWeight->"Bold"]}], "}"}], ",", \({b}\)}], 
+            "]"}]}]}]}]], "Input"],
+
+Cell[TextData[{
+  "That is not so bad.  This ",
+  StyleBox["6",
+    FontWeight->"Bold"],
+  "th-degree equation allows us to solve for ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " in terms of the coefficients ",
+  Cell[BoxData[
+      StyleBox[\(g\_2\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(g\_3\),
+        FontWeight->"Bold"]]],
+  ".  We can try to find out how such solutions should look with a slightly \
+simpler notation."
+}], "Text"],
+
+Cell[BoxData[
+    \(ans = 
+      Solve[\((\(-2\) + e)\)\^2\ \((1 + e)\)\^2\ \((\(-1\) + 2\ e)\)\^2\ r == 
+          108\ \((1 - e + e\^2)\)\^3\ s, {e}]\)], "Input"],
+
+Cell[TextData[{
+  "Ugh!  We look at the solution without ",
+  Cell[BoxData[
+      StyleBox["I",
+        FontWeight->"Bold"]]],
+  " in hopes the algebra is better."
+}], "Text"],
+
+Cell[BoxData[
+    \(e\_1 = Together[e /. ans\[LeftDoubleBracket]5\[RightDoubleBracket]]\)], 
+  "Input"],
+
+Cell["\<\
+By looking at the various parts of this expression, we find many \
+can factor.  So, we can make a replacement (possibly by running this command \
+twice).\
+\>", "Text"],
+
+Cell[BoxData[
+    \(e\_1 = 
+      e\_1 /. {\(-r\^5\)\ s + 81\ r\^4\ s\^2 - 2187\ r\^3\ s\^3 + 
+              19683\ r\^2\ s\^4 \[Rule] \(-r\^2\)\ \((r - 27\ s)\)\^3\ s, 
+          r\^4 - 567\ r\^3\ s + 8748\ r\^2\ s\^2 + 157464\ r\ s\^3 \[Rule] 
+            r\ \((r - 27\ s)\)\ \((r\^2 - 540\ r\ s - 5832\ s\^2)\), 
+          r\^2 - 54\ r\ s + 729\ s\^2 \[Rule] \((r - 27\ s)\)\^2, 
+          5\ r\^2 - 27\ r\ s - 2916\ s\^2 \[Rule] 
+            \((r - 27\ s)\)\ \((5\ r + 108\ s)\), 
+          r\^3 + 189\ r\^2\ s - 5832\ r\ s\^2 \[Rule] 
+            r\ \((r - 27\ s)\)\ \((r + 216\ s)\), 
+          r\^3 - 540\ r\^2\ s - 5832\ r\ s\^2 \[Rule] 
+            r\ \((r\^2 - 540\ r\ s - 5832\ s\^2)\)}\)], "Input"],
+
+Cell["\<\
+Still not too good.  We can introduce an abbreviation to shorten \
+things.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(e\_1 = e\_1 /. {r\^2 - 540\ r\ s - 5832\ s\^2 \[Rule] t}\)], "Input"],
+
+Cell["What is under the one radical factors.", "Text"],
+
+Cell[BoxData[
+    \(\((\(-1152\)\ \@\(\(-r\^2\)\ \((r - 27\ s)\)\^3\ s\)\ 
+            \((\@3\ r - 27\ \@3\ s)\) - 48\ r\ \((r - 27\ s)\)\ t - 
+          48\ r\ \((r - 27\ s)\)\ \((r + 216\ s)\)\ 
+            \((24\ \@3\ \@\(\(-r\^2\)\ \((r - 27\ s)\)\^3\ s\) + r\ t)\)\^\(1/
+                3\) + 16\ \((r - 27\ s)\)\^2\ 
+            \((24\ \@3\ \@\(\(-r\^2\)\ \((r - 27\ s)\)\^3\ s\) + r\ t)\)\^\(2/
+                3\) + 16\ \((r - 27\ s)\)\ \((5\ r + 108\ s)\)\ 
+            \((24\ \@3\ \@\(\(-r\^2\)\ \((r - 27\ s)\)\^3\ s\) + r\ t)\)\^\(2/
+                3\))\) // Factor\)], "Input"],
+
+Cell[TextData[{
+  "Hmmmmm.  Maybe this could lead to some simplifications.  But it does not \
+seem worthwhile to continue.   We conclude it is ",
+  StyleBox["possible",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to go back to the other equation and solve for ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  ".  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["We go back to the original equation.", "Text"],
+
+Cell[BoxData[
+    \(epoly = Expand[First[equ] - Last[equ]]\)], "Input"],
+
+Cell["Here is another view of the coefficients.", "Text"],
+
+Cell[BoxData[
+    \(CoefficientList[epoly, {e}] // TableForm\)], "Input"],
+
+Cell[TextData[{
+  "Note that the equation for ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " should not have ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["ComplexInfinity",
+    FontWeight->"Bold"],
+  ", or ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " as a root.  This means that neither the leading, last, or sum of the \
+coefficients of ",
+  Cell[BoxData[
+      StyleBox["epoly",
+        FontWeight->"Bold"]]],
+  " should be zero.  These come down to simple expressions:"
+}], "Text"],
+
+Cell[BoxData[
+    \(epoly /. e \[Rule] 0 // Factor\)], "Input"],
+
+Cell[BoxData[
+    \(epoly /. e \[Rule] 1 // Factor\)], "Input"],
+
+Cell[BoxData[
+    \(\(Last[Together[epoly\/e\^6]] /. e -> 0 // Expand\) // Factor\)], 
+  "Input"],
+
+Cell[TextData[{
+  "The quantity ",
+  Cell[BoxData[
+      StyleBox[\(g\_2\%3 - 27\ g\_3\%2\),
+        FontWeight->"Bold"]]],
+  " is called the ",
+  StyleBox["discriminant",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the cubic polynomial: ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(4\ x\^3\),
+          FontWeight->"Bold"], 
+        StyleBox["-",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            SubscriptBox[
+              StyleBox["g",
+                FontWeight->"Bold"], "2"], 
+            StyleBox[" ",
+              FontWeight->"Bold"], 
+            StyleBox["x",
+              FontWeight->"Bold"]}],
+          FontWeight->"Bold"], 
+        StyleBox["-",
+          FontWeight->"Bold"], 
+        StyleBox[
+          SubscriptBox[
+            StyleBox["g",
+              FontWeight->"Bold"], "3"],
+          FontWeight->"Bold"]}]]],
+  ".  The non vanishing means that this polynomial has ",
+  StyleBox["three distinct roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", that is to say, the cubic curve cuts the ",
+  StyleBox["x-",
+    FontWeight->"Bold"],
+  "axis in three distinct points \[LongDash] which is of course what we \
+needed to have a non-singular curve as we already argued."
+}], "Text"],
+
+Cell[TextData[{
+  "Note that the determination of ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " is not ",
+  StyleBox["unique",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", as ",
+  Cell[BoxData[
+      StyleBox["epoly",
+        FontWeight->"Bold"]]],
+  " is a polynomial of degree ",
+  StyleBox["6",
+    FontWeight->"Bold"],
+  ".  Because the polynomial is ",
+  StyleBox["symmetric in its coefficients",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", it is clear that if ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " is a root, then so is ",
+  Cell[BoxData[
+      StyleBox[\(1\/e\),
+        FontWeight->"Bold"]]],
+  ".  Let us see the effect of the transformations ",
+  Cell[BoxData[
+      StyleBox[\(e \[Rule] 1 - e\),
+        FontWeight->"Bold"]]],
+  StyleBox["  ",
+    FontWeight->"Bold"],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(e \[Rule] \(e - 1\)\/e\),
+        FontWeight->"Bold"]]],
+  "on the roots of the polynomial:"
+}], "Text"],
+
+Cell[BoxData[
+    \(epoly\)], "Input"],
+
+Cell[BoxData[
+    \(\(epoly == Expand[\(e\^6\) \((epoly /. e \[Rule] 1\/e)\)]\ \)\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(epoly == Expand[epoly /. e \[Rule] 1 - e]\)], "Input"],
+
+Cell[BoxData[
+    \(epoly == Expand[\(e\^6\) \((epoly /. e \[Rule] \(e - 1\)\/e)\)\ ]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "This proves that the roots of ",
+  Cell[BoxData[
+      StyleBox[\(epoly\  == \ 0\),
+        FontWeight->"Bold"]]],
+  " are the set of ",
+  StyleBox["six numbers ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "associated with a crossratio of four points (in all orders).  To find an \
+expression for ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " we can solve for the intersections with the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.  The algebra does not seem too wonderful."
+}], "Text"],
+
+Cell[TextData[{
+  "Finally, there is an invariant associated with ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " called the ",
+  StyleBox["modulus",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the curve.  We note the the equation for ",
+  Cell[BoxData[
+      StyleBox["e",
+        FontWeight->"Bold"]]],
+  " can also be written as: "
+}], "Text"],
+
+Cell[TextData[{
+  "\t \t      ",
+  Cell[BoxData[
+      StyleBox[
+        \(\(4\ \((1 - e + e\^2)\)\^3\)\/\(\((e + 1)\)\^2\ \((2\ e - 1)\)\^2\ 
+              \((e - 2)\)\^2\) == g\_2\%3\/\(27\ g\_3\%2\)\),
+        FontWeight->"Bold"]]],
+  ".\nSo this means all the six roots give this quotient on the left a \
+constant value (",
+  StyleBox["different",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  ").  (Why?)  And curves with a different set of crossratios give this \
+quantity a different value.  So we conclude:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Two non-singular cubics are projectively equivalent if, and only if, they \
+have the ",
+  StyleBox["same modulus",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["By the way, the modulus can be written in a different way.", "Text"],
+
+Cell[BoxData[
+    \(\(4\ \((1 - e + e\^2)\)\^3\)\/\(\((e + 1)\)\^2\ \((2\ e - 1)\)\^2\ 
+          \((e - 2)\)\^2\) // Apart\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The third normal form", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Proof of the theorem:  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "The third version of the normal form is proved by using several \
+\[LongDash] not very obvious \[LongDash] projective transformations from an \
+intermediate normal form which we get by positioning the inflection points.  \
+We start with a general (non-singular) cubic."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[g, h, k, a, b, Subscript]; 
+    g = {a\_1, a\_2, a\_3, a\_4, a\_5, a\_6, a\_7, a\_8, a\_9, a\_10} . 
+        Bxyz[3]\)], "Input"],
+
+Cell[TextData[{
+  "From previous work, we know there must be at least ",
+  StyleBox["three",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " collinear inflection points.  The line joining them and the three \
+tangents at the inflection points will form a non-degenerate ",
+  StyleBox["quadrilateral",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We are going to imagine moving that figure so that the inflection \
+points are at infinity and the sides of the resulting quadrilateral are the \
+lines ",
+  Cell[BoxData[
+      StyleBox["x",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["y",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(x + y + z\),
+        FontWeight->"Bold"]]],
+  ".  This will mean that the inflection points are ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(u - v\),
+        FontWeight->"Bold"]]],
+  ".  Moreover, ",
+  Cell[BoxData[
+      StyleBox["w",
+        FontWeight->"Bold"]]],
+  " is the intersection of the tangents at ",
+  Cell[BoxData[
+      StyleBox["u",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  ".  Thinking that we had already moved ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " so this would be so, the following four quantities must vanish:"
+}], "Text"],
+
+Cell[BoxData[
+    \({PD[g, u\^3], PD[g, v\^3], PD[g, \(u\^2\) w], PD[g, \(v\^2\) w]}\)], 
+  "Input"],
+
+Cell["Let us record this simplification:", "Text"],
+
+Cell[BoxData[
+    \(g\_1 = 
+      g /. {\ a\_1 \[Rule] 0, a\_4 \[Rule] 0, a\_5 \[Rule] 0, a\_7 \[Rule] 0}
+          \)], "Input"],
+
+Cell[TextData[{
+  "Since ",
+  Cell[BoxData[
+      StyleBox[\(u - v\),
+        FontWeight->"Bold"]]],
+  " must be on the curve, and since the point ",
+  Cell[BoxData[
+      StyleBox[\(v - w\),
+        FontWeight->"Bold"]]],
+  " lies on the tangent ",
+  Cell[BoxData[
+      StyleBox[\(x + y + z\),
+        FontWeight->"Bold"]]],
+  ", the following two quantities must also vanish:"
+}], "Text"],
+
+Cell[BoxData[
+    \({PD[g\_1, \((u - v)\)\^3], PD[g\_1, \(\((u - v)\)\^2\) \((v - w)\)]}
+      \)], "Input"],
+
+Cell[TextData[{
+  "We see this implies that ",
+  Cell[BoxData[
+      StyleBox[\(a\_2 == a\_3 == a\_6\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[{\(-6\)\ a\_2 + 6\ a\_3 == 0, 2\ a\_2 - 4\ a\_3 + 2\ a\_6 == 0}, {
+        a\_3, a\_6}]\)], "Input"],
+
+Cell["So we can make a further simplification:", "Text"],
+
+Cell[BoxData[
+    \(g\_2 = g\_1 /. {a\_3 \[Rule] a\_2, a\_6 \[Rule] a\_2}\)], "Input"],
+
+Cell[TextData[{
+  "Note that ",
+  Cell[BoxData[
+      StyleBox[\(a\_2\),
+        FontWeight->"Bold"]]],
+  " cannot vanish, since otherwise the curve would be degenerate.  The form \
+is not simple enough yet \[LongDash] because we have not really said that we \
+have ",
+  StyleBox["inflection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!  To have inflections where we want them, the following three quantities \
+must vanish:"
+}], "Text"],
+
+Cell[BoxData[
+    \({Det[MHP[PD[g\_2, u]]], Det[MHP[PD[g\_2, v]]], 
+      Factor[Det[MHP[PD[g\_2, u - v]]]]}\)], "Input"],
+
+Cell[TextData[{
+  "Hmmmm.  If two are ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ", then so is the third.  Why?  Ah, yes, the line joining two inflection \
+points must cut the cubic at a third inflection point.  In any case, we see \
+both ",
+  Cell[BoxData[
+      StyleBox[\(a\_8\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(a\_9\),
+        FontWeight->"Bold"]]],
+  " have to go away.  We make another simplification:"
+}], "Text"],
+
+Cell[BoxData[
+    \(g\_3 = g\_2 /. {a\_8 \[Rule] 0, a\_9 \[Rule] 0}\)], "Input"],
+
+Cell["That is better!  Part of the polynomial factors:", "Text"],
+
+Cell[BoxData[
+    \(x\^2\ y\ a\_2 + x\ y\^2\ a\_2 + x\ y\ z\ a\_2 // Factor\)], "Input"],
+
+Cell[TextData[{
+  "So, if we divide by ",
+  Cell[BoxData[
+      StyleBox[\(a\_2\),
+        FontWeight->"Bold"]]],
+  ", and call ",
+  Cell[BoxData[
+      StyleBox[\(a\_10/a\_2\),
+        FontWeight->"Bold"]]],
+  " by another name, we see our original polynomial can be written in the \
+form:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(g\_4 = d\ z\^3 + x\ y\ \((x + y + z)\); \)\)], "Input"],
+
+Cell["\<\
+That is a good normal form in itself!  Here is what such curves \
+look like:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{g\_4 == 0} /. {d \[Rule] \(-\(1\/2\)\), z \[Rule] 1}, {
+        x, \(-3\), 3}, {y, \(-3\), 3}, PlotPoints \[Rule] 100]; \)\)], "Input"],
+
+Cell["\<\
+And we can see the three inflection points off at infinity (well, \
+almost).\
+\>", "Text"],
+
+Cell["\<\
+Now a linear substitution can be arranged to balance the three \
+variables better:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(g\_5 = 
+      Tidy[27\ g\_4 /. {x \[Rule] 1\/3\ \((\(-x\) + 2\ y - z)\), 
+            y \[Rule] 1\/3\ \((2\ x - y - z)\), z \[Rule] z}]\)], "Input"],
+
+Cell["\<\
+Of course, getting this new form under a projective transformation, \
+will move the inflection points around.  But never mind that.  The point is \
+that there is some algebraic magice realting to cubes using the cube roots of \
+unity.  Here it is:\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\((x + \((\(-\(1\/2\)\) - \(I\ \@3\)\/2)\) y)\) 
+        \((x + \((\(-\(1\/2\)\) + \(I\ \@3\)\/2)\) y)\) // Expand\n\), 
+    \(\((x + \((\(-\(1\/2\)\) - \(I\ \@3\)\/2)\) y)\)\^3 + 
+        \((x + \((\(-\(1\/2\)\) + \(I\ \@3\)\/2)\) y)\)\^3 // Expand\)}], 
+  "Input"],
+
+Cell[TextData[{
+  "Now, the first product comes into the part of ",
+  Cell[BoxData[
+      StyleBox[\(g\_5\),
+        FontWeight->"Bold"]]],
+  " that reads \n\t",
+  Cell[BoxData[
+      StyleBox[
+        \(\(-3\)\ x\^2\ z + 3\ x\ y\ z - 3\ y\^2\ z == \ 
+          \(-3\) z \((x\^2 - x\ y + y\^2)\)\),
+        FontWeight->"Bold"]]],
+  ".\nThe second sum of two cubes stands (except for a change of sign) \
+exactly in our polynomial.  This kind of \"factorization\" suggests we try \
+another linear sumstitution (coming from a inverse of a matrix using the cube \
+root of unity):"
+}], "Text"],
+
+Cell[BoxData[
+    \(g\_6 = 
+      Tidy[g\_5 /. {
+            x \[Rule] 
+              \(-\((\(I + \@3\)\/\(2\ \@3\))\)\) x - 
+                \((\(\(-I\) + \@3\)\/\(2\ \@3\))\)\ y, 
+            y \[Rule] \(-\((I\/\@3)\)\) x - \((\(-\(I\/\@3\)\))\)\ y, 
+            z \[Rule] z}]\)], "Input"],
+
+Cell[TextData[{
+  "Wow!!! All those complex numbers get hidden under ",
+  StyleBox["the rug of algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!   And, after a change of scale on ",
+  Cell[BoxData[
+      StyleBox["z",
+        FontWeight->"Bold"]]],
+  ", we get the third normal form as desired.  We need finally to check up on \
+the double points."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, k]; 
+    CL[PD[x\^3 + y\^3 + z\^3 - 3\ k\ x\ y\ z, \((a\ u + b\ v + c\ w)\)\^2]]
+      \)], "Input"],
+
+Cell[TextData[{
+  "Note that if ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  Cell[BoxData[
+      StyleBox[\({a, b, c}\),
+        FontWeight->"Bold"]]],
+  " is ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ", they all are.  So take these three equations and eliminate two of those \
+variables."
+}], "Text"],
+
+Cell[BoxData[
+    \(Eliminate[{a\^2 - b\ c\ k == 0, b\^2 - a\ c\ k == 0, 
+        c\^2 - a\ b\ k == 0}, {b, c}]\)], "Input"],
+
+Cell[TextData[{
+  "For there to be a solution ",
+  Cell[BoxData[
+      StyleBox["k",
+        FontWeight->"Bold"]]],
+  " must be ",
+  StyleBox["a cube root of unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Otherwise, the curve has no double point.  So we have done all that was \
+required.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The configuration of inflection points ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Using a normal form", "Subsubsection"],
+
+Cell[TextData[{
+  "Starting with the ",
+  StyleBox["third normal form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we try to find ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the inflection points of a cubic.  To do so we should look at the \
+Hessian. "
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[f, g, h, a, b, c, Subscript]; 
+    f = x\^3 + y\^3 + z\^3 - 3\ k\ x\ y\ z; \n
+    g = Tidy/@Factor[Det[MHP[f]]]\)], "Input"],
+
+Cell[TextData[{
+  "If ",
+  Cell[BoxData[
+      StyleBox[\(k == 0\),
+        FontWeight->"Bold"]]],
+  " we have ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\),
+        FontWeight->"Bold"]]],
+  " (= three lines).  Otherwise, we can write a version of the Hessian in the \
+form:"
+}], "Text"],
+
+Cell[BoxData[
+    \(h = x\^3 + y\^3 + z\^3 - \((4\/k\^2 - k)\)\ x\ y\ z\)], "Input"],
+
+Cell[TextData[{
+  "This is just what we had before!  It will be ",
+  StyleBox["singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if this vanishes:"
+}], "Text"],
+
+Cell[BoxData[
+    \(27 \( k\^6\) \((\((\((4\/k\^2 - k)\)/3)\)\^3 - 1)\) // Expand\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Let ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["j",
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[
+          SuperscriptBox[
+            StyleBox["k",
+              FontWeight->"Bold"], "3"],
+          FontWeight->"Bold"]}]]],
+  ", and solve for ",
+  Cell[BoxData[
+      StyleBox["j",
+        FontWeight->"Bold"]]],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[64 - 48\ j - 15\ j\^2 - j\^3 == 0, {j}]\)], "Input"],
+
+Cell[TextData[{
+  "We see we get a ",
+  StyleBox["singular Hessian",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if  ",
+  Cell[BoxData[
+      StyleBox[\(k\^3 == 1\),
+        FontWeight->"Bold"]]],
+  " or ",
+  Cell[BoxData[
+      StyleBox[\(k\^3 == \(-8\)\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell["\<\
+Be that as it may, the inflection points will be found at the \
+intersection of the two curves.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(sol = Solve[{f == 0, h == 0, z == 1}, {x, y, z}]\)], "Input"],
+
+Cell[TextData[{
+  "Ia it safe to algebraically simplify ",
+  Cell[BoxData[
+      StyleBox[\(\((1 - k\^3)\)\^\(1/3\)\/\((\(-1\) + k\^3)\)\^\(1/3\)\),
+        FontWeight->"Bold"]]],
+  " to just ",
+  Cell[BoxData[
+      StyleBox[\(-1\),
+        FontWeight->"Bold"]]],
+  "?  Well, let us try that."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(sol
+        \_1 = {{x \[Rule] \(-1\), y \[Rule] 0, z \[Rule] 1}, {x \[Rule] 0, 
+          y \[Rule] \(-1\), z \[Rule] 1}, {x \[Rule] 0, 
+          y \[Rule] \((\(-1\))\)\^\(1/3\), z \[Rule] 1}, {x \[Rule] 0, 
+          y \[Rule] \(-\((\(-1\))\)\^\(2/3\)\), z \[Rule] 1}, {
+          x \[Rule] \((\(-1\))\)\^\(1/3\), y \[Rule] 0, z \[Rule] 1}, {
+          x \[Rule] \(-\((\(-1\))\)\^\(2/3\)\), y \[Rule] 0, z \[Rule] 1}}; 
+    \)\)], "Input"],
+
+Cell["\<\
+Do these substitutions represent the intersections of the wo \
+curves?\
+\>", "Text"],
+
+Cell[BoxData[
+    \({f, h} /. sol\_1\)], "Input"],
+
+Cell[TextData[{
+  "They do!  And what about the case when ",
+  Cell[BoxData[
+      StyleBox[\(k == 0\),
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[{\((f /. k \[Rule] 0)\) == 0, x\ y\ z == 0, z == 1}, {x, y, z}]
+      \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Same solution!!!",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  What we have proved is the following:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The configuration of inflection points of ",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " non-singular cubic is projectively equivalent the following ",
+  StyleBox["fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " configuration of nine points:\n\t\t\t\n\t\t\t",
+  Cell[BoxData[
+      RowBox[{
+        InterpretationBox[GridBox[{
+              {\(\(-u\) + w\)},
+              {\(\((1\/2 + \(I\ \@3\)\/2)\)\ u + w\)},
+              {\(\((1\/2 - \(I\ \@3\)\/2)\)\ u + w\)},
+              {\(\(-v\) + w\)},
+              {\(\((1\/2 + \(I\ \@3\)\/2)\)\ v + w\)},
+              {\(\((1\/2 - \(I\ \@3\)\/2)\)\ v + w\)},
+              {\(\(-u\) + v\)},
+              {\(\((1\/2 + \(I\ \@3\)\/2)\)\ u + v\)},
+              {\(\((1\/2 - \(I\ \@3\)\/2)\)\ u + v\)}
+              },
+            RowSpacings->1,
+            ColumnSpacings->3,
+            RowAlignments->Baseline,
+            ColumnAlignments->{Left}],
+          TableForm[ {
+            Plus[ 
+              Times[ -1, u], w], 
+            Plus[ 
+              Times[ 
+                Plus[ 
+                  Rational[ 1, 2], 
+                  Times[ 
+                    Complex[ 0, 
+                      Rational[ 1, 2]], 
+                    Power[ 3, 
+                      Rational[ 1, 2]]]], u], w], 
+            Plus[ 
+              Times[ 
+                Plus[ 
+                  Rational[ 1, 2], 
+                  Times[ 
+                    Complex[ 0, 
+                      Rational[ -1, 2]], 
+                    Power[ 3, 
+                      Rational[ 1, 2]]]], u], w], 
+            Plus[ 
+              Times[ -1, v], w], 
+            Plus[ 
+              Times[ 
+                Plus[ 
+                  Rational[ 1, 2], 
+                  Times[ 
+                    Complex[ 0, 
+                      Rational[ 1, 2]], 
+                    Power[ 3, 
+                      Rational[ 1, 2]]]], v], w], 
+            Plus[ 
+              Times[ 
+                Plus[ 
+                  Rational[ 1, 2], 
+                  Times[ 
+                    Complex[ 0, 
+                      Rational[ -1, 2]], 
+                    Power[ 3, 
+                      Rational[ 1, 2]]]], v], w], 
+            Plus[ 
+              Times[ -1, u], v], 
+            Plus[ 
+              Times[ 
+                Plus[ 
+                  Rational[ 1, 2], 
+                  Times[ 
+                    Complex[ 0, 
+                      Rational[ 1, 2]], 
+                    Power[ 3, 
+                      Rational[ 1, 2]]]], u], v], 
+            Plus[ 
+              Times[ 
+                Plus[ 
+                  Rational[ 1, 2], 
+                  Times[ 
+                    Complex[ 0, 
+                      Rational[ -1, 2]], 
+                    Power[ 3, 
+                      Rational[ 1, 2]]]], u], v]}]], 
+        StyleBox[" ",
+          FontWeight->"Bold"]}]],
+    FontWeight->"Bold"]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Note especially that this configuration is definitely in the ",
+  StyleBox["complex plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  It is of a type that can be notated as",
+  Cell[BoxData[
+      RowBox[{"  ", 
+        RowBox[{
+          RowBox[{
+            StyleBox[\({{9, 4}, {3, 12}}\),
+              FontWeight->"Bold"], "\n", "      ", 
+            StyleBox["\[UpArrow]",
+              FontWeight->"Bold"], 
+            StyleBox["                     ",
+              FontWeight->"Bold"], 
+            StyleBox["\[UpArrow]",
+              FontWeight->"Bold"], "\n", "    ", 
+            StyleBox["points",
+              FontSize->13,
+              FontWeight->"Bold"]}], 
+          StyleBox["           ",
+            FontWeight->"Bold"], 
+          StyleBox["lines",
+            FontSize->13,
+            FontWeight->"Bold"]}]}]]],
+  ".  \nThis means that there ",
+  StyleBox["9",
+    FontWeight->"Bold"],
+  " distinct points and ",
+  StyleBox["12",
+    FontWeight->"Bold"],
+  " lines; each of the points has exactly ",
+  StyleBox["four",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the lines going through it; and each of the lines contains exactly ",
+  StyleBox["three",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the points. Combinatorially, this is similar to taking the rows, \
+columns, and both sets of diagonals of a ",
+  Cell[BoxData[
+      StyleBox[\(3\[Times]3\),
+        FontWeight->"Bold"]]],
+  " matrix of points as showing the lines.  It can be argued that this \
+configuration does not exist in the ",
+  StyleBox["real plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (There is a brief proof in the book by Veblen and Young, p. 249.)  "
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Working",
+WindowSize->{782, 558},
+WindowMargins->{{8, Automatic}, {Automatic, 0}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+1VH0003H0=P0000028h6N?nSoj<8j`K?<@84`0>H007m003H0=P0000028h6N03@
+0806N6P001820@4100000BL?00400@0000000000000000000000004000000001
+06@0000000000000000000010=P00000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 122, 4, 68, "Title"],
+Cell[1834, 55, 275, 10, 56, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[2134, 69, 46, 0, 53, "Section"],
+
+Cell[CellGroupData[{
+Cell[2205, 73, 104, 2, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2334, 79, 66, 0, 52, "Subsubsection"],
+Cell[2403, 81, 279, 5, 82, "Text"],
+Cell[2685, 88, 163, 5, 53, "Text"],
+Cell[2851, 95, 1560, 61, 149, "Text"],
+Cell[4414, 158, 1000, 35, 128, "Text"],
+Cell[5417, 195, 796, 13, 246, "Input"],
+Cell[6216, 210, 298, 13, 37, "Text"],
+Cell[6517, 225, 34, 0, 52, "Input"],
+Cell[6554, 227, 613, 20, 104, "Text"],
+Cell[7170, 249, 207, 4, 82, "Text"],
+Cell[7380, 255, 57, 1, 56, "Input"],
+Cell[7440, 258, 57, 0, 37, "Text"],
+Cell[7500, 260, 58, 1, 53, "Input"],
+Cell[7561, 263, 378, 12, 60, "Text"],
+Cell[7942, 277, 59, 0, 37, "Text"],
+Cell[8004, 279, 32, 0, 52, "Input"],
+Cell[8039, 281, 98, 3, 37, "Text"],
+Cell[8140, 286, 75, 1, 53, "Input"],
+Cell[8218, 289, 75, 1, 53, "Input"],
+Cell[8296, 292, 75, 1, 53, "Input"],
+Cell[8374, 295, 71, 0, 37, "Text"],
+Cell[8448, 297, 278, 5, 133, "Input"],
+Cell[8729, 304, 89, 3, 37, "Text"],
+Cell[8821, 309, 177, 3, 93, "Input"],
+Cell[9001, 314, 209, 6, 56, "Text"],
+Cell[9213, 322, 147, 3, 136, "Input"],
+Cell[9363, 327, 433, 8, 188, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9833, 340, 63, 0, 52, "Subsubsection"],
+Cell[9899, 342, 358, 11, 82, "Text"],
+Cell[10260, 355, 120, 2, 120, "Input"],
+Cell[10383, 359, 456, 15, 82, "Text"],
+Cell[10842, 376, 647, 24, 82, "Text"],
+Cell[11492, 402, 54, 1, 53, "Input"],
+Cell[11549, 405, 471, 18, 60, "Text"],
+Cell[12023, 425, 65, 1, 53, "Input"],
+Cell[12091, 428, 416, 18, 60, "Text"],
+Cell[12510, 448, 817, 34, 82, "Text"],
+Cell[13330, 484, 112, 2, 76, "Input"],
+Cell[13445, 488, 442, 12, 82, "Text"],
+Cell[13890, 502, 297, 11, 60, "Text"],
+Cell[14190, 515, 44, 1, 53, "Input"],
+Cell[14237, 518, 380, 14, 60, "Text"],
+Cell[14620, 534, 55, 1, 53, "Input"],
+Cell[14678, 537, 132, 3, 56, "Text"],
+Cell[14813, 542, 628, 22, 98, "Text"],
+Cell[15444, 566, 413, 15, 60, "Text"],
+Cell[15860, 583, 688, 22, 181, "Text"],
+Cell[16551, 607, 555, 19, 82, "Text"],
+Cell[17109, 628, 416, 18, 60, "Text"],
+Cell[17528, 648, 626, 16, 128, "Text"],
+Cell[18157, 666, 3348, 127, 300, "Text"],
+Cell[21508, 795, 699, 27, 82, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[22256, 828, 101, 2, 33, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[22382, 834, 63, 0, 52, "Subsubsection"],
+Cell[22448, 836, 56, 0, 38, "Text"],
+Cell[22507, 838, 160, 5, 54, "Text"],
+Cell[22670, 845, 354, 14, 60, "Text"],
+Cell[23027, 861, 659, 20, 128, "Text"],
+Cell[23689, 883, 555, 9, 184, "Input"],
+Cell[24247, 894, 298, 13, 38, "Text"],
+Cell[24548, 909, 58, 1, 54, "Input"],
+Cell[24609, 912, 880, 36, 83, "Text"],
+Cell[25492, 950, 72, 1, 56, "Input"],
+Cell[25567, 953, 72, 1, 56, "Input"],
+Cell[25642, 956, 378, 13, 60, "Text"],
+Cell[26023, 971, 191, 3, 78, "Input"],
+Cell[26217, 976, 48, 0, 38, "Text"],
+Cell[26268, 978, 57, 1, 54, "Input"],
+Cell[26328, 981, 586, 20, 83, "Text"],
+Cell[26917, 1003, 268, 5, 136, "Input"],
+Cell[27188, 1010, 57, 0, 38, "Text"],
+Cell[27248, 1012, 58, 1, 54, "Input"],
+Cell[27309, 1015, 233, 8, 60, "Text"],
+Cell[27545, 1025, 95, 3, 38, "Text"],
+Cell[27643, 1030, 60, 1, 74, "Input"],
+Cell[27706, 1033, 113, 3, 38, "Text"],
+Cell[27822, 1038, 284, 6, 154, "Input"],
+Cell[28109, 1046, 155, 5, 38, "Text"],
+Cell[28267, 1053, 53, 1, 54, "Input"],
+Cell[28323, 1056, 255, 10, 38, "Text"],
+Cell[28581, 1068, 79, 1, 56, "Input"],
+Cell[28663, 1071, 77, 1, 54, "Input"],
+Cell[28743, 1074, 213, 6, 60, "Text"],
+Cell[28959, 1082, 90, 1, 54, "Input"],
+Cell[29052, 1085, 61, 0, 38, "Text"],
+Cell[29116, 1087, 64, 1, 56, "Input"],
+Cell[29183, 1090, 153, 6, 42, "Text"],
+Cell[29339, 1098, 105, 3, 38, "Text"],
+Cell[29447, 1103, 367, 6, 180, "Input"],
+Cell[29817, 1111, 159, 3, 60, "Text"],
+Cell[29979, 1116, 180, 3, 114, "Input"],
+Cell[30162, 1121, 391, 9, 105, "Text"],
+Cell[30556, 1132, 156, 4, 94, "Input"],
+Cell[30715, 1138, 182, 7, 38, "Text"],
+Cell[30900, 1147, 59, 1, 54, "Input"],
+Cell[30962, 1150, 49, 0, 38, "Text"],
+Cell[31014, 1152, 62, 1, 73, "Input"],
+Cell[31079, 1155, 43, 0, 38, "Text"],
+Cell[31125, 1157, 276, 6, 134, "Input"],
+Cell[31404, 1165, 177, 4, 60, "Text"],
+Cell[31584, 1171, 84, 1, 73, "Input"],
+Cell[31671, 1174, 140, 3, 60, "Text"],
+Cell[31814, 1179, 97, 2, 84, "Input"],
+Cell[31914, 1183, 253, 8, 60, "Text"],
+Cell[32170, 1193, 70, 1, 56, "Input"],
+Cell[32243, 1196, 200, 7, 60, "Text"],
+Cell[32446, 1205, 589, 18, 105, "Text"],
+Cell[33038, 1225, 391, 11, 83, "Text"],
+Cell[33432, 1238, 161, 3, 74, "Input"],
+Cell[33596, 1243, 214, 6, 60, "Text"],
+Cell[33813, 1251, 53, 1, 56, "Input"],
+Cell[33869, 1254, 243, 7, 60, "Text"],
+Cell[34115, 1263, 71, 1, 54, "Input"],
+Cell[34189, 1266, 355, 11, 83, "Text"],
+Cell[34547, 1279, 45, 1, 54, "Input"],
+Cell[34595, 1282, 186, 6, 38, "Text"],
+Cell[34784, 1290, 61, 1, 54, "Input"],
+Cell[34848, 1293, 63, 0, 38, "Text"],
+Cell[34914, 1295, 198, 3, 54, "Input"],
+Cell[35115, 1300, 464, 18, 60, "Text"],
+Cell[35582, 1320, 153, 2, 54, "Input"],
+Cell[35738, 1324, 225, 8, 60, "Text"],
+Cell[35966, 1334, 167, 3, 77, "Input"],
+Cell[36136, 1339, 360, 12, 60, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[36533, 1356, 61, 0, 29, "Subsubsection"],
+Cell[36597, 1358, 137, 6, 38, "Text"],
+Cell[36737, 1366, 92, 1, 76, "Input"],
+Cell[36832, 1369, 193, 6, 60, "Text"],
+Cell[37028, 1377, 113, 2, 78, "Input"],
+Cell[37144, 1381, 214, 7, 60, "Text"],
+Cell[37361, 1390, 74, 1, 54, "Input"],
+Cell[37438, 1393, 219, 6, 60, "Text"],
+Cell[37660, 1401, 73, 2, 99, "Input"],
+Cell[37736, 1405, 230, 8, 38, "Text"],
+Cell[37969, 1415, 71, 1, 54, "Input"],
+Cell[38043, 1418, 188, 6, 38, "Text"],
+Cell[38234, 1426, 88, 2, 76, "Input"],
+Cell[38325, 1430, 304, 11, 60, "Text"],
+Cell[38632, 1443, 44, 1, 54, "Input"],
+Cell[38679, 1446, 212, 6, 60, "Text"],
+Cell[38894, 1454, 45, 1, 54, "Input"],
+Cell[38942, 1457, 215, 9, 38, "Text"],
+Cell[39160, 1468, 73, 1, 56, "Input"],
+Cell[39236, 1471, 323, 10, 60, "Text"],
+Cell[39562, 1483, 98, 3, 38, "Text"],
+Cell[39663, 1488, 112, 2, 76, "Input"],
+Cell[39778, 1492, 2589, 96, 83, "Text"],
+Cell[42370, 1590, 576, 20, 99, "Text"],
+Cell[42949, 1612, 1334, 47, 150, "Text"],
+Cell[44286, 1661, 1008, 33, 172, "Text"],
+Cell[45297, 1696, 365, 16, 38, "Text"],
+Cell[45665, 1714, 82, 2, 74, "Input"],
+Cell[45750, 1718, 1530, 53, 172, "Text"],
+Cell[47283, 1773, 211, 6, 60, "Text"],
+Cell[47497, 1781, 108, 2, 80, "Input"],
+Cell[47608, 1785, 417, 7, 128, "Text"],
+Cell[48028, 1794, 1711, 27, 296, "Input"],
+Cell[49742, 1823, 677, 12, 374, "Input"],
+Cell[50422, 1837, 454, 10, 128, "Text"],
+Cell[50879, 1849, 130, 2, 78, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[51070, 1858, 50, 0, 33, "Section"],
+
+Cell[CellGroupData[{
+Cell[51145, 1862, 107, 2, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[51277, 1868, 47, 0, 52, "Subsubsection"],
+Cell[51327, 1870, 186, 4, 60, "Text"],
+Cell[51516, 1876, 769, 32, 140, "Text"],
+Cell[52288, 1910, 702, 26, 140, "Text"],
+Cell[52993, 1938, 396, 12, 77, "Text"],
+Cell[53392, 1952, 670, 26, 140, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[54099, 1983, 46, 0, 52, "Subsubsection"],
+Cell[54148, 1985, 292, 9, 60, "Text"],
+Cell[54443, 1996, 124, 2, 76, "Input"],
+Cell[54570, 2000, 1270, 49, 123, "Text"],
+Cell[55843, 2051, 43, 0, 38, "Text"],
+Cell[55889, 2053, 60, 1, 73, "Input"],
+Cell[55952, 2056, 177, 5, 33, "Text"],
+Cell[56132, 2063, 487, 18, 60, "Text"],
+Cell[56622, 2083, 805, 27, 121, "Text"],
+Cell[57430, 2112, 1584, 60, 128, "Text"],
+Cell[59017, 2174, 2151, 84, 214, "Text"],
+Cell[61171, 2260, 1669, 63, 172, "Text"],
+Cell[62843, 2325, 1425, 48, 188, "Text"],
+Cell[64271, 2375, 2264, 87, 284, "Text"],
+Cell[66538, 2464, 590, 22, 83, "Text"],
+Cell[67131, 2488, 208, 7, 60, "Text"],
+Cell[67342, 2497, 143, 2, 74, "Input"],
+Cell[67488, 2501, 179, 6, 33, "Text"],
+Cell[67670, 2509, 110, 2, 56, "Input"],
+Cell[67783, 2513, 274, 10, 56, "Text"],
+Cell[68060, 2525, 110, 2, 54, "Input"],
+Cell[68173, 2529, 563, 18, 81, "Text"],
+Cell[68739, 2549, 112, 2, 54, "Input"],
+Cell[68854, 2553, 324, 11, 56, "Text"],
+Cell[69181, 2566, 111, 2, 74, "Input"],
+Cell[69295, 2570, 471, 18, 78, "Text"],
+Cell[69769, 2590, 137, 3, 76, "Input"],
+Cell[69909, 2595, 65, 0, 33, "Text"],
+Cell[69977, 2597, 93, 1, 54, "Input"],
+Cell[70073, 2600, 113, 4, 33, "Text"],
+Cell[70189, 2606, 51, 0, 38, "Text"],
+Cell[70243, 2608, 242, 4, 114, "Input"],
+Cell[70488, 2614, 237, 4, 107, "Input"],
+Cell[70728, 2620, 52, 0, 33, "Text"],
+Cell[70783, 2622, 58, 1, 54, "Input"],
+Cell[70844, 2625, 180, 6, 33, "Text"],
+Cell[71027, 2633, 955, 35, 54, "Text"],
+Cell[71985, 2670, 488, 19, 60, "Text"],
+Cell[72476, 2691, 972, 29, 98, "Input"],
+Cell[73451, 2722, 833, 38, 56, "Text"],
+Cell[74287, 2762, 44, 1, 56, "Input"],
+Cell[74334, 2765, 140, 6, 33, "Text"],
+Cell[74477, 2773, 421, 17, 60, "Text"],
+Cell[74901, 2792, 214, 3, 98, "Input"],
+Cell[75118, 2797, 483, 18, 61, "Text"],
+Cell[75604, 2817, 89, 2, 96, "Input"],
+Cell[75696, 2821, 60, 0, 33, "Text"],
+Cell[75759, 2823, 136, 2, 121, "Input"],
+Cell[75898, 2827, 594, 22, 81, "Text"],
+Cell[76495, 2851, 115, 2, 77, "Input"],
+Cell[76613, 2855, 30, 0, 33, "Text"],
+Cell[76646, 2857, 421, 17, 60, "Text"],
+Cell[77070, 2876, 214, 3, 98, "Input"],
+Cell[77287, 2881, 159, 5, 33, "Text"],
+Cell[77449, 2888, 34, 0, 38, "Text"],
+Cell[77486, 2890, 1399, 52, 76, "Text"],
+Cell[78888, 2944, 173, 6, 38, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[79098, 2955, 47, 0, 52, "Subsubsection"],
+Cell[79148, 2957, 588, 18, 105, "Text"],
+Cell[79739, 2977, 255, 4, 134, "Input"],
+Cell[79997, 2983, 770, 34, 56, "Text"],
+Cell[80770, 3019, 255, 5, 176, "Input"],
+Cell[81028, 3026, 262, 10, 33, "Text"],
+Cell[81293, 3038, 86, 1, 56, "Input"],
+Cell[81382, 3041, 71, 0, 33, "Text"],
+Cell[81456, 3043, 187, 6, 144, "Input"],
+Cell[81646, 3051, 1361, 50, 145, "Text"],
+Cell[83010, 3103, 157, 3, 88, "Input"],
+Cell[83170, 3108, 558, 23, 33, "Text"],
+Cell[83731, 3133, 145, 4, 73, "Input"],
+Cell[83879, 3139, 376, 11, 78, "Text"],
+Cell[84258, 3152, 405, 14, 60, "Text"],
+Cell[84666, 3168, 91, 1, 54, "Input"],
+Cell[84760, 3171, 148, 6, 33, "Text"],
+Cell[84911, 3179, 58, 1, 56, "Input"],
+Cell[84972, 3182, 164, 5, 49, "Text"],
+Cell[85139, 3189, 145, 5, 38, "Text"],
+Cell[85287, 3196, 84, 1, 56, "Input"],
+Cell[85374, 3199, 320, 15, 33, "Text"],
+Cell[85697, 3216, 68, 1, 54, "Input"],
+Cell[85768, 3219, 131, 2, 68, "Input"],
+Cell[85902, 3223, 40, 0, 33, "Text"],
+Cell[85945, 3225, 320, 15, 38, "Text"],
+Cell[86268, 3242, 68, 1, 54, "Input"],
+Cell[86339, 3245, 374, 15, 56, "Text"],
+Cell[86716, 3262, 53, 0, 38, "Text"],
+Cell[86772, 3264, 168, 5, 54, "Text"],
+Cell[86943, 3271, 152, 5, 38, "Text"],
+Cell[87098, 3278, 75, 1, 73, "Input"],
+Cell[87176, 3281, 52, 0, 33, "Text"],
+Cell[87231, 3283, 51, 1, 54, "Input"],
+Cell[87285, 3286, 251, 9, 33, "Text"],
+Cell[87539, 3297, 112, 2, 61, "Input"],
+Cell[87654, 3301, 43, 0, 33, "Text"],
+Cell[87700, 3303, 183, 3, 159, "Input"],
+Cell[87886, 3308, 153, 6, 33, "Text"],
+Cell[88042, 3316, 137, 2, 82, "Input"],
+Cell[88182, 3320, 149, 6, 33, "Text"],
+Cell[88334, 3328, 147, 3, 90, "Input"],
+Cell[88484, 3333, 225, 10, 33, "Text"],
+Cell[88712, 3345, 315, 13, 38, "Text"],
+Cell[89030, 3360, 146, 3, 88, "Input"],
+Cell[89179, 3365, 899, 32, 78, "Text"],
+Cell[90081, 3399, 703, 21, 76, "Input"],
+Cell[90787, 3422, 164, 5, 56, "Text"],
+Cell[90954, 3429, 170, 5, 38, "Text"],
+Cell[91127, 3436, 237, 9, 54, "Text"],
+Cell[91367, 3447, 34, 0, 38, "Text"],
+Cell[91404, 3449, 288, 9, 76, "Text"],
+Cell[91695, 3460, 621, 16, 137, "Text"],
+Cell[92319, 3478, 466, 16, 100, "Text"],
+Cell[92788, 3496, 635, 15, 138, "Input"],
+Cell[93426, 3513, 503, 18, 78, "Text"],
+Cell[93932, 3533, 164, 3, 76, "Input"],
+Cell[94099, 3538, 175, 6, 33, "Text"],
+Cell[94277, 3546, 103, 2, 54, "Input"],
+Cell[94383, 3550, 177, 4, 56, "Text"],
+Cell[94563, 3556, 710, 12, 212, "Input"],
+Cell[95276, 3570, 98, 3, 33, "Text"],
+Cell[95377, 3575, 89, 1, 56, "Input"],
+Cell[95469, 3578, 54, 0, 33, "Text"],
+Cell[95526, 3580, 591, 9, 253, "Input"],
+Cell[96120, 3591, 405, 13, 78, "Text"],
+Cell[96528, 3606, 52, 0, 38, "Text"],
+Cell[96583, 3608, 71, 1, 54, "Input"],
+Cell[96657, 3611, 57, 0, 33, "Text"],
+Cell[96717, 3613, 73, 1, 54, "Input"],
+Cell[96793, 3616, 532, 20, 78, "Text"],
+Cell[97328, 3638, 63, 1, 54, "Input"],
+Cell[97394, 3641, 63, 1, 47, "Input"],
+Cell[97460, 3644, 97, 2, 67, "Input"],
+Cell[97560, 3648, 1269, 42, 105, "Text"],
+Cell[98832, 3692, 1012, 39, 108, "Text"],
+Cell[99847, 3733, 38, 1, 54, "Input"],
+Cell[99888, 3736, 97, 2, 73, "Input"],
+Cell[99988, 3740, 74, 1, 47, "Input"],
+Cell[100065, 3743, 101, 2, 66, "Input"],
+Cell[100169, 3747, 552, 18, 78, "Text"],
+Cell[100724, 3767, 385, 14, 60, "Text"],
+Cell[101112, 3783, 612, 18, 130, "Text"],
+Cell[101727, 3803, 284, 10, 76, "Text"],
+Cell[102014, 3815, 74, 0, 38, "Text"],
+Cell[102091, 3817, 136, 2, 80, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[102264, 3824, 46, 0, 29, "Subsubsection"],
+Cell[102313, 3826, 388, 8, 105, "Text"],
+Cell[102704, 3836, 158, 3, 74, "Input"],
+Cell[102865, 3841, 1574, 57, 172, "Text"],
+Cell[104442, 3900, 100, 2, 56, "Input"],
+Cell[104545, 3904, 50, 0, 38, "Text"],
+Cell[104598, 3906, 129, 3, 54, "Input"],
+Cell[104730, 3911, 391, 14, 60, "Text"],
+Cell[105124, 3927, 108, 2, 56, "Input"],
+Cell[105235, 3931, 152, 6, 38, "Text"],
+Cell[105390, 3939, 126, 2, 54, "Input"],
+Cell[105519, 3943, 56, 0, 38, "Text"],
+Cell[105578, 3945, 86, 1, 54, "Input"],
+Cell[105667, 3948, 526, 17, 105, "Text"],
+Cell[106196, 3967, 121, 2, 74, "Input"],
+Cell[106320, 3971, 492, 16, 83, "Text"],
+Cell[106815, 3989, 80, 1, 54, "Input"],
+Cell[106898, 3992, 64, 0, 38, "Text"],
+Cell[106965, 3994, 88, 1, 56, "Input"],
+Cell[107056, 3997, 303, 11, 60, "Text"],
+Cell[107362, 4010, 77, 1, 56, "Input"],
+Cell[107442, 4013, 100, 3, 38, "Text"],
+Cell[107545, 4018, 171, 2, 108, "Input"],
+Cell[107719, 4022, 100, 3, 33, "Text"],
+Cell[107822, 4027, 106, 3, 38, "Text"],
+Cell[107931, 4032, 168, 3, 108, "Input"],
+Cell[108102, 4037, 271, 5, 83, "Text"],
+Cell[108376, 4044, 287, 5, 168, "Input"],
+Cell[108666, 4051, 588, 15, 147, "Text"],
+Cell[109257, 4068, 291, 7, 146, "Input"],
+Cell[109551, 4077, 375, 11, 83, "Text"],
+Cell[109929, 4090, 138, 3, 76, "Input"],
+Cell[110070, 4095, 369, 15, 60, "Text"],
+Cell[110442, 4112, 124, 2, 76, "Input"],
+Cell[110569, 4116, 366, 13, 60, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[110984, 4135, 110, 2, 33, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[111119, 4141, 44, 0, 52, "Subsubsection"],
+Cell[111166, 4143, 307, 11, 60, "Text"],
+Cell[111476, 4156, 153, 3, 96, "Input"],
+Cell[111632, 4161, 287, 11, 60, "Text"],
+Cell[111922, 4174, 84, 1, 73, "Input"],
+Cell[112009, 4177, 174, 6, 38, "Text"],
+Cell[112186, 4185, 97, 2, 73, "Input"],
+Cell[112286, 4189, 418, 18, 38, "Text"],
+Cell[112707, 4209, 78, 1, 56, "Input"],
+Cell[112788, 4212, 316, 14, 38, "Text"],
+Cell[113107, 4228, 119, 3, 60, "Text"],
+Cell[113229, 4233, 81, 1, 54, "Input"],
+Cell[113313, 4236, 306, 10, 52, "Text"],
+Cell[113622, 4248, 463, 8, 136, "Input"],
+Cell[114088, 4258, 94, 3, 38, "Text"],
+Cell[114185, 4263, 49, 1, 54, "Input"],
+Cell[114237, 4266, 152, 6, 38, "Text"],
+Cell[114392, 4274, 109, 2, 54, "Input"],
+Cell[114504, 4278, 152, 5, 38, "Text"],
+Cell[114659, 4285, 3019, 94, 389, "Text"],
+Cell[117681, 4381, 1746, 51, 241, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

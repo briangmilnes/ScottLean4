@@ -1,0 +1,3955 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     65881,       3141]*)
+(*NotebookOutlinePosition[     66553,       3165]*)
+(*  CellTagsIndexPosition[     66509,       3161]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Further Examples of ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " 3.0."
+}], "Title"],
+
+Cell[TextData[{
+  StyleBox[
+  "prepared by\n\nAndrej Bauer                 and                 Dana S. \
+Scott            ",
+    FontSize->16,
+    FontWeight->"Bold"],
+  "\n",
+  StyleBox["Andrej.Bauer@cs.cmu.edu                dana.scott@cs.cmu.edu",
+    FontFamily->"Courier",
+    FontSize->12]
+}], "Subtitle"],
+
+Cell["Last Revised 7 January 1997", "Subsubtitle",
+  FormatType->InputForm,
+  FontWeight->"Bold"],
+
+Cell[CellGroupData[{
+
+Cell["1. Prime Numbers", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Definition and examples", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Definition", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Definition.   ",
+    FontWeight->"Bold"],
+  "A",
+  StyleBox[" prime number",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a whole number greater than ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " not divisible evenly by any smaller whole number greater than ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  "."
+}], "MathCaption",
+  FontSize->14,
+  FontColor->GrayLevel[0]],
+
+Cell[TextData[{
+  "People often say that a prime number is one greater than ",
+  StyleBox["1 ",
+    FontWeight->"Bold"],
+  "without  ",
+  StyleBox["proper divisors  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "(",
+  StyleBox["i.e.",
+    FontSlant->"Italic"],
+  ", no divisors  other than itself and ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  ").  "
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " has many built-in features pertaining to prime numbers.  For example, the \
+function ",
+  StyleBox["Prime[n]",
+    FontWeight->"Bold"],
+  " computes the ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  "th prime number."
+}], "Text"],
+
+Cell["??Prime", "Input",
+  CellLabel->"In[113]:="],
+
+Cell["Prime[17]", "Input",
+  CellLabel->"In[114]:="],
+
+Cell[TextData[{
+  "And here are all the previous primes [",
+  StyleBox["see footnote",
+    FontColor->RGBColor[0, 0, 1]],
+  "]:"
+}], "Text"],
+
+Cell["Prime[Range[17]]", "Input",
+  CellLabel->"In[115]:="],
+
+Cell[TextData[{
+  "And here are some larger and larger primes [",
+  StyleBox["also see footnote",
+    FontColor->RGBColor[0, 0, 1]],
+  "]:"
+}], "Text"],
+
+Cell["Prime[10^Range[9]]", "Input",
+  CellLabel->"In[116]:="]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Footnotes", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["(1)  ",
+    FontWeight->"Bold"],
+  "By the way "
+}], "Text"],
+
+Cell["Prime[Range[17]]", "Input"],
+
+Cell["evaluates to the same list as:", "Text"],
+
+Cell["\<\
+{Prime[1], Prime[2], Prime[3], Prime[4], Prime[5], Prime[6],
+ Prime[7], Prime[8], Prime[9], Prime[10],Prime[11],Prime[12],
+ Prime[13],Prime[14],Prime[15],Prime[16],Prime[17]}\
+\>", "Input"],
+
+Cell["which is written more compactly as:", "Text"],
+
+Cell["Prime@Range[17]", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Testing for primeness", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["A small test", "Subsubsection"],
+
+Cell[TextData[{
+  "We saw that ",
+  StyleBox["59",
+    FontWeight->"Bold"],
+  " was the ",
+  StyleBox["17",
+    FontWeight->"Bold"],
+  "th prime.  Now ",
+  StyleBox["60 == 2 x 2 x 3 x 5",
+    FontWeight->"Bold"],
+  " is definitely ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a prime.  So we might guess that ",
+  StyleBox["61",
+    FontWeight->"Bold"],
+  " is the ",
+  StyleBox["next",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " prime.  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " has a built-in ",
+  StyleBox["test",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for primeness, so we can quickly check our guess."
+}], "Text"],
+
+Cell["?PrimeQ", "Input"],
+
+Cell["PrimeQ[61]", "Input"],
+
+Cell["And, in fact:", "Text"],
+
+Cell["Prime[18]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A large test", "Subsubsection"],
+
+Cell[TextData[{
+  "\tOf course ",
+  StyleBox["11",
+    FontWeight->"Bold"],
+  " is prime."
+}], "Text"],
+
+Cell["PrimeQ[11]", "Input"],
+
+Cell[TextData[{
+  "But the following numbers (often called ",
+  StyleBox["\[OpenCurlyDoubleQuote]repunits\[CloseCurlyDoubleQuote]) ",
+    FontWeight->"Bold"],
+  "are ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " prime:"
+}], "Text"],
+
+Cell["\<\
+PrimeQ[111] 
+
+PrimeQ[1111]
+
+PrimeQ[11111]
+
+PrimeQ[111111]
+
+PrimeQ[1111111]\
+\>", "Input"],
+
+Cell[TextData[{
+  "How many ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  "s are needed to get another prime?"
+}], "Text"],
+
+Cell["PrimeQ[1111111111111111111]", "Input"],
+
+Cell["1111111111111111111 // N", "Input"],
+
+Cell[TextData[{
+  "It looks as thought the number of ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  "s",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is ",
+  StyleBox["19",
+    FontWeight->"Bold"],
+  ".  We can also write this number as:"
+}], "Text"],
+
+Cell["(10^19 -1)/9  // N", "Input"],
+
+Cell[TextData[{
+  "So let us try a whole bunch of numbers of the form  ",
+  StyleBox["(10k - 1) / 9",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["PrimeQ[(10^Range[150] - 1)/9]", "Input"],
+
+Cell["Wow!  Only three of them work out!", "Text"],
+
+Cell["Position[%,True]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Footnote 1", "Subsubsection"],
+
+Cell[TextData[{
+  "It is very hard to find other repunits that are prime.  It is known that ",
+  
+  StyleBox["(10 ",
+    FontWeight->"Bold"],
+  StyleBox["317",
+    FontSize->9,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" - 1) / 9 ",
+    FontWeight->"Bold"],
+  "is prime (discovered  in ",
+  StyleBox["1978)",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["(10 ",
+    FontWeight->"Bold"],
+  StyleBox["1031",
+    FontSize->9,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" - 1) / 9",
+    FontWeight->"Bold"],
+  " is prime (discovered in ",
+  StyleBox["1986",
+    FontWeight->"Bold"],
+  "), and that for all other ",
+  StyleBox["n < 10000",
+    FontWeight->"Bold"],
+  ", other than the ones mentioned here, ",
+  StyleBox["(10",
+    FontWeight->"Bold"],
+  StyleBox["n",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" - 1) / 9",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a prime.  "
+}], "Text"],
+
+Cell["The first example is feasible to check:", "Text"],
+
+Cell["PrimeQ[(10^317 -1)/9]", "Input"],
+
+Cell[TextData[{
+  "But the second took a bit of time.  You can be sure the check took much \
+more time in ",
+  StyleBox["1986",
+    FontWeight->"Bold"],
+  " !  (But this does not mean that we really know anything, since ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " does not publish its algorithms!)"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["PrimeQ[(10^1031 -1)/9] // Timing", "Input"],
+
+Cell[BoxData[
+    \({36.7499999999999937`\ Second, True}\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "It seems to be an ",
+  StyleBox["unsolved problem",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  whether there are ",
+  StyleBox["infinitely many",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " such primes."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Footnote 2", "Subsubsection"],
+
+Cell["\<\
+Note that a repunit (10n - 1) / 9 cannot be a prime unless n (the \
+number of 1s) is also prime.  This is a consequence of the trivial identity
+
+                                     (10 p q  - 1) / 9 == ((10 p q - 1) / (10 \
+q - 1))*((10 q - 1) / 9)
+ 
+and the almost obvious fact that is ((10 p q - 1) / (10 q - 1)) an integer.  \
+\
+\>", "Text"],
+
+Cell["For example:", "Text"],
+
+Cell["11111111111111111111111111111111111 / 11111", "Input"],
+
+Cell[TextData[{
+  "And this pattern may be clearer if we write out the multiplication of this \
+last answer by ",
+  StyleBox["11111",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell["\<\
+    1000010000100001000010000100001 +
+   10000100001000010000100001000010 +
+  100001000010000100001000010000100 +
+ 1000010000100001000010000100001000 +
+10000100001000010000100001000010000\
+\>", "Input"],
+
+Cell["N[%]", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Counting primes", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "It turns out that ",
+  StyleBox["PrimePi[x]",
+    FontWeight->"Bold"],
+  " is well defined for ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (real) arguments ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  ".  It is a ",
+  StyleBox["\[OpenCurlyDoubleQuote]step function\[CloseCurlyDoubleQuote]",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  and is not continuous.  We can still graph it, however."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Plot[PrimePi[x], {x,-10,100}];", "Input",
+  CellLabel->"In[120]:=",
+  AspectRatioFixed->True],
+
+Cell["\<\
+Perhaps we can understand the steps better on a larger scale.\
+\>", 
+  "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Plot[PrimePi[x], {x,0,20}];", "Input",
+  CellLabel->"In[121]:=",
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Note that the vertical lines are ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " really part of the graph.  They are artifacts of the ",
+  StyleBox["Plot",
+    FontWeight->"Bold"],
+  " program in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ".  For example, the discontinuous ",
+  StyleBox["Tan",
+    FontWeight->"Bold"],
+  " function shows a graph with vertical lines that ought not be there."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Plot[Tan[x], {x,-6,6}];", "Input",
+  CellLabel->"In[122]:=",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Exercises",
+  FontColor->RGBColor[1, 0, 0]]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Other prime patterns", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  The number ",
+  StyleBox["90901",
+    FontWeight->"Bold"],
+  " is prime (see below).  What is the next pattern ",
+  StyleBox["909090 . . . 901",
+    FontWeight->"Bold"],
+  " that makes a prime?"
+}], "MathCaption",
+  FontColor->GrayLevel[0]],
+
+Cell["PrimeQ[90901]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["PrimeQ[909090909090909090901]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Recursive fun", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  If ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " is an integer, then ",
+  StyleBox["10 n + 1",
+    FontWeight->"Bold"],
+  " has the same digits with ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " stuck on the end.  The question is, given ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " how many ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  "s are required to make a prime?"
+}], "MathCaption",
+  FontColor->GrayLevel[0]],
+
+Cell["\<\
+PrimeQ[811]
+
+PrimeQ[911]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  "Experimentation can be done by hand, but a recursive procedure that says ",
+  
+  StyleBox[
+  "\[OpenCurlyDoubleQuote]if at first you don't succeed, try, try again\
+\[CloseCurlyDoubleQuote]",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a more automatic way of searching.  So, we define the function ",
+  StyleBox["PrimePush",
+    FontWeight->"Bold"],
+  ", or ",
+  StyleBox["PP",
+    FontWeight->"Bold"],
+  " for short."
+}], "Text"],
+
+Cell["PP[n_] := If[PrimeQ[n], n, PP[10 n + 1]];", "Input"],
+
+Cell[TextData[{
+  "We will discuss recursive definitions in great detail later.  Here is a \
+run of ",
+  StyleBox["PP",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell["PP[101010]", "Input"],
+
+Cell["N[%]", "Input"],
+
+Cell[TextData[{
+  "And here is a run for all ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " up to ",
+  StyleBox["37",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["PP /@ Range[37]  // TableForm", "Input"],
+
+Cell["Whoa, there!  That number has a lot of digits!", "Text"],
+
+Cell["\<\
+PP[12]
+
+% // N\
+\>", "Input"],
+
+Cell[TextData[{
+  "Unfortunately, ",
+  StyleBox["PP[38]",
+    FontWeight->"Bold"],
+  " would not stop computing."
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["2. Lists", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Displaying and sorting", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Displaying lists", "Subsubsection"],
+
+Cell[TextData[{
+  "It sometimes helps to use ",
+  StyleBox["TableForm",
+    FontWeight->"Bold"],
+  " to improve the display.  This can also be utilized to show ",
+  StyleBox["several lists",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " together."
+}], "Text"],
+
+Cell["Prime[Range[10]]", "Input"],
+
+Cell["Prime[Range[10]] // TableForm", "Input"],
+
+Cell["{Range[10],Prime[Range[10]]} // TableForm", "Input"],
+
+Cell["Transpose[{Range[10],Prime[Range[10]]}] // TableForm", "Input"],
+
+Cell["{{Range[10],Prime[Range[10]]}} // TableForm", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Sorting lists", "Subsubsection"],
+
+Cell["Consider the following messy list of numbers:", "Text"],
+
+Cell["mylist = {5,4,3,1,8,2,3,1,7,3,9,8,6,7,2,5,6};", "Input"],
+
+Cell[TextData[{
+  "You can sort it in numerical order by using ",
+  StyleBox["Sort",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell["Sort[mylist]", "Input"],
+
+Cell[TextData[{
+  "If the repetitions are not desired, then ",
+  StyleBox["Union",
+    FontWeight->"Bold"],
+  " eliminates them (and sorts):"
+}], "Text"],
+
+Cell["Union[mylist]", "Input"],
+
+Cell[TextData[{
+  StyleBox["Sort",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["Union",
+    FontWeight->"Bold"],
+  " do many other tasks as well, and they will be discussed later.  Note that \
+the comparisons:"
+}], "Text"],
+
+Cell["\<\
+Sort[mylist] == Union[mylist]
+
+Length[Union[mylist]] < Length[mylist]\
+\>", "Input"],
+
+Cell[TextData[{
+  "both indicate that ",
+  StyleBox["mylist",
+    FontWeight->"Bold"],
+  " did indeed have ",
+  StyleBox["repetitions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Finding things in lists", "Subsection"],
+
+Cell[TextData[{
+  "If you know ",
+  StyleBox["where",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " an entry is hiding in a list, you can pull it out."
+}], "Text"],
+
+Cell["?Part", "Input"],
+
+Cell["\<\
+theusualsuspects = {Bill, Joe, Mary, Guy, Fred, Ken, Penny}
+
+theusualsuspects[[5]]\
+\>", "Input"],
+
+Cell["\<\
+But if you are not sure the entry is there you can find its \
+position.\
+\>", "Text"],
+
+Cell["?Position", "Input"],
+
+Cell["\<\
+Position[theusualsuspects, Ken]
+
+Position[theusualsuspects, Sally]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Sums and products of lists", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Sums of lists", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "There are many ways to compute the ",
+  StyleBox["sum",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a list of values.  The first way is probably easier to read and easier \
+to remember \[LongDash] if there is just ",
+  StyleBox["one  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "list to deal with."
+}], "Text"],
+
+Cell["Sum[i^2, {i, 10, 20}]", "Input"],
+
+Cell[TextData[{
+  "Here is a second way, using the fact that the basic operation ",
+  StyleBox["Plus",
+    FontWeight->"Bold"],
+  " takes any number of arguments."
+}], "Text"],
+
+Cell["Apply[Plus,Range[10,20]^2]", "Input"],
+
+Cell[TextData[{
+  "When you get used to using such a combination, ",
+  StyleBox["Apply",
+    FontWeight->"Bold"],
+  " can be abbreviated."
+}], "Text"],
+
+Cell["?Apply", "Input"],
+
+Cell["Plus@@(Range[10,20]^2)", "Input"],
+
+Cell[TextData[{
+  "Be careful with to properly group ",
+  StyleBox["(Range[10,20]^2)",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  StyleBox[" when using ",
+    FontFamily->"Courier"],
+  StyleBox["@@",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  StyleBox[
+  ". You might get the square of the sum rather than the sum of squares!",
+    FontFamily->"Courier"]
+}], "Text"],
+
+Cell[TextData[
+"The third way is often more compact and more flexible\[LongDash] especially \
+if you want to define a function that takes lists and then sums the squares:  \
+"], "Text"],
+
+Cell["\<\
+SumSquares = Function[ll, Plus@@(ll ^ 2)];
+
+SumSquares[Range[40]]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Products of lists", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Products can be treated similarly to sums:", "Text"],
+
+Cell["Product[i^2 + 1, {i, 10, 20}]", "Input"],
+
+Cell["Times@@(Range[10,20]^2 + 1)", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Making and breaking lists", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Understanding brackets", "Subsubsection"],
+
+Cell[TextData[{
+  "The conventions of ",
+  StyleBox["Mathematica ",
+    FontSlant->"Italic"],
+  " regarding ",
+  StyleBox["brackets",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " have to be kept clearly in mind."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["\t>> Round brackets  ( ) for ",
+    FontWeight->"Bold"],
+  StyleBox["grouping",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    FontColor->RGBColor[1, 0, 0]],
+  StyleBox["  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["expressions.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["\t>> Square brackets [ ] for ",
+    FontWeight->"Bold"],
+  StyleBox["applying",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    FontColor->RGBColor[1, 0, 0]],
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["functions (and commands).",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["\t>> Curly brackets  { } for ",
+    FontWeight->"Bold"],
+  StyleBox["listing",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    FontColor->RGBColor[1, 0, 0]],
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["elements.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "\tHere are examples of the use of different brackets.  Each of these \
+examples has a ",
+  StyleBox["different",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " meaning."
+}], "Text"],
+
+Cell["\<\
+F[x][y]
+
+F@{x,y}
+
+F@@{x,y}
+
+F@(x y)
+
+F(x y)
+
+F[y x]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Parts of lists", "Subsubsection"],
+
+Cell[TextData[{
+  "Given a list, it is frequently necessary to take only ",
+  StyleBox["part",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of it and to do something with that part.  If you know exactly how what \
+you want is placed in the list, then ",
+  StyleBox["Part",
+    FontWeight->"Bold"],
+  " may be able to give you all you need."
+}], "Text"],
+
+Cell["?Part", "Input"],
+
+Cell["The alphabet is a well known example.", "Text"],
+
+Cell["\<\
+ClearAll[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z];
+alphabet = {a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z}\
+\>", "Input"],
+
+Cell["Here are various parts of the alphabet.", "Text"],
+
+Cell["\<\
+alphabet[[17]]
+
+alphabet[[-10]]
+
+alphabet[[2 Range[13]]]
+
+alphabet[[2 Range[13] - 1]]\
+\>", "Input"],
+
+Cell["\<\
+Sometimes it is easier to refer to parts without knowing exactly \
+the index number of the position of the entries.\
+\>", "Text"],
+
+Cell["\<\
+?First
+
+?Last
+
+?Rest\
+\>", "Input"],
+
+Cell["\<\
+First[alphabet]
+
+Last[alphabet]
+
+Rest[alphabet]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using Tables, Ranges, and Arrays ", "Subsubsection"],
+
+Cell[TextData[{
+  "We have seen that ",
+  StyleBox["Range[n]",
+    FontWeight->"Bold"],
+  " can be used in many ways to make long lists.  More flexibly, The \
+operation ",
+  StyleBox["Table",
+    FontWeight->"Bold"],
+  " can make lists with specified entries."
+}], "Text"],
+
+Cell["?Table", "Input"],
+
+Cell["Table[i^2, {i, 1, 10}]", "Input"],
+
+Cell[TextData[{
+  "Of course, ",
+  StyleBox["Range",
+    FontWeight->"Bold"],
+  " is a special case of ",
+  StyleBox["Table",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["?Range", "Input"],
+
+Cell["Range[10] == Table[i,{i,10}]", "Input"],
+
+Cell[TextData[{
+  "Another related operation is ",
+  StyleBox["Array",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["?Array", "Input"],
+
+Cell["Here are some examples.", "Text"],
+
+Cell["aa = Array[A,{4,5}]", "Input"],
+
+Cell["aa // TableForm", "Input"],
+
+Cell[TextData[{
+  "Remember ",
+  StyleBox["Array",
+    FontWeight->"Bold"],
+  " applies a ",
+  StyleBox["function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  " to arguments.  The function can then put whatever it wants into the \
+array."
+}], "Text"],
+
+Cell["CH = Function[{i,j},If[i < j, A[i,j], B[i,j]]];", "Input"],
+
+Cell["Array[CH,{4,5}] // TableForm", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Modifying lists", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Modifying and combining lists", "Subsubsection"],
+
+Cell["Consider a standard list", "Text"],
+
+Cell["r = Range[20];", "Input"],
+
+Cell[TextData[{
+  "As we have seen, arithmetic operations can be applied to lists, and the \
+result is to ",
+  StyleBox["modify",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " each term of the list in the same way."
+}], "Text"],
+
+Cell["\<\
+s = r^2
+
+t = 3 r + 1\
+\>", "Input"],
+
+Cell[TextData[{
+  "You can write the list ",
+  StyleBox["backwards",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and you can ",
+  StyleBox["add",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " or ",
+  StyleBox["subtract",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " lists:"
+}], "Text"],
+
+Cell["\<\
+u = Reverse[r]
+
+v = s - Reverse[r]\
+\>", "Input"],
+
+Cell[TextData[{
+  "Now that you have several lists, you can ",
+  StyleBox["put them all together",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell["\<\
+{r, s, t, u, v}
+
+Join[r, s, t, u, v]
+
+Union[r, s, t, u, v]\
+\>", "Input"],
+
+Cell[TextData[{
+  "As you see, ",
+  StyleBox["Union",
+    FontWeight->"Bold"],
+  " sorts and eliminates repetitions, but ",
+  StyleBox["Join",
+    FontWeight->"Bold"],
+  " keeps all terms in the original order."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Thinning lists", "Subsubsection"],
+
+Cell[TextData[{
+  "Sometimes a list has ",
+  StyleBox["unwanted",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " elements.  We can ",
+  StyleBox["select",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "the ",
+  StyleBox["desired",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " elements as follows."
+}], "Text"],
+
+Cell["?Select", "Input"],
+
+Cell["For example, some numbers are prime and some are not.", "Text"],
+
+Cell["PrimeQ[Range[100]]", "Input"],
+
+Cell["Let us select primes from various lists.", "Text"],
+
+Cell["Select[Range[100], PrimeQ]", "Input"],
+
+Cell["Select[Range[100]^2, PrimeQ]", "Input"],
+
+Cell["Select[Range[100]^2 + 1, PrimeQ]", "Input"],
+
+Cell["Select[5 Range[100] + 1, PrimeQ]", "Input"],
+
+Cell["And we can make up our own crazy selection criterion:", "Text"],
+
+Cell["\<\
+p = Function[n, Abs[2500 - n^2] < 1000];
+Select[Range[100], p]\
+\>", "Input"],
+
+Cell["This graph may explain the results just seen.", "Text"],
+
+Cell["Plot[1000 - Abs[2500 - n^2], {n,0,100}];", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Expressions as lists", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Nesting lists", "Subsubsection"],
+
+Cell["\<\
+The formation of lists with curly brackets can be iterated as much \
+as you like.\
+\>", "Text"],
+
+Cell["\<\
+aa = {{{1,2},3},{4,{5,{6}}},{{7,8},{{9}}}};
+aa // FullForm\
+\>", "Input"],
+
+Cell[TextData[{
+  "Then ",
+  StyleBox["Part",
+    FontWeight->"Bold"],
+  " can be used to get down inside the brackets."
+}], "Text"],
+
+Cell["aa[[1,1,2]]", "Input"],
+
+Cell[TextData[{
+  "That means: ",
+  StyleBox[
+  "\[OpenCurlyDoubleQuote]The second part of the first part of the first part \
+of aa.\[CloseCurlyDoubleQuote]",
+    FontWeight->"Bold"],
+  "  And here are some more parts:"
+}], "Text"],
+
+Cell["\<\
+aa[[2]]
+
+aa[[2,2,2,1]]
+
+aa[[3]]
+
+aa[[3,2,1,1]]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Nesting expressions", "Subsubsection"],
+
+Cell[TextData[{
+  "Expressions in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " are treated in a way similar to nested lists."
+}], "Text"],
+
+Cell["\<\
+bb = (((y^2 + 1)(x^3 - 2))^5 - 7)
+
+bb // FullForm\
+\>", "Input"],
+
+Cell[TextData[{
+  "We see that instead of ",
+  StyleBox["\[OpenCurlyDoubleQuote]List\[CloseCurlyDoubleQuote]",
+    FontWeight->"Bold"],
+  " other words are used, indicating the operations that will eventually be \
+performed.  (They have not been performed, because at the time of writing the \
+expression, the symbolic letters had no numerical meaning.)  The other words \
+are called ",
+  StyleBox["heads",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  And there is a way of finding out what heads are being used."
+}], "Text"],
+
+Cell["\<\
+?Head
+
+Head[aa]
+
+Head[bb]\
+\>", "Input"],
+
+Cell[TextData[{
+  "The part-combination ",
+  StyleBox["expr[[0]] ",
+    FontWeight->"Bold"],
+  "gives the head of the expression."
+}], "Text"],
+
+Cell["\<\
+aa[[0]]
+
+bb[[0]]\
+\>", "Input"],
+
+Cell[TextData[{
+  "Here are some parts of ",
+  StyleBox["bb",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell["\<\
+bb[[2]]
+
+bb[[2,2]]
+
+bb[[2,2,1]]
+
+bb[[2,2,1,2]]
+
+bb[[2,2,1,2,0]]
+
+bb[[2,2,1,2,1]]
+
+bb[[2,2,1,2,2]]\
+\>", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Exercises",
+  FontColor->RGBColor[1, 0, 0]]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Some tests", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  Explain what is indicated about a given list ",
+  StyleBox["dumblist",
+    FontWeight->"Bold"],
+  " by each of these tests:\n                                  ",
+  StyleBox[
+  "  dumblist == Sort[dumblist]\n                                    dumblist \
+== Union[dumblist]\n                                    Sort[dumblist] == \
+Sort[Sort[dumblist]]",
+    FontWeight->"Bold"]
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  "The first test indicates that ",
+  StyleBox["dumblist",
+    FontWeight->"Bold"],
+  " was ",
+  StyleBox["already sorted",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "The second test indicates that ",
+  StyleBox["dumblist",
+    FontWeight->"Bold"],
+  " was not only sorted but had ",
+  StyleBox["no repetitions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "The third test indicates that ",
+  StyleBox["nothing at all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " because it is always ",
+  StyleBox["True",
+    FontWeight->"Bold"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using parts, and positions", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " provides the built-in function, ",
+  StyleBox["PrimeQ[n]",
+    FontWeight->"Bold"],
+  " that evaluates to ",
+  StyleBox["true",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if and only if ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " is prime.  Suppose ",
+  StyleBox["PrimeQ",
+    FontWeight->"Bold"],
+  " did not exist, but the otehr functions we have studied do.  How can you \
+use them to determine which, if any of",
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["pp = { 227, 229, 231, 233}",
+    FontWeight->"Bold"],
+  " are prime?"
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["\<\
+pp = {227, 229, 231, 233};
+primes = Prime@Range[55];
+
+Table[{pp[[i]],Position[primes,pp[[i]]]},{i,4}] // TableForm\
+\>", "Input"],
+
+Cell["So we see that only 231 is not a prime!", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A summation formula", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  Find a way to ",
+  StyleBox["verify",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the formula ",
+  StyleBox["1 + 2 + 3 + . . . + n == n (n+1) / 2 ",
+    FontWeight->"Bold"],
+  "for\nall valuses of ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " in ",
+  StyleBox["Range[100]",
+    FontWeight->"Bold"],
+  "."
+}], "MathCaption",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Union@Table[Sum[i,{i,n}] == n(n+1)/2, {n,100}]", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Make a List", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.  ",
+    FontWeight->"Bold"],
+  "Make a list ",
+  StyleBox["L",
+    FontWeight->"Bold"],
+  " of integers of the form ",
+  StyleBox[" L = {0, 3, 6, 9,  . . . , 90}",
+    FontWeight->"Bold"],
+  ".  "
+}], "MathCaption",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+You don't need all these commands, these are just suggestions: \
+\
+\>", "Text"],
+
+Cell["Table, Map, Range, Times", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["L = 3 Range[0,30]", "Input",
+  CellLabel->"In[124]:=",
+  FormatType->InputForm]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plot a List", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.  ",
+    FontWeight->"Bold"],
+  "Plot the list ",
+  StyleBox["L",
+    FontWeight->"Bold"],
+  " that you just constructed.  (And try some other examples!)"
+}], "MathCaption",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["ListPlot[L]", "Input",
+  CellLabel->"In[125]:=",
+  FormatType->InputForm],
+
+Cell["ListPlot[L^2]", "Input",
+  CellLabel->"In[126]:=",
+  FormatType->InputForm],
+
+Cell["ListPlot[1/L]", "Input",
+  CellLabel->"In[127]:=",
+  FormatType->InputForm]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The why of brackets", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  Explain the following results:"
+}], "MathCaption"],
+
+Cell["\<\
+F[x][y]
+
+F@{x,y}
+
+F@@{x,y}
+
+F@(x y)
+
+F(x y)
+
+F[y x]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[TextData[{
+  "The trick is to know what ",
+  StyleBox["@",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["@@",
+    FontWeight->"Bold"],
+  " mean.  Also ",
+  StyleBox["x y ",
+    FontWeight->"Bold"],
+  "means",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["multiplication!",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  And watch the order."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Take and drop", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  Explain how the list commands ",
+  StyleBox["Take",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["Drop",
+    FontWeight->"Bold"],
+  " work."
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell["?Take", "Input"],
+
+Cell["Take[{a,b,c,d}, -3]", "Input"],
+
+Cell["?Drop", "Input"],
+
+Cell["Drop[{a,b,c,d,e,f},2]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Decimating Lists", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.  ",
+    FontWeight->"Bold"],
+  "Do an example to see what ",
+  StyleBox["Flatten",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Take",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["Partition",
+    FontWeight->"Bold"],
+  " do."
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell["\<\
+Here is a suggestion: Start with a long, boring list of the ten \
+digits repeated over and over.\
+\>", "Text"],
+
+Cell["LL = Flatten[Table[Range[0,9], {100}]];", "Input"],
+
+Cell[TextData[{
+  "Note that ",
+  StyleBox["Flatten",
+    FontWeight->"Bold"],
+  " was used to to make one homogeneous list.  Now, if we take the first ",
+  StyleBox["100",
+    FontWeight->"Bold"],
+  " terms of the list and partition them into groups of ",
+  StyleBox["10",
+    FontWeight->"Bold"],
+  " we get a nice, boring square array:"
+}], "Text"],
+
+Cell["Partition[Take[LL,100], 10] // TableForm", "Input"],
+
+Cell[TextData[{
+  "Note that",
+  StyleBox[" Take",
+    FontWeight->"Bold"],
+  " can also be written in terms of ",
+  StyleBox["Part",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["Take[LL, 100] == LL[[Range[100]]]", "Input"],
+
+Cell[TextData[{
+  "Now, if we choose the ",
+  StyleBox["even",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " numbered terms out of our list, we get ",
+  StyleBox["odd",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " entries."
+}], "Text"],
+
+Cell["Partition[LL[[2 Range[100]]], 10] // TableForm", "Input"],
+
+Cell[TextData[{
+  "We can keep picking terms at different frequencies and then graph the \
+results using ",
+  StyleBox["ListPlot",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["\<\
+Do[ 
+ListPlot[ 
+\t\tLL[[ i Range[30] ]],
+\t\tPlotRange->{0,10}, 
+\t\tPlotStyle->RGBColor[0,0,1], 
+\t\tTicks->{5Range[0,6],Range[10]} ],
+{i,9} ]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Do certain terms occur in a polynomial?", "Subsubsection"],
+
+Cell[TextData[{
+  "Problem.",
+  StyleBox[
+  "  The following polynomial (with both positive and negative exponents) has \
+a large number of terms.  How can you be sure that a term of the form ",
+    FontWeight->"Plain"],
+  "_Integer b",
+  StyleBox["2",
+    FontSize->10,
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  " ",
+  StyleBox["does",
+    FontSlant->"Italic"],
+  StyleBox[" occur, but  another term of the form ",
+    FontWeight->"Plain"],
+  "_Integer b",
+  StyleBox["3",
+    FontSize->10,
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" ",
+    FontWeight->"Plain"],
+  StyleBox["does not ",
+    FontSlant->"Italic"],
+  StyleBox["?",
+    FontWeight->"Plain"]
+}], "MathCaption"],
+
+Cell["golly = Expand[(a - b + 1/a)^14]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[TextData[{
+  "You can ask whether a term of a certain form is a ",
+  StyleBox["member",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a list (or expression)."
+}], "Text"],
+
+Cell["?MemberQ", "Input"],
+
+Cell["MemberQ[golly, _Integer b^2]", "Input"],
+
+Cell["MemberQ[golly, _Integer b^3]", "Input"],
+
+Cell["MemberQ[golly, _Integer b^4]", "Input"],
+
+Cell["And here is how to find out where they are:", "Text"],
+
+Cell["?Position", "Input"],
+
+Cell["Position[golly, _Integer b^2]", "Input"],
+
+Cell["golly[[30]]", "Input"],
+
+Cell["Position[golly, _Integer b^4]", "Input"],
+
+Cell["golly[[55]]", "Input"],
+
+Cell[TextData[{
+  "Of course ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  " does occur with other coefficients."
+}], "Text"],
+
+Cell["Position[golly, _ b^2]", "Input"],
+
+Cell["golly[[35]]", "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["3. Searching", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Finding the closest primes", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["The problem", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.  ",
+    FontWeight->"Bold"],
+  "Given a whole number ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " it would be nice to find the thr ",
+  StyleBox["nearest primes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["q",
+    FontWeight->"Bold"],
+  " such that\n                                                               \
+  ",
+  StyleBox["p <= n < q",
+    FontWeight->"Bold"],
+  "."
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  "Here is how ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " can help you.  The function ",
+  StyleBox["PrimePi[n]",
+    FontWeight->"Bold"],
+  " computes ",
+  StyleBox["the number of primes less than or equal to",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  ".  "
+}], "Text"],
+
+Cell["For example:", "Text"],
+
+Cell["PrimePi[500]", "Input"],
+
+Cell[TextData[{
+  "So, here are the primely neighbors of ",
+  StyleBox["500",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell["{Prime[95], Prime[96]}", "Input"],
+
+Cell[TextData[{
+  "And here is another check that ",
+  StyleBox["PrimePi",
+    FontWeight->"Bold"],
+  " is doing its job:"
+}], "Text"],
+
+Cell["PrimePi[500] == Length[Select[Range[500], PrimeQ]]", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Finding minimum values", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["An odd polynomial", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.  ",
+    FontWeight->"Bold"],
+  "Here is a rather strange polynomial ",
+  StyleBox["poly",
+    FontWeight->"Bold"],
+  " of degree ",
+  StyleBox["10",
+    FontWeight->"Bold"],
+  ".   Suppose we want to find where it assumes it ",
+  StyleBox["minimum value",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the interval ",
+  StyleBox["-100 <= x <= 100",
+    FontWeight->"Bold"],
+  " restricting ourselves to ",
+  StyleBox["integer",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["arguments",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "MathCaption"],
+
+Cell["\<\
+poly = 2 - x/100 + (51*x^2)/10000 - x^4/250000 + 
+       (7*x^6)/6250000000 - x^8/7812500000000 + 
+       x^10/195312500000000000\
+\>", "Input",
+  CellLabel->"In[117]:="],
+
+Cell["\<\
+A picture and a table will indicate that this is a somewhat \
+tiresome question.\
+\>", "Text"],
+
+Cell["Plot[poly, {x,-100,100}, PlotRange -> {0,6}];", "Input",
+  CellLabel->"In[118]:="],
+
+Cell["values = Table[N[poly /. {x->i}], {i,-100,100}]", "Input",
+  CellLabel->"In[119]:="]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  " The operator  ",
+  StyleBox["Min",
+    FontWeight->"Bold"],
+  "  allows one to find the ",
+  StyleBox["least element",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a list:"
+}], "Text"],
+
+Cell["minimum = Min[values]", "Input"],
+
+Cell[TextData[{
+  "We can find the location of ",
+  StyleBox["minimum",
+    FontWeight->"Bold"],
+  " on the list, and then check the corresponding ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " value. "
+}], "Text"],
+
+Cell["Position[values, minimum] - 101", "Input"],
+
+Cell["poly /. x->59 // N", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Exercises",
+  FontColor->RGBColor[1, 0, 0]]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Large gaps", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem .  ",
+    FontWeight->"Bold"],
+  "Find a number ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " such that the nearest primes ",
+  StyleBox["p <= n < q",
+    FontWeight->"Bold"],
+  " are such that we have a gap of size larger than ",
+  StyleBox["11",
+    FontWeight->"Bold"],
+  " (that is ",
+  StyleBox["q - p > 11",
+    FontWeight->"Bold"],
+  ")."
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell["Here is a rather gross, but foolproof method.", "Text"],
+
+Cell["n = 11! + 1", "Input"],
+
+Cell[TextData[{
+  "None of the numbers ",
+  StyleBox["n + 1 ",
+    FontWeight->"Bold"],
+  ", . . . , ",
+  StyleBox["n + 10",
+    FontWeight->"Bold"],
+  " can be prime.  (Why?)  So we check the neighbors."
+}], "Text"],
+
+Cell["k = PrimePi[n]", "Input"],
+
+Cell["Prime[k+1] - Prime[k]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["First gaps of a given size", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.  ",
+    FontWeight->"Bold"],
+  "Find the ",
+  StyleBox["first",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " gap between succesive primes larger than ",
+  StyleBox["11",
+    FontWeight->"Bold"],
+  "."
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[TextData[{
+  "\tJust as an ",
+  StyleBox["experiment",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", let us try computing the first ",
+  StyleBox["200",
+    FontWeight->"Bold"],
+  " primes and the differences with the next primes."
+}], "Text"],
+
+Cell["\<\
+pp = Prime@Range[200];
+qq = Prime@(Range[200] + 1);
+gg = qq - pp\
+\>", "Input"],
+
+Cell["\<\
+I think we are lucky.  We can see better just which gaps come up by \
+getting rid of duplicates.\
+\>", "Text"],
+
+Cell["ll = Union[gg]", "Input"],
+
+Cell[TextData[{
+  "So, the first gap bigger than ",
+  StyleBox["11",
+    FontWeight->"Bold"],
+  " happens to be ",
+  StyleBox["12",
+    FontWeight->"Bold"],
+  ".  Where does ",
+  StyleBox["12",
+    FontWeight->"Bold"],
+  " occur in ",
+  StyleBox["gg",
+    FontWeight->"Bold"],
+  "?"
+}], "Text"],
+
+Cell["Position[gg, 12]", "Input"],
+
+Cell[TextData[{
+  "Thus, the ",
+  StyleBox["46",
+    FontWeight->"Bold"],
+  "th and ",
+  StyleBox["47",
+    FontWeight->"Bold"],
+  "th primes give the first gap of length ",
+  StyleBox["12",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["{Prime[46], Prime[47]}", "Input"],
+
+Cell[TextData[{
+  "But, the gap of ",
+  StyleBox["14",
+    FontWeight->"Bold"],
+  " comes earlier:"
+}], "Text"],
+
+Cell["Position[gg, 14]", "Input"],
+
+Cell["{Prime[30], Prime[31]}", "Input"],
+
+Cell["The other gaps all come later.", "Text"],
+
+Cell["\<\
+Position[gg, 18]
+
+Position[gg, 20]
+
+Position[gg, 22]\
+\>", "Input"],
+
+Cell[TextData[{
+  StyleBox["Interesting Question.",
+    FontWeight->"Bold"],
+  "  Must the gaps become arbitrarily large?"
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["4. Functions", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Definition and examples", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["What is a function?", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  A ",
+  StyleBox["function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  is a mathematical object that associates ",
+  StyleBox["values",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (outputs) ",
+  StyleBox["uniquely",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to ",
+  StyleBox["arguments",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (inputs)."
+}], "MathCaption"],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  allows us to treat functions as objects that can be assigned and also \
+passed around as arguments."
+}], "Text"],
+
+Cell["?Function", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Making and applying functions", "Subsubsection"],
+
+Cell["Define a function:", "Text"],
+
+Cell["f = Function[x, x^2 + 5]", "Input"],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["\[OpenCurlyDoubleQuote]f[x]\[CloseCurlyDoubleQuote]",
+    FontWeight->"Bold"],
+  " notation is used to ",
+  StyleBox["evaluate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a function at an argument."
+}], "Text"],
+
+Cell["f[10000000]", "Input"],
+
+Cell[TextData[{
+  "Values can be left in ",
+  StyleBox["symbolic form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell["f[z + 3]", "Input"],
+
+Cell["\<\
+And here is a function that takes another function as an \
+argument.\
+\>", "Text"],
+
+Cell["g = Function[ff, ff[ff[0] + 234]];", "Input"],
+
+Cell["g[f]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Footnote", "Subsubsection"],
+
+Cell[TextData[{
+  "We will also find that another way to get the effect of the usual \
+functional notation is by using rules envoked through ",
+  StyleBox["SetDelayed",
+    FontWeight->"Bold"],
+  "."
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Functions and lists", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["How can we map across lists?", "Subsubsection"],
+
+Cell[TextData[{
+  "Often we want to evaluate a function at a list of several arguments at the \
+same time.  The ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " feature that does this is called ",
+  StyleBox["Map",
+    FontWeight->"Bold"],
+  " [see ",
+  StyleBox["Footnote",
+    FontColor->RGBColor[0, 0, 1]],
+  "]."
+}], "Text"],
+
+Cell["?Map", "Input"],
+
+Cell["fun /@ {a, b, c}", "Input"],
+
+Cell["f /@ {a,b,c}", "Input"],
+
+Cell["f /@ Range[10]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["How can we see tables?", "Subsubsection"],
+
+Cell[TextData[{
+  "To see exactly how a function associates values with lists of argements, \
+we define first another function that ",
+  StyleBox["pairs ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " an argument with the corresponding value."
+}], "Text"],
+
+Cell["g = Function[x, {x, f[x]}];", "Input"],
+
+Cell["g /@ Range[10]", "Input"],
+
+Cell["% // TableForm", "Input"],
+
+Cell["Such a function can be applied to many different lists.", "Text"],
+
+Cell["g /@ (Range[10]^2 + 3) // TableForm", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Footnote",
+  FontColor->RGBColor[0, 0, 1]]], "Subsubsection"],
+
+Cell[TextData[{
+  "Note that ",
+  StyleBox["some",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  functions automatically apply themselves to lists in this way,  and \
+there is no need to use ",
+  StyleBox["Map",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell["\<\
+Map[Prime, Range[10]]
+
+Prime[Range[10]]\
+\>", "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Exercises",
+  FontColor->RGBColor[1, 0, 0]]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Composing functions", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  Find non-trivial functions ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  "  and ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  " such that ",
+  StyleBox["f[g[x]] == x",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->11,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" + 1",
+    FontWeight->"Bold"],
+  "."
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell["ClearAll[f,g]", "Input"],
+
+Cell["\<\
+f = Function[y, y + 1];
+g = Function[x, x^2];
+f[g[x]]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["What function was that?", "Subsubsection"],
+
+Cell["WriteIndexL[\"What function was that?\"]; ", "SmallText"],
+
+Cell[TextData[{
+  StyleBox["Problem. ",
+    FontWeight->"Bold"],
+  "What function was used to get this table?"
+}], "MathCaption"],
+
+Cell[OutputFormData[
+"\<\
+TableForm[{{3, True}, {5, True}, {7, True}, {9, False}, {11, True}, 
+ 
+   {13, True}, {15, False}, {17, True}, {19, True}, {21, False}, 
+ 
+   {23, True}, {25, False}, {27, False}, {29, True}, {31, True}, 
+ 
+   {33, False}, {35, False}, {37, True}, {39, False}, {41, True}}]\
+\>", 
+"\<\
+3    True
+
+5    True
+
+7    True
+
+9    False
+
+11   True
+
+13   True
+
+15   False
+
+17   True
+
+19   True
+
+21   False
+
+23   True
+
+25   False
+
+27   False
+
+29   True
+
+31   True
+
+33   False
+
+35   False
+
+37   True
+
+39   False
+
+41   True\
+\>"], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[TextData[{
+  "The answer is ",
+  StyleBox["PrimeQ",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["Table[{2 n + 1, PrimeQ[2 n + 1]}, {n,1,20}] // TableForm", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A Triangular Arrangement", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  Find a quick way to get the following kind of table."
+}], "MathCaption",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[OutputFormData[
+"\<\
+TableForm[{{B[1, 1], B[1, 2], B[1, 3], B[1, 4], A[1, 5]}, 
+ 
+   {B[2, 1], B[2, 2], B[2, 3], A[2, 4], A[2, 5]}, 
+ 
+   {B[3, 1], B[3, 2], A[3, 3], A[3, 4], A[3, 5]}, 
+ 
+   {B[4, 1], A[4, 2], A[4, 3], A[4, 4], A[4, 5]}, 
+ 
+   {A[5, 1], A[5, 2], A[5, 3], A[5, 4], A[5, 5]}}]\
+\>", 
+"\<\
+B[1, 1]   B[1, 2]   B[1, 3]   B[1, 4]   A[1, 5]
+
+B[2, 1]   B[2, 2]   B[2, 3]   A[2, 4]   A[2, 5]
+
+B[3, 1]   B[3, 2]   A[3, 3]   A[3, 4]   A[3, 5]
+
+B[4, 1]   A[4, 2]   A[4, 3]   A[4, 4]   A[4, 5]
+
+A[5, 1]   A[5, 2]   A[5, 3]   A[5, 4]   A[5, 5]\
+\>"], "Output",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["Some commands that might be useful:", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Array or Table, Function, If, TableForm", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell["GG = Function[{i,j},If[i + j > 5, A[i,j], B[i,j]]];", "Input",
+  AspectRatioFixed->True],
+
+Cell["Array[GG,{5,5}] // TableForm", "Input",
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["5. Finding decimal digits", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["The first digit", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Consider a number with several digits.", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["n = 987600054321", "Input",
+  AspectRatioFixed->True],
+
+Cell["If we compute", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+m = Floor[N[Log[10,n]]]
+
+d = Floor[n/10^m]\
+\>", "Input",
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "we then know that ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " has ",
+  StyleBox["m+1",
+    FontWeight->"Bold"],
+  " decimal digits and that ",
+  StyleBox["d",
+    FontWeight->"Bold"],
+  " is the ",
+  StyleBox["first",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " digit.  (Why?)"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The rest of the digits", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "We can now use the the reasoning about orders of magnitude to ",
+  StyleBox["peal off  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "the digits of the number from left to right \[LongDash] in effect starting \
+with the ",
+  StyleBox["most significant digit",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] by successively executing the following assignments of \
+values:"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+d = Floor[n/10^m]
+
+n = n - d 10^m
+
+m = m - 1\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Writing a program", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Putting this all together in a ",
+  StyleBox["While",
+    FontWeight->"Bold"],
+  "-loop, we can define a function that generates the list of decimal digits. \
+ ",
+  StyleBox["Note:  ",
+    FontWeight->"Bold"],
+  "In the following definition, we had to separate the ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  " case out because ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " does not compute with \n\t",
+  StyleBox["-Infinity == Log[10, 0]",
+    FontWeight->"Bold"],
+  " \nin a useful way for this purpose."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+ID = Function[a, If[ a==0, {}, Module[{n, m, d, s}, 
+              n = a;
+              m = Floor[N[Log[10, n]]];
+              s = {};
+                 While[m > -1,
+                 d = Floor[n/10^m];
+                 s = Join[s,{d}];
+                 n = n - d 10^m;
+                 m = m - 1];
+              s ]]];\
+\>", "Input",
+  CellLabel->"In[128]:=",
+  AspectRatioFixed->True],
+
+Cell["Here are some tests:", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["ID[5000043200100000]", "Input",
+  AspectRatioFixed->True],
+
+Cell["ID[5^30]", "Input",
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Warning.",
+    FontWeight->"Bold"],
+  "  This is by no means the the simplest or most convenient program for \
+finding the digits.  In fact, Mathematica has a built-in function for doing \
+this.  Can you find in in the help browser?"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Exercises",
+  FontColor->RGBColor[1, 0, 0]]], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Floor, Ceiling, Round", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  " Explain the following results:"
+}], "MathCaption"],
+
+Cell["\<\
+a = N[{-Pi^3, -Pi^2, -Pi, 1, Pi, Pi^2, Pi^3}];
+
+Floor[a]
+
+Ceiling[a]
+
+Round[a]\
+\>", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  "You have to think where ",
+  StyleBox["<",
+    FontWeight->"Bold"],
+  " is meant and where ",
+  StyleBox["<= ",
+    FontWeight->"Bold"],
+  "is meant."
+}], "Text"],
+
+Cell["?Ceiling", "Input"],
+
+Cell["?Round", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A step function", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  The following plot gives another ",
+  StyleBox["step function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  What is the increasing sequence of integers corresponding to this \
+graph?"
+}], "MathCaption"],
+
+Cell["Plot[Floor[Sqrt[x]], {x,0,100}, PlotPoints -> 100];", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  "The sequence for this picture is ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  StyleBox["n ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["== n",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "'s digits."
+}], "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " has ",
+  StyleBox["IntegerDigits ",
+    FontWeight->"Bold"],
+  "built in.  Make some large-scale tests that the ",
+  StyleBox["ID",
+    FontWeight->"Bold"],
+  " function we programmed gives the same results."
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["Why did this take so long?", "Text"],
+
+Cell["Union[Table[ID[n] == IntegerDigits[n], {n,5000}]] // Timing", "Input",
+  CellLabel->"In[130]:="]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Sums of digits", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  "  Can you find all the numbers that are equal to ",
+  StyleBox["7",
+    FontWeight->"Bold"],
+  " times the sum of their digits?"
+}], "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["\<\
+Select[Range[1000], (7 Plus@@ID[#] == #)&]
+\
+\>", "Input"],
+
+Cell[TextData[{
+  "Now for numbers with ",
+  StyleBox["d > 2",
+    FontWeight->"Bold"],
+  " digits, the maximum is ",
+  StyleBox["9 d",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["7 9 d < 10",
+    FontWeight->"Bold"],
+  StyleBox["d",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  ".  So there can be ",
+  StyleBox["no other",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " examples."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Reversing Digits", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Problem.  ",
+  StyleBox["What four digit number (in base ",
+    FontWeight->"Plain"],
+  "10",
+  StyleBox[") is ",
+    FontWeight->"Plain"],
+  StyleBox["reversed",
+    FontSlant->"Italic"],
+  StyleBox[" when you multiply it by ",
+    FontWeight->"Plain"],
+  "4",
+  StyleBox["?",
+    FontWeight->"Plain"]
+}], "MathCaption",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontWeight->"Bold",
+  FontSlant->"Plain",
+  FontTracking->"Plain",
+  Background->RGBColor[0, 1, 1],
+  FontVariations->{"Underline"->False,
+  "Outline"->False,
+  "Shadow"->False}],
+
+Cell["Some commands that might be useful:", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["IntegerDigits, Select, Reverse, Range", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["\<\
+Let's define a function that test whether a number has this \
+reversal property. 
+Then we can simply Select from the right range. \
+\>", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+flipQ[ x_ ] := Reverse[IntegerDigits[x]] == IntegerDigits[4x];\
+\>",
+   "Input",
+  AspectRatioFixed->True],
+
+Cell["Select[ Range[1000,9999], flipQ ] ", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Few Digits", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Problem.",
+    FontWeight->"Bold"],
+  " Compute a list of all numbers from ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " to ",
+  StyleBox["10000",
+    FontWeight->"Bold"],
+  " with exactly ",
+  StyleBox["2",
+    FontWeight->"Bold"],
+  " different digits.  For example, ",
+  StyleBox["1212",
+    FontWeight->"Bold"],
+  " is one such number.  (There is no need to display this list.) ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "How many are there?"
+}], "MathCaption",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]],
+
+Cell["Some commands that might be useful:", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Range, Select, IntegerDigits, Length, Union", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Solution", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["\<\
+twodig = Select[Range[10000], (Length[Union[IntegerDigits[#]]] == \
+2)&];
+
+Length[twodig]\
+\>", "Input"],
+
+Cell["twodig", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A conjecture on powers of 11", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Let us look at powers of ",
+  StyleBox["11",
+    FontWeight->"Bold"],
+  " in our ordinary base ",
+  StyleBox["10",
+    FontWeight->"Bold"],
+  " notation:"
+}], "Text",
+  FormatType->InputForm,
+  FontFamily->"Times"],
+
+Cell["11 ^ Range[0, 15] // TableForm", "Input",
+  CellLabel->"In[131]:=",
+  FormatType->InputForm],
+
+Cell[TextData[{
+  StyleBox["Notice that ",
+    FontFamily->"Times"],
+  StyleBox["11",
+    FontFamily->"Times",
+    FontWeight->"Bold"],
+  StyleBox["0",
+    FontFamily->"Times",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" has ",
+    FontFamily->"Times"],
+  StyleBox["1",
+    FontFamily->"Times",
+    FontWeight->"Bold"],
+  StyleBox[" digit, ",
+    FontFamily->"Times"],
+  StyleBox["11",
+    FontFamily->"Times",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontFamily->"Times",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" has ",
+    FontFamily->"Times"],
+  StyleBox["2",
+    FontFamily->"Times",
+    FontWeight->"Bold"],
+  StyleBox[" digits, ",
+    FontFamily->"Times"],
+  StyleBox["11",
+    FontFamily->"Times",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontFamily->"Times",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" has ",
+    FontFamily->"Times"],
+  StyleBox["3",
+    FontFamily->"Times",
+    FontWeight->"Bold"],
+  StyleBox[" digits, and so on.",
+    FontFamily->"Times"]
+}], "Text",
+  FormatType->InputForm],
+
+Cell[TextData[{
+  StyleBox["Problem.  ",
+    FontWeight->"Bold"],
+  "Prove or disprove the following ",
+  StyleBox["conjecture: ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "The number ",
+  StyleBox["11",
+    FontWeight->"Bold"],
+  StyleBox["k",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  " has ",
+  StyleBox["k+1",
+    FontWeight->"Bold"],
+  " digits in base ",
+  StyleBox["10",
+    FontWeight->"Bold"],
+  "."
+}], "MathCaption",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]],
+
+Cell["Some commands that may be useful:", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Table, Length, IntegerDigits, Complement", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Solution",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "The conjecture is ",
+  StyleBox["false",
+    FontWeight->"Bold"],
+  ". In the following list, numbers ",
+  StyleBox["26",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["51",
+    FontWeight->"Bold"],
+  " are missing:"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["tab = Table[ Length@IntegerDigits[11^k, 10], {k, 0, 50}]", "Input",
+  AspectRatioFixed->True],
+
+Cell["Complement[ Range[53], tab ]", "Input",
+  AspectRatioFixed->True],
+
+Cell["We double-check:", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Length @ IntegerDigits[11^25]
+Length @ IntegerDigits[11^50]\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+WindowSize->{732, 556},
+WindowMargins->{{Automatic, 27}, {78, Automatic}},
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 116, 5, 54, "Title"],
+Cell[1828, 56, 311, 10, 99, "Subtitle"],
+Cell[2142, 68, 97, 2, 58, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2264, 74, 83, 2, 55, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2372, 80, 93, 2, 46, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2490, 86, 35, 0, 37, "Subsubsection"],
+Cell[2528, 88, 411, 16, 42, "MathCaption"],
+Cell[2942, 106, 374, 15, 28, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3353, 126, 33, 0, 37, "Subsubsection"],
+Cell[3389, 128, 301, 11, 46, "Text"],
+Cell[3693, 141, 50, 1, 32, "Input"],
+Cell[3746, 144, 52, 1, 32, "Input"],
+Cell[3801, 147, 140, 5, 27, "Text"],
+Cell[3944, 154, 59, 1, 32, "Input"],
+Cell[4006, 157, 151, 5, 27, "Text"],
+Cell[4160, 164, 61, 1, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4258, 170, 34, 0, 29, "Subsubsection"],
+Cell[4295, 172, 88, 4, 28, "Text"],
+Cell[4386, 178, 33, 0, 47, "Input"],
+Cell[4422, 180, 46, 0, 27, "Text"],
+Cell[4471, 182, 199, 4, 77, "Input"],
+Cell[4673, 188, 51, 0, 27, "Text"],
+Cell[4727, 190, 32, 0, 47, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4808, 196, 91, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[4924, 202, 37, 0, 37, "Subsubsection"],
+Cell[4964, 204, 492, 22, 28, "Text"],
+Cell[5459, 228, 225, 8, 28, "Text"],
+Cell[5687, 238, 24, 0, 47, "Input"],
+Cell[5714, 240, 27, 0, 47, "Input"],
+Cell[5744, 242, 29, 0, 28, "Text"],
+Cell[5776, 244, 26, 0, 47, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5839, 249, 37, 0, 29, "Subsubsection"],
+Cell[5879, 251, 102, 5, 28, "Text"],
+Cell[5984, 258, 27, 0, 47, "Input"],
+Cell[6014, 260, 260, 9, 27, "Text"],
+Cell[6277, 271, 99, 10, 167, "Input"],
+Cell[6379, 283, 122, 5, 27, "Text"],
+Cell[6504, 290, 44, 0, 47, "Input"],
+Cell[6551, 292, 41, 0, 43, "Input"],
+Cell[6595, 294, 248, 11, 27, "Text"],
+Cell[6846, 307, 35, 0, 47, "Input"],
+Cell[6884, 309, 144, 5, 27, "Text"],
+Cell[7031, 316, 46, 0, 47, "Input"],
+Cell[7080, 318, 50, 0, 27, "Text"],
+Cell[7133, 320, 33, 0, 47, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7203, 325, 35, 0, 29, "Subsubsection"],
+Cell[7241, 327, 1124, 43, 54, "Text"],
+Cell[8368, 372, 55, 0, 28, "Text"],
+Cell[8426, 374, 38, 0, 47, "Input"],
+Cell[8467, 376, 325, 9, 46, "Text"],
+
+Cell[CellGroupData[{
+Cell[8817, 389, 49, 0, 47, "Input"],
+Cell[8869, 391, 70, 1, 47, "Output"]
+}, Closed]],
+Cell[8954, 395, 256, 10, 28, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9247, 410, 35, 0, 37, "Subsubsection"],
+Cell[9285, 412, 355, 9, 166, "Text"],
+Cell[9643, 423, 28, 0, 28, "Text"],
+Cell[9674, 425, 60, 0, 47, "Input"],
+Cell[9737, 427, 176, 6, 27, "Text"],
+Cell[9916, 435, 212, 6, 107, "Input"],
+Cell[10131, 443, 21, 0, 43, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10201, 449, 85, 2, 30, "Subsection",
+  Evaluatable->False],
+Cell[10289, 453, 513, 18, 46, "Text"],
+Cell[10805, 473, 99, 2, 32, "Input"],
+Cell[10907, 477, 136, 5, 27, "Text"],
+Cell[11046, 484, 96, 2, 32, "Input"],
+Cell[11145, 488, 512, 17, 46, "Text"],
+Cell[11660, 507, 92, 2, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11789, 514, 131, 3, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[11945, 521, 45, 0, 35, "Subsubsection"],
+Cell[11993, 523, 309, 11, 64, "MathCaption"],
+Cell[12305, 536, 30, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[12372, 541, 65, 1, 29, "Subsubsection"],
+Cell[12440, 544, 46, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[12523, 549, 38, 0, 29, "Subsubsection"],
+Cell[12564, 551, 492, 20, 64, "MathCaption"],
+Cell[13059, 573, 49, 4, 72, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[13145, 582, 65, 1, 29, "Subsubsection"],
+Cell[13213, 585, 462, 15, 46, "Text"],
+Cell[13678, 602, 58, 0, 32, "Input"],
+Cell[13739, 604, 162, 6, 27, "Text"],
+Cell[13904, 612, 27, 0, 32, "Input"],
+Cell[13934, 614, 21, 0, 27, "Input"],
+Cell[13958, 616, 161, 8, 23, "Text"],
+Cell[14122, 626, 46, 0, 32, "Input"],
+Cell[14171, 628, 62, 0, 23, "Text"],
+Cell[14236, 630, 39, 4, 72, "Input"],
+Cell[14278, 636, 125, 5, 23, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[14464, 648, 75, 2, 35, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[14564, 654, 92, 2, 43, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[14681, 660, 41, 0, 35, "Subsubsection"],
+Cell[14725, 662, 267, 9, 46, "Text"],
+Cell[14995, 673, 33, 0, 32, "Input"],
+Cell[15031, 675, 46, 0, 27, "Input"],
+Cell[15080, 677, 58, 0, 27, "Input"],
+Cell[15141, 679, 69, 0, 27, "Input"],
+Cell[15213, 681, 60, 0, 27, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[15310, 686, 38, 0, 29, "Subsubsection"],
+Cell[15351, 688, 61, 0, 27, "Text"],
+Cell[15415, 690, 62, 0, 32, "Input"],
+Cell[15480, 692, 127, 5, 27, "Text"],
+Cell[15610, 699, 29, 0, 32, "Input"],
+Cell[15642, 701, 153, 5, 23, "Text"],
+Cell[15798, 708, 30, 0, 32, "Input"],
+Cell[15831, 710, 225, 8, 23, "Text"],
+Cell[16059, 720, 94, 4, 72, "Input"],
+Cell[16156, 726, 203, 9, 23, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[16408, 741, 45, 0, 27, "Subsection"],
+Cell[16456, 743, 171, 6, 27, "Text"],
+Cell[16630, 751, 22, 0, 32, "Input"],
+Cell[16655, 753, 107, 4, 67, "Input"],
+Cell[16765, 759, 95, 3, 23, "Text"],
+Cell[16863, 764, 26, 0, 32, "Input"],
+Cell[16892, 766, 91, 4, 67, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[17020, 775, 96, 2, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[17141, 781, 86, 2, 35, "Subsubsection"],
+Cell[17230, 785, 353, 11, 46, "Text"],
+Cell[17586, 798, 38, 0, 32, "Input"],
+Cell[17627, 800, 175, 5, 23, "Text"],
+Cell[17805, 807, 43, 0, 32, "Input"],
+Cell[17851, 809, 150, 5, 23, "Text"],
+Cell[18004, 816, 23, 0, 32, "Input"],
+Cell[18030, 818, 39, 0, 27, "Input"],
+Cell[18072, 820, 388, 13, 41, "Text"],
+Cell[18463, 835, 185, 3, 46, "Text"],
+Cell[18651, 840, 90, 4, 72, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[18778, 849, 90, 2, 29, "Subsubsection"],
+Cell[18871, 853, 58, 0, 27, "Text"],
+Cell[18932, 855, 46, 0, 32, "Input"],
+Cell[18981, 857, 44, 0, 32, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[19074, 863, 95, 2, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[19194, 869, 47, 0, 35, "Subsubsection"],
+Cell[19244, 871, 233, 9, 70, "Text"],
+Cell[19480, 882, 321, 12, 70, "Text"],
+Cell[19804, 896, 340, 13, 70, "Text"],
+Cell[20147, 911, 323, 13, 70, "Text"],
+Cell[20473, 926, 207, 7, 70, "Text"],
+Cell[20683, 935, 76, 12, 70, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[20796, 952, 39, 0, 29, "Subsubsection"],
+Cell[20838, 954, 361, 10, 70, "Text"],
+Cell[21202, 966, 22, 0, 70, "Input"],
+Cell[21227, 968, 53, 0, 70, "Text"],
+Cell[21283, 970, 152, 3, 70, "Input"],
+Cell[21438, 975, 55, 0, 70, "Text"],
+Cell[21496, 977, 110, 8, 70, "Input"],
+Cell[21609, 987, 139, 3, 70, "Text"],
+Cell[21751, 992, 45, 6, 70, "Input"],
+Cell[21799, 1000, 72, 6, 70, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[21908, 1011, 58, 0, 29, "Subsubsection"],
+Cell[21969, 1013, 272, 9, 70, "Text"],
+Cell[22244, 1024, 23, 0, 70, "Input"],
+Cell[22270, 1026, 39, 0, 70, "Input"],
+Cell[22312, 1028, 168, 8, 70, "Text"],
+Cell[22483, 1038, 23, 0, 70, "Input"],
+Cell[22509, 1040, 45, 0, 70, "Input"],
+Cell[22557, 1042, 113, 5, 70, "Text"],
+Cell[22673, 1049, 23, 0, 70, "Input"],
+Cell[22699, 1051, 39, 0, 70, "Text"],
+Cell[22741, 1053, 36, 0, 70, "Input"],
+Cell[22780, 1055, 32, 0, 70, "Input"],
+Cell[22815, 1057, 301, 12, 70, "Text"],
+Cell[23119, 1071, 64, 0, 70, "Input"],
+Cell[23186, 1073, 45, 0, 70, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[23280, 1079, 85, 2, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[23390, 1085, 54, 0, 35, "Subsubsection"],
+Cell[23447, 1087, 40, 0, 70, "Text"],
+Cell[23490, 1089, 31, 0, 70, "Input"],
+Cell[23524, 1091, 235, 7, 70, "Text"],
+Cell[23762, 1100, 45, 4, 70, "Input"],
+Cell[23810, 1106, 313, 14, 70, "Text"],
+Cell[24126, 1122, 59, 4, 70, "Input"],
+Cell[24188, 1128, 166, 6, 70, "Text"],
+Cell[24357, 1136, 83, 6, 70, "Input"],
+Cell[24443, 1144, 223, 8, 70, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[24703, 1157, 39, 0, 29, "Subsubsection"],
+Cell[24745, 1159, 373, 16, 70, "Text"],
+Cell[25121, 1177, 24, 0, 70, "Input"],
+Cell[25148, 1179, 69, 0, 70, "Text"],
+Cell[25220, 1181, 35, 0, 70, "Input"],
+Cell[25258, 1183, 56, 0, 70, "Text"],
+Cell[25317, 1185, 43, 0, 70, "Input"],
+Cell[25363, 1187, 45, 0, 70, "Input"],
+Cell[25411, 1189, 49, 0, 70, "Input"],
+Cell[25463, 1191, 49, 0, 70, "Input"],
+Cell[25515, 1193, 69, 0, 70, "Text"],
+Cell[25587, 1195, 87, 3, 70, "Input"],
+Cell[25677, 1200, 61, 0, 70, "Text"],
+Cell[25741, 1202, 57, 0, 70, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[25847, 1208, 90, 2, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[25962, 1214, 38, 0, 35, "Subsubsection"],
+Cell[26003, 1216, 105, 3, 70, "Text"],
+Cell[26111, 1221, 83, 3, 70, "Input"],
+Cell[26197, 1226, 132, 5, 70, "Text"],
+Cell[26332, 1233, 28, 0, 70, "Input"],
+Cell[26363, 1235, 231, 7, 70, "Text"],
+Cell[26597, 1244, 71, 8, 70, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[26705, 1257, 44, 0, 29, "Subsubsection"],
+Cell[26752, 1259, 151, 5, 70, "Text"],
+Cell[26906, 1266, 74, 4, 70, "Input"],
+Cell[26983, 1272, 536, 12, 70, "Text"],
+Cell[27522, 1286, 50, 6, 70, "Input"],
+Cell[27575, 1294, 142, 5, 70, "Text"],
+Cell[27720, 1301, 41, 4, 70, "Input"],
+Cell[27764, 1307, 104, 5, 70, "Text"],
+Cell[27871, 1314, 122, 14, 70, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[28042, 1334, 131, 3, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[28198, 1341, 35, 0, 35, "Subsubsection"],
+Cell[28236, 1343, 464, 12, 122, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[28737, 1360, 65, 1, 29, "Subsubsection"],
+Cell[28805, 1363, 207, 9, 27, "Text"],
+Cell[29015, 1374, 232, 9, 27, "Text"],
+Cell[29250, 1385, 220, 9, 27, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[29507, 1399, 51, 0, 29, "Subsubsection"],
+Cell[29561, 1401, 726, 27, 81, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[30324, 1433, 65, 1, 29, "Subsubsection"],
+Cell[30392, 1436, 139, 5, 92, "Input"],
+Cell[30534, 1443, 55, 0, 23, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[30626, 1448, 92, 2, 29, "Subsubsection"],
+Cell[30721, 1452, 485, 20, 72, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[31243, 1477, 133, 3, 29, "Subsubsection"],
+Cell[31379, 1482, 89, 1, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[31505, 1488, 84, 2, 29, "Subsubsection"],
+Cell[31592, 1492, 333, 13, 47, "MathCaption"],
+Cell[31928, 1507, 89, 3, 27, "Text"],
+Cell[32020, 1512, 41, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[32098, 1517, 113, 3, 29, "Subsubsection"],
+Cell[32214, 1522, 85, 2, 30, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[32336, 1529, 84, 2, 29, "Subsubsection"],
+Cell[32423, 1533, 290, 10, 47, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[32750, 1548, 113, 3, 29, "Subsubsection"],
+Cell[32866, 1553, 79, 2, 30, "Input"],
+Cell[32948, 1557, 81, 2, 25, "Input"],
+Cell[33032, 1561, 81, 2, 25, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[33150, 1568, 44, 0, 29, "Subsubsection"],
+Cell[33197, 1570, 119, 4, 47, "MathCaption"],
+Cell[33319, 1576, 76, 12, 232, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[33432, 1593, 85, 1, 29, "Subsubsection"],
+Cell[33520, 1596, 375, 17, 27, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[33932, 1618, 38, 0, 29, "Subsubsection"],
+Cell[33973, 1620, 230, 10, 47, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[34240, 1635, 85, 1, 29, "Subsubsection"],
+Cell[34328, 1638, 22, 0, 32, "Input"],
+Cell[34353, 1640, 36, 0, 27, "Input"],
+Cell[34392, 1642, 22, 0, 27, "Input"],
+Cell[34417, 1644, 38, 0, 27, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[34492, 1649, 41, 0, 29, "Subsubsection"],
+Cell[34536, 1651, 285, 13, 47, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[34858, 1669, 85, 1, 35, "Subsubsection"],
+Cell[34946, 1672, 120, 3, 27, "Text"],
+Cell[35069, 1677, 56, 0, 32, "Input"],
+Cell[35128, 1679, 351, 11, 46, "Text"],
+Cell[35482, 1692, 57, 0, 32, "Input"],
+Cell[35542, 1694, 176, 8, 23, "Text"],
+Cell[35721, 1704, 50, 0, 32, "Input"],
+Cell[35774, 1706, 252, 10, 23, "Text"],
+Cell[36029, 1718, 63, 0, 32, "Input"],
+Cell[36095, 1720, 173, 6, 23, "Text"],
+Cell[36271, 1728, 168, 8, 152, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[36476, 1741, 64, 0, 29, "Subsubsection"],
+Cell[36543, 1743, 721, 25, 87, "MathCaption"],
+Cell[37267, 1770, 49, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[37353, 1775, 85, 1, 29, "Subsubsection"],
+Cell[37441, 1778, 186, 6, 27, "Text"],
+Cell[37630, 1786, 25, 0, 32, "Input"],
+Cell[37658, 1788, 45, 0, 27, "Input"],
+Cell[37706, 1790, 45, 0, 27, "Input"],
+Cell[37754, 1792, 45, 0, 27, "Input"],
+Cell[37802, 1794, 59, 0, 23, "Text"],
+Cell[37864, 1796, 26, 0, 32, "Input"],
+Cell[37893, 1798, 46, 0, 27, "Input"],
+Cell[37942, 1800, 28, 0, 27, "Input"],
+Cell[37973, 1802, 46, 0, 27, "Input"],
+Cell[38022, 1804, 28, 0, 27, "Input"],
+Cell[38053, 1806, 242, 9, 27, "Text"],
+Cell[38298, 1817, 39, 0, 32, "Input"],
+Cell[38340, 1819, 28, 0, 27, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[38429, 1826, 79, 2, 35, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[38533, 1832, 96, 2, 43, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[38654, 1838, 36, 0, 35, "Subsubsection"],
+Cell[38693, 1840, 512, 21, 72, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[39242, 1866, 65, 1, 29, "Subsubsection"],
+Cell[39310, 1869, 361, 15, 46, "Text"],
+Cell[39674, 1886, 28, 0, 27, "Text"],
+Cell[39705, 1888, 29, 0, 32, "Input"],
+Cell[39737, 1890, 120, 5, 27, "Text"],
+Cell[39860, 1897, 39, 0, 32, "Input"],
+Cell[39902, 1899, 134, 5, 27, "Text"],
+Cell[40039, 1906, 67, 0, 32, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[40155, 1912, 92, 2, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[40272, 1918, 42, 0, 35, "Subsubsection"],
+Cell[40317, 1920, 631, 25, 64, "MathCaption"],
+Cell[40951, 1947, 180, 5, 72, "Input"],
+Cell[41134, 1954, 104, 3, 27, "Text"],
+Cell[41241, 1959, 88, 1, 32, "Input"],
+Cell[41332, 1962, 90, 1, 27, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[41459, 1968, 65, 1, 29, "Subsubsection"],
+Cell[41527, 1971, 216, 9, 27, "Text"],
+Cell[41746, 1982, 38, 0, 32, "Input"],
+Cell[41787, 1984, 215, 8, 23, "Text"],
+Cell[42005, 1994, 48, 0, 32, "Input"],
+Cell[42056, 1996, 35, 0, 27, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[42140, 2002, 131, 3, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[42296, 2009, 35, 0, 35, "Subsubsection"],
+Cell[42334, 2011, 402, 16, 64, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[42773, 2032, 85, 1, 29, "Subsubsection"],
+Cell[42861, 2035, 61, 0, 27, "Text"],
+Cell[42925, 2037, 28, 0, 32, "Input"],
+Cell[42956, 2039, 216, 8, 27, "Text"],
+Cell[43175, 2049, 31, 0, 32, "Input"],
+Cell[43209, 2051, 38, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[43284, 2056, 51, 0, 29, "Subsubsection"],
+Cell[43338, 2058, 265, 11, 47, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[43640, 2074, 85, 1, 29, "Subsubsection"],
+Cell[43728, 2077, 257, 9, 70, "Text"],
+Cell[43988, 2088, 89, 4, 70, "Input"],
+Cell[44080, 2094, 120, 3, 70, "Text"],
+Cell[44203, 2099, 31, 0, 70, "Input"],
+Cell[44237, 2101, 294, 14, 70, "Text"],
+Cell[44534, 2117, 33, 0, 70, "Input"],
+Cell[44570, 2119, 233, 11, 70, "Text"],
+Cell[44806, 2132, 39, 0, 70, "Input"],
+Cell[44848, 2134, 111, 5, 70, "Text"],
+Cell[44962, 2141, 33, 0, 70, "Input"],
+Cell[44998, 2143, 39, 0, 70, "Input"],
+Cell[45040, 2145, 46, 0, 70, "Text"],
+Cell[45089, 2147, 77, 6, 70, "Input"],
+Cell[45169, 2155, 134, 4, 70, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[45364, 2166, 79, 2, 35, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[45468, 2172, 93, 2, 43, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[45586, 2178, 44, 0, 35, "Subsubsection"],
+Cell[45633, 2180, 477, 20, 64, "MathCaption"],
+Cell[46113, 2202, 185, 5, 27, "Text"],
+Cell[46301, 2209, 26, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[46364, 2214, 54, 0, 29, "Subsubsection"],
+Cell[46421, 2216, 34, 0, 27, "Text"],
+Cell[46458, 2218, 41, 0, 32, "Input"],
+Cell[46502, 2220, 260, 9, 23, "Text"],
+Cell[46765, 2231, 28, 0, 32, "Input"],
+Cell[46796, 2233, 139, 6, 27, "Text"],
+Cell[46938, 2241, 25, 0, 32, "Input"],
+Cell[46966, 2243, 92, 3, 27, "Text"],
+Cell[47061, 2248, 51, 0, 32, "Input"],
+Cell[47115, 2250, 21, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[47173, 2255, 33, 0, 29, "Subsubsection"],
+Cell[47209, 2257, 211, 6, 46, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[47469, 2269, 89, 2, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[47583, 2275, 53, 0, 35, "Subsubsection"],
+Cell[47639, 2277, 338, 12, 46, "Text"],
+Cell[47980, 2291, 21, 0, 32, "Input"],
+Cell[48004, 2293, 33, 0, 32, "Input"],
+Cell[48040, 2295, 29, 0, 32, "Input"],
+Cell[48072, 2297, 31, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[48140, 2302, 47, 0, 29, "Subsubsection"],
+Cell[48190, 2304, 264, 7, 46, "Text"],
+Cell[48457, 2313, 44, 0, 32, "Input"],
+Cell[48504, 2315, 31, 0, 32, "Input"],
+Cell[48538, 2317, 31, 0, 32, "Input"],
+Cell[48572, 2319, 71, 0, 27, "Text"],
+Cell[48646, 2321, 52, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[48735, 2326, 85, 1, 29, "Subsubsection"],
+Cell[48823, 2329, 322, 13, 46, "Text"],
+Cell[49148, 2344, 64, 4, 72, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[49261, 2354, 131, 3, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[49417, 2361, 44, 0, 35, "Subsubsection"],
+Cell[49464, 2363, 447, 19, 53, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[49948, 2387, 85, 1, 29, "Subsubsection"],
+Cell[50036, 2390, 30, 0, 32, "Input"],
+Cell[50069, 2392, 78, 4, 72, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[50184, 2401, 48, 0, 29, "Subsubsection"],
+Cell[50235, 2403, 63, 0, 26, "SmallText"],
+Cell[50301, 2405, 129, 4, 47, "MathCaption"],
+Cell[50433, 2411, 555, 50, 286, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[51025, 2466, 85, 1, 29, "Subsubsection"],
+Cell[51113, 2469, 99, 5, 27, "Text"],
+Cell[51215, 2476, 73, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[51325, 2481, 97, 2, 29, "Subsubsection"],
+Cell[51425, 2485, 222, 7, 47, "MathCaption"],
+Cell[51650, 2494, 672, 26, 101, "Output"],
+Cell[52325, 2522, 99, 2, 27, "Text"],
+Cell[52427, 2526, 56, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[52520, 2531, 85, 1, 29, "Subsubsection"],
+Cell[52608, 2534, 94, 1, 32, "Input"],
+Cell[52705, 2537, 71, 1, 32, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[52837, 2545, 92, 2, 35, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[52954, 2551, 85, 2, 43, "Subsection",
+  Evaluatable->False],
+Cell[53042, 2555, 102, 2, 27, "Text"],
+Cell[53147, 2559, 59, 1, 32, "Input"],
+Cell[53209, 2562, 77, 2, 23, "Text"],
+Cell[53289, 2566, 93, 5, 72, "Input"],
+Cell[53385, 2573, 370, 17, 23, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[53792, 2595, 92, 2, 27, "Subsection",
+  Evaluatable->False],
+Cell[53887, 2599, 479, 14, 65, "Text"],
+Cell[54369, 2615, 95, 7, 112, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[54501, 2627, 87, 2, 27, "Subsection",
+  Evaluatable->False],
+Cell[54591, 2631, 600, 20, 108, "Text"],
+Cell[55194, 2653, 396, 13, 212, "Input"],
+Cell[55593, 2668, 84, 2, 27, "Text"],
+Cell[55680, 2672, 63, 1, 32, "Input"],
+Cell[55746, 2675, 51, 1, 27, "Input"],
+Cell[55800, 2678, 354, 9, 58, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[56191, 2692, 131, 3, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[56347, 2699, 94, 2, 35, "Subsubsection"],
+Cell[56444, 2703, 118, 4, 47, "MathCaption"],
+Cell[56565, 2709, 103, 8, 152, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[56705, 2722, 113, 3, 29, "Subsubsection"],
+Cell[56821, 2727, 181, 8, 27, "Text"],
+Cell[57005, 2737, 25, 0, 32, "Input"],
+Cell[57033, 2739, 23, 0, 27, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[57093, 2744, 88, 2, 29, "Subsubsection"],
+Cell[57184, 2748, 283, 9, 64, "MathCaption"],
+Cell[57470, 2759, 68, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[57575, 2764, 113, 3, 29, "Subsubsection"],
+Cell[57691, 2769, 390, 15, 31, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[58118, 2789, 151, 6, 29, "Subsubsection"],
+Cell[58272, 2797, 355, 13, 64, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[58664, 2815, 113, 3, 29, "Subsubsection"],
+Cell[58780, 2820, 42, 0, 27, "Text"],
+Cell[58825, 2822, 102, 1, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[58964, 2828, 87, 2, 29, "Subsubsection"],
+Cell[59054, 2832, 214, 7, 47, "MathCaption"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[59305, 2844, 113, 3, 29, "Subsubsection"],
+Cell[59421, 2849, 68, 3, 52, "Input"],
+Cell[59492, 2854, 464, 19, 27, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[59993, 2878, 89, 2, 29, "Subsubsection"],
+Cell[60085, 2882, 569, 23, 47, "MathCaption"],
+Cell[60657, 2907, 99, 2, 27, "Text"],
+Cell[60759, 2911, 54, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[60850, 2916, 113, 3, 29, "Subsubsection"],
+Cell[60966, 2921, 202, 6, 58, "Text"],
+Cell[61171, 2929, 116, 4, 52, "Input"],
+Cell[61290, 2935, 77, 1, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[61404, 2941, 83, 2, 29, "Subsubsection"],
+Cell[61490, 2945, 579, 22, 64, "MathCaption"],
+Cell[62072, 2969, 99, 2, 27, "Text"],
+Cell[62174, 2973, 86, 1, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[62297, 2979, 113, 3, 29, "Subsubsection"],
+Cell[62413, 2984, 114, 5, 92, "Input"],
+Cell[62530, 2991, 23, 0, 27, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[62590, 2996, 101, 2, 29, "Subsubsection"],
+Cell[62694, 3000, 233, 10, 27, "Text"],
+Cell[62930, 3012, 98, 2, 30, "Input"],
+Cell[63031, 3016, 1226, 49, 27, "Text"],
+Cell[64260, 3067, 580, 24, 53, "MathCaption"],
+Cell[64843, 3093, 97, 2, 27, "Text"],
+Cell[64943, 3097, 57, 0, 32, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[65037, 3102, 133, 3, 29, "Subsubsection"],
+Cell[65173, 3107, 296, 13, 27, "Text"],
+Cell[65472, 3122, 99, 1, 32, "Input"],
+Cell[65574, 3125, 71, 1, 27, "Input"],
+Cell[65648, 3128, 80, 2, 23, "Text"],
+Cell[65731, 3132, 110, 4, 52, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

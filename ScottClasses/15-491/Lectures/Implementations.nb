@@ -1,0 +1,2089 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     50632,       1630]*)
+(*NotebookOutlinePosition[     51984,       1675]*)
+(*  CellTagsIndexPosition[     51910,       1669]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell["\<\
+IMPLEMENTATIONS
+Computational Projective Geometry 1998\
+\>", "Subtitle",
+  Evaluatable->False,
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontSize->24],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontTracking->"Plain",
+  FontVariations->{"Underline"->False,
+  "Outline"->False,
+  "Shadow"->False}],
+
+Cell["\<\
+Implementations by Andrej Bauer & Dana Scott
+Last Revised: 30 November 1998 by Dana Scott\
+\>", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontTracking->"Plain",
+  FontVariations->{"Underline"->False,
+  "Outline"->False,
+  "Shadow"->False}],
+
+Cell[CellGroupData[{
+
+Cell["Complex Numbers", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Off with your spell!", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Off[General::spell];Off[General::spell1]", "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["For startup", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["ComplexExpand",
+    FontWeight->"Bold"],
+  " seems to need time to start up and then runs faster the second time it is \
+used."
+}], "Text",
+  InitializationCell->True],
+
+Cell[BoxData[
+    \(\(ComplexExpand[I]; \)\)], "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Normalization ", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+The following function normalizes non-zero complex numbers to unit \
+length.\
+\>", "Text",
+  Evaluatable->False,
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(Norm[z_] := z\/Abs[z]\)], "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ComplexSimplify", "Subsubsection"],
+
+Cell[BoxData[
+    \(ComplexSimplify[z_] := \(ComplexSimplify[{}]\)[z] /; Head[z] =!= List; 
+    ComplexSimplify[vars_List] := 
+      Function[z, \n\t\t
+        Together[
+            ComplexExpand[Re[z], vars, TargetFunctions \[Rule] {Re, Im}]] + \n
+          \t\t\tTogether[
+              ComplexExpand[Im[z], vars, TargetFunctions \[Rule] {Re, Im}]]\ 
+            I]; \)], "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ArgandPlot and RootPlot", "Subsubsection"],
+
+Cell[TextData[{
+  "This code for plotting complex numbers and complex roots was adapted from \
+a Notebook ",
+  StyleBox["Complex Roots  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "by Dan Grayson and Paul C. Abbott."
+}], "SmallText"],
+
+Cell[TextData[{
+  "The function ",
+  StyleBox["ArgandPlot",
+    FontFamily->"Courier",
+    FontSize->10,
+    FontWeight->"Bold"],
+  " plots a list of complex numbers in Cartesian coordinates.  The point size \
+can be varied."
+}], "Text"],
+
+Cell["\<\
+ArgandPlot[z_, w_:10, opts___Rule] := \t
+        Show[Graphics[{AbsolutePointSize[w],
+        Point /@ Transpose[{Re[z], Im[z]}] }],
+        Axes->Automatic, AspectRatio->Automatic,
+        AxesLabel->{\"Re\",\"Im\"},opts]\
+\>", "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  "The function ",
+  StyleBox["RootPlot",
+    FontFamily->"Courier",
+    FontSize->10,
+    FontWeight->"Bold"],
+  " plots the roots of a polynomial equation in the complex plane on an \
+Argand diagram.  The point size can be varied."
+}], "Text"],
+
+Cell["\<\
+RootPlot[eqn_, x_, w_:10,opts___Rule] := Module[{t},
+         t = x /. N[Solve[eqn, x]] ;
+         ArgandPlot[t,w,opts]]\
+\>", "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ComplexMap", "Subsubsection"],
+
+Cell[TextData[{
+  "The code envoked here is Copyright 1991 by Roman E. Maeder.  It has been \
+adapted from Roman E. Maeder: ",
+  StyleBox["Programming in Mathematica",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", Second Edition, Addison-Wesley, 1991.  A more detailed description and \
+discussion of this package is given in the book ",
+  StyleBox["Programming in Mathematica", "TI",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", Third Edition, by Roman E. Maeder. "
+}], "SmallText",
+  InitializationCell->True],
+
+Cell["\<\
+With the distribution of the code it is stated: \"Permission is \
+hereby granted to make copies of this file for any purpose other than direct \
+profit, or as part of a commercial product, provided this copyright notice is \
+left intact.  Sale, other than for the cost of media, is prohibited.  \
+Permission is hereby granted to reproduce part or all of this file, provided \
+that the source is acknowledged.  Enclosed with Mathematica by \
+permission.\"\
+\>", "SmallText",
+  InitializationCell->True],
+
+Cell[TextData[{
+  "To plot the graph of a complex\[Hyphen]valued function of a complex \
+variable, four dimensions are required: two for the complex variable and two \
+for the complex function value. One method to circumvent the need for four\
+\[Hyphen]dimensional graphics is to show how the function transforms sets of \
+lines that lie in the complex plane. Each line will be mapped into some curve \
+in the complex plane and these can be represented in two dimensions. \nThe \
+functions ",
+  StyleBox["CartesianMap", "MR",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["PolarMap", "MR",
+    FontWeight->"Bold"],
+  " defined in this package make pictures of this form. ",
+  StyleBox["CartesianMap", "MR",
+    FontWeight->"Bold"],
+  " shows the image of Cartesian coordinate lines while ",
+  StyleBox["PolarMap", "MR",
+    FontWeight->"Bold"],
+  " shows the effect on polar coordinate lines. \nVersion 2.0 used the option \
+PlotPoints to control the number of lines.  Now it uses the option Lines for \
+this purpose. PlotPoints is used to control the quality of the lines, as it \
+should be."
+}], "SmallText",
+  InitializationCell->True],
+
+Cell["Needs[\"Graphics`ComplexMap`\"];", "Input",
+  InitializationCell->True,
+  CellTags->"S5.33.1"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Arguments to colors", "Subsubsection"],
+
+Cell["Needs[\"Graphics`ArgColors`\"];", "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Polynomials", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Cleaning up", "Subsubsection"],
+
+Cell[TextData[{
+  "This operation writes ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials or ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials in terms of monomials."
+}], "Text",
+  InitializationCell->True],
+
+Cell[BoxData[
+    \(\(Tidy[f_] := 
+      Module[{$dummy}, 
+        Plus@@MonomialList[f\ $dummy, {x, y, z, u, v, w}, 
+              CoefficientDomain \[Rule] RationalFunctions] /. {$dummy \[Rule] 
+              1}]; \)\)], "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  "Unfortunately, ",
+  Cell[BoxData[
+      StyleBox["MonomialList",
+        FontWeight->"Bold"]]],
+  " is an undocumented feature of ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ". It seems to have some bugs."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Bases", "Subsubsection"],
+
+Cell["", "Text",
+  InitializationCell->True],
+
+Cell["\<\
+
+Bxyz[nn_] := 
+Sort[Flatten[Table[x^ii y^jj z^(nn-ii-jj),{ii,0,nn},{jj,0,nn-ii}]]]
+
+Buvw[nn_] := 
+Sort[Flatten[Table[u^ii v^jj w^(nn-ii-jj),{ii,0,nn},{jj,0,nn-ii}]]]
+\
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Dual variables", "Subsubsection"],
+
+Cell["", "Text",
+  InitializationCell->True],
+
+Cell["Dual[e_] := e /. {x->u, y->v, z->w, u->x, v->y, w->z};", "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Making assumptions about symbolic polynomials", "Subsubsection"],
+
+Cell[BoxData[{
+    \(\(ClearAll[SymQ]; \)\), 
+    \(SymQ[x | y | z | u | v | w] := False\), 
+    \(SymQ[HoldPattern[PD[a_, b_]]] := SymQ[a] || SymQ[b]\), 
+    \(SymQ[HoldPattern[PE[a_, b_]]] := SymQ[a] || SymQ[b]\), 
+    \(SymQ[HoldPattern[\(+a__\)]] := Or@@\(SymQ/@{a}\)\), 
+    \(SymQ[HoldPattern[Times[a__]]] := Or@@\(SymQ/@{a}\)\), 
+    \(SymQ[a_\^_] := SymQ[a]\), 
+    \(SymQ[f_] := DegP[f] =!= 0\)}], "Input",
+  InitializationCell->True],
+
+Cell[BoxData[{
+    \(ClearAll[DeclaredSymQ]; \n
+    DeclaredSymQ[f_Symbol] := 
+      \((Hold[SymQ[f]] /. UpValues[f])\) === Hold[True]\), 
+    \(DeclaredSymQ[f_\__] := 
+      \((Hold[SymQ[f]] /. UpValues[f])\) === Hold[True]\), 
+    \(DeclaredSymQ[_] := False\)}], "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Polynomial degree", "Subsubsection"],
+
+Cell[BoxData[{
+    \(\(ClearAll[DegP]; \)\), 
+    \(\(DegP[x | y | z | u | v | w] := 1; \)\), 
+    \(\(DegP[HoldPattern[PD[p_, q_]]] := Abs[DegP[p] - DegP[q]]; \)\), 
+    \(\(DegP[HoldPattern[PE[p_, q_]]] := 1 /; DegP[p] == DegP[q] == 1; \)\), 
+    \(\(DegP[p_Plus] := Max@@\(DegP/@\(List@@Expand[p]\)\); \)\), 
+    \(\(DegP[p_Times] := Plus@@\(DegP/@\(List@@p\)\); \)\), 
+    \(\(DegP[p_\^n_] := n\ DegP[p]; \)\), 
+    \(DegP[f_] := 0 /; \(\[InvisibleSpace]\(! \((DeclaredSymQ[f])\)\)\)\)}], 
+  "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "An isomorphism from ",
+  Cell[BoxData[
+      \(\[DoubleStruckCapitalC][u, v, w]\)]],
+  " to  ",
+  Cell[BoxData[
+      \(\[DoubleStruckCapitalC][
+        \[PartialD]\_x\(, \[PartialD]\_y\(, \[PartialD]\_z\)\)]\)]],
+  " "
+}], "Subsubsection"],
+
+Cell["", "Text",
+  InitializationCell->True],
+
+Cell["\<\
+
+PolyToDiff[u^(n_.)] := Function[p, D[p, {x, n}]]; 
+
+PolyToDiff[v^(n_.)] := Function[p, D[p, {y, n}]]; 
+
+PolyToDiff[w^(n_.)] := Function[p, D[p, {z, n}]]; 
+
+PolyToDiff[u^(n_.)*v^(m_.)] := 
+   Function[p,D[p,{x,n},{y,m}]]; 
+   
+PolyToDiff[u^(n_.)*w^(m_.)] := 
+   Function[p,D[p,{x,n},{z,m}]]; 
+   
+PolyToDiff[v^(n_.)*w^(m_.)] := 
+   Function[p,D[p,{y,n},{z,m}]]; 
+   
+PolyToDiff[u^(k_.)*v^(m_.)*w^(n_.)] := 
+   Function[p,D[p,{x,k},{y,m},{z,n}]];
+\
+\>", "Input",
+  InitializationCell->True],
+
+Cell["", "Text",
+  InitializationCell->True],
+
+Cell["PolyToDiff[f_] := Function[p, f*p] /; FreeQ[f, u|v|w];", "Input",
+  InitializationCell->True],
+
+Cell["", "Text",
+  InitializationCell->True],
+
+Cell["\<\
+
+PolyToDiff[(f_)+(g_)] := 
+  Function[p, PolyToDiff[f][p] + PolyToDiff[g][p]]
+\
+\>", "Input",
+  InitializationCell->True],
+
+Cell["", "Text",
+  InitializationCell->True],
+
+Cell["\<\
+
+PolyToDiff[(f_)^(n_)] := 
+  Function[p, Nest[PolyToDiff[f], p, n]]
+\
+\>", "Input",
+  InitializationCell->True],
+
+Cell["", "Text",
+  InitializationCell->True],
+
+Cell["\<\
+
+PolyToDiff[(f_)*(g_)] := 
+  Composition[PolyToDiff[f], PolyToDiff[g]]
+\
+\>", "Input",
+  InitializationCell->True],
+
+Cell["", "Text",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Implementation of polydifferentiation", "Subsubsection"],
+
+Cell[TextData[{
+  "If  ",
+  StyleBox["DegP[q]<DegP[p]", "InlineInput"],
+  " then we are differentiating ",
+  StyleBox["q", "InlineInput"],
+  " with respect to ",
+  StyleBox["p", "InlineInput"],
+  ".",
+  StyleBox[" ", "InlineInput"],
+  "If  ",
+  StyleBox["DegP[p]<DegP[q]", "InlineInput"],
+  " then we are differentiating ",
+  StyleBox["p", "InlineInput"],
+  " with respect to ",
+  StyleBox["q", "InlineInput"],
+  ".",
+  StyleBox[" ", "InlineInput"],
+  "If we know that neither ",
+  StyleBox["p", "InlineInput"],
+  " nor ",
+  StyleBox["q", "InlineInput"],
+  " contain any symbolic parts, then we can compute the result. The following \
+ is the main optimization\[LongDash]if we know that we can compute the final  \
+result, then we pass the job to  ",
+  StyleBox["PolyToDiff", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(ClearAll[PD]; \)\)], "Input",
+  InitializationCell->True],
+
+Cell[BoxData[
+    \(PD[p_, q_] := 
+      \(PolyToDiff[q]\)[p]\  /; 
+        \[InvisibleSpace]\(! \((SymQ[p])\)\) && 
+          \(\[InvisibleSpace]\(! \((SymQ[q])\)\)\) && 
+          DegP[p] \[GreaterEqual] DegP[q]; \n\n
+    PD[p_, q_] := 
+      Dual[\(PolyToDiff[Dual[p]]\)[Dual[q]]]\  /; 
+        \[InvisibleSpace]\(! \((SymQ[p])\)\) && 
+          \(\[InvisibleSpace]\(! \((SymQ[q])\)\)\) && 
+          DegP[q] \[GreaterEqual] DegP[p]; \)], "Input",
+  InitializationCell->True],
+
+Cell["Additivity:", "Text",
+  FontWeight->"Bold"],
+
+Cell[BoxData[{
+    \(\(PD[p_Plus, q_] := \((PD[#1, q]&)\)/@p; \)\), 
+    \(\(PD[p_, q_Plus] := \((PD[p, #1]&)\)/@q; \)\)}], "Input",
+  InitializationCell->True],
+
+Cell["Homogeneity :", "Text",
+  FontWeight->"Bold"],
+
+Cell[BoxData[{
+    \(PD[a_\ p_. , q_] := a\ PD[p, q] /; a =!= 1 && DegP[a] == 0\), 
+    \(\(PD[p_, a_\ q_. ] := a\ PD[p, q] /; a =!= 1 && DegP[a] == 0; \)\)}], 
+  "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  StyleBox["Associative properties of ",
+    FontWeight->"Bold"],
+  StyleBox["PD", "Program",
+    FontWeight->"Bold"],
+  StyleBox[":",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Rules for the case when one of the arguments is a product. We nest ",
+  StyleBox["PD", "InlineInput"],
+  " in such a way that differentiation with respect to symbolic polynomials  \
+is on the outside. This way the inner ",
+  StyleBox["PD", "InlineInput"],
+  "'s can be evaluated."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(PD[p_, q_\ r_] := 
+      PD[PD[p, q], r] /; DegP[p] \[GreaterEqual] DegP[q\ r]; \)\), 
+    \(\(PD[p_, q_\^n_] := 
+      Nest[PD[#1, q]&, p, n] /; DegP[p] \[GreaterEqual] DegP[q\^n]; \)\), 
+    \(\(PD[p_\ q_, r_] := 
+      PD[p, PD[q, r]] /; DegP[r] \[GreaterEqual] DegP[p\ q]; \)\), 
+    \(\(PD[p_\^n_, q_] := 
+      Nest[PD[p, #1]&, q, n] /; DegP[q] \[GreaterEqual] DegP[p\^n]; \)\)}], 
+  "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  StyleBox["Derivative properties of ",
+    FontWeight->"Bold"],
+  StyleBox["PD", "Program",
+    FontWeight->"Bold"],
+  StyleBox[":",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["Special rules apply when one of the factors has degree one:", "Text"],
+
+Cell[BoxData[
+    \(PD[p_, q_] := p\ q /; DegP[q] == 0 || DegP[p] == 0\)], "Input",
+  InitializationCell->True],
+
+Cell[BoxData[
+    \(PD[p_\ q_, r_] := 
+      p\ PD[q, r] + q\ PD[p, r] /; 1 == DegP[r] \[LessEqual] DegP[p\ q]; 
+    PD[p_\^n_, q_] := 
+      n\ p\^\(n - 1\)\ PD[p, q] /; 1 == DegP[q] \[LessEqual] DegP[p\^n]; \)], 
+  "Input",
+  InitializationCell->True],
+
+Cell[BoxData[{
+    \(\(PD[p_, q_\ r_] := 
+      q\ PD[p, r] + r\ PD[p, q] /; 1 == DegP[p] \[LessEqual] DegP[q\ r]; 
+    \)\), 
+    \(\(PD[p_, q_\^n_] := 
+      n\ q\^\(n - 1\)\ PD[p, q] /; 1 == DegP[p] \[LessEqual] DegP[q\^n]; 
+    \)\)}], "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  StyleBox["Commutative properties of ",
+    FontWeight->"Bold"],
+  StyleBox["PD", "Program",
+    FontWeight->"Bold"],
+  StyleBox[":",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Rules that reorder nested ",
+  StyleBox["PD", "InlineInput"],
+  "'s into a canonical order. Non-symbolic second arguments are pushed  \
+inside, symbolic arguments are ordered in a canonical order. The role of ",
+  " HoldPattern",
+  " in the pattern below is to prevent evaluation of ",
+  StyleBox["PD", "InlineInput"],
+  " that occurs in the pattern."
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[HoldPattern[PD[p_, q_]], r_] := 
+      PD[PD[p, r], q] /; SymQ[q] && \[InvisibleSpace]\(! \((SymQ[r])\)\); \n\n
+    PD[HoldPattern[PD[p_, q_]], r_] := 
+      PD[PD[p, r], q] /; Order[q, r] == \(-1\) && SymQ[q] && SymQ[r]; \n\n
+    PD[HoldPattern[PD[p_, q_]], r_] := 
+      PD[PD[p, r], q] /; \n\t\t
+        Order[q, r] == \(-1\) && \(\[InvisibleSpace]\(! \((SymQ[q])\)\)\) && 
+          \(\[InvisibleSpace]\(! \((SymQ[r])\)\)\); \)], "Input",
+  InitializationCell->True],
+
+Cell[BoxData[{
+    \(\(PD[p_, HoldPattern[PD[q_, r_]]] := 
+      PD[q, PD[p, r]] /; SymQ[q] && \(\[InvisibleSpace]\(! \((SymQ[p])\)\)\); 
+    \)\), 
+    \(\(PD[p_, HoldPattern[PD[q_, r_]]] := 
+      PD[q, PD[p, r]] /; Order[p, q] == \(-1\) && SymQ[q] && SymQ[p]; \)\), 
+    \(\(PD[p_, HoldPattern[PD[q_, r_]]] := 
+      PD[q, PD[p, r]] /; 
+        Order[p, q] == \(-1\) && \(\[InvisibleSpace]\(! \((SymQ[q])\)\)\) && 
+          \(\[InvisibleSpace]\(! \((SymQ[p])\)\)\); \)\)}], "Input",
+  InitializationCell->True],
+
+Cell[TextData[StyleBox["Triple products",
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "These rules concern ",
+  StyleBox["collinear points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["concurrent lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". "
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[HoldPattern[PE[p_, q_]], r_] := 
+      0 /; \ PE[p, r] == 0 || PE[q, r] == 0; \n
+    PD[r_, HoldPattern[PE[p_, q_]]] := 0 /; \ PE[p, r] == 0 || PE[q, r] == 0; 
+    \)], "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Lines and Points", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["An incidence matrix", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["The incidence matrix of configuration of lines and points ", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["\<\
+MI[ll_,pp_] := Outer[If[N[Expand[PD[#1,#2]] == 0],1,0]&,ll,pp]\
+\>",
+   "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exterior product", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Making exterior product a multilinear operation", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["\<\
+PE[p___, 0, q___]       := 0;
+PE[p___, l_ + m_, q___] := PE[p,l,q] + PE[p,m,q];
+PE[p___, n_ l_, q___]   := n PE[p,l,q]/; DegP[n] == 0;\
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["Making exterior product a skew-symmetric operation", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["PE[p___, l_,l_, q___] := 0;", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["PE[p___, l_,m_, q___] := -PE[p,m,l,q] /; Order[l,m] == -1; ", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["Exterior products of lines are points ", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["PE[x,y] :=  w; PE[x,z] := -v; PE[y,z] :=  u; ", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["Exterior products of points are lines", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["PE[u,v] :=  z; PE[u,w] := -y; PE[v,w] :=  x;", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["Exterior product applied to a sequence pair by pair", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["PES[v_] := Apply[PE,Partition[Append[v,First[v]],2,1],{1}];", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ImplicitPlot", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["ImplicitPlot[eqn,{x,a,b}] ",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  "draws a graph of the set of points that satisfy the equation ",
+  StyleBox["eqn",
+    FontWeight->"Bold"],
+  ".  The variable ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " is associated with the horizontal axis and ranges from ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " to ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  ".  The remaining variable in the equation is associated with the vertical \
+axis. "
+}], "Text",
+  InitializationCell->True],
+
+Cell[TextData[{
+  StyleBox["ImplicitPlot[eqn, {x, a, x1, x2, ..., b}]",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  " allows the user to specify values of ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " where special care must be exercised. "
+}], "Text",
+  InitializationCell->True],
+
+Cell[TextData[{
+  StyleBox["ImplicitPlot[{eqn1, eqn2, ...}, {x, a, b}] ",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  "allows more than one equation to be plotted, with ",
+  StyleBox["PlotStyles",
+    FontWeight->"Bold"],
+  " set as in the ",
+  StyleBox["Plot",
+    FontWeight->"Bold"],
+  " function. "
+}], "Text",
+  InitializationCell->True],
+
+Cell[TextData[{
+  StyleBox["ImplicitPlot[eqn, {x, a, b}, {y, a, b}] ",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  "uses a ",
+  StyleBox["contour plot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " method of generating the plot.  This form does not allow specification of \
+intermediate points."
+}], "Text",
+  InitializationCell->True],
+
+Cell["Needs[\"Graphics`ImplicitPlot`\"];", "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Colors", "Subsubsection"],
+
+Cell["<<Graphics`Colors`", "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Drawing Points and Lines", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["A program by Marko Petkovsek (modified slightly by Scott)", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["The command", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Draw[ list,  From->{A1, A2, A3, p},  To->{B1, B2, B3, q} ]  ", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "draws the points and lines listed in list, as they are seen in the plane  \
+",
+  StyleBox["z == 1",
+    FontWeight->"Bold"],
+  ".  "
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "An element of list can be a linear form in either ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["v",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  "  or  ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  ",   or a list consisting of a form and a string (to be used as a label for \
+that element in the picture).   The ordering within list is not important."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+The points are rendered in black, and the lines are rendered in \
+blue.   Points at infinity are drawn as dotted lines through the origin \
+representing directions, and line at infinity is drawn as a dashed square \
+frame around the whole picture.  \
+\>", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+The Plot Range contains all the given points, the origin, points \
+closest to the origin on each of the given lines, and all finite \
+intersections of the given lines among themselves and also with the \
+coordinate axes. \
+\>", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "The values of the two optional arguments,  From  and  To ,  must be lists \
+of three points and one line, both representing a nondegenerate \
+configuration.    Before anything else,  the points and lines given in  list  \
+are transformed using a projective transformation which maps  ",
+  StyleBox["Ai",
+    FontWeight->"Bold"],
+  "  to  ",
+  StyleBox["Bi",
+    FontWeight->"Bold"],
+  "  and  ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " to  ",
+  StyleBox["q",
+    FontWeight->"Bold"],
+  " .   The default value for both optional arguments is ",
+  StyleBox["{w,  u + w,  v + w,  z}",
+    FontWeight->"Bold"],
+  ".    So, for example,  omitting  To  results in mapping the points and the \
+line given in  From  to the origin, the two unit points, and the line at \
+infinity,  respectively; while omitting both arguments specifies the identity \
+transformation."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Draw1  is just like  Draw  except that it uses a circular (rather \
+than square) frame for the line at infinity.\
+\>", "Text",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Options[Draw] := {From -> {w,u+w,v+w,z}, To -> {w,u+w,v+w,z}};
+
+Draw[l_List, opts___] :=
+
+    Module[{ll = If[Head[#] === List, #, {#,\"\"}]& /@ l,
+            mm, points, lines, allLines, intersections, 
+            finPoints, infPoints, finIntersections,
+            finLines, affPoints, affIntersections, 
+            affDirections, affLines, closest, allPoints,
+            xList, yList, minX, maxX, minY, maxY,
+            width, heigth, infLine, frame, pointLabels,
+            lineLabels, directionLabels, frameLabel, lp,
+            ref1, ref2, size },
+            
+        ref1 = From /. {opts} /. Options[Draw];
+        ref2 = To /. {opts} /. Options[Draw];
+        mm = MQL[Join[PES[Drop[ref1,-1]], {Last[ref1]}],
+                 Join[PES[Drop[ref2,-1]], {Last[ref2]}] ];
+        points = Select[ll,!(FreeQ[#,u] && FreeQ[#,v] && FreeQ[#,w]) &];
+        lines  = Select[ll,!(FreeQ[#,x] && FreeQ[#,y] && FreeQ[#,z]) &];
+        points = {TP[mm][#[[1]]], #[[2]]}& /@ points;
+        lines =  {TL[mm][#[[1]]], #[[2]]}& /@ lines;
+        allLines = Union[#[[1]]& /@ lines, {x, y}];
+        intersections = PE @@ # & /@ 
+            Select[Sort /@ Join @@ Outer[List, allLines, allLines] 
+            // Union, #[[1]] =!= #[[2]] &];
+        finPoints = Select[points, Coefficient[#[[1]], w] =!= 0 &];
+        infPoints = Select[points, Coefficient[#[[1]], w] === 0 &];
+        finIntersections = Select[intersections,
+            Coefficient[#, w] =!= 0 &];
+        finLines = Select[lines, 
+            !(Coefficient[#[[1]],x] === Coefficient[#[[1]],y] === 0) &];
+        infLine = Select[lines, 
+             (Coefficient[#[[1]],x] === Coefficient[#[[1]],y] === 0) &];
+        If[Length[infLine] > 1, infLine = First[infLine]];                 
+        pointLabels = #[[2]]& /@ finPoints;
+        affPoints = 
+            {Coefficient[#[[1]],u], Coefficient[#[[1]],v]}/
+             Coefficient[#[[1]],w] & /@ finPoints;
+        affIntersections = 
+            {Coefficient[#,u], Coefficient[#,v]}/Coefficient[#,w] & /@
+             finIntersections;
+        directionLabels = #[[2]]& /@ infPoints;
+        affDirections = (Coefficient[#,v] x - Coefficient[#,u] y == 0
+            )& /@ infPoints;
+        lineLabels = #[[2]]& /@ finLines;
+        affLines = Thread[((#[[1]]& /@ finLines) /. z->1) == 0];
+        closest = -{Coefficient[#[[1]],x], Coefficient[#[[1]],y]
+           } Coefficient[#[[1]],z]/(Coefficient[#[[1]],x]^2 + 
+            Coefficient[#[[1]],y]^2) & /@ finLines;
+        allPoints = Join[affPoints, affIntersections, closest, {{0,0}}];
+        xList = First /@ allPoints;
+        yList = Last /@ allPoints;
+        minX = Min[xList];
+        maxX = Max[xList];
+        minY = Min[yList];
+        maxY = Max[yList];
+        width = maxX - minX;
+        height = maxY - minY;
+        If[width == height == 0, width = height = 2; 
+            minX = minY = -1; maxX = maxY = 1];
+        size = Max[width, height];
+        {minX, maxX} = {minX, maxX} + 
+            ((size - width)/2 + size/10){-1,1};
+        {minY, maxY} = {minY, maxY} +
+            ((size - height)/2 + size/10){-1,1};
+        affLines = Line /@ 
+            (Clip[#, minX, maxX, minY, maxY]& /@ affLines);
+        lineLabels = Text @@ # & /@
+            Thread[{lineLabels, lp = 
+            #[[1,1]]& /@ affLines,
+            Where[#, minX, maxX, minY, maxY]& /@ lp}];
+        affDirections = Line /@ 
+            (Clip[#, minX, maxX, minY, maxY]& /@ affDirections);
+        directionLabels = Text @@ # & /@
+            Thread[{directionLabels, lp = 
+            #[[1,2]]& /@ affDirections,
+            Where[#, minX, maxX, minY, maxY]& /@ lp}];
+        affPoints = Point /@ affPoints;
+        pointLabels = Text @@ # & /@ 
+            Thread[{pointLabels, lp = #[[1]]& /@ affPoints, 
+            Where[#, minX, maxX, minY, maxY]& /@ lp}];
+        If[infLine === {},
+            frame = {}; frameLabel = {},
+            frame = {Line[{{minX,minY},{maxX,minY},{maxX,maxY},
+                {minX,maxY},{minX,minY}} ]}; 
+                 frameLabel = {Text[infLine[[1,2]],
+                     {(minX + maxX)/2, minY}, SS] } ];
+        Show[Graphics[Join[
+           {PointSize[0.02], RGBColor[0,0,0]},
+            affPoints,
+           {Thickness[0.003], RGBColor[0,0,1]},
+            affLines,
+           {RGBColor[0,0,0]},
+            pointLabels, directionLabels,
+           {RGBColor[0,0,1]},
+            lineLabels, frameLabel,
+           {Thickness[0.0075], Dashing[{0.025,0.025}], RGBColor[0,0,1]},
+            frame,
+           {Thickness[0.005], Dashing[{0.005,0.02}], RGBColor[0,0,0]},
+            affDirections ] ],
+                AspectRatio -> Automatic,
+                PlotRange -> {{minX, maxX} + 0.2 size {-1,1}, 
+                    {minY, maxY} + 0.2 size {-1,1}},
+                DisplayFunction -> $DisplayFunction,
+                Axes -> None,
+                Ticks -> None,
+                DefaultFont -> {\"Courier\", 12}] ];
+        
+        
+displ = 1.75;
+NN = displ {0,-1}; SS = -NN; EE = displ {-1,0}; WW = -EE;
+NE = NN + EE; SE = SS + EE; NW = NN + WW; SW = SS + WW;
+
+
+
+Clip[line_, minX_, maxX_, minY_, maxY_] :=
+        Select[{x,y} /.# & /@ (First /@ 
+            Select[Solve[Append[{line},#], {x,y}]& /@ 
+           {x == maxX, y == maxY, y == minY, x == minX},
+           (# =!= {})&]), (minX <= #[[1]] <= maxX && 
+            minY <= #[[2]] <= maxY)&] // Union;
+            
+            
+Where[{x_,y_}, minX_, maxX_, minY_, maxY_] :=
+        Which[x == minX && y == minY, NE,
+              x == maxX && y == minY, NW,
+              x == maxX && y == maxY, SW,
+              x == minX && y == maxY, SE,
+              x == minX, EE,
+              x == maxX, WW,
+              y == minY, NN,
+              y == maxY, SS,
+              True, SE];
+            
+
+Options[Draw1] := {From -> {w,u+w,v+w,z}, To -> {w,u+w,v+w,z}};
+
+Draw1[l_List, opts___] :=
+
+    Module[{ll = If[Head[#] === List, #, {#,\"\"}]& /@ l,
+            mm, points, lines, allLines, intersections, 
+            finPoints, infPoints, finIntersections,
+            finLines, affPoints, affIntersections, 
+            affDirections, affLines, closest, allPoints,
+            xList, yList, minX, maxX, minY, maxY,
+            width, heigth, infLine, frame, pointLabels,
+            lineLabels, directionLabels, frameLabel, lp,
+            ref1, ref2, center, radius, pr },
+            
+        ref1 = From /. {opts} /. Options[Draw];
+        ref2 = To /. {opts} /. Options[Draw];
+        mm = MQL[Join[PES[Drop[ref1,-1]], {Last[ref1]}],
+                 Join[PES[Drop[ref2,-1]], {Last[ref2]}] ];
+        points = Select[ll,!(FreeQ[#,u] && FreeQ[#,v] && FreeQ[#,w]) &];
+        lines  = Select[ll,!(FreeQ[#,x] && FreeQ[#,y] && FreeQ[#,z]) &];
+        points = {TP[mm][#[[1]]], #[[2]]}& /@ points;
+        lines =  {TL[mm][#[[1]]], #[[2]]}& /@ lines;
+        allLines = Union[#[[1]]& /@ lines, {x, y}];
+        intersections = PE @@ # & /@ 
+            Select[Sort /@ Join @@ Outer[List, allLines, allLines] 
+            // Union, #[[1]] =!= #[[2]] &];
+        finPoints = Select[points, Coefficient[#[[1]], w] =!= 0 &];
+        infPoints = Select[points, Coefficient[#[[1]], w] === 0 &];
+        finIntersections = Select[intersections,
+            Coefficient[#, w] =!= 0 &];
+        finLines = Select[lines, 
+            !(Coefficient[#[[1]],x] === Coefficient[#[[1]],y] === 0) &];
+        infLine = Select[lines, 
+             (Coefficient[#[[1]],x] === Coefficient[#[[1]],y] === 0) &];
+        If[Length[infLine] > 1, infLine = First[infLine]];                 
+        pointLabels = #[[2]]& /@ finPoints;
+        affPoints = 
+            {Coefficient[#[[1]],u], Coefficient[#[[1]],v]}/
+             Coefficient[#[[1]],w] & /@ finPoints;
+        affIntersections = 
+            {Coefficient[#,u], Coefficient[#,v]}/Coefficient[#,w] & /@
+             finIntersections;
+        directionLabels = #[[2]]& /@ infPoints;
+        affDirections = (Coefficient[#,v] x - Coefficient[#,u] y == 0
+            )& /@ infPoints;
+        lineLabels = #[[2]]& /@ finLines;
+        affLines = Thread[((#[[1]]& /@ finLines) /. z->1) == 0];
+        closest = -{Coefficient[#[[1]],x], Coefficient[#[[1]],y]
+           } Coefficient[#[[1]],z]/(Coefficient[#[[1]],x]^2 + 
+            Coefficient[#[[1]],y]^2) & /@ finLines;
+        allPoints = Join[affPoints, affIntersections, closest, {{0,0}}];
+        xList = First /@ allPoints;
+        yList = Last /@ allPoints;
+        minX = Min[xList];
+        maxX = Max[xList];
+        minY = Min[yList];
+        maxY = Max[yList];
+        width = maxX - minX;
+        height = maxY - minY;
+        If[width == height == 0, width = height = 2; 
+            minX = minY = -1; maxX = maxY = 1];
+        center = {(minX + maxX)/2, (minY + maxY)/2};
+        radius = 1.1 Sqrt[width^2 + height^2]/2 //N;
+        affLines = Line /@ 
+            (Clip1[#, center, radius]& /@ affLines);
+        lineLabels = Text @@ # & /@
+            Thread[{lineLabels, lp = 
+            #[[1,1]]& /@ affLines,
+            Where1[#, center, displ]& /@ lp}];
+        affDirections = Line /@ 
+            (Clip1[#, center, radius]& /@ affDirections);
+        directionLabels = Text @@ # & /@
+            Thread[{directionLabels, lp = 
+            #[[1,2]]& /@ affDirections,
+            Where1[#, center, displ]& /@ lp}];
+        affPoints = Point /@ affPoints;
+        pointLabels = Text @@ # & /@ 
+            Thread[{pointLabels, lp = #[[1]]& /@ affPoints, 
+            Where1[#, center, displ]& /@ lp}];
+        If[infLine === {},
+            frame = {}; frameLabel = {},
+            frame = {Circle[center, radius]}; 
+                 frameLabel = {Text[infLine[[1,2]],
+                     center - {0, radius}, SS] } ];
+        pr = (1.1 radius {-1,1} + #)& /@ center;
+        Show[Graphics[Join[
+           {PointSize[0.03], RGBColor[0,0,0]},
+            affPoints,
+           {Thickness[0.0075], RGBColor[0,0,1]},
+            affLines,
+           {RGBColor[0,0,0]},
+            pointLabels, directionLabels,
+           {RGBColor[0,0,1]},
+            lineLabels, frameLabel,
+           {Thickness[0.0075], Dashing[{0.025,0.025}], RGBColor[0,0,1]},
+            frame,
+           {Thickness[0.0075], Dashing[{0.005,0.02}], RGBColor[0,0,0]},
+            affDirections ] ],
+                AspectRatio -> Automatic,
+                PlotRange -> pr,
+                DisplayFunction -> $DisplayFunction,
+                Axes -> Automatic,
+                Ticks -> None] ];
+        
+        
+Clip1[line_, center_, radius_] :=
+    {x,y} /. Solve[{line, 
+        (Plus @@ (({x,y} - center)^2)) == radius^2}, {x,y} ]; 
+            
+            
+Where1[{x_,y_}, center_, displ_] :=
+    Block[{rx, ry},
+        {rx, ry} = {x,y} - center;
+        If[{rx, ry} != {0, 0},
+           {rx, ry} / Sqrt[rx^2 + ry^2] displ // N,
+            SE ]];
+        
+            
+
+\
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Transformations and coordinates", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Mappings of forms, quadrangles and quadrilaterals", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Given the matrix of coordinates of a point transformation, to find \
+the corresponding mapping of polynomials\
+\>", "Text",
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell[BoxData[{
+    \(TP[m_] := \n\tTidy[#1 /. Thread[{u, v, w} \[Rule] m . {u, v, w}]]&; \n
+    \(TL[m_] := 
+      Tidy[#1 /. Thread[{x, y, z} \[Rule] {x, y, z} . Inverse[m]]]&; \)\), 
+    \(\(QTL[m_] := 
+      Tidy[#1 /. Thread[{x, y, z} \[Rule] {x, y, z} . QuasiInverse[m]]]&; 
+    \)\)}], "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Producing vectors and matrices of coordinates from points and lines\
+\
+\>", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["\<\
+CP[p_] := Apply[PD,{{x,p},{y,p},{z,p}},{1}];
+
+CL[l_] := Apply[PD,{{l,u},{l,v},{l,w}},{1}];
+
+MP[s_] := Map[CP,s];
+\t\t\t\t\t\t  
+ML[s_] := Map[CL,s];\
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["Mapping quadrangles and quadrilaterals", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["\<\
+MQP[q_, r_] := Module[{mm,vv,nn,oo,ww,pp},
+\tmm = MP[q[[{1,2,3}]]];
+\tvv = CP[q[[4]]] . Inverse[mm];
+\tnn = {{vv[[1]],0,0},{0,vv[[2]],0},{0,0,vv[[3]]}} . mm;
+\too = MP[r[[{1,2,3}]]];
+\tww = CP[r[[4]]] . Inverse[oo];
+\tpp = {{ww[[1]],0,0},{0,ww[[2]],0},{0,0,ww[[3]]}} . oo;
+ Simplify[Inverse[nn] . pp]];\
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["\<\
+MQL[q_, r_] := Module[{mm,vv,nn,oo,ww,pp},
+\tmm = ML[q[[{1,2,3}]]];
+\tvv = CL[q[[4]]] . Inverse[mm];
+\tnn = {{vv[[1]],0,0},{0,vv[[2]],0},{0,0,vv[[3]]}} . mm;
+\too = ML[r[[{1,2,3}]]];
+\tww = CL[r[[4]]] . Inverse[oo];
+\tpp = {{ww[[1]],0,0},{0,ww[[2]],0},{0,0,ww[[3]]}} . oo;
+ Simplify[Transpose[nn] . Inverse[Transpose[pp]]]];\
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Crossratios", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Crossratio of four points on a line", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell[BoxData[
+    \(ClearAll[RP, RL]\)], "Input"],
+
+Cell[BoxData[
+    \(RP[AA_, BB_, CC_, DD_] := 
+      Module[{mm, ac, bc, ad, bd, sc, sd}, mm = MP[{AA, BB, CC, DD}]; \n\t\t
+        If[Expand[PE[AA, BB]] === 0 || \n\t\t\t\t\ \ \ 
+            Expand[PE[BB, CC]] === 0 || \ \ \n\t\t\t\t\ \ \ 
+            Expand[PE[AA, CC]] === 0 || \ \ \n\t\t\t\t\ \ \ 
+            Expand[PD[PE[AA, BB], CC]] =!= 0 || \n\t\t\t\ \ \ \ \ 
+            Expand[PD[PE[AA, BB], DD]] =!= 0, "\<Error\>", \n\t\t\t
+          sc = \(Solve[
+                mm\[LeftDoubleBracket]3\[RightDoubleBracket] == 
+                  ac\ mm\[LeftDoubleBracket]1\[RightDoubleBracket] + 
+                    bc\ mm\[LeftDoubleBracket]2\[RightDoubleBracket], {ac, 
+                  bc}]\)\[LeftDoubleBracket]1\[RightDoubleBracket]; 
+          sd = \(Solve[
+                mm\[LeftDoubleBracket]4\[RightDoubleBracket] == 
+                  ad\ mm\[LeftDoubleBracket]1\[RightDoubleBracket] + 
+                    bd\ mm\[LeftDoubleBracket]2\[RightDoubleBracket], {ad, 
+                  bd}]\)\[LeftDoubleBracket]1\[RightDoubleBracket]; 
+          Simplify[\(\(ad\ bc\)\/\(bd\ ac\) /. sc\) /. sd]]]\)], "Input",
+  InitializationCell->True],
+
+Cell["Crossratio of four lines in a pencil", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell[BoxData[
+    \(RL[AA_, BB_, CC_, DD_] := 
+      Module[{mm, ac, bc, ad, bd, sc, sd}, mm = ML[{AA, BB, CC, DD}]; \t\n\t\t
+        If[Expand[PE[AA, BB]] === 0 || \n\t\t\t\t\ \ \ 
+            Expand[PE[BB, CC]] === 0 || \ \ \n\t\t\t\t\ \ \ 
+            Expand[PE[AA, CC]] === 0 || \ \ \n\t\t\t\t\ \ \ 
+            Expand[PD[CC, PE[AA, BB]]] =!= 0 || \n\t\t\t\ \ \ \ \ 
+            Expand[PD[DD, PE[AA, BB]]] =!= 0, "\<Error\>", 
+          sc = \(Solve[
+                mm\[LeftDoubleBracket]3\[RightDoubleBracket] == 
+                  ac\ mm\[LeftDoubleBracket]1\[RightDoubleBracket] + 
+                    bc\ mm\[LeftDoubleBracket]2\[RightDoubleBracket], {ac, 
+                  bc}]\)\[LeftDoubleBracket]1\[RightDoubleBracket]; 
+          sd = \(Solve[
+                mm\[LeftDoubleBracket]4\[RightDoubleBracket] == 
+                  ad\ mm\[LeftDoubleBracket]1\[RightDoubleBracket] + 
+                    bd\ mm\[LeftDoubleBracket]2\[RightDoubleBracket], {ad, 
+                  bd}]\)\[LeftDoubleBracket]1\[RightDoubleBracket]; 
+          Simplify[\(\(ad\ bc\)\/\(bd\ ac\) /. sc\) /. sd]]]\)], "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Positioning via  relative coordinates", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Positioning a fourth point on a line", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["ClearAll[XP,XL]", "Input",
+  InitializationCell->True],
+
+Cell[BoxData[{
+    \(\(XP[AA_, BB_, CC_, 0, 0] := 0\/0; \)\), 
+    \(XP[AA_, BB_, CC_, ad_, bd_] := 
+      Module[{mm, ac, bc, sc}, mm = MP[{AA, BB, CC}]; \n\t\t
+        If[Expand[PE[AA, BB]] === 0 || \n\t\t\t\tExpand[PE[BB, CC]] === 0 || 
+            \n\t\t\t\tExpand[PE[AA, CC]] === 0 || 
+            Expand[PD[PE[AA, BB], CC]] =!= 0, "\<Error\>", 
+          sc = \(Solve[
+                mm\[LeftDoubleBracket]3\[RightDoubleBracket] == 
+                  ac\ mm\[LeftDoubleBracket]1\[RightDoubleBracket] + 
+                    bc\ mm\[LeftDoubleBracket]2\[RightDoubleBracket], {ac, 
+                  bc}]\)\[LeftDoubleBracket]1\[RightDoubleBracket]; 
+          Tidy[Simplify[ac\ ad\ AA + bc\ bd\ BB /. sc]]]]; 
+    XP[AA_, BB_, CC_, ComplexInfinity] := AA; 
+    XP[AA_, BB_, CC_, ad_] := XP[AA, BB, CC, ad, 1]; \)}], "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["Positioning a fourth line in a pencil", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell[BoxData[{
+    \(\(XL[AA_, BB_, CC_, 0, 0] := 0\/0; \)\), 
+    \(XL[AA_, BB_, CC_, ad_, bd_] := 
+      Module[{mm, ac, bc, sc}, mm = ML[{AA, BB, CC}]; \t\t\n\t\t
+        If[Expand[PE[AA, BB]] === 0 || \n\t\t\t\tExpand[PE[BB, CC]] === 0 || 
+            \n\t\t\t\tExpand[PE[AA, CC]] === 0 || 
+            Expand[PD[CC, PE[AA, BB]]] =!= 0, "\<Error\>", 
+          sc = \(Solve[
+                mm\[LeftDoubleBracket]3\[RightDoubleBracket] == 
+                  ac\ mm\[LeftDoubleBracket]1\[RightDoubleBracket] + 
+                    bc\ mm\[LeftDoubleBracket]2\[RightDoubleBracket], {ac, 
+                  bc}]\)\[LeftDoubleBracket]1\[RightDoubleBracket]; 
+          Tidy[Simplify[ac\ ad\ AA + bc\ bd\ BB /. sc]]]]; \n
+    XL[AA_, BB_, CC_, ComplexInfinity] := AA; \n
+    \(XL[AA_, BB_, CC_, ad_] := XL[AA, BB, CC, ad, 1]; \)\)}], "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Some Euclidean constructions", "Subsubsection"],
+
+Cell["Dropping a perpendicular from a point to a line.", "Text",
+  FontWeight->"Bold"],
+
+Cell[BoxData[
+    \(Perp[p_, l_] := 
+      Tidy[PE[p, \ \(TP[{{0, 1, 0}, {\(-1\), 0, 0}, {0, 0, 1}}]\)[PE[l, z]]]]
+        \)], "Input",
+  InitializationCell->True],
+
+Cell["The matrix for perpendicular reflection about a line.", "Text",
+  FontWeight->"Bold"],
+
+Cell[BoxData[
+    \(\(Refl[l_] := 
+      \((MQP[{u + I\ v, u - I\ v, #1, #2}, \n
+              \t\t\t\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\
+\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\
+\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\
+\[NonBreakingSpace]\[NonBreakingSpace]{u - I\ v, u + I\ v, #1, #2}]&)\)@@
+        \(({PE[l, PE[u + I\ v, #]], PE[l, PE[u - I\ v, #]]}&)\)[
+          \((If[#3 \[NotEqual] 0, w, #1\ u + #2\ v + w]&)\)@@CL[l]]; \)\)], 
+  "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  "Drawing a circle given the center ",
+  Cell[BoxData[
+      \(p\)]],
+  " and a point ",
+  Cell[BoxData[
+      \(q\)]],
+  " on the circle."
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[BoxData[
+    \(\(Circ[p_, q_] := 
+      Module[{l, m, n, qq, rr}, \n\t\tl = PE[p, q]; \n\t\t
+        qq = \ XP[p, PE[l, z], q, \(-1\)]; \n\t\tm = Perp[qq, l]; \n\t\t
+        n = l + m; \n\t\trr = PE[n, Perp[q, n]]; \n\t\t
+        P2P[u + I\ v, u - I\ v, \ q, qq, rr]]; \)\)], "Input",
+  InitializationCell->True],
+
+Cell[TextData[{
+  "A ",
+  StyleBox["test",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for congruence of segments."
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[BoxData[
+    \(Cong[p_, q_, pp_, qq_] := 
+      Module[{r, s, qqq, f}, \n\t\tr = PE[PE[p, q], z]; \n\t\t
+        s = PE[PE[p, pp], z]; \n\t\tqqq = PE[PE[q, s], PE[pp, r]]; \n\t\t
+        f = Circ[pp, qqq]; \n\t\tExpandAll[PD[f, qq\^2] == 0]]\)], "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Curves", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Some invariants", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Hessian matrix for a curve", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["MHP[ff_] := Outer[PD[ff,#1 #2]&, {u,v,w}, {u,v,w}];", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["Hessian matrix for an envelope", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["MHL[gg_] := Outer[PD[#1 #2, gg]&, {x,y,z}, {x,y,z}];", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Conics determined by several points or lines", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(P2P[q__] := 
+      Module[{mm, kk}, mm = MP[{q}]; 
+        kk = Table[{mm\[LeftDoubleBracket]ii, 1\[RightDoubleBracket]\^2, 
+              mm\[LeftDoubleBracket]ii, 1\[RightDoubleBracket]\ 
+                mm\[LeftDoubleBracket]ii, 2\[RightDoubleBracket], 
+              mm\[LeftDoubleBracket]ii, 2\[RightDoubleBracket]\^2, 
+              mm\[LeftDoubleBracket]ii, 1\[RightDoubleBracket]\ 
+                mm\[LeftDoubleBracket]ii, 3\[RightDoubleBracket], 
+              mm\[LeftDoubleBracket]ii, 2\[RightDoubleBracket]\ 
+                mm\[LeftDoubleBracket]ii, 3\[RightDoubleBracket], 
+              mm\[LeftDoubleBracket]ii, 3\[RightDoubleBracket]\^2}, {ii, 1, 
+              5}]; Collect[Det[Join[{Bxyz[2]}, kk]], {x, y, z}]]\)], "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(P2L[q__] := 
+      Module[{mm, kk}, mm = ML[{q}]; 
+        kk = Table[{mm\[LeftDoubleBracket]ii, 1\[RightDoubleBracket]\^2, 
+              mm\[LeftDoubleBracket]ii, 1\[RightDoubleBracket]\ 
+                mm\[LeftDoubleBracket]ii, 2\[RightDoubleBracket], 
+              mm\[LeftDoubleBracket]ii, 2\[RightDoubleBracket]\^2, 
+              mm\[LeftDoubleBracket]ii, 1\[RightDoubleBracket]\ 
+                mm\[LeftDoubleBracket]ii, 3\[RightDoubleBracket], 
+              mm\[LeftDoubleBracket]ii, 2\[RightDoubleBracket]\ 
+                mm\[LeftDoubleBracket]ii, 3\[RightDoubleBracket], 
+              mm\[LeftDoubleBracket]ii, 3\[RightDoubleBracket]\^2}, {ii, 1, 
+              5}]; Collect[Det[Join[{Buvw[2]}, kk]], {x, y, z}]]\)], "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Cubics determined by several points or lines", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+P3P[q__] := Module[{mm,kk}, mm = MP[List[q]];
+    kk = Table[Bxyz[3]/.Thread[{x,y,z}->(mm[[i]])],{i,1,9}];    
+    Tidy[Det[Join[{Bxyz[3]},kk]]]]                         \
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True],
+
+Cell["\<\
+P3L[q__] := Module[{mm,kk}, mm = ML[List[q]];
+    kk = Table[Buvw[3]/.Thread[{u,v,w}->(mm[[i]])],{i,1,9}];    
+    Tidy[Det[Join[{Buvw[3]},kk]]]]                         \
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["From curves to envelopes and back", "Subsubsection"],
+
+Cell["\<\
+ClearAll[Envel];
+
+Envel[f_] := Module[{n, p, a, b, c, coef, eqn},
+    n = DegP[f];
+    p = a u + b v + c w;
+    coef = CL[PD[f, p^(n-1)]] - {u,v,w};
+    eqn = Eliminate[Append[coef,p]==0, {a, b, c}];
+    If[Head[eqn] === Equal, 
+    \tTidy[Expand[eqn[[1]]-eqn[[2]]]],\"Fail\"]];\
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->False],
+
+Cell["\<\
+ClearAll[Curve];
+
+Curve[g_] := Dual[Envel[Dual[g]]];\
+\>", "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Conic tangents", "Subsubsection"],
+
+Cell["\<\
+ClearAll[ConicTangents];
+ConicTangents[f_, p_] := Module[{sol, q1, q2, xx, yy, zz},
+Off[Solve::\"svars\"]; 
+sol = Solve[{f==0,PD[f,p]==0},{x,y,z}]/.{x->xx,y->yy,z->zz};
+On[Solve::\"svars\"];
+q1 = xx u + yy v + zz w/.sol[[1]];
+q2 = xx u + yy v + zz w/.sol[[2]];
+Map[Together,{Tidy[q1],Tidy[q2]}/.{xx->1,yy->1,zz->1},{2}]]\
+\>", "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Rank of the Hessian", "Subsubsection"],
+
+Cell["Rank[conic_] := 3 - Length[NullSpace[MHP[conic]]];", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Quasi-inverse of a matrix", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+A square matrix multiplied by its quasi-inverse gives the  \
+determinant times the identity matrix\
+\>", "Text",
+  InitializationCell->True,
+  AspectRatioFixed->True,
+  FontWeight->"Bold"],
+
+Cell["\<\
+QuasiInverse[mm_] := Block[{min,dim}, dim = Length[mm];
+\t min = Reverse[Transpose[Reverse[Minors[mm,dim-1]]]];
+\t\t Table[(-1)^(i+j)min[[i,j]], {i,dim},{j,dim}]];\
+\>", "Input",
+  InitializationCell->True,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Conic crossratios", "Subsubsection"],
+
+Cell["\<\
+RP2[f_,p1_,p2_,p3_,p4_] := 
+                RL[PD[f,p1],PE[p1,p2],PE[p1,p3],PE[p1,p4]];\
+\>", "Input",
+  InitializationCell->True],
+
+Cell["\<\
+RL2[g_,l1_,l2_,l3_,l4_] := 
+                RP[PD[l1,g],PE[l1,l2],PE[l1,l3],PE[l1,l4]];\
+\>", "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Presentation",
+WindowToolbars->{},
+WindowSize->{724, 500},
+WindowMargins->{{20, Automatic}, {27, Automatic}},
+PrivateNotebookOptions->{"ColorPalette"->{RGBColor, 256}},
+ShowCellLabel->True,
+ShowCellTags->False,
+RenderingOptions->{"ObjectDithering"->True,
+"RasterDithering"->False},
+CharacterEncoding->"MacintoshAutomaticEncoding",
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+1VH0001804P000000]X2:?oQon42n@95<@84`0>H007m001804P0000028h6N03@
+0806N6P001820@4100000BL?00400@0000000000000000000000004000000001
+06@00000000000000000000104P00000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{
+  "S5.33.1"->{
+    Cell[7530, 254, 100, 2, 52, "Input",
+      InitializationCell->True,
+      CellTags->"S5.33.1"]}
+  }
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{
+  {"S5.33.1", 51783, 1661}
+  }
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 174, 7, 78, "Subtitle",
+  Evaluatable->False,
+  InitializationCell->True],
+Cell[1886, 58, 251, 8, 38, "Text",
+  Evaluatable->False],
+Cell[2140, 68, 310, 11, 72, "Text",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2475, 83, 34, 0, 78, "Section"],
+
+Cell[CellGroupData[{
+Cell[2534, 87, 93, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[2630, 91, 85, 1, 52, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[2752, 97, 36, 0, 33, "Subsubsection"],
+Cell[2791, 99, 195, 6, 38, "Text",
+  InitializationCell->True],
+Cell[2989, 107, 83, 2, 54, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3109, 114, 87, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[3199, 118, 176, 6, 38, "Text",
+  Evaluatable->False,
+  InitializationCell->True],
+Cell[3378, 126, 108, 3, 78, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3523, 134, 40, 0, 33, "Subsubsection"],
+Cell[3566, 136, 410, 9, 194, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4013, 150, 48, 0, 33, "Subsubsection"],
+Cell[4064, 152, 244, 7, 55, "SmallText"],
+Cell[4311, 161, 237, 8, 60, "Text"],
+Cell[4551, 171, 275, 7, 116, "Input",
+  InitializationCell->True],
+Cell[4829, 180, 261, 8, 60, "Text"],
+Cell[5093, 190, 173, 5, 84, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5303, 200, 35, 0, 33, "Subsubsection"],
+Cell[5341, 202, 530, 13, 78, "SmallText",
+  InitializationCell->True],
+Cell[5874, 217, 511, 9, 92, "SmallText",
+  InitializationCell->True],
+Cell[6388, 228, 1139, 24, 203, "SmallText",
+  InitializationCell->True],
+Cell[7530, 254, 100, 2, 52, "Input",
+  InitializationCell->True,
+  CellTags->"S5.33.1"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7667, 261, 44, 0, 33, "Subsubsection"],
+Cell[7714, 263, 76, 1, 52, "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7839, 270, 30, 0, 50, "Section"],
+
+Cell[CellGroupData[{
+Cell[7894, 274, 36, 0, 55, "Subsubsection"],
+Cell[7933, 276, 231, 9, 38, "Text",
+  InitializationCell->True],
+Cell[8167, 287, 259, 6, 114, "Input",
+  InitializationCell->True],
+Cell[8429, 295, 249, 9, 60, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8715, 309, 30, 0, 33, "Subsubsection"],
+Cell[8748, 311, 44, 1, 56, "Text",
+  InitializationCell->True],
+Cell[8795, 314, 245, 10, 56, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9077, 329, 39, 0, 33, "Subsubsection"],
+Cell[9119, 331, 44, 1, 38, "Text",
+  InitializationCell->True],
+Cell[9166, 334, 99, 1, 52, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9302, 340, 70, 0, 33, "Subsubsection"],
+Cell[9375, 342, 443, 9, 194, "Input",
+  InitializationCell->True],
+Cell[9821, 353, 301, 7, 156, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10159, 365, 42, 0, 33, "Subsubsection"],
+Cell[10204, 367, 532, 10, 194, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10773, 382, 259, 9, 57, "Subsubsection"],
+Cell[11035, 393, 44, 1, 38, "Text",
+  InitializationCell->True],
+Cell[11082, 396, 499, 21, 340, "Input",
+  InitializationCell->True],
+Cell[11584, 419, 44, 1, 38, "Text",
+  InitializationCell->True],
+Cell[11631, 422, 99, 1, 52, "Input",
+  InitializationCell->True],
+Cell[11733, 425, 44, 1, 38, "Text",
+  InitializationCell->True],
+Cell[11780, 428, 131, 6, 100, "Input",
+  InitializationCell->True],
+Cell[11914, 436, 44, 1, 38, "Text",
+  InitializationCell->True],
+Cell[11961, 439, 121, 6, 100, "Input",
+  InitializationCell->True],
+Cell[12085, 447, 44, 1, 38, "Text",
+  InitializationCell->True],
+Cell[12132, 450, 124, 6, 100, "Input",
+  InitializationCell->True],
+Cell[12259, 458, 44, 1, 38, "Text",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[12340, 464, 62, 0, 33, "Subsubsection"],
+Cell[12405, 466, 809, 26, 104, "Text"],
+Cell[13217, 494, 79, 2, 54, "Input",
+  InitializationCell->True],
+Cell[13299, 498, 478, 11, 134, "Input",
+  InitializationCell->True],
+Cell[13780, 511, 49, 1, 38, "Text"],
+Cell[13832, 514, 160, 3, 74, "Input",
+  InitializationCell->True],
+Cell[13995, 519, 51, 1, 38, "Text"],
+Cell[14049, 522, 199, 4, 74, "Input",
+  InitializationCell->True],
+Cell[14251, 528, 186, 7, 38, "Text"],
+Cell[14440, 537, 311, 7, 60, "Text"],
+Cell[14754, 546, 449, 10, 114, "Input",
+  InitializationCell->True],
+Cell[15206, 558, 185, 7, 38, "Text"],
+Cell[15394, 567, 75, 0, 38, "Text"],
+Cell[15472, 569, 111, 2, 54, "Input",
+  InitializationCell->True],
+Cell[15586, 573, 253, 6, 97, "Input",
+  InitializationCell->True],
+Cell[15842, 581, 276, 7, 97, "Input",
+  InitializationCell->True],
+Cell[16121, 590, 186, 7, 38, "Text"],
+Cell[16310, 599, 382, 9, 82, "Text"],
+Cell[16695, 610, 493, 9, 194, "Input",
+  InitializationCell->True],
+Cell[17191, 621, 514, 10, 154, "Input",
+  InitializationCell->True],
+Cell[17708, 633, 73, 1, 38, "Text"],
+Cell[17784, 636, 233, 10, 38, "Text"],
+Cell[18020, 648, 228, 5, 114, "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[18297, 659, 35, 0, 50, "Section"],
+
+Cell[CellGroupData[{
+Cell[18357, 663, 92, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[18452, 667, 150, 3, 24, "Text",
+  InitializationCell->True],
+Cell[18605, 672, 144, 5, 45, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[18786, 682, 89, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[18878, 686, 139, 3, 24, "Text",
+  InitializationCell->True],
+Cell[19020, 691, 213, 6, 72, "Input",
+  InitializationCell->True],
+Cell[19236, 699, 142, 3, 24, "Text",
+  InitializationCell->True],
+Cell[19381, 704, 98, 2, 45, "Input",
+  InitializationCell->True],
+Cell[19482, 708, 130, 2, 45, "Input",
+  InitializationCell->True],
+Cell[19615, 712, 130, 3, 24, "Text",
+  InitializationCell->True],
+Cell[19748, 717, 116, 2, 45, "Input",
+  InitializationCell->True],
+Cell[19867, 721, 129, 3, 24, "Text",
+  InitializationCell->True],
+Cell[19999, 726, 115, 2, 45, "Input",
+  InitializationCell->True],
+Cell[20117, 730, 143, 3, 24, "Text",
+  InitializationCell->True],
+Cell[20263, 735, 130, 2, 45, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[20430, 742, 37, 0, 33, "Subsubsection"],
+Cell[20470, 744, 562, 19, 82, "Text",
+  InitializationCell->True],
+Cell[21035, 765, 292, 9, 60, "Text",
+  InitializationCell->True],
+Cell[21330, 776, 352, 12, 60, "Text",
+  InitializationCell->True],
+Cell[21685, 790, 354, 11, 60, "Text",
+  InitializationCell->True],
+Cell[22042, 803, 79, 1, 52, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[22158, 809, 31, 0, 33, "Subsubsection"],
+Cell[22192, 811, 63, 1, 45, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[22292, 817, 97, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[22392, 821, 121, 2, 38, "Text",
+  Evaluatable->False],
+Cell[22516, 825, 75, 2, 38, "Text",
+  Evaluatable->False],
+Cell[22594, 829, 125, 2, 52, "Input",
+  Evaluatable->False],
+Cell[22722, 833, 211, 8, 38, "Text",
+  Evaluatable->False],
+Cell[22936, 843, 577, 23, 60, "Text",
+  Evaluatable->False],
+Cell[23516, 868, 321, 7, 82, "Text",
+  Evaluatable->False],
+Cell[23840, 877, 293, 7, 60, "Text",
+  Evaluatable->False],
+Cell[24136, 886, 942, 25, 148, "Text",
+  Evaluatable->False],
+Cell[25081, 913, 184, 5, 38, "Text",
+  Evaluatable->False],
+Cell[25268, 920, 10933, 259, 4708, "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[36250, 1185, 50, 0, 50, "Section"],
+
+Cell[CellGroupData[{
+Cell[36325, 1189, 122, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[36450, 1193, 181, 5, 60, "Text"],
+Cell[36634, 1200, 354, 8, 154, "Input",
+  InitializationCell->True],
+Cell[36991, 1210, 169, 6, 38, "Text",
+  InitializationCell->True],
+Cell[37163, 1218, 227, 10, 148, "Input",
+  InitializationCell->True],
+Cell[37393, 1230, 130, 3, 38, "Text",
+  InitializationCell->True],
+Cell[37526, 1235, 381, 11, 164, "Input",
+  InitializationCell->True],
+Cell[37910, 1248, 403, 11, 164, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[38350, 1264, 84, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[38437, 1268, 127, 3, 38, "Text",
+  InitializationCell->True],
+Cell[38567, 1273, 49, 1, 54, "Input"],
+Cell[38619, 1276, 1146, 19, 274, "Input",
+  InitializationCell->True],
+Cell[39768, 1297, 128, 3, 38, "Text",
+  InitializationCell->True],
+Cell[39899, 1302, 1166, 20, 274, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[41102, 1327, 110, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[41215, 1331, 128, 3, 38, "Text",
+  InitializationCell->True],
+Cell[41346, 1336, 60, 1, 52, "Input",
+  InitializationCell->True],
+Cell[41409, 1339, 883, 16, 281, "Input",
+  InitializationCell->True],
+Cell[42295, 1357, 129, 3, 38, "Text",
+  InitializationCell->True],
+Cell[42427, 1362, 895, 16, 281, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[43359, 1383, 53, 0, 33, "Subsubsection"],
+Cell[43415, 1385, 86, 1, 38, "Text"],
+Cell[43504, 1388, 164, 4, 74, "Input",
+  InitializationCell->True],
+Cell[43671, 1394, 91, 1, 38, "Text"],
+Cell[43765, 1397, 570, 10, 114, "Input",
+  InitializationCell->True],
+Cell[44338, 1409, 190, 9, 38, "Text"],
+Cell[44531, 1420, 317, 6, 174, "Input",
+  InitializationCell->True],
+Cell[44851, 1428, 159, 7, 38, "Text"],
+Cell[45013, 1437, 287, 5, 157, "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[45349, 1448, 25, 0, 50, "Section"],
+
+Cell[CellGroupData[{
+Cell[45399, 1452, 88, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[45490, 1456, 118, 3, 38, "Text",
+  InitializationCell->True],
+Cell[45611, 1461, 122, 2, 52, "Input",
+  InitializationCell->True],
+Cell[45736, 1465, 122, 3, 38, "Text",
+  InitializationCell->True],
+Cell[45861, 1470, 123, 2, 52, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[46021, 1477, 117, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[46141, 1481, 817, 14, 143, "Input",
+  InitializationCell->True],
+Cell[46961, 1497, 817, 14, 143, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[47815, 1516, 117, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[47935, 1520, 249, 6, 84, "Input",
+  InitializationCell->True],
+Cell[48187, 1528, 249, 6, 84, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[48473, 1539, 58, 0, 33, "Subsubsection"],
+Cell[48534, 1541, 358, 12, 180, "Input",
+  InitializationCell->True],
+Cell[48895, 1555, 105, 5, 84, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[49037, 1565, 39, 0, 33, "Subsubsection"],
+Cell[49079, 1567, 373, 10, 164, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[49489, 1582, 44, 0, 33, "Subsubsection"],
+Cell[49536, 1584, 122, 2, 52, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[49695, 1591, 98, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[49796, 1595, 198, 6, 38, "Text",
+  InitializationCell->True],
+Cell[49997, 1603, 242, 6, 84, "Input",
+  InitializationCell->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[50276, 1614, 42, 0, 33, "Subsubsection"],
+Cell[50321, 1616, 140, 4, 68, "Input",
+  InitializationCell->True],
+Cell[50464, 1622, 140, 4, 68, "Input",
+  InitializationCell->True]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

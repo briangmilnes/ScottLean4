@@ -1,0 +1,852 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     10601,        578]*)
+(*NotebookOutlinePosition[     11794,        616]*)
+(*  CellTagsIndexPosition[     11750,        612]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  StyleBox["A Check List for Review of Some\nThings to Know about ",
+    FontSize->36],
+  StyleBox["Mathematica",
+    FontSize->36,
+    FontSlant->"Italic"]
+}], "Title",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontSize->20],
+
+Cell[TextData[{
+  "Notebook  last edited: ",
+  StyleBox["13 June 1998",
+    FontWeight->"Bold"]
+}], "Subsubtitle"],
+
+Cell[TextData[StyleBox[
+">>>>> SUBJECT TO REVISION<<<<<\n(More Discussion of Version 3.0 Needed) ",
+  FontSize->18]], "Subsubtitle",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontTracking->"Plain",
+  FontColor->RGBColor[1, 0, 0],
+  FontVariations->{"Underline"->False,
+  "Outline"->False,
+  "Shadow"->False}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  Notebooks"
+}], "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Concepts to be mastered", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Cells", "Subsubsection"],
+
+Cell["Save and Save As", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Cells and Cell styles", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Hierarchical organizationn", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Open and Close", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Grouping", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Editing", "Subsubsection"],
+
+Cell["Cut/Copy/Paste", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Editing Commands", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Fonts", "Input",
+  Evaluatable->False,
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  Expressions"
+}], "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "General ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  Operators"
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Function Application", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+a[b]   a@b   b // a
+Apply  ( @@ )
+Function\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Lists and Arrays", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+List    ( { } )
+Array
+Table
+Range
+
+First
+Last
+Rest
+Part    ( [[]] )
+Select
+
+Position
+MemberQ
+
+Map     ( /@ )
+Flatten
+Partition
+Sort\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Booleans", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+True
+False
+If
+And  ( && )
+Or   ( || )
+Not  ( !expr )\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Tests", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+EqualQ ( == )
+SameQ ( === )
+Less ( < ) and LessEqual  ( <= )
+IntegerQ\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Patterns", "Subsubsection",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["?Pattern", "Input",
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \("s:obj represents the pattern object obj, assigned the name s."\)], 
+  "Print"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["FullForm[x_]", "Input",
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    TagBox[
+      StyleBox[\(Pattern[x, Blank[]]\),
+        ShowSpecialCharacters->False,
+        ShowStringCharacters->True],
+      FullForm]], "Output"]
+}, Closed]],
+
+Cell["x_  x__  x___", "Input",
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["?Condition", "Input",
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \("patt /; test is a pattern which matches only if the evaluation of test \
+yields True. lhs :> rhs /; test represents a rule which applies only if the \
+evaluation of test yields True. lhs := rhs /; test is a definition to be used \
+only if test yields True."\)], "Print"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Rules", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+ReplaceAll       ( /. )
+ReplaceRepeated  ( // . )
+Rule             ( -> )
+RuleDelayed      ( :> )\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Commands Relating to Arithmetic and Algebra", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Integers", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+IntegerQ
+Mod
+Quotient
+BaseForm
+b^^ddddddddd
+IntegerDigits
+Range
+Random[Integer, {a, b}]\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Arithmetic", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Plus   ( + )
+Minus  ( - )
+Times  ( * )
+Divide ( / )
+Power  ( ^ )
+Sum
+Product
+Random\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Algebra", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Expand  and ExpandAll
+Simplify
+PowerExpand
+ComplexExpand
+Factor\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Reals", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+d.dddd
+Sqrt
+E
+Pi
+Log
+N
+ScientificForm\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Programming Constructs", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["User Defined Functions", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Named Functions", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Named functions:   f[x_] := ...", "Input",
+  AspectRatioFixed->True],
+
+Cell["Typed arguments:   f[x_List] := ... ", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Nameless Functions", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Nameless functions:   Function[ x , body  ] ", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Anonymous Functions", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["Anonymous functions:  (#^2 - 1)&  and (#2 + #1)&", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Expressions with a \"Variable\"", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["expr /. x -> a", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Pattern Matching", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+as in recursive definitions when several
+cases are needed\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Controlling Function Application", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Nest
+NestList
+
+FixedPoint
+FixedPointList
+
+Fold
+FoldList
+
+MapAt\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Flow of Control ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Assignments", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["= and :=", "Input",
+  AspectRatioFixed->True],
+
+Cell["Clear and ClearAll", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Sequencing", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+cmd ; cmd
+If
+Switch
+While
+Do
+Module
+
+Trace\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Displaying Information ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Expression Structure", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+FullForm
+Head
+Level\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["List Displays", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+ColumnForm
+MatrixForm
+TableForm \
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Graphics", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+Plot
+Plot3D
+ListPlot
+Show
+Graphics
+Point
+Line
+RasterArray\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Styles and options", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell["\<\
+PlotStyle
+PlotRange\
+\>", "Input",
+  AspectRatioFixed->True],
+
+Cell["\<\
+FullOptions
+Options\
+\>", "Input",
+  AspectRatioFixed->True]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowToolbars->{},
+CellGrouping->Automatic,
+WindowSize->{732, 553},
+WindowMargins->{{4, Automatic}, {Automatic, 1}},
+PrivateNotebookOptions->{"ColorPalette"->{RGBColor, 128}},
+ShowCellLabel->True,
+ShowCellTags->False,
+RenderingOptions->{"ObjectDithering"->True,
+"RasterDithering"->False},
+CharacterEncoding->"MacintoshAutomaticEncoding",
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00l0001804P000000_P2B?ofoo833P9F;085:0?l0@00005X0FP000003]P;J001
+0@00I00100000@0200000BL?00400000000000000000030001000000000@0?o>
+okX?AP^^0201000000000000000001T1\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 249, 9, 88, "Title",
+  Evaluatable->False],
+Cell[1961, 60, 114, 4, 58, "Subsubtitle"],
+Cell[2078, 66, 361, 11, 86, "Subsubtitle",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2464, 81, 146, 6, 53, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2635, 91, 45, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2705, 95, 30, 0, 55, "Subsubsection"],
+Cell[2738, 97, 81, 2, 52, "Input",
+  Evaluatable->False],
+Cell[2822, 101, 86, 2, 52, "Input",
+  Evaluatable->False],
+Cell[2911, 105, 91, 2, 52, "Input",
+  Evaluatable->False],
+Cell[3005, 109, 79, 2, 52, "Input",
+  Evaluatable->False],
+Cell[3087, 113, 73, 2, 52, "Input",
+  Evaluatable->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3197, 120, 32, 0, 55, "Subsubsection"],
+Cell[3232, 122, 79, 2, 52, "Input",
+  Evaluatable->False],
+Cell[3314, 126, 81, 2, 52, "Input",
+  Evaluatable->False],
+Cell[3398, 130, 70, 2, 52, "Input",
+  Evaluatable->False]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[3529, 139, 148, 6, 33, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[3702, 149, 163, 7, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[3890, 160, 93, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[3986, 164, 93, 5, 84, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4116, 174, 89, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[4208, 178, 182, 20, 324, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4427, 203, 81, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[4511, 207, 103, 8, 132, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4651, 220, 78, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[4732, 224, 120, 6, 100, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4889, 235, 105, 3, 55, "Subsubsection",
+  Evaluatable->False,
+  PageBreakAbove->True],
+
+Cell[CellGroupData[{
+Cell[5019, 242, 51, 1, 52, "Input"],
+Cell[5073, 245, 99, 2, 46, "Print"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5209, 252, 55, 1, 46, "Input"],
+Cell[5267, 255, 168, 5, 51, "Output"]
+}, Closed]],
+Cell[5450, 263, 56, 1, 46, "Input"],
+
+Cell[CellGroupData[{
+Cell[5531, 268, 53, 1, 52, "Input"],
+Cell[5587, 271, 291, 4, 106, "Print"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5927, 281, 78, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[6008, 285, 148, 6, 100, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6205, 297, 113, 2, 34, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[6343, 303, 81, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[6427, 307, 138, 10, 164, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6602, 322, 83, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[6688, 326, 134, 10, 152, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[6859, 341, 80, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[6942, 345, 114, 7, 107, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7093, 357, 78, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[7174, 361, 88, 9, 137, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7323, 377, 89, 2, 33, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[7437, 383, 92, 2, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[7554, 389, 88, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[7645, 393, 74, 1, 47, "Input"],
+Cell[7722, 396, 79, 1, 47, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7838, 402, 91, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[7932, 406, 87, 1, 47, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8056, 412, 92, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[8151, 416, 91, 1, 47, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8279, 422, 104, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[8386, 426, 57, 1, 47, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8480, 432, 89, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[8572, 436, 108, 4, 62, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8717, 445, 105, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[8825, 449, 113, 12, 182, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8987, 467, 86, 2, 34, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[9098, 473, 84, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[9185, 477, 51, 1, 52, "Input"],
+Cell[9239, 480, 61, 1, 52, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9337, 486, 83, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[9423, 490, 93, 10, 164, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9565, 506, 93, 2, 34, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[9683, 512, 93, 2, 55, "Subsubsection",
+  Evaluatable->False],
+Cell[9779, 516, 70, 5, 77, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9886, 526, 86, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[9975, 530, 83, 5, 77, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10095, 540, 81, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[10179, 544, 108, 10, 152, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10324, 559, 91, 2, 33, "Subsubsection",
+  Evaluatable->False],
+Cell[10418, 563, 70, 4, 68, "Input"],
+Cell[10491, 569, 70, 4, 68, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

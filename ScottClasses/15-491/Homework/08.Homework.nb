@@ -1,0 +1,712 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     14340,        576]*)
+(*NotebookOutlinePosition[     15336,        610]*)
+(*  CellTagsIndexPosition[     15292,        606]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 8   Projective Geometry\n",
+  StyleBox["Homework",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it.\nName the file: 08.UserName.nb\n\
+Please hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Monday, 19 October",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[".\nSave it in your subdirectory of\nthe class handin directory.",
+    FontSize->12,
+    FontWeight->"Bold"]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[StyleBox["Name: xxxxxxxxx",
+  FontSize->16]], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "1. The symmetry of polydifferentiation ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Assume that ",
+  Cell[BoxData[
+      StyleBox[\(i\_1 + j\_1 + k\_1 \[GreaterEqual] i\_2 + j\_2 + k\_2\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " (as the opposite case is analogous).  Find a ",
+  StyleBox["general formula",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for the result of applying ",
+  Cell[BoxData[
+      StyleBox["PD",
+        FontWeight->"Bold"]]],
+  " to ",
+  StyleBox["monomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that will be more or less of the form\n\t ",
+  Cell[BoxData[
+      \(PD[x\^i\_1\ y\^j\_1\ z\^k\_1, u\^i\_2\ v\^j\_2\ w\^k\_2] == 
+        \(i\_1!\)\ \(j\_1!\)\ \(k\_1!\) (\)], "Input",
+    Background->None],
+  ".....)."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint.  ",
+    FontWeight->"Bold"],
+  "Perhaps a ",
+  StyleBox["conditional expression",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is needed as well, in case the answer is ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2. ",
+    FontWeight->"Bold"],
+  StyleBox["Verify",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the formula for the cases of ",
+  Cell[BoxData[
+      StyleBox[\(Bxyz[5]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and ",
+  Cell[BoxData[
+      StyleBox[\(Buvw[3]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.",
+    FontWeight->"Bold"],
+  " Use the formula to argue again that in computing ",
+  Cell[BoxData[
+      StyleBox[\(PD[f, g]\),
+        FontWeight->"Bold"]]],
+  ", when the degrees of the two homogeneous polynomials are ",
+  StyleBox["the same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", it does not matter which polynomial we take as the differential \
+operator."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "2. Euler's Theorem ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  " Prove the result in the way it is usually stated: \n",
+  StyleBox["Euler's Theorem.",
+    FontWeight->"Bold"],
+  " For ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " a homogeneous ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial of degree ",
+  Cell[BoxData[
+      StyleBox["n",
+        FontWeight->"Bold"]]],
+  ", if ",
+  Cell[BoxData[
+      StyleBox[\(m \[LessEqual] n\),
+        FontWeight->"Bold"]]],
+  ", we have\n\t",
+  Cell[BoxData[
+      StyleBox[
+        \(PD[f, \((a\ u + b\ v + c\ w)\)\^m] /. {a \[Rule] x, b \[Rule] y, 
+              c \[Rule] z} == \(\(n!\)\ f\)\/\(\((n - m)\)!\)\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Verify the formula in three special cases."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "3. Leibniz' Rule ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Prove the result that tells us how to differentiate a ",
+  StyleBox["product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " many times by a first-degree operator:\n",
+  StyleBox["Leibniz' Theorem",
+    FontWeight->"Bold"],
+  ".  If ",
+  Cell[BoxData[
+      StyleBox[\(n \[LessEqual] DegP[f\_1\ f\_2]\),
+        FontWeight->"Bold"]]],
+  "  and ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(DegP[g] == 1\),
+        FontWeight->"Bold"]]],
+  ",  then \n",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{
+          RowBox[{"PD", "[", 
+            RowBox[{
+              RowBox[{
+                SubscriptBox[
+                  StyleBox["f",
+                    FontWeight->"Bold"], "1"], 
+                StyleBox[" ",
+                  FontWeight->"Bold"], 
+                SubscriptBox[
+                  StyleBox["f",
+                    FontWeight->"Bold"], "2"]}], 
+              StyleBox[",",
+                FontWeight->"Bold"], 
+              StyleBox[\(g\^n\),
+                FontWeight->"Bold"]}], "]"}], "==", 
+          RowBox[{
+          \(\[Sum]\+\(k = Max[0, n - DegP[f\_2]]\)\%\(Min[n, DegP[f\_1]]
+                  \)\), 
+            RowBox[{
+              FormBox[
+                TagBox[
+                  RowBox[{"(", GridBox[{
+                        {"n"},
+                        {"k"}
+                        }], ")"}],
+                  Binomial,
+                  Editable->False],
+                "TraditionalForm"], 
+              RowBox[{"PD", "[", 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["f",
+                      FontWeight->"Bold"], "1"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  StyleBox[\(g\^k\),
+                    FontWeight->"Bold"]}], "]"}], " ", 
+              RowBox[{"PD", "[", 
+                RowBox[{
+                  SubscriptBox[
+                    StyleBox["f",
+                      FontWeight->"Bold"], "2"], 
+                  StyleBox[",",
+                    FontWeight->"Bold"], 
+                  StyleBox[\(g\^\(n - k\)\),
+                    FontWeight->"Bold"]}], "]"}]}]}]}],
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Verify the formula in three special cases."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "4. Expressing monomials by powers ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Show that the polynomial ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a square of any linear ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial, but it is the ",
+  StyleBox["sum",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of two squares. "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint.  ",
+    FontWeight->"Bold"],
+  "Note that the ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  "th powers of linear polynomials are closed under ",
+  StyleBox["scalar multiplication",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". (Why?)  So in considering vector subspaces generated by ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  "th powers we can often just think of sums of ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  "th powers.  So check out",
+  Cell[BoxData[
+      \(\((x + y)\)\^2 \[PlusMinus] \((x - y)\)\^2\)],
+    FontWeight->"Bold"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2  ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "Show that the polynomial ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a cube of any linear ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial, but it is the ",
+  StyleBox["sum",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of  ",
+  StyleBox["four",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " cubes. "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint.  ",
+    FontWeight->"Bold"],
+  "Check out",
+  Cell[BoxData[
+      \(\(\(\((x - y - z)\)\^3 \[PlusMinus] \((x + y - z)\)\^3\) \[PlusMinus] 
+          \((x - y + z)\)\^3\) \[PlusMinus] \((x + y + z)\)\^3\)],
+    FontWeight->"Bold"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3  ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.  ",
+    FontWeight->"Bold"],
+  "Show that the polynomial ",
+  Cell[BoxData[
+      StyleBox[\(x\ y\ z\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the sum of  ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " cubes. "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint.",
+    FontWeight->"Bold"],
+  "  Two lines intersect at a point."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Working",
+WindowToolbars->{},
+WindowSize->{785, 548},
+WindowMargins->{{173, Automatic}, {Automatic, 191}},
+PrivateNotebookOptions->{"ColorPalette"->{RGBColor, 128}},
+ShowCellLabel->True,
+ShowCellTags->False,
+RenderingOptions->{"ObjectDithering"->True,
+"RasterDithering"->False},
+CharacterEncoding->"MacintoshAutomaticEncoding",
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 177, 7, 73, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1889, 58, 99, 2, 28, "Text"],
+Cell[1991, 62, 446, 14, 120, "Subsubtitle"],
+Cell[2440, 78, 74, 1, 60, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2539, 83, 187, 6, 46, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2751, 93, 113, 4, 37, "Subsubsection"],
+Cell[2867, 99, 835, 28, 92, "Text"],
+Cell[3705, 129, 331, 13, 44, "Text"]
+}, Closed]],
+Cell[4051, 145, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[4213, 152, 113, 4, 37, "Subsubsection"],
+Cell[4329, 158, 426, 18, 44, "Text"]
+}, Closed]],
+Cell[4770, 179, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[4932, 186, 112, 4, 37, "Subsubsection"],
+Cell[5047, 192, 462, 14, 62, "Text"]
+}, Closed]],
+Cell[5524, 209, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5698, 217, 167, 6, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[5890, 227, 113, 4, 37, "Subsubsection"],
+Cell[6006, 233, 787, 29, 109, "Text"]
+}, Closed]],
+Cell[6808, 265, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[6970, 272, 112, 4, 37, "Subsubsection"],
+Cell[7085, 278, 160, 5, 44, "Text"]
+}, Closed]],
+Cell[7260, 286, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7434, 294, 165, 6, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[7624, 304, 113, 4, 37, "Subsubsection"],
+Cell[7740, 310, 2327, 73, 119, "Text"]
+}, Closed]],
+Cell[10082, 386, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[10244, 393, 112, 4, 37, "Subsubsection"],
+Cell[10359, 399, 160, 5, 44, "Text"]
+}, Closed]],
+Cell[10534, 407, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10708, 415, 182, 6, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[10915, 425, 112, 4, 37, "Subsubsection"],
+Cell[11030, 431, 490, 20, 44, "Text"],
+Cell[11523, 453, 638, 22, 62, "Text"]
+}, Closed]],
+Cell[12176, 478, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[12338, 485, 114, 4, 37, "Subsubsection"],
+Cell[12455, 491, 562, 24, 44, "Text"],
+Cell[13020, 517, 315, 10, 44, "Text"]
+}, Closed]],
+Cell[13350, 530, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[13512, 537, 114, 4, 37, "Subsubsection"],
+Cell[13629, 543, 397, 17, 44, "Text"],
+Cell[14029, 562, 143, 5, 44, "Text"]
+}, Closed]],
+Cell[14187, 570, 137, 3, 37, "Subsubsection"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

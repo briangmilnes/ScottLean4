@@ -1,0 +1,548 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     11548,        440]*)
+(*NotebookOutlinePosition[     12475,        470]*)
+(*  CellTagsIndexPosition[     12431,        466]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 3   Projective Geometry\n",
+  StyleBox["Homework 3",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it\nName the file: 03.Homework.nb\n\
+Please hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Monday, 14 September",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[" \nSave it in your subdirectory of\nthe class handin directory ",
+    FontSize->12,
+    FontWeight->"Bold"]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["Name: xxxxxxxxx", "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "1. Areas of polygons ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Can you find a neat formula for the ",
+  StyleBox["area",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a general quadralateral?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["Here is an example to think about:", "Text"],
+
+Cell[BoxData[
+    \({AA, BB, CC, DD} = {{5, 1}, {7, 4}, {2, 7}, {1, 2}}\)], "Input"],
+
+Cell[BoxData[
+    \(\(Show[
+      Graphics[{AbsoluteThickness[2.1], \n\t\t\tLine[{{0, 0}, {5, 1}}], \n
+          \t\t\tLine[{{0, 0}, {7, 4}}], \n\t\t\tLine[{{0, 0}, {2, 7}}], \n
+          \t\t\tLine[{{0, 0}, {1, 2}}]}], \n\t
+      Graphics[{AbsoluteThickness[2.1], RGBColor[1, 0, 0], 
+          Line[{{5, 1}, {7, 4}, {2, 7}, {1, 2}, {5, 1}}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{5, 1}], 
+          Text["\<AA\>", {5 +  .55, 1 -  .25}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{7, 4}], 
+          Text["\<BB\>", {7 +  .55, 4 +  .25}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{2, 7}], 
+          Text["\<CC\>", {2 -  .55, 7 +  .25}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{1, 2}], 
+          Text["\<DD\>", {1.55, 2.25}]}], \n\tAxes \[Rule] Automatic, \n\t
+      AspectRatio \[Rule] Automatic, \n\tPlotRange \[Rule] {{0, 8}, {0, 8}}]; 
+    \)\)], "Input",
+  FontSize->12]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "After finding a formula you are satisfied with, can you then ",
+  StyleBox["interpret it",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " geometrically with respect to a quadralateral such as the following?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \({AA, BB, CC, DD} = {{5, 1}, {7, 4}, {1, 2}, {2, 7}}\)], "Input"],
+
+Cell[BoxData[
+    \(\(Show[
+      Graphics[{AbsoluteThickness[2.1], \n\t\t\tLine[{{0, 0}, {5, 1}}], \n
+          \t\t\tLine[{{0, 0}, {7, 4}}], \n\t\t\tLine[{{0, 0}, {2, 7}}], \n
+          \t\t\tLine[{{0, 0}, {1, 2}}]}], \n\t
+      Graphics[{AbsoluteThickness[2.1], RGBColor[1, 0, 0], 
+          Line[{{5, 1}, {7, 4}, {1, 2}, {2, 7}, {5, 1}}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{5, 1}], 
+          Text["\<AA\>", {5 +  .55, 1 -  .25}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{7, 4}], 
+          Text["\<BB\>", {7 +  .55, 4 +  .25}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{1, 2}], 
+          Text["\<CC\>", {1.55, 2.25}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{2, 7}], 
+          Text["\<DD\>", {2 -  .55, 7 +  .25}]}], \n\tAxes \[Rule] Automatic, 
+      \n\tAspectRatio \[Rule] Automatic, \n\t
+      PlotRange \[Rule] {{0, 8}, {0, 8}}]; \)\)], "Input",
+  FontSize->12]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "2. Projective points and lines ",
+  StyleBox["[45 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  " Are the following four projective points collinear?  If so, on which line \
+do they lie?  If not, how many lines join these points?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+p1 = 3 u - 2 v - 2 w;
+p2 = 3 u - v + 11 w;
+p3 = u - v - 5 w;
+p4 = 3 u + 2 v - w;\
+\>", "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  " Is it possible to express every  point on the projective line through the \
+two distinct projective points  ",
+  Cell[BoxData[
+      StyleBox[\(point\_1\),
+        FontWeight->"Bold"]]],
+  " ,  ",
+  Cell[BoxData[
+      StyleBox[\(point\_2\),
+        FontWeight->"Bold"]]],
+  "  in the form \n                       ",
+  Cell[BoxData[
+      StyleBox[\(\((1 - t)\)\ point\_1 + t\ point\_2\),
+        FontWeight->"Bold"]]],
+  ", \nfor some  ",
+  StyleBox["t", "InlineInput"],
+  " ?  \nIf not, which are the ",
+  StyleBox["\"inexpressible\"",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points on this line?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3. ",
+    FontWeight->"Bold"],
+  " Consider the three lines\n",
+  StyleBox["\t",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(L1 = 3\ x - 2\ y\),
+        FontWeight->"Bold"]]],
+  StyleBox[";\n\t",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(L2 = x - y + 2\ z\),
+        FontWeight->"Bold"]]],
+  StyleBox[";\n\t",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(L3 = 3\ x - y + a\ z\),
+        FontWeight->"Bold"]]],
+  StyleBox[";\n",
+    FontWeight->"Bold"],
+  "Can we find the value of parameter  ",
+  StyleBox["a", "InlineInput",
+    FontWeight->"Bold"],
+  "  such that the lines  ",
+  StyleBox["L1", "InlineInput",
+    FontWeight->"Bold"],
+  ",  ",
+  StyleBox["L2", "InlineInput",
+    FontWeight->"Bold"],
+  "  and  ",
+  StyleBox["L3", "InlineInput",
+    FontWeight->"Bold"],
+  "  are ",
+  StyleBox["concurrent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ? "
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "3. Projections between lines  ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 1.",
+  StyleBox["  Choose a",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      \(a\ u + b\ v + c\ w\)]],
+  ".  ",
+  StyleBox["Note that the points on the",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-",
+  StyleBox["axis",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["have",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["the form ",
+    FontWeight->"Plain"],
+  " ",
+  Cell[BoxData[
+      \(d\ v + e\ w\)]],
+  ".  ",
+  StyleBox["What is the ",
+    FontWeight->"Plain"],
+  StyleBox["formula",
+    FontSlant->"Italic"],
+  StyleBox[" for the result of projecting the point ",
+    FontWeight->"Plain"],
+  " ",
+  Cell[BoxData[
+      \(d\ v + e\ w\)]],
+  StyleBox[" onto the ",
+    FontWeight->"Plain"],
+  "x",
+  StyleBox["-axis ",
+    FontWeight->"Plain"],
+  StyleBox["via",
+    FontSlant->"Italic"],
+  StyleBox[" the given center?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 2.",
+  StyleBox["  Choose",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["another",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      \(a\_1\ u + b\_1\ v + c\_1\ w\)]],
+  ".  ",
+  StyleBox["What is the ",
+    FontWeight->"Plain"],
+  StyleBox["formula",
+    FontSlant->"Italic"],
+  StyleBox[" for the result of projecting ",
+    FontWeight->"Plain"],
+  StyleBox["back",
+    FontSlant->"Italic"],
+  StyleBox[" onto the ",
+    FontWeight->"Plain"],
+  "y",
+  StyleBox["-axis via the new center?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{781, 552},
+WindowMargins->{{4, Automatic}, {Automatic, 1}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00X0005X0FP000003W0;@?oCojH?B`^J89L5:0?l0000005X0FP000003W0;@05X
+0N0;@00400P00000020002L?00410@00000000000000000000X1T0<]WX20501T
+@TYCE`0000000@00om?oYPm;2iX00000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 179, 7, 68, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1891, 58, 99, 2, 28, "Text"],
+Cell[1993, 62, 447, 14, 120, "Subsubtitle"],
+Cell[2443, 78, 38, 0, 58, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2506, 82, 120, 4, 43, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2651, 90, 113, 4, 52, "Subsubsection"],
+Cell[2767, 96, 257, 9, 54, "Text"],
+Cell[3027, 107, 50, 0, 38, "Text"],
+Cell[3080, 109, 84, 1, 54, "Input"],
+Cell[3167, 112, 920, 17, 308, "Input"]
+}, Closed]],
+Cell[4102, 132, 137, 3, 29, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[4264, 139, 113, 4, 52, "Subsubsection"],
+Cell[4380, 145, 331, 9, 76, "Text"],
+Cell[4714, 156, 84, 1, 54, "Input"],
+Cell[4801, 159, 922, 17, 308, "Input"]
+}, Closed]],
+Cell[5738, 179, 137, 3, 29, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5912, 187, 130, 4, 27, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[6067, 195, 113, 4, 52, "Subsubsection"],
+Cell[6183, 201, 248, 6, 76, "Text"],
+Cell[6434, 209, 105, 5, 100, "Input"]
+}, Closed]],
+Cell[6554, 217, 137, 3, 29, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[6716, 224, 113, 4, 52, "Subsubsection"],
+Cell[6832, 230, 730, 24, 172, "Text"]
+}, Closed]],
+Cell[7577, 257, 137, 3, 29, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[7739, 264, 113, 4, 52, "Subsubsection"],
+Cell[7855, 270, 992, 39, 204, "Text"]
+}, Closed]],
+Cell[8862, 312, 137, 3, 29, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9036, 320, 129, 4, 27, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[9190, 328, 113, 4, 52, "Subsubsection"],
+Cell[9306, 334, 1063, 50, 99, "Text"]
+}, Closed]],
+Cell[10384, 387, 137, 3, 29, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[10546, 394, 113, 4, 52, "Subsubsection"],
+Cell[10662, 400, 718, 31, 76, "Text"]
+}, Closed]],
+Cell[11395, 434, 137, 3, 29, "Subsubsection"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

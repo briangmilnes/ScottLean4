@@ -1,0 +1,725 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15343,        600]*)
+(*NotebookOutlinePosition[     16270,        630]*)
+(*  CellTagsIndexPosition[     16226,        626]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 11   Projective Geometry\n",
+  StyleBox["Homework",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it.\nName the file: \
+11.yourlastname.nb\nPlease hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Monday, 9 November",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[".\nSave it in your subdirectory of\nthe class handin directory.",
+    FontSize->12,
+    FontWeight->"Bold"]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[StyleBox["Name: xxxxxxxxx",
+  FontSize->16]], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "1. Self-polar triangles ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Explain why if a (non-degenerate) triangle is self-polar with respect to \
+a (non-degenerate) conic, then any ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " vertices uniquely determine the ",
+  StyleBox["third",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Prove that if ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " triangles are ",
+  StyleBox["self-polar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to a conic, then their vertices lie on ",
+  StyleBox["another conic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Find some ",
+  StyleBox["formulas",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if possible."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.",
+    FontWeight->"Bold"],
+  "  Explain why if a triangle is self-polar with respect to a conic, the ",
+  StyleBox["trilateral",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " it determines is ",
+  StyleBox["dually self-polar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to the dual conic that envelops the given conic.  Draw a ",
+  StyleBox["conclusion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from the hypothesis of Question 2 by duality."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "2. Two polarities by two conics ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Prove that if a point varies along a line, then the intersection of the \
+polars of the point with respect to ",
+  StyleBox["two conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " sweeps out a third conic."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Consider two non-degenerate, non-tangent conics.  Prove that the ",
+  StyleBox["projective transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " defined by taking a polar with respect to the first conic and a pole with \
+respect to the second maps four points of the first conic onto four points of \
+the second, but ",
+  StyleBox["does not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " map the first conic completely onto the second."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint:",
+    FontWeight->"Bold"],
+  "  Two conics generally have ",
+  StyleBox["four tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in common.  (Why?)"
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "3. Parameterization by crossratio ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Consider the unit circle and think of the points \n\t\t",
+  Cell[BoxData[
+      StyleBox[\({p, q, r} = {v + w, \(-v\) + w, u + w}\),
+        FontWeight->"Bold"]]],
+  "\nas corresponding to ",
+  Cell[BoxData[
+      StyleBox[\({\[Infinity], 0, 1}\),
+        FontWeight->"Bold"]]],
+  ".  If we determine a fourth point on the circle as a function of a \
+crossratio ",
+  Cell[BoxData[
+      StyleBox["a",
+        FontWeight->"Bold"]]],
+  " (or of ",
+  Cell[BoxData[
+      StyleBox[\({a, b}\),
+        FontWeight->"Bold"]]],
+  " in homogeneous form), what kind of parameterization of the circle do we \
+get?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Take the point ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["k",
+          FontWeight->"Bold"], 
+        StyleBox["=",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox[
+            RowBox[{"2", 
+              StyleBox["u",
+                FontWeight->"Bold"]}],
+            FontWeight->"Bold"], 
+          StyleBox["+",
+            FontWeight->"Bold"], 
+          StyleBox[\(3\ v\),
+            FontWeight->"Bold"], 
+          StyleBox["+",
+            FontWeight->"Bold"], 
+          StyleBox["w",
+            FontWeight->"Bold"]}]}]]],
+  " and perform the ",
+  StyleBox["involution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the unit circle using the rays through the center ",
+  Cell[BoxData[
+      StyleBox["k",
+        FontWeight->"Bold"]]],
+  " to determine the corresponding points.  In terms of the parameterization \
+in the answer to Question 1, find a ",
+  StyleBox["formula ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "for this involution.  Then project the point on the circle back to the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.   ",
+  StyleBox["Draw a picture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to illustrate the connections."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "4. Involutions on a conic ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  [A problem taken from a book.]  Let ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " be ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " fixed points ",
+  StyleBox["not on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the non-degenerate conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ".  Consider a variable line passing through ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " intersecting the conic at points ",
+  Cell[BoxData[
+      StyleBox[\(s\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(s\_2\),
+        FontWeight->"Bold"]]],
+  ".  If these points are joined by lines to the fixed point ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  ", then two additional points ",
+  Cell[BoxData[
+      StyleBox[\(t\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(t\_2\),
+        FontWeight->"Bold"]]],
+  " of the conic are determined.   Prove that the line joining points ",
+  Cell[BoxData[
+      StyleBox[\(t\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(t\_2\),
+        FontWeight->"Bold"]]],
+  " always passes through a ",
+  StyleBox["third",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " fixed point ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint:",
+    FontWeight->"Bold"],
+  "  This can be proved nicely by symbolic computation (especially by \
+choosing the conic and some of the points in special position).  However, if \
+you can quote the right theorem, then this can be proved without any \
+computation."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  [Another problem taken from a book.]  Let ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " be a fixed point ",
+  StyleBox["not on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the non-degenerate conic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  ".  Take four ",
+  StyleBox["non-tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " lines passing through ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " each intersecting the conic at two points ",
+  Cell[BoxData[
+      StyleBox[\(q\_i\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(r\_i\),
+        FontWeight->"Bold"]]],
+  ".  Prove that the two conics determined by ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["{",
+          FontWeight->"Bold"], 
+        RowBox[{
+          StyleBox["p",
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          StyleBox[\(q\_1\),
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          StyleBox[\(q\_2\),
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          StyleBox[\(q\_3\),
+            FontWeight->"Bold"], 
+          StyleBox[",",
+            FontWeight->"Bold"], 
+          StyleBox[\(q\_4\),
+            FontWeight->"Bold"]}], 
+        StyleBox["}",
+          FontWeight->"Bold"]}]]],
+  " and by ",
+  Cell[BoxData[
+      StyleBox[\({p, r\_1, r\_2, r\_3, r\_4}\),
+        FontWeight->"Bold"]]],
+  " are ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint:",
+    FontWeight->"Bold"],
+  "  A center like ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " determines an ",
+  StyleBox["involution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the conic.  A projective correspondence on a conic determines a unique \
+",
+  StyleBox["projective transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the whole plane onto itself.  Given five distinct points on a conic, \
+one ought to be able to calculate something ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " crossratios to determine the ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at one of the points."
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{783, 554},
+WindowMargins->{{Automatic, 5}, {Automatic, 1}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00<0001804P000000]P2:?oQon82n@960dL5:0?l0080001804P000000]P2:001
+0000I00000400`<300000BL?00400@0000000000000006P801T1T00000000000
+00000000000000000000000000000000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 178, 7, 68, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1890, 58, 99, 2, 28, "Text"],
+Cell[1992, 62, 450, 14, 120, "Subsubtitle"],
+Cell[2445, 78, 74, 1, 58, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2544, 83, 172, 6, 43, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2741, 93, 112, 4, 35, "Subsubsection"],
+Cell[2856, 99, 412, 14, 76, "Text"]
+}, Closed]],
+Cell[3283, 116, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[3445, 123, 113, 4, 35, "Subsubsection"],
+Cell[3561, 129, 544, 21, 76, "Text"]
+}, Closed]],
+Cell[4120, 153, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[4282, 160, 112, 4, 35, "Subsubsection"],
+Cell[4397, 166, 572, 17, 99, "Text"]
+}, Closed]],
+Cell[4984, 186, 137, 3, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[5158, 194, 180, 6, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[5363, 204, 113, 4, 35, "Subsubsection"],
+Cell[5479, 210, 335, 10, 76, "Text"]
+}, Closed]],
+Cell[5829, 223, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[5991, 230, 113, 4, 35, "Subsubsection"],
+Cell[6107, 236, 579, 15, 121, "Text"],
+Cell[6689, 253, 241, 9, 54, "Text"]
+}, Closed]],
+Cell[6945, 265, 137, 3, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7119, 273, 182, 6, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[7326, 283, 113, 4, 35, "Subsubsection"],
+Cell[7442, 289, 720, 23, 163, "Text"]
+}, Closed]],
+Cell[8177, 315, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[8339, 322, 113, 4, 35, "Subsubsection"],
+Cell[8455, 328, 1343, 46, 144, "Text"]
+}, Closed]],
+Cell[9813, 377, 137, 3, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9987, 385, 174, 6, 27, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[10186, 395, 113, 4, 35, "Subsubsection"],
+Cell[10302, 401, 1622, 65, 144, "Text"],
+Cell[11927, 468, 341, 8, 99, "Text"]
+}, Closed]],
+Cell[12283, 479, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[12445, 486, 113, 4, 35, "Subsubsection"],
+Cell[12561, 492, 1844, 71, 121, "Text"],
+Cell[14408, 565, 767, 26, 121, "Text"]
+}, Closed]],
+Cell[15190, 594, 137, 3, 27, "Subsubsection"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

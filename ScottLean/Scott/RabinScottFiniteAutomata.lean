@@ -59,7 +59,10 @@ theorem DFA.run_append {S Sigma : Type} (A : DFA S Sigma) (s : S) :
   intro x
   induction x generalizing s with
   | nil => intro y; rfl
-  | cons u xs ih => intro y; simpa using ih (A.M s u) y
+  | cons u xs ih =>
+      intro y
+      simp only [List.cons_append, DFA.run]
+      exact ih (A.M s u) y
 
 /-! ## Definition 2. The set of tapes accepted by a DFA
 
@@ -144,7 +147,7 @@ theorem NFA.run_determinize {S Sigma : Type} (A : NFA S Sigma) :
 theorem NFA.subset_construction_correct {S Sigma : Type} (A : NFA S Sigma)
     (x : List Sigma) :
     (A.determinize).accepts x ↔ A.accepts x := by
-  unfold DFA.accepts DFA.Mext NFA.accepts NFA.determinize
+  unfold DFA.accepts DFA.Mext NFA.accepts
   rw [NFA.run_determinize]
   rfl
 

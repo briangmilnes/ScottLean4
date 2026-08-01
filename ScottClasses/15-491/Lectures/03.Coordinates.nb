@@ -1,0 +1,4368 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[    128307,       3894]*)
+(*NotebookOutlinePosition[    129475,       3931]*)
+(*  CellTagsIndexPosition[    129431,       3927]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 3   Projective Geometry",
+  StyleBox["\nHomogeneous coordinates",
+    FontSize->18]
+}], "Title"],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->18,
+    FontWeight->"Bold"],
+  StyleBox["\n\nNotebook  last edited: ",
+    FontSize->18],
+  StyleBox["11 September 1998",
+    FontSize->18,
+    FontWeight->"Bold"]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["Homogeneous Coordinates for Points and Lines", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Projecting points and lines", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["An example of a projection between planes", "Subsubsection"],
+
+Cell[TextData[{
+  "In 3D space let us consider the two planes ",
+  StyleBox["z==0", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "(",
+  StyleBox["i.e.",
+    FontSlant->"Italic"],
+  ", the ",
+  StyleBox["x,y",
+    FontWeight->"Bold"],
+  "-plane) and ",
+  StyleBox["x==0", "InlineInput"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "(",
+  StyleBox["i.e.",
+    FontSlant->"Italic"],
+  ", the ",
+  StyleBox["y,z",
+    FontWeight->"Bold"],
+  "-plane).  These two (coordinate) planes are ",
+  StyleBox["orthogonal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to each other, and they pass through the origin ",
+  StyleBox["{0,0,0}", "InlineInput"],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  " "
+}], "Text"],
+
+Cell[TextData[{
+  "Using the point ",
+  StyleBox["P=={1,1,1}", "InlineInput"],
+  " (which does not lie on either of the two planes) as the ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a projection, we wish to find the formula for the ",
+  StyleBox["transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that maps the \"ground\" plane ",
+  StyleBox["z==0", "InlineInput",
+    FontWeight->"Bold"],
+  " to the \"canvas\" plane ",
+  StyleBox["x==0", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "In ",
+  StyleBox["cross-section",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " along the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "- and ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  "-axes, the projection looks like this:"
+}], "Text"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .52941  
+MathPictureStart
+%% Graphics
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.588235 0.0588235 0.294118 0.0588235 [
+[ 0 0 0 0 ]
+[ 1 .52941  0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+[ ] 0 setdash
+0 g
+p
+P
+0 0 m
+1 0 L
+1 .52941  L
+0 .52941  L
+closepath
+clip
+newpath
+p
+p
+2 Mabswid
+s
+.58824  0 m
+.58824  .52941  L
+s
+s
+.58824  .52941  m
+.58824  0 L
+s
+s
+0 .29412  m
+0 0 rlineto
+1 .29412  m
+0 .29412  L
+s
+s
+P
+p
+8 Mabswid
+.29412  .29412  Mdot
+[(A)] .32647  .27647  0 0 Mshowa
+P
+p
+8 Mabswid
+.47059  .29412  Mdot
+[(B)] .50294  .27647  0 0 Mshowa
+P
+p
+8 Mabswid
+.61765  .29412  Mdot
+[(C)] .65  .27647  0 0 Mshowa
+P
+p
+8 Mabswid
+.64706  .35294  Mdot
+[(P)] .61471  .36765  0 0 Mshowa
+P
+p
+1 0 0 r
+2 Mabswid
+1 .41176  m
+0 0 rlineto
+0 .2451  m
+1 .41176  L
+s
+s
+.82353  .41176  m
+0 0 rlineto
+0 .13725  m
+.82353  .41176  L
+s
+s
+.67647  .41176  m
+.5  .05882  L
+s
+P
+P
+% End of Graphics
+MathPictureEnd\
+\>"], "Graphics",
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  ImageSize->{454, 239},
+  ImageMargins->{{0, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40008g0001:PP10`4000010?ooooooc140000c<`2I
+oc<0VC>I<c?oofIVVC/k>gYjN[Vi^OShn03ooeGooj[ooa4A4@00R280000cIP3<03<0c3>IIVH00?oo
+ZSlo?ginO[fm_Oclo5D00:X00?l0028R8P00ZT@0000cV@3<<c<0oc>IVFH0<`<30d92@X61PL30`000
+EED0EJX0EOl0EDA4A000^eD0000cc03<IS<c03>Ic6H0IPL71dI6AXF5QLC4a000ZUD0ZZX0Z_l0ZUEE
+E@00gGL0000co`3<VC<c<c>IofH0V@/;2dY:BXV9RLS8b000oeD0ojX0ool0ogMgM`00kXP0001V003<
+c3<cIS?<06H0c0l?3di>CXf=SLc<c01E05EE0:YE0?mE08R8R00A0:X0001V<`3<oc<cVC?<<fH0oa<C
+4e9BDY6ATM3@d01EEEEEEJYEEOmEEJZZZP0R0;/0001VIP3o03<cc3?<IVHc01LG5eIFEYFEUMCDe01E
+ZUEEZZYEZ_mEZ[^k^`140=d0001VV@3o<c<coc?<VFHc<a/K6eYJFYVIVMSHf01EoeEEojYEoomEomgM
+g@1E0>h0001Vc03oIS=V03?<c6HcIQlO7eiNGYfMWMcLg02Z05FZ0:ZZ0?nZ0>k^kP1g0000<`1Vo`3o
+VC=V<c?<ofHcVB<S8f9RHZ6QXN3Ph02ZEEFZEJZZEOnZE@004@280000IP2I003oc3=VIS?o06Hcc2LW
+9fIVIZFUYNCTi02ZZUFZZZZZZ_nZZP008P2Z0000V@2I<`3ooc=VVC?o<fHcob/[:fYZJZVYZNSXj02Z
+oeFZojZZoonZo`00A02k0000c02IIS<003=Vc3?oIVIV02l_;fi^KZf][Nc/k03o05Go0:[o0?oo0000
+E@3M0000o`2IVC<0<c=Voc?oVFIV<c<c<g9bL[6a/O3`l03oEEGoEJ[oEOooE@00M`3^000c002Ic3<0
+IS>I03?oc6IVISLg=gIfM[Fe]OCdm03oZUGoZZ[oZP000?l0C002onX0003o04`00_oZ0000o`1<00;o
+jP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;o
+jP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;o
+jP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;o
+jP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;o
+jP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;o
+jP000?l06`027bl00_oZ0000o`0K008O;`02onX0003o01/00al^00;ojP000?l070027bh00_oZ0000
+o`0L00<O;@02onX0003o01d00Ql]00;ojP000?l07@037b`00_oZ0000o`0N008O;002onX0003o01h0
+0al[00;ojP000?l07`027b/00_oZ0000o`0O00<O:P02onX0003o02000QlZ00;ojP000?l080037bT0
+0_oZ0000o`0Q008O:@02onX0003o02400alX00;ojP000?l08P027bP00_oZ0000o`0R00<O9`02onX0
+003o02<00QlW00;ojP000?l08`037bH00_oZ0000o`0T008O9P02onX0003o02@00alU00;ojP000?l0
+9@027bD00_oZ0000o`0U00<O9002onX0003o02H00QlT00;ojP000?l09P037b<00_oZ0000o`0W008O
+8`02onX0003o02L00alR00;ojP000?l0:0027b800_oZ0000o`0X00<O8@02onX0003o02T00QlQ00;o
+jP000?l0:@037b000_oZ0000o`0Z008O8002onX0003o02X00alO00;ojP000?l0:`027al00_oZ0000
+o`0[00<O7P02onX0003o02`00QlN00;ojP000?l0;0037ad00_oZ0000o`0]008O7@02onX0003o02d0
+0alL00;ojP000?l0;P027a`00_oZ0000o`0^00<O6`02onX0003o02l00QlK00;ojP000?l0;`037aX0
+0_oZ0000o`0`008O6P02onX000000`0O7`027ol0:`037aT00_oZ000000<07al01Aoo02T00QlI00;o
+jP0000@01aoo02H00alH00;ojP0000L01aoo02@00QlH00;ojP0000X01aoo02400alG00;ojP0000d0
+1aoo01l00QlG00;ojP0001001aoo01`00alF00;ojP0001<01aoo01X00QlF00;ojP0001H01aoo01L0
+0alE00;ojP0001T01aoo01D00QlE00;ojP0001`01aoo01800alD00;ojP0001l01aoo01000QlD00;o
+jP0002801aoo00d00alC00;ojP0002D01aoo00/00QlC00;ojP0002P01aoo00P00alB00;ojP0002/0
+1aoo00H00QlB00;ojP0002h01aoo00<00alA00;ojP0003401aoo00400QlA00;ojP0003@01aom00<O
+4002onX0000g00LOn`027a000_oZ0000>P077oP00al?00;ojP0003d01aof008O3`02onX0001000LO
+l`037`h00_oZ0000@`077o400Ql>00;ojP0004H01ao^00<O3@02onX0001900LOk0027`d00_oZ0000
+C0077nT00al<00;ojP0004l01aoW008O3002onX0001B00LOi0037`/00_oZ0000E@077n800Ql;00;o
+jP0005P01aoO00<O2P02onX0001K00LOg@027`X00_oZ0000GP077mX00al900;ojP0006401aoH008O
+2@02onX0001T00LOe@037`P00_oZ0000I`077m<00Ql800;ojP0006X01ao@00<O1`02onX0001]00LO
+cP027`L00_oZ0000L0077l/00al600;ojP0007<01ao9008O1P02onX0001f00LOaP037`D00_oZ0000
+N@077l@00Ql500;ojP0007`01ao100<O1002onX0001o00LO_`027`@00_oZ0000PP077k`00al300;o
+jP0008D01anj008O0`02onX0002800LO]`037`800_oZ0000R`077kD00Ql200;ojP0008h01anb00<O
+00<0ool0jP0009401an`008O00<0ool0jP0009@01an]00<O0_oZ0000U`077j/00Ql2onX0002J00LO
+Z0037`03o`000>P0002M00LOYP027`03o`000>P0002P00LOX`037nX0002S00LOX@027nX0002V00LO
+WP037nT0002Y00LOV`000olO7`3Y0000[0077iP000Co7alOj0000:l01anE00;o0QoX0000/P077i80
+0_l37nL000000`0O7`037jl01an?00;o00<07al0i`00000301lO00TO[0077h`00_l0100O7aoV0000
+1@0=7jT01an900;o0P027nH0000;00dOYP077hH00_l200<Oi@0001403AnS00LOP`02o`<00QoU0000
+5`0=7j001an000;o0`037n@0000M00dOW@077gd00_l4008Oi00002<03AnJ00LONP02o`@00aoS0000
+:@0=7iL01amg00;o1@027n<0000_00dOU0077g@00_l500<OhP0003D03AnA00LOL@02o`H00QoR0000
+>`0=7hh01am^00;o1P037n40001100hORP077f/00_l7008Oh@0004L03Qn700LOJ002o`L00aoP0000
+CP0=7h@01amU00;o20027n00001D00dOE003o`800olU00LO<006ob`00_l800<O5@03olL0001J00dO
+C`000ol000020003o`0002L01al^0003o`00008000?o0000:@02o`T00QlD0005o`000?l0aP000600
+3Am900Ko;0077b/000?o00000P000ol0000Y00;o2@037a8000?o0000b@0006H03Am40004o`00oc00
+1alX0003o`00008000?o0000:@02o`X00QlB0003o`000<T0001/00dO?P001?l00?lc00LO9@05ob`0
+0_l:00<O4@000ol000390000LP0=7cP000Co003o=P077b8000Go0000o`0/00;o2`027a4000?o0000
+0P000ol000340000N00=7c<00_lj00LO7`001Ol0003o02`00_l;00<O4@001Ol0003o0<H0001n00dO
+:`04ocd01alK00Go;@02o``00QlB00CoaP0008@03AlD00CoD@077`P01?ln00;o30037`?of00008X0
+3Al<00SoDP077`<02?ll00;o30000olO7`05omH0002@00dO1P08oeD01al8oc`00_l<0004oalO7`Co
+eP0009H03Al9oeL01al6oc/00_l;00?o0Ql5omD000000`3oo`2Io`dOGOl77dko0aoGo`8000000`3o
+o`2Oo`dOF_l77dco0QoGo`80002R00Ko3AmA00Ko1alh00;o2`04o`<O0ooE0000X`08o`<03Am<00So
+1ale00;o3004o`8O0_oF0000X`08o`T03Am600So0`077c800_l<00Co0al00ol0003D0000Y@04oa40
+3Am200Co20077bl00_l>00?o0QoG0000`00=7d/01al/00;o4@037mH0003600dOB0077bT00_lB008O
+eP000<`03Qm400LO9P02oa800aoE0000dP0>7d401alS00;o4`027mD0003I00dO?P077b000_lC00<O
+e0000=l03Alk00LO7@02oa@00QoD0000i@0=7cP01alJ00;o50037m<0003[00dO=@077aL00_lE008O
+d`000?403Alb00LO5002oaD00aoB0000m`0=7bl01alA00;o5P027m80003m00dO;0077`h00_lF00<O
+d@000?l0100=7bT01al;00;o5`027m40003o00X03AlV00LO2002oaL00ao@0000o`0@00dO8`077`D0
+0_lH008Od0000?l05P0=7b001al200;o60037ll0003o01`03AlM00LO00?o00005`027ll0003o0280
+3AlJ00LO5`037lh0003o02P03AlG00LO5@027lh0003o02h03AlA00;o00<07al01AlB00<Oc@000?l0
+=00=7`/00_l400LO40027ld0003o03X03Al500;o1`077`d00ao<0000o`1000dO00?o000020077`/0
+0Qo<0000o`1600dO20077`P00ao;0000o`1<00dO1@077`H00Ql4olL0003o04`00_l400dO0P077`<0
+0al5olD0003o04`00_l:01<O00?o7al01Oo50000o`1<00;o400A7`Goa0000?l0C002oaL03Al2ol@0
+003o04`00_lL0003oalO00/O`0000?l0C002oa`01?l@7kX0003o04`00_lM00?o0al2oa4O]0000?l0
+C002oad01?l27`;o0`0D7jh0003o04`00_lO00;o0al700LO0`0=7jP0003o04`00_l;00Co4`027`X0
+1al600dOXP000?l0C002o``000?o00004`037``01al900dOW0000?l0C002o``000?o000050027`l0
+1al<00dOUP000?l0C002o``01?lC00<O4@077`l03An@0000o`1<00;o30001Ol0003o01<00QlD00LO
+4P0=7hX0003o04`00_l<0005o`000?l04`037aH01alE00dOQ0000?l0C002o``000Go0000o`0D008O
+6@077aP03Amn0000o`1<00;o2`05oaD00alK00LO6`0=7gP0003o04`00_lV008O7P077ah03Amb0000
+o`1<00;o9P037b001alQ00dOK0000?l0C002obL00QlS00LO900=7fH0003o04`00_lW00<O9@077bL0
+3AmP0000o`1<00;o:0027bP01alZ00dOFP000?l0C002obP00alZ00LO;@0=7e@0003o04`00_lY008O
+;@077c003Am>0000o`1<00;o:@037bl01alc00hOA`000?l0C002obX00Qlb00LO=P0>7d40003o04`0
+0_lZ00<O=0077cX03Alk0000o`1<00;o:`027cL01alm00dO=@000?l0C002ob/00ali00LO@00=7bl0
+003o04`00_l/008O?0077d<03AlY0000o`1<00;o;0037ch01am600dO8`000?l0C002obd00Qm100LO
+B@0=7ad0003o04`00_l]00<O@`077d`03AlG0000o`1<00;o;P027dH01am?00dO4@000?l0C002obh0
+0am800LODP0=7`/0003o04`00_l_008OB`077eD03Al50000o`1<00;o;`037dd01QmI00XO0P000?l0
+C002oc000Qm@00<OG`047`80003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000?l0C002onX0003o04`00_oZ0000o`1<00;ojP000?l0C002onX0003o04`00_oZ0000
+o`1<00;ojP000001\
+\>"],
+  ImageRangeCache->{{{0, 566.5}, {297.75, 0}} -> {-10.0618, -5.00005, 
+  0.0377836, 0.0377836}}],
+
+Cell[TextData[{
+  "The basic question is how to find the ",
+  StyleBox["coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the point on the vertical plane that corresponds to the the point ",
+  StyleBox["{x,y,0}", "InlineInput"],
+  " on the horizontal plane.  "
+}], "Text"],
+
+Cell[TextData[{
+  "We can solve this by ",
+  StyleBox["vector algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", because all points on the vertical plane (point = end of vector) are ",
+  StyleBox["orthogonal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the unit vector ",
+  StyleBox["{1,0,0}", "InlineInput"],
+  ".  Thus, we just have to invoke ",
+  StyleBox["the parametric representation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of points on the line between ",
+  StyleBox["{1,1,1}", "InlineInput"],
+  "and ",
+  StyleBox["{x,y,0}", "InlineInput"],
+  " and solve for the value of the parameter that puts the point ",
+  StyleBox["on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the vertical plane.  "
+}], "Text"],
+
+Cell["Here it is:", "Text"],
+
+Cell[BoxData[
+    \(ClearAll[x, y, z, t]; \n
+    sol = Solve[{1, 0, 0} . 
+            \(({1, 1, 1} + t\ \(({x, y, 0} - {1, 1, 1})\))\) == 0, {t}]\)], 
+  "Input"],
+
+Cell["\<\
+Next, we substitute the solution back into the representation and \
+do some algebraic simplification to get a nice looking answer:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Together[{1, 1, 1} + t\ \(({x, y, 0} - {1, 1, 1})\) /. 
+        sol\[LeftDoubleBracket]1\[RightDoubleBracket]]\)], "Input"],
+
+Cell[TextData[{
+  "We have gone from points on ",
+  StyleBox["one plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to points on ",
+  StyleBox["another plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", because we were using the 3D construction of the projection with the aid \
+of projecting lines in space.  But, once we find an algebraic formula, we can \
+use this to give \"the same\" transformation from a plane ",
+  StyleBox["into itself",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Here is the definition of the ",
+  StyleBox["related",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " transformation as a function on points of the form ",
+  StyleBox["{x, y, 1}",
+    FontWeight->"Bold"],
+  ", which consists of points on the plane ",
+  StyleBox["z == 1",
+    FontWeight->"Bold"],
+  "."
+}], "Text",
+  PageBreakAbove->True],
+
+Cell[BoxData[
+    \(\(F[{x_, y_, 1}] := {\(y - x\)\/\(1 - x\), \(-\(x\/\(1 - x\)\)\), 1}; 
+    \)\)], "Input"],
+
+Cell[TextData[{
+  "Now, suppose we have three points ",
+  Cell[BoxData[
+      StyleBox[\({a\_1, a\_2, 1}\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\({b\_1, b\_2, 1}\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\({c\_1, c\_2, 1}\),
+        FontWeight->"Bold"]]],
+  StyleBox[".  ",
+    FontFamily->"Courier"],
+  "We",
+  StyleBox[" ",
+    FontFamily->"Courier"],
+  "want to know when the ",
+  StyleBox["image",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are collinear.  So we map the points and use ",
+  StyleBox["The Determinant Check",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (to be explained later):"
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{"Together", "[", 
+      RowBox[{"Det", "[", 
+        RowBox[{"F", "/@", 
+          StyleBox[\({{a\_1, a\_2, 1}, {b\_1, b\_2, 1}, {c\_1, c\_2, 1}}\),
+            FontWeight->"Bold"]}], "]"}], "]"}]], "Input"],
+
+Cell["\<\
+When we compare this with the determinant of the original three \
+points, we see that the numerator above is just the negative of the \
+determinant.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Det[{{a\_1, a\_2, 1}, {b\_1, b\_2, 1}, {c\_1, c\_2, 1}}]\)], "Input"],
+
+Cell["\<\
+Thus, we have \"proved\" that under projection (at least in this \
+one instance), three points are collinear if, and only if, the image points \
+are.\
+\>", "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A problem with central projections ", "Subsubsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "The central projection we just discussed had as its ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the point ",
+  StyleBox["{1,1,1}", "InlineInput"],
+  ".  The only reason for making use of this point was that it was easy \
+\[LongDash] for a time \[LongDash] to work with the coordinate planes in \
+ordinary ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-space in order to find a ",
+  StyleBox["simple formula",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for an example of a projective transformation between planes.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "A more ",
+  StyleBox["symmetric choice",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a center is to move the centeral point to the origin ",
+  StyleBox["{0,0,0}", "InlineInput"],
+  ", since the exact choice of the coordinates of the point clearly makes no \
+difference ",
+  StyleBox["conceptually",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "Now, in a central projection under this convention, the projecting rays \
+are ",
+  StyleBox["all the lines through the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Given a ray, it intersects each plane (not passing through the origin) \
+in a point\[LongDash]unless, of course, the ray is ",
+  StyleBox["parallel",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the plane.  This problem of parallelism is just the rub, however:  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["The Puzzle. ",
+    FontWeight->"Bold"],
+  "Unless the two planes between which we wish to set up a projective \
+correspondence are parallel, the rays ",
+  StyleBox["do not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " set up a ",
+  StyleBox["one-one correspondence",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " between the points of one plane and the points of the other plane.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 0]],
+
+Cell["\<\
+This problem can be seen in the following two diagrams (showing, \
+actually, central projections between lines).  The first case shows there is \
+a ono-one correspondence; the second case shows that there are exceptional \
+points on each of the two planes.\
+\>", "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: 1 
+MathPictureStart
+%% Graphics
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.5 0.1 0.5 0.1 [
+[ 0 0 0 0 ]
+[ 1 1 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+[ ] 0 setdash
+0 g
+p
+P
+0 0 m
+1 0 L
+1 1 L
+0 1 L
+closepath
+clip
+newpath
+p
+p
+2 Mabswid
+1 .6  m
+0 .6  L
+s
+1 .7  m
+0 .7  L
+s
+P
+p
+1 0 0 r
+2 Mabswid
+1 .5  m
+0 .5  L
+s
+1 1 m
+0 0 L
+s
+.6  1 m
+.4  0 L
+s
+.1  1 m
+.9  0 L
+s
+P
+p
+8 Mabswid
+.5  .5  Mdot
+P
+P
+% End of Graphics
+MathPictureEnd\
+\>"], "Graphics",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  ImageSize->{325, 325},
+  ImageMargins->{{34, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40006F0001UPP10`4000010?ooooooc140000c<`2I
+oc<0VC>I<c?oofIVVC/k>gYjN[Vi^OShn03ooeGooj[ooa4A4@00R280000cIP3<03<0c3>IIVH00?oo
+ZSlo?ginO[fm_Oclo5D00:X00?l0028R8P00ZT@0000cV@3<<c<0oc>IVFH0<`<30d92@X61PL30`000
+EED0EJX0EOl0EDA4A000^eD0000cc03<IS<c03>Ic6H0IPL71dI6AXF5QLC4a000ZUD0ZZX0Z_l0ZUEE
+E@00gGL0000co`3<VC<c<c>IofH0V@/;2dY:BXV9RLS8b000oeD0ojX0ool0ogMgM`00kXP0001V003<
+c3<cIS?<06H0c0l?3di>CXf=SLc<c01E05EE0:YE0?mE08R8R00A0:X0001V<`3<oc<cVC?<<fH0oa<C
+4e9BDY6ATM3@d01EEEEEEJYEEOmEEJZZZP0R0;/0001VIP3o03<cc3?<IVHc01LG5eIFEYFEUMCDe01E
+ZUEEZZYEZ_mEZ[^k^`140=d0001VV@3o<c<coc?<VFHc<a/K6eYJFYVIVMSHf01EoeEEojYEoomEomgM
+g@1E0>h0001Vc03oIS=V03?<c6HcIQlO7eiNGYfMWMcLg02Z05FZ0:ZZ0?nZ0>k^kP1g0000<`1Vo`3o
+VC=V<c?<ofHcVB<S8f9RHZ6QXN3Ph02ZEEFZEJZZEOnZE@004@280000IP2I003oc3=VIS?o06Hcc2LW
+9fIVIZFUYNCTi02ZZUFZZZZZZ_nZZP008P2Z0000V@2I<`3ooc=VVC?o<fHcob/[:fYZJZVYZNSXj02Z
+oeFZojZZoonZo`00A02k0000c02IIS<003=Vc3?oIVIV02l_;fi^KZf][Nc/k03o05Go0:[o0?oo0000
+E@3M0000o`2IVC<0<c=Voc?oVFIV<c<c<g9bL[6a/O3`l03oEEGoEJ[oEOooE@00M`3^000c002Ic3<0
+IS>I03?oc6IVISLg=gIfM[Fe]OCdm03oZUGoZZ[oZP0000037`0009h00Qo8008O:@00008OW`027lP0
+0QlY00000anN008Oa`037bT00000100O7anM00<Oa@037bX0000200<OW@027l@00al[00000`037i`0
+0Qo300<O;00000@00anK008O``027bd0000500<OVP027l800al]00001P037iT00ao000<O;P0000L0
+0anI008O_`037bl0000800<OV0027kh00al`00002@037iL00Qnn008O<@0000X00anF008O_@037c40
+000;00<OU@037k/00alb000030037iD00Qnj00<O<`0000d00anD008O^@037c@0000>00<OT`027kT0
+0Qle00003`037i800Qnh00<O=@0001000anA00<O]P037cH0000A00<OT@027kD00alg00004P037i00
+0Qnd00<O>00001<00an?008O]0027cT0000D00<OSP027k<00ali00005@037hd00ana00<O>P0001H0
+0an=008O/0037c/0000G00<OS0027jl00all000060037h/00Qn_008O?@0001T00an:008O[P037cd0
+000J00<OR@037j`00aln00006`037hT00Qn[00<O?`0001`00an8008OZP037d00000M00<OQ`027jX0
+0Qm100007P037hH00QnY00<O@@0001l00an500<OY`037d80000P00<OQ@027jH00am300008@037h@0
+0QnU00<OA00002800an3008OY@027dD0000S00<OPP027j@00am5000090037h400anR00<OAP0002D0
+0an1008OX@037dL0000V00<OP0027j000am800009`037gl00QnP008OB@0002P00amn008OW`037dT0
+000Y00<OO@037id00am:0000:P037gd00QnL00<OB`0002/00aml008OV`037d`0000/00<ON`027i/0
+0Qm=0000;@037gX00QnJ00<OC@0002h00ami00<OV0037dh0000_00<ON@027iL00am?0000<0037gP0
+0QnF00<OD00003400amg008OUP027e40000b00<OMP027iD00amA0000<`037gD00anC00<ODP0003@0
+0ame008OTP037e<0000e00<OM0027i400amD0000=P037g<00QnA008OE@0003L00amb008OT0037eD0
+000h00<OL@037hh00amF0000>@037g400Qn=00<OE`0003X00am`008OS0037eP0000k00<OK`027h`0
+0QmI0000?0037fh00Qn;00<OF@0003d00am]00<OR@037eX0000n00<OK@027hP00amK0000?`037f`0
+0Qn700<OG00004000am[008OQ`027ed0001100<OJP027hH00amM0000@P037fT00an400<OGP0004<0
+0amY008OP`037el0001400<OJ0027h800amP0000A@037fL00Qn2008OH@0004H00amV008OP@037f40
+001700<OI@037gl00amR0000B0037fD00Qmn00<OH`0004T00amT008OO@037f@0001:00<OH`027gd0
+0QmU0000B`037f800Qml00<OI@0004`00amQ00<ONP037fH0001=00<OH@027gT00amW0000CP037f00
+0Qmh00<OJ00004l00amO008ON0027fT0001@00<OGP027gL00amY0000D@037ed00ame00<OJP000580
+0amM008OM0037f/0001C00<OG0027g<00am/0000E0037e/00Qmc008OK@0005D00amJ008OLP037fd0
+001F00<OF@037g000am^0000E`037eT00Qm_00<OK`0005P00amH008OKP037g00001I00<OE`027fh0
+0Qma0000FP037eH00Qm]00<OL@0005/00amE00<OJ`037g80001L00<OE@027fX00amc0000G@037e@0
+0QmY00<OM00005h00amC008OJ@027gD0001O00<ODP027fP00ame0000H0037e400amV00<OMP000640
+0amA008OI@037gL0001R00<OD0027f@00amh0000H`037dl00QmT008ON@0006@00am>008OH`037gT0
+001U00<OC@037f400amj0000IP037dd00QmP00<ON`0006L00am<008OG`037g`0001X00<OB`027el0
+0Qmm0000J@037dX00QmN00<OO@0006X00am900<OG0037gh0001[00<OB@027e/00amo0000K0037dP0
+0QmJ00<OP00006d00am7008OFP027h40001^00<OAP027eT00an10000K`037dD00amG00<OPP000700
+0am5008OEP037h<0001a00<OA0027eD00an40000LP037d<00QmE008OQ@0007<00am2008OE0037hD0
+001d00<O@@037e800an60000M@037d400QmA00<OQ`0007H00am0008OD0037hP0001g00<O?`027e00
+0Qn90000N0037ch00Qm?00<OR@0007T00alm00<OC@037hX0001j00<O?@027d`00an;0000N`037c`0
+0Qm;00<OS00007`00alk008OB`027hd0001m00<O>P027dX00an=0000OP037cT00am800<OSP0007l0
+0ali008OA`037hl0002000<O>0027dH00an@0000P@037cL00Qm6008OT@0008800alf008OA@037i40
+002300<O=@037d<00anB0000Q0037cD00Qm200<OT`0008D00ald008O@@037i@0002600<O<`027d40
+0QnE0000Q`037c800Qm000<OU@0008P00ala00<O?P037iH0002900<O<@027cd00anG0000RP037c00
+0Qll00<OV00008/00al_008O?0027iT0002<00<O;P027c/00anI0000S@037bd00ali00<OVP0008h0
+0al]008O>0037i/0002?00<O;0027cL00anL0000T0037b/00Qlg008OW@0009400alZ008O=P037id0
+002B00<O:@037c@00anN0000T`037bT00Qlc00<OW`0009@00alX008O<P037j00002E00<O9`027c80
+0QnQ0000UP037bH00Qla00<OX@0009L00alU00<O;`037j80002H00<O9@027bh00anS0000V@037b@0
+0Ql]00<OY00009X00alS008O;@027jD0002K00<O8P027b`00anU0000W0037b400alZ00<OYP0009d0
+0alQ008O:@037jL0002N00<O80027bP00anX0000W`037al00QlX008OZ@000:000alN008O9`037jT0
+002Q00<O7@037bD00anZ0000XP037ad00QlT00<OZ`000:<00alL008O8`037j`0002T00<O6`027b<0
+0Qn]0000Y@037aX00QlR00<O[@000:H00alI00<O80037jh0002W00<O6@027al00an_0000Z0037aP0
+0QlN00<O/0000:T00alG008O7P027k40002Z00<O5P027ad00ana0000Z`037aD00alK00<O/P000:`0
+0alE008O6P037k<0002]00<O50027aT00and0000[P037a<00QlI008O]@000:l00alB008O60037kD0
+002`00<O4@037aH00anf0000/@037a400QlE00<O]`000;800al@008O50037kP0002c00<O3`027a@0
+0Qni0000]0037`h00QlC00<O^@000;D00al=00<O4@037kX0002f00<O3@027a000ank0000]`037``0
+0Ql?00<O_0000;P00al;008O3`027kd0002i00<O2P027`h00anm0000^P037`T00al<00<O_P000;/0
+0al9008O2`037kl0002l00<O20027`X00ao00000_@037`L00Ql:008O`@000;h00al6008O2@037l40
+002o00<O1@037`L00ao20000`0037`D00Ql600<O``000<400al4008O1@037l@0003200<O0`027`D0
+0Qo50000``037`800Ql400<Oa@000<@00al00`0Oo`03o`<OaP000<D00Ql8olL0003600037ooo00Ko
+a`000<H02_o60000aP0:olH000367`[oaQl00<HO2_o67`00a`08olL0003700Soa`000<H00al4o`<O
+aP000<D00al200<O00@07alOa@000<@00al4008O0P037l@0003300<O1@027`<00ao30000``027`H0
+0Ql400<O`P000<800al6008O1@037l40003100<O1`037`D00ao00000`0037`T00Ql600<O_`000;l0
+0al:008O1`037kh0002o008O2`027`P00anm0000_P037`/00Ql900<O_0000;d00al<00<O2@037k/0
+002l00<O3P027`X00anj0000^`037`l00Ql;00<O^@000;/00Ql@008O30037kP0002j00<O40027`d0
+0ang0000^@037a400al=00<O]P000;P00alC008O3P037kD0002g00<O50027`l00and0000]`027aD0
+0Ql@00<O/`000;H00alE008O4@037k80002e00<O5P037a400ana0000]0037aP00QlB00<O/0000;<0
+0alI008O4`037jl0002c008O6P027a@00an^0000/P037aX00QlE00<O[@000;400alK00<O5@037j`0
+002`00<O7@027aH00an[0000[`037ah00QlG00<OZP000:l00QlO008O60037jT0002^00<O7`027aT0
+0anX0000[@037b000alI00<OY`000:`00alR008O6P037jH0002[00<O8`027a/00anU0000Z`027b@0
+0QlL00<OY0000:X00alT008O7@037j<0002Yo`<O9Ol37ago0anRo`00Z?l37bOo0QlNo`<OXOl00:L0
+0alX008O7`037j00002W008O:@027b000anO0000YP037bT00QlQ00<OWP000:D00alZ00<O8@037id0
+002T00<O;0027b800anL0000X`037bd00QlS00<OV`000:<00Ql^008O90037iX0002R00<O;P027bD0
+0anI0000X@037bl00alU00<OV0000:000ala008O9P037iL0002O00<O<P027bL00anF0000W`027c<0
+0QlX00<OU@0009h00alc008O:@037i@0002M00<O=0037bT00anC0000W0037cH00QlZ00<OTP0009/0
+0alg008O:`037i40002K008O>0027b`00an@0000VP037cP00Ql]00<OS`0009T00ali00<O;@037hh0
+002H00<O>`027bh00an=0000U`037c`00Ql_00<OS00009L00Qlm008O<0037h/0002F00<O?@027c40
+0an:0000U@037ch00ala00<OR@0009@00am0008O<P037hP0002C00<O@@027c<00an70000T`027d80
+0Qld00<OQP0009800am2008O=@037hD0002A00<O@`037cD00an40000T0037dD00Qlf00<OP`0008l0
+0am6008O=`037h80002?008OA`027cP00an10000SP037dL00Qli00<OP00008d00am800<O>@037gl0
+002<00<OBP027cX00amn0000R`037d/00Qlk00<OO@0008/00Qm<008O?0037g`0002:00<OC0027cd0
+0amk0000R@037dd00alm00<ONP0008So0am?o`8O?_l37gWo0027o`<OD?l27coo0amho`00Q`027e40
+0Qm000<OM`0008H00amA008O@@037gH0002500<ODP037d400ame0000Q0037e@00Qm200<OM00008<0
+0amE008O@`037g<00023008OEP027d@00amb0000PP037eH00Qm500<OL@0008400amG00<OA@037g00
+002000<OF@027dH00am_0000O`037eX00Qm700<OKP0007l00QmK008OB0037fd0001n00<OF`027dT0
+0am/0000O@037e`00am900<OJ`0007`00amN008OBP037fX0001k00<OG`027d/00amY0000N`027f00
+0Qm<00<OJ00007X00amP008OC@037fL0001i00<OH@037dd00amV0000N0037f<00Qm>00<OI@0007L0
+0amT008OC`037f@0001g008OI@027e000amS0000MP037fD00QmA00<OHP0007D00amV00<OD@037f40
+001d00<OJ0027e800amP0000L`037fT00QmC00<OG`0007<00QmZ008OE0037eh0001b00<OJP027eD0
+0amM0000L@037f/00amE00<OG00007000am]008OEP037e/0001_00<OKP027eL00amJ0000K`027fl0
+0QmH00<OF@0006h00am_008OF@037eP0001]00<OL0037eT00amG0000K0037g800QmJ00<OEP0006/0
+0amc008OF`037eD0001[008OM0027e`00amD0000JP037g@00QmM00<OD`0006T00ame00<OG@037e80
+001X00<OM`027eh00amA0000I`037gP00QmO00<OD00006L00Qmi008OH0037dl0001V00<ON@027f40
+0am>0000I@037gX00amQ00<OC@0006@00aml008OHP037d`0001S00<OO@027f<00am;0000H`027gh0
+0QmT00<OBP0006800amn008OI@037dT0001Q00<OO`037fD00am80000H0037h400QmV00<OA`0005l0
+0an2008OI`037dH0001O008OP`027fP00am50000GP037h<00QmY00<OA00005d00an400<OJ@037d<0
+001L00<OQP027fX00am20000F`037hL00Qm[00<O@@0005/00Qn8008OK0037d00001J00<OR0027fd0
+0alo0000F@037hT00am]00<O?P0005P00an;008OKP037cd0001G00<OS0027fl00all0000E`027hd0
+0Qm`00<O>`0005H00an=008OL@037cX0001E00<OSP037g400ali0000E0037i000Qmb00<O>00005<0
+0anA008OL`037cL0001C008OTP027g@00alf0000DP037i800Qme00<O=@0005400anC00<OM@037c@0
+001@00<OU@027gH00alc0000C`037iH00Qmg00<O<P0004l00QnG008ON0037c40001>00<OU`027gT0
+0al`0000C@037iP00ami00<O;`0004`00anJ008ONP037bh0001;00<OV`027g/00al]0000B`027i`0
+0Qml00<O;00004X00anL008OO@037b/0001900<OW@037gd00alZ0000B0037il00Qmn00<O:@0004L0
+0anP008OO`037bP00017008OX@027h000alW0000AP037j400Qn100<O9P0004D00anR00<OP@037bD0
+001400<OY0027h800alT0000@`037jD00Qn300<O8`0004<00QnV008OQ0037b80001200<OYP027hD0
+0alQ0000@@037jL00an500<O800004000anY008OQP037al0000o00<OZP027hL00alN0000?`027j/0
+0Qn800<O7@0003h00an[008OR@037a`0000m00<O[0037hT00alK0000?0037jh00Qn:00<O6P0003/0
+0an_008OR`037aT0000k008O/0027h`00alH0000>P037k000Qn=00<O5`0003T00ana00<OS@037aH0
+000h00<O/`027hh00alE0000=`037k@00Qn?00<O500003L00Qne008OT0037a<0000f00<O]@027i40
+0alB0000=@037kH00anA00<O4@0003@00anh008OTP037a00000c00<O^@027i<00al?0000<`027kX0
+0QnD00<O3P0003800anj008OU@037`d0000a00<O^`037iD00al<0000<0037kd00QnF00<O2`0002l0
+0ann008OU`037`X0000_008O_`027iP00al90000;P037kl00QnI00<O200002d00ao000<OV@037`L0
+000/00<O`P027iX00al60000:`037l<00QnK00<O1@0002/00Qo4008OW0037`@0000Z00<Oa0027id0
+0al30000:@037lD00anM00<O0P0002P00ao7008OWP037`40000W00<Ob0027il00al00001\
+\>"],
+  ImageRangeCache->{{{0, 405.25}, {405.25, 0}} -> {-5.00005, -5.00005, 
+  0.0308455, 0.0308455}}],
+
+Cell["\<\
+
+\
+\>", "Text"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: 1 
+MathPictureStart
+%% Graphics
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.5 0.1 0.5 0.1 [
+[ 0 0 0 0 ]
+[ 1 1 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+[ ] 0 setdash
+0 g
+p
+P
+0 0 m
+1 0 L
+1 1 L
+0 1 L
+closepath
+clip
+newpath
+p
+p
+2 Mabswid
+1 .6  m
+0 .6  L
+s
+.4  0 m
+.4  1 L
+s
+P
+p
+1 0 0 r
+2 Mabswid
+1 .5  m
+0 .5  L
+s
+1 1 m
+0 0 L
+s
+.5  1 m
+.5  0 L
+s
+.6  1 m
+.4  0 L
+s
+.1  1 m
+.9  0 L
+s
+P
+p
+8 Mabswid
+.5  .5  Mdot
+P
+P
+% End of Graphics
+MathPictureEnd\
+\>"], "Graphics",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  ImageSize->{325, 325},
+  ImageMargins->{{34, Inherited}, {Inherited, 0}},
+  ImageRegion->{{Inherited, 1}, {0, Inherited}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40006F0001UPP10`4000010?ooooooc140000c<`2I
+oc<0VC>I<c?oofIVVC/k>gYjN[Vi^OShn03ooeGooj[ooa4A4@00R280000cIP3<03<0c3>IIVH00?oo
+ZSlo?ginO[fm_Oclo5D00:X00?l0028R8P00ZT@0000cV@3<<c<0oc>IVFH0<`<30d92@X61PL30`000
+EED0EJX0EOl0EDA4A000^eD0000cc03<IS<c03>Ic6H0IPL71dI6AXF5QLC4a000ZUD0ZZX0Z_l0ZUEE
+E@00gGL0000co`3<VC<c<c>IofH0V@/;2dY:BXV9RLS8b000oeD0ojX0ool0ogMgM`00kXP0001V003<
+c3<cIS?<06H0c0l?3di>CXf=SLc<c01E05EE0:YE0?mE08R8R00A0:X0001V<`3<oc<cVC?<<fH0oa<C
+4e9BDY6ATM3@d01EEEEEEJYEEOmEEJZZZP0R0;/0001VIP3o03<cc3?<IVHc01LG5eIFEYFEUMCDe01E
+ZUEEZZYEZ_mEZ[^k^`140=d0001VV@3o<c<coc?<VFHc<a/K6eYJFYVIVMSHf01EoeEEojYEoomEomgM
+g@1E0>h0001Vc03oIS=V03?<c6HcIQlO7eiNGYfMWMcLg02Z05FZ0:ZZ0?nZ0>k^kP1g0000<`1Vo`3o
+VC=V<c?<ofHcVB<S8f9RHZ6QXN3Ph02ZEEFZEJZZEOnZE@004@280000IP2I003oc3=VIS?o06Hcc2LW
+9fIVIZFUYNCTi02ZZUFZZZZZZ_nZZP008P2Z0000V@2I<`3ooc=VVC?o<fHcob/[:fYZJZVYZNSXj02Z
+oeFZojZZoonZo`00A02k0000c02IIS<003=Vc3?oIVIV02l_;fi^KZf][Nc/k03o05Go0:[o0?oo0000
+E@3M0000o`2IVC<0<c=Voc?oVFIV<c<c<g9bL[6a/O3`l03oEEGoEJ[oEOooE@00M`3^000c002Ic3<0
+IS>I03?oc6IVISLg=gIfM[Fe]OCdm03oZUGoZZ[oZP0000037`0009h00QlV008OX0027bT000027il0
+0QlV008OX0027bT000037ih00QlV008OW`037bT00000100O7anM00<O9@027ih00alZ00000P037i`0
+00?o7al09@027id00al[00000`037i/000?o7al09@027i`00al/000010037iX000?o7al09@027i`0
+0Ql]00001@037iT000?o7al09@027i/00al]00001P037iP000Co7alO90027iX00al^00001`037iL0
+0_l27b@00QnI00<O;`0000P00anF00;o0QlT008OV0037c00000900<OU@02o`8O90027iP00Qla0000
+2P037i@00_l27b@00QnG00<O<@0000/00anC00;o0alS008OUP037c80000<00<OTP02o`0301lO02<0
+0QnE00<O<`0000d00anA00;o00<07al08`027i@00ald00003P037i000_l00`0O7`0S008OU0027cD0
+000?00<OS`02o`0301lO02<00QnC00<O=@0001000an>00;o00@07alO8P027i800alf00004@037hd0
+0_l2008O8P027i400alg00004P037h`00_l2008O8P027i000alh00004`037h/00_l2008O8P027i00
+0Qli000050037hX00_l2008O8P027hl00ali00005@037hT00_l200<O8@027hh00alj00005P037hP0
+0_l3008O8@027hd00alk00005`037hL00_l3008O8@027h`00all000060037hH00_l3008O8@027h`0
+0Qlm00006@037hD00_l3008O8@027h/00alm00006P037h@00_l300<O80027hX00aln00006`037h<0
+0_l4008O80027hT00alo000070037h800_l4008O80027hP00am000007@037h400_l4008O80027hP0
+0Qm100007P037h000_l4008O80027hL00am100007`037gl00_l400<O7`027hH00am2000080037gh0
+0_l5008O7`027hD00am300008@037gd00_l5008O7`027h@00am400008P037g`00_l5008O7`027h@0
+0Qm500008`037g/00_l5008O7`027h<00am5000090037gX00_l500<O7P027h800am600009@037gT0
+0_l6008O7P027h400am700009P037gP00_l6008O7P027h000am800009`037gL00_l6008O7P027h00
+0Qm90000:0037gH00_l6008O7P027gl00am90000:@037gD00_l600<O7@027gh00am:0000:P037g@0
+0_l7008O7@027gd00am;0000:`037g<00_l7008O7@027g`00am<0000;0037g800_l7008O7@027g`0
+0Qm=0000;@037g400_l7008O7@027g/00am=0000;P037g000_l700<O70027gX00am>0000;`037fl0
+0_l8008O70027gT00am?0000<0037fh00_l8008O70027gP00am@0000<@037fd00_l8008O70027gP0
+0QmA0000<P037f`00_l8008O70027gL00amA0000<`037f/00_l800<O6`027gH00amB0000=0037fX0
+0_l9008O6`027gD00amC0000=@037fT00_l9008O6`027g@00amD0000=P037fP00_l9008O6`027g@0
+0QmE0000=`037fL00_l9008O6`027g<00amE0000>0037fH00_l900<O6P027g800amF0000>@037fD0
+0_l:008O6P027g400amG0000>P037f@00_l:008O6P027g000amH0000>`037f<00_l:008O6P027g00
+0QmI0000?0037f800_l:008O6P027fl00amI0000?@037f400_l:00<O6@027fh00amJ0000?P037f00
+0_l;008O6@027fd00amK0000?`037el00_l;008O6@027f`00amL0000@0037eh00_l;008O6@027f`0
+0QmM0000@@037ed00_l;008O6@027f/00amM0000@P037e`00_l;00<O60027fX00amN0000@`037e/0
+0_l<008O60027fT00amO0000A0037eX00_l<008O60027fP00amP0000A@037eT00_l<008O60027fP0
+0QmQ0000AP037eP00_l<008O60027fL00amQ0000A`037eL00_l<00<O5`027fH00amR0000B0037eH0
+0_l=008O5`027fD00amS0000B@037eD00_l=008O5`027f@00amT0000BP037e@00_l=008O5`027f@0
+0QmU0000B`037e<00_l=008O5`027f<00amU0000C0037e800_l=00<O5P027f800amV0000C@037e40
+0_l>008O5P027f400amW0000CP037e000_l>008O5P027f000amX0000C`037dl00_l>008O5P027f00
+0QmY0000D0037dh00_l>008O5P027el00amY0000D@037dd00_l>00<O5@027eh00amZ0000DP037d`0
+0_l?008O5@027ed00am[0000D`037d/00_l?008O5@027e`00am/0000E0037dX00_l?008O5@027e`0
+0Qm]0000E@037dT00_l?008O5@027e/00am]0000EP037dP00_l?00<O50027eX00am^0000E`037dL0
+0_l@008O50027eT00am_0000F0037dH00_l@008O50027eP00am`0000F@037dD00_l@008O50027eP0
+0Qma0000FP037d@00_l@008O50027eL00ama0000F`037d<00_l@00<O4`027eH00amb0000G0037d80
+0_lA008O4`027eD00amc0000G@037d400_lA008O4`027e@00amd0000GP037d000_lA008O4`027e@0
+0Qme0000G`037cl00_lA008O4`027e<00ame0000H0037ch00_lA00<O4P027e800amf0000H@037cd0
+0_lB008O4P027e400amg0000HP037c`00_lB008O4P027e000amh0000H`037c/00_lB008O4P027e00
+0Qmi0000I0037cX00_lB008O4P027dl00ami0000I@037cT00_lB00<O4@027dh00amj0000IP037cP0
+0_lC008O4@027dd00amk0000I`037cL00_lC008O4@027d`00aml0000J0037cH00_lC008O4@027d`0
+0Qmm0000J@037cD00_lC008O4@027d/00amm0000JP037c@00_lC00<O40027dX00amn0000J`037c<0
+0_lD008O40027dT00amo0000K0037c800_lD008O40027dP00an00000K@037c400_lD008O40027dP0
+0Qn10000KP037c000_lD008O40027dL00an10000K`037bl00_lD00<O3`027dH00an20000L0037bh0
+0_lE008O3`027dD00an30000L@037bd00_lE008O3`027d@00an40000LP037b`00_lE008O3`027d@0
+0Qn50000L`037b/00_lE008O3`027d<00an50000M0037bX00_lE00<O3P027d800an60000M@037bT0
+0_lF008O3P027d400an70000MP037bP00_lF008O3P027d000an80000M`037bL00_lF008O3P027d00
+0Qn90000N0037bH00_lF008O3P027cl00an90000N@037bD00_lF00<O3@027ch00an:0000NP037b@0
+0_lG008O3@027cd00an;0000N`037b<00_lG008O3@027c`00an<0000O0037b800_lG008O3@027c`0
+0Qn=0000O@037b400_lG008O3@027c/00an=0000OP037b000_lG00<O30027cX00an>0000O`037al0
+0_lH008O30027cT00an?0000P0037ah00_lH008O30027cP00an@0000P@037ad00_lH008O30027cP0
+0QnA0000PP037a`00_lH008O30027cL00anA0000P`037a/00_lH00<O2`027cH00anB0000Q0037aX0
+0_lI008O2`027cD00anC0000Q@037aT00_lI008O2`027c@00anD0000QP037aP00_lI008O2`027c@0
+0QnE0000Q`037aL00_lI008O2`027c<00anE0000R0037aH00_lI00<O2P027c800anF0000R@037aD0
+0_lJ008O2P027c400anG0000RP037a@00_lJ008O2P027c000anH0000R`037a<00_lJ008O2P027c00
+0QnI0000S0037a800_lJ008O2P027bl00anI0000S@037a400_lJ00<O2@027bh00anJ0000SP037a00
+0_lK008O2@027bd00anK0000S`037`l00_lK008O2@027b`00anL0000T0037`h00_lK008O2@027b`0
+0QnM0000T@037`d00_lK008O2@027b/00anM0000TP037``00_lK00<O20027bX00anN0000T`037`/0
+0_lL008O20027bT00anO0000U0037`X00_lL008O20027bP00anP0000U@037`T00_lL008O20027bP0
+0QnQ0000UP037`P00_lL008O20027bL00anQ0000U`037`L00_lL00<O1`027bH00anR0000V0037`H0
+0_lM008O1`027bD00anS0000V@037`D00_lM008O1`027b@00anT0000VP037`@00_lM008O1`027b@0
+0QnU0000V`037`<00_lM008O1`027b<00anU0000W0037`800_lM00<O1P027b800anV0000W@037`03
+0?oo01h00Ql6008O8@037jL0002N00<O0_lN008O1P027b000anX0000W`037`03o`0001`00Ql6008O
+80027jT0002P00<O7P027`H00QlO00<OZ@000:400alM00<O1@027ah00anZ0000X@001?lO7alM008O
+1@027ad00an[0000X@02o`<O70027`D00QlL00<O[0000:400_l0100O7alK008O1@027a`00Qn]0000
+X@02o`800alJ008O1@027a/00an]0000X@02o`<00alI00<O10027aX00an^0000X@02o`@00alI008O
+10027aT00an_0000X@02o`D00alH008O10027aP00an`0000X@02o`H00alG008O10027aP00Qna0000
+X@02o`L00alF008O10027aL00ana0000X@02o`P00alE00<O0`027aH00anb0000X@02o`T00alE008O
+0`027aD00anc0000X@02o`X00alD008O0`027a@00and0000X@02o`/00alC008O0`027a@00Qne0000
+X@02o``00alB008O0`027a<00ane0000X@02o`d00alA00<O0P027a800anf0000X@02o`h00alA008O
+0P027a400ang0000X@02o`l00al@008O0P027a000anh0000X@02oa000al?008O0P027a000Qni0000
+X@02oa400al>008O0P027`l00ani0000X@02oa800al=00<O00<07al03P037kX0002Q00;o4`037`d0
+0Ql00`0O7`0=00<O^`000:400_lD00<O30027`0301lO00`00anl0000X@02oaD00al;008O00<07al0
+30027kd0002Q00;o5P037`X00Ql00`0O7`0;00<O_@000:400_lG00<O2@057`X00ann0000X@02oaP0
+0al900@O2@037kl0002Q00;o6@037`P011l800<O`0000:400_lJ00<O1`047`P00Qo10000X@02oa/0
+0al600@O1`037l40002Q00;o70037`D011l600<O`P000:400_lM00<O1@037`D00ao30000X@02oah0
+0al400<O10037l@0002Q00;o7`037`<00al4008Oa@000:400_lP00<O0P037`<00ao50000X@02ob40
+0al00`0Oo`03o`<OaP000:400_lR008O2?o70000X@02ob<000<Oool01_o70000X@02ob<02_o60000
+X@02ob<02_o60000aQl:olHO00367`[oaQl00:400_lT00Soa`000:400_lT00Soa`000:400_lS00<O
+1?l37lH0002Q00;o8P037`0301lO008O00@07alOa@000:400_lQ00<O0P047`800ao40000X@02ob00
+0al300@O0`037l<0002Q00;o80027`@011l400<O`P000:400_lO00<O10047`D00ao10000X@02oah0
+0al500DO1@037l00002Q00;o7@037`H00Ql00`0O7`0600<O_`000:400_lL00<O1`027`0301lO00L0
+0ann0000X@02oa`00Ql8008O00<07al020037kd0002Q00;o6`037`P00Ql00`0O7`0900<O_0000:40
+0_lJ00<O2@027`0401lO7`T00ank0000X@02oaT00al:008O0P027`X00anj0000X@02oaP00al;008O
+0P027`/00ani0000X@02oaP00Ql<008O0P027``00anh0000X@02oaL00al<008O0P027`d00ang0000
+X@02oaH00al=008O0P037`d00anf0000X@02oaD00al>008O0`027`h00ane0000X@02oa@00al?008O
+0`027`l00and0000X@02oa@00Ql@008O0`027a000anc0000X@02oa<00al@008O0`027a400anb0000
+X@02oa800alA008O0`037a400ana0000X@02oa400alB008O10027a800an`0000X@02oa000alC008O
+10027a<00an_0000X@02oa000QlD008O10027a@00an^0000X@02o`l00alD008O10027aD00an]0000
+X@02o`h00alE008O10037aD00an/0000X@02o`d00alF008O1@027aH00an[0000X@02o``00alG008O
+1@027aL00anZ0000X@02o``00QlH008O1@027aP00anY0000X@02o`/00alH008O1@027aT00anX0000
+X@02o`X00alI008O1@037aT00anW0000X@02o`T00alJ008O1P027aX00anV0000X@02o`P00alK008O
+1P027a/00anU0000X@02o`P00QlL008O1P027a`00anT0000X@02o`L00alL008O1P027ad00anS0000
+ZOl37ago0Ql6o`<O7Ol37j;o002Xo`<O7_l27`Oo0QlNo`<OXOl00:400_l400<O7`027`L00QlO00<O
+X0000:400_l4008O80027`L00QlP00<OW`000:400_l300<O80027`L00QlQ00<OWP000:400_l200<O
+8@027`L00alQ00<OW@000:400_l0100O7alR008O20027b800anL0000X@02o`<O8`027`P00QlS00<O
+V`000:400_l27b@00Ql8008O90037iX0002Q0004oalO7b@00Ql8008O9@037iT0002Q00<O9@027`P0
+0alU00<OV0000:000alV008O2@027bH00anG0000W`037`03o`0002@00Ql9008O9`037iH0002O008O
+0_lV008O2@027bP00anE0000WP037`;o9P027`T00QlY00<OU00009d00al00`3oo`0V008O2@037bT0
+0anC0000W0037`800_lV008O2P027bX00anB0000V`037`<00_lV008O2P027b/00anA0000V`027`@0
+0_lV008O2P027b`00an@0000VP037`@00_lV008O2P027bd00an?0000V@037`D00_lV008O2P037bd0
+0an>0000V0037`H00_lV008O2`027bh00an=0000U`037`L00_lV008O2`027bl00an<0000U`027`P0
+0_lV008O2`027c000an;0000UP037`P00_lV008O2`027c400an:0000U@037`T00_lV008O2`037c40
+0an90000U0037`X00_lV008O30027c800an80000T`037`/00_lV008O30027c<00an70000T`027``0
+0_lV008O30027c@00an60000TP037``00_lV008O30027cD00an50000T@037`d00_lV008O30037cD0
+0an40000T0037`h00_lV008O3@027cH00an30000S`037`l00_lV008O3@027cL00an20000S`027a00
+0_lV008O3@027cP00an10000SP037a000_lV008O3@027cT00an00000S@037a400_lV008O3@037cT0
+0amo0000S0037a800_lV008O3P027cX00amn0000R`037a<00_lV008O3P027c/00amm0000R`027a@0
+0_lV008O3P027c`00aml0000RP037a@00_lV008O3P027cd00amk0000R@037aD00_lV008O3P037cd0
+0amj0000R0037aH00_lV008O3`027ch00ami0000Q`037aL00_lV008O3`027cl00amh0000Q`027aP0
+0_lV008O3`027d000amg0000QP037aP00_lV008O3`027d400amf0000Q@037aT00_lV008O3`037d40
+0ame0000Q0037aX00_lV008O40027d800amd0000P`037a/00_lV008O40027d<00amc0000P`027a`0
+0_lV008O40027d@00amb0000PP037a`00_lV008O40027dD00ama0000P@037ad00_lV008O40037dD0
+0am`0000P0037ah00_lV008O4@027dH00am_0000O`037al00_lV008O4@027dL00am^0000O`027b00
+0_lV008O4@027dP00am]0000OP037b000_lV008O4@027dT00am/0000O@037b400_lV008O4@037dT0
+0am[0000O0037b800_lV008O4P027dX00amZ0000N`037b<00_lV008O4P027d/00amY0000N`027b@0
+0_lV008O4P027d`00amX0000NP037b@00_lV008O4P027dd00amW0000N@037bD00_lV008O4P037dd0
+0amV0000N0037bH00_lV008O4`027dh00amU0000M`037bL00_lV008O4`027dl00amT0000M`027bP0
+0_lV008O4`027e000amS0000MP037bP00_lV008O4`027e400amR0000M@037bT00_lV008O4`037e40
+0amQ0000M0037bX00_lV008O50027e800amP0000L`037b/00_lV008O50027e<00amO0000L`027b`0
+0_lV008O50027e@00amN0000LP037b`00_lV008O50027eD00amM0000L@037bd00_lV008O50037eD0
+0amL0000L0037bh00_lV008O5@027eH00amK0000K`037bl00_lV008O5@027eL00amJ0000K`027c00
+0_lV008O5@027eP00amI0000KP037c000_lV008O5@027eT00amH0000K@037c400_lV008O5@037eT0
+0amG0000K0037c800_lV008O5P027eX00amF0000J`037c<00_lV008O5P027e/00amE0000J`027c@0
+0_lV008O5P027e`00amD0000JP037c@00_lV008O5P027ed00amC0000J@037cD00_lV008O5P037ed0
+0amB0000J0037cH00_lV008O5`027eh00amA0000I`037cL00_lV008O5`027el00am@0000I`027cP0
+0_lV008O5`027f000am?0000IP037cP00_lV008O5`027f400am>0000I@037cT00_lV008O5`037f40
+0am=0000I0037cX00_lV008O60027f800am<0000H`037c/00_lV008O60027f<00am;0000H`027c`0
+0_lV008O60027f@00am:0000HP037c`00_lV008O60027fD00am90000H@037cd00_lV008O60037fD0
+0am80000H0037ch00_lV008O6@027fH00am70000G`037cl00_lV008O6@027fL00am60000G`027d00
+0_lV008O6@027fP00am50000GP037d000_lV008O6@027fT00am40000G@037d400_lV008O6@037fT0
+0am30000G0037d800_lV008O6P027fX00am20000F`037d<00_lV008O6P027f/00am10000F`027d@0
+0_lV008O6P027f`00am00000FP037d@00_lV008O6P027fd00alo0000F@037dD00_lV008O6P037fd0
+0aln0000F0037dH00_lV008O6`027fh00alm0000E`037dL00_lV008O6`027fl00all0000E`027dP0
+0_lV008O6`027g000alk0000EP037dP00_lV008O6`027g400alj0000E@037dT00_lV008O6`037g40
+0ali0000E0037dX00_lV008O70027g800alh0000D`037d/00_lV008O70027g<00alg0000D`027d`0
+0_lV008O70027g@00alf0000DP037d`00_lV008O70027gD00ale0000D@037dd00_lV008O70037gD0
+0ald0000D0037dh00_lV008O7@027gH00alc0000C`037dl00_lV008O7@027gL00alb0000C`027e00
+0_lV008O7@027gP00ala0000CP037e000_lV008O7@027gT00al`0000C@037e400_lV008O7@037gT0
+0al_0000C0037e800_lV008O7P027gX00al^0000B`037e<00_lV008O7P027g/00al]0000B`027e@0
+0_lV008O7P027g`00al/0000BP037e@00_lV008O7P027gd00al[0000B@037eD00_lV008O7P037gd0
+0alZ0000B0037eH00_lV008O7`027gh00alY0000A`037eL00_lV008O7`027gl00alX0000A`027eP0
+0_lV008O7`027h000alW0000AP037eP00_lV008O7`027h400alV0000A@037eT00_lV008O7`037h40
+0alU0000A0037eX00_lV008O80027h800alT0000@`037e/00_lV008O80027h<00alS0000@`027e`0
+0_lV008O80027h@00alR0000@P037e`00_lV008O80027hD00alQ0000@@037ed00_lV008O80037hD0
+0alP0000@0037eh00_lV008O8@027hH00alO0000?`037el00_lV008O8@027hL00alN0000?`027f00
+0_lV008O8@027hP00alM0000?P037f000_lV008O8@027hT00alL0000?@037f400_lV008O8@037hT0
+0alK0000?0037f800_lV008O8P027hX00alJ0000>`037f<00_lV008O8P027h/00alI0000>`027f@0
+0_lV008O8P027h`00alH0000>P037f@00_lV008O8P027hd00alG0000>@037fD00_lV008O8P037hd0
+0alF0000>0037fH00_lV008O8`027hh00alE0000=`037fL00_lV008O8`027hl00alD0000=`027fP0
+0_lV008O8`027i000alC0000=P037fP00_lV008O8`027i400alB0000=@037fT00_lV008O8`037i40
+0alA0000=0037fX00_lV008O90027i800al@0000<`037f/00_lV008O90027i<00al?0000<`027f`0
+0_lV008O90027i@00al>0000<P037f`00_lV008O90027iD00al=0000<@037fd00_lV008O90037iD0
+0al<0000<0037fh00_lV008O9@027iH00al;0000;`037fl00_lV008O9@027iL00al:0000;`027g00
+0_lV008O9@027iP00al90000;P037g000_lV008O9@027iT00al80000;@037g400_lV008O9@037iT0
+0al70000;0037g800_lV008O9P027iX00al60000:`037g<00_lV008O9P027i/00al50000:`027g@0
+0_lV008O9P027i`00al40000:P037g@00_lV008O9P027id00al30000:@037gD00_lV008O9P037id0
+0al20000:0037gH00_lV008O9`027ih00al100009`037gL00_lV008O9`027il00al00001\
+\>"],
+  ImageRangeCache->{{{0, 405.25}, {405.25, 0}} -> {-5.00005, -5.00005, 
+  0.0308455, 0.0308455}}],
+
+Cell[TextData[{
+  "We will need an algebraic way to represent the ",
+  StyleBox["\"missing\" points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Diagram implementations (optional)", "Subsubsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "For reference, here is how the pictures above were drawn using ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " graphics commands."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Module[{AA, BB, CC, 
+        PP}, {AA, BB, CC, PP} = {{\(-5\), 0}, {\(-2\), 0}, {0.5, 0}, {1, 1}}; 
+      Show[Graphics[{AbsoluteThickness[2], Line[{{0, \(-10\)}, {0, 10}}], 
+            Line[{{\(-10\), 0}, {10, 0}}]}], 
+        Graphics[{AbsolutePointSize[8], Point[AA], 
+            Text["\<A\>", AA + { .55, \(- .30\)}]}], 
+        Graphics[{AbsolutePointSize[8], Point[BB], 
+            Text["\<B\>", BB + { .55, \(- .30\)}]}], 
+        Graphics[{AbsolutePointSize[8], Point[CC], 
+            Text["\<C\>", CC + { .55, \(- .30\)}]}], 
+        Graphics[{AbsolutePointSize[8], Point[PP], 
+            Text["\<P\>", PP + {\(- .55\),  .25}]}], 
+        Graphics[{AbsoluteThickness[2], RGBColor[1, 0, 0], 
+            Line[{2\ PP - AA, 5\ AA - 4\ PP}], 
+            Line[{2\ PP - BB, 5\ BB - 4\ PP}], 
+            Line[{2\ PP - CC, 5\ CC - 4\ PP}]}], Axes \[Rule] None, 
+        AspectRatio \[Rule] 9\/17, 
+        PlotRange \[Rule] {{\(-10\), 7}, {\(-5\), 4}}]]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(Block[{AA, BB, CC, DD, EE, 
+        FF}, {AA, BB, CC, DD, EE, 
+          FF} = {{5, 0}, {5, 1}, {5, 2}, {5, 5}, {1, 5}, {\(-4\), 5}}; 
+      Show[Graphics[{AbsoluteThickness[2], Line[{BB, BB - 2\ AA}], 
+            Line[{CC, CC - 2\ AA}]}], 
+        Graphics[{AbsoluteThickness[2], RGBColor[1, 0, 0], 
+            Line[{AA, \(-AA\)}], Line[{DD, \(-DD\)}], Line[{EE, \(-EE\)}], 
+            Line[{FF, \(-FF\)}]}], 
+        Graphics[{AbsolutePointSize[8], Point[AA - AA]}], Axes \[Rule] None, 
+        AspectRatio \[Rule] 1, 
+        PlotRange \[Rule] {{\(-5\), 5}, {\(-5\), 5}}]]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(Block[{AA, BB, CC, DD, EE, FF}, \ 
+      \n{AA, BB, CC, DD, EE, FF, GG, HH}\  = \ \n
+        \ \ \ \ \ \ \ {{5, 0}, {5, 1}, {5, 2}, {5, 5}, {1, 5}, {\(-4\), 5}, {
+            \(-1\), 5}, {0, 5}}; \n
+      Show[Graphics[{AbsoluteThickness[2], \n\t\ \t
+            Line[{BB, \ BB\  - \ 2\ AA}], \n\t\ \tLine[{\(-EE\), \ GG}]}], \n
+        \t\ Graphics[{AbsoluteThickness[2], \ RGBColor[1, 0, 0], \n\t\ \t
+            Line[{AA, \ \(-AA\)}], \ Line[{DD, \ \(-DD\)}], 
+            Line[{HH, \ \(-HH\)}], \n\t\ \tLine[{EE, \ \(-EE\)}], \ 
+            Line[{FF, \ \(-FF\)}]}], \n\t\ 
+        Graphics[{AbsolutePointSize[8], \ Point[AA - AA]}], \n\t\ 
+        Axes\  -> \ None, \ AspectRatio\  -> \ 1, \ \n\t\ 
+        PlotRange\  -> \ {{\(-5\), 5}, {\(-5\), 5}}]]; \)\)], "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Perspective drawing", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Drawing cubes", "Subsubsection"],
+
+Cell[TextData[{
+  "What is a cube?  It is a ",
+  StyleBox["geometric figure",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", which, in 3 dimensions, has 8 ",
+  StyleBox["vertices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", 12 ",
+  StyleBox["edges",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  "and 6 ",
+  StyleBox["faces",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But, in order to draw a ",
+  StyleBox["picture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a cube, we first have to find a convenient listing of the vertices \
+\[LongDash] as 3D-coordinates.  We will take it to be a ",
+  StyleBox["unit cube",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (",
+  StyleBox["i.e., ",
+    FontSlant->"Italic"],
+  "all edges have a unit length), and we will place it with one face on the ",
+  
+  StyleBox["x,y",
+    FontWeight->"Bold"],
+  "-plane and the back face ",
+  StyleBox["one unit away",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from the ",
+  StyleBox["x,y",
+    FontWeight->"Bold"],
+  "-plane.  Then, we have to list the faces, and finally we fill in the edges \
+using ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " graphics primitives for representing lines.  Here is our version of the \
+required data structure."
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[pp, qq, rr, ss, tt, uu, LL, ll, mm, nn]; \n\n
+    cube = Module[{pp, qq, rr, ss, tt, uu, LL, ll, mm, nn}, 
+        pp = {{0, 0, 0}, {0, 1, 0}, {1, 1, 0}, {1, 0, 0}}; 
+        qq = {{0, 0, 1}, {0, 1, 1}, {1, 1, 1}, {1, 0, 1}}; 
+        rr = {pp\[LeftDoubleBracket]1\[RightDoubleBracket], 
+            pp\[LeftDoubleBracket]4\[RightDoubleBracket], 
+            qq\[LeftDoubleBracket]4\[RightDoubleBracket], 
+            qq\[LeftDoubleBracket]1\[RightDoubleBracket]}; 
+        ss = {pp\[LeftDoubleBracket]2\[RightDoubleBracket], 
+            pp\[LeftDoubleBracket]3\[RightDoubleBracket], 
+            qq\[LeftDoubleBracket]3\[RightDoubleBracket], 
+            qq\[LeftDoubleBracket]2\[RightDoubleBracket]}; 
+        tt = {pp\[LeftDoubleBracket]1\[RightDoubleBracket], 
+            pp\[LeftDoubleBracket]2\[RightDoubleBracket], 
+            qq\[LeftDoubleBracket]2\[RightDoubleBracket], 
+            qq\[LeftDoubleBracket]1\[RightDoubleBracket]}; 
+        uu = {pp\[LeftDoubleBracket]4\[RightDoubleBracket], 
+            pp\[LeftDoubleBracket]3\[RightDoubleBracket], 
+            qq\[LeftDoubleBracket]3\[RightDoubleBracket], 
+            qq\[LeftDoubleBracket]4\[RightDoubleBracket]}; 
+        LL[p_, q_] := Line[{p, q}]; ll = MapThread[LL, {pp, qq}]; 
+        mm = MapThread[LL, {rr, ss}]; nn = MapThread[LL, {tt, uu}]; \n\t\t
+        Join[ll, mm, nn]]; \)], "Input"],
+
+Cell["Let us check the output.", "Text"],
+
+Cell[BoxData[
+    \(cube\)], "Input"],
+
+Cell[TextData[{
+  "Now, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " has built in a command for displaying such 3D line drawings."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(cp = Show[Graphics3D[cube], Boxed -> False]; \)\)], "Input"],
+
+Cell[TextData[{
+  "That looks quite nice.  Of course, our computer screen is only 2D, so this \
+is a ",
+  StyleBox["projection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " giving us a ",
+  StyleBox["perspective drawing",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the cube.  And, if we like we can view it from other viewpoints, say, \
+from ",
+  StyleBox["below",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[cp, ViewPoint -> {2.527, \ \(-1.708\), \ \(-4.5\)}]; \)\)], 
+  "Input"],
+
+Cell[TextData[{
+  "The convention, here is to think of the ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  "-coordinates as running vertical; so, if we decrease then we get a sort of \
+",
+  StyleBox["illusion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of moving ",
+  StyleBox["down",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Do[\(Show[%, ViewPoint -> {2.527, \ \(-1.708\), \ \(-z\)}];\), \n
+      \t{z, 2, 10}]\)], "Input"],
+
+Cell[TextData[{
+  "That is not a very good illusion, however; because ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " \[LongDash] bless its heart \[LongDash] ",
+  StyleBox["changes scale ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "in each frame so you can see as much of the cube as possible, in the sense \
+that the picture has ",
+  StyleBox["to fill the frame",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (Sometimes software can be ",
+  StyleBox["too intelligent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!)"
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Doing our own perspective", "Subsubsection"],
+
+Cell["\<\
+In order to understand coordinates better, we will program our \
+movements and projections, and look to see whether the perspective is \
+convincing.\
+\>", "Text"],
+
+Cell["\<\
+The first thing we do is a routine for a change of scale and a \
+movement by a vector translation.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(shift[a_, b_, c_, m_] := 
+      \ {{x_, y_, z_} :> \ {a, b, c} + m {x, y, z}}\)], "Input"],
+
+Cell["For example:", "Text"],
+
+Cell[BoxData[
+    \(\((cube /. shift[1, 2, 3, 4])\) // TableForm\)], "Input"],
+
+Cell["\<\
+The reader can check it out:  now the lengths of all the lines is \
+4.\
+\>", "Text"],
+
+Cell[TextData[{
+  "Next, we think of the plane ",
+  StyleBox["z==1",
+    FontWeight->"Bold"],
+  " as the plane of the picture.  We think of the origin as the center of the \
+projection (place of the \"eye\").  And then we have to reduce ",
+  StyleBox["x,y,z",
+    FontWeight->"Bold"],
+  "-coordinates to ",
+  StyleBox["x,y",
+    FontWeight->"Bold"],
+  "-coordinates.  Since the ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  "-coordinate has to be reduced to ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  ", all we have to do is ",
+  StyleBox["divide",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by that coordinate value."
+}], "Text"],
+
+Cell[BoxData[
+    \(project\  := \ {{x_, y_, z_} :> {x/z, y/z}}\)], "Input"],
+
+Cell["Here is the result:", "Text"],
+
+Cell[BoxData[
+    \(ff = \((cube /. shift[1, 2, 3, 4])\) /. project; \nff // TableForm\)], 
+  "Input"],
+
+Cell["\<\
+By the way, to project a line, we only have to project the end \
+points of the segment we want to show.  (Why?)  Look at the resulting \
+drawing.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(end = Max[Abs[Join[ff] /. Line \[Rule] Identity]] + 0.5; 
+    frame = Line[
+        end\ {{\(-1\), \(-1\)}, {\(-1\), 1}, {1, 1}, {1, \(-1\)}, {\(-1\), 
+              \(-1\)}}]; origin = {PointSize[0.015], Point[{0, 0}]}; \n\n
+    Show[Graphics[{origin, frame, ff}], \n\t
+      PlotRange 
+        \[Rule] {{\(-end\) - 0.1, end + 0.1}, {\(-end\) - 0.1, end + 0.1}}, 
+      AspectRatio \[Rule] Automatic]; \)], "Input"],
+
+Cell[TextData[{
+  "The center (origin) of the picture plane is shown as a big dot.  Think of \
+",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-coordinates now as being vertical, and ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-coordinates as horizontal.  Think of the ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  "-coordinates as running ",
+  StyleBox["behind the picture plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (from ",
+  StyleBox["z==1", "InlineInput"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "to ",
+  StyleBox["\[Infinity]", "InlineInput"],
+  ").   So this particular cube is 2 units behind the picture plane, and it \
+one unit to the right and 2 units above the origin."
+}], "Text"],
+
+Cell[TextData[{
+  "Now, we move the cube ",
+  StyleBox["farther back",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (say, 9 units behind the picture plane)."
+}], "Text"],
+
+Cell[BoxData[
+    \(ff = \((cube /. shift[1, 1, 10, 1])\) /. project; \n\n
+    end\  = \ Max[Abs[Join[ff] /. Line -> Identity]] + 0.5; \n
+    frame\  = \ 
+      Line[end {{\(-1\), \(-1\)}, {\(-1\), 1}, {1, 1}, {1, \(-1\)}, {\(-1\), 
+              \(-1\)}}]; \norigin\  = \ {PointSize[0.015], Point[{0, 0}]}; \n
+    \nShow[Graphics[{origin, \ frame, ff}], \ \ \n\t
+      PlotRange\  -> 
+        \ {{\(-end\) - 0.1, end + 0.1}, {\(-end\) - 0.1, end + 0.1}}, \n\t
+      AspectRatio -> Automatic]; \)], "Input"],
+
+Cell["\<\
+Sometimes it is hard to interpret the pictures.  So here is a way \
+of painting reference points on the picture plane at some of the points with \
+integer coordinates.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(ff = \(cube /. shift[1, 2, 1, 3]\) /. project; \n\n
+    refs = {PointSize[0.015], 
+        Point/@Flatten[Table[{x, y}, {x, \(-3\), 3}, {y, \(-3\), 3}], 1]}; 
+    end = Max[
+          Abs[Join[ff, refs] /. {Line \[Rule] Identity, 
+                Point \[Rule] Identity, PointSize \[Rule] \((0&)\)}]] + 0.5; 
+    frame = Line[
+        end\ {{\(-1\), \(-1\)}, {\(-1\), 1}, {1, 1}, {1, \(-1\)}, {\(-1\), 
+              \(-1\)}}]; \n\n
+    Show[Graphics[{refs, frame, ff}], \n\t
+      PlotRange 
+        \[Rule] {{\(-end\) - 0.1, end + 0.1}, {\(-end\) - 0.1, end + 0.1}}, 
+      AspectRatio \[Rule] Automatic]; \)], "Input"],
+
+Cell[TextData[{
+  "That does not look natural, because the cube has one face ",
+  StyleBox["right on the picture plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So, move it back."
+}], "Text"],
+
+Cell[BoxData[
+    \(ff = \(cube /. shift[1, 2, 3, 3]\) /. project; \n\n
+    refs = {PointSize[0.015], 
+        Point/@Flatten[Table[{x, y}, {x, \(-3\), 3}, {y, \(-3\), 3}], 1]}; 
+    end = Max[
+          Abs[Join[ff, refs] /. {Line \[Rule] Identity, 
+                Point \[Rule] Identity, PointSize \[Rule] \((0&)\)}]] + 0.5; 
+    frame = Line[
+        end\ {{\(-1\), \(-1\)}, {\(-1\), 1}, {1, 1}, {1, \(-1\)}, {\(-1\), 
+              \(-1\)}}]; \n\n
+    Show[Graphics[{refs, frame, ff}], \n\t
+      PlotRange 
+        \[Rule] {{\(-end\) - 0.1, end + 0.1}, {\(-end\) - 0.1, end + 0.1}}, 
+      AspectRatio \[Rule] Automatic]; \)], "Input"],
+
+Cell[TextData[{
+  "That's better.  Now we try a picture with ",
+  StyleBox["several cubes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(cc1 = \(cube /. shift[\ \ \ 4, \(-2\), 6, 3]\) /. project; 
+    cc2 = \(cube /. shift[\(-4\), \(-4\), 4, 3]\) /. project; 
+    cc3 = \(cube /. shift[\ \ 2, \ \ 3, \ 4, 3]\) /. project; \n\n
+    end = Max[Abs[Join[cc1, cc2, cc3] /. Line \[Rule] Identity]] + 0.5; 
+    frame = Line[
+        end\ {{\(-1\), \(-1\)}, {\(-1\), 1}, {1, 1}, {1, \(-1\)}, {\(-1\), 
+              \(-1\)}}]; origin = {PointSize[0.015], Point[{0, 0}]}; \n\n
+    Show[Graphics[{origin, frame, cc1, cc2, cc3}], \n\t
+      PlotRange 
+        \[Rule] {{\(-end\) - 0.1, end + 0.1}, {\(-end\) - 0.1, end + 0.1}}, 
+      AspectRatio \[Rule] Automatic]; \)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Drawing other figures (optional)", "Subsubsection"],
+
+Cell[TextData[{
+  "For the sake of comparison, let us try out the ",
+  StyleBox["regrular octahedron",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  First, the data structure."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(octahedron\  = \ 
+      Module[{pp, qq, rr, ss, LL, ll, mm, nn}, \n
+        pp\  = {{0, 0, 0}, {1, 0, 0}, {1, 0, 1}, {0, 0, 1}}; \n
+        qq\  = RotateLeft[pp]; \n
+        rr\  = \ Table[{1/2, \ \ Sqrt[2]/2, 1/2}, {4}]; \n
+        ss\  = \ Table[{1/2, \(-Sqrt[2]\)/2, 1/2}, {4}]; \n
+        LL[p_, q_]\  := \ Line[{p, q}]; \nll\  = \ MapThread[LL, {pp, qq}]; \n
+        mm\  = \ MapThread[LL, {pp, rr}]; \nnn\  = \ MapThread[LL, {pp, ss}]; 
+        \nJoin[ll, mm, nn]]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(octahedron // TableForm\)], "Input"],
+
+Cell[TextData[{
+  "Then, two standard ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " renderings."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[Graphics3D[octahedron], Boxed -> False]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(Show[%, ViewPoint -> {3, \ \(-2\), \ 1.5}]; \)\)], "Input"],
+
+Cell["Now, we do our own perspective.", "Text"],
+
+Cell[BoxData[
+    \(oct\ \  = \ \((octahedron /. shift[\ \ 1, \(-2\), 3, 2])\) /. project; 
+    \n\nend\  = \ Max[Abs[Join[oct] /. Line -> Identity]] + 0.5; \n
+    frame\  = \ 
+      Line[end {{\(-1\), \(-1\)}, {\(-1\), 1}, {1, 1}, {1, \(-1\)}, {\(-1\), 
+              \(-1\)}}]; \norigin\  = \ {PointSize[0.015], Point[{0, 0}]}; \n
+    \nShow[Graphics[{origin, \ frame, oct}], \ \ 
+      PlotRange\  -> 
+        \ {{\(-end\) - 0.1, end + 0.1}, {\(-end\) - 0.1, end + 0.1}}, \n\t
+      AspectRatio -> Automatic]; \)], "Input"],
+
+Cell["And we can draw two together.", "Text"],
+
+Cell[BoxData[
+    \(oct1\ \  = \ \((octahedron /. shift[\ \ 1, 2, 4, 3])\) /. project; \n
+    oct2\ \  = \ 
+      \((octahedron /. shift[\ \ \(-5\), \(-3\), 4, 4])\) /. project; \n\n
+    end\  = \ Max[Abs[Join[oct1, oct2] /. Line -> Identity]] + 0.5; \n
+    frame\  = \ 
+      Line[end {{\(-1\), \(-1\)}, {\(-1\), 1}, {1, 1}, {1, \(-1\)}, {\(-1\), 
+              \(-1\)}}]; \norigin\  = \ {PointSize[0.02], Point[{0, 0}]}; \n\n
+    Show[Graphics[{origin, \ frame, oct1, oct2}], \ \ 
+      PlotRange\  -> 
+        \ {{\(-end\) - 0.1, end + 0.1}, {\(-end\) - 0.1, end + 0.1}}, \n\t
+      AspectRatio -> Automatic]; \)], "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Introducing coordinates", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Projective representations of points and lines", "Subsubsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Insight. ",
+    FontWeight->"Bold"],
+  "The somewhat surprising solution to the puzzle of central projections \
+about missing points is simply:\n\t",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox[" \t",
+    FontSlant->"Italic"],
+  StyleBox["throw away the planes entirely",
+    FontSize->18,
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[",",
+    FontSize->18],
+  " \nbut ",
+  StyleBox["keep the rays",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " through the fixed center as modelling ",
+  StyleBox["\"potential\"",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "That is, for a given ray, ",
+  StyleBox["if",
+    FontSlant->"Italic"],
+  "  a plane is chosen, ",
+  StyleBox["then",
+    FontSlant->"Italic"],
+  " a point is determined at the intersection of the ray with the plane\
+\[LongDash]unless, of course, the ray is parallel to the plane.  However, for \
+another, non-parallel choice of a plane, that ray will in fact determine a \
+point.  By concentrating on the rays, which form a very \"homogeneous\" \
+whole, the exceptions engendered by parallelsim are completely avoided.  \
+Here, then, is the definition we will be using."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  A ",
+  StyleBox["projective point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the projective ",
+  StyleBox["2D-plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is represented by ",
+  StyleBox["a ray through the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in (complex) ",
+  StyleBox["3-D cartesian space",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "The next step is to consider how projective ",
+  StyleBox["lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "should be represented.  Remember that two non-parallel planes always ",
+  StyleBox["intersect in a line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Conversely, given a line on a plane not passing through the origin, a \
+unique plane is determined passing through the origin intersecting the given \
+plane in the given line.  This motivates the next definition. "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "   A ",
+  StyleBox["projective line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is represented by ",
+  StyleBox["a plane through the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The rays through the origin lying in the plane make up (the \
+representations) of the projective points",
+  StyleBox[" lying on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (or ",
+  StyleBox["incident to",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") the projective line."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "If we like, we can say that the rays through the origin parallel to a \
+given plane, represent the ",
+  StyleBox["points at infinity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for that plane (allowing us to imagine that parallel lines do intersect ",
+  
+  StyleBox["\"way out there\"",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ").  But, remember that a plane in a different position has different \
+points at infinity (",
+  StyleBox["cf.,",
+    FontSlant->"Italic"],
+  " the behavior of the projection between two intersecting planes).  \
+However, the represention of projective points by rays through the origin \
+treats ",
+  StyleBox["all points the same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and shows that the points at infinity are just like all the other \
+points."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Review:",
+    FontSize->18,
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontSize->18],
+  "\n\t",
+  StyleBox[">> ",
+    FontWeight->"Bold"],
+  "The lines through the origin represent the ",
+  StyleBox["projective points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". \n\t",
+  StyleBox[">> ",
+    FontWeight->"Bold"],
+  "The planes through the origin represent the ",
+  StyleBox["projective lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[1, 0, 1]],
+
+Cell[TextData[{
+  StyleBox["Comment: ",
+    FontWeight->"Bold"],
+  "The difference between an ordinary ",
+  StyleBox["Euclidean plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and the ",
+  StyleBox["projective plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is that the projective plane has an ",
+  StyleBox["extra range",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of points all at infinity which forms a ",
+  StyleBox["line at infinity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "It should be emphasized again that the representation ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " rays shows that a line at infinity is no different from any other \
+projective line.  Indeed the line at infinity is the locus of vanishing \
+points of parallel lines on the perspective drawing of a horizontal plane \
+\[LongDash] and on the picture plan they are like other points.  In the \
+projective geometry with the above definitions, a symmetric, uniform \
+treatment thus becomes possible that simplifies both concepts and \
+calculations.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->GrayLevel[1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using vector-space concepts", "Subsubsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[
+"The foregoing discussion was geometric, we now have to translate the ideas \
+into coordinates using vector algebra.  The translation is quite easy to do \
+\[LongDash] with one twist."], "Text"],
+
+Cell[TextData[{
+  StyleBox["Insight. ",
+    FontWeight->"Bold"],
+  "In terms of vectors, ",
+  StyleBox["a ray through the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is determined by ",
+  StyleBox["any non-zero vector",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["{x,y,z}", "InlineInput"],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  \n",
+  StyleBox["Caution.",
+    FontWeight->"Bold"],
+  " This representation is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " unique, however, since any non-zero scalar multiple",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["{a x,a y,a z}", "InlineInput"],
+  " represents the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ray.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Insight.",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "In terms of vectors, ",
+  StyleBox["a plane through the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is determined as all vectors ",
+  StyleBox["perpendicular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  to a given vector ",
+  StyleBox["{u,v,w}", "InlineInput"],
+  ".  \n",
+  StyleBox["Caution.",
+    FontWeight->"Bold"],
+  " This representation is also ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " unique, since any non-zero scalar multiple",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["{a u,a v,a w}", "InlineInput"],
+  " represents the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " perpendicular plane.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "The twist is to use a ",
+  StyleBox["single",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["vector",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to determine a ",
+  StyleBox["whole perpendicular plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Let us recall that in terms of vector operations, perpendicularity can \
+be defined by the vanishing of the ",
+  StyleBox["dot product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell["{u,v,w}.{x,y,z} == 0", "Input",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "What we then see here is a ",
+  StyleBox["linear equation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  If we take ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w}\),
+        FontWeight->"Bold"]]],
+  " as fixed, then we have a ",
+  StyleBox["linear form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the variables ",
+  StyleBox["x", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[",",
+    FontWeight->"Bold"],
+  StyleBox["y", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[",",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  "; we can then call ",
+  Cell[BoxData[
+      \({u, v, w}\)],
+    FontWeight->"Bold"],
+  " the ",
+  StyleBox["coordinates of the linear form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "If we take ",
+  Cell[BoxData[
+      StyleBox[\({x, y, z}\),
+        FontWeight->"Bold"]]],
+  " fixed, then we have a ",
+  StyleBox["linear form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the dual set of variables ",
+  StyleBox["u", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["v", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  ";  we can call ",
+  Cell[BoxData[
+      StyleBox[\({x, y, z}\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "the ",
+  StyleBox["coordinates of the dual form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We then revise our definitions, because the use of variables (in a dual \
+set-up) allows us to have a smooth running use of algebra."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "Projective ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are to be identified with these ",
+  StyleBox["dual linear forms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (which form vector spaces)."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "We emphasize again that the relationship of duality is a perfectly \
+symmetric relationship between projective points and lines.  Both kinds of \
+objects have the same kind of coordinates. Indeed, we will find that theorems\
+\[LongDash]when properly formulated\[LongDash]remain valid when the concepts \
+of point and line are ",
+  StyleBox["interchanged",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the statement of the theorem.  This idea of duality will also be \
+extended from lines to ",
+  StyleBox["algebraic curves",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and it is one of the particurlar advantages of passing from ordinary \
+geometry to projective geometry."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A summary", "Subsubsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["fundamental bilinear form",
+    FontWeight->"Bold"],
+  " is:  ",
+  Cell[BoxData[
+      StyleBox[\(u\ x + v\ y + w\ z\),
+        FontWeight->"Bold"]]],
+  StyleBox[" .",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  CellDingbat->"\[FilledDiamond]",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["incidence equation",
+    FontWeight->"Bold"],
+  " is:  ",
+  Cell[BoxData[
+      StyleBox[\(u\ x + v\ y + w\ z == 0\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "\nAnother form of the equation is:    ",
+  Cell[BoxData[
+      StyleBox[\({x, y, z} . {u, v, w} == 0\),
+        FontWeight->"Bold"]]],
+  StyleBox[".",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  CellDingbat->"\[FilledDiamond]",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "With ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  " fixed the equation represents a ",
+  StyleBox["line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".",
+  "\n",
+  "A line is the ",
+  StyleBox["range",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of all points incident to it.",
+  "\n",
+  "The numbers ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  " are then  ",
+  StyleBox["line coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontSlant->"Italic"]
+}], "Text",
+  CellDingbat->"\[FilledDiamond]",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "With ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  " fixed the equation represents a ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".",
+  "\n",
+  "A point is the ",
+  StyleBox["pencil",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of all lines incident to it.",
+  "\n",
+  "The numbers ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  " are then  ",
+  StyleBox["point coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Bold"]
+}], "Text",
+  CellDingbat->"\[FilledDiamond]",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Duality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " comes from the symmetry between points and lines exhibited in the \
+symmetric nature of the fundamental bilinear form."
+}], "Text",
+  CellDingbat->"\[FilledDiamond]",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Bilinear Pairing and Exterior Product", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Linear forms and the dual pairing PD", "Subsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->GrayLevel[1]],
+
+Cell[CellGroupData[{
+
+Cell["Using PD", "Subsubsection"],
+
+Cell[TextData[{
+  "We illustrate the algebraic conventions we are going to use throughout.  A \
+",
+  StyleBox["linear form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] which represents a ",
+  StyleBox["line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] is a linear combination of ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  " (including ",
+  StyleBox["scalars",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "), for example:"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->GrayLevel[1]],
+
+Cell[BoxData[
+    \(l = 3\ x + \((a\^2 + b\^2)\)\ y + a\ z\)], "Input"],
+
+Cell[TextData[{
+  "A ",
+  StyleBox["dual linear form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] which represents a ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] is a linear combination of ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  ", for example:"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->GrayLevel[1]],
+
+Cell[BoxData[
+    \(p = 3\ a\ u + 15\ b\ v + \((a - 6\ c)\)\ w\)], "Input"],
+
+Cell[TextData[{
+  "As we remarked in the previous discussion, the non-zero ",
+  StyleBox["xyz-",
+    FontWeight->"Bold"],
+  "forms represent ",
+  StyleBox["lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (up to a scalar multiple); while the non-zero ",
+  StyleBox["uvw-",
+    FontWeight->"Bold"],
+  "forms represent ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (up to a scalar multiple).  But, ",
+  StyleBox["forms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are algebraic quantities, not vectors.  Thus we need another operation to \
+",
+  StyleBox["pair",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the forms."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->GrayLevel[1]],
+
+Cell[TextData[{
+  "The ",
+  StyleBox["bilinear pairing",
+    FontWeight->"Bold"],
+  ", called ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  ", operates as follows:"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->False,
+  Background->GrayLevel[1]],
+
+Cell[BoxData[
+    \(PD[l, p]\)], "Input"],
+
+Cell[TextData[{
+  "Assuming that ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["c",
+    FontWeight->"Bold"],
+  " are ",
+  StyleBox["scalars",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then ",
+  StyleBox["PD[l,p]", "InlineInput"],
+  " is also a scalar.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->GrayLevel[1]],
+
+Cell[TextData[{
+  StyleBox["Interpretation.  ",
+    FontWeight->"Bold"],
+  "The equation ",
+  Cell[BoxData[
+      StyleBox[\(PD[l, p] == 0\),
+        FontWeight->"Bold"]]],
+  " means that:\n\t\tthe ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" p ",
+    FontWeight->"Bold"],
+  StyleBox["lies on",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    FontVariations->{"Shadow"->True}],
+  StyleBox[" the line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" l. \n",
+    FontWeight->"Bold"],
+  "(Or ",
+  StyleBox["dually",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", that the ",
+  StyleBox["line ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["l ",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["passes through",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    FontVariations->{"Shadow"->True}],
+  StyleBox[" the point ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["p.",
+    FontWeight->"Bold"],
+  ")"
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "Comment.",
+  StyleBox["  The operation ",
+    FontWeight->"Plain"],
+  StyleBox["PD", "InlineInput"],
+  StyleBox[" giving the ",
+    FontWeight->"Plain"],
+  StyleBox["dual pairing ",
+    FontSlant->"Italic"],
+  StyleBox["is defined in the notebook ",
+    FontWeight->"Plain"],
+  "Implementations",
+  StyleBox[
+  " and has many other uses.  For the time being, however, we can think of it \
+as having this general effect:",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[BoxData[
+    \(PD[a\_1\ x + a\_2\ y + a\_3\ z, b\_1\ u + b\_2\ v + b\_3\ w]\)], "Input"],
+
+Cell[TextData[{
+  "We note \[LongDash] as expected \[LongDash] that ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  " is for forms what ",
+  StyleBox["dot product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is for vectors."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Dual vector spaces (optional)", "Subsubsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  "In terms of ",
+  StyleBox["abstract vector spaces",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", here is a general ",
+  StyleBox["overview",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for readers with some background in Linear Algebra of the facts about ",
+  StyleBox["duality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", which we made need for future reference.  All vector spaces to be \
+considered will be ",
+  StyleBox["finite dimensional",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["  >>  ",
+    FontWeight->"Bold"],
+  "If  ",
+  StyleBox["V",
+    FontWeight->"Bold"],
+  " is a vector space, then the ",
+  StyleBox["dual space",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", ",
+  StyleBox["V*",
+    FontWeight->"Bold"],
+  ", is the space of all ",
+  StyleBox["linear mappings",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (functionals) into the the field of scalars (= the complex numbers \
+here)."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["  >>  ",
+    FontWeight->"Bold"],
+  "The ",
+  StyleBox["dual ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "pairing",
+  " between ",
+  StyleBox["V*",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["V",
+    FontWeight->"Bold"],
+  " is the ",
+  StyleBox["evaluation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the mapping (functional) at the vector."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["  >>  ",
+    FontWeight->"Bold"],
+  "The dual ",
+  "pairing",
+  " is ",
+  StyleBox["bilinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["  >>  ",
+    FontWeight->"Bold"],
+  "In terms of ",
+  StyleBox["coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", linear mappings can always be represented uniquely in terms of ",
+  StyleBox["dot products",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      \({u\_0, u\_1, u\_2, u\_3,  ... } . {x\_0, x\_1, x\_2, x\_3,  ... }\)],
+    FontWeight->"Bold"],
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["  >>  ",
+    FontWeight->"Bold"],
+  "Dot product, therefore, ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the dual ",
+  "pairing",
+  " in terms of dual coordinate systems."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["  >>  ",
+    FontWeight->"Bold"],
+  "If ",
+  StyleBox["W",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["V",
+    FontWeight->"Bold"],
+  " are any two finite dimensional vector spaces with a non-trivial bilinear \
+",
+  "pairing",
+  ", then each is ",
+  StyleBox["isomorphic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the dual space of  the other."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["  >>  ",
+    FontWeight->"Bold"],
+  "The double dual space ",
+  StyleBox["V**",
+    FontWeight->"Bold"],
+  " is isomorphic to ",
+  StyleBox["V",
+    FontWeight->"Bold"],
+  " (in a very natural way)."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Scalars and forms in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " "
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Warning.  ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  does not make very many distinctions between ",
+  StyleBox["types",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This is both an advantage and a disadvantage.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[1, 0, 1]],
+
+Cell[TextData[{
+  "In working with linear ",
+  StyleBox["forms",
+    FontWeight->"Bold"],
+  ", and later with ",
+  StyleBox["polynomials",
+    FontWeight->"Bold"],
+  ", in symbolic computations for theorems of projective geometry it is \
+necessary to distinguish between the \"variable\" (or \"generators\") of the \
+polynomial ring and the symbolic \"scalars\" being (often) used a \
+coefficients (to indicate families of polynomial forms).  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "To this end, the file ",
+  StyleBox["Implementations.nb", "InlineInput",
+    FontWeight->"Bold"],
+  " has set aside the six symbols in the list ",
+  StyleBox["{x,y,z,u,v,w}", "InlineInput"],
+  " to be used as ",
+  StyleBox["variables",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Others are treated as ",
+  StyleBox["scalars",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   Because we are only working in this course on the the ",
+  StyleBox["projective plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we need only six special identifiers set aside as variables.  A study of \
+",
+  StyleBox["higher-dimensional",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " geometry would require more variables.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "In doing many interactive computations, however, one has to be careful \
+that symbols may have been assigned values sometime in the past during a \
+computation session.  From time to time, therefore, it may be wise to invole \
+the command ",
+  StyleBox["ClearAll", "InlineInput",
+    FontWeight->"Bold"],
+  " applied to symbols to be used as general algebraic quantities."
+}], "Text"],
+
+Cell[TextData[{
+  "The actual method in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  of making the distinctions betwee scalars and forms is to define a ",
+  StyleBox["degree function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", ",
+  StyleBox["DegP", "InlineInput",
+    FontWeight->"Bold"],
+  ", for all polynomials generated by these variables.  For example we have \
+these results:"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[BoxData[{
+    \(\(list = {5, a, a + b, a\^2, x, u, a2\ x + c1\ z, a\ x\ y + b\ y\ z}; 
+    \)\), 
+    \(TableForm[{{list, DegP/@list}}]\)}], "Input"],
+
+Cell["\<\
+The first four are taken as scalars, the next three are linear \
+forms, and the last is a quadratic form.  Here is an example of a higher \
+degree form:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(DegP[
+      \((a\ x + b\ y + c\ z)\)\^6\ 
+        \((d\_1\ x\^2 + d\_3\ x\ z + d\_5\ z\^2)\)\^3]\)], "Input"],
+
+Cell[TextData[{
+  "That is correct, because ",
+  StyleBox["12 == 1*6*2*3", "InlineInput"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Important Comment.  ",
+    FontWeight->"Bold"],
+  "The advantage of this approach using ",
+  StyleBox["DegP", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is that ",
+  StyleBox["further variables",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " can be declared temporarily to be of a ",
+  StyleBox["higher degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  Background->RGBColor[1, 0, 1]],
+
+Cell[TextData[{
+  "This means that we can from time to time work with variables ranging over \
+",
+  StyleBox["polynomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " without having to give any notation to a particular ",
+  StyleBox["form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a polynomial.  For example we can compute degrees as follows, where \
+the first line is a ",
+  StyleBox["declaration",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for the new variable:"
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f /: DegP[f] = 2; \)\), 
+    \(\(list = {f, a\ f, a\ f\^2, x\ y\ f, a\ f\^3 - b\ x\^2\ y\^2\ z\^2}; 
+    \)\), 
+    \(TableForm[{{list, DegP/@list}}]\)}], "Input"],
+
+Cell[TextData[{
+  "If we clear ",
+  StyleBox["f", "InlineInput",
+    FontWeight->"Bold"],
+  ", we get it back to being a scalar:"
+}], "Text"],
+
+Cell[BoxData[
+    \(ClearAll[f]; \n
+    list = {f, a\ f, a\ f\^2, x\ y\ f, a\ f\^3 - b\ x\^2\ y\^2\ z\^2}; \n
+    TableForm[{{list, DegP/@list}}]\)], "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Using determinants", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["The meaning of the determinant.", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  What is the ",
+  StyleBox["geometric meaning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the ",
+  StyleBox["2 x 2 ",
+    FontWeight->"Bold"],
+  "determinant ",
+  Cell[BoxData[
+      FormBox[
+        TagBox[
+          RowBox[{"\[LeftBracketingBar]", 
+            TagBox[
+              TagBox[
+                TagBox[
+                  TagBox[GridBox[{
+                        {
+                          SubscriptBox[
+                            StyleBox["a",
+                              "InlineInput",
+                              FontSlant->"Italic"], "1"], \(a\_2\)},
+                        {\(b\_1\), \(b\_2\)}
+                        },
+                      RowSpacings->1,
+                      ColumnSpacings->3,
+                      RowAlignments->Baseline,
+                      ColumnAlignments->{Left}],
+                    (TableForm[ #, TableDepth -> 2]&)],
+                  (TableForm[ #, TableDepth -> TensorRank[ 
+                      Unevaluated[ 
+                        
+                        TableForm[ {{a1, a2}, {b1, b2}}, TableDepth -> 
+                          2]]]]&)],
+                (TableForm[ #, TableDepth -> TensorRank[ 
+                    Unevaluated[ 
+                      TableForm[ 
+                        TableForm[ {{a1, a2}, {b1, b2}}, TableDepth -> 2], 
+                        TableDepth -> TensorRank[ 
+                          Unevaluated[ 
+                            
+                            TableForm[ {{a1, a2}, {b1, b2}}, TableDepth -> 
+                              2]]]]]]]&)],
+              (TableForm[ #, TableDepth -> TensorRank[ 
+                  Unevaluated[ 
+                    TableForm[ 
+                      TableForm[ 
+                        TableForm[ {{
+                          Subscript[ a, 1], 
+                          Subscript[ a, 2]}, {
+                          Subscript[ b, 1], 
+                          Subscript[ b, 2]}}, TableDepth -> 2], TableDepth -> 
+                        TensorRank[ 
+                          Unevaluated[ 
+                            
+                            TableForm[ {{a1, a2}, {b1, b2}}, TableDepth -> 
+                              2]]]], TableDepth -> TensorRank[ 
+                        Unevaluated[ 
+                          TableForm[ 
+                            
+                            TableForm[ {{a1, a2}, {b1, b2}}, TableDepth -> 
+                              2], TableDepth -> TensorRank[ 
+                              Unevaluated[ 
+                                
+                                TableForm[ {{a1, a2}, {b1, b2}}, 
+                                  TableDepth -> 2]]]]]]]]]]&)], 
+            "\[RightBracketingBar]"}],
+          {Det}], TraditionalForm]],
+    FontWeight->"Bold"],
+  StyleBox[" ?",
+    FontWeight->"Bold"]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Of course, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  can calculate determinants in ",
+  StyleBox["symbolic form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Det[{{a\_1, a\_2}, {b\_1, b\_2}}]\n\), 
+    \(Det[{{a\_1, a\_2, a\_3}, {b\_1, b\_2, b\_3}, {c\_1, c\_2, c\_3}}]\)}], 
+  "Input"],
+
+Cell[TextData[{
+  "That is the ",
+  StyleBox["algebraic meaning",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  However, consider the following diagram."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[Graphics[Line[{{7, 0}, {7, 8}, {0, 8}}]], 
+      Graphics[Line[{{5, 0}, {5, 1}, {7, 1}}]], \n\t
+      Graphics[Line[{{0, 7}, {2, 7}, {2, 8}}]], \n\t
+      Graphics[{AbsoluteThickness[2], 
+          Line[{{0, 0}, {5, 1}, {5, 1} + {2, 7}, {2, 7}, {0, 0}}]}], 
+      Graphics[{AbsolutePointSize[6], Point[{2, 7}]}], 
+      Graphics[Text[{b\_1, b\_2}, {2 -  .7, 7 +  .25}]], 
+      Graphics[{AbsolutePointSize[6], Point[{5, 1}]}], 
+      Graphics[Text[{a\_1, a\_2}, {5 +  .7, 1 -  .25}]], \n\t
+      Axes \[Rule] Automatic, \n\tAspectRatio \[Rule] Automatic]; \)\)], 
+  "Input",
+  FontSize->12],
+
+Cell["\<\
+To understand the connection with the determinant, the right-hand \
+expression in the next equation calculates the area of the parallelogram by \
+subtracting from the area of the large rectangle the four triangles and the \
+two little rectangles.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Det[{{a\_1, a\_2}, {b\_1, b\_2}}] == 
+      Expand[\((a\_1 + b\_1)\)\ \((a\_2 + b\_2)\) - 2\ b\_1\ a\_2 - 
+          a\_1\ a\_2 - b\_1\ b\_2]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Conclusion.",
+    FontWeight->"Bold"],
+  " The determinant ",
+  Cell[BoxData[
+      FormBox[
+        RowBox[{" ", 
+          TagBox[
+            RowBox[{"\[LeftBracketingBar]", 
+              TagBox[
+                TagBox[
+                  TagBox[GridBox[{
+                        {\(a\_1\), \(a\_2\)},
+                        {\(b\_1\), \(b\_2\)}
+                        },
+                      RowSpacings->1,
+                      ColumnSpacings->3,
+                      RowAlignments->Baseline,
+                      ColumnAlignments->{Left}],
+                    (TableForm[ #, TableDepth -> 2]&)],
+                  (TableForm[ #, TableDepth -> TensorRank[ 
+                      Unevaluated[ 
+                        
+                        TableForm[ {{a1, a2}, {b1, b2}}, TableDepth -> 
+                          2]]]]&)],
+                (TableForm[ #, TableDepth -> TensorRank[ 
+                    Unevaluated[ 
+                      TableForm[ 
+                        TableForm[ {{a1, a2}, {b1, b2}}, TableDepth -> 2], 
+                        TableDepth -> TensorRank[ 
+                          Unevaluated[ 
+                            
+                            TableForm[ {{a1, a2}, {b1, b2}}, TableDepth -> 
+                              2]]]]]]]&)], "\[RightBracketingBar]"}],
+            {Det}]}], TraditionalForm]],
+    FontWeight->"Bold"],
+  " represents the ",
+  StyleBox["(signed) area",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the parallelogram formed by the two vectors ",
+  Cell[BoxData[
+      StyleBox[\({a\_1, a\_2}\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\({b\_1, b\_2}\),
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "This interpretation generalizes to ",
+  StyleBox["3",
+    FontWeight->"Bold"],
+  " and higher dimensions, and to parallelograms in any orientation using \
+higher-dimensional determinants."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Claim.",
+    FontWeight->"Bold"],
+  " The geometric meaning of the ",
+  StyleBox["3x3 ",
+    FontWeight->"Bold"],
+  "determinant",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      FormBox[
+        TagBox[
+          RowBox[{"\[LeftBracketingBar]", 
+            TagBox[
+              TagBox[GridBox[{
+                    {\(a\_1\), \(a\_2\), \(a\_3\)},
+                    {\(b\_1\), \(b\_2\), \(b\_3\)},
+                    {\(c\_1\), \(c\_2\), \(c\_3\)}
+                    },
+                  RowSpacings->1,
+                  ColumnSpacings->3,
+                  RowAlignments->Baseline,
+                  ColumnAlignments->{Left}],
+                (TableForm[ #, TableDepth -> 2]&)],
+              (TableForm[ #, TableDepth -> TensorRank[ 
+                  Unevaluated[ 
+                    
+                    TableForm[ {{a1, a2, a3}, {b1, b2, b3}, {c1, c2, c3}}, 
+                      TableDepth -> 2]]]]&)], "\[RightBracketingBar]"}],
+          {Det}], TraditionalForm]],
+    FontWeight->"Bold"],
+  "as the  ",
+  StyleBox["(signed)",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["volume",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in",
+  StyleBox[" 3",
+    FontWeight->"Bold"],
+  "-space of the ",
+  StyleBox["parallelepiped",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " determined by the ",
+  StyleBox["rows",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " interpreted as vectors.  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Here is an example of a ",
+  StyleBox["3x3 ",
+    FontWeight->"Bold"],
+  "determinant and a corresponding parallelepiped."
+}], "Text"],
+
+Cell["\<\
+OO = {0,0,0};
+AA = {2,2,10};
+BB = {5,9,1};
+CC = {3,7,2};
+
+edges = {{OO, AA},{OO, BB},{OO, CC},
+         {AA, AA+BB},{AA, AA+CC},
+         {BB, AA+BB},{BB, BB+CC},
+         {CC, AA+CC},{CC, BB+CC},
+         {AA+BB, AA+BB+CC},
+         {AA+CC, AA+BB+CC},
+         {BB+CC, AA+BB+CC}};
+         
+Det[{AA,BB,CC}]\
+\>", "Input"],
+
+Cell[BoxData[{
+    \(\(r = Min[edges]; \)\), 
+    \(\(s = Max[edges]; \)\), 
+    \(\(Show[Graphics3D[{Thickness[0.009], \ Line/@edges}], \n\t
+      BoxRatios \[Rule] {1, 1, 1}, \n\tAxes \[Rule] Automatic, 
+      PlotRange \[Rule] {{r, s}, {r, s}, {r, s}}]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "So the volume of that box we see is ",
+  StyleBox["88",
+    FontWeight->"Bold"],
+  " cubic units.  This may not be an obvious fact (and it may not be obvious \
+that vectors with ",
+  StyleBox["integer components",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " always give ",
+  StyleBox["integer volumes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "), but at least it should be clear that the determinant is ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  " exactly when the three vectors are ",
+  StyleBox["coplanar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".  ",
+    FontWeight->"Bold"],
+  " Why?  Because we know from the theory of matrices that the determinant of \
+a square matrix ",
+  StyleBox["vanishes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " exactly when the matrix is ",
+  StyleBox["singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (",
+  StyleBox["i.e.",
+    FontSlant->"Italic"],
+  ", has no inverse).  A singular matrix has ",
+  StyleBox["non-independent rows ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "(Why?).  In the case of ",
+  StyleBox["3x3",
+    FontWeight->"Bold"],
+  " matrices, this means that one row is a linear combination of the other \
+two.  But this is the same as saying the three vectors are ",
+  StyleBox["coplanar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". "
+}], "Text"],
+
+Cell["\<\
+These facts, for example, can be used to discover many useful \
+formulas.  Here is a classic instance, which can also be generalized to \
+higher dimensions.  More examples are given in the following \
+subsections.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Claim.  ",
+    FontWeight->"Bold"],
+  "In the Cartesian plane, the point ",
+  Cell[BoxData[
+      StyleBox[\({x, y}\),
+        FontWeight->"Bold"]]],
+  " lies on ",
+  StyleBox["the line joining distinct points ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  Cell[BoxData[
+      StyleBox[\({a\_1, a\_2}\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\({b\_1, b\_2}\),
+        FontWeight->"Bold"]]],
+  "  exactly when the following determinant vanishes.  (Why?)"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(Det[{{a\_1, a\_2, 1}, {b\_1, b\_2, 1}, {x, y, 1}}]\)], "Input"],
+
+Cell["\<\
+We can make the result look nicer by emphasizing the \
+variables.\
+\>", "Text",
+  Background->GrayLevel[1]],
+
+Cell["Collect[%,{x,y}]", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Areas of polygons", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "How can we find the area of a ",
+  StyleBox["polygon",
+    FontSlant->"Italic"],
+  "  in the plane?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "We know that the value of a determinant is the area of the parallelogram \
+determined by the two rows (as vectors).  Thus, since the diagonal of a \
+parallelogram divides the figure into ",
+  StyleBox["two congruent triangles",
+    FontSlant->"Italic"],
+  ", the ",
+  StyleBox["answer",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for the area of (either) triangle is 1/2 times the determinant.   But \
+this triangle has one vertex at the origin.  Therefore, this answer is not \
+yet general enough.   Here is an example."
+}], "Text"],
+
+Cell[TextData[{
+  "Consider, then, a triangle in \"general position\" with vertices ",
+  StyleBox["AA",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["BB",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["CC",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(Show[
+      Graphics[{AbsoluteThickness[2.1], Line[{{0, 0}, {5, 1}}], 
+          Line[{{0, 0}, {7, 4}}], Line[{{0, 0}, {2, 7}}]}], 
+      Graphics[{AbsoluteThickness[2.1], RGBColor[1, 0, 0], 
+          Line[{{5, 1}, {7, 4}, {2, 7}, {5, 1}}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{5, 1}], 
+          Text["\<AA\>", {5 +  .55, 1 -  .25}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{7, 4}], 
+          Text["\<BB\>", {7 +  .55, 4 +  .25}]}], \n\t
+      Graphics[{AbsolutePointSize[8], Point[{2, 7}], 
+          Text["\<CC\>", {2 -  .55, 7 +  .25}]}], \n\tAxes \[Rule] Automatic, 
+      \n\tAspectRatio \[Rule] Automatic, \n\t
+      PlotRange \[Rule] {{0, 8}, {0, 8}}]; \)\)], "Input",
+  FontSize->12],
+
+Cell["\<\
+In the diagram as actually drawn (which is general enough for the \
+discussion) the following vertices were used:\
+\>", "Text"],
+
+Cell["{AA,BB,CC} = {{5,1},{7,4},{2,7}};", "Input"],
+
+Cell["Now consider the following combination of determinants", "Text"],
+
+Cell["1/2(Det[{AA,BB}] + Det[{BB,CC}] - Det[{AA,CC}])", "Input"],
+
+Cell["\<\
+This can be interpreted as the sum of two triangular areas (with \
+vertices at the origin, minus a third.  The result is the area of the \
+triangle in red, as desired.\
+\>", "Text"],
+
+Cell[TextData[{
+  "The determinant combination can also be interpreted also as a ",
+  StyleBox["3x3",
+    FontWeight->"Bold"],
+  " determinant, provided we adjoin a further column of ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  "'s.  (This can be proved by expanding the ",
+  StyleBox["3x3",
+    FontWeight->"Bold"],
+  " determinant in minors with respect to the third column.)"
+}], "Text"],
+
+Cell["1/2 Det[{Join[AA,{1}],Join[BB,{1}],Join[CC,{1}]}]", "Input"],
+
+Cell["\<\
+Having treated triangles, it is possible to go on to computing \
+areas of polygons in a similar way.  (This is a homework problem.)\
+\>", 
+  "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Points in space", "Subsubsection",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Question. ",
+    FontWeight->"Bold"],
+  " What is a test for when three points ",
+  StyleBox["in space",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ? "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Suppose the points are ",
+  StyleBox["{a1, a2, a3}, {b1, b2, b3}, ",
+    FontWeight->"Bold"],
+  "and",
+  StyleBox[" {c1, c2, c3}.",
+    FontWeight->"Bold"],
+  "   "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Answer.  ",
+    FontWeight->"Bold"],
+  " Check whether the following ",
+  StyleBox["three determinants are zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ": "
+}], "Text",
+  Background->RGBColor[1, 0, 1]],
+
+Cell["\<\
+test :=
+(Det[{{a1,a2,1},{b1,b2,1},{c1,c2,1}}] ==
+ Det[{{a1,a3,1},{b1,b3,1},{c1,c3,1}}] ==
+ Det[{{a2,a3,1},{b2,b3,1},{c2,c3,1}}] == 0);\
+\>", "Input"],
+
+Cell[TextData[{
+  "The idea here is to ",
+  StyleBox["project",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the points by a ",
+  StyleBox["perpendicular projection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " onto each of the coordinate planes and then check if the images are \
+collinear in each case.  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold",
+    Background->RGBColor[0, 1, 1]],
+  StyleBox["Can the reader prove that the test is sound and effective?",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    Background->RGBColor[0, 1, 1]]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["To try an example, here is the code needed:", "Text"],
+
+Cell[BoxData[{
+    \(\(pt[p_] := Graphics3D[{AbsolutePointSize[5], Point[p]}]; \)\), 
+    \(\(ln[l_] := Graphics3D[{AbsoluteThickness[2], Line[l]}]; \)\), 
+    \(\(lnn[l_] := 
+      Graphics3D[{AbsoluteThickness[2], RGBColor[1, 0, 0], Line[l]}]; \)\), 
+    \(\(proj[m_, n_] := 
+      Table[If[j == n, 0, m\[LeftDoubleBracket]i, j\[RightDoubleBracket]], {
+          i, 3}, {j, 3}]; \)\), 
+    \(\(jn[mm_, nn_] := 
+      Table[{mm\[LeftDoubleBracket]ii\[RightDoubleBracket], 
+          nn\[LeftDoubleBracket]ii\[RightDoubleBracket]}, {ii, 3}]; \)\)}], 
+  "Input"],
+
+Cell[BoxData[
+    \(\(plot[m_, r_, s_] := 
+      Show[pt/@m, Table[pt/@proj[m, k], {k, 3}], 
+        Table[ln/@jn[m, proj[m, 4 - kk]], {kk, 3}], 
+        BoxRatios \[Rule] {1, 1, 1}, \n\t\tAxes \[Rule] Automatic, 
+        PlotRange \[Rule] {{r, s}, {r, s}, {r, s}}]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(plotl[m_, r_, s_] := 
+      Show[pt/@m, Table[pt/@proj[m, k], {k, 3}], 
+        Table[ln/@jn[m, proj[m, 4 - kk]], {kk, 3}], 
+        Table[lnn[proj[m, kkk]], {kkk, 3}], lnn[m], \n\t\t
+        BoxRatios \[Rule] {1, 1, 1}, \n\t\tAxes \[Rule] Automatic, 
+        PlotRange \[Rule] {{r, s}, {r, s}, {r, s}}]; \)\)], "Input"],
+
+Cell["Let us run some specific examples.", "Text"],
+
+Cell["\<\
+m = {{1, 1, 1}, {3, 2, 3}, {4, 6, 7}};
+plot[m,0,8];\
+\>", "Input"],
+
+Cell["\<\
+The points in space are projected onto the coordinate planes as \
+indicated.\
+\>", "Text"],
+
+Cell["plotl[m,0,8];", "Input"],
+
+Cell[TextData[{
+  "The red (broken) lines are drawn in the three planes.  We see they ",
+  StyleBox["are not all collinear triples",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell["Now let us take points in space we know are collinear.", "Text"],
+
+Cell["\<\
+{AA,BB} = {{2, 3, 6}, {5, 6, 4}};
+g = {AA, BB, (1-2)AA + 2 BB};
+plot[g,0,10];\
+\>", "Input"],
+
+Cell["The red lines now fall better:", "Text"],
+
+Cell["plotl[g,0,10];", "Input"],
+
+Cell[TextData[{
+  "Now we can run the ",
+  StyleBox["algebraic test",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to see how it compares with the ideas we encountered in drawing figures \
+to go with the examples."
+}], "Text"],
+
+Cell[BoxData[
+    \({{a1, a2, a3}, {b1, b2, b3}, {c1, c2, c3}} = m; test\)], "Input"],
+
+Cell["{{a1,a2,a3},{b1,b2,b3},{c1,c2,c3}} = g; test", "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The intersection of two lines", "Subsubsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell["\<\
+Suppose we give ourselves four points in the (ordinary) Cartesian \
+plane:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a1, a2, b1, b2, c1, c2, d1, d2]; \n
+    \n{AA, BB, CC, DD} = {{a1, a2}, {b1, b2}, {c1, c2}, {d1, d2}}; \)], 
+  "Input"],
+
+Cell[TextData[{
+  StyleBox["Question. ",
+    FontWeight->"Bold"],
+  " How can we find the point that is the ",
+  StyleBox["intersection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the lines joining ",
+  StyleBox["{AA,BB} ",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  "and  ",
+  StyleBox["{CC,DD}",
+    FontFamily->"Courier",
+    FontWeight->"Bold"],
+  "?",
+  StyleBox[" ",
+    FontFamily->"Courier",
+    FontWeight->"Bold"]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Solution 1. ",
+    FontWeight->"Bold"],
+  " Solve a set of ",
+  StyleBox["linear equations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[1, 0, 1]],
+
+Cell[BoxData[
+    \(TableForm[{
+        Simplify[
+          Solve[\n\t\t{Det[{Join[AA, {1}], Join[BB, {1}], {x, y, 1}}] == 0, \n
+              \t\t\tDet[{Join[CC, {1}], Join[DD, {1}], {x, y, 1}}] == 0}, \n
+            \t\t\t{x, y}]]}]\)], "Input"],
+
+Cell["\<\
+Oh, my heavans!  That is a very long solution!  Maybe there is a \
+simpler way to do this? \
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Solution 2.",
+    FontWeight->"Bold"],
+  "  Try the ",
+  StyleBox["parametric representation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the points on a line via vector algebra."
+}], "Text",
+  Background->RGBColor[1, 0, 1]],
+
+Cell[BoxData[
+    \(TableForm[{
+        Simplify[
+          Solve[AA + t\ \((BB - AA)\) == CC + u\ \((DD - CC)\), {t, u}]]}]
+      \)], "Input"],
+
+Cell[TextData[{
+  "Hmmm!  The answer is nearly as long.  Is there a better way? [",
+  StyleBox["Yes!  Use projective geometry!",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "]"
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The definition of PE", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Meets and joins", "Subsubsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "The most basic \"axioms\" of projective geometry concern ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", ",
+  StyleBox["lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and their ",
+  StyleBox["incidence properties",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We have in the first place these (dual) properties:"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  PageBreakWithin->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  StyleBox[">> ",
+    FontWeight->"Bold"],
+  "Two (distinct) lines ",
+  StyleBox["meet",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at (are incident to) a (unique) point."
+}], "Text",
+  FontSize->16,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox[">> ",
+    FontWeight->"Bold"],
+  "Two (distinct) points ",
+  StyleBox["join",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " up to (are incident to) a (unique) line."
+}], "Text",
+  FontSize->16,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Our implementation of these axioms ",
+  StyleBox["constructs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the required point (or line) through the operation of ",
+  StyleBox["exterior product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "(derived from the properties of ",
+  StyleBox["determinants",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ").  The operation is called here ",
+  StyleBox["PE",
+    FontWeight->"Bold"],
+  ". "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  PageBreakAbove->False,
+  PageBreakWithin->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Exterior products will be defined only on linear forms (first degree \
+forms), and they are ",
+  StyleBox["skew symmetic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (as are determinants).  We find the following results on the generators \
+(basis forms), which we can give in a tabular display:"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[BoxData[
+    \(TableForm[Outer[PE, {x, y, z}, {x, y, z}]]\)], "Input"],
+
+Cell[BoxData[
+    \(TableForm[Outer[PE, {u, v, w}, {u, v, w}]]\)], "Input"],
+
+Cell[TextData[
+"And here is a calculation on particular compound forms:"], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(PE[3\ x + 5\ y - 7\ z, x - y + 2\ z]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Important Observation.  ",
+    FontWeight->"Bold"],
+  "It is seen that the exterior product of two linear ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-forms is a linear ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-form (and the other way around).  "
+}], "Text",
+  FontSize->16,
+  Background->RGBColor[1, 0, 1]],
+
+Cell[TextData[{
+  "And the following symbolic calculation could be regarded as a ",
+  StyleBox["definition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(PE[a\_1\ u + a\_2\ v + a\_3\ w, b\_1\ u + b\_2\ v + b\_3\ w] // Tidy
+      \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Note.",
+    FontWeight->"Bold"],
+  "  The ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " command ",
+  StyleBox["Tidy", "InlineInput"],
+  " rewrites forms in terms of the appropriate variables (using either an ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  " combination or a ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  " combination)."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "And we note this is the same result as the evaluation of a ",
+  StyleBox["determinant ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  Cell[BoxData[
+      FormBox[
+        StyleBox[
+          TagBox[
+            RowBox[{"\[LeftBracketingBar]", 
+              TagBox[
+                TagBox[GridBox[{
+                      {\(a\_1\), \(a\_2\), \(a\_3\)},
+                      {\(b\_1\), \(b\_2\), \(b\_3\)},
+                      {"x", "y", "z"}
+                      },
+                    RowSpacings->1,
+                    ColumnSpacings->3,
+                    RowAlignments->Baseline,
+                    ColumnAlignments->{Left}],
+                  (TableForm[ #, TableDepth -> 2]&)],
+                (TableForm[ #, TableDepth -> TensorRank[ 
+                    Unevaluated[ 
+                      
+                      TableForm[ {{a1, a2, a3}, {b1, b2, b3}, {x, y, z}}, 
+                        TableDepth -> 2]]]]&)], "\[RightBracketingBar]"}],
+            {Det}],
+          FontSize->14], TraditionalForm]],
+    FontWeight->"Bold"],
+  ":"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(Det[{{a\_1, a\_2, a\_3}, {b\_1, b\_2, b\_3}, {x, y, z}}] // Tidy\)], 
+  "Input"],
+
+Cell[TextData[{
+  StyleBox["Comment.  ",
+    FontWeight->"Bold"],
+  "However, in terms of the geometry, it is better to think in terms of ",
+  StyleBox["forms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " rather than in terms of ",
+  StyleBox["vectors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Why?  Because we can think of the forms as representing geometric ",
+  StyleBox["objects",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True,
+  Background->RGBColor[1, 0, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The geometric interpretation", "Subsubsection",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Another way to give the definition is to say ",
+  StyleBox["PE", "InlineInput",
+    FontWeight->"Bold"],
+  " of two points is defined exactly so the following equation is true."
+}], "Text"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Expand", "[", 
+        RowBox[{"PD", "[", "\n", "\t\t", 
+          RowBox[{
+            
+            StyleBox[
+              \(PE[a\_1\ u + a\_2\ v + a\_3\ w, b\_1\ u + b\_2\ v + b\_3\ w]
+                \),
+              Background->RGBColor[0, 1, 0]], ",", 
+            \(c\_1\ u + c\_2\ v + c\_3\ w\)}], "]"}], "]"}], "==", 
+      \(Det[{{a\_1, a\_2, a\_3}, {b\_1, b\_2, b\_3}, {c\_1, c\_2, c\_3}}]
+        \)}]], "Input"],
+
+Cell[TextData[{
+  "Remember that a (non-zero) linear form ",
+  StyleBox["a x + b y + c z",
+    FontWeight->"Bold"],
+  " represents a ",
+  StyleBox["line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (up to a scalar multiple), and a (non-zero) dual linear form ",
+  StyleBox["aa u + bb v + cc v",
+    FontWeight->"Bold"],
+  " represents a ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (up to a scalar multiple).  As we agreed earlier, the necessary and \
+sufficient condition for the point to be ",
+  StyleBox["incident",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the line is that the dot product should vanish:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PD[a\ x + b\ y + c\ z, aa\ u + bb\ v + cc\ v] == 0\)], "Input"],
+
+Cell[TextData[
+"Now, the exterior product of two point forms is a line form:"], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(PE[a\_1\ u + a\_2\ v + a\_3\ w, b\_1\ u + b\_2\ v + b\_3\ w] // Tidy
+      \)], "Input"],
+
+Cell[TextData[
+"And the dot product with this line form with another point form is the \
+(scalar) determinant:"], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(PD[%, c\_1\ u + c\_2\ v + c\_3\ w] // Expand\)], "Input"],
+
+Cell[TextData[{
+  "The vanishing of this expression is the condition for three ",
+  StyleBox["rays",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to be ",
+  StyleBox["co-planar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "; that is, the vanishing is the condition fot the three ",
+  StyleBox["projective points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to be ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But this can happen if, and only if, the third point is ",
+  StyleBox["on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the line joining the first two.  "
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Conclusion.  ",
+    FontWeight->"Bold"],
+  "Therefore, the exterior product calculates ",
+  StyleBox["the line joining two points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+The situation with line forms is exactly similar (in fact, dual).\
+\
+\>", "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[TextData[{
+  StyleBox["Conclusion.  ",
+    FontWeight->"Bold"],
+  "The exterior product of two line form is ",
+  StyleBox["the point at the intersection of two lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (as always, only unique up to a scalar multiple)."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "We can apply the calculation to ",
+  StyleBox["ordinary points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the Cartesian plane.  Here is a suite of four:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\({AA, BB, CC, DD} = \n
+      \t{a\_1\ u + a\_2\ v + w, \n\t\tb\_1\ u + b\_2\ v + w, \n\t\t
+        c\_1\ u + c\_2\ v + w, \n\t\td\_1\ u + d\_2\ v + w}; \)\)], "Input"],
+
+Cell["The line joining the first two is represented by:", "Text"],
+
+Cell["ll = PE[AA,BB]//Tidy", "Input"],
+
+Cell[TextData[{
+  "In other terms, the ",
+  StyleBox["ordinary equation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the line joining them will be: \n                   ",
+  Cell[BoxData[
+      StyleBox[
+        \(\((a\_2 - b\_2)\)\ x + \((b\_1 - a\_1)\)\ y == 
+          \(-\((a\_1\ b\_2 - a\_2\ b\_1)\)\)\),
+        FontWeight->"Bold"]]]
+}], "Text"],
+
+Cell["And we can check that the points do lie on the line:", "Text"],
+
+Cell["Expand[PD[ll,AA]] == Expand[PD[ll,BB]] == 0", "Input"],
+
+Cell[TextData[{
+  "Now join up the other pair by a line, and find the ",
+  StyleBox["intersection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two lines:"
+}], "Text"],
+
+Cell["ii = PE[PE[AA,BB],PE[CC,DD]]//Tidy", "Input"],
+
+Cell[TextData[{
+  "This is a somewhat long expression, and it is not in a form to recognize \
+an ordinary point.  For that the coefficient of ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " should be ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  ".  Here is the coefficient by itself:"
+}], "Text"],
+
+Cell["ii /. {u -> 0, v -> 0, w -> 1}", "Input"],
+
+Cell[TextData[{
+  "So divide through by that (but no need to actually do it).  Note that it \
+is possible that the coefficient might be ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  ".  That is the ",
+  StyleBox["test",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "for the two lines to be ",
+  StyleBox["parallel",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "In the file ",
+  StyleBox["Implementations.nb",
+    FontWeight->"Bold"],
+  " we have defined the operation ",
+  StyleBox["PE", "InlineInput",
+    FontWeight->"Bold"],
+  " (in direct and dual forms) by ",
+  StyleBox["rules",
+    FontSlant->"Italic"],
+  ", where the calculations are reduced \[LongDash] by the equations for a \
+bilinear operators \[LongDash] to defining it just for the basis elements of \
+the vector spaces of linear forms."
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell["\<\
+The justification of this definition rests on the theorem that any \
+multilinear operation on vector spaces is completely determined by its action \
+on the basis elements of the spaces in question.\
+\>", "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "Now, ",
+  StyleBox["PE", "InlineInput",
+    FontWeight->"Bold"],
+  " is supposed to be skew symmetric.  We make the rules to give skew \
+symmetry on the basis elements, but we do not make this a completely general \
+rule.  An interchange between \n                                        ",
+  StyleBox["PE[s,t]", "InlineInput"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["-PE[t,s]", "InlineInput"],
+  " \nwould lead the rule set into an infinite loop.  In ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  we get out of the problem by using the built-in ",
+  StyleBox["lexicographical ordering",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of all expresions to put sequences in alphabetical order (and in this \
+case with a correct choice of + or - sign).  But we really need not worry \
+about the details, since the following calculation verifies the skew-symetric \
+property:"
+}], "Text",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[BoxData[
+    \(Expand[PE[a\_1\ u + a\_2\ v + a\_3\ w, b\_1\ u + b\_2\ v + b\_3\ w]] == 
+      \(-Expand[PE[b\_1\ u + b\_2\ v + b\_3\ w, a\_1\ u + a\_2\ v + a\_3\ w]]
+          \)\)], "Input",
+  CellMargins->{{Inherited, 73}, {Inherited, Inherited}},
+  AspectRatioFixed->False]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowToolbars->{},
+WindowSize->{786, 554},
+WindowMargins->{{4, Automatic}, {Automatic, 2}},
+PrivateNotebookOptions->{"ColorPalette"->{RGBColor, 128}},
+ShowCellLabel->True,
+ShowCellTags->False,
+RenderingOptions->{"ObjectDithering"->True,
+"RasterDithering"->False},
+CharacterEncoding->"MacintoshAutomaticEncoding",
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00l0005X0FP000003^P;H?oCokH?B`^Z;085:0?l0@00005X0FP000003^P;H001
+1@00I00100000@02000002L?00400000000000000000030001000000000@0?oC
+okH?B`^Z0201000000000000000001T1\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 120, 4, 68, "Title"],
+Cell[1832, 55, 265, 9, 109, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2122, 68, 63, 0, 53, "Section"],
+
+Cell[CellGroupData[{
+Cell[2210, 72, 98, 2, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2333, 78, 66, 0, 52, "Subsubsection"],
+Cell[2402, 80, 749, 31, 83, "Text"],
+Cell[3154, 113, 532, 17, 83, "Text"],
+Cell[3689, 132, 268, 12, 38, "Text"],
+Cell[3960, 146, 9108, 194, 247, 1029, 88, "GraphicsData", 
+"PostScript", "Graphics",
+  Evaluatable->False],
+Cell[13071, 342, 293, 8, 60, "Text"],
+Cell[13367, 352, 766, 24, 128, "Text"],
+Cell[14136, 378, 27, 0, 38, "Text"],
+Cell[14166, 380, 161, 4, 114, "Input"],
+Cell[14330, 386, 154, 3, 60, "Text"],
+Cell[14487, 391, 143, 2, 54, "Input"],
+Cell[14633, 395, 536, 16, 105, "Text"],
+Cell[15172, 413, 364, 13, 60, "Text",
+  PageBreakAbove->True],
+Cell[15539, 428, 110, 2, 71, "Input"],
+Cell[15652, 432, 778, 31, 83, "Text"],
+Cell[16433, 465, 233, 5, 74, "Input"],
+Cell[16669, 472, 172, 4, 60, "Text"],
+Cell[16844, 478, 89, 1, 54, "Input"],
+Cell[16936, 481, 173, 4, 60, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[17146, 490, 167, 3, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[17316, 495, 702, 20, 128, "Text",
+  Evaluatable->False],
+Cell[18021, 517, 505, 16, 83, "Text",
+  Evaluatable->False],
+Cell[18529, 535, 597, 15, 105, "Text",
+  Evaluatable->False],
+Cell[19129, 552, 580, 17, 121, "Text",
+  Evaluatable->False],
+Cell[19712, 571, 387, 8, 105, "Text",
+  Evaluatable->False],
+Cell[20102, 581, 10713, 191, 333, 574, 60, "GraphicsData", 
+"PostScript", "Graphics",
+  Evaluatable->False],
+Cell[30818, 774, 25, 3, 70, "Text"],
+Cell[30846, 779, 14975, 246, 333, 592, 63, "GraphicsData", 
+"PostScript", "Graphics",
+  Evaluatable->False],
+Cell[45824, 1027, 169, 6, 38, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[46030, 1038, 166, 3, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[46199, 1043, 172, 5, 60, "Text"],
+Cell[46374, 1050, 1000, 18, 423, "Input"],
+Cell[47377, 1070, 617, 11, 254, "Input"],
+Cell[47997, 1083, 795, 13, 294, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[48841, 1102, 41, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[48907, 1106, 38, 0, 52, "Subsubsection"],
+Cell[48948, 1108, 1362, 48, 172, "Text"],
+Cell[50313, 1158, 1394, 23, 314, "Input"],
+Cell[51710, 1183, 40, 0, 38, "Text"],
+Cell[51753, 1185, 37, 1, 54, "Input"],
+Cell[51793, 1188, 156, 5, 38, "Text"],
+Cell[51952, 1195, 82, 1, 54, "Input"],
+Cell[52037, 1198, 456, 16, 83, "Text"],
+Cell[52496, 1216, 98, 2, 54, "Input"],
+Cell[52597, 1220, 362, 14, 60, "Text"],
+Cell[52962, 1236, 118, 2, 74, "Input"],
+Cell[53083, 1240, 571, 18, 100, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[53691, 1263, 50, 0, 29, "Subsubsection"],
+Cell[53744, 1265, 172, 4, 60, "Text"],
+Cell[53919, 1271, 122, 3, 60, "Text"],
+Cell[54044, 1276, 110, 2, 74, "Input"],
+Cell[54157, 1280, 28, 0, 38, "Text"],
+Cell[54188, 1282, 77, 1, 54, "Input"],
+Cell[54268, 1285, 94, 3, 33, "Text"],
+Cell[54365, 1290, 644, 22, 105, "Text"],
+Cell[55012, 1314, 76, 1, 54, "Input"],
+Cell[55091, 1317, 35, 0, 38, "Text"],
+Cell[55129, 1319, 102, 2, 74, "Input"],
+Cell[55234, 1323, 169, 4, 60, "Text"],
+Cell[55406, 1329, 436, 8, 214, "Input"],
+Cell[55845, 1339, 717, 23, 105, "Text"],
+Cell[56565, 1364, 178, 6, 38, "Text"],
+Cell[56746, 1372, 507, 9, 254, "Input"],
+Cell[57256, 1383, 191, 4, 60, "Text"],
+Cell[57450, 1389, 641, 13, 314, "Input"],
+Cell[58094, 1404, 207, 6, 60, "Text"],
+Cell[58304, 1412, 641, 13, 314, "Input"],
+Cell[58948, 1427, 159, 6, 38, "Text"],
+Cell[59110, 1435, 652, 11, 314, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[59799, 1451, 57, 0, 29, "Subsubsection"],
+Cell[59859, 1453, 198, 6, 60, "Text"],
+Cell[60060, 1461, 509, 9, 234, "Input"],
+Cell[60572, 1472, 56, 1, 54, "Input"],
+Cell[60631, 1475, 121, 5, 33, "Text"],
+Cell[60755, 1482, 83, 1, 54, "Input"],
+Cell[60841, 1485, 81, 1, 54, "Input"],
+Cell[60925, 1488, 47, 0, 33, "Text"],
+Cell[60975, 1490, 526, 9, 234, "Input"],
+Cell[61504, 1501, 45, 0, 38, "Text"],
+Cell[61552, 1503, 626, 11, 314, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[62227, 1520, 45, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[62297, 1524, 177, 3, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[62477, 1529, 861, 32, 141, "Text",
+  Evaluatable->False],
+Cell[63341, 1563, 708, 16, 150, "Text",
+  Evaluatable->False],
+Cell[64052, 1581, 633, 24, 76, "Text",
+  Evaluatable->False],
+Cell[64688, 1607, 675, 17, 128, "Text",
+  Evaluatable->False],
+Cell[65366, 1626, 725, 25, 99, "Text",
+  Evaluatable->False],
+Cell[66094, 1653, 951, 26, 172, "Text",
+  Evaluatable->False],
+Cell[67048, 1681, 643, 25, 120, "Text",
+  Evaluatable->False],
+Cell[67694, 1708, 687, 24, 99, "Text",
+  Evaluatable->False],
+Cell[68384, 1734, 717, 15, 172, "Text",
+  Evaluatable->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[69138, 1754, 159, 3, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[69300, 1759, 209, 3, 60, "Text"],
+Cell[69512, 1764, 928, 35, 131, "Text",
+  Evaluatable->False],
+Cell[70443, 1801, 968, 35, 131, "Text",
+  Evaluatable->False],
+Cell[71414, 1838, 622, 22, 83, "Text",
+  Evaluatable->False],
+Cell[72039, 1862, 122, 2, 52, "Input"],
+Cell[72164, 1866, 940, 37, 83, "Text",
+  Evaluatable->False],
+Cell[73107, 1905, 939, 33, 105, "Text",
+  Evaluatable->False],
+Cell[74049, 1940, 543, 20, 76, "Text",
+  Evaluatable->False],
+Cell[74595, 1962, 834, 19, 172, "Text",
+  Evaluatable->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[75466, 1986, 141, 3, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[75610, 1991, 441, 16, 54, "Text",
+  Evaluatable->False],
+Cell[76054, 2009, 617, 22, 86, "Text",
+  Evaluatable->False],
+Cell[76674, 2033, 713, 30, 118, "Text",
+  Evaluatable->False],
+Cell[77390, 2065, 715, 30, 118, "Text",
+  Evaluatable->False],
+Cell[78108, 2097, 398, 11, 76, "Text",
+  Evaluatable->False]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[78567, 2115, 56, 0, 33, "Section"],
+
+Cell[CellGroupData[{
+Cell[78648, 2119, 193, 4, 62, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[78866, 2127, 33, 0, 52, "Subsubsection"],
+Cell[78902, 2129, 627, 22, 83, "Text",
+  Evaluatable->False],
+Cell[79532, 2153, 71, 1, 56, "Input"],
+Cell[79606, 2156, 467, 17, 60, "Text",
+  Evaluatable->False],
+Cell[80076, 2175, 75, 1, 54, "Input"],
+Cell[80154, 2178, 828, 29, 105, "Text",
+  Evaluatable->False],
+Cell[80985, 2209, 351, 13, 38, "Text",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[81339, 2224, 41, 1, 54, "Input"],
+Cell[81383, 2227, 484, 21, 38, "Text",
+  Evaluatable->False],
+Cell[81870, 2250, 1105, 46, 121, "Text"],
+Cell[82978, 2298, 532, 18, 99, "Text"],
+Cell[83513, 2318, 93, 1, 54, "Input"],
+Cell[83609, 2321, 261, 9, 38, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[83907, 2335, 161, 3, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[84071, 2340, 671, 22, 105, "Text",
+  Evaluatable->False],
+Cell[84745, 2364, 613, 23, 99, "Text",
+  Evaluatable->False],
+Cell[85361, 2389, 552, 23, 76, "Text",
+  Evaluatable->False],
+Cell[85916, 2414, 330, 14, 54, "Text",
+  Evaluatable->False],
+Cell[86249, 2430, 628, 22, 99, "Text",
+  Evaluatable->False],
+Cell[86880, 2454, 380, 14, 76, "Text",
+  Evaluatable->False],
+Cell[87263, 2470, 544, 21, 99, "Text",
+  Evaluatable->False],
+Cell[87810, 2493, 379, 14, 54, "Text",
+  Evaluatable->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[88226, 2512, 121, 5, 29, "Subsubsection"],
+Cell[88350, 2519, 446, 14, 76, "Text",
+  Evaluatable->False],
+Cell[88799, 2535, 562, 14, 128, "Text",
+  Evaluatable->False],
+Cell[89364, 2551, 882, 27, 128, "Text",
+  Evaluatable->False],
+Cell[90249, 2580, 403, 8, 105, "Text"],
+Cell[90655, 2590, 528, 16, 83, "Text",
+  Evaluatable->False],
+Cell[91186, 2608, 154, 3, 76, "Input"],
+Cell[91343, 2613, 176, 4, 60, "Text"],
+Cell[91522, 2619, 129, 3, 56, "Input"],
+Cell[91654, 2624, 108, 4, 38, "Text"],
+Cell[91765, 2630, 491, 18, 76, "Text"],
+Cell[92259, 2650, 516, 16, 105, "Text"],
+Cell[92778, 2668, 186, 4, 96, "Input"],
+Cell[92967, 2674, 141, 5, 38, "Text"],
+Cell[93111, 2681, 158, 3, 96, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[93318, 2690, 40, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[93383, 2694, 105, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[93491, 2698, 2921, 74, 68, "Text"],
+Cell[96415, 2774, 218, 9, 38, "Text"],
+Cell[96636, 2785, 149, 3, 94, "Input"],
+Cell[96788, 2790, 175, 6, 38, "Text"],
+Cell[96966, 2798, 617, 12, 202, "Input"],
+Cell[97586, 2812, 270, 5, 83, "Text"],
+Cell[97859, 2819, 174, 3, 74, "Input"],
+Cell[98036, 2824, 1776, 50, 90, "Text"],
+Cell[99815, 2876, 219, 6, 60, "Text"],
+Cell[100037, 2884, 1534, 52, 134, "Text"],
+Cell[101574, 2938, 153, 5, 38, "Text"],
+Cell[101730, 2945, 332, 15, 260, "Input"],
+Cell[102065, 2962, 273, 5, 154, "Input"],
+Cell[102341, 2969, 1415, 47, 195, "Text"],
+Cell[103759, 3018, 237, 5, 83, "Text"],
+Cell[103999, 3025, 569, 20, 99, "Text"],
+Cell[104571, 3047, 83, 1, 54, "Input"],
+Cell[104657, 3050, 117, 4, 38, "Text"],
+Cell[104777, 3056, 33, 0, 52, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[104847, 3061, 91, 2, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[104941, 3065, 215, 8, 54, "Text"],
+Cell[105159, 3075, 563, 13, 128, "Text"],
+Cell[105725, 3090, 246, 11, 38, "Text"],
+Cell[105974, 3103, 742, 14, 232, "Input"],
+Cell[106719, 3119, 137, 3, 60, "Text"],
+Cell[106859, 3124, 50, 0, 52, "Input"],
+Cell[106912, 3126, 70, 0, 38, "Text"],
+Cell[106985, 3128, 64, 0, 52, "Input"],
+Cell[107052, 3130, 191, 4, 60, "Text"],
+Cell[107246, 3136, 391, 11, 83, "Text"],
+Cell[107640, 3149, 66, 0, 52, "Input"],
+Cell[107709, 3151, 158, 4, 60, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[107904, 3160, 113, 3, 29, "Subsubsection",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[108020, 3165, 320, 13, 54, "Text"],
+Cell[108343, 3180, 195, 8, 38, "Text"],
+Cell[108541, 3190, 243, 9, 54, "Text"],
+Cell[108787, 3201, 159, 5, 100, "Input"],
+Cell[108949, 3208, 338, 11, 60, "Text"],
+Cell[109290, 3221, 303, 9, 54, "Text"],
+Cell[109596, 3232, 59, 0, 38, "Text"],
+Cell[109658, 3234, 561, 11, 214, "Input"],
+Cell[110222, 3247, 282, 5, 154, "Input"],
+Cell[110507, 3254, 342, 6, 174, "Input"],
+Cell[110852, 3262, 50, 0, 38, "Text"],
+Cell[110905, 3264, 76, 3, 68, "Input"],
+Cell[110984, 3269, 100, 3, 38, "Text"],
+Cell[111087, 3274, 30, 0, 52, "Input"],
+Cell[111120, 3276, 200, 6, 60, "Text"],
+Cell[111323, 3284, 70, 0, 38, "Text"],
+Cell[111396, 3286, 102, 4, 84, "Input"],
+Cell[111501, 3292, 46, 0, 38, "Text"],
+Cell[111550, 3294, 31, 0, 52, "Input"],
+Cell[111584, 3296, 235, 7, 60, "Text"],
+Cell[111822, 3305, 85, 1, 54, "Input"],
+Cell[111910, 3308, 61, 0, 52, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[112008, 3313, 103, 2, 29, "Subsubsection",
+  Evaluatable->False],
+Cell[112114, 3317, 98, 3, 38, "Text"],
+Cell[112215, 3322, 148, 3, 114, "Input"],
+Cell[112366, 3327, 494, 20, 76, "Text"],
+Cell[112863, 3349, 221, 9, 54, "Text"],
+Cell[113087, 3360, 247, 5, 114, "Input"],
+Cell[113337, 3367, 115, 3, 38, "Text"],
+Cell[113455, 3372, 266, 9, 76, "Text"],
+Cell[113724, 3383, 144, 4, 74, "Input"],
+Cell[113871, 3389, 196, 6, 60, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[114116, 3401, 42, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[114183, 3405, 146, 3, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[114332, 3410, 533, 18, 60, "Text",
+  Evaluatable->False,
+  PageBreakWithin->False],
+Cell[114868, 3430, 259, 10, 54, "Text"],
+Cell[115130, 3442, 262, 10, 54, "Text"],
+Cell[115395, 3454, 686, 24, 83, "Text",
+  Evaluatable->False,
+  PageBreakAbove->False,
+  PageBreakWithin->False],
+Cell[116084, 3480, 444, 11, 83, "Text",
+  Evaluatable->False],
+Cell[116531, 3493, 75, 1, 54, "Input"],
+Cell[116609, 3496, 75, 1, 54, "Input"],
+Cell[116687, 3499, 188, 4, 38, "Text",
+  Evaluatable->False],
+Cell[116878, 3505, 69, 1, 54, "Input"],
+Cell[116950, 3508, 348, 12, 76, "Text"],
+Cell[117301, 3522, 282, 9, 38, "Text",
+  Evaluatable->False],
+Cell[117586, 3533, 108, 2, 54, "Input"],
+Cell[117697, 3537, 425, 16, 76, "Text"],
+Cell[118125, 3555, 1194, 33, 123, "Text",
+  Evaluatable->False],
+Cell[119322, 3590, 100, 2, 54, "Input"],
+Cell[119425, 3594, 704, 24, 99, "Text",
+  Evaluatable->False]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[120166, 3623, 159, 3, 52, "Subsubsection",
+  Evaluatable->False],
+Cell[120328, 3628, 208, 5, 60, "Text"],
+Cell[120539, 3635, 467, 12, 114, "Input"],
+Cell[121009, 3649, 679, 21, 105, "Text"],
+Cell[121691, 3672, 83, 1, 54, "Input"],
+Cell[121777, 3675, 193, 4, 38, "Text",
+  Evaluatable->False],
+Cell[121973, 3681, 108, 2, 54, "Input"],
+Cell[122084, 3685, 227, 5, 60, "Text",
+  Evaluatable->False],
+Cell[122314, 3692, 77, 1, 54, "Input"],
+Cell[122394, 3695, 758, 25, 105, "Text",
+  Evaluatable->False],
+Cell[123155, 3722, 262, 9, 54, "Text"],
+Cell[123420, 3733, 198, 6, 38, "Text",
+  Evaluatable->False],
+Cell[123621, 3741, 322, 9, 76, "Text"],
+Cell[123946, 3752, 200, 6, 60, "Text"],
+Cell[124149, 3760, 188, 3, 134, "Input"],
+Cell[124340, 3765, 65, 0, 38, "Text"],
+Cell[124408, 3767, 37, 0, 52, "Input"],
+Cell[124448, 3769, 365, 11, 70, "Text"],
+Cell[124816, 3782, 68, 0, 38, "Text"],
+Cell[124887, 3784, 60, 0, 52, "Input"],
+Cell[124950, 3786, 184, 6, 38, "Text"],
+Cell[125137, 3794, 51, 0, 52, "Input"],
+Cell[125191, 3796, 297, 9, 60, "Text"],
+Cell[125491, 3807, 47, 0, 52, "Input"],
+Cell[125541, 3809, 432, 16, 60, "Text"],
+Cell[125976, 3827, 579, 16, 105, "Text",
+  Evaluatable->False],
+Cell[126558, 3845, 327, 7, 83, "Text",
+  Evaluatable->False],
+Cell[126888, 3854, 1095, 28, 236, "Text",
+  Evaluatable->False],
+Cell[127986, 3884, 281, 5, 74, "Input"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

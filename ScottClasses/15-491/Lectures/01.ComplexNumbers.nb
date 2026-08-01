@@ -1,0 +1,4670 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[    105317,       4203]*)
+(*NotebookOutlinePosition[    106104,       4231]*)
+(*  CellTagsIndexPosition[    106060,       4227]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 1   Projective Geometry",
+  StyleBox["\nComplex numbers",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell[TextData[{
+  "\n",
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\n\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["25 August 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell["Basic Definitions and Properties", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["What is a Complex Number?", "Subsection",
+  PageBreakAbove->True,
+  PageBreakBelow->Automatic],
+
+Cell[CellGroupData[{
+
+Cell["The imaginary unit", "Subsubsection",
+  PageBreakBelow->Automatic],
+
+Cell[TextData[{
+  "We begin a review of some basics, which we hope are already familiar.  \
+What may be new, however, is how to carry out these operation in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "An arbitrary complex number ",
+  StyleBox["z == x + I y",
+    FontWeight->"Bold"],
+  " consists of two parts:\n\tthe ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " value, which is called the ",
+  StyleBox["real part",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " and \n\tthe ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  " value which is called the ",
+  StyleBox["imaginary part",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".\nThe quantities ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  " are arbitrary real numbers.  Two complex numbers are ",
+  StyleBox["equal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if, and only if, their real and imaginary parts are respectively equal. "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "Note that in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " the ",
+  StyleBox["unit",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the imaginary part is labeled by ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  ".  It is a complex number in itself, and the term ",
+  StyleBox["I y",
+    FontWeight->"Bold"],
+  " definitely means \"",
+  StyleBox["I times y",
+    FontWeight->"Bold"],
+  "\" and ",
+  StyleBox["x + I y ",
+    FontWeight->"Bold"],
+  "also",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "definitely",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "means \"",
+  StyleBox["x plus I y",
+    FontWeight->"Bold"],
+  "\".  ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "We will have to ",
+  StyleBox["justify",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " this use of the algebraic notation below.  In ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " the real and imaginary parts are denoted by ",
+  StyleBox["Re[z] ",
+    FontWeight->"Bold"],
+  "and ",
+  StyleBox["Im[z]",
+    FontWeight->"Bold"],
+  ", respectively.  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment: ",
+    FontWeight->"Bold"],
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " 3.0 is also able to output ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  " (and other mathematical symbols) in a new font to make formulas look more \
+like standard mathematical notation.  In the example below select the cell \
+and do ",
+  StyleBox["Command-T",
+    FontWeight->"Bold"],
+  " to see the \"traditional\" notation.  We are not using it, as having too \
+many fonts confuses the way users type into notebooks.  Doing Command-N \
+returns the cell to \"standard\" notation."
+}], "SmallText",
+  TextAlignment->Left,
+  TextJustification->0,
+  Background->RGBColor[0, 1, 0]],
+
+Cell[" Here is a first example:", "Text"],
+
+Cell[BoxData[{
+    \(z = \(-12\) - 17\ I\), 
+    \(Re[z]\), 
+    \(Im[z]\), 
+    \(z == Re[z] + I\ Im[z]\), 
+    \(z =. \)}], "Input"],
+
+Cell[TextData[{
+  "Complex numbers arise in many mathematical and physical situations.   A \
+simple mathematical example is the problem of solving the quadratic equation \
+like",
+  StyleBox[" z",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" + 1 == 0",
+    FontWeight->"Bold"],
+  ".   Obviously,  ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" == -1",
+    FontWeight->"Bold"],
+  ", and this equation has no ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " solutions.  However, if we introduce an \"imaginary\" number ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  " such that ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" == -1",
+    FontWeight->"Bold"],
+  ", then the two solutions to our quadratic equation are ",
+  StyleBox["z == I",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["z == -I",
+    FontWeight->"Bold"],
+  ".  With the rule ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" == -1",
+    FontWeight->"Bold"],
+  " it is easily verified that these solutions do satisfy the equation.   \
+Let's check this using ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ".  As expected the roots are ",
+  StyleBox["purely imaginary",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(solutions = Solve[z\^2 + 1 == 0, z]\n\), 
+    \(z\^2 + 1 /. solutions\)}], "Input"],
+
+Cell[TextData[{
+  "So the solutions do in fact solve the equation and the roots of the \
+quadratic equation are found by invoking the subtitutions returned by ",
+  StyleBox["Solve",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(z /. solutions\)], "Input"],
+
+Cell[TextData[{
+  "Now, if we replace ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " by ",
+  StyleBox["z/2",
+    FontWeight->"Bold"],
+  ", we get again purely imaginary roots."
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[\((z\/2)\)\^2 + 1 == 0, z]\)], "Input"],
+
+Cell[TextData[{
+  "But, if we replace ",
+  StyleBox["z ",
+    FontWeight->"Bold"],
+  "by ",
+  StyleBox["z/2 \[Dash] 5",
+    FontWeight->"Bold"],
+  ", we get as a root a combination of real and imaginary parts.  Moreover \
+the expanded equation looks quite different from the original one."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Solve[\((z\/2 - 5)\)\^2 + 1 == 0, z]\), 
+    \(4 \((\((z\/2 - 5)\)\^2 + 1)\) == 0\  // \ ExpandAll\)}], "Input"],
+
+Cell["The questions we have to review and explain, however, are: ", "Text",
+  TextAlignment->Left],
+
+Cell[TextData[{
+  StyleBox["(a) ",
+    FontWeight->"Bold"],
+  "Why is the expansion of ",
+  StyleBox["arithmetic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " from the real to the complex domain is ",
+  StyleBox["consistent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "? and "
+}], "Text",
+  TextAlignment->Left,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["(b)",
+    FontWeight->"Bold"],
+  " Why it is ",
+  StyleBox["useful",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "? "
+}], "Text",
+  TextAlignment->Left,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Complex arithmetic", "Subsubsection",
+  PageBreakBelow->Automatic],
+
+Cell[TextData[{
+  "In ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  ", the arithmetic functions (as well as many other functions) have all been \
+implemented to deal with complex quantities.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Comment:",
+  StyleBox[
+  " In the phrase \"arithmetic functions\" be sure to pronounce the adjective \
+",
+    FontWeight->"Plain"],
+  "ar-ith",
+  StyleBox["-",
+    FontWeight->"Plain"],
+  "MET",
+  StyleBox["-",
+    FontWeight->"Plain"],
+  "ic",
+  StyleBox[".  In other words you do ",
+    FontWeight->"Plain"],
+  "a-RITH-me-tic",
+  StyleBox[" with ",
+    FontWeight->"Plain"],
+  "ar-ith",
+  StyleBox["-",
+    FontWeight->"Plain"],
+  "MET",
+  StyleBox["-",
+    FontWeight->"Plain"],
+  "ic",
+  StyleBox[" functions.",
+    FontWeight->"Plain"]
+}], "SmallText",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 0]],
+
+Cell["For example, we have these results needing explanation:", "Text"],
+
+Cell[BoxData[{
+    \(\((2 + I\ 3)\) + \((\(-5\) - I\ 9)\)\n\), 
+    \(\((2 + I\ 3)\)\ \((\(-5\) - I\ 9)\)\n\), 
+    \(\(2 + I\ 3\)\/\(\(-5\) - I\ 9\)\n\), 
+    \(\((2 + I\ 3)\)\^11\)}], "Input"],
+
+Cell["Here is the first definition:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  StyleBox["Addition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["multiplication",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers is calculated in general in terms of the ",
+  StyleBox["real",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["imaginary",
+    FontWeight->"Bold"],
+  " parts as follows:"
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[BoxData[{
+    \(ComplexSimplify[\((a + I\ b)\) + \((c + I\ d)\)]\), 
+    \(ComplexSimplify[\((a + I\ b)\)*\((c + I\ d)\)]\)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Comment: ",
+    FontWeight->"Bold"],
+  "The command ",
+  StyleBox["ComplexSimplify ",
+    FontWeight->"Bold"],
+  "treats all the variables as ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  and, after an expansion, collects real and imaginary parts conveniently \
+together .  The command is needed to obtain ",
+  StyleBox["symbolic",
+    FontWeight->"Bold"],
+  " results."
+}], "SmallText",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Warning:",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " 3.0 has a built-in function ",
+  StyleBox["ComplexExpand",
+    FontWeight->"Bold"],
+  ", but a bug in the function does not  collect the real and imaginary parts \
+together and has some other problems.  The related operator ",
+  StyleBox["ComplexSimplify",
+    FontWeight->"Bold"],
+  " was defined in ",
+  StyleBox["Implementations.nb",
+    FontWeight->"Bold"],
+  " to overcome these difficulties (we hope)."
+}], "SmallText",
+  Background->RGBColor[1, 0, 1]],
+
+Cell[TextData[{
+  "To explain the definitions above, we remark first that the expression ",
+  StyleBox["x + I y",
+    FontWeight->"Bold"],
+  " is being treated algebraically as a ",
+  StyleBox["linear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["combination",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two units ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  ".  Thus, in ",
+  StyleBox["adding",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " two such numbers the coefficients of  ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  " are just added separately.  To see how ",
+  StyleBox["multiplying",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is to be done, we can just expand ordinary polynomial expressions of the \
+form ",
+  StyleBox["x + J y",
+    FontWeight->"Bold"],
+  ", where ",
+  StyleBox["J",
+    FontWeight->"Bold"],
+  " is a ",
+  StyleBox["non-special",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " quantity."
+}], "Text"],
+
+Cell[BoxData[
+    \(\((Collect[#1, J]&)\)[Expand[\((a + J\ b)\)\ \((c + J\ d)\)]]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Now, if we replace ",
+  StyleBox["J",
+    FontWeight->"Bold"],
+  " by ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  ", we just have to remember that the imaginary unit satisfies ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" == -1",
+    FontWeight->"Bold"],
+  ".  Then we get the real and imaginary parts as shown before.  Let us also \
+try some powers."
+}], "Text"],
+
+Cell[BoxData[
+    \(I\^Range[0, 12]\)], "Input"],
+
+Cell[TextData[{
+  "Question:",
+  StyleBox["  Why are there only four possible answers?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["Here are some general powers:", "Text"],
+
+Cell[BoxData[{
+    \(Expand[\((a + J\ b)\)\^6]\), 
+    \(ComplexSimplify[\((a + I\ b)\)\^6]\)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["ComplexSimplify",
+    FontWeight->"Bold"],
+  " also works for negative exponents, and so we use it to find the \
+definitions."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.",
+    FontWeight->"Bold"],
+  "  The ",
+  StyleBox["reciprocal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a complex number, and the ",
+  StyleBox["quotient",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of two complex numbers are defined as follows."
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[BoxData[{
+    \(ComplexSimplify[1\/\(a + I\ b\)]\), 
+    \(ComplexSimplify[\(a + I\ b\)\/\(c + I\ d\)]\)}], "Input"],
+
+Cell["\<\
+Let us see if these definitions are algebraically reasonable.  \
+First, we try the reciprocal.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Together[
+      Expand[\((a + b\ J)\)\ 
+          \((a\/\(a\^2 + b\^2\) - \(J\ b\)\/\(a\^2 + b\^2\))\)]]\)], "Input"],
+
+Cell[TextData[{
+  "Ah, ha!  When ",
+  StyleBox["J == I",
+    FontWeight->"Bold"],
+  ", then the result is indeed ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  ".  This works, of course, ",
+  StyleBox["provided",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the denominator ",
+  StyleBox["does not vanish",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   Since  ",
+  Cell[BoxData[
+      FormBox[
+        StyleBox[
+          RowBox[{
+            RowBox[{
+              SuperscriptBox[
+                StyleBox["a",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "2"], "+", 
+              SuperscriptBox[
+                StyleBox["b",
+                  FontWeight->"Bold",
+                  FontSlant->"Plain"], "2"]}], 
+            FormBox["==",
+              "TraditionalForm"], "0"}],
+          FontWeight->"Bold"], TraditionalForm]]],
+  " if and only if ",
+  StyleBox["a == b == 0",
+    FontWeight->"Bold"],
+  ", we see that multiplicative inverses exist for all complex numbers ",
+  StyleBox["different from",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["0 == 0 + I 0",
+    FontWeight->"Bold"],
+  ".  And this is what makes ",
+  StyleBox["division",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " possible.  In fact, division is just the product of one number times the \
+reciprocal of the other."
+}], "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[
+      \((a + I\ b)\)\ \((c\/\(c\^2 + d\^2\) - \(I\ d\)\/\(c\^2 + d\^2\))\)]
+      \)], "Input"],
+
+Cell[TextData[{
+  "And sometimes ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " does some ",
+  StyleBox["surprising simplifications",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!"
+}], "Text"],
+
+Cell[BoxData[
+    \(Together[%]\)], "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The Laws of Algebra", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["The polynomial representation", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["The Question.  ",
+    FontWeight->"Bold"],
+  "We have been freely using all the usual ",
+  StyleBox["equational laws",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of algebra while working with complex numbers.  The question is:  ",
+  StyleBox["What gives us leave to do so?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["The Answer. ",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["Polynomial algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " justifies the use of familiar principles of algebra",
+  StyleBox[".",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->GrayLevel[0.666667]],
+
+Cell[TextData[{
+  "Note that in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " the quantities ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["i ",
+    FontWeight->"Bold"],
+  " have different types:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Head/@{I, i}\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Complex",
+    FontWeight->"Bold"],
+  " is something new.  We are asking why it is justified to expand the use of \
+all algebraic rules and notions to these new quantities.  "
+}], "Text"],
+
+Cell[TextData[{
+  "For example, if we take ",
+  StyleBox["i",
+    FontWeight->"Bold"],
+  " just as a ",
+  StyleBox["symbol",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (",
+  StyleBox["i.e., ",
+    FontSlant->"Italic"],
+  "algebraic ",
+  StyleBox["variable",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "), then we know what the laws of algebra will do."
+}], "Text"],
+
+Cell[BoxData[
+    \(Expand[\((a + i\ b)\)\^6]\)], "Input"],
+
+Cell[TextData[{
+  "And we know from the study of basic algebra that \[LongDash] just as for \
+the numbers \[LongDash] polynomial expressions ",
+  StyleBox["do satisfy",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the laws of algebra (oh, such laws as the ",
+  StyleBox["Associative ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "and",
+  StyleBox[" Distributive Laws",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "), because that is the way polynomial algebra is ",
+  StyleBox["defined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  In other words, any algebraic ",
+  StyleBox["identity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that is valid for ",
+  StyleBox["numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " remains valid when ",
+  StyleBox["polynomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are substituted for the variables.  ",
+  StyleBox[
+  "This last assertion can be made rigorous in another way by regarding \
+polynomial ",
+    FontWeight->"Plain"],
+  StyleBox["experssions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" as definitions of polynomial ",
+    FontWeight->"Plain"],
+  StyleBox["functions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".  The arithmetic of functions is defined ",
+    FontWeight->"Plain"],
+  StyleBox["argumentwise",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[
+  ", and\[LongDash]as a general principle\[LongDash]all the usual laws go \
+over to the arithmetic of functions.",
+    FontWeight->"Plain"]
+}], "Text"],
+
+Cell[TextData[{
+  "Now here is the ",
+  StyleBox["new",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " idea:  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "We say that two (arbitrary) polynomials are ",
+  StyleBox["equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["modulo",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a (given) polynomial if they ",
+  StyleBox["differ by a",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (polynomial) ",
+  StyleBox["multiple",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the given polynomial.  "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["\<\
+The definition of equivalence modulo a polynomial has this \
+algebraic formulation:   \
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "Two polynomials ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox[" g",
+    FontWeight->"Bold"],
+  " are ",
+  StyleBox["equivalent modulo",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "a (fixed) polynomial ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " if, and only if, we have \n\t",
+  Cell[BoxData[
+      StyleBox[\(f - g == q\ p\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " for some polynomial multiple of ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  ".  "
+}], "Text",
+  TextAlignment->Left,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Comment: ",
+    FontWeight->"Bold"],
+  "The particular multiple to be chosen of course depends on ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  ".  This also means that the polynomial ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["divides",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "evenly into ",
+  StyleBox["f - g",
+    FontWeight->"Bold"],
+  ".   Now, the test in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " for this with polynomials ",
+  StyleBox["with integer coefficients",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is very convenient: \n\t",
+  StyleBox["PolynomialMod[f - g, p] == 0",
+    FontSize->16,
+    FontWeight->"Bold"],
+  ".   \nIn general, we are considering polynomials with arbitrary ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "coefficients here, however."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "If ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " is the ",
+  StyleBox["zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial, then the relationship ",
+  StyleBox["modulo",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["p ",
+    FontWeight->"Bold"],
+  "is obviously just ",
+  StyleBox["equality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of polynomials.   If  ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " is the ",
+  StyleBox["unit",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " polynomial ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " (or any real constant), then the relationship ",
+  StyleBox["modulo",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["p ",
+    FontWeight->"Bold"],
+  "holds for ",
+  StyleBox["all pairs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of polynomials.  These two equivalence realtions we regard as ",
+  StyleBox["trivial",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  We will be interested the non-trivial cases.  In books on algebra, this \
+lemma is proved."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Lemma.",
+    FontWeight->"Bold"],
+  "  The product of two non-zero polynomials (in any number of variables) can \
+never be ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  ", and the product of  non-constant polynomial with a non-zero polynomial \
+can never be constant."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Comment: ",
+    FontWeight->"Bold"],
+  "The proof is a somewhat fussy induction on the number of variables in the \
+polynomials together with the calculation of the ",
+  StyleBox["degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a polynomial (in a given variable).  We will have to accept the truth \
+of the lemma as being quite plausible here.  We actually only need to \
+consider polynomials in one variable, where the truth of the lemma is clear \
+by what we know about the behavior of polynomial functions."
+}], "SmallText",
+  Background->RGBColor[0, 1, 0]],
+
+Cell["\<\
+The following theorems and their proofs may also be familiar from \
+algebra courses:\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  Equivalence modulo a non-zero, non-constant polynomial is a non-trivial \
+equivalence realtion."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[StyleBox["Proof",
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "        Let the non-zero, non-constant polynomial be ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        The relation is not the ",
+  StyleBox["identity relation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", because the definition makes ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " equivalent to ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        The relation is not the ",
+  StyleBox["universal relation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", because\[LongDash]by the lemma\[LongDash] ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " equivalent to ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        That shows the ",
+  StyleBox["non-triviality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the relationship."
+}], "Text"],
+
+Cell["\<\
+        We next have to check the three properties of being an \
+equivalence relation.\
+\>", "Text"],
+
+Cell[TextData[{
+  "        ",
+  StyleBox["[Reflexivity]",
+    FontWeight->"Bold",
+    FontColor->RGBColor[1, 0, 0]],
+  StyleBox[" ",
+    FontColor->RGBColor[1, 0, 0]],
+  " ",
+  StyleBox["f - f == 0 == 0 p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "       ",
+  StyleBox[" ",
+    FontColor->RGBColor[1, 0, 0]],
+  StyleBox["[Symmetry]",
+    FontWeight->"Bold",
+    FontColor->RGBColor[1, 0, 0]],
+  "  Suppose ",
+  StyleBox["f - g == q p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Then ",
+  StyleBox["g - f == -(f - g) == -q p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        ",
+  StyleBox["[Transitivity]",
+    FontWeight->"Bold",
+    FontColor->RGBColor[1, 0, 0]],
+  StyleBox[" ",
+    FontColor->RGBColor[1, 0, 0]],
+  " Suppose ",
+  StyleBox[" f - g == q p ",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g - h == r p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Then, ",
+  StyleBox["f - g + g - h == f - h == q p + r p == (q + r) p",
+    FontWeight->"Bold"],
+  ". "
+}], "Text"],
+
+Cell[TextData[{
+  "        ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  Equivalence modulo a non-zero polynomial preserves addition, \
+subtraction, and multiplication of polynomials."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[StyleBox["Proof",
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "        Suppose that ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["1 ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  "is equivalent to ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  ", and ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is equivalent to ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        We want to show that ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["\[PlusMinus]",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2 ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  "is equivalent to ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["\[PlusMinus]",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ."
+}], "Text"],
+
+Cell[TextData[{
+  "        And also that ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2 ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  "is equivalent to ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Now ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == q p",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == r p",
+    FontWeight->"Bold"],
+  " for suitable choices of ",
+  StyleBox["q",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["r",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Therefore, ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" +",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["+",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["(f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" +",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[") == q p + r p == (q + r) p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Similarly, ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" -",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["(g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[") == f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["(f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" -",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[") == q p - r p == (q - r) p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Note that ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == q g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == r f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        So, ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["-",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["g",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == q g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["- r f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["p == (q g",
+    FontWeight->"Bold"],
+  StyleBox["1",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " ",
+  StyleBox["- r f",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[") p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  Taking a fixed non-zero polynomial ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  ", the",
+  StyleBox[" equivalence classes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " modulo ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " can be added, subtracted, and multiplied (",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " representatives), and the algebra of equivalence classes satisfies all \
+the familiar equations from ordinary algebra."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[StyleBox["Proof",
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "        In technical terms, mathematicians say that this definition makes \
+a ",
+  StyleBox["homomorphic \n        image",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the algebra of polynomials which preserves all those usual equational \
+laws. "
+}], "Text"],
+
+Cell[TextData[{
+  "        Let us use the",
+  StyleBox[" temporary notation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["Eq[f]",
+    FontWeight->"Bold"],
+  StyleBox["p ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  "for the ",
+  StyleBox["equivalence class",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["f",
+    FontWeight->"Bold"],
+  " modulo ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        If ",
+  StyleBox["F",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["G",
+    FontWeight->"Bold"],
+  " are two equivalence classes, we define ",
+  StyleBox["E + F ",
+    FontWeight->"Bold"],
+  " to mean ",
+  StyleBox["Eq[f + g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  " \n        where",
+  StyleBox[" f",
+    FontWeight->"Bold"],
+  " is a member of ",
+  StyleBox["F",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["g",
+    FontWeight->"Bold"],
+  " is a member of ",
+  StyleBox["G",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        The previous theorem shows that the result is ",
+  StyleBox["independent of the choice",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the \n        representatives, and so the operation ",
+  StyleBox["E + F",
+    FontWeight->"Bold"],
+  " on equivalence classes is ",
+  StyleBox["well defined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        We can do the same to define ",
+  StyleBox["E - F ",
+    FontWeight->"Bold"],
+  "and ",
+  StyleBox[" E F",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        In other words, the ",
+  StyleBox["algebraic",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["operations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are defined so that these formulae hold:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["        \t\tEq[f]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" + Eq[g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == Eq[f + g]",
+    FontWeight->"Bold"],
+  StyleBox["p\n          \t\t",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["Eq[f]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" - Eq[g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == Eq[f - g]",
+    FontWeight->"Bold"],
+  StyleBox["p\n          \t\t",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["Eq[f]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["   Eq[g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" == Eq[f  g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}]
+}], "Text"],
+
+Cell[TextData[{
+  "        So much for the ",
+  StyleBox["algebraic operations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", what about the ",
+  StyleBox["algebraic laws",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ?"
+}], "Text"],
+
+Cell[TextData[{
+  "        Let us try the ",
+  StyleBox["Distributive Law",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as an example."
+}], "Text"],
+
+Cell[TextData[{
+  "        In terms of ",
+  StyleBox["equivalence classes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", this reads:"
+}], "Text"],
+
+Cell[TextData[StyleBox["        \t\t(F + G) H == F H + G H",
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "        In terms of ",
+  StyleBox["representatives",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", this reads equivalently:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["        \t\t(Eq[f]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" + Eq[g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[") Eq[h]",
+    FontWeight->"Bold"],
+  StyleBox["p ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["== Eq[f]",
+    FontWeight->"Bold"],
+  StyleBox["p ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["Eq[h]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" + Eq[g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" Eq[h]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}]
+}], "Text"],
+
+Cell[TextData[{
+  "        Now, the ",
+  StyleBox["LHS",
+    FontWeight->"Bold"],
+  " can be written as:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["        \t\t(Eq[f]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" + Eq[g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[") Eq[h]",
+    FontWeight->"Bold"],
+  StyleBox["p ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["== Eq[(f + g) h]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}]
+}], "Text"],
+
+Cell[TextData[{
+  "        And, the ",
+  StyleBox["RHS",
+    FontWeight->"Bold"],
+  " can be written as:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["        \t\tEq[f]",
+    FontWeight->"Bold"],
+  StyleBox["p ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["Eq[h]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" + Eq[g]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox[" Eq[h]",
+    FontWeight->"Bold"],
+  StyleBox["p ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}],
+  StyleBox["== Eq[f h + g h]",
+    FontWeight->"Bold"],
+  StyleBox["p",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Subscript"}]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["        ",
+    FontWeight->"Bold"],
+  "But the equation ",
+  StyleBox["(f + g) h == f h + g h",
+    FontWeight->"Bold"],
+  " is always true for ",
+  StyleBox["polynomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ";\n        hence the analogous equation must be true for ",
+  StyleBox["equivalence classes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell["\<\
+        Any other equation valid for all polynomials can be treated \
+in a similar fashion.\
+\>", "Text"],
+
+Cell["\<\
+        And so this is the way to transfer valid equations from \
+polynomials over to equivalence classes.\
+\>", "Text"],
+
+Cell[TextData[{
+  "        ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Fortunately ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " has ",
+  StyleBox["reduction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " modulo a polynomial already built in \[LongDash] at least for polynomials \
+with ",
+  StyleBox["integer coefficients",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  So we can use the idea to compare the polynomial manipulation to the \
+built-in complex number operations.  Fortunately, for the arithmetic \
+operations, it is sufficient to manipulate polynomials with integer \
+coefficients (but in several variables) for what we need to do.  We will see \
+that the polynomial construction agrees exactly with the built-in complex \
+operations.."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\((Collect[#1, i]&)\)[
+      PolynomialMod[\((a + i\ b)\) + \((c + i\ d)\), i\^2 + 1]]\), 
+    \(\((Collect[#1, i]&)\)[
+      PolynomialMod[\((a + i\ b)\) - \((c + i\ d)\), i\^2 + 1]]\), 
+    \(\((Collect[#1, i]&)\)[
+      PolynomialMod[\((a + i\ b)\)\ \((c + i\ d)\), i\^2 + 1]]\), 
+    \(\((Collect[#1, i]&)\)[PolynomialMod[\((a + i\ b)\)\^6, i\^2 + 1]]\)}], 
+  "Input"],
+
+Cell[TextData[{
+  StyleBox["Therefore",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] by using polynomial calculations \[LongDash] it is ",
+  StyleBox["fully justified",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to use laws of algebra on complex numbers. ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Inverses and conjugates", "Subsubsection"],
+
+Cell[TextData[{
+  "Now polynomials themselves do not allow for ",
+  StyleBox["division",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (there is a polynomial division with ",
+  StyleBox["a remainder",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", however, but that is not what we mean).  An extra feature of the \
+construction is needed to show that division is possible.  We earlier saw (",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["ComplexSimplify",
+    FontWeight->"Bold"],
+  ") one reason why the complex numbers do have division.  We want also to \
+discuss this feature in the light of the structure of polynomials (in ",
+  StyleBox["i",
+    FontWeight->"Bold"],
+  ") modulo the polynomial ",
+  StyleBox["i",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" + 1",
+    FontWeight->"Bold"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "Observe that a certain product ",
+  StyleBox["eliminates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["i",
+    FontWeight->"Bold"],
+  " from the arbitrary combination ",
+  StyleBox["a + i b",
+    FontWeight->"Bold"],
+  ", as we can see this way:"
+}], "Text"],
+
+Cell[BoxData[
+    \(PolynomialMod[\((a + i\ b)\)\ \((a - i\ b)\), i\^2 + 1]\)], "Input"],
+
+Cell["This is why we could accept this definition of inverses:", "Text"],
+
+Cell[BoxData[
+    \(ComplexSimplify[1\/\(a + I\ b\)]\)], "Input"],
+
+Cell[TextData[{
+  "Look at it this way.  Assuming that division is possible, we can think \
+operationally of multiplying the top and bottom of the fraction ",
+  StyleBox["1/(a + I b) ",
+    FontWeight->"Bold"],
+  " by the complex number ",
+  StyleBox["(a - I b)",
+    FontWeight->"Bold"],
+  " in order to get rid of the ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  " in the denominator.  Then the result is in standard form with \
+identifiable real and an imaginary parts.  We then take the resulting formula \
+as the ",
+  StyleBox["definition ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of reciprocal.  But, subsequently, we have to check that the operation has \
+the right properties. (We did this earlier.)  Note again that the discussion \
+shows that the inverse exists for all complex numbers for which the quantity \
+",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" + b",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " equal to",
+  StyleBox[" 0",
+    FontWeight->"Bold"],
+  ".  Since ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  " are real, this means that ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "of the two components is not ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  ".  Thus, as we remarked earlier, ",
+  StyleBox["0 == 0 + I 0",
+    FontWeight->"Bold"],
+  " is the ",
+  StyleBox["only",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " complex number ",
+  StyleBox["without a multiplicative inverse",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".",
+  StyleBox[" ",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "This method just illustrated is one of using ",
+  StyleBox["conjugates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to clear denominators.  Conjugates also arise in another way from the \
+algrbra.  If we take any polynomial ",
+  StyleBox["f[i]",
+    FontWeight->"Bold"],
+  " in ",
+  StyleBox["i",
+    FontWeight->"Bold"],
+  " and replace ",
+  StyleBox["i",
+    FontWeight->"Bold"],
+  " by ",
+  StyleBox["\[Dash]i",
+    FontWeight->"Bold"],
+  " we get another polynomial.  It should be clear that this substitution \
+operation ",
+  StyleBox["preserves sums and products",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  It also leaves the special polynomial ",
+  StyleBox["i",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" + 1",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["invariant",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   It thus follows that the substitution ",
+  StyleBox["preserves taking equivalence classes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " modulo this polynomial.  So this operation is ",
+  StyleBox["well defined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on all complex numbers.  It is written in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " as ",
+  StyleBox["Conjugate[z].",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[BoxData[
+    \(Conjugate[5 + I\ 7]\)], "Input"],
+
+Cell[BoxData[
+    \(ComplexSimplify[Conjugate[a + I\ b]]\)], "Input"],
+
+Cell[TextData[{
+  "Obviously,  if we do this substitution twice we get back to the original \
+combination, whatever it was.  The conclusion is that this conjugation \
+operation of interchanging ",
+  StyleBox["i",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["\[Dash]i",
+    FontWeight->"Bold"],
+  " is an ",
+  StyleBox["automorphism",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the algebraic structure of the complex numbers.  Note that the ",
+  StyleBox["fixed points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of this transformation are exactly the real numbers."
+}], "Text"],
+
+Cell[TextData[{
+  "Surprisingly, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " always cancels two uses of ",
+  StyleBox["Conjugate ",
+    FontWeight->"Bold"],
+  "(as it does with a double ",
+  StyleBox["Minus",
+    FontWeight->"Bold"],
+  "):"
+}], "Text"],
+
+Cell[BoxData[
+    \(Conjugate[Conjugate[z]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\ \(-\ z\)\)\)], "Input"],
+
+Cell[TextData[{
+  "We can check further the behavior and automorphism properties as follows.  \
+In these operations, the command ",
+  StyleBox["ComplexSimplify",
+    FontWeight->"Bold"],
+  " is called as ",
+  StyleBox["ComplexSimplify[{z}] ",
+    FontWeight->"Bold"],
+  "or ",
+  StyleBox["ComplexSimplify[{z, w}] ",
+    FontWeight->"Bold"],
+  "to indicate that the variables ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " should be treated as a ",
+  StyleBox["complex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " quantities, rather than as a ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " quantities\[LongDash]which is the usual convention with variables in \
+expressions."
+}], "Text"],
+
+Cell[BoxData[
+    \(Map[\ ComplexSimplify[{z}], \n\t{a, Conjugate[a], z, Conjugate[z]}]\)], 
+  "Input"],
+
+Cell[TextData[{
+  "Note that ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " is treated as real and is left fixed under ",
+  StyleBox["Conjugate",
+    FontWeight->"Bold"],
+  "\[LongDash]after simplification.  So, in this way we can check that \
+addition, multiplication and division are preserved under conjgation."
+}], "Text"],
+
+Cell[BoxData[
+    \(Map[ComplexSimplify[{z, w}], 
+      Conjugate[z + w] == Conjugate[z] + Conjugate[w]]\)], "Input"],
+
+Cell[BoxData[
+    \(Map[ComplexSimplify[{z, w}], 
+      Conjugate[z\ w] == Conjugate[z] Conjugate[w]]\)], "Input"],
+
+Cell[BoxData[
+    \(Map[ComplexSimplify[{z, w}], 
+      Conjugate[z/w] == Conjugate[z]/Conjugate[w]]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Theorem. ",
+    FontWeight->"Bold",
+    Background->RGBColor[0, 1, 1]],
+  StyleBox[" There are ",
+    Background->RGBColor[0, 1, 1]],
+  StyleBox["no other",
+    FontWeight->"Bold",
+    FontSlant->"Italic",
+    Background->RGBColor[0, 1, 1]],
+  StyleBox[
+  " non-trivial automorphisms of the ring of complex numbers aside from ",
+    Background->RGBColor[0, 1, 1]],
+  StyleBox["Conjugate",
+    FontWeight->"Bold",
+    Background->RGBColor[0, 1, 1]],
+  StyleBox[" leaving all the reals fixed.",
+    Background->RGBColor[0, 1, 1]]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof.",
+    FontWeight->"Bold"],
+  "  Any such automorphism ",
+  StyleBox["F",
+    FontWeight->"Bold"],
+  " has to permute the roots of the equation ",
+  Cell[BoxData[
+      StyleBox[\(z\^2 + 1 == 0\),
+        FontWeight->"Bold"]]],
+  ".  (Why?)  Since we have ",
+  StyleBox["F[a] == a",
+    FontWeight->"Bold"],
+  " for all real ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  ", if ",
+  StyleBox["F[I] == I",
+    FontWeight->"Bold"],
+  ", then for any ",
+  StyleBox["z == a + I b",
+    FontWeight->"Bold"],
+  ", we must have ",
+  StyleBox["F[z] == z",
+    FontWeight->"Bold"],
+  ".  In this case, ",
+  StyleBox["F",
+    FontWeight->"Bold"],
+  " is the trivial identity automorphism.  If, on the other hand,  ",
+  StyleBox["F[I] == -I",
+    FontWeight->"Bold"],
+  ", then for any ",
+  StyleBox["z == a + I b",
+    FontWeight->"Bold"],
+  ", we must have ",
+  StyleBox["F[z] == Conjugate[z]",
+    FontWeight->"Bold"],
+  ".  (Why?).  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "Interesting Question.  ",
+  StyleBox["Do the complex numbers have ",
+    FontWeight->"Plain"],
+  StyleBox["any other",
+    FontSlant->"Italic"],
+  StyleBox[" automorphisms (not keeping the reals fixed)?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["\<\
+Unfortunately, we do not have time in this course to work this out.\
+\
+\>", "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Geometric Representations", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Argand diagrams", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Definition and examples", "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Definition.  ",
+    FontWeight->"Bold"],
+  "An ",
+  StyleBox["Argand diagram",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a two-dimensional (plane) representation of a complex number ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  ", where\n                                   ",
+  StyleBox["x = Re[z]",
+    FontWeight->"Bold"],
+  " is plotted on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis, and \n                                   ",
+  StyleBox["y = Im[z]",
+    FontWeight->"Bold"],
+  " is plotted on the ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-axis. \nIn other words, we represent the complex number ",
+  StyleBox["x + I y",
+    FontWeight->"Bold"],
+  " graphically in the same way we represent the 2-dimensional vector ",
+  StyleBox["{x, y}",
+    FontWeight->"Bold"],
+  " as a ",
+  StyleBox["point in the plane",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with these coordinates.  "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "For example, consider again the two roots of the equation ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  StyleBox["2",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" + 1 == 0",
+    FontWeight->"Bold"],
+  ".  An Argand diagram of the roots is produced by the function ",
+  StyleBox["RootPlot",
+    FontWeight->"Bold"],
+  " (defined in the notebook ",
+  StyleBox["Implementations.nb",
+    FontFamily->"Helvetica",
+    FontWeight->"Bold"],
+  ")."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[z]; \)\), 
+    \(\(RootPlot[z\^2 + 1 == 0, z]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "Moreover, ",
+  StyleBox["any collection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (",
+  StyleBox["i.e.,",
+    FontSlant->"Italic"],
+  " list) of complex numbers can be plotted using  ",
+  StyleBox["ArgandPlot",
+    FontWeight->"Bold"],
+  ".  Here is a square array."
+}], "Text"],
+
+Cell[BoxData[
+    \(tt = Flatten[Table[x + I\ y, {x, \(-3\), 3}, {y, \(-3\), 3}]]; \n
+    \(ArgandPlot[tt]; \)\)], "Input"],
+
+Cell["\<\
+We can square and cube these numbers with very brief commands and \
+plot the results.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(ArgandPlot[tt\^2]; \)\), 
+    \(ArgandPlot[tt\^3]; \nArgandPlot[tt\^4]; \)}], "Input"],
+
+Cell[TextData[{
+  "We perhaps need an ",
+  StyleBox["explanation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as to why these geometric patterns come out as they do."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Some roots of polynomials", "Subsubsection"],
+
+Cell[TextData[{
+  "Another interesting equation is  ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  StyleBox["3",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" + 1 == 0",
+    FontWeight->"Bold"],
+  ".  Here are its roots  (in two notations) and an Argand plot of its roots, \
+and\[LongDash]after that\[LongDash]a plot for a related equation."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Solve[z\^3 + 1 == 0, z]\), 
+    \(Map[ComplexSimplify[{}], Solve[z\^3 + 1 == 0, z], 3]\), 
+    \(\(RootPlot[z\^3 + 1 == 0, z]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(Solve[z\^3 - 1 == 0, z]\), 
+    \(Map[ComplexSimplify[{}], Solve[z\^3 - 1 == 0, z], 3]\), 
+    \(\(RootPlot[z\^3 - 1 == 0, z]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "The second set are called the  ",
+  StyleBox["cube roots of unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Note that in both cases the roots form a perfect ",
+  StyleBox["equilateral",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["triangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Algebraically, we can see where they come from better by factoring."
+}], "Text"],
+
+Cell[BoxData[{
+    \(Factor[z\^3 + 1]\), 
+    \(Factor[z\^3 - 1]\), 
+    \(Factor[z\^6 - 1]\)}], "Input"],
+
+Cell[TextData[{
+  "There are two obvious linear factors and two quadratic factors.  The cube \
+roots of ",
+  StyleBox["\[PlusMinus]1",
+    FontWeight->"Bold"],
+  " together form the ",
+  Cell[BoxData[
+      StyleBox[\(6\^th\),
+        FontWeight->"Bold"]],
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of unity. The roots of one quadratic factor are:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[1 - z + z\^2 == 0, z, 10, 
+      PlotRange -> \ {{\(-1\), 1}, {\(-1\), 1}}]; \)\)], "Input"],
+
+Cell[TextData[{
+  "Now the roots for any quadratic equation can always be found by the well \
+known ",
+  StyleBox["Quadratic Formula ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "we learned at school."
+}], "Text"],
+
+Cell[BoxData[
+    \(Solve[a\ z\^2 + b\ z + c\  == \ 0, z]\)], "Input"],
+
+Cell[TextData[{
+  "A long as ",
+  Cell[BoxData[
+      StyleBox[\(b\^2 - 4\ a\ c\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["non negative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the roots are ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", but in the other cases the roots are complex.  The ",
+  StyleBox["cube roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of unity thus need only ",
+  StyleBox["square roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in order to express them symbolically.  The fourth roots of unity are \
+simpler:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[z\^4 - 1]\)], "Input"],
+
+Cell[TextData[{
+  "The fifth roots of unity ",
+  StyleBox["might",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " present a more difficult problem.  Let us see."
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[z\^5 - 1]\)], "Input"],
+
+Cell[BoxData[
+    \(Map[ComplexSimplify[{}], \ \n\t
+      Solve[1 + z + z\^2 + z\^3 + z\^4 == 0, z], \ 3]\)], "Input"],
+
+Cell[TextData[{
+  "So, to get the complex fifth roots of unity, some ",
+  StyleBox["iterated square roots",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are needed, but the expressions are not too bad.  "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment.  ",
+    FontWeight->"Bold"],
+  "By the way, this algebraic result means that the regular pentagon ",
+  StyleBox["can",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " be constructed by ruler and compasses alone \[LongDash] as was already \
+known to Euclid.  (Why?)"
+}], "SmallText",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "As easily seen by vector algebra, we could express ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " complex numbers in terms of ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the cube roots of unity.  This kind of a change of basis would show us \
+some other interesting algebraic properties of the complex field.  But other \
+equations also have roots, and let us try the ",
+  StyleBox["7th roots of unity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[z\^7 - 1 == 0, z]; \)\)], "Input"],
+
+Cell[TextData[{
+  "What we see here in the Argand diagram is an example of the ",
+  StyleBox["equal division",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the unit circle into ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  " equal parts as the solutions of the equation ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  StyleBox["n",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  StyleBox[" - 1 == 0",
+    FontWeight->"Bold"],
+  ".  Again, we need an explanation as to why this nice geometric pattern is \
+always obtained.  The explanation  will need some trigonometry, as we shall \
+see later, for the regular heptagon ",
+  StyleBox["cannot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "be constructed by ruler and compasses, and the best we can do in notating \
+the real and imaginary parts of the roots is as follows:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Map[ComplexSimplify[{}], \ \n\tSolve[z\^7 - 1 == 0, z], \ 3]\)], "Input"],
+
+Cell["And let us try a different equation.  ", "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[z\^12 + 1 == 0, z]; \)\)], "Input"],
+
+Cell["\<\
+This polynomial breakes up into two (real) factors, each with its \
+own root plot.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(ff = List@@Factor[z\^12 + 1]\n\), 
+    \(\(\((RootPlot[# == 0, z]&)\)/@ff; \)\)}], "Input"],
+
+Cell[TextData[{
+  "Here is a picture of the 7th roots of a complex number. ",
+  "We see ",
+  StyleBox["equal spacing",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " again seems to be found, but a ",
+  StyleBox["rotational shift",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " has been included.  "
+}], "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[z\^7 - \((20 + 35\ I)\) == 0, z]; \)\)], "Input"],
+
+Cell["\<\
+Roots of other equations can be plotted as well.  For example:\
+\>",
+   "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[z\^7 + z\^5 - z\^4 + 1 == 0, z]; \)\)], "Input"],
+
+Cell[TextData[{
+  "And this time the spacing is more complicated.  But note the roots are ",
+  StyleBox["symmetric",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " about the real axis.  If an equation has ",
+  StyleBox["complex coefficients",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", this may not be so."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[z\^7 + z\^5 - I\ z\^4 + 1 == 0, z]; \)\)], "Input"],
+
+Cell["\<\
+And here we see the roots of related polynomials as one coefficient \
+is changed slightly.  (Be sure to animate the sequence of graphics!)\
+\>", 
+  "Text"],
+
+Cell[BoxData[
+    \(Do[\(RootPlot[z\^7 + z\^5 - \((a + I\ a)\)\ z\^4 + 1 == 0, z, 10, \n\t
+        PlotRange -> {{\(-2\), 2}, {\(-2\), 2}}]; \), {a, \(-4\), 4, 0.5}]
+      \)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Important Question.",
+    FontWeight->"Bold"],
+  "  ",
+  StyleBox[
+  "Why can roots of other, higher-degree polynomial equations all be written \
+in the form ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["a + I b",
+    FontWeight->"Bold"],
+  StyleBox[" where ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["I",
+    FontWeight->"Bold"],
+  StyleBox[" is the root of only a quadratic equation?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "This fact has been ",
+  StyleBox["illustrated",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in a few cases using ",
+  StyleBox["RootPlot",
+    FontWeight->"Bold"],
+  ", but it has not been ",
+  StyleBox["justified",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  In the other direction, here is a way to obtain a polynomial with all \
+49 of these given complex numbers as roots.  (This trick could be applied to \
+",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " table of complex numbers.)"
+}], "Text"],
+
+Cell[BoxData[{
+    \(tt = Flatten[Table[x + I\ y, {x, \(-3\), 3}, {y, \(-3\), 3}]]; 
+    pp[z_] := Expand[Times@@\((z - tt)\)]; \), 
+    \(pp[z]\)}], "Input"],
+
+Cell["\<\
+We can check this is correct by looking at the plot of the roots.\
+\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(RootPlot[pp[z] == 0, z]; \)\)], "Input"],
+
+Cell[TextData[{
+  "Note that if we try to factor ",
+  StyleBox["pp[z]",
+    FontWeight->"Bold"],
+  ", we get the ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " factors, where in this case the quadratic factors hide pairs of complex \
+roots."
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[pp[z]]\)], "Input"],
+
+Cell[TextData[{
+  "To see all the roots, it is necessary to factor with ",
+  StyleBox["I",
+    FontWeight->"Bold"],
+  " as an extension."
+}], "Text"],
+
+Cell[BoxData[
+    \(Factor[pp[z], Extension \[Rule] {I}]\)], "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Complex operations", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["The arithmetic operations", "Subsubsection"],
+
+Cell[TextData[{
+  "The first two theorems about the geometric meaning of ",
+  StyleBox["addition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["subtraction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers need no proof, since the results are the direct \
+translation of what we know about ",
+  StyleBox["vector",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " addition and subtraction.  ",
+  StyleBox["Multiplication",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", however,  requires a little knowledge of  ",
+  StyleBox["trigonometry",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  StyleBox["Addition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers is represented geometrically by the",
+  StyleBox[" paralellogram  law",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for addition of vectors in the plane. "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[{
+    \(u = 2 + I\ 7; v = 4 + I\ 3; \), 
+    \(\(ArgandPlot[{0, u, v, u + v}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(u = 2 + I\ 7; v = 4 + I\ 3; \), 
+    \(pg = {0, u, u + v, v, 0, u + v}; \n\n
+    ap = ArgandPlot[{0, u, v, u + v}, 10, DisplayFunction \[Rule] Identity]; 
+    \n\nll = Show[Graphics[Line[\(({Re[#1], Im[#1]}&)\)/@pg]], 
+        DisplayFunction \[Rule] Identity]; \n\n
+    Show[{ap, ll}, DisplayFunction \[Rule] $DisplayFunction]; \)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  StyleBox["Subtraction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  is then represented as finding the ",
+  StyleBox["other side of the parallelogram",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that makes the first given complex number the diagonal."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[{
+    \(u = 2 + I\ 7; v = 4 + I\ 3; \), 
+    \(\(ArgandPlot[{0, u, v, u - v}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(u = 2 + I\ 7; v = 4 + I\ 3; \), 
+    \(pg = {0, u, v, 0, u - v, u}; \n\n
+    ap = ArgandPlot[{0, u, v, u - v}, 10, DisplayFunction \[Rule] Identity]; 
+    \n\nll = Show[Graphics[Line[\(({Re[#1], Im[#1]}&)\)/@pg]], 
+        DisplayFunction \[Rule] Identity]; \n\n
+    Show[{ap, ll}, DisplayFunction \[Rule] $DisplayFunction]; \)}], "Input"],
+
+Cell["Now for multiplication and division.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  StyleBox["Multiplication",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers is represented geometrically by the rule of ",
+  StyleBox["adding the angles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["multiplying the lengths",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the vectors."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["First, we draw some pictures.", "Text"],
+
+Cell[BoxData[{
+    \(u = 1 + \(4\ I\)\/3; v = 3 + I\ 2; \), 
+    \(\(ArgandPlot[{0, 1, u, v, u\ v}]; \)\)}], "Input"],
+
+Cell["This can be understood better if we draw in some triangles.", "Text"],
+
+Cell[BoxData[{
+    \(u = 1 + \(4\ I\)\/3; v = 3 + I\ 2; \), 
+    \(pg = {0, 1, v, 0, u, u\ v, 0}; \n\n
+    ap = ArgandPlot[{0, 1, u, v, u\ v}, 10, 
+        DisplayFunction \[Rule] Identity]; \n\n
+    ll = Show[Graphics[Line[\(({Re[#1], Im[#1]}&)\)/@pg]], 
+        DisplayFunction \[Rule] Identity]; \n\n
+    Show[{ap, ll}, DisplayFunction \[Rule] $DisplayFunction]; \)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Explanation. ",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "One complex number ",
+  StyleBox["v ",
+    FontWeight->"Bold"],
+  "is joined to  ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " forming a triangle.  This triangle is rotated so the unit side is on the \
+vector of the other complex number ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  ". The triangle is then magnified so the unit side is ",
+  StyleBox["exactly",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the same as the other complex number.  The tip of the resulting triangle \
+is then the ",
+  StyleBox["product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["u v ",
+    FontWeight->"Bold"],
+  "of the two complex numbers.  "
+}], "Text",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "Here is another picture with ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["v",
+    FontWeight->"Bold"],
+  " interchanged."
+}], "Text"],
+
+Cell[BoxData[
+    \(u = 3 + I\ 2; v = 1 + \(4\ I\)\/3; \npg = {0, 1, v, 0, u, u\ v, 0}; \n\n
+    ap = ArgandPlot[{0, 1, u, v, u\ v}, 10, 
+        DisplayFunction \[Rule] Identity]; \n\n
+    ll = Show[Graphics[Line[\(({Re[#1], Im[#1]}&)\)/@pg]], 
+        DisplayFunction \[Rule] Identity]; \n\n
+    Show[{ap, ll}, DisplayFunction \[Rule] $DisplayFunction]; \)], "Input"],
+
+Cell[TextData[{
+  "And here is a picture of ",
+  StyleBox["iterated",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " multiplications."
+}], "Text"],
+
+Cell[BoxData[{
+    \(z = 3 + I\ 1; w = 4\/5 + \(I\ 3\)\/5; \), 
+    \(\(ArgandPlot[{0, 1, w, z}, 8]; \)\), 
+    \(\(ArgandPlot[Join[{0, 1, w}, Table[z\ w\^n, {n, 0, 8}]], 8]; \)\)}], 
+  "Input"],
+
+Cell[TextData[{
+  "We now give the ",
+  StyleBox["trigonometric proof",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the multiplication theorem."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Proof: ",
+    FontWeight->"Bold"],
+  "Consider a complex number ",
+  StyleBox["z == a + b \[ImaginaryI]",
+    FontWeight->"Bold"],
+  ".  Rewrite it as:"
+}], "Text"],
+
+Cell[TextData[{
+  "\t ",
+  Cell[BoxData[
+      FormBox[
+        StyleBox[
+          \(\@\(a\^2 + b\^2\)\ 
+            \((a\/\@\(a\^2 + b\^2\) + \(\[ImaginaryI]\ b\)\/\@\(a\^2 + b\^2\))
+              \)\),
+          FontWeight->"Bold"], TraditionalForm]]]
+}], "Text"],
+
+Cell[TextData[{
+  "Here ",
+  StyleBox["r == ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      FormBox[
+        StyleBox[\(\@\(a\^2 + b\^2\)\),
+          FontWeight->"Bold"], TraditionalForm]]],
+  " is a non-negative ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " number (the ",
+  StyleBox["length",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the vector, also called ",
+  StyleBox["\[LeftBracketingBar]z\[RightBracketingBar]",
+    FontWeight->"Bold"],
+  ").  Now ",
+  Cell[BoxData[
+      FormBox[
+        StyleBox[\(\ 
+          \((a\/\@\(a\^2 + b\^2\) + \(\[ImaginaryI]\ b\)\/\@\(a\^2 + b\^2\))
+            \)\),
+          FontWeight->"Bold"], TraditionalForm]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is a ",
+  StyleBox["unit vector",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with its tip on the ",
+  StyleBox["unit circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This vector makes a certain angle ",
+  StyleBox["\[Theta]",
+    FontFamily->"Symbol",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  with the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis (the ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["axis",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "), which is called ",
+  StyleBox["Arg(z)",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "By the ",
+  StyleBox["very definition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["Sin",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["Cos",
+    FontWeight->"Bold"],
+  " we can write:"
+}], "Text"],
+
+Cell[TextData[{
+  "                             ",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      FormBox[
+        RowBox[{\(a\/\@\(a\^2 + b\^2\)\), 
+          StyleBox["==",
+            FontWeight->"Bold"], \(cos(\[Theta])\)}], TraditionalForm]],
+    FontWeight->"Bold"],
+  ", and",
+  StyleBox[" ",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  Cell[BoxData[
+      \(TraditionalForm\`b\/\@\(a\^2 + b\^2\) == sin(\[Theta])\)],
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "So we have",
+  StyleBox[" z == r (cos(\[Theta]) + \[ImaginaryI] sin(\[Theta]))",
+    FontWeight->"Bold"],
+  ".  This is called the ",
+  StyleBox["polar form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the complex number ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Suppose  ",
+  StyleBox["w == s (cos(\[Phi])+\[ImaginaryI] sin(\[Phi]))",
+    FontWeight->"Bold"],
+  " is another complex number.  Then we find:"
+}], "Text"],
+
+Cell[TextData[StyleBox[
+"\t z w == r s (cos(\[Theta]) cos(\[Phi]) - sin(\[Theta]) sin(\[Phi]) + \
+\[ImaginaryI] (cos(\[Phi]) sin(\[Theta]) + cos(\[Theta]) sin(\[Phi]))).",
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "Buy the ",
+  StyleBox["Trigonometric",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["Addition Laws",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " this can be rewritten as:"
+}], "Text"],
+
+Cell[TextData[{
+  "\t ",
+  StyleBox[
+  "z w == r s (cos(\[Theta]+\[Phi])+\[ImaginaryI] sin(\[Theta]+\[Phi]))",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "This is the",
+  StyleBox[" polar form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the vector required by the statement of the theorem.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "We should recap what we learned from this proof about the ",
+  StyleBox["polar form",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complexes."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Every complex number ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " can be written ",
+  StyleBox["uniquely",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the (traditional) form\n                                   ",
+  StyleBox[
+  " z == \[LeftBracketingBar]z\[RightBracketingBar] \
+(cos(Arg(z))+\[ImaginaryI] sin(Arg(z)))",
+    FontWeight->"Bold"],
+  ",\nwhere ",
+  StyleBox[
+  "\[LeftBracketingBar]z\[RightBracketingBar] == Abs(z) \[GreaterEqual] 0",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["-\[Pi] < Arg(z) \[LessEqual] \[Pi].",
+    FontWeight->"Bold"]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " actually has this law built in ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " a special use of ",
+  StyleBox["ComplexExpand",
+    FontWeight->"Bold"],
+  " (but we will not often use that command this way):"
+}], "Text"],
+
+Cell[BoxData[{
+    \(ClearAll[z]\), 
+    \(ComplexExpand[z, {z}, TargetFunctions \[Rule] {Arg, Abs}] // Factor
+      \)}], "Input"],
+
+Cell[TextData[{
+  "For example, as regards ",
+  StyleBox["Arg",
+    FontWeight->"Bold"],
+  " we have the following results, clearly showing the limits on the values \
+of the function:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Arg/@{1, I, \(-I\), \(-1\), \(-1\) - 0.00001\ I}\)], "Input"],
+
+Cell["\<\
+The function is discontinuus along the negative real axis, as is \
+shown in the next plot.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(Plot3D[Arg[a + I\ b], {a, \(-1\), 1}, {b, \(-1\), 1}, 
+      PlotPoints \[Rule] 31]; \)\)], "Input"],
+
+Cell["\<\
+Nevertheless, it is a very useful function.  We turn next to \
+division.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  StyleBox["Division",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers is represented geometrically by the rule of ",
+  StyleBox["subtracting the angles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["dividing the lengths",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the vectors."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "No proof is really required here because ",
+  StyleBox[" u == z/w",
+    FontWeight->"Bold"],
+  " is equivalent to ",
+  StyleBox["u w == z",
+    FontWeight->"Bold"],
+  ".  Here are some pictures."
+}], "Text"],
+
+Cell[BoxData[{
+    \(u = 1 + I\ 5; v = 4 + I\ 3; \), 
+    \(\(ArgandPlot[{0, 1, u, v, u\/v}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(z = 2 + I\ 1; w = 4\/3 + I; Abs[w]\), 
+    \(\(ArgandPlot[{0, 1, w, z, z\/w}]; \)\), 
+    \(\(ArgandPlot[Table[z\/w\^n, {n, 0, 9}]]; \)\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Powers and conjugates", "Subsubsection"],
+
+Cell[TextData[{
+  "As a corollary to the multiplication and division theorems, we have (",
+  StyleBox["by induction",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") this important result for powers of complex numbers: "
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "For every complex number ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " and every integer ",
+  StyleBox["n ",
+    FontWeight->"Bold"],
+  "(",
+  StyleBox["including",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " negative integers),\n                   ",
+  Cell[BoxData[
+      StyleBox[
+        \(z\^n == Abs[z]\^n\ \((Cos[n\ Arg[z]] + I\ Sin[n\ Arg[z]])\)\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "And we should note that as a consequence of this formula, the powers of a \
+complex number are always ",
+  StyleBox["equally spaced",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as far as ",
+  StyleBox["angles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are concerned.  The ",
+  StyleBox["lengths",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (",
+  StyleBox["==",
+    FontWeight->"Bold"],
+  " distances from the origin) may well change, of course, since  ",
+  Cell[BoxData[
+      \(Abs[z\^n] == Abs[z]\^n\)],
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  StyleBox["Conjugation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of complex numbers is represented geometrically by ",
+  StyleBox["reflection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " about the real axis."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell["A picture shows us why this is so.", "Text"],
+
+Cell[BoxData[
+    \(\(ArgandPlot[{0, \n\t\t2 + I\ 7, Conjugate[2 + I\ 7], \n\t\t6 - I\ 11, 
+        Conjugate[6 - I\ 11], 14}]; \)\)], "Input"],
+
+Cell["\<\
+Some applications of all these operations are illustrated in the \
+optional sections below.\
+\>", "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Rotations and Spirals (Optional)", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Rotations ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " complex numbers (optional)"
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Rotating a grid", "Subsubsection"],
+
+Cell[TextData[{
+  "It is frequently convenient to reduce a complex number to a unit vector, \
+and we can do this by a ",
+  StyleBox["normalizarion operation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This is convenient for determining rotations."
+}], "Text"],
+
+Cell["??Norm", "Input"],
+
+Cell["Let us make a portion of a square grid of points.", "Text"],
+
+Cell[BoxData[{
+    \(\(tt = Flatten[Table[x + I\ y, {x, \(-3\), 3}, {y, \(-3\), 3}]]; \)\), 
+    \(\(aa = ArgandPlot[tt]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "We recall that multiplication by a complex number is a ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and possibly a ",
+  StyleBox["change of scale",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  However, in case the complex number is ",
+  StyleBox["normalized",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (",
+  StyleBox["i.e.,",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "has length ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " and, thus, represents a unit vector), then multiplication by this number \
+is simply a rotation.   Here is a pure change of scale (",
+  StyleBox["i.e., ",
+    FontSlant->"Italic"],
+  "multiplication by a ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "number)."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(bb = ArgandPlot[2\ tt]; \)\)], "Input"],
+
+Cell["\<\
+It looks the same as before, of course.  But here is the \
+comparison.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(Show[{aa, bb}]; \)\)], "Input"],
+
+Cell[TextData[{
+  "Now let us illustrate a rotation through ",
+  StyleBox["45",
+    FontWeight->"Bold"],
+  StyleBox["o",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(z = Norm[1 + I]\), 
+    \(\(Show[{ArgandPlot[{0, z, 1 + I}], Graphics[Circle[{0, 0}, 1]]}]; 
+    \)\), 
+    \(\(ArgandPlot[N[z]\ tt]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "Next, to rotate through ",
+  StyleBox["60",
+    FontWeight->"Bold"],
+  StyleBox["o",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  ", we have to solve a cube-root equation."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(u =. ; \)\), 
+    \(\(Show[{RootPlot[u\^3 + 1 == 0, u], Graphics[Circle[{0, 0}, 1]]}]; 
+    \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(w = 
+      ComplexExpand[
+        u /. \(Solve[u\^3 + 1 == 0]\)\[LeftDoubleBracket]3
+            \[RightDoubleBracket]]\), 
+    \(\(ArgandPlot[N[w]\ tt]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "Finally, let us use this number ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " to generate a grid, and then rotate it through ",
+  StyleBox["60",
+    FontWeight->"Bold"],
+  StyleBox["o",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  " as well as through ",
+  StyleBox["45",
+    FontWeight->"Bold"],
+  StyleBox["o",
+    FontSize->10,
+    FontWeight->"Bold",
+    FontVariations->{"CompatibilityType"->"Superscript"}],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(uu = Flatten[Table[N[i + w\ j], {i, \(-5\), 5}, {j, \(-5\), 5}]]; 
+    \)\), 
+    \(\(ArgandPlot[uu]; \)\), 
+    \(\(ArgandPlot[N[w]\ uu]; \)\), 
+    \(\(ArgandPlot[N[z]\ uu]; \)\)}], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Geometric transformations", "Subsubsection"],
+
+Cell[TextData[{
+  "Inasmuch as addition of complex numbers is geometrically ",
+  StyleBox["addition of vectors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then a very simple transformation such as ",
+  Cell[BoxData[
+      StyleBox[\(z \[Rule] a + b\ z\),
+        FontWeight->"Bold"]]],
+  ", where ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " is a given, fixed complex number, represents a ",
+  StyleBox["parallel",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["displacement",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "or ",
+  StyleBox["translation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  in the direction of ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  ".   When we combine these with ",
+  StyleBox["multiplication",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by complex numbers, we get a very useful class of geometric \
+transformations."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  All ",
+  StyleBox["orientation preserving rigid motions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the Euclidean plane can be written as a transformation of complex \
+numbers of the form\n                                                    ",
+  Cell[BoxData[
+      StyleBox[\(z \[Rule] a + b\ z\),
+        FontWeight->"Bold"]]],
+  ",",
+  StyleBox["\n",
+    FontWeight->"Bold"],
+  "where ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " represents the ",
+  StyleBox["displacement",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (translation) of the origin and the ",
+  StyleBox["non-zero",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " complex number ",
+  StyleBox["b == Norm[b] ",
+    FontWeight->"Bold"],
+  "represents a ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " through angle ",
+  StyleBox["Arg[b]",
+    FontWeight->"Bold"],
+  ".   \nIf we do not require ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  " to be normalized, then the transformation also includes a ",
+  StyleBox["magnification",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by factor ",
+  StyleBox["Abs[b]",
+    FontWeight->"Bold"],
+  ".  (Those are called",
+  StyleBox[" similarity transformations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".)  \nMoreover, all ",
+  StyleBox["orientation reversing motions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the Euclidean plane can be written as a transformation of complex \
+numbers of the form\n                                              ",
+  Cell[BoxData[
+      StyleBox[\(z \[Rule] a + b\ Conjugate[z]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "We do not have time to develop the background here to prove such a theorem \
+(",
+  StyleBox["e.g.",
+    FontSlant->"Italic"],
+  " defining ",
+  StyleBox["rigid motions",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["similarity transformations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "), but we can illustrate how the simple algebraic definition of such \
+transformations can be used to solve problems."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  The ",
+  StyleBox["composition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of non-identity rotations about distinct centers is either a ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " about a third center or is a ",
+  StyleBox["translation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[StyleBox["Proof:",
+  FontWeight->"Bold"]], "Text"],
+
+Cell[TextData[{
+  "        Suppose we want to ",
+  StyleBox["rotate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the plane about a point ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " as the ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the rotation,\n        using a ",
+  StyleBox["unit vector",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " to determine the ",
+  StyleBox["angle of rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Then, starting with any point ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  ", we move back to the origin ",
+  StyleBox["opposite",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        This takes us to ",
+  StyleBox["z - p",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Then we ",
+  StyleBox["rotate around the origin",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " getting to ",
+  StyleBox["u (z - p)",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Finally, we move ",
+  StyleBox["foward",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  ", getting to ",
+  StyleBox["p + u (z-p)",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        This is what we want, because this transformation (of ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  ") has ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " as a ",
+  StyleBox["fixed point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", \n        and it takes any vector ",
+  StyleBox["p + w",
+    FontWeight->"Bold"],
+  " to the vector ",
+  StyleBox["p + u w",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Note that if ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " is the number ",
+  StyleBox["1",
+    FontWeight->"Bold"],
+  " then the transformation is the ",
+  StyleBox["identity transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        Now suppose we have ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " such transformations, and we assume ",
+  StyleBox["neither",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is the identity."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(ClearAll[p, q, u, v, z, f, g]; \)\), 
+    \(\(f[z_] := p + u\ \((z - p)\); \)\), 
+    \(\(g[z_] := q + v\ \((z - q)\); \)\)}], "Input"],
+
+Cell[TextData[{
+  "        We want to take the ",
+  StyleBox["composition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the two rotations."
+}], "Text"],
+
+Cell["f[g[z]] // Expand", "Input"],
+
+Cell[TextData[{
+  StyleBox["        ",
+    FontWeight->"Bold"],
+  "There are two cases: either ",
+  StyleBox["u v == 1",
+    FontWeight->"Bold"],
+  " or ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "        In the first case the transformation has the form ",
+  StyleBox["(p - q)(1 - u) + z",
+    FontWeight->"Bold"],
+  ",\n        and it represents a ",
+  StyleBox["translation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (of an amount we can calculate, as shown)."
+}], "Text"],
+
+Cell[TextData[{
+  "        In the second case, we can solve for the ",
+  StyleBox["fixed-point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (or ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") of the transformation."
+}], "Text"],
+
+Cell[BoxData[
+    \(Simplify[Solve[f[g[z]] == z, {z}]]\)], "Input"],
+
+Cell[TextData[{
+  "        We can name this point ",
+  StyleBox["r",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell["r = z /. %[[1]]", "Input"],
+
+Cell[TextData[{
+  "        Then we check that the composition is indeed a ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (by ",
+  StyleBox["u v",
+    FontWeight->"Bold"],
+  ") about ",
+  StyleBox["r",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(Simplify[f[g[z]] == r + u\ v\ \((z - r)\)]\)], "Input"],
+
+Cell[TextData[{
+  "        Note we can write ",
+  StyleBox["r",
+    FontWeight->"Bold"],
+  " in a different form."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(w = \(1 - u\)\/\(1 - u\ v\); \)\), 
+    \(Simplify[r == p\ w + q\ \((1 - w)\)]\)}], "Input"],
+
+Cell[TextData[{
+  "        That calculation shows ",
+  StyleBox["r",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["not equal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to either ",
+  StyleBox["p",
+    FontWeight->"Bold"],
+  " or ",
+  StyleBox["q",
+    FontWeight->"Bold"],
+  ", because ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " is neither ",
+  StyleBox["0",
+    FontWeight->"Bold"],
+  " nor",
+  StyleBox[" 1",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[StyleBox["        Q.E.D.",
+  FontWeight->"Bold"]], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Doing some iterations for fun (optional)", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Exponential spirals", "Subsubsection"],
+
+Cell["\<\
+Let us take successive powers of a complex number and look at their \
+plot.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(u = 1.08\ Norm[2 + I]; \)\), 
+    \(\(f[z_] := u\ z; \)\), 
+    \(\(sp = NestList[f, 1, 10]; \)\), 
+    \(\(ArgandPlot[sp]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "We see the beginning of a ",
+  StyleBox["spiral",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and further iteration gives several turns of the spiral."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(sp = NestList[f, 1, 60]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell[TextData[{
+  "This kind of graph is a discrete version of an ",
+  StyleBox["exponential spiral",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The continuous version can be drawn by using parametric plotting."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(ParametricPlot[1.3\^t\ {Cos[t], Sin[t]}, {t, 0, 6\ \[Pi]}, 
+      AspectRatio \[Rule] Automatic, 
+      PlotRange \[Rule] {{\(-150\), 150}, {\(-150\), 150}}]; \)\)], "Input"],
+
+Cell["Without the exponential part, you just get the circle.", "Text"],
+
+Cell[BoxData[
+    \(\(ParametricPlot[{Cos[t], Sin[t]}, {t, 0, 2\ \[Pi]}, 
+      AspectRatio \[Rule] Automatic]; \)\)], "Input"],
+
+Cell["\<\
+Here are some spirals where the opening up is not exponential\
+\>", 
+  "Text"],
+
+Cell[BoxData[
+    \(\(ParametricPlot[t\ {Cos[t], Sin[t]}, {t, 0, 4\ \[Pi]}, 
+      AspectRatio \[Rule] Automatic]; \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(ParametricPlot[t\^2\ {Cos[t], Sin[t]}, {t, 0, 6\ \[Pi]}, 
+      AspectRatio \[Rule] Automatic, 
+      PlotRange \[Rule] {{\(-300\), 400}, {\(-400\), 250}}]; \)\)], "Input"],
+
+Cell["And for something entirely different:", "Text"],
+
+Cell[BoxData[
+    \(\(ParametricPlot[{Cos[3\ t], Sin[4\ t]}, {t, 0, 2\ \[Pi]}, 
+      AspectRatio \[Rule] Automatic]; \)\)], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["The spiral of Theodorus", "Subsubsection"],
+
+Cell[TextData[{
+  "Here is a discrete spiral that  was apparently known in ancient times.  \
+The operation ",
+  StyleBox["z ",
+    FontWeight->"Bold"],
+  "|",
+  StyleBox["--> z + I Norm[z] ",
+    FontWeight->"Bold"],
+  "just adds a ",
+  StyleBox["perpedicular unit vector",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to the given vector (complex number) ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := N[z + I\ Norm[z]]; \)\), 
+    \(\(sp = NestList[f, 1, 30]; \)\), 
+    \(\(ArgandPlot[sp]; \)\)}], "Input"],
+
+Cell["The lengths of the successive vectors are as follows:", "Text"],
+
+Cell[BoxData[
+    \(Abs/@sp\)], "Input"],
+
+Cell[TextData[{
+  "By the ",
+  StyleBox["Pythagorian Theorem",
+    FontWeight->"Bold"],
+  ", these numbers are just the square roots of the integers."
+}], "Text"],
+
+Cell[BoxData[
+    \(N[Sqrt/@Range[20]]\)], "Input"],
+
+Cell["Here is an extended plot of the spiral.", "Text"],
+
+Cell[BoxData[{
+    \(\(sp = NestList[f, 1, 500]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["\<\
+It is not so easy to find the continuous analogue of this sprial, \
+by the way.\
+\>", "Text"],
+
+Cell["\<\
+In making such a sprial, there is no reason the unit vector has to \
+be taken as perpendicular.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[1 + 7\ I]\), 
+    \(\(f[z_] := N[z + u\ Norm[z]]; \)\), 
+    \(\(sp = NestList[f, 1, 20]; \)\), 
+    \(\(ArgandPlot[sp]; \)\)}], "Input"],
+
+Cell["Here is an extended picture.", "Text"],
+
+Cell[BoxData[{
+    \(\(sp = NestList[f, 1, 300]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["With other angles, it is easy to run off the screen.", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[11 - 7\ I]\), 
+    \(\(f[z_] := N[z + u\ Norm[z]]; \)\), 
+    \(\(sp = NestList[f, 1, 30]; \)\), 
+    \(\(ArgandPlot[sp]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(sp = NestList[f, 1, 500]; \)\), 
+    \(\(ArgandPlot[sp, 3]; \)\)}], "Input"],
+
+Cell[TextData[{
+  StyleBox["Question. ",
+    FontWeight->"Bold"],
+  "Does this curve loop around or not?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["A double whammy", "Subsubsection"],
+
+Cell[TextData[{
+  "You get some crazy pictures if you rotate ",
+  StyleBox["both",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "the vector ",
+  StyleBox["and",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the unit vector."
+}], "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[30 - I]\), 
+    \(v = I\n\), 
+    \(f[z_] := N[u\ z + v\ Norm[z]]; \n\(sp = NestList[f, 1, 100]; \)\), 
+    \(\(ArgandPlot[sp]; \)\)}], "Input"],
+
+Cell["\<\
+That is not so crazy, but further iteration shows there is \
+apparently a limit to the lengths of the vectors.\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(\(sp = NestList[f, 1, 1000]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["Here is what seems likely to be a related picture.", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[1 - 30\ I]\), 
+    \(v = I\n\), 
+    \(f[z_] := N[u\ z + v\ Norm[z]]; \n\(sp = NestList[f, 1, 500]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["But the picture is rather different!", "Text"],
+
+Cell[BoxData[{
+    \(\(sp = NestList[f, 1, 1000]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["\<\
+It is easy to waste time (and computing power) on such trials.  \
+Here is another:\
+\>", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[1 - 30\ I]\), 
+    \(v = \(-I\)\), 
+    \(ClearAll[f]; \nf[z_] := N[u\ z + v\ Norm[z]]; \n
+    \(sp = NestList[f, 1, 100]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(sp = NestList[f, 1, 500]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["And another:", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[2 - 3\ I]\), 
+    \(v = Norm[3 - I]\n\), 
+    \(f[z_] := N[u\ z + v\ Norm[z]]; \n\(sp = NestList[f, 1, 200]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["And another:", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[10 + 7\ I]\), 
+    \(v = Norm[10 - 7\ I]\n\), 
+    \(f[z_] := N[u\ z + v\ Norm[z]]; \n\(sp = NestList[f, 1, 200]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["And another:", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[1 + I]\), 
+    \(v = Norm[1 - I]\n\), 
+    \(f[z_] := N[u\ z + v\ Norm[z]]; \n\(sp = NestList[f, 1, 500]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["And another:", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[1 + 10\ I]\), 
+    \(v = Norm[1 - 10\ I]\n\), 
+    \(f[z_] := N[u\ z + v\ Norm[z]]; \n\(sp = NestList[f, 1, 200]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell["And another:", "Text"],
+
+Cell[BoxData[{
+    \(u = Norm[1 + 1000\ I]\), 
+    \(v = u\^2\n\), 
+    \(f[z_] := N[u\ z + v\ Norm[z]]; \n\(sp = NestList[f, 1, 300]; \)\), 
+    \(\(ArgandPlot[sp, 5]; \)\)}], "Input"],
+
+Cell[TextData[StyleBox["Enough!!!!!",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Text",
+  FontSize->18]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Microsoft Windows 3.0",
+ScreenRectangle->{{0, 1280}, {0, 968}},
+AutoGeneratedPackage->None,
+ScreenStyleEnvironment->"Working",
+WindowToolbars->{},
+WindowSize->{986, 770},
+WindowMargins->{{16, Automatic}, {Automatic, 5}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 184, 7, 75, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1896, 58, 270, 10, 120, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2191, 72, 99, 2, 56, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[2315, 78, 100, 2, 46, "Subsection",
+  PageBreakAbove->True,
+  PageBreakBelow->Automatic],
+
+Cell[CellGroupData[{
+Cell[2440, 84, 72, 1, 37, "Subsubsection",
+  PageBreakBelow->Automatic],
+Cell[2515, 87, 229, 6, 29, "Text"],
+Cell[2747, 95, 933, 35, 138, "Text"],
+Cell[3683, 132, 1094, 46, 48, "Text"],
+Cell[4780, 180, 701, 19, 58, "SmallText"],
+Cell[5484, 201, 41, 0, 29, "Text"],
+Cell[5528, 203, 134, 5, 130, "Input"],
+Cell[5665, 210, 1724, 61, 82, "Text"],
+Cell[7392, 273, 104, 2, 91, "Input"],
+Cell[7499, 277, 224, 6, 29, "Text"],
+Cell[7726, 285, 47, 1, 50, "Input"],
+Cell[7776, 288, 189, 8, 29, "Text"],
+Cell[7968, 298, 65, 1, 61, "Input"],
+Cell[8036, 301, 301, 9, 29, "Text"],
+Cell[8340, 312, 133, 2, 94, "Input"],
+Cell[8476, 316, 98, 1, 29, "Text"],
+Cell[8577, 319, 447, 18, 45, "Text"],
+Cell[9027, 339, 221, 10, 45, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9285, 354, 72, 1, 37, "Subsubsection",
+  PageBreakBelow->Automatic],
+Cell[9360, 357, 216, 6, 29, "Text"],
+Cell[9579, 365, 631, 29, 42, "SmallText"],
+Cell[10213, 396, 71, 0, 29, "Text"],
+Cell[10287, 398, 194, 4, 184, "Input"],
+Cell[10484, 404, 45, 0, 29, "Text"],
+Cell[10532, 406, 470, 18, 45, "Text"],
+Cell[11005, 426, 140, 2, 70, "Input"],
+Cell[11148, 430, 479, 16, 42, "SmallText"],
+Cell[11630, 448, 585, 18, 58, "SmallText"],
+Cell[12218, 468, 1105, 44, 67, "Text"],
+Cell[13326, 514, 97, 2, 50, "Input"],
+Cell[13426, 518, 512, 18, 34, "Text"],
+Cell[13941, 538, 48, 1, 50, "Input"],
+Cell[13992, 541, 180, 6, 45, "Text"],
+Cell[14175, 549, 45, 0, 29, "Text"],
+Cell[14223, 551, 105, 2, 70, "Input"],
+Cell[14331, 555, 166, 5, 29, "Text"],
+Cell[14500, 562, 359, 13, 45, "Text"],
+Cell[14862, 577, 121, 2, 96, "Input"],
+Cell[14986, 581, 118, 3, 29, "Text"],
+Cell[15107, 586, 137, 3, 62, "Input"],
+Cell[15247, 591, 1390, 48, 48, "Text"],
+Cell[16640, 641, 132, 3, 62, "Input"],
+Cell[16775, 646, 213, 9, 29, "Text"],
+Cell[16991, 657, 44, 1, 50, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[17084, 664, 41, 0, 30, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[17150, 668, 54, 0, 37, "Subsubsection"],
+Cell[17207, 670, 415, 13, 45, "Text"],
+Cell[17625, 685, 327, 12, 45, "Text"],
+Cell[17955, 699, 241, 11, 29, "Text"],
+Cell[18199, 712, 45, 1, 50, "Input"],
+Cell[18247, 715, 214, 5, 29, "Text"],
+Cell[18464, 722, 384, 16, 29, "Text"],
+Cell[18851, 740, 58, 1, 50, "Input"],
+Cell[18912, 743, 1588, 52, 86, "Text"],
+Cell[20503, 797, 130, 6, 29, "Text"],
+Cell[20636, 805, 553, 21, 45, "Text"],
+Cell[21192, 828, 110, 3, 29, "Text"],
+Cell[21305, 833, 701, 30, 76, "Text"],
+Cell[22009, 865, 1068, 40, 127, "Text"],
+Cell[23080, 907, 1132, 46, 48, "Text"],
+Cell[24215, 955, 341, 10, 45, "Text"],
+Cell[24559, 967, 606, 13, 58, "SmallText"],
+Cell[25168, 982, 108, 3, 29, "Text"],
+Cell[25279, 987, 210, 6, 45, "Text"],
+Cell[25492, 995, 63, 1, 29, "Text"],
+Cell[25558, 998, 133, 5, 29, "Text"],
+Cell[25694, 1005, 293, 12, 29, "Text"],
+Cell[25990, 1019, 385, 16, 29, "Text"],
+Cell[26378, 1037, 161, 6, 29, "Text"],
+Cell[26542, 1045, 110, 3, 29, "Text"],
+Cell[26655, 1050, 249, 11, 29, "Text"],
+Cell[26907, 1063, 249, 11, 29, "Text"],
+Cell[27159, 1076, 117, 5, 29, "Text"],
+Cell[27279, 1083, 318, 14, 29, "Text"],
+Cell[27600, 1099, 142, 5, 29, "Text"],
+Cell[27745, 1106, 86, 4, 29, "Text"],
+Cell[27834, 1112, 225, 6, 45, "Text"],
+Cell[28062, 1120, 63, 1, 29, "Text"],
+Cell[28128, 1123, 784, 32, 34, "Text"],
+Cell[28915, 1157, 849, 36, 34, "Text"],
+Cell[29767, 1195, 723, 30, 34, "Text"],
+Cell[30493, 1227, 1014, 46, 34, "Text"],
+Cell[31510, 1275, 1689, 74, 34, "Text"],
+Cell[33202, 1351, 1691, 74, 34, "Text"],
+Cell[34896, 1427, 1832, 76, 34, "Text"],
+Cell[36731, 1505, 1474, 61, 34, "Text"],
+Cell[38208, 1568, 86, 4, 29, "Text"],
+Cell[38297, 1574, 560, 19, 64, "Text"],
+Cell[38860, 1595, 63, 1, 29, "Text"],
+Cell[38926, 1598, 290, 8, 60, "Text"],
+Cell[39219, 1608, 515, 23, 34, "Text"],
+Cell[39737, 1633, 656, 30, 65, "Text"],
+Cell[40396, 1665, 400, 13, 60, "Text"],
+Cell[40799, 1680, 176, 8, 29, "Text"],
+Cell[40978, 1690, 263, 10, 29, "Text"],
+Cell[41244, 1702, 1542, 55, 106, "Text"],
+Cell[42789, 1759, 251, 10, 29, "Text"],
+Cell[43043, 1771, 157, 6, 29, "Text"],
+Cell[43203, 1779, 155, 6, 29, "Text"],
+Cell[43361, 1787, 92, 1, 29, "Text"],
+Cell[43456, 1790, 164, 6, 29, "Text"],
+Cell[43623, 1798, 1173, 43, 34, "Text"],
+Cell[44799, 1843, 117, 5, 29, "Text"],
+Cell[44919, 1850, 696, 25, 34, "Text"],
+Cell[45618, 1877, 117, 5, 29, "Text"],
+Cell[45738, 1884, 855, 31, 34, "Text"],
+Cell[46596, 1917, 415, 15, 60, "Text"],
+Cell[47014, 1934, 115, 3, 29, "Text"],
+Cell[47132, 1939, 130, 3, 29, "Text"],
+Cell[47265, 1944, 86, 4, 29, "Text"],
+Cell[47354, 1950, 742, 19, 67, "Text"],
+Cell[48099, 1971, 393, 8, 114, "Input"],
+Cell[48495, 1981, 346, 11, 29, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[48878, 1997, 48, 0, 37, "Subsubsection"],
+Cell[48929, 1999, 957, 30, 72, "Text"],
+Cell[49889, 2031, 302, 12, 29, "Text"],
+Cell[50194, 2045, 88, 1, 51, "Input"],
+Cell[50285, 2048, 72, 0, 29, "Text"],
+Cell[50360, 2050, 65, 1, 62, "Input"],
+Cell[50428, 2053, 2011, 71, 110, "Text"],
+Cell[52442, 2126, 1434, 50, 72, "Text"],
+Cell[53879, 2178, 52, 1, 50, "Input"],
+Cell[53934, 2181, 69, 1, 50, "Input"],
+Cell[54006, 2184, 606, 18, 48, "Text"],
+Cell[54615, 2204, 267, 11, 29, "Text"],
+Cell[54885, 2217, 56, 1, 50, "Input"],
+Cell[54944, 2220, 48, 1, 50, "Input"],
+Cell[54995, 2223, 778, 27, 48, "Text"],
+Cell[55776, 2252, 103, 2, 70, "Input"],
+Cell[55882, 2256, 327, 9, 29, "Text"],
+Cell[56212, 2267, 117, 2, 50, "Input"],
+Cell[56332, 2271, 114, 2, 50, "Input"],
+Cell[56449, 2275, 113, 2, 50, "Input"],
+Cell[56565, 2279, 600, 19, 45, "Text"],
+Cell[57168, 2300, 1018, 40, 48, "Text"],
+Cell[58189, 2342, 315, 10, 45, "Text"],
+Cell[58507, 2354, 93, 3, 29, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[58661, 2364, 93, 2, 36, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[58779, 2370, 85, 2, 46, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[58889, 2376, 48, 0, 37, "Subsubsection"],
+Cell[58940, 2378, 1002, 34, 138, "Text"],
+Cell[59945, 2414, 540, 18, 34, "Text"],
+Cell[60488, 2434, 95, 2, 71, "Input"],
+Cell[60586, 2438, 311, 12, 29, "Text"],
+Cell[60900, 2452, 123, 2, 70, "Input"],
+Cell[61026, 2456, 109, 3, 29, "Text"],
+Cell[61138, 2461, 109, 2, 90, "Input"],
+Cell[61250, 2465, 189, 6, 29, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[61476, 2476, 50, 0, 37, "Subsubsection"],
+Cell[61529, 2478, 420, 12, 34, "Text"],
+Cell[61952, 2492, 164, 3, 93, "Input"],
+Cell[62119, 2497, 164, 3, 93, "Input"],
+Cell[62286, 2502, 437, 14, 29, "Text"],
+Cell[62726, 2518, 105, 3, 93, "Input"],
+Cell[62834, 2523, 442, 15, 29, "Text"],
+Cell[63279, 2540, 123, 2, 51, "Input"],
+Cell[63405, 2544, 223, 7, 29, "Text"],
+Cell[63631, 2553, 70, 1, 51, "Input"],
+Cell[63704, 2556, 631, 23, 48, "Text"],
+Cell[64338, 2581, 49, 1, 51, "Input"],
+Cell[64390, 2584, 180, 6, 29, "Text"],
+Cell[64573, 2592, 49, 1, 51, "Input"],
+Cell[64625, 2595, 118, 2, 72, "Input"],
+Cell[64746, 2599, 225, 6, 29, "Text"],
+Cell[64974, 2607, 358, 10, 42, "SmallText"],
+Cell[65335, 2619, 604, 19, 48, "Text"],
+Cell[65942, 2640, 65, 1, 51, "Input"],
+Cell[66010, 2643, 948, 27, 72, "Text"],
+Cell[66961, 2672, 93, 1, 72, "Input"],
+Cell[67057, 2675, 54, 0, 29, "Text"],
+Cell[67114, 2677, 66, 1, 51, "Input"],
+Cell[67183, 2680, 106, 3, 29, "Text"],
+Cell[67292, 2685, 112, 2, 91, "Input"],
+Cell[67407, 2689, 325, 11, 29, "Text"],
+Cell[67735, 2702, 80, 1, 51, "Input"],
+Cell[67818, 2705, 89, 3, 29, "Text"],
+Cell[67910, 2710, 79, 1, 51, "Input"],
+Cell[67992, 2713, 337, 10, 29, "Text"],
+Cell[68332, 2725, 82, 1, 51, "Input"],
+Cell[68417, 2728, 165, 4, 29, "Text"],
+Cell[68585, 2734, 185, 3, 72, "Input"],
+Cell[68773, 2739, 556, 21, 45, "Text"],
+Cell[69332, 2762, 566, 19, 48, "Text"],
+Cell[69901, 2783, 158, 3, 70, "Input"],
+Cell[70062, 2788, 91, 3, 29, "Text"],
+Cell[70156, 2793, 62, 1, 50, "Input"],
+Cell[70221, 2796, 282, 10, 29, "Text"],
+Cell[70506, 2808, 46, 1, 50, "Input"],
+Cell[70555, 2811, 149, 5, 29, "Text"],
+Cell[70707, 2818, 69, 1, 50, "Input"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[70825, 2825, 88, 2, 46, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[70938, 2831, 50, 0, 37, "Subsubsection"],
+Cell[70991, 2833, 675, 23, 48, "Text"],
+Cell[71669, 2858, 372, 12, 45, "Text"],
+Cell[72044, 2872, 108, 2, 70, "Input"],
+Cell[72155, 2876, 364, 6, 190, "Input"],
+Cell[72522, 2884, 386, 12, 45, "Text"],
+Cell[72911, 2898, 108, 2, 70, "Input"],
+Cell[73022, 2902, 360, 6, 190, "Input"],
+Cell[73385, 2910, 52, 0, 29, "Text"],
+Cell[73440, 2912, 461, 16, 45, "Text"],
+Cell[73904, 2930, 45, 0, 29, "Text"],
+Cell[73952, 2932, 117, 2, 83, "Input"],
+Cell[74072, 2936, 75, 0, 29, "Text"],
+Cell[74150, 2938, 380, 7, 203, "Input"],
+Cell[74533, 2947, 899, 33, 64, "Text"],
+Cell[75435, 2982, 174, 8, 29, "Text"],
+Cell[75612, 2992, 369, 6, 203, "Input"],
+Cell[75984, 3000, 153, 6, 29, "Text"],
+Cell[76140, 3008, 194, 4, 103, "Input"],
+Cell[76337, 3014, 169, 6, 29, "Text"],
+Cell[76509, 3022, 192, 7, 29, "Text"],
+Cell[76704, 3031, 266, 9, 44, "Text"],
+Cell[76973, 3042, 1388, 56, 63, "Text"],
+Cell[78364, 3100, 246, 12, 29, "Text"],
+Cell[78613, 3114, 542, 19, 40, "Text"],
+Cell[79158, 3135, 315, 12, 29, "Text"],
+Cell[79476, 3149, 175, 5, 29, "Text"],
+Cell[79654, 3156, 203, 3, 29, "Text"],
+Cell[79860, 3161, 235, 10, 29, "Text"],
+Cell[80098, 3173, 153, 6, 29, "Text"],
+Cell[80254, 3181, 229, 8, 29, "Text"],
+Cell[80486, 3191, 185, 6, 29, "Text"],
+Cell[80674, 3199, 688, 23, 107, "Text"],
+Cell[81365, 3224, 294, 10, 29, "Text"],
+Cell[81662, 3236, 131, 3, 70, "Input"],
+Cell[81796, 3241, 196, 6, 29, "Text"],
+Cell[81995, 3249, 81, 1, 50, "Input"],
+Cell[82079, 3252, 114, 3, 29, "Text"],
+Cell[82196, 3257, 122, 2, 50, "Input"],
+Cell[82321, 3261, 96, 3, 29, "Text"],
+Cell[82420, 3266, 457, 16, 45, "Text"],
+Cell[82880, 3284, 226, 8, 29, "Text"],
+Cell[83109, 3294, 110, 2, 81, "Input"],
+Cell[83222, 3298, 170, 3, 125, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[83429, 3306, 46, 0, 37, "Subsubsection"],
+Cell[83478, 3308, 239, 6, 60, "Text"],
+Cell[83720, 3316, 519, 20, 88, "Text"],
+Cell[84242, 3338, 602, 22, 82, "Text"],
+Cell[84847, 3362, 345, 12, 54, "Text"],
+Cell[85195, 3376, 50, 0, 38, "Text"],
+Cell[85248, 3378, 143, 2, 94, "Input"],
+Cell[85394, 3382, 115, 3, 38, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[85570, 3392, 100, 2, 36, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[85695, 3398, 125, 5, 46, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[85845, 3407, 40, 0, 37, "Subsubsection"],
+Cell[85888, 3409, 273, 7, 29, "Text"],
+Cell[86164, 3418, 23, 0, 50, "Input"],
+Cell[86190, 3420, 65, 0, 29, "Text"],
+Cell[86258, 3422, 138, 2, 70, "Input"],
+Cell[86399, 3426, 899, 33, 48, "Text"],
+Cell[87301, 3461, 61, 1, 50, "Input"],
+Cell[87365, 3464, 94, 3, 29, "Text"],
+Cell[87462, 3469, 53, 1, 50, "Input"],
+Cell[87518, 3472, 239, 9, 34, "Text"],
+Cell[87760, 3483, 171, 4, 90, "Input"],
+Cell[87934, 3489, 261, 9, 34, "Text"],
+Cell[88198, 3500, 131, 3, 71, "Input"],
+Cell[88332, 3505, 191, 5, 71, "Input"],
+Cell[88526, 3512, 510, 19, 34, "Text"],
+Cell[89039, 3533, 215, 5, 110, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[89291, 3543, 50, 0, 37, "Subsubsection"],
+Cell[89344, 3545, 1005, 36, 48, "Text"],
+Cell[90352, 3583, 1775, 61, 200, "Text"],
+Cell[92130, 3646, 474, 15, 48, "Text"],
+Cell[92607, 3663, 455, 17, 45, "Text"],
+Cell[93065, 3682, 64, 1, 29, "Text"],
+Cell[93132, 3685, 565, 24, 60, "Text"],
+Cell[93700, 3711, 277, 12, 29, "Text"],
+Cell[93980, 3725, 109, 5, 29, "Text"],
+Cell[94092, 3732, 310, 15, 29, "Text"],
+Cell[94405, 3749, 256, 12, 29, "Text"],
+Cell[94664, 3763, 438, 18, 60, "Text"],
+Cell[95105, 3783, 289, 12, 29, "Text"],
+Cell[95397, 3797, 266, 10, 29, "Text"],
+Cell[95666, 3809, 158, 3, 90, "Input"],
+Cell[95827, 3814, 164, 6, 29, "Text"],
+Cell[95994, 3822, 34, 0, 50, "Input"],
+Cell[96031, 3824, 241, 11, 29, "Text"],
+Cell[96275, 3837, 310, 9, 60, "Text"],
+Cell[96588, 3848, 269, 10, 29, "Text"],
+Cell[96860, 3860, 67, 1, 50, "Input"],
+Cell[96930, 3863, 111, 5, 29, "Text"],
+Cell[97044, 3870, 32, 0, 50, "Input"],
+Cell[97079, 3872, 276, 12, 29, "Text"],
+Cell[97358, 3886, 75, 1, 50, "Input"],
+Cell[97436, 3889, 126, 5, 29, "Text"],
+Cell[97565, 3896, 115, 2, 83, "Input"],
+Cell[97683, 3900, 472, 24, 29, "Text"],
+Cell[98158, 3926, 72, 1, 29, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[98279, 3933, 62, 0, 46, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[98366, 3937, 44, 0, 37, "Subsubsection"],
+Cell[98413, 3939, 99, 3, 38, "Text"],
+Cell[98515, 3944, 163, 4, 114, "Input"],
+Cell[98681, 3950, 193, 6, 38, "Text"],
+Cell[98877, 3958, 98, 2, 74, "Input"],
+Cell[98978, 3962, 236, 6, 60, "Text"],
+Cell[99217, 3970, 196, 3, 97, "Input"],
+Cell[99416, 3975, 70, 0, 38, "Text"],
+Cell[99489, 3977, 127, 2, 74, "Input"],
+Cell[99619, 3981, 88, 3, 38, "Text"],
+Cell[99710, 3986, 130, 2, 74, "Input"],
+Cell[99843, 3990, 194, 3, 97, "Input"],
+Cell[100040, 3995, 53, 0, 38, "Text"],
+Cell[100096, 3997, 133, 2, 74, "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[100266, 4004, 48, 0, 29, "Subsubsection"],
+Cell[100317, 4006, 426, 16, 29, "Text"],
+Cell[100746, 4024, 138, 3, 90, "Input"],
+Cell[100887, 4029, 69, 0, 29, "Text"],
+Cell[100959, 4031, 40, 1, 50, "Input"],
+Cell[101002, 4034, 162, 5, 29, "Text"],
+Cell[101167, 4041, 51, 1, 50, "Input"],
+Cell[101221, 4044, 55, 0, 29, "Text"],
+Cell[101279, 4046, 99, 2, 70, "Input"],
+Cell[101381, 4050, 103, 3, 29, "Text"],
+Cell[101487, 4055, 119, 3, 29, "Text"],
+Cell[101609, 4060, 167, 4, 110, "Input"],
+Cell[101779, 4066, 44, 0, 29, "Text"],
+Cell[101826, 4068, 99, 2, 70, "Input"],
+Cell[101928, 4072, 68, 0, 29, "Text"],
+Cell[101999, 4074, 168, 4, 110, "Input"],
+Cell[102170, 4080, 99, 2, 70, "Input"],
+Cell[102272, 4084, 150, 5, 45, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[102459, 4094, 40, 0, 37, "Subsubsection"],
+Cell[102502, 4096, 293, 12, 29, "Text"],
+Cell[102798, 4110, 174, 4, 150, "Input"],
+Cell[102975, 4116, 134, 3, 29, "Text"],
+Cell[103112, 4121, 100, 2, 70, "Input"],
+Cell[103215, 4125, 66, 0, 29, "Text"],
+Cell[103284, 4127, 180, 4, 150, "Input"],
+Cell[103467, 4133, 52, 0, 29, "Text"],
+Cell[103522, 4135, 100, 2, 70, "Input"],
+Cell[103625, 4139, 106, 3, 29, "Text"],
+Cell[103734, 4144, 203, 5, 150, "Input"],
+Cell[103940, 4151, 99, 2, 70, "Input"],
+Cell[104042, 4155, 28, 0, 29, "Text"],
+Cell[104073, 4157, 189, 4, 150, "Input"],
+Cell[104265, 4163, 28, 0, 29, "Text"],
+Cell[104296, 4165, 194, 4, 150, "Input"],
+Cell[104493, 4171, 28, 0, 29, "Text"],
+Cell[104524, 4173, 186, 4, 150, "Input"],
+Cell[104713, 4179, 28, 0, 29, "Text"],
+Cell[104744, 4181, 194, 4, 150, "Input"],
+Cell[104941, 4187, 28, 0, 29, "Text"],
+Cell[104972, 4189, 185, 4, 150, "Input"],
+Cell[105160, 4195, 117, 3, 34, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

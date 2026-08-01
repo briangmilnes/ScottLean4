@@ -1,0 +1,2374 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     53006,       2119]*)
+(*NotebookOutlinePosition[     53733,       2145]*)
+(*  CellTagsIndexPosition[     53689,       2141]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 14   Projective Geometry\n",
+  StyleBox["Take-Home Final Examination",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it.\nName the file: \
+14.yourlastname.nb\nPlease hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Tuesday, 15 December",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[".\n\n",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox[
+  "Do 5 Problems for 200 points.\nAll problems are worth 40 points.\nPartial \
+credit is allowed.\nMore questions solved means extra credit.\n",
+    FontSize->16,
+    FontWeight->"Bold",
+    FontColor->RGBColor[0, 0, 1]],
+  StyleBox["\n\n",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Name: xxxxxxxxx",
+    FontSize->16]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[TextData[{
+  StyleBox["Warning.  ",
+    FontWeight->"Bold"],
+  "Be sure to ",
+  Cell[BoxData[
+      StyleBox["ClearAll",
+        FontWeight->"Bold"]]],
+  " necessary symbols between working on problems (including ",
+  Cell[BoxData[
+      StyleBox["Subscript",
+        FontWeight->"Bold"]]],
+  ")."
+}], "Text",
+  FontSize->19,
+  Background->RGBColor[0, 1, 0]],
+
+Cell[CellGroupData[{
+
+Cell["1. Projections and transformations  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Lines are ",
+  StyleBox["parallel",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if they intersect at infinity.  Here are several lines and points:"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(l\_1 = x; l\_2 = x - z; l\_3 = x - r\ z; \nP\_1 = p\ v + w; \ \ 
+    P\_2 = u + p\ v + w; \nQ\_1 = q\ v + w; \ \ Q\_2 = u + q\ v + w; \n
+    m\_1 = PE[P\_1, P\_2]; m\_2 = PE[Q\_1, Q\_2]; \)], "Input"],
+
+Cell[TextData[{
+  "Why are the lines ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["{",
+          FontWeight->"Bold"], 
+        StyleBox[\(l\_1, l\_2, l\_3\),
+          FontWeight->"Bold"], 
+        StyleBox["}",
+          FontWeight->"Bold"]}]]],
+  " parallel?   On which lines do the points ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["{",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            StyleBox[
+              SubscriptBox[
+                StyleBox["P",
+                  FontWeight->"Bold"], "1"],
+              FontWeight->"Bold"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            StyleBox[\(Q\_1\),
+              FontWeight->"Bold"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            SubscriptBox[
+              StyleBox["P",
+                FontWeight->"Bold"], "2"], ",", \(Q\_2\)}],
+          FontWeight->"Bold"], 
+        StyleBox["}",
+          FontWeight->"Bold"]}]]],
+  " lie?  What can you say about the lines ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["{",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            SubscriptBox[
+              StyleBox["m",
+                FontWeight->"Bold"], "1"], 
+            StyleBox[",",
+              FontWeight->"Bold"], 
+            SubscriptBox[
+              StyleBox["m",
+                FontWeight->"Bold"], "2"]}],
+          FontWeight->"Bold"], 
+        StyleBox["}",
+          FontWeight->"Bold"]}]]],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "Assuming that ",
+  Cell[BoxData[
+      StyleBox["r",
+        FontWeight->"Bold"]]],
+  " is different from both ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["1",
+        FontWeight->"Bold"]]],
+  " and neither ",
+  Cell[BoxData[
+      StyleBox["p",
+        FontWeight->"Bold"]]],
+  " nor ",
+  Cell[BoxData[
+      StyleBox["q",
+        FontWeight->"Bold"]]],
+  " is ",
+  Cell[BoxData[
+      StyleBox["0",
+        FontWeight->"Bold"]]],
+  ", why do these two transformations define ",
+  StyleBox["projective transformations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the set of points along the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis onto itself?  Can you give ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " reasons? "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(F[xx_] := Tidy[PE[PE[PE[PE[xx, P\_1], l\_3], P\_2], y]]; \n
+    G[xx_] := Tidy[PE[PE[PE[PE[xx, Q\_1], l\_3], Q\_2], y]]; \)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.  ",
+    FontWeight->"Bold"],
+  "Can you give ",
+  StyleBox["two proofs",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that the two transformations represent ",
+  StyleBox["the same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " projectivity on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis?  And what are the ",
+  StyleBox["fixed points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of this projectivity?  Does a ",
+  StyleBox["picture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " help?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["2. Crossratios  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  " Why ought you to ",
+  StyleBox["know",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " what the following locus of points is?  And how do you find its ",
+  StyleBox["equation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "? "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(PE[XL[x, y, x - y, s, t], XL[x - y, y - z, x - z, s, t]]\)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Two sets of points are ",
+  StyleBox["projectively equivalent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " if there is a projective transformation mapping one onto the other.  How \
+can you determine the division of the following ",
+  StyleBox["set of sets",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " into ",
+  StyleBox["equivalence classes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  (And do it!)"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \({{4\ v, 3\ v - w, 3\ v + w, 9\ v + w}, {6\ v, 4\ v - w, 5\ v + w, 
+        24\ v + 3\ w}, {2\ u + 2\ v, u + 2\ v - w, 2\ u + v + w, 
+        5\ u + 4\ v + w}, {4\ u + 2\ v, 2\ u + 2\ v - w, 4\ u + v + w, 
+        18\ u + 6\ v + 3\ w}, {2\ u + 4\ v, u + 3\ v - w, 2\ u + 3\ v + w, 
+        5\ u + 9\ v + w}, {4\ u + 4\ v, 2\ u + 3\ v - w, 4\ u + 3\ v + w, 
+        18\ u + 15\ v + 3\ w}, {2\ u + w, u + 2\ w, 2\ u + 2\ w, 
+        5\ u + 4\ w}, {2\ u + w, u + 2\ w, 2\ u + 2\ w, 9\ u + 6\ w}}\)], 
+  "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["3. Duality  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Carefully state the ",
+  StyleBox["dual",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of Pascal's Theorem.  Explain as fully as you can why we do not need to \
+prove it (having already proved Pascal's Theorem)."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  A (non-degenerate) ",
+  StyleBox["quadrangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a configuration of type ",
+  Cell[BoxData[
+      StyleBox[\({{4, 3}, {2, 6}}\),
+        FontWeight->"Bold"]]],
+  " consisting of ",
+  StyleBox["4",
+    FontWeight->"Bold"],
+  " points (no three collinear) and the ",
+  StyleBox["6",
+    FontWeight->"Bold"],
+  " lines (which have to be all distinct) joining them by pairs.  Each of the \
+given points lies on ",
+  StyleBox["3",
+    FontWeight->"Bold"],
+  " of the lines, and each of the lines passes through ",
+  StyleBox["2",
+    FontWeight->"Bold"],
+  " of the given points.  \n",
+  StyleBox["Dually",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", a ",
+  StyleBox["quadrilateral",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a configuration of type ",
+  Cell[BoxData[
+      StyleBox[\({{6, 2}, {3, 4}}\),
+        FontWeight->"Bold"]]],
+  "consiting of ",
+  StyleBox["6",
+    FontWeight->"Bold"],
+  " points and ",
+  StyleBox["4",
+    FontWeight->"Bold"],
+  " lines ",
+  StyleBox[".... (",
+    FontWeight->"Bold"],
+  "You complete the statement!)  \nUse a conic (or other method) to show \
+there is a natural ",
+  StyleBox["one-one correspondence",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " between all quadrangles and all quadrilaterals.  \nArgue, then, that if \
+one quadrangle had ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["diagonal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " you could immediately find a quadrilateral with ",
+  StyleBox["concurrent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["diagonals",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  \nBut does such a quadrangle ",
+  StyleBox["exist",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["4. Conics and conjugate points  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Prove that in general there is ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " conic passing through  ",
+  StyleBox["four",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["given",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] no three collinear \[LongDash] and having ",
+  StyleBox["two further points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "as a pair of ",
+  StyleBox["conjugate points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  What ",
+  StyleBox["assumption",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the two further points is needed to make this true?"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 2. ",
+  StyleBox[" Given a suitable configuration of ",
+    FontWeight->"Plain"],
+  StyleBox["six",
+    FontSlant->"Italic"],
+  StyleBox[" points, how do we ",
+    FontWeight->"Plain"],
+  StyleBox["find",
+    FontSlant->"Italic"],
+  StyleBox[" the required conic?  Draw a ",
+    FontWeight->"Plain"],
+  StyleBox["picture",
+    FontSlant->"Italic"],
+  StyleBox[" of a special case.",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["5. Polarity of perspective triangles  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  StyleBox["Prove that if two triangles are in "],
+  StyleBox["perspective",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[", then there is a conic such that the "],
+  StyleBox["polars of the vertices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" of either triangle are the "],
+  StyleBox["corresponding sides",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" of the other.  Moreover, the "],
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" of the perspectivity is the "],
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["of the axis of perspectivity."]
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2. ",
+    FontWeight->"Bold"],
+  " Is there a ",
+  StyleBox["converse",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " theorem about ",
+  StyleBox["\"conjugate\" triangles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to a conic?  What is the definition of ",
+  StyleBox["conjugate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["6. Three conics through two points  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Prove that if  ",
+  StyleBox["three conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " pass through the same ",
+  StyleBox["two fixed points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the ",
+  StyleBox["three lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "joining the ",
+  StyleBox["remaining intersections",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the conics taken in pairs ",
+  StyleBox["meet in a point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  What does this theorem say about circles?  Draw a ",
+  StyleBox["picture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "!"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["7. Quadrangles and diagonal triangles  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.  ",
+    FontWeight->"Bold"],
+  "Prove that if the ",
+  StyleBox["diagonal triangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a quadrangle is ",
+  StyleBox["self-polar",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to a conic, and if ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["vertex",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the quadrangle lies on the conic, then so do the ",
+  StyleBox["other vertices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "Deduce that if two quadrangles have the ",
+  StyleBox["same diagonal triangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then their ",
+  StyleBox["eight vertices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " lie on a conic."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["8. Parameterization of curves  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Here is a nice ",
+  StyleBox["4",
+    FontWeight->"Bold"],
+  "th-degree curve:"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{
+        \((x\^2 + y\^2)\)\ \((x\ \((x + 1)\) + y\^2)\) == 4\ x\ y\^2}, {x, 
+        \(-1\), 1}, {y, \(-1\), 1}, PlotPoints \[Rule] 100]; \)\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: 1.1265 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.633266 0.60977 0.563248 0.60977 [
+[.0235 .55075 -6 -9 ]
+[.0235 .55075 6 0 ]
+[.17594 .55075 -15 -9 ]
+[.17594 .55075 15 0 ]
+[.32838 .55075 -12 -9 ]
+[.32838 .55075 12 0 ]
+[.48082 .55075 -15 -9 ]
+[.48082 .55075 15 0 ]
+[.78571 .55075 -12 -9 ]
+[.78571 .55075 12 0 ]
+[.93815 .55075 -9 -9 ]
+[.93815 .55075 9 0 ]
+[.62077 .10592 -30 -4.5 ]
+[.62077 .10592 0 4.5 ]
+[.62077 .25836 -24 -4.5 ]
+[.62077 .25836 0 4.5 ]
+[.62077 .41081 -30 -4.5 ]
+[.62077 .41081 0 4.5 ]
+[.62077 .71569 -24 -4.5 ]
+[.62077 .71569 0 4.5 ]
+[.62077 .86813 -18 -4.5 ]
+[.62077 .86813 0 4.5 ]
+[.62077 1.02058 -24 -4.5 ]
+[.62077 1.02058 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 1.1265 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.0235 .56325 m
+.0235 .5695 L
+s
+[(-1)] .0235 .55075 0 1 Mshowa
+.17594 .56325 m
+.17594 .5695 L
+s
+[(-0.75)] .17594 .55075 0 1 Mshowa
+.32838 .56325 m
+.32838 .5695 L
+s
+[(-0.5)] .32838 .55075 0 1 Mshowa
+.48082 .56325 m
+.48082 .5695 L
+s
+[(-0.25)] .48082 .55075 0 1 Mshowa
+.78571 .56325 m
+.78571 .5695 L
+s
+[(0.25)] .78571 .55075 0 1 Mshowa
+.93815 .56325 m
+.93815 .5695 L
+s
+[(0.5)] .93815 .55075 0 1 Mshowa
+.125 Mabswid
+.05398 .56325 m
+.05398 .567 L
+s
+.08447 .56325 m
+.08447 .567 L
+s
+.11496 .56325 m
+.11496 .567 L
+s
+.14545 .56325 m
+.14545 .567 L
+s
+.20643 .56325 m
+.20643 .567 L
+s
+.23692 .56325 m
+.23692 .567 L
+s
+.2674 .56325 m
+.2674 .567 L
+s
+.29789 .56325 m
+.29789 .567 L
+s
+.35887 .56325 m
+.35887 .567 L
+s
+.38936 .56325 m
+.38936 .567 L
+s
+.41985 .56325 m
+.41985 .567 L
+s
+.45034 .56325 m
+.45034 .567 L
+s
+.51131 .56325 m
+.51131 .567 L
+s
+.5418 .56325 m
+.5418 .567 L
+s
+.57229 .56325 m
+.57229 .567 L
+s
+.60278 .56325 m
+.60278 .567 L
+s
+.66375 .56325 m
+.66375 .567 L
+s
+.69424 .56325 m
+.69424 .567 L
+s
+.72473 .56325 m
+.72473 .567 L
+s
+.75522 .56325 m
+.75522 .567 L
+s
+.8162 .56325 m
+.8162 .567 L
+s
+.84669 .56325 m
+.84669 .567 L
+s
+.87717 .56325 m
+.87717 .567 L
+s
+.90766 .56325 m
+.90766 .567 L
+s
+.96864 .56325 m
+.96864 .567 L
+s
+.99913 .56325 m
+.99913 .567 L
+s
+.25 Mabswid
+0 .56325 m
+1 .56325 L
+s
+.63327 .10592 m
+.63952 .10592 L
+s
+[(-0.75)] .62077 .10592 1 0 Mshowa
+.63327 .25836 m
+.63952 .25836 L
+s
+[(-0.5)] .62077 .25836 1 0 Mshowa
+.63327 .41081 m
+.63952 .41081 L
+s
+[(-0.25)] .62077 .41081 1 0 Mshowa
+.63327 .71569 m
+.63952 .71569 L
+s
+[(0.25)] .62077 .71569 1 0 Mshowa
+.63327 .86813 m
+.63952 .86813 L
+s
+[(0.5)] .62077 .86813 1 0 Mshowa
+.63327 1.02058 m
+.63952 1.02058 L
+s
+[(0.75)] .62077 1.02058 1 0 Mshowa
+.125 Mabswid
+.63327 .13641 m
+.63702 .13641 L
+s
+.63327 .1669 m
+.63702 .1669 L
+s
+.63327 .19739 m
+.63702 .19739 L
+s
+.63327 .22787 m
+.63702 .22787 L
+s
+.63327 .28885 m
+.63702 .28885 L
+s
+.63327 .31934 m
+.63702 .31934 L
+s
+.63327 .34983 m
+.63702 .34983 L
+s
+.63327 .38032 m
+.63702 .38032 L
+s
+.63327 .44129 m
+.63702 .44129 L
+s
+.63327 .47178 m
+.63702 .47178 L
+s
+.63327 .50227 m
+.63702 .50227 L
+s
+.63327 .53276 m
+.63702 .53276 L
+s
+.63327 .59374 m
+.63702 .59374 L
+s
+.63327 .62422 m
+.63702 .62422 L
+s
+.63327 .65471 m
+.63702 .65471 L
+s
+.63327 .6852 m
+.63702 .6852 L
+s
+.63327 .74618 m
+.63702 .74618 L
+s
+.63327 .77667 m
+.63702 .77667 L
+s
+.63327 .80716 m
+.63702 .80716 L
+s
+.63327 .83764 m
+.63702 .83764 L
+s
+.63327 .89862 m
+.63702 .89862 L
+s
+.63327 .92911 m
+.63702 .92911 L
+s
+.63327 .9596 m
+.63702 .9596 L
+s
+.63327 .99009 m
+.63702 .99009 L
+s
+.63327 .07543 m
+.63702 .07543 L
+s
+.63327 .04494 m
+.63702 .04494 L
+s
+.63327 .01445 m
+.63702 .01445 L
+s
+.63327 1.05106 m
+.63702 1.05106 L
+s
+.63327 1.08155 m
+.63702 1.08155 L
+s
+.63327 1.11204 m
+.63702 1.11204 L
+s
+.25 Mabswid
+.63327 0 m
+.63327 1.1265 L
+s
+0 0 m
+1 0 L
+1 1.1265 L
+0 1.1265 L
+closepath
+clip
+newpath
+.5 Mabswid
+.17132 .45668 m
+.18364 .45483 L
+.19596 .45336 L
+.20827 .45223 L
+.22059 .45143 L
+.23291 .45094 L
+.24523 .45074 L
+.25755 .45082 L
+.26987 .45118 L
+.28219 .45179 L
+.29451 .45265 L
+.30682 .45376 L
+.31914 .45511 L
+.33146 .45669 L
+.34378 .4585 L
+.34404 .45854 L
+.3561 .46053 L
+.36842 .46277 L
+.38074 .46524 L
+.39305 .46793 L
+.40537 .47084 L
+.40545 .47086 L
+.41769 .47394 L
+.43001 .47726 L
+.44233 .4808 L
+.45019 .48318 L
+.45465 .48454 L
+.46697 .48848 L
+.47928 .49266 L
+.48727 .4955 L
+.4916 .49703 L
+.50392 .5016 L
+.51624 .50642 L
+.51958 .50781 L
+.52856 .51139 L
+.54088 .51663 L
+.5485 .52013 L
+.5532 .52204 L
+.56551 .52766 L
+.57481 .53245 L
+.57783 .53343 L
+.59015 .53917 L
+.59966 .54477 L
+.60247 .54625 L
+.61479 .55285 L
+.62252 .55709 L
+.62252 .56941 L
+.61479 .57365 L
+.60247 .58025 L
+.59966 .58173 L
+Mistroke
+.59015 .58733 L
+.57783 .59306 L
+.57481 .59404 L
+.56551 .59884 L
+.5532 .60445 L
+.5485 .60636 L
+.54088 .60986 L
+.52856 .6151 L
+.51958 .61868 L
+.51624 .62007 L
+.50392 .6249 L
+.4916 .62947 L
+.48727 .631 L
+.47928 .63384 L
+.46697 .63801 L
+.45465 .64195 L
+.45019 .64332 L
+.44233 .64569 L
+.43001 .64923 L
+.41769 .65255 L
+.40545 .65564 L
+.40537 .65566 L
+.39305 .65856 L
+.38074 .66125 L
+.36842 .66372 L
+.3561 .66597 L
+.34404 .66796 L
+.34378 .668 L
+.33146 .66981 L
+.31914 .67139 L
+.30682 .67274 L
+.29451 .67384 L
+.28219 .67471 L
+.26987 .67532 L
+.25755 .67567 L
+.24523 .67575 L
+.23291 .67556 L
+.22059 .67506 L
+.20827 .67426 L
+.19596 .67314 L
+.18364 .67166 L
+.17132 .66982 L
+.16096 .66796 L
+.159 .66757 L
+.14668 .66489 L
+.13436 .66172 L
+.12204 .658 L
+.11512 .65564 L
+.10973 .65366 L
+.09741 .64859 L
+Mistroke
+.08641 .64332 L
+.08509 .64263 L
+.07277 .63559 L
+.06587 .631 L
+.06045 .62705 L
+.05065 .61868 L
+.04813 .61628 L
+.03941 .60636 L
+.03581 .60154 L
+.03145 .59404 L
+.02633 .58173 L
+.02381 .56941 L
+.02381 .55709 L
+.02633 .54477 L
+.03145 .53245 L
+.03581 .52495 L
+.03941 .52013 L
+.04813 .51021 L
+.05065 .50781 L
+.06045 .49945 L
+.06587 .4955 L
+.07277 .49091 L
+.08509 .48386 L
+.08641 .48318 L
+.09741 .4779 L
+.10973 .47284 L
+.11512 .47086 L
+.12204 .4685 L
+.13436 .46478 L
+.14668 .46161 L
+.159 .45893 L
+.16096 .45854 L
+.17132 .45668 L
+Mfstroke
+.89812 .02684 m
+.91043 .02682 L
+.91549 .02739 L
+.92275 .02886 L
+.93507 .0335 L
+.94502 .03971 L
+.94739 .0417 L
+.95713 .05203 L
+.95971 .05566 L
+.96475 .06434 L
+.96983 .07666 L
+.97203 .08399 L
+.97316 .08898 L
+.97519 .1013 L
+.97614 .11362 L
+.97619 .12594 L
+.97545 .13826 L
+.97401 .15057 L
+.97203 .16245 L
+.97194 .16289 L
+.96928 .17521 L
+.96608 .18753 L
+.96234 .19985 L
+.95971 .20769 L
+.95812 .21217 L
+.95343 .22449 L
+.94826 .23681 L
+.94739 .23878 L
+.94266 .24912 L
+.9366 .26144 L
+.93507 .26442 L
+.93012 .27376 L
+.9232 .28608 L
+.92275 .28685 L
+.91587 .2984 L
+.91043 .30706 L
+.90809 .31072 L
+.89989 .32304 L
+.89812 .32561 L
+.89126 .33535 L
+.8858 .34283 L
+.88219 .34767 L
+.87348 .35895 L
+.87266 .35999 L
+.86269 .37231 L
+.86116 .37415 L
+.85227 .38463 L
+.84884 .38853 L
+.84136 .39695 L
+.83652 .40221 L
+Mistroke
+.82996 .40927 L
+.8242 .41525 L
+.81804 .42158 L
+.81189 .42771 L
+.8056 .4339 L
+.79957 .43964 L
+.7926 .44622 L
+.78725 .45109 L
+.77901 .45854 L
+.77493 .46209 L
+.76479 .47086 L
+.76261 .47266 L
+.75029 .48285 L
+.74992 .48318 L
+.73797 .49265 L
+.73455 .4955 L
+.72566 .50209 L
+.7183 .50781 L
+.71334 .51119 L
+.70102 .52004 L
+.70097 .52013 L
+.6887 .5284 L
+.68288 .53245 L
+.67638 .53606 L
+.66406 .54463 L
+.66387 .54477 L
+.65174 .55231 L
+.64386 .55709 L
+.64386 .56941 L
+.65174 .57419 L
+.66387 .58173 L
+.66406 .58187 L
+.67638 .59043 L
+.68288 .59404 L
+.6887 .5981 L
+.70097 .60636 L
+.70102 .60645 L
+.71334 .61531 L
+.7183 .61868 L
+.72566 .62441 L
+.73455 .631 L
+.73797 .63384 L
+.74992 .64332 L
+.75029 .64364 L
+.76261 .65383 L
+.76479 .65564 L
+.77493 .66441 L
+.77901 .66796 L
+.78725 .67541 L
+.7926 .68027 L
+Mistroke
+.79957 .68685 L
+.8056 .69259 L
+.81189 .69879 L
+.81804 .70491 L
+.8242 .71125 L
+.82996 .71723 L
+.83652 .72429 L
+.84136 .72955 L
+.84884 .73796 L
+.85227 .74187 L
+.86116 .75235 L
+.86269 .75419 L
+.87266 .7665 L
+.87348 .76754 L
+.88219 .77882 L
+.8858 .78367 L
+.89126 .79114 L
+.89812 .80089 L
+.89989 .80346 L
+.90809 .81578 L
+.91043 .81943 L
+.91587 .8281 L
+.92275 .83965 L
+.9232 .84042 L
+.93012 .85273 L
+.93507 .86208 L
+.9366 .86505 L
+.94266 .87737 L
+.94739 .88772 L
+.94826 .88969 L
+.95343 .90201 L
+.95812 .91433 L
+.95971 .9188 L
+.96234 .92665 L
+.96608 .93896 L
+.96928 .95128 L
+.97194 .9636 L
+.97203 .96405 L
+.97401 .97592 L
+.97545 .98824 L
+.97619 1.00056 L
+.97614 1.01288 L
+.97519 1.0252 L
+.97316 1.03751 L
+.97203 1.0425 L
+.96983 1.04983 L
+.96475 1.06215 L
+.95971 1.07084 L
+.95713 1.07447 L
+.94739 1.0848 L
+Mistroke
+.94502 1.08679 L
+.93507 1.093 L
+.92275 1.09763 L
+.91549 1.09911 L
+.91043 1.09967 L
+.89812 1.09965 L
+.89294 1.09911 L
+.8858 1.09788 L
+.87348 1.09456 L
+.86116 1.08981 L
+.85465 1.08679 L
+.84884 1.08372 L
+.83652 1.07634 L
+.83369 1.07447 L
+.8242 1.0677 L
+.8171 1.06215 L
+.81189 1.0578 L
+.80298 1.04983 L
+.79957 1.0466 L
+.79049 1.03751 L
+.78725 1.03409 L
+.77923 1.0252 L
+.77493 1.02018 L
+.76894 1.01288 L
+.76261 1.00478 L
+.75944 1.00056 L
+.75061 .98824 L
+.75029 .98778 L
+.74237 .97592 L
+.73797 .96901 L
+.73465 .9636 L
+.72739 .95128 L
+.72566 .94823 L
+.72056 .93896 L
+.71411 .92665 L
+.71334 .92512 L
+.70802 .91433 L
+.70227 .90201 L
+.70102 .89926 L
+.69682 .88969 L
+.69167 .87737 L
+.6887 .86995 L
+.6868 .86505 L
+.6822 .85273 L
+.67785 .84042 L
+.67638 .83614 L
+.67374 .8281 L
+.66986 .81578 L
+.66621 .80346 L
+.66406 .79588 L
+Mistroke
+.66278 .79114 L
+.65956 .77882 L
+.65655 .7665 L
+.65373 .75419 L
+.65174 .74497 L
+.65112 .74187 L
+.64869 .72955 L
+.64645 .71723 L
+.64439 .70491 L
+.64252 .69259 L
+.64082 .68027 L
+.63943 .66908 L
+.63931 .66796 L
+.63796 .65564 L
+.63678 .64332 L
+.63578 .631 L
+.63494 .61868 L
+.63426 .60636 L
+.63373 .59404 L
+.63305 .58173 L
+.6331 .56941 L
+.6331 .55709 L
+.63305 .54477 L
+.63373 .53245 L
+.63426 .52013 L
+.63494 .50781 L
+.63578 .4955 L
+.63678 .48318 L
+.63796 .47086 L
+.63931 .45854 L
+.63943 .45742 L
+.64082 .44622 L
+.64252 .4339 L
+.64439 .42158 L
+.64645 .40927 L
+.64869 .39695 L
+.65112 .38463 L
+.65174 .38152 L
+.65373 .37231 L
+.65655 .35999 L
+.65956 .34767 L
+.66278 .33535 L
+.66406 .33062 L
+.66621 .32304 L
+.66986 .31072 L
+.67374 .2984 L
+.67638 .29036 L
+.67785 .28608 L
+.6822 .27376 L
+.6868 .26144 L
+Mistroke
+.6887 .25654 L
+.69167 .24912 L
+.69682 .23681 L
+.70102 .22724 L
+.70227 .22449 L
+.70802 .21217 L
+.71334 .20137 L
+.71411 .19985 L
+.72056 .18753 L
+.72566 .17827 L
+.72739 .17521 L
+.73465 .16289 L
+.73797 .15749 L
+.74237 .15057 L
+.75029 .13872 L
+.75061 .13826 L
+.75944 .12594 L
+.76261 .12171 L
+.76894 .11362 L
+.77493 .10632 L
+.77923 .1013 L
+.78725 .09241 L
+.79049 .08898 L
+.79957 .07989 L
+.80298 .07666 L
+.81189 .0687 L
+.8171 .06434 L
+.8242 .05879 L
+.83369 .05203 L
+.83652 .05016 L
+.84884 .04278 L
+.85465 .03971 L
+.86116 .03669 L
+.87348 .03194 L
+.8858 .02861 L
+.89294 .02739 L
+.89812 .02684 L
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{167.375, 188.625},
+  ImageMargins->{{0, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40003A0000j`P10`4000010?ooooooc4A4A8R8R00R
+0;/0001VIP3o03<cc3/k>gYjN[Vi^OShn03ooeGooj[oolc<oolc0?nIVJZZZP140=d0001VV@3o<c<c
+oclo?ginO[fm_Oclo5D00:X00?l0014A4Olc<onIc;^k^`1E0>h0001Vc03oIP<30d92@X61PL30`000
+EED0EJX0EOl0ELco0?lcI_nIomgMg@1g0000<`1Vo`3oV@L71dI6AXF5QLC4a000ZUD0ZZX0Z_l0Z/co
+<olcVOo<0>k^kP280000IP2I003oc0/;2dY:BXV9RLS8b000oeD0ojX0ool0olcoI_lcc?o<<`004@2Z
+0000V@2I<`3oo`l?3di>CXf=SLc<c01E05EE0:YE0?mE0<coVOlcooo<IP008P2k0000c02IIS<001<C
+4e9BDY6ATM3@d01EEEEEEJYEEOmEELcoc?mV0?o<V@00A03M0000o`2IVC<0<aLG5eIFEYFEUMCDe01E
+ZUEEZZYEZ_mEZ/cooomV<oo<c000E@3^000c002Ic3<0IQ/K6eYJFYVIVMSHf01EoeEEojYEoomEool0
+0?mVI_o<o`00Ma40000c<`2Ioc<0VAlO7eiNGYfMWMcLg02Z05FZ0:ZZ0?nZ0?l0<omVVOoo0000R280
+000cIP3<03<0c2<S8f9RHZ6QXN3Ph02ZEEFZEJZZEOnZEOl0I_mVc?oo<`00ZT@0000cV@3<<c<0obLW
+9fIVIZFUYNCTi02ZZUFZZZZZZ_nZZR8R8_mVooooIP00^eH/1@0cc03<IS<c02/[:fYZJZVYZNSXj02Z
+oeFZojZZoonZool0VOnI0?ooZP00gGL0000co`3<VC<c<bl_;fi^KZf][Nc/k03o05Go0:[o0?oo0?l0
+c?nI<eEEE@00kXP0001V003<c3<cIS<c<g9bL[6a/O3`l03oEEGoEJ[oEOooEOl0oonIIWMgM`0A0:X0
+001V<`3<oc<cVCLg=gIfM[Fe]OCdm03oZUGoZZ[oZP000=4000240003o`0004X000240003o`0004X0
+00240003o`0004X0002400;oB`0008@000?o0000BP0008@000?o0000BP0008@000?o0000<00;o`l0
+00240003o`0002h00_l;0003o`0000`000240003o`0002`00_l>0003o`0000/000240003o`0002T0
+0olA00;o2`0008@00_lY0003o`0001@000?o0000200008@000?o00009P02oaP000?o00001`0008@0
+00?o00009@000ol0000H0003o`0000L000240003o`0002@000?o00006@000ol000070000Q0000ol0
+000R00;o7@000ol000060000Q0000ol0000Q0003o`0001d000?o00001P0008@00_lQ0003o`0001l0
+00?o00001@0008@000?o00007`000ol0000P0003o`0000D000240003o`0001l000?o00008@000ol0
+00040000Q0000ol0000M00;o90000ol000040000I@03o`H00_l50003o`0000@01?l40003o`0001`0
+00?o000090000ol000040000I0001Ol0003o00D00_l50003o`0000P000Go0000o`0M0003o`0002H0
+00?o00000`0005`01_l20005o`000?l03@000ol000070004o`0000?o6P000ol0000W0003o`0000<0
+001T0005o`000?l03@000ol000070005o`000?l070000ol0000W0003o`0000<0001T0005o`000?l0
+3@000ol0000300Co10000ol0000I0003o`0002P000?o00000`0006@000Go0000o`0>0003o`000080
+00?o00001@000ol0000H0003o`0002T000?o00000`0006@000Go0000o`0:0005o`000?l010000ol0
+00050003o`0001L000?o0000:P000ol000030000I@03o`/01Ol400Co10000ol0000G0003o`0002X0
+00?o00000`0008@00_lG0003o`0002/000?o00000`0008@000?o00005@000ol0000/0003o`0000<0
+00240003o`0001D000?o0000;0000ol000030000Q0000ol0000D0003o`0002`000?o0000100008@0
+00?o000050000ol0000/0003o`0000@000240003o`0001<000?o0000;@000ol000040000Q0000ol0
+000B0003o`0002h000?o0000100008@00_lC0003o`0002h000?o0000100008@000?o00004@000ol0
+000^0003o`0000D000240003o`00010000?o0000;`000ol000050000Q0000ol0000@0003o`0002l0
+00?o00001@0008@000?o00003`000ol0000`0003o`0000D000240003o`0000l000?o0000<0000ol0
+00050000Q002o`l000?o0000<0000ol000060000Q0000ol0000>0003o`00030000?o00001P0008@0
+00?o00003P000ol0000_0003o`0000L000240003o`0000d000?o0000<0000ol000070000Q0000ol0
+000=0003o`00030000?o00001`0008@000?o000030000ol0000`0003o`0000P0002400;o3002oc80
+00?o0000200008@000?o00002`000ol0000a0003o`0000P000240003o`0000X000?o0000<@000ol0
+00090000Q0000ol0000:0003o`00034000?o00002@0006d00ol600;o1004o`@000?o00002@000ol0
+000a0003o`0000X0001/0005o`000?l01@02o`P000Go0000o`0;0003o`00034000?o00002P0006@0
+1_l20005o`000?l03`001?l00003o`T000?o0000<@000ol0000:0000K0001Ol0003o00l000Go0000
+o`0:0003o`00034000?o00002`0006`000Go0000o`0;00Co10000ol000080003o`00030000?o0000
+300006`000Go0000o`0;0003o`0000D000?o00001`000ol0000a0003o`0000`0001/0005o`000?l0
+2`000ol000050003o`0000L000?o0000<0000ol0000=0000K@03o``01?l40003o`0000L000?o0000
+<0000ol0000=0000Q0000ol000060003o`00030000?o00003P0008@00_l70003o`00030000?o0000
+3P0008@000?o00001P000ol0000_0003o`0000l000240003o`0000H000?o0000;P000ol0000@0000
+Q0000ol000060003o`0002d000?o00004@0008@000?o00001@000ol0000^0003o`00014000240003
+o`0000D000?o0000;P000ol0000A0000Q002o`D000?o0000;P000ol0000B0000Q0000ol000040003
+o`0002d000?o00004`0008@000?o000010000ol0000/0003o`0001@000240003o`0000<000?o0000
+;0000ol0000E0000Q0000ol000030003o`0002`000?o00005@0008@000?o00000`000ol0000[0003
+o`0001H0002400;o10000ol0000Z0003o`0001L000240003o`0000<000?o0000:P000ol0000G0000
+Q0000ol000020003o`0002X000?o0000600008@000?o00000P000ol0000Y0003o`0001T000240003
+o`00008000?o0000:0000ol0000J0000Q0000ol000020003o`0002L000?o00006`0008@000?o0000
+0P000ol0000V0003o`0001`0002400;o0P000ol0000V0003o`0001d000240005o`000?l0:0000ol0
+000M0000Q0001?l00?lX0003o`0001h0001U00?o1P02o`<01Ol400Co10001?l00?lW0003o`0001l0
+001T0005o`000?l01@02o`@000Co003o20001Ol0003o008000?o000090000ol0000P0000G006o`80
+00Go0000o`0<0003o`0000P000Go0000o`020003o`0002<000?o00008@0006@000Go0000o`0=0003
+o`0000L000Co00001?lU0003o`000240001T0005o`000?l03P000ol0000200Co10001?l00?lS00;o
+900006@000Go0000o`0>0003o`00008000?o00001@001?l00?lR0003o`0002@0001T0005o`000?l0
+2P001Ol0003o00@000?o00001@001?l00?lQ0003o`0002D0001U00?o3003o`D01?l40003o`3o0280
+00?o00009@0008@000?o0?l08002obP0002400?o7`000ol0000X0000Q0000ol0o`0N0003o`0002T0
+000/01Go@`000ol0o`0M0003o`0002X0000T00So5@08oc/000?o0?l070000ol0000[00007`05obD0
+1old0003o`3o01X00_l^00007@02oc400ola0003o`3o01T000?o0000;P0001X00olf00Go;002oaT0
+00?o0000;`0001P00_ln00Go9`02oaP00_la00005@03odD00_lU00;o5`000ol0000a00004`02odX0
+0olR00;o5P000ol0000b00004@02odl00olO00;o5@000ol0000c000040000ol0001B00;o7@02oa<0
+0_lf00003`000ol0001E00Go6002oa8000?o0000=P0000h000?o0000F`000ol0000E00;o4@000ol0
+000g00002@05o`l00ol600;o1@000ol0000400Co2003o`H00_l400Co2003o`H00_l300Oo0P04o`h0
+0_l>00Go1P02o`@01Ol300Co2003o`H00_l500Co100000/000?o00003P001Ol0003o00D00_l50003
+o`0000P000?o000010001Ol0003o00D00_l80003o`0000@000Go0000o`0500;o10001?l00?l20003
+o`0000<000?o00002`02o`d000?o0?l00`000ol0000300;o1@001?l00?l70003o`0000@000Go0000
+o`0500;o2@000ol0000100001_l400;o2006o`8000Go0000o`0=0003o`0000H01_l20005o`000?l0
+3P06o`8000Go0000o`0<0003o`0000<00ol20003o`0000/00_l<0004o`00o`<000?o00002`000ol0
+00070003o`0000@000Go0000o`0@0003o`000040000:00;o40001Ol0003o00d000?o00001`000ol0
+00040005o`000?l03`000ol000040005o`000?l03@000ol0000500?o3@02o`/000Go0000o`030003
+o`0000`000?o00001P000ol000040005o`000?l040000ol0000100002P02oa0000Go0000o`0=0003
+o`0000<01?l70005o`000?l02`04o`L000Go0000o`0>0003o`0000801_l<0003o`0000T000?o0000
+0P001Ol0003o00l000Co00001?l70005o`000?l03004o`@000090003o`3o010000Go0000o`0>0003
+o`00008000?o000020001Ol0003o00/000?o000020001Ol0003o00h000?o00000P000ol0000300?o
+2@02o`P00_l50005o`000?l03`001Ol0003o00X000Go0000o`0<0003o`0000D000090003o`3o0100
+00Go0000o`0:0005o`000?l010000ol000080005o`000?l02`000ol000080005o`000?l02P001Ol0
+003o00@000?o00001P02o`L000?o00001@02o`L000Go0000o`0;0005o`000?l00`000ol000080005
+o`000?l030000ol0000500002004oa400ol;00Go1004o`P00ol<00Co2003o``00ol500Co1`000ol0
+00040003o`0000<00_l:00?o3@03o`@01?l800?o3@04o`@000080003o`0007<00ol30003o`000080
+00?o0000A@0000L000?o0000M`001?l00?l200;oB00000L000?o0000N0001Ol0o`3o04X000020<oo
+00070003o`0000<000?o000010000ol000030003o`0000<000?o00000`000ol000040003o`0000<0
+00?o00000`000ol000030003o`0000@000?o00000`000ol000030003o`0000<000?o000010000ol0
+00030003o`0000<000?o000010000ol000030003o`0000<000So0000o`3o00;o0`000ol000030003
+o`0000<000?o00000`000ol000040003o`0000<000?o00000`000ol000030003o`0000@000?o0000
+0`000ol000030003o`0000@00Ol000L000?o0000MP02o`8000Co00000_m7000020000ol0001d0003
+o`00008000?o00000`000ol00014000020000ol0001a00?o1@000ol000040003o`0004<000080003
+o`0006l00_l80003o`0000D000?o0000@P0000T000?o0000J`03o`X00_l700?o@@0000T000?o0000
+JP000ol0000;0003o`0000T000?o0000?P0000X000?o0000J0000ol0000<00;o2`000ol0000m0000
+2P000ol0001U00?o3`02o``00_lm00002`000ol0001R00;o4P02o`h000?o0000>P0000`000?o0000
+G`02oa@00_l?0003o`0003T0000=00;oG003oaH00_l@0003o`0003P0000?0003o`0005L00_lI00;o
+4@02ocP0000@0003o`0005<00olK00;o4`000ol0000e00004@03odd01OlN00;o50000ol0000d0000
+50000ol000190003o`0002400_lE0003o`0003<0000D00;oAP04ob@00_lF00;o<`0001H00oln00Go
+:002oaP000?o0000<00001T00_li00?o;@02oaT000?o0000;`0001/01Ol_00Go<002oaX000?o0000
+;P0002000olW00Go=@000ol0o`0J0003o`0002d0000S00Oo6@07ocX000?o0?l06`02obd0000Z01Wo
+@@000ol0o`0M0003o`0002X000240003o`3o01h000?o0000:@0008@00olN0003o`0002T000240003
+o`3o01l00_lY0000Q0000ol0o`0Q0003o`0002H000240003o`3o028000?o00009@0006D00ol600;o
+1005o`<01?l40004o`00ob8000?o0000900006@000Go0000o`0500;o1@001?l00?l70005o`000?l0
+0P000ol0000Q0003o`0002<0001T0005o`000?l03@000ol000070004o`0000Co90000ol0000R0000
+I0001Ol0003o00h000?o00001P001Ol0003o008000?o00008`000ol0000Q0000I0001Ol0003o00l0
+00Co00001?l40004o`00obH000?o0000800006@000Go0000o`0?0005o`000?l01`001?l00?lW0003
+o`0001l0001T0005o`000?l02`001Ol0003o00<000?o00001@001?l00?lX0003o`0001h0001U00?o
+3@03o`@01?l40005o`000?l0:0000ol0000M0000Q0001Ol0003o02P000?o00007@0008@00_l20003
+o`0002L000?o0000700008@000?o00000P000ol0000W0003o`0001/000240003o`00008000?o0000
+:0000ol0000J0000Q0000ol000020003o`0002T000?o00006@0008@000?o00000P000ol0000Z0003
+o`0001P000240003o`00008000?o0000:P000ol0000H0000Q002o`@000?o0000:P000ol0000G0000
+Q0000ol000030003o`0002/000?o00005P0008@000?o00000`000ol0000[0003o`0001H000240003
+o`0000<000?o0000;0000ol0000E0000Q0000ol000040003o`0002`000?o0000500008@000?o0000
+10000ol0000]0003o`0001<0002400;o1@000ol0000]0003o`0001<000240003o`0000D000?o0000
+;@000ol0000B0000Q0000ol000050003o`0002h000?o00004@0008@000?o00001@000ol0000^0003
+o`00014000240003o`0000H000?o0000;@000ol0000A0000Q0000ol000060003o`0002h000?o0000
+400008@000?o00001P000ol0000_0003o`0000l0002400;o1`000ol0000`0003o`0000h000240003
+o`0000H000?o0000<0000ol0000>0000Q0000ol000070003o`00030000?o00003@0006`00ol600;o
+1@04o`@000?o00001`000ol0000`0003o`0000d0001[0005o`000?l01@02o`T000Go0000o`090003
+o`00030000?o00003@0006/000Go0000o`0@0005o`000?l02P000ol0000`00;o3@0006/000Go0000
+o`0@0004o`0000?o2@000ol0000`0003o`0000/0001[0005o`000?l03004o`@000?o00002@000ol0
+000a0003o`0000X0001[0005o`000?l030000ol000050003o`0000T000?o0000<@000ol0000:0000
+J`001Ol0003o00`000?o00001@000ol000090003o`00034000?o00002P0006`00ol=00Co10000ol0
+000:0003o`00034000?o00002@0008@000?o00002P000ol0000a0003o`0000T0002400;o30000ol0
+000a0003o`0000P000240003o`0000`000?o0000<0000ol000080000Q0000ol0000<0003o`000300
+00?o0000200008@000?o00003@000ol0000`0003o`0000L000240003o`0000d000?o0000<0000ol0
+00070000Q0000ol0000>0003o`0002l000?o00001`0008@00_l?0003o`00030000?o00001P0008@0
+00?o00003P000ol0000`0003o`0000H000240003o`0000l000?o0000<0000ol000050000Q0000ol0
+000?0003o`00030000?o00001@0008@000?o000040000ol0000_0003o`0000D000240003o`000140
+00?o0000;P000ol000050000Q0000ol0000A0003o`0002h000?o00001@0008@00_lC0003o`0002h0
+00?o0000100008@000?o00004P000ol0000^0003o`0000@000240003o`0001<000?o0000;@000ol0
+00040000Q0000ol0000D0003o`0002`000?o0000100008@000?o000050000ol0000/0003o`0000@0
+00240003o`0001D000?o0000;0000ol000030000Q002oaH000?o0000;0000ol000030000Q0000ol0
+000F0003o`0002/000?o00000`0008@000?o00005`000ol0000Z0003o`0000<000240003o`0001P0
+00?o0000:@000ol000030000I@03o`H00_l60003o`0000<01?l40003o`0001P000?o0000:@000ol0
+00030000I0001Ol0003o00D00_l60003o`0000L000Go0000o`0K0003o`0002P000?o00000`0006@0
+00Go0000o`0>0003o`0000H000Co00000olJ0003o`0002L000?o00000`0006@000Go0000o`0>0003
+o`0000H000Go0000o`0M0003o`0002H000?o00000`0006@000Go0000o`0>0003o`0000801?l40003
+o`0001`000?o00009@000ol000030000I0001Ol0003o00l000Go0000o`070003o`0001d000?o0000
+8`000ol000040000I0001Ol0003o00/000Go0000o`030003o`0000D000?o00007P000ol0000R0003
+o`0000@0001U00?o3005o`<01?l40003o`0001l000?o00008@000ol000040000Q002ob4000?o0000
+7`000ol000050000Q0000ol0000Q0003o`0001h000?o00001@0008@000?o00008P000ol0000L0003
+o`0000H000240003o`0002<00_lL0003o`0000H000240003o`0002D00_lI0003o`0000L000240003
+o`0002L000?o00005P000ol000070000Q0000ol0000W00?o5@000ol000080000Q002ob/000?o0000
+4@000ol000090000Q0000ol0000[00Co3@02o``000240003o`0002l00_l900;o3P0008@000?o0000
+<@09oa0000240003o`0004X000240003o`0004X0002400;oB`0008@000?o0000BP0008@000?o0000
+BP0008@000?o0000BP000=400000\
+\>"],
+  ImageRangeCache->{{{0, 208.188}, {234.75, 0}} -> {-1.05985, -0.936622, 
+  0.00997471, 0.00997471}}]
+}, Closed]],
+
+Cell[TextData[{
+  "What is the ",
+  StyleBox["homogeneous",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomial representing this curve?  What is the ",
+  StyleBox["multiplicity",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the curve at the origin?  What are the ",
+  StyleBox["tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at the origin?  Does the curve have any other ",
+  StyleBox["multiple points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Find a ",
+  StyleBox["homogeneous parameterization",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(pt[s, t]\),
+        FontWeight->"Bold"]]],
+  " of the points on the curve, and use it to find ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the points on the curve having ",
+  StyleBox["vertical",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["tangents",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (= passing through ",
+  Cell[BoxData[
+      StyleBox["v",
+        FontWeight->"Bold"]]],
+  ").  Check you have the ",
+  StyleBox["right number",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by finding the dual polynomial for the ",
+  StyleBox["envelope",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the curve."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["9. Inflections of a cubic  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Consider the cubic ",
+  Cell[BoxData[
+      StyleBox[\(z\^3 - d\ x\ y \((x + y + z)\)\),
+        FontWeight->"Bold"]]],
+  ".  Verify it has these inflection points ",
+  StyleBox["at infinity:",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\({u, v, u - v}\),
+        FontWeight->"Bold"]]],
+  " no matter what the value of ",
+  Cell[BoxData[
+      StyleBox["d",
+        FontWeight->"Bold"]]],
+  ".  Where are the ",
+  StyleBox["other",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " inflection points when ",
+  Cell[BoxData[
+      StyleBox[\(d == 12\),
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  For what value of ",
+  Cell[BoxData[
+      StyleBox["d",
+        FontWeight->"Bold"]]],
+  " is the cubic ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " ",
+  StyleBox["singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " but ",
+  StyleBox["non degenerate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  ",
+  StyleBox["Find",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the double point in that case.  Draw a ",
+  StyleBox["picture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Discuss why you cannot ",
+  StyleBox["see",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the double point."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["10. Conic tangents and poles  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Suppose ",
+  Cell[BoxData[
+      StyleBox["f",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox["g",
+        FontWeight->"Bold"]]],
+  " represent two ",
+  StyleBox["conics",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  As a ",
+  StyleBox["tangent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " moves around the curve ",
+  Cell[BoxData[
+      StyleBox[\(f == 0\),
+        FontWeight->"Bold"]]],
+  ", it has a ",
+  StyleBox["pole",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to the conic ",
+  Cell[BoxData[
+      StyleBox[\(g == 0\),
+        FontWeight->"Bold"]]],
+  ".  The moving pole traces out a curve.  What ",
+  StyleBox["kind",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of curve is this?  Give a ",
+  StyleBox["proof",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for your assertion."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Here below are two conics.  ",
+  StyleBox["Find",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the polynomial for the curve described in Question 1 and draw a ",
+  StyleBox["picture",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(f = x\^2 + y\^2 - z\^2; \n
+    g = \((x - 2  z)\)\^2 + 2\ \((y - 2  z)\)\^2 - 3  z\^2; \)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["11. Euclidean transformations  ", "Subsection",
+  Evaluatable->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  By using the formulae developed in lectures, prove that the ",
+  StyleBox["composition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of two reflections about ",
+  StyleBox["parallel axes",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " is a ",
+  StyleBox["translation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Prove additionally that if the axes are ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " parallel, the composition is a ",
+  StyleBox["rotation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (In the second case, let the axes intersect at the origin.)"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  "  Refer to the definition given in lectures of a ",
+  StyleBox["parabola",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and its ",
+  StyleBox["focus",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Argue that Euclidean transformations ",
+  StyleBox["must",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " map parabolas to parabolas and take the focus of  one to the focus of the \
+image.  Check this out in a special case ",
+  StyleBox["by computation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{780, 552},
+WindowMargins->{{224, Automatic}, {Automatic, 157}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 197, 7, 73, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1909, 58, 99, 2, 28, "Text"],
+Cell[2011, 62, 739, 25, 236, "Subsubtitle"],
+Cell[2753, 89, 363, 14, 74, "Text"],
+
+Cell[CellGroupData[{
+Cell[3141, 107, 107, 2, 46, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[3273, 113, 113, 4, 37, "Subsubsection"],
+Cell[3389, 119, 274, 9, 44, "Text"],
+Cell[3666, 130, 220, 3, 95, "Input"],
+Cell[3889, 135, 1544, 54, 44, "Text"]
+}, Closed]],
+Cell[5448, 192, 137, 3, 29, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[5610, 199, 113, 4, 37, "Subsubsection"],
+Cell[5726, 205, 956, 40, 62, "Text"],
+Cell[6685, 247, 154, 2, 63, "Input"]
+}, Closed]],
+Cell[6854, 252, 137, 3, 29, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[7016, 259, 113, 4, 37, "Subsubsection"],
+Cell[7132, 265, 622, 24, 62, "Text"]
+}, Closed]],
+Cell[7769, 292, 137, 3, 29, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[7943, 300, 87, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[8055, 306, 113, 4, 37, "Subsubsection"],
+Cell[8171, 312, 355, 13, 44, "Text"],
+Cell[8529, 327, 89, 1, 47, "Input"]
+}, Closed]],
+Cell[8633, 331, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[8795, 338, 113, 4, 37, "Subsubsection"],
+Cell[8911, 344, 552, 18, 62, "Text"],
+Cell[9466, 364, 527, 8, 95, "Input"]
+}, Closed]],
+Cell[10008, 375, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[10182, 383, 83, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[10290, 389, 113, 4, 37, "Subsubsection"],
+Cell[10406, 395, 338, 10, 62, "Text"]
+}, Closed]],
+Cell[10759, 408, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[10921, 415, 113, 4, 37, "Subsubsection"],
+Cell[11037, 421, 2048, 77, 200, "Text"]
+}, Closed]],
+Cell[13100, 501, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[13274, 509, 103, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[13402, 515, 113, 4, 37, "Subsubsection"],
+Cell[13518, 521, 1025, 39, 62, "Text",
+  Evaluatable->False]
+}, Closed]],
+Cell[14558, 563, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[14720, 570, 113, 4, 37, "Subsubsection"],
+Cell[14836, 576, 502, 18, 44, "Text"]
+}, Closed]],
+Cell[15353, 597, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[15527, 605, 109, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[15661, 611, 113, 4, 37, "Subsubsection"],
+Cell[15777, 617, 874, 29, 62, "Text",
+  Evaluatable->False]
+}, Closed]],
+Cell[16666, 649, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[16828, 656, 113, 4, 37, "Subsubsection"],
+Cell[16944, 662, 451, 17, 44, "Text"]
+}, Closed]],
+Cell[17410, 682, 137, 3, 29, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[17584, 690, 107, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[17716, 696, 113, 4, 37, "Subsubsection"],
+Cell[17832, 702, 732, 29, 62, "Text",
+  Evaluatable->False]
+}, Closed]],
+Cell[18579, 734, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[18741, 741, 113, 4, 37, "Subsubsection"],
+Cell[18857, 747, 247, 9, 44, "Text"]
+}, Closed]],
+Cell[19119, 759, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[19293, 767, 110, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[19428, 773, 113, 4, 37, "Subsubsection"],
+Cell[19544, 779, 733, 28, 62, "Text",
+  Evaluatable->False]
+}, Closed]],
+Cell[20292, 810, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[20454, 817, 113, 4, 37, "Subsubsection"],
+Cell[20570, 823, 414, 15, 44, "Text",
+  Evaluatable->False]
+}, Closed]],
+Cell[20999, 841, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[21173, 849, 102, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[21300, 855, 113, 4, 37, "Subsubsection"],
+Cell[21416, 861, 196, 8, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[21637, 873, 189, 3, 51, "Input"],
+Cell[21829, 878, 22568, 870, 196, 10705, 719, "GraphicsData", 
+"PostScript", "Graphics"]
+}, Closed]],
+Cell[44412, 1751, 598, 22, 61, "Text"]
+}, Closed]],
+Cell[45025, 1776, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[45187, 1783, 113, 4, 37, "Subsubsection"],
+Cell[45303, 1789, 952, 37, 62, "Text"]
+}, Closed]],
+Cell[46270, 1829, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[46444, 1837, 98, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[46567, 1843, 113, 4, 37, "Subsubsection"],
+Cell[46683, 1849, 754, 29, 62, "Text"]
+}, Closed]],
+Cell[47452, 1881, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[47614, 1888, 113, 4, 37, "Subsubsection"],
+Cell[47730, 1894, 780, 33, 62, "Text"]
+}, Closed]],
+Cell[48525, 1930, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[48699, 1938, 101, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[48825, 1944, 113, 4, 37, "Subsubsection"],
+Cell[48941, 1950, 995, 41, 62, "Text"]
+}, Closed]],
+Cell[49951, 1994, 137, 3, 29, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[50113, 2001, 113, 4, 37, "Subsubsection"],
+Cell[50229, 2007, 365, 13, 44, "Text"],
+Cell[50597, 2022, 120, 2, 67, "Input"]
+}, Closed]],
+Cell[50732, 2027, 137, 3, 37, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[50906, 2035, 102, 2, 30, "Subsection",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[51033, 2041, 113, 4, 37, "Subsubsection"],
+Cell[51149, 2047, 748, 25, 62, "Text"]
+}, Closed]],
+Cell[51912, 2075, 137, 3, 37, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[52074, 2082, 113, 4, 37, "Subsubsection"],
+Cell[52190, 2088, 648, 22, 62, "Text"]
+}, Closed]],
+Cell[52853, 2113, 137, 3, 37, "Subsubsection"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

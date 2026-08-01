@@ -1,0 +1,4752 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[    111555,       4159]*)
+(*NotebookOutlinePosition[    112536,       4191]*)
+(*  CellTagsIndexPosition[    112492,       4187]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 6   Projective Geometry\n",
+  StyleBox["Projective Transformations",
+    FontSize->18]
+}], "Title"],
+
+Cell[TextData[{
+  StyleBox["\[Copyright] Dana Scott 1993/1997/1998",
+    FontSize->16,
+    FontWeight->"Bold"],
+  StyleBox["\nNotebook  last edited: ",
+    FontSize->16],
+  StyleBox["25 September 1998",
+    FontSize->16,
+    FontWeight->"Bold"]
+}], "Subtitle",
+  FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell["Representing projective transformations", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Making a definition", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Passing from 1 to 2 dimensions", "Subsubsection"],
+
+Cell[TextData[{
+  "In discussing projective transformations between ",
+  StyleBox["ranges",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (or between ",
+  StyleBox["pencils",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "), we came to the following conclusion:"
+}], "Text"],
+
+Cell[TextData[{
+  "Theorem.",
+  StyleBox[
+  "  The following properties of a one-one correspondence between the points \
+on one line and the points on another line (or between the lines in one \
+pencil and the lines in another pencil or between the points on a line and \
+the lines in a pencil) are ",
+    FontWeight->"Plain"],
+  StyleBox["equivalent",
+    FontSlant->"Italic"],
+  StyleBox[":\n\t",
+    FontWeight->"Plain"],
+  "(i)",
+  StyleBox["   the correspondence is a ",
+    FontWeight->"Plain"],
+  StyleBox["composition of central projections",
+    FontSlant->"Italic"],
+  StyleBox[";\n\t",
+    FontWeight->"Plain"],
+  "(ii)",
+  StyleBox["  the correspondence ",
+    FontWeight->"Plain"],
+  StyleBox["preserves crossratios",
+    FontSlant->"Italic"],
+  StyleBox[";\n\t",
+    FontWeight->"Plain"],
+  "(iii)",
+  StyleBox[" the correspondence is represented by a ",
+    FontWeight->"Plain"],
+  StyleBox[
+  "(non-singular) linear \t\t\t       transformation of relative homogeneous \
+coordinates",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "In other words, in the one-dimensional case there are ",
+  StyleBox["three",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " quite different, equivalent characterizations of ",
+  StyleBox["projective",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["transformations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "If we set up a presentation of ",
+  StyleBox["higher-dimensional projective space",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we could likewise say that a projective transformation between ",
+  StyleBox["n",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "-dimensional projective spaces is a composition of central projections in \
+a still ",
+  StyleBox["higher-dimensional",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " space.  However, the success in using crossratios makes it unnecessary to \
+to invoke higher dimensions.  We can use the following as a definition:"
+}], "Text"],
+
+Cell[TextData[{
+  "Definition. ",
+  StyleBox["A ",
+    FontWeight->"Plain"],
+  StyleBox["projective (point) transformation ",
+    FontSlant->"Italic"],
+  StyleBox["of the ",
+    FontWeight->"Plain"],
+  "2",
+  StyleBox["-dimensional projective plane is a ",
+    FontWeight->"Plain"],
+  StyleBox["one-one correspondence",
+    FontSlant->"Italic"],
+  StyleBox[" between projective points such that \n\t",
+    FontWeight->"Plain"],
+  "(i)",
+  StyleBox["   ",
+    FontWeight->"Plain"],
+  StyleBox["collinear",
+    FontSlant->"Italic"],
+  StyleBox[" points are mapped to ",
+    FontWeight->"Plain"],
+  StyleBox["collinear",
+    FontSlant->"Italic"],
+  StyleBox[" points; and\n\t",
+    FontWeight->"Plain"],
+  "(ii)",
+  StyleBox["  the ",
+    FontWeight->"Plain"],
+  StyleBox["crossratio",
+    FontSlant->"Italic"],
+  StyleBox[" of four collinear points is always",
+    FontWeight->"Plain"],
+  StyleBox[" preserved",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Plain"]
+}], "Text",
+  CellFrame->False,
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
+
+Cell["And there is a dual definition.", "Text"],
+
+Cell[TextData[{
+  "Definition. ",
+  StyleBox["A ",
+    FontWeight->"Plain"],
+  StyleBox["projective (line) transformation ",
+    FontSlant->"Italic"],
+  StyleBox["of the ",
+    FontWeight->"Plain"],
+  "2",
+  StyleBox["-dimensional projective plane is a ",
+    FontWeight->"Plain"],
+  StyleBox["one-one correspondence",
+    FontSlant->"Italic"],
+  StyleBox[" between projective lines such that \n\t",
+    FontWeight->"Plain"],
+  "(i)",
+  StyleBox["   ",
+    FontWeight->"Plain"],
+  StyleBox["concurrent",
+    FontSlant->"Italic"],
+  StyleBox[" lines are mapped to ",
+    FontWeight->"Plain"],
+  StyleBox["concurrent",
+    FontSlant->"Italic"],
+  StyleBox[" lines; and\n\t",
+    FontWeight->"Plain"],
+  "(ii)",
+  StyleBox["  the ",
+    FontWeight->"Plain"],
+  StyleBox["crossratio",
+    FontSlant->"Italic"],
+  StyleBox[" of four concurrent lines is always",
+    FontWeight->"Plain"],
+  StyleBox[" preserved",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Plain"]
+}], "Text",
+  CellFrame->False,
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "The first question to ask here is: ",
+  StyleBox[" Are the two definitions above unrelated?  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "or",
+  StyleBox[" Do they somehow come to the same thing?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Another good question is:",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox[
+  " Are projective transformations of the plane under this new definition \
+represented by linear transformations of coordinates?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "It is clear, byt the way, that a ",
+  StyleBox["non-singular linear transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " always does represent a projective transformation, because it will be \
+one-one on points and preserves crossratios by exactly the same proof we gave \
+earlier for transformations between lines."
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Relating the point and line versions", "Subsubsection"],
+
+Cell["We can answer the first question directly.", "Text"],
+
+Cell[TextData[{
+  "Theorem.",
+  StyleBox["  Every projective ",
+    FontWeight->"Plain"],
+  StyleBox["point",
+    FontSlant->"Italic"],
+  StyleBox[" transformation determines a projective ",
+    FontWeight->"Plain"],
+  StyleBox["line",
+    FontSlant->"Italic"],
+  StyleBox[" transformation, and every projective ",
+    FontWeight->"Plain"],
+  StyleBox["line",
+    FontSlant->"Italic"],
+  StyleBox[" transformation determines a projective ",
+    FontWeight->"Plain"],
+  StyleBox["point",
+    FontSlant->"Italic"],
+  StyleBox[
+  " transformation; moreover, passing from one type of transformation to the \
+other and back again returns us to the same transformation.",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Proof.",
+  StyleBox["  Let ",
+    FontWeight->"Plain"],
+  StyleBox["T", "InlineInput"],
+  StyleBox[
+  " be a projective point transformation.  A obvious mapping between lines is \
+dertermined by taking a range of points on a given line to the (unique) line \
+determined  by their ",
+    FontWeight->"Plain"],
+  StyleBox["images",
+    FontSlant->"Italic"],
+  StyleBox[".  Let us call the corresponding line transformation ",
+    FontWeight->"Plain"],
+  StyleBox["T*", "InlineInput"],
+  StyleBox[".  Is this transformation ",
+    FontWeight->"Plain"],
+  StyleBox["one-one",
+    FontSlant->"Italic"],
+  StyleBox["between all lines?  Is it projective?",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[TextData[{
+  "First, we note that ",
+  StyleBox["T", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "will map the set of points on any line ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["onto",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the whole set of points lying on the image line ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  ".  To see this, take ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["R", "InlineInput",
+    FontWeight->"Bold"],
+  " on the line ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Then ",
+  StyleBox["T[P]", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["T[Q]", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["T[R]", "InlineInput",
+    FontWeight->"Bold"],
+  " must be distinct points on ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Take a fourth point ",
+  StyleBox["S", "InlineInput",
+    FontWeight->"Bold"],
+  " on ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  ".  It corresponds ",
+  StyleBox["uniquely",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to a crossratio ",
+  Cell[BoxData[
+      StyleBox[\(s == RP[P, Q, R, S]\),
+        FontWeight->"Bold"]]],
+  ".  Since ",
+  StyleBox["T",
+    FontWeight->"Bold"],
+  " preserves collinearity ",
+  StyleBox["and",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "crossratios, it follows that ",
+  StyleBox["T[S]", "InlineInput",
+    FontWeight->"Bold"],
+  " is on ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and that we also have the same crossratio: ",
+  Cell[BoxData[
+      StyleBox[\(s == RP[T[P], T[Q], T[R], T[S]]\),
+        FontWeight->"Bold"]]],
+  ".  This means that the image points realize ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the possible crossratios there could ever be on the image line ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  ", and so they must map onto ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the points of ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Now, if ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["m", "InlineInput",
+    FontWeight->"Bold"],
+  " are two ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " lines, then there is a ",
+  StyleBox["unique",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "point ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " at the intersection of the two ranges.  By what we just proved, ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is the line dertermined by the images ",
+  StyleBox["T[X]", "InlineInput",
+    FontWeight->"Bold"],
+  " of all the points ",
+  StyleBox["X", "InlineInput",
+    FontWeight->"Bold"],
+  " on ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  "  and consists exactly of  ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the points in the image ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Simillarly for ",
+  StyleBox["m", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Thus, ",
+  StyleBox["T[P]", "InlineInput",
+    FontWeight->"Bold"],
+  " must be the ",
+  StyleBox["unique",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point at the intersection of the two ranges ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["T*[m]", "InlineInput",
+    FontWeight->"Bold"],
+  ".  So the two image ranges are ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Note that this also proves that if ",
+  StyleBox["T", "InlineInput",
+    FontWeight->"Bold"],
+  " is a projective point transformation, and ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["R", "InlineInput",
+    FontWeight->"Bold"],
+  " are three points, then the points ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["R", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "are collinear ",
+  StyleBox["if, and only if",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the image points ",
+  StyleBox["T[P]", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["T[Q]", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["T[R]", "InlineInput",
+    FontWeight->"Bold"],
+  " are collinear.  Because, if they are not collinear, then there are \
+distinct lines passing through ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  " and through ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["R", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Since the image lines are distinct, ",
+  StyleBox["T[P]", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["T[Q]", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["T[R]", "InlineInput",
+    FontWeight->"Bold"],
+  " cannot be collinear."
+}], "Text"],
+
+Cell[TextData[{
+  "Now, using the same argument, if ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " is a third distinct line concurrent with given lines ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["m", "InlineInput",
+    FontWeight->"Bold"],
+  " (say, at ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  "), then ",
+  StyleBox["T*[n]", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is concurrent with the lines ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["T*[m]", "InlineInput",
+    FontWeight->"Bold"],
+  " (at ",
+  StyleBox["T[P]", "InlineInput",
+    FontWeight->"Bold"],
+  ").  And, if the three lines are not concurrent, they intersect in pairs at \
+three ",
+  StyleBox["distinct",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", non-collinear points, so their images are ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " concurrent.  This proves that the lines ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["m", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "are ",
+  StyleBox["concurrent",
+    FontColor->RGBColor[1, 0, 0]],
+  " ",
+  StyleBox["if, and only if,",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["T*[m]", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["T*[n]", "InlineInput",
+    FontWeight->"Bold"],
+  " are ",
+  StyleBox["concurrent",
+    FontColor->RGBColor[1, 0, 0]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "If ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["l", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  " is any arbitrarily given line in the plane, pick two points ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["P", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["Q", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  " on it.  They must be images of points ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "under ",
+  StyleBox["T", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Thus the line ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["l", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  " is the image of the line ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  " joining ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  " under ",
+  StyleBox["T*", "InlineInput",
+    FontWeight->"Bold"],
+  ".  We can conclude that ",
+  StyleBox["T*", "InlineInput",
+    FontWeight->"Bold"],
+  " is indeed a one-one correspondence between all lines, and that it takes \
+concurrent lines (non-concurrent lines) to concurrent lines (respectively, \
+non-concurrent lines).  What about ",
+  StyleBox["crossratios",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text"],
+
+Cell[TextData[{
+  "We are assuming that ",
+  StyleBox["T", "InlineInput",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["preserves crossratios ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "of collinear points, and we have to argue that ",
+  StyleBox["T*", "InlineInput",
+    FontWeight->"Bold"],
+  " preserves crossratios of lines as well.  Suppose that ",
+  StyleBox["k", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["m", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["n", "InlineInput",
+    FontWeight->"Bold"],
+  " are four lines in a pencil making a certain crossratio ",
+  Cell[BoxData[
+      StyleBox[\(a == RL[k, l, m, n]\),
+        FontWeight->"Bold"]]],
+  ".  Take a line ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in the pencil, and intersect the four lines in points  ",
+  StyleBox["K", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["L", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["N", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Then, as we know by the Transfer Theorem, we have the ",
+  StyleBox["same crossratio",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", thus, ",
+  Cell[BoxData[
+      StyleBox[\(a == RP[K, L, M, N]\),
+        FontWeight->"Bold"]]],
+  ".  Now the transformations ",
+  StyleBox["T*", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["T", "InlineInput",
+    FontWeight->"Bold"],
+  " will map this configuration to lines  ",
+  StyleBox["T*[k]", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["T*[l]", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["T*[m]", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["T*[n]", "InlineInput",
+    FontWeight->"Bold"],
+  "in a pencil and to a quadruple of collinear points ",
+  StyleBox["T[K]", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["T[L]", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["T[M]", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["T[N]", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Because ",
+  StyleBox["T", "InlineInput",
+    FontWeight->"Bold"],
+  " preserves crossratios, we see that ",
+  StyleBox["T*", "InlineInput",
+    FontWeight->"Bold"],
+  " (as a line transformation) also preserves crossratios."
+}], "Text"],
+
+Cell[TextData[{
+  "By a ",
+  StyleBox["dual argument",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", if we start with a projective line transformation ",
+  StyleBox["T*",
+    FontWeight->"Bold"],
+  ", then a projective point transformation ",
+  StyleBox["T ",
+    FontWeight->"Bold"],
+  "is determined by seeing where pencils go.  And if we start with ",
+  StyleBox["T",
+    FontWeight->"Bold"],
+  ", determine ",
+  StyleBox["T*",
+    FontWeight->"Bold"],
+  " and then ",
+  StyleBox["redetermine",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a point transformation, it must be the same as ",
+  StyleBox["T ",
+    FontWeight->"Bold"],
+  "\[LongDash]",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "just by following pencils.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Proving linearity", "Subsubsection"],
+
+Cell["\<\
+Now for the second question.  It takes a little work to relate \
+coordinates along various lines to coordinates in the plane.\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.",
+    FontWeight->"Bold"],
+  "  Every projective transformation of the projective plane",
+  StyleBox[" is represented by a ",
+    FontWeight->"Plain"],
+  StyleBox["(non-singular) linear transformation of homogeneous coordinates",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontWeight->"Plain"]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof.",
+    FontWeight->"Bold"],
+  "  Let the transformation be ",
+  StyleBox["T", "InlineInput"],
+  ".  Consider the points represented by ",
+  StyleBox["u", "InlineInput"],
+  " and ",
+  StyleBox["w", "InlineInput"],
+  " and the other points ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + c\ w\),
+        FontWeight->"Bold"]]],
+  " on the ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  "-axis.  These points are transformed to collinear points on a transformed \
+line.  We thus have a projective transformation between two lines, and we \
+know it can be represented by a linear transformation.  This means that by a \
+careful choice of representatives we can think that under ",
+  StyleBox["T", "InlineInput"],
+  " we have the correspondences\n \t\t ",
+  Cell[BoxData[
+      StyleBox[\(u \[Rule] A, w \[Rule] C, a\ u + c\ w \[Rule] a\ A + c\ C\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Consider next the points represented by ",
+  StyleBox["v", "InlineInput"],
+  " and ",
+  StyleBox["w", "InlineInput"],
+  " and the other points ",
+  Cell[BoxData[
+      StyleBox[\(b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  " on the ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-axis.  These points are transformed to collinear points on a transformed \
+line.  We thus have a projective transformation between two different lines, \
+and we know it can be represented by a linear transformation.  This means \
+that by a careful choice of representatives we can think that under ",
+  StyleBox["T", "InlineInput"],
+  " we have the correspondences\n \t\t ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{
+          RowBox[{"v", "\[Rule]", 
+            SuperscriptBox["B", "\[Prime]",
+              MultilineFunction->None]}], ",", 
+          RowBox[{"w", "\[Rule]", 
+            SuperscriptBox["C", "\[Prime]",
+              MultilineFunction->None]}], ",", 
+          RowBox[{\(b\ v + c\ w\), "\[Rule]", 
+            RowBox[{
+              RowBox[{"b", " ", 
+                SuperscriptBox["B", "\[Prime]",
+                  MultilineFunction->None]}], "+", 
+              RowBox[{"c", " ", 
+                SuperscriptBox["C", "\[Prime]",
+                  MultilineFunction->None]}]}]}]}],
+        FontWeight->"Bold"]]],
+  ".\nNote that by recalling the theorem concerning lines and linear \
+transformation, we ",
+  StyleBox["cannot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " say at once that ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"C", "==", 
+          SuperscriptBox["C", "\[Prime]",
+            MultilineFunction->None]}],
+        FontWeight->"Bold"]]],
+  " on account of the previous result."
+}], "Text"],
+
+Cell[TextData[{
+  "However, since we are talking of a single transformation ",
+  StyleBox["T", "InlineInput"],
+  " of the whole plane, then ",
+  Cell[BoxData[
+      StyleBox["C",
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["C", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  "have to represent the ",
+  StyleBox["same point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Therefore, we have a ",
+  StyleBox["dependency",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and we can write ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["C",
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{"k", " ", 
+            SuperscriptBox["C", "\[Prime]",
+              MultilineFunction->None]}],
+          FontWeight->"Bold"]}]]],
+  " for some particular scalar ",
+  StyleBox["k", "InlineInput"],
+  ".  Next let us define ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"B", "==", 
+          RowBox[{"k", " ", 
+            SuperscriptBox["B", "\[Prime]",
+              MultilineFunction->None]}]}],
+        FontWeight->"Bold"]]],
+  ".  So, if we replace the linear transformation between the ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  "-axis and the image line by ",
+  StyleBox["k", "InlineInput"],
+  " ",
+  StyleBox["times",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that transformation, we can think that under ",
+  StyleBox["T", "InlineInput"],
+  " we have the correspondences\n \t\t ",
+  Cell[BoxData[
+      StyleBox[\(v \[Rule] B, w \[Rule] C, b\ v + c\ w \[Rule] b\ B + c\ C\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Let us next introduce coordinates for  ",
+  Cell[BoxData[
+      StyleBox["A",
+        FontWeight->"Bold"]]],
+  ", ",
+  StyleBox["B", "InlineInput"],
+  " and ",
+  Cell[BoxData[
+      StyleBox["C",
+        FontWeight->"Bold"]]],
+  " as follows ",
+  Cell[BoxData[
+      StyleBox[\(A == \(a\_1\) u + \(b\_1\) v + \(c\_1\) w\),
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[\(B == \(a\_2\) u + \(b\_2\) v + \(c\_2\) w\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[\(C == \(a\_3\) u + \(b\_3\) v + \(c\_3\) w\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Now, any point ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  " in the plane not on the line ",
+  StyleBox["z", "InlineInput"],
+  " can be captured as the ",
+  StyleBox["intersection",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of two lines parallel to the axes, according to this calculation:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, Subscript]; 
+    PE[PE[v, a\ u + c\ w], PE[u, b\ v + c\ w]] // Factor\)], "Input"],
+
+Cell[BoxData[
+    \(\(-c\)\ \((a\ u + b\ v + c\ w)\)\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "(We had to assume ",
+  Cell[BoxData[
+      StyleBox[\(c \[NotEqual] 0\),
+        FontWeight->"Bold"]]],
+  " here to make sure there ",
+  StyleBox["was",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " an intersection.)"
+}], "Text"],
+
+Cell[TextData[{
+  "But, under the transformation ",
+  StyleBox["T,", "InlineInput"],
+  " we know ",
+  StyleBox["which forms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " represent the images of those four points we see in this calculation.  So \
+the point represented by the ",
+  StyleBox["result",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the calculation must transform to the point represented by the result \
+of the following calculation:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Collect[#, {a, b, c}]&\)/@
+      \((Tidy/@Factor[
+            Release[Hold[PE[PE[v, a\ u + c\ w], PE[u, b\ v + c\ w]]] /. \n
+                \t\t\t\t{u \[Rule] \((a\_1\ u + b\_1\ v + c\_1\ w)\), \n
+                  \t\t\t\t\tv \[Rule] \((a\_2\ u + b\_2\ v + c\_2\ w)\), \n
+                  \t\t\t\t\tw \[Rule] \((a\_3\ u + b\_3\ v + c\_3\ w)\)}]])
+        \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(-c\)\ 
+      \((\(-a\_3\)\ b\_2\ c\_1 + a\_2\ b\_3\ c\_1 + a\_3\ b\_1\ c\_2 - 
+          a\_1\ b\_3\ c\_2 - a\_2\ b\_1\ c\_3 + a\_1\ b\_2\ c\_3)\)\ 
+      \((a\ \((u\ a\_1 + v\ b\_1 + w\ c\_1)\) + 
+          b\ \((u\ a\_2 + v\ b\_2 + w\ c\_2)\) + 
+          c\ \((u\ a\_3 + v\ b\_3 + w\ c\_3)\))\)\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  StyleBox["Note. ",
+    FontWeight->"Bold"],
+  " The ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " commands ",
+  StyleBox["Hold", "InlineInput"],
+  " and ",
+  StyleBox["Release", "InlineInput"],
+  " had to be employed above so that the computation by ",
+  StyleBox["PE", "InlineInput"],
+  " would be done ",
+  StyleBox["after",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the indicated substitution. "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "This shows that the point represented by ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  " transforms under ",
+  StyleBox["T", "InlineInput"],
+  " to a point represented by ",
+  Cell[BoxData[
+      StyleBox[\(a\ A + b\ B + c\ C\),
+        FontWeight->"Bold"]]],
+  " \[LongDash] provided ",
+  Cell[BoxData[
+      StyleBox[\(c \[NotEqual] 0\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "But what about the point represented by ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v\),
+        FontWeight->"Bold"]]],
+  "?  This is a point at the line at infinity, ",
+  Cell[BoxData[
+      StyleBox[\(z == PE[u, v]\),
+        FontWeight->"Bold"]]],
+  ".  Such a point can be determined by the following kind of intersection:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PE[PE[u, v], PE[w, a\ u\  + \ b\ v\  + w]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-a\)\ u - b\ v\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "But we already know representatives of the images under the transformation \
+",
+  StyleBox["T", "InlineInput"],
+  " of the the four points being used here, and so we can calculate by \
+substitution again:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Collect[#, {a, b, c}]&\)/@
+      \((Tidy/@Factor[
+            Release[Hold[PE[PE[u, v], PE[w, a\ u\  + \ b\ v\  + w]]] /. \n
+                \t\t\t\t{u \[Rule] \((a\_1\ u + b\_1\ v + c\_1\ w)\), \n
+                  \t\t\t\t\tv \[Rule] \((a\_2\ u + b\_2\ v + c\_2\ w)\), \n
+                  \t\t\t\t\tw \[Rule] \((a\_3\ u + b\_3\ v + c\_3\ w)\)}]])
+        \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\((
+          a\ \((u\ a\_1 + v\ b\_1 + w\ c\_1)\) + 
+            b\ \((u\ a\_2 + v\ b\_2 + w\ c\_2)\))\)\)\ 
+      \((\(-a\_3\)\ b\_2\ c\_1 + a\_2\ b\_3\ c\_1 + a\_3\ b\_1\ c\_2 - 
+          a\_1\ b\_3\ c\_2 - a\_2\ b\_1\ c\_3 + a\_1\ b\_2\ c\_3)\)\)], 
+  "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "This shows that the point represented by ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v\),
+        FontWeight->"Bold"]]],
+  " transforms under ",
+  StyleBox["T", "InlineInput"],
+  " to a point represented by ",
+  Cell[BoxData[
+      StyleBox[\(a\ A + b\ B\),
+        FontWeight->"Bold"]]],
+  ".  We have therefore proved that in general the point represented by ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  " transforms under ",
+  StyleBox["T", "InlineInput"],
+  " to a point represented by ",
+  Cell[BoxData[
+      StyleBox[\(a\ A + b\ B + c\ C\),
+        FontWeight->"Bold"]]],
+  ".  But this ",
+  StyleBox["means exactly",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that ",
+  StyleBox["T", "InlineInput"],
+  " is represented by a linear transformation.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Transformations and matrices", "Subsection",
+  Evaluatable->False,
+  PageBreakAbove->False,
+  AspectRatioFixed->False],
+
+Cell[CellGroupData[{
+
+Cell["Point transformations by matrices", "Subsubsection"],
+
+Cell[TextData[{
+  "If ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " ia a point, then, in the scheme we have been using, it is represented by \
+a linear form, say, ",
+  Cell[BoxData[
+      StyleBox[\(P == a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  ".  The ",
+  StyleBox["point coordinates ",
+    FontSlant->"Italic"],
+  "of the point are of course ",
+  Cell[BoxData[
+      StyleBox[\({a, b, c}\),
+        FontWeight->"Bold"]]],
+  ".  They can be calculated (in one way) by forming dot products with the \
+the linear forms ",
+  StyleBox["x", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["y", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  ".  We call the procedure for doing this ",
+  StyleBox["CP", "InlineInput",
+    FontWeight->"Bold"],
+  ", and it has this code in the ",
+  StyleBox["Implementation.nb", "InlineInput",
+    FontWeight->"Bold"],
+  ":"
+}], "Text"],
+
+Cell["CP[p_] := Apply[PD,{{x,p},{y,p},{z,p}},{1}]; ", "Input",
+  CellFrame->True,
+  Evaluatable->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "If, on the other hand, ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  " is a line, then the ",
+  StyleBox["line coordinates",
+    FontSlant->"Italic"],
+  ", ",
+  StyleBox["CL[l]", "InlineInput",
+    FontWeight->"Bold"],
+  ", can be calculated with the dual dot products as follows:"
+}], "Text"],
+
+Cell["CL[l_] := Apply[PD,{{l,u},{l,v},{l,w}},{1}];", "Input",
+  CellFrame->True,
+  Evaluatable->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "If we have a list of points (or lines) of length ",
+  StyleBox["n",
+    FontWeight->"Bold"],
+  ", then we can form an ",
+  StyleBox["nx3",
+    FontWeight->"Bold"],
+  " ",
+  StyleBox["matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of coordinates by these procedures:"
+}], "Text"],
+
+Cell["\<\
+MP[s_] := Map[CP,s];
+ML[s_] := Map[CL,s];\
+\>", "Input",
+  CellFrame->True,
+  Evaluatable->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell["\<\
+Here are some examples of point and line coordinates using these \
+functions:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(ClearAll[a, b, c]; \)\), 
+    \(CP[3\ u - 4\ v + a\ w + b\ v]\)}], "Input"],
+
+Cell[BoxData[
+    \({3, \(-4\) + b, a}\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(tt = Union@@Outer[PE, {u, u + v, u + 2\ v}, {v, v + w, v - w}]; 
+    \)\), 
+    \(TableForm[tt]\), 
+    \(TableForm[ML[tt]]\)}], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {"z"},
+          {\(\(-y\) + z\)},
+          {\(x - y + z\)},
+          {\(2\ x - y + z\)},
+          {\(y + z\)},
+          {\(\(-2\)\ x + y + z\)},
+          {\(\(-x\) + y + z\)}
+          },
+        RowSpacings->1,
+        ColumnSpacings->3,
+        RowAlignments->Baseline,
+        ColumnAlignments->{Left}],
+      TableForm[ {z, 
+        Plus[ 
+          Times[ -1, y], z], 
+        Plus[ x, 
+          Times[ -1, y], z], 
+        Plus[ 
+          Times[ 2, x], 
+          Times[ -1, y], z], 
+        Plus[ y, z], 
+        Plus[ 
+          Times[ -2, x], y, z], 
+        Plus[ 
+          Times[ -1, x], y, z]}]]], "Output"],
+
+Cell[BoxData[
+    TagBox[GridBox[{
+          {"0", "0", "1"},
+          {"0", \(-1\), "1"},
+          {"1", \(-1\), "1"},
+          {"2", \(-1\), "1"},
+          {"0", "1", "1"},
+          {\(-2\), "1", "1"},
+          {\(-1\), "1", "1"}
+          },
+        RowSpacings->1,
+        ColumnSpacings->3,
+        RowAlignments->Baseline,
+        ColumnAlignments->{Left}],
+      (TableForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell["Here are some additional trials:", "Text"],
+
+Cell[BoxData[
+    \(ClearAll[a, b, c, Subscript]; 
+    \n{P\_1, P\_2, P\_3} = {a\_1\ u + b\_1\ v + c\_1\ w, 
+        a\_2\ u + b\_2\ v + c\_2\ w, a\_3\ u + b\_3\ v + c\_3\ w}; \)], 
+  "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(CP[P\_1]\)], "Input"],
+
+Cell[BoxData[
+    \({a\_1, b\_1, c\_1}\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[MP[{P\_1, P\_2, P\_3}]]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {\(a\_1\), \(b\_1\), \(c\_1\)},
+            {\(a\_2\), \(b\_2\), \(c\_2\)},
+            {\(a\_3\), \(b\_3\), \(c\_3\)}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[ML[{PE[P\_2, P\_3], PE[P\_1, P\_3], PE[P\_1, P\_2]}]]\)], 
+  "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {\(\(-b\_3\)\ c\_2 + b\_2\ c\_3\), \(a\_3\ c\_2 - a\_2\ c\_3\), 
+              \(\(-a\_3\)\ b\_2 + a\_2\ b\_3\)},
+            {\(\(-b\_3\)\ c\_1 + b\_1\ c\_3\), \(a\_3\ c\_1 - a\_1\ c\_3\), 
+              \(\(-a\_3\)\ b\_1 + a\_1\ b\_3\)},
+            {\(\(-b\_2\)\ c\_1 + b\_1\ c\_2\), \(a\_2\ c\_1 - a\_1\ c\_2\), 
+              \(\(-a\_2\)\ b\_1 + a\_1\ b\_2\)}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Now, as we noted earlier, every ",
+  StyleBox["non-singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["3x3",
+    FontWeight->"Bold"],
+  " matrix ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " determines a linear transformation of vectors, and hence determines ",
+  StyleBox["projective point transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   The question is how to use the matrix to calculate the transformation \
+on linear forms."
+}], "Text"],
+
+Cell[TextData[{
+  "If the vector ",
+  StyleBox["V", "InlineInput",
+    FontWeight->"Bold"],
+  " gives the homogeneous coordinates of a ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then \[LongDash] by the convention we normally use in assigning ",
+  StyleBox["coordinates to a transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] the matrix multiplication ",
+  Cell[BoxData[
+      StyleBox[\(V . M\),
+        FontWeight->"Bold"]]],
+  " will give the coordinates of the ",
+  StyleBox["image point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   ",
+  "The reason for stressing non-singularity is that the transformation should \
+be",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["everywhere defined",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Thus, if the vector ",
+  StyleBox["V", "InlineInput",
+    FontWeight->"Bold"],
+  " is non zero, then so should be ",
+  Cell[BoxData[
+      StyleBox[\(V . M\),
+        FontWeight->"Bold"]]],
+  ".  Moreover, the transformation should be ",
+  StyleBox["invertible",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "so that it is one-one.  The non-singular matrices are exaclty thouse that \
+have inverses, and we know ",
+  Cell[BoxData[
+      StyleBox[\(V . M . Inverse[M] == V\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "With the primitive operations of linear algebra, however, a given matrix \
+operates only on the ",
+  StyleBox["vectors",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (coordinates).  We need to consider how this matrix also operates on ",
+  StyleBox["linear forms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (and, for later use, on ",
+  StyleBox["polynomials",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " in general)",
+  StyleBox[".",
+    FontWeight->"Bold"],
+  "  And, in choosing this set-up, we have taken points as primary; we could \
+just as well as taken lines first.  The two points of view, however, are \
+easily related by means of ",
+  StyleBox["duality",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with an explicit definition of ",
+  StyleBox["dual",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", as we will show."
+}], "Text"],
+
+Cell[TextData[{
+  "The definition of the needed calculation is easy: the point ",
+  Cell[BoxData[
+      StyleBox[\(P == a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  " is transformed to ",
+  Cell[BoxData[
+      StyleBox[\(CP[P] . M . {u, v, w}\),
+        FontWeight->"Bold"]]],
+  ", because the second dot is required to go back ",
+  StyleBox["from",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " coordinates ",
+  StyleBox["to",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a linear ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-form.  Let us take an example."
+}], "Text"],
+
+Cell["Consider the following matrix.  (Is it non-singular?)", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M = {{1, 1, 1}, {1, 2, 3}, {1, 4, 9}}; \nM // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "1", "1"},
+            {"1", "2", "3"},
+            {"1", "4", "9"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Here is the linear transformation given by ",
+  StyleBox["M", "InlineInput"],
+  ":"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{
+      StyleBox[\(P = a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"], 
+      StyleBox[";",
+        FontWeight->"Bold"], "\n", 
+      StyleBox[\(CP[P] . M . {u, v, w} // Tidy\),
+        FontWeight->"Bold"]}]], "Input"],
+
+Cell[BoxData[
+    \(\((a + b + c)\)\ u + \((a + 2\ b + 4\ c)\)\ v + 
+      \((a + 3\ b + 9\ c)\)\ w\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "However, we may interpret the rows of this matrix as being the coordinates \
+of the ",
+  StyleBox["images",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the fundamental points ",
+  StyleBox["u", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["v", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  ".  Their coordinates are the obvious ones: "
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["MP[{u,v,w}]//MatrixForm", "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", "1"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Now, by the convention adopted, the image of ",
+  StyleBox["u", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "under the transformation given by ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " has exactly  the coordinates ",
+  Cell[BoxData[
+      StyleBox[\({1, 0, 0} . M\),
+        FontWeight->"Bold"]]],
+  ".   Thus, it should be clear that, when we form the matrix product:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["M.{u,v,w} ", "Input"],
+
+Cell[BoxData[
+    \({u + v + w, u + 2\ v + 3\ w, u + 4\ v + 9\ w}\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "we are calculating dot products that give us the forms representing the ",
+  StyleBox["images",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of ",
+  StyleBox["all three",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  of the basis forms at the same time. "
+}], "Text"],
+
+Cell[TextData[{
+  "Conversely, if we have a triple of points and want the matrix that gives a \
+transformation taking ",
+  StyleBox["{u,v,w}",
+    FontWeight->"Bold"],
+  " to the given triple, we can use this kind of computation to find it:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[MP[{u + v + w, u + 2\ v + 3\ w, u + 4\ v + 9\ w}]]\)], 
+  "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "1", "1"},
+            {"1", "2", "3"},
+            {"1", "4", "9"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  StyleBox["Warning.",
+    FontWeight->"Bold"],
+  " Many vectors represent the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point, and in a similar way, many matrices represent the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " transformation.  In fact, since any ",
+  StyleBox["non-zero multiple",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the vector ",
+  StyleBox["V", "InlineInput",
+    FontWeight->"Bold"],
+  " represents the",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", any ",
+  StyleBox["non-zero multiple",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the matrix ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " represents the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", because the operation ",
+  Cell[BoxData[
+      StyleBox[\(V . M\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is ",
+  StyleBox["bilinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ". "
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  "Next, to show how a mapping transforms",
+  StyleBox[" (homogeneous) polynomial forms of arbitrary degree",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", it is simpler to use a ",
+  StyleBox["substitution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by substituting the new linear polynomials in for the fundamental ones.  \
+We can program this transformation by simultaneous substitution very easily \
+in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  as a function on any ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials by the following command:"
+}], "Text"],
+
+Cell[TextData["TP[m_]:=Tidy[#/.Thread[{u,v,w}\[Rule]m.{u,v,w}]]&;"], "Input",
+  CellFrame->True,
+  Evaluatable->False,
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  Cell[BoxData[
+      StyleBox[\(TP[M]\),
+        FontWeight->"Bold"]]],
+  " is of course a ",
+  StyleBox["linear transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of linear ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-forms.  (Why?)  We read ",
+  Cell[BoxData[
+      StyleBox[\(TP[M]\),
+        FontWeight->"Bold"]]],
+  " as: ",
+  StyleBox[
+  "\[OpenCurlyDoubleQuote]the (projective) transformation with point matrix  \
+",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox["mm",
+    FontWeight->"Bold"],
+  StyleBox["\[CloseCurlyDoubleQuote].",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "   We note we will also need some additional notation for forming \
+transformations in order to define them in a more ",
+  StyleBox["geometric way",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "This next example incidentially shows why it is convenient to define ",
+  Cell[BoxData[
+      StyleBox[\(TP[M]\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "as having a ",
+  StyleBox["function as a value",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M = {{1, 1, 1}, {1, 2, 3}, {1, 4, 9}}; 
+    TP[M]/@{u, v, w, a\ u + b\ v + c\ w, u\^2 + v\ w, 
+          \((u - v + 2\ w)\)\^3} // TableForm\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {\(u + v + w\)},
+          {\(u + 2\ v + 3\ w\)},
+          {\(u + 4\ v + 9\ w\)},
+          {
+            \(\((a + b + c)\)\ u + \((a + 2\ b + 4\ c)\)\ v + 
+              \((a + 3\ b + 9\ c)\)\ w\)},
+          {\(2\ u\^2 + 8\ u\ v + 9\ v\^2 + 14\ u\ w + 32\ v\ w + 28\ w\^2\)},
+          {
+            \(8\ u\^3 + 84\ u\^2\ v + 294\ u\ v\^2 + 343\ v\^3 + 
+              192\ u\^2\ w + 1344\ u\ v\ w + 2352\ v\^2\ w + 1536\ u\ w\^2 + 
+              5376\ v\ w\^2 + 4096\ w\^3\)}
+          },
+        RowSpacings->1,
+        ColumnSpacings->3,
+        RowAlignments->Baseline,
+        ColumnAlignments->{Left}],
+      TableForm[ {
+        Plus[ u, v, w], 
+        Plus[ u, 
+          Times[ 2, v], 
+          Times[ 3, w]], 
+        Plus[ u, 
+          Times[ 4, v], 
+          Times[ 9, w]], 
+        Plus[ 
+          Times[ 
+            Plus[ a, b, c], u], 
+          Times[ 
+            Plus[ a, 
+              Times[ 2, b], 
+              Times[ 4, c]], v], 
+          Times[ 
+            Plus[ a, 
+              Times[ 3, b], 
+              Times[ 9, c]], w]], 
+        Plus[ 
+          Times[ 2, 
+            Power[ u, 2]], 
+          Times[ 8, u, v], 
+          Times[ 9, 
+            Power[ v, 2]], 
+          Times[ 14, u, w], 
+          Times[ 32, v, w], 
+          Times[ 28, 
+            Power[ w, 2]]], 
+        Plus[ 
+          Times[ 8, 
+            Power[ u, 3]], 
+          Times[ 84, 
+            Power[ u, 2], v], 
+          Times[ 294, u, 
+            Power[ v, 2]], 
+          Times[ 343, 
+            Power[ v, 3]], 
+          Times[ 192, 
+            Power[ u, 2], w], 
+          Times[ 1344, u, v, w], 
+          Times[ 2352, 
+            Power[ v, 2], w], 
+          Times[ 1536, u, 
+            Power[ w, 2]], 
+          Times[ 5376, v, 
+            Power[ w, 2]], 
+          Times[ 4096, 
+            Power[ w, 3]]]}]]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "To review what we have done, the relationship between point coordinates, \
+matrix multiplication, and linear forms is fully established by the following \
+symbolic equalities which  can be checked in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " :"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(CP[\(TP[M]\)[a\ u + b\ v + c\ w]] == {a, b, c} . M\), 
+    \(\(TP[M]\)[a\ u + b\ v + c\ w] == {a, b, c} . M . {u, v, w}\)}], "Input"],
+
+Cell[BoxData[
+    \(True\)], "Output"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "In other words, we have two ways of writing the same thing: in terms of ",
+  StyleBox["linear forms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and in terms of ",
+  StyleBox["vectors of coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But, there is also another point of view."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Comment 1.  ",
+    FontWeight->"Bold"],
+  "Since, ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  " is defined on polynomials by ",
+  StyleBox["substitution",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and since substitution preserves all ring operations on polynomials, \
+this remark also proves that ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is indeed a ring automorphism \[LongDash] or better an ",
+  StyleBox["algebra",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["automorphism",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", since ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  " also preserves scalar multiplication."
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Comment 2.  ",
+    FontWeight->"Bold"],
+  "Conversely, ",
+  StyleBox["every",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " algebra endomorphism obviously works by substitution; and if such a \
+mapping did not map the generators ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w}\),
+        FontWeight->"Bold"]]],
+  " to ",
+  StyleBox["linear forms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", it could not be surjective, since otherwise it would ",
+  StyleBox["raise degrees",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Thus, ",
+  StyleBox["all",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " algebra ",
+  StyleBox["automorphisms",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are of the form ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[".  ",
+    FontWeight->"Bold"]
+}], "Text",
+  Background->RGBColor[0, 1, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Compositions of transformations", "Subsubsection",
+  PageBreakAbove->True],
+
+Cell[TextData[{
+  "Concerning the ",
+  StyleBox["composition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of transformations, the conventional definitions of matrix multiplication \
+and the way we have utilized coordinates gives the following result:"
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "Given matrices ",
+  Cell[BoxData[
+      StyleBox[\(M\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(M\_2\),
+        FontWeight->"Bold"]]],
+  ", then the two functions \n\t\t",
+  Cell[BoxData[
+      StyleBox[\(TP[M\_1 . M\_2]\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(Composition[TP[M\_2], TP[M\_1]]\),
+        FontWeight->"Bold"]]],
+  StyleBox["\n",
+    FontWeight->"Bold"],
+  "are the ",
+  StyleBox["same function",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   "
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "(Note the ",
+  StyleBox["order!",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ")  We will prove this by example, but it can also be proved in generality \
+using symbolic matrices.  That is to say, in using matrix multiplication you \
+have to read ",
+  Cell[BoxData[
+      StyleBox[\(M\_1 . M\_2\),
+        FontWeight->"Bold"]]],
+  " as meaning ",
+  StyleBox["first",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  do transformation ",
+  Cell[BoxData[
+      StyleBox[\(M\_1\),
+        FontWeight->"Bold"]]],
+  ", and ",
+  StyleBox["then",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " do ",
+  Cell[BoxData[
+      StyleBox[\(M\_2\),
+        FontWeight->"Bold"]]],
+  ".   In terms of ",
+  StyleBox["coordinates",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", a vector ",
+  StyleBox["V", "InlineInput",
+    FontWeight->"Bold"],
+  " is mapped to the vector\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(\((V . M\_1)\) . M\_2 == V . \((M\_1 . M\_2)\)\),
+        FontWeight->"Bold"]]],
+  " \nunder the composite transformation."
+}], "Text"],
+
+Cell[TextData[{
+  "Perhaps here it is good to recall how ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " treats the composition of functions:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Composition[F, G]\)[x]\)], "Input"],
+
+Cell[BoxData[
+    \(F[G[x]]\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "The following commands in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  "  should be self-explainatory."
+}], "Text",
+  PageBreakAbove->False],
+
+Cell[BoxData[{
+    \(\(M\_1 = {{0, 1, 0}, {0, 1, 1}, {1, 1, 0}}; \)\), 
+    \(\(M\_2 = {{1, 1, 1}, {1, 2, 3}, {1, 4, 9}}; \)\)}], "Input",
+  PageBreakAbove->False],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(M\_1 . {u, v, w}\), 
+    \(TP[M\_1]/@{u, v, w}\)}], "Input",
+  PageBreakAbove->False],
+
+Cell[BoxData[
+    \({v, v + w, u + v}\)], "Output"],
+
+Cell[BoxData[
+    \({v, v + w, u + v}\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(TP[M\_2]/@{v, v + w, u + v}\), 
+    \(MatrixForm[M\_1 . M\_2]\)}], "Input",
+  PageBreakAbove->False],
+
+Cell[BoxData[
+    \({u + 2\ v + 3\ w, 2\ u + 6\ v + 12\ w, 2\ u + 3\ v + 4\ w}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "2", "3"},
+            {"2", "6", "12"},
+            {"2", "3", "4"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[M\_2 . M\_1]\)], "Input",
+  PageBreakAbove->False],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "3", "1"},
+            {"3", "6", "2"},
+            {"9", "14", "4"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(M\_1 . M\_2 . {u, v, w}\), 
+    \(TP[M\_1 . M\_2]/@{u, v, w}\), 
+    \(Composition[TP[M\_2], TP[M\_1]]/@{u, v, w}\)}], "Input",
+  PageBreakAbove->False],
+
+Cell[BoxData[
+    \({u + 2\ v + 3\ w, 2\ u + 6\ v + 12\ w, 2\ u + 3\ v + 4\ w}\)], "Output"],
+
+Cell[BoxData[
+    \({u + 2\ v + 3\ w, 2\ u + 6\ v + 12\ w, 2\ u + 3\ v + 4\ w}\)], "Output"],
+
+Cell[BoxData[
+    \({u + 2\ v + 3\ w, 2\ u + 6\ v + 12\ w, 2\ u + 3\ v + 4\ w}\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  StyleBox["Corollary.  ",
+    FontWeight->"Bold"],
+  "In view of the law of composition, the two transformations ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  " and ",
+  StyleBox["TP[Inverse[M]]", "InlineInput",
+    FontWeight->"Bold"],
+  "must be ",
+  StyleBox["inverses of each other",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " \[LongDash] assuming, of course, that the matrix ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["non singular",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Line transformations by matrices", "Subsubsection"],
+
+Cell[TextData[{
+  "Given the matrix ",
+  Cell[BoxData[
+      StyleBox[\(M\_1\),
+        FontWeight->"Bold"]]],
+  " of a ",
+  StyleBox["point transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the next problem is to define the corresponding representation of the ",
+  StyleBox["line transformation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (or, more generally, the action of the transformation on the dual ring of \
+",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials).  That is, we have already defined ",
+  Cell[BoxData[
+      StyleBox[\(TP[M\_1]\),
+        FontWeight->"Bold"]]],
+  " as an automorphism of the algebra of ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials, and so, we should make ",
+  Cell[BoxData[
+      StyleBox[\(TP[M\_1]\),
+        FontWeight->"Bold"]]],
+  " an automorphism of the algebra of ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials.  The question is: ",
+  StyleBox["which automorphism",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  "
+}], "Text"],
+
+Cell[TextData[{
+  "The algebraic answer is that ",
+  Cell[BoxData[
+      StyleBox[\(TL[M\_1]\),
+        FontWeight->"Bold"]]],
+  " has to be defined sot that it acts dually to preserve",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  StyleBox["the dot product",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " between linear forms:  \n",
+  StyleBox["\t\t",
+    Background->RGBColor[0, 1, 1]],
+  Cell[BoxData[
+      StyleBox[\(PD[\(TL[M\_1]\)[l], \(TP[M\_1]\)[P]] == \(PD[l, P] . \)\),
+        FontWeight->"Bold"]],
+    Background->RGBColor[0, 1, 1]],
+  "\nWe call this the ",
+  StyleBox["Transformation Law",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "Rewriting the above to use coordinates on both sides, this requirement \
+means that we are looking for a matrix ",
+  Cell[BoxData[
+      StyleBox[\(M\_2\),
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "to operate on the line coordinates (in a dual way) so that: \n\t\t",
+  Cell[BoxData[
+      \(CP[P] . M\_1 . M\_2 . CL[l] == CP[P] . CL[l]\)], "Input",
+    CellFrame->False,
+    Evaluatable->False,
+    FontWeight->"Bold",
+    Background->None]
+}], "Text"],
+
+Cell[TextData[{
+  "Since the point and line coordinates are ",
+  StyleBox["arbitrary",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the universal validity of this equation means that the product ",
+  Cell[BoxData[
+      \(M\_1 . M\_2\)],
+    FontWeight->"Bold"],
+  " must be ",
+  StyleBox["the identity matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  The answer we are looking for is that ",
+  Cell[BoxData[
+      StyleBox[\(M\_2 == Inverse[M\_1]\),
+        FontWeight->"Bold"]]],
+  ".  Thus, the implementation we provide reads:"
+}], "Text"],
+
+Cell[BoxData[
+    \(TL[m_] := 
+      Tidy[#1 /. Thread[{x, y, z} \[Rule] {x, y, z} . Inverse[m]]]&\)], 
+  "Input",
+  CellFrame->True,
+  FontWeight->"Bold",
+  Background->RGBColor[1, 1, 0]],
+
+Cell[TextData[{
+  "The implementation makes the Transformation Law hold ",
+  StyleBox["by definition",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[".",
+    FontSlant->"Italic"],
+  "  We now have to do some examples to check that this makes sense.  We \
+again take the matrix we used earlier, but the reader can try another matrix \
+on the same polynomials."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(M = {{1, 1, 1}, {1, 2, 3}, {1, 4, 9}}; \)\)], "Input"],
+
+Cell["First think of a line and a point:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PD[3\ x + 4\ y - 7\ z, u - 7\ v - w]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-18\)\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "The point is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the line.  Here are the transforms:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(TL[M]\)[3\ x + 4\ y - 7\ z]\), 
+    \(\(TP[M]\)[u - 7\ v - w]\)}], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(9\ x\)\/2\)\) + 14\ y - \(13\ z\)\/2\)], "Output"],
+
+Cell[BoxData[
+    \(\(-7\)\ u - 17\ v - 29\ w\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "And here is the ",
+  StyleBox["PD",
+    FontWeight->"Bold"],
+  " computation:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PD[\(TL[M]\)[3\ x + 4\ y - 7\ z], \(TP[M]\)[u - 7\ v - w]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-18\)\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "The transformed point is also ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on the transformed line.  And here is a symbolic computation:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(ClearAll[a, b, c, Subscript]; \)\), 
+    \(l = a\_1\ x + a\_2\ y + a\_3\ z; \nP = b\_1\ u + b\_2\ v + b\_3\ w; \n\n
+    PD[l, P]\), 
+    \(PD[\(TL[M]\)[l], \(TP[M]\)[P]]\ \), 
+    \(PD[\(TL[M]\)[l], \(TP[M]\)[P]]\  // Expand\)}], "Input"],
+
+Cell[BoxData[
+    \(a\_1\ a\_2 + b\_1\ b\_2 + c\_1\ c\_2\)], "Output"],
+
+Cell[BoxData[
+    \(\((3\ a\_1 - \(5\ b\_1\)\/2 + c\_1\/2)\)\ \((a\_2 + b\_2 + c\_2)\) + 
+      \((\(-3\)\ a\_1 + 4\ b\_1 - c\_1)\)\ \((a\_2 + 2\ b\_2 + 4\ c\_2)\) + 
+      \((a\_1 - \(3\ b\_1\)\/2 + c\_1\/2)\)\ 
+        \((a\_2 + 3\ b\_2 + 9\ c\_2)\)\)], "Output"],
+
+Cell[BoxData[
+    \(a\_1\ a\_2 + b\_1\ b\_2 + c\_1\ c\_2\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "The intermediate result looked bad, but for this particular matrix ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " the dot product is indeed preserved as desired.  Therefore, if ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " is a point on a line ",
+  StyleBox["l", "InlineInput",
+    FontWeight->"Bold"],
+  ", then ",
+  StyleBox["TP[M][P]", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is a point on the line ",
+  StyleBox["TL[M][l]", "InlineInput",
+    FontWeight->"Bold"],
+  ".  And the converse holds.  Moreover, ",
+  StyleBox["any",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point on ",
+  StyleBox["TL[M][l]", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "can be found this way.  (Why?)  In general, we set things up so that \
+because projective transformations (as we have represented and defined them \
+using ",
+  StyleBox["matrices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ") preserve ",
+  StyleBox["PD", "InlineInput",
+    FontWeight->"Bold"],
+  ", they preserve",
+  StyleBox[" incidence of points and lines",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This gives us the ",
+  StyleBox["geometric",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " significance of the computations with matrices.  "
+}], "Text"],
+
+Cell["\<\
+Note also the following immediate consequence of the transformation \
+law by making a substitution and using the composition law:\
+\>", "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary.  ",
+    FontWeight->"Bold"],
+  StyleBox["If ",
+    FontWeight->"Plain"],
+  StyleBox["M", "InlineInput"],
+  StyleBox[" is a non-singular matrix, and if ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      StyleBox["P",
+        FontWeight->"Bold"]]],
+  StyleBox[" and ",
+    FontWeight->"Plain"],
+  "is a",
+  StyleBox[" linear ",
+    FontWeight->"Plain"],
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  StyleBox["-forms, and ",
+    FontWeight->"Plain"],
+  StyleBox["l", "InlineInput"],
+  StyleBox[" is a linear ",
+    FontWeight->"Plain"],
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-form, then",
+  StyleBox[":",
+    FontWeight->"Plain"],
+  StyleBox["\n\t",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[
+        \(PD[\(TL[Inverse[M]]\)[l], P] == \(PD[l, \(TP[M]\)[P]] . \)\),
+        FontWeight->"Bold"]]]
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "In the language of linear algebra, this means that the line transformation \
+",
+  StyleBox["TL[Inverse[M]]", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "is the ",
+  StyleBox["adjoint",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the point transformation ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  ".  This is to be interpreted in the sense of linear-space theory, where \
+the two spaces of linear homogeneous polynomials are made ",
+  StyleBox["dual spaces",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of one another under the pairing ",
+  StyleBox["PD[l, P]", "InlineInput",
+    FontWeight->"Bold"],
+  ".  "
+}], "Text"],
+
+Cell["\<\
+We next want to do some calculations of meets and joins of lines \
+and points to see how well the matrix representation works out.  We again \
+take the matrix we used earlier.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M = {{1, 1, 1}, {1, 2, 3}, {1, 4, 9}}; \nP\_1 = u - w; \n
+    P\_2 = u + v + 2\ w; \nl = PE[P\_1, P\_2]\)], "Input"],
+
+Cell[BoxData[
+    \(x - 3\ y + z\)], "Output"]
+}, Closed]],
+
+Cell["A line has joined two points.  Let us transform it.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(TL[M]\)[l]\)], "Input"],
+
+Cell[BoxData[
+    \(11\ x - 16\ y + 6\ z\)], "Output"]
+}, Closed]],
+
+Cell["What about the line joining the transform of the two points?", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PE[\(TP[M]\)[P\_1], \(TP[M]\)[P\_2]]\)], "Input"],
+
+Cell[BoxData[
+    \(22\ x - 32\ y + 12\ z\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "We see that the two polynomials are ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "the same, but they represent the same line \[LongDash] after multiplying \
+one of them by the scalar 2.  (Try it with another matrix!)  This holds \
+generally.   Geometrically this means that the image of the line joing two \
+points is the line joining the image of the two points.  In other words, ",
+  StyleBox["projective transformations preserve joins (and meets)",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", as is intended.  What we are checking here is that the computations do \
+indeed work out in special cases."
+}], "Text"],
+
+Cell[TextData[{
+  "Here are some other calculations with more general points and lines.  We \
+note that the scalar factor that comes up in comapring linear forms is the ",
+  StyleBox["determinant",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the matrix."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["Det[M]", "Input",
+  PageBreakAbove->True],
+
+Cell[BoxData[
+    \(2\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(P\_1 = a\_1\ u + a\_2\ v + a\_3\ w; \n
+    P\_2 = b\_1\ u + b\_2\ v + b\_3\ w; \n\(TL[M]\)[PE[P\_1, P\_2]]\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(y\ \((
+          a\_2\ b\_1 + 4\ a\_3\ b\_1 - a\_1\ b\_2 + 3\ a\_3\ b\_2 - 
+            4\ a\_1\ b\_3 - 3\ a\_2\ b\_3)\) + 
+      z\ \((\(-\(1\/2\)\)\ a\_2\ b\_1 - \(3\ a\_3\ b\_1\)\/2 + 
+            \(a\_1\ b\_2\)\/2 - a\_3\ b\_2 + \(3\ a\_1\ b\_3\)\/2 + 
+            a\_2\ b\_3)\) + 
+      x\ \((\(-\(1\/2\)\)\ a\_2\ b\_1 - \(5\ a\_3\ b\_1\)\/2 + 
+            \(a\_1\ b\_2\)\/2 - 3\ a\_3\ b\_2 + \(5\ a\_1\ b\_3\)\/2 + 
+            3\ a\_2\ b\_3)\)\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PE[\(TP[M]\)[P\_1], \(TP[M]\)[P\_2]] // Tidy\)], "Input"],
+
+Cell[BoxData[
+    \(y\ \((
+          2\ a\_2\ b\_1 + 8\ a\_3\ b\_1 - 2\ a\_1\ b\_2 + 6\ a\_3\ b\_2 - 
+            8\ a\_1\ b\_3 - 6\ a\_2\ b\_3)\) + 
+      z\ \((\(-a\_2\)\ b\_1 - 3\ a\_3\ b\_1 + a\_1\ b\_2 - 2\ a\_3\ b\_2 + 
+            3\ a\_1\ b\_3 + 2\ a\_2\ b\_3)\) + 
+      x\ \((\(-a\_2\)\ b\_1 - 5\ a\_3\ b\_1 + a\_1\ b\_2 - 6\ a\_3\ b\_2 + 
+            5\ a\_1\ b\_3 + 6\ a\_2\ b\_3)\)\)], "Output"]
+}, Closed]],
+
+Cell["Here is a dual calculation:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(l\_1 = c\_1\ x + c\_2\ y + c\_3\ z; \n
+    l\_2 = d\_1\ x + d\_2\ y + d\_3\ z; \n\(TP[M]\)[PE[l\_1, l\_2]]\)], 
+  "Input"],
+
+Cell[BoxData[
+    \(w\ \((
+          \(-9\)\ c\_2\ d\_1 + 3\ c\_3\ d\_1 + 9\ c\_1\ d\_2 - c\_3\ d\_2 - 
+            3\ c\_1\ d\_3 + c\_2\ d\_3)\) + 
+      v\ \((\(-4\)\ c\_2\ d\_1 + 2\ c\_3\ d\_1 + 4\ c\_1\ d\_2 - c\_3\ d\_2 - 
+            2\ c\_1\ d\_3 + c\_2\ d\_3)\) + 
+      u\ \((\(-c\_2\)\ d\_1 + c\_3\ d\_1 + c\_1\ d\_2 - c\_3\ d\_2 - 
+            c\_1\ d\_3 + c\_2\ d\_3)\)\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PE[\(TL[M]\)[l\_1], \(TL[M]\)[l\_2]] // Tidy\)], "Input"],
+
+Cell[BoxData[
+    \(w\ \((
+          \(-\(9\/2\)\)\ c\_2\ d\_1 + \(3\ c\_3\ d\_1\)\/2 + 
+            \(9\ c\_1\ d\_2\)\/2 - \(c\_3\ d\_2\)\/2 - \(3\ c\_1\ d\_3\)\/2 + 
+            \(c\_2\ d\_3\)\/2)\) + 
+      v\ \((\(-2\)\ c\_2\ d\_1 + c\_3\ d\_1 + 2\ c\_1\ d\_2 - 
+            \(c\_3\ d\_2\)\/2 - c\_1\ d\_3 + \(c\_2\ d\_3\)\/2)\) + 
+      u\ \((\(-\(1\/2\)\)\ c\_2\ d\_1 + \(c\_3\ d\_1\)\/2 + 
+            \(c\_1\ d\_2\)\/2 - \(c\_3\ d\_2\)\/2 - \(c\_1\ d\_3\)\/2 + 
+            \(c\_2\ d\_3\)\/2)\)\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Or we can try a completely general ",
+  StyleBox["symbolic matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and verify the law that says that after transformation, exterior products \
+are multiplied by the determinant of the matrix."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(M = {{r\_1, r\_2, r\_3}, {s\_1, s\_2, s\_3}, {t\_1, t\_2, t\_3}}; \n
+    MatrixForm[M]\), 
+    \(det = Det[M]\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {\(r\_1\), \(r\_2\), \(r\_3\)},
+            {\(s\_1\), \(s\_2\), \(s\_3\)},
+            {\(t\_1\), \(t\_2\), \(t\_3\)}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"],
+
+Cell[BoxData[
+    \(\(-r\_3\)\ s\_2\ t\_1 + r\_2\ s\_3\ t\_1 + r\_3\ s\_1\ t\_2 - 
+      r\_1\ s\_3\ t\_2 - r\_2\ s\_1\ t\_3 + r\_1\ s\_2\ t\_3\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Now here is a calculation that takes ",
+  StyleBox["quite a lot",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of algebra (and ",
+  StyleBox["Simplify", "InlineInput"],
+  " had to be put to work to cancel fractions) :"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(P\_1 = a\_1\ u + a\_2\ v + a\_3\ w; \n
+    P\_2 = b\_1\ u + b\_2\ v + b\_3\ w; \n\n
+    \(det\ \(TL[M]\)[PE[P\_1, P\_2]]\  // Simplify\) // Tidy\n\), 
+    \(\(PE[\(TP[M]\)[P\_1], \(TP[M]\)[P\_2]] // Expand\) // Tidy\)}], "Input"],
+
+Cell[BoxData[
+    \(z\ \((
+          a\_2\ b\_1\ r\_2\ s\_1 - a\_1\ b\_2\ r\_2\ s\_1 - 
+            a\_2\ b\_1\ r\_1\ s\_2 + a\_1\ b\_2\ r\_1\ s\_2 + 
+            a\_3\ b\_1\ r\_2\ t\_1 - a\_1\ b\_3\ r\_2\ t\_1 + 
+            a\_3\ b\_2\ s\_2\ t\_1 - a\_2\ b\_3\ s\_2\ t\_1 - 
+            a\_3\ b\_1\ r\_1\ t\_2 + a\_1\ b\_3\ r\_1\ t\_2 - 
+            a\_3\ b\_2\ s\_1\ t\_2 + a\_2\ b\_3\ s\_1\ t\_2)\) + 
+      y\ \((\(-a\_2\)\ b\_1\ r\_3\ s\_1 + a\_1\ b\_2\ r\_3\ s\_1 + 
+            a\_2\ b\_1\ r\_1\ s\_3 - a\_1\ b\_2\ r\_1\ s\_3 - 
+            a\_3\ b\_1\ r\_3\ t\_1 + a\_1\ b\_3\ r\_3\ t\_1 - 
+            a\_3\ b\_2\ s\_3\ t\_1 + a\_2\ b\_3\ s\_3\ t\_1 + 
+            a\_3\ b\_1\ r\_1\ t\_3 - a\_1\ b\_3\ r\_1\ t\_3 + 
+            a\_3\ b\_2\ s\_1\ t\_3 - a\_2\ b\_3\ s\_1\ t\_3)\) + 
+      x\ \((a\_2\ b\_1\ r\_3\ s\_2 - a\_1\ b\_2\ r\_3\ s\_2 - 
+            a\_2\ b\_1\ r\_2\ s\_3 + a\_1\ b\_2\ r\_2\ s\_3 + 
+            a\_3\ b\_1\ r\_3\ t\_2 - a\_1\ b\_3\ r\_3\ t\_2 + 
+            a\_3\ b\_2\ s\_3\ t\_2 - a\_2\ b\_3\ s\_3\ t\_2 - 
+            a\_3\ b\_1\ r\_2\ t\_3 + a\_1\ b\_3\ r\_2\ t\_3 - 
+            a\_3\ b\_2\ s\_2\ t\_3 + a\_2\ b\_3\ s\_2\ t\_3)\)\)], "Output"],
+
+Cell[BoxData[
+    \(z\ \((
+          a\_2\ b\_1\ r\_2\ s\_1 - a\_1\ b\_2\ r\_2\ s\_1 - 
+            a\_2\ b\_1\ r\_1\ s\_2 + a\_1\ b\_2\ r\_1\ s\_2 + 
+            a\_3\ b\_1\ r\_2\ t\_1 - a\_1\ b\_3\ r\_2\ t\_1 + 
+            a\_3\ b\_2\ s\_2\ t\_1 - a\_2\ b\_3\ s\_2\ t\_1 - 
+            a\_3\ b\_1\ r\_1\ t\_2 + a\_1\ b\_3\ r\_1\ t\_2 - 
+            a\_3\ b\_2\ s\_1\ t\_2 + a\_2\ b\_3\ s\_1\ t\_2)\) + 
+      y\ \((\(-a\_2\)\ b\_1\ r\_3\ s\_1 + a\_1\ b\_2\ r\_3\ s\_1 + 
+            a\_2\ b\_1\ r\_1\ s\_3 - a\_1\ b\_2\ r\_1\ s\_3 - 
+            a\_3\ b\_1\ r\_3\ t\_1 + a\_1\ b\_3\ r\_3\ t\_1 - 
+            a\_3\ b\_2\ s\_3\ t\_1 + a\_2\ b\_3\ s\_3\ t\_1 + 
+            a\_3\ b\_1\ r\_1\ t\_3 - a\_1\ b\_3\ r\_1\ t\_3 + 
+            a\_3\ b\_2\ s\_1\ t\_3 - a\_2\ b\_3\ s\_1\ t\_3)\) + 
+      x\ \((a\_2\ b\_1\ r\_3\ s\_2 - a\_1\ b\_2\ r\_3\ s\_2 - 
+            a\_2\ b\_1\ r\_2\ s\_3 + a\_1\ b\_2\ r\_2\ s\_3 + 
+            a\_3\ b\_1\ r\_3\ t\_2 - a\_1\ b\_3\ r\_3\ t\_2 + 
+            a\_3\ b\_2\ s\_3\ t\_2 - a\_2\ b\_3\ s\_3\ t\_2 - 
+            a\_3\ b\_1\ r\_2\ t\_3 + a\_1\ b\_3\ r\_2\ t\_3 - 
+            a\_3\ b\_2\ s\_2\ t\_3 + a\_2\ b\_3\ s\_2\ t\_3)\)\)], "Output"]
+}, Closed]],
+
+Cell["\<\
+This has been a proof of the following theorem about linear \
+forms:\
+\>", "Text"],
+
+Cell[TextData[{
+  "Theorem.",
+  StyleBox["  If ",
+    FontWeight->"Plain"],
+  StyleBox["M", "InlineInput"],
+  StyleBox[" is a non-singular matrix, and if ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(P\_1\)]],
+  StyleBox[" and ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(P\_2\)]],
+  StyleBox[" are linear ",
+    FontWeight->"Plain"],
+  "uvw",
+  StyleBox["-forms, then:",
+    FontWeight->"Plain"],
+  "\n\t",
+  Cell[BoxData[
+      \(PE[\(TP[M]\)[P\_1], \(TP[M]\)[P\_2]] == 
+        Det[M]\ \(TL[M]\)[PE[P\_1, P\_2]]\)]]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "And of course there is a dual theorem for ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-forms.  In fact, in some presentations of Linear Algebra, an equation \
+like the above is used to ",
+  StyleBox["define",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the determinant of a matrix  We had other definitions to use, and so we ",
+  
+  StyleBox["verified",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " this law.  Geometrically, it says that the line joining the transforms of \
+two points ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the transform of the line joining the original points.  We have perhaps \
+not learned much new out of this, but we have seen that the algebra is ",
+  StyleBox["coherent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Algebraically, linear substitution is an automorphism of the algebra \
+structure of the polynomial ring, and this holds for the ",
+  StyleBox["uvw",
+    FontWeight->"Bold"],
+  "-polynomials as well as for the ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-polynomials.  So far we have been thinking in terms ",
+  StyleBox["starting with",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the points rather than the lines.  In other words, we have to start with \
+",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " coming about this way:\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(M == MP[TP[M]/@{u, v, w}]\),
+        FontWeight->"Bold"]]]
+}], "Text"],
+
+Cell[TextData[{
+  "and then we know how to go from the transform ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  " to the appropriate transformation on lines, ",
+  StyleBox["TL[M]", "InlineInput",
+    FontWeight->"Bold"],
+  ".  The question is how to go ",
+  StyleBox["the other way",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "To understand this, let us see what a typical ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " does to the ",
+  StyleBox["xyz",
+    FontWeight->"Bold"],
+  "-basis. "
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(M = {{1, 1, 1}, {1, 2, 3}, {1, 4, 9}}; \)\), 
+    \(TL[M]/@{x, y, z}\)}], "Input"],
+
+Cell[BoxData[
+    \({3\ x - 3\ y + z, \(-\(\(5\ x\)\/2\)\) + 4\ y - \(3\ z\)\/2, 
+      x\/2 - y + z\/2}\)], "Output"]
+}, Closed]],
+
+Cell["\<\
+In other words, suppose we see in front of us the images of the \
+three basic lines.  These images give us the following matrix:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M\_0 = ML[%]; \nM\_0 // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"3", \(-3\), "1"},
+            {\(-\(5\/2\)\), "4", \(-\(3\/2\)\)},
+            {\(1\/2\), \(-1\), \(1\/2\)}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "But, if we are thinking of ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "transformations, then we should treat line coordinates as ",
+  StyleBox["dual",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " vectors to point coordinates.  This means that we really should take the \
+",
+  StyleBox["transpose",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the matrix ",
+  Cell[BoxData[
+      StyleBox[\(M\_0\),
+        FontWeight->"Bold"]]],
+  ".  Now, if we further take the ",
+  StyleBox["inverse",
+    FontWeight->"Bold"],
+  ", then we will get back to the standard matrix of  the required ",
+  StyleBox["point",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " transformation."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Inverse[Transpose[M\_0]] // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "1", "1"},
+            {"1", "2", "3"},
+            {"1", "4", "9"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "In other words, if you ",
+  StyleBox["know",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " where the lines ",
+  StyleBox["x",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["y",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["z",
+    FontWeight->"Bold"],
+  " are going, then make a ",
+  StyleBox["matrix",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(M\_0\),
+        FontWeight->"Bold"]]],
+  " out of their coordinates.  The line transformation can then be calculated \
+as ",
+  Cell[BoxData[
+      StyleBox[\(TL[Inverse[Transpose[M\_0]]]\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Transforming quadrangles and quadrilaterals", "Section",
+  Evaluatable->False,
+  AspectRatioFixed->True],
+
+Cell[CellGroupData[{
+
+Cell["Mapping quadrangles", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Moving points", "Subsubsection"],
+
+Cell["Consider the matrices:", "Text"],
+
+Cell[BoxData[
+    \(M\_1 = {{1, 1, 1}, {1, 2, 3}, {1, 4, 9}}; \n
+    M\_2 = {{a, 0, 0}, {0, b, 0}, {0, 0, c}}; \)], "Input"],
+
+Cell["Now calculate:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M\_2 . M\_1 // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"a", "a", "a"},
+            {"b", \(2\ b\), \(3\ b\)},
+            {"c", \(4\ c\), \(9\ c\)}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "The matrices ",
+  Cell[BoxData[
+      StyleBox[\(M\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(M\_2 . M\_1\),
+        FontWeight->"Bold"]]],
+  " are quite different, though related.  Clearly the second is formed from \
+the first by multiplying the rows each by a different scalar.  Let us see \
+what the matrices do to a certain set of points:"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{"TableForm", "[", 
+      RowBox[{"{", 
+        RowBox[{
+          RowBox[{
+            RowBox[{"TP", "[", 
+              StyleBox[\(M\_1\),
+                FontWeight->"Bold"], "]"}], "/@", \({u, v, w}\)}], ",", 
+          RowBox[{
+            RowBox[{"TP", "[", 
+              StyleBox[\(M\_2 . M\_1\),
+                FontWeight->"Bold"], "]"}], "/@", \({u, v, w}\)}]}], "}"}], 
+      "]"}]], "Input"],
+
+Cell[BoxData[
+    TagBox[GridBox[{
+          {\(u + v + w\), \(u + 2\ v + 3\ w\), \(u + 4\ v + 9\ w\)},
+          {\(a\ u + a\ v + a\ w\), \(b\ u + 2\ b\ v + 3\ b\ w\), 
+            \(c\ u + 4\ c\ v + 9\ c\ w\)}
+          },
+        RowSpacings->1,
+        ColumnSpacings->3,
+        RowAlignments->Baseline,
+        ColumnAlignments->{Left}],
+      (TableForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "The linear forms ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["v",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["w",
+    FontWeight->"Bold"],
+  " are mapped to ",
+  StyleBox["different",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " linear forms under the two matrices, but the results are equivalent \
+representations of the",
+  StyleBox[" same  three image points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".   So, as projective transformations, the point mappings associated with \
+",
+  Cell[BoxData[
+      StyleBox[\(M\_1\),
+        FontWeight->"Bold"]]],
+  " and ",
+  Cell[BoxData[
+      StyleBox[\(M\_2 . M\_1\),
+        FontWeight->"Bold"]]],
+  " are equal on ",
+  StyleBox["one triple of points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  But, as we have to stress over and over, this does not mean that they \
+are the ",
+  StyleBox["same",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " projective transformation.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Let us see, indeed, what happens to another point, say, ",
+  Cell[BoxData[
+      StyleBox[\(u + v + w\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{\(\(TP[M\_1]\)[u + v + w]\), 
+    RowBox[{
+      RowBox[{
+        RowBox[{"TP", "[", 
+          StyleBox[\(M\_2 . M\_1\),
+            FontWeight->"Bold"], "]"}], "[", \(u + v + w\), "]"}], "//", 
+      "Tidy"}]}], "Input"],
+
+Cell[BoxData[
+    \(3\ u + 7\ v + 13\ w\)], "Output"],
+
+Cell[BoxData[
+    \(\((a + b + c)\)\ u + \((a + 2\ b + 4\ c)\)\ v + 
+      \((a + 3\ b + 9\ c)\)\ w\)], "Output"]
+}, Closed]],
+
+Cell["This can also be calculated as:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({a, b, c} . M\_1 . {u, v, w}\)], "Input"],
+
+Cell[BoxData[
+    \(\((a + b + c)\)\ u + \((a + 2\ b + 4\ c)\)\ v + 
+      \((a + 3\ b + 9\ c)\)\ w\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "The matrix ",
+  Cell[BoxData[
+      StyleBox[\(M\_1\),
+        FontWeight->"Bold"]]],
+  " maps the point ",
+  Cell[BoxData[
+      StyleBox[\(u + v + w\),
+        FontWeight->"Bold"]]],
+  " to a certain place, but ",
+  Cell[BoxData[
+      StyleBox[\(M\_2 . M\_1\),
+        FontWeight->"Bold"]]],
+  " puts it in ",
+  StyleBox["quite another",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " place.  In fact, we see from the third matrix form of the expression \
+that, since ",
+  Cell[BoxData[
+      StyleBox[\(M\_1\),
+        FontWeight->"Bold"]]],
+  " is non singular, then ",
+  Cell[BoxData[
+      StyleBox[\({a, b, c} . M\_1\),
+        FontWeight->"Bold"]]],
+  " can equal ",
+  StyleBox["any  vector",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " we want.  "
+}], "Text"],
+
+Cell[TextData[{
+  "Thus, by chossing these multipliers, ",
+  Cell[BoxData[
+      StyleBox[\(M\_2 . M\_1\),
+        FontWeight->"Bold"]]],
+  " is ",
+  StyleBox["free to move the point represented by the form ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\(u + v + w\),
+        FontWeight->"Bold"]]],
+  "  ",
+  StyleBox["anywhere we desire.",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "  One conclusion is that, therefore, three points and their images ",
+  StyleBox["do not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " determine a projective transformation of the plane."
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Theorem.  ",
+    FontWeight->"Bold"],
+  "The projective transformation ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox["TP",
+          FontWeight->"Bold"], 
+        StyleBox["[",
+          FontWeight->"Bold"], 
+        StyleBox[
+          TagBox[
+            RowBox[{"(", GridBox[{
+                  {"a", "0", "0"},
+                  {"0", "b", "0"},
+                  {"0", "0", "c"}
+                  }], ")"}],
+            (MatrixForm[ #]&)],
+          FontWeight->"Bold"], 
+        StyleBox["]",
+          FontWeight->"Bold"]}]]],
+  " keeps the points represented by ",
+  StyleBox["u", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["v", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  " fixed, but it moves the point corresponding to the linear form ",
+  Cell[BoxData[
+      StyleBox[\(u + v + w\),
+        FontWeight->"Bold"]]],
+  " to ",
+  StyleBox["any other position",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", namely ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  " (",
+  StyleBox["via",
+    FontSlant->"Italic"],
+  StyleBox["  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "the choice of the three multipliers ",
+  StyleBox["a", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["b", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  ") ."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Moving quadrangles", "Subsubsection"],
+
+Cell["This theorem can then be improved to:", "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary 1.",
+    FontWeight->"Bold"],
+  "  Given four points, ",
+  StyleBox["no three of which are collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", represented by linear forms  ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["R", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["S", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[", ",
+    FontWeight->"Bold"],
+  "then there is a matrix ",
+  StyleBox["M", "InlineInput",
+    FontWeight->"Bold"],
+  " so that the projective transformation ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  " moves the quadruple of points represented by ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w, u + v + w}\),
+        FontWeight->"Bold"]]],
+  " to the quadruple represented by ",
+  Cell[BoxData[
+      StyleBox[\({P, Q, R, S}\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Proof.",
+  StyleBox["  First we note that ",
+    FontWeight->"Plain"],
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["and",
+    FontWeight->"Plain"],
+  " ",
+  StyleBox["R", "InlineInput",
+    FontWeight->"Bold"],
+  StyleBox[" are ",
+    FontWeight->"Plain"],
+  StyleBox["linearly independent",
+    FontSlant->"Italic"],
+  StyleBox[".  So there is a matrix ",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(M\_1\)]],
+  " ",
+  StyleBox["so that we have \n\t",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \(\(TP[M\_1]\)[u] == P\)]],
+  ",\n\t",
+  Cell[BoxData[
+      \(\(TP[M\_1]\)[v] == Q\)]],
+  ",\n\t",
+  Cell[BoxData[
+      \(\(TP[M\_1]\)[w] == R\)]],
+  "."
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[TextData[{
+  "But we would find that ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(S\_1\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            RowBox[{
+              StyleBox["TP",
+                FontWeight->"Bold"], 
+              StyleBox["[",
+                FontWeight->"Bold"], 
+              SubscriptBox[
+                StyleBox["M",
+                  FontWeight->"Bold"], "1"], 
+              StyleBox["]",
+                FontWeight->"Bold"]}], "[", \(u + v + w\), "]"}],
+          FontWeight->"Bold"]}]]],
+  " does ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " represent the desired point.  Let instead ",
+  Cell[BoxData[
+      RowBox[{
+        StyleBox[\(S\_2\),
+          FontWeight->"Bold"], 
+        StyleBox["==",
+          FontWeight->"Bold"], 
+        StyleBox[
+          RowBox[{
+            RowBox[{
+              StyleBox["TP",
+                FontWeight->"Bold"], 
+              StyleBox["[",
+                FontWeight->"Bold"], 
+              RowBox[{
+                StyleBox["Inverse",
+                  FontWeight->"Bold"], 
+                StyleBox["[",
+                  FontWeight->"Bold"], 
+                SubscriptBox[
+                  StyleBox["M",
+                    FontWeight->"Bold"], "1"], 
+                StyleBox["]",
+                  FontWeight->"Bold"]}], 
+              StyleBox["]",
+                FontWeight->"Bold"]}], "[", "S", "]"}],
+          FontWeight->"Bold"]}]]],
+  ".  Now choose ",
+  Cell[BoxData[
+      StyleBox[\(M\_2\),
+        FontWeight->"Bold"]]],
+  " so that ",
+  Cell[BoxData[
+      \(TP[M\_2]\)],
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "maps ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w, u + v + w}\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox[\({a\ u, b\ v, c\ w, S\_2}\),
+        FontWeight->"Bold"]]],
+  ", for a suitable choice of scalars",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\({a, b, c}\),
+        FontWeight->"Bold"]]],
+  ".  We then let ",
+  Cell[BoxData[
+      StyleBox[\(M\_3 == M\_2 . M\_1\),
+        FontWeight->"Bold"]]],
+  ".  This matrix then satisfies the theorem, because ",
+  Cell[BoxData[
+      \(TP[M\_3]\)],
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "maps ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w, u + v + w}\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox[\({a\ P, b\ Q, c\ R, S}\),
+        FontWeight->"Bold"]]],
+  ".  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  StyleBox["Corollary 2.",
+    FontWeight->"Bold"],
+  "  Given four points, no three of which are collinear, represented by \
+linear forms  ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["Q", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["R", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["S", "InlineInput",
+    FontWeight->"Bold"],
+  ", and another such quadruple ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["P", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["Q", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  ", ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["R", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  ", and ",
+  Cell[BoxData[
+      StyleBox[
+        SuperscriptBox["S", "\[Prime]",
+          MultilineFunction->None],
+        FontWeight->"Bold"]]],
+  ", then there is a matrix ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  " so that the projective transformation ",
+  StyleBox["TP[M]", "InlineInput",
+    FontWeight->"Bold"],
+  " moves the quadruple of points represented by ",
+  Cell[BoxData[
+      StyleBox[\({P, Q, R, S}\),
+        FontWeight->"Bold"]]],
+  " to the quadruple of points represented by ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"{", 
+          RowBox[{
+            SuperscriptBox["P", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["Q", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["R", "\[Prime]",
+              MultilineFunction->None], ",", 
+            SuperscriptBox["S", "\[Prime]",
+              MultilineFunction->None]}], "}"}],
+        FontWeight->"Bold"]]],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  "Proof.",
+  StyleBox[
+  "  Move back and forth to the points represented by the standard quadruple \
+",
+    FontWeight->"Plain"],
+  Cell[BoxData[
+      \({u, v, w, u + v + w}\)]],
+  StyleBox[", and then ",
+    FontWeight->"Plain"],
+  StyleBox["compose",
+    FontSlant->"Italic"],
+  StyleBox[" the transformations.  ",
+    FontWeight->"Plain"],
+  "Q.E.D."
+}], "Text",
+  FontWeight->"Bold"],
+
+Cell[TextData[{
+  "Suppose we have two, non-degenerate quadrangles.  ",
+  StyleBox[
+  "Can there be inequivalent matrices defining maps that take one to the \
+other?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "   "
+}], "Text"],
+
+Cell[TextData[{
+  "Theorem.",
+  StyleBox["  A projective transformation of the form ",
+    FontWeight->"Plain"],
+  StyleBox["TP[mm]", "InlineInput"],
+  StyleBox[" is ",
+    FontWeight->"Plain"],
+  StyleBox["uniquely determined",
+    FontSlant->"Italic"],
+  StyleBox[
+  " by four non-collinear points and their images, and two matrices determine \
+the same projective transformation if, and only if, one is a scalar multiple \
+of the other.",
+    FontWeight->"Plain"]
+}], "Text",
+  FontWeight->"Bold",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Proof.  ",
+    FontWeight->"Bold"],
+  "Since any quadrangle can be mapped to or from the standard quadrangle ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w, u + v + w}\),
+        FontWeight->"Bold"]]],
+  ", this is the same as asking whether there are matrices not equivalent to \
+the identity matrix that map this  particular figure ",
+  StyleBox["onto itself",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  (Permuting vertices is not allowed:  ",
+  StyleBox["u",
+    FontWeight->"Bold"],
+  " has to go to something equivalent, and the same must be true of the other \
+points.)"
+}], "Text"],
+
+Cell[TextData[{
+  "Suppose the matrix ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "representing the transformation carrries ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w}\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox[\({a\ u, b\ v, c\ w}\),
+        FontWeight->"Bold"]]],
+  ".  Then the matrix has to be",
+  StyleBox[" \n\t\t\t",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"M", "==", 
+          TagBox[
+            RowBox[{"(", GridBox[{
+                  {"a", "0", "0"},
+                  {"0", "b", "0"},
+                  {"0", "0", "c"}
+                  }], ")"}],
+            (MatrixForm[ #]&)]}],
+        FontWeight->"Bold"]]],
+  ".  \nBut the transformation represented by this matrix carries the form ",
+  Cell[BoxData[
+      StyleBox[\(u + v + w\),
+        FontWeight->"Bold"]]],
+  " to ",
+  Cell[BoxData[
+      StyleBox[\(a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  ".  For these points to be equivalent, the multipliers ",
+  StyleBox["a", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["b", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["c", "InlineInput",
+    FontWeight->"Bold"],
+  " all have to be ",
+  StyleBox["equal",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Therefore, the matix is indeed equivalent to the identity matrix.  ",
+  StyleBox["Q.E.D.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell[TextData[{
+  "To make ",
+  StyleBox["calculations",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", we needed to implement these matrix manipulations.  THis has been done \
+in ",
+  StyleBox["Implementations.nb", "InlineInput"],
+  ".  Supposing we are given the following two quadrangles:"
+}], "Text"],
+
+Cell[BoxData[
+    \(Q = {u + v, v + w, w + u, u + v + w}; \n
+    R = {u - 2\ v, v - 2\ w, w - 2\ u, u + 2\ v + 3\ w}; \)], "Input"],
+
+Cell["\<\
+Using the idea of keeping three points fixed and moving the fourth, \
+we can implement the finding of the matrix of the transformation that will \
+map the first given quadrangle to the second.  \
+\>", "Text"],
+
+Cell[TextData[{
+  "The operation is called ",
+  StyleBox["MQP", "InlineInput",
+    FontWeight->"Bold"],
+  ", standing for ",
+  StyleBox[
+  "\[OpenCurlyDoubleQuote]matrix for quadrangles of points\
+\[CloseCurlyDoubleQuote].  ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "We test this out here.  (And the reader can easily change the cooeficients \
+in the linear forms to give other tests, as well as look at the code.)"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M = MQP[Q, R]; \nM // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", \(46\/7\), \(-\(43\/7\)\)},
+            {\(-\(37\/7\)\), "2", \(43\/7\)},
+            {\(37\/7\), \(-\(46\/7\)\), "3"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Factor /@ (TP[M]/@{u+v, v+w, w+u, u+v+w})", "Input"],
+
+Cell[BoxData[
+    \({\(-\(30\/7\)\)\ \((u - 2\ v)\), \(-\(32\/7\)\)\ \((v - 2\ w)\), 
+      22\/7\ \((2\ u - w)\), u + 2\ v + 3\ w}\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Except for some fractional multiples, the first quadrangle ",
+  Cell[BoxData[
+      StyleBox["Q",
+        FontWeight->"Bold"]]],
+  " as been moved to ",
+  Cell[BoxData[
+      StyleBox["R",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Mapping quadrilaterals", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Doing calculations", "Subsubsection"],
+
+Cell[TextData[{
+  "Using the same kind of martix manipulations as with quadrangles given by \
+points, we have implemented the dual procedure of finding of the \
+transformation that will map one given ",
+  StyleBox["quadrilateral",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " to another.  (Of course, we had to translate back from the dual matrix in \
+order to put things in a standard form.)  Here is an example"
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(K = {x + y, y - z, z + 2\ x, 3\ x + 4\ y + 5\ z}; \n
+    L = {2\ x - y, 2\ y - z, 2\ z - x, x - y - z}; \nM = MQL[K, L]; \n
+    M // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {\(312\/5\), \(99\/5\), \(198\/5\)},
+            {\(202\/3\), \(89\/3\), \(101\/3\)},
+            {\(-\(92\/15\)\), \(-\(184\/15\)\), \(17\/15\)}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Factor/@\(TL[M]/@K\)\)], "Input"],
+
+Cell[BoxData[
+    \({1\/105\ \((2\ x - y)\), 3\/77\ \((2\ y - z)\), 
+      \(-\(5\/42\)\)\ \((x - 2\ z)\), x - y - z}\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "This is seen to be a list of lines equivalent line by line to those in ",
+  Cell[BoxData[
+      StyleBox["L",
+        FontWeight->"Bold"]]],
+  ".  This means that ",
+  StyleBox["TL[M]", "InlineInput",
+    FontWeight->"Bold"],
+  " is doing the right thing.  "
+}], "Text"],
+
+Cell[TextData[{
+  "We now going to put all of this to the ",
+  StyleBox["acid test",
+    FontWeight->"Bold",
+    FontColor->RGBColor[1, 0, 0]],
+  " by ",
+  StyleBox["converting the quadrilaterals into quadrangles",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", doing the calculations the first way, and then seeing if the results are \
+the same.  The reasoning here is that mapping the given edges of a \
+quadrilateral (regarded for the moment as a 4-gon) is the same as mapping the \
+four vertices.  Well, we shall see!"
+}], "Text"],
+
+Cell[TextData[{
+  "By the way, the operation ",
+  StyleBox["PES", "InlineInput"],
+  " applies the ",
+  StyleBox["PE", "InlineInput"],
+  " or join operation to the sequence of points in ",
+  StyleBox["circular order",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", thus finding the ",
+  StyleBox["sides",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of a polygon.  This is how we pass from the given points to the lines \
+they determine."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(V = PES[K]\), 
+    \(W = PES[L]\)}], "Input"],
+
+Cell[BoxData[
+    \({\(-u\) + v + w, u - 2\ v - 2\ w, \(-4\)\ u - 7\ v + 8\ w, 
+      \(-5\)\ u + 5\ v - w}\)], "Output"],
+
+Cell[BoxData[
+    \({u + 2\ v + 4\ w, 4\ u + v + 2\ w, 2\ u + v + w, \(-u\) - 2\ v + w}\)], 
+  "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Factor/@\(TP[M]/@V\)\)], "Input"],
+
+Cell[BoxData[
+    \({\(-\(6\/5\)\)\ \((u + 2\ v + 4\ w)\), \(-15\)\ \((4\ u + v + 2\ w)\), 
+      \(-385\)\ \((2\ u + v + w)\), 154\/5\ \((u + 2\ v - w)\)}\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "So far so good: at least ",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  " is doing its job.   What we do next is try to prove that if we compute \
+the quadranglematrix by using the vertices, then we get a scalar multiple of \
+",
+  Cell[BoxData[
+      StyleBox["M",
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell["Inverse[M].MQP[V,W]//MatrixForm", "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {\(-\(5\/154\)\), "0", "0"},
+            {"0", \(-\(5\/154\)\), "0"},
+            {"0", "0", \(-\(5\/154\)\)}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[TextData[StyleBox["And it is a win!",
+  FontWeight->"Bold",
+  FontSlant->"Italic"]], "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Three points and a line", "Subsubsection"],
+
+Cell["But here is a different problem.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  StyleBox[" ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "Suppose you are given three points (not collinear) and a line (that does \
+not contain any of the points), and suppose you want to map this structure by \
+a projective transformation to another of the same kind.  ",
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  StyleBox["Is it possible?",
+    FontWeight->"Bold",
+    FontSlant->"Italic"]
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Solution.  ",
+    FontWeight->"Bold"],
+  "Well, the three points form a ",
+  StyleBox["triangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and the given line is ",
+  StyleBox["not concurrent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with any two of the sides of the triangle.  So the four lines (the given \
+line plus the three sides of the triangle) form a ",
+  StyleBox["non-degenerate quadrilateral",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  This figure can be mapped to any other non-degenerate quadrilateral, \
+say, one determined by three other points (not collinear) and another line \
+(that does not contain any of the points).  Since  projective transformations \
+preserve meets of lines, the first triple of points will be moved to the \
+second triple, and the first special line will be moved to the second. ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["\<\
+We work out a simple example starting with a standard triangle and \
+line.  \
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M = 
+      MQL[Join[PES[{u, v, w}], {x + y + z}], 
+        Join[PES[{u, v, w}], {x - y + z}]]; \nM // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(-1\), "0"},
+            {"0", "0", "1"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(TP[M]/@{u, v, w}\)], "Input"],
+
+Cell[BoxData[
+    \({u, \(-v\), w}\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["TP[M]@(a u + b v + c w)", "Input"],
+
+Cell[BoxData[
+    \(a\ u - b\ v + c\ w\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["TL[M]@(a x + b y + c z)", "Input"],
+
+Cell[BoxData[
+    \(a\ x - b\ y + c\ z\)], "Output"]
+}, Closed]],
+
+Cell["Here is another example.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M = 
+      MQL[Join[PES[{u, v, w}], {x + y + z}], 
+        Join[PES[{u, v, u + v + w}], {x - y + z}]]; \nM // MatrixForm\)], 
+  "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(-1\), "0"},
+            {"1", "1", "1"}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(TP[M]/@{u, v, w}\)], "Input"],
+
+Cell[BoxData[
+    \({u, \(-v\), u + v + w}\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(TP[M]\)[a\ u + b\ v + c\ w] // Tidy\)], "Input"],
+
+Cell[BoxData[
+    \(\((a + c)\)\ u + \((\(-b\) + c)\)\ v + c\ w\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(TL[M]\)[x + y + z] // Tidy\)], "Input"],
+
+Cell[BoxData[
+    \(x - y + z\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(TL[M]\)[a\ x + b\ y + c\ z] // Tidy\)], "Input"],
+
+Cell[BoxData[
+    \(a\ x - b\ y + \((\(-a\) + b + c)\)\ z\)], "Output"]
+}, Closed]],
+
+Cell["Now here is a possible degenerate case.", "Text"],
+
+Cell[TextData[{
+  StyleBox["Question.  ",
+    FontWeight->"Bold"],
+  "We want to map three points and a line to another such figure.  Suppose, \
+however, the line passes through one of the points but not through two of the \
+points.  In this case the quadrilateral is degenerate.  Are there \
+transformations not equivalent to the identity which leave this figure ",
+  StyleBox["fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 0]],
+
+Cell[TextData[{
+  StyleBox["Solution.",
+    FontWeight->"Bold"],
+  "  Yes!  Suppose the three points are ",
+  StyleBox["u", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["v", "InlineInput",
+    FontWeight->"Bold"],
+  ", and ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  ".   The sides of the triangle are therefore ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["x", "InlineInput",
+    FontWeight->"Bold"],
+  ", ",
+  StyleBox["y", "InlineInput",
+    FontWeight->"Bold"],
+  ".  A line passing through ",
+  StyleBox["w", "InlineInput",
+    FontWeight->"Bold"],
+  " will have the form ",
+  Cell[BoxData[
+      StyleBox[\(a\ x + b\ y\),
+        FontWeight->"Bold"]]],
+  ",",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  "and it intersects the opposite side ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  " of the triangle in the point represented by ",
+  Cell[BoxData[
+      StyleBox[\(b\ u - a\ v\),
+        FontWeight->"Bold"]]],
+  ".  Call that point ",
+  Cell[BoxData[
+      StyleBox["P",
+        FontWeight->"Bold"]]],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "If we suppose the line does not pass either through ",
+  StyleBox["u", "InlineInput",
+    FontWeight->"Bold"],
+  " or ",
+  StyleBox["v", "InlineInput",
+    FontWeight->"Bold"],
+  ", then we can suppose neither of ",
+  StyleBox["a", "InlineInput",
+    FontWeight->"Bold"],
+  " or ",
+  StyleBox["b", "InlineInput",
+    FontWeight->"Bold"],
+  " is zero.  There are many lines passing through ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " different from the given line and different from ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  ".  "
+}], "Text"],
+
+Cell[TextData[{
+  "Indeed the lines through ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  " all have the form  ",
+  Cell[BoxData[
+      StyleBox[\(a\ c\ x + b\ c\ y + d\ z\),
+        FontWeight->"Bold"]]],
+  ".  Two distinct lines both different from the given one and from ",
+  StyleBox["z", "InlineInput"],
+  " are:\n\t\t",
+  Cell[BoxData[
+      StyleBox[\(a\ x + b\ y + z\),
+        FontWeight->"Bold"]]],
+  " and",
+  StyleBox[" ",
+    FontWeight->"Bold"],
+  Cell[BoxData[
+      StyleBox[\(a\ x + b\ y - z\),
+        FontWeight->"Bold"]]],
+  "."
+}], "Text"],
+
+Cell[TextData[{
+  "Taking the sides of the triangle and ",
+  StyleBox["one",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of these lines forms a non-degenerate quadrilateral.  This can be moved \
+to the other quadrilateral obtained by using the other line.  This \
+transformation will leave the ",
+  StyleBox["original triangle fixed",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " as well as the point ",
+  StyleBox["P", "InlineInput",
+    FontWeight->"Bold"],
+  ".  It therefore leaves the line ",
+  StyleBox["z", "InlineInput",
+    FontWeight->"Bold"],
+  " pointwise fixed and it leaves the line ",
+  Cell[BoxData[
+      StyleBox[\(a\ x + b\ y\),
+        FontWeight->"Bold"]]],
+  " fixed.  ",
+  StyleBox["Q.E.F.",
+    FontWeight->"Bold"]
+}], "Text"],
+
+Cell["We now do the calculations to demonstrate such a case:", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(M = MQL[{z, x, y, a\ x + b\ y + z}, {z, x, y, a\ x + b\ y - z}]; \n
+    M // MatrixForm\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", \(-1\)}
+            }], ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(TP[M]/@{u, v, w, b\ u - a\ v, u + v + w}\)], "Input"],
+
+Cell[BoxData[
+    \({u, v, \(-w\), b\ u - a\ v, u + v - w}\)], "Output"]
+}, Closed]],
+
+Cell[TextData[{
+  "Thus, the point ",
+  StyleBox["u+v+w", "InlineInput"],
+  " is ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " left fixed."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(TL[M]\)[a\ x + b\ y]\)], "Input"],
+
+Cell[BoxData[
+    \(a\ x + b\ y\)], "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PE[a\ x + b\ y, z]\)], "Input"],
+
+Cell[BoxData[
+    \(b\ u - a\ v\)], "Output"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{783, 556},
+WindowMargins->{{2, Automatic}, {Automatic, 1}},
+PrintingCopies->1,
+PrintingPageRange->{1, Automatic},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00<0004/0B`000002mT8o?mooh<<HPUi0fL5:0?l0080004/0B`000000]P2:001
+0000I00000400`<300000BL?00400@00000000000000060801T1T00000000000
+00000000000000000000000000000000\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 123, 4, 68, "Title"],
+Cell[1835, 55, 276, 10, 56, "Subtitle"],
+
+Cell[CellGroupData[{
+Cell[2136, 69, 58, 0, 53, "Section"],
+
+Cell[CellGroupData[{
+Cell[2219, 73, 41, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2285, 77, 55, 0, 52, "Subsubsection"],
+Cell[2343, 79, 288, 10, 60, "Text"],
+Cell[2634, 91, 1133, 37, 240, "Text"],
+Cell[3770, 130, 381, 14, 60, "Text"],
+Cell[4154, 146, 627, 16, 128, "Text"],
+Cell[4784, 164, 1063, 40, 140, "Text"],
+Cell[5850, 206, 47, 0, 38, "Text"],
+Cell[5900, 208, 1061, 40, 140, "Text"],
+Cell[6964, 250, 321, 10, 76, "Text"],
+Cell[7288, 262, 325, 10, 76, "Text"],
+Cell[7616, 274, 365, 8, 105, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[8018, 287, 61, 0, 52, "Subsubsection"],
+Cell[8082, 289, 58, 0, 38, "Text"],
+Cell[8143, 291, 757, 24, 121, "Text"],
+Cell[8903, 317, 727, 22, 105, "Text"],
+Cell[9633, 341, 2471, 94, 195, "Text"],
+Cell[12107, 437, 1615, 62, 128, "Text"],
+Cell[13725, 501, 1593, 60, 128, "Text"],
+Cell[15321, 563, 1761, 68, 150, "Text"],
+Cell[17085, 633, 1628, 58, 128, "Text"],
+Cell[18716, 693, 2446, 88, 217, "Text"],
+Cell[21165, 783, 801, 30, 105, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[22003, 818, 42, 0, 29, "Subsubsection"],
+Cell[22048, 820, 149, 3, 60, "Text"],
+Cell[22200, 825, 378, 11, 76, "Text"],
+Cell[22581, 838, 920, 26, 182, "Text"],
+Cell[23504, 866, 1758, 49, 214, "Text"],
+Cell[25265, 917, 1720, 59, 160, "Text"],
+Cell[26988, 978, 628, 24, 60, "Text"],
+Cell[27619, 1004, 380, 12, 60, "Text"],
+
+Cell[CellGroupData[{
+Cell[28024, 1020, 120, 2, 74, "Input"],
+Cell[28147, 1024, 66, 1, 51, "Output"]
+}, Closed]],
+Cell[28228, 1028, 256, 10, 38, "Text"],
+Cell[28487, 1040, 480, 14, 105, "Text"],
+
+Cell[CellGroupData[{
+Cell[28992, 1058, 395, 7, 134, "Input"],
+Cell[29390, 1067, 333, 6, 111, "Output"]
+}, Closed]],
+Cell[29738, 1076, 486, 18, 72, "Text"],
+Cell[30227, 1096, 452, 16, 60, "Text"],
+Cell[30682, 1114, 360, 10, 83, "Text"],
+
+Cell[CellGroupData[{
+Cell[31067, 1128, 75, 1, 54, "Input"],
+Cell[31145, 1131, 50, 1, 51, "Output"]
+}, Closed]],
+Cell[31210, 1135, 236, 6, 56, "Text"],
+
+Cell[CellGroupData[{
+Cell[31471, 1145, 395, 7, 134, "Input"],
+Cell[31869, 1154, 289, 6, 71, "Output"]
+}, Closed]],
+Cell[32173, 1163, 893, 30, 123, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[33115, 1199, 124, 3, 62, "Subsection",
+  Evaluatable->False,
+  PageBreakAbove->False],
+
+Cell[CellGroupData[{
+Cell[33264, 1206, 58, 0, 52, "Subsubsection"],
+Cell[33325, 1208, 969, 33, 128, "Text"],
+Cell[34297, 1243, 136, 3, 52, "Input",
+  Evaluatable->False],
+Cell[34436, 1248, 368, 13, 60, "Text"],
+Cell[34807, 1263, 135, 3, 52, "Input",
+  Evaluatable->False],
+Cell[34945, 1268, 313, 12, 60, "Text"],
+Cell[35261, 1282, 140, 6, 68, "Input",
+  Evaluatable->False],
+Cell[35404, 1290, 101, 3, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[35530, 1297, 98, 2, 74, "Input"],
+Cell[35631, 1301, 52, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[35720, 1307, 160, 4, 114, "Input"],
+Cell[35883, 1313, 684, 26, 188, "Output"],
+Cell[36570, 1341, 405, 14, 188, "Output"]
+}, Closed]],
+Cell[36990, 1358, 48, 0, 38, "Text"],
+Cell[37041, 1360, 192, 4, 94, "Input"],
+
+Cell[CellGroupData[{
+Cell[37258, 1368, 41, 1, 54, "Input"],
+Cell[37302, 1371, 52, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[37391, 1377, 67, 1, 54, "Input"],
+Cell[37461, 1380, 245, 7, 104, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[37743, 1392, 100, 2, 54, "Input"],
+Cell[37846, 1396, 491, 10, 104, "Output"]
+}, Closed]],
+Cell[38352, 1409, 530, 17, 83, "Text"],
+Cell[38885, 1428, 1407, 47, 172, "Text"],
+Cell[40295, 1477, 1019, 33, 150, "Text"],
+Cell[41317, 1512, 602, 21, 83, "Text"],
+Cell[41922, 1535, 69, 0, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[42016, 1539, 89, 1, 74, "Input"],
+Cell[42108, 1542, 200, 7, 104, "Output"]
+}, Closed]],
+Cell[42323, 1552, 114, 4, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[42462, 1560, 246, 7, 74, "Input"],
+Cell[42711, 1569, 113, 2, 51, "Output"]
+}, Closed]],
+Cell[42839, 1574, 457, 16, 60, "Text"],
+
+Cell[CellGroupData[{
+Cell[43321, 1594, 40, 0, 52, "Input"],
+Cell[43364, 1596, 200, 7, 104, "Output"]
+}, Closed]],
+Cell[43579, 1606, 460, 14, 83, "Text"],
+
+Cell[CellGroupData[{
+Cell[44064, 1624, 27, 0, 52, "Input"],
+Cell[44094, 1626, 79, 1, 51, "Output"]
+}, Closed]],
+Cell[44188, 1630, 304, 10, 60, "Text"],
+Cell[44495, 1642, 253, 6, 60, "Text"],
+
+Cell[CellGroupData[{
+Cell[44773, 1652, 97, 2, 54, "Input"],
+Cell[44873, 1656, 200, 7, 104, "Output"]
+}, Closed]],
+Cell[45088, 1666, 1406, 57, 116, "Text"],
+Cell[46497, 1725, 625, 18, 128, "Text"],
+Cell[47125, 1745, 151, 3, 52, "Input",
+  Evaluatable->False],
+Cell[47279, 1750, 867, 32, 105, "Text"],
+Cell[48149, 1784, 324, 12, 60, "Text"],
+
+Cell[CellGroupData[{
+Cell[48498, 1800, 173, 3, 96, "Input"],
+Cell[48674, 1805, 1912, 66, 173, "Output"]
+}, Closed]],
+Cell[50601, 1874, 292, 7, 78, "Text"],
+
+Cell[CellGroupData[{
+Cell[50918, 1885, 154, 2, 74, "Input"],
+Cell[51075, 1889, 38, 1, 51, "Output"],
+Cell[51116, 1892, 38, 1, 51, "Output"]
+}, Closed]],
+Cell[51169, 1896, 341, 10, 56, "Text"],
+Cell[51513, 1908, 875, 30, 121, "Text"],
+Cell[52391, 1940, 916, 34, 121, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[53344, 1979, 80, 1, 52, "Subsubsection",
+  PageBreakAbove->True],
+Cell[53427, 1982, 274, 7, 60, "Text"],
+Cell[53704, 1991, 659, 27, 118, "Text"],
+Cell[54366, 2020, 1080, 39, 169, "Text"],
+Cell[55449, 2061, 165, 5, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[55639, 2070, 57, 1, 54, "Input"],
+Cell[55699, 2073, 41, 1, 51, "Output"]
+}, Closed]],
+Cell[55755, 2077, 171, 6, 33, "Text",
+  PageBreakAbove->False],
+Cell[55929, 2085, 163, 3, 74, "Input",
+  PageBreakAbove->False],
+
+Cell[CellGroupData[{
+Cell[56117, 2092, 106, 3, 74, "Input",
+  PageBreakAbove->False],
+Cell[56226, 2097, 51, 1, 51, "Output"],
+Cell[56280, 2100, 51, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[56368, 2106, 121, 3, 67, "Input",
+  PageBreakAbove->False],
+Cell[56492, 2111, 92, 1, 51, "Output"],
+Cell[56587, 2114, 201, 7, 104, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[56825, 2126, 81, 2, 47, "Input",
+  PageBreakAbove->False],
+Cell[56909, 2130, 201, 7, 104, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[57147, 2142, 173, 4, 87, "Input",
+  PageBreakAbove->False],
+Cell[57323, 2148, 92, 1, 51, "Output"],
+Cell[57418, 2151, 92, 1, 51, "Output"],
+Cell[57513, 2154, 92, 1, 51, "Output"]
+}, Closed]],
+Cell[57620, 2158, 625, 22, 94, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[58282, 2185, 57, 0, 52, "Subsubsection"],
+Cell[58342, 2187, 1057, 36, 150, "Text"],
+Cell[59402, 2225, 680, 23, 124, "Text"],
+Cell[60085, 2250, 504, 15, 92, "Text"],
+Cell[60592, 2267, 569, 18, 83, "Text"],
+Cell[61164, 2287, 188, 6, 74, "Input"],
+Cell[61355, 2295, 386, 10, 83, "Text"],
+Cell[61744, 2307, 76, 1, 54, "Input"],
+Cell[61823, 2310, 50, 0, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[61898, 2314, 69, 1, 54, "Input"],
+Cell[61970, 2317, 41, 1, 51, "Output"]
+}, Closed]],
+Cell[62026, 2321, 158, 6, 33, "Text"],
+
+Cell[CellGroupData[{
+Cell[62209, 2331, 98, 2, 74, "Input"],
+Cell[62310, 2335, 77, 1, 64, "Output"],
+Cell[62390, 2338, 59, 1, 51, "Output"]
+}, Closed]],
+Cell[62464, 2342, 109, 5, 33, "Text"],
+
+Cell[CellGroupData[{
+Cell[62598, 2351, 91, 1, 54, "Input"],
+Cell[62692, 2354, 41, 1, 51, "Output"]
+}, Closed]],
+Cell[62748, 2358, 198, 6, 56, "Text"],
+
+Cell[CellGroupData[{
+Cell[62971, 2368, 261, 5, 174, "Input"],
+Cell[63235, 2375, 70, 1, 51, "Output"],
+Cell[63308, 2378, 265, 4, 124, "Output"],
+Cell[63576, 2384, 70, 1, 51, "Output"]
+}, Closed]],
+Cell[63661, 2388, 1387, 45, 168, "Text"],
+Cell[65051, 2435, 153, 3, 60, "Text"],
+Cell[65207, 2440, 897, 35, 108, "Text"],
+Cell[66107, 2477, 725, 23, 128, "Text"],
+Cell[66835, 2502, 199, 4, 60, "Text"],
+
+Cell[CellGroupData[{
+Cell[67059, 2510, 136, 2, 114, "Input"],
+Cell[67198, 2514, 46, 1, 51, "Output"]
+}, Closed]],
+Cell[67259, 2518, 67, 0, 33, "Text"],
+
+Cell[CellGroupData[{
+Cell[67351, 2522, 45, 1, 54, "Input"],
+Cell[67399, 2525, 54, 1, 51, "Output"]
+}, Closed]],
+Cell[67468, 2529, 76, 0, 33, "Text"],
+
+Cell[CellGroupData[{
+Cell[67569, 2533, 69, 1, 54, "Input"],
+Cell[67641, 2536, 55, 1, 51, "Output"]
+}, Closed]],
+Cell[67711, 2540, 715, 16, 145, "Text"],
+Cell[68429, 2558, 279, 7, 60, "Text"],
+
+Cell[CellGroupData[{
+Cell[68733, 2569, 47, 1, 52, "Input",
+  PageBreakAbove->True],
+Cell[68783, 2572, 35, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[68855, 2578, 142, 3, 87, "Input"],
+Cell[69000, 2583, 484, 9, 125, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[69521, 2597, 77, 1, 47, "Input"],
+Cell[69601, 2600, 408, 7, 91, "Output"]
+}, Closed]],
+Cell[70024, 2610, 43, 0, 33, "Text"],
+
+Cell[CellGroupData[{
+Cell[70092, 2614, 142, 3, 94, "Input"],
+Cell[70237, 2619, 395, 7, 91, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[70669, 2631, 77, 1, 47, "Input"],
+Cell[70749, 2634, 516, 9, 142, "Output"]
+}, Closed]],
+Cell[71280, 2646, 278, 7, 56, "Text"],
+
+Cell[CellGroupData[{
+Cell[71583, 2657, 144, 3, 94, "Input"],
+Cell[71730, 2662, 245, 7, 104, "Output"],
+Cell[71978, 2671, 157, 2, 51, "Output"]
+}, Closed]],
+Cell[72150, 2676, 258, 8, 56, "Text"],
+
+Cell[CellGroupData[{
+Cell[72433, 2688, 250, 4, 154, "Input"],
+Cell[72686, 2694, 1183, 19, 211, "Output"],
+Cell[73872, 2715, 1183, 19, 211, "Output"]
+}, Closed]],
+Cell[75070, 2737, 92, 3, 33, "Text"],
+Cell[75165, 2742, 600, 24, 86, "Text"],
+Cell[75768, 2768, 841, 25, 150, "Text"],
+Cell[76612, 2795, 687, 20, 137, "Text"],
+Cell[77302, 2817, 369, 12, 60, "Text"],
+Cell[77674, 2831, 210, 8, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[77909, 2843, 105, 2, 74, "Input"],
+Cell[78017, 2847, 118, 2, 64, "Output"]
+}, Closed]],
+Cell[78150, 2852, 152, 3, 56, "Text"],
+
+Cell[CellGroupData[{
+Cell[78327, 2859, 67, 1, 74, "Input"],
+Cell[78397, 2862, 236, 7, 120, "Output"]
+}, Closed]],
+Cell[78648, 2872, 798, 28, 100, "Text"],
+
+Cell[CellGroupData[{
+Cell[79471, 2904, 71, 1, 54, "Input"],
+Cell[79545, 2907, 200, 7, 104, "Output"]
+}, Closed]],
+Cell[79760, 2917, 655, 28, 78, "Text"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[80476, 2952, 110, 2, 33, "Section",
+  Evaluatable->False],
+
+Cell[CellGroupData[{
+Cell[80611, 2958, 41, 0, 62, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[80677, 2962, 38, 0, 52, "Subsubsection"],
+Cell[80718, 2964, 38, 0, 38, "Text"],
+Cell[80759, 2966, 124, 2, 74, "Input"],
+Cell[80886, 2970, 30, 0, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[80941, 2974, 58, 1, 54, "Input"],
+Cell[81002, 2977, 220, 7, 104, "Output"]
+}, Closed]],
+Cell[81237, 2987, 412, 12, 78, "Text"],
+
+Cell[CellGroupData[{
+Cell[81674, 3003, 429, 12, 54, "Input"],
+Cell[82106, 3017, 379, 10, 84, "Output"]
+}, Closed]],
+Cell[82500, 3030, 1018, 38, 123, "Text"],
+Cell[83521, 3070, 172, 6, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[83718, 3080, 236, 6, 74, "Input"],
+Cell[83957, 3088, 53, 1, 51, "Output"],
+Cell[84013, 3091, 113, 2, 51, "Output"]
+}, Closed]],
+Cell[84141, 3096, 47, 0, 33, "Text"],
+
+Cell[CellGroupData[{
+Cell[84213, 3100, 61, 1, 54, "Input"],
+Cell[84277, 3103, 113, 2, 51, "Output"]
+}, Closed]],
+Cell[84405, 3108, 805, 31, 78, "Text"],
+Cell[85213, 3141, 648, 22, 83, "Text"],
+Cell[85864, 3165, 1536, 59, 154, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[87437, 3229, 43, 0, 29, "Subsubsection"],
+Cell[87483, 3231, 53, 0, 38, "Text"],
+Cell[87539, 3233, 1021, 37, 121, "Text"],
+Cell[88563, 3272, 810, 36, 156, "Text"],
+Cell[89376, 3310, 2649, 97, 150, "Text"],
+Cell[92028, 3409, 1931, 67, 144, "Text"],
+Cell[93962, 3478, 406, 16, 60, "Text"],
+Cell[94371, 3496, 237, 8, 60, "Text"],
+Cell[94611, 3506, 533, 16, 99, "Text"],
+Cell[95147, 3524, 627, 17, 128, "Text"],
+Cell[95777, 3543, 1482, 53, 192, "Text"],
+Cell[97262, 3598, 312, 9, 83, "Text"],
+Cell[97577, 3609, 131, 2, 74, "Input"],
+Cell[97711, 3613, 218, 4, 83, "Text"],
+Cell[97932, 3619, 440, 12, 83, "Text"],
+
+Cell[CellGroupData[{
+Cell[98397, 3635, 65, 1, 74, "Input"],
+Cell[98465, 3638, 251, 7, 128, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[98753, 3650, 58, 0, 44, "Input"],
+Cell[98814, 3652, 145, 2, 64, "Output"]
+}, Closed]],
+Cell[98974, 3657, 256, 10, 33, "Text"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[99279, 3673, 44, 0, 33, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[99348, 3677, 43, 0, 52, "Subsubsection"],
+Cell[99394, 3679, 434, 9, 105, "Text"],
+
+Cell[CellGroupData[{
+Cell[99853, 3692, 176, 3, 114, "Input"],
+Cell[100032, 3697, 272, 7, 128, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[100341, 3709, 53, 1, 54, "Input"],
+Cell[100397, 3712, 131, 2, 64, "Output"]
+}, Closed]],
+Cell[100543, 3717, 289, 9, 60, "Text"],
+Cell[100835, 3728, 542, 13, 105, "Text"],
+Cell[101380, 3743, 466, 15, 83, "Text"],
+
+Cell[CellGroupData[{
+Cell[101871, 3762, 66, 2, 74, "Input"],
+Cell[101940, 3766, 121, 2, 51, "Output"],
+Cell[102064, 3770, 104, 2, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[102205, 3777, 53, 1, 54, "Input"],
+Cell[102261, 3780, 169, 2, 102, "Output"]
+}, Closed]],
+Cell[102445, 3785, 357, 12, 60, "Text"],
+
+Cell[CellGroupData[{
+Cell[102827, 3801, 48, 0, 52, "Input"],
+Cell[102878, 3803, 236, 7, 128, "Output"]
+}, Closed]],
+Cell[103129, 3813, 97, 2, 38, "Text"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[103263, 3820, 48, 0, 29, "Subsubsection"],
+Cell[103314, 3822, 48, 0, 38, "Text"],
+Cell[103365, 3824, 515, 15, 99, "Text"],
+Cell[103883, 3841, 949, 23, 172, "Text"],
+Cell[104835, 3866, 100, 3, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[104960, 3873, 145, 3, 94, "Input"],
+Cell[105108, 3878, 203, 7, 104, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[105348, 3890, 49, 1, 54, "Input"],
+Cell[105400, 3893, 48, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[105485, 3899, 40, 0, 52, "Input"],
+Cell[105528, 3901, 52, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[105617, 3907, 40, 0, 52, "Input"],
+Cell[105660, 3909, 52, 1, 51, "Output"]
+}, Closed]],
+Cell[105727, 3913, 40, 0, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[105792, 3917, 156, 4, 94, "Input"],
+Cell[105951, 3923, 203, 7, 104, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[106191, 3935, 49, 1, 54, "Input"],
+Cell[106243, 3938, 56, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[106336, 3944, 70, 1, 54, "Input"],
+Cell[106409, 3947, 77, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[106523, 3953, 61, 1, 54, "Input"],
+Cell[106587, 3956, 43, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[106667, 3962, 70, 1, 54, "Input"],
+Cell[106740, 3965, 71, 1, 51, "Output"]
+}, Closed]],
+Cell[106826, 3969, 55, 0, 38, "Text"],
+Cell[106884, 3971, 487, 12, 121, "Text"],
+Cell[107374, 3985, 1110, 43, 105, "Text"],
+Cell[108487, 4030, 598, 20, 83, "Text"],
+Cell[109088, 4052, 575, 21, 92, "Text"],
+Cell[109666, 4075, 769, 24, 128, "Text"],
+Cell[110438, 4101, 70, 0, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[110533, 4105, 120, 2, 74, "Input"],
+Cell[110656, 4109, 203, 7, 104, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[110896, 4121, 73, 1, 54, "Input"],
+Cell[110972, 4124, 72, 1, 51, "Output"]
+}, Closed]],
+Cell[111059, 4128, 180, 8, 38, "Text"],
+
+Cell[CellGroupData[{
+Cell[111264, 4140, 55, 1, 54, "Input"],
+Cell[111322, 4143, 45, 1, 51, "Output"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[111404, 4149, 51, 1, 54, "Input"],
+Cell[111458, 4152, 45, 1, 51, "Output"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

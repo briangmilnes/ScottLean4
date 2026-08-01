@@ -52,3 +52,18 @@ when its extracted text layer has fewer than ~800 alphabetic characters
 **41 of 41 downloaded; 38 have an extractible text layer.**
 
 SCANNED-IMAGE (no usable text layer): Scott-Strachey-1971 (Toward a Mathematical Semantics), Scott-1973 (Models for Various Type-Free Calculi), Scott-1980 (The Presheaf Model for Set Theory).
+
+## Lean formalization status
+
+Pilot Lean 4 files (core Lean, no Mathlib) were generated for the 3 most
+amenable extractible papers and **all verify** with `lake env lean`
+(Lean/Lake 4.32.2):
+
+| Paper | Lean file | Verification |
+|-------|-----------|:---:|
+| Rabin-Scott 1959, Finite Automata | `ScottLean/Scott/RabinScottFiniteAutomata.lean` | PASS |
+| Scott 1976, Data Types as Lattices (Pω) | `ScottLean/Scott/DataTypesAsLattices.lean` | PASS |
+| Scott 1993, Type-Theoretical Alternative | `ScottLean/Scott/TypeTheoreticalAlternative.lean` | PASS |
+
+All other extractible papers: **text available, formalization TODO** (no Lean
+fabricated for them). The 3 SCANNED-IMAGE papers have no usable text layer.

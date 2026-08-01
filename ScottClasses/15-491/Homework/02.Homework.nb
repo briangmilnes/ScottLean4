@@ -1,0 +1,758 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     14376,        594]*)
+(*NotebookOutlinePosition[     15103,        620]*)
+(*  CellTagsIndexPosition[     15059,        616]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 2   Projective Geometry\n",
+  StyleBox["Homework 2",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it\nName the file: \
+02.YourUserName.nb\nPlease hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Tuesday, 8 September",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[
+  " (the day after Labor Day)\nSave it in your subdirectory of\nthe class \
+handin directory ",
+    FontSize->12,
+    FontWeight->"Bold"]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["Name: ", "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "1. Intersecting curves  ",
+  StyleBox["[20 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  The two solutions to the first set of equations are ",
+  StyleBox["real numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "; however, the two solutions to the second set of equations involve ",
+  StyleBox["complex numbers",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Can you explain why there is a difference here?"
+}], "Text"],
+
+Cell[BoxData[
+    \(ExpandAll[Solve[{x\^2 + y\^2 == 4, x - y == 1}, {x, y}]]\)], "Input"],
+
+Cell[BoxData[
+    \(ExpandAll[Solve[{x\^2 + y\^2 == 4, x - y == 4}, {x, y}]]\)], "Input"],
+
+Cell[TextData[{
+  StyleBox["Hint:",
+    FontWeight->"Bold"],
+  "  Consider this picture:"
+}], "Text"],
+
+Cell[BoxData[
+    \(\(ImplicitPlot[{x^2\  + \ y^2\  == \ 4, \ x\  - \ y\  == \ 1, 
+        x - y == 4}, \ {x, \(-4\), 6}, {y, \(-6\), 4}]; \)\)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2. ",
+    FontWeight->"Bold"],
+  " Draw pictures to  explain the nature of the following results with \
+respect to real and complex numbers."
+}], "Text",
+  FontWeight->"Plain"],
+
+Cell["Solve[{x^2 + y^2 == 4, x^2 - y^2 == 1}, {x,y}] // ExpandAll", "Input"],
+
+Cell["Solve[{x^2 + y^2 == 4, x^2 - y^2 == 5}, {x,y}] // ExpandAll", "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "2. Inverting lines and circles  ",
+  StyleBox["[30 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  " Assume ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  " is ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["non negative",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["a ",
+    FontWeight->"Bold"],
+  "is ",
+  StyleBox["real",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  As ",
+  StyleBox["t",
+    FontWeight->"Bold"],
+  " varies over the real numbers, show that the complex number ",
+  Cell[BoxData[
+      StyleBox[
+        RowBox[{"a", "+", \(b \(1 - t\^2\)\/\(1 + t\^2\)\), "+", 
+          RowBox[{"b", 
+            FractionBox[
+              RowBox[{"2", " ", "I", " ", 
+                StyleBox["t",
+                  FontWeight->"Bold"]}], \(1 + t\^2\)]}]}],
+        FontWeight->"Bold"]]],
+  "traces out a ",
+  StyleBox["circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with ",
+  StyleBox["radius",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["b",
+    FontWeight->"Bold"],
+  " and with ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " at the (real) point ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Extra Credit ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Extra Credit.",
+    FontWeight->"Bold"],
+  "  Show that the one point left out in this parameterization is ",
+  StyleBox["a-b",
+    FontWeight->"Bold"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Extra Credit ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Extra Credit.",
+    FontWeight->"Bold"],
+  "  Show that if ",
+  StyleBox["a",
+    FontWeight->"Bold"],
+  " is replaced by a ",
+  StyleBox["complex number",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", the formula still gives the parameterization of a ",
+  StyleBox["circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2. ",
+    FontWeight->"Bold"],
+  " Assume ",
+  StyleBox["\[LeftBracketingBar]a\[RightBracketingBar] \[NotEqual] b",
+    FontWeight->"Bold"],
+  ".  Under the transformation of ",
+  StyleBox["inversion",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " with respect to the unit circle, find an ",
+  StyleBox["equation",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for the curve that is the ",
+  StyleBox["image",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the circle of Question 1."
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Extra Credit ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Extra Credit.",
+    FontWeight->"Bold"],
+  "  What happlens if ",
+  StyleBox["\[LeftBracketingBar]a\[RightBracketingBar]==b ",
+    FontWeight->"Bold"],
+  "?"
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.",
+    FontWeight->"Bold"],
+  " Show that the curve of Question 2 is a ",
+  StyleBox["circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", and find the ",
+  StyleBox["center",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " and ",
+  StyleBox["radius",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "3. Squaring grids  ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Explain the first picture in terms of what we see in the second \
+picture."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^2; \)\), 
+    \(\(CartesianMap[f, {\(-1\), 1, 0.1}, {0, 1, 0.1}, 
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-2.1\), 2.1}}]; \)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^2; \)\), 
+    \(\(CartesianMap[f, {0, 1, 0.1}, {0, 1, 0.1}, 
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-2.1\), 2.1}}]; \)\)}], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  "Question 2. ",
+  StyleBox[
+  "Why is the following picture the same as the first picture in Question 1?",
+    
+    FontWeight->"Plain"]
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^2; \)\), 
+    \(\(CartesianMap[f, {\(-1\), 1, 0.1}, {\(-1\), 1, 0.1}, 
+      PlotRange \[Rule] {{\(-1.1\), 1.1}, {\(-2.1\), 2.1}}]; \)\)}], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.",
+    FontWeight->"Bold"],
+  " Explain how and why the magnification factors were entered to get the \
+next picture."
+}], "Text"],
+
+Cell[BoxData[{
+    \(\(f[z_] := z\^2; \)\), 
+    \(\(CartesianMap[f, 2 {\(-1\), 1, 0.1}, 2 {0, 1, 0.1}, 
+      PlotRange \[Rule] {4 {\(-1.1\), 1.1}, 4 {\(-2.1\), 2.1}}]; \)\)}], 
+  "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "4. Polar Coordinates  ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Explain the relationship between the following two pictures."
+}], "Text"],
+
+Cell[BoxData[
+    \(f[z_] := z; \n
+    PolarMap[f, {1, 2, 0.1}, {0, \(2  \[Pi]\)\/5, 0.05\ \(2  \[Pi]\)\/5}, \n\t
+      PlotRange \[Rule] {{\(-4.1\), 4.1}, {\(-4.1\), 4.1}}]; \)], "Input"],
+
+Cell[BoxData[
+    \(f[z_] := z\^2; \n
+    PolarMap[f, {1, 2, 0.1}, {0, \(2  \[Pi]\)\/5, 0.05\ \(2  \[Pi]\)\/5}, \n\t
+      PlotRange \[Rule] {{\(-4.1\), 4.1}, {\(-4.1\), 4.1}}]; \)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  " Explain the relationship between the following two pictures."
+}], "Text"],
+
+Cell[BoxData[
+    \(f[z_] := \((\(-1\)\  + I + z\ 2)\); \n
+    PolarMap[f, {0.9, 1, 0.1}, {0, 2  \[Pi], 0.05\ 2  \[Pi]}, \n\t
+      PlotRange \[Rule] {{\(-4.1\), 4.1}, {\(-4.1\), 4.1}}]; \)], "Input"],
+
+Cell[BoxData[
+    \(f[z_] := \((\(-1\)\  + I + z\ 2)\)\^2; \n
+    PolarMap[f, {0.9, 1, 0.1}, {0, 2  \[Pi], 0.05\ 2  \[Pi]}, \n\t
+      PlotRange \[Rule] {{\(-9.1\), 9.1}, {\(-12.1\), 4.1}}]; \)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.",
+    FontWeight->"Bold"],
+  "  Is the image of a circle under the squaring transform ",
+  Cell[BoxData[
+      StyleBox[\(z \[Rule] z\^2\),
+        FontWeight->"Bold"]]],
+  " always a circle?  Why?"
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Extra Credit ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Extra Credit. ",
+    FontWeight->"Bold"],
+  "What ",
+  StyleBox["is",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the curve (in ",
+  StyleBox["x,y",
+    FontWeight->"Bold"],
+  "-coordinates) that is the image of the ",
+  StyleBox["unit",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["circle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " under the transform ",
+  Cell[BoxData[
+      StyleBox[\(z \[Rule] \((\(-1\) + I + z\ 2)\)\^2\),
+        FontWeight->"Bold"]]],
+  "?"
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection"]
+}, Closed]]
+},
+FrontEndVersion->"X 3.0",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{732, 553},
+WindowMargins->{{173, Automatic}, {Automatic, 191}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 179, 7, 73, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1891, 58, 99, 2, 28, "Text"],
+Cell[1993, 62, 481, 16, 120, "Subsubtitle"],
+Cell[2477, 80, 29, 0, 58, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2531, 84, 123, 4, 46, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2679, 92, 113, 4, 35, "Subsubsection"],
+Cell[2795, 98, 424, 12, 60, "Text"],
+Cell[3222, 112, 89, 1, 57, "Input"],
+Cell[3314, 115, 89, 1, 57, "Input"],
+Cell[3406, 118, 101, 4, 38, "Text"],
+Cell[3510, 124, 154, 2, 74, "Input"]
+}, Closed]],
+Cell[3679, 129, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[3809, 135, 113, 4, 35, "Subsubsection"],
+Cell[3925, 141, 213, 6, 60, "Text"],
+Cell[4141, 149, 76, 0, 68, "Input"],
+Cell[4220, 151, 76, 0, 61, "Input"]
+}, Closed]],
+Cell[4311, 154, 105, 2, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4453, 161, 131, 4, 30, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[4609, 169, 113, 4, 35, "Subsubsection"],
+Cell[4725, 175, 1243, 53, 92, "Text"]
+}, Closed]],
+Cell[5983, 231, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[6113, 237, 114, 4, 35, "Subsubsection"],
+Cell[6230, 243, 198, 7, 38, "Text"]
+}, Closed]],
+Cell[6443, 253, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[6573, 259, 115, 4, 35, "Subsubsection"],
+Cell[6691, 265, 380, 15, 60, "Text"]
+}, Closed]],
+Cell[7086, 283, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[7216, 289, 113, 4, 35, "Subsubsection"],
+Cell[7332, 295, 558, 19, 60, "Text"]
+}, Closed]],
+Cell[7905, 317, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[8035, 323, 114, 4, 35, "Subsubsection"],
+Cell[8152, 329, 197, 7, 38, "Text"]
+}, Closed]],
+Cell[8364, 339, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[8494, 345, 113, 4, 35, "Subsubsection"],
+Cell[8610, 351, 375, 16, 38, "Text"]
+}, Closed]],
+Cell[9000, 370, 105, 2, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9142, 377, 118, 4, 30, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[9285, 385, 113, 4, 35, "Subsubsection"],
+Cell[9401, 391, 159, 5, 60, "Text"],
+Cell[9563, 398, 178, 3, 96, "Input"],
+Cell[9744, 403, 173, 3, 89, "Input"]
+}, Closed]],
+Cell[9932, 409, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[10062, 415, 113, 4, 35, "Subsubsection"],
+Cell[10178, 421, 166, 6, 60, "Text"],
+Cell[10347, 429, 183, 3, 96, "Input"]
+}, Closed]],
+Cell[10545, 435, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[10675, 441, 112, 4, 35, "Subsubsection"],
+Cell[10790, 447, 169, 5, 60, "Text"],
+Cell[10962, 454, 189, 4, 96, "Input"]
+}, Closed]],
+Cell[11166, 461, 105, 2, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[11308, 468, 121, 4, 30, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[11454, 476, 113, 4, 35, "Subsubsection"],
+Cell[11570, 482, 145, 4, 38, "Text"],
+Cell[11718, 488, 188, 3, 131, "Input"],
+Cell[11909, 493, 191, 3, 126, "Input"]
+}, Closed]],
+Cell[12115, 499, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[12245, 505, 113, 4, 35, "Subsubsection"],
+Cell[12361, 511, 144, 4, 38, "Text"],
+Cell[12508, 517, 200, 3, 94, "Input"],
+Cell[12711, 522, 204, 3, 96, "Input"]
+}, Closed]],
+Cell[12930, 528, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[13060, 534, 112, 4, 35, "Subsubsection"],
+Cell[13175, 540, 250, 8, 60, "Text"]
+}, Closed]],
+Cell[13440, 551, 105, 2, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[13570, 557, 115, 4, 35, "Subsubsection"],
+Cell[13688, 563, 552, 23, 28, "Text"]
+}, Closed]],
+Cell[14255, 589, 105, 2, 27, "Subsubsection"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

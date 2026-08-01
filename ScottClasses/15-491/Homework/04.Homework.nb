@@ -1,0 +1,797 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 3.0,
+MathReader 3.0, or any compatible application. The data for the notebook 
+starts with the line of stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     16705,        647]*)
+(*NotebookOutlinePosition[     17634,        677]*)
+(*  CellTagsIndexPosition[     17590,        673]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[TextData[{
+  "Week 4   Projective Geometry\n",
+  StyleBox["Homework 4",
+    FontSize->18]
+}], "Title",
+  Evaluatable->False,
+  PageBreakAbove->True,
+  AspectRatioFixed->True],
+
+Cell["\[Copyright] Dana Scott 1993/1997/1998", "Text",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+
+Cell[TextData[{
+  StyleBox[
+  "Copy this notebook and do all work in it\nName the file: 03.Homework.nb\n\
+Please hand in by ",
+    FontSize->12,
+    FontWeight->"Bold"],
+  StyleBox["Monday, 21 September",
+    FontSize->12,
+    FontWeight->"Bold",
+    FontColor->GrayLevel[0]],
+  StyleBox[" \nSave it in your subdirectory of\nthe class handin directory ",
+    FontSize->12,
+    FontWeight->"Bold"]
+}], "Subsubtitle",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell["Name: xxxxxxxxx", "Subsubtitle"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "1. Dualizing Desargues and Pappus  ",
+  StyleBox["[25points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  " Explain ",
+  StyleBox["in words",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " how you would prove that if two triangles have ",
+  StyleBox["the intersections of corresponding sides",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ", then the joins of the corresponding vertices are ",
+  StyleBox["concurrent",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[TextData[{
+  StyleBox["Hint: ",
+    FontWeight->"Bold"],
+  "A triangle is given either by three ",
+  StyleBox["vertices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (and the ",
+  StyleBox["sides",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " are the joins of the pairs of vertices), or ",
+  StyleBox["dually",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " by three ",
+  StyleBox["sides",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " (and the ",
+  StyleBox["vertices",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "are the meets of pairs of sides). "
+}], "Text"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  " How do you ",
+  StyleBox["formulate",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " the dual of ",
+  StyleBox["Pappus' Theorem",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  Does it need a ",
+  StyleBox["separate proof",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "2. Harmony and triangles  ",
+  StyleBox["[20points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1. ",
+    FontWeight->"Bold"],
+  " Consider the triangle ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w}\),
+        FontWeight->"Bold"]]],
+  ".  Let ",
+  Cell[BoxData[
+      StyleBox[\(X == a\ u + b\ v + c\ w\),
+        FontWeight->"Bold"]]],
+  " be a point ",
+  StyleBox["not on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " any of the sides of the triangle (which means none of ",
+  StyleBox["a", "InlineInput"],
+  ", ",
+  StyleBox["b", "InlineInput"],
+  ", and ",
+  StyleBox["c", "InlineInput"],
+  " are ",
+  StyleBox["0", "InlineInput"],
+  ").  Join each of the vertices to ",
+  StyleBox["X", "InlineInput"],
+  ", and then intersect those lines with the sides of the given triangle, \
+forming a  ",
+  StyleBox["new triangle",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  Cell[BoxData[
+      StyleBox[\({U\_1, V\_1, W\_1}\),
+        FontWeight->"Bold"]]],
+  ".  Here is the computation:"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \({U\_1, V\_1, W\_1, X, U\_2, V\_2, W\_2, P\_u, P\_v, P\_w}\)], "Input"],
+
+Cell[BoxData[{
+    \(ClearAll[a, b, c]; \nX = \ a\ u + b\ v + c\ w; \n
+    U\_1 = PE[PE[u, X], PE[v, w]]\), 
+    \(V\_1 = PE[PE[v, X], PE[w, u]]\), 
+    \(W\_1 = PE[PE[w, X], PE[u, v]]\)}], "Input"],
+
+Cell[TextData[{
+  "Next, find the intersections of the ",
+  StyleBox["corresponding sides",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of the triangles.  Here is the computation:"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[{
+    \(U\_2 = PE[PE[v, w], PE[V\_1, W\_1]]\), 
+    \(V\_2 = PE[PE[w, u], PE[W\_1, U\_1]]\), 
+    \(W\_2 = PE[PE[u, v], PE[U\_1, V\_1]]\)}], "Input"],
+
+Cell[TextData[{
+  "Prove by ",
+  StyleBox["(a)",
+    FontWeight->"Bold"],
+  " symbolic computation and also by ",
+  StyleBox["(b)",
+    FontWeight->"Bold"],
+  " reasoning from a previous theorem that the points ",
+  Cell[BoxData[
+      StyleBox[\({U\_2, V\_2, W\_2}\),
+        FontWeight->"Bold"]]],
+  " are ",
+  StyleBox["collinear",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "."
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.",
+    FontWeight->"Bold"],
+  " Does the line found in Question 1 ",
+  StyleBox["pass through",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " any of the other named points in the configuration?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3. ",
+    FontWeight->"Bold"],
+  "Here is a picture of a typical case of the configuration \[LongDash] once \
+the line at infinity is made visible.  Find  as many cases of ",
+  StyleBox["  ",
+    FontSlant->"Italic"],
+  StyleBox["harmonic separation ",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "among the named points as you can. (The points ",
+  Cell[BoxData[
+      StyleBox[\({u, v, w}\),
+        FontWeight->"Bold"]]],
+  " have been renamed to make them more visible in the picture.)"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(a = \(-1\); b = \(-2\); c = 3; \n
+    Draw[{x, y, 
+        z, {u, \*"\"\<\!\(P\_u\)\>\""}, {v, \*"\"\<\!\(P\_v\)\>\""}, {w, 
+          \*"\"\<\!\(P\_w\)\>\""}, {X, "\<X\>"}, {U\_1, 
+          \*"\"\<\!\(U\_1\)\>\""}, {V\_1, \*"\"\<\!\(V\_1\)\>\""}, {W\_1, 
+          \*"\"\<\!\(W\_1\)\>\""}, \n
+        \t\t{U\_2, \*"\"\<\!\(U\_2\)\>\""}, {V\_2, \*"\"\<\!\(V\_2\)\>\""}, {
+          W\_2, \*"\"\<\!\(W\_2\)\>\""}, \n\t\tPE[u, X], PE[v, X], PE[w, X], 
+        \n\t\tPE[V\_1, W\_1], PE[W\_1, U\_1], PE[U\_1, V\_1], \n\ \ \t
+        PE[U\_2, V\_2]}, \nTo \[Rule] {w, u + w, v + w, 5  x - \ y - 3\ z}]; 
+    \nClearAll[a, b, c]; \)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "3. Discover a theorem yourself  ",
+  StyleBox["[30points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 1.",
+    FontWeight->"Bold"],
+  "  Here are six points giving an instance of ",
+  StyleBox["Pappus\[CloseCurlyQuote] Theorem",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ":"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(ClearAll[
+      Subscript]; {A\_1, A\_2, A\_3} = {\(-u\) + w, 2\ u + w, 4\ u + w}; {
+        B\_1, B\_2, B\_3} = {\(-v\) + w, 3\ v + w, 4\ v + w}; \n\n
+    Draw[{A\_1, A\_2, A\_3, B\_1, B\_2, B\_3, x, y}]; \)], "Input"],
+
+Cell[TextData[{
+  "There are, however, ",
+  StyleBox["six",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " possible hexagons depending in the ",
+  StyleBox["order",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  StyleBox[" ",
+    FontSlant->"Italic"],
+  "in which we join the points."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(hex\_1 = {A\_1, B\_2, A\_2, B\_1, A\_3, B\_3, A\_1}; \n
+    hex\_2 = {A\_1, B\_2, A\_3, B\_1, A\_2, B\_3, A\_1}; \n
+    hex\_3 = {A\_1, B\_1, A\_2, B\_2, A\_3, B\_3, A\_1}; \n
+    hex\_4 = {A\_1, B\_1, A\_3, B\_2, A\_2, B\_3, A\_1}; \n
+    hex\_5 = {A\_1, B\_1, A\_2, B\_3, A\_3, B\_2, A\_1}; \n
+    hex\_6 = {A\_1, B\_1, A\_3, B\_3, A\_2, B\_2, A\_1}; \)], "Input"],
+
+Cell[TextData[{
+  "Why are these the ",
+  StyleBox["only six possibilities",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " that need be considered?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[15 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "Here is a program that computes the ",
+  StyleBox["Pappus line",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " for any given hexagon."
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(\(Pappus[hh_] := 
+      Module[{ss}, ss = Partition[hh, 2, 1]; 
+        Factor[PE[
+            PE[PE@@ss\[LeftDoubleBracket]1\[RightDoubleBracket], 
+              PE@@ss\[LeftDoubleBracket]4\[RightDoubleBracket]], 
+            PE[PE@@ss\[LeftDoubleBracket]2\[RightDoubleBracket], 
+              PE@@ss\[LeftDoubleBracket]5\[RightDoubleBracket]]]]]; \)\)], 
+  "Input"],
+
+Cell["Here are the results for the six specific hexagons:", "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[{
+    \(pap\_1 = Pappus[hex\_1]\), 
+    \(pap\_2 = Pappus[hex\_2]\), 
+    \(pap\_3 = Pappus[hex\_3]\), 
+    \(pap\_4 = Pappus[hex\_4]\), 
+    \(pap\_5 = Pappus[hex\_5]\), 
+    \(pap\_6 = Pappus[hex\_6]\)}], "Input"],
+
+Cell[TextData[{
+  "Look at the picture of these six lines.  Can you see in this configuration \
+a ",
+  StyleBox["possible",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["theorem",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?  Can you ",
+  StyleBox["prove",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " it?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(\(Draw[{pap\_1, pap\_2, pap\_3, pap\_4, pap\_5, pap\_6}]; \)\)], "Input"]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.",
+    FontWeight->"Bold"],
+  "  This configuration started with ",
+  StyleBox["specific points",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  ".  Can you rerun the computations to give a ",
+  StyleBox["general proof",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?"
+}], "Text",
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "4. Finding points on and off a line  ",
+  StyleBox["[25 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 1 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question.",
+    FontWeight->"Bold"],
+  "  Why does the following construction find at least  ",
+  StyleBox["two",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " points on a given line ",
+  Cell[BoxData[
+      StyleBox[\(a\ x + b\ y + c\ z\),
+        FontWeight->"Bold"]]],
+  " \[LongDash] often ",
+  StyleBox["three",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  "?   But explain why there are clearly possibilities of degeneracy, and we \
+cannot say ",
+  StyleBox["which",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point is going to be non degenerate."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]],
+
+Cell[BoxData[
+    \(Flatten[Outer[PE, {a\ x + b\ y + c\ z}, {x, y, z}], 1]\)], "Input",
+  AspectRatioFixed->False]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 2 ",
+  StyleBox["[10 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 2.  ",
+    FontWeight->"Bold"],
+  "Is there a simple program that always finds without failure a ",
+  StyleBox["single",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " point ",
+  StyleBox["on",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a line?   And is there a program that always finds a single point ",
+  StyleBox["off",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " a line?  Test your answers."
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+  "Question 3 ",
+  StyleBox["[5 points]",
+    FontColor->RGBColor[1, 0, 0]]
+}], "Subsubsection"],
+
+Cell[TextData[{
+  StyleBox["Question 3.  ",
+    FontWeight->"Bold"],
+  "Given a ",
+  StyleBox["list",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " of lines, how can we find a point  ",
+  StyleBox["not",
+    FontWeight->"Bold",
+    FontSlant->"Italic"],
+  " on any of them?"
+}], "Text",
+  Evaluatable->False,
+  AspectRatioFixed->False,
+  Background->RGBColor[0, 1, 1]]
+}, Closed]],
+
+Cell[TextData[StyleBox["Answer",
+  FontWeight->"Bold",
+  FontColor->RGBColor[1, 0, 0]]], "Subsubsection",
+  FontColor->RGBColor[1, 0, 0]]
+}, Closed]]
+},
+FrontEndVersion->"Macintosh 3.0",
+ScreenRectangle->{{0, 800}, {0, 580}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{732, 553},
+WindowMargins->{{27, Automatic}, {Automatic, -9}},
+Magnification->1,
+StyleDefinitions -> "Classroom.nb",
+MacintoshSystemPageSetup->"\<\
+00l0001804P000000_P2B?ofoo833P9F;085:0?l0@00005X0FP000003]P;J001
+0@00I00100000@0200000BL?00400000000000000000030001000000000@0?o>
+okX?AP^^0201000000000000000001T1\>"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1709, 49, 179, 7, 68, "Title",
+  Evaluatable->False,
+  PageBreakAbove->True],
+Cell[1891, 58, 99, 2, 28, "Text"],
+Cell[1993, 62, 447, 14, 120, "Subsubtitle"],
+Cell[2443, 78, 38, 0, 58, "Subsubtitle"],
+
+Cell[CellGroupData[{
+Cell[2506, 82, 133, 4, 43, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[2664, 90, 113, 4, 35, "Subsubsection"],
+Cell[2780, 96, 577, 21, 98, "Text"],
+Cell[3360, 119, 652, 26, 82, "Text"]
+}, Closed]],
+Cell[4027, 148, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[4189, 155, 113, 4, 35, "Subsubsection"],
+Cell[4305, 161, 411, 17, 76, "Text"]
+}, Closed]],
+Cell[4731, 181, 137, 3, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[4905, 189, 124, 4, 27, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[5054, 197, 113, 4, 35, "Subsubsection"],
+Cell[5170, 203, 994, 36, 144, "Text"],
+Cell[6167, 241, 90, 1, 53, "Input"],
+Cell[6260, 244, 198, 4, 133, "Input"],
+Cell[6461, 250, 235, 7, 72, "Text"],
+Cell[6699, 259, 162, 3, 93, "Input"],
+Cell[6864, 264, 435, 17, 72, "Text"]
+}, Closed]],
+Cell[7314, 284, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[7476, 291, 112, 4, 35, "Subsubsection"],
+Cell[7591, 297, 286, 9, 76, "Text"]
+}, Closed]],
+Cell[7892, 309, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[8054, 316, 112, 4, 35, "Subsubsection"],
+Cell[8169, 322, 580, 16, 120, "Text"],
+Cell[8752, 340, 658, 11, 213, "Input"]
+}, Closed]],
+Cell[9425, 354, 137, 3, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[9599, 362, 130, 4, 27, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[9754, 370, 113, 4, 35, "Subsubsection"],
+Cell[9870, 376, 264, 9, 53, "Text"],
+Cell[10137, 387, 239, 4, 133, "Input"],
+Cell[10379, 393, 341, 13, 72, "Text"],
+Cell[10723, 408, 386, 6, 153, "Input"],
+Cell[11112, 416, 201, 7, 53, "Text"]
+}, Closed]],
+Cell[11328, 426, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[11490, 433, 113, 4, 35, "Subsubsection"],
+Cell[11606, 439, 259, 9, 76, "Text"],
+Cell[11868, 450, 387, 8, 113, "Input"],
+Cell[12258, 460, 100, 1, 53, "Text"],
+Cell[12361, 463, 228, 6, 153, "Input"],
+Cell[12592, 471, 393, 16, 72, "Text"],
+Cell[12988, 489, 93, 1, 53, "Input"]
+}, Closed]],
+Cell[13096, 493, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[13258, 500, 112, 4, 35, "Subsubsection"],
+Cell[13373, 506, 365, 13, 76, "Text"]
+}, Closed]],
+Cell[13753, 522, 137, 3, 27, "Subsubsection"]
+}, Closed]],
+
+Cell[CellGroupData[{
+Cell[13927, 530, 136, 4, 27, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[14088, 538, 112, 4, 35, "Subsubsection"],
+Cell[14203, 544, 701, 24, 62, "Text",
+  Evaluatable->False],
+Cell[14907, 570, 114, 2, 47, "Input"]
+}, Closed]],
+Cell[15036, 575, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[15198, 582, 113, 4, 35, "Subsubsection"],
+Cell[15314, 588, 555, 19, 62, "Text",
+  Evaluatable->False]
+}, Closed]],
+Cell[15884, 610, 137, 3, 27, "Subsubsection"],
+
+Cell[CellGroupData[{
+Cell[16046, 617, 112, 4, 35, "Subsubsection"],
+Cell[16161, 623, 376, 15, 53, "Text",
+  Evaluatable->False]
+}, Closed]],
+Cell[16552, 641, 137, 3, 27, "Subsubsection"]
+}, Closed]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+
