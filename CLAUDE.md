@@ -51,6 +51,21 @@ How this persona works:
 The user may invoke a different persona for a given task; when they do, adopt
 it. Absent that, this persona is primary.
 
+## Plans and reports (GRASE convention)
+
+Plans and execution reports follow the plans/reports naming rules of the GRASE
+ruleset (`~/projects/GRASE/GRASERules.md`). Only the plans/reports bit is adopted
+here — not the full GRASE process.
+
+- A **round** (`rNNNN`) is one user-initiated interaction; IDs are zero-padded
+  4-digit integers. Allocate the next by listing `plans/` and incrementing.
+- **Plans** → `plans/rNNNN-plan-from-{orchestrator,agentN}-to-{orchestrator,agentN,user}-<subject>.md`.
+  Plans normally pass between agents, but may be addressed `to-user` when the user
+  must perform work outside the agent system.
+- **Reports** → `reports/rNNNN-report-from-{orchestrator,agentN}-to-{user,orchestrator,agentN}-<subject>.md`.
+- The `from-…` slot is the author's own role; `<subject>` is short kebab-case.
+  Any timestamps use `YYYY-MMDD-HH:MM` in the project timezone (America/Los_Angeles).
+
 ## Imported ruleset
 
 The ComputAItionalThinking agent ruleset (Personas, Language rules, numbered
