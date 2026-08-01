@@ -2,9 +2,11 @@
 # on its own. It is imported by CLAUDE.md, not committed into this repo.
 /ComputAItionalThinking/
 
-# Lean build output
-/.lake/
+# Lean build output (any depth — Mathlib's checkout lives under a nested .lake/)
+.lake/
 /build/
+# Compiled Lean objects (incl. Beeson's Lean 3 .olean artifacts from the zip)
+*.olean
 
 # Emacs
 # backup files
@@ -27,3 +29,6 @@ tramp
 # (Remove these two lines if the repo is private.)
 /HarperBook/PFPL.pdf
 /HarperBook/PFPL.txt
+
+# redundant self-archive that ships inside the Beeson folder
+Beeson/_beeson.zip
