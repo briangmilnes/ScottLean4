@@ -11,11 +11,14 @@ Code assists as a Lean 4 expert, under a terminology discipline imported from th
 | ----------------------------- | ---------------------------------------------------------------------------------------------- |
 | `CLAUDE.md`                   | Instructions Claude Code reads on start: a Turing-Award-logician / Lean 4 persona, and an import of the ruleset below. |
 | `docs/ForDana.md`             | Setup and working advice for Dana — environment, VS Code, reading these files, and the goal view. **Start here.** |
+| `lean-toolchain`              | Pins the Lean 4 version (`leanprover/lean4:v4.32.2`). The VS Code extension reads this and installs the matching toolchain. |
+| `lakefile.toml`               | The Lake build configuration; declares the `ScottLean` library. |
+| `ScottLean.lean`              | Root module — imports every module in the library. |
+| `ScottLean/Basic.lean`        | First module: a few kernel-checked starter theorems to open in the goal view. |
 | `ComputAItionalThinking/`     | A cloned repository holding the agent ruleset and computer-science glossaries. See its own `README.md`. |
 | `.claude/settings.local.json` | Per-user permission settings for Claude Code (file read/write under `~/projects`, git, web search). |
 
-Lean source files and a `lakefile` are not scaffolded yet; add them as the work
-introduces them.
+Build the library from the project root with `lake build`.
 
 ## Getting started
 

@@ -76,10 +76,11 @@ with light formatting marks.
   proof establishes and under which axioms. Read
   `ComputAItionalThinking/ComputAItionalThinkingRules.md` for the full rules.
 
-## 7. A first proof to try
+## 7. A first proof to read
 
-Once a Lean file is open, this is a complete, kernel-checkable proof — type it
-and watch the Infoview reach "No goals":
+This project is already scaffolded, so there is a file to open on day one:
+**`ScottLean/Basic.lean`**. It holds a few complete, kernel-checked theorems.
+Open it and put the cursor inside the first one:
 
 ```lean
 theorem and_comm_example (p q : Prop) (h : p ∧ q) : q ∧ p := by
@@ -88,4 +89,10 @@ theorem and_comm_example (p q : Prop) (h : p ∧ q) : q ∧ p := by
 ```
 
 Put the cursor after `obtain …` to see the two hypotheses `hp : p` and `hq : q`
-appear, then after `exact …` to see the goal close.
+appear in the Infoview, then after `exact …` to see the goal reach "No goals".
+The file also proves `0 + n = n` by induction and an existential statement — step
+through each to watch the goal change.
+
+To build the whole library from the terminal (section 5), run `lake build` from
+the project root. The first build downloads the Lean toolchain pinned in
+`lean-toolchain` and can take a few minutes.
