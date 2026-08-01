@@ -26,6 +26,25 @@ machine are marked **[claude]**.
 > - `tesseract` here can't read images from `/tmp` and can't read `.png`; OCR by
 >   writing **TIFF into the project dir** (see step 9 notes).
 
+## Progress — milnes handoff (2026-08-01)
+
+Bootstrap done by hand. Accounts: `Scott` (admin, Dana's) and `milnes` (admin);
+currently working in the **Scott** account as Brian — account ownership is a TODO.
+- [x] Booted, FileVault on; both accounts admin.
+- [x] Machine renamed to `milnes` (ComputerName / HostName / LocalHostName).
+- [x] Step 1 — Xcode Command Line Tools (git works).
+- [x] Step 2 — Homebrew installed + on PATH (`brew --version` OK).
+- [x] Step 3 — git identity (Brian) + `gh auth login` via browser.
+- [~] Emacs installing (`brew install --cask emacs`).
+- [~] Claude Code installing (native `curl … | bash`) — to drive the rest on-machine.
+
+**Remaining — hand these to the milnes Claude agent (it runs them from this plan):**
+clone repos (step 10) · `~/.zshrc` + `~/.emacs` (steps 4–5; **contents in the
+Appendix** so no old-machine copy needed) · VS Code + Lean 4 + Live Share (6) ·
+elan (7) · poppler + tesseract (8) · MacTeX **in `M-x ansi-term`** (9) ·
+Mathematica/Wolfram + plotting (9b–9c) · `lake exe cache get` + build (11) ·
+Chrome + Markdown (12) · verification (14).
+
 ## 1. Xcode Command Line Tools **[you]**
 ```bash
 xcode-select --install
@@ -163,3 +182,57 @@ Install/sign in to Claude Code on `milnes`, same account as this machine.
 When done, capture results in
 `reports/r0000-report-from-user-to-orchestrator-milnes-new-mac-setup.md`
 (or tell Claude and it will).
+
+## Appendix — dotfile contents (for the milnes agent)
+
+### `~/.zshrc`
+```zsh
+# ~/.zshrc — personal zsh configuration
+
+if [[ -n "$INSIDE_EMACS" ]]; then
+    # Running inside an Emacs "dumb" shell: keep it plain
+    PROMPT='%~ %# '
+    PROMPT_EOL_MARK=''
+else
+    # Real terminal (Terminal.app, iTerm, VS Code)
+    PROMPT='%F{blue}%~%f %# '
+    precmd() { print -Pn "\e]2;%~\a" }
+fi
+
+# Directory-up shortcuts
+alias up1='cd ..'
+alias up2='cd ../..'
+alias up3='cd ../../..'
+alias up4='cd ../../../..'
+
+# Homebrew (Apple Silicon) on PATH if installed
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY
+
+# Completion
+autoload -Uz compinit && compinit
+```
+
+### `~/.emacs` — the shell/terminal block this project needs
+```elisp
+(setq explicit-shell-file-name "/bin/zsh")
+
+;; M-x shell: strip the pty's duplicate echo, and track the working directory
+;; from the PROMPT (follows cd, pushd/popd, and the up1/up2 aliases).
+(add-hook 'shell-mode-hook
+          (lambda ()
+            (setq comint-process-echoes t)
+            (shell-dirtrack-mode -1)
+            (setq-local dirtrack-list '("^\\([^ ]+\\) [#%] " 1))
+            (dirtrack-mode 1)))
+
+(add-to-list 'default-frame-alist '(background-color . "white"))
+```
+Brian's full personal `~/.emacs` lives on the old machine — copy it over for the
+rest; the block above is the minimum this project relies on. **Reminder:** run
+`sudo`/`.pkg` installs (MacTeX) in `M-x ansi-term`, never `M-x shell`.
