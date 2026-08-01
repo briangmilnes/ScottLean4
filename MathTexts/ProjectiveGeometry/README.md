@@ -44,6 +44,25 @@ Veblen & Young (Vols I–II), Cremona, Whitehead, and Filon. All modern textbook
 in copyright and available for free only as borrow-only Controlled Digital Lending scans
 (no extractable download) or are paywalled.
 
+## Downloaded locally (public domain)
+
+The 5 legitimately-available texts below are now in this directory as
+`<Name>.pdf` + `<Name>.txt` — **~80 MB of PDFs, ~3.48 M chars of extractible
+text**. Note: Veblen–Young **Vol 1**'s PDF is image-only, so its `.txt` is
+archive.org's `_djvu.txt` OCR (740 K chars) rather than a `pdftotext` extraction.
+The modern in-copyright texts (Coxeter, Hartshorne, Semple–Kneebone, …) remain
+borrow-only / paywalled and are **not** downloaded.
+
+| File | PDF | Text chars |
+|------|----:|-----------:|
+| `Veblen-Young-1910-Projective-Geometry-Vol1` | 9.2 MB | 740 K (OCR) |
+| `Veblen-Young-1918-Projective-Geometry-Vol2` | 32 MB | 1,227 K |
+| `Cremona-1893-Elements-of-Projective-Geometry` | 22 MB | 788 K |
+| `Filon-1908-Introduction-to-Projective-Geometry` | 12 MB | 598 K |
+| `Whitehead-1906-Axioms-of-Projective-Geometry` | 4.7 MB | 126 K |
+
+Formalizing these into Lean 4 is left as work for Dana.
+
 ## OA_PDFS
 
 ```
