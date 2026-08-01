@@ -27,6 +27,8 @@ disk.
     - the package manager brew
     - claude code for you to be able to use AI
     - vscode so you can work with Lean4
+    - vscode live share so we can pair on Lean in your own editor
+    - mathematica so you can open and run your own course notebooks
     - latex
     - plotting
     - emacs
@@ -43,10 +45,13 @@ disk.
 # Remote Tutoring
 
 - We'll setup mac to mac screen sharing so people can assist you.
+- For Lean pairing we'll use VS Code Live Share so you co-edit in your own
+ editor (your own fonts and zoom) with the Lean server on your machine.
 
 # Plotting
 
-- TBD
+- Options we'll choose from: Mathematica (matches your notebooks),
+ Python matplotlib, or LaTeX TikZ/pgfplots (LaTeX is already installed).
 
 # Security
 
@@ -59,6 +64,17 @@ disk.
 - Then we'll pick something you want to work on and see what happens
  with the LLM Lean.
 - We'll print you a Lean proof automation cheat sheet.
+
+# Projective Geometry
+
+- We recovered your own Computational Projective Geometry course (34 notebooks)
+ plus five public-domain texts, including Whitehead's Axioms of Projective Geometry.
+- A natural first Lean project: formalize Whitehead's projective axioms.
+
+# Guides on disk
+
+- docs/ForDana.md — VS Code, Lean, and the Infoview goal view.
+- docs/ProofsAndTextInventory.md — the map of everything downloaded.
 
 # Software Process
 
