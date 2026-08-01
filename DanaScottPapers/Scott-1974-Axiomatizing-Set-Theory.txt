@@ -1,0 +1,231 @@
+Proceedings of Symposia in Pure Mathematics
+Volume 13, Part H, 1974
+
+
+
+
+                     AXIOMATIZING                          SET   THEORY
+
+                                              DANA     SCOTT
+
+
+
+  As long as an idealistic manner of speaking about abstract objects is popular in
+mathematics, people will speak about collections of objects, and then collections
+of collections, and collections of collections of... of collections.             In other words,
+set theory is inevitable. Let us not argue here the question of whether set theory is
+the ultimate foundation for mathematics. Surely it has already been shown to be
+an adequate foundation for a reasonably large part of mathematics. Furthermore,
+even though it may not be the last word, it is a simple theory of perfectly clear
+intent which would have to be interpretable in whatever theory finally would
+serve as our foundation. It is the purpose of this essay to demonstrate just how
+inescapable set theory is by re-examining its axioms.
+   It must be understood from the start that Russell’s paradox is not to be regarded
+as a disaster. It and the related paradoxes show that the naive notion of all-inclusive
+collections is untenable. That is an interesting result, no doubt about it. But note
+that our original intuition of set is based on the idea of having collections of
+already fixed objects. The suggestion of considering all-inclusive collections only
+came in later by way of formal simplification of language. The suggestion proved
+to be unfortunate, and so we must return to the primary intuitions. These intuitions
+can gain an initial precision through formulating the two basic axioms of ex-
+tensionality and comprehension, which we now discuss in detail.
+   Let the variables a, b,c, a’, b’,c’,a",... range over sets and the variables x, y, z,
+x’, y',2',x",... range over arbitrary objects. The symbol = is used for identity
+and é€ for membership. Whether it is really interesting or profitable to allow for non-
+sets in the theory is debatable; but let us not exclude them yet. We agree that the
+condition x € y should imply that y is a set, a principle that we can formulate in
+logical symbols thus:
+                               Vx, y[x € y > daly = al].
+
+  AMS (MOS) subject classifications (1970). Primary 02K 15.
+
+                                                     207
+                                                                  © 1974, American Mathematical Society
+    208                                 DANA   SCOTT                                                                       AXIOMATIZING     SET THEORY                               209
+
+
+    Of course this must be taken as an axiom;      but it is so primitive, so much just a    sets into levels. There will be earlier levels and later levels. Let the sets up to a
+    convention of grammar, that we will not even give it a name. The first axioms to         certain level be thought of as forming a partial universe V which is regarded as a
+    be named are the following:                                                              legitimate set. We   can   be generous   and   assume   that   all the   nonsets,   the set-
+                                                                                             theoretical atoms, belong to all of the levels. In a later universe V’ we have not
+      EXTENSIONALITY. Va, b[Vx[x      €a++ xEb]    + a = 5},
+                                                                                             only the elements of V, but also V itself to be used to form subcollections of V';
+      COMPREHENSION.      WasdbVx[xeb<+xea        A ®(x)].                                   that is, Ve V’ as well as V S   V’, where we define
+
+                                                                                                                        Vx, y[x S   yo We[zex
+                                                                                                                                           > zeyl].
+_      The extensionality axiom formalizes our idea that a set is nothing more than a
+    collection of objects : It is uniquely determined by its elements. The comprehension     Furthermore not only V, but by the same token all the subcollections of V, should
+    axiom formalizes the idea that once a collection a is fixed, we can then extract from    also be elements of V’.
+    a any arbitrary subcollection b. The extraction process is effected by finding a           Once a   set is fixed at one level, all its subsets are fixed at a later level—that is
+    property @(x) which   distinguishes b as the subset of     a comprehending   all those   certainly the basic idea of the theory of types. We formalize this idea not by
+    elements having the property. There is no reason to place any restriction on how         introducing type indices, but more simply by identifying a level with the collection
+    the property ®(x) is formulated: We believe in the existence of arbitrary subsets.       of all sets (and nonsets) up to that level. We let variables V,V’, V",... range over
+    It is a great temptation to erase the condition x ea, thus simplifying the axiom         these levels-—that is, we take the idea of a type level (as identified with certain sets)
+    schema ; but we all know what happens. It is much more profitable to ask : Where         as a primitive notion. The “later than” relation is transcribed simply as Ve V'.
+    does the a come from?                                                                    It need hardly be mentioned that we assume that there is at least one level and that
+       Zermelo answered the question by giving several construction principles for           each level is a set-—-axioms that we do not stop to name. What is important is the
+    obtaining new a’s from old. Fraenkel and Skolem extended the method, and von             idea that a given level is nothing more than the accumulation of all the members
+    Neumann, Bernays and Gédel modified it somewhat. Actually this is a rather sad           and subsets of all the earlier levels (and all the nonsets, if any there be). In formal
+    history——because set theory is made to seem so artificial and formalistic. The naive     terms we have this axiom:
+    axioms are contradictory. We block the contradiction and thereby emasculate
+    the theory. Therefore to get anywhere we reinstate a few of the principles we
+                                                                                                AccuMULATION. WV'Wx[x € V' + 1 3a[x = a] V AVeEV'[xeVV x SV].
+    eliminated and hope for the best. Now it would be wrong to accuse any of the                (By the way, just because we use the variables V,V', V",... we should not think
+    above men of holding such a simplistic view of the axiomatic process. Nevertheless       of the levels themselves as being arranged in an w-type sequence. In general we will
+    it is a very widely held view and one that is easy to fall into when considering         want a transfinite sequence. Also note that Ve V’ does not imply that V’ is the
+    only the formal axioms without their intuitive justification. Let us try to see          next level; it may be a much later level.) The purpose of this axiom is to show how
+    whether there is another path to the same theory more obviously based on the             the levels fit together.
+    underlying intuition.                                                                       The question of how far the levels go out will be postponed for the moment.
+        The truth is that there is only one satisfactory way of avoiding the paradoxes:      Of course, however far they do go, our intention is that they eventually capture
+    namely, the use of some form of the theory of types. That was at the basis of both       everything. As an axiom this idea gives the following:
+     Russell’s and Zermelo’s intuitions. Indeed the best way to regard Zermelo’s
+                                                                                                RESTRICTION. Vx4V[x & V].
+    theory is as a simplification and extension of Russell’s. (We mean Russell’s simple
+    theory of types, of course.) The simplification was to make the types cumulative.           In other words, the whole universe, if only it were a set, would          behave as the
+    Thus mixing of types is easier and annoying repetitions are avoided. Once the             ultimate level in the sense of the previous axiom. (Note that this axiom gives the
+    later types are allowed to accumulate the earlier ones, we can then easily imagine        existence of at least one level. It really should have been formulated with the clause
+    extending the types into the transfinite—just how far we want to go must necessarily      [xe V V x SV], but we shall show below that [xeV>x& V}.) This will turn
+    be left open. Now Russell made his types explicit in his notation and Zermelo             out to be nothing more or less than the well-known axiom of foundation, which is
+    left them implicit. It is a mistake to leave something so important invisible, because    generally poorly understood. We feel that in the present context it appears as a
+    so many people will misunderstand you. What we shall try to do here is to axioma-         quite natural expression of the fact that the sets are restricted to the levels.
+    tize the types in as simple a way as possible so that everyone can agree that the            Well, except for axioms of extent (infinity), what else do we need to explain the
+    idea is natural.                                                                          behavior of the levels and their subsets? Do we not have to go on to specify that
+        Let us proceed on a very primitive basis. In order to obtain the sets to which.       the levels are ordered—even well-ordered? That the levels are comparable? Even
+    the comprehension axiom can be applied, we imagine some way of dividing the               that there is a first level? No, we do not: All these essential facts will follow from
+210                                  DANA   SCOTT
+                                                                                                                              AXIOMATIZING        SET THEORY                                     21)
+
+the above apparently primitive assumptions. This at first surprising result shows         Because suppose x € V and let
+how little choice there is in setting up the type hierarchy. Furthermore, we will
+find that the principles of construction (union and power set) also drop out of                                        a=    {b:AIV'eV[xeV' A b=               |V'II}}.
+these axioms; so that really only the principles of extent are needed beyond what         Clearly, by (3), a exists and a © | V ||. If a = 0, then VV’ e V[x ¢ V’). Thus by the
+we have. It seems safe to say that it would be hard to reduce the axioms of set           accumulation axiom we find
+theory to less than the above and still retain a simple intuitive basis.
+   As our first deduction, notice that as an immediate consequence of the accumula-                                         n3c[x = c]      V IVeV[x        cs V'].
+tion axiom we have                                                                        The first alternative implies x ¢ V (by our grammatical convention), while the
+(1)                               VeVoVEV'                                                second implies the same in view of (1). Next, if a # 0, we can find bea with
+                                                                                          bna=O      because a & | V ||. But then b = ||V’|| where V’'e V and xe V’. In effect
+This imphes that the “less than” relation among levels is transitive. Though it           we have already eliminated the case in which 7 3c[x = c], so by accumulation we
+follows from what we will prove below, it is instructive to show that the relation is     have       V"’ eV’ with [xeV”      V x &     V"). The first alternative is impossible, because
+irreflexive:                                                                              it would imply       |V"|| eb and       ||V"||ea. From        the second alternative we obtain
+(2)                                     VEV.                                              xaVv"cV'Gc           V,as desired.
+                                                                                            The second reward is the deduction of the full principle of well-foundedness
+Because suppose the opposite. By the comprehension axiom we can form the set              (foundation regularity) for the €-relation:
+a= {xeV:x¢éx}. (We use here the usual notation for set abstraction, which is
+justified by our axioms.) The set looks familiar, somehow. We have assumed                (5)                          Ix@(x) + Ax[@(x) A — dy €x[@(y)]].
+Ve V, and by construction a & V. Thus ae V, in view of the accumulation axiom.            Assume (z); by the restriction axiom, z ©                 V for some        V. As in the last proof, let
+Now we proceed as with the Russell paradox to derive a contraction. Thus we
+have put a paradox to work to obtain a useful conclusion which is not at all                                     a=    {b:3V’eV[ax S V'{®(x)] A b = |V'II]}.
+paradoxical.                                                                              Again this set exists and a ¢ | V ||. In case a = 0, we easily conclude from (4) by
+   To make further progress it is helpful to employ the paradox of the set of all         means of the accumulation axiom that 7 dy € z[@(y)]. In a # 0, we choose bea
+grounded classes just as we employed the Russell paradox. This paradox shows              with b    na = 0. Now b = ||V'|| with x ¢ V’ and ®(x), for suitable x and V’. From
+that there is no set consisting of all the x such that                                    boa = 0 we easily conclude as above that —3y € x[®(y)] to complete the argu-
+                           Va[xea—      dJyealyna = 0]].                                  ment. Note that we can relativize quantifiers and deduce at once from (5) the
+                                                                                          special case:
+(Here, 0 denotes the empty set and y na = {ze€a:ze y}, the use of both of which
+is justified by the comprehension axiom.) As in the above argument, we introduce          (6)                         IVO(V) > IV[M(V) A               NAV’ Ee V[O(V' J].
+the auxiliary set                                                                           As an application of (6) we can now show that the levels are indeed linearly
+                    \VIl = {xeV:Valx ea      Jyealyna = 0)}}                              ordered:
+and ask about the interesting properties of this well-determined subset. The main         (7)                                  VeV      VVEV'V
+                                                                                                                                             Vey.
+fact is
+                                                                                          Thus in conjunction with (1) and (6) we see that the levels are in fact well-ordered.
+(3)                             VeV'        [Viel].                                       To prove (7) we argue by contradiction. Assume the negation of the universal
+Because assume Ve V’. Now | V || © V, so by the accumulation axiom | V || e V’.           generalization of (7), and then pick V so that
+To establish the desired conclusion we need only show that |V|| is grounded.                     |                       AW[VeEeV VV                  EVV VeV],
+Thus, assume ||V|| € a. If ||V|| 7 a = 0, we are done. If ||V||    na # 0, let xe | V||
+and xéa. By the definition of ||V||, we have in this case again the required               but so that no V” € V has this property. Next let V’ be chosen so that
+dy € aly 0 a = 0]. Thus another paradox has been put to work.                                                                  VEV         AVEV       AW EY,
+   The first reward from the rehabilitation of the grounded classes is this important
+fact:                                                                                        1 As A. Lévy observed to the author, the proof of (4) is, essentially, a proof of (6). Therefore it would
+                                                                                          seem better to prove (6) first and deduce (4) and (5) as corollaries. Note that this proof of (6) does not
+(4)                                xEVoxe.                                                use the axiom of restriction.
+ 212                                      DANA    SCOTT
+                                                                                                                                          AXIOMATIZING   SET THEORY                                   213
+but so that no V” € V’ has this property. After these two applications of (6) we shall                 The usual way of axiomatizing the Zermelo-Fraenkel-Skolem theory is to
+obtain a contradiction. Suppose V” e V. Then V" # V’ and by transitivity V’é V",                    adjoin an axiom of infinity and an axiom schema of replacement. These two
+because V' ¢ V. Hence by the choice of V, we must conclude V” eV’. Conversely,                      principles can be combined into one seemingly more powerful statement.
+suppose V"e V. Then again V” # V and V¢ V". This time by the choice of V’,
+we must conclude V” € V. Thus we have shown                                                               REFLECTION.     IV Wx € V[@(x) + ®”(x)].
+                                  W"[V"eEVeVeEV’).                                                        Here the formula ®(x) may contain additional free variables and ©"(x) repre-
+                                                                                                    sents    the result   of relativizing all quantifiers        in ®(x)   to elements     of V (that is,
+Now look at the axiom          of accumulation.       We     easily deduce from this last bi-       replace dy by dye V, etc.) The principle is called the reflection axiom because the
+conditional that                                                                                    partial universe V that is asserted to exist reflects all the properties ®(x) for x
+                                                                                                                                                                                        eV
+                                    Vx[xEeVoxeV’,                                                   that hold relative to the whole universe. The author has to admit that the replace-
+which     means   V =   V’, a contradiction.     Looking     back, we certainly have utilized       ment axiom is more elementary and probably more intuitive. But the reflection
+all the axioms thoroughly to reach this point: The rest is smooth sailing.                          axiom is so easy to formulate and use, it has all the practical advantages of a good
+   For example, though the existence of the intersection of two sets follows from                   axiom. In any case it is interesting to prove the equivalence with the more
+                                                                                                                                                                                  primitive
+comprehension, the existence of the union does not. But now from (7) we note that                   axioms, though we will not stop to do so here.
+if a and b are given, then for suitable V, V’ wehaveaGVAbE                      VeandVc
+                                                                                                       To see why reflection gives infinity we proceed in two steps. First we show
+                                                                                              V’
+ V V' < V. Suppose V & V’, then
+                                                                                                    (9)                                        Vx3V[x eV].
+                              aub={xeV':xea                 V xebh,
+                                                                                                   Because let ® be the formula Jy[x = y] with x as a free variable which will not be
+and similarly in the other case. Note also by (4) that                                             quantified upon in the application of reflection. We obtain by reflection
+                               (Ja = {xe V:3ceal[x €c]}.
+                                                                                                                                               IV[o +O),
+There is, however, a problem about singletons and power sets.
+    Inasmuch as we have not assumed any axioms of extent, note that the system is                  which means 4V[3y[x = y] + 3yeV[x = y]], or, more                          simply,      4V[xeV],    as
+trivially consistent with a model consisting of the empty set alone. Hence, we                     desired. In the same way we can show next that
+cannot expect to prove the existence of any power sets unconditionally. Neverthe-
+                                                                                                   (10)                             aV[Vxe VayeV[xey]        A ax[xe Vii.
+less the situation is not very complicated ; what we can prove is
+(8)                         AV[aeV] + abVe[cebc                    € al.                           Because from (9) the formula [Vxy[x € y] A 4x[x = x]Jis provable, and reflection
+                                                                                                   yields (10). Clearly in the well-ordering of the levels the V of (10) is a nonzero limit
+Because, ifae V, then a &      V’e V for some V’. Therefore, ifc           ¢ a, thenc €   V’e V,   point and thus represents an infinite set.
+and so ce     V, too. This means we can take b = {c € V:c € a} to obtain the desired                  We can strengthen the reflection principle to
+conclusion. Notice that (8) can be further simplified because in view of the axiom
+of restriction,                                                                                    (11)       VaaV[aeV A Vy, yy, y”,...€ VIO(y, y’, y,--              ) OOM,      yy’... )]].
+                               AV[ae V] + dy[ae y].
+                                                                                                   An outline of the proof will have to suffice. In the original reflection axiom we
+We could call objects x such that Jy[x € y] elements. Principle (8) tells us that sets             can take the formula to be
+that are elements always have power sets. Likewise we could show that elements
+can always be made into singletons, doubletons, and into finite sets in general.                          Vy,       +.    2[X   =    Cn   ee   >)   nd   [D(y,    yy"...    Jz   =   0})
+      At this point we are free to choose various directions: either moving to the
+Zermelo-Fraenkel-Skolem          theory    or    to   the    von      Neumann-Bernays-Gédel                                     A Vy, Vi y",...,23x'[x' = Cy ys y",...,
+                                                                                                                                                                      2] A 3b(b = al,
+theory by distinguishing between sets (elements) and classes. The author does not
+                                                                                                   where <y, y’, y",...,z> denotes an unordered tuple. It is best to write out the
+feel that the class theory is particularly useful, but, of course, it is a perfectly good
+                                                                                                   equation x = <y, y, y",...,z> in the obvious way. From this it is very easy to
+theory. In any case the remarks about the Zermelo theory can always be transposed .
+                                                                                                   deduce a statement that clearly implies F raenkel’s replacement schema:
+to the other. The main      point is that, whatever is desired, the artificial, “‘ad hoc”
+axioms have been completely avoided.                                                               (12)                         Va AV Vx € af Ay®(x, y) > Ay € V(x, y)].
+214                                  DANA   SCOTT
+
+  By the way, it should be pointed out that the levels can be defined in terms of
+membership and so are theoretically eliminable. In fact one can prove
+           aV[a=V]o]fasgcadA       Vx[4dc[x = c] > xeE0]
+(13)
+                        A Va' eadabeaVvc & bffcea A [Jceb V a’ & Yc)])
+where we define
+
+                              Qa = {x:dyeal[x ¢ y}}.
+After a suitable effort we can finally show that the axioms of accumulation and
+restriction together are equivalent to this single statement:
+           VaabVWc & bac'[Wx[x ec’      dAyec(x S yJ] A [cheb Vacc']].
+Deductions from this axiom (which were carried out by Montague and the author)
+are quite lengthy, so there seems to be no technical or conceptual advantage in
+reducing the number of primitive notions to the minimum. Of course, in some
+model-theoretic discussions we may want to know that the levels are definable,
+so the result has some interest.
+   Looking now to the future we ask: What should the new axioms of set theory
+be like? We can of course give axioms of infinity that increase the extent of our
+sets far beyond the inaccessible cardinalities. This chapter of set theory is far from
+being closed and probably never will be. As yet none of these axioms have settled
+the continuum hypothesis, though some of them do contradict Gédel’s con-
+structibility axiom. It will be very interesting to see what develops along this
+direction. Also we have not discussed the axiom of choice. No doubt it will always
+be desirable despite the technical interest of various independence questions
+involving it and weaker principles. If only it could be deduced from some more
+primitive principle!
+
+
+  OxForD   UNIVERSITY
+

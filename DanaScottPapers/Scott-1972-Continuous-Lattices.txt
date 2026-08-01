@@ -1,0 +1,1967 @@
+                          CONTINUOUS LATTICES
+                                     BY
+                              Dana Scott
+
+
+
+                                  ABSTRACT
+
+
+      Starting from the topological point of view a certain
+wide class of To-Spaces is introduced having a very strong
+extension property for continuous functions with values in
+these spaces.   It is then shown that all such spaces are
+complete lattices whose lattice structure determines the
+topology - these are the    continuous    lattices    -   and every
+such lattice has the extension property.        With this foundation
+the lattices are studied in detail with respect to projections,
+subspaces, embeddings, and constructions such as products,
+sums, function spaces, and inverse limits.           The main result
+of the paper is a proof    that    every topological space can be
+embedded in a continuous lattice which is homeomorphic            (and
+isomorphic) to its own function space.        The function algebra
+of such spaces provides mathematical models for the Church-
+Curry X-Calculus.
+
+
+
+
+                             CONT ENT S
+
+
+
+
+        0.       Introduction
+
+        i.       Injective Spaces
+
+        2.       Continuous Lattices
+
+        3.       Function Spaces
+
+        4.       Inverse Limits
+
+        References
+                                                            98
+
+
+         O. Introduction
+
+        Through a roundabout chain of mathematical                                   events       I h a v e become
+interested          in To-spaces , those topological spaces satisfying                             the
+w e a k e s t s e p a r a t i o n a x i o m t o t h e e f f e c t t h a t two d i s t i n c t points cannot
+share the        same s y s t e m o f open n e i g h b o r h o o d s .            These spaces          seem t o
+have b e e n o r i g i n a l l y     suggested         by K o l m o g o r o f f and were i n t r o d u c e d
+first     in Alexandroff             and Hopf [ 1 9 3 5 ) .           Subsequent topology textbooks
+have d u t i f u l l y      recorded        the definition           but without           much e n t h u s i a s m :
+mainly the            idea is      introduced         to provide          exercises.          In t h e book
+~ech     (1966)        for example,          To-spaces are called                 feebly      semi-separated
+spaces,       which s u r e l y      is     a term e x p r e s s i n g     mild contempt.              Some
+interest        has b e e n shown i n f i n i t e            To-spaces         (finite      Tl-spaces          are
+necessarily            discrete),         but generally           t o p o l o g y seems t o go b e t t e r
+under at least              the Hausdorff           separation           axiom.      The r e a s o n     for    this
+i s no d o u b t t h e s t r o n g        motivation         we g e t f r o m g e o m e t r y , where p o i n t s
+a r e p o i n t s and w h e r e d i s t i n c t p o i n t s can be s e p a r a t e d .
+        What I hope t o show i n t h i s p a p e r i s t h a t f r o m a l e s s                         geometric
+point     o f view T o - s p a c e s        c a n be n o t o n l y i n t e r e s t i n g    but also natural.
+The i n t e r e s t      f o r me l i e s     in the construction               of function          spaces,         and
+t h e main r e s u l t i s t h e p r o d u c t i o n o f a l a r g e number o f T o - s p a c e s D
+s u c h t h a t D and [D + D] a r e h o m e o m o r p h i c .       Here [D ÷ D] i s t h e s p a c e
+of all continuous                functions         from D into D with               the topology          of point-
+wise convergence                (the product          topology).           It will be shown that every
+space can be embedded                    in such a space            D, and that D can be chosen                         to
+have quite            strong     extension        properties          for D-valued           continuous
+functions.             These properties             make     D most convenient               for applications
+to logic and recursive                      function      theory,      which was the author's
+original        motivation.              Some of the facts about                  these      spaces      seem to be
+most easily proved with the aid of some                                  lattice      theory,       a circum-
+stance      that throws            new       light on the connections                  between       topology           and
+lattices.             In fact,      the required           spaces        are at the same time complete
+lattices        whose       topology         is determined          by the lattice            structure         in a
+special way, whence my title.
+                                                          99
+
+
+        I.      INJECTIVE SPACES. A l l                   spaces are To-spaces , and we begin by
+d e f i n i n g a class o f spaces to be c a l l e d injective.
+
+        l.l      Definition.            A To-space D i s injective i f f                     for arbitrary
+spaces X and Y i f             X c Y as a subspace, then every c o n t i n u o u s f u n c t i o n
+f : X ÷ D can be extended t o a c o n t i n u o u s f u n c t i o n f : Y ÷ D.                         As a
+diagram we have:
+
+                                                     X     c    Y
+
+                                                 J                  f
+                                                           D.
+
+        Some p e o p l e w i l l      object     to this            terminology         because      I use the
+subspace relationship                 rather     t h a n a monomorphism i n t h e c a t e g o r y                of
+T o - s p a c e s and c o n t i n u o u s   maps.         However, o n l y t h e          trivial     1-point
+space is        injective        in the       sense       o f monomorphisms i n t h a t              category,
+and so t h e n o t i o n       is uninteresting.                    If the reader          prefers     another
+terminology,           I do not mind.            As we shall               see these       spaces     have very
+strong retraction              properties.
+        A slightly          less trivial         example            of an injective          space     is the
+2-point        space @ with          "points"        ± and T where               {T} is open but        {±} is
+not.         (This space        is sometimes             called         the Sierpinski Space.)
+
+         1.2     Proposition.               The space @ i8 injective.
+        Proof:        As.is      obvious,       the continuous               maps f:X + O are in a one-
+one correspondence               with the open subsets                     of X (consider           f-l({T})).
+If X c Y as a subspace,                     then an open subset                  of X is the restriction
+of some open subset of Y.                      Thus any f:X ÷ © can he extended                         to
+~:Y ÷ ©.         0
+
+         1.3      Proposition,              The Cartesian product of any number of
+injective spaces is injective under the product topology.
+        Proof:         The argument           is standard.                A map       into the product        can be
+projected         onto each of the factors.                         Each of these projections                 can be
+extended.            Then the separate           maps          can be put together             again    to make
+the required           extended        map into the product.                      D
+         We now have          a large number              of injective            spaces,     and further
+examples        could be found using                 the next            fact.
+
+         1.4      Proposition.              A retract of an injective space is injeotive.
+
+         Proof:        Let D be injective.                     By a retract            of D we understand         a
+subspace        DIc D for which              there       exists         a retraction       map j:D ÷ D I
+such that
+                                                      100
+
+
+                                    D~   =   {= ~      D     : j(x)        = x}.
+Then if f:X ÷ D I and X c Y, we have f:× ÷ D as a continuous map also.
+Taking ~:Y + D, we have only to form
+
+                                             joT:           Y~O'
+
+to show that D ~ is injective.                    D
+     The relationship between arbitrary To-spaces                                       and the injective
+spaces is given by the embedding theorem.
+
+     It5      Proposltiono           Every To-space can be embedded in an injective
+space; in fact,         in a Cartesian power of the 2-element space @.
+
+     Pros[:        The proof is well known                       (cf. ~ech         (1966), Theorem 26B.9,
+p. 484.)     But we give the argument                       for completeness                sake.     Let X be
+the given space, and l e t ~ b e             the class of open subsets of X.                                 Let
+
+                                                  D = @~
+
+be the Cartesian power of O.                     Then D is injective by 1.3.                          Define the
+map e:X ÷ D by:
+
+                                   e(x)(U)       = I T           if x e U,
+
+                                                  [±             ifx~U,
+
+for x e X and U e ~ .              This map e is continuous                        in view of the
+topology given to @ and to D.                     The map e is one-one, because                             X is T O .
+Finally,    if U c X is open, then
+
+                                     e(U) = {e(x)                : x e U}
+
+                                             =    {e(x)          : e(x)(u)         =   T}
+
+                                             = e(X)          n    {t   E   D   :   t ( u ) e {T}},
+which shows t h a t the image e(U) i s open i n the subspace e(X) c D.
+Therefore e:X ÷ D i s an embedding of X as a subspace i n D.                                           []
+
+     l,,,..6 C o r o l l a r y .   The injective             spaces are exactly                the retracts
+of the Cartesian powers of @.
+
+     Proo~:        Such a retract is injective by 1.4.                                  If D is injective,
+then it is (homeomorphic to) a subspace of a power of O.                                             But since
+D is injective the identity function on the subspace to itself can be
+extended to the whole of the power of 0 providing the required
+retraction.        []
+
+     1.7     Corollary.            A space is injective                    iff it is a retract of
+every space of which it is a subspace.
+                                                   I01
+
+     Proof:     As in the proof of 1.6,                      this property        is obvious       for
+injective    spaces.        But in view of 1.5 every such space                          is a retract
+of a power of ~ and hence           is injective.                   D
+     As a result of these very elementary                               considerations,     the
+injective    space    could be called absolute                      retracts,     if one remembers
+to modify    the standard       definitions              by using arbitrary            subspaces
+rather    than just closed subspaces.                     Note      too that it is easy to show
+that the only continuous          maps e:X ÷ Y for which                       the extension       property
+
+
+                                              \'
+                                              X--Z~ y
+
+
+
+
+could hold    for all continuous              f:X + ~ are embeddings                  as subspaces.
+Thus it would       seem that we have a reasonably                         good initial     grasp of the
+notion    of injective       spaces,    but further                constructions       are considerably
+facilitated    by the introduction              of the lattice                structure.
+
+
+     2.     CONTINUOUS LATTICES.               Every To-Space becomes a p a r t i a l l y
+ordered    set under    the definition:
+
+                       x ~ y iff whenever                    x e u and U is open,
+
+                                       then y e U.
+
+Indeed,    though    this    relation    is reflexive                   and transitive,      the
+
+condition    that it be antisymmetric                    is exactly          equivalent    to the
+
+T -axiom.
+ o
+     In the converse          direction,           every p~rtially             ordered     set (X, C)
+can be so obtained,          for we have only to define                       U c X as being       open if
+it satisfies    the condition:
+
+                     (i) whenever      x E U and x ~ y, then y e U.
+
+The axioms    for partial       order make              X a To-Space,          because     for any y e X
+the set
+
+                                       {x e X:x          ~ y}
+is open.     This connection           is not very                interesting,    however.
+     What is interesting          in topological                    spaces    is oonve~gence       and the
+properties    of limit points.            We shall discuss                   limits   in terms of nets,
+in particular       in terms of monotone                 nets.          A monotone    net in a To-space
+X is a function
+                                          x    :    I    ÷    X
+                                                                   102
+
+
+where        < I,~ > is a directed set and where i < j i~plies x. E x. for all
+i,j c I.           In a T1-space              a monotone net is constant                           (hence, uninteresting)
+because       the E - r e l a t i o n        is the identity.                As usual         (cf. Kelley           (1955),p.66)
+we say that a net x c o n v e r g e s                      to an element y iff w h e n e v e r                   U is open and
+y ~ u, then for some i ~ I we have x. ~ U for all j > i.  Note that a
+                                    J
+monotone net x converges to each of its terns x i. Suppose that a mono-
+tone net x converges                   to an element y which                    is an upper            bound      to all the
+terms of x.             Then y must be the least upper bound, which we write                                               as:
+                                           Y =  _
+                                                U_{xi  : i ~ I}
+To see this,            assume        that z is any other upper bound with x i K z for all
+i c    I.     If U is open and y ~ U, then x i ~ U for some i ~ I.                                                But then
+z c U, and so y ~ z follows.
+            We shall find that most of the facts                                about the topology of the
+spaces we are concerned with here can be expressed                                                 in terms of least
+upper bounds             (lubs).            It is not always              the case, however,                   that lubs are
+limits.           Thus,    for a p a r t i a l l y         ordered set X, we impose                      a further re-
+striction          on its topology beyond condition                                 (i) for saying w h e n a subset
+U is open:
+            (ii)        whenever         S c X is directed, U S                       exists,        and U S      ~ U,
+                        then S n U ¢ @.
+By a directed             subset of X we of course mean that it is directed                                              in the
+sense of the partial                   ordering E.                Note that         in this paper directed                  sets
+are always n o n - e m p t y .               The sets satisfying                    (i) and        (ii) form the i n d u c e d
+topology          on a p a r t i a l l y      ordered         set X, which            is still a To-space because
+the sets
+
+
+remain       open e v e n       in    the     sense      of    (ii).        Obviously         a directed          set    S ~     X
+can    be    regarded          as    a net,       and    now in       view     of     (ii)    it     follows      that     S con-
+verges       to I IS      --    if    this      lub     exists.          We c a n     summarize         this     discussion
+as    follows.
+
+            2.]    Propos~tlon.              In a p a r t i a l l y      ordered       set    X with       the i n d u c e d
+topology,          a monotone          net x          : I ~ X with a least u p p e r                  bound      converges           to
+an e l e m e n t     y E X iff
+                             Y E U~xi  : i c I}.  o
+            Our main interest will lie with those p a r t i a l l y                                   ordered sets          in
+w h i c h every        subset has a lub: namely,                         complete       lattices.              If D is such
+a space we write                ± =~@           and T =l ID for the smallest                          and largest
+elements          (read:       bottom        and top).            As is well known, g r e a t e s t               lower bounde
+must exist,            for:
+                           ~]S       =U{x        ~ D : x E y for all y ~ S}
+gives the definition.
+            Given a complete                 lattice       D we define
+                                                             103
+
+
+                              x < y iff y • Int {z • D : x ~ z},
+where     the interior             is taken      in the sense             of the induced             topology.          The
+relation        z < y behaves           somewhat       like a strict              ordering          relation 4         at
+least     its    meaning is          clearly       that      y s h o u l d be d e f i n i t e l y     larger     than
+in the partial              ordering.         Such a r e l a t i o n       h a s many p l e a s a n t      properties.
+The p r i m a r y p u r p o s e o f i n t r o d u c i n g     it    is    to provide        a simple definition
+for     the kind of spaces              that     are most u s e f u l         to us.        We f i r s t     mention the
+most elementary              features       of this         relation.
+
+          2,2 Proposition.                 In a c o m p l e t e     lattice       D we have:
+                             (i)      i ~ x;
+                            (ii)      x ~ z a n d y < z i m p l y z U y < z$
+                        (iii)         x < y U z implies                  x ~ z;
+                            (iv)      x E y < z i m p l i e s x ~ z~
+                             (v)      x < y i m p l i e s x E y;
+                            (vi)      x < x iff           {z • D : x E z} i8 open;
+                        (vii)         if S ~ D is d i r e c t e d ,           then
+                                      x <US           iff x < y for some y • S. []
+
+          The proofs          of these statements                  can be safely          left to the reader.
+
+          2 3 Definition.             A continuous             lattice       is a complete            lattice      D in
+which for every y • D we have:
+                                      y =L.j{x • D : x ~ y}.
+          As an alternate             definition we find:
+
+          2,4 Proposition.                 A complete          lattice       D is c o n t i n u o u e      i f f for
+every y • D we have:
+                                        y = [_]{F-l.          : y • .},
+where     U ranges          o v e r the o p e n s u b s e t s of D.
+
+          P~oof:        Suppose       D is continuous.                   If y • D and x < y, then let
+                                             U = Int {z : x ~ z},
+an open set.            Now y • U by definition, and
+                                                U c    {z    : x C z}.
+Thus,
+
+
+It easily        follows        by lattice         theory that the equation                     of 2.3 implies              that
+of 2.4.
+           In the converse            direction           we have only to note                that      if U is open
+and y • u, t h e n ~ U              < y.        The implication              from 2.4 to Z.5 results
+at once.               []
+            What    is the idea of this definition?                          A continuous          lattice     is
+more special        than a complete             lattice:         not only are lubs to be limits but
+every     element    must be a limit from below.                       This     rather      rough remark         can
+be made more precise.                In any complete             lattice       D define      the p r i n c i p a l
+limit of a net x         : I + D by the formula:
+           Zim <x i : i e I> = U { F ] { x j    : j ~ i}                           : i •    i}.
+Then specify that x c o n v e r g e 8 to y • D iff
+                                      y ~      lim (x.     : i •       I)
+Having     a notion    of convergence,             we can then say that U ~ D is open                           iff
+every net converging               to an element         of U is eventually                in U.     This gives
+nothing more        than what we have             called        the induced         topology       above,     as is
+easily     checked.     But now being             in possession             of a topology,          we can re-
+define     convergence        in the usual way.                 Question:       when do the two notions
+of convergence        agree?         Answer:      if and only if D is a continuous                          lattice.
+            For obviously           by construction             the limit definition               of convergence
+implies     the topological.               Now if D is a continuous                  lattice       and x converges
+to y topologically,            consider         an open U c D with y • U.                    For some i • I
+we shall have x..q • U for all j > i.                       Therefore
+                      huE.F          x 5 :                          im<x i : i •
+From the formula of 2.4 it at once follows                              that y E       lim (x i : i e I) .
+Thus,     in continuous        lattices,         we have        shown that the two notions                   of con-
+vergence    are the same.             Finally,      suppose         that the two notions              coincide         for
+a complete     lattice        D.     Define      a set    I = {(U,z)          : y,z • U}, where              z ranges
+over D and u over open subsets                    of D.         This      set is d i r e c t e d   by the relation:
+(U,z)    ~ (V,w)     iff u 2 V.            Let x : I ÷ D he given by: x(U,z)                       = z.       Then x
+is a net converging            to y topologically.                  But     lim (x i    : i • I)        =
+ U{~U       : y • U}.         In this way we see that the assumption                              about the two
+styles    of convergence            implies      that D is a continuous                 lattice      in view of 2.4.
+           In To-spaces            continuous      functions          are always m o n o t o n i c      (i.e. E-
+preserving).         For continuous             lattices,       by virtue          of the remarks we have
+Just made    about     limits,        ~e can define             the continuity          of f : D + D' to mean
+that f(lim <x i : i •              I) ) E lim' < f(x i)             : i •    I) for all nets x : I ÷ D.
+This    is all very fine, but general                    limits       are messy        to work with;           we shall
+find it easier        to state results             in terms         of lubs as in 2.5-2.7               below.
+           Before     going        any deeper,      however,         we should         clear up another point
+about topologies.         Suppose           that D is any To-space                 which becomes            a complete
+lattice    under     its induced partial             ordering.              Then    it is evident           from our
+definitions        that every        set open in the given                  topology       is also open in the
+topology    induced     from the lattice             structure.              Question:      when do the two
+topologies     agree?     Answer:              a sufficient         condition        is that the equation:
+
+                                       y   =    U{FIu       :   y      U}
+                                                               105
+
+
+hold    for     all        y •       D, w h e r e U r a n g e s      over    the      given o p e n s e t s .         Because
+in that       case         if    F is       open in the         lattice         sense        and y •     V, t h e n
+FlU •     V for        some s e t           U, o p e n i n t h e       given        sense,     where y •         U.     But
+U c    V follows,               and so       V is      a union       of given         open sets         and is        itself
+open in the            given          topology.          Of c o u r s e     this      equation         implies        that        D
+is    a continuous               lattice        by virtue         of    2.4.         Notice     that     by the        same
+token     the    sets           of    the    f o r m {y •      D:x < y} w i l l          form a basis            for    the
+open sets        of a continuous                    lattice.
+
+        2.5      Proposition.                   If D and DI are complete                        lattices with their
+induced topologies,                      then a function f:D ÷ D l is continuous                                 iff for
+all directed subsets S c D:
+
+                                             f(Us)       :U{f(=)            : = • s}.
+        Proof:             If    f:D     ÷ D/     is    continuous,            the    equation         follows        from the
+definition            of continuous              function         and the fact that               lubs are limits.
+Assume     then £hat the equation                         holds        for all directed                sets S.         Let
+U t c D I be open in D' and let
+
+                                               u = {x •        D : f(x)         •    UJ}.
+
+We must show that U i s open i n D.                                  Note f i r s t      that i f       x E y, then
+
+                                                          s =     {x,y}
+is    directed;            hence,
+
+                                        f(x U y) = f(y) = f(x) U f(y),
+SO f(x) E f(y).                      Thus f is monotonic                  and so U satisfies              condition               (i).
+That U satisfies                     condition         (ii) follows            at once from the above
+equation.             []
+
+        2.6      p.rOposition.                  With functions from complete                           lattices to
+complete lattice~ a function of several variable8 i8 continuous                                                              in
+the variable8 jointly iff it i8 continuous                                           in the variables
+separately.
+
+        Proof:             It will be sufficient                     to discuss          functions        of two
+variables.             The product              DxD I of two complete                   lattices        is a complete
+lattice,        and it is easy to check                           that the induced topology                      is the
+product       topology.                 Since projection               is continuous,            joint      continuity
+implies       separate               continuity.           To check         the converse           suppose        that
+
+                                                        f:DxD'       ÷ D"
+
+is a map where                  the separate            continuity          holds       as follows:
+
+                                      f(lls,y)         =~{f(x,y)            : = e s}
+                                                               106
+
+
+and
+
+                             f(x,Us')              =U{f(x,y)                  : y ~    S'}
+where     S c      D and S'       c    g'are       directed             and x e       D and y e       D'.     L e t now
+
+                                                         S* e DxD'
+
+be directed          in the product.                 The projection                   of S* to S c D and S* to
+S' c D' produces             directed          subsets             of D and D'.
+Note that
+
+                                               Us*        :
+
+
+Thus by assumption
+
+                         f(U s*) : U { f ( x , y )                      : x e s, y 6 S'}.
+But since S* is directed,                      x e S and y e S' implies                            x C u and y E v
+for (u~v) e S ~.                Thus by monotonicity                          of f we can show
+
+                             f(Us*)            =    U{f(u,v)                  : ( u , v ) e s*}
+and that gives             the joint continuity.                          D
+        One of the justifications                         (by euphony              at least)         of the term
+continuous          lattice       is the fact that such spaces                               allow for so many
+continuous          functions.           One indication                   of this        is the result:
+
+        2.7        Proposition.           In a c o n t i n u o u s              lattice      D the finitary        lattice
+operations          U and R are continuous.
+
+        Proof:           It is trivial             to show that U is continuous                         in every
+complete        lattice;        this     is not so for R.                        In view of 2.6 we need only
+show
+
+                                        xnUs             = U{=ny                  : ye       s}
+
+f o r every d i r e c t e d S c D.                 In fact i t            i s enough to show
+
+                                        =nUsg                 U{xn            y : yes}
+because       the opposite             inequality             is valid           in all complete            lattices.
+I~ view of the fact that                       D is continuous,                   it is enough         to show that
+
+                         t < x R Us             implies            t EU{z         R y       : y e s}.
+
+so assume          t < x n [Js.           Then t U x R U s c                     x.     Also       t < [J S because
+x RUs~             Us.    Thus t < y for some y • S since                                   the set
+
+                                               {z    e    D    :    t    < z}
+
+is    open.        But   then     t E y,       and       so   t q x R y,              and    the   result     follows.    0
+        It    is    now t i m e       to provide          some e x a m p l e s         of    continuous       lattices.
+                                                     107
+
+
+      2.8     Pro positiog.        A finite lattice is a continuous                           lattice.      O
+
+      2.9     Proposition.          The Cartesian product of any number of con-
+tinuous     lattices is a continuous                 lattice with the induced topology
+agreeing with the product topology.
+
+      2•]0 Proposition.             A retract of a continuous                          lattice is a con-
+tinuous lattice with the subspace topology agreeing with the induced
+topology.
+      It would       seem that the continuous                     lattices           are starting     to sound
+suspiciously        like the injective              spaces.             Indeed,       if we can prove     the
+following,        the circle will be complete.
+
+      2_=.ll Proposition.           Every continuous                    lattice is an injective space
+under its induced topology•
+      2.]2        Theorem.     The injective spaces are exactly the continuous
+lattices.
+      This theorem          is an immediate              consequence           of the preceding
+results:      an injective        space      is a retract                of a power of @.           But @ is
+a finite     lattice      (± C T), and so the given space                             is a continuous
+lattice     under    its induced        topology.               On the other hand a continuous
+lattice     is injective.          It remains            then to prove               2.9 - 2.11.
+
+      Proo[ of 2.9           Let D i for i e I be a system of continuous
+lattices.         The product
+
+                                           D~ = X                 Di
+                                                         ieI
+
+is a complete        lattice     in the usual way and has its induced                               topology.
+Suppose y e D~ and let i • I •                      Then Yi • Di"               Since    D i is a
+continuous        lattice
+
+                                 Yi = _ _ [ [ { x    •     Di     : x    <   Yi }.
+For x •     Di,    let   [x] i • D~ b e d e f i n e d           by:
+
+
+
+                                  [x]} =
+                                                         if i~j.
+
+Note that since          D. is continuous             we have:
+
+                               [yi ]i = U { [ x ]          i : x ~ yi },
+
+and                                y =[ [{[yi                   : i • I}.
+                                                       108
+
+
+It    follows    that
+
+                      y = U{FI{             :           v}       :              I,   yi       u},
+where i     ranges over I and U over the open subsets o f Di , because
+
+                [=3 ~ E n {z : z i e U}, where U = {u E D.
+                                                         ~ : x ~ w} •
+
+But the sets          {z    : z. e U} are open in the product                                sense,    and so
+
+                                      y = U{Flu              :              v},
+w h e r e U r a n g e s now o v e r    t h e open s u b s e t s            of    the product          topology        on
+D*.      By the remark         following        2.4 we conclude                      that D* is continuous
+with the lattice-induced                topology        being             the product          topology.         []
+
+         Proof of      2.1Q     Let D' be a continuous                          lattice       and let D c D' be
+a subspace       which       is a retract.            We have for a suitable                        j:D'   ÷ D,
+
+                                      D = { x e D'          : j(x)          = x},
+
+where o f course j            is continuous.
+         F i r s t a note o f warning:               though D i s a subspace i t                       is not a
+sublattice; that is,             the p a r t i a l     ordering                 on D i s the r e s t r i c t i o n         of
+t h a t o f D ' , but the lubs o f D are n o t those o f D'                                    We s h a l l have t o
+distinguish       operations          by adding        a prime             (') for those            of D'.
+         Suppose x,y e D.             Let z' = x U'y                     e D' and define            z = j(z t) e D.
+Now x E z I and y E z' and j is monotonic,                                  so x E z and y E z.
+Suppose x E w and y E w with w E D.                              Then in D' we have z U'y E w; so
+z E w also.           Hence we have shown that z = x U y in D.
+         To show that D has a least element                               z (which may be larger                 than
+the ±i e D'), we need a well-known                          lemma about monotonic                      functions:
+Every monotonic             function    on a complete                    lattice       into itself has a
+least     fixed point.          (Cf. Birkhoff              (1970),p.                 115.)     In our case j is
+monotonic       and
+
+                                     i = F ~ ' { = e D'              :    J(=) E =}
+is the desired             element    in D.
+
+         Thus   D is at least a semilattice                          with       z and U.        To show that D
+is a lattice          we need    to show that every directed                              S c D has a lub in D.
+
+Now we know:                                         U,s     e D',
+
+and this        is a limit of a monotone                   net.           So by 2.1, and the continuity
+of j :
+                                 j(U'S)          = U{J(x)                  : x e S}
+
+                                                 =     Us
+in D.      In this way we now know that D is a complete                                        lattice.      We must
+                                                        109
+
+
+still show that D is continuous.
+        Suppose       y E D.       In D' we can write:
+
+                                      y =        U'{x     e D'       : x ~ y}
+
+and this       is the limit of a monotone                     net.     Thus
+
+                            icy)     = ~ =       [J{jcx)       : = <y,        = •   D'},
+
+where     the lub is taken in D.                  Note that the sets
+
+                                            U = {z • D : x ~ z}
+
+are open in D for each x • D'.                      Note too that if z e U, then z E z
+and so j(x) ~ j(z)             = z.     This means            that
+
+                                                 j(x) E       Nu
+
+in D.      We can then write            in D:
+
+                                        y    :            N u : y            U)
+
+where     U ranges         over the open subsets               of D, and so the lattice               is
+continuous          by 2.4.     Inasmuch         as the open sets U just used were                     open in
+the subspace          topology,       it follows         by the remark            after    2.4 that    the
+subspace       and the lattice-induced                  topologies       coincide.         []
+
+        Proo[       o~ 2.11:       Let D be a continuous                lattice with its induced
+topology,        and let X c Y be two To-spaces                      in the subspace            relation.
+Suppose
+
+                                                   f :    X~D
+
+is continuous.              Define
+
+                                                   ~ : Y~D
+
+by t h e f o r m u l a :
+
+
+where     U ranges         over the open subsets               of Y.     We need t o show that
+extends      f and that        it is continuous.
+        First,       the continuity:             Suppose       that d e D and d < f (y); that
+is, f(y)       belongs       to a typical         basic       open subset         of D.     Since   D is
+continuous,          we can also find
+
+
+
+with d'e       D.     From the definition               of f it follows             that
+
+                                     d' ~ ~{f(x)              := e     X n    v}.
+
+for some open U ~ Y with y e U.                         Thus
+                                                 110
+
+
+
+
+for all y' e U by virtue of the definition of f.                          Since d < d', we
+have also
+
+                                            d < 9(y' )
+
+for all yt • U; in other words,                 the inverse image of the open subset
+of D determined by d under f is indeed open in Y, and f is thus
+continuous.
+     Next, the extension property:                     Note that the relationship
+
+                                          f(x I ) ~ f(x I )
+
+for all x' • X comes directly out of the definition of f.                          For the
+converse,   suppose d < f(x') where d • D.                     By assumption f : X ~ O is
+continuous,    so
+                                            d    <   f(x II)
+
+for all x ~ • X n U where U is a suitable open subset of Y with x'• u.
+In particular we have:
+
+                             d C     ~(f(d')           : dl • X n   U},
+and so d E f(x').           Since d < f(x') always implies d C f(x'), we see
+that f(x I) E f(x') follows by the continuity of D, and the proof is
+complete.     []
+     The lattice approach to injective spaces gives a completely
+"internal" characterization              of them:        in the first place the lattices
+are complete.        Next we can define lattice theoretically:
+
+                    x < y      iff       whenever y ~ ~J Z and Z c O is directed,
+                                         then x C z for some ~ • z.
+Finally we assume that for all y • D:
+
+                                   y =   I l{x•        O : =   <y}.
+That makes D a continuous             lattice with the sets {y • D : x < y} as a
+basis for the topology.              Such To-Spaces are injective and every
+injective space can be obtained in this way with the lattice
+structure being uniquely determined by the topology.                         Furthermore,    as
+we have seen, the injective property can be exhibited,                        as in the
+proof of 2.11, by an explicit formula for extending functions.
+     The retract approach to injective spaces should also be
+considered.        The Cartesian powers 8 [ are very simple spaces;                  indeed,
+as lattices these are just the Boolean algebras of all subset8 of I
+(that is, isomorphic thereto).                  The topology has as a basis the
+                                                           tit
+
+
+classes of sets containing given finite sets                                       (the weak topology, cf.
+Nerode        (1959)).           A continuous        function
+
+                                                     j : pI -~ pI
+is one of "finite character" so that
+
+                                            j(x)    =U{j(~)          : ; c_ x)
+where X c_ I and F ranges over finite sets.                                       Such a function j is a
+retraction iff it is an idempotent:
+                                                       joj       = j,
+
+which means that the range of j is the set of fixed points of j.                                                    As
+we have seen
+
+                                            D =    {X e    pI     : j(x)      = x}
+
+i s a continuous l a t t i c e (under c in t h i s case), and every continuous
+l a t t i c e i s isomorphic to one obtained i n t h i s w a y . This provides a
+representation theorem of sorts f o r continuous l a t t i c e s , but i t                                      does
+not seem to be of too much help in proving theorems.
+      The r e a d e r           should     not    forget     that       any space       ( a n y given n u m b e r o f
+spaces        X, Y , . . . )     can be found as a subspace                       of a continuous         lattice
+D.   Since         D is        injective     any continuous              function      f   : X ~ Y c a n be
+extended         to a continuous             function        f    : D ~ D.          Thus the     continuous
+functions          from D into           D are     a rich        totality         including     all    the
+structure          of continuous            functions        on a l l       the    subspaces.         And t h i s
+remark brings              us to     the    study     of    function         spaces.
+
+
+         3.      FUNCTION SPACES.                 We r e c a l l the standard d e f i n i t i o n and
+introduce our notation for function spaces.
+
+         3.]        Defi,itio,.            For To-spaces            X and Y we let IX ~ Y] he the
+spa~e of all eontinuous functions f: X ~ Y endowed with the product
+topology,           sometimes called the topology of pointwise convergence.
+This topology has as a subbase sets of the form:
+
+                                                   {f : f(x) • U}
+where x • X and U c Y is open.
+      The pointwise aspect of the topology is immediately apparent                                                  in
+the partial ordering.
+
+         3.2       .[roposition.            The induced partial ordering on [X ~ Y] is
+such that:
+
+                                f C_ g      iff       f(x) C_ g(x) for all x E X,
+                                               112
+
+
+where f~ g • [X + Y].           []
+        The first question,          of course,       is what kind of a partial ordering
+this is.
+
+        3.3   Theorem.   If D and D' are continuous lattices, then so is
+[D + D t] under the induced partial ordering with the lattice topology
+agreeing with the product topology.
+        Proof:    The argument is "pointwise."                    Thus, the constant function
+with value i • D' is obviously continuous                        and is the ± of [D + D'] by
+3.2.     Since by 2.7 the lattice operation U on D' is continuous,                               then
+if f, g e [D + D'] the composition f U g~ defined by
+
+                                (f U g)(x) = f(x) U g(x)
+for all x e D, is also continuous                and represents            the lub of {f, g} in
+[D + D'].        (The same arguments apply to T and ~, so [D + D'] is at
+least a lattice.)        To show that [D + D'] is complete it is sufficient
+now to show that lubs of directed subsets exist.                            So let   ~ c [D ~ D']
+be directed.       Define a function from D into D' by the equation:
+
+                         C U~        )Cx) = U C f ( x )         : f • .I' ),
+for all x e D.       If we can show that              U i~ is continuous,            then being
+in [D + D'] it has to be the lub.                    Consider U c D', an open subset.
+Taking the inverse image and remembering                        that ~     is directed, we find:
+
+              {x : (~J.IF)(z) e U} = U               {{x : f(x) • U} : f e ~           }.
+This is an open set, and so U ~                  is indeed continuous.               (warning:
+the infinite [ ~         are not in general computed pointwise;                      however,       it
+is easy to extend the above argument to show that arbitrary                                 U~
+are.)
+        To show that [D + D'] is continuous, we establish first that
+for f • [D + D']
+
+                            f = U{~Ee,e']                    : eJ< f(e)},
+where e ranges over D and e I over D'                        and where the function e[e~e ~ ]
+is defined by:
+
+
+
+                            e[e,e' ](x) =
+                            +                        {   eI
+
+
+
+                                                         i
+                                                                 if e~ x~
+
+
+
+                                                                 if not,
+
+for all x e D.       Call the function on the right f'.                        Calculate:
+                                                      113
+
+
+
+                        f' (x) = U { ~ [ e , e ' ] ( x )                    : e' < f(e)}
+
+                                     = U{e'             : 3e.z[e'<f(e)]}
+                                     = U{e'             : e l , f(z)} = f(x).
+
+With the equation for f proved, note next that for all g • [D ~ D'],
+
+                               e'* g(e)         implies ~[e,e'] E g
+
+by an easy pointwise          argument.           If we let
+
+                                      V = {g : el* g(e)},
+
+we see then that v is open in the product topology and that
+
+                                           e[e,e'] c R                 v.
+
+We may then conclude that
+
+                                f    = U{        NV : f            •    V},
+which proves    both   that     [0 ~ O~]          is        a continuous             lattice      and that     the
+two topologies agree by the remark following                                   2.4.       []
+     The above theorem might possibly be generalized to IX ~ D] where
+X is merely a To-space , but I was unable to see the argument.                                               In any
+case we are mostly interested in the continuous                                      lattices.        Note as a
+consequence of our proof:
+
+     3.4     Corollary.        For continuous                 lattices             O and O', the
+evaluation    map:
+
+                                    eva]       : [O ~ D'3 × D ~ O'
+
+i8 continuous.
+     Proof:     Here      eval(f,x)            = f(x).         With f fixed, this is
+obviously continuous.           With x fixed, we proved the continuity above
+with our calculation of              U~         in view of 2.5.                     Hence applying       5.3 and
+2.6, we conclude       that eva] is jointly continuous.                                   []
+
+     This result gives only one example of the masses of continuous
+functions that are available on continuous                                   lattices.          As another
+fundamental example we have:
+
+     3.5     Proposition.           For continuous                 lattices          D~ D', and D", the
+map of functional       abstraction:
+                     lambda    : lED       x    D']     ~    O"]   ~        [D ~    [D'   ~    D"]]
+
+is continuous.
+                                                 114
+
+
+     Proof:     Here     lambda is defined             by:
+
+                                    lambda(f)(x)(y)          : f(x,y)
+where f e [[D x D'] ~ D"] and x E D and y e D'                                  What is particularly
+interesting    here     is that by virtue              of 3.3 we are making               use of
+[D ~ [D' ~ D"]] as a continuous lattice.  The principle                                   being    stated
+here can be formulated more broadly in this way:
+              If an expression          a(x~y~z~...)          is continuous          in
+     all its variables x,y,z,.., with values                          in D' as x
+     ranges in D, then the expression
+
+                                       kx:D.a(x,y,z,...)
+     with values        in [D ~ D'] is continuous                  in the remaining
+     variables       y~z, . . . .
+The k-notation       is a notation         for functions,           where        in the above       the
+variable    after    the X is the argument               and the expression               after    the    .
+is the value     Cas a function          of the argument).               Thus we could write:
+
+               lambda    = kf:[[D       x D'] ~ D"].kx:D.ky:D'.f(x,y),
+
+and, because    f(x,y)      is continuous           in f: x~ and y, our conclusion
+follows.     But often      it is more readable               not to write          equations
+between    functions     but rather        equations         between values          for
+definitional     purposes.
+     The proof of the principle                 is easy.         For let the variable               y, say
+range over D" and let S c D" be a directed                         subset.         Then
+
+           kx:D.a(x,     I IS, z .... ) = k x : D . U { a ( x , y , z , . . .      ) : y e S}
+
+                                             = U{kx:D.a(x,y,z,...)                   : y e S},
+because the lubs of functions are computed pointwise.  D
+     We need not enumerate the many corollaries that follow easily now
+from this result.          We mention,         however,       that composition             fog of
+functions     Con continuous          lattices)        is continuous            in the two function
+variables,    where we write
+
+                                       (fog)(x)        = fCg(x)).
+     What will be useful will be to return at this point                                   to a
+discussion    of the injective           properties          of continuous          lattices.        If
+one continuous       lattice        is a subspace        of another        it is of course           a
+retract.     This relationship            between       spaces     can be given by a pair of
+continuous    maps
+                                                  115
+
+
+
+                         i : D ~ D'              and         j    : D' ~     D   ,
+
+where
+
+                                  joi = id D = lz:D.x                  .
+
+The composition ioj       : D' ~ i(D) is the retraction onto the subspace
+corresponding      to D under i.           Now if we have a diagram:
+
+
+
+
+                                            f
+                                                 \'
+                                                D~
+                                                        J /
+                                                                 D'
+
+                                                                  ~=foj
+                                                        OH
+
+
+the given continuous f is at once extendable                               from D to D' by the
+obvious definition of f.             This f is not the f used in the proof of
+2.11, and it will be well to sort out the connections.                                    On one side
+note that if f' is any function which extends f, then we have
+f = fioi.       But this implies
+
+                                          = foj = f'oioj,
+
+which shows that f is a "degraded" version of fl.                                    There is one
+situation where this type of degrading                           is especially nice.
+        5.6     Definition.       A continuous           lattice D is said to be a
+projection of a continuous                lattice D' iff there are a pair of
+continuous maps
+
+                                  i : D ~ D' and j : D' ~ D
+
+such that not only
+
+                                           joi     =    id D ,
+
+but also
+
+                                            i o j E idD~.
+
+        Thus,    in case our retraction                is a projection, we have f E fl,
+which means that f is the minimal                      extension of f E [D ~ D"] to a
+function in [D' ~ D"].              We will discuss the nature of f in a moment.
+But before we do we pause to remark that the correspondence f ~
+is continuous,       and this fact is easily extended.
+
+        3.7     P,roposition,       Suppose the two pairs of maps
+
+                              i    : Dn         D nl and Jn           : Dln ~ Dn
+                                                 116
+
+
+for n = 0,1 make O n a retraction (projection) of Dr'n 2hen [D O ~ D I]
+is also a retraction (projection) of [D~ ~ D~] by means of the pair
+of maps:
+
+                                  ~(f) = ilofOjo        ~ and
+
+                                  ~(ft)    = jloftoi 0 ,
+
+where f 6 [D O ~ DI] and f! e [D~ ~ D I'] •                    []
+
+     Returning now to f we can prove:
+
+     3.,.8 Proposition.            If   O is   a continuous           lattice and e   :   X ~   Y   a
+8ubspace   embedding,     then for each f : X ~ D, the function f : Y ~ D
+given by the formula
+
+                   ~(y) = LJ{Fl{f(x)                : e(=) •        U} : y •   U},
+where U ranges over open subsets of Y and x over X, is the maximal
+extension of f to a function in the partially                          ordered set [Y ~ D].
+
+     Proof:    We are saying that f is the maximal solution to the
+equation
+
+                                            f=~oe
+
+We already know it is a solution,                   so let fl be any other.           We have
+
+           f'(Y)    = L~{R{f'(z)               : z • u}    : y • ~}
+
+                      U    {R{f'(z)            : ~ •   e ( X ) n u}     : y e u}
+
+                    : L_J{N        {f'(e(x))        : e(=) •        U} : y •   u}
+
+                    = LJ{N         {f(=)    : e(=) •      u}    : y •    u}
+                    : ~(y)    ,
+
+which establishes that f l C ~.                []
+     By the same argument we could show that f is the maximal
+solution of foe E f.          An interesting question is whether the
+correspondence f ~           ~ is continuous.             I very much doubt it, but at
+this moment a counterexample               escapes me.          It is clear that the
+correspondence      is monotonic,          for if f C g, then the formula of 3.8
+shows that f E g.         This gives us a neat argument for the previous
+remark:    if goe C f, then
+                                            ~oeE~
+But goe = goe, so by 5.8, g C goe, and ~ is thus maximal.
+                                                        117
+
+        In the     case    that     the    range       spaces     are being       extended,     the
+following       1emma r e l a t i n g     the extensions              will   be   very useful     when we
+consider       inverse     limits.
+
+        3.9     Lemma.       Consider the diagram:
+
+                                                   X          e   )    y
+
+
+
+
+                                                   D ~
+                                                              d
+where the upper row is a subspaee embedding and the lower is a
+projection.  If the given functions f and g are extended to f and
+as in 3.8, and if f = jog, then ~ : jog also.
+     Proof:  f and g are maximal solutions of f : joe and g = ~oe.
+Therefore since
+
+                                           f = y°g :          j o~oe,
+
+we s e e t h a t
+                                                 ~o~ _~ ~.
+Note a l s o    that
+
+                                        iofoe = ~of = io$og c_ g,
+
+and so by the remark following 5.8, we have
+
+                                                 io?_C ~.
+Therefore
+
+
+
+which proves the equality.                   D
+        Whether this lemma is true for retractions                                in any form, I do not
+know.      My proof seems to require the stronger projection relationship.
+I suspect there may be difficulties.                              In general projections          are
+better behaved than retractions.                         By the way the word projection                 seems
+to be properly used in 5.6, for the projection j:D×D'~D of the
+Cartesian product of two continuous lattices onto the first factor i8
+a projection with partial inverse I:D ~ D×D' defined by
+
+                                             i(x)       = (x,±)
+
+for x • D.
+                                                     118
+
+
+       3.10        Proposition.          If the continuous           lattice   D   is a projection
+of the continuous             lattice     D l via the pair of maps i,j; then for all
+S c D and all x,y E D we have:
+
+       (i)        /(Us)       = U{i(x)           : x e s},
+
+      (ii)        i(x)     = i(y)     implies    x=y,
+     (iii)        x ~ y implies i(x)             ~ i(y).
+Conversely,            if a map i:D ~ D l satisfies               (i) - (iii), then there exists
+a continuous j:D'~D making                      D a projection       of D', and in fact j is
+uniquely determined by:
+
+      (iv)        j(x I) = U { x        e D : i(x) G x'}
+
+for all x t E D'.
+
+       Proof:            Equation     (i) holds for directed S c D because i is
+continuous.              To have it hold for arbitrary S it is only necessary to
+check it for finite                 sets, because every lub is the directed lub of
+finite sublubs.              (The last word of that sentence is an unfortunate
+accident.)             Further, to check the equation for finite sets it is
+enough to check it for the empty set and for two element sets.                                Thus,
+i(±) = ±, because j(i(±))                 = ± and since ± E i(±),
+
+                                         J(±) G j C i ( 1 ) )     = ±,
+
+so   j(i)     =   ±.      Whence i(±) = i(j(1)) E            ±.     Next i(x U y) = i(x) U i(y),
+b e c a u s e first
+
+                                       i(x) u i(y) E i(x U y)
+by monotonicity.              Then n o t e t h a t
+
+                                         i(x) E i(x) u i(y)
+and so
+
+                                    x = j(i(x)) E j(i(x) u i(y)).
+Similarly
+
+                                         y E j(i(x) u i(y)),
+whence
+                                       x U y E_ j(i(x) U i(y)).
+
+But t h e n
+
+                         i(x U y) E_ i(j(i(x) U i(y))) E_ i(x) U icy)
+
+which completes             the argument for         equation       (i).
+                                                                119
+
+
+
+         Condition           (ii)       is   obvious.           For           (iii)            we a r g u e   as     follows.
+Assume x < y.                Since       D' i s        continuous                 we c a n w r i t e :
+
+                                    i(y)     =    ~     {zl• D'           :       z/< i(y)},
+
+and conclude              by the continuity                   of j that:
+
+                              y = jCi(y))=U{jCz                           t)        :    z'.¢ i(y)}.
+
+But x < y, so x < j(z I) for some z I< i(y).                                                    Now x C_ j(z l) follows;
+therefore          i(x) C i(j(z t)) _C z j .                    Thus i(x) < i(y).
+         Turning          now to the converse,                      assume               of the map i that it s
+satisfies           (i)        (iii).            Compute:
+
+                             i(d(x'))            = I ]{i(x) : i(x) C_ x'} _c x'.
+This      is correct          because            i is continuous                        and the set {x : i(x) C z t } is
+directed           in view of condition                      (i).         Thus           ioj C_ idD,.              Note that by
+virtue        of    (i) and         (ii) it is the case that
+
+                                         i(x) C_ i(y) implies x _C y.
+
+(The reason           is that x C y is equivalent                                       to x LJ y = y.)               This      remark
+allows us to compute:
+
+                                     j(i(y)) = U               {x : i(x) C_ i(y)}
+                                                       = U{x          : xC_ y} = y.
+
+Hence,       joi = id D.             It remains              to show that j is continuous.
+          Suppose S' c D' is directed.                                Since j is by definition                                 monotonic,
+it is sufficient                to prove              that
+
+                                    j(l Is') c_ U{j(=')                             : x'e s'}.
+Now
+
+                                    j ( U s ~) : L J { x              :       i(x) E Us':},
+so suppose           i(x)     K_ U       sI •         Let    z < x;           whence            i(z)       < i(x).      Thus
+i(z)      < x ~ for         some x t •       S,       and    therefore                  i(z)      E x t.      We o b t a i n     then
+z _C j ( x t ) ,     which means              that
+
+                                              z c ~{j(x/)                     :    x t• s t}
+holds       for all z < x.                   By the continuity                          of D we conclude
+
+                                             x _c I l{J(xt)                   :     xt • st}
+holds       for all x with i(x) C_ I I S t .                              The desired                  result        follows.       []
+         As a corollary                 of 3.I0 we can easily                              see which 8ubspace8                   of a
+continuous           lattice         D' are projections                           of it.            Such a subspace              D c_ D'
+must      first be closed under                        I I .    That is, if S c D, then                                 Us       • D for
+                                                         120
+
+
+all S, where         the lub is taken in the sense of D'                            The identity      map on
+D will    then satisfy           (£) and      (£i).        But this      is not enough,          since we
+would not know that D is a continuous                           lattice,       nor whether       (££i) hold&
+The following         additional           condition      would be sufficient,               if assumed     for
+allye        D:
+
+                                      y = U{x            e D : x ~y},
+where    < is taken in the sense of D'.                         This     implies    that
+
+                                     y : U    { F~(D n U ) :           y e U}
+
+where U ranges over the open subsets o f D' and where the                                      F~ i s taken
+i n the sense of D.              This c o n d i t i o n makes the subspace topology the
+same as the l a t t i c e topology on D and besides makes D continuous,
+which    is just what we need.                    (Another way to put it is that whenever
+z < y, where y e D but z e D', then z C_ z < y, for some z e D.)
+        It seems       a bit troublesome             to characterize             in a simple way just
+which maps $:D'-* D are projections.                            (Other than saying outright
+that the map £:D ~ D' such that for all z e D:
+
+                                i(z) = ~ { z ' e          D' : = E J(=')}
+£8 the continuous              partial      inverse       to j.)       But we can say very easily
+which continuous           maps j:D'-~ D' are projections                      onto 8ubspaoes; namely,
+we must have
+
+                                              j   = joj_Eid.
+
+The subspace i n question then i s :
+
+                                      D = {= e D' : j ( = )         = =}.
+This non-empty subspace i s the exact range of j                                 and i s closed
+under I I            Let y • D.         Then if x I < y in D', we find j(x I) E_ xl< y.
+Thus since
+
+                                     y =     U{x1•         D'    : z/~   y},
+we see that
+
+                                y = j(y)      =    I l{5(x')        : xl~y}.
+But   each    j(x)    •   D,    so   y = [_]{z       •    D : x ~ y},       as    desired.
+        The foregoing           discussion        suggests        looking more closely            at the
+space of all projections                   of a continuous          lattice       since      they are so
+easily characterized.
+                                                 121
+
+         3.11     Definition.       Given a continuous l a t t i c e D, we l e t the space
+of projeotlons be denoted by:
+
+                           JD = { j e [D ~ D] : j             = joj E id}.
+
+          3.12    Proposition.        For a continuous              lattice    D the space JD of
+projections        forms    a complete      lattice         as a    U-closed       subspace    of
+[D ~ D].
+
+         Proof:     The constant f u n c t i o n ± E JD o b v i o u s l y , so JD contains
+     I I B.   Suppose j , k • JD"        We wish to show t h a t j U k • JD"                  Compute:
+
+              ( j U k ) ( ( j U k ) ( x ) ) = j ( j ( x ) U k(x)) U k ( j ( x ) U k(x))
+
+But note:
+
+                       j ( x ) E j ( j ( x ) ) E j ( j ( x ) U k(x)) E j ( x ) ,
+
+because j ( x ) U k(x) E x.             Similarly for k(x).                 Therefore, we f i n d
+that (j U k)o(j U k) = j U k E id.                      Suppose finally that S c JD is
+directed.         We wish to show that           Us         • JD"     Clearly      US     E id, so
+compute by continuity of o:
+
+              UsoUs:U{joj                : J         5} :             : J • s}:         us.
+
+It f o l l o w s t h a t JD i s U-closed and hence i s a complete l a t t i c e .                      B
+        The significance of the above result becomes clearer if we
+consider the connection between projections and subspaces.             Let us
+write:
+
+                                D(j) = {x • D : j ( x )             = x}.
+For j • JD' each D(j) i s a p r o j e c t i o n of D onto a subspace.                         We show
+first that
+                                j E k          iff          D(j) c D(k)
+
+Because if j E k, then j E joj E koj E idoj = j.                               Therefore      if
+j(x)      = x, then k(x)      = k(j(x))        = j(x)       = x, which means that
+D(j) c D(k).          On the other hand, if D(j) cD (k), then since
+j(D) c D(j), we see that koj = j. and so j C koid = k.                                   Hence JD is
+isomorphic to the partially ordered set of subspaces of D that are
+projections.          We thus conclude that these subspaces form a lattice.
+In fact, it is easy to show that
+
+                      D(j U k) = {x U y : x • D ( j ) , y • D(k)}.
+
+Similarly, if         S i s a d i r e c t e d set o f JD' then D ( U s )            i s the
+U -closure i n D of the subset:
+
+                                       U{D(j)         : j • S}.
+                                                               122
+
+
+       These       are   not     very       deep    facts,           but     their     proofs         were    very        much
+facilitated         by the       introduction             o f JD a n d t h e           utilization            of     the
+lattice      structure         of    [D ~ D ] .          Along         the    same l i n e      we c a n d e f i n e           for
+j,k e JD a function                 (j ~ k) • [D ~ D] ~ [D ~ D] by the equation
+
+                                             ( j ~ k)(f)              : ~°f°j.
+
+It is very easy to show that                        (j ~ k) • J[D ~ D]' that (j ~ k) is
+continuous         in j and k, and that [D ~ D](j ~ k) is isomorphic                                                 to
+[D(j) ~ O(k)].             There       are many other                  interesting           operations            on
+projections         corresponding             to other constructs                      besides         these.           And,
+just as with         (j ~ k), the operations                           are continuous.                 This makes              it
+possible         to prove      existence           theorems            about subspaces                by using          results
+like the fixed-point                 theorem        for continuous                   functions.             It would be
+even nicer         if JD turns             out to be a continuous                      lattice         itself,          but as
+far as I can tell this is not likely                                   to be the case.
+       Before we turn to the iterated                                 function-space            construction               by
+inverse      limits,       there are a couple                        of other connections                   between        spaces
+and function         spaces         that are useful                   to know.
+
+          3.]3     9FopositioD.              Every aontinuou8                  lattice D i8 a projection of
+its function 8pace [D ~ D].
+
+       Proof:        Consider          the following                 pair of mappings                 con    :D ~ [D ~ D]
+and mi,       : [D ~ D] ~ D where
+
+                                                   con(x)(y)            = x
+
+and
+
+                                                   min(f)            : f(±)
+
+for all z,y e D and f E D.                         They are obviously                   continuous.                The map
+con matches         every element             of D with the corresponding                              eonstant
+function         in [D ~ D].           The map min associates                         to every         function           in
+[D ~ D] its minimum value                     in the partial                  ordering.          The proof              that
+this pair forms            a projection             is trivial.                []
+       The pair con, min are not the only pair for making                                                   D a
+projection         of [D ~ D].              The following               pair of maps were suggested                             by
+David Park:
+
+                                       kX.~[t,x]               and      kf.f(t),
+where x ranges           over       D, a n d f      over        [D ~ D] a n d w h e r e           t    is    a fixed
+isolated         element    of      D (that        is,     t    < t     holds).         The p a i r         con    a n d min
+will   result       if   we s e t      t    = ±.         (Note        that    the     expression            ~[t,x]        though
+continuous         in x is       not       continuous--or               even monotonic--in                   the     variable
+t.)    A lattice         may v e r y        well    possess            a large        number      of    isolated
+                                                      123
+
+
+elements,       whence a large        number of projections.                        And f u r t h e r m o r e     this
+is    the   o n l y way t h e   function     j    =    ~f.f(t)        can be a projection.                      For
+assume the        existence      of an inverse              i    : D ~ [D ~ D] s a t i s f y i n g          the
+proper      conditions.         Then it     would be the              case    that
+
+                                             i(x)(t)            = x
+
+and
+
+                                       i(f(t))(y)               E f(y)
+for all x,y e D and all f e [D ~ D].                              We can prove for all U • D, if
+t ~ U, then
+
+                                             i(x)(U)            = ±
+
+by substituting e [ v , x ] for f in the second equation above, where v is
+chosen so that v < t but not v < u.                             But then note that
+
+                            i(x)(t)    = L]{i(x)(u)                   : u     t}.
+
+If not t < t, then u < t implies t ~ u, which leads to absurdity.
+Hence t must be isolated,              and, as we noted earlier,                         the function i is
+uniquely determined as being the one we already knew.                                          Aside from
+these pairs of projections                 one could obtain others by combinations
+with automorphisms.               I was unable to determine whether there are
+further pairs of an essentially different nature.
+        The topic of projections                 in these spaces is rather interesting
+since one has in a way more freedom in To-spaces                                     (particularly in
+injective spaces)           than in ordinary spaces for defining functions.                                           As
+another example, consider the Cartesian square DxD.                                        Aside from the
+two obvious projections              onto D, there is also the "diagonal" system
+given by the pair:
+
+                                ~x.(x,x)         and            ~(x,y).x R y
+
+We shall note in the next section how the choice of an initial
+projection effects the construction                             of an inverse limit.
+        The projections           are not the only useful functions                            in
+[D ~ D] ~ D.          As a final example of what can be done in function
+spaces we mention the fixed-point                       operator.
+
+         3.14     Proposition.        For a c o n t i n u o u s           lattice     D there       is a
+uniquely        determined      continuou8        mapping
+
+                                           fix    :    [D ~ D] ~ D
+where for all f •           [D ~ D] and x • D
+
+                                      f(fix(f))             :    fix(f)
+                                                                  124
+
+
+and    whenever           f(x)    : x,    then
+
+                                                       fix(f)               C x.
+
+         Proof:           The p r o o f   of the        existence                  of minimal fixed      points      in
+complete           lattices       is well      k n o w n , a s was m e n t i o n e d           in the proof        of 2.10.
+To e s t a b l i s h      the continuity,              it     is        sufficient         to remark that       since     all
+functions           f •     [D ~ D] a r e c o n t i n u o u s ,               we h a v e
+
+                                                 fix(f)           :         Ufn(±)
+                                                                            n=o
+
+where fn(z) = f(f(...f(x),..))(n                                  times),              Thus fix is the point-wise
+lub of continuous                 functions on [D ~ D] and is thus itself contin-
+uous.         D
+         4.        INVERSE LIMITS.               By an inverse system o f s p a c e s we u n d e r s t a n d
+as usual           a sequence
+
+
+                                                       (XnjJn) n=o
+
+of To-spaces and continuous maps J n : X n + l ~ Xn.                                        The space X , c a l l e d
+
+the i n v e r s e      limit      o f the sequence,                     i s c o n s t r u c t e d i n the f a m i l i a r way
+as that           subspace       of the product               space consisting                of exactly      those
+infinite           sequences
+                                                                        )
+                                                   X    =     (X n          n=o    ,
+
+
+where for           e a c h n we h a v e z n •              Xn,
+
+and
+
+                                                  jn(Xn+1) = x n.
+The space X               is given the product topology,                                 and the maps j~n:X=~ Xn
+
+such that
+
+                                                       j.n(X)               = xn
+
+are of course continous and satisfy the recursion equation:
+
+                                                 J'n : Jn°J'(n+l).
+Besides this we have the expected extension property for any system
+of continuous maps
+
+                                                              fn : Y ~ Xn
+
+where for each n
+
+                                                   fn = Jn°fn+l"
+                                                          125
+
+
+Because, we can define
+
+                                                  f     : Y~X
+
+by t h e e q u a t i o n
+
+                                            f ~ C y ) = (fn(y))~=o
+
+for all y • Y; whence
+
+                                                      fn = J°on°fo°
+holds.         So much for a review of inverse limits.                             In this paper our
+interest will center on rather special inverse systems and their
+limits.
+
+        4.1      Proposition.             Let (Dn,Jn > ~=o be an inverse system of
+continuous         lattices where each Jn:Dn+l ~ D n is a projection•                                   Then the
+inverse limit space D                   is also a continuous               lattice.
+        Proof:          We need only show that D~ as a To-space is injective.
+So s u p p o s e f ~ : X ~ D~ i s g i v e n and X c Y.                  D e f i n e fn:X ~ Dn by
+
+fn = J~,z °f~"       L e t yn:Y ~ Dn he t h e maximal e x t e n s i o n o f fn a c c o r d i n g
+to 3.8.         Now we c a n s e e t h e p o i n t o f Lenma 3 . 9 : by t h i s c o n s t r u c t i o n
+we g u a r a n t e e    that   f n = #n°fn+l"             Hence t h e r e q u i r e d    ~ . : Y ~ D=
+exists.        []
+      I do n o t know a t t h e t i m e o f w r i t i n g w h e t h e r t h i s t h e o r e m on
+inverse limits of continuous lattices                 extends to sequences where, say,
+t h e Jn a r e o n l y r e t r a c t i o n s .         Fortunately,       sufficiently         many
+projections            exist    t o make t h i s        construction       useful.        Note t h a t    by
+reference        to the product             space construction             o f D.,      its   lattice
+ordering        i s g i v e n s i m p l y by t h e r e l a t i o n :
+
+                               x E Y             iff     Xn ~ Yn for all n.
+         4.2      Proposition.            Let (Dn~Jn) n=o and D~ be as in 4.].                          Then the
+maps j ~ n : D ~        D n are projections.
+        Proof:          The projections Jn:Dn+l ~ D n, as we know, have their
+
+uniquely determined inverses in:Dn ~ Dn+ I.                              We can define in~:Dn~                 D~
+by the equation:
+
+                                                 in~(X) = <ym)~=o
+where
+                                                                   126
+
+
+                                                        jm(Ym+l)                   if m < n ,
+
+                                     Ym    :            x                          if m:n,
+                                                        im(Ym_ I)                  if m>n.
+The proof that i                  and J~n form a projection                                is now an easy
+                             n~
+computation.            []
+
+         One should note also the recursion                                       equation:
+
+                                           in~          :    i(n+l)~        ° in •
+These maps also              make i t     possible                 to     state     this     useful     equation:
+
+                                               x    :       U        in~(xn),
+                                                            n=o
+
+where x ~ D .            It is easy to check                             that this         is a monotone      lub, and
+so we can say each x E D                       is the limit of its projections                              x n.    In
+fact,     from what we know about projections,                                        x n is the best possible
+approximation           to x in the space                         D n.
+
+         4.3     Corollary.          Let the spaces be as in 4.1 and 4.2.                                      Let D'
+be any complete lattice and suppose continuous functions fn: Dn~ D'
+are given so that fn = fn+Z ° in"                                    Then we can define f~: D                  ~ D ~ by
+the equation:
+
+                                           f~(x) = U                       fn(Xn )
+                                                                   n:o
+
+for x E D , and we have fn = f~° in~"                                         []
+         The import of this               last result                     is that within            the category     of
+complete         lattices,        the space             D         is not only the inverse                 limit of the
+Dn, but it is also the direct                               limit.           (One system of spaces here uses
+the Jn as connecting                maps,          the other               the in.)          This     is the algebraic
+result     that     lies at the heart of our main result                                        about    inverse    limits
+of function spaces.
+         Turning     to function           spaces,                 let D = D O be a given continuous
+lattice.         As we have seen in 3.13,                                there     are many ways of making               D0
+a projection         of D 1 = [D0~ D0].                           Choose      one such given by a pair
+i0,J0.         Define    recursively:
+
+                                                   Dn+ 1 :           [Dn~ Dn]
+and introduce           the pairs         in+l, Jn+l making Dn+ 1 a projection                                 of Dn+ 2
+by the method           of 3.7.         Specifically                      we shall have for x e Dn+ 1 and
+x/   ~   Dn+2:
+                                                         127
+
+
+                                          in+l(X) : inOXOJn,
+
+                                      Jn+l(X') : Jnox'oin .
+
+Since these spaces are more than continuous lattices being function
+spaces, it is interesting to note that the maps i n preserve function
+value as an algebraic operation as follows:
+
+                                in(f(x)) = in+l(f)(in(X)),
+
+where x e D n and f e Dn+ I.                  Thus in passing to the limit space D~
+something of functional application must also be preserved.                                         The
+precise result shows that indeed D                             becomes its own function space.
+
+       4.4   Theorem.The inverse limit D~ of the recursively defined
+sequence (Dn~Jn)n= ° of function spaces is not only a continuous
+lattice, but it is also homeomorphic to its own function space
+[D~ D j .
+       Proof:     We can write down directly the pair of maps i~,j~
+that   provide the homeomorphism:
+
+                            i~(x) : k-]            (in~°Xn+l°J~n),
+                                             n=o
+
+
+                            j~(f) = U              i(n+l)~(J~n°f°in ~)"
+                                             n=o
+Note that these formulae are simply generalizations at the limit for
+the formulae we used to define i ,j                             in the first place.           Thus it is
+                                                    n     n
+not surprising that they would provide a projection of [ D ~                                       D~] upon
+D .    Indeed we can compute out j~(i~(x)), noting that all the lubs
+are monotone and that a double monotone limit can always be replaced
+by a single one in view of the continuity of the operations involved,
+obtaining
+
+                j~(i~(x)) = U                i(n+l)~(J~n°in~°Xn+l°J~n°in ~)
+                                     n=o
+
+
+                                 = 0         i(n+l)~(Xn+ I)
+                                     n=o
+
+                                 =   X.
+
+
+
+
+             In the converse               order   the     calculation          is    only a bit    more
+complicated.        The i d e a      is     that   since        all    the    functions    f are
+continuous      and s i n c e    the elements            x are        the    limits    of their
+approximations,         then each f           is   actually           completely       determined    by i t s
+                                                   128
+
+
+sequence of restrictions j~n°fOin ~ e Dn+ I.                        This simple idea can be
+made more precise with the aid of a lemma about D , which allows us
+in certain cases to recognize projections                     from limits.
+
+            4.5    £emma.   Suppose for each n we have U(n+l ) e Dn+ 1 and
+we let:
+
+
+                            u = U        iCn+l)~(U(n+l)).
+                                 n=o
+
+
+Then if
+
+                             Jn+l(U(n+2)) = U(n+1 )
+for each n, we can conclude that:
+
+                                J~Cn+1)(u)           =   UCn+1 ).
+     Proof:       If the sequence U(n+l ) satisfies the recursion,                     then the
+limit defining u is monotonic.                 Therefore by continuity of projection
+it suffices to prove that
+
+                        j~(n+l)(i(m+l)~(U(m+l))) = U(n+l )
+for all m > n.       This is obvious for m = n, and it can be readily
+proved by induction for larger m using the various recursion
+equations.        (Properly speaking the induction is done on the quantity
+(m - n) using both n and m as variables.)                      O
+
+     Proof of 4.4 concluded:             The lemma applies at once to our
+calculation,      for we find:
+
+                     i.Cj~Cf)) = U             (in.OJ.n*fOin~OJ~n)
+                                       n=o
+
+
+                                  = U          (in~°J~n)°f°W              (in~°J~ n)
+                                       n=O                          n=o
+Here we have just applied the continuity of f to be able to confine
+the lub on the right.        But now by the remark following 4.2, we note
+the functional      equation:
+
+                                 id : U             Cin~°J~n),
+                                             n=o
+
+and the proof that i~ and j~ are inverse to one another is complete.
+complete.     D
+     We can explain the idea of this proof in other terms using a
+suggestion made to me by F. W. Lawvere.                      Consider the category of
+                                                  129
+
+
+continuous    lattices       and projections.             In that category            our D        is, as
+we have remarked,       both a       direct and an inverse limit. Note too that
+with regard    to projections          [D ~ D'] is a funetor, for we can also
+define    [j ~ jl] when the maps             are projections.             In this          language      our
+particular    inverse       system    is defined by the recursion:
+
+                     Dn+ 1 = [D n ~ D n] and            Jn+l = [Jn ~ Jn ]'
+
+where    D 0 and Jo are given         in advance.          Now the function                space
+construction       is continuous       in its two arguments               turning          an inverse
+limit on the right           into an inverse        limit and a          direct limit on the
+left also into an inverse limit.                  A repeated           limit can be made                into a
+simple    limit,    so we can write:
+
+                                  D. : ~im ( D n , J n ) ~ = o
+
+                                       : lim,( Dn , i n)~:o
+
+and
+
+                             [DjD.]    : Zim <[D-~D ] ,           [j~jn]>':o
+                                                            •     )~
+                                       = lim     ( D n + l ~ n + 1 n=o
+
+                                       = D      (up to i s o m o r p h i s m ) .
+
+A full checking        of the details          involved would not make the argument
+appreciably     simpler       over the more        "element-by-element" argument I
+have presented.         In fact,      the proofs         are actually         the same.            But
+thinking     of the result       in terms       of properties           of functors          does seem
+to isolate     very well       the essential         idea and to show how simple                        it is.
+One must only add here a note of caution:                         the proper          choice       of
+category     must be done with care.               Thus    it seems        to me that the use of
+projections        rather    than arbitrary        continuous          maps    is necessary.
+Inasmuch     as I have not checked             all details        in this          form,    I hope what
+I say is correct.
+     Since we have shown              [D~D     ] to be homeomorphic                 to D=, we can
+begin to regard        them as the same.             In particular            there    ought       to be
+some function        space    structure      to transfer         to D=.        This can be done by
+defining     functional       application       for any elements              x~y e D~ by the
+equation:
+
+                               x(y) = ~         in~(Xn+l(Yn)).
+                                         n=O
+                                       130
+
+
+Similarly we can define ~-abstraction on continuous                expressions:
+
+                  kx.[...x...]     = j,(~x:D      .[...x...]),
+
+and in this way D    becomes     a model for the ~-calculus          of Church and
+Curry.    The model-theoretic     and proof-theoretic       aspects of this result
+will be explained    in another paper        (Scott   (1972)).
+      Suppose we were to start with the least, non-trivial                 lattice
+8 = {T,±} for DO .   Now D 1 = [~ ~ @] has exactly three elements and
+there are just two ways of defining a projection Jo:Dl~Do .                     They are
+illustrated in the figure:
+
+
+
+      T                [-,T]                 T                   [±,T]
+
+
+
+Hence our construction    gives two limit spaces D~ and D~.               Are they
+the same?    No, they are not.      It can be shown, for example that the
+T Of D~ is isolated (that is, T < r), while the same is not true of
+D~.   More interestingly,      David Park has proved that the fixed-point
+operator fix mentioned in 3.14 has algebraic properties                  in D     quite
+different from those in D~.        By algebraic here, we of course have
+reference to the functional algebra embodied in the application
+operation x(y) defined on these limit spaces.              Note, by the way,
+that in view of our isomorphism result we can regard fix (or any
+other similar continuous function for that matter) as an element of
+D~.   This makes the "algebra" of 0~ quite a rich field for study.
+      The reader will have surely remarked that by virtue of 1.5,
+every To-space X whatsoever can be embedded as a subspace in a D .
+Besides this all the continuous       functions on X (oh, into D , say)
+can be extended to D~; whence they can be regarded as elements of
+D .   Thus we have been able to embed not only the topology of X
+into D~ but also all of the continuous            function theory over X.           So
+far this is only a "logical" construction.              For more interesting
+"mathematical" results we shall have to investigate whether any
+useful theorems about the usual function spaces            [X ~ X] can be
+obtained with the aid of D~.        This method can easily be employed for
+real- or complex-valued continuous           functions,   though it seems more
+oriented toward pointwise convergence            than anything else.        Still,
+there seems to be a chance it might be useful--especially                  if one
+wished to consider continuous       operator8 on function spaces.
+                                                          131
+
+
+     The idea of forming the limit space can also be applied to other
+functors besides [D ~ D]. Thus instead of solving the "equation"
+
+                                                    D = [D ~         D]
+
+as we have done with the D                        construction,              we could also solve:
+
+                                  V = T + [V×V]           + [V+V]          + [V~V]
+
+for example.            Here T = { ± , O , I , T }        is the four-element                   lattice with 0
+and ] as incomparable                 elements.           By [VxV] and [V~V] we understand                            the
+usual Cartesian product and function space construction.                                               The +
+operator,        on the other hand works only in the category of lattices
+with T as an isolated element.                           It is defined so as to make:
+
+                                                  D+D'~D'
+
+
+                                                    t            t
+a push-out         diagram,       where         t h e maps f r o m © a r e          meant to match ± with
+± and T with          T.     The p o i n t       of requiring             T t o be i s o l a t e d    is    that    both
+D a n d D' b e c o m e p r o j e c t i o n s      of    D+D'.        This       construction,         though not
+quite     a disjoint         union,        h a s many p r o p e r t i e s         i n common w i t h       that
+operation        on spaces.           In particular,             if       we c o n s i d e r   the   category       with
+projections          as maps,        the       construction
+
+                           ~(D)      = T +       [DxD]     + [D+D]          +    [D~D]
+
+is   a   functor.          Furthermore,           we c a n p r o j e c t        ~(T)      onto T in        an o b v i o u s
+way, thereby setting things up for an inverse limit construction:
+
+
+
+The resulting continuous                       lattice satisfies                the desired equation up to
+isomorphism.
+         The space V constructed                    in the way just indicated is very rich
+in subspaces.              To see this, consider the space J~ of proper
+projections j where j(T) = T.                           As in 3.12 this is a complete                         lattice.
+Now that IV×V] and [V+V] and [V~V] are regarded as subspaces                                                  of this
+"universe"         V itself, we can easily define continuous                                    operations
+
+                                     (j×k)        , (j+k)       , and (j~k)
+on the projections                obtaining again elements                        of J~.       The projections
+so obtained correspond                   to the indicated constructions                          of subspaces,
+of course.           (Indeed, if we had the time and space, we could show that
+J~ becomes a very interesting category).                                        There will be a particular
+                                           132
+
+
+projection t corresponding        to T, and reason for doing all this is to
+show t h a t the existence o f subspaces of V can now be established by
+solving equations   in J~.      For example, by the fixed-point construction
+we could find a j e J~ such that
+                        j   = t + (txj)     + ((jxj)~j).
+
+The range of j would then be a subspace W c V such t h a t W solves the
+equation:
+
+                        W :    T + [TxW]    + [[WxW] ~       W].
+
+And these are only a few examples:               simultaneous      equations are
+possible, and many other operators are waiting for discovery and
+application.
+
+
+
+REFERENCES.      An announcement of this work and related investigations
+was first given in Scott        C1970).      Rather complete references and
+background material can be found in Scott              (1971).       A discussion of
+formal theories is to appear in Scott              (1972).
+
+         The presentation of the material of the paper changed con-
+siderably after the January conference.               In the first place remarks
+by several participants,        Ernie Mannes in particular,            caused me to
+rethink several points.         Then the opportunity of lecturing at the
+Project MAC Seminar at MIT during the spring provided the opportunity
+of trying out some new ideas;         these were then codified after lectures
+at the University of Southern California with the aid of several
+very helpful discussions        on topology with James Dugundji.
+
+        The outcome of this development was that I found I could
+describe the work in purely topological terms in a simple and natural
+way leaving the lattices to be introduced as a special technique of
+analysis.     This gives the presentation a much less ad hoe appearance,
+and relates the results to standard point-set topology in a much more
+understandable way.         No doubt the whole idea of using completeness,
+inverse limits, and continuous        functions could be put into a more
+general, more abstract categorical context, but I am not the man to
+do it.   My interests at present lie in the direction of specific
+applications, though I can see that there might be some worthwhile
+directions to pursue.
+
+         For example,       in understanding       the connections of my kind of
+spaces with other topologies,        one should consider the remarks on the
+topology of lattices in Birkhoff's paper in Abbott                   C1970).   Some
+                                                               133
+
+
+older     papers      s u c h as S t r o t h e r           (1955)     or Michael             (1951)      might also
+give     some l e a d s .          It    is    curious       how l i t t l e        there     is    of interest          in
+the    literature           on T o - s p a c e s .         Concerning           function        spaces        there    ought
+t o be some c o n n e c t i o n s             with    the     limit     space8 o f Cook a n d F i s c h e r
+(see especially              Binz and K e l l e r             (1955))       and p o s s i b l y        with    the notion
+of quasi-topology                of Spanier               (1953),     but       these     are      rather      vague
+ideas.
+
+              In a d i f f e r e n t          direction       note      that        the algebraic             lattices
+of Gr~tzer         (1958)          are    in    fact       continuous           lattices        in which isolated
+points      are    dense.           The c o n t i n u o u s       lattices         may be " h i g h e r        dimensional"
+while     algebraic           lattices          are       "zero     dimensional"            - i n some s u i t a b l e
+sense.       Every continuous                   lattice        is    a retract           o f an a l g e b r a i c     lattice.
+But d o e s t h i s     mean a n y t h i n g ?             Specific      bibliographical                 references
+follow:
+
+
+             J. C. Abbott, ed., Trends in Lattice Theory, Van
+                                 Nostrand Reinhold Mathematical Studies,
+                                 vol.31 (1970).
+             P. Alexandroff and H. Hopf, Topologie I,
+                       Springer-Verlag, (1935).
+             E. Binz and H. H. Keller, Funktionenr~ume in der
+                       Kategorie der Limeer~ume, Annales Academiae
+                       Scientiarum Fennicae, Series A, I .
+                       Mathematica, no. 383 (1966), 21 pp.
+              G. Birkhoff, Lattice Theory, American Mathematical
+                        Society Colloquium Publications, vol. 25,
+                        Third (new) edition (1967).
+              E. ~ech, Topological Spaces (revised by Z. Froli~ and
+                                   M. K a t ~ t o v ) ,     Prague      (1966).
+
+              G. G r ~ t z e r ,        Universal          Algebra,       Van N o s t r a n d ,        (1968).
+
+              J.   L. K e l l e y ,       General          Topology,           Van N o s t r a n d ,    (1955).
+
+              E. Michael, Topologies on Spaces of Subsets,
+                         Transactions of the American Mathematical
+                         Society, vol. 77 (1951), pp. 152-182.
+
+              A. Nerode, Some Stone Spaces and Recursion Theory,
+                        D:ke Mathematical Journal, vol. 26 (1959),
+                        pp. 397-406.
+                                                         134
+
+
+             D. Scott,            O u t l i n e of a Mathematical Theory of Computation,
+                                  Proceedings of the Fourth Annual Princeton
+                                  Conference on Information Sciences and Systems
+                                  (1970), pp. 169-176.
+
+                          ,         Lattice     Theory, Data Types, and S e m a n t i c e s ,
+                                  New York University Symposia                    in Areas of Current
+                                  Interest in Computer Science                    (Randall Rustin ed.)
+                                  (1971) to appear.
+
+                              ,     Lattice-theoretic         Models f o r Various T y p e - f r e e
+                                    C a l c u l i , Proceedings of the IVth International
+                                  Congress for Logic, Methodology,                      and the
+                                  Philosophy of Science, Bucharest                      (1972), to
+                                  appear.
+
+             E. Spanier, Q u a s i - t o p o l o g i e s , Duke Mathematical                     Journal,
+                        vol. 30 (1963) pp. 1-14.
+
+             W. S t r o t h e r ,       Fixed P o i n t s ,     Fixed S e t s ,   and M - R e t r a c t s ,
+                                    Duke Mathematical            Journal,     vol.     22    (1955),
+                                    pp. 551-556.
+
+Correction          (Added March,              1972).     Robin Milner has pointed                   out to me
+
+that there         is an error in the remark                     in the paragraph            immediately
+
+proceding         Proposition           2.5.     I was mistaken           in saying         that if           D    is
+
+a     To-space      which becomes              a complete        lattice     under     its induced
+
+partial     ordering,             then every set open in the given topology                            is also
+
+open in the induced                  topology.       There       are many counterexamples                     to
+
+this statement.               Let       D     be any complete          lattice.        There are two
+
+extreme      To-topologies                  which will        induce   the given partial             ordering.
+
+The    smallest      such topology              has as a sub-base            for its open sets
+
+those     sets of the form:
+
+                                             {x e D : x ~        y}.
+
+These     sets are easily proved                   to be open in any              To-topology          which
+
+induces     the partial              ordering.        At the other extreme               consider        sets
+
+of the form:
+
+
+                                             {x £ D : y C X}.
+                                                          135
+
+Such s e t s     will      give    a base       for   a    To-topology     that    is   the
+
+m a x i m a l topology inducing the given partial ordering.                               Clearly they
+
+need not be open in the induced                           lattice topology;       in particular,
+
+they m a y well fail to satisfy conditions                           (ii) on open sets.            To make
+
+the remark in question correct, we must thus suppose                                    that the given
+
+To-topology          is contained within the induced                     lattice topology.               The
+
+equation given in the p a r a g r a p h                   indicated will then be a sufficient
+
+condition        for the two topologies                    to be identical.
+
+        T h e remark was e m p l o y e d in the proof of three d i f f e r e n t                     pro-
+
+positions:         2.9,     2.10,      and 3.3.           In the case of 2.9 one m u s t verify
+
+that the p r o d u c t topology is c o n t a i n e d w i t h i n            the lattice topology.
+
+T h i s need only be done for the basis                         for the product topology,                and
+
+for such basic open sets the result needed is obvious.                                      In the case
+
+of p r o p o s i t i o n   2.10 the q u e s t i o n concerns         a relationship between
+
+the topologies             of a space and a subspace;                the spaces         in question         are
+
+also lattices.              Note in passing               that a lub in the subspace            is
+
+g e n e r a l l y larger in the partial o r d e r i n g             than the c o r r e s p o n d i n g    lub
+
+relative        to the whole space.                   This puts the inequalities              in the
+
+w r o n g direction,         and so it is not immediate                  that a r e l a t i v i z e d
+
+open set for the subspace                    is open in the lattice               topology of the
+
+subspace.          However,           in this case we can appeal to the continuous
+
+retraction.Recall                that the r e l a t i v i z e d   open sets of the k i n d that we
+
+used in the proof of 2.10 are of the form:
+
+
+                                       U = {z E D : x < z} .
+
+Suppose        then that          S     is a directed           set, and that using the lub
+
+in the sense of              D        we have
+
+                                      US     e U .
+
+Referring back to the proof of 2.10 we know that
+                                                136
+
+
+which means       that
+
+                                       x < j(~'S).
+
+From this it follows          that
+
+                             x   <   j(z),   ~ome     z   c   S   .
+
+
+Now     j(z) = z     , and w e have w h a t we need.                  This argument   suffices
+
+only for a special          type of open sets; but these open sets form a
+
+base for the topology,           and so the argument                  is quite general.
+
+        Turning    now to the proof of theorem 2.3 we note that the topology
+
+on the function          space is simply the rel~t~vized product                   topology.
+
+There    is no difficulty        with lubs in this case, because,                  as we showed
+
+in the proof of that theorem,                all lubs are calculated             pointwise.
+
+Thus,    it is easy to verify now that the sets open in the product
+
+topology    are also open in the lattice                  topology.
+

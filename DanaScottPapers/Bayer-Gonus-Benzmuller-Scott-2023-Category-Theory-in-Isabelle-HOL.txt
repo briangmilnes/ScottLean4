@@ -1,0 +1,726 @@
+                                         Category Theory in Isabelle/HOL as a Basis for
+                                              Meta-logical Investigation – Preprint
+
+                                         Jonas Bayer1⋆ , Alexey Gonus1,⋆ , Christoph Benzmüller2,1 , and Dana S. Scott3
+                                                                  1
+                                                                    Freie Universität Berlin, Germany
+                                                             2
+                                                              Otto-Friedrich-Universität Bamberg, Germany
+                                                    3
+
+
+
+
+arXiv:2306.09074v2 [cs.LO] 16 Jun 2023
+                                                      University of California & Topos Institute, Berkeley, CA, USA
+
+
+
+                                                 Abstract. This paper presents meta-logical investigations based on cat-
+                                                 egory theory using the proof assistant Isabelle/HOL. We demonstrate the
+                                                 potential of a free logic based shallow semantic embedding of category
+                                                 theory by providing a formalization of the notion of elementary topoi.
+                                                 Additionally, we formalize symmetrical monoidal closed categories ex-
+                                                 pressing the denotational semantic model of intuitionistic multiplicative
+                                                 linear logic. Next to these meta-logical-investigations, we contribute to
+                                                 building an Isabelle category theory library, with a focus on ease of use in
+                                                 the formalization beyond category theory itself. This work paves the way
+                                                 for future formalizations based on category theory and demonstrates the
+                                                 power of automated reasoning in investigating meta-logical questions.
+
+                                                 Keywords: Formalization of mathematics · Category theory · Proof
+                                                 assistants · Formal methods · Shallow embeddings.
+
+
+                                         1     Introduction
+                                         Category theory is a very abstract and general theory of mathematical struc-
+                                         tures [15] that next to being used for organizing mathematical theories can also
+                                         serve as an axiomatic basis of mathematics. It has a myriad of use cases in fields
+                                         ranging from topology and algebra to the foundations of mathematics.
+                                             A good understanding of categorical notions and methods can provide a
+                                         mathematician with a generic framework to unify and describe concepts. The
+                                         results obtained on a category theoretical level might later be applied to partic-
+                                         ular mathematical objects collected under a specific categorical setting. By this
+                                         approach, many findings and ideas in one theory of mathematical structures can
+                                         possibly be translated to the other.
+
+                                         Formalizing Category Theory. Given its special standing in mathematics it is
+                                         only natural to ask for a formalization of category theory, hoping that the ben-
+                                         efits of the categorical perspective will carry over to formal mathematics. Con-
+                                         cretely, one would not only wish to be able to formally use certain theorems
+                                         from category theory but also utilize its power in the organization of formal
+                                         mathematical libraries.
+                                         ⋆
+                                             Corresponding authors, contributed equally
+2      J. Bayer, A. Gonus, C. Benzmüller, and D. S. Scott
+
+    Yet, the formalization of category theory poses significant challenges. Many
+experts consider first-order logic and the Zermelo-Fraenkel axioms of set theory
+as a suitable foundation for mathematics. However, e.g., topologists often work
+with the (large) category of topological spaces, which cannot be easily repre-
+sented within this system of axioms, since large categories in standard formal-
+izations within such a system are (obviously) not sets. It is thus not immediately
+clear how category theory should best be done formally.
+    Next to this, significant challenges in the formalization of category theory
+stem from the double position that it carries in mathematics. Ideally, a formal-
+ization of category theory would not only lend itself to use cases in algebra but
+also enable meta-logical investigations that use categories as a foundation of
+mathematics. We refer to [8,16,17] for a deeper discussion on category-theoretic
+versus set-theoretic foundations of mathematics.
+
+Meta-logical investigations. In this paper we intend to demonstrate the potential
+of a (shallow semantical embeddings based) formalization of category theory for
+the investigation of meta-logical questions. This will be done using the proof
+assistant Isabelle/HOL which is naturally suited for such work due to its strong
+support for automation.
+    Concretely, we give a formalization of the notion of elementary topoi that
+carry an important role in fundamental mathematics. We build up category
+theoretical concepts in order to eventually provide an elegant definition of a
+topos. Moreover, we formalize all necessary concepts allowing for future work
+that could implement the internal language of a topos.
+    As a second meta-logical result, we present a formalization of linear logic
+(LL). Linear logic carries the idea of treating mathematical “truths” as informa-
+tion resources and has found a large number of theoretical and practical appli-
+cations, ranging from computer science to linguistics. Categories come with the
+inherent property of representing denotational semantical models for different
+logics. We develop symmetrical monoidal closed categories that express the de-
+notational semantical model of intuitionistic multiplicative linear logic (IMLL).
+    In addition, at an orthogonal, methodological level, we study the scalability
+of an approach to universal meta-logical reasoning [7], that is based on shallow
+semantical embeddings of (layers of) object logics in classical higher-order logic,
+aka Church’s simple type theory.
+
+Further contributions. Next to our main focus on meta-logical investigation, we
+aim at contributing to the build up of a category theory library in Isabelle. At
+the time of writing, we are not aware of cases where the existing formalizations
+in the Isabelle Archive of Formal Proofs [26,13,30,21] have been used for the
+purpose of verification in other fields of mathematics. Our work cannot (yet)
+compete with the extent of concepts verified in the aforementioned AFP entries.
+However, we pay a lot of attention to closely mimicking mathematical notation,
+cleanly organizing our theories, and giving examples of how to use the concepts
+we provide. Thereby, we hope to facilitate the use of category theoretical notions
+in future formalizations in other fields, too. Moreover, the paper is embedded
+    Category Theory in Isabelle/HOL as a Basis for Meta-logical Investigation     3
+
+in a larger project context, namely the exploration of the Benzmüller and Scott
+[6] approach to the axiomatic modeling (in the tradition also of the early work
+of Saunders Mac Lane, although with more emphasis on Dana Scott, Freyd
+an Scedrov works) of category theory based on free-logic using the LogiKEy
+meta-logical/logico-pluralistic KR&R [4] methodology. It was important for us
+to study the scalability, advantages and disadvantages of this distinguished ap-
+proach. In the end, we obtain a high degree of automation and a high level of
+abstraction.
+
+
+2     Category Theory from a Free Logic perspective
+
+Our work exploits a shallow semantic embedding of free logic in Isabelle/HOL
+(or, more generally, in Church’s simple type theory [3] aka. classical higher-order
+logic HOL), that is subsequently used for defining a notion of category theory,
+which then provides the basis for further formalization studies on top of it.
+
+
+2.1    Free Logic and its SSE into Isabelle/HOL
+
+Free Logic (FL) is a logic that comes with less existential assumptions than
+its classical counterpart. Terms in free logic might denote so-called non-existent
+objects, i.e., terms that refer to objects outside the domain of discourse [24]. Ex-
+istential and universal quantifiers are assumed to range over the existent terms,
+i.e., those that denote objects within the domain of discourse. Such a logic is
+particularly interesting because it helps to reason about partiality.
+     Therefore, free higher-order logic (FHOL) is ideal for an axiomatization of
+category theory since the composition of morphisms in a category is a partial
+function. In order to distinguish existent and non-existent objects we use the dual
+domain approach, i.e., we consider a domain D of all objects which has a subset E
+of objects that are considered to be the existent objects. Alternatively, one could
+consider two disjoint sets for the non-existent and existent objects. We will follow
+the first approach as has been previously discussed by Cocchiarella [22] and
+also in the early work of Scott [28]. The issue of properly defining free (higher-
+order) logic within the simple theory of types has been addressed in the works of
+Schütte [27] and Farmer [9] whose approach we follow with some modifications.
+It should also be noted that free logic could be implemented with exactly one
+undefined value (Benzmüller and Scott have also shown that before [5]). Here
+we decided to go without this additional requirement (of having one undefined
+value) and to focus more on the “existence” part of the category theory without
+carrying about “non-existing” area.
+
+Shallow semantical embedding. In order to reason formally and interactively
+within free logics without building a new theorem prover from scratch, a trans-
+lation of logics is necessary. In Isabelle/HOL one can implement alike using a
+shallow semantical embedding (SSE), which is based on logic translation ap-
+proaches as discussed by Gabbay, Nonnengart, Ohlbach and de Rijke [11,25] for
+4        J. Bayer, A. Gonus, C. Benzmüller, and D. S. Scott
+
+translating e.g. propositional modal logics to first-order logic. Exploiting the ex-
+pressivity and compositionality of the simply typed λ-calculus in HOL, the SSE
+approach encodes such logic translations directly in HOL itself, which makes
+external translation mechanisms superfluous. This HOL-internal translation ap-
+proach has been successfully extended for various quantified non-classicals logics
+and applied, under the name universal meta-logical reasoning [7], amongst oth-
+ers, to encode free first-order logic [5] in Isabelle/HOL. This approach was then
+further extended to embed FHOL in HOL [18] which, in this paper, we will rely
+on to implement our higher-level categorical constructions.
+    In SSE, the semantics of the language of interest, e.g. (positive) FHOL4 is
+mapped to the corresponding syntax constructs of the target language. It may be
+viewed as a translation between the logics, where only semantical differences are
+targeted, for example, these could be the existential features of free semantics.
+The SSE approach showed itself as a readily available way for implementing the
+translation of a variety of nonclassical logics. It also enables the use of automation
+from the target system which is not as well supported with a deep semantical
+embedding.
+    A shallow semantic embedding is to be contrasted with a deep semantic
+embedding, in which the syntax of the target language is represented using an
+inductive data structure (e.g., following the BNF of the language) and the se-
+mantics of a formula is evaluated by recursively traversing the data structure.
+Shallow semantic embeddings, by contrast, define the syntactic elements of the
+target logic while reusing as much of the infrastructure of the meta-logic as pos-
+sible; cf. also [14]. In particular, the degree of proof automation that can be
+achieved is much better in the case of shallow semantic embeddings, since e.g.
+inductive proofs on the structure of the embedded logic are omitted.
+
+Formalization in Isabelle/HOL. Concretely, we represent the domain of objects
+D through a type α in Isabelle/HOL. The notion of existence is then given
+through a predicate E : α → bool. Therefore, every function will be total when
+viewed on the level of Isabelle terms. However, from the free logic perspective
+non-partial maps can still be observed as such since they are modelled as func-
+tions that map some objects to “non-existent” objects outside E.
+    At the level of free logic, one can immediately define several notions of equal-
+ity, which are used in the definition of categories and reappear in the course of
+the development of the formalizations.
+
+Definition 1 (Equalities with Existence). Given x, y ∈ D define three no-
+tions of equality as follows:
+
+1. We write x ≃ y if and only if x = y ∧ Ex ∧ Ey (Existing Identity).
+2. We also write x ∼= y if and only if (Ex ∨ Ey) −→ x = y (Kleene Equality).
+3. Finally, we write x ≥ y precisely when Ex −→ x = y (Directed equality).
+4
+    Positive FHOL refers to a semantics for FHOL where formulas built from non-
+    existing objects are allowed to be true [18].
+    Category Theory in Isabelle/HOL as a Basis for Meta-logical Investigation         5
+
+2.2    Formalization of Axiomatic Category Theory
+In Isabelle/HOL, concepts from category theory have been formalized as early
+as 2005 [26]. The original formalization could be improved and extended signif-
+icantly as indicated by subsequent research [13,30,21].
+    In addition to these, Benzmüller and Scott presented an alternative approach
+for formalizing category theory in Isabelle/HOL [6], which is based on an ax-
+iom system in free logic originally proposed by Scott [29]. This work models on
+one-sorted categories, i.e., it only refers to morphisms without mentioning ob-
+jects. This approach was first expanded upon by Tiemens who defined inverse
+categories in order to generalize so-called modeloids [31].
+
+Categories. Our formalization of categories follows the approach by Benzmüller
+and Scott [6] with slight modifications5 . Firstly, when declaring the categorical
+notions of domain, codomain and composition, polymorphic types are employed
+which allow the use of higher-level constructions later. Secondly, an additional
+axiom is added that states the existence of a “non-existent object”. This means
+that D is required to be a strict superset of E which is advantageous in the
+definition of certain concepts as it enables referring to an explicit non-existent
+element. On the implementation side, we represent categories through an Isabelle
+locale.
+
+Functors. Functors are the morphisms between categories. The next definition
+is slightly adapted from Freyd and Scedrov’s textbook [10]:6
+
+Definition 2 (Functor). A functor F between two categories C and D
+is a function F : C −→ D which satisfies the following axioms:
+(1) Ex −→ E(F (x)), (2) ¬Ex −→ ¬E(F (x)), (3) F(domC (x)) ∼  = domD (F(x)),
+(4) F(codC (x)) ∼
+                = codD (F(x)), (5) F(x ·C y) ≥ F(x) ·D F(y).
+
+Natural Transformations. Morphisms between functors are called natural trans-
+formations. There can be two different formulations, resp. formalizations, of this
+notion, and both are used in our work. The first definition is taken from [23] (the
+one which is directly based on the idea of one-sorted categories and is heavily
+exploited in this formalization) and modified according to the equalities that
+were introduced earlier:
+
+Definition 3 (Natural Transformation). A natural transformation
+η between the functors F: C −→ D and G: C −→ D is a function
+5
+  It should be noted that all categories considered in this paper are one-sorted cat-
+  egories and, therefore, all free variables appearing in the definitions refer to “mor-
+  phisms”, although, they might be seen as “objects” in a usual sense when they satisfy
+  specific (identity) predicates.
+6
+  The first and second axioms result from the totality of functions in Isabelle/HOL
+  and are used for the separation of existing and non-existing morphisms. This part
+  of the paper, where we have to deal with the proper preservation of existence, has
+  been one of the main difficulties in the subsequent formulation of the concepts.
+6        J. Bayer, A. Gonus, C. Benzmüller, and D. S. Scott
+
+η : C −→ D such that: (1) Ex −→ E(η(x)), (2) ¬Ex −→ ¬E(η(x)),
+(3) domD (η(x))      ∼
+                     =   domD (F(x)), (4) codD (η(x)) ∼
+                                                      = codD (F(x)),
+(5) Ex · y −→ η(x) ·D F(y) ≃ G(x) ·D η(y).
+
+    The monoidal category characterization is partly based on the notion of in-
+verse natural transformation, which is more naturally described with the follow-
+ing second definition:
+
+Definition 4 (Natural Transformation through Identities). A natural
+transformation η : F ⇒ G between the functors F: C −→ D and G: C −→ D
+assigns to every object A a morphism η(A) : F(A) −→ G(A), such that for any
+morphism x : A −→ B in C G(x) ·D η(domC (x)) ∼ = η(codC (x)) ·D F(x).
+
+     This second definition can be (and was) extended to the former via a specifi-
+cation of how this function operates in the more general case for all morphisms,
+i.e. for x : A −→ B we have η(x) = G(x) ·D η(domC (x)). Starting with these
+definitions we proceed further to define natural isomorphisms and inverse natu-
+ral transformations. The later concept might be an example of a module system
+advantage as it is easily defined as a locale built on top of the natural isomor-
+phism locale with the specification of the inverse mapping,. Invoking Isabelle’s
+unfold locales method during proving then allows to split the conditions into
+simpler parts.
+
+
+3     Formalization of Elementary Topoi
+
+In order to perform the intended meta-logical investigations it is necessary to
+define additional structures on top of categories. In particular, we formalize no-
+tions like categories with binary (co)products, exponential categories and carte-
+sian closed categories. Our implementation makes heavy use of Isabelle’s locales
+that allow to elegantly model the layered character of these definitions. To val-
+idate the correctness of the implementation we also formalize certain examples
+including the category of categories and the category of sets. The Isabelle code
+of all concepts that will be presented in this section can be found in a gitlab
+repository.7 Our formalization of elementary topoi generally follows the book
+“Elementary categories, elementary topoi” by Colin McLarty [19].
+
+Formalization of elementary notions. To build up the necessary constructions,
+we first formalize various elementary structures that can be defined within a cat-
+egory. This includes initial and final objects, (co)products, equalizers, a generic
+implementation of limits, monomorphisms and epimorphisms, and pullbacks.
+Not only do we define these notions, but we also formalize the elementary equiv-
+alences and relations between them. Each of these categorical structures received
+their own Isabelle theory in order to increase clarity, with definitions made in a
+multi-layered style and custom notation introduced for ease of use.
+7
+    https://permalink.jonasbayer.de/bachelorthesis
+  Category Theory in Isabelle/HOL as a Basis for Meta-logical Investigation       7
+
+    As an example, consider the beginning of the theory on pullbacks shown
+in Fig. 1. There, we first introduce the preliminary notions of is corner and
+is pullback before defining pullback diagrams. The latter is given in custom
+syntax that allows a presentation in diagram format. Although such syntax can
+become cluttered during proving and therefore is not the most useful represen-
+tation in that context, it still allows for a very readable presentation of results
+within the theorem prover. This approach is continued throughout the formaliza-
+tion, further examples include product diagrams or even commutative diagrams
+with multiple squares.
+
+
+
+
+                Fig. 1. The implementation of pullbacks in Isabelle
+
+
+
+    Next to these constructions, we also give an implementation of several ba-
+sic categories. Most notably, this includes the category of sets, the category of
+categories and the poset category. All these examples are formalized following
+the same scheme of first defining a custom type which will correspond to the
+type α in the category definition. Consequently, the existence predicate E fol-
+lowed by definitions for (co)domain and composition can be declared. In all three
+cases, the instance proof can essentially be handled by Isabelle’s automatic tools.
+When using Isabelle2021 (February 2021), which is the version this development
+started with, occasional help is only necessary for proving associativity of com-
+position. In Isabelle2022 even this part can be tackled by automated tools within
+less than 5 seconds when employed on an average personal computer.
+
+
+Categories with additional structure. Refering back to the elementary structures
+defined previously, we implement categories that have additional structures. We
+start with categories that have binary products and/or binary coproducts. To
+validate these definitions, it is also formalized that the poset category has binary
+8      J. Bayer, A. Gonus, C. Benzmüller, and D. S. Scott
+
+products and coproducts when the poset is a lattice. In this case, products
+correspond to meets and coproducts correspond to joins.
+    Having defined binary products one can continue to declare exponential ob-
+jects and exponential evaluation maps in a category which we collect into an
+Isabelle record. Exponentials are then used to specify cartesian closed categories
+after having defined cartesian categories. For the precise mathematical defini-
+tions, we refer the reader to McLarty [19] whose presentation we follow closely.
+
+Formalization of topoi. With all these preliminary notions at hand, the definition
+of a topos can finally be formalized:
+
+
+
+
+           Fig. 2. The implementation of an elementary topos in Isabelle
+
+
+    A topos is a special case of a cartesian closed category that also has a so-
+called subobject classifier and a designated object t representing the boolean
+value true. Here we make use of the aforementioned custom syntax to present
+the pullback diagram in a very intuitive form. Moreover, we formalize that in
+a topos all monomorphisms are equalizers, which does not hold in arbitrary
+categories.
+    To conclude, the formalization we give provides a basis for for further meta-
+logical investigations related to category theory. In particular, an interesting
+continuation of this work would be the implementation of the internal language
+of an elementary topos including topos axioms.
+
+
+4   Formalization of the Categorical model of IMLL
+Another direction that has been explored in the proposed approach to cate-
+gorical formalizations is the one laying down a translation layer between the
+HOL/FHOL and intuitionistic multiplicative linear logic (IMLL) semantics. The
+motivation behind the IMLL formalization (or its semantics, to be more precise)
+was to investigate practical capabilities of Isabelle/HOL in the field of meta-
+logical questions, i.e., to derive tools that would formulate IMLL theorems and
+proofs through its encoded semantical language that talk about morphisms. It is
+important to emphasize the word “practical” in this context, since it is of course
+    Category Theory in Isabelle/HOL as a Basis for Meta-logical Investigation           9
+
+generally possible to model a wide range of constructions with the help of a proof
+assistant such as Isabelle/HOL. However, it is not a priori clear if this can be
+done with a reasonable effort with respect to the logic “translations” as exploited
+in our SSE approach. In this paper we have chosen (a fragment of) linear logic
+as our object of study, since it has a plethora of applications in various domains.
+The Isabelle implementation and certification of all constructions presented in
+this section (which make use of the “locales” feature of Isabelle/HOL) can be
+found in a GitHub repository.8
+
+4.1    IMLL and its Categorical Model
+Linear Logic (LL) was proposed by Girard in 1987 [12] as a refinement of classical
+as well as intuitionistic logic. Within LL the two different notions of conjunction
+and disjunction are introduced together, i.e., multiplicative and additive types of
+connectives. They behave distinctly in derivations (through inference rules), but
+their intrinsic difference can be revealed with a computational interpretation of
+proofs [2]. Within this work we deal with a particular fragment of LL, which
+is intuitionistic multiplicative linear logic (IMLL), by restricting the syntax and
+adapting inference rules.
+     The categorical denotational model of IMLL is built around the notion of a
+monoidal category.9 The key part of a semantical translation is a function [[·]]
+that assigns some categorical construct to a proof-theoretical piece. Moreover,
+the construction of categories using only one sort of objects, i.e., morphisms,
+determines our main interest in modeling proofs (rather than formulas) with
+categorical denotational semantics. In order to briefly present the general idea,
+one assigns a morphism f : [[A]] −→ [[B]] to a proof of a sequent A ⊢ B.10 Here,
+[[A]] means an identity morphism. The final goal within this part of the work is to
+translate all the inference rules we have in IMLL to theorems about morphisms
+in a special category, i.e., symmetrical monoidal closed category (SMCC), and to
+show practical feasibility of these meta-logical translations.
+
+4.2    Isabelle/HOL formalization of the IMLL Categorical Model
+To fully represent IMLL connectives, such as linear intuitionistic implication and
+multiplicative conjunction, we need to incorporate their corresponding inference
+rules into our categorical setting. These rules describe the connectives’ behavior
+as well as their structural and non-logical inference rules. To do so, we must make
+use of monoidal categories, braidings and symmetries, and closed structures.
+    The shift towards monoidal categories for modeling IMLL semantics is cru-
+cial due to the necessity to move away from diagonal maps in categories which
+8
+   https://github.com/HaskDev0/Linear-Logic-Cat-semantics
+9
+   For more information, see Mellies [20]. It provides a thorough description of the topic
+   as well as lists all the inference rules for IMLL that are formalized and proved within
+   our framework.
+10
+   All the translations of proofs are carried out under proof-theoretic normalization
+   invariance.
+10      J. Bayer, A. Gonus, C. Benzmüller, and D. S. Scott
+
+allow the duplication of the objects, or, equivalently, resources [1].11 Moreover,
+the locales environments of Isabelle/HOL are used to develop formalizations of
+translated IMLL concepts for their convenience of presentation and of working
+with algebraic theories.
+
+Definition 5 (Monoidal Category). A monoidal category C is a category
+C equipped with: (1) a bifunctor ⊗ : C × C −→ C, (2) a natural isomor-
+phism12 αA,B,C : (A ⊗ B) ⊗ C −→ A ⊗ (B ⊗ C), (3) a special identity
+morphism, or object in our meaning, e, which is a unit, and (4) two natu-
+ral isomorphisms e ⊗ A −→ A and ρA : A ⊗ e −→ A, which satisfy the
+triangular identity (C.Id A) ∧ (C.Id B) −→ (A ⊗ λB ) · αA,e,B ≃ ρA ⊗ B
+and the pentagonal identity (C.Id A) ∧ (C.Id B) ∧ (C.Id C) ∧ (C.Id D) −→
+(A ⊗ αB,C,D ) · (αA,B⊗C,D · αA,B,C ⊗ D) ≃ αA,B,C⊗D · αA⊗B,C,D .13
+
+   Here it is essential to understand that the natural isomorphism α acts be-
+tween functors (• ⊗ •) ⊗ • : C × C × C −→ C and • ⊗ (• ⊗ •) : C × C × C −→ C of
+domain C × C × C and codomains C. There exist similar interpretations for the
+other two isomorphisms occurring in the definition.
+
+Definition 6 (Braided Monoidal Category). A braided monoidal cate-
+gory is a monoidal category C equipped with a braiding, i.e. a natural iso-
+morphism γA,B : A ⊗ B −→ B ⊗ A, making two hexagonal axioms hold:
+(1) (C.Id A) ∧ (C.Id B) ∧ (C.Id C) −→ αB,C,A · (γA,B⊗C · αA,B,C ) ≃
+(B ⊗ γA,C ) · (αB,A,C · (γA,B ⊗ C)), and (2) (C.Id A) ∧ (C.Id B) ∧ (C.Id C)
+     −1                  −1                      −1
+−→ αC,A,B  · (γA⊗B,C · αA,B,C ) ≃ (γA,C ⊗ B) · (αA,C,B · (A ⊗ γB,C )).
+
+Definition 7 (Symmetric Monoidal Category). A symmetric monoidal cat-
+egory is a braided monoidal category C, whose braiding is a symmetry, i.e.
+                                −1
+(C.Id A) ∧ (C.Id B) −→ γA,B ≃ γB,A .
+
+    These notions already allow one to reason about the multiplicative conjunc-
+tion and exchange inference rules in IMLL, and the final step is to properly
+describe closed structures. There are three equivalent definitions of these terms,
+and the way to define one chooses depends on the goals and the frame one works
+in due to the ease of use in some cases. We will give two variations here and
+we will provide some comments on their connection. The first one was chosen
+since it will directly be used in further developments of IMLL semantics, and
+the second one will deliver a clearer view of the notion and the understanding of
+why we introduced an evaluation morphism eval later (see Def. 10) to describe
+the translation of formulas to categorical constructs.
+
+Definition 8 (Left Closed Monoidal Category). A left monoidal closed
+category is a monoidal category C endowed with a left closed structure, i.e. with
+11
+   The definitions that are needed to describe the model of IMLL are taken from Mellies
+   [20] and adopted to our framework.
+12
+   A family of natural isomorphisms.
+13
+   C.Id denotes an identity morphism predicate.
+     Category Theory in Isabelle/HOL as a Basis for Meta-logical Investigation        11
+
+a data of: (1) a bifunctor ⊸: C op × C −→ C, and (2) a bijection C(A ⊗ B, C) ∼
+                                                                             =b
+C(B, A ⊸ C), which is natural in A, B and C.14
+
+    The second point in the definition should be understood as the natural trans-
+formation between the functors C( ⊗ex , ) and C( , ⊸ ) which act between
+categories C op ×C op ×C and Set. Therefore, the encoding of Hom-functors should
+have been encoded first, which would have added additional layer of complex-
+ity. Instead, we decided to translate it to the language of sets directly with the
+help of two function Φ and Ψ acting as inverses of each other and having more
+inputs than just one, namely, the morphism itself. The functions, thus, have the
+following types:
+
+                  Φ ::′ a ⇒′ a ⇒′ a ⇒′ a and Ψ ::′ a ⇒′ a ⇒′ a ⇒′ a.
+
+    The reason we are using two functions describing the bijection lies in the
+fact that in the Isabelle/HOL system functions are total, but in our framework
+we are working with the so-called existent morphisms which constitute only a
+subdomain of some type. Moreover, two additional arguments need to be speci-
+fied when we want to apply the mentioned bijection, in order to know the exact
+structure of the domain of the input morphism for the bijection going right in
+the Def. 8 (2) and the same for the codomain of the input morphism for the
+bijection going left. In other words, given some morphism f , and a necessity to
+check whether the domain of f is exactly A⊗B, we cannot merely apply the dom
+function to find the hidden parts. Therefore, this additional information recovers
+the missing data. The same reasoning clarifies the equivalent features of Ψ . This
+encoding process also reveals the actual compressed information that is needed
+to talk about IMLL semantical constructs within Isabelle/HOL. Therefore, for-
+malization of this definition in Isabelle/HOL looks as follows:
+
+Definition 9 (Left Closed Monoidal Category in Isabelle/HOL). A left
+monoidal closed category is a monoidal category C endowed with a bifunctor
+⊸: C op × C −→ C and functions Φ and Ψ , that satisfy:
+(1) (f : A⊗B → C)∧(C.IdEx A)∧(C.IdEx B) −→ Φ(A, B, f ) : B → (A ⊸ C),
+(2) (g : B → A ⊸ C) ∧ (C.IdEx A) ∧ (C.IdEx B) −→ Ψ (A, C, g) : A ⊗ B → C,
+(3) (f : A ⊗ B → C) ∧ (C.IdEx A) ∧ (C.IdEx B) −→ Ψ (A, C, Φ(A, B, f )) ≃ f ,
+(4) (g : B → A ⊸ C) ∧ (C.IdEx A) ∧ (C.IdEx B) −→ Φ(A, B, Ψ (A, C, g)) ≃ g,
+    and the requirement for Ψ for being natural in f :
+(5) (f : A ⊗ B → C) ∧ (C.IdEx A) ∧ (C.IdEx B) ∧ (cod x = A) ∧ (cod y = B) ∧
+    (dom z = C) −→ Φ(dom x, dom y, z ·(f ·(x⊗y))) ≃ (z ⊸ y)·(Φ(A, B, f )·y).
+
+We have proved (in our formalization) that this function Ψ is a natural trans-
+formation. As was pointed out above, the other definition of left closed structure
+is the following:
+14
+     The sign ∼=b here means the bijection between the sets and we introduced it in order
+     to distinguish it from the Kleene duality.
+12      J. Bayer, A. Gonus, C. Benzmüller, and D. S. Scott
+
+Definition 10 (Left Closed Structure). A left closed structure in a monoidal
+category C is composed of: (1) an identity morphism A ⊸ B, and (2) a left
+evaluation morphism evalA,B : A ⊗ (A ⊸ B) −→ B, for every identity mor-
+phisms A and B. The evalA,B morphism satisfies the following universal prop-
+erty: ∀f : A ⊗ X −→ B.(∃!h : X −→ A ⊸ B) ∧ (f ≃ evalA,B · (A ⊗ h)).15
+
+    The evaluation morphism eval is a translation of the elimination rule for ⊸
+if the proof system is designed with it instead of the left rule for ⊸. The former
+definition entails the latter for a left closed structure (this is formalized as a
+theorem in Isabelle/HOL). In the same way, with slight modifications, one may
+define the right closed structure.
+    At this point we are able to describe the categorical model of IMLL.
+
+Definition 11 (Symmetric Monoidal Closed Category). A symmetric
+monoidal closed category (SMCC) is a monoidal category C equipped with a sym-
+metry γ and a left closed structure ⊸.
+
+    We proved in our formalization that in any such monoidal category there is
+also a right closed structure as well, which confirms theoretical expectations. To
+demonstrate this, define the functions • ⊸r • = • ⊸ •, Φr (f ) = Φ(f · γA,B ) and
+Ψr (g) = Ψ (g) · γB,A for morphisms f : B ⊗ A −→ C and g : B −→ A ⊸ C, which
+would exhibit the desired properties.16 Provided that we described through lo-
+cales tensor product T, left closed structure Impl, natural isomorphisms α, µ, ρ,
+natural isomorphisms between Hom-functors via Φ, Ψ and a symmetry γ, the
+corresponding encoding of a SMCC inside Isabelle/HOL would look like:
+    At this point we are ready to give the formalization of IMLL formulas in
+SMCC. For that, we start with the discussion of the well-known principle in
+intuitionistic logic, which in particular holds in IMLL, that every formula A
+implies its double negation ¬¬A. For this purpose there should be some formula
+⊥, which helps to define the negation of a formula as A ⊸ ⊥ [20]. Thus, the
+mentioned principle translates to the fact in SMCC as:
+
+Proposition 1 (Existence of Double Negation Morphism). There is al-
+ways a morphism δA : A −→ (A ⊸ ⊥) ⊸ ⊥ for every identity A in any SMCC.
+
+   Note that this is not a new result, but a proposition that we used to test our
+encoding with and which we certified within the Isabelle/HOL SSE framework.
+   It is worth mentioning that in a sequent style proof there is no difference how
+we derive the formula (A2 ⊸ ⊥) ⊸ ⊥ given a formula A1 and a derivation π
+of A1 ⊢ A2 . In other words, we could have derived to it via double negating A1
+and then applying the derivation π translated for double negation, or we double
+negate A2 . In SMCC this fact corresponds to:
+15
+   Here, we exploited a new abbreviation ∃!h.P (h) for unique existence, which means
+   ∃h.(P (h) ∧ (∀t.P (t) → t = h)).
+16
+   That is exactly the place where we use in the encoding those additional first two
+   parameters of Φ and Ψ to specify the morphisms.
+    Category Theory in Isabelle/HOL as a Basis for Meta-logical Investigation   13
+
+
+
+
+         Fig. 3. The implementation of a symmetric monoidal closed category
+
+
+Proposition 2 (Double Negation as a Natural Isomorphism). In every
+SMCC the constructed morphism δA is, in fact, a natural transformation.
+
+    Propositions 1, 2 already quite firmly indicate the possibility of applying the
+chosen categorical axiomatization and formalization approach to logical ques-
+tions expressed in a denotational (categorical) framework. As long as everything
+above is formalized in Isabelle/HOL, it is now possible to translate all the in-
+ference rules of IMLL as theorems about the morphisms in SMCC. For this
+step one has to be slightly creative in terms of finding the most appropriate
+translations, i.e., relying only on automated tools for this step would be a very
+naive way, leading to an explosion of “search space”, while human interference
+with ”reasonable” assumptions and ideas solves the problem of finding suitable
+morphisms that represent specific IMLL sequents. The task was successfully ac-
+complished, as can be seen in the full encoding. This provides some evidence for
+the practical feasibility of using readily available higher-order theorem provers
+to support even very abstract and complex meta-logical investigations for IMLL
+within a categorical language suitably encoded in free logic embedded in HOL.
+
+
+5     Conclusions
+This article has outlined an option for, and the potential of, formalizing cat-
+egory theory in higher-order logic to investigate meta-logical questions. The
+14      J. Bayer, A. Gonus, C. Benzmüller, and D. S. Scott
+
+Isabelle/HOL proof assistant was used to formalize the notion of elementary
+topoi and to subsequently develop and formalize symmetrical monoidal closed
+categories expressing the denotational semantical model of intuitionistic mul-
+tiplicative linear logic. This was carried out on the basis of (layered) shallow
+semantical embeddings, exploiting at the base layer a shallow semantical em-
+bedding of positive free higher-order logic in classical higher-order logic.
+    In addition to these meta-logical investigations, we outline with our work a
+possible way of building-up a category theory library in Isabelle to support reuse
+and application. We optimized our formalization to closely resemble mathemat-
+ical notation and provided examples of how to use our formalized concepts. We
+hope that this will facilitate the future use of category theoretical notions in
+formalizations beyond just category theory itself.
+
+
+References
+ 1. Abramsky, S., Tzevelekos, N.: Introduction to categories and categorical logic. In:
+    Coecke, B. (ed.) New Structures for Physics, pp. 3–94. Springer Berlin Heidelberg,
+    Berlin, Heidelberg (2011). https://doi.org/10.1007/978-3-642-12821-9 1
+ 2. Beffara, E.: Introduction to linear logic (Aug 2013), https://hal.archives-ouvertes.
+    fr/cel-01144229, lecture
+ 3. Benzmüller, C., Andrews, P.: Church’s type theory. In: Zalta, E.N. (ed.) The Stan-
+    ford Encyclopedia of Philosophy, pp. 1–62 (in pdf version). Metaphysics Research
+    Lab, Stanford University, summer 2019 edn. (2019), https://plato.stanford.edu/
+    entries/type-theory-church/
+ 4. Benzmüller, C., Parent, X., van der Torre, L.: Designing normative theories for eth-
+    ical and legal reasoning: LogiKEy framework, methodology, and tool support. Arti-
+    ficial Intelligence 287, 103348 (2020). https://doi.org/10.1016/j.artint.2020.103348
+ 5. Benzmüller, C., Scott, D.: Automating Free Logic in Isabelle/HOL. In:
+    Greuel, G.M., Koch, T., Paule, P., Sommese, A. (eds.) Mathematical Soft-
+    ware – ICMS 2016. pp. 43–50. Springer International Publishing, Cham (2016).
+    https://doi.org/10.1007/978-3-319-42432-3 6
+ 6. Benzmüller, C., Scott, D.S.: Automating Free Logic in HOL, with an Experimental
+    Application in Category Theory. Journal of Automated Reasoning 64(1), 53–72
+    (Jan 2020). https://doi.org/10.1007/s10817-018-09507-7
+ 7. Benzmüller,      C.:    Universal    (meta-)logical    reasoning:    Recent     suc-
+    cesses.     Science    of   Computer       Programming      172,    48–62     (2019).
+    https://doi.org/10.1016/j.scico.2018.10.008
+ 8. Ernst, M.: Category theory and foundations. In: Categories for the
+    Working Philosopher, pp. 69–89. Oxford University Press (2017).
+    https://doi.org/10.1093/oso/9780198748991.003.0005
+ 9. Farmer, W.M.: A Partial Functions Version of Church’s Simple Theory of Types.
+    The Journal of Symbolic Logic 55(3), 1269–1291 (1990), http://www.jstor.org/
+    stable/2274487
+10. Freyd, P., Scedrov, A.: Categories, Allegories, North-Holland Mathematical
+    Library, vol. 39. Elsevier Science (1990), https://books.google.de/books?id=
+    fCSJRegkKdoC
+11. Gabbay, D.M.: Introduction to labelled deductive systems. In: Gabbay, D.M.,
+    Guenthner, F. (eds.) Handbook of Philosophical Logic: Volume 17, pp. 179–266.
+  Category Theory in Isabelle/HOL as a Basis for Meta-logical Investigation             15
+
+    Springer Netherlands, Dordrecht (2014). https://doi.org/10.1007/978-94-007-6600-
+    63
+12. Girard, J.Y.: Linear logic. Theoretical Computer Science 50(1), 1–101 (1987).
+    https://doi.org/10.1016/0304-3975(87)90045-4
+13. Katovsky, A.: Category theory. Arch. Formal Proofs 2010 (2010)
+14. Kirchner, D., Benzmüller, C., Zalta, E.N.: Computer science and meta-
+    physics: A cross-fertilization. Open Philosophy 2(1), 230–251 (2019).
+    https://doi.org/10.1515/opphil-2019-0015
+15. MacLane, S.: Categories for the Working Mathematician. Springer-Verlag, New
+    York (1971), graduate Texts in Mathematics, Vol. 5
+16. Maddy, P.: Set-theoretic foundations. Contemporary Mathematics 690, 289–322
+    (2017)
+17. Maddy, P.: What Do We Want a Foundation to Do? Comparing Set-Theoretic,
+    Category-Theoretic, and Univalent Approaches. In: Centrone, S., Kant, D.,
+    Sarikaya, D. (eds.) Reflections on the Foundations of Mathematics: Univalent Foun-
+    dations, Set Theory and General Thoughts, pp. 293–311. Springer International
+    Publishing, Cham (2019), https://doi.org/10.1007/978-3-030-15655-8 13
+18. Makarenko, I., Benzmüller, C.: Positive Free Higher-Order Logic and Its Automa-
+    tion via a Semantical Embedding. In: Schmid, U., Klügl, F., Wolter, D. (eds.)
+    KI 2020: Advances in Artificial Intelligence. pp. 116–131. Springer International
+    Publishing, Cham (2020). https://doi.org/10.1007/978-3-030-58285-2 9
+19. McLarty, C.: Elementary categories, elementary toposes. Clarendon Press (1992)
+20. Melliès, P.A.: Categorical semantics of linear logic, pp. 1 – 196. No. 27 in Panoramas
+    et Synthèses, Société Mathématique de France (2009)
+21. Milehins, M.: Category theory for zfc in hol i: Foundations: Design patterns,
+    set theory, digraphs, semicategories. Archive of Formal Proofs (September 2021),
+    https://isa-afp.org/entries/CZH Foundations.html, Formal proof development
+22. Morscher, E., Simons, P.: Free Logic: A Fifty-Year Past and an Open Fu-
+    ture. In: Morscher, E., Hieke, A. (eds.) New Essays in Free Logic: In Hon-
+    our of Karel Lambert, pp. 1–34. Springer Netherlands, Dordrecht (01 2001).
+    https://doi.org/10.1007/978-94-015-9761-6 1
+23. nLab authors: single-sorted definition of a category. https://ncatlab.org/nlab/
+    show/single-sorted+definition+of+a+category (Apr 2021)
+24. Nolt, J.: Free Logic. In: Zalta, E.N. (ed.) The Stanford Encyclopedia of Philosophy.
+    Metaphysics Research Lab, Stanford University, Winter 2020 edn. (2020)
+25. Ohlbach, H.J., Nonnengart, A., de Rijke, M., Gabbay, D.M.: Encoding two-valued
+    nonclassical logics in classical logic. In: Robinson, J.A., Voronkov, A. (eds.) Hand-
+    book of Automated Reasoning (in 2 volumes), pp. 1403–1486. Elsevier and MIT
+    Press (2001). https://doi.org/10.1016/b978-044450813-3/50023-0
+26. O’Keefe, G.: Category theory to yoneda’s lemma. Archive of Formal Proofs (April
+    2005), https://isa-afp.org/entries/Category.html, Formal proof development
+27. Schütte, K.: Syntactical and Semantical Properties of Simple Type Theory. The
+    Journal of Symbolic Logic 25(4), 305–326 (1960), http://www.jstor.org/stable/
+    2963525
+28. Scott, D.: Existence and description in formal logic. In: Schoenman, R., Russell,
+    B. (eds.) Philosopher of the Century, pp. 181–200. George Allen & Unwin, London
+    (1967), reprinted with additions. In: Lambert, K. (ed.) Philosophical Application
+    of Free Logic, pp. 28–48. Oxford University Press, 1991
+29. Scott, D.: Identity and existence in intuitionistic logic. In: Fourman, M., Mul-
+    vey, C., Scott, D. (eds.) Applications of Sheaves: Proceedings of the Re-
+    search Symposium on Applications of Sheaf Theory to Logic, Algebra, and
+16      J. Bayer, A. Gonus, C. Benzmüller, and D. S. Scott
+
+    Analysis. pp. 660–696. Springer Berlin Heidelberg, Berlin, Heidelberg (1979).
+    https://doi.org/10.1007/BFb0061839
+30. Stark, E.W.: Category theory with adjunctions and limits. Archive of Formal
+    Proofs (June 2016), https://isa-afp.org/entries/Category3.html, Formal proof de-
+    velopment
+31. Tiemens, L., Scott, D.S., Benzmüller, C., Benda, M.: Computer-supported ex-
+    ploration of a categorical axiomatization of modeloids. In: Relational and Alge-
+    braic Methods in Computer Science – 18th International Conference, RAMiCS
+    2020, Palaiseau, France, April 8–11, 2020, Proceedings. Lecture Notes in Com-
+    puter Science, vol. 12062, pp. 302–317. Springer (2020), https://doi.org/10.1007/
+    978-3-030-43520-2 19
+

@@ -1,0 +1,1179 @@
+JOURNALOF COMPUTERAND SYSTEMSCIENCES: 1, 187-212 (1967)
+
+
+
+            Some DeRnitional Suggestionsfor Automata Theory
+                                         DANA SCOTT*
+
+           Mathematics Department, Stanford University, Stanford, California 94305
+
+
+   There have been many new abstract machines suggested recently, and it seems like
+a good time to propose adopting a more uniform terminology. I n particular, the so-
+called nondeterministic machines are very popular, and, even though the author
+helped contribute to this popularity, he now feels that is it simpler to avoid them.
+It will be adequately explained below how every purpose served by the nondeterministic
+non-machines can be quite adequately covered by the deterministic philosophy--
+if one only adopts the appropriate, obviously reasonable definitions. Further, we
+wish to advocate strongly the separation of the concepts of program and machine.
+Not only is this natural, but it helps to unify the presentation. I n particular, definitions
+can be given once for all in sufficient generality that they do not have to be repeated
+every time an inspiration for a new machine strikes. 1
+   T h e paper has six sections. I n Section 1 programs (as linguistic objects) are defined.
+I n Section 2 machines are defined. I n Section 3 programs and machines are brought
+together for the purpose of computation. Section 4 contains examples of some useful
+machines. Section 5 shows how the various kinds of sets associated with machines
+
+   * A less polished version of this paper was presented at the Conference on the Algebraic
+Theory of Machines, Languages and Semigroups under the title "A Modest Proposal Concerning
+NondeterministicAutomata" on September 5, 1966. Preparation of the manuscript was supported
+by NSF Grant GP-3926.
+   1 The plans of eliminatingnondeterministicmachines and giving greater emphasis to programs
+was formulated by the author in his lectures on automata theory at Stanford during 1964/65.
+Several other workers have made similar if not identical suggestions. Specific references will be
+given below. In this connectionthe referee in his helpful comments on the paper made the follow-
+ing remark which is worth quoting in full: "Although your main object is to unify and simplify
+the treatment of various kinds of machines, I think it is worth putting in a few more references to
+related work, since the mathematical theory of programs is in its infancy and it is by no means
+clear yet what are the best concepts to single out. Here, for example, you might mention that
+your definition of a program is virtually the same as what Kaluzhnin [1] would call an 5 - ~ graph
+scheme. And that, apart from your (most useful) modification of the treatment of input and
+output, your machine of Def. 2.1. is what Kaluzhnin calls an interpretation {M; ~- --~.~t'(.~-);
+   --~dt'(~)} for .~'-~ graph schemes. Also you ought to mention Elgot's "Abstract Algorithms
+and Diagram Closure" (preprint, IBM Laboratory, Vienna, 1966). Elgot's formulation does n o t
+accomplish what yours does but it is another very natural way of explicating the notion of pro-
+gram built up from certain basic types of command. He also discusses the notion of a generating
+algorithm, generable set, computable and semicomputable sets and functions, and various
+closure properties corresponding to those for the recursive functions."
+                                               187
+188                                      SCOTT
+
+can best be defined. One of the main points is the emphasis given to functions over sets.
+Thus the basic nature of a program is to compute a function aecording to Section 3.
+It will be seen in general that the sets fall into place the same way they do in ordinary
+recursive function theory. Finally, Section 6 collects together some miscellaneous
+applications.
+
+
+                                      1. PROGRAMS
+
+   From an elementary point of view a program is a structured set of instructions
+which allows a computer (human or mechanical) to successively apply certain basic
+operations and tests to given initial data until the data have been transformed into
+some desirable form. One of the simplest ways to indicate the structures of programs
+is by means of the well-known flow diagrams, one of which is illustrated in Fig. 1.
+We can imagine following the (unique) path of the flow of control in the diagram by
+
+
+
+
+                                                  LI
+
+
+
+                                                  L/-
+                                             No
+                                                  Lz
+
+
+                                                       I
+                                  -_ N O J
+
+
+                                                  L4
+
+
+
+
+                                         FIG. 1
+               SOME DEFINITIONAL SUGGESTIONS FOR AUTOMATA THEORY                          189
+
+starting with the initial data at the position marked start; applying first the operation
+given by the function Fo; to that result applying the test given by the predicate Po;
+then switching control either back t o F 0 or ahead toFt; and so on until the halt position
+is r e a c h e d - - if ever. This is all very familiar and is basic to the idea of a program.
+Of course, people want more elaborate programs making use of subroutines and
+reeursive procedures; but still, even those will be compiled into more direct programs
+that could be illustrated by such flow diagrams (very big diagrams to be sure!)
+   If we thus agree that flow diagrams can illustrate a sufficiently rich collection of
+programs, then we can begin to consider programs in general. Unfortunately, it is
+somewhat cumbersome to define in a rigorous mathematical way what a flow diagram
+is in general as a geometrical object, but it is easy to extract the essential structure
+from a diagram by judicious use of labels. In fact, in Fig. 1, some labels have been
+inserted at nodes on routes leading into each of the boxes. If we simply read the
+diagram, the following list of instructions is obtained:
+
+                        s t a r t : go to L o
+
+                           L 0: do F 0; go to L t
+                           L 1 : i f P0 t h e n g o to L 0 e l s e go to L 2
+                           Lz : d o F 1 ; go to La
+                           L a : i f P~ t h e n go to L 4 e l s e go to L o
+                           L 4 : halt
+
+If we then read over this list of instructions and follow the flow they suggest, we
+arrive back at our original diagram (more or less). Clearly, nothing essential of program
+structure is lost by considering such collections of instructions.
+   T o be specific, instructions are made up from some basic symbols with the aid of
+identifiers chosen from certain sets ~a (the labels), o~" (the function or operation
+symbols), and ~ (the predicate or "test" symbols). T o be even more specific, the
+identifiers in these sets could be regarded as strings of symbols from some conventional
+alphabet; but that is not too important. It is convenient, however, to assume that the
+three sets are pairwise disjoint and that the set of labels is infinite. We could fix
+once for all, but we might wish to vary o~- and ~ so that our notation can have mne-
+monic content, but this is not too important either.
+   Next we imagine that
+
+                             start              ff
+                             go to              then         ;
+                             do                 else         halt
+
+stand for nine remarkable symbols that never occur within any of our identifiers.
+190                                             SCOTT
+
+(That is a bit strict, but never mind.) Then we can say that an instruction is a string
+of one of the following four forms:
+
+                         s t a r t : go to L
+                             L : do F; go to L'
+                             L : if P t h e n go to L' e l s e go to L"
+                             L : halt
+
+where L, L', L" 9 s and F 9 ~ and P 9 ~ . Note that our convention allows us to
+forget whether we want spaces between the symbols and identifiers. (I know that the
+symbols :, do, go to, and; are not really necessary, but style has to count for something.)
+T h e first type of instruction is a start instruction; while the last type is a halt instruction.
+T h e other two types can be called operation and test instructions.
+
+    DEFINITION 1.1. A program is a finite set H of instructions containing exactly one
+start instruction and containing for each label that occurs anywhere in any instruction
+i n / 7 exactly one instruction that begins with that label.
+
+   It might be better to say t h a t / 7 is merely a program schema, because the operation
+and predicate symbols in H have not yet been given any meaning. But the shorter
+term does not seem to be misleading. T h e problem of giving meaning to the parts
+and whole of H is, of course, the task of the next two sections. T h e reader should not
+expect any surprises.
+
+
+                                           2. MACHINES
+
+    T o be able to follow a program explicitly we must know (i) how to input the data,
+(ii) how to perform the operations and tests, and (iii) how to output the results when
+a halt instruction is finally reached. It is just this information that is contained in the
+specification of a machine. T o make the specification precise we will build a mathe-
+matical model for a machine by collecting together the relevant pieces of information
+in certain functions. T h e reader, of course, understands the abstract concept of
+a mathematical function, but it is helpful here to adopt some special conventions.
+    When we write
+                                               f:A-+B
+we will mean that f is a partial function from the set A into the set B. That is, i f f (x)
+is defined, then x 9 A and f ( x ) 9 B; but we do not assume that f ( x ) is defined for
+all x 9 A. We also want knowledge of f to determine the sets A and B uniquely.
+Very often functions are identified with sets of ordered pairs; thus f would be taken
+as the set of all pairs (x, f(x)) where f ( x ) is defined. Such a convention would only
+               SOME DEFINITIONAL SUGGESTIONS FOR AUTOMATA THEORY                       191
+
+allow us to determine a subset of A and a subset of B from knowledge off. If we want
+to be hyperprecise, we can identify the function with the ordered triple consisting
+of A and B together with the usual set of ordered pairs. T h e n we would have a
+mathematical notion of function with the desired features. The reason we want to
+stress partial functions is twofold: the so-called " d o n ' t care" conditions are natural
+in specifying machines; and programs, as we shall see, only define partial functions
+anyway.
+   For notational ease we also invent a symbol ~2 to stand for the undefined. Thus the
+equation
+                                       f (x) = o
+is short for the statement 'if(x) is undefined;" while
+
+                                       f (x) # 0
+is read '~f(x) is defined." We also make the convention that the equation
+
+                                       f(O) = 0
+is true. This is necessary for statements involving combinations of functions. Thus if
+g(x) = g2, then clearly we want
+
+                                      f (g(x)) = ~2.
+This result follows from our conventions simply by replacing equals by equals.
+T h e same conventions are extended to functions of several variables; hence
+
+                                h(x, O) = h(O, y) = O.
+(Other conventions might be desirable for special purposes, but in general this seems
+to be the most straight-forward plan.) Further, we assume that .Q is an object extraneous
+to all the sets we will ever use in building machines or programs; that is,
+
+                                          Or
+is taken as true for all normal sets S.
+   Partial functions are also very useful in specifying partial predicates and relations.
+Usually the meaning of a one-place predicate is taken to be simply a subset of a
+suitable fixed set A. T o allow for the "don't care" conditions, we can say that the
+meaning of a predicate is a partial function
+
+                                     p : A--~ {T, F},
+
+where T stands for the Boolean value t r u e and F for false. Similarly for binary
+relations we would use an
+                             r : A • A --0-{T, F}.
+  We are now ready for the precise definition of a machine. To help unify the notation
+192                                               SCOTT
+
+we assume that the symbols I and O (standing for input and output) are identifiers
+not belonging to either of the sets ~,~ or ~ .
+
+   DEFINITION 2.1. A machine is a function ~ defined on the set {I} w ~ w ~ u {O}
+for which there exist sets X (the input set), M (the memory set), and Y (the output set)
+such that
+                      (i) ~ i : X - + M ;
+                       (ii) ~ F :M--~M,             forall   FE#';
+                      (iii) ~J~p : M - - ~ { T , F } ,   forall   PE#;   and
+                      (iv) 9~o : M - + Y.
+   In the above we have used the subscript notation 9J/I as an alternative to the function-
+value notation 9X(I) so as to avoid the less readable combination ~O/(I)(X). Notice,
+by the way, that the sets X, M, and Y are uniquely determined by the machine ~ .
+Thus our conventions about functions help soften the somewhat clumsy "217-tuple"-
+style definition of abstract machines that has unfortunately become common. 2
+   We shall often want to compare functions of one variable with functions of several
+variables. A (partial) function of 17 variables on a set A with values in B is indicated by
+                                             f : AxT-+ B,
+where A 17 = A • A • --. • A (17 times). (Conventions should be arranged so
+taht A 1 = A.)
+
+  DEFINITION 2.2. A system of machines is a sequence ~g/(1), ~lj/c2),..., ~lRt,o,... of
+machines for which there exist sets X and Y such that the input set of each ~l/(n) is X ~
+while all the ~(~) have the same output set Y.
+
+   As it stands, this definition is not very informative. For one thing the actions of
+the various machines have in no way been related. This fault will be eliminated in
+Section 4, where, after the examination of certain examples, we shall specialize to
+machines with "standard" input/output for which the comparison of machines in
+a system will be simple to express.
+   T h e next step is to define just what a machine does when confronted with a program,
+or, to say it the other way around, what is the meaning of a program on a given
+machine.
+
+                                          3. COMPUTATIONS
+
+   Let H be a fixed program, and let ~ be a fixed machine with input set X, memory
+set M, and output set Y. We want to define what it means to follow the flow of the
+program on the machine; the history of this flow is called a computation.
+   " The author is indebted to Michael Harrison for the concept of the 217-tuple.
+                 SOME DEFINITIONAL SUGGESTIONS FOR AUTOMATA THEORY                                   193
+
+   DEFINITION 3.1. A (completed) computation by the program H on the machine
+is a finite sequence
+                                     Lo , mo , L1, nil ,..., Ln , mn
+of alternating labels of H and elements of M, where the label L 0 is contained in the
+start instruction o f / / , the label Ln is contained in some halt instruction of/-/, and
+where for i ~ n we have either an instruction of the form
+
+                                          L i 9 do F; go to L'
+
+belonging t o / / ,   in which c a s e   Li+ 1 ~ - L r and   mi+1 ~ ~F(mi), or an instruction of
+the form
+                              Li : i f P t h e n go to L' e l s e go to L"
+
+belonging t o / / , in which case mi+ 1 ~ m i , and either ~i~p(mi) ~        T   and Li+ 1 ~ i ' ,    or
+~R1,(mi) = F and Li+ 1 = L".
+
+  Given a value of m0 , the start instruction of H provides the label L 0 , and the rest
+of the computation sequence is strictly determined As we attempt to follow the
+program we may find that the developing sequence is uncompletable for one of the
+following reasons:
+     (1) A label of a halt instruction will never be reached, and the sequence is forced
+to go on forever;
+     (2) an instruction
+                                         Li: d o F ;   go t o L '
+
+is reached where 9J~F(mi) = D: or
+     (3) an instruction
+                              L i : i f P t h e n go to L' else go to L"
+is reached where ~ v ( m i ) ~ s
+We shall reserve the word computation only for the completed sequences of the
+above definition
+
+   DEFINITION 3.2.        T h e (partial) function computed by a program H on a machine
+is that function
+                                             ~n: X-+ Y
+such that for x ~ X , !ls        ) @ s if and only if there is a computation
+
+                                     L 0 , m0 , L 1 , ml ,..., L n , mn
+
+such that m0 : - 9J/a(X) and !O/o(m,) @ g2, in which case
+
+                                          ~(x)     = 9~o(m.).
+194                                         scox'r
+
+   Note that ?Oln(x) = Q might occur simply because ~ o ( m , ) = ~. In most obvious
+examples of machines the output function is not so unpleasant and is a totally defined
+function on M, but there is no reason to assume that it is always total.
+   The subscript notation used here in ~n(X) could be criticized because ~ was by
+Definition 2.1 a function with domain {I} u ~ u ~ u {O}, and in that definition
+~ F meant ~ ( F ) . Very true. So let us informally agree to extend the domain ~ to
+include the set of all programs (assuming that identifiers are not programs!) Then
+~ n = ~ ( H ) and everyone can be happy.
+   Even without looking at some specific examples of machines and programs, we can
+already make some interesting definitions and distinctions.
+
+  DEFINITION 3.3.       T w o programs H and H ' are equivalent if and only if fol all
+machines ~0t
+                                        ~n = ~n'.
+   For example, every program is equivalent to one with a unique halt instruction;
+because if there is none, we can add one; while if there are several, they can be
+condensed to one by identifying labels. That is very trivial, and here is another
+such remark: every program is equivalent to one where no test instruction leads
+directly to a test instruction involving the same predicate symbol.
+   This notion of equivalence of programs is very strong. If we assume that the sets
+of identifiers are effectively given as, say, recursive sets of strings over a finite alphabet,
+then there is an effective decision method for equivalence of programs. This result
+can be improved to a decision method for equivalence of programs relative to some
+restricted class of machines. 3 It might be useful to see what is the most general result
+one can get along this line.
+
+  DEFINITION 3.4. A machine ~0~ is [effectively] reducible to a machine ~ ' if and
+only if corresponding to each program H one can [effectively] find a program H'
+such that
+
+
+
+If in addition ~ ' is [effectively] reducible to ~ , then we say that the two machines are
+[effectively] equivalent.
+   Of the two notions suggested in Definition 3.4, undoubtedly the effective one is
+the more interesting. Many results about different formulations of the definitions of
+recursive functions actually establish effective equivalence of machines; we will give
+some examples in the next section. Note that the definition requires that the input
+
+  8 If the author understands the results correctly, the decidability follows from the work of
+Yanov (cf. Rutledge [2]).
+               SOME D E F I N I T I O N A L SUGGESTIONS FOR AUTOMATA THEORY                 195
+
+and output sets of the two machines be respectively equal. For a broader definition,
+assuming that X and Y are the input and output sets for 0Jr, and X ' , Y' are the sets
+for ~R', we might allow encoding and decoding functions
+
+                                e : X-+ X'           d : Y'---~ Y.
+
+We could let dgX'e be the machine that results from 93/' by replacing its input/output
+functions by ~02i'e and d ~ o ' . Then if e and d exist so that ~ is reducible to d ~ ' e , wo
+could say that ~ can be simulated on ~ ' . Whether such a broader notion is actually
+interesting remains to be seen. 4 These definitions can all be extended in the obvious
+way to families of machines.
+
+
+
+                                         4. EXAMPLES
+
+    The Turing Machine. T h e memory set of the Turing machine consists intuitively
+of two-way infinite tapes almost all squares of which are blank and which have one
+square under scan by the reading head. It will be enough to have just two states for
+a square of the tape: blank and marked. Mathematically we can represent blank by 0
+and marked by 1 and a tape by a two-way infinite sequence t = (..., t z, t 1 , t o , t 1 ,
+t 2 ,...), where each t i ~ {0, 1}. To indicate a tape with, say, the kth square under scan,
+we need only form the ordered pair (t, k). Thus we take M to be the set of all such
+pairs (t, k) where the sum ~i=-oo ti is finite, meaning that almost all squares of the
+tape are blank.
+    If we wish the Turing machine ~ to compute number-theoretic functions, we take
+X = Y ~ N = {0, 1, 2,..} and define the input/output as follows:
+
+                                        9~i(m) -- (t(m~, 0),
+where
+
+
+                                   "'             otherwise,
+
+and
+
+
+                                   ~o((t,k))     =     y~ t,.
+                                                      i=-oo
+
+In other words, we start out with the tape marked just once m spaces directly to the
+right of the reading head. When we halt, the output is the number of marked squares
+on the tape. Other conventions are possible, of course.
+
+  4 This concept is related to what Evey ([3], Def. 5.2, p. 2-39) calls weak equivalence, except
+Evey requires that the functions e and d should be recursive.
+196                                            SCOTT
+
+  Next we assume that the following identifiers belong to o~: MOVERIGHT, PRINT,
+MOVELEFT, ERASE, and that this identifier belongs to ~ : BLANK?. We then define for
+F6#-
+
+                                     (t, k + 1)        i f F is MOVERIGHT,
+                                    ~(t, k -- 1)       i f F is MOVELEFT,
+                   ~ ( ( t , k)) = ~(t(k/1), k)        i f F is PRINT,
+                                   I(t(k/O), k)        i f F is ERASE,
+                                    >                   otherwise,
+
+where the tape t(k/i) is like t except it has its kth entry replaced by i. For P ~
+we define
+                                      i        if P is BLANK? and t k = 0,
+                    ~j,((t, k)) =              if P is BLANK? and t~ = 1,
+                                               otherwise.
+
+   The Register Machine. This machine is, in the author's opinion, far superior
+to the Turing machine because it is so much more elementary. 5 T h e machines are
+effectively equivalent, however, in the precise sense of Definition 3.4. Intuitively,
+this machine has only two index registers which can be incremented, decremented,
+and tested for being zero. T h e contents of the registers can be represented simply
+by pairs of nonnegative integers (m0 , ml), the totality of which form the memory
+set M for this Machine 9X. (Since we shall not study any one machine in detail in
+this paper, we need not introduce special symbols for the different machines.) T h e
+input/output are defined by
+
+                                      mh(,n) = (2,., o)
+and
+                                                 ifm o=2 kandm 1 =0,
+                   ~o((m0, m0)=           Ik
+                                                 otherwise.
+
+  We assume that the following identifiers belong to o~':
+
+                            Mo*-Mo         + 1      MI<--- M 1 + 1
+                            Mo'~-M o -- 1           MI*--M 1 -- 1
+
+and that these identifiers belong to ~ :
+
+                                    M 0 =- 0        M 1 =0
+
+  5 The idea of this machine seems to be due independently to Minsky [4], Lambek [5] and
+Shepherdson-Sturgis [6], except that Minsky realized that only two registers are needed. The
+machine is also discussed in Evey ([3], Machine 13, pp. 2-78) and Fischer ([7], pp. 376-378).
+                SOME DEFINITIONAL SUGGESTIONS FOR AUTOMATA THEORY                                   197
+
+We then define for F ~ ~ -
+
+                              (m + 1, ml)                 if F is Mo +-- lklo + 1,
+
+
+
+
+                             l
+                              (m 0 - - 1, ml)             i f F is M o ~-- l~I1 -- 1 and m o > 0,
+        9XF((mo, ml)) =       (m0, ml + 1)                if F is M t ~-- hi1 + 1,
+                               m0, m 1 - - 1)             i f F i s M1 ~--Mx -- 1, and m 1 > 0,
+                                                          otherwise.
+
+For P ~ ~ we define
+
+                                          T            ifPisM o =0andm o~-0,
+
+
+
+
+                                          I
+                                                       ifPisM o =0andm o~0,
+                 9J~p((m 0 , ml) ) ~---                if P is 1 ~ 1 = 0 and m 1 = 0,
+                                                       if P is l~I1 = 0 and m s v~ 0,
+                                                       otherwise.
+
+
+   The Post Machine.    This machine is very close to Post's normal systems3 The
+memory set this time consists of strings (finite sequences) of letters from a finite
+alphabet 2;; that is, M ----2;*. T o be definite let us take 2~ = {a, b}. T h e input/output
+sets could be taken simply as 2]* itself, but for comparison with the previous machines
+we will again use the integers. We define
+
+                             9Yq(m) = a m ( = a a a .'. a, m-times),
+
+and
+                                                   Im        if a - - - - a m,
+                                  9Xo(a)                     otherwise.
+
+   T h e intuitive idea of the action of the machine is that it manipulates a string by
+reading and erasing symbols on the left and writing new symbols on the right; thus
+as the ends of the string undergo modification, the information in the string slowly
+circulates from right to left. Accordingly, assume that the following identifiers belong
+to ~ ' :
+
+                           M + - (M]             M +-- M a            M ~-- M b
+
+
+and that these identifiers belong to ~ :
+
+                                  rvl =       a(rvl]        rvI -- b(rvI]
+
+
+   * This machine was not, however, defined by Post. It is defined in Arbib [8] and (independently)
+in Shepherdson-Sturgis [6].
+
+57I/I/2-6
+198                                           SCOTT
+
+(If ~ is a nonempty string, then (cr] is the result of removing the left-most symbol
+from a; while (A] = 1-2, where A is the empty string.) We then define for F e ~-:
+
+                                        (a]      if F is M ~- (M],
+
+
+
+
+For P ~ 9 ~ we define:
+                                   =
+
+
+
+
+                                       l~ra      if F is l~I ~-- Ma,
+                                                 if F is M +-- Mb,
+                                                 otherwise.
+
+
+
+                                       if P is M = a(M] and a = a(a],
+                                       if P is M ---- a(M] and cr # a(a],
+                                       if P is M = b(M] and a = b(a],
+                                       if P is M = b(M'] and a :~ b((r],
+                                       otherwise.
+
+  Remarkably enough this machine is effectively equivalent to the Turing machine
+and for some purposes is even better than the Register machine.
+
+  The Automation.     This machine operates somewhat like the Post machine
+except that the reading and writing functions are separated and the machine can
+never reread what it has written. In this case it is more natural to take the input/output
+sets as both being 2~*. T h e memory set is 2~* • 2~*. We define
+
+                                       ~I(T) = (A, r),
+and
+                                                      =
+
+
+
+
+  T h e intuitive idea this time is that the machine is allowed to read the second string
+symbol by symbol from left to right. Also, it is allowed to write on the first string
+again from left to right. Specifically we assume that these identifiers belong to ~-:
+
+                         M1 +-- (M1]       Mo ~ Moa             M0 +-- Mob
+
+and that these belong to 9~:
+
+                               M 1 = a(Mx]         M1 ~-- b(M1]
+
+We then define for F ~
+
+                                                          ifF is     ,- (Md,
+                                       (~a, 7)            ifF is M o *- Moa,
+
+                                       ~ b, ~)            ifF is M o ~ Mob,
+                                                          otherwise.
+                SOME DEFINITIONALSUGGESTIONSFOR AUTOMATATHEORY                              199
+
+For P E ~ we define
+
+                                      T     if P is l~I1 =   a(Mx] and T = a(T],
+
+
+
+
+                                     I
+                                            if P is M 1 =    a(M1] and r @ a(r],
+                 ~ . ( ( ~ , ,)) =          if P is Ma =     b(M1] and 9 = b(~],
+                                            if P is M1 =     b(M1] and z q: b(r],
+                                            otherwise.
+
+    Note that our conventions here about how the automaton calculates are somewhat
+different from what is usual in the literature. In the first place, relative to a given
+program, it is not necessary to have our automaton read the whole input tape before
+halting; the program can be modified to an equivalent program which acts in this
+way, if desired. Secondly, it is possible to test the input for being empty since, when
+~- -----A, the predicates l~I1 = a(/~ll] and M1 = b(Ma] are both false. Thus we need
+not have any artificial endmarkers on the ends of tapes. In the third place the writing
+of output is not made to synchronize with the reading of the input; thus the distinctions
+between Moore, Mealy, and generalized sequential machines do not even suggest
+themselves, though special programs can be constructed to simulate these machines
+in an obvious way. Finally, functions computed by the automaton are, in general,
+partial functions; however, it can be shown that the set on which the function is
+defined is a regular event, and so the function is the restriction of a function calculated
+by a generalized sequential machine to this set. Therefore, it seems fair to say that
+our definition includes the previous ones but is not too general.
+   If we allowed the automaton to read and write on both strings we would get back
+to the level of the Turing machine (or the Post machine)Y Indeed, these operations
+and predicates would be sufficient:
+
+                         M i +-- (M~]        M:t +-- aMi       Mi ~ bMi
+
+                                     M , = a(M,]      M, = b(M,]
+
+for i = O, 1. (The reader may easily make this new machine explicit. Notice how the
+mnemonic character of the identifiers soon allows us to skip some of the tiresome
+details.) T h e input/output can be taken to be the same as for the automaton. This
+machine uses the two strings as push-down store memory locations (first-in-last-out);
+while the Post machine uses its one string as a first-in-first-out memory.
+
+  The Push-Down Store Machine. Two push-down stores are equal in power to
+one Turing machine tape. T h e restriction to one PDS is a definite restriction that
+
+  7 This result is due to McCarthy [9]. It is discussed in Evey ([3], Theorem 5.1, p. 2-47) and
+Fischer ([7], Lemma 2, p. 376).
+200                                           SCOTT
+
+has gained considerable popularity as a result of the connection of this machine with
+the context-free languages. T h e memory set sould be here
+
+                                   M ---- 27" x 27* x 27",
+where the first string indicates the contents of the PDS memory location; the second,
+the output; and the third, the input. (Note that in these machines the input/output
+cannot be conveniently encoded into the working memory as in some of the more
+powerful machines.) It is therefore clear how to define the input/output functions on
+the set 27*. T h e operations and predicate identifiers are as follows:
+
+                      M o +- aM o        Mo <--- (MO]         M1 ~ - M l a
+
+                      Mo + - bMo         M~ +-- (M~]          M t ~ M1 b
+
+                            lf~Io = a(M0]          Mo = b(reI0]
+                            rr     = a(rvld        rvl = b ( M d
+
+T h e reader may be trusted with giving the precise definitions of 9X~ and 9Xp.
+   Though for a general theory we probably want to allow for quite diverse input/
+output sets and for clever encodings and decodings to and from the memory set,
+it would seem in practice that the most useful set is 27", where 27 is a finite alphabet
+usually fixed to be {a, b}. Furthermore, it is rather natural to perform all our encoding
+and decoding explicitly within the program itself. Thus, we are led to define the
+concept of a machine with standard input/output; this has the advantage of making
+the system corresponding to an initially given machine appear naturally.
+
+   DEFINITION 4.1. A machine 93~ is a (unary) machine with standard input]output
+if and only if its input/output sets are both 27* and its memory set is of the form
+                                   M=M        o XZ* X27",
+where, in addition, for some fixed m o ~ M o
+
+                                     ~I(T)   =   (mo, A, r)
+and
+                                                       =
+
+
+
+
+for all a, r ~ 27* and m E M o . Further, the operations and tests of ~ are allowed to
+operate only coordinate-wise on M, and while no restriction is imposed on those
+for the first coordinate, those allowed for the remaining coordinates are the obvious
+interpretations of these identifiers:
+
+                                 MI ~ M1 a         M1 +-- Mtb
+
+                    M 2 +-- (M~]       M~ = a(M~]             M z = b(M2]
+              SOME DEFINITIONAL SUGGESTIONS FOR AUTOMATA THEORY                        201
+
+  In other words, we have an unrestricted memory coordinate, but in the output
+coordinate we can only write, and in the input coordinate we can only read and erase
+symbols. To generalize now from a given unary machine ~32to its corresponding n-ary
+machine 9Jr(~), we have only to replace the memory set by
+
+                 M Ix) = M o • Z', X Z', • ... • Z', (n + 2 factors)
+
+T h e input/output are given by
+
+                       ~")(('ro .... , "m-l)) = (mo, A, % ,..., ~'n-1)
+and
+                                       ",    ,'",          =        ".
+
+
+
+All operations and tests on M o are retained; while the others are expanded to include
+the obvious interpretations of
+
+                     M i +-(Mi]       Mi = a(Mi]               ii        = b(Mi]
+
+for i = 2, 3,..., n + 1.
+   This approach to systems of machines seems better, because we can show (for
+example) that, if
+                               f:X* • S*--~X*
+
+is a function of two arguments computed on ~(2), then
+
+                                       g : X*--+ Z*
+
+defined by the equation
+                                      g(~-) = f (~-, a),
+
+where c~~ Z'* is fixed, is computable on ~ m . This would not be true for the completely
+general notion of a system in Definition 2.2.
+  As we gave the examples, the PDS machine has standard input/output. Strictly
+speaking the automaton does not. The equivalent version of the automaton that fits
+Definition 4.1 would have M o = {too}with no operations or tests on the first coordinate.
+Actually this restriction is too severe, for it is not only useful but interesting to prove
+the proposition:
+
+       A n y machine with standard input/output which has a finite M o is equivalent
+       to the automaton.
+
+If the identifiers for the operations and tests of the machine are effectively given
+along with their meanings (for example, if they are but finite in number), then the
+equivalence is effective. More generally we can take a given machine and replace
+202                                       SCOTT
+
+its M 0 by M_ 1 X M o , where M_ 1 is a new finite set. Any desired operations and
+tests can be supplied on this new coordinate. No matter what is done, the new machine
+is equivalent to the given machine.
+   The Post machine as it stands has integer input/output. To convert it to the desired
+form with standard input/output, one makes the old memory set into the new M o
+retaining the given operations and tests on this set. The functions computed by the
+resulting (system) of machines are the partial recursive functions (of any number of
+arguments) of strings. Unfortunately, the Register machine does not convert so
+easily into the proper standard form. The reason is that the exponential encoding
+of the input gave the machine an advantage. When encoding is not allowed, as in the
+present case, the best way to preserve equivalence with the Post machine is to increase
+the number of registers from 2 to 3; that is, let
+
+                                  Mo=N•215
+with the obvious operations and tests thereon. For the Turing machine, no change is
+required: the old memory set becomes the new M 0 .
+  For the remainder of this paper we assume that all unary machines have standard
+input/output, and that all systems arise from a unary machine in the way just explained.
+As it stands this convention seems to exclude such machines as the two-way stack
+automaton, 8 because they treat the input as a weak kind of memory. It will take some
+further development to see how these new machines will fit into the overall scheme.
+
+
+                                         5. Srrs
+
+   Sometimes automata theory is introduced as a study of classification of sets (subsets
+of the input set which is usually taken to be l * . ) The main emphasis is placed on the
+regular events or the context-free languages, etc. The author (along with many other
+people) has come recently to the conclusion that the functions computed by the various
+machines are more important---or at least more basic--than the sets accepted by these
+devices. The sets are still interesting and useful, but the functions are needed to
+understand the sets. In fact, by putting the functions first, the relationships between
+the various classes of sets becomes much clearer. This is already done in recursive
+function theory, and we shall see that the same plan carries over to the general theory.
+   Let ~ be a given machine with standard input/output and let ~[j~(1) = ~J~, ~[j~(2),
+~ts),... be the corresponding system of machines, as explained in the last section.
+We have fixed I = {a, b}, but, of course, any finite alphabet with at least two letters
+would be just as good. Using functions computed by the machines of the system
+we can single out three classes of subsets of l * which seem to be the most important.
+
+  s See Ginsburg-Greibach-Harrison [10] for the definition of these machines.
+              SOME DEFINITIONAL SUGGESTIONS FOR AUTOMATA THEORY                            203
+
+Definitions similar to the following could be given for arbitrary machines, but then
+in that generality there do not seem to be any useful theorems forthcoming.
+
+  DEFINITION 5.1. A subset S _C27* is called decidable on ~ if and only if there is
+a program H such that for all r 6 Z'*:
+
+                                                 if r e S,
+                                                 i f r • S.
+
+  DEFINITION 5.2. A subset S C Z'* is called acceptable on ~ if and only if there is
+a program 17 such that for all r e 27*:
+
+                          9Jln(r) = a   if and only if    reS.
+
+   DEEINITmN 5.3. A subset S _C27* is called generable on ~ if and only if there
+is a program 17 and an integer n > 0 such that for all r e 27*:
+
+     ~)(r,   El,... , %-1) = a   for some   r I ..... %-1~ 27*   if and only if   r e S.
+
+   Clearly every decidable set is acceptable, and every acceptable set is generable
+(because n = 1 is allowed in Definition 5.3). T h e word "decidable" was chosen
+because the program allows the machine to give a definite yes-or-no answer to every
+question of membership in the set. The word "acceptable" is meant to convey the
+feeling that the elements actually in the set are accepted, but we don't care what the
+program tells us to do in the opposite case. T h e word "generable" indicates that we
+have to search through all the (n -- I) tuples of the input set to find one to use as
+auxiliary input to generate a positive answer. Notice in all definitions the programs
+used all operate in a deterministic fashion. The connection between these concepts
+and those defined with the aid of "nondeterministic" machines will be discussed in
+full below. The notions can easily be extended to relations (subsets of Z'*'~), and we
+shall leave the exact formulation to the reader.
+   The three concepts are not in general equivalent; this follows from known results.
+First, in the case of the automaton they are all the same; namely, they coincide with
+the notion of a regular event. In the case of the PDS machine, decidable equals accept-
+able but generable is definitely broader. Finally, in the case of Turing machines,
+decidable is stricter than acceptable which equals generable (i.e., domains of definition
+of partial recursive functions are the same as the recursively enumerable sets.) It seems
+likely that there are other reasonable machines for which all three notions are simul-
+taneously distinct.
+   In these definitions we have used a to stand for T (true) and b for F) false).
+This was necessary because the functions computed on ~ take values in 27* not in
+{T, F}. T h e choice of a and b was conventional, however. It can be proved directly,
+or it follows from the Composition Theorem presented in the next section, that a set S
+204                                          SCOTT
+
+is decidable on ~0~if and only if there is a program/-/' such that ~ n is a total function
+and for all ~-~ 2 " ,
+
+                            ~n'('r) -~ A    if and only if    r ~ S.
+On the other hand S is acceptable if and only if there is a program H ' such that for all
+
+
+                            ~n'(r) = A      if and only if    r ~ S,
+and, in fact,
+                            ~n'(O ~ ~        if and only if   -r ~ S.
+Thus to accept a string r we run the program H ' with this input until it halts. In other
+words, S is the domain of definition of a partial function that gives at most the empty
+output. A similar result holds for the generable sets. These remarks are familiar from
+recursive function theory, but we see that they hold for general machines with
+standard input/output) We did not choose this alternate form for the basic definition,
+however, because from the stated form of 5.1 it is clear that the complement of a
+decidable set is decidable. Other closure properties for either the decidable or acceptable
+sets are not apparent.
+   Turning our attention now specifically to the generable sets, we can prove first
+that this class of sets is closed under union. S u p p o s e / / 0 and/-/1 are two programs
+generating two sets. We can clearly assume that the same machine ~(n) with n > 1
+is used in both cases. We shall generate the union of the sets on ~(n+a). By a suitable
+choice of notation assume that the labels of H o and/-I1 are different. T h e n remove
+the start instructions from each of the programs, take the union, and add the following
+instructions:
+
+                start : go to L
+                    L : if Mn+l = a(Mn+l]                        then go to L o else go to L1
+
+where L is a new label and L 0 and L 1 are the labels of the start instructions of/-/0 and
+/ / t , respectively. It is obvious that this new program generates the union. This
+simple observation of how an input location can act as a switch to direct the program
+into one or the other of two channels beings us directly to the topic of nondeterministic
+programs.
+   In a deterministic program, each instruction leads to a well-determined next
+instruction. In a so-called nondeterministic program, one is given a choice of which
+instruction to execute next. Without going into formal details we can easily imagine
+a format for such programs. Without loss of generality, we can also imagine that each
+
+  DEvey [3] notes such facts for the collection of machines he considers which are all variants of
+multiple PDS machines. The context here is more general, however; and the results are seen to
+be simple properties of input/output logic without reference to the internal memory.
+               SOME D E F I N I T I O N A L SUGGESTIONS FOR AUTOMATA THEORY                205
+
+choice is a binary choice. To be a little more definite, let us suppose the program is
+a routine for a nondeterministic acceptor. Thus there is only one input, and the trick
+is to make the right combination of choices terminating in a halt. N o w the technique
+used in converting this non-program into a real program is based on the maxim that
+nothing should ever be left to chance. We simply supply an extra input location whose
+content, a string of a's and b's, tells us the proper sequence of choices to make (a stands
+for the first choice and b for the second in the binary situation.) It is a straightforward
+exercise to rewrite the acceptor program as one that generates the same set in the
+sense of Definition 5.3. Of course, it is really no simpler to run a generator than to
+run a non-deterministic acceptor, because it is just as hard to find the right combination
+of inputs as it is to make the right combination of choices. In fact, by using a little
+"label logic" we can show conversly that every generable set is acceptable by a non-
+deterministic program. Thus the two concepts are equivalent. 1~
+   T h e author prefers the notion of the generable set, however, because the deter-
+ministic idea of a program is the only natural one, it should be fixed once for all, and
+then the use to which a program is put can be varied at will. It is technically just as
+easy to use the notion advocated here, and we are saved not only from making unneces-
+sary definitions but also from abusing the generally understood word "program."
+Therefore, let us leave nondeterminism to the realm of philosophy (or better:
+probability).
+   Looking back on what was just suggested, we can isolate a mathematical fact
+which is independent of the methodological issue.
+
+         Every set generable on 9X(~ with large n is, by what we have said,
+       generable on 9XI~.
+
+We could argue this directly without going through the nondeterministic programs.
+We can even go a step further. The two input strings can be merged into a single
+string. Think of it this way: the symbols of the two strings are used up in a definite
+order by taking a little from one, then a little from the other, and so on. Splice together
+these little pieces of the two strings and form a new string using a different "color"
+(or coding) to refer to the two original strings. The generable set we get this way is
+not all that interesting. But look, as we run this one-string program hopefully to
+a halt, we can give some output. Indeed why not untangle the two strings by decoding
+the contribution from the original first string. This "improved" program for 9~ Ill
+will define a function whose range of values is just the original generable set we started
+with. We can thus show:
+
+
+  l o In Rabin-Scott [11], the connection is noted for the automaton in one direction (generable
+
+implies nondeterministically acceptable). The result is related to Fischer ([7], Theorem 2,
+pp. 371-372).
+206                                           SCOTT
+
+          A set is generable if and only if it is the range of a computable (partial)
+       function) 1
+That fact is well known in reeursive function theory, and it has this much broader
+range of applicability. For comparison, we might note:
+
+          A set is acceptable if and only if it is the range of a computable (partial)
+       function that is a fragment of the identity function.
+That is probably of very little use, but it sounds pleasant. What is really nice for
+comparison is the earlier established fact:
+
+          A set is acceptable if and only if it is the domain of a computable (partial)
+       function.
+   There is probably not too much more to be proved of a general nature about these
+sets without making more definite assumptions about the operations and tests on M o .
+A very simple and general assumption is to suppose that some sequence of operations
+(and maybe tests also) will reset the content of M 0 back to mo (the convential initial
+content) without requiring any input/output. Under this assumption one very easily
+proves that the generable subsets of 27* are closed under formations of products and
+the *.
+   I n the case of relations it is obvious that the projection (existential quantification)
+of a generable relation is again generable. It can also be proved that a generable set is
+always the projection of a decidable relation instead of just an acceptable relation as
+in 5.3. (Hint: use one input tape as a "clock" to mark time. If the clock "runs down"
+before a proper halt is reached, then give some nonempty output. If the halt is reached
+"in time," then halt.) Also easy to show is the fact that the cartesian product of
+decidable (resp. acceptable, generable) sets is a decidable (resp. acceptable, generable)
+relation. Some closure properties of a "mixed" nature are mentioned in the next
+section. TM
+
+
+                                       6. APPLICATIONS
+
+   T o have an application, one must have something to apply. What we have to apply
+is the idea of the function. That is to say, once we agree that functions are better than
+sets (the theme of Section 5), then problems and solutions begin to appear rather
+naturally. We shall exhibit three examples.
+
+   n Evey [3] seems to have first established this fact for his special collection of machines. See
+also Fischer ([7], Theorem 2, pp. 371-372).
+   as Fischer ([7], Theorem 1) gives a result for certain special machines that shows that the
+generable sets are closed under reversal. The author does not see whether this generalizes to the
+present context.
+               SOME DEFINITIONAL SUGGESTIONS FOR AUTOMATA THEORY                       207
+
+  After functions have been looked at one at a time as in the previous sections, the
+next step is to combine them by composition. Thus i f f : Z* --~ Z* and g : Z* --~ Z*
+are both computable on ~0~, the obvious question to ask is whether g f : Z * --~ 2,'* is
+computable, where, of course,
+                                    g f(7) = g(f(r))
+ for all r e Z . . In general, the answer is, rather surprisingly, "no." It all depends on
+ the kind of machine you use. On a very powerful machine that can store the output
+ of the first function f within its internal memory M 0 and still compute g, the compo-
+ sition is computable. The Turing machine is a good example. The PDS machines
+ are bad examples, however, because it is known that PDS generable sets are (primitive)
+ recursive. But it is also known than an arbitrary recursively enumerable set can be
+ found as the range of the composition of two PDS functions. Therefore, the PDS
+ functions are not closed under compositionJ 3
+      We can generalize the composition problem by having f computed on one kind of
+ machine, g on another. Then we ask what kind of machine is needed for g f . There
+ are actually some useful answers to be found. Suppose we consider only machines
+ with standard input/output. Thus the automaton is allowed--it is, so to speak, the
+ weakest kind of machine we are willing to consider. Then, if we assume merely that
+ one o f f or g can be computed by the automaton, then the composition can be computed
+ on the same machine as that of the other function.
+      To understand this last assertion, let us assume for sake of argument that f is
+ computed on the automaton. The function g is computed on some fancy machine
+ that we will not even have to specify exactly. Consider that the program for g takes
+ as its input the output from f. But every computation on strings operates by reading
+ or destroying just one symbol at a time. So let us combine the programs for the two
+ functions by setting up an alternate, back-and-forth style of computation. The details
+ of control can be taken care of by the labels. The idea is to let g have the main control.
+ Start the computation off in the usual way until the first call for input is encountered.
+ Then interrupt and let f ' s program compute away until the first symbol of output is
+ produced. Interrupt f at this point and return to the computation of g. And so on.
+ The number of labels required is finite: the product of the number of labels in the
+ two programs ought to suffice. Notice, however, that the memoryless character of
+f ' s program is essential to the argument: the state of the memory used by g must not
+ be disturbed while f is being computed. Notice also, that the roles o f f a n d g can, by
+ the same argument, be interchanged. One important point to watch, however, concerns
+ the halting rule. If g, the "outside" function, finally wants to halt, it must remember
+ to go back to the computation f o r f and wait until it halts. The reason for this is that
+f ( r ) = g2 might be possible, and we want in this case g ( f ( r ) ) = f2.
+
+   1~ This follows from the method employed in Ginsburg-Hibbard-Ullian ([12], Lemma 2.5,
+p. 326) and in Hartmanis [13]. The author also discovered the same proof independently.
+208                                           SCOTT
+
+  This composition result already has a pleasant application:
+
+          The image of a set generable on a more powerful machine by a function
+        computable by the automation is generable on the same more powerful
+        machine.
+In particular, the atomaton function could be simply the identity function restricted
+to a regular event. We thus conclude in suitable generality:
+
+          The intersection of a generable set with a regular event is generable.
+This includes several known results. 14
+  An obvious further generalization of the composition problem concerns functions
+of several variables. First the negative result: even if f0, fx, and g are all automaton
+fimctions, the composition
+
+                                    h(r) = g(fo(r), ix(r))
+as a function of one variable need not be computable on the automaton. T h e reason
+is that we can choose f0 , f l , and g so the domain of h is the set
+
+                                    {a"b" : n = 0, 1, 2,...}
+which is not a regular event. In fact, let f0 and f l be defined only on the set
+                                  (a"b m : n, m = 0, 1, 2,...}
+where
+                                        fo(a"b m) = a",
+and
+                                        fx(a"b m) = am.
+'/'hen we let g be such that
+
+                                             __ ~A    if n = m,
+                               g(a", a m )
+                                                      otherwise.
+
+T h e conclusion then follows.
+   T h e positive result, for what it is worth, is as follows: a composition
+
+                                h(T0, ql) = g(fo(ro), f1(~'1)),
+as a function of two variables where at most one o f f 0 , f l , g requires a more powerful
+machine than the automaton, can itself be computed on the same more powerful
+machine. We can call this composition with disjoint variables. The trouble with over-
+lapping variables is that the programs for the different functions will consume the
+inputs at different rates. With disjoint variables this problem is avoided.
+
+  1~See, e.g., Ginsburg ([14], Theorem 3.2.1).
+               SOME DEFINITIONAL SUGGESTIONS FOR AUTOMATA THEORY                           209
+
+   Just as we generalized the intersection result for regular events and generable sets,
+so we can generalize the so-called Substitution Theorem2 5 This result includes the
+product and ,-closure theorems and requires that we assume our machines to possess
+the reset capability. Suppose then that S is generable on one kind of machine and
+that f : Z'* --+ 27* is computable on another, where at least one of the machines is the
+automaton. Then on the more powerful machine we can generate the set of strings
+
+                        {f(~:0)f(~:a) ""f(~:,-1) : seo~:x"'" ~n--1 E S).
+To understand what is intended here the resulting set can be described in words:
+take any string in S and decompose it into any number of parts, say ~:0~r ... ~:n-a 9
+I f f((i) is defined for all i < n, then put the combination/(se0)/({:t) ""f(~Zn-1)into
+the new set. It is the convention allowing partial functions f that makes the result
+useful.
+
+   One of the most interesting facts about the PDS machine is the well-known theorem
+that the PDS-generable sets are the same as the context-free languages2 6 T h e proof
+in one direction is just like our earlier proof relating generable with nondeterministically
+acceptable sets. Suppose the set S is given by a context-free grammar. Now it is easy
+to prove that the generation of strings by the grammar can always be arranged so that
+the rules are applied to the left-most nonterminal symbol. (The alphabet 27 will now
+in general be larger than just {a, b}.) We can very directly write down a program for
+a PDS-function whose range is S. An input to the program is regarded as a code word
+giving us a string of rules from the grammar. T h e content of the PDS-memory
+location is the portion of the generated word which still has some nonterminal symbols.
+T h e program acts in this fashion : The symbol at the top of the PDS is checked.
+If it is terminal, it is given as output. If it is nonterminal, the next segment of the
+input is read. If the input has not presented a rule appropriate for the nonterminal,
+the program loops (that is, the function is made undefined--note that no memory is
+required here). If an appropriate rule is presented, then the nonterminal is replaced
+on the top of the PDS by the indicated string and the program goes through the
+cycle again. When the PDS is finally emptied, the program halts. In the very first
+phase of the computation, the single nonterminal that is the "axiom" of the grammar
+is, of course, entered in the initially empty PDS.
+    For the proof in the other direction let S be any PDS-generable set where we can
+write
+                                     s = {f(~) : ~: e 2 , )
+
+  15Cf. Ginsburg ([14], Theorem 1.7.1).
+  as CL Chomsky [15] for references to earlier work. Evey [3] first established the result in the
+form stated here. The proof that context-free are PDS-generable is the same as Evey's. The proof
+for the converse outlined below is due to Mr. William Ogden of Stanford and seems to be simpler
+than Evey's.
+210                                        SCOTT
+
+(This time we can go back to 27 = {a, b).) Without loss of generality, we can assume
+that the program for f never has to test either the input or the PDS for being empty.
+(Hint: both locations can be assumed to operate in code where a certain unique
+pattern indicates the end of the string before emptiness is actually encountered.)
+Further, we can assume that reading instructions are always immediately followed
+by instructions to destroy the symbol read (and reading the empty string produces
+the undefined.) In the notation we have been using, ~ stands for PDS, M1, the
+output and l~I2 the input. By way of abbreviation let
+                                       RIM i ,L',L"]
+stand for the sequence of instructions to read and destroy the left-most symbol of Mi
+and transfer to the statement labeled L' or L" according as the symbol read is a or b.
+Similarly, let
+                                     W[A, M~, L']
+be the instruction to write a letter A on Mi and transfer to L'. (Remember that the A's
+go on the right of the output and on the left of the PDS.) Let the labels of the program
+be L 0 , L 1 .... L~, where L 0 is the label of the start instruction and L~ is the label of
+the halt instruction. Let ~ be the set of all r < p for which Lr is the label of a PDS
+read statement, i.e., the statement
+                                 LT : R[M0, La(~), I~(~l]
+occurs in the program. Here a(r) and b(r) are the indices specifying the transfer to
+be made after reading a symbol a or b. Our context-free grammar for S is going to be
+based on terminal symbols a, b, and nonterminals Lir where i ~ p and r ~ ~ u {p}.
+The axiom is L0v. The rules of the grammar are read off the instruction in the program
+as follows:
+                   Lir --+ LTt
+                                       for L~ : R[M2, Lr Lk];
+                   L~~-* Lk't
+                   Lir ~ ALl           for L i : W[A, 1VI1, L~] ;
+                   Li i --~ A          for L i : R[M o , La(i), Lb(i)];
+                   L ( ---+L/L~(s)     for Li : W[a, Mo, L~], all s e ~ ;
+                   L~ -+L~ Z~(~)       forLi : W[b, Mo ,Li], all s e ~ ;
+                   L ~ -+ A            for L~ : halt.
+  What one must show is that a sequence of replacements of left-most nonterminals
+which successfully eliminates all nonterminals exactly corresponds to a completed
+computation by the given program. Note that in the rules corresponding to the
+write instructions for the PDS, a nonterminal may be replaced by any one of several
+different strings. The trick is to look ahead and choose the s to be the index of the
+instruction that will read the symbol just written. That shows why the rule corre-
+               SOME D E F I N I T I O N A L SUGGESTIONS FOR AUTOMATA THEORY                211
+
+sponding to the read instruction can be so trivial. Be careful, however; if a wrong s
+is chosen, you will find yourself eventually with a nonterminal Li 8, i ~ s, i the index
+of a read instruction, and there are no rules for eliminating such symbols.
+   As a last application we shall prove the recursive unsolvability of Post's Corre-
+spondence Problem. a7 For this purpose, the Post machine is by all odds the best.
+One first establishes in the usual way the unsolvability of the Halting Problem for
+programs on the Post machine. Note that for halting questions the whole difficulty
+lies in the transformations of the content of the m e m o r y - - i n p u t and output can be
+forgotten. Further, we can so encode our memory that it is the emptiness of the memory
+that triggers a halt (rather than a loop as in the previous discussion.) Thus consider
+a program for the Post machine having labels L 0 ..... L~, where L 0 is for start, L~
+is for h a l t and the instructions are of these two types:
+
+                                      L i : R[L~, Lk, L~],
+which is short for reading and destroying the left-most symbol and transferring to Lj
+if a is read, Lk if b is read, and to h a l t if the empty string is read; and
+
+                                            L i : W[A,L~],
+which is short for writing ~ as the right-most symbol and transferring to L j . Further,
+we can assume the start leads to this conventional instruction:
+                                            L o : W[a, L1].
+   From this program, we shall now effectively construct a system of corresponding
+pairs of words from the alphabet {a, b, e,L 0 ..... Lv} such that this correspondence
+problem has a solution if and only if the program ever halts after being started with
+the initial state of the memory being empty. Thus it will be shown that the Halting
+Problem reduces to the Correspondence Problem, and therefore the latter is unsolvable.
+  We begin our set of corresponding pairs with
+                                   (ca, ae)      and    (eb, be),
+and then adjoin the following which are read off the program:
+
+                        (Lo , LoeaeLle )         for L o : W[a, L1];
+                           (eL,:, AeL~e)         for L, : W[,t, Lj];
+                          (eLiea , Lie))
+                          (eLieb' Lke) l         for L i : R[L~ , Lk , L~,].
+                         (eLieL~ , L,,) 1
+   1~Few people have seemed to read Post [16] even though they have applied his result many
+times. When the author was forced to give the theorem in lectures, he discovered the proof given
+below. At the time Post wrote [16], he apparently did not know that the word problem for
+arbitrary normal systems could be reduced to that for monogenic (deterministic) systems. This
+probably explains why his proof in [16] was given for the more complicated reduction.
+212                                        SCOTT
+
+One should now verify for himself that a product of words from the first members
+of these pairs can equal a corresponding product from the second members in one
+and only one way. Indeed the solution (if it exists) of this correspondence equation
+transcribes almost word for word a completed computation. Conversely, the completed
+computation gives a solution for the equation. T h e idea of this proof is certainly the
+same as in the original Post argument, but we have been able to avoid certain tiresome
+reductions because our programs are deterministic. A n d so again it seems best to
+forget about nondeterminism.
+
+
+                                         Rem~m~'qcm
+
+ 1. A. KALUZHNIN,Problems of Cybernetics 2, 371-391 (1961).
+ 2. J. D. RUTLEDGE..L A C M 11, 1-9 (1964).
+ 3. R. J. EVEY. The theory and applications of pushdown store machines. Doctoral dissertation,
+    Harvard University (1963).
+ 4. M. MINSKu Ann. Math. 74, 437-454 (1961).
+ 5. J. LAMBEK.Canadian Math. Bull. 4, 295-302 (1961).
+ 6. J. C. SHEPHERDSONAND R. E. STURGIS.J. A C M 10, 217-255 (1963).
+ 7. P. C. Fiscnna. lnfo. Control 9, 364-379 (1966).
+ 8. M. A. ARBm. J. Australian Math. Soc. 3, 301-306 (1963).
+ 9. J. McCARTHY. "Recursive Functions of Symbolic Expressions and their Computation by
+    Machine (The LISPProgramming System)" [Quart. Progr. Rept. No. 53, Research Laboratory
+    of Electronics, M.I.T. Cambridge, Massachusetts (1959)].
+I0. S. GINSBURG,S. GREIBACK,ANDM. HARRISON.J. ACM 14, 172-201 (1967).
+11. M. RAmN ANDD. SCOTT. Finite automata and their decision problems, I B M J. Res. Develop.
+    3, 114-125 (1959).
+12. S. GINSBURG,T. N. HmBARD, AND J. S. ULLIAN.lllinois J. Math. 9, 321-337 (1965).
+13. J. HARTMANIS.Context-free languages and Turing machine computations (Unpublished).
+14. S. GINSBURG. "The Mathematical Theory of Context-Free Languages." McGraw Hill,
+    New York, 1966.
+15. N. CHOMSKY.Handbook Math. Psyc. 2, 323-418 (1963).
+16. E. L. POST. Bull. Am. Math. Soc. 52, 264-268 (1946).
+
+
+
+
+Printed in Belgium
+

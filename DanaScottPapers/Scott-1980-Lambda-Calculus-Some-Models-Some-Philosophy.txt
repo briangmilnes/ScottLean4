@@ -1,0 +1,1315 @@
+J. Barwise, H. J. Keisler and K. Kunen, eds., The Kleene Symposium
+  ©North-Holland Publishing Company (1980) 223-265
+
+
+
+         Lambda         Calculus:         Some Models,
+         Some Philosophy
+
+         Dana     Scott
+         Oxford   University,   Oxford,   Great   Britain
+
+
+           Dedicated to Professor S.C. Kleene on the occasion of his 70th birthday
+
+
+
+0.    Introduction
+
+
+   In this essay yet another attempt at an exposition of why the A-calculus
+                                                                          of
+has models is made. The A-calculus was one of the first areas of research
+                                                                                  was surely
+Professor Kleene, an area in which the experience he gained
+                                                             function    theory.      In what
+beneficial in his later development of recursive
+                                     will   be   found   to   involve    Professor       Curry
+transpires below, the dialogue
+                    Kleene,   since  the   former   has  written   more     extensive    ly   on
+rather more than
+                                                                                    the early
+the foundational aspects of combinatory logic. Nevertheless
+                                                                                  integrated,
+works of Church, Curry, Kleene, and Rosser were very closely
+                   ions   of  Kleene     were   essential.   Thus,   the   topic     does not
+and the contribut
+seem inappropriate to the occasion.
+                                                                                     be found
+    Section 1 provides a very short historical summary, and it will
+                         ble   overlap    with  Curry     (1979),   which     is  also   in this
+ that there is considera
+                                                                                any case the
+ volume. An earlier version of Professor Curry’s paper was in
+                                                                                        Curry’s
+ incentive to write the present paper, and the reader should consult
+ contribution for further    reference s   and   philosoph  ical   remarks.
+                                                                                  relations as
+    In Section 2 there is a review of the theory of functions and
+                                                           continuou  s   set    mapping.      In
+ sets leading up to the important notion of a
+                                               ication   of   a function      to  itself   as  an
+  Section 3 the problem of the self-appl
+                                                                      er the
+     argument is discussed from a new angle, and it is shown that—und
+                                                                    a coherent set-
+     reduction of continuous set mappings to multi-relations—
+                                                 The   model    (essential ly due to
+     theoretical definition is indeed possible.
+                                   laws of A-calculu s thus  results.
+     PLOTKIN (1972)) of the basic
+                                                                          of David
+        Section 4 relates self-application to recursion by the proof
+                                                                 operator   and the
+     Park’s Theorem to the effect that the least fixed-point
+                                                in a  wide class  of  well-beh aved
+     “paradoxical” combinator are the same
+                                                            theory (r-e. sets) is
+     models. The connection thus engendered to recursion
+               and  the section concludes with some remarks   on recent results
+     outlined,
+                                                          .
+     about ill-behaved models and on induction principles
+
+                                                   223
+ 224                                 D. Scott                                                                           Lambda calculus                                      225
+
+    Section 5 returns to the theme of type theory, and a construction of an      -KLEENE and Rosser (1935) it was shown that Church’s system (which was
+ (n)-model with fewer type distinctions is presented, There is a brief           employed      by Kleene in KLEENE          (1934) (written in 1933) and his thesis,
+ discussion of how to introduce more type distinctions into models via           KLEENE (1935) (accepted in September, 1933)) is inconsistent. The proof
+ equivalence relations, a topic deserving further study. Finally, Section 6      was later very much simplified by Curry and can be found in Curry and
+ takes up various points of philosophical disagreement with Professor Curry      Feys (1958, pp. 258-260). It applies to various systems proposed by Curry,
+ which can be discussed in the light of the construction presented here.         also, but not to his thesis, which is just the “equational” theory of
+ There are many questions remaining, some of which are touched upon. An          combinators. This is essentially the system of CHURCH (1941), and the
+ appendix exhibits a moderately strong axiomatic theory suggested by the         “system of symbolic logic” in that monograph is condensed to a very few
+ models that may help the reader see the difference between the originally       pages (§21, pp. 68-71). The consistency of these systems is very forcibly
+ proposed calculus and the outlook developed by the author.           )          demonstrated by the well-known theorem of CHURCH and ROSSER (1936).
+                                                                                    The connections between the systems of Curry and Church were spelled
+                                                                                 out in his thesis by Barkley Rosser in ROSSER (1935) (written in 1933), who
+ 1. Some historical background                                                   emphasized particularly the elimination of vanables. This theme was also
+                                                                                 taken up by Quine in QUINE (1936) and again-in QUINE (1971). It seems
+      Priority for the invention of the type-free calculus of functions ( pace   very strange to me that in his description of the method of Schénfinkel,
+  Frege) goes to Moses Schénfinkel in a lecture at Gottingen in December         QuINE (1971) does not mention the problem of consistency. He says (pp.
+   1920. This talk was written up by H. Behmann and published as SCHON-          8-9).
+  FINKEL (1924); a translation with a useful introduction by W.V. Quine is to              “Schonfinkel was the first to reduce analysis to algebra. He was   the first to analyze
+  be found in van HEWENOORT (1967, pp. 355-366). Sometime around                         the variable, by showing how to translate it contextually into constant terms. But his
+  1926-1927 as a graduate. student, Haskell Curry in an analysis of “the                 treatment is less pure than one could wish; it analyzes the variable only in combina-
+  process of substitution” independently discovered the combinators; ‘but                tion with a function theory that is in effect general set theory.”
+  then in 1927 in “a literature search” he came across the Schénfinkel paper.    But an inconsistent set theory it is as soon as we try to give axioms of the
+  Full credit is apportioned by him to Schénfinkel in his thesis (CurRY,         usual sort! All later attempts have to make strong restrictions to get
+  1930). According to Curry (1968), Alonzo Church prepared a manuscript          anything like a workable set theory. None of these systems are, in my own
+ in 1928 on a system with A-abstraction, and the publication, CHURCH             opinion, particularly natural or beautiful; I do not attempt to catalogue
+(1932), indicates that it was work done as a National Research Fellow            them at this point, therefore—though some further comments are given in
+  1928-1929. In this paper on p. 352 and in nearly the same words in             the last section of the paper. At this stage it seems fair to say that the
+ CHURCH (1941, pp. 3-4) we find Schénfinkel only mentioned in connec-            model theory of these systems is certainly not very well developed. Refer-
+ tion with the reduction of multiple-argument functions to monadic func-         ences and less negative discussion can be found in Curry (1979) and
+ tions. Of course, it is fair to say that Schénfinkel was concerned merely       SELDIN (1980).                                  -
+ with a kind of definitional reduction of primitives, and he proposed no            For the equational systems proposed by Curry and Church the con-
+postulates from which properties of these general functions could be             sistency proof via the Church—Rosser Theorem is not a great comfort to
+ derived. Such postulates were the contribution of Curry and Church.             my mind. As with many proof-theoretic arguments, the result is very
+     Unfortunately Church, to my knowledge, has never explained as fully as      sensitive to the exact formulation of the rules. Thus, in a note, KLop (1977)
+ Curry has how he was led to his theory. He must have been strongly              (see also KLop (1979)), it is shown that if we extend the usual system by,
+ influenced by Frege (via Russell), and he hoped to solve the para-              say, surjective pairing functions, then the Church—Rosser Theorem no
+ doxes—-not through the theory of types, but by the rejection of the law of      longer holds. Such an extension is so “natural”? in the orginal style of
+ the excluded middle. In CHurcH (1932, p. 347), it is stated that such           Sch6énfinkel, that this result looks very unfortunate. Of course, someone
+ combinations as occur in the Russell Paradox (namely, (Ax not (x(x))) (Ax.      may formulate some modified syntactical property of reduction that will
+ not (x(x))), which converts to its own negation) simply fail to have a truth    imply that not all terms are interconvertible, but I do not think any such
+ value. Thus, we do not have here an intuitionistic theory, but a failure of     argument has yet been published. There is, however, a consistency proof
+ excluded middle because functions are only partially defined. Alas, in          by models (cf. Scotr (1977), which Klop does not seem to know about)
+ 226                                           D. Scott                                                                                      Lambda   calculus                         227
+
+
+which allows certain extensions: namely, by the properties of anything that                                  anyone had been thinking of a general theory of functions, he would have
+exists in the model. And this brings us to the problem of models and their                                   noticed here how a binary function was reduced to one-place functions
+place in the discussion.                                                                                     (m X n= X(n)(m)). But no one as far as I know did think of that rather
+   Historically my first model for the A-calculus was discovered in 1969 and                                 simple point before Schénfinkel, who was instead motivated by the idea of
+details were provided in Scotr (1972) (written in 1971). What I have called                                  having something like a Sheffer-stroke operator for predicate calculus. Did
+the “graph model” was found by Gorden Plotkin and is given in PLOTKIN                                        he read Principia? We cannot hope to know at this distance in time (for a
+(1972). It was rediscovered by me in 1973, and a simplified version—with                                     little more information on Sch6nfinkel’s life, see the review KLINE (1951));
+proper credit to Plotkin—-is found with rather full proofs in Scorr (1976),                                  and since he did not write his paper himself, we cannot know what
+which also contains many historical remarks and many references. Motiva-                                     references to the literature he would have made.
+tion for these discoveries is, it is hoped, very fully exposed in Scorr (1977)
+and Scott (1977a). The two kinds of models are not unrelated, but we
+shall not be able to go into details here. The graph model was in effect                                     2. Some thoughts on functions
+introduced twice earlier in recursion theory quite explicitly but at the time
+not identified as a model (see the discussion of enumeration operators in                                       What functions are there? Often a representation helps in seeing in
+Scorr (1976, pp. 575 ff.)). This failure is an interesting case history in the                               simpler terms why certain functions exist; we do not need to claim,
+psychology of discovery. On this score we find in CurRY (1979) the                                           however, that the representation embodies the essence of the function
+following closing passage:                                                                                   concept——it is just used to establish possibility. For example, power series
+           “The history of combinatory logic shows that progress can result from the interac-                can show that a function like e* is well-defined, differentiable, and that it
+        tien of different. philosophies. One who, as I do, takes an empirical view of mathemat-              satisfies its differential equation. (Other properties like being one—one onto
+        ics and logic, in the sense that our intuitions are capable of evolution, and who prefers            the positive reals or satisfying e“*”=e* Xe”, though elementary, are
+        constructive methods, would never discover the models which Scott proposed. On the
+                                                                                                             perhaps not instantly recognizable from this definition.) But not all func-
+        other hand, it is doubtful if anyone, with what seems to be Scott’s philosophy, would
+        have discovered combinatory logic. Both of these approaches have added to the depth                  tions have power-series expansions. It may even be the case that the
+        of our understanding, and their interaction has produced more than either would have                 difficulties about convergence led rather directly in the 19th century to a
+        done.”                                                                                               more abstract notion of function and, step by step, to the “logical
+                                                                                                             monsters” deplored by Poincaré.
+The last sentence is very kind, but I am afraid I cannot agree with all of
+                                                                                                                 From particular functions one goes on to functions in general—and to
+what was said before that. In the first place, the models are constructive. In
+                                                                                                             spaces of functions. Who first suggested that a function could be regarded
+the second place, as an intellectual exercise—even though the combinators
+                                                                                                             as a set of ordered pairs? By 1914 both Wiener and Hausdorff were doing
+are some 12 years older than I am (I was born in 1932) and we cannot
+                                                                                                             just that (for relations as well as functions and with pairs reduced to sets as
+change the past—I think I can defend “my philosophy” in a way that will
+                                                                                                             well), but I do not find any earlier references in their works or in some
+show how they and their laws (in the form of the graph model) could have
+                                                                                                             other books I consulted. It is not a very important historical question for
+been discovered by the extension of known elementary ideas—ideas cer-
+                                                                                                              our discussion, however, since it is certain that by 1914 functions as
+tainly easily understandable in 1928 when Curry and Church were at work
+                                                                                                              abstract objects were well understood. I stress this because I wish to argue
+on their first systems.
+                                                                                                              that even a set-theoretical discovery of A-calculus would have been not
+   As a sidelight on the question of discovery, I only recently noticed this
+                                                                                                              only possible but even well motivated at an early state. That it was not
+passage in WHITEHEAD and RUSSELL (1910, p.280):
+                                                                                                              discovered this way is no argument against my thesis, because many things
+          “Again, let us denote by ‘>< n’ the relation of m to m                n; then if we denote by       remain undiscovered even long after all the essential ingredients are
+        ‘NC’   the class of all cardinal numbers,   >     n‘*NC   will denote    all numbers   that result    available.
+        from multiplying a cardinal number by a, ice., all multiples of n. Thus, eg.,               2“NC
+        will be the class of all even numbers.”
+                                                                                                                 In the discussion below we employ the common functional notation
+                                                                                                             y= F(x) to indicate that the point x is mapped to the point y under the
+These    remarks      were   included    merely     for the sake of illustration of what                     function F. For simplicity, we suppose that both x and y belong to the
+happens when we take the image of a class under a function; however, if                                      same set A. For subsets X,Y CA, as also write Y= F(X) to mean that Y            is
+ 228                                         D. Scott                                                                                                Lambda    catculus                                            229
+
+
+ the image   of the set X¥ under the mapping               F. (See formula       (1) below.) In               It is time now           for a new     idea. Let us recall first how                  relations are
+ the Principia the notation was             F’x     and F’X,       respectively, because              the   reduced to sets of ordered pairs. We               use the notation <x,y>               for pairs and
+image of a set was regarded as the plural of the image of a point.
+                                                                                                            A*=A%       A   for the cartesian product. A relation is just a subset R C A? and
+  Formally we define set images by:                                                                         yRx means the same as (y,x)> ER. The question is: “What should we say
+ (1)         F(X) = {y|Ax          EX. y = F(x)}.                                                           about n-ary relations?” Using the notation (xo,x,,...,x,-,> for n-tuples
+It may seem unrigorous not to distinguish notationally between F(x) and                                     and A” for the n-fold Cartesian product, we define the set of a// finite
+F(X), but since we are not at this point worrying about a theory of sets, we                                sequences by:     _
+simply imagine A as fixed for the time being. Further, without loss of                                      (5)             A*=    \J A”.
+generality, we could stipulate that 4 and its power set are disjoint; hence,                                                       n=0
+there need be no ambiguity between x4                     and X CA.                         .               (The case n=0 has A°= {<>}, where <> is the empty tuple.)
+   Eq. (1) is a particular case of the image under a relation. Thus, if R is a                                    An n-ary relation is a subset           S CA”. It seems reasonable to call a subset
+binary relation between elements of 4A, we can define:                                                      PCA* a multi-relation. The new idea has to do with how                                   to generalize
+(2)          R(X) = {y|Ax EX. yRx},                                                                         formula (2) for the image. This is one such way:
+
+where,   as always,         the variables
+                                                                                                            (6)             P(X) = (y|Andx,,....%,EX.                     (yx...% > EP}.
+                                            have     their obvious     ranges:    x,yEA           and
+X CA.    (This is meant        to correspond       to Principia,   Definition    *37.10;        and    it   In case P CA? (and we agree that the various A” are pairwise disjoint),
+is in any case standard.) If we like, we can think of R as a multi-valued                                   then (6) reduces to (2) exactly—provided we substitute P for R in (2). In
+function; that is, even when ¥ ={x}, the image R({x}) can be “plural”.                                      case    PCA"*!, then P is an (n+ 1)-ary relation; formula (6) could be said
+For single-valued functions, it is obvious that                                                             to define the image of X”, if we regard P as a multi-valued mapping where
+                                                                                                            {X1,-+-,X, ty. We might wish to define more generally the image of
+             y=F(x)            iff (y}=F({x}).                                                              X,xX,X--- xX,, where the n sets are allowed to be distinct, but it is
+   Now even for relations R, the correspondence Xt> R(X)    is a function on                                useful     enough     to   stick   to   the    one-place       set   mapping       in   (6)   for    many
+the power set of A (with values in the same set of sets). We should ask:                                    purposes.
+“What kind of a function is this?” The answer is well-known (though I                                           What is achieved by this new definition? In the case of binary relations,
+could not find it in the nearly endless list of formulae in the Principia).                                  we had yE R(X) just in case there is one element x€X to which y is
+Such functions are distributive in the sense that they distribute over all                                   R-related. In the case of multi-relations, y€ P(X) requires a finite subset
+unions of sets. Since every set is the union of its singleton subsets, this                                  {X1,--..X,}CX with y P-related to CX, +-+>X,>- Clearly then the mapping
+comes down to:                                                                                               Xt> P(X)     need  not be distributive, because     we might have ye
+                                                                                                             P({X,,---5X,}) but y€P({x,}) for 1<i<n. But nevertheless the mapping
+(3)          R(X) = U {R({x}))x EX}.                                                                         does have a special property which generalizes (3):
+Any correspondence satisfying (3) is distributive. If a mapping                            on     sets
+satisfies (3), then we can define a relation between points by:                                              (7)            P(X)= U (P(E)|E CX,E finite}.
+                                                                                                            ‘We call such functions from sets to sets continuous, because a “finite
+(4)          yRx      iff     YER({x}).                                                                      approximation” E'C P(X) is already determined as being true by a finite
+Then in view of (3), the defined meaning of R(X) in (2) is the same as the                                   approximation £ CX where E } C P(E). In fact, the biconditional
+given meaning of R(X) as a set mapping. We can summarize:                                                                   VXVE'[ E'CP(X)oaE CX. E'CP(E)|
+Proposition. There is a one-one correspondence of interdefinability between                                  is equivalent to the validity of (7) for all X CA, provided we restrict the
+binary (point) relations and distributive set mappings provided by formulae (2)                              ranges of the variables E' and E to finite subsets of A. As another
+and (4).                                                                                                     characterization of continuous set mappings, we might mention that they
+                                                                                                             are exactly the ones that distribute over directed unions of sets (equiv-
+   Even if this simple theorem is not in Principia, the authors (as well as                                                                                                                 a definition        will     be
+                                                                                                             alently: over unions of chains                of sets).      But    (7)   as
+Wiener, Jourdain, Hardy, etc.) would have certainly understood it at once.
+                                                                                                             sufficient for our purposes.
+                                                                                    TREBLE
+                                                                                         Ne ian
+
+ 230                                      D. Scott                                                                                    Lambda calculus                                     231
+
+                                                                                    aOR
+       Just as with binary relations, if we have a given continuous set mapping                      (ii)  Continuity in several variables is defined as continuity in each
+ P, then we can define a multi-relation P by:
+                                                                                    te
+                                                                                                  variable separately.
+ (8)            (Vi Xy,+-2,> X,                                                                      (iii) As a side remark it is pointed out that PA, the power set of A, has a
+                              EP    iff   YEP({x,,...,x,}).                         bankas
+                                                                                                  topology with the sets of the form {X CA|E CX}, where E CA is finite, as a
+                                                                                    pe Tee tn
+ Pen           in view of (7), the P(X) defined by (6) will be equal to the given                 basis for the open sets; continuity as defined in (i) and (ii) is proved to be the
+                                                                                                  same as topological continuity on PA and on the product space (P A)". This
+   A small point of difference: every P C A* determines a continuo
+                                                                       us set       peg           remark would not actually be needed in the sequel, but it helps show why the
+mapping, and every continuous map is obtained in this way.                                        concepts are natural.
+                                                                    However
+different P’s may determine the same map. (Thus, whether                                              (iv)   The composition of continuous functions (in any number of variables )
+                                                              <> € P is of no
+moment as empty sequences do not figure in (6); for greater regularit                             is continuous; this of course follows from (iii), but a direct argument is very
+                                                                       y and
+for a later application we will assume that (8) allows <> © P.) There                             elementary.
+                                                                       is not
+therefore, a one-one correspondence between continuous set                                            (v)    The notion of A* and a multi-relation is defined.
+                                                                    mappings
+and subsets P ¢A™*. In order to regain the uniqueness we had with                                    (vi)    The image of a set under a multi-relation is defined and it is noted
+                                                                       binary
+relations, we need to require that the subset P CA*® satisfy                                      that the mapping is continuous.
+                                                                    a certain
+“fullness” condition:                                                                                 (vii) Jt is proved that every continuous function is obtainable from a
+(9)            <>© P and whenever ¢y,x,,...,x,)€P                                                 multi-relation, and in fact there is a maximal such (cf. formula (8)).
+                                                                                                      (viii) The maximal multi-relations in (vii) are proved to be exactly the
+                       and {x,...,%,} C{yp--%},          then CVV r++    Ve   EP.                  “full” relations in the sense of formula (9).
+Condition (9) makes P maximal among the subsets of A* determining the                                As it stands, up to this point, the paper seems rather thin and even might
+desired continuous set mapping.                                                                   not have been accepted for publication. In the next section we turn to
+   There is still the question: “Why are continuous set mappings interest-                        some additional ideas that could have been added to it to give it somewhat
+ing?” The answer is quite pleasant. In TARSKI (1930) (written in 1928)                            greater depth.                 )
+condition (7) is given exactly is his Axiom 4 on the abstract properties of                          By the way, a simple observation as to why continuity is better than
+the consequence relation. Of course, we are not assuming here the special                         distributivity (the binary-relation case) concerns functions of several vari-
+properties of a closure operator, where additionally                                              ables. Suppose F(X, Y) is distributive separately in X and in Y. Then the
+                                                                                                  composition (with identity functions) resulting in F(X, X) is continuous but
+               X CP(X)= P(P(X)),
+                                                                                                  not necessarily distributive; further compositions like F(F(X,X), F(X,X))
+since these are not even true for relational images (unless the relation is                       remain continuous but are even further from being distributive. The reason
+special). But closure operators can provide fine examples of continuous                           is that the condition       z@F(X,X) though equivalent to AxEXAvyEX.
+mappings. Aside from the set of logical consequences of a set of sentences                        z€F({x},{y}),       is not necessarily equivalent to axEX.                z€ F({x}, {x}).
+other familiar algebraic examples of continuous closure operators would                            By taking the point-wise union of continuous functions we get other
+be, say, to let P(X) be the subgroup of A generated by X in the case that                          continuous functions that are even less distributive. This remark shows
+the set A carries the structure of a group. Then P would satisfy the above                         that a study of set mappings might have suggested the notion of continuity
+extra conditions as a set mapping.                                                                 independently of the well-known examples of “algebraic” closure opera-
+   It does not seem at all far fetched to suggest that in 1928 a proposed                          tions.                            ‘
+Master’s thesis could have had the topic of investigating the theory of
+arbitrary continuous set mappings. I can see in my mind’s eye exactly the
+                                                                                                   3. Some reflections on self-application and combinators
+kind of paper that would have been submitted to Fundamenta Mathemati-
+cae. Here is a summary of results and definitions:
+                                                                                                      As in Scott (1973) I recall a passage from the introduction to CHURCH
+   (i)   A continuous set function is defined as one satisfying formula (7)                        (1941):
+above; an alternative definition states that the function preserves directed                                “In particular it is not excluded that one of the elements of the range of arguments
+unions of sets.                                                                                          of a function f should be the function f itself. This possibility has been frequently
+ 232                                                  D. Scott                                                                                           Lambda   calculus                                   233
+
+        denied,   and   indeed,   if   a   function     is   defined   as   a   correspondence   between    two
+        previously given ranges, the reason for the denial is clear. Here,                                        points.) The rub comes when we try to combine the definability of x(y)
+                                                                              however, we regard
+        the operation or rule of correspondence, which constitutes the function,                                  along with what Curry calls combinatory completeness. This point is per-
+                                                                                     as being first
+        given, and the range of arguments then determined as consisting                                           haps not made clear by Church, and his few words of justification do noi
+                                                                           of the things to which
+        the operation is applicable. This is a departure which is                                                 seem to me to be sufficient.
+                                                                      natural in passing from
+        consideration of functions in a special domain to the considerat
+                                                                             ion of functions in                     Is there, then, a model that combines the definability of application (and
+        general, and it finds support in consistency theorems which will
+                                                                           be proved below.”                      self-application) along with a flexible theory of functions? But hold, we are
+ The philosophical stance assumed by Church does not fit so very                                                  not allowed to ask this question because we have put ourselves back to
+                                                                       well to
+ the A-K-calculus where every application has to be taken as                                                      1928 (or earlier) in a state ignorant of the work of Curry and Church. It is
+                                                                meaningful.
+ (An interesting discussion of the differences between the \-I-calcu                                              required that we discover the A-calculus—the combinators and _ their
+                                                                     lus and
+ the A-K-calculus will be found in BARENDREGT (1980).) If we think                                                laws—on our own.
+                                                                      instead
+ of partial recursive functions, where rules are programs and                                                        So let us consider again the thoughts we had on functions in the last
+                                                                 where pro-
+ grams have code numbers, then, following Kleene, an applicati                                                    section. We left off after having written a first chapter of a Master’s thesis
+                                                                  on {e}(n)
+ may or may not be “meaningful” (that is, the Turing machine                                                      about continuous set functions and their representation by multi-relations
+                                                                    need not
+ halt). There are many cases, however, where {e}(e) does converge,                                                P CA*. We defined there in formula (6) an application P(X) for all X¥ CA.
+                                                                           and
+ such self-applications are quite meaningful. The drawback (if                                                    This seems fairly powerful. The idea of set- and function-abstraction was
+                                                                it is one) is
+ that the method of code numbers takes functions in intension.                                                    certainly in the air at that time (Curry and Church did not start in a
+                                                                It may well
+happen that {n}={m}               as partial recursive functions, but {e}(m)#{e}(m).                              vacuum), thus the idea of a notation (say, like that of Russell, or Peano, or
+  Many of the calculi considered by Church and Curry take the                                                     Frege) for abstraction could have occurred to our Master’s candidate. I will
+                                                                         function
+  concept to be extensional, and it is rather more difficult in such                                              not try to construct an “original” notation, but will use Church’s:
+                                                                        a context
+ to be precise’ about the meaning of “rule of correspondence”.
+ not the least bit fair of Church in the above passage to
+                                                                      It is really
+                                                                     invoke the
+                                                                                                                  (1)            AK. A XJR(QO}U (C2 pt                           Srl (eyed)
+ consistency proof via the Church—Rosser Theorem, since
+                                                                 this gives no                                    Here,   7[X]    is an     expression     with   possibly   a   free   set   variable   X   and
+ intuitive justification of the choice of reduction rules which are
+                                                                         given in                                 t[{x,,..-,x,}] is short for the substitution of the set-term {x,,...,x,}                    for
+ advance.
+                                                                                                                  the variable X in r. Bound variables and substitution were well understood
+    There are nevertheless many theories of functions in extension
+                                                                            where                                 in 1928 even if Curry is right that the substitution process is messy.
+ self-application is no trouble whatsoever. To have such a model
+                                                                         OU, just                                 Formula (1) is a set-theoretical construction (of subsets of A*), so there is
+ let OR=R, the real numbers. Define application as addition,
+                                                                          so that                                 no unhistorical “anticipation” of Church.
+x(y)=x+y. This is the model for a “theory” of translations. In SI,
+                                                                               the                                   It is without difficulty that we imagine the recognition of the following
+axiom that has Vz. x(z)=y(z) always implying x=y is trivially valid.
+                                                                              The                                 two laws:
+only difficulty with this model is that so Jew functions from OR
+are represented by elements of SM (“few”, despite the fact that
+                                                                         into Nv
+                                                                     there are a
+                                                                                                                  (a)            AX. 7] X]=AY. 7[ YI,
+continuum number of distinct translations). For example, even though
+                                                                                                                  provided of course that Y is not free in 7[X] and that substitution resolves
+x(x) is always meaningful, this is a function not represented in the model;
+                                                                                                                  clashes between free and bound variables. Similarly, there is a principle of
+that is, there does not exist an element aE QL with a(x)= x(x)
+                                                                           for all                                extensionality:
+xEM. But x(x) =2x is surely a “harmless” function. Why not
+                                                                        throw in
+all linear functions xt>a+ x and not just the translations xt>a-+                                                 (é)            If, for all X CA,we have r[ X]=o[
+                                                                                                                                                                 X],
+                                                                          x? The
+difficulty now is that the linear functions require ‘wo parameters a
+                                                                           and £.                                                then XX.    [|X]   =AX.     o[ X].
+There   is no “nice”        function        of the type [-,
+                                                          OR xX
+                                                            -]: OL—+OR                           where     we
+could then define application so that a,   8 \(x)=a+ Bx. The point is that                                        Perhaps it is also useful to mention a stronger version of this law which
+we would want x(y) to be a linear polynomial in each variable separately                                          takes special advantage of the fact that abstracts are sets:
+                                                                           .
+But then x(x) is no longer linear but rather is quadratic. (In any case, the
+project is doomed as soon as x++1+.x is allowed: this function has                                                (&*)           If, for all X CA,we have r[ X] Co[ X],
+                                                                          no
+fixed point, but in a full theory of combinators a// functions have fixed                                                        then AX.    1[ X | CAX.     o[ X |.
+                                                                                         egtenen
+
+ 234                                     D. Scott
+                                                                                         pe
+
+                                                                                                                                       Lambda   calculus                             235
+                                                                                         a
+
+
+ These   laws    are justified by   the usual   behaviour   of bound   variables   and               Having    had the idea of closing up A          under sequences, we remark      that
+                                                                                         “te
+
+very, very elementary extensionality properties of set formation in (1).
+                                                                                                   the self-application P(P) makes perfectly good sense, because now P C                   A*
+   The next law would, admittedly, require a little more imagination. The
+                                                                                                    CA and P(P) is defined. Even better, from eq. (6) of the last section, we
+point is that we have already seen that there is a one-one correspondence
+                                                                                                   see that X(Y) always makes sense for all X, Y CA. Note that
+between certain multi-relations and continuous set mappings. What would
+require a grasp of formal manipulation would be the insight of how to                                          X(Y)=(XN A*)\(Y),
+express this in the above notation. But, since class abstraction was already                       but, since A*CA, we lose no continuous functions this way. Also it is
+known, we can hope our hypothetical Master’s candidate would write:                                obvious from the definition that X(Y) is continuous in both X and Y (the
+                                                                                            <n
+
+
+(B)             (AX. TTX] )(Y)=r[ ¥],                                                              operation is even distributive in X). This is the main insight: the uniformly
+                                                                                                   “type-free” definition of X(Y) is permitted for a very elementary set-
+provided the mapping xt»7[X] is a continuous set mapping on subsets of                             theoretical reason. But will we be motivated to go further?
+A. This law expresses exactly the fact, already noted, that if we use (1)
+                                                                                                      Once a person has an operation he naturally tries to iterate it. A
+above to define a multi-relation from a continuous map, then under the
+                                                                                                   particularly simple case of iteration is something like P(Y)(Y)(Z). Take P
+definition of application we achieve the same mapping by applying the                              fixed. The set P is a multi-relation applied to X. But the result (possibly
+multi-relation to any suitable argument Y CA.                                                      better regarded as restricted to A*) is a multi-relation we can apply to Y;
+   The aspect to emphasize at once is that all this discussion is almost                           and so on. Once we say to ourselves: “Sets determine multi-relations; the
+purely notational: (a), (8), () are just notational variants of facts already                      values are sets; these values determine multi-relations in turn’, there is no
+known. There is no hint of tricks of self-application yet, and we need to                          reason to stop.
+ask: “How could a coherent notion of self-application be based on such                                Now P(X)(Y)(Z) is a three-place function, continuous in all its argu-
+set-theoretical definitions?”                                                                      ments (recall what we already remarked about composition). We should
+   Look again at the definition given in (1) above. There is a plain                               ask: “What three-place continuous functions do we get in this way?”
+distinction of type involved, because while ¥ CA is intended               for argu-               Surely this is a natural question. The answer is “‘all’’.
+ments, the results of what is defined are multi-relations
+           AX,      7[ xX] CA*,                                                                    Theorem. Assume A* CA. Let Xo,X\,..-,X,—
+                                                                                                                                    +> T[ Xo, Xy5---5X 4 ] define a
+                                                                                                   continuous set mapping of n-variables. Let
+Would anyone (let alone our Master’s candidate) ever be tempted to                         on
+
+
+
+confuse these types (that is, to confuse subsets of 4 and subsets of A*)?                                      P=AXAX1-- AX,               TL Xo           Xana]
+   Obviously, I want the answer to be “yes”, but can I motivate it? Let us
+                                                                                                   Then   P is a multi-relation such    that
+stop to reason that a confusion of the kind requested would require that
+subsets of A* be at the same time subsets of A. If the set A were closed                                       P(X)    X1)- i (X,-=1[XoXp---                  Xn —1]
+under the formation of finite sequences, then we would have A*CA and,
+                                                                                                   for all Xo, X\,.-.,X,~,
+                                                                                                                        GA.
+trivially, X CA* would imply X CA.
+   Are there such sets 4*C A? Perhaps Russell and Wiener might have
+                                                                                                     This result is the n-ary generalization of the principle (8) already
+balked at first, because Wiener’s definition of pairs would—strictly applied
+                                                                                                   mentioned. Recall that—-given Chapter 1—( £) followed by definition. The
+—have resulted in sets of infinite type. But Kuratowski, Hausdorff,
+                                                                                                   above theorem would follow at once from iteration of principle (8)
+Zermelo or Von Neumann would have had no trouble with the suggestion.
+                                                                                                   provided we establish (the true)
+For Russell, it would have been simple enough to axiomatize the finite-
+sequence-forming operation and to point out how many models there are
+                                                                                                   Lemma.     Jf X,X,,...,X,t>7[Xo,X),---,X,]              #8 a continuous set mapping of
+where we can regard A*C4A. It would even be easy to go further and
+                                                                                                   (n+ 1) variables, then
+eliminate all type distinctions previously found by getting A*=A. (In
+Zermelo’s theory, consider the /east set closed under the formation of finite                                  XX yeep Xq—       AX, 1] XoXp--Xq]
+sequences—“generated” from ©, so to speak.)                                                        is a continuous set mapping of n-variables.
+
+                                                                                           kee
+ 236                                      D. Scott                                                                                Lambda   calculus                                   237
+
+
+   The proof of the lemma is an elementary consequence of formula (1) of                         there is a contemporary    problem of motivating them when,              say, trying to
+ this section (where 7[X] is replaced by 7[X or              Xj,--.,X,] and X is replaced        explain   the idea   to other   mathematical         but   non   logically-trained   col-
+by X,,). One only has to take a free set variable, replace it by a directed                      leagues. The interpretation proposed here is, I feel, a rather direct way of
+union, and then bring the union to the outside of the set abstraction by                         showing that a non-trivial combinatory algebra is possible (and it is
+valid set-theoretical principles.                                                                definitely easier than the non-extensional algebra of Gédel numbers under
+   The point of the theorem is that iterated application is the “inverse” of                     {e}(n) as application). Having realized this, the second remark may have
+iterated abstraction—provided we have a lemma to the effect that abstrac-                        greater weight: I believe that in 1928 someone could have reasoned: “If |
+tion preserves continuity.                                                                       can iterate certain continuity-preserving operations, then I should iterate
+                                                                                                 them and try to find out what they give.” Many mathematical discoveries
+   Now    the Master’s      thesis is taking on more        substance;       however, at this    have been made on less clear grounds. It strikes me as a suitably “empiri-
+point    self-application    has   still played      no   major   role.    Rather,   we   have   cal” approach.
+motivated and implemented in the present theory Schénfinkel’s idea that                             So ends Chapter 2 of the hypothetical Master’s thesis: the assumption
+n-ary functions can be reduced to monadic functions (at least in this                            A*CA has been utilized more for iteration of concepts than for self-
+context of continuous set functions). The question that remains is: “Where                       application. What has been shown is that a full theory of continuous
+would the combinators have come from?”                                                           functions (as exactly represented by multi-relations) is achieved in such a
+    It is not fair to answer that Schénfinkel’s paper was published before                       way that a notation of application and abstraction is completely meaning-
+ 1928 and that our Master’s candidate may have read it. Let us try to get                        ful in any degree of intermixing (iteration). Moreover, certain obvious laws
+him to discover the combinators himself. Recall that under the assumption                        (such as (a), (8), (€), (€*)) hold in what has now become a “type-free”
+A* CA we can regard application as a binary set operation:                                       manner. These laws are enough to justify many laws of combinators (e.g.
+(2)           X(Y)= {Bn                                                                          the associativity of B). The construction has provided a model for a
+                                   yy.      EY.       Oya                 EX}.                   coherent (though not as yet very formal) theory of application and ab-
+(This is just (6) of the last section.) Even in the notation of Principia it                     straction—a theory which, as we shall see, is open to many extensions.
+would have been readily seen that this is continuous in both variables—                             It should be stressed that the theory of continuous functions for which
+even if we did not cheat and use the three dots. Compositions of continu-                        these laws are valid is one where the notion of function (as a set mapping)
+ous functions are continuous; A-abstractions of continuous functions are                         is replaced by the notion of a representing multi-relation. The map
+continuous; these constructs can be iterated as much as we please; hence,                        Xt+>7[X] (if continuous) is represented perfectly by the corresponding
+consider the iterated combination                                                                multi-relation AX. 7[X] of formula (1): we could call this multi-relation the
+             B=\FAGAX.         F(G(X)).                                                           graph of the map. But the reader must heed the fact that only continuous
+                                                                                                 set mappings have graphs of this kind.
+                                                                                             i
+
+
+
+By the Theorem, B(F)(G) represents the composition of F and G ; that is,                            Looking back at the early writings on A-calculus such a point of view
+B(F)(G) is a multi-relation representing the function represented by the                         may seem very limited, and what has to be done is to illustrate the scope of
+composition of the functions represented by the multi-relations F and G.                         such a theory of continuous functions. In any case in what follows we are
+(This talk of representation is clearly becoming too complex.) Therefore, B                      simply going to identify continuous functions with their graphs and use
+itself represents the “general idea” of composition. This is probably the                        this idea as our principal notion of function. Note, however, one advantage
+first non-trivial combinator to be discovered. As is common, we shall use                        of our approach over the formal, purely axiomatic induction of A-calculus
+in the sequel the more readable infix notation:                                                  by Curry and Church: in this context the combinators are seen as special
+             FoG=B(F)(G).                                                                        continuous functions—there are many more such functions than merely
+                                                                                                 those defined in some restricted notation. In this way the combinators (ix
+   Admittedly, this discussion all seems totally trivial after the work of                       combination with other operators) are given a greater range of applicabil-
+Curry and Church, but there are two remarks I might make. In the first                           ity over just the “logical” uses intended by their discoverers.
+place, even today the combinators are not all that well-known (though                               (Returning from 1928 for a moment to 1972, it should be remarked that
+studies in Computer Science have given them a new lease on life). Thus                           Plotkin defined the model by forming not A* but the closure of A under
+ 238                                   D. Scott
+                                                                                                               Lambda calculus                            239
+ ordered pairs of finite subsets of the set being constructed. The two
+ closures are of the same order of complexity, but the author feels that the   Here X, Y CA    and the values of the function have the same type: F(X)       C
+ use of A* makes the definitions look more elementary.)                        A. The following theorem specializes from complete lattices the statement
+                                                                               of TARSKI (1955), a paper written in 1953 and reporting on results of 1939
+                                                                               and earlier.
+ 4. Some notes on iteration and computability
+                                                                               Theorem. Every monotone set mapping F:PA-»PA has a least fixed point,
+   In the previous section self-application (better: confusion of types) was   and indeed the set of all fixed points, {X CA|X = F(X)}, forms a complete
+made palatable (or at least: coherent) through the multi-relational “repre-    lattice under C.                                       ~
+sentation of continuous set mappings and the closure condition A* CA. It
+should be pointed out again, however, that very little advantage was taken        Of course, continuous set mappings are monotone        (Hint: consider the
+of the possibility of self-application, as the “natural” combinators do not    directed family of sets {X,Y}, where X C Y), and so       the theorem applies
+emphasize self-application. Since Church was fundamentally concerned           to that case. We need not detail the whole and quite      elementary proof of
+with the paradoxes, he considered the question from the start, but his         the theorem here, but a few words about it might be       helpful. Let us take
+monograph CHURCH (1941) does not on the surface exploit the freedom of         the problem of proving the existence of the /east fixed point. Consider the
+                                                                               family of sets “closed” under F, namely {X CA|F(X)CX}. Even though
+self-application very much.                 .
+   Whether our Master’s candidate would have grasped the significance of       F is not a closure operation and is not assumed to be any better than
+diagonal applications is not so compelling an hypothesis. But, nevertheless    monotone, we can still easily prove that this family of “closed” sets is
+X(X) is at once seen to be a continuous set function; perhaps the step to      closed under arbitrary intersections; in particular, the intersection of the
+looking at                                                                     whole family belongs to the family itself (that this intersection exists comes
+                                                                               from the fact that the set A is itself “closed”). Call this intersection X,. We
+             (AX. X(X)\(AX. X(X))                                              have F(X))C Xo, and then by monotonicity F(F(X))           C F(X,). This proves
+would have required a certain curiosity. Certainly, the paradoxes were         that F(X) is “closed” also; whence, X)C F(X,) because Xp is already
+widely discussed. So even the kind of formula that enters in their deriva-     known to be the least one in that family. Obviously, then, X, is not only a
+tions is not all that weird:                                                   fixed point but also the least one in the family of fixed points (since every
+                                                                               fixed point is “closed”’).
+         AK,      FUX(X)) AX. F(X(X))).                                           In the continuous case, the least fixed point of F can be “found” by a
+(Here, as we have already remarked, not should replace F for the sake of       simple infinite iteration; calling the least fixed-point operator fix we can
+paradox.) If we regard the above as a continuous map fF t>Y(F)(that is, Y      write:
+is AF of the above expression), then—as in the derivation of the Russell
+Paradox—we      have by a use of (8)                                           (2)         fix(F)= UJ F(2).
+                                                                                                   “n=0
+             Y(F)
+               = F(¥(F)).                                                      On the right, © is the empty set. The proof by continuity that the operator
+(Surely this is the way Curry discovered the so-called Paradoxical Combi-      does indeed give the least fixed point is very elementary, for one has only
+nator; note his derivation of the Russell Paradox in Curry (1930, p- 51 1).)   to note that on the right the union is directed. (In the non-continuous    case,
+   Perhaps by now our Master’s student is working on his Doctor’s thesis.      the iteration has to be continued into the transfinite.)
+If he were the kind of person to submit papers to Fundamenta, he would            In KLEENE (1952), the nub of the proof is embedded in his proof of the
+have surely read KNASTER (1928) written in 1927. This note contains the        First Recursion Theorem (pp. 348 ff), where the verification that partial
+general Fixed-Point Lemma for Monotone Set Mappings, a joint result of         recursive functionals are continuous is carried back to first principles. But
+Knaster and Tarski. By a monotone map, we understand a function such           note that Kleene is proving two things: the least fixed point exists and it is
+that                                                                           computable. (Strictly speaking, he is dealing with partial functions not
+                                                                               subsets; a discussion of the obvious connection is given in Scotr (1976),
+(1)          X CY always implies F(X) C F(Y).
+                                                                               which also relates closely to the considerations of the present paper.) These
+240                                     D. Scott
+                                                                                                                                     Lambda calculus                           241
+
+facts ought to be separated, since the existence part is more                  general   and
+more elementary;                                                                               each node, if an element of A*, has as its immediate descendants the terms
+                       in fact, we can prove existence long before we have
+introduced tools to make computability (a kind of definability) precise.                       of the sequence of positive index. If you come to a sequence of length less
+Keep in mind, however, that this remark does not eliminate any of the                          than two or come to an element of A\A*, then you stop. What the
+problems of showing that particular functions are continuous; all we have                      assumption amounts to is that this tree is always finite.
+at hand so far from the last section is a method for generating a large
+number of continuous—and quite complex—functions from other con-                               Theorem. [f < is a well-founded relation on A and if A* CA is progressive
+tinuous functions.                                                                             in A, then the paradoxical combinator Y is the least fixed-point operator.
+    Now look back at the definition of flx in (2) above. For each integer n,
+the map F +> F"(@) is continuous by the composition principle. (Now we                         Proof. Let F be a multi-relation representing a continuous set function.
+are, as usual, identifying functions with their graphs as mutli-relations.)                    Let   B= F(B) be any fixed point of F. For the moment write A=AX. X(X).
+Any point-wise union of continuous functions is continuous. Hence, the                         Let U=hX. F(X(X)), and recall that Y(F)=A(U). We know A(U) is a
+union map Ft+flx(F) is continuous: flx must have a graph. What is it?                          fixed point of F, but we must show that A(U)C B.
+   By now we should probably give up the rhetorical device of arguing that                       Let us write (x 9,x),...,X,><U provided {x,,...,x,}C U. By continuity
+all this could have been done in 1928. I believe I have at least argued that                              ACU)= U {A({ x45.                   DK X0X 1X KU}.
+the discovery of the combinators and their elementary laws could have                          Thus, we need only show that
+been given a set-theoretical (and, for my taste, natura!) grounding in 1928.
+On the other hand, whether their applications and uses would have been so                                 (Xo, X19+-+>X_< U always implies A({x,,...,x,}) CB.
+quickly recognized is not clear, since the theory of recursive functions took                  So suppose not. Let S be the set of tuples < U for which the inclusion fails.
+some ‘time and somewhat different motivation in order to get started.                          Since < is well-founded, let (xo, x,,...,x, > be a minimal element of S. We
+(Mainly, Godel and the incompleteness theorems were required.) Note,                           seek a contradiction.
+however, that the reason that Knaster and Tarski introduced the fixed-                           To this end, let yy be any element of A({ xo,x,,...,x,
+                                                                                                                                                    })\B. Because
+point method was to produce the recursions needed in set-theoretical
+arguments like the Schréder—Bernstein Theorem and many generaliza-                                        VoE {Xp -+- Xb             Xp       Xn})s
+tions. Perhaps, then, the step to a general theory of recursion could have                     we see from formula (2) of the last section that there are elements y,,...,y m
+come forward      along   these   lines—but     such      conjectures                          where
+                                                                        are   more   or less
+pointless.                                                                                                 {Vises         Vm} C{xX,--.5%,},       and    (Vow
+                                                                                                                                                           +++ Vm» E{Xys--25%q_fe
+  So we return to the question of relating fix to the “pure” combinators.
+Since flx(F) is always the least fixed point of the mapping X+> F(X), and                      But then, by assumption,
+since Y(F’) is some fixed point, then flx(F)CY(F) for all F. It was a most                                Vo        32+     Yn > SX Qp X 522-9 Xp
+useful discovery of DAvip Park (1969) that fix=Y was actually possible.
+                                                                                               Since (¥9,V15-+-.Ym> <U, we know then that A({y,,.-.,¥,,})
+                                                                                                                                                       CB. But
+(The proof of Park was given for a slightly different kind of interpretation
+of A-calculus, but I had no trouble in recasting the idea for a similar proof                             Yo    1s-++ Ym»         GE U=AX.    F(X(X)),
+in Scotr (1976, p. 569 f).) In order to give the proof here,some analysis of:
+                                                                                               so by definition yy € F(A({ y,,---,¥}))- By monotonicity
+A* within A is required.
+    Let < be a binary relation on A. We say < is a well-founded relation, if                              FUA({¥1.---%m}))
+                                                                                                                     CFB) = B,
+whenever X CA is non-empty, then x EX exists with no y<x als) satisfy-
+ing
+                                                                                               SO Yo © B, which is impossible!
+       y€X. (The element x is “minimal” in X with respect to <.) We say
+that A* is progressive in A (with respect to <) if whenever we have
+XqX1,+--,X,EA,                                                                                   Actually we need not invoke an arbitrary < on A for the above result,
+                    then x,<<Xo,X),.--,x,>         for 1<i<n.        (Tuples are always
+                                                                                               because there is always a /east relation for which A* is progressive in A.
+worse   than   their (later) terms.)   The    essential     point   of the well-founded,
+                                                                                               We can call the whole structure A*CA a well-founded model for tuples
+progressive case is that every element of A* can be well-pictured as a tree:
+                                                                                               provided this least relation is well-founded.
+242                                       D. Scott                                                                                                        Lambda     calculus                                              243
+
+
+  But what does this have to do with computability and Kleene’s First                             This means that a EK is equivalent to
+Recursion Theotem? We need some definitions. A structure A* CA will be
+said to be computable with respect to an enumeration A ={a,|n€N} (where                                       a=      )V/ ANI X),...,%,
+                                                                                                                                     EA. A=CKK,                                       1,0          DV
+N= {0,1,2,...}) provided that we can show uniformly that the relationship                                     dn,mAx),...,x,                     EAAYo,...,),                   EAdZ EA.       A=(2,X1,-..,%,              AZ
+              {4,9 a,» veto a,   > = a,
+                                                                                                                                                      =     CVV      p--     YmoALYo=              XV   “Te   V¥o=    Xn | |.
+is recursively enumerable in no, 7),..., my.
+                                                                                                  This is wholly existential on r.e.                                 predicates       (r.e.    with      respect     to     the
+     In the same vein we say a subset U CA             is computable if {nENla,€ U}
+is    recursively    enumerable.     A         continuous      set   function     X oo Xps-- +5   enumeration), so K is computable.
+Xm—1       b> 1X9, X1,---,X_—4]           iS     computable          provided      its: graph       In order to be able to state the formula for S it is convenient to make
+AX AX,      + AX, 1. T[Xq, X,---,X,—,] is computable.                                ;            some definitions:
+
+                                                                                                                   A= {<>}s
+Theorem. (i) Jn a computable structure, the computable functions contain all
+                                                                                                              Anti)      =       { (Ug,   Uy,    ++        Up   >|     EA   pny     Uys «+    Uy   CA    }.
+the computable constants and are closed under composition and )-abstraction;
+   (ii) Application is a computable function (of two arguments), and the                          We recall that                                                                                   ~
+computable functions are closed under point-wise application;
+                                                                                                              S=AFAGAX.                   F(X)(G(X)).
+   Qii) If G(Xo,X),.--,X,,) is computable function, then so is the least solution
+to the equation                                                                                   (S is of course the combinator for point-wise application of two functions.)
+                                                                                                  Now we can write:
+       |      F(Xy..
+                   X,) = G(F,X),...,X,)3
+                                                                                                              S=    Aq       U     An)U         ApyU
+in fact, tix is a computable function;
+   (iv): Provided A* CA is well-founded,             tix can     be proved      computable   by                     {X€C         X09   Xy9 009        Xs        Bs-+oBm      rfp    --fe>|
+
+explicit definition as the Y-combinator.
+                                                                                                                         XE
+                                                                                                                          { fiy---rba} {X10                                       WL Bs-+ 08m HL H+                  XK }))}-
+Proof. Though the theorem has been stated for functions (of several                               To show that a€S is characterizable by an existential predicate, the main
+                                                                                                  difficulty is in showing
+variables)—which we could think of as defined by terms (with the ap-
+propriate number of free variables) built up from constant symbols for                                       XE {fire eSa CL =                                   MMM        Bie      Bn (sXe)
+computable subsets of A by application and \-abstraction—here is a case
+                                                                                                  is existential. The first step is to make this equivalent with
+where the argument is easier by combinators. We reduce all A-definitions
+to the well-known combinators S and K, which we have to prove are                                             SpAt,,...56, © { B45 ---8m }({Xp---.X%})-
+computable subsets of A. Then we need only check that if U and V are
+computable sets, then so is U(V). This will take care of parts (i) and (ii).                                                                                     Conte een S (fis eafa} {xe %e)):
+Recursion in part (ii) still requires that we show fix to be computable;                          It then takes two more applications of the definition of application to get
+however, in part (iv) in the well-founded case, there is nothing to prove,                        down to the elements of the finite sets. What is new in this calculation over
+because Y is A-definable by our previous theorem.                                                 the one for K is that the clause of the form to, --+5t,   EU is really a finite
+   Turning now to the details we recall                                                           conjunction of variable length. A more formal (and less dotty) notation for
+              K=AXXY.      X.                                                                     finite sequences would give us existential quantifiers mixed with bounded
+By the definition of \-abstraction this comes out:                                                universal quantifiers (finite conjunctions) which would be enough to show
+                                                                                                  that the predicate is r.e.
+              K= {QC} U {Kx9.¥45---5%,
+                                    1X9 EAY. (2,--.5%,}}                                             We use the same kind of argument to show the closure of the comput-
+                = {CD} U (KC), x. XD X--X,    EA }                                                able sets under application. The case of fix is similar, since a €fix means
+
+                    U {{Yo¥ire++
+                         Ym eX +2 Xm Vo E {Xp Xp} fe                                                          An,     mAfo.f\,---stn                  GA-        a=<fotir--Sno\SoE                      {fo---fn}         (D).
+ 244                                            D. Scott
+                                                                                                                                                         Lambda calculus                                    245
+
+ The    iterated   application       has   to   be   shown         to    be     uniformly       r.e.   in   the
+parameters (including n) with respect to the underlying enumeration of A.                                         structure computable. Provided also that we strengthen the definition of
+It should be clear how to do this. The reason why
+                                                                                                                  well-foundedness to include xy<x9,x,,---,%,)>, then all strongly well-
+                                                                               it is sufficient for (iv)          founded structures are of this form.
+merely to consider flx is that we can write:
+                                                                                                                     In an enumeration making A*C A computable it is not necessarily the
+              F=tix(AHAX,---AX,. G(H,X,,...,X,)):                                                                 case that B= A\A* is computable (r.e. with respect to the enumeration).
+and, since G is computable, everything on the right is also.                                                      Similarly, the inequality predicate x 4y need not be computable; perhaps
+                                                                                                                  these stronger conditions ought to be imposed in the definition. In a
+   An interesting corollary to this theorem is the observation that the                                           different direction perhaps we should only consider computable those
+computable subsets of any computable structure form a model’ of the                                               predicates r.e. with respect to a// enumerations of A making A*CA (or
+A-calculus. This is one rather strong reason why this approach to model                                           whatever) computable.
+building can be considered “constructive.”                                                                           So much for remarks on “standard” models. A “non-standard” model
+   What is the difference between the Fixed-Point Theorem and the First                                           (but one with only finite sequences) is formed by making up a “peculiar”
+Recursion Theorem? The former only involves the proof that fixed points                                           one—one correspondence between A and A*. Call it 7:A*<+A. The theory
+exist and that the least fixed-point operator is continuous. (The second part                                     of tuples then uses 7((X9,...,X,;>)    A in place of <x9,...,x,_,> (This is
+of this statement is essential for iterated recursive definitions: things                                         what is done for 4=N         when we use a Gédel numbering of finite
+introduced by fixed points can be employed for further introductions by                                           sequences.)   We   could   also   do    a similar   theory   with   atoms,   but   the   extra
+fixed points—the reader will get the (fixed) point here if he recalls that                                        generality is not needed here. A different way of introducing atoms into A
+parameters have to be allowed.) The latter statement further requires a                                           is suggested in the next section.
+proof. that (assuming           we   start with      computable                                                      It is a quite remarkable discovery of BAETEN and BOERBOOM (1978) that
+                                                                              things)     the results are
+computable. The Second Recursion Theorem (due to Kleene) would dem-                                               such non-standard models completely change the behavior of the resulting
+onstrate that not only can we effectively Gédel number all these defini-                                          A-calculus. (Earlier, J. Owlett when a graduate student at Oxford had
+tions, but in a recursion for a function F the right-hand side can employ                                         found that the connection between flx and Y could be ruined by a
+the Gédel number of the very function being defined (that is, there is a                                          non-standard tupling.) The result of Baeten and Boerboom (proved for the
+function whose recursive definition calls for its own Gédel number). We                                           graph model of Scorr (1976) but clearly transferable to the present
+do not discuss the details here for the present model, but a quite neat                                           context) can be stated as follows (A is assumed denumerable):
+version was given in Scotr (1976, Section 3).
+   We should stop to consider whether suitable structures exist. The                                              Theorem. (1) Let X CA be arbitrary. There is a choice of 7: A*<+A so that
+minimal one where A equals the closure of @ under finite sequences is                                             under this notion of tuple A(A)= X (instead of © as in the well-founded case).
+computable and well-founded. It does not make any difference here what                                               (i1) Given any closed \-term 1, there is a choice of 7: A*<A so that
+kind of sequence we consider (what our model is), because a// theories of                                         A(A)= +.
+sequences must satisfy
+
+              (Xoo +229 Xp      > = (Vor ++     Yin 1 ON = MAI                                                      The proof of (ii) is by a fairly straight-forward forcing construction,
+                                                                                 <n. Xi = Vis
+                                                                                                                  where the forcing conditions are certain finite partial functions P Cm (for
+and, when we start with “nothing,” all theories lead to the same                                   minimal        mw:A*<+A). It would be worthwhile to check whether the proof works with
+model    A=A*      (up       to isomorphism).         The    same         would         go for a model            terms involving fix as a primitive combinator and not defined as Y. The
+generated by atoms (i.e., elements which are non-sequences). This kind of
+                                                                                                                  resulting tupling is non-recursive, by the way.
+structure is the minimal solution of
+              A=BUA*,
+                                                                                                                     Having provided a somewhat detailed analysis of iteration in these
+where    we   require    that        BM A*=@.        All    such        models      are    well-founded           models and a glimpse of how recursive definitions enter via combinators,
+structures determined up to isomorphism by the cardinality of B. Provided
+                                                                                                                  we ought to conclude this section with some remarks on how properties of
+that B is countable, there are many enumerations of A making the                                                  the recursively defined functions should be proved.
+ 246                                            D. Scott                                                                                  Lambda   calculus                              247
+
+       In   Section    6 of Curry      (1979)    we    find     a useful,   but   brief review     of   It is simple    to verify that P(X)C   Q(X)      is a directed-complete    predicate.
+ combinatory arithmetic and Kleene’s early work on the A-definability of
+                                                                                                        Quite a lot can be done with this form of induction, though not everything.
+ recursive functions           (see the Curry paper        for the explicit references).         Per-   An interesting example of something statable by combinators but requiring
+ haps we should remark that the word “definability” is not quite properly                               induction to prove was given in Scotr (1976, p. 534):
+ used in this regard in view of later work on the connection between
+ recursion theory and formalized calculi: it would be better to say                                                    fix(AFAX.   G(X)(F(X))) =AX.           flx(GCX)).
+                                                                      that
+ Kleene established the numeralwise representability of partial recursive                               This equation can easily be rewritten in combinators: B(flx(S))
+                                                                                                                                                                    = B(fix).
+ functions in the (pure) A-calculus. The reason for making this verbal                                  Other examples and references can be found in BARENDREGT (1977, pp.
+ distinction is that the “numerals” are each taken separately (Curry calls                              1121 and 1126).
+ them the combinators Z,), and there is no predicate in the theory for the                                 As special cases of (:*), we remark that the implication
+ class of integers. Therefore, even though we can see the results of any one                                           F(A) CAfix(F) CA
+ calculation, there is no way to formulate—in the theory—a proof
+                                                                                by
+ mathematical induction in order to establish general facts about the                                   follows at once by the substitutions P=AX. X and Q=XX. A. In the
+ integers. (The variable n is outside the system, for example.) This strikes                            appendix to this paper we collect together some axioms suggested by our
+ me as something of a drawback, but of course Curry was striving for the                                model construction (cf. also Scorr (1973)). The reader should note two
+weaker, more basic, more ultimate foundational systems he wanted to                                     things: in the first place, this is a first-order theory not just an equational
+                                                                               see
+common to all fcrmalized theories. Not all theories, obviously, should be                               theory. (One reason for this is the fact that it seems impossible to regard
+                                                                                as                      the unrestricted quantifiers as combinators—they are not continuous as
+strong as first-order arithmetic. Be that as it may, there is still a question
+                                                                                of
+Just how (or where) we are to do our inductions.                                                        operators.)    Secondly,   what we propose     is a very weak      theory, because     it
+    Instead of introducing by one scheme or the other the integers into our                             could be interpreted within the theory of r.e. sets and very likely proved
+present system, we will fix attention for the sake of illustration on the                               consistent in ordinary first-order arithmetic. In any case it is formulated in
+combinator flx as the embodiment of the iteration concept. For us this is                               as close a form to the original view of combinatory logic as we can come
+reasonable because we always have continuous set functions at the back of                               under the plan of modelling functions by continuous set mappings.
+the mind, and the least-fixed-point construction is quite fundamental in
+this context. We             have already seen how            to use fix in definitions;    what
+remains is to see how it comes into inductions.                                                         5. Some aspects of type theory
+   In a highly schematic way, we could consider directed-complete predi-
+cates of subsets of A. Such a predicate P(X) has the property of being                                     In this section of the paper we shall restrict attention to the models
+closed under directed unions of sets. Now the least fixed point is a directed                           where       A*=A. As we pointed out before, not only do such sets exist, but
+union; thus, it is certainly valid in our model that the following holds for                            this equation eliminates completely the distinction in type between subsets
+                                                                                                        X CA* and X CA. Every set in our “universe” is at the same time a set of
+all directed-complete predicates:
+                                                                                                        sequences, and conversely. We saw this was helpful as regards the discus-
+(:t)             P(DAWX[           P(X) +P (F(X))]F
+                                                (fx(F)).                                                sion of continuous set functions; however, this initial elimination of one
+                                                                                                        type distinction hardly eliminates all type distinctions—-there is another
+The only trouble with (ct), the principle of directed-complete induction,
+                                                                            is*                         important one close at hand.
+that it would require some machinery for the introduction of the predi-
+                                                                                                            Is there a difference between functions and arguments? Certainly in use,
+cates. If we want a more elementary principle of the nature of (€) or of (n),
+                                                                                                        but the model presented above has shown that functions may be incorpo-
+then we need to take a form of the predicate expressible in our previous
+                                                                                                        rated as objects among the arguments. That was how we justified self-
+notation. Here is one example:
+                                                                                                        application. But, with reference to condition (9) of Section 2, it will be seen
+(c*)            P(D)                                                                                    that (even when A*= A) only certain subsets of A* are used to represent
+                             COBD)AVX| P(X) COX)                  PUF(X))C O(F(X))]
+                                                                                                        functions; in a precise sense in this model there are “fewer” functions than
+                           > P(tix(F)) C O(fix(F)).                                                     arguments. Thus, despite our being able to give a useful meaning to X(Y)
+ 248                                D. Scott
+                                                                                                                                    Lambda calculus                                   249
+
+ for all X, ¥Y CA, the distinction between function and argument remains on
+                                                                                 in which case yo € P({ y,,...,y,}), by definition of application, and hence
+ the level of the object of the model.
+                                                                                  again the element     aEXX. P(X).
+    We can easily give symbolic form to the distinction by employing in a
+                                                                                     Interesting as this is, it does not at once answer our question about the
+ well-known way the A-notation. What does XX. P(X) represent (in the
+                                                                                  distinction between argument and function: this model still makes the
+ model) for arbitrary P CA? Answer: the arbitrary continuous function.
+                                                                                  distinction, but we want to know whether there is some (non-trivial) model
+ Condition (9) referred to above is equivalent to the satisfaction of this
+                                                                                  in which the law (n) holds. I gave an answer in 1969 with my first model
+ equation:
+                                                                                  construction by a method that has often been given the unfortunate name
+ (n)        P=)dX.   P(X)                                                         “Scottery”.(An integrated presentation is planned for BARENDREGT (1980)
+Often suggested as a universally valid /aw of A-calculus, it is often, wrongly   and a very thorough discussion is contained in PLOTKIN and SMYTH (1978),
+called the axiom of extensionality—law (£) is correctly the extensionality       where the process is given a categorical formulation incorporating sugges-
+principle for the A-calculus. CURRY (1979) speaks of “strict” extensionality,    tions of several other people. Another presentation together with the
+which is fair enough. The strictness consists of the Tequirement that every      connections with the topological and lattice-theoretical aspects of continu-
+object uniquely represents a function. As is well-known, we could replace        ous lattices will appear in GreRz eT AL. (1980).) A direct construction
+(the universal generalization of) (n) by the biconditional:                      (without inverse limits) was mentioned in Scorr (1976, p. 549 ff), but
+                                                                                 people have not enjoyed very much reading it there; thus, let me explain
+Cc?)       P=QoaVX. P(X)=O(X).                                                   once more using the models of this paper how easy it is without trying to
+By a very exact analogy with the axiom of set theory, whereby two sets           put the approach in a wider context. Essentially the same proof is given in
+with the same elements are equal, we can read (p) as saying that two             PLOTKIN (1972), but the details (by “retracts”) as presented here are very
+functions with the same va/ues are equal. The rub is that in general we do       much simpler.
+not known whether P and Q are always the chosen representatives of                   Principle (n~) can be stated purely in terms of combinators and inclu-
+functions. In the case of (£), the two A-abstracts are by primary intent the     sions between them. We have, in fact,
+representatives of the functions in question, and so we say they are equal
+in an extensional theory. (p) above says too much, for, just as in set theory,
+                                                                                              AX. X CAFAX. F(X),
+we can imagine a universe where some objects are not functions (some             and this is just      the        start        of   a sequence        of such   containments.    Define
+objects are not sets—atoms, for instance). I prefer to call (~) a principle of   recursively:
+functionality, meaning that every object is (uniquely) to be regarded as a
+                                                                                 (1)          Dy=rAX.         X
+function. This should not restrict the use of the word “functionality” for
+other uses—for example functionality relative to certain mapping proper-         (2)          D4       = APAX,            D,(F(D,(X)))
+
+ties of the kind we shall discuss below.                                         We can prove the:
+   Indeed, law (7) always fails in the kind of model constructed above,
+because, for P=@,     it is clear from formula (1) of Section 3 that             Lemma.     For all integers n,
+AX. O(X)#MS for a trivial reason. (It would do no good to leave out the
+element   <> E€XX. 7[X]. Consider R= {<x,x>|x EA},
+                                                                                       GQ) D,S Dia
+                                                          then R(X)=X      for         (i) D,-D,=D,.
+all X but R#AX. X according to the actual definition.) What is true in all.
+these models—and this is the reason I have carried around a seemingly
+                                                                                 Proof. For n=0, both (i) and (ii) are clear from what we have already said.
+superfluous empty sequence—is a somewhat weaker law:
+                                                                                 Thus assume the case of n and pass to n+1.
+                                                                                    We can write by (2) above:
+(n7)       PCAX. P(X).
+                                                                                              D,4\(F)=D,°F°D,,
+Owing to our assumption that A*= A, arbitrary subsets of A do satisfy
+(n ). For if a€ P, then either a=<¢>, in which case the element belongs to                    Day      F)    =    D4      1°    Fe Dy, 4 1-
+
+AX. P(X) by definition of abstraction, or else we have A=CVoV to-eePads          Hence     if D,CD,,,,            then D,,,CD,,2                follows    by monotonicity      and   (6).
+ 250                                          D. Scott
+                                                                                                                                      Lambda calculus                       251
+ Also we    see
+                                                                                          performing suitable conversions on arguments and values with the help of
+                  Dy   i? Dany   =AF.   Dia i(Dnai(F))                                    D,. How far can this go on? The answer is: indefinitely! The limit
+                                 =)F,   D,°D,° Fe D,D,,.                                  functional D,, works arbitrarily deeply on arguments and values, but
+ Thus if D,°D,=D,, then Dia? Daa                                                          owing to nice continuity properties of the construction it satisfies the neat
+                                                  = Day y-
+                                                                                          fixed-point equations of the theorem. Note, however, that this would not
+   Now define D,, = U {D,|n=0,1,2,...}. We have:                                          work out so well if we did not have the n=0 case of the inclusion (i) of the
+                                                                                          lemma.
+Theorem. D,, =F. D.°FeD,,=D,,°D,,, consequently the fixed points of                          It should also be noted that the method of proof involves a fixed point
+D,, are closed under application and the following form of d-abstraction:                 ——but apparently not one that can be stated in pure A-calculus. Thus D,, is
+                                                                                          the least fixed point of the following equation:
+              AX         [ X] =X.        D,,(1[ D,,(X)]).
+                                                                                                       D =AX. XUAF. D,,oFeD,.
+Moreover,     as a model,        the fixed points of D,, satisfy (a), (B), (§) and (n).
+                                                                                             We must take care that the theorem is not trivial. In the minimal model
+                                                                                          for sequence theory, where A*=A and A®* is generated from “nothing,”
+Proof. Both of the first two equations follow by continuity in view of (i) of
+                                                                                          the least fixed point of D,, is analyzed as follows. Indeed by the above the
+the lemma. The first comes from (2) and the second from (ii) of the lemma.
+                                                                                          least fixed point is just D,,(@) and we can see
+If X= D,,(X) and Y=D,(Y), then
+
+       XY)              = D600)                                                           and
+                                                                                                       D(@)=B
+
+              |         (D0
+                          Xe D,,)(Y)
+                                                                                                       D,,   +   (OD)   =AX,,.   D,   (©);
+                        = D.(X(D..(Y)))                                                   because for all Y it is true that @(Y)=&. This means that
+                        = D,(X(Y)).                                                                    D (DP) =AXq. DUAKAXy.                    DU --- UAK,-   AK AKO DU---.
+A simple calculation also shows that
+                                                                                          Trivial as this seems, a strict application of our definitions reveals that
+           : D(A         oX- T[ X])=A,X.         [xX],                                    D,(@)= U {A,, 12 =0, 1,2,...}. (See in this regard the calculation of the
+                                                                                          combinators K and S in the last section.) Note that every time a new A
+in view of the equations already proved.                                                  comes     in a new factor of A,               goes into the union. But in the minimal
+  If 7 is a term built up by application and \,,, then we can leave off the               model the union of all the Ain) 1S just A*; so the only fixed point of D,, is
+first D,, in the formula defining r,. provided we assume all free variables
+                                                                                          the maximal one, A itself. (The situation here is different from the proof
+have values in the model. It is then easy to check (8), again provided free
+                                                                                          mentioned in Scotr (1976).)
+variables are restricted to the model. The reason that (€) holds is that if we
+                                                                                             To make a repair (and I did not notice this problem until I started to
+assume 7[X]=o[X] holds for all ¥=D,,(X), then [D(X J=o[D (X)]
+                                                                                          write up the paper) we must find a non-minimal model; it will, however,
+holds for all X. We then employ (&) (unrestricted) and the definition of Aco
+                                                                                          turn out to be well-founded though not strongly so. Let .A be the closure of
+Finally () in the model is just a restatement of the first equation of the
+                                                                                          the one element set {x} under finite sequences. Now here we find that
+theorem.
+                                                                                          A\A*= {x} because the element * should be regarded as a non-sequence.
+                                                                                          (There are many ways in set theory to find such elements.) This model is of
+  The idea of the theorem               is this: the first map   Dy does nothing;   the   course well-founded as we have already remarked. We are next going to
+second map D, turns everything into a function; the third map D, turns
+                                                                                          take a quotient by the least equivalence relation = where
+everything into a functional in the following sense: given F, it is changed
+into a mapping which takes its argument, turns that into a function,                                   BECK) ECD) EB CKKAD DD BKK                         DD
+performs F on the result, and finally converts the answer into a function.
+In general, D,,, makes everything into an (n+ 1)st-order functional by
+                                                                                                         HK                      ESKKKEDIE
+                                                                                          and where ¢X9,%),-.-;X%,;—1)
+                                                                                                             =“VoV p++ Yn—-1> if x;=y; for all i<n. The
+ 252                                    D. Scott
+                                                                                                                                           Lambda    calculus                                     253
+
+model that results is A /=, which we can think of as the same as                  A*/ = or
+                                                                                             +
+                                                                                                        For example, let      & and & be two such equivalence relations. We define
+(A /=)* by a slight shift of meaning of the *-operator.                                           the equivalence corresponding to the function space, call it [6 >],                          by the
+   This   model   would   not   be   well-founded   in   the   stronger   sense     where         formula:
+Xg~< (Xo, X},---,X,
+                 1), but it is well-founded in the sense used in Section 4
+for the proof of the ¥Y-Theorem. (The quotient could be regarded as                               (3)            P[&-—>%]Q_         iff whenever X & Y, then P(X) F QO(Y).
+resulting from a repetitious replacement of <*> by * ina given sequence                           That [6 -%] is an equivalence relation is clear. Note that P is always
+until no occurrence of <*> remains.) In this model «x Ai,» and so                                 equivalent to AX. P(X), thus we can regard the equivalence classes as
+the least fixed point of D,, is mot the greatest fixed point, which is still                      consisting of functions. Note,         too, that the construction           can be iterated—in
+A=XX. A. Thus, the fixed-point set of D,, has at least two elements, and                          this way we pass to a notion of Aigher-type function. The reason for
+in this way we have found a non-trivial model for (7). In such a model a                          stressing equivalence relations rather than classes is that our functions are
+further type distinction has been eliminated because a// elements can be                          meant to be exfensional, in the sense that equivalent arguments should get
+regarded as (unique representatives) of functions (continuous functions).                         equivalent values. In words it is easy to read (3): two functions are
+But whether it is really profitable to eliminate such distinctions is another                     equivalent if they do equivalent things to equivalent arguments. Keep in
+question. Note that we could have adjoined as many distinct *-elements as                         mind, however, that (3) has further import depending on how demanding
+we wished. These elements act just like atoms: thus, the (7)-model would                          the given equivalence relations are. The point is that (3) implies that if an
+contain something as complex as the space of all continuous set mappings                          argument      lies in the    first subspace,       then   the value    must   lie in the     second
+on the (infinite) set of atoms.                                                                   subspace—the function is well-defined, therefore.
+                                                                                                      This plan for defining types via equivalence relations has many features
+   Let us therefore turn to the opposite question of how—given a nice                             of a theory of functionality of the kind advocated by Curry; however, our
+A-calculus model—it is possible to introduce type distinctions. There is a                        types are not “obs”, that is to say elements of the model. The equivalence
+point in this, because the distinctions allow us to sort out differences                          relations are constructs over the model not elements of the model. One
+between elements according to natural properties. The advantage of start-                         approach to having obs represent types (better: classes) was taken in Scott
+ing with a A-calculus model is that the whole of the discussion can be built                      (1975), but then a transfinite truth definition is needed in seeing which
+on one notation for function abstraction. (An ordinary type theory has,                           classes the obs define. This may not be a bad thing, but it is less
+strictly speaking, different application and abstraction notions at all types.)                   elementary than we care to be at the moment. There would be no trouble,
+The price for one notation for functions is several notations for equivalence                     by the way, in having a theory of equivalence relations (rather than classes)
+relations for representing the different types, but this is not so bad since                      done in the form of the 1975 paper.
+the different types are different in any case.                                                        Thus there are many approaches to the sorting out of the elements, and
+   A considerable amount of detail has already been given in Scott (1975)                         still many questions about the nature of possible subsets. In particular, the
+and Scotr (1976, Section 7). Without making the formulation too heavy,                            question of which A-expressions have types and which types completely
+we can describe here briefly how the method works; a deeper investigation                         determine A-expressions seems rather basic. For instance, the common
+would require some familiarity with the theory of continuous lattices and                         combinators are very well behaved as regards type:
+their subspaces. Some further very interesting uses of the idea can be                                           K:& sal F      > & |,
+found in PLOTKIN (1973).
+   Types, for many purposes, can be identified with equivalence relations                                        S: [6     >[F3$     ]]-[[6          -F]>[6          8] ].
+on (subsets of) our model. Indeed, let 6 CPA X PA be a transitive and                                            B:[F8         ]>[[6 >F] [6 8 ]].
+symmetric relation. The set of self-related elements, {X CA|X & X$, may
+be regarded as the subspace of the model in question, and this is the                             Some      further details    are given    in the     cited    references,   but   it seems   fair to
+                                                                                             ee
+
+subspace of which we are interested in the quotient modulo &. (We shail                           say that the study of this idea has hardly begun. Here, for example, is a
+often write X:& as short for X & X.) Though this is our interest, we shall                        question. The combinator fix is very important, but does it have a special
+not actually take the quotient, for it is easier to work with the representa-                     character as regards functionality? We are tempted to wnite:
+tives of the equivalence classes directly.                                                                       Y:[6>6]36.
+ 254                            '             D. Scott                                                                                Lambda   calculus                         255
+
+ This is not true in general, since we did not put any closure                                        “everything”—but now the rub starts. The Russell Paradox shows that the
+                                                               conditions on
+ our equivalence relations (say, closure under directed unions).
+                                                                 We should                            domain cannot really be everything if we were to allow full comprehen-
+ then ask: “Which are the best closure conditions?” as well
+                                                            as the previous                           sion. There is no way around Cantor’s Theorem that there are more
+ question: “How do we prove that a combinator has no functiona                                        functions than there are arguments and values. (And, from what I can
+                                                                  lity?”
+                                                                                                      understand, the introduction of some concept of “proposition” to replace
+                                                                                                      the two, very separate truth values does not seem to help.)
+ 6. Some conclusions and some questions                                                                   As is common knowledge to logicians, the way to make A(X) always
+                                                                                                      meaningful is to restrict by some manner the total possible range of
+   We have spoken at great length about functions and their                                           functions. The choice of restriction for the Zermelo — Fraenkel set theory
+                                                            properties in
+this essay. In Section 11 of Curry (1979), Professor Curry                                            is to make the number of X for which A(X )=true very small compared to
+                                                                gives the
+well-known reasons why sets can be reduced to functions, and                                           the total number of things (at least insofar as these comparisons of number
+                                                                  he then
+continues:                                                                                             are expressible in the system). The very feature that makes this view of sets
+                                                                                                       easy to grapple with is that we do not need regard sets as functions! The
+        “Thus, it is simpler to define a sét in terms of a function than vice versa (for a
+                                                                                            similar    “half” of A consisting of the set {X|A(X)=true} is enough to determine
+       .idea cf. the set theory of Von NEUMANN (1928)); but the idea is repugnant to
+                                                                                             many
+        mathematicians, and probably to Scott. This has been a great handicap and                      the whole of A; the other, larger “half” {X|A(X)=false} is completely
+                                                                                         source of
+       misunderstanding.”                                                                              determined by the first half. The reason why a half loaf is better than a
+                                                                                                       whole is that—in building up sets—we can regard the first, positive half as
+May I disassociate myself from these sufferers of repugnance? I                                        FIXED long before the rest of the elements that would have to enter into
+                                                                         feel |
+understand rather well the logical interrelationships between sets                                     the negative half ever come into view. (This idea of “earlier” and “later”
+                                                                            and
+functions. I would be very happy indeed to reduce sets to functions                                    sets is made quite precise in the theory of the rank of a set.) There is a
+                                                                       if there
+were any good theory to do this in. In my opinion there does not exist                                 certain advantage to regarding the universe of sets as being “open ended”
+                                                                         at the
+present time such a theory—owing to our troubles with the paradoxes                                    (at the top end, at least) even though we have accepted certain laws as
+                                                                       . The
+theory of Von Neumann, for example, turned out to be easier to state                                   pertaining to all sets—no matter how “late” these sets come in. The
+                                                                           as a
+set/class theory rather than a function theory. What is needed for                                     consequence of this view (which, for all I know, may very well be
+                                                                               a
+workable set theory (regardless of what sets are) is a strong comprehe                                 repugnant to Curry) is that the domain of A(X) as a function is not very
+                                                                       nsion
+axiom. As far as I can see, the Curry programme has not as yet produced                                well determined on the negative side: our usual set theory is not symmetric
+                                                                               a
+straight-forward theory that is anywhere near as workable as the standard                             in its use of true and false.
+Zermelo—Fraenkel system (or the system augmented by classes). However,                                   Now the system New Foundations of QuUINE (1944) (see QuiINE (1953) or
+ there is a rather fundamental point about the contrast between extensiona                            (1963) for the history of his system) was supposed to restore the true—false
+                                                                           l
+ and intensional theories of sets and functions, which is hardly touched on                           symmetry by a different kind of restriction on the comprehension axiom.
+in the literature on combinatory logic. For an interesting, and very likely                           One would hope that Quine’s theory would give at once a theoretical basis
+workable intensional theory of functions, see FEFERMAN (1980) and the                                 for a theory of combinators. But it does not—at least if one construes the
+related papers cited therein. As regards the question of which comes first:                           word “function” the way Quine does as a set of ordered pairs. The
+the function or the set, it is not a question of repugnance or prejudice on                           comprehension terms needed for the combinators are simply not “strati-
+my part that causes me to formulate constructions within set theory but                               fied” (in Quine’s well-known terminology). And why not? Because func-
+                                                                            a
+problem of helplessness. And I can pinpoint rather narrowly where I think                             tions are binary relations and New Foundations is not a suitable system for
+the trouble lies.                                                                                     a general “type-free” theory of binary relations.
+                                                                              ,
+    For the sake of argument think of a set as a truth-valued function.                                  This is a, perhaps, not much remarked fact, but it is very easy to explain.
+(I know this over simplifies Curry’s approach, but a more subtle view is not                          Quine’s theory /ooks type free, but—sadly—this is only an illusion. When
+needed for the point I will make.) Instead of ¥ GA we will write A(X); to                             we restrict attention to one-place predicates determined by stratified for-
+assert X GA means to assert A(X)=true. On the other hand, to assert                                   mulae, then it is very true that Quine lets us be ambiguous as to type. We
+X ¢A      means to assert 4(X)=false. The domain of the function A is                                 can give the free variable any type we want and then start counting up and
+ 256                                          D. Scott                                                                                            Lambda    calculus                                  257
+
+ down    from     there.     (“Negative”     types       are    permitted,   if we     like.)     When,      Bernays—Gédel,       but the author is not so certain the effort is worth the
+ however, we come to two-place predicates, then the story is quite different.
+                                                                                                             trouble.   (Such   a study   might   be worth        a Master’s   thesis,   however.     The
+ There   are    two   free   variables     to cope       with    now.   We   can     slide      the   type   candidate should recognize that there are degrees of continuity, and that in
+ indices up and        down     the scale, but in general               we can never alter the               this paper we have only employed finitary continuity. In a full class theory
+ numerical value of the difference between the types of the two variables.
+                                                                              In                             there are transfinite notions of continuity that would probably be more
+ other words, though Quine was successful in banning type distinctions for
+                                                                                                             useful.)
+ sets (one-place predicates), he still is faced with infinitely many type
+                                                                                                                 Aside from the question of what to do next-—-if anything—one might
+ distinctions for binary relations. Thus, for example, the relations = and
+                                                                              €                              ask: “What is special about the combinatory logic of New Foundations?”
+ of equality and membership are of essentially different type in ;Quine’s
+                                                                                                             But, as we have no models for Quine’s theory, there might not be much to
+ theory: the type difference is 0 in the first case, 1 in the second. :
+                                                                                                             say. (The models of JENSEN (1969) for the theory with atoms could,
+    The reader has surely remarked by now that the theory of continuous
+                                                                                                             however, give something new.) A more interesting question might come out
+ functions employed in this paper could have been carried out equally well
+                                                                                                             of the Von Neumann-—Bernays—Gédel set/class theory.
+ in New Foundations. In fact, there is a definition of ordered pair in New
+Foundations so that the formula z=<x,y> is stratified with the three
+                                                                                                                I believe I can now also make clearer my attitude toward type theory that
+variables all of the same type; moreover, all objects of the theory are
+                                                                                                             Curry discusses in Section 9 of his paper. Professor Curry recalls the harsh
+ordered pairs, i.e.    V=V XV. Though I have not carried out the details, I
+                                                                                                             tone of Scotr (1969), written just a few weeks before I discovered the first
+do not think it would be difficult to change the definition a little so that we
+                                                                                                             model      construction.   The   paper   was      therefore   never   published,       and     I
+could say V=V*. With this understanding, all the basic definitions of this
+                                                                                                             recanted on some of my remarks. What I especially reputiated was my
+paper would go through, since the defining formulae we have used here are
+                                                                                                             feeling (at one time held very strongly) that combinatory logic did not make
+stratified; in particular Z = X(Y) is stratified with all variables of the same
+                                                                                                             good mathematical sense at all—for instance, in not linking up with the
+type. This is nice, but why does it not settle the question of the relationship
+                                                                                                             ordinary theory of functions: continuous real-valued functions come to
+of set theory and combinatory logic?
+                                                                                                             mind. This is not an issue of set-theoretic foundations vs. function-theore-
+    The answer lies in the word “continuous.” In order to have the
+                                                                                                             tic foundations. It is just a question of having some interesting mathemat-
+function-theoretic comprehension principle (8) by our approach, we had
+                                                                                                             ics. Well, on that score the situation has changed: at least I now know how
+to make the restriction that X+>7[X] defined a continuous set mapping.
+                                                                                                             to embed every topological space (along with its function space) into a
+The kind of comprehension terms needed for set theory (particularly those
+                                                                                                             model of combinatory logic (see Scotr (1972)).
+with quantifiers) are just not continuous. We seem to have the choice:
+                                                                                                                 But, really, nothing has changed in my view since 1969 as regards type
+                              lots of sets but no combinators                                                theory. I assert: it is impossible to eliminate from logic and mathematics ALL
+                                                or                                                           type distinctions. As has been illustrated above, certain types can be
+                       lots of combinators but few sets.                                                     “confused” and then objects of other types can be “forgotten”, but no
+By “set” here we mean the characteristic functions of a set represented by                                   magic so far has ever made a set A and its powerset PA equal. Some types
+a function of the theory. This is no proof that there is no good mixture, but                                are distinct whether anyone chooses to discuss the difference or not. I
+there does seem to be some evidence that the two notions of function in                                      certainly did not mean to say in 1969 that we need exactly Russell’s theory,
+the two kinds of theories are not quite the same. Combinators in the model                                   but I did mean—and still mean—that the kind of type difference that
+of this paper behave more like the classes of the Von Neumann—                                               Russell recognized will always be present somewhere in a theory of logical
+Bernays—Gédel theory. People have tried to make classes self-applied, but                                    objects. Whether the flexibility of combinatory logic will soften the pain of
+a “canonical” theory has not been found that has won general favour. Just                                    living with these (necessary) distinctions remains to be fully demonstrated
+as we could carry out the construction in Quine’s system, we could have                                      in my opinion.
+worked within VBG class theory and spoken about continuous class
+functions. There is a chance that this might lead to some axiomatic niceties                                      Some comment is also required on Curry’s remarks on conceptualization.
+and produce a blend of Curry and Church with Von Neumann-—                                                   We     read (Section 10):
+258                                        D. Scott
+                                                                                                                                  Lambda calculus                           259
+
+      “While it is true that concocting formalisms entirely without regard to interpretation is
+      probably fruitless, yet it is not necessary that there be “conceptualization” in terms of    into one big B; but the step to B(B)(B), though it may be a small step for
+      current mathematical intuitions. In fact, mathematical intuition is a result of evolution.   Curry,   does seem   like a big step for the rest of us—especially    in the
+      Mathematicians depend on their intuitions a great deal; let us hope they always will.        shadow of the paradoxes.
+      But the mathematical intuitions of today are not the same as those of a thousand years
+      ago. Combinatory logic may not have had a conceptualization in what seems Scott’s
+      sense; but it did have an interpretation by which it was motivated. The formation of
+      functions from other functions by substitution does form a structure, and this structure     Some acknowledgments
+      it analyzed and formalized. For progress we need the freedom to let our intuitions
+      develop further; this included the possibility of formalizing in new ways.”
+                                                                                                      The author is most grateful both to the University of Oxford for
+First “evolution”: Though geometry has evolved over 2000 years:and the                             granting him a sabbatical year and to the Guggenheim Foundation for a
+attitude toward the concept of number has radically altered, stiff we can                          Fellowship. Special thanks are due to the Xerox Palo Alto Research
+sense the continuity of ideas. The Pythagorean Theorem is still true in                            Corporation and the Computer Science Laboratory for their particular
+Euclidean geometry and the old proofs still stand, even though the Greeks                          generosity in supplying such good working conditions and remarkable
+might not have been happy with a proof by analytic geometry. What I                                text-editing facilities which made the writing of the paper possible. The
+always found disturbing about combinatory logic was what seemed to me                              excellent typing of Melinda Maggiani has been an essential part of putting
+to be a complete lack of conceptual continuity. There were no functions                            together the final draft. The many occasions I have had to lecture on the
+known to anyone else that had the extensive properties of the combinators                          topic of this paper since the Kleene Symposium have also been most
+and allowed self-application. | agree that people might wish to have such                          useful. I should also like to record here by warm thanks to Professor
+functions, but very early on the contradiction found by Kleene and Rosser                          Kleene for many kindnesses and much help over the years.
+Showed there was trouble. What I cannot understand is why there was not
+more discussion of the question of how the notion of function that was
+supposed to be behind the theory was to be made even midly harmonious
+                                                                                                   Appendix:   Some axioms
+with the “classical” notion of function. The literature on combinatory logic
+seems to me to be somehow silent on this point. Perhaps the reason was
+                                                                                                      Throughout the paper we have alluded to various laws of combinators
+that the hope of “solving” the paradoxes remained alive for a long time
+                                                                                                   and A-expressions without being very systematic; thus, it would seem
+—-and may still be alive. Perhaps the reason was that many people gave up
+                                                                                                   helpful to collect together what is essential by way of formal properties. In
+working in the theory. Whatever the reason, 1 do not think I am reading
+                                                                                                   the following list, we have tried to follow Curry’s notation for the names of
+the record unfairly.                                                                               laws as closely as possible. However, the theory of this paper takes C
+   Next “substitution”: This is not the place to discuss the well-taken                            rather than = a primitive and defines the latter. When laws are
+criticisms of the complexity of substitution in the formulation of rules in
+                                                                                                   strengthened by the use of € we have added_an asterisk; in the one case of
+formal theories, nor do we have time to discuss the pros and cons of real
+                                                                                                   a weakening we have added a minus to the name.
+and apparent variables and a logic without variables. The question I have
+about basic motivation concerns the “structure” Curry mentions in the
+quote given above. What structure??? I agree that we can regard Group                              (o*)        DCX,
+Theory as an analysis of the structure of bijective functions under com-                           (p*)        X CX,
+position, Boolean Algebra as an analysis of sets under inclusion, Banach                            (7*)        X CYAYCZ>X CZ,
+Space Theory as an analysis of functions under convergence of infinite
+series, etc. etc. But Combinatory Logic? It just does not seem to me to be a
+                                                                                                    (o*)        X=YoaXCYAYCX,
+sound step in analysis to say: “We now permit our functions to be                                   (h*)        X CY+Z(X)CZ(Y),
+self-applied.” Just like that. Clearly, after seeing so many analogous com-                         (»*)        X   CY>X(Z)CY(Z),
+position operations of different types, we would dearly wish to put them all                        (a)         AX. 1[ X]=AY.    oY],
+ 260                                         D. Scott                                                                                          Lambda calculus                                                 261
+
+ (B)           AX. 7 x))(=7[ ¥],                                                                  account of these remarks in future publications. In the meantime, however,
+(&*)           WX. 1[X]      Co[ X]ax.
+                                                                                                  it seems     useful to quote two              technical remarks             from his letter bearing
+                                                 7{ X] CY.     o[ X],
+                                                                                                  directly on the details:
+(17)           PCAX. P(X),                                                                                Concerning p. 225, my derivation of the inconsistency in CURRY and Feys (1958),
+(a*)           F(fix( F)) Cfix(F),                                                                     pp. 258-260 (which came originally from JSL 7, pp. 115-117 (1942) is not exactly a
+                                                                                                       simplification of the proof of Kleene and Rosser. I assumed the existence of the
+(¢*)           PO) CE OAD)AVX[ P(X) CO(X)—> P(F(X)) € O(F(X)) J                                        combinator K, whereas they did not, so that the result is, at least superficially, weaker.
+               —> P(tix(F)) C O(flx( F)).                                                              In his thesis (1968), pp. 19f, Bunder showed that, if K is present, the Kleene—Rosser
+                                                                                                        theorem follows from my assumption. A simplified derivation of the actual Kleene—
+(6*)           flx=AFL    (AX. FUX(X)))(AX.             F(X(X)))-                                       Rosser theorem has not yet, to my knowledge, been given.
+                                                                                                             Concerning p. 238, this is not exactly the way I discovered Y. I am not sure just how
+ The last law has a special character, and the reader might wish to leave it                            the discovery was made, or when | adopted the letter “Y” for it. To settle this would
+off in view of the large number of models in which it fails. It should also                             require prolonged search in my cellar; which is hardly worth while. I think that the
+                                                                                                        treatment in Curry and Frys (1958, §5G) is fairly close to the original approach. This
+be kept in mind that Curry also formulates his laws as rules; we on the
+                                                                                                        is essentially as follows: If F is the Russell function and N is negation, then
+other hand in speaking of models have been thinking in terms of first-order
+                                                                                                                        Fx = N(xx).
+theories and the usual notion of truth in models. Nevertheless, our models
+obviously give interpretations of (some of) Curry’s systems. We have also                               But
+not had time to discuss it here, but the above system is more general than                                              N(xx)=BNxx =W(BN)=BWBN.
+the models of this paper in that we have not formulated principles
+                                                                                                        We thus get the paradox by taking
+corresponding to the fact that PA is an atomic Boolean algebra—-indeed
+                                                                                                                         F=BNBN.
+there are any number of-interesting models of the above which do not form
+Boolean algebras under €. We have not had time here either to investigate                               To get Y we just express this FF as a function of N. There are various ways of doing
+other primitives corresponding to the way in which A = A* was built from                                this. One way given in Curry and Feys (1958, §5G), is
+sequences. Finally, we should remark that it is known that the above                                                    Y= WS(BWB).                                                                 ,
+system is weak, because, with the introduction of S and K and with a
+                                                                                                        However      I do not   think    I used    S in my        earliest work;    I did     not appreciate        its
+definition of A, the whole system is finitely axiomatizable.                                            potentialities until later. Another possibility is
+
+                                                                                                                         Y =W(B(C(BWB))(BWB)).
+Notes added in Proof (February           1980)                                                          Your treatment may be essentially isomorphic, so to speak, to this, but it seems strange
+                                                                                                        to me. (At a seminar at Harvard about 1926 Whitehead cited Suzanne Langer for the
+   Iam much obliged to Professors Church, Curry, and Seldin who wrote                                   functional    (or predicate)    form   of the   Russell    paradox;   but   I think    I once   saw    it in
+
+me comments and corrections to the original manuscripts. In particular                                  Russell’s Principles of Mathematics.)                        ,
+Professor Church wrote briefly to the editors on 2 June 1979 as follows:
+          To the best of my recollection I did not become acquainted with Frege in any detail
+       until somewhat later than the period about which Scott is writing, say 1935 or 1936.       References
+       No guarantee for this, it is just a recollection of something never accurately recorded.
+       But I was attracted to Frege because he does give priority to functions over
+                                                                                    sets, and
+       his system can be made consistent (presumptively) by imposing a simple type theory.
+                                                                                                  BARENDREGT, H. P.                                                                                             .
+       To this I would now add that no doubt such a system can be given                              [1977]          The type-free lambda calculus, Handbook of Mathematical
+                                                                                      as   much
+       set-theoretic strength as desired by adjoining strong axioms of infinity.                                     Logic, edited by J. Barwise (North-Holland, Amsterdam), pp.
+                                                                                                                     1091-1132.                                        .
+   On | May 1979 Professor Curry wrote me a long letter explaining his
+                                                                                                     [1980]          The Lambda Calculus: Its Syntax and Semantics (North
+attitudes toward various of the points I had brought up. I hope to take
+                                                                                                                     -Holland, Amsterdam), to appear.
+  262                                       D. Scott
+                                                                                                                                                 Lambda   calculus                              263
+
+ BAETEN, J. and B. BOERBOOM
+    [1978]        @ can be anything it shouldn’t be, Mathematis                                                JENSEN, R. B.
+                                                                ch                  Instituut,
+                  Utrecht, Preprint no. 84, 9 pp.                                                                 [1969]     On the consistency of a (slight?) modification of Quine’s new
+ Cuyurcu, A.                                                                                                                 foundations, Synthese, 19, 250-263.
+    [1932/33]     A set of postulates for the foundation of logic.                                              KLEENE, S. C.
+                                                                    Ann. Math.,
+                 .33, (1932), 346-366. Second paper, ibid., 34                                                     [1934]     Proof by cases in formal logic, Ann. Math., 35, 524-544.
+                                                               (1933), 839-864,
+    [1941]        The Calculi of Lambda Conversion (Princeton                                                      [1935]     A theory of positive integers in formal logic, Am. J. Math.,
+                                                                      University
+                  Press) second edition, 1951, reprinted 1963                                     es one atm                 $7, 153-173 and 219-244.
+                                                                  by University                                  [1936]      A-definability and recursiveness, Duke     Math. J., 2, 340-353.
+                  Microfilms, Ann Arbor, MI, 82 pp.
+ Cyurcu, A. and J. B. Rosser                                                                                     [1952]      Introduction   to   Metamathematics     (North-Holland,     Amster-
+   [1936]        Some     properties                                                                                         dam, and P. Noordhof, Groningen).
+                                        of conversion,       Trans. Am.     Math.   Soe.     39
+                 472~482.                                                                                      KLEENE, 8S. C. and J. B. ROSSER
+                                                                                           _                     [1935]      The inconsistency of certain formal       logics, Ann.    Math.,    36,
+ Curry, H. B.
+   [1929]        An     analysis   of
+                                                                                                                             630-636.
+                                        logical    substitution.    Am.     J.   Math.,      51
+                 363-384.                                                                                      Kung, G. L.
+   [1930]        Grundlagen der kombinatorischen                                                                  [1951]     Review of: Foundations of mathematics and mathematical
+                                                               Logik, Am. J. Math., 52
+                 509-536 and 789-834,                                                                                        logic, by S. A. Anovskaa, J. Symbolic Logic, 16, 46-48.
+   [1967]       Logic, combinatory, in: Encyclopedia of Philoso                                                Kop, J. W.
+                                                                phy, Vol. 4                                      [1977]    A counterexample to the Church—Rosser property of A-
+      :         (Macmillan   Co. and The Free Press, New York),
+        \                                                                pp.                                               calculus +DMM-—»>M, Mimeographed note dated November
+             , 304-509.        _
+   [1968a]   ° Combinatory logic, in: Contemporary Philoso                                                                 1977, Mathematisch Instituut, Utrecht, 2 pp.
+                                                           phy, a Survey,                                        [1979]    A counterexample to the Church—Rosser property of A-
+               edited by R. Klibansky (La Nuova Italia, Editric
+                                                                e, Firenze),                                               calculus with surjective pairing, Mathematisch     Instituut,
+                pp. 295-307.
+  [1968b]       Recent advances in combinatory logic, Bull. Soc.                                                           Utrecht, Preprint No. 102, 14 pp.
+                                                                 Math. Belg.                                   KNASTER, B.
+                20, 233-298.
+  [1980]     Some philosophical aspects of combinatory                                                           [1928]    Un théoréme sur les fonctions d’ ensembles, Ann. Soc. Polon.
+                                                            logic, in: The                                                   Math., 6, 133-134.
+             Kleene Symposium, edited by J. Barwise, H.
+                                                         J. Keisler and K.
+             Kiinen (North-Holland, Amsterdam).                                                                Park, D. M. R.
+Curry, H. B. and R. Frys                                                                                         [1970]    The Y combinator in Scott’s lambda-calculus models, Univ.
+  [1958]     Combinatory Logic, Vol. I (N orth-Holland, Amster                                                             of Warwick, Unpublished notes.
+                                                                dam).                                          PLOTKIN, G. D.                                2
+Curry, H. B., J. R. Hinpey and J. P. Setpn
+  [1972]     Combinatory Logic, Vol. I (North-Holland, Amster                                                     [1972]   A set-theoretical definition of application, Memo. MIP-R-95,
+                                                                 dam).                                                     School of Artificial Intelligence, Univ. of Edinburgh, 32 pp.
+FEFERMAN, S.
+  [1980]        Constructive theories of functions and classes, in: Logic                                         [1973]     Lambda definability and logical relations, Memo. SAI-RM-4,
+                                                                          Col-                                               School of Artificial Intelligence, Univ. of Edinburgh, 20 pp.
+                loquium     ’78,   edited   by    D.   van     Dalen      (North-Holland,
+                Amsterdam), pp. 159-224.                                                                        PLOTKIN, G. D. and M. B. SMyTH
+GieERz, G., K. H. HOFMANN, K. KeIMEL, J. D. Lawso                                                                 [1978]    The category-theoretic solution of recursive domain equa-
+                                                      n,               M.    MISLOVE       and                              tions, Memo. DAI-RR-60, Department of Artificial Intelli-
+              D. S. Scorr
+   [1980]     A                                                                                                             gence, Univ. of Edinburgh, 42 pp.
+                   Compendium     of Continuous Lattices               (Springer-Verlag,                        Quing, W. V. O.
+              Berlin), to appear.
+                                                                                                                  [1936]    A reinterpretation of Schénfinkel’s logical operators, Bull.
+ 264                                                       D. Scott
+                                                                                                                                                 Lambda   calculus                                 265
+
+
+                               Am. Math. Soc., 42, 87-89.                                                           [1955]     A lattice-theoretical fixpoint        theorem   and   its applications,
+   [1944]                      New foundations for mathematical logic, Am. Math. Monthly,                                      Pac. J. Math., 5, 285-309.
+                               44, 70-80.                                                                         VAN   HEIJENOORT,   J.
+   [1953]                      From a Logical Point of View (Harvard Univ. Press, 1953,                             [1967]   From Frege to Gédel: A Source Book (Harvard Univ. Press).
+                     '         second ed., 1961, reprinted, Harper and Row, 1963), 184 pp.                        VON NEUMANN, J.
+   [1963]                      Set Theory and Its Logic (Harvard Univ. Press, 1963, second                          [1928]   Die Axiomatisierung der Mengenlehre, Math. Zeits., 27,
+                               ed. 1969), 361 pp.                                                                              669-752.
+   [1971]                      Algebraic logic and predicate functors, in: Logic and Art:                         WHITEHEAD,   A. N. and B. RUSSELL
+                               Essays in Honor of Nelson Goodman, edited by R. Rudner and                           [1910]     Principia Mathematica, 3 Vols. (University Press, Cambridge,
+                               Scheffler (Boobs Merrill), pp. 214-238.             :                                           1910-1913; second edition, 1925—1927).
+Rosser, J. B.
+  [1935]      A                      mathematical      logic   without       variables,   Ann.    Math.,    36,
+                               127-150, and Duke Math. J., 1, 328-355.
+SCHONFINKEL, M.
+  [1924]    Uber die Bausteine                           der mathematischen           Logik,     Math. Ann.,
+            92, 305-316.
+Scott, D.
+  [1969]                       A type-theoretical alternative to CUCH, ISWIM, OWHY,
+                               unpublished.
+  [1972]                     . Continuous lattices, in: Proc. 1971 Dalhousie Conference, Lec-
+                         ~    ture    Notes   in   Mathematics,       Vol,   274   (Springer-Verlag,       New
+                              York), pp. 97-136.
+  [1973]                      Models for various type-free calculi, in: Proc. IVth Int.
+            :                 Congr. for Logic, Methodology and the Philosophy of Science,
+                              Bucharest,   edited by P. Suppes       et al. (North-Holland,
+                              Amsterdam), pp. 157—187.
+  [1975]                      Combinators and classes, in: A-Calculus and Computer Sci-
+                              ence, edited by C. Bohm, Lecture Notes in Computer Science,
+                              vol. 37 (Springer-Verlag, Berlin), pp. 1-26.
+  [1976]                      Data types as lattices, SIAM J. Comput. 5, 522-587.
+  [1977]                      Logic    and   programming    languages,   Comm.   ACM,    20,
+                              634-641.
+  [1977a]                     An appreciation of Christopher Strachey and his work, in:
+                              Foreward to Denotational Semantics by J. E. Stoy (MIT
+                              Press), pp.  XV-X XX.
+SELDIN, J. P.
+  [1980]                      Curry’s program,        to appear.
+TARSKI,         A.
+  [1930]                      On some fundamental concepts of metamathematics, in trans-
+                              lation by J. H. Woodger, in: Logic, Semantics, Metamathe-
+                              matics (Cambridge Univ. Press, 1956), pp. 30-37.
+

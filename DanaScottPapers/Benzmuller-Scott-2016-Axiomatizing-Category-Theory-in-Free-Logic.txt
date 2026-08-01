@@ -1,0 +1,958 @@
+                                                         Axiomatizing Category Theory in Free Logic
+                                                                   Christoph Benzmüller1 and Dana S. Scott2
+                                                    1
+                                                        University of Luxemburg, Luxemburg & Freie Universität Berlin, Germany
+                                                              2
+                                                                Visiting Scholar at University of Califormia, Berkeley, USA
+
+
+
+
+arXiv:1609.01493v5 [cs.LO] 12 Oct 2018
+                                                                                 October 15, 2018
+
+
+                                                                                      Abstract
+                                                  Starting from a generalization of the standard axioms for a monoid we present a step-
+                                              wise development of various, mutually equivalent foundational axiom systems for category
+                                              theory. Our axiom sets have been formalized in the Isabelle/HOL interactive proof as-
+                                              sistant, and this formalization utilizes a semantically correct embedding of free logic in
+                                              classical higher-order logic. The modeling and formal analysis of our axiom sets has been
+                                              significantly supported by series of experiments with automated reasoning tools integrated
+                                              with Isabelle/HOL. We also address the relation of our axiom systems to alternative pro-
+                                              posals from the literature, including an axiom set proposed by Freyd and Scedrov for
+                                              which we reveal a technical issue (when encoded in free logic): either all operations, e.g.
+                                              morphism composition, are total or their axiom system is inconsistent. The repair for this
+                                              problem is quite straightforward, however.
+
+
+
+                                         1    Introduction
+                                         We present a stepwise development of axiom systems for category theory by generalizing the
+                                         standard axioms for a monoid to a partial composition operation. Our purpose is not to make
+                                         or claim any contribution to category theory but rather to show how formalizations involving
+                                         the kind of logic required (free logic) can be validated within modern proof assistants.
+                                         A total of eight different axiom systems is studied. The systems I-VI are shown to be equiva-
+                                         lent. The axiom system VII slightly modifies axiom system VI to obtain (modulo notational
+                                         transformation) the set of axioms as proposed by Freyd and Scedrov in their textbook “Cat-
+                                         egories, Allegories” [10], published in 1990; see also Subsection 9.2 where we present their
+                                         original system. While the axiom systems I-VI are shown to be consistent, a constricted
+                                         inconsistency result is obtained for system VII (when encoded in free logic where free vari-
+                                         ables range over all objects): We can prove (∃ x . ¬(E x )) → False, where E is the existence
+                                         predicate. Read this as: If there are undefined objects, e.g. the value of an undefined com-
+                                         position x ·y, then we have falsity. By contraposition, all objects (and thus all compositions)
+                                         must exist. But when we assume the latter, then the axiom system VII essentially reduces
+                                         categories to monoids. We note that axiom system V, which avoids this problem, corresponds
+                                         to a set of axioms proposed by Scott [15] in the 1970s. The problem can also be avoided
+                                         by restricting the variables in axiom system VII to range only over existing objects and by
+                                         postulating strictness conditions. This gives us axiom system VIII.
+
+                                                                                          1
+Our exploration has been significantly supported by series of experiments in which automated
+reasoning tools have been called from within the proof assistant Isabelle/HOL [12] via the
+Sledgehammer tool [4]. Moreover, we have obtained very useful feedback at various stages
+from the model finder Nitpick [5] saving us from making several mistakes.
+At the conceptual level this paper exemplifies a new style of explorative mathematics which
+rests on a significant amount of human-machine interaction with integrated interactive-auto-
+mated theorem proving technology. The experiments we have conducted are such that the
+required reasoning is often too tedious and time-consuming for humans to be carried out
+repeatedly with highest level of precision. It is here where cycles of formalization and ex-
+perimentation efforts in Isabelle/HOL provided significant support. Moreover, the technical
+inconsistency issue for axiom system VII was discovered by automated theorem provers, which
+further emphasises the added value of automated theorem proving in this area.
+To enable our experiments we have exploited an embedding of free logic [14] in classical
+higher-order logic, which we have recently presented in a related paper [1].
+We also want to emphasize that this paper has been written entirely within the Isabelle
+framework by utilizing the Isabelle “build” tool; cf. [16], Section 2. It is thus an example
+of a formally verified mathematical document, where the PDF document as presented here
+has been generated directly from the verified source files mentioned above. We also note that
+once the proofs have been mechanically checked, they are generally easy to find by hand using
+paper and pencil.
+
+
+2    Embedding of Free Logic in HOL
+Free logic models partial functions as total functions over a “raw domain” D. A subset E of
+D is used to characterize the subdomain of “existing” objects; cf. [14] for further details.
+The experiments presented in the subsequent sections exploit our embedding of free logic in
+HOL [1]. This embedding is trivial for the standard Boolean connectives. The interesting
+aspect is that free logic quantifiers are guarded in the embedding by an explicit existence
+predicate E (associated with the subdomain E of D ), so that quantified variables range only
+over existing objects, while free variables and arbitrary terms may also denote undefined/non-
+existing objects outside of E. This way we obtain an elegant treatment of partiality resp.
+undefinednes as required in category theory. In our related paper [1] we also show how
+definite description can be appropriately modeled in this approach. However, the definite
+description is not required for purposes of this paper, so we omit it. Note that the connectives
+and quantifiers of free logic are displayed below in bold-face fonts. Normal, non-bold-face
+connectives and quantifiers in contrast belong to the meta-logic HOL. The prefix “f”, e.g. in
+fNot, stands for “free”.
+typedecl i — Type for individuals
+consts fExistence:: i⇒bool (E ) — Existence/definedness predicate in free logic
+
+abbreviation fNot (¬) — Free negation
+ where ¬ϕ ≡ ¬ϕ
+abbreviation fImplies (infixr → 13 ) — Free implication
+ where ϕ → ψ ≡ ϕ −→ ψ
+abbreviation fIdentity (infixr = 13 ) — Free identity
+ where l = r ≡ l = r
+
+
+                                                 2
+abbreviation fForall (∀ ) — Free universal quantification guarded by existence predicate E
+ where ∀ Φ ≡ ∀ x . E x −→ Φ x
+abbreviation fForallBinder (binder ∀ [8 ] 9 ) — Binder notation
+ where ∀ x . ϕ x ≡ ∀ ϕ
+
+Further free logic connectives can now be defined as usual.
+abbreviation fOr (infixr ∨ 11 )
+ where ϕ ∨ ψ ≡ (¬ϕ) → ψ
+abbreviation fAnd (infixr ∧ 12 )
+ where ϕ ∧ ψ ≡ ¬(¬ϕ ∨ ¬ψ)
+abbreviation fImplied (infixr ← 13 )
+ where ϕ ← ψ ≡ ψ → ϕ
+abbreviation fEquiv (infixr ↔ 15 )
+ where ϕ ↔ ψ ≡ (ϕ → ψ) ∧ (ψ → ϕ)
+abbreviation fExists (∃ )
+ where ∃ Φ ≡ ¬(∀ (λy. ¬(Φ y)))
+abbreviation fExistsBinder (binder ∃ [8 ]9 )
+ where ∃ x . ϕ x ≡ ∃ ϕ
+
+In this framework partial and total functions are modelled as follows: A function f is total if
+and only if for all x we have E x → E (f x ). For partial functions f we may have some x such
+that E x but not E (f x ). A function f is strict if and only if for all x we have E (f x ) → E x.
+
+
+3    Preliminaries
+Morphisms in the category are objects of type i. We introduce three partial functions, dom
+(domain), cod (codomain), and · (morphism composition). Partiality of composition is han-
+dled exactly as expected: we generally may have non-existing compositions x ·y (i.e. ¬(E (x ·y)))
+for some existing morphisms x and y (i.e. E x and E y).
+consts
+ domain:: i⇒i (dom - [108 ] 109 )
+ codomain:: i⇒i (cod - [110 ] 111 )
+ composition:: i⇒i⇒i (infix · 110 )
+
+For composition · we assume set-theoretical composition here (i.e., functional composition
+from right to left). This means that
+
+                                      (cod x )·(x ·(dom x )) ∼
+                                                             =x
+
+and that
+                            (x ·y)a ∼
+                                    = x (y a)   when dom x ≃ cod y
+The equality symbol ∼ = denotes Kleene equality and it is defined as follows (where = is identity
+on all objects, existing or non-existing, of type i ):
+abbreviation KlEq (infixr ∼
+                          = 56 ) — Kleene equality
+ where x ∼
+         = y ≡ (E x ∨ E y) → x = y
+
+Reasoning tools in Isabelle quickly confirm that ∼
+                                                 = is an equivalence relation. But existing
+identity ≃, in contrast, is only symmetric and transitive, and lacks reflexivity. It is defined
+as:
+
+                                                  3
+abbreviation ExId (infixr ≃ 56 ) — Existing identity
+ where x ≃ y ≡ E x ∧ E y ∧ x = y
+
+We have:
+lemma x ∼  = x ∧ (x ∼
+                    =y→y ∼    = x ) ∧ ((x ∼=y∧y ∼    = z) → x ∼= z)
+  by blast
+lemma x ≃ x — This does not hold; Nitpick finds a countermodel.1
+  nitpick [user-axioms, show-all , format = 2 , expect = genuine] oops
+lemma (x ≃ y → y ≃ x ) ∧ ((x ≃ y ∧ y ≃ z ) → x ≃ z )
+  by blast
+lemma x ≃ y → x ∼   =y
+  by simp
+lemma x ≃ y ← x ∼   = y — Nitpick finds a countermodel
+  nitpick [user-axioms, show-all , format = 2 , expect = genuine] oops
+
+Next, we define the identity morphism predicate I as follows:
+abbreviation I where I i ≡ (∀ x . E (i·x ) → i·x ∼
+                                                 = x ) ∧ (∀ x . E (x ·i) → x ·i ∼
+                                                                                = x)
+
+This definition was suggested by an exercise in [10] on p. 4. In earlier experiments we used
+a longer definition which can be proved equivalent on the basis of the other axioms. For
+monoids, where composition is total, I i means i is a two-sided identity and such are unique.
+For categories the property is much weaker.
+
+
+4     Axiom Set I
+Axiom Set I is our most basic axiom set for category theory generalizing the axioms for a
+monoid to a partial composition operation. Remember that a monoid is an algebraic structure
+(S, ◦), where ◦ is a binary operator on set S, satisfying the following properties:
+  Closure:         ∀a, b ∈ S. a ◦ b ∈ S
+  Associativity: ∀a, b, c ∈ S. a ◦ (b ◦ c) = (a ◦ b) ◦ c
+  Identity:        ∃idS ∈ S.∀a ∈ S. idS ◦ a = a = a ◦ idS
+That is, a monoid is a semigroup with a two-sided identity element.
+Our first axiom set for category theory employs a partial, strict binary composition operation
+·, and the existence of left and right identity elements is addressed in the last two axioms.
+The notions of dom (Domain) and cod (Codomain) abstract from their common meaning in
+the context of sets. In category theory we work with just a single type of objects (the type i
+of morphisms) and therefore identity morphisms are employed to suitably characterize their
+meanings.
+S i : — Strictness:   E (x ·y) → (E x ∧ E y) and
+E i : — Existence:                                                   = x ∧ z ·y ∼
+                                                          = z ∧ x ·z ∼
+                      E (x ·y) ← (E x ∧ E y ∧ (∃ z . z ·z ∼                     = y)) and
+                                ∼
+Ai : — Associativity: x ·(y·z ) = (x ·y)·z and
+C i : — Codomain:     ∀ y.∃ i. I i ∧ i·y ∼  = y and
+D i : — Domain:       ∀ x .∃ j . I j ∧ x ·j ∼
+                                            =x
+Nitpick confirms that this axiom set is consistent.
+   1
+     The keyword “oops” in Isabelle/HOL indicates a failed/incomplete proof attempt; the respective (invalid)
+conjecture is then not made available for further use. The simplest countermodel for the conjecture given here
+consists of single, non-existing element.
+
+
+                                                      4
+ lemma True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+Even if we assume there are non-existing objects we get consistency (which is e.g. not the
+case for Axiom Set VII below).
+lemma assumes ∃ x . ¬(E x ) shows True — Nitpick finds a model2
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+We may also assume an existing and a non-existing object and still get consistency.
+ lemma assumes (∃ x . ¬(E x )) ∧ (∃ x . (E x )) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+The left-to-right direction of existence axiom E i is implied.
+                                                                    = x ∧ z ·y ∼
+                                                         = z ∧ x ·z ∼
+ lemma E i Implied : E (x ·y) → (E x ∧ E y ∧ (∃ z . z ·z ∼                     = y))
+   by (metis Ai C i S i )
+
+We can prove that the i in axiom C i is unique. The proofs can be found automatically by
+Sledgehammer.3
+ lemma UC i : ∀ y.∃ i. I i ∧ i·y ∼
+                                 = y ∧ (∀ j .(I j ∧ j ·y ∼
+                                                         = y) → i ∼
+                                                                  = j)
+   by (smt Ai C i S i )
+
+Analogously, the provers quickly show that j in axiom D is unique.
+                                                           = x) → j ∼
+                                    = x ∧ (∀ i.(I i ∧ x ·i ∼
+ lemma UD i : ∀ x .∃ j . I j ∧ x ·j ∼                               = i)
+   by (smt Ai D i S i )
+
+However, the i and j need not be equal. Using the Skolem function symbols C and D this
+can be encoded in our formalization as follows:
+lemma (∃ C D . (∀ y. I (C y) ∧ (C y)·y ∼  = y) ∧ (∀ x . I (D x ) ∧ x ·(D x ) ∼
+                                                                             = x ) ∧ ¬(D = C ))
+  nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops — Nitpick finds a
+model.
+
+Nitpick finds a model for cardinality i = 2. This model consists of two non-existing objects
+i 1 and i 2 . C maps both i 1 and i 2 to i 2 . D maps i 1 to i 2 , and vice versa. The composition
+i 2 ·i 2 is mapped to i 2 . All other composition pairs are mapped to i 1 .
+Even if we require at least one existing object Nitpick still finds a model:
+lemma (∃ x . E x ) ∧ (∃ C D . (∀ y. I (C y) ∧ (C y)·y ∼= y) ∧ (∀ x . I (D x ) ∧ x ·(D x ) ∼
+                                                                                          = x ) ∧ ¬(D
+= C ))
+  nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops — Nitpick finds a
+model.
+
+Again the model is of cardinality i = 2, but now we have a non-existing i 1 and and an existing
+i 2 . Composition · and C are as above, but D is now identity on all objects.
+   2
+     To display the models or countermodels from Nitpick in the Isabelle/HOL system interface simply put the
+mouse on the expression ”nitpick”.
+   3
+     In our initial experiments proof reconstruction of the external ATP proofs failed in Isabelle/HOL. The
+SMT reasoner Z3 [7], which is employed in the smt tactic by default, was too weak. Therefore we first
+introduced further lemmata, which helped. However, an alternative way out, which we discovered later, has
+been to replace Z3 by CVC4 [8] in Isabelle’s smt tactic (this can be done by stating “declare [[ smt-solver =
+cvc4 ]]” in the source document). In the latest version of the proof document we now suitably switch between
+the two SMT solvers to obtain best results.
+
+
+                                                     5
+5       Axiom Set II
+Axiom Set II is developed from Axiom Set I by Skolemization of i and j in axioms C i and
+D i . We can argue semantically that every model of Axiom Set I has such functions. Hence,
+we get a conservative extension of Axiom Set I. This could be done for any theory with an
+“∀ x .∃ i .”-axiom. The strictness axiom S is extended, so that strictness is now also postulated
+for the new Skolem functions dom and cod. Note: the values of Skolem functions outside E
+can just be given by the identity function.
+S ii : — Strictness:   (E (x ·y) → (E x ∧ E y)) ∧ (E (dom x ) → E x ) ∧ (E (cod y) → E y) and
+E ii : — Existence:    E (x ·y) ← (E x ∧ E y ∧ (∃ z . z ·z ∼
+                                                           = z ∧ x ·z ∼
+                                                                      = x ∧ z ·y ∼
+                                                                                 = y)) and
+Aii : — Associativity: x ·(y·z ) ∼
+                                 = (x ·y)·z and
+C ii : — Codomain:     E y → (I (cod y) ∧ (cod y)·y ∼= y) and
+D ii : — Domain:       E x → (I (dom x ) ∧ x ·(dom x ) ∼= x)
+As above, we first check for consistency.
+ lemma True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes ∃ x . ¬(E x ) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes (∃ x . ¬(E x )) ∧ (∃ x . (E x )) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+The left-to-right direction of existence axiom E ii is implied.
+ lemma E ii Implied : E (x ·y) → (E x ∧ E y ∧ (∃ z . z ·z ∼
+                                                          = z ∧ x ·z ∼
+                                                                     = x ∧ z ·y ∼
+                                                                                = y))
+   by (metis Aii C ii S ii )
+
+Axioms C ii and D ii , together with S ii , show that dom and cod are total functions – as
+intended.
+lemma domTotal : E x → E (dom x )
+  by (metis D ii S ii )
+lemma codTotal : E x → E (cod x )
+  by (metis C ii S ii )
+
+Axiom Set II implies Axiom Set I.4
+ lemma S i FromII : E (x ·y) → (E x ∧ E y)
+   using S ii by blast
+                                                                   = x ∧ z ·y ∼
+                                                        = z ∧ x ·z ∼
+ lemma E i FromII : E (x ·y) ← (E x ∧ E y ∧ (∃ z . z ·z ∼                     = y))
+   using E ii by blast
+ lemma Ai FromII : x ·(y·z ) ∼= (x ·y)·z
+   using Aii by blast
+ lemma C i FromII : ∀ y.∃ i. I i ∧ i·y ∼  =y
+   by (metis C ii S ii )
+ lemma D i FromII : ∀ x .∃ j . I j ∧ x ·j ∼
+                                          =x
+   by (metis D ii S ii )
+    4
+     Axiom Set I also implies Axiom Set II. This can be shown by semantical means on the meta-level. We
+have also attempted to prove this equivalence within Isabelle/HOL, but so far without final success. However,
+we succeed to prove that the following holds: ∃ Cod Dom. ((∀ x y. (E (x ·y) → (E x ∧ E y))) ∧ (∀ x y. E (x ·y)
+← (E x ∧ E y ∧ (∃ z . z ·z ∼= z ∧ x ·z ∼
+                                       = x ∧ z ·y ∼
+                                                  = y))) ∧ (∀ x y z . x ·(y·z ) ∼
+                                                                                = (x ·y)·z ) ∧ (∀ y. I (Cod y) ∧
+            ∼                                    ∼
+(Cod y)·y = y) ∧ (∀ x . I (Dom x ) ∧ x ·(Dom x ) = x ) ). Note that the inclusion of strictness of Cod and Dom
+is still missing.
+
+
+
+                                                       6
+6    Axiom Set III
+In Axiom Set III the existence axiom E is simplified by taking advantage of the two new
+Skolem functions dom and cod.
+S iii : — Strictness:   (E (x ·y) → (E x ∧ E y)) ∧ (E (dom x ) → E x ) ∧ (E (cod y) → E y) and
+E iii : — Existence:    E (x ·y) ← (dom x ∼   = cod y ∧ E (cod y)) and
+Aiii : — Associativity: x ·(y·z ) ∼
+                                  = (x ·y)·z and
+C iii : — Codomain:     E y → (I (cod y) ∧ (cod y)·y ∼  = y) and
+D iii : — Domain:       E x → (I (dom x ) ∧ x ·(dom x ) ∼ = x)
+The obligatory consistency check is positive.
+ lemma True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes ∃ x . ¬(E x ) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes (∃ x . ¬(E x )) ∧ (∃ x . (E x )) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+The left-to-right direction of existence axiom E iii is implied.
+ lemma E iii Implied : E (x ·y) → (dom x ∼   = cod y ∧ E (cod y))
+   by (metis (full-types) Aiii C iii D iii S iii )
+
+Moreover, Axiom Set II is implied.
+ lemma S ii FromIII : (E (x ·y) → (E x ∧ E y)) ∧ (E (dom x ) → E x ) ∧ (E (cod y) → E y)
+   using S iii by blast
+ lemma E ii FromIII : E (x ·y) ← (E x ∧ E y ∧ (∃ z . z ·z ∼
+                                                          = z ∧ x ·z ∼
+                                                                     = x ∧ z ·y ∼
+                                                                                = y))
+   by (metis Aiii C iii D iii E iii S iii )
+ lemma Aii FromIII : x ·(y·z ) ∼= (x ·y)·z
+   using Aiii by blast
+ lemma C ii FromIII : E y → (I (cod y) ∧ (cod y)·y ∼= y)
+   using C iii by auto
+ lemma D ii FromIII : E x → (I (dom x ) ∧ x ·(dom x ) ∼= x)
+   using D iii by auto
+
+A side remark on the experiments: All proofs above and all proofs in the rest of this paper
+have been obtained fully automatically with the Sledgehammer tool in Isabelle/HOL. This
+tool interfaces to prominent first-order automated theorem provers such as CVC4 [8], Z3 [7],
+E [13] and Spass [3]. Remotely, also provers such as Vampire [11], or the higher-order provers
+Satallax [6] and LEO-II [2] can be reached. For example, to prove lemma E iii FromII we
+have called Sledgehammer on all postulated axioms of the theory: sledgehammer (S ii E ii Aii
+C ii D ii ). The provers then, via Sledgehammer, suggested to call trusted/verified tools in
+Isabelle/HOL with the exactly required dependencies they detected. In lemma E iii FromII,
+for example, all axioms from Axiom Set II are required. With the provided dependency
+information the trusted tools in Isabelle/HOL were then able to reconstruct the external
+proofs on their own. This way we obtain a verified Isabelle/HOL document in which all the
+proofs have nevertheless been contributed by automated theorem provers.
+
+Axiom Set II also implies Axiom Set III. Hence, both theories are equivalent. The only
+interesting case is lemma E iii FromII, the other cases are trivial.
+
+
+
+                                                   7
+ lemma S iii FromII : (E (x ·y) → (E x ∧ E y)) ∧ (E (dom x ) → E x ) ∧ (E (cod y) → E y)
+   using S ii by blast
+ lemma E iii FromII : E (x ·y) ← (dom x ∼    = cod y ∧ (E (cod y)))
+   by (metis C ii D ii E ii S ii )
+ lemma Aiii FromII : x ·(y·z ) ∼  = (x ·y)·z
+   using Aii by blast
+ lemma C iii FromII : E y → (I (cod y) ∧ (cod y)·y ∼   = y)
+   using C ii by auto
+ lemma D iii FromII : E x → (I (dom x ) ∧ x ·(dom x ) ∼  = x)
+   using D ii by auto
+
+
+7    Axiom Set IV
+Axiom Set IV simplifies the axioms C iii and D iii . However, as it turned out, these simplifi-
+cations also require the existence axiom E iii to be strengthened into an equivalence.
+S iv : — Strictness:   (E (x ·y) → (E x ∧ E y)) ∧ (E (dom x ) → E x ) ∧ (E (cod y) → E y) and
+E iv : — Existence:    E (x ·y) ↔ (dom x ∼   = cod y ∧ E (cod y)) and
+Aiv : — Associativity: x ·(y·z ) ∼
+                                 = (x ·y)·z and
+C iv : — Codomain:     (cod y)·y ∼ = y and
+D iv : — Domain:       x ·(dom x ) ∼=x
+The obligatory consistency check is again positive.
+ lemma True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes ∃ x . ¬(E x ) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes (∃ x . ¬(E x )) ∧ (∃ x . (E x )) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+The Axiom Set III is implied. The only interesting cases are lemmata C iii FromIV and
+D iii FromIV. Note that the strengthened axiom E iv is used here.
+ lemma S iii FromIV : (E (x ·y) → (E x ∧ E y)) ∧ (E (dom x ) → E x ) ∧ (E (cod y) → E y)
+   using S iv by blast
+ lemma E iii FromIV : E (x ·y) ← (dom x ∼ = cod y ∧ (E (cod y)))
+   using E iv by blast
+ lemma Aiii FromIV : x ·(y·z ) ∼
+                               = (x ·y)·z
+   using Aiv by blast
+ lemma C iii FromIV : E y → (I (cod y) ∧ (cod y)·y ∼= y)
+   by (metis C iv D iv E iv )
+ lemma D iii FromIV : E x → (I (dom x ) ∧ x ·(dom x ) ∼
+                                                      = x)
+   by (metis C iv D iv E iv )
+
+Vice versa, Axiom Set III implies Axiom Set IV. Hence, both theories are equivalent. The
+interesting cases are lemmata E iv FromIII, C iv FromIII and D iv FromIII.
+
+ lemma S iv FromIII : (E (x ·y) → (E x ∧ E y)) ∧ (E (dom x ) → E x ) ∧ (E (cod y) → E y)
+   using S iii by blast
+ lemma E iv FromIII : E (x ·y) ↔ (dom x ∼    = cod y ∧ E (cod y))
+   by (metis (full-types) Aiii C iii D iii E iii S iii )
+ lemma Aiv FromIII : x ·(y·z ) ∼
+                               = (x ·y)·z
+   using Aiii by blast
+
+                                               8
+ lemma C iv FromIII : (cod y)·y ∼=y
+   using C iii S iii by blast
+ lemma D iv FromIII : x ·(dom x ) ∼
+                                  =x
+   using D iii S iii by blast
+
+
+8    Axiom Set V
+Axiom Set V has been proposed by Scott [15] in the 1970s. This set of axioms is equivalent
+to the axiom set presented by Freyd and Scedrov in their textbook “Categories, Allegories”
+[10] when encoded in free logic, corrected/adapted and further simplified. Their axiom set
+is technically flawed when encoded in our given context. This issue has been detected by
+automated theorem provers with the same technical infrastructure as employed so far. See
+the subsequent section for more details. We have modified the axioms of [10] by replacing the
+original Kleene equality ∼
+                         = in axiom S3 by the non-reflexive, existing identity ≃. Note that
+the modified axiom S3 is equivalent to E iv ; see the mutual proofs below.
+S1 : — Strictness:    E (dom x ) → E x and
+S2 : — Strictness:    E (cod y) → E y and
+S3 : — Existence:     E (x ·y) ↔ dom x ≃ cod y and
+S4 : — Associativity: x ·(y·z ) ∼
+                                = (x ·y)·z and
+S5 : — Domain:        x ·(dom x ) ∼= x and
+S6 : — Codomain:      (cod y)·y ∼ =y
+The obligatory consistency check is again positive.
+ lemma True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes ∃ x . ¬(E x ) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes (∃ x . ¬(E x )) ∧ (∃ x . (E x )) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+The Axiom Set IV is implied.       The only interesting cases are lemmata S iv FromV and
+E iv FromV.
+ lemma S iv FromV : (E (x ·y) → (E x ∧ E y)) ∧ (E (dom x ) → E x ) ∧ (E (cod y) → E y)
+   using S1 S2 S3 by blast
+ lemma E iv FromV : E (x ·y) ↔ (dom x ∼ = cod y ∧ E (cod y))
+   using S3 by metis
+ lemma Aiv FromV : x ·(y·z ) ∼
+                             = (x ·y)·z
+   using S4 by blast
+ lemma C iv FromV : (cod y)·y ∼=y
+   using S6 by blast
+ lemma D iv FromV : x ·(dom x ) ∼
+                                =x
+   using S5 by blast
+
+Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are equivalent.
+ lemma S1FromV : E (dom x ) → E x
+   using S iv by blast
+ lemma S2FromV : E (cod y) → E y
+   using S iv by blast
+ lemma S3FromV : E (x ·y) ↔ dom x ≃ cod y
+   using E iv by metis
+
+
+                                              9
+ lemma S4FromV : x ·(y·z ) ∼
+                           = (x ·y)·z
+   using Aiv by blast
+ lemma S5FromV : x ·(dom x ) ∼=x
+   using D iv by blast
+ lemma S6FromV : (cod y)·y ∼ =y
+   using C iv by blast
+
+
+
+9       Axiom Sets VI and VII
+The axiom set of Freyd and Scedrov from their textbook “Categories, Allegories” [10] becomes
+inconsistent in our free logic setting if we assume non-existing objects of type i, respectively, if
+we assume that the operations are non-total. Freyd and Scedrov employ a different notation
+for dom x and cod x. They denote these operations by ✷x and x ✷. Moreover, they employ
+diagrammatic composition (f ·g) x ∼    = g(f x ) (functional composition from left to right) instead
+of the set-theoretic definition (f ·g) x ∼
+                                         = f (g x ) (functional composition from right to left) used
+so far.
+We leave it to the reader to verify that their axiom system corresponds to the axiom system
+given below modulo an appropriate conversion of notation.5 In Subsection 9.2 we will also
+analyze their axiom system using their original notation.
+A main difference in the system by Freyd and Scedrov to our Axiom Set V from above
+concerns axiom S3. Namely, instead of the non-reflexive ≃, they use Kleene equality ∼          =, cf.
+                                     6
+definition 1.11 on page 3 of [10]. The difference seems minor, but in our free logic setting
+it has the effect to cause the mentioned constricted inconsistency issue. This could perhaps
+be an oversight, or it could indicate that Freyd and Scedrov actually mean the Axiom Set
+VIII below (where the variables in the axioms range over defined objects only). However, in
+Axiom Set VIII we had to (re-)introduce explicit strictness conditions to ensure equivalence
+to the Axiom Set V by Scott.
+
+
+9.1     Axiom Set VI
+A1 : E (x ·y) ↔ dom x ≃ cod y and
+A2a: cod (dom x ) ∼ = dom x and
+A2b: dom(cod y) ∼  = cod y and
+A3a: x ·(dom x ) ∼= x and
+A3b: (cod y)·y ∼ = y and
+A4a: dom(x ·y) ∼ = dom((dom x )·y) and
+A4b: cod (x ·y) ∼
+                = cod (x ·(cod y)) and
+A5 : x ·(y·z ) ∼
+               = (x ·y)·z
+The obligatory consistency checks are again positive. But note that this only holds when we
+use ≃ instead of ∼
+                 = in A1.
+ lemma True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+    5
+     A recipe for this translation is as follows: (i) replace all x ·y by y·x, (ii) rename the variables to get them
+again in alphabetical order, (iii) replace ϕ✷ by cod ϕ and ✷ϕ by dom ϕ, and finally (iv) replace cod y ∼      = dom
+x (resp. cod y ≃ dom x ) by dom x ∼    = cod y (resp. dom x ≃ cod y).
+   6
+     Def. 1.11 in Freyd Scedrov: “The ordinary equality sign = [i.e., our ∼  =] will be used in the symmetric sense,
+to wit: if either side is defined then so is the other and they are equal. . . . ”
+
+
+                                                        10
+ lemma assumes ∃ x . ¬(E x ) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes (∃ x . ¬(E x )) ∧ (∃ x . (E x )) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+Axiom Set VI implies Axiom Set V.
+ lemma S1FromVI : E (dom x ) → E x
+   by (metis A1 A2a A3a)
+ lemma S2FromVI : E (cod y) → E y
+   using A1 A2b A3b by metis
+ lemma S3FromVI : E (x ·y) ↔ dom x ≃ cod y
+   by (metis A1 )
+ lemma S4FromVI : x ·(y·z ) ∼
+                            = (x ·y)·z
+   using A5 by blast
+ lemma S5FromVI : x ·(dom x ) ∼=x
+   using A3a by blast
+ lemma S6FromVI : (cod y)·y ∼ =y
+   using A3b by blast
+
+Note, too, that Axiom Set VI is redundant. For example, axioms A4a and A4b are implied
+from the others. This kind of flaw in presenting axioms in our view is a more serious oversight.
+The automated theorem provers can quickly reveal such redundancies.
+ lemma A4aRedundant : dom(x ·y) ∼ = dom((dom x )·y)
+   using A1 A2a A3a A5 by metis
+ lemma A4bRedundant : cod (x ·y) ∼
+                                 = cod (x ·(cod y))
+   using A1 A2b A3b A5 by metis
+
+Our attempts to further reduce the axioms set (A1 A2a A2b A3a A3b A5 ) were not successful.
+Alternatively, we can e.g. keep A4a and A4b and show that axioms A2a and A2b are implied.
+ lemma A2aRedundant : cod (dom x ) ∼
+                                   = dom x
+   using A1 A3a A3b A4a A4b by smt
+ lemma A2bRedundant : dom(cod y) ∼ = cod y
+   using A1 A3a A3b A4a A4b by smt
+
+Again, attempts to further reduce the set (A1 A3a A3b A4a A4b A5 ) were not successful.
+Other reduced sets of axioms we identified in experiments are (A1 A2a A3a A3b A4b A5 )
+and (A1 A2b A3a A3b A4a A5 ). Attempts to remove axioms A1, A3a, A3b, and A5 from
+Axiom Set VI failed. Nitpick shows that they are independent.
+However, when assuming strictness of dom and cod, the axioms A2a, A2b, A4a and A4b are
+all implied. Hence, under this assumptions, the reasoning tools quickly identify (A1 A3a A3b
+A5 ) as a minimal axiom set, which then exactly matches the Axiom Set V from above.7
+
+Axiom Set V implies Axiom Set VI. Hence, both theories are equivalent.
+ lemma A1FromV : E (x ·y) ↔ dom x ≃ cod y
+   using S3 by blast
+ lemma A2aFromV : cod (dom x ) ∼
+                               = dom x
+   by (metis S1 S2 S3 S5 )
+ lemma A2bFromV : dom(cod y) ∼ = cod y
+   7
+     This minimal set of axioms is also mentioned by Freyd in [9] and attributed to Martin Knopman. However,
+the proof sketch presented there seems to fail when the adapted version of A1 (with ≃) is employed.
+
+
+                                                    11
+   using S1 S2 S3 S6 by metis
+ lemma A3aFromV : x ·(dom x ) ∼ =x
+   using S5 by blast
+ lemma A3bFromV : (cod y)·y ∼  =y
+   using S6 by blast
+ lemma A4aFromV : dom(x ·y) ∼  = dom((dom x )·y)
+   by (metis S1 S3 S4 S5 S6 )
+ lemma A4bFromV : cod (x ·y) ∼= cod (x ·(cod y))
+   by (metis S2 S3 S4 S5 S6 )
+ lemma A5FromV : x ·(y·z ) ∼ = (x ·y)·z
+   using S4 by blast
+
+9.2   Axiom Set VII
+We now study the constricted inconsistency in Axiom Set VI when replacing ≃ in A1 by ∼  =.
+We call this Axiom Set VII. This set corresponds modulo representational transformation to
+the axioms as presented by Freyd and Scedrov. Remember, however, that the free variables
+are ranging here over all objects, defined or undefined. Below, when we study Axiom Set
+VIII, we will restrict the variables to range only over existing objects.
+A1 : E (x ·y) ↔ dom x ∼   = cod y and
+A2a: cod (dom x ) ∼ = dom x and
+A2b: dom(cod y) ∼  = cod y and
+A3a: x ·(dom x ) ∼= x and
+A3b: (cod y)·y ∼ = y and
+A4a: dom(x ·y) ∼ = dom((dom x )·y) and
+A4b: cod (x ·y) ∼
+                = cod (x ·(cod y)) and
+A5 : x ·(y·z ) ∼
+               = (x ·y)·z
+A model can still be constructed if we do not make assumptions about non-existing objects.
+In fact, the model presented by Nitpick consists of a single, existing morphism.
+ lemma True
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops — Nitpick finds a
+model
+
+However, one can see directly that axiom A1 is problematic as written: If x and y are un-
+defined, then (presumably) dom x and cod y are undefined as well, and by the definition of
+Kleene equality, dom x ∼ = cod y. A1 stipulates that x ·y should be defined in this case, which
+appears unintended.
+We shall see that the consequences of this version of the axiom are even stronger. It implies
+that all objects are defined, that is, composition (as well as dom and cod) become total
+operations. The theory described by these axioms “collapses” to the theory of monoids. (If
+all objects are defined, then one can conclude from A1 that dom x ∼  = dom y (resp. dom x ∼  =
+                  ∼
+cod y and cod x = cod y), and according to 1.14 of [10], the category reduces to a monoid
+provided that it is not empty.)
+ lemma assumes ∃ x . ¬(E x ) shows True — Nitpick does *not* find a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = none] oops
+
+In fact, the automated theorem provers quickly prove falsity when assuming a non-existing
+object of type i. The provers identify the axioms A1, A2a and A3a to cause the problem
+under this assumption.
+
+                                               12
+ lemma InconsistencyAutomaticVII : (∃ x . ¬(E x )) → False
+   by (metis A1 A2a A3a)
+
+Hence, all morphisms must be defined in theory of Axiom Set VII, or in other words, all
+operations must be total.
+ lemma ∀ x . E x using InconsistencyAutomaticVII by auto
+
+The constricted inconsistency proof can be turned into an interactive mathematical argument:
+  lemma InconsistencyInteractiveVII :
+    assumes NEx : ∃ x . ¬(E x ) shows False
+  proof −
+    — Let a be an undefined object
+   obtain a where 1 : ¬(E a) using NEx by auto
+    — We instantiate axiom A3a with a.
+   have 2 : a·(dom a) ∼= a using A3a by blast
+   — By unfolding the definition of ∼
+                                    = we get from 1 that a·(dom a) is not defined. This is easy to see,
+since if a·(dom a) were defined, we also had that a is defined, which is not the case by assumption.
+   have 3 : ¬(E (a·(dom a))) using 1 2 by metis
+    — We instantiate axiom A1 with a and dom a.
+   have 4 : E (a·(dom a)) ↔ dom a ∼  = cod (dom a) using A1 by blast
+    — We instantiate axiom A2a with a.
+   have 5 : cod (dom a) ∼
+                        = dom a using A2a by blast
+    — We use 5 (and symmetry and transitivity of ∼  =) to rewrite the right-hand of the equivalence 4
+into dom a ∼ = dom a.
+   have 6 : E (a·(dom a)) ↔ dom a ∼  = dom a using 4 5 by auto
+    — By reflexivity of ∼
+                        = we get that a·(dom a) must be defined.
+   have 7 : E (a·(dom a)) using 6 by blast
+    — We have shown in 7 that a·(dom a) is defined, and in 3 that it is undefined. Contradiction.
+   then show ?thesis using 7 3 by blast
+  qed
+
+We present the constricted inconsistency argument once again, but this time in the original
+notation of Freyd and Scedrov.
+consts
+  source:: i⇒i (✷- [108 ] 109 )
+  target :: i⇒i (-✷ [110 ] 111 )
+  compositionF :: i⇒i⇒i (infix · 110 )
+
+A1 : E (x·y) ↔ (x ✷ ∼ = ✷y) and
+A2a: ((✷x )✷) ∼ = ✷x and
+A2b: ✷(x ✷) ∼ = ✷x and
+A3a: (✷x )·x ∼= x and
+A3b: x·(x ✷) ∼= x and
+A4a: ✷(x·y) ∼ = ✷(x·(✷y)) and
+A4b: (x·y)✷ ∼ = ((x ✷)·y)✷ and
+A5 : x·(y·z ) ∼
+              = (x·y)·z
+
+Again, the automated theorem provers via Sledgehammer find the constricted inconsistency
+very quickly and they identify the exact dependencies.
+lemma InconsistencyAutomatic: (∃ x . ¬(E x )) → False
+  by (metis A1 A2a A3a)
+
+
+                                                  13
+The following alternative interactive proof is slightly shorter than the one presented above.
+  lemma InconsistencyInteractive: assumes NEx : ∃ x . ¬(E x ) shows False
+  proof −
+    — Let a be an undefined object
+   obtain a where 1 : ¬(E a) using assms by auto
+    — We instantiate axiom A3a with a.
+   have 2 : (✷a)·a ∼
+                   = a using A3a by blast
+    — By unfolding the definition of ∼= we get from 1 that (✷a)·a is not defined. This is easy to see,
+since if (✷a)·a were defined, we also had that a is defined, which is not the case by assumption.
+   have 3 : ¬(E ((✷a)·a)) using 1 2 by metis
+    — We instantiate axiom A1 with ✷a and a.
+   have 4 : E ((✷a)·a) ↔ (✷a)✷ ∼  = ✷a using A1 by blast
+    — We instantiate axiom A2a with a.
+   have 5 : (✷a)✷ ∼= ✷a using A2a by blast
+    — From 4 and 5 we obtain (E ((✷a)·a)) by propositional logic.
+   have 6 : E ((✷a)·a) using 4 5 by blast
+    — We have ¬(E ((✷a)·a)) and E ((✷a)·a), hence Falsity.
+   then show ?thesis using 6 3 by blast
+  qed
+
+Obviously Axiom Set VII is also redundant, and we have previously reported on respective
+redundancies [1]. However, this was before the discovery of the above constricted inconsistency
+issue, which tells us that the system (in our setting) can even be reduced to A1, A2a and
+A3a (when we additionally assume NEx ).
+
+
+10     Axiom Set VIII
+We study the axiom system by Freyd and Scedrov once again. However, this time we restrict
+the free variables in their system to range over existing objects only. By employing the free
+logic universal quantifier ∀ we thus modify Axiom Set VII as follows:
+B1 : ∀ x .∀ y. E (x ·y) ↔ dom x ∼     = cod y and
+B2a: ∀ x . cod (dom x ) ∼  = dom x and
+B2b: ∀ y. dom(cod y) ∼     = cod y and
+B3a: ∀ x . x ·(dom x ) ∼  = x and
+B3b: ∀ y. (cod y)·y ∼   = y and
+B4a: ∀ x .∀ y. dom(x ·y) ∼    = dom((dom x )·y) and
+B4b: ∀ x .∀ y. cod (x ·y) ∼ = cod (x ·(cod y)) and
+ B5 : ∀ x .∀ y.∀ z . x ·(y·z ) ∼
+                               = (x ·y)·z
+Now, the two consistency checks succeed.
+ lemma True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes ∃ x . ¬(E x ) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes (∃ x . ¬(E x )) ∧ (∃ x . (E x )) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+However, this axiom set is obviously weaker than our Axiom Set V. In fact, none of the
+V -axioms are implied:
+ lemma S1 : E (dom x ) → E x — Nitpick finds a countermodel
+
+                                                      14
+   nitpick [user-axioms, show-all , format = 2 ] oops
+ lemma S2 : E (cod y) → E y — Nitpick finds a countermodel
+   nitpick [user-axioms, show-all , format = 2 ] oops
+ lemma S3 : E (x ·y) ↔ dom x ≃ cod y — Nitpick finds a countermodel
+   nitpick [user-axioms, show-all , format = 2 ] oops
+ lemma S4 : x ·(y·z ) ∼
+                      = (x ·y)·z — Nitpick finds a countermodel
+   nitpick [user-axioms, show-all , format = 2 ] oops
+ lemma S5 : x ·(dom x ) ∼= x — Nitpick finds a countermodel
+   nitpick [user-axioms, show-all , format = 2 ] oops
+ lemma S6 : (cod y)·y ∼ = y — Nitpick finds a countermodel
+   nitpick [user-axioms, show-all , format = 2 ] oops
+
+The situation changes when we explicitly postulate strictness of dom, cod and ·. We thus
+obtain our Axiom Set VIII:
+B0a: E (x ·y) → (E x ∧ E y) and
+B0b: E (dom x ) → E x and
+B0c: E (cod x ) → E x and
+ B1 : ∀ x .∀ y. E (x ·y) ↔ dom x ∼    = cod y and
+B2a: ∀ x . cod (dom x ) ∼  = dom x and
+B2b: ∀ y. dom(cod y) ∼     = cod y and
+B3a: ∀ x . x ·(dom x ) ∼  = x and
+B3b: ∀ y. (cod y)·y ∼   = y and
+B4a: ∀ x .∀ y. dom(x ·y) ∼    = dom((dom x )·y) and
+B4b: ∀ x .∀ y. cod (x ·y) ∼ = cod (x ·(cod y)) and
+ B5 : ∀ x .∀ y.∀ z . x ·(y·z ) ∼
+                               = (x ·y)·z
+Again, the two consistency checks succeed
+ lemma True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes ∃ x . ¬(E x ) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+ lemma assumes (∃ x . ¬(E x )) ∧ (∃ x . (E x )) shows True — Nitpick finds a model
+   nitpick [satisfy, user-axioms, show-all , format = 2 , expect = genuine] oops
+
+Now Axiom Set V is implied.
+ lemma S1FromVIII : E (dom x ) → E x using B0b by blast
+ lemma S2FromVIII : E (cod y) → E y using B0c by blast
+ lemma S3FromVIII : E (x ·y) ↔ dom x ≃ cod y by (metis B0a B0b B0c B1 B3a)
+ lemma S4FromVIII : x ·(y·z ) ∼
+                              = (x ·y)·z by (meson B0a B5 )
+ lemma S5FromVIII : x ·(dom x ) ∼= x using B0a B3a by blast
+ lemma S6FromVIII : (cod y)·y ∼ = y using B0a B3b by blast
+
+Vive versa, Axiom Set V implies Axiom Set VIII. Hence, both theories are equivalent.
+S1 : — Strictness:    E (dom x ) → E x and
+S2 : — Strictness:    E (cod y) → E y and
+S3 : — Existence:     E (x ·y) ↔ dom x ≃ cod y and
+S4 : — Associativity: x ·(y·z ) ∼
+                                = (x ·y)·z and
+S5 : — Domain:        x ·(dom x ) ∼= x and
+S6 : — Codomain:      (cod y)·y ∼ =y
+
+ lemma B0a: E (x ·y) → (E x ∧ E y) using S1 S2 S3 by blast
+ lemma B0b: E (dom x ) → E x using S1 by blast
+
+
+                                                      15
+ lemma B0c: E (cod x ) → E x using S2 by blast
+ lemma B1 : ∀ x .∀ y. E (x ·y) ↔ dom x ∼      = cod y by (metis S3 S5 )
+ lemma B2a: ∀ x . cod (dom x ) ∼ =   dom   x   by (metis S3 S5 )
+ lemma B2b: ∀ y. dom(cod y) ∼    =   cod y  by   (metis S3 S6 )
+ lemma B3a: ∀ x . x ·(dom x ) ∼ =  x  using    S5  by auto
+ lemma B3b: ∀ y. (cod y)·y ∼  =  y  using    S6  by  blast
+ lemma B4a: ∀ x .∀ y. dom(x ·y) ∼   =  dom((dom     x )·y) by (metis S1 S3 S4 S5 )
+ lemma B4b: ∀ x .∀ y. cod (x ·y) ∼=   cod (x ·(cod y))  by (metis S2 S3 S4 S6 )
+ lemma B5 : ∀ x .∀ y.∀ z . x ·(y·z ) ∼
+                                     =  (x ·y)·z  using  S4 by blast
+
+Axiom Set VIII is redundant (as expected from previous observations). The theorem provers
+quickly confirm that axioms B2a, B2b, B4a, B4b are implied.
+B0a: E (x ·y) → (E x ∧ E y) and
+B0b: E (dom x ) → E x and
+B0c: E (cod x ) → E x and
+ B1 : ∀ x .∀ y. E (x ·y) ↔ dom x ∼    = cod y and
+B3a: ∀ x . x ·(dom x ) ∼  = x and
+B3b: ∀ y. (cod y)·y ∼   = y and
+ B5 : ∀ x .∀ y.∀ z . x ·(y·z ) ∼
+                               = (x ·y)·z
+
+ lemma B2aRedundant : ∀ x . cod (dom x ) ∼= dom x by (metis B0a B1 B3a)
+ lemma B2bRedundant : ∀ y. dom(cod y) ∼   = cod y by (metis B0a B1 B3b)
+ lemma B4aRedundant : ∀ x .∀ y. dom(x ·y) ∼ = dom((dom x )·y) by (metis B0a B0b B1 B3a B5 )
+ lemma B4bRedundant : ∀ x .∀ y. cod (x ·y) ∼
+                                           = cod (x ·(cod y)) by (metis B0a B0c B1 B3b B5 )
+
+Again, note the relation and similarity of the reduced Axiom Set VIII to Axiom Set V by
+Scott, which we prefer, since it avoids a mixed use of free and bound variables in the encoding
+and since it is smaller.
+
+
+Acknowledgements We thank Günter Rote and Lutz Schröder for their valuable com-
+ments to earlier drafts of this paper.
+
+
+References
+ [1] Christoph Benzmüller and Dana Scott. Automating free logic in Isabelle/HOL. In
+     G.-M. Greuel, T. Koch, P. Paule, and A. Sommese, editors, Mathematical Software –
+     ICMS 2016, 5th International Congress, Proceedings, volume 9725 of LNCS, pages 43–
+     50, Berlin, Germany, 2016. Springer.
+
+ [2] Christoph Benzmüller, Nik Sultana, Lawrence C. Paulson, and Frank Theiss. The higher-
+     order prover Leo-II. J. Autom. Reasoning, 55(4):389–404, 2015.
+
+ [3] Jasmin Christian Blanchette, Andrei Popescu, Daniel Wand, and Christoph Weidenbach.
+     More SPASS with isabelle - superposition with hard sorts and configurable simplification.
+     In Interactive Theorem Proving - Third International Conference, ITP 2012, Princeton,
+     NJ, USA, August 13-15, 2012. Proceedings, volume 7406 of Lecture Notes in Computer
+     Science, pages 345–360. Springer, 2012.
+
+
+
+                                                    16
+ [4] J.C. Blanchette, S. Böhme, and L.C. Paulson. Extending Sledgehammer with SMT
+     solvers. J. of Automated Reasoning, 51(1):109–128, 2013.
+ [5] J.C. Blanchette and T. Nipkow. Nitpick: A counterexample generator for higher-order
+     logic based on a relational model finder. In ITP 2010, number 6172 in LNCS, pages
+     131–146. Springer, 2010.
+ [6] Chad E. Brown. Satallax: An automatic higher-order prover. In Automated Reasoning
+     - 6th International Joint Conference, IJCAR 2012, Manchester, UK, June 26-29, 2012.
+     Proceedings, volume 7364 of Lecture Notes in Computer Science, pages 111–117. Springer,
+     2012.
+ [7] Leonardo Mendonça de Moura and Nikolaj Bjørner. Z3: an efficient SMT solver. In
+     Tools and Algorithms for the Construction and Analysis of Systems, 14th International
+     Conference, TACAS 2008, Held as Part of the Joint European Conferences on Theory
+     and Practice of Software, ETAPS 2008, Budapest, Hungary, March 29-April 6, 2008.
+     Proceedings, volume 4963 of Lecture Notes in Computer Science, pages 337–340. Springer,
+     2008.
+ [8] Morgan Deters, Andrew Reynolds, Tim King, Clark W. Barrett, and Cesare Tinelli. A
+     tour of CVC4: how it works, and how to use it. In Formal Methods in Computer-Aided
+     Design, FMCAD 2014, Lausanne, Switzerland, October 21-24, 2014, page 7. IEEE, 2014.
+ [9] Peter Freyd.     Amplifications, Diminutions, Subscorings for Categories, Al-
+     legories, July 2016.    University of Pennsylvania. Unpublished. Available at
+     https://www.math.upenn.edu/∼pjf/amplifications.pdf; (accessed in August 2016).
+[10] Peter J. Freyd and Andre Scedrov. Categories, Allegories. North Holland, 1990.
+[11] Laura Kovács and Andrei Voronkov. First-order theorem proving and vampire. In Com-
+     puter Aided Verification - 25th International Conference, CAV 2013, Saint Petersburg,
+     Russia, July 13-19, 2013. Proceedings, volume 8044 of Lecture Notes in Computer Sci-
+     ence, pages 1–35. Springer, 2013.
+[12] T. Nipkow, L.C. Paulson, and M. Wenzel. Isabelle/HOL: A Proof Assistant for Higher-
+     Order Logic. Number 2283 in LNCS. Springer, 2002.
+[13] Stephan Schulz. System description: E 1.8. In Logic for Programming, Artificial Intel-
+     ligence, and Reasoning - 19th International Conference, LPAR-19, Stellenbosch, South
+     Africa, December 14-19, 2013. Proceedings, volume 8312 of Lecture Notes in Computer
+     Science, pages 735–743. Springer, 2013.
+[14] Dana Scott. Existence and description in formal logic. In R. Schoenman, editor, Bertrand
+     Russell: Philosopher of the Century, pages 181–200. George Allen & Unwin, London,
+     1967. (Reprinted with additions in: Philosophical Application of Free Logic, edited by
+     K. Lambert. Oxford Universitry Press, 1991, pp. 28 - 48).
+[15] Dana Scott. Identity and existence in intuitionistic logic. In Michael Fourman, Christo-
+     pher Mulvey, and Dana Scott, editors, Applications of Sheaves: Proceedings of the Re-
+     search Symposium on Applications of Sheaf Theory to Logic, Algebra, and Analysis,
+     Durham, July 9–21, 1977, volume 752 of Lecture Notes in Mathematics, pages 660–696.
+     Springer Berlin Heidelberg, 1979.
+
+                                             17
+[16] Makarius       Wenzel.                 The        Isabelle      system      manual.
+     https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/Isabelle2016/doc/system.pdf ,
+     February 2016.
+
+
+
+
+                                          18
+

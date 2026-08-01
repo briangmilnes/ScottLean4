@@ -1,0 +1,202 @@
+          ALGEBRAS               OF SETS BINUMERABLE IN COMPLETE
+                                EXTENSIONS OF ARITHMETIC
+                                                            BY
+                                                  DANA        SCOTT
+
+   A set of integers is usually called arithmetically definable if there is a formula
+B(x) with one free variable (in the notation of elementary first-order
+arithmetic) such that the set in question consists of just those integers » for
+          the corresponding            instance       B(4,)      of the    formula   is true   in the   domain
+which
+of integers.  Here the notation 4, denotes the n> formal digit in the formalized
+language of arithmetic.     The class of all arithmetically definable sets of
+integers is of course a denumerable Boolean algebra (or field) of sets. Now
+aside from the set of all true sentences of arithmetic, there are many other
+complete      and       consistent     extensions         of the axiomatic theory of first-order arith-
+metic in view of the well-known incompleteness of these axioms.             Clearly
+each such complete extension  leads  to  a denumerab  le   Boolean  algebra  of sets
+obtained by using  the instances  of  formulas  valid   in the  complete  extension
+rather than using the true instances.    The purpose of this paper is to answer
+the question:  Which  denumerabl e  Boolean  algebras of sets are obtainable from
+complete extensions of arithmetic? A mathematical characterization of these
+algebras will be given using some simple notions from recursive function
+theory.
+   All formal theories used here are formalized in an applied first-order logic
+with identity with the individual constants 0 and 1 and the binary operation
+symbols + and - as the only nonlogical constants. The logical symbols are
+A,V,7,2,—, V,4, = with 2, y, 2, w, x’,y', +++ etc. as individual variables.
+the formal digits 4, are defined by recursion so that 4, is 0 and das: is (4, + 1).
+Capital Roman letters will generally denote formulas.         Free variables and
+the substitution of digits for variables will be indicated by an informal
+parenthesis notation as in B(x) and B(4,). The standard axiomatic theory of
+first-order arithmetic is denoted by P (as in [6, p. 52]), A theory in general
+is simply a set T of sentences (without free variables) closed under the rules
+of deduction of first-order logic. We shall be concerned with those theories
+T such     that        P < T and      for every       sentence      A     either   Aé€T   or   ~AeT     but    not
+both; these are the complete (and consistent) extensions of arithmetic.    A set
+S of integers  is numerable  in such a theory T if there is a formula B(x)  such
+that ne S if and only if B(4,)¢T. Note that the formula 7 A(x) can be used
+to show that the complement of S is also numerable in T, and hence S is bi-
+numerable in T (cf. {1, p. 51]). The Boolean algebra of all sets of integers
+ binumerable           in T will     be denoted       by    S(T].
+   Even     though our main                interest here is in the algebras S(T], it seems                    to be
+
+   Received       by    the editor   May    12,   1961.
+                                                              117
+ 118                                                     DANA     SCOTT
+
+ a little more convenient to replace sets of integers by their characteristic
+ functions.   The class of characteristic functions of the sets in S[T] will be
+ denoted by %{T].   To be more precise, let w denote the set of (non-negative)
+ integers and let 2° denote the class of all {0,1}-valued                                           functions          defined        on
+ o.   If A is a formula of arithmetic, let A’ be A itself, but let A° be A.
+ If T is a complete extension of arithmetic, then a function f¢ §[T] if and only
+ if there is a formula                 B(x)      such    that B(4,/™ eT, for all new.                             The theorem
+ that will      be     given         below       characterizes         those    subsets        of     2°   that        are    of     the
+form %{T] for some complete extension T. Obviously we could transform the
+result to give a characterization of the algebras SB[T], but this transformation
+will be left to the reader.
+   Let 2" denote the class of all {0, 1}-valued sequences (functions) with domain
+{0,-+:,n—1}.      If se2" and » <m, then sf m denotes the restriction of s to
+{0,:-:,2—1}.      If fe2°, then ffm is the restriction of f to {0,---,n—1}.
+To each s¢2” we make correspond a unique integer
+                                             [Isl]
+                                               = pos +++» PLT?
+                                                             = by,
+where p, is the kth prime number                             starting with p=             2.         By a       tree     we        shall
+understand           a set     7       of finite sequences (with arbitrary domains) closed under
+the formation of restrictions; that is, if se.7 and s¢2™,                                             then s | nef for
+alln<m.      A tree 7      is called recursive within a class                                         # & 2°, if the set
+of integers of the form                  ||s||     for s¢.7          is recursive      in some             finite number              of
+functions fy, -+-,f:-1 in Y (in the sense of [2, p. 275]). A path of a tree F
+is a function fe 2° such that f [    ne.    forallnew.     As is well-known, every
+infinite tree has at least one path. It is now possible to state the main theorem.
+    TuroremM.  For there to exist a complete extension                                 T of arithmetic                  such       that
+F     =BIT] tt is necessary and sufficient that:
+    (i)              is a denumerable subclass of 2°;                                                      ;
+    (ii)    every      infinite tree recursive within H                        has a path           belonging          to ¥.
+
+   The proof of the necessity of conditions (i) and (ii) will not be given here,
+but it will be included in [5] along with the proofs of the results mentioned
+in [4]. For the proof of sufficiency, we shall employ a lemma which seems
+to be of some           independent              interest.      This     lemma     slightly           generalizes a result
+of A.Mostowski given in [3].      For the statement of the lemma certain
+additional terminology is convenient.  Let us say that a formula B(%) is in-
+dependent of a formula A(x) if whenever f¢2° and the set of all sentences
+consisting of those in P together with sentences A(4,), for néw, is con-
+sistent,     then      the     set     remains          consistent       upon    the    adjunction              of      sentences
+B(4,)’™, for n€,                   no matter which gé2° is chosen.                        In other words, on the
+basis      of P it is impossible              to deduce       any       fact about     the          relations        among          the
+instances of B(x) from any consistent assumption about the instances of A(x).
+We can define in a similar way the notion of B(x) being independent of a
+finite number of formulas A)(x), «++, Ag—1(x).
+   Lemma.   Given a finite number of formulas Aj(x), +++, Ay-(x) one                                                   can     effec-
+tively find a formula B(x) which is independent of them.
+                                     ALGEBRAS          OF     SETS        BINUMERABLE                                                   119
+
+   The proof of the lemma will be outlined at the end of the paper. Let us
+now see how the lemma can be used for the proof of sufficiency.         Suppose
+that ¥ satisfies conditions (i) and (ii) of the theorem. Enumerate the elements
+of     ¥     in a sequence           y,-:::,9%,°::.                Let        Ao(x), ---, Ax(x), «++           be a (recursive)
+sequence containing all the formulas of arithmetic with one free variable x.
+Evoke the lemma to introduce (by a recursion) a sequence B,(x), ---, By(x), «+>
+of formulas such that for each k€w the formula B,(x) is independent of the
+finite number of formulas Aj)(x), ---, Ax(x), Bo(x), «++, Be-i(x). By construction
+it is clear that the               set    of   sentences           of     the     form      B,(4,)"*,          for     k,néw,             is
+consistent         with    P.      Hence,      there    is    at        least     one      complete         extension        T     of     P
+which contains all these sentences. Obviously for such a T we have                                                      ¥ & #{T].
+What we need to show is that there is at least one T for which                                                          the inclu-
+sion       is an equality.
+  To obtain the desired complete extension a new sequence fy, -::, fx, ++: of
+functions in .# will be introduced so that the following set of sentences is
+consistent:
+                           Pu {Ai(4,)74"™: k,                new} U LB (4,)*™                     k, new).
+Suppose          that fo, ---,fz-1€            #     have already been obtained so that the set
+                 U, =P vu {Ad                        kB < mneay                 U {Bld                2k < mone ow}
+is consistent.             Let .% be the set of all functions s such that s¢2”                                           for     some
+ré€w       and     such    that among          the    first 7 proofs               (in     some     standard          enumeration
+of all the proofs of first-order logic)                            there         is no      proof         establishing       the        in-
+consistency of the set of sentences:
+                                               U, U{An(4ay                      "in <r}.
+It is obvious that .% is a tree. Since U,, is consistent, it is easy to prove
+that .%, is an infinite tree. Notice that the predicate of Gédel numbers of
+proofs which tells which proofs establish the inconsistency of a set of sentences
+is recursive in the set                   of Gédel numbers of the sentences.    Hence, we                                               see
+that .Y% is recursive                     in fo,:-+,fm-1,90,°**,9m-1, all of which are in                                               #
+Thus from condition (ii) there must be a path of .% which is in #; let this
+path be f,. By the construction of B,(x) and the choice of f,, it follows at
+once that the set U,., is consistent; therefore we can continue obtaining func-
+tions. Let T be the deductive closure of the set Unc.U, of sentences. T is
+consistent because each U,, is consistent and U, ¢U,4, for meow.         On the
+other       hand     T is complete.            For     if A        is    any      sentence,         then      there     is   a     kew
+such that A,(x) is the formula [A    Ax=<x]. But Ax(4,)"* is equivalent to
+A‘*. hence, this sentence must be in Tf. Thus T is a complete extension for
+which & = %[T] in view of the construction of the functions /;.
+  Finally we must return to the proof of the lemma.   It will be enough to
+show how to obtain a formula B(x) which is independent of a given formula
+A(x),        First    of    all,    let    Co,-+:,Cy,°::                 be     the      usual     list    of all sentences              of
+arithmetic:          that is, the sentence with Godel number                                         & is C,. The Gédel
+numbering            should be chosen in one of the standard                                         ways so that we can
+ 120                                                  DANA       SCOTT
+
+introduce by definition functions > and — into the formal theory of arithmetic
+where 4; = (4m + 4,) is provable in P if and only if C, is the formula [Cn — Cyl,
+and      where       4, = 4,         is provable          in P if and      only     if C, is ~C,.           Further,        we
+need to introduce by definition a formula Pf(x, y) with the following meaning:
+x is the Gédel number of a proof from the axioms of P of a sentence of the
+form
+
+                                    [[A(4oy A +++ A Ald)? J > Cy],
+where s 1s a {0,1}-valued sequence of length z such that whenever w < z, then
+s(w) =1 tf and only if A(w) holds. The predicate Pf(x, y) is of course not a
+recursive predicate since it involves A(x); however, it can easily be obtained
+as a modification of the usual recursive proof predicate for the theory P. The
+particular predicate used here will have the property that if f¢2°; if
+Pu {A(4,)’": n€@} is consistent; and if T’ is the deductive closure of this
+set of sentences, then Pf(4,,4,)¢T’ implies                                C,¢T’,         and     C,€T’     implies that
+Pf(4y,4,)€T' for some pew.     Using this proof predicate                                           we    may    construct
+a recursive function d such that for n€w the sentence
+
+       Cain)   —_—   V«lPf      (x, An   —> Aainy)   > Jysz[x     =   yt    (z +     1)    A    Pf (y, 4,       dein   |]
+
+is provable in theory P (using, e.g., the method of [1, p. 65]). This function
+d will have the additional property that if T’ is a theory of the type mentioned
+above, and if either [C,  > Camm] or [Ca— Caw] is in 1, then 7C, is in T’.
+   We can now define by recursion a sequence By,-:-, By, +++ of sentences.
+Suppose B),-+-, By; have already been introduced.         Corresponding to each
+s€2" let e(s) be an integer such that C,) is the formula
+                                                [Bi A             A BES,
+We       let   B,    be   the     conjunction        of    all   sentences         [Ceuy        > Catew)]   where      se2*,
+ Notice that [Ci > [Be Cie          ]] is a tautology.   It will now be very easy
+ to establish by induction on & that if T’ is a theory as mentioned above,
+ then ¥’ U {C.«)} is consistent for all s¢2*,    In other words, if whenever f € 2°
+and U=Pu        {A(4,)': neo}. is consistent, then UU {B2™:new} will be
+consistent for any choice of g¢2°.      If you examine the choice of sentences
+B,, you will see that each of them is a Boolean combination of sentences of
+the form Caim using many different m’s. But the sentences Ci are essentially
+substitution instances of the same formula; or at least on the basis of P we
+can find a formula D(x) such that [Cam “> D(4,)] is in P for all me w, making
+use of the fact that d is a recursive function.          Now the fact that B, is
+obtained in a recursive way from the sentences Ciim by Boolean combinations
+can be used to construct a formula B(x) such that [B,            B(4,)| is in P for
+all m€w.     The formula B(x) is the desired formula which is independent of
+A(x).                     :
+
+                                                     BIBLIOGRAPHY
+
+   1. S, Feferman, Arithmetization of metamathematics in a general setting, Fund. Math.
+vol. 49 (1960) pp. 36-92,
+                               ALGEBRAS    OF      SETS   BINUMERABLE                                 121
+
+  2.   S.   Kleene,   Introduction   to metamathematics,     New   York,   D.   Van   Nostrand,   1952.
+  3.   A. Mostowski,      A generalization of the incompleteness theorem, Fund.           Math.   vol. 49
+(1861) pp. 205-232.                                          °
+  4. D. Scott and S. Tennenbaum, On the degrees of complete extensions of arithmetic,
+Abstract 568-3, Notices Amer. Math. Soc. vol. 7 (1960) pp. 242-243.
+  5.           , On the degrees of complete extensions of arithmetic, in preparation,
+  6. A. Tarski, A. Mostowski and R. M. Robinson, Undecidable theories, Amsterdam,
+North-Holland     Publishing    Company,   1953.
+
+  UNIVERSITY OF CALIFORNIA,
+    BERKELEY, CALIFORNIA
+

@@ -1,0 +1,432 @@
+                            ORDINAL         DEFINABILITY
+
+                          JOHN    MYHILL     AND   DANA     SCOTT
+
+
+     Consider Zermelo-Fraenkel set theory (which we call ZF) in one of its usual
+formalizations.     We will allow terms as well as formulas, where these terms can be
+formed with the aid of, say, a description operator which by convention denotes the
+empty set in the improper cases. In such a theory we have a perfectly clear con-
+ception of what it means to be a definable set: these are the sets denoted by terms
+without free variables. Of course this is not a definition within the theory; in fact,
+a forma! definition of definable set is impossible. Suppose we had such a definition.
+Certainly we believe that there are only countably many definable sets and un-
+countably many ordinal numbers. Thus if the definition of definability were
+adequate, then we could prove the existence of an undefinable ordinal. But the
+least undefinable ordinal is definable, and a contradiction is reached. Instead of a
+contradiction (which is only informal) we can rephrase this argument as the following
+more positive and precise statement:
+    METATHEOREM.       Every definable class with a definable well-ordering is included
+in every definable class which contains all definable sets.
+    Here by a definable class we mean the collection represented by a formula of
+set theory with one free variable; while the definable well-ordering is represented
+by a formula with two free variables in such a way that the property of well-
+ordering of the class is provable as a schema and it is provable that every initial
+segment isa set. We are going to show that there is a definable class which has both
+of the properties mentioned in the metatheorem: it has a definable well-ordering
+and it contains all definable sets. Therefore it is uniquely determined; only it is not
+Clear that it exists.   The class will be identified in §1 where it will be shown to have
+the desired properties.      In §2 the class will be used to give a simple relative
+                                             271
+  272                                      JOHN      MYHILL         AND     DANA       SCOTT
+
+
+  consistency proof for the axiom of choice. In §3 the notion will be related to
+  Gédel’s constructible sets. And in §4 brief historical remarks will be given.
+
+        1. Ordinal-definable sets.               From the remarks in the introduction it is clear that
+ the class we are looking for must contain all the ordinal numbers. Further, if
+ T(%, ++. 5 &,4) is any term with ordinal parameters and no other free variables,
+ then for any particular ordinal values of the parameters the term r(%,... 5 &_1)
+ must denote a set in the class. The reason is that the set of all values of the term
+ form a definable class with a definable well-ordering (from a proper kind of
+ lexicographical ordering of the parameters). Note that every element of a definable
+ class with a definable well-ordering can be denoted by a term 7(«) (the «th element
+ of the class). Hence the class we want must be exactly the class of all sets of the form
+ T(O,... 5%,     4) for all ordinals o,...,0,_, and all terms r. Thus the class
+ (which is obviously called the class of all ordinal-definable sets) is identified, but
+ it has not yet been given a formal definition within ZF. It is not even at once
+ obvious that a formal definition is possible—in view of the impossibility of defining
+ the class of definable sets (those definable outright without parameters).
+     The reason that the class of ordinal definable sets is definable rests with the
+ so-called Reflection Principle. This principle shows us that if r(a,..., %,-3) is
+ any term, then the following statement is provable in ZF:
+ Va,    eaey   bn    1B   [a , soe    yg Ky iy   <   p A       Vé,,       teey    fi
+
+
+                                                           <       Bir    So,    see     é,-1)     =   TB   (E,,   say     Ei) II,
+
+where Vs = U,<, {x:x & V,}is the set of all sets of rank less than B. Thus for given
+ordinals a,..., &,- we can find an ordinal f such that
+
+                               T(H,     sey      %n1)          =    TFB)    (a,    seey    Ona)
+
+where the inscription on the right indicates that in the given term all the quantifiers—
+and the description operators—have their bound variables restricted to Vy. In
+other words, the set in question is definable—first-order definable—in the relational
+system (Vz, Eyys Moree es %n—1), Where ey, denotes the restriction of the member-
+ship relation to Vs. Now the class of all such relational systems is clearly definable
+in ZF, Every set definable in such a relational system is ordinal definable. The
+notion of being definable in a relational system (whose domain is a set) is definable.
+Hence, the class of ordinal-definable sets is in fact definable.
+    We shall improve this result by showing that the additional parameters can be
+eliminated by choosing the    so that all the a,..., «1 are definable in (Vz, Ey,):
+Some notation is useful. If A is any set, we let Df(A) stand for the set of all first-
+order definable elements              of the relational system                         (A, «¢,).       We   assume       that the
+reader can supply the formal definition of this notion as well as prove in ZF the
+transitivity of definability which we can formulate as:
+   LEMMA.           (i) 0, a,..., 4,1, 4 € Df(B) > r'4"(ay, ... , dg_y) © Df(B).
+   (ii) 0, A € Df(B)           A.A S B-> D(A) € Df(B).
+                                            ORDINAL         DEFINABILITY                                            273
+
+
+  We shall also need the definability of the sets Vs:
+        LEMMA.    a &€ Df( V,) > V, € Df V,).
+  The proof of this last statement is easily obtained from the formal definition of the
+  subclass {V;:€ < 8} < V, which is mentioned in [7]. We next establish:
+        THE   EXTENDED        REFLECTION         PRINCIPLE.
+                                                 g
+
+
+    Vito, +++ 5 Gp IPO,          ... 5 Mya E Df(V 5)
+                      A VE,       eee   yg Ent       <   Bir(Eo,   sey     En-1)   =   TV B(E,,   see     E,-wvIl
+
+      ProoFr. Notice first that the ordinary reflection principle as stated above at once
+ generalizes to several terms (hint: use one of the variable parameters to index the
+ terms). Using this remark we establish our extension for the case n = 2 which
+ illustrates the method. Proceeding by contradiction, assume the negation of the
+ formula and consider the terms
+
+                  Fo = f) [71 Vay P(a, a,)],                       01 = f} [7 Po, «,)],
+                         ao                                                ay
+
+ where f) is intersection (i.e., the least-number operator for ordinals) and
+
+        D(a, &1)<> AB[ a, a € Df(Vp) A Wo, $1 < Bir(So, &) = (Eo,                                       &,)]].
+ By assumption — (09, o,) holds.                     But by the reflection principle there is a 8 such
+ that
+
+    [0% o, < BAo=              aks) Ag,     = ot)          AWEEL, < Bir(So, &) = rPB(E,,                   &,)]).
+ We thus see that a9, 0, € Df( V,), So that O(a9, o,) holds, and a contradiction
+                                                                                 has
+been reached. (Clearly we have just used here once more the idea of the least
+undefinable ordinal.)
+    By the way, there is really no need to restrict parameters &,...,¢,_, to
+ordinals < f in the extended reflection principle; we can just as well use arbitrary
+S€LS Xq, «++ 5 Xn_1 © Vg by the same proof,                  Likewise, in place of n we can have some
+ other integer m.
+     With these formal matters out of the way, we can now define and establish the
+adequacy of the following notion of ordinal definable sets:
+     DEFINITION. OD = {x:Ja[x € Df( V,)]}. We shail now freely use class
+abstraction to define (virtual) classes that are not sets, even though our quantifiers
+are always restricted to sets. In particular, V is the class of all sets and L is the
+class of constructible sets. Any formulas involving abstracts can be rewritten
+equivalently without them; and likewise for any expression denoting a set. The
+reader can consult Quine          [6] for details.          Here we shall continue to use the word
+term for those expressions that always denote sets.
+    THEOREM. 4,...,4,_1        EOD + r(a,..., a,-1)  € OD.
+    Proor. In other words we must show that the ordinal definable sets are closed
+under definability. Now by using the lemmas and the extended reflection principle
+274                              JOHN    MYHILL    AND   DANA   SCOTT
+
+
+we can find B with «, %,..., %,-1 € Df(V,) and a, ¢ Df(V,,) for i <n and
+
+                        T(hg,     6+ 5 Mpa)       = t'¥a)(dp, vee       Ant)
+
+But then we see that (do, ... , @n_1) € Df(Vg), again by use of the lemmas.
+    Note that « € Df(V,,,) so that the class of all ordinals OR ¢ OD; thus OD
+does in fact contain all the ordinal-definable sets.
+    To be able to define a well-ordering of OD we must imagine the formal
+definition of satisfaction in relational systems together with a Gédel numbering of
+expressions, Then we can see how to define the term df(A, t) which denotes the
+element of A defined by the term with Gédal number ¢ in the relational system
+(A, €4).   We can therefore define:
+      DEFINITION.   (i) u(x) = U, [x € Df(V,)],
+      (ii) 0%) = Usew [bf
+                        V ays ) = 41,
+      (iii) x <y<>x,y EOD A [u(x) < my) V [u(e) = 4) A 9X) < QDI)
+    The idea is that x < y iff x can be defined in an earlier V, than y, or else in the
+same V, by a definition with a smaller Gédel number than any defining y. We
+can leave to the reader the verification of the fact that the definable relation <
+really well-orders OD; thus making OD the largest definable class with a definable
+well ordering.
+   Since it is obvious that L ¢ OD, we see that if ZF is consistent, then ZF +
+[V = OD] is consistent, because
+                                        V=L~>V=OD.
+
+The axiom V = OD may very well be a more reasonable axiom than V = L, but
+be that as it may, this extension of ZF has an interesting property. Note that
+V =L<>L = OD is easily provable in ZF.
+    METATHEOREM.     ZF + [V = OD] is the weakest extension of ZF to a theory
+with the selection property: every definable nonempty class contains a definable
+element.
+    Proor. In view of the definable well-ordering of OD, it is clear that ZF +
+[V = OD] has the selection property. Suppose now that T extends ZF and for
+every formula ®(x) with one free variable, there is a term yp (with no free variables)
+such that
+                               tpax O(x) > D(¢).
+Suppose we apply this condition to the formula ®(x) <> [xe V Ax ¢OD].                      Then
+we obtain a term @ such that
+                           krV      #OD—>          [pe VA pE~OD).
+But we already know that
+                                        type
+                                           EV > pe OD.
+Hence,  V = OD      must   be provable        in 7, which        is thus an extension   of ZF +
+[V = OD].
+                                    ORDINAL    DEFINABILITY                             275
+
+
+    Note that this theorem shows that in any extensionof ZF with the selection
+property, a uniform selector is definable by means of the well-ordering relation <.
+This easy result would not be so obvious without the use of the class OD.
+    Another application of the class OD concerns the definable sets. Let us
+describe the situation in terms of models. Let         be any model for ZF. Let
+OD”) be the submodel of elements satisfying the definable predicate of being
+ordinal definable. Let D‘™ be the submodel (not generally first-order definable) of
+elements definable in.@. From what we have noted about selectors we see:
+   METATHEOREM.           For any model M of ZF, the submodel DB”) is an elementary
+subsystem of OD),
+   Hence, for example, the theory of Z”) is recursively reducible to that of #
+because of the definability of OD. It is not quite clear what this really means, but
+it is curious that we can discover through the formal theory all the formal properties
+of the definable sets without being able to define them directly in the theory.
+   As a final remark,       let us consider the ordinal-definable portion      of the con-
+tinuum. If we identify the continuum with Pw = {x:x S ow}, then this portion is
+Pw (\OD. Without some assumption (even the axiom of choice is of no help) we
+cannot prove that Pw        OD is uncountable, All we know is that Pw M OD is the
+largest portion of the continuum having a definable well-ordering (largest in the
+sense that it includes all other such definable subsets). Since the question of which
+reals are or are not definable is difficult, we can make the cardinality of this set
+slightly more definite.     For any set A, let Th(A), the theory of A, be the set of all
+Gédel numbers of sentences true in (A, ¢,).          Then we can show:
+   THEOREM.      Pw © OD has the same cardinality as {Th(V,):« € OR}.
+    Proor. This sharpens a result of Possel and Fraissé [5].           The proof is fairly
+straightforward. Note first that
+                             {Th(V,):« € OR} | Pw O OD.
+Next, for each n < w let
+                          I, = {u(x):x     € Pw OOD     A v(x) = nh.
+
+Clearly Pw M OD has the same cardinality as
+                                          U {n} x Sh.
+                                         now
+
+Also for «,   BeI,, « ¥ B, it is obvious that
+                                     Th(V,) # Th(V,)
+because the same term (namely, the one with Godel number n) defines different
+sets in the two systems.    Hence each J, has cardinality at most that of
+{Th(V,):« € OD} and the result follows.
+   2. The relative consistency of the axiom          of choice.   Without   the aid of the
+axiom of choice we showed in §1 that there is a definable well-ordering of OD and
+  276                                 JOHN    MYHILL   AND   DANA   SCOTT
+
+
+  that the class has interesting closure properties. This certainly indicates that
+                                                                                    it is
+  likely that we can define a submodel which satisfies all the axioms of ZF includin
+                                                                                       g
+  choice. The desired submodel is not OD itself because a nonempty definable
+                                                                                      set
+  need not have any ordinal definable elements (e.g. the set Pw ~ OD, which
+                                                                                   may
+  very well be nonempty.) The solution is to take just those sets that are hereditar
+                                                                                     ily
+  ordinal-definable in the sense that they and all their ancestors in the members
+                                                                                   hip
+  relation are ordinal definable. Formally we have:
+      DEFINITION.
+                                HOD = {x:dy S OD[xey © Py}}.
+        If we let
+                                      Cx)=              ys Py]
+                                                       As
+                                                   y
+
+ be the hereditary (often:         transitive) closure of x, then the definition could also be
+ written:
+                                  HOD = {x € OD: C(x) € OD}.
+ We can easily prove by induction on the rank of sets the useful:
+
+        LeMMA.       HOD = {xe OD:x¢              HOD}.
+     CoROLLaRY.            OR © HOD
+ The main result about HOD is the
+
+     METATHEOREM.            All the axioms of ZF including choice are provable               when
+ relativized to HOD.         Hence if ZF is consistent, then so is ZF + AC.
+    Proor.          (1) Extensionality.      This is obvious because HOD           is a hereditary
+class, (ID) Comprehension.   Consider                  a formula      D(x, Wo...    Waa).   If we
+aSSUME U, Wo,..., Wa_y © HOD, then
+
+                              v= {x Eu: DFP(xy Wy... . , Wa_a)}
+exists, and      v © HOD.      But since all parameters are in OD, we have v € OD             too;
+therefore v¢€ HOD. Thus the relativized instance of the comprehension
+                                                                       axiom
+corresponding to ® is in fact provable. (III) Replacement. The argument
+                                                                            is
+similar. (IV) Power set. If we HOD, then {x € HOD: x ¢ u}e HOD. (V)
+                                                                      Union.
+If uw € HOD, then Yu E HOD,                (VI) Infinity.     w € HOD. (VII) Foundation. Any
+restriction of a well-founded             relation, like     é, is obviously also well founded:
+(VII) Choice.         If   u€ HOD, then
+
+                                {((x,y) Eu     X uix < y}       € HOD,
+and this relation well-orders u.
+    Note that the equivalences HOD = OD <= HOD =     V+ OD = Vare easily
+provable in ZF. Hence among these interesting classes we have only
+                                                                   these
+problematical equalities: L = HOD and HOD =V. The known consist
+                                                                   ency
+                                           ORDINAL    DEFINABILITY
+                                                                                                         277
+
+   results are as follows, relative to ZF ;
+
+                   ZF + [L = HOD] + [HOD=V],                           — Gadel [1]
+                   ZF + [L = HOD] + (HOD # V],                           Lévy 3]
+                   ZF + [L # HOD]            + [HOD         = Vi,            McAloon   [4]
+                   ZF + [L # HOD] + [HOD # VJ,                               McAloon [4]
+   Also due to McAloon is the consistency result that
+                                                      OD)                         5
+                                                                  HOD is consistent
+  with ZF. This would seem to clear up most
+                                              of the basic questions concerning the
+  relationship between these notions. Also in
+                                                the above ZF can be replaced by
+  ZF + AC,
+       3. Second-order constructibility. Let DF°(A) be the set of all subsets
+  definable by first-order formulas in (A,                                      of A
+                                            &4) using parameters from A; that is,
+  sets of the form                                                                 all
+
+                               {x   E A:    P'4)(x,    Dorsey       an-1)}
+  where dy,...,4,_,€A. Asis well known, the
+                                            constructible sets of Gédel can be.
+  defined by recursion as follows
+
+                                       L? Oo= UDF Ory (L3),
+                                                         0
+
+  and
+                                            L°=UL?,
+                                                     acOR
+  where the superscript 0 is usually dropped. (As
+                                                        in hierarchy theory, we use the
+  superscript 0 to indicate that the quantifiers are
+                                                     first-order.) By the way, from this
+  definition it is clear why Loc HOD.
+      An extension of the notion would be to allow
+                                                       second-order formulas instead of
+ just first-order definitions. So let DF~'(A) be the
+                                                      set of definable subsets where the
+ quantifiers in the formulas are restricted either
+                                                   to A or to PA                  (or even P(A   x A),
+ etc.) and where the parameters are still from A.
+                                                              We define
+                                      L! = U DFXLD,
+                                              Bea
+
+                                      t=       UL!
+                                             aecOR
+Again L! ¢ HOD        is obvious by induction.              Clearly we could go on to define
+L*, L’,... , all of them included in HOD.
+                                                        It is not interesting to do so, however,
+if we are willing to assume the axiom of choice.
+    THEOREM.     AC—>L}     = HOD.
+    PRooF.     It is enough to show
+                             acliAaeHOD>aeL,
+Thus let a € Df(V,), We choose B € OR so large
+                                                     that not only isa < L}, but the
+cardinality of L} is greater than that of V,. This
+                                                   ts possible by the axiom of choice
+       278
+
+
+       because the cardinalities of the Ly are unlimi
+                                                      ted.          Now we transcribe into a second-
+       order formula the condition:
+          There is an isomorphism J that carries (C(ix}
+                                                           ), E(x) Over to an hereditary
+      subsystem of a copy of (V,, ey) on a subset
+                                                    of L; in such a way that f(x) satisfies in
+      the copy the formula defining a as a subset of
+                                                      V,.
+         The only parameter we need here is a, and
+                                                        the only problem is seeing that a
+     relation’s being a copy of Vas €y,) can be expre
+                                                       ssed in a second-order condition,
+     But that is really clear from the recursive
+                                                 definition of V,. (We leave the details
+     to the reader.) In any event, ae Lap
+          4, Historical remarks. The notion of ordin
+                                                        al definability was due to Gédel
+      [2] who observed that it enabled one to give
+                                                     an easier proof of the consistency of
+     the axiom of choice than that of [1], but presu
+                                                       mably not of the consistency of the
+     continuum hypothesis. The idea was then redis
+                                                      covered independently by one of the
+     present authors, G. Takeuti [8], and Post
+                                                 [9]. Martin Davis lent us Post’s 1952
+     notebook, wherein several of the results of
+                                                    the present paper are contained. In
+    addition, Hajek informed us that in joint work
+                                                      with Vopénka and Balcar the notion
+    was rediscovered recently by closing the class
+                                                      of sets {V,:« € OR} under Gédel’s
+    eight operations to obtain the class OD, and
+                                                 they also noted the proof of consistency
+    of the axiom of choice.
+
+                                             BIBLIOGRAPHY
+        1. K. Gédel, The consistency of the contin
+                                                    uum hypothesis, Ann. of Math. Studies
+    Princeton Univ. Press, Princeton, N. J.,                                                 no. 3,
+                                             1940,
+      -2.        » Remarks before the Princeton Bicentennial
+    by M. Davis, Raven Press, 1964, pp.                      Conference” in The undecidable, edited
+                                             84-88.
+       3. A. Lévy,   Definability in axiomatic    set   theory.
+                                                     I, Proc. 1964 Internat. Congr. for
+ Philosophy, and Methodology of Science, Jerusa                                                    Logic,
+                                                lem, North-Holland, Amsterdam, 1965,
+    4. K.    McAloon, Thesis, Berkeley, 1966,
+       5. R. de Possel and R. Fraissé, H 'ypothé
+                                                 se de la théorie
+                                                              des relations qui permittent a’associer,
+a un bon ordre d’un ensemble, un bon ordre,
+                                             défini sans ambiguité, de l'ensemble de ses parties
+raisonnement en mathématiques ef en                                                              . Le
+                                       science   s expérimentales, Collog. Internat.
+de la Recherche Sci., 70.                                                              du Centre Nat.
+                               Editions du Centre National de la Recher
+  p. 51-55,                                                             che Scientifique, Paris, 1958,
+P     6. W. V. Quine, Ser theory and its logic,
+                                                  Harvard University Press, Cambridge, Mass.,
+     7. D. Scott, Axiomatizing Set theory,                                                          1965.
+                                             these Proceedings, part II.
+     8. G. Takeuti, Remarks on Cantor's absolut
+                                                   e, J. Math. Soc. Japan. 13 (1961), 197-206.
+     9. E.L. Post, A necessary condition for definab
+                                                     ility for transfinite von Neumann-Gédel set
+sets, with an application to the Problem of the                                                    theory
+                                                existence of a definable well-ordering of the
+Preliminary   Report, Bull. Amer. Math, Soc, 59                                               continuum,
+                                                       (1953), p. 246,
+      10.       » Solvability, definability, provability;
+                                                            History of an error, Bull. Amer. Math.
+59 (1953), p. 245,                                                                                 Soc.,
+
+     STATE   UNIVERSITY    OF NEw    York,     BUFFALO
+     STANFORD    UNIVERSITY
+
+
+
+
+                                                                                                            etl RN
+                                                                                                                  amb
+                                                                                                                   R oe Gene
+
+
+
+
+                                                                                                            TUR
+

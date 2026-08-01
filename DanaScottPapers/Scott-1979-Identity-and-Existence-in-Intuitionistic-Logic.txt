@@ -1,0 +1,2013 @@
+                     IDENTITY AND EXISTENCE IN INTUITIONISTIC LOGIC
+
+
+                                          Dana Scott
+
+                            Merton College, Oxford, England
+
+
+
+
+     Standard formulations of intuitionistic       logic, whether by logicians or by
+category theorists, generally do not take into account partially defined elements.
+(For a recent reference see Makkai and Reyes           [18] , esp. pp.   144-163.)   Perhaps
+there is a simple psychological reason: we dislike talking of those things not
+already proved to exist.     Certainly we should not assume that things exist without
+making this assumption explicit.     In classical logic the problem is not important,
+because it is always possible to split the definition (or theorem)            into cases accord-
+ing as the object in question does or does not exist.           In intuitionistic logic this
+way is not open to us, and the circumstance complicates many constructions,             the
+theory of descriptions,    for example.     Many people I find do not agree with me, but
+I should like to advocate in a mild way in this paper what I consider a simple
+extension of the usual formulation of logic allowing reference to partial elements.
+The discussion will be entirely formal here, but for the model theory of the system
+the reader should consult Fourman and Scott        [10]     for interpretations over a complete
+Heyting algebra (and this includes the so-called Kripke models) and Fourman              [8]
+(the paper was written in 1975) for the interpretation in an arbitrary topos.
+
+     Technically the idea is to permit a wider interpretation of free variables.
+All bound variables retain their usual existential import (when we say something
+exists it does exist), but free variables behave in a more "schematic" way.              Thus
+there will be no restrictions on the use of modus ponens or on the rule of substitut-
+ion involving free variables and their occurrences.           The laws of quantifiers require
+some modification,   however, to make the existential assumptions explicit.            The modif-
+ication is very straightforward,    and I shall argue that what has to be done is
+simply what is done naturally in making a relativization of quantifiers from a
+larger domain to a subdomain.     Again in intuitionstic logic we have So take care over
+relativization, because we cannot say that either the subdomain is empty or not                 -
+thus a given element may be only "partially" in the subdomain.
+
+
+
+
+FOOTNOTE   The first draft of this paper was written during a visit on leave at the
+ETH, ZUrich in March, 1975, and it has been revised since the Durham Symposium.
+The style of formalization was developed in seminars at Oxford starting in 1972/73 .
+Thanks for contributions and remarks are owed to D. van Dalen, M.P. Fourman,
+R. Grayson, J.M.E. Hyland, C. Smorynski, and R. Statman.
+                                                                             661
+
+
+        In      Section      I , I discuss the idea of allowing                                  existence   as a predicate and
+the laws of quantifiers.                         Section 2            treats the theory of identity and the connections
+with existence.              Questions               of strictness           and extensionality           of relations         and functions
+are discussed in              Section            3       along with some examples                  of first-order    theories.             As
+further examples             of the use of the system, the familiar theories                                     of apartness          and
+ordering         in intuitionistic                   logic are presented                 in    Section    4 .   Section    5     goes
+briefly into relativization,                             and       Section    6     details the principles          of descriptions.
+Finally,         Section      7    reviews the axioms for higher-order                                intuitionistic       logic from
+this general viewpoint.
+
+        The idea of schematic                        free variables           is not new for classical             logic,       and the
+literature           on "free" logic                 (or logic without              existence       assumptions)    is extensive.
+(For some earlier references                             see Scott          [21]    .)        All I have done in this essay is
+to make what seems to me to be the obvious                                        carryover       to intuitionistic       logic,
+because I think it is necessary                                  and convenient.              For those who do not like this
+formulation,            some comfort can be taken from the fact that in topos theory both kinds
+of systems are completely equivalent,                                  and the domains             of partial    elements        can be
+defined at higher types                      (this is analogous                   to passing from a sheaf to its "flabbyfic-
+ation",         which is a subsheaf of the power sheaf).                                       However,   in first-order         logic
+something            is lost in not allowing partial                          elements,          as I shall try to argue along
+the way.
+
+
+
+
+I.   EXISTENCE AND THE LAWS OF QUANTIFIERS
+
+
+        It has often been suggested that identity is a trivial relation,                                               since to say
+" a = b "             is trivially true in case                        a     and     b        are the same and otherwise trivially
+false.          If     "a"   and           "b"       are "constant"           names, this criticism m a y be reasonable;
+but when the expressions                         depend on parameters, it is obviously useful to express
+properties by equations.                          If an example             is needed,          take the equation:
+            2
+        x       =x+      1
+
+Whether this is true or false depends                                  on     x , and such equations             (generally)           define
+a whole class of solutions.                              We can, of course,               in this case investigate by well-
+known methods            exactly which                       x   make the equation true; but with only the most
+superficial knowledge                      of the laws of algebra,                       we can easily assert a conditional
+like:
+            2                          6
+        x       = x + I      ÷     x        = 8x + 5
+                                                         n                                                                             ?
+Indeed, all the values of                            x           can be simplified under the assumption                   that     x       =
+x + I .          Passing to the m a n y examples we are familiar with in several variables,
+we see that conditional                      equations m a y often be verified even when a complete analysis
+                                                                            662
+
+
+of the solution                set corresponding               to the hypothesis                 is lacking.          The assumption
+is used as if it were true even though by itself it has no determinate                                                          truth value
+owing to the occurrence                     of parameters.
+
+        If we are willing to employ complex equations                                           in this way, why should we not
+feel free to use complex expressions                              (terms) without                 demanding that they always
+denote?        Just as we have to make certain                              equations           conditional       on the truth of
+other equations                in order that they be valid, we m a y also have to make                                      some statements
+conditional           on the existence              of certain complex terms.                              In algebra    (say, in ring
+theory),       the implication:
+
+        Vx.¢(x)            ÷       ¢(0)
+
+is unconditionally                  valid because the constant                         0       is taken as always denoting             in
+all rings.            However,           the statement:
+
+        Vx. ¢(x)           ÷ ¢(I/a)
+
+cannot be valid in general because not every element                                                  a     has an inverse.        We can
+circumvent          the difficulty by rephrasing the statement:
+
+        V x ,¢(x) ÷                Vy     [ a-y = I + @(y)             ]         ,
+
+but though correct this seems clumsy.                                 W h y not say more directly:
+
+        Vx,        ¢(x) ^ E ( 1 1 a )     ÷ ¢(Iia)         ,
+
+where        " E(I/a)          "    is to be read as              "        I/a       exists"      ?        Even if we agree that
+
+        E(I/a)        +~ ~y,            a.y = I
+
+(which avoids the notation                         I/a     on the right-hand                    side of the equivalence),             we still
+want to use             I/a        in the conclusion.                 The desire to keep to fractional                          notat~o~ wi]l
+become even more urgent when more complex rational                                              functions       (say,     3x + 4 / 2x 2 + x + I )
+are to be manipulated.
+
+        Is the existence predicate                         E     an illusion?                  Was the equality predicate             an
+illusion?           No.        We shall find in the next section, with a full statement                                           of the
+laws of equality,                  that     E     can always be defined in terms of quantification:
+
+        ET    *-+ ~ y , y = T              ,
+
+where        "y"      is a variable not free in the term                                   •    (and where the equations may be
+further simplified as in the case of                                  I/a ).          However,            both in conception       and in
+the models          of (intuitionistic)                  logic ~e have in mind, the existence                             predicate    is
+more basic than equality and prior to it.
+
+        For the time being we consider                           only a one-sorted                    first-order       logic    (and postpone
+the theory of equality to the next section).                                         Higher-order             logic   (last section)        will
+he regarded as a theory with its own special axioms in a m a n y - s o r t e d                                             first-order       (or
+quantifier)           logic,        and the passage             from one sort to m a n y sorts is essentially                          trivial
+                                                                        663
+
+
+once the quantifier                   laws are clear.            Mainly the problem is a notational               one of
+giving variables,             predicates,              functions      and compound terms types. We shall do this
+precisely in the last section.                           As far as intuitionistic             propositional      calculus     is
+concerned,          no revision          is necessary          for predicate          calculus,   and we assume this as
+known.        (A recent reference                    is Dummett       [5] .)     In predicate      calculus,     then, we
+use all the usual propositional                          laws (as applied to arbitrary              formulae of the first-
+order language)             together with a completely unrestricted                           rule of modus ponens:
+
+                        ¢     ,        ¢+~
+
+                                  ¢
+
+without regard as to which free variables                               are shared between          ¢    and    @ .
+
+
+1.1     THE RULE OF SUBSTITUTION.                         If     ¢(x)       is any formula with         (possibly)    the
+variable        x     free, and if               T     is any individual         term of the language,          then the rule
+is the passage
+
+                        ¢(x)
+        (s)
+                        ¢(T)
+
+where is making the substitution                          of     T    for     x , bound variables         of   ¢(x)    must be
+rewritten       to avoid capturing the free variables                            of     T .
+
+        In other words, when we state a logical law (or axiom of a theory)                                        with some
+free variables,             then we intend that these variables                         have the broadest       universal
+force and are freely replaceable                          by any (well-formed)            term (of the appropriate
+type when types are important).                           On the other hand, when we state axioms with
+q~ntified variables, we intend that the universally quantified ones can only be
+replaced by terms whose values                          exist.
+
+
+1.2     THE RULES OF THE UNIVERSAL QUANTIFIER.                                There is only one axiom (schema)              and
+one rule.           With the same understanding                      about substitution         as in     1.1 , the axiom
+reads:
+
+        (v)            vx. ¢(x)^m                    ÷ ¢(T)
+
+This eliminates             an initial quantifier.                    To adjoin a quantifier,           we set down the rule:
+
+                       ¢^ Zx +           ¢(x)
+        (v +)
+                       ¢ ÷    vx        • ~(x)
+
+where     x     is a variable not free in                        @ .
+
+        Thus, the existence                  predicate         and the quantifier         are inextricably       linked. ~
+Further,      these rules already implicitly                           determine      the meaning of the existence
+predicate.
+                                                                            664
+
+
+] .3    METATHEOREM                If the language had a n o t h e r existence p r e d i c a t e                    E*     also satisfy-
+ing the a x i o m and rule of                           I .2 , then we could show for all terms                    T :
+
+        E~       ~-+ E*T
+
+
+Proof.           A direct c o n s e q u e n c e of                ( V +)    is:
+
+        (I)           V x .Ex             ,
+
+because w e can take                      ¢       as true and        ¢(x)     as     Ex   .   Using this in         (V)      for the
+other p r e d i c a t e          E* , we derive:
+
+        (2)          E*z + ET
+
+The converse implication to                               (2)    has an analogous proof.
+
+
+        In classical logic the existential quantifier                                         ~    can be defined f r o m       V      by
+negation; however,                 in intuitionistic logic we must give the dual a x i o m and rule as
+independent principles (in f i r s t - o r d e r logic, that is).
+
+
+I .4    THE RULES OF THE E X I S T E N T I A L QUANTIFIER.                            D u a l l y to     I .2   we have:
+
+        (~ )            ¢(T) A E T            ÷     ZX,@(X)
+
+and
+
+                         ¢(x) ^ Ex            +     ¢
+        ( z +)
+                          zx.¢(x)             ÷     ¢
+
+where        x    is a variable not free in                          ¢ .
+
+
+        We shall not go into the proofs since t h e y are so obvious; but, as in                                               1.3 , if
+we had another quantifier                               V*      satisfying the rules of                1.2 , it could be p r o v e d
+equivalent to                V    •       A similar result holds for                      ~   .   Note also the f o l l o w i n g
+equivalences:
+
+         ~x      [ ExA¢(x)            ]       +-~    ~x.¢(x)
+
+and
+
+         VX      [ Ex    ÷       ¢(x) ]           +~     Vx,¢(x)       ,
+
+w h i c h show that the existence p r e d i c a t e is superfluous when b o u n d in these ways
+within the scope of a quantifier.
+
+
+
+
+2.     EQUALITY AND EQUIVALENCE
+
+
+        Consider an equation like                               " T = a "          What should it m e a n ?        Our point of v i e w
+is purely extensional,                        so the m e a n i n g should depend just on the "values" of the terms
+                                                                              665
+
+
+T     and     ~   and not on h o w t h e y are defined (or written)                                      syntactically.            There w o u l d
+seem to be n a t u r a l l y two senses possible:                                 (i)    both        •    and     ~      exist and are equal;
+and     (ii)      in so far as one of                        T    and     ~       exists, then so does the other and t h e y
+are equal.            We shall take the first as the m e a n i n g of the simple equation                                               " w = ~ ",
+b e c a u s e we t h i n k it is the one m o r e often intended.                                 The second is important,
+however, and will be w r i t t e n                       " w ~ ~ "            and called equivalence.                     The two notions
+are i n t e r d e f i n a b l e on the basis of the axioms to be p r e s e n t e d below.                                       W i t h i n the
+scope of quantifiers a n d w h e r e there are no compound terms involved, there is no
+distinction between                  =        and     ~ .        In the next section some algebraic a x i o m systems
+are p r e s e n t e d where the d i s t i n c t i o n is e s s e n t i a l l y used.                          In this section we are
+c o n c e r n e d o n l y w i t h the logical laws.
+
+        For the first sense                     " T = ~ "            implies existence,                  so           in free v a r i a b l e form
+the r e l a t i o n     =     is no longer reflexive.                         But this is the only m o d i f i c a t i o n we need
+to make in the usual axioms.
+
+
+2.1    AXIO~4S FOR STMIOLE EQUALTTY.                             The three axioms are:
+
+        (refl)              x = x        *-* Ex
+
+        (sy~n)              x = y     ÷       y = x
+
+        (trans)             x = y^y       = z        ÷       x = z
+
+
+Discussion.            In effect          E         is definable in terms of                     =       (without the aid of the
+quantifiers).               Still, we could not explain                           =     without m e n t i o n i n g existence.              Thus
+it seems best just to r e g a r d                        (refl)         as an axiom.            Of course in q u a n t i f i e d form
+we have:
+
+        (I)           Vx,x     = x        ,
+
+but this is weaker than                        (refl)        .   Note that from the axioms, w e can p r o v e at once:
+
+        (2)           x = y    ÷      Ex^Ey              ,
+
+which was as intended.                    Since          (sy-~m)        and       (]trans]       are conditionals, we see b y
+(2)    -      if it has b e e n t a k e n as an a x i o m                     -       that the second two axioms c o u l d have
+been stated e q u i v a l e n t l y in their u n i v e r s a l l y q u a n t i f i e d form.                           This will often
+happen in other systems, and p r e d i c a t e s satisfying something like                                                 (]2) are called
+strict.
+
+
+       The axioms of                2.1       are sufficient only w h e n there are no other p r i m i t i v e s
+in the system.              This is just the t h e o r y of equality by itself.                                        If other p r i m i t i v e s
+are involved, we must a d j o i n a p r i n c i p l e of r e p l a c e m e n t of equals b y equals.                                        But
+there is a d i f f i c u l t y in stating this, b e c a u s e an equation always implies existence.
+A step toward a m o r e r e l a x e d r e p l a c e a b i l i t y is to consider:
+
+        Vz     E x = z +~* y = z ]
+                                                                       666
+
+
+Note that this does not imply that                            x      and     y   exist, but it does imply that t h e y
+are r e p l a c e a b l e in equality contexts.                      The formula can be simplified.                          Specializing
+z     first to     x     and then to            y , we derive from the above:
+
+        [ Ex   ~   x = y ] ^ [ Ey               +   x = y ]
+
+Since     x = y        a l r e a d y implies        Ex        and     Ey , this formula just expresses the state-
+ment that ~ f one exists,                 then so does the other and they are equal; that is, this
+is the r e l a t i o n of equivalence m e n t i o n e d at the start of this section.                                        W e can, by
+the way, shorten the w r i t i n g to:
+
+        [ Ex v Ey        +    x = y ]
+
+Assume this and work backwards.                          If        x = z     (and       Ez , but this is redundant),
+then     Ex    follows.            Thus    x = y ;            so     y = z .        A n d we argue similarly if                     y = z .
+So the u n q u a n t i f i e d expression of equivalence is                            equivalent to the q u a n t i f i e d
+version.       This shows we are onto the right idea.
+
+        It is clear that non-existent things are equivalent; and of two equivalent
+things, t h e i r existence               (or non-existence)               are equivalent.                  W e c o u l d say that t h e y
+are the same whether or not they exist.                                Hence,       for    general e x t e n s i o n a l predicates,
+e q u i v a l e n c e is the right a s s u m p t i o n for m a k i n g an exchange.
+
+
+2.2     THE A X I O M OF EQUIVALENCE.                 For a r b i t r a r y formulae                 ¢(x)     we assume:
+
+        (eq)        [ ExvEy          ÷    x = y ] ^ ¢(x)               +     ¢(y)
+
+Discussion.         Note that in the axioms of                         2.1       and       2.2       we have formulated them
+with free variables.                 B y the rule of substitution, we can r e p l a c e the x , y , and                                           z
+b y any terms whatsoever.                  Thus the axioms are really schematic.                                   Note too that            (eq)
+is quite strong.              If we had assumed the strictness of                                =     (that is        (2)     in     2.]    ),
+we could have derived both                      (symm)         and     (trans)         .     D
+
+
+2.3     FZTATHEOREM.               U s i n g the following definition of equivalence:
+
+        (~)        x ~ y       ++    [ ExVEy         +     x = y]          ,
+
+the t h e o r y of equality can be a x i o m a t i z e d by:
+
+        (in)        Vz        Ix    ~ z ++ y ~ z]              ÷      x ~ y
+
+        (eq)        x ~ y ^ ¢(x)            ÷       ¢(y)
+
+where equality can be r e d e f i n e d by:
+
+        (=)         x = y       *-* E x A E y A x        ~ y
+
+Furthermore,        existence can be defined b y quantification:
+
+        (E)         Ex       *-* ~ y.x ~ y
+                                                                                 667
+
+
+Proof.       Under the d e f i n i t i o n              (~) , what is called                      (eq)       above is just the                        (eq)
+of     2.2    .    Also       (=)        is easily provable b y the axioms of                                  2.1     from             (~)    .
+Principle           (in)      is another form of                   indiscer~bility.                    To p r o v e it, assume the
+hypothesis, and assume                     Ex v Ey .             In either case we can substitute for                                     z        in v i e w
+of     (V)    .    Suppose          Ex    .      Then     x ~ x             follows at once (by definition),                              so        x z y
+
+follows.
+
+        H a v i n g shown that                (in)    , (eq)       , and           (=)    are p r o v a b l e in the t h e o r y of
+equality, we now assume                        (in)      and       (eq)          and use         (=)     as the definition.                         Note
+
+that from           (in)    , we can at once derive                             x ~ x .      By        (eq) ,        x ~ y          ÷    y ~ x         comes
+out in the usual way.                     Similarly              x ~ y^y           ~ z ÷     x ~ z .           By     (=)       as a definition,
+then,     it is easy to p r o v e the original                                  (refl)    , (symm)       , (trans)          .        It remains to
+
+prove        (~)     to show that the systems are c o m p l e t e l y equivalent.
+
+        Assume           x ~ y      and        ExVEy         .    By        (eq)       Ex ÷ E y        and     Ey ÷ Ex          .       Thus        Ex^Ey
+follows,          and so      x = y .            A s s u m e next that                 [ ExVEy     ÷     x = y]                 W e w i s h to use
+(in)      to derive           x ~ y .            So assume             Ez        and     x ~ z .        Then        Ex , so             x = y         and
+x ~ y .           Thus     y ~ z .            Similarly           Ez^y           z z +    x ~ z , and we are done.
+
+        That existence is definable b y                                (E)        follows easily from the laws of
+together with              x z x         and      (eq)       .         D
+
+
+         In some ways the system b a s e d on                               ~     is formally simpler.                 But both systems
+are v e r y close.            In the m o d e l theory (either the u s u a l Kripke models or the                                                     ~ -sets
+p r e s e n t e d in F o u r m a n - S c o t t       [9] ) it is m o r e n a t u r a l to interpret                             Ex       and        x = y
+before going on to the quantifiers.                                    Except p o s s i b l y for            (eq)      all the axioms of
+logic are p r e t t y clear d i r e c t l y from the m o d e l - t h e o r e t i c definitions.                                          For         (eq)    ,
+it is assumed for atomic formulae at any rate, a n d then the induction on up to
+c o m p o u n d formulae is automatic b y the logical rules after that.
+
+         Though the theory o f e q u a l i t y is a v e r y early a n d v e r y simple chapter of logic,
+it is perhaps good to point out here that in                                           intuitionistic logic even the t h e o r y
+o f simple e q u a l i t y (no other predicates)                                 is as u n d e c i d a b l e as full p r e d i c a t e calculus
+(cf.      Smorynski            [22] , p . 1 1 7         ).       This is stark contrast to classical logic w h e r e the
+t h e o r y of e q u a l i t y is r e l a t i v e l y trivial.                     Some other shocks of a s~milar kind, w h i c h
+show that intuitionistlc l o g i c is more difficult than classical, are m e n t i o n e d in
+
+the next two sections.
+
+
+
+
+3.     RELATIONS A N D FUNCTIONS
+
+
+         The e q u i v a l e n c e rule            (eq) , w h i c h is a p r i n c i p l e o f extensionality,                                 has m a n y
+consequences for relations                         (more generally,                    n - a r y predicates)          and functions.                     For
+
+example, two special cases are:
+                                                                           668
+
+
+       x ~ x' ^ y        ~ y' ^ x R y         +    x'Ry'
+
+and
+
+       x ~ x'       ÷    f(xl      ~ f(x')
+
+The first statement w o u l d be v a l i d (but weaker) if we r e p l a c e d                        ~     by    = ; however,
+for the second statement, w i t h                        =       in the conclusion we o b t a i n something stronger:
+
+       x=x'         ÷    f(x)      = f(x')
+
+This means in p a r t i c u l a r            (putting            x   for    x'   ):
+
+       Ex     ÷    Ef(x)       ,
+
+and    in v i e w of          (eq)      , the previous implication is reprovable.                        H a v i n g this last
+statement h o l d for free variable                          x       is the same as having
+
+       (tot)             Vx     S y , y = f(x)               ,
+
+w h i c h m e a n s that the function is total (or totally defined on the whole domain for
+the variable            x ).       Not all functions are total, and in A l g e b r a we can have
+
+       x E y        ÷     I/x ~ I/y           ,
+
+even t h o u g h        I/x    is not total.
+
+       The converse i m p l i c a t i o n to that defining total functions is:
+
+       (str)            Ef(x)       ÷   Ex
+
+Clearly this can be e x t e n d e d in the obvious way to functions of m a n y variables;
+we call such functions strict,                           since we do not a l l o w the u s e of the value of the
+function unless the argument exists.                                  Now oons~nt      functions are not strict if the
+constant is given without even l o o k i n g at the argument.                                Perhaps this is unnatural;
+in any case, most ways of defining functions give strict functions.                                             In the case of
+predicates the rule reads:
+
+       (str)            Px0...Xn_ I ÷             Ex 0 ^ ... ^ E X n _ I
+
+An example of a non-strict p r e d i c a t e is                            ~ x = y .
+
+
+3.1    METATHEOREM.                If we assume that all primitive p r e d i c a t e s a n d functions are
+strict, then the e x t e n s i o n a l i t y principle                       (]eq) reduces to the special case
+
+       (eq')             x = y^¢(x)           +     ¢(y)         ;
+
+and in fact this schema follows from the atomic cases:
+
+        (i)         x 0 = Y0 a ... ^ Xn_ I = Yn_1 ^ P x 0 . . . X n _ I ÷                  Py0...yn_ I
+
+        (ii)        x0 = Y 0 ^ "'" a Xn_ I = Yn-1 ^ z = f ( x 0 , . . . , X n _ I)               ÷   z = f(y0,...,Yn_1)
+
+where for total functions                         (ii)       can be r e p l a c e d by:
+                                                                        669
+
+
+       (ii')         x0 = Y0 ^ "'" ^ Xn-1 = Yn-1                         ÷     f(x0'''''Xn-])             = f(Y0'''''Yn-1 )
+
+Further,    all these statements                   are equivalent             to their universal                closures.
+
+
+Proof.     Obviously          (eq')      implies             (i)    and        (ii)       .    But by strictness          of    P    and
+f , we can replace            =    by        ~     in    (i)       and        (ii)    .        This gives       (eq)   for all stomic
+cases.     The compound cases can be built up inductively                                         in the standard way.              Thus,
+from
+
+       x ~ y     +     [ ¢(x,z)    ++        ¢(y,z)      ]
+
+we can deduce:
+
+       x E y     ÷     [ ~¢(x,z)        ++1¢(y,z)]                  ,
+
+and then:
+
+       x E y
+
+A n d so on.
+
+       As for         (ii')   , it not only expresses the fact that                                  f       is tota±, but          (ii')
+at once implies           (ii)     .     D
+
+
+       In formalizing         pure logic (as distinguished                           from a theory with its special
+axioms),    some m a y not want to assume that all atomic predicates                                            are strict.         The
+reason is that not all       formulae define strict                             predicates,          and it is not unreasonable
+to require       logical validities to be preserved                             under substitution               of formulae         for
+predicate       symbols.       (The predicate                letters         are like free predicate               variables.)
+However,    in model theory,             there are technical                    advantages          to restricting         attention
+to the strict predicates                and functions.
+
+       We conclude this section with three examples                                       of theories where questions                 of
+strictness       and totalness          are relevant to a convenient                             formulation.
+
+
+3.2    THE THEORY OF HEMILATTICES.                       A n (upper)           semilattice          is a structure with a zero
+element     ±        and a join operation                xu y       satisfying the usual zero, idempotent,
+sommutative          and associative             laws.       Usually we assume that                      u     is a total function.
+But examples          come up where a restriction                       to special elements                  seems necessary.
+Consider,       say,    consistent theories:                   the join of two theories may not be consistent,
+so the join operation              is not always well defined.                                We could,      of course,    allow the
+inconsistent          theory as an element of the lattice of theories;                                        but this m a y not always
+be desirable,          since we m a y not want to permit it as a value of other functions.                                                  Thus
+we have to agree that              u         is a partial           function.                 The functional      notation       can be
+avoided in this case entirely,                      b y regarding a hemilattice                      as a partially            ordered set
+in which every finite subset with an upper bound has a                                            least upper      bound.       As we
+need only the empty and two-element                           subsets to pass to all finite subsets,                             it is
+                                                                   670
+
+
+easy to give the required axioms in quantified form.                                  This solution to the axiomatic
+problem does not seem very elegant.                         The following is the solution with a partial
+join operation:
+
+      (I)      E±                                                  (Zero exists)
+
+      (2)      E(xuy)          ÷     Ex^Ey                         ( U     is strict)
+
+      (3)      xuA       ~ x                                       (The zero law)
+
+      (4)      x~x       E x                                       (The idempotent law)
+
+      (5)      xUy       ~ y~x                                     (The commutative          law)
+
+      (6)      xu(y~       z) ~ ( x ~ y ) ~           z            (The associative          law)
+
+      The partial ordering is defined by:
+
+      (7)      x~y       ++        xuy       = y
+
+Note that by using             =     in       (7)     we make      ~     strict.      We then prove in succession:
+
+      (8)      Ex    +    ±~x                                      (From     (3))
+
+      (9)      Ex ÷       x~x                                      (From     (4))
+
+      (10)     x~y       ^ y~x           ÷    x = y                (From     (7)     and     ~5) )
+
+      (11)     x~y       ^ y~z           ÷    x~z                  (From     (7)     and     (6) )
+
+      (12)     E(x~y)          +     x~x~y          a y~xuy        (From     (4) , (5) , and           (6))
+
+      (13)     x~y       ^ y~z           *-* x u y ~ z             (From     (4) , (5) , (6) , (11)            , and       (12))
+
+      (14)     E(x~y)          *-*       ~z       [ x~z   ^ y~z    ] (From         (12)     and     (13))
+
+      Though this is simple minded, the algebraic properties                                      (I) - (6)     seem margin-
+ally simpler than the partial-ordering                          properties that require quantifiers                to state
+the existence and uniqueness of the appropriate                             joins.         The algebraic      formulation
+also suggests the proper notion of morphism for such structures:                                      namely, a strict,
+total function       f    where in addition:
+
+      E(xuy)    ÷    f(xuy)          = f(x)uf(y)
+
+It is tempting to write:
+
+      f(x~y)    ~ f(x)uf(y)                   ,
+
+hut this is probably not right because                            f(x)U f(y)       might exist (owing to some
+trivial feature of             f ) when we would not want                   xu y      to exist.
+
+
+3.3   THE THEORY OF CATEGORIES.                       The example is similar to the hemilattices:                      a
+category is an associative                    (]though not commutative)            semigroupoid with appropriate
+left and right identities.                    The condition for the composition to exist is the
+coincidence    of identities.                 The equational           form of the axioms carries out a
+                                                                    671
+
+
+
+suggestion of Peter F r e y d and seems simpler than the statement in M a c L a n e                           [17]     ,
+
+P.9   •
+
+          (I)       Ex    ~         Edom(x)
+
+          (2)       Ex ~+           Ecod(x)
+          (B)       Z(xoy)          ~+     dom(x)=      cod(y)
+
+          (4)       xo(yoz)               (xoy)oz
+
+          (5)       xodom(x)            - x
+
+          (6)       cod(x)ox - x
+
+All the functions are strict, and                           dom   and      cod     are total.   W e leave the reader
+the proofs of:
+
+          (7)       dom(x)              cod(dom(x))
+
+          (8)       cod(x) z d o m ( c o d ( x ) )
+
+          (9)       E(xoy)          ÷      dom(xoy) = dom(y)
+
+          (I0)      Z(xoy)          ÷      cod(xoy) = cod(x)
+
+          (11)      E(xoy) ^ E ( y o z )          +    E(xo(yoz))
+
+As a hint for             (9)        and       (10)   , note that       (4)      can be u s e d after a substitution
+of identities.                Of course heavy use is m a d e of                  (3) •
+
+       Functors are nothing more than m o r p h i s m s of categories.                          They are strict total
+functions w i t h these three properties:
+
+          (i)       f(dom(x))             ~ dom(f(x))
+
+          (ii)      f(cod(x)) ~ cod(f(x))
+
+          (iii)     E(xoy)          ÷      f(xoy) ~ f(x)of(y)
+
+Functors satisfying                      (iii)    without the existence a s s u m p t i o n have b e e n studied, but
+t h e y are v e r y special because t h e y are one-one on identities                           (or objects of the
+category).
+
+
+3.4    THE THEORY OF LOCAL RINGS.                        We n e e d not repeat the f a m i l i a r axioms for a
+c o m m u t a t i v e ring w i t h unity.             There are the usual operations and constants             + , - ,
+   , 0 , I        w h i c h are alZ strict and total.                     In a l o c a l ring, certain elements m a y
+have inverses            (such elements are called units), but not all elements n e e d be units.
+The notion of inverse can be t a k e n as p r i m i t i v e and i m p l i c i t l y d e f i n e d by:
+
+          (inv)          y = x -I         +~     x.y = I
+
+The characteristic p r o p e r t y of local rings can then be stated as:
+
+          (local)        Ex     ~       Ex -I V E ( I - x ) -I
+                                                                   672
+
+
+       As a brief exercise,                  we prove that in a local ring the following                            additive
+property of units holds:
+
+       E(X + y)-i           +    Ex -I v Ey -I
+
+This, by the way,               in turn implies            (local)   ; because          if       Ex , then      ] = x+           ] -x)
+and    I      is trivially         its own inverse.              In the other direction,                   assume     E(x+y)-i
+Let    z = y.(x+y)-I                  A standard calculation                  shows     I - z = x.(x+y)-i                   If        z -I
+exists then           y-1       must exist, because              y-1 = z-l.(x + y)-1                     Similarly,    if        (I - z) -I
+exists, then           x -I = (I - z ) - l . ( x + y ) - i       exists.        Thus from          (local)      we have shown
+Ex -I v Ey -I
+
+       In defining local ring morphism,                         the situation          is formally different                from the
+examples        3.2     and       3.3 : this time the partial                   function          x -I     must be exactly
+preserved:
+
+       f ( x -1) ~ f ( x ) -1         ;
+
+that is, an element               is invertible           if and only if its image is.                      (Of course,           f     must
+preserve the other ring operations.)
+
+
+3.5    PROBLEMS WITH CHOICE FUNCTIONS.                          The fact that the axiom of choice in higher-
+order intuitionistic               logic implies the law of the excluded middle                               (and, hence,
+classical       logic) will be discussed                   in the last section of this paper.                         In first-order
+logic,      the use of a few choice functions would not seem to be harmful.                                            In classical
+logic,      Skolem functions are just choice functions,                               and they allow us to simplify the
+quantifier          complexity of axioms without producing additional                                    theorems   in the original
+notation.           (For a traditional                proof see Church          [3]    .)       In intuitionistic           logic,
+however,      the situation               is quite different.            Minc and Osswald found examples                         first,
+but Smorynski           [2hi       contains probably the simplest result.                                (That paper can also
+be consulted for references                      to the other work.)
+
+       Consider the theory of equality in                          2.1    .    We add just one more axiom,                       a prin-
+ciple of diversity:
+
+       (div)           Vx       ~y.~ x = y
+
+The point       is that in most models the choice of                            y     is far from unique.              Suppose
+we strengthen this theory by expanding the primitives                                       to include a strict, total
+function        f     where:
+
+       (air')          Vx,~x          = f(x)
+
+We have made          only one kind of choice,                  and it does not seem especially                     remarkable.
+The point,          however,      is that         f     is an   extensional function.                    Thus, an easy argument
+from       (div')      proves:
+
+         Vx    Zy     Vx'       Zy'       [ ~x    = y ^ ~ x' = y' ^ E x = x'                +   y = y' ] ]
+                                                                         673
+
+
+SmorynsMi shows that this conclusion is                              not derivable from                   (div)    alone.         A general
+result in Smorynski                  [24] a x i o m a t i z e s   all the consequences of                     (div')      not involving
+the function symbol.
+
+       A r e l a t e d example of Smorynski                       [24]    shows that the e x i s t e n c e of a n o n - t r i v i a l
+a u t o m o r p h i s m is not equivalent, as it is in classical logic, to                                        ~ x,y.~ x = y .
+The failure o f e x c l u d e d m i d d l e          (particularly for                  = ), m a k e s i n t u i t i o n i s t i c logic
+into a quite different story.
+
+
+
+
+4.    A P A R T N E S S AND O R D E R I N G
+
+
+       As is well known, not only does the law of the e x c l u d e d m i d d l e fail in
+intuitionistic logic but also the l a w of double negation; therefore, t h e r e is a
+c o n s i d e r a b l e l a c k o f symmetry b e t w e e n theories of equations,                          say, and theories of
+inequalities.           Notions are no l o n g e r interdefinable w i t h the aid of a simple negation;
+an independent "positive" t h e o r y of inequalities                               (and o r d e r i n g relations)            is required.
+W h e r e a s e q u a l i t y is a logical notion, the p o s i t i v e i n e q u a l i t y                  (called the apartness
+relation)       can not be so considered.                         Some domains have no apartness,                       others have
+m o r e than one (we are more explicit b e l o w on how this is possible).                                              Nevertheless
+the concept is a very natural one - p a r t i c u l a r l y for ordered sets.                                        Other types of
+examples will also be provided.
+
+
+4.1    THE THEORY OF APARTNESS.                      The four axioms are:
+
+        (str)          x ~ y ÷         Ex^Ey
+
+        (irr)         ~ x ~ x
+
+        (sy~n)         y ~ x     +     x ~ y
+
+        (trans)        x ~ zAEy           +   x ~ yVy         ~ z
+
+
+Discussion.          H o w are these axioms obtained?                          If we refer b a c k to             2.1    , the axioms
+for    = , we note the obvious parallelism.                               That      =      is strict was a consequence o f
+the axioms in           2.1     ; here we have to assume                       ~   is strict.             W e r e we to be able to
+t h i n k classically, we could c o n s i d e r the remaining axioms of                                     4.1    just the        contra-
+positive v e r s i o n s of those in                 2.1     -      except that in                (irr)     we have simplified the
+statement and m a d e            x ~ x        u n i f o r m l y false, and in              (trans)         (or should it have b e e n
+called "contratransitive"                     ? ) we have to assume that the                         y     exists b e c a u s e      ~    is
+strict.       In r e a d i n g these axioms                "~"      must be t a k e n as a symbol i n                   itself, and
+" x ~ y "         should not be read as short for                          " ~ x = y " ; the r e l a t i o n               ~      of a p a r t -
+ness is something new, but it has p r o p e r t i e s dual to                                 =    which would hold classically
+if it w e r e d e f i n e d b y a negation.
+                                                                      674
+
+
+        How r e a s o n a b l e from a constructive viewpoint is this last a x i o m of apartness                                        ?
+In the case of the real numbers given b y decimal expansions, we can t h i n k informally
+of     x ~ z     as m e a n i n g that we k n o w the decimal place where t h e y differ.                                Thus, given
+y , we have o n l y to a p p r o x i m a t e it to that degree of accuracy,                                 so that in a finite
+number of steps we will k n o w whether                          x ~y       or       y ~ z .      The "positive" character of
+these d i s c r i m i n a t i o n s       is quite clear.
+
+        The p r i n c i p l e of c o n t r a p o s i t i o n (for p u t t i n g on negations)                holds intuitionist-
+ically,        so the c o n t r a p o s i t i v e s of the axioms of                  4.1       give us an e q u i v a l e n c e relatiol
+in the p r e d i c a t e       ~ x~y            .     Moreover, we see from             4.1       (trans)     that we can easily
+prove:
+
+        ~ x~y^Ey^x~z                      ÷     y~z
+
+This means that the n e g a t i o n of apartness acts like e q u a l i t y as far as formulae
+defined in terms of                   ~        itself are concerned.             In an attempt to m a k e the notion of
+a p a r t n e s s more like a logical notion, we c o u l d be led to assume a further axiom.
+
+
+4.2     DEFINITION.             A n apartness relation is said to be tight if in a d d i t i o n to the
+axioms of          4.1     it also satisfies:
+
+        (tight)            x = y          +-~ E x ^ E y ^   ~x~y
+
+
+Discussion.           This puts apartness as close to e q u a l i t y as possible;                                 in effect,      =
+is definable in terms of                         ~     (but definitely not conversely, as we shall see).
+But the d e f i n i t i o n has consequences; the equality r e l a t i o n b e c o m e s "stable" in the
+well known, d o u b l e - n e g a t i o n sense:
+
+        (stable)               Vx,y           [x = y     +-*~x      = y ]
+
+Not all domains have stable equality.                              Indeed, let              p    be any p r o p o s i t i o n and let
+0     be a "point".            W e shall consider subsets of the one-element set                                   [0}        In fact,
+o n l y two subsets will be needed; namely,                             {0}      and        { x Ix = 0 ^ p }             (Let us call
+this       { 0 Ip }        for short.)                W i t h the usual rules for e q u a l i t y of sets (and m o r e
+on this in            §7 ), it is obvious that:
+
+        {0} =      <01p}         ~         p
+
+Therefore,         stability of equality on                      { {0} , {0 I p} }               w o u l d imply the l a w of double
+n e g a t i o n for      p .     W e w o u l d not assume this in general unless we w e r e a l l o w i n g the
+logic to be classical.
+
+        The q u e s t i o n thus presents itself as to w h e t h e r t h e r e are other equality con-
+sequences of             4.1     and           4.2    beyond     (stable)        .    It came as something of a surprise
+to the author that t h e r e are.                        Van D a l e n and Statman              [4]   were able to a x i o m a t i z e
+the e q u a l i t y fragment of the theory of apartness,                               and the reader is d i r e c t e d to
+Smorynski          [23]        and        [24]        for a detailed discussion of the m o d e l theory needed for
+                                                                                  675
+
+
+such problems.                  W i t h the aid of some notation,                        we state the result in               4.4    .
+
+
+4.3     DEFINITION.                 The following recursive definition                             gives a sequence of stronger
+and stronger diversity relations                                    all defined in terms of equality:
+
+        (i)              xD0Y           ++       Ex^Ey^~x            = y
+
+        (ii)             XDn+lY              +-* E x ^ E y ^        Vz[xDn          z v YDnZ]
+
+
+4.4     METATHEOREM.                    The equality fragment of the theory of (tight)                                 apartness         is
+axiomatized              by the usual axioms                        (2.1)      together with an infinite list of higher-
+degree stability                    conditions:
+
+        (stable n)                  ~    xDnY           ^ ExhEy         ÷     x=y
+
+No finite subset of these axioms is sufficient.
+
+
+        Van Dalen and Statman also show that in the theory of apartness,                                                     no equality
+formula can be used to define                                   ~ .     This is curious because                in m a n y models for
+intuitionistic                  analysis the relation                        DI     in the real numbers is already equivalent
+to    ~ .       It would be interesting                             to have "natural"            domains where          ~   was     Dn+ I
+but not         D         for        n > 0 .
+                    n
+        Of course axioms                           (stable 0)         and     (stable)         are the same.          To prove      (stablen)
+from the axioms of                       4.1           and     4.2 , one need only remark that there is an easy
+inductive p r o o f of:
+
+        x ~ y       ÷     x Dn y             ,
+
+which for               n > 0       makes heavy use of                      (trams)      for     ~ .    We have to refer to the
+papers mentioned                    for the sufficiency of these axioms.
+
+        To give examples                          of domains on which it is                impossible to have an apartness
+relation,           we have to go beyond finite sets such as                                      { (0) , {0 I p} )         where stability
+"almost" holds because                             ~    [ ~p        ÷ p ]         is intuitionistically            valid.    The obvious
+candidate           is        P(0}           , the full power set (or set of                      all subsets)         of   {0}      -
+assuming that such an all-inclusive                                     set is conceivable.                 What    P {0}    amounts to
+is the set of all propositions,                                     since each element            x    of     F (0}     can be identified
+as the set               {0 I p}         where           p     is the proposition               0E x .       Equality on          P(0}        trans-
+fers over to                  ~-+        on propositions:
+
+        {Olp}             :      {olq}             ~         [p~]
+
+Having an apartness                          on        F(0}     would imply a           quantified       statement:
+
+        Vp      [~I p ÷ p ]
+
+As remarked              in Four,nan and Scott                        [9] , it is consistent                to assume the     negation of
+this.
+                                                                                676
+
+
+       Let          ~       be the set of all p r o p o s i t i o n s                   (or better:        the p r o p o s i t i o n a l values).
+W e have just p o i n t e d out that                         ~     has no apartness b e c a u s e e q u a l i t y on                ~     is not
+stable.         The obvious w a y to get a domain with stable equality (other than domains
+with decidable                   equality)         is to restrict               ~       to the stable propositions.                  B y the law
+of triple negation, this is the same as the set of negative propositions:
+
+
+
+
+It is a simple exercise to verify that                                         ~ ~      with        *-*    as equality satisfies
+(stable 0) .                It does not, in general,                      satisfy             (stablel)      , however.        On       ~ ~    what
+(stable I)              comes down to is:
+
+       V p,q            [~Vr           [~ [ ~p         +-* ~ r ]     v ~[       ~q      *-* ~ r ]     ] +     [ ~ p ~-+ ~ q ]        ]
+
+By making           p           true       and     q    false      , we derive:
+
+          ~ V           r    [ ~rV         mlr]
+
+But this n e e d not h o l d in some models either;                                           in fact, it is consistent to assume
+
+    V r     [ ~r            v ~r       ]           So even         ~Q      can be a domain without any apartness relation.
+
+       H a v i n g examples of domains without an apartness relation, we should ask next
+w h e t h e r w h e n there is one it is unique.                                (This o n l y makes sense a s s u m i n g                (tight)      ,
+o f course.)                Alas, the answer is no.                       Perhaps the reader w o u l d have g u e s s e d this
+from the u n d e f i n a b i l i t y result m e n t i o n e d above, but the following easy argument due
+to M.P. F o u r m a n m a y be instructive.                              Let        ~   be a tight apartness relation.                        Let
+p   be any f i x e d "dense" proposition;                                that is,         ~     p    is to h o l d but, in order to be
+nontrivial,                 p     itself is not assumed.                       (Oh,      p +-~ [ q v ~        q ]    for some suitable                q
+is what we have in mind.)                              Define a n e w r e l a t i o n by:
+
+       x~       y       *-+ p A x ~ y
+
+The v e r i f i c a t i o n of the axioms in                        4.1        is immediate.              W e n e e d only prove          (tight)
+So assume           E x , Ey , and                ~ x ~ y .             This last yields              x~y      +    ~ p .     But       ~ p      ,
+therefore           ~ x ~ y ;              thus        x = y       by     (tight)         for       ~ .     Now to say that the two
+relations           ~           and    ~         are the same is to say                        Vx,y [ x ~ y ÷ p ]           , or, e q u i v a l e n t l y
+
+    x,y     [ x~y            ] ÷ p .         But we can easily consider a domain where                                      ~x,y        [ x~y]
+holds (for example, on the integers or on the reals), this last i m p l i c a t i o n is not
+correct (unless the law of the e x c l u d e d m i d d l e holds).                                         Thus we have shown that the
+u n i q u e n e s s h a r d l y ever can be expected.                          W h e t h e r t h e r e is some i n t e r e s t i n g structure
+to the t o t a l i t y of all (tight) apartness relations on a set has not r e a l l y b e e n
+investigated.
+
+       T u r n i n g now f r o m simple (sy~netric) inequalities, we give some thought to
+o r d e r i n g relations.
+                                                                      677
+
+
+4.5     THE THEORY OF A TOTAL ORDERING.                         The axioms are:
+
+        (str)         x<y         ÷ ExAEy
+
+        (asymm)        -~ [ x < y ^ y < x ]
+
+        (cover)       x<zaEy            -~ x < y V y < z
+
+        (tight)       x -- y       *-* E x ^ E y ^ ~       x<y^~y<x
+
+A n d we can regard apartness                   introduced by definition:
+
+        (apart)       x~y        *-+ x < y V y < x
+
+
+Discussion.          One might have expected transitivity                                 of    <      as an axiom, but it follows
+easily.        If    x<y         and     y < z , then by             (cover)          we find           x< z        or     z <y       .        The
+second alternative               is ruled out by              (asymm)       .
+
+        The axiom           (cover)        is a bit odd to someone who only thinks in classical
+logic.        Formally       it is parallel to the                   ~trans)           property of             ~ , and indeed it is
+obvious that using                (apart)        as the definition,                  all of           4.1     and        L.2    follow.              It
+is also clear that                 (cover)        is connected with being a linear ordering                                       -       but it is
+not quite that.              If we could asst~me (after supposing                               x < z        and     Ey ) that
+
+y< zVy=z        Vz < y           (that is, an instance of trichotomy                             for        < ), then by transitivity
+of     < ,     (cover)        would follow.                But the trichotomy                  law does not often enough hold
+in intuitionistic             logic,       say in the theory of the real numbers.                                    It is fair to say
+that there are good constructive                           reasons    (just as with                   ~ ) why a disjunction about
+      can be established               under a certain hypothesis,                        whereas the disjunction                         of
+trichotomy          is too demanding.
+
+
+        Another way to view the axioms of                            4.5        formally         is to define the inclusive
+order by:
+
+        x~y     ++     Ex^Ey^~           y<x
+
+The reflexive,             transitive         and antisymmetric             laws for             s     then follow from                    4.5       .
+And the axioms of                4.5     are just what we would expect                           if we could redefine
+from     ~     b y negation.            But we cannot.           The exclusive notion                         <     is the "positive"
+one, even if           ~     is the more familiar classically.                                 There is even a technical problem
+here:        it is not known how to axiomatize                        the           ~ - fragment        of the theory of                       4.5       •
+We have given some consequences                        of defining              ~     in terms of             < , but the p r o b l e m is
+to axiomatlze all the consequences.                            As this was not altogether                           obvious for                 = ,
+it is not surprising                it is harder for             ~ .
+
+        As regards           ~    we are much better off.                       Smorynskl             [2L]        contains a very nice
+argument       by Kripke models which shows that the                                  ~    fragment          of     4.5        is exactly the
+theory of (tight)                apartness.        A question remains,                    however,          in higher-order                logic:
+If we have a domain with apartness,                           can we show there exists an ordering relation
+compatible          in the sense of satisfying the axioms of                                    4.5    •     Classically this
+                                                 678
+
+
+requires the Axiom of Choice (or a part of that axiom) to provide a (well) ordering.
+Intuitionistically,       the choice principles fail.     Sometimes a form of Zorn's Lemma
+holds, but there are difficulties in using it effectively.               Smorynski's a r g u m e n t
+dealt with sufficiently many models for first-order consequences               (and he used a
+non-constructive metalanguage),       but we are asking whether something can be done for
+all models.     Probably the answer is no~ but it would be good to see why.
+
+
+
+
+5.    RELATIVIZATION OF QUANTIFIERS
+
+
+       Ordinary intuitionistic logic,without existence worries~would result by simply
+dropping all the     E - formulae from the axioms and rules of           Section I        A formula
+with free variables is provable in the ordinary system if and only if its universal
+generalization    (i.e.    the result of binding up all the free variables by prefixed
+universal quantifiers)       is provable in our present system      -     provided we ass~ne that
+all functions are total.        (That is, in ordinary theories the values of all terms are
+usually assumed to exist, and we would have to make such assumptions explicit axioms.
+If no function letters occur in the formula,           so that all terms are just single
+variables,    then no additional axioms are needed.)         In this way the ordinary logic has
+a formal reduction to (is a kind of sublogic of) the slightly more general system
+of this paper.     What we tried to argue in       Section 3   was that this generality is
+interesting because there are good mathematical reasons for not assuming all functions
+to be total.
+
+      Now in this section we wish to go a step further and argue that the generality
+is even necessary, because there is simply no way of avoiding the passage from a
+structure to a substructure.        Formally this passage can be expressed by the relativiz-
+ation of the quantifiers to the predicate defining the substructure.                  The problems
+come in when we realize that the closure of a substructure under certain operations
+may   -   intuitionistically         be an undecided statement.         Thus, there may be no
+natural way to define the desired functions as total functions on this substructure.
+If we wish to reason about the substructure as given, the more general logic is
+seen as being entirely appropriate.        In a certain way the ordinary first-order
+intuitionistic logic has persisted only owing to a lack of imagination about the
+possible variety of structures.        Of course, we admit that partial functions can be
+replaced by predicates, but this is very unmathematical           (and certainly unalgebraic).
+
+
+5.1   THE CAUCHY REALS.      As a first example consider the definition of the real
+numbers in terms of Cauchy sequences.          We proceed in the style of Bishop           [I]
+(Chapter 2); but we do not discuss here whether this construction gives us all
+real numbers,    since the question is beside the point in the present context.                  We
+are assuming as known the rationals,       ~     , with their usual structure.          Let      ~
+                                                                             679
+
+
+be the space of (simple) infinite sequences,                                       <Xn>n~ I , o f rationals;              that is, we
+assume enough (intuitionistic)                               set t h e o r y to be able to do a c o m p l e t i o n b y sequences.
+                    Q~
+We r e g a r d                 as a p e r f e c t l y nice set               w h e r e two sequences are equal if and only
+if they are termwise equal.                                (We could also define an apartness r e l a t i o n on                    ~=     ,
+but it is not needed.)                            In the w e l l - w o r n m a n n e r we are going to single out a subset
+of     ~         , call it           S,          a n d the Cauchy reals,           ~c   , will be a quotient o f              S     by an
+equivalence relation.                            (Bishop m a k e s a longish story of a v o i d i n g equivalence relations,
+but for the point of the example it really does not matter whether you t a k e the
+quotient or just work m o d u l o equivalence.)
+
+           In fact        S     is easily defined in terms of the e q u i v a l e n c e relation:                             for
+x = <x > ~               and     y           <     > ~       define
+      n n=1                              =       Yn n=1
+
+           x ~ y         iff         Ixn - y m I ~ I / n + I/m               for   n , m = 1,2,3 . . . . . .
+
+This is not an equivalence r e l a t i o n on all of
+                                                                                      Q~ but just on the subset defined
+by
+
+           x ~ S        iff      x ~ x
+
+Thus a Cauchy real number (generator)                                   is given by a sequence w i t h m o d u l u s of
+convergence              I/n .           Without m u c h trouble we see that the r e l a t i o n is symmetric and
+transitive.              This last follows because if                          x~ y     and   y ~ z , then b y the t r i a n g l e
+inequality we have:
+
+           IXn-Zkl ~ IXn-Yml                      + lym-Zkl          ~ I/n + 2/m + I/k
+
+Since        m     is a r b i t r a r y (and we w o r k w i t h rationals), we obtain                        x~z         as desired.
+But to p r o v e that                x       is a generator, we have to p r o v e               x ~ S ; the real number
+only       exists w h e n it is given by a convergent sequence.                                 Existence for reals m e a n s
+x~S.
+
+           Next suppose we want to define addition.                                   Of course, if     x , y ~ S , then
+<Xn + Yn>n=1             converges                -    but w i t h the w r o n g modulus.       W h a t we want to do is define:
+
+           x + y    =     <X2n + Y2n>n=1
+
+Note the           "="         here: the operation is clearly well d e f i n e d on                            ~     .    To p r o v e it
+is well d e f i n e d           (total)               on    ~c   =     S/~    , we have to show something more, namely:
+
+        x~x'Ay~y'                    ÷       x+y~x'+y'
+
+This is not all difficult, but it takes a short p r o o f i n v o l v i n g more t r i a n g l e
+inequalities.                 B e f o r e we prove this we do not r e a l l y k n o w that                   +      is a f u n c t i o n
+on these reals.
+
+           In this example, b e c a u s e an equivalence r e l a t i o n is involved,                               it is p e r h a p s not
+quite so clear h o w quantifiers are relativized.                                       The point is, of course, that start-
+ing out w i t h "ordinary" logic on                              ~      , to get the theory of          ~c         we n e e d to replace
+                                                                                                680
+
+
+=     by       ~       .       This introduces partial elements, because                                                     x~ x      does not hold throughout
+               Even if we r e l a t i v i z e to                              S ~               it does not at once o b v i a t e the question,
+since we can define operations under w h i c h                                                        S       m a y not be closed.             In the case of
++ , it w o r k s out; but for                                       -I , as in             3.4 , it r e a l l y m a y be o n l y a p a r t i a l function.
+
+           It is more e l e m e n t a r y to use elements in such cases instead of classes (as
+B i s h o p does), but t h e language o f classes (which we formalize in                                                                     Section 7 ) makes
+the act of r e l a t i v i z a t i o n p a r t i c u l a r l y simple.                                         Let      P~          be the p o w e r s e t of   ~,
+a d o m a i n on w h i c h we can use o r d i n a r y logic.                                              W e define             ~c H P~        as the class of
+
+equivalence classes:
+
+                       =       { X~ ~              I       ~ x~ S V y             [ y ~ X *-+ x ~ y             ] }
+
+The o p e r a t i o n                  +        can be l i f t e d to classes:
+
+           X+Y             =           { z~ ~             I X~AYE~^                      ~ xE X Z yc Y                z~x+y            }
+
+D o i n g it this way,                            +        becomes strict r e l a t i v e to                      •     :
+
+           X+Y~                    ÷       X~         ^ Y~
+
+Thus, i f we define                               -        by relativization                     -        a new       ~ ~c       by:
+
+           X ~                 Y       *-* [ x ~ c              vyc~        c ÷      X = Y ]
+                   ~e
+
+it follows t r i v i a l l y from the way we defined                                                      c       and        +   that
+
+           X ~ ~c              X' a y ~ c                      Y'     +     X+Y      ~c         X'+Y'
+
+That is, a x i o m                         (eq)           of        2.3     holds for formulae only involving                                 + ;    here we r e g a r d
+all quantifiers such as                                         " Z X "           as r e l a t i v i z e d to         ~          (that is, replaced by
+" X X c ~ c " ).                           From this point of v i e w                           " x(~C          ,, is the new existence predicate.
+Thus, logic in the sense of                                               Sections        I-3        is v a l i d a t e d without any special reference
+to the m e a n i n g of the construction.                                                As a    theorem, p r o v e d from the                 specific definit-
+ions, we still have to show:
+
+           V x~C                   Vy(~C.                 X+y~C              ,
+
+but o b v i o u s l y this is equivalent to the w e l l - d e f i n e d n e s s of                                                     +   that we r e m a r k e d on
+
+earlier.
+
+
+5.2        THE G R O U P OF I N V E R T I B L E ELEMENTS.                                   Consider any c o m m u t a t i v e m o n o i d             M    w i t h its
+multiplication                             x-y        a n d its unit               I .      The axioms are well known and we can r e g a r d
+t h e m as g i v e n without w o r r y of partial elements.                                                       Now, among the elements of                    M ,
+some have inverses and some do not                                                   -     in general this p r o p e r t y is not decidable.
+Formally, we can define
+
+           G       =       {x~M              I ~ y~M.                 x.y = I }
+
+Obviously                  G       is n o n e m p t y since                      I ~ G , but there is little m o r e to say on that score
+generally; however,                                   G        has pleasant closure properties:
+                                                                      681
+
+
+       x E G^ y E G       *-* x-y • G
+
+Note the biconditional,                w h i c h we now make use of.                    Define a new          ~G     by:
+
+       x ~G y       *-* [ x • G v y •           G ÷   x=y]
+
+We can also define:
+
+       x =G y +-* x = y ~ G
+
+Clearly by the converse of the biconditional:
+
+       x ~G x' A y Z G y' ÷                    x-y ~G x'-y'       ;
+
+by the other direction,                multiplication            is total.           Therefore,        it is easy to v e r i f y
+that the structure with                    M     as partial elements,               G        as total elements,            and with
+
+zG    and      =G   becomes a group.
+
+       Classically,           all we have done is to collapse the complement                                  of     G     to the
+(unique)       undefined element.                 Intuitionistically,              the situation            is not so black and
+white;      but there are no technical                     difficulties           in disregarding           the exterior        of     G
+U~    the definition           of     ~G        given above.
+
+
+5.3    A METATHEOREM.               A formula         ¢     of ordinary intuitionistic                     logic   (that is,
+without the         E - predicate and without                    ~ , but with                = ) is provable         in the ordinary
+system if and only if the universal generalization                                      of     ¢    is provable          in the system
+of this paper from the universal                          generalization           of all formulae            ET , where         T     is
+any atomic term (that is, the formal axioms to the effect that all functions                                                     are
+total).        We remarked this before.                     What we wish is a converse                     that reduces        our
+system to the ordinary one.
+
+       W e do not attempt a general                       converse,       but we content ourselves                 with the case
+where all predicates                and functions           are str~et.            Thus we assume            (str)        of   Section      5
+as additional        axioms.          Now we can read these axioms just as well in the ordinary
+system as in our own: the assumption of strictness                                      is an assumption           about a disting-
+uished predicate              E .     Having fixed on such a predicate,                            we translate          every formula
+¢     into a formula           @E     of the ordinary            system which has the                  E     made explicit.            Thus:
+
+        (PToT I ... Tn_1 )E                is     PX0TI     ... Tn_ I         ;
+
+        (T 0 = TI )E          is      ET 0 ^ ET I ^ t O = T I         ;
+
+        (T O ~ TI) E          is      ET 0 v E T I ÷        t0= T I       ;
+
+        (¢ A¢)E          is        CE^ CE ;
+        (@ v ~)E         is        cE v cE       ;
+
+        etc.
+
+         ( Vx.¢     )E        is       Vx[       Ex   +    cE]    ;       and
+                                                                  682
+
+
+          ( Zx,¢      )E    is        Zx       [ Ex^¢E]
+
+Then the desired metatheorem states that                          ~ is provable from             (str)     in our present
+system if and only if                 @E       is provable from         (str)     in the ordinary system. Just
+as in our examples,              %E       may be read as a relativization of the property                         ~    to the
+predicate           E .
+
+          In one direction the proof is easy:                     if     ¢   is provable in our system, then
+@E    is provable in the ordinary system, as can be seen by looking at our logical
+axioms and rules.            Of course,               (str)   is needed for such axioms as               (eq)    .    In the
+other direction the only proof we know is model                              theoretic. There might be a good
+reason to look for a more constructive argument, because the completeness theorem
+for first-order intuitionistic logic is not intuitionistically provable (for an
+extended discussion of this point,                        see Dummett        [6] ).
+
+          In Fourman       [7]    details were given (along lines standard for such completeness
+proofs) to show that if                   ¢     is not provable from            (str)    in our system, then it fails
+in an       ~-set where the predicates and functions are strict.                             (For the theory of
+~-sets see Fourman-Scott                      [10] .)     But if an      ~-set is used with          ~    in place of
+=     (and the predicate              E       is momentarily forgotten),           it is a model for ordinary
+intuitionistic logic (as is usual for the topological interpretation).                                          But then,
+if    E     is brought back,              cE     will clearly get just the truth value in                   ~     that    ¢
+got originally.            Therefore,            cE     fails in a model for the ordinary system.
+
+          In outline, and by means of examples, we have thus shown that the two systems
+are very closely related and that the one we advocate results naturally by a simple
+relativization of quantifiers                           but once this relativization is done, partial
+elements are unavoidable.                      Our argument, then, is that it is simpler to have used
+them from the start.
+
+
+
+
+6.    DESCRIPTIONS.
+
+
+        Not all functions can be introduced by explicit formulae for their values;                                          as
+with inverses or roots,values may only be singled out through certain properties.
+This indirect method is called definition by description,                                 and the symbol we choose
+to employ is an (inverted ? ) capital                         I   similar to the quantifier symbols:
+Ix.¢(x)         .   We read this as "the (unique)                 x     such that       ¢(x) "
+
+
+6.1     THE AXIOM FOR DESCRIPTIONS.                     For any formula         ¢(x)    where    y   is not free:
+
+          (I)       V y    [ y = Ix.#(x) *-*             V x [ %(x) *-* x = y ] ]
+
+
+        Informally this axiom (schema) can be construed as saying that something equals
+                                                                          683
+
+
+a described value if and only if it is the one and only thing satisfying the stated
+property.        A n d what if there is no such thing?                              What does        Ix.¢(x)         denote then?
+Answer:       the non-existing           or undefined object.                      This sounds m i l d l y paradoxical,               but
+there is no formal reason to avoid expressions                                     for un- or partially              defined objects.
+For example,        Ix.~x=x              can never exist;                  while       Ix.x=x        exists just in case the
+domain has but a single element.                             More generally we can prove:
+
+
+6.2     THEOREM.       (i)       For any formula                    ¢(x)     where      y    is not free:
+
+        Emx.¢(x)    +~     ~y     Vx        [¢(x)    ++ x = y ]             ;
+
+        (ii)      Elx.¢(x)        ~    ¢(Ix.¢(x))
+
+
+Proof.        The proofs are immediate                   from        (I)     by the laws of equality and quantifiers,
+if we note that:
+
+        Eix.¢(x)    ++     ~ y . y = Ix.¢(x)
+
+        Of course we must remember that, once the formal language has been expanded
+to include        I , there are m a n y more terms in the language,                                  and these must be allowed
+in all axioms and rules.                    In a similar way to the above we can also prove:
+
+
+6.3     THEOREM.       For formulae            ¢(x)           and     ¢(x)       , in neither of which               y     is free, we
+have:
+
+        (i)      Ix.¢(x)     = Ix.¢(x)          ++       Zy        [Vx[¢(x)         ++x=y]         ^ Vx[¢(x)             ++x=y]]           ;
+
+        (ii)     Ix.¢(x)        ~ Ix.¢(x)       ++       Vy        [Vx[     ¢(x) *-* x = y ]        *~* V x [   ¢(x) *-* x = y ]       ]       ;
+
+        (iii)    Vx[     ¢(x) + ~ @(x) ]             ÷       Ix.¢(x)       ~ Ix.@(x)         ;
+
+        (iv)     y ~ Ix.xmy             ;
+
+        (v)      Ix.¢(x)        ~ Ix.~x=x            ++~          ~yVx[         ¢(x) +~ x = y ]        ;
+
+        (vi)     Ix.¢(x)     ~ Ix[Ex^¢(x)]
+
+        From such results one can be led to conjecture                                      that at the price of somewhat
+indirect       references       all descriptions                   can be eliminated.              This is not quite true; an
+exact and reasonably              comprehensive               result is given next.
+
+
+6.4     METATHEOREM.         Under the assumption                         (str)      that all primitive predicates                  and
+functions       are strict,           any formula             ¢     is equivalent           to a formula        ¢*        without
+descriptions       in such a way that                    ¢        is provable        in the extended system if and only
+if    ¢*      is provable        in the system without                     descriptions.
+
+
+Proof in outline.            We need to catalogue the forms of the atomic                                   formulae         first.
+Aside from equations                  T = g    we can have predications                          PTOT I ... Tn_ I            Now owing
+to    (str)      we can rewrite these as they occur b y using the equivalences:
+                                                                           684
+
+
+         (I)        • = a ++           Zy[    y=~^        y=a     ]
+
+
+         (2)        PTOTI         "'" Tn-1    <-+       ~ Y0'Yl ' "'" 'Yn-1 [ PY0YI"''Yn-I                          ^
+
+                                                                         Y0 = T O A y l    =~I ^         "'"       AYn_1 =~n-1 ]            '
+
+where    the variables                 Y ' Y0 '     "'"        ' Yn-1     are chosen not to clash with any free
+variables          of       T , ~ , T 0 , ... , Tn_ I              Compound terms axe thus displaced to the right-
+hand sides of equations                     (and out of the grasp of predicates).                                   There are just two
+kinds of compound terms                     (i.e., terms other than variables),                                namely,         fTOT I ... Tn_ I
+and     Ix.@(x)             , where     f    is an        n-ary operation             symbol.           Now        (I)      in itself is a
+rewrite rule, or perhaps we should formulate                                     it as:
+
+        (3)        y : Ix.¢(x) ++ E y ^ V x [                   ¢(x) ++ x : y l
+
+Its application                eliminates      a description.                  Similarly,
+
+        (4)        y = fTOT I ... Tn_ I ~-+                    Zy0,Yl,         ... 'Yn-1 [ y = fY0YI"''Yn-I                      a
+
+                                                                                Y0 = T 0 ^ Yl = TI ^            "'" ^ Yn-1 = Tn-1 ]                   ;
+again, because we assume                      (str)             This puts terms outside the grasp of operations.
+Layer b y layer we transform                        ¢     until atomic           formulae no longer involve compound
+formulae.          The resulting transform                       ¢*      is such that                @++¢*         is provable       from
+(str)     in the theory with descriptions.                                Hence,      if        ¢*     is provable           in the theory
+without        I , then            ¢   must be provable                 in the system with                   I .
+
+        For the converse argument about provability,                                       we again resort to a (non-
+constructive)               model-theoretic             argument.         If     ¢*       is not provable,                it fails in an
+a-set     A    .    But because all the assumed structure                                  is strict, we can extend                     A        to
+a sheaf        A        in which       ¢*     obtains          the same value.              (See Fourman-Scott                   [10]       §5
+for details.)                But now in a sheaf we can interpret                            descriptions                so that a x i o m        (I)
+holds.        Therefore           in   A , both           @     and     @*     will have the same truth value;
+therefore,              ¢    fails in        A , and so cannot be provable.                                    D
+
+
+        It might be interesting                   to have a constructive                    proof of this result;                    whatever
+the situation it seems to depend heavily on                                      (str)      .        The model-theoretic             approach
+does m a k e one useful point obvious,                           however.         If the             a-set     A     is taken as a model
+for a theory,               all of whose axioms are given as sentences without                                           free variables,
+then the sheaf                A    will satisfy the same theory                       (because any sentence in strict
+predicates         and functions has the same truth value in                                     A      as in        A ).      This means that
+any such theory has a conservative                              extension to a theory with descriptions                                 (conserv-
+ative in the sense of no n e w theorems                               in the old notation).                    No doubt this stronger
+result has a proof-theoretic                                  and constructive                   proof, but the question                    does
+not seem to have been investigated by logicians with regard to intuitionistic                                                               logic.
+
+        In this paper only glancing references                                 to models have been made;                        model theory
+                                                                    685
+
+
+is the purpose          of Fourman-Scott              [10]    .     And it is only through                   seeing the natures
+of certain models           that the necessity               for various             formulations          becomes     clear.       It is
+hoped,    however,        that sufficient            informal       explanation              has been given to make this
+paper    readable.        A particular          case in point             is the special                case of descriptions
+called restriction:
+
+
+6.5     DEFINITION.         If     x     is not free in             T     and in         ¢     we set:
+
+        (rest)          T 1 ¢ ~ IX[X=T^@]
+
+
+        The idea is that               ~I @    exists    (and is equal to                     • ) only in so far as             @     is
+true.     it seems on the face of it silly to make                                   T   exist         less of the time; but such
+control       is very useful           in higher-order            logic,       say, when           TI ¢     can be an element          of
+a class in which we do not want to put the whole of                                          @ .       Some general     formal prop-
+erties    of restrictions              are catalogued        next.
+
+
+6.6     THEOREM.          (i)      x ~ xJ Ex
+
+        (ii)       xJ ¢ - xJ       [Ex^¢]
+
+        (iii)       (xl ¢)J ~ - x j [ ¢ ^ ¢ ]
+
+        (iv)        ¢ ÷    x ~ xJ¢
+
+
+
+        (vi)       x-     y ÷ xi¢         =- y i ¢
+
+        (vii)      E(xl ¢) ~-+ E X A ¢
+
+        (viii) y = x I ¢ ++ y = x ^ ¢
+
+        (ix)       y -- xl @ *-*         [ @ ÷ x=y]          ^ [Ey         ÷    @]
+
+        (x)        x 1 ¢ - y1¢ ~+ r e ÷ x - y ]
+        (xi)        (Ix.¢(x))1         ¢ - Ix[C(x)^@]
+
+        (xli)       T(x) 1 ~ - -~(x I ~,) 1 ~,
+        (xiii)      ¢(x)^ @ *-+ ¢(xI ¢ ) ^ ~
+
+
+
+
+7.    HIGHER-ORDER         LOGIC
+
+
+        Up to now we have dealt only with a one-sorted                                   first-order         logic;     that is, the
+variables         range over just one domain at one level.                               The theory of topological
+spaces        -    even particular            spaces like the real numbers                         -     requires    a stronger
+logic,    however,        since many properties               to be given full force have to be stated with
+quantifiers         on arbitrary         subsets      or on arbitrary                functions          (sequences).      From the
+                                                              686
+
+
+philosophical          standpoint       of intuitionism,       there are serious questions as to how much
+of the theory of "species" is constructive;                         often much less is required than is
+commonly used in an uncritical way in classical mathematics.                             We shall not discuss
+the issue of constructivism                here but will formulate the strongest system with an eye
+to the model theory for higher-order                      logic as described in Fourman-Scott         [10]       .
+Our attitude for the moment is that there are enough difficulties                             in understanding
+how this "naive" higher-order                   inttdtionistic      logic works, because it already intro-
+duces structures             (or properties of structures)             quite different    from those familiar
+to the classical mathematician.                    A full assessment        of constructive    content will have
+to wait for another study.                 (There already is a big literature in logic;               see, e.g.,
+Troelstra[27,28].)              In any case the theory of topoi shows that there is a great
+variety of models of the full higher-order                      theory quite unsuspected by logicians
+and for any number of mathematical                   reasons,    interesting     in their own right.
+
+      The language for higher-order                  logic can be given many different           formulations.
+Church     [2]        provides a primitive notation for functions of all types.                     (The express-
+ions are the same, note, whether the system is classical or intuitionistic.)                                    In
+Fourman      [8] , the formation of                n-ary relations was the main primitive,           a well-
+known approach.              In Johnstone        [16] (there called the Mitchell-Benabou           language in
+§5.4 ) the notation combined functions,                     products and power types in a mixture
+convenient to the categorical                   background;   the description there, however,         is fairly
+informal and the use of partial elements was not adopted (see pp. 155 f. ).                                 A
+middle course seems to be to use power sets and products as primitives                             and to
+introduce very quickly a full range of defined types.                           As we employ descriptions,
+functional       terms are also easily defined.                 Essentially     the same system was used
+by Grayson        [13] .
+
+
+7.1   DEFINITION OF SORT.                 (i)     A stock of given sorts (for the moment not further
+specified)       is allowed; these are called the ~round sorts.
+
+      (ii)       If     Ao,AI,    ... ,An_ I       is any (finite)      sequence of sorts (including n = 0 ),
+the expression           (A 0 × A I ×    ...    × An_ I)    is called the product sort.
+
+      (iii)       If     A     is a sort, the expression             P(A)    is called the power sort.
+
+
+Discussion.           The only primitive          sorts are those expressions        given by     (i) - (iii)        ;
+and these are very primitive in the sense that they just cut a fairly brisk "cofinal"
+path through the mass of conceivable higher types.                           Note, too, that all sorts are
+constant; types depending on variables can he defined (though we have no variables
+ranging over sorts), but we do not get involved in the notational problems on
+infinite products             (and coproducts).
+
+      In     (ii)      the empty product            ( )    is allowed,      as well as the one-termed product
+                                                                                687
+
+
+
+(A)    .      O f t e n we m a y w i s h to abbreviate                         (A 0 x A I ×            ...    X A n _ I)    as        i<nX A.i       In
+writing              p(A 0 x A I x       ...    x A n _ I)        the p a r e n t h e s e s m a y be left out; hut we must take
+care to d i s t i n g u i s h P(A)                and        P((A))        , because               A     and      (A)      are different sorts.
+(As sorts are                   symbols, e q u a l i t y b e t w e e n         sorts means notational i d e n t i t y a n d not
+i d e n t i t y under a semantical interpretation. )
+
+           W e next define t e r m and formula, but the definitions are separated because
+each involves several clauses; note, however, that the definitions depend one on
+the other.
+
+
+7.2        D E F I N I T I O N OF TERM.             (i)       A s s o c i a t e d with each sort is an (infinite)                                 stock
+of    variables.                 We do not try to m a k e a precise syntax for these variables; and,
+if     x      is a variable, we w r i t e                     @ x        for its u n i q u e l y d e t e r m i n e d sort.                    All variables
+are terms.
+
+           (ii)        A s s o c i a t e d w i t h each sort a stock of                           constants,        not further specified,
+is allowed.                 Every constant              c     is a term, and                  ## c           denotes its sort.
+
+           (iii)           If        A0,A~,...,An_ I          are sorts and                   T0,TI, .... Tn_ I            are terms, w h e r e
+4#Ti=A i              for        i <n    , t h e n the       tuple        <T0,T I .... ,Tn_1 >                  is a t e r m a n d
+
+~#<T0,TI,.--,Tn_I > = ( A 0 × A I × ... × A n _ I) •
+
+           (iv)        If        A0,AI,...,An_ I             are sorts and                z        is a t e r m w i t h          #T     =
+(A 0 x A I x ... X A n _ I) , then the                       projection             w.T           is a term, p r o v i d e d            i < n ,
+                                                                                     i
+and    4 # w . T = A.
+             i      i
+           (v)        If     A        is a sort and           x     a v a r i a b l e with @ x                = A , and if              @     is any
+formula, then the                      description           Ix.@        is a t e r m a n d             ##Ix.¢ = A          .
+
+           (vi)        If        A     is a sort, then it is also a term with                                     ~ # A = P(A)
+
+
+Discussion.                 E v e r y term has a unique sort                        -     the i n t e n t i o n b e i n g that a sort denotes
+a domain a n d a t e r m of that sort an element of that domain.                                                        Note that in             (iv)         the
+term       w.T is not well formed unless   T is a product sort and i is less than the
+            i
+l e n g t h o f the product. As we said before, we do not include function symbols and
+other c o m p o u n d terms, b e c a u s e these will be defined b y descriptions.                                                          Clause     (vi)
+is not s t r i c t l y necessary; but, since we have symbols for sorts already, t h e r e is
+no r e a s o n not to let t h e m be used as terms.                                     As we will specify in the axioms,                                 A
+will denote the                      universal set of sort                 A    .
+
+
+7.3    D E F I N I T I O N OF FORMULA.                      (i)     If     o     and          T     are terms, then
+
+       ET        ,   o" =       T , U~ T
+
+are formulae, p r o v i d e d in the second case that                                             # a = @@ T , and in the t h i r d that
+~T    = P(@#a)              .        These are the      atomic formulae.
+                                                                            688
+
+
+        (ii)         As    compound formulae we take all the usual                                 propositional      combinations
+and quantifications                   as in first-order                  logic.
+
+
+Discussion.               Formulae are all of the same "sort":                             the propositional          type; but we
+did not introduce                it especially             since it can be defined as                   P(())     .   As variables
+carry their sorts along with them, we do not have to incorporate                                                 any sort indicator
+into the quantifier                   symbols themselves.                   It is only in the case of atomic                  formulae
+that we need to take care to check sorts to secure well-formedness.                                                   In an    equation
+both sides have, obviously,                            to have the same sort; and in a membership                        relationship
+one side is the sort of an element, while the other side is the sort of a set.                                                         As
+sorts are uniquely                determined,             we could have decreed that ill-formed                       formulae      are
+false,    but it seems pointless to write them at all.
+
+
+7.4     THE AXIOMS AND RULES OF HIGHER-0RDER                                    LOGIC.      (i)     All logical rules and axioms
+of     Sections       I , 2 and            6        carry over with the proviso that in substitutions                               (the
+passage      from         @(x)    to       @(T)         ), the sort of the variable                  and the term must be the
+sc~e     (#x=#T).
+
+        (ii)         The axioms           (and axiom schema) particular                          to the higher-order       theory are
+as follows:
+
+        (memb)             [ xe y ~            Ex^Ey]              ;
+
+        (prod)             [ E<x0,xl,...,Xn_1>                     *-+ Ex 0 a E x I ^      ...    ^ E X n _ 1 ] A .2~
+                                                                                                                  l<n [ E#.z
+                                                                                                                          1 *-+ Ez ]
+                                                                                                                                                 ;
+
+        (sort)             EA     ;
+
+        (comp)             Ely. V x       [ x c y *-* ¢(x) ]                    ;
+
+        (proj)             V x 0 .... ,Xn_ I . <x 0 ..... Xn_1 > = Iz. ~
+                                                                       l<n ~.Zl = x.l                        ;
+
+        (univ)             VX.    x cA          ;
+
+where the sorts must be chosen to make all formulae well formed,                                                and in     (comp)          the
+variable        y     is not free in                   ¢(x)    .
+
+
+Discussion.               The first three axioms make all the primitives                                 strict,      in the now
+familiar       sense; and in the case of                               (prod)       the tupling and projection           operations
+are    total.        We also want              A       to exist.           The next three axioms           specify the content
+of the primitives;                sets can be formed from their members,                               tuples are characterized
+by their projections,                   and        A     functions as the universal                  set of sort       P(A)    .
+
+        If it is now desired to avoid the use of descriptions,                                          the existence         and
+uniqueness          parts of the axioms can be divided as follows:
+
+        VY0,y I       [ Vx        [ x~Y0           *-+ x ~ Yl ] ÷           Y0 = Yl ]        ;
+
+        Zy      Vx    [x~y            +-+ ¢ ( x ) ]        ;
+
+        Vx0"'"Xn-1                .~k
+                                  l<n      ~i <x0' " " ' X n - 1 > = xi                ;
+                                                                            689
+
+
+        V z. z = <WoZ,                  ... ,Wn_iZ>
+
+In the above the sorts are chosen so that                                     ~ x = A         , ~#y =~Yo       =~#Yl       = P(A)   ,
+@x.     = A. , @ z            = .~ A.                    D
+      1    1                    l<n 1
+
+
+        W e now introduce auxiliary notation and the immediate consequence                                                 of the axioms.
+
+
+7.5     DEFINITION            OF TYPE.             (i)       The set abstraction notation                     { x I ¢(x) }      is short
+for     ly V x       [ x c y ~-+ ¢ ( x ) ]                   It is a term of sort               P(A)    if     ~x    = A    .   Such
+terms are called types.
+
+        (ii)         If       ~r.        = P(A.)     , for            i<n , then we write:
+                                    1         1
+
+        T 0 x TI x        ...      x Tn_1 =        { z £ i~n Ai I l<nh~ w.zl e r'1 }
+
+        (iii)        If       ~         = P(A)     , then we write:
+
+        P(T) = { y c P ( A ) l Vx                  [xcy++x~T]}
+
+Discussion.             The import of this definition                         is that general types are just subsets
+of our sorts; moreover,                         the types can be subjected to the same operations                               as the
+sorts.         Strictly           speaking,        sorts are not (notationally)                     types, but this distinction
+is obviated by the following                         easy result.
+
+
+7.6     LEMMA.            For any sort              A , where           ~   x = A,
+
+        A = {xlx              =x}
+
+Proof.          By      (sort)          ,   A     "exists" at the right level,                      and clearly
+ Vx     [x~A~+x               = x]          by the second part of                     (sort)    .   We can now apply the unique-
+ness part of              (comp)            and    6.2       .
+
+
+        In fact, we can regard types as "given"                                   sorts and relativize              all the results
+of higher-order               logic to the compound types of                            7.5     (ii)    and     (iii)      constructed
+from them.            First we need the definitions                           for relativization             of variables.
+
+
+7.7     DEFINITION            OF RELATIVIZATION.
+
+         (i)            VxeX°¢(x)                  for           Vx    [xeX       ÷    ¢(x) ]
+
+         (ii)           ZxcX.           ¢(x)       for           Zx    [xEXA¢(x)          ]
+
+         (iii)        IxEX.¢(x)                    for           Ix   [xeXA¢(x)]
+
+         (iv)           {x~xl           ¢(x) } for               {xlxEXA¢(x)             }
+
+Discussion.               In the above we should u n d e r s t a n d                     ~x     = A    and    #@ X = P(A)       .
+Actually         it would make good sense to write such expressions                                      where       X   is any term
+of sort          P(A)     .       However,        to obtain the relativized                    forms of all the axioms,             we
+                                                                       690
+
+
+need to k n o w     X        "exists".       Note that there is no definition of "existence w i t h i n
+X ", because we can just write                         " x E X "          for that.            If desired, one c o u l d w r i t e
+" x =X y "        for        "   [ xe XAye        X^x=y]             " , in a way similar to what was done in
+Section 5 •              0
+
+
+7.8    THEOREM.          A s s u m i n g that sorts are chosen to make the following well formed,
+we have:
+
+       (i)        { x c T l ¢(x)} ~P(~)
+
+       (ii)       a~ { x E ~ l ¢ ( x ) }          ++        oc~^¢(o)
+
+       (iii)      {xc~l}(x)}                = {xcTl~(x)}                       ++    Vx~[¢(x)+~               ~(x)]
+
+       (iv)        1~ o. ~ T. ÷
+                  i<n  i    1             <°0'''''°n-1 > ~ TO ×                  "'"      × TN-I
+                                                                                                   ^   .~
+                                                                                                       l<n w i < ° 0 ' ' ' " ° n - 1 > =
+                                                                                                                                           oi
+
+
+       (v)        z ( z0 ×        ...    × Zn-1    ÷        ./~ ~ . Z C T . A Z =
+                                                            l<n   1        1      <w0z'''" Wn-1 z>
+
+       (vi)
+                  <x0'''''Xn-1 > = <Y0'''''Yn-I > +-~ l<n'~6xi = Yi
+
+
+7.9    METATHEOREM.               All the axioms for h i g h e r - o r d e r logic hold for types in place
+of sorts.
+
+
+       The proofs of              (i) - (vi)           in     7.8     come d i r e c t l y out of the definitions and
+the p r o p e r t i e s of descriptions.                Then        7-9        is almost a corollary.                For the m o s t
+part it is a m a t t e r of relativizing quantifiers,                                  checking uniqueness, and m a k i n g
+sure that things turn out at the right type.                                    Note that           7.6     for types just means
+X=     {xlx~X}
+
+
+7.10    A D I S C U S S I O N OF RELATIONS.                  In view of our p o s t u l a t i o n of products and powers,
+
+n-ary relations can be a c c o m m o d a t e d in the usual way.                                 Indeed      P(XoX      ... x Xn_1)
+is the type of (mixed) n - a r y relations as aubsets of a cartesian product.                                                   W e write
+
+" rx0...Xn_ I "          for       " <x 0, --.,Xn_ I > ~ r "                   Note at once this m a k e s a strict
+predicate;     thus, the relations of type                           p(X 0 x        ...    x Xn_1)        are strict relations,
+a n d higher-order logic allows us to q u a n t i f y over such relations.                                         If we w i s h to
+look at predicates with all variables from the same domain, we simply restrict to
+P(X n) , where          Xn       is the n - f o l d product               Xx     ...      xX     (n-times).
+
+       As for definitions of relations, we can easily introduce as n e e d e d a n o t a t i o n
+such as
+
+                                 >cX n
+       { <x 0 ..... Xn_ I                I ¢(x 0 .... ,Xn_ I) }
+
+as short for:
+
+       { z I Z x 0 £ X ...           Z Xn_ I ~ X [¢(x0,...,Xn_ I) A z = <x0,...,Xn_1> ] }
+
+       One s t a n d a r d use of relation theory is the formation of the q u o t i e n t of a set
+                                                                                         691
+
+
+X     under an equivalence                         relation                R c P(X 2)        .    (We had an extended example                in     5.1.)
+We m a y write:
+
+           X/R        =     { zeP(X)       ] ZxeX                   [Rxx^          Vy    [ye        Z *-* R x y ]    }
+
+If     R       is reflexive on                     X , we can drop the first clause; but it is convenient                                           to
+use this construction                     when               R     is just symmetric                  and transitive.
+
+
+7.11        A DISCUSSION OF FUNCTIONS.                                       In the context of the present theory,                          it is
+easiest to reduce functions                                  to relations.                   Thus
+
+           f : X + Y
+
+should be regarded as short for
+
+           f £ P ( X × Y) ^ V x •          X ( Iy.fxy                       )• Y
+
+And        " f(x) " is taken for                             " I y c Y.fxy "                     Such a move is standard,             and we need
+not go into details,                      except to note that the                                 f(x)-notation          makes    f   8triot and
+the        (f:X + Y)-notat{on makes                                f        total. Thus
+
+           yx= {f~(x×z) If:x÷z}
+is the space of all strict,                                  total functions                   from     X   to      Y .     W e could also
+consider              n-ary functions                   in        Y Xn       in the usual way.
+
+
+7.12        TRUTH VALUES AND PARTIAL ELEMENTS.                                               There is a subject called "second-order
+intuitionistic                  propositional                    calculus",         meaning that you can quantify propositions.
+For example,               a dyed-in-the-wool                          intuitionist              may want to assert:              m V p [ p v ~ p ]
+We do not formally introduce                                     this notation               and the required axioms as primitive,
+because the theory is already incorporated                                                   into the theory of sets.                 (There was
+some discussion after                          4.4       .)        Indeed consider the sort                         {     = ( ) , the empty
+product.              (Note that           {        =        A 0 , too.)            There is only one element in                       {    , namely
+0 = < > .                 (In construing                axiom              (proj)       , the empty list of quantifiers                    is simply
+not written,               the empty conjunction becomes                                     true, and        0 = Iz.true         means      0    exists
+as the only element of its sort.)                                            Consider            ~ = P({ ) .         There are two obvious
+elements :
+
+       { 0}=              {x~    ~   I true}                 , and
+
+                  =       { xc {     I false }
+
+As there is only one possible                                     element of             £       , we shorten the writing of
+{ x~       {     I @(x) }          to a simple                    { 0 I @(0) }                    If we use the singleton notation
+{a } =           { x Ix = a }             , this could also he written as                                      {OJ       ~(0) }   , where
+restriction               was defined in                     6.5       .     Now because
+
+           { 0 I¢ }         =    { 0 I ¢ } ~-+ ( ¢ + ÷ ¢ ) , and
+
+           o E{oI¢}~-~                ¢        ,
+                                                                              692
+
+
+we have an isomorphism between                           sets in            P(~ )          and propositions.                 (We could carry
+this over to an isomorphism                     involving propositional                              connectives,           if we defined
+such obvious       set-theoretical                  operations              as union,              intersection,        complement,       etc.)
+Propositional          quantification               can then be defined by:
+
+        Vp     ¢(p) + +     Vx~.¢(0~x)                    ,
+
+and similarly for             Z    .
+
+        B y the way, though propositional                              quantification                   is trivial         in classical       logic
+(there are, classically,                  only two truth values),                              in intuitionistic              logic the theory
+is   undecidable        (see Gabbay             [11]          ).
+
+        Another interesting               feature of propositional                                 quantification           is the ability to
+define all connectives                  in terms of                V        and       ÷            (This was discovered by the author
+in 1956/57 but never published;                          it has since been remarked                                several times,       see
+especially Prawitz                [201    .)        We have these definitions
+
+        (I)       p^q         for         Vr            lip+           Eq÷r]]                  ÷     r]        ;
+
+        (2)       p*-+q       for         [p + q] A [ q ÷ p]                               ;
+
+        (3)       pVq         for         Vr        [ [ [p + r ] ^ [ q ÷ r] I ÷                                r ]     ;
+
+        (4)       ~x.@(x)               for         Vr        [ Vx         [ ¢(x) ÷ r l             ÷     r]
+
+The trick here is that even though                                 p +-~p                 fails intuitionistically,
+p +-~ V r       [ [p    ÷   r ] ÷ r ]               holds.          Negation,              b y the way,            is defined as:
+
+        (5)       ~p          for         Vr        [p ÷ r ]
+
+
+        A consequence         of this reduction                     (noted by Fourman as a generalization                               of
+Henkin        [153 ) is that higher-order                          intuitionistic                  logic can be axiomatized with
+÷ , V       , = , E , { " I" }                , < "'" > , and                 7.          as the only primitives;                in fact, we
+                                                                                  1
+have essentially            done this           -       except that the existential                                quantifier    in the
+comprehension          axiom should be replaced b y the class abstract.                                                The reason for
+this choice of primitives                     is that all axioms                      (and rules of inference)                   can be easily
+stated in primitive               notation.             At some expense of readability                                we could even eliminate
+=    by the definition:
+
+        (6)       x = y           for         x£A       ^ yeA          A     Vz       [ x c z ~-+ y £ z ]
+
+Or the other way round, We could define:
+
+        (7)       p ++ q          for         {OIp}            =       {Of    q}
+
+and then use the hlgher-order                        idea of Tarski                       [26]       (see also Henkin            [15]    ) to
+define:
+
+        (8)       pAq         for         Vx        [p+-~[{O]p}                        Ex++          {Olq}          cx]]
+
+where     x    has sort           P(P(~[ ))         .    Then we could get:
+                                                                                       693
+
+
+           (9)            p ÷ q                for         [ p *-* p A q ]
+
+Definitions                 (7) - (9)                 thus eliminate                   ÷        , but at very considerable cost in
+c o m p l e x i t y and not m u c h gain in understanding.                                           (Conjunction c o u l d also be defined
+in terms of pairing:
+
+           (10)            pAq             for            <{OIp},{OIq}>                         = <{0},{0}>                                 ,
+
+but this is not p a r t i c u l a r l y neat either. )
+
+           The c o n s t r u c t i o n of the space o f propositions,                                              ~ , as              P(~)         is a special
+case of the construction of the                                         space of partial elements.                                 As r e m a r k e d several
+times,           x I p         does not exist as m u c h as                            x , since               E(x I p) *-* E x A p                   .   Also
+when we q u a n t i f y as in                         V x.¢(x)            we m e a n           Vx[   Ex -~ ¢(x) ]                      , that is, q u a n t i f i c a t i o n
+over existing                    -        not partial               -     elements.             Thus to q u a n t i f y over partial elements
+we need something like p r o p o s i t i o n a l quantification.                                                    To be specific, let                       X    be any
+type.        W h e n we say                    x c X , this implies                    x       exists (is total).                               To get at the partial
+elements,                define:
+
+                 =        (z~P(X)              I Vx,y          [x~z^ycz                    ÷    x=y]           }
+
+We could also write:
+
+                 =        (z~P(x)              Iz =        (Ix.x~z}                }
+
+This device (due to Lawvere and Tierney,                                               see       [12]       ) works b e c a u s e sets                     { " I" }
+are always total even if the p o t e n t i a l elements are partial.                                                                       Writing        { x I P } ~ P(X)
+does not imply                       x     exists.           For instance                  CX =          { x ~ X I false } E X                     ; it   exists
+but it corresponds to the t o t a l l y u n d e f i n e d element of                                                        X .        The extreme case o f this
+c o n s t r u c t i o n is               ¢ =     {¢ }           The next is                D =       ~         (which is isomorphic to                            ¢ ).
+
+           It should also be n o t e d that the                                    X - c o n s t r u c t i o n also gives a nice way to
+compare              =     and           - .        For     x, y         variables of sort                     A    , we have:
+
+           x - y          +~     {x)            =    {y)
+
+Of course                 ( T } EA              holds if            T     is any t e r m of sort                        A    .     Thus the t h e o r y of            =
+on     A     is just the theory of                              =        on   A : this move c o m p l e t e l y internalizes talk of
+p a r t i a l elements.
+
+
+7.13        D I S J O I N T SUMS.                    W i t h i n a fixed sort                  A , we can form                     unions of subsets in the
+usual way:
+
+           XuY             for            {t I t~Xvt            ~Y }           ,
+
+where        ~ t = A                 and        @X        = @#Y = P(A)             .   But if the sort of                              X        is different from
+the sort of                 Y , there is no coherent m e a n i n g to give to                                                    XuY        .     Sorts c o u l d just
+as well be taken to be p a i r w i s e disjoint; the only                                                  primitive way we have o f j o i n i n g
+t h e m is b y the (cartesian) product.                                       In case            A       and        B       are i n h a b i t e d (non-empty),
+then a disjoint u n i o n can be found as a subset of                                                      A ×B              -     but not in a canonical
+                                                                                   694
+
+
+way.      If one might be empty,                        then        A × B          might also; thus the union is not always
+a subset.           The canonical                 solution is quite well known                              (and was also employed by
+Mikkelsen           [19]        in simplifying the definition                               of an elementary topos);                      write:
+
+         X+Y        for      { zeP(X) ×P(Y)                    [ Zx(X.z             = <{x},~y>V             Zy~Y.z           = <¢x,{y}>      }
+
+As there is no danger that                             <{x},@> = <~,{y}>                   , this is a disjoint sum.                      Of course,
+it is not difficult to axiomatize                                  disjoint          sums (coproducts),                  but here is a case
+where there is a definite gain in simplicity                                              in reducing a notion to other p r i m i t i v e s
+
+
+7.14      NATURAL NUMBERS.                        As an application                  of     7.13       , we could use disjoint                   sums to
+define         ~    = ~     + i        ,     ~     = i +~-- , etc.                   In this way finite sets of any size are
+guaranteed          to exist.              W e do not obtain infinite sets (sorts)                                       for free, however.
+We cannot          "define" the natural numbers by the equation                                                  ~   =   ~ + ~    , even if in a
+certain sense this is true (up to isomorphism).                                               It is necessary to take                        •        as a
+given sort and have primitives                                 0    and        S     for zero and successor and to assume the
+usual postulates:
+
+         (Peano)             EO A
+
+                             [ x=y           ~-+ S x : S y ]        A
+
+                            ~O=Sx             ^
+
+
+                           [O~z^             Vx        [xEz        ÷ Sx~z]           ÷ z =         ~    ]
+
+where ~ x          = ~y     =     IN       and     ~    z = P(~)                    The formal development                     of the properties
+of   ~      from these axioms                     (even in intuitionistic                     logic)            is standard       (see       [6]      ).
+Similarly once we have                        ~     , there is no problem in obtaining the ring                                          ~       of
+integers       and the field                  ~        of rational             numbers.         The reals                •     can also be
+constructed n o w in higher-order                              logic by the use of Dedekind                              cuts (see Fourman and
+Scott       [10]     ).
+
+
+7.15      A NOTE ON THE A X I O M OF CHOICE.                                  Stated most          simply with functional                    notation,
+choice is the fol±owing principle:
+
+         (choice)               Vx         Zy.¢(x,y)÷               Zf        Vx,¢(x,f(x))                  ,
+
+where      4#x = X , ~y                = Y , and              ~ # f = yX            (that is,           f        is total).       For fixed            X, Y
+we should call this                        (choice - X,Y)               or     (AC-X,Y)        .       But there are problems.                     Some
+intuitionists             w o u l d accept             (choice-~,~)                  ; but for general types they cannot:                                  the
+general axiom implies the l a w of the excluded middle.                                                         (The argument      is due to
+Diaconescu           [5]     .)
+
+         W r i t e as usual:
+
+          {x ° ..... Xn_ I]                  for        {Xo } u         ...    u {Xn_ 1}
+
+For simplicity,             rename the elements                         of    ~-      so that           ~_ =         { 0,1 }        Consider the
+                                                                       695
+
+
+following      subtype of              ~   :
+
+       x=     {<0,11p},                {01p,I}}
+
+Clearly we have:
+
+       Vx~     X ~yC~-.ycx
+
+Now suppose there is a function                           f~    ~X    where            Vx~     X.f(x) ~ x        is true.        If we
+look at the first element                      a =       { 0 , I~ p }        of        X , we must have            f(a) = 0         or
+f(a) = 11 P         •    The second case implies                      p .      Now consider               b =    { 01 p , I }
+Then       f(b) = 0 1 p          or    f(b) = I                The first case also implies                       p .      The only case
+so far where we do not at once get information                                        about     p    is the case where              f(a) = 0
+and    f(b) = I                Now     [ p ~ a=b          ]     and     [ a=b          ÷ f(a) = f(b) ]             , so    ~p       must
+follow in v i e w of             ~ 0= I          This shows the existence of                          f     implies       pV ~p         ,
+and    p     was arbitrary.
+
+       There are models               (complete          for propositional               calculus,         so not validating
+excluded middle)               in which        (choice-~,Y)              always holds.               This is not, however,
+strong enough for some intuitionistic                             purposes;            a better principle              is dependent
+choices:
+
+       (dep. c h o i c e - Y )             Vxc       Y    ~yE    Y,t(x,y)         ÷    Vz ~ Y       2 f~ y~[      Vn~     ~.@(f(n),f(Sn))
+
+                                                                                                      ^ f(0) : z ]
+
+This also holds in m a n y models.                        But even           (choice - ~ , ~ )            fails in other models
+which have independent                 interest           (see Fourman and Hyland                    [9]    )-    Perhaps        some
+more extensive            investigations             about connections                 between different            forms would be
+fruitful.
+
+
+
+
+REFERENCES.
+
+
+I.     Bishop,          E.:     Foundations          of Constructive Analysis.                       McGraw-Hill,          1967
+2.     Church, A.:              A formulation             of the simple theory of types.                         J.S.L.      ~    , 56-68
+(1940)
+3.     Church,          A.:     Introduction             to Mathematical              Logic.        Princeton U.P.,          1956
+4.     Dalen, D. van, Statman,                   R.:          Equality       in the presence              of apartness.           To appear
+5.     Diaconescu,             R.:    A x i o m of choice and complementation.                             Proc. Amer. Math.                Soc.
+5_~I , 175-178           (1975)
+6.     Dummett,          M.:     Elements of Intuitionism.                        Oxford U.P.             1977
+7.     Fourman,          M.P.:        Connections          between category theory and logic.                             D.Phil.       thesis:
+Oxford       1974
+8.     Fourman,          M.P.:        The logic of topoi,               in     Handbook         of Mathematical            Logic,           ( Ed.
+
+Barwise,      J.).        North H o l l a n d        1977 , 1053-1090
+                                                  696
+
+
+9.     Fourman, M.P., Hyland, J.M.E.:         Sheaf models for analysis.               This volume
+10.    Fourman, M.P., Scott, D.S.:         Sheaves and logic.         This Volume
+11.    Gabbay, D.M.:      On 2nd order intuitionistic propositional calculus with full
+comprehension.        Archiv f~r mathematische Logic und Grundlagen-forschung,                     16 ,
+177-186    (1974)
+12.    Gray, J.W.:      The meeting of the midwest category seminar in Zurich, August 1970,
+in    Reports of the Midwest Category Seminar           V    (Ed. Gray, J.W.)          .   Lecture Notes in
+Mathematics,     195 •     Berlin and New York: Springer             1971
+13.   Grayson, R.J.:       Heyting-valued models for intuitionistic set theory.                     This
+volume
+14.   Henkin, L.:       Completeness in the theory of types.               J.S.L.     15 , 81-91       (1950)
+15.   Henkin, L.:      A theory of propositional types.             Fund. Math.        5 2 , 323-344 (1963)
+16.   Johnstone, P.T.:       Topos Theory.    Academic Press          1977
+17.   MacLane, S.:       Categories for the Working Mathematician.                  Springer    1971
+18.   Makkai, M., Reyes, G.E.:         First-order Categorical Logic.                Lecture Notes in
+Mathematics,     611 .     Berlin and New York: Springer            1977
+19.   Mikkelsen, C.J.:       Lattice-theoretic and logical aspects of elementary topoi.
+Aarhus Universitet, Various Publications Series 2 5                 (1976)
+20.   Prawitz, D.:      Natural Deduction, a Proof-theoretical Study.                   Uppsala     1965
+21.   Scott, D.S.:      Existence and description in formal logic, in                   Bertrand Russell,
+Philosopher of the Century        (Ed. Schoenmann).         London: Allen and Unwin             1967,
+181-200
+22.   Smorynski, C.:       Elementary intuitionistic theories.               J.S.L. 3 8 , 102-134 (1973)
+23.   Smorynski, C.:       Applications of Kripke models, in            Metamathematical investigatio~
+of intuitionistic arithmetic and analysis.          Lecture Notes in Mathematics,                  344 .
+(Ed. Troelstra).       Berlin and New York: Springer          1973
+24.   Smorynski, C.:       On axiomatizing fragments.        J.S.L., 42 , 530-544              (1977)
+25.   Stenlund, S.:      Descriptions in intuitionistic logic, in                   Proceeding of the
+Third Scandinavian Logic Symposium (Ed. Kanger).               North Holland,           1975 , 197-212
+26.   Tarski, A.:      On the primitive term of logistic, in                Logic, Semantics, Meta-
+mathematics.     Oxford,     1956 , 1-23
+27.   Troelstra, A.:       Aspects of constructive mathematics.              In     Handbook of Mathemat-
+ical Logic     (ed.    Barwise, J.).    North-Holland        1977
+28.   Troelstra, A.:       The interplay between logic and mathematics: intuitionism.
+Preprint, University of Amsterdam,         1978
+

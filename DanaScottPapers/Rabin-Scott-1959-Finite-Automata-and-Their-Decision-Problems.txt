@@ -1,0 +1,891 @@
+         Finite Automata and Their Decision Proble’ms#
+
+         Abstract: Finite automata are considered in this paper a s instruments for classifying finite tapes. Each one-
+         tape automaton defines a set of tapes, a two-tape automaton defines a set of pairs of tapes, et cetera. The
+         structure of the defined sets is studied. Various generalizations of the notion of an automaton are introduced
+         and their relation to the classical automata is determined. Some decision problems concerning automata are
+         shown to be solvable by effective algorithms; others turn out to be unsolvable by algorithms.
+
+
+
+
+         Introduction
+         Turing machines are widely considered to be the abstract               a method of viewing automata but have retained through-
+         prototype of digital computers; workers in the field, how-             out a machine-like formalism that permits direct com-
+         ever, have felt more and more that the   notion of a Turing            parison with Turing machines. A neat form of the defini-
+         machine is too general to serve as an accurate model of                tion of automata has been used by Burks andWangl
+         actual computers. It is well known that even for simple                and by E. F. Moore,4 and our point of view is closer to
+         calculations it is impossible to give an a priori upper                theirs than it is to the formalism of nerve-nets. However,
+         bound on the amountof tape a Turing machine will need                  we have adopted an even simpler form of the definition
+         for any given computation. Itis precisely this feature that            by doing away with a complicated output function and
+         renders Turing’s concept unrealistic.                                  having our machines simply give “yes” or “no” answers.
+            In the last few years the idea of a finite automaton has            This was also used by Myhill, but our generalizations to
+         appeared in the literature.These are machineshaving                    the
+                                                                                  “nondeterministic,”        “two-way,” and “many-tape”
+         only a finite number of internal states that can be used               machines seem to be new.
+         for memory and computation. The restriction of finite-                    In Sections 1-6 the definition of the one-tape, one-way
+         ness appears togive a better approximation to the idea of              automaton is given and its theory fully developed. These
+         a physical machine. Of course, such machines cannot do                 machines are considered as “black boxes” having only a
+         as much as Turing machines, but the advantage of being                 finite number of internal states and reacting to their en-
+         able to compute an arbitrary general recursive function                vironment in a deterministic fashion.
+         is questionable, since very few of these functions come                   We center our discussions around theapplication of
+         up in practical applications.                                          automata as devices for defining sets of tapes by giving
+            Many equivalent forms of the idea of finite automata                “yes” or “no” answers to individual tapes fed into them.
+         have been published. One of the first of these was the                 To each automatonthere corresponds theset of those
+         definition of “nerve-nets” given by McCulloch and P i t h 3            tapes “accepted” by the automaton; such sets will be re-
+         The theory of nerve-nets has been developed by authors                 ferred to as definable sets. The structure of these sets of
+         too numerous to mention. We have been particularly in-                 tapes, the various operations which we can perform on
+         fluenced, however,by the work of S. C . Kleene2who                     these sets, and the relationships between automata and
+         proved an important theorem characterizing the possible                defined sets are the broad topics of this paper.
+         action of such devices (this is the notion of “regular                    After defining and explaining the basic notions we
+         event”in Kleene’s terminology). J. R. Myhill,in some                    give, continuingwork by N e r ~ d e , ~Myhill, and Shep-
+         unpublished work, has given a new treatment of Kleene’s                 herdson,7 an intrinsicmathematicalcharacterization       of
+         results and this has been the actual point of departure                 definable sets. This characterization turnsoutto      be a
+         for the investigations presented in this report. We have                useful tool for bothproving that certain sets are definable
+         not, however, adopted Myhill’s use of directed graphs as                by an automaton and for proving that certain other sets
+         *Now at the
+                   Department       of Mathematics,
+                                                  Hebrew University
+                                                                 in
+                                                                                 are not.
+          Jerusalem.                                                                In Section 4 we discuss decision problems concerning
+         +Now at the Department of Mathematics, University of Chicago.
+         $The bulk of this work wasdonewhiletheauthors        were associated
+                                                                                 automata. Weconsider the three problems of deciding
+114                           Center during the summer of 1957.
+          with the IBM Research                                                  whether an automaton accepts any tapes, whether it ac-
+
+
+
+
+IBM JOURNAL APRIL 1959
+cepts an infinite number of different tapes, and whether        relations definable by two-tape automata do not form a
+two automata accept precisely the same tapes. All three         Boolean algebra. The problems whether a two-tape au-
+problems are shown to be solvable by effective algo-            tomaton accepts any pair of tapes and whether it accepts
+rithms.                                                         an infinite number of pairs are shown to be solvable by
+   In Chapter 11 we consider possible generalizations of        effective algorithms.
+the notion of an automaton. A nondeterministic automa-             We conclude with a brief discussion of two-way, two-
+ton has, at each stage of its operation, several choices of     tape automata. Here even theproblemwhether        an au-
+possible actions. This versatility enables us to construct      tomaton accepts any tapes at all is not solvable by an
+very powerful automata using only a small number of             effective algorithm. Furthermore a reduction of two-way
+internalstates.
+             Nondeterministic          automata, however,       automata to one-way automata is not possible. All in all,
+turn out to be equivalent to the usual automata. This fact      there is a marked difference between the properties of
+is utilized for showing quickly that certain sets are defina-   one-tape automata and those of two-tape automata. The
+bleby automata.                                                 study of the latter is yet far from completion.
+   Using nondeterministic automata, a previously given
+construction of the direct product of automata (Defini-         Chapter 1.    One-tape, one-way automata
+tion 7 ) , and the mathematical characterization of defina-
+                                                                Q   1. The intuitive model and   basic definitions
+ble sets, we give short proofs for various well-known
+closure properties of the class of definable sets (e.g., the    An automaton will be considered as a black box of which
+definable sets form a Boolean algebra). Furthermore we          questions can be asked and from which a “yes” or “no”
+include, for the sake of completeness, a formulation of         answer is obtained. The number of questions that can be
+Kleene’s theorem about regular events.                          asked will be infinite, and for simplicity a question is in-
+   In trying to define automata which are closer to the         terpreted as any arbitrary finite sequence of symbols
+ideal of theTuring machine, while preserving the im-            from a finite alphabet given in advance. An easy way to
+portant feature of using only a preassigned amount of           imagine the act of asking the question of the automaton
+tape, another generalization suggests itself. We relax the      is to think of the black box as having the separate sym-
+condition that the automaton always move in one direc-          bols on a typewriterkeyboard.         Then the machine is
+tion and allow the machine to travel back and forth. I n        turned on and the question is typed in; after an “end of
+this way we arrive at the idea of a two-way automaton.          question” button i s pressed, a light indicates a “yes” or
+In Section 7 we consider the problem of comparing one-          “no” answer. Other good images of how the automaton
+way with two-way automata, a study that can be con-             could appear physically would use punched cards. Sup-
+strued as an investigation into the nature of memory of         pose that we punch just one symbol or code number for
+finite automata. A one-way machine can be imagined as           a symbol to a card; then a question is simply a stack of
+having simply a keyboardrepresenting the symbols of             cards. The automaton is asked a question by having the
+the alphabet and as having the sequence from the tape           stack read in a card at a time in the usual way.
+fed in by successively punching the keys. Thus no perma-           For the purposes of this paper, we shall not use either
+nent record of the tape is required for the operation of        of the above images but rather think of the questions as
+the machine. A two-way automaton, &onthe other hand,            given on one-dimensionaltapes. Themachine will be
+does need a permanent, actual tape on which it can run          endowed with a reading head which can read one square
+back and forth in trying to compute the answer. Surpris-        of the tape (i.e., one symbol) at a time, and then it can
+ingly enough, it turns out that despite the ability of back-    advance the tape one unit and read, say, the next square
+wards reference, two-way automata are no more power-            to the right. We assume the machine stops when it runs
+ful than one-way automata. In terms of machine memory           out of tape. So much for the external character of an
+this means that all information relevant to a computation       automaton.
+which an automaton can gather by backward reference                The internal workings of anautomaton will not be
+can always be handled by a finite memory in a one-way           analyzed too deeply. We are not concerned with how the
+machine.                                                        machine is built but with what it can do. The definition
+   InChapter 111 we studymultitapemachines.These                of the internal structure must be general enough to cover
+automatacan readsymbols on several different tapes,             all conceivablemachines, but it need not involve itself
+and we adopt the conventionthata          machine will read     with problems of circuitry. The simple method of ob-
+for a while on one tape,then change control and read on         taining generality withoutunnecessarydetail       is to use
+another tape, and so on. Thus, with a two-tape machine,         the concept of internal states. No matter how many wires
+a set of pairs of tapes is defined, or we can say a binary      or tubes or relays the machine contains, its operation is
+relation between tapes is defined. Using again the power-       determined by stablestates of themachine at discrete
+ful tool of nondeterministic automata, we establish a           time intervals. Anactual existing machinemayhave
+relationship between two-tape automataand           one-tape    billions of such internalstates, butthenumber        is not
+automata. Namely, the domain and range of a relation            important from the theoretical standpoint-only the fact
+defined by a two-tape automaton are sets of tapes defina-       that it is finite.
+bleby one-tapeautomata.From           this follows thefact         As a further simplifying device, we need not consider
+that, unlike the sets definable by one-tape automata, the       all the intermediate  states    thatthemachine       passes          7 15
+
+
+
+                                                                                                            IBM J O U R N A L * APRIL 1959
+         through but only those directly preceding the reading of          ning fromthe ( k + 1 ) s t symbol of x throughthe lt”
+         a symbol. That is, the machine first reads a symbol or            symbol.Clearly, the length of             is 1-k. We will agree
+         squareonthe tape, then it may pass through several                that if k = l , then k x l = ~ ,the tape of length 0 . As a useful
+         states before it is ready to read the next symbol. To be          property of the notation, we have
+         able to mimic the action of the automaton, we need not
+                                                                           x=Oxl; ,x),,
+         remember all these intermediate states but only the last
+         one it goes into before it reads the next square. I n fact,       where k*n, or more generally
+         if we make a table-of all the transitions from a state and
+                                                                           k X r n = k X ~ 1Xnu
+         asymbol to a new state, then the whole action of the
+         machine is essentially described.                                 where k L l f m l n .
+             Finally, to get the answer from the machine, we need            We shall refer to suchtapes as oxk as the initial section
+         only distinguish between those states in which the “yes”          or initial portion of x of length k .
+         light is on and those states in which the “no” light is on           The obvious notation x” for xxx . . . x multiplied to-
+         when the end of the question is reached. Again, for sim-          gether n times will also be used with the convention that
+         plicity, it is assumed that all states are in one category or     xo=A.
+          the other but not in both. Thus the whole machine is                Having explained all the notations for the tapes that
+         described when a class of designated states corresponding         will be fed into the machines, we turn now to the formal
+          to the “yes” answers is given. It remains now to give a          definition of an automaton.
+         precise mathematical form to these ideas.                            Definition 1. A (finite) automaton over the alphabet
+             First a finite alphabet Z is given and fixed for the rest     X is a system ‘$I=(S,M,s,,F), where S is a finite non-
+          of the discussion. The actual number of symbols in the           empty set (the internal states o f s ) ,M is a function de-
+          alphabet is not important. It is only important that all         fined on the Cartesian product S X Z of all pairs of states
+          the automata considered use the same alphabet so that            and symbols with values in S (the table of transitions or
+          different machines can be compared. For illustration we          moves o f X), so is an element o f S (the initial state o f
+          shall often think of Z as containing only the two symbols        ST), and F is a subset o f S (the designated final states
+          0 and 1. By a tape we shallunderstandany            finite se-   o f 91).
+          quence of symbols from 8. We also include the empty                 Let 81 be an automaton. First of all the function M
+          tape with no symbols to be denoted by A . The class of           can be extended from S x Z to SX T in a very natural
+          all tapes is denoted by T . If x and y are tapes in T , then     way by a definition by recursionas follows:
+          xy denotes the tape obtained by splicing x and y together
+          or by juxtaposing or concatenating the two sequences. In         M ( s , A ) =x, for s in S;
+          other words, if                                                  M ( s , x u ) = M ( M ( s , x ) , u ) ,for s in S, x in T , and u in X.
+          x= U”U1   . . . u,l 1
+                            -                                                  The meaning of M ( s , x ) is very simple: it is that state
+          and                                                              o f the machine obtained by beginning in state s and read-
+                                                                           ing through the whole tape x symbol by symbol, chang-
+          )’=TOTI..     T,l-l,                                             ing states according to the given table of moves. It should
+          then                                                             be at once apparent from the definition of the extension
+                                                                           of M just given that we have the following useful prop-
+          XY=U,,Ul..     . U l 1 - 1 T ~ T 1. . .   T%-l,
+                                                                           erty:
+          where the u’s and T ’ S are in Z. We assume as obvious the        M ( s , x y ) = M ( M ( s , x ) , y ) ,for all s in S and x,y in T.
+          two laws
+                                                                                We may now easily define the set of those tapes which
+          Ax=xA”X,                                                          cause the automaton to give a “yes” answer.
+          and                                                                   Definition 2. The set of tapes accepted or defined by
+                                                                            the automaton X, in symbols T ( a ) , is the collection of
+          X(YZ) = ( X Y 12,                                                 all tapes x in T such that M(so,x) is in F.
+          for all x , y , z in T . In mathematical terminology, T to-           Definition 3. The class of all definable sets of tapes, in
+          gether with the operation of juxtaposition forms the free         symbols 3, is the collection o f all sets o f the form T ( % )
+          semigroup (with unit) generated by Z.                             f o r some automaton       a.
+            We shall often have occasion to cut tapes into pieces.              The meaning of acceptance can be made clearer by a
+          For example, let                                                  diagram. Let x=uo . . .         Foreach k L n , let
+          x=u,,u,   . . . u”l-l;                                            Slc=M(So,oXJ t
+          the U’S are in Z and n is referred to as the length of the        so that for k>O we have
+          tape X . We adopt the following notation
+                                                                            Sk=M(Sh--l,uk-l).
+          kxd=ugu&+1..        . ut-1,                                       The condition that x bein T(91) is that ‘sn be in F .
+116       where k G l S n . Inother words h . l is asection   of x run-     Each sk is the state of the machine 81 after reaching the
+
+
+
+
+1BM JOURNAL * APRIL 1959
+kt11 symbol in the tape x . Thus if we write down the fol-          (iii) the explicit congruence relation E defined by the
+lowing diagram:                                                  condition that for all x,y in T , x=y if and only if forall
+                                                                 z,w in T , whenever zxw isin U , then zyw is in U , and
+      UI)        01        u2        ...            un-1
+                                                                 conversely, is a congruence relation o f finite index.
+SO          S1        SZ        sp   . . . s, - 1          Sn,
+                                                                    Proof: Assume (i)and in particularthat U = T ( ? I )
+we have a complete picture of the motion of the machine          for a suitable automaton i?l. Define a relation R by the
+$1across the tape x. It is very important to notice in this      condition that xRy if and only if M ( s , x ) = M ( s , y ) for
+picture that there is exactly one more internal state than       all s in S. Clearly R is an equivalence relation, but it is
+there are symbols on the tape, a fact that will be used          also a congruence relation. For assume that xRy and z
+several times in Section 4.                                      is any tape in T . Then
+     2 . A mathematical characterization of definable sets       M ( s , x z )= M ( M ( s , x ) ,z)
+                                                                              =M(M(s,y) ,z)
+An automaton can be a very complicated object, and it is
+                                                                              =M(s,yz),             for all s in S.
+not clear exactly how complicated the sets definable by
+automata can become. In order to understand the nature           Thus R is right invariant. Likewise
+of these definable sets, we will develop in this section a
+ mathematicallysimple and completelyintrinsic charac-            M(s,zx) =M(M(s,z),x)
+terization of these sets, which shows exactly the effect of             = M ( M ( s , z ), Y )
+                                                                        =M(s,zy),              for all s in S,
+consideringmachines with onlya finite number of in-
+ternal states. This “finiteness” condition is certainly the       and R is shown to be left invariant.
+ main feature of our study.                                         That R is of finite index is a consequence of the fact
+    Actually two different characterizations will be given,       that if x is a fixed tape and r is the number of internal
+ but they share a common feature of involving equiva-            states of 91, then the expression M ( s , x ) can assume at
+lence relations over the set T of all tapes. The reader is       most r different values. Thus the number of equivalence
+assumedfamiliar       with the notion of an equivalence          classes is at most rr.
+relation and equivalence classes.                                   Finally if x is in T ( g ) and xRy, then M ( s , , x ) =
+    Definition 4. A n equivalence relation R over the set T      M ( s , , y ) so that y is in T ( a ) also. This remark shows
+of tapes is right invariant if whenever xRy, then xzRyz          that U = T ( $ [ ) is in fact the union of the equivalence
+f o r all z in T .                                               class under R of those tapes in U . We have thus shown
+    Clearly there is an analogous definition of left-invari-     that (i) implies (ii).
+nnt equivalence relations.                                          Assume next that statement (ii) holds, and let R now
+    Definition 5. A n equivalence relation over the set T is     stand for any congruence relation satisfying the condi-
+a congruence relation if it is both right and left invariant.    tions mentioned in (ii). Consider the specific relation
+    If R is a congruence relation then the formulas xRz          defined in (iii) in terms of U . Let x and y be any tapes
+and y R w always imply xyRzw. In consequence, if [x] is          such thatxRy. Suppose that zxw is in U . Now R is a con-
+the equivalence class containing x, and [ y ] is the equiva-     gruence relation, so that zxwlzzyw. On the other hand U
+lence class containing y , then we can define unambigu-          is a union of equivalence classes. Thus zyw must also be
+ously the product of the two equivalence classes by the          in U . Thisargument actually shows that if xRy, then
+equation                                                         x s y . In other words, = is a relation making fewer dis-
+                                                                 tinctions thanthe relation R . That           is a congruence
+[~lbl=[xYl.                                                      relation is a trivial consequence of its definition, so if R
+In mathematical terms, the set of equivalence classes is         is of finite index, then E must necessarily be of finite
+said to be the quotient semigroup of T under the con-            index too. Hence, (ii) implies (iii) .
+gruence relation R and is called a homomorphic image                Finally,assume that(iii) holds. We must define an
+of T . There are many distinct homomorphic images of             automaton 9[ such that U=T(‘iX). To this end, let S be
+T , but we shall be most interested in those that are finite.    the set of equivalence classes underthecongruence
+Somewhat more generally we shall make use of equiva-             relation =. Define the function M by the formula:
+lence relations satisfying the following definition.
+                                                                 M([xl,u)=[xal,
+    Definition 6. A n equivalence relationover T is of
+finite index if thereare only finitelymany equivalence           where thesquare bracketsindicate                   theformation   of
+classes under the relation.                                      equivalence classes. Notice we need only the fact that
+    With these definitions, we may now state thefirst result     = is rightinvariant to see that the definition of M is
+on characterizing definable sets. This theorem is due to         unambiguous. Further, let s o = [ A ] , and finally let F be
+J . R. Myhill and is published with his kind permission.         the set of all [x] where x is in U . It should be obvious
+    Theorem 1. (Myhill) Let U be a set of tapes. The fol-        that U is indeed a union of equivalence classes under 3.
+lowing three conditions are equivalent:                          A simple inductive argument shows that if M is extended
+    (i) U is in T;                                               in the way indicated in Section 1 to the set S X T , then
+    (ii) U is the union of some o f the equivalence classes      M ( [ x ] , y ) = [ x y ] for all x,y in T . Thus we see at once
+of o congruence relation over T of finite index;                 that M ( s , , x ) = M ( [ A ] , x ) = [ x ]is in F if and only if x     117
+
+
+
+
+                                                                                                                      IBM JOURNAL * APRIL 1959
+           is in U ; in other words U = T ( $ [ ) ,as was to be shown.         of tapes, but the discussion of this fact will be delayed to
+           Hence, (iii) implies (i) , and the proof of Theorem 1 is            Section 6. Sometimes it is easier to use Theorems 1 and
+           complete.                                                           2 and sometimes it is easier to give direct constructions
+               The main trouble with Theorem 1 is that the number              of machines. In this section we shallindicatehow the
+           of equivalence classes under the relation E can become              Boolean operations canbedone          in both ways. First,
+           verylargeas is indicatedin the proof that (i) implies               however, we prove two theorems that seem to be easier
+            (ii). To be more economical and to stay closer to the              by the indirect method.
+           simpler automata defining the set U , one should use only              Theorem 3. I f x is in T , then {x}, thesetconsisting
+           right-invariant equivalence relations rather than demand-           only o f x, is in T .
+           ing congruence relations. The following theorem is for-                Proof: Clearly an automaton can be built which rec-
+           mulated in an exactly parallel fashion to Theorem 1 and             ognizes one and only one tape given in advance; how-
+           is essentially a simplification of a theorem by A. Nerode,&         ever, Theorem 2 is easier to apply. The relation E de-
+           who used a somewhat more involved notion of automa-                 fined in Theorem 2 (iii)interms          of U = (x} simply
+           ton than that adopted here. The principle is very useful            means that y E z if and only if whenever y and z are initial
+           and was employed by J. C. Shepherdson7 in a proof of                segments of the tapex, then y = z . Thus E has oneequiva-
+           the main theorem of Section 7, as is explained there.               lence class for each initial segment of x and one extra
+                    Theorem 2. (Nerode) Let U be a set o f tapes. The          equivalence class for all the rest of the tapes. Obviously
+           following three conditions are equivalent:                          E then is of finite index, which completes the proof.
+               ( i ) U isin T ;
+                                                                                 If x is any tape, then it can be turned end-for-end and
+               (ii) U is the union of some of the equivalence class-
+                                                                               written backwards. Let x+ stand for the result of writing
+           es o f a right-invariantequivalencerelation          overTof
+                                                                               x backwards so that if x=uou1.. .               then x"=
+           finite index;
+                                                                               u ~ ~ - -~ . ., .~uO.Clearly we have the rules:
+                                                                                        2 u
+               (iii) the explicitright-invariantequivalencerelation
+           E defined by the condition that f o r all x , y in T , xEy i f      u   =u,        for u in 2,
+           and only if f o r all z in T , whenever x z is in U , then y z is
+                                                                               A*=&
+           in U , and conversely, is an equivalence relation o f finite
+                                                                               x ::0 =x,
+           index.
+              The proof need not be given in detail because it can             and
+           be copiedalmost wordfor word fromthe proof of                       ( x y ) :?xy::x::
+           Theorem 1 . It should only be mentioned that the rela-
+           tion R in the proof that (i) implies (ii) has the simpler           In case U is any set of tapes, U-"will denote the set of
+           definition:                                                          all x" where x is in U .
+          x R y i f and only i f M ( s , , x ) = M ( s , , y ) .                    The motion of an automaton, according to the defini-
+                                                                               tions of Section 1, is always from left to right. Thus from
+          This implies that the number of equivalence classes for              the original definition, the followingresult is a little
+          R is at most the number of internal states of 91. This re-           surprising.
+          mark and an analysis of the full proof leads directly to                  Theorem 4. I f U is in 3, then U* is in 3.
+          the following corollary.                                                  Proof: The content of the theorem is that if a set of
+             Corollary 2.1. I f U is in 3, then the number of equiva-          tapes is definable, then so is the set obtained by writing
+          lence classes under the relation E is the least number o f           all the defined tapes backwards. The direct construction
+          internal states of any automaton defining U .                        of a machine defining U" from a given machine defining
+             Inother words, the relation E leads atoncetothe                    U is rather lengthy, but Theorem 1 makes the result al-
+          most economical automaton defining U . This remark is                most obvious. Let = be the relation defined in terms U
+          is also due to Nerode.                                               from Theorem 1 (iii) and let =* be the analogous rela-
+             As a simple application of Theorem 1, we shall show               tion for U * . Assume that x - - " ~ .If zx*w is in U , then
+          thathe     set U of alltapes       of theform    O"10" for            ( z x " w )d is in u*. But ( z x : k w ) "=w:>xz:>.
+                                                                                                                                  Hence, w*yz*
+          n=0,1,2, . . . is not definable by any automaton. Suppose            is in U-"also; however, w * y z * = ( z y * w ) * , and so z y * w
+          to the contrary that U is in 5.Consider the relation                 is in U . This shows that x"=y:>. Since U':'k=U,this ar-
+          of Theorem 1 (iii) . This relation would have to be of               gument with U and U" interchanged is also valid, and
+          finite index, so that for some integers n+m we would                 we haveproved that x=*y if and only if x * " y * , for
+          have Ofl-Om. It follows atoncethat           0"lOm~OnlO",            all x,y in T . Clearly then, if 3 is of finite index, then =*
+          and hence that On1Om is in U , which is impossible.                  must be also of finite indexwith the same number of
+          Thus U cannot be in 3.                                               equivalence classes, which completes the proof.
+                                                                                    Theorem 5. The class 3 is a Boolean algebra o f sets.
+             3. Closure properties of the class of definable sets
+                                                                                    Proof: That the class 3 is closed under complements is
+          Using the theorems just given in the preceding section,              the most obvious fact, even from the original definition.
+          we can derive very simply some facts about the class 7.              For if U = T ( g ) where 'ill=(S,M,s,, F ) , then T - U=
+          It turns out that 7 can be actually characterized by its             T ( % ) , where 'B=(S,M,s,,S"F). One need only prove
+118       closureproperties under some natural operations on sets              in addition that T is closed under intersections. Suppose
+
+
+
+
+IBM JOURNAL * APRIL 1959
+that U 1 and U 2 are in 7. By Theorem 2, let R 1 and R 2                  91. By way of contradiction, assume that r 4 n . It follows
+be two right-invariant equivalence relations of finite in-                at once that there must exist integers k < l L n such that
+dex such that Ui is a union of equivalence classes under
+                                                                          M(s,,ox,) = M ( S o , o X J Y
+Ri for i=1,2. Consider the equivalencerelation R3=
+R,AR,, in other words xR,y if and only if xR,y and                        where oxk and ox1 are the initial segments of x of length
+xR,y. R, is, of course, right invariant. Every equivalence                k and 1. Consider the tape X ' = ~ X ~zx, which is shorter
+class under R, is an intersection of equivalence classes                  than x. We have
+under R 1 and R,. Hence,thenumber                 of equivalence
+                                                                          M(s,,x') = M ( S O , O X k 6,)
+classes for R , is at most the product of the numbers for
+                                                                                      =M(M(so,ox,) ,&)
+R , and R2. We see, then, that R3 is of finite index. Now
+                                                                                      =M(M(so,ox,)
+ u,nU, is simply a union of intersections of the two                                  =M(so,oxz zx,)
+                                                                                                           9   Z   d
+
+
+
+kinds of equivalence classes, so that U l A U 2 is a union
+                                                                                      =M(s,,x)
+of equivalence classes under R,, which shows that
+U , A U , is in 3 by Theorem 2. The proof is complete.                    because x=oxl ,x,. Hence x' must be in T ( E) also, which
+   Corollary 5.1. The class 3 contains all finite sets 6f                 contradictstheminimum         conditions on x and proves
+tapes.                                                                    that n<r.
+This is a direct consequence of Theorems 3 and 5.                            Corollary 7.1. Given a finiteautomaton           there is an
+   The proof of Theorem 5 may seem too abstract. To                       effective procedure whereby in a finite number of steps
+make it more direct, we show next how to form at once                     it can be decided whether T ( % ) is empty.
+a machine defining the intersection.                                         The corollary is an immediate consequence of the fact
+   Definition 7. Let %=(S,M,so,F) and B=(T,N,t,,G)                        that Theorem 7 shows that only a finite number of tapes
+be two automata. The direct product 21 X % is that au-                    that need be tried, and any one tape can be run      effectively
+tomaton (SX T , M X N , ( s o , t o ) , F X G ) where S X T and           through a machineoncethe table of moves has been
+F X G are the Cartesian products o f sets, (so,to) is the                 given. It is also possible to give a simple necessary and
+ordered pair of so and to, and the function M X N on                      sufficient condition of a similar nature for T ( % ) to be
+ (SX T ) X Z is defined by the formula                                    infinite. We precede that result by a lemma.
+                                                                             Lemma 8. Let 2 be an agtornaton with r internal
+( M X N )( ( s , t ) , a ) = ( M ( s , o ) , N ( t , o ) )                states. Let x be a tape in T ( % )o f length n. I f r L n , then
+for all s in S, t in T , and u in X.                                      there exist tapes y,z,w such that x=yzw, z+A, andall
+  Theorem 6. I f E and ?3 are automata, then                              the tapesyzmw are in T(91) for m=0,1,2.. . .
+                                                                             Proof: As inTheorem 7, theremust exist integers
+T(9IXB)=T(i!l)AT(B).                                                      k S L n such that
+   Proof:An obvious inductiveargument shows that forall
+tapes x we have ( M x N( )( s , t ) ,x)= ( M ( s , x ), N ( t , x ))      M(s,,,x,)    =M(So,oXJ.
+
+for all s in S and t in T . Now x is in T ( % X 8) if and                 Let Y = ~ , X , ~ ,z=,xZ, w = zx,. Since k < 1, we see that z+A.
+only if ( M x N ) ((so,to),x) = ( M ( s o , x ) , N ( t o , x ) ) is in   ClearIy x=yzw, and Y Z = ~ X ~ ,hence M ( s , , y ) =M(s,,yz).
+F X G . This in turn is equivalent to the conjunctions of                 It follows thenatonce             by induction that M(s,,y) =
+conditions that M ( s o , x ) is in F and N(t,,x) is in G ; in            M(so,yzm).Whence, we derive
+other words, x is in T ( % ) nT ( B ) , as was to be shown.
+                                                                          M ( s , , x ) =M(s,,yzw)
+0   4 . The emptiness problem                                                           =M(M(s,,yz),w)
+                                                                                        =M(M(s,,YZm),w)
+Suppose someone gave you an automaton %= (S,M,so,F)
+                                                                                        =M(S",yZmW).
+without telling you what it was supposed to do. The gift
+might turn out to be an elaborate       practicaljoke, and                Thus all the tapes yzmw are also in T ( X).
+ T ( 9 I ) could very well be empty. Now aperson would                       Theorem 9. Let         be an automaton withr internal
+not want to spend the rest of his life feeding all the in-                states. Then T(21) is infinite if and only if it contains a
+finite number of possible tapes into the machine if all                   tape of length n with r l n L 2 r .
+the answers are going to be the same. Thus one would                         Proof: The implication from right to left is a direct
+like to know an upper bound on the number of tapes                        consequence of Lemma 8. Assume that T ( % ) is infinite.
+that need be tried to determine whether the machine is                    The alphabet Z is finite, and so T ( X ) mustcontain
+of any use. Such an upper bound is smupplied by the next                  tapes of length greater than any integer. Let x be a tape
+theorem.                                                                  in T ( 9 [ ) of length n k r . Asintheothertwo      proofs,
+    Theorem 7. Let 91 be an automaton.Then T ( % ) is                     there must exist integers k < l L n such that
+not empty if and only if 91 accepts some tape of length
+                                                                          M(so,ox,) = M ( S o , o X d .
+less than the number of internal states o f 91.
+    Proof: We need only establish the implication from                    Now take a new tape x which is of minimal length of
+left to right. Assume that T ( % ) is not empty and indeed                any tape in T ( %) for which integers k<l exist satisfying
+that x is a tape in T ( % )of minimal length. Let n be the                the aboveequation. Assume further that I is the least
+length of x and let r be the number of internal states of                 such integer 4 n = t h e length of x. We no longer know               119
+
+
+
+                                                                                                                         I B M J1OURNAL * APRIL 1959
+                                                                           ber of stepsit     can be decided whether ?I and 8 are
+                                                                           equivalent.
+                                                                              All the results of this section are quite evident from
+          Since there are at most r values for the functionM to as-
+                                                                           the literature, e.g., Burks-Wang,l Section      2.2. Only
+          sume, this proves that 1Lr. Further, if l-Li<jLn, then
+                                                                           Theorem 10 and its corollary are a little stronger than
+          M(s,,oxi) i M ( s o , o x j ) ,                                  the corresponding results there because of a wider defini-
+                                                                           tion of equivalence of automata. These results are none-
+          since otherwise the tape x ' z 0 x i j x , would be a shorter
+                                                                           theless included for completeness, since the general ap-
+          tape than x satisfying the given conditions on x . Count-
+                                                                           proach here is rather different.
+          ing- the number of indices between I and n, we see that
+          n--I+ 1 5 . Adding 1 toboth sides and applying the
+                                                                           Chapter 11. Reductions to one-way automata
+                                               +
+          previous inequality, we find n 1 1 2 r , or better, n<2r.
+          If r g n , then the proof would be complete; however, this       0   5. Nondeterministic operation
+          maynotbe            the case. Assume that n<r. Let Y = ~ X & ,   The a'utomata used throughout Chapter I were strictly
+          Z = ~ X , ,W = ~ X , . We have x+& and all tapes yznzw are       deterministicin      their tape-readingaction,which            was
+          in T ( %) . Let m be the least integer such that                 uniquely determined by the table of moves, since there
+          r L k + m ( l - k ) +(n-1).                                      was one and only one way the machine would change its
+                                                                           state in any particular situation. Requiring all machines to
+          Clearly m+0,           since k + ( n - l ) <n<r.   If            be of this form can lead to rather cumbersomedetails, in
+          2rLk+m(l-k)            + (n-1), then                             view of the large number of internal states needed even
+                                                                           for some relatively elementary operations. In this section
+          r d k + ( m - l ) ( l - k ) + (n-1),                             we introduce the notion of a nondeterministic automa-
+          because 1- k + z < r . But this is impossible because m was      ton and show that any set of tapes defined by such a
+          chosen as the least such integer. Hence                          machine could also be defined by an ordinary automa-
+                                                                           ton. The main advantage of these machines is the small
+          k+rn(l-k)        + ( n - I ) <2r                                 number of internalstates that they require in many
+          and the number on the left is the length of yz"w, which          cases and the ease in which specific machines can be de-
+          proves that there is some tape in T(s)of the indicated           scribed. Several examples of their use will be found in
+          length.                                                          Section 6.
+             Corollary 9.1. Given a finite automaton         x,
+                                                         there is an          Definition 9. A nondeterministic(finite)
+                                                                           over the alphabet Z is a system %=(S,M,So,F) where S
+                                                                                                                                  automaton
+          effective procedure whereby in a finite number of steps
+          it can be decided whether T ( x ) is infinite.                   is a finite set, M is a function of S X S with values in the
+                                                                           set of all subsets of S, and Soand F are subsets of S.
+             Corollary 9.2. Let 3 be a finite automaton with r in-            A nondeterministic automaton is not aprobabilistic
+          internal states, and let the alphabet Z have q > 1 symbols.      machine but rather a machine with many choices in its
+          Then if T(?1) is finite, it can have at most                     moves. At each stage of its motion across a tape it will
+                                                                           be at liberty to choose one of several new internal states.
+                                        2 q"=4T--1 tapes.                  Of course, some sequence of choices will lead either to
+                                       k<r     q-1
+                                                                           impossible situations from which no moves are possible
+             Notice also thatLemma 8 gives another proof that              or to final states not in the designated class F . We disre-
+          the set of tapes of the form Onlo" is not definable by any       gard all such failures, however, and agree to let the ma-
+          finite automaton.                                                chine accept a tape if there is at least one winning com-
+             Finally we shall treat inthis section the question of         bination of choices of states leading to a designated final
+          decidingwhethertwo automata define the same set of               state. The next definition makes this convention precise.
+          tapes.                                                              Definition 10. Let 91 be a nondeterministic automaton.
+             Definition 8. Two automata 21 and 8 are equivalent            The set T ( j J ) of tapesacceptedby          is the collection of
+          if T(?U = U B I .                                                all tapes x=u0u1 . . .            forwhichthereexists        a se-
+             Theorem 10. Two automata X and 8 are not equiva-              quence so,sl, . . . , s , ~of internal states of PI such that
+          lent if and only if there is a tape x of length less than the    (i) so i.s in So;
+          product of the number of internal states of % by that of                                                i=1,2, . . ,n;
+                                                                           (ii) si is in M ( S ~ - ~ , U f~o -r ~ )
+          93 which is accepted by one machine but notby the other.         (iii) s, is in F .
+             Proof: Let g' be the machine having the same internal            It is readily seen that if 91 is a nondeterministic ma-
+          statesas       and defining the complement of T ( X ) as in      chine such that M(s,u) consists of exactly one internal
+          the proof of Theorem 5. Similarly for '23. % and 8 are           state for each s in S and u in 8,then t[is really the same
+          not equivalent if and only if one of the sets T ( % X W ),       as anordinaryautomaton,and               T ( 3 ) will containthe
+          T ( % ' x ~ )is not empty. The theorem follows nowdi-            expected tapes. Thus ordinary automata are special cases
+          rectly from Theorem 7, Theorem 6 and Definition 7.               of nondeterministic automata, and we shall freely iden-
+             Corollary 10.1. Given two finite automata 8 and 8,            tify the ordinary machines with their counterparts.
+120       thereisaneffectiveprocedurewherebyin           a finite num-        One might imagine at first sight that these new ma-
+
+
+
+IBM JOURNAL   -   APRIL 1959
+     "   ~~.                           -
+     ordinary  automaton,                defining exactly the      same     set of     ( S , M * , F , S o ) wherethefunction     M s is definedbythe
+a   as
+     tapes            given nondeterministic      machine.                             condition
+         Definition 11. Let S = ( S , M , S o , F ) beanondeter-                       .s' is in M" (s,u) if and only ifs is in M ( s ' , u ) .
+     ministicautumatun.                  %(!X) isthesystem(T,N,to,G)
+     where T is the set of all subsets of S, N is a function 011                         Notice that we have at once the equation    91"" =%.
+     T X Z such that N(t+,) is the                     union of the sets M ( s , u )   The relation between the sets defined by an automaton
+     f o r s in 1, tO=SO, and G is the set of all subsets of S con-                    and its dual is as follows.
+     taining at least one member of F .                                                    Theorem 12. If 91 is a nondeterministicautomaton,
+         Clearly D( 3) is an ordinary automaton, but it is ac-                         then T ( X * )= T ( W *.
+     tually equivalent to !X.                                                              Proof: In view of the equality %*:!==?I,we need only
+         Theorem 11. If 3 is a nondeterministicautomaton,
+                                                                                       show T ( S * ) <T ( S ) " . Let x = u O u l . . .              be
+                                                                                                                                                       a    tape
+     then T ( % )= T ( % ( X ) 1.                                                      in T ( % * ) ;we must show that x* is in T(91). Let so&,
+         Proof: Assume first that a tape x=u0u1 . . . u , - ~ is in                    . . . ,s, be the sequence of internalstates of %* such
+     T (91) and let so,sl, . . . ,s, be a sequence of internal                         that so is in F, s, is in So and s, is in M*(sk-l,uk-l)
+     statesatisfying            the conditions of Definition 10. We                    for k= 1,2, . . . , n. Define a new sequence S ' ~ ~ , S '.~., . ,
+     show by induction thatfor k l n , sk is in N (                            For     s',by theequation S ' ~ = S , + ~ for k L n . Obviously, d o
+     k = O ,N ( t o , o x k ) = N ( t , , A ) = t o = S ,   and we were given          isin S,, and ,'s is in F . Further,for k>O and k L n ,
+     that so is in So.Assume the result for k - 1. By definition,                      S ' ~ - ~ = S , - ~ + ~ is in M * ( s ~ - ~ , u , or~ ~in) ,other words,
+     ~(to,oxk)=N(~(tO,oxk-l),~k-                            But
+                                                              l ) . we have as-        S,_,~"S'~        is in M ( S ' ~ ~ , , U , - ~
+                                                                                                                                  Now ) . defining a new se-
+     sumed s k - l is in N ( t o , o x k - l ) so that from the definition             quence of symbols d o d l . . . a',-, by the formula d k =
+     of N we have M ( S ~ . - ~ , U ~N-( t~, ,), xC, ) . However, sk                   unPk-1, we see that u'k"l=u,-k and u',,dl . . . u', - =
+     is in M ( S ~ - ~ , U ~            and - ~so) ,the res'ult is established. In     x". Thus, x + is in T(91) as was to be proved.
+     particular s, is in N ( t , , o x , ) = N ( t , , x ) , and since s, is in            It shouldbenoted            thatTheorem12            together with
+     F, we have N ( t o , x ) in G, which proves that x is in
+                                                                                       Theorem 11 yields adirectconstruction                    and proof for
+      T ( %( 91) ) . Hence, we have shown that                                         Theorem 4 of Section 3 which was first proved by the
+     T(91)C T(D(91) >.                                                                  indirect method of Theorem 1. In the next section we
+                                                                                       make heavy use of the direct constructions supplied by
+         Assumenext     that a tape x=u0u1 . . . u,-~ is in                            the nondeterministic         machines        tobtain         results
+                                                                                                                                                          not
+     T ( B ( S ) ) .Let for each  k L n , t k = N ( t o , , x k ) . We shall            easily apparent from the mathematical characterizations
+     work backwards. First, we know that t , is in G. Let                              of Theorems 1 and 2.
+     then s, be any internal state of 8 such that s,, is in t ,
+     and s, is in F. Since s, is in                                                       6. Furtherclosureproperties
+                                                                                       Simplifying a result due originally to Kleene, Myhill in
+     tn=N(t,,,(,X,)=N(t,-l,u,_,),
+                                                                                       unpublished work has shown that the class T can be
+     we have from     the      definition of N that s,, is in                          characterized as the least class of sets of tapes containing
+     M ( S , - ~ , U ~ -for
+                         ~ ) some s,-~ in t , - l . But                                the finite sets and closed under some simple operations
+                                                                                       on sets of tapes. We indicate here a different proof using
+     tn"l=N(tO,"X,-l) =N(tn--2,un"2),
+                                                                                       the method developed in the preceding section.
+     so that s,-~ is in M ( s , - ~ , u , - ~ )for some s , _ ~ in t , , - 2 .            First of all, we need to define the operations on sets of
+     Continuing in this way we may obtain asequence,                                   tapes. Let U and V be two sets of tapes. By the complex
+     S,,S,-~,S,-~, . . . , s o suchthat sk is in t,; sk is in                          product UV of U and V we understand the collection
+     M ( S ~ - ~ , Ufor~ ~     k>O; ~ ) ,and s,, is in F . Since tO=SO,                of alltapes of the form xy with x in U and y in V .
+     we also have so in So, which proves that x is in T ( ? I ) .                      Clearly the product of sets satisfies the associative law:
+     Thus, T ( %( 91)     )c T ( g i ) , which completes the proof.
+                                                                                       (UV)    w=U ( V W ).
+         This theorem has many interesting consequences. For
+     example, it shows that any automaton with several ini-                            This leads to the introduction of finite exponents where
+     tial states can be replaced by an equivalent automaton                            we define U n = U U . . . U ( n times) with the convention
+     with but one initial state. It would seem that the notions                        than Uo= {A}. Finally, if U is aset of tapes we can
+     of finalstateand initial state shouldbedual               in some                 form the closure of U , in symbols cl( U ) , which is the
+     sense. But one must be careful, because, as the reader                            least set V containing U , having A as an element, and
+     may easily show for himself, with the alphabet Z={O,1}                            such that whenever x, y are in V then xy is in V . Another
+     the set of all tapes of the form 0" or 1%cannot be de-                            definition is given by the equation
+     fined by anynondeterministic automaton with but one
+                                                                                       c l ( U ) = U " y U l y U ' ~ U .~ .. ,
+     designated final state. The correct notion of duality be-
+     tween initial and final states is connected with the re-                          where the infinite union extends all over finite exponents.
+     versal of right and left, as indicated in the next definition                     We may prove at once about these operations that the
+     and theorem.                                                                      class 7 is closed under them.                                                   121
+
+
+
+
+                                                                                                                                             IBM JOURNAL       - APRIL 1959
+                                                                                                               .     ..   "
+
+            Proof: Assume first that U , V are in 7. Let U = T ( % )       (the initial state oj    a),      and F is a subset o f S (the set o f
+         and V= T ( % ) where $1and B are ordinary automata                designated final states of %) .
+         with 9[= (S,M,s,,F) and %= ( T , N , t , , G ) . We need only         A two-way automaton a operatesasfollows:                          When
+         find a nondeterministic machine 6 such that UV= T ( Q).           given a tape, i.e., a finite linear sequence of squares each
+         We may assume that the sets S and T have no elements              containing a single symbol of the alphabet Z, % is set in
+         in common, and
+                      then
+                        equate                Q=(SyT,P,{s,},G)             internal state so scanning the first (leftmost) square of
+         where the function P is defined as follows:                       the tape. At each stage of the machine's operation, if the
+                                                                           internal state          is s, the scanned   symbol             is U , and
+         P(s,~)={M(s,u)),                if s is in S - F ;
+                                                                           M ( s , u ) = ( P , s ' ) , where p is one of -1,O,l, then X will
+         P ( S , U ) =CM(s,@),N(To,u)      1,         if s is in F ;       move one square to the left,             stay where it is, or move
+                                                                           one square to theright, according as p = - 1,0,1; further-
+         p ( t , u )= N ( f , u ) ,   if t is in T.                        more, $[ will enter internal state s'. The operation de-
+         The straightforward proof that G has the desired prop-            scribed just now is called an atomicstep of 91. After
+         erty is left to the reader.                                       completion of an atomicstep, $1is againina                          certain
+            Next, we must show why Hcl( U ) is in 3. Wecon-                internalstate scanninga               certain symbol, and a new
+         struct a machine % such that cl( U ) =T ( %), where 9is           atomic step is performed, and so on.
+         allowed to be nondeterministic. Simply let %=                         If, when operating in this way on a given tape, % will
+         (S,Q,s,,,F), where the function Q is defined as follows:          eventually get 08 the tape on the right side and at that
+                                                                           time be in a state in F, then we shall say that the tape is
+         Q ( S , ~ ) = { M ( S , U ) } , if s is in 5 ° F ;
+                                                                           accepted by 3. The formal definition is as follows:
+              ={M(J,u),M(so,o)},
+         Q(~,u>                                       if s is in F .           Definition 14. The set T ( % ) o f tapes accepted by the
+         The easy completion of the proof is left to the reader.           two-way automaton X is the set of all sequences u,, . . .
+                                                                           un.-] o f symbols from the alphabet Z for which there
+            Theorem 14. (Kleene-Myhill) . The class T is the least
+         class o f sets o f tapes containing the finite sets and closed    exist an integer m>O, asequence o f integers po, . . . ,
+         under the formation o f unions, complex products, and             pn,, and a sequence so, . . . , s, o f internal states of 2
+         closures o f sets.                                                such that
+            The full proof of Theorem 14 will not be given. In-             (i) po=O and so is the initial state o f $1;
+         stead we give a brief account of the method of proof               (ii) OLpi<n for i=O, . . . , m - 1 ;
+         needed. Let U be the least class closed under the opera-           (iii) pm=n and s, isin F;
+         tions mentioned in the theorem. That UC T is the con-              (iv) (~~-p~-~,s~)=M(s,~_,,u,,~_,)                  for i = l , . . . , m.
+         tent of Theorems 5, 5.1, and 13. To prove that T C U ,                Inthe        above definition the sequence p,,, . . . , p m
+         consider each set in 3 to be of the form T ( % ) , where $1       should be interpreted as the sequence of positions of the
+         is nondeterministic, and proceed by a kind of induction           machine 91 onthetape;thus,                  p i - p i - l indicates the
+         on 91. In more precise terms, define the weight of X, in          change in position of the machine fromtime i - 1 to time i.
+         symbols 1 9 x 1 , to be the sum of all the cardinal numbers       Condition(ii) , for example, meansthatthe                         machine
+         of the sets M ( s , u ) for all s in S and u in 8 . Then by as-   does not run off the tapebefore thecomputationhas
+         suming that T ( B ) is in U for all % with /%\<1411, one          been completed.
+         can prove that T(91) is also in U . The details, however,             In analogy with Definition 3 we shall say that a set P
+         are tiring.                                                       of tapes is definable by a two-way automaton if there
+                                                                           exists some two-way automaton such that                      x)
+                                                                                                                                        T ( =P.
+            This discussion completes our survey of the closure                To avoid confusion we shall, from now on, refer to
+         properties of the class of definable sets begun in Section        the automata discussed in Sections 1-6 as one-wayau-
+         3, and the authors are not awareof any other interesting          tomata.
+         operations on sets that can be effected by constructions              Let us consider an example of a two-way machine
+         of automata that we have not already indicated. The re-           illustrating the complicated fashion in which such a ma-
+         mainder of this paper will be therefore devoted to gen-           chine can operate on a given tape. Let %, !& and 6,be
+         eralizations of the notion of an automaton.                       three one-way automata over the same alphabet X. We
+                                                                           combine these automata into a single two-way automa-
+            7. Two-way automata                                            ton having the following flow diagram. Given a tape t
+         Trying to further generalize the notion of an automaton,          the automaton % (which we imagine as being a part of
+         we consider afutomatawhich are not confined to a strict            9)starts reading it on the left end and proceeds from
+         forward motion across their tapes. This leads to the fol-         left to right until a designated final state of 91 is reached;
+         lowing definition, which is a direct extension of Defini-          when this happens B goes into the initial state of 8 and
+         tion 1.                                                            starts reading the tape from right to left until a desig-
+            Definition 13. Let L = { - l , O , + I}. A two-way (finite)    nated final state of 8 is reached; when this happens %
+         automation over a finite alphabet Z is a system 91=               switches into the initial state of % and again starts mov-
+122      (S,M,s,,F) where S is a finite non-empty set (the set of           ing from left to right, and so on; all this time automaton
+
+
+
+
+IBM JOURNAL    APRIL 1959
+Q is reading the tape symbols as they come in (i.e., in                  by the previous theorem this can be done effectively.
+the sequence in which they are being scanned by 9)and                    Apply now toandtheprocedure          given in Corol-
+t is accepted by 5Q only if 2 ever gets off the right-hand               lary 10.1.
+end of t and at that time (5 is in one of its final desig-
+                                                                         Chapter 111.      Multitape automata
+nated states. It seems to be quite difficult to determine
+the kind of set of tapes defined by 9.  It turns out, toour                 8. Descriptionanddefinitions
+surprise, that the following theorem holds.                              We turn now to the study of multitape machines, fixing
+   Theorem 15. For every two-way
+                               -       automaton 91 there                our attention, without any real loss of generality, on the
+exists a one-way automaton 21 such that T(ijL)= T ( $ f ) .              two-tape case. We can picture the two-tape machine 91
+Furthermore, $fcan be obtained effectively from91.                       ashavingtwoscanningheadsreading                  a pair ( t o , t , ) of
+   Outline of Proof:" By definition, a Z-motion of % on                  tapes. We adopt the convention thatthemachine will
+a tape t consists of 9[ moving across a square x in a cer-               read for a while on one tape, then change control and
+tain direction up to a square y , changing direction at y                read for a while on the other tape, and so on until one
+and moving backtowards x , changingagaindirection                        of the tapes is exhausted. When this happens 91 stops and
+before passing x and moving up to y; a Z-motion thus                     the pair ( t l , t 2 ) is accepted if and only if 3 is in a desig-
+contains exactly two changes of direction.While oper-                    nated final state. Thus, with a two-tape automaton, a set
+ating on a tape t a two-way automation will in general                   of pairs of tapes is defined, or we can say a binary rela-
+perform a complicated succession of forward and back-                    tion between tapes is defined.
+ward motions before accepting or rejecting t . Inpar-                       To make two-way automata more versatile we afford
+ticular, ?[ will go through a great n'umber of Z-motions.                them with the ability to anticipate the end of the tape.
+   In a given Z-motion in the diagram,                                   This arrangement consists in augmenting the alphabet Z
+                                                                         with an end-marker E and always feedinginto the au-
+                                                                         tomaton pairs of the form ( t " & , t l F ) ; here t , and t , do
+         /
+             /   x 0                       --                            not contain E , the latter being merely a technical symbol.
+     /                 /   /     ,,'   -                                    In order to indicate the change of control from one
+                                                                         tape to the other we use the device of dividing the states
+                                                                         of the machine into two classes: the first class contains
+the internal state 's in which 91 re-enters y is a function
+                                                                         those states in which the first tape is being read, while
+of the state s in which 3 originally entered y and the
+                                                                         the second class has to do with the second tape. These
+portion of the tape from x to y . If it were possible to
+                                                                         remarks shouldserveas              sufficient background for the
+compute this new state s', withoutactually having to
+                                                                         following formal definition.
+move back, then we could substitute for '$1a new autom-
+                                                                            Definition 15. A two-tape, one-way automaton over
+aton which, instead of turning back at y , would simply
+                                                                         an alphabet C is asystem ~[=(S,M,s,,F,C,,C,) where
+go directly fromstate s intostate s' andthusthe           Z-
+                                                                         (S,M,s,,F) is an ordinary automaton:except that M is
+motion would be eliminated. It turns out that the com-
+putation of s' from s is indeed possible because the set
+                                                                         a function from S X       (Xu{&})       into S,and where the sets
+                                                                         C,,C, forma              partition o f S, i.e., CorCl=+ and
+R(s,s') (L(s,s')) of tapes such that when 81 starts on
+the right-(left) hand end it will go thro'ugh a simple loop
+                                                                         c,nc,=s.
+                                                                            Thus a two-tape machine is just an ordinary automa-
+ (i.e., movedirectly to some square,change direction
+                                                                         ton having an additional structure to determine which
+there, and go straight back to where it started) and ar-
+                                                                         tape is to be read.
+rive back in state sf, is definable by a one-way automa-
+                                                                            To be able to define explicitly when a pair of tapes is
+ton. Combining 9[ with these one-way automata it is
+                                                                         accepted by anautomaton,the                 following notation in-
+possible to define a new derived automaton %'      which on
+                                                                         volving the partition of the set of states is needed.
+any given tape t performs fewer Z-motions than 91 does
+                                                                            Let 9[= (S,M,s,,F,C,,C,) bea two-tape automaton
+andsuchthat      T ( ? [ ' )= T ( % ) , Wethen show that, by
+                                                                         and let so,sl, . . . , s, be a sequence of states (where s,)
+repeating this derivation operation a sufficient number
+                                                                         is the initial state). Then there is a unique pair of asso-
+of times, a one-way automaton is obtainedwhich de-
+                                                                         ciated sequences of integers k,, , . . , k,,;l,, . . . , I, such
+fines the same set as '$1. This depends on the fact that
+                                                                         that:
+there is a bound, common to all tapes t accepted by '$1,
+on the number of times '$1goes through any square of t ;                 (i) ki is 0 or 1 according as si is in C, or C,;
+this bound being the number of internal states of X.                     (ii) Zi is thenumber of indices j < i suchthat sj is in
+    Corollary 15.1. The equivalence problem for two-way                          Cki.
+automata is effectively solvable.                                           Definition 16. The set o f all pairs o f tapesaccepted
+    Proof: Given two two-way automata 91 and &i to de-                   byatwo-tape automaton a, in symbols T2(91), is the
+cide whether l"('$[)= T ( % ) construct one-way automata                 set o f all pairs ( t l , t 2 ) on the alphabet Z such that for
+@ and % such that T(%) =T(?,o and T ( S )= T ( 8 );                                               ..
+                                                                         (t,">t2")=(u,,,,a,l. ~ ~ ( r n - l ) ~ ~ l U       .
+                                                                                                                    Cl (l n~- 1l) )l ~ ~
+
+*Theresult, with its originalproof, was presentedtotheSummer       In-                                                            .
+                                                                         there is a (unique) sequence o f states so,sl, . . , sp and
+ stitute of SymbolicLogicin 1957 atCornellUniversity.Subsequently
+ J. C. Shepherdsoncommunicatedtousa
+ alsoappearsinthisJournal.'
+                                             very elegant oroof which
+                                  In view of this we confineourselves
+                                                                                                                         . .
+                                                                         associated sequences o f integers kc,, . , k,; I,,      . , lp ..
+ here to sketching the main ideas of our proof.                          such that                                                                        123
+
+
+
+
+                                                                                                                                IBM JOURNAL     -   APRIL 1959
+          (ii)      si=M(~-,l~-,8~-~
+                                   for
+                                     )i=l,                . . . ,p ;                  the set of s” for which there exists a tape t(sO,s”),if SO
+                                                                                      is in C,. The set of designated final     states   of %
+         (iii) ij k,-,=O then lp-,=m-l                and ifk,-,=       1
+            then I p - , = n - l ;                                                    (C0F)UCf).
+         (iv) s, is inF.                                                                  It is left for the reader to    verify that the set of all
+                                                                                      tapes accepted by 8 is precisely the domain of the rela-
+           Inthe above definition we are, of course,assuming                          tion T 2 ( % ); we recallatthis   pointthe simplified defini-
+         that if k,=O, then li<m and if kc= 1 , then li<n other-                      tion of acceptance used in the proof.Thiscompletes our
+         wise condition (ii) would be meaningless.                                    proof.
+                                                                                          Corollary 16.1. There are effective procedures where-
+              9. Relation to one-tape automata
+                                                                                      by, given a two-tape automaton %, it can be decided in
+         Two-tape automata behave in a fashion almost identical                       a finite number of steps whether T 2 ( 9 [ ) is empty and
+         with that of one-tape automata, the only difference being                    whether T , ( s ) is infinite.
+         that they operate on two tapes. It is therefore natural to                       Proof: Constructheone-tapeautomata                8 and 6
+         try to establish relationships between the sets of pairs of                  defining thedomainandrange             of the relation T2(91).
+         tapes definable by two-tapemachines andthe sets of                           The set T 3 ( a ) is empty if and only if T ( 8 ) is empty.
+         tapes definable by one-tape automata.                                        The set T2(91) is infinite if and only if at least one of
+              Theorem 16. Let %=(S,M,s,,F,C,,C1) be a two-tape                        T ( B ) and T ( % ) is infinite. Now applyCorollaries 7.1
+         automaton. The set of all tapes t, for which there exists                    and 9.1.
+         sometape       t2 suchthat        (tl,t2) is in T3()11) (Le.,the                 Corollary 16.2. I f T 2 ( % ) containsonly pairs of the
+         domain o f the relation defined by 91) is definable by a                     f o r m( t , t ) (i.e., defines a diagonal relation) thenthe
+         one-tape automaton. A n automaton defining this set can                      set of all tapes t for which ( t , t ) is in T,(Yl) is definable
+         in fact be constructed effectively from8.                                    by a one-tape automaton.
+              Proof: The ideaunderlying the proof is that on the
+         first component of any pair of tapes (%) operates like a                         IO. Impossibility of Boolean operations
+         nondeterministic one-tape machine. Once we are able to                       Whereas the class of sets definable by one-tape automata
+         define the one-tape, nondeterministic automaton accept-                      is closed underthe Boolean operations (Theorem 5 ) ,
+         ing precisely the tapes t, for which (tl,t2) is in T2(91)                    when we come to sets of pairs definable by two-tape au-
+         for some t, the proof is completed by Theorem 1 1 .                          tomata the situation is markedly different.
+              To shorten the argument we shall consider a slightly                         Theorem 17. The class of all sets definable by two-
+         simplified version of the notion of two-tape automata;                       tape automata is ( i ) closed under complementation;
+         namely, in Definitions 15 and 16 we disregard the end                         ( i i ) is not closed under intersection and union.*
+         symbol E and the special role it plays (it is possible to                         Proof: (i) Let ~=(S,M,s,,F,C,,C,). The comple-
+         extend the proof to cover the general case). A pair                          ment, with respect to the set of all pairs of tapes on Z,
+          (tl,t2) is thus fed directly into 41 and is said to be ac-                  of T 2(3), is T 2( (S,M,so,S -F,Co,C1) ) . (ii) LetX = { 0, l}
+         cepted if and when 9l gets off one of the tapes in a desig-                  and use the notation 0” to denote the tape containing n
+         nated final state of 81.                                                     zeroes. The sets U={(OnlOm, 0L10n),n,m,k=1,2, .. . }
+              Let s” be in C , and s‘ be in C,. A tape t on the alpha-                and V = { ( t , t ) , t runs through all tapes} are definable by
+         bet Z is called a (s’,f’) transition tape if %, when started                 two-tape automata.        Now        B A D = { (Onlo”, OnlOn),
+         on t in s’ will go through states in C, until it gets off t in               n=1,2, . . . }. If this set were definable by atwo-tape
+         s”. For every pair (s’J’’) for which there exists some                       automatonthen,            by Corollary 16.2, the set {OnlOn,
+         transition tape let t(s’,d’) denote ashortest one.The                        n=1,2, . . . } would be definable by a one-tape automa-
+         length of t(s”s”) is clearly less thanthenumber                       of     ton, which is impossible, That the class of definable sets
+         statesin C , so that all shortestransitiontapes,                    and      is not closed with respect to unions now follows from the
+         hence all pairs of states possessing a transition tape, can                  identity ‘ % X n % = T - [ ( T - ~ ) ~ ( T - 8 ) ]
+                                                                                                                                      and (i).
+         be effectively found.
+              A state s‘ in C , will be called a finalizing state if there            0   I I . Unsolvability o f the intersection problem
+         exists a tape t(s’) such that 91, when started on t(s’) in                   We have shown that the emptiness problem for two-tape
+         s’, will go in states of C , to the end of t(s’) and get off                 automata is effectively solvable. It will now turn out that
+         the tape in a designated final state of X.                                   a similar elementary problem is not solvable. As a prepa-
+              Define now a nondeterministic one-tape automaton 8                      ration for this result concerning automata we must recall
+         as follows. Let f be some new element not in S, the set                      a theorem of E. Post.6
+         of states of 8 is C , u { f } . The table N of moves of                         The correspondence problem is the following: Given
+         is defined by                                                                two equally long ordered lists a1,a2, . . . , a, and b,,b,,
+                            ={f>;
+              (i) N ( f + J >                                                         , . . , b, of tapes on the alphabet  X, to decide whether
+             (ii) N ( s , ~ ) = { M ( s , u ) }if, M ( s , u ) is in C,;              there exist asequence of indices i&, . . . , i, where
+           (iii) N ( s , u )= { f } , if M ( s , u ) is a finalizing state in C , ;
+            (iv) N ( s , u )=the set of all s” where there exists a tran-             *J. C . Shepherdsoninformedus      in aletterabouta      different simple
+                                                                                       example for the fact that the class of definable relations is not closed
+124                sition tape t ( M ( s , a ),f’),otherwise.                          underintersections.
+
+
+
+
+IBM JOURNAL   -   APRIL 1959
+ I L i i L n , such that                                                      sionmethod for decidingwhethertwotwo-tape,one-
+                                                                               way machines %, and & both accept a common pair of
+ ai, ai, .   . . ail,=bil bi, . . . bi,.                                      tapes, that is, whether T2(911)r\T2(%2)++. From the
+ E. Post proved that the correspondence problem (for an                       construction of the two-tape machines it follows that if
+ alphabet with more thanoneletter)      is not effectively                    h is a new symbol not in the alphabet Z, then there is a
+ solvable.                                                                    one-onecorrespondence between all two-tape, one-way
+    Theorem 18. The problem whether for two finite two-                       machines a over Z and certain two-tape one-way ma-
+ tape automata %, and 212 we have T , ( ? l l ) A T , ( % z ) = +             chines w    over Z y { h } such that a pair of tapes ( t l , t z )
+ (the empty set) is not effectively solvable.                                 is in T 2 ( a ) if and only if (ht,h, ht,h) is in T,(X’). In
+    Proof: Corresponding to every sequence, al,a2, . . . , a,,                words, we simply put a marker at the ends of the tapes,
+ of words on our alphabet Z construct a set P(a,,a,, . . . ,                  and all accepted tapes must be of this form. Let now
+ a,,) of pairs of tapes as follows: We mayassume that                         and 2, be any two two-tape machines. The correspond-
+ 0,1 are in    x; if i is an integer let i be the tape consisting             ing machines over Z y { h } are ?l‘, and %’,. NOW be-
+ of i symbols 1 followed by a single 0. Now ( t l , t 2 ) is in               cause ?Yl and      w,    onlyaccepttapes       with markers
+ P(al,an, . . . , u , ~ )if and only if for some k                            athe ends,they can be glued together into a two-
+                                                                              way machine 8 such that T , ( B ) = T , ( ? ~ , ) n T , ( ~ , ) .
+ (i) tl=ail ai, - . . . a2.%
+ (ii) t,=i,i, . . . i,,                where i j 4 n .
+                                                                              The two-way motion of 8 is obvious: first run through
+                                                                              the tapes in the style of ?Ix1to see if the pair is accepted,
+                                                                              and then, after hitting the markers at the right end, run
+      It is nothard         toconstruct  atwo-tape        automaton
+                                                                              backwards until the left markers are hit, at which time
+ ?l(al,a,,. . . , an)=% such that T,(?l)=P(al,a,, . . . , aJ.
+                                                                              the motion is again reversed, and the machine is started
+Namely, to check whether a pair (t,,t,) satisfies condi-
+                                                                             over, running in the style of %,.
+tions (i) and (ii) , a will start on t2 and count the num-
+                                                                                 Theoutline of the construction given above shows
+ ber of symbols 1 until the first 0 is met, let this number
+                                                                              that every intersection problem about one-way machines
+be i,. Themachine then switches to t , and checks
+ whetherthis tape begins with ai,; if it does not, then
+                                                                             9,[1 and 91, is equivalent to the intersection problem about
+                                                                             machines W, and W,, which in turn is equivalent to the
+ ( t l , t 2 ) is not accepted. If tl does begin with ail, then
+                                                                             emptiness problem for a two-way machine 8. Since there
+ after reading through ai, the machine switches back to
+                                                                             is an effective methodfor showing these equivalences,
+ t2, and the whole process is repeated. If at any time a
+                                                                             and since there is no effective solution of the intersection
+symbol other than 0 or 1 is found on t,, or if t2 contains
+                                                                             problem for one-way machines, we haveproved                the
+a run of more than n symbols 1 or more than one symbol
+                                                                             following.
+0, then the pair ( t l , t z ) is not accepted. These remarks
+                                                                                 Theorem 19. There is no effective method of deciding
+sufficiently indicate the construction of 91 and we shall
+                                                                             whethertheset        of tapesdefinableby    a two-tape,two-
+not go into further detail.
+                                                                             way automuton is empty or not.
+      Given two sequences of words SI=(a,,a,, . . . , a,)
+                                                                                An argument similar to the above one will show that
+and S 2 = ( b l , b 2 , .. . , b,) then P(a,,a,, . . . , a , ) A P ( b , ,   the class of sets of pairs of tapes definable by two-way,
+b,, . . . , bn)=++ if and only if the Post correspondence
+                                                                             two-tape automata is closed under Boolean operations.
+problem of S1 and S, has asolution.Since the corre-                          In view of Theorem 17, this implies that there are sets
+spondence problem is not effectively solvable it follows                     definable by two-way a’utomata which are not definable
+that the problem whether
+                                                                             by any one-way automaton; thus no analogue to Theo-
+Tn(?l(a,, . . . 0,) ) A T Z ( % ( b l , . . . , bn) 1 4 9
+                  9
+                                                                             rem 15 holds.
+is not effectively solvable.                                                 References
+                                                                              1. A. W. Burks and Hao Wang, “The logic of automata,”
+    12. Two-way, two-tape automata                                                Journal of the Association for Computing Machinery, 4,
+ Turning now to two-way,two-tapeautomata             we find                      193-218 and 279-297 (1957).
+                                                                             2. S. C. Kleene, “Representation of events in nerve nets and
+ that all hope of any constructive decision processes is                          finite automata,” Automata Studies, Princeton, pp. 3-4 1,
+lost. It is even impossible to decide,byaconstructive                              (1956).
+decision method applicable to all automata, whethera                         3. W. S. McCulloch and E. Pitts, “A logical calculus of the
+two-way, two-tape machine accepts any tapes. To prove                            ideas imminent in nervous activity,” Bulletin of Mathe-
+                                                                                  matical Biophysics, 5, 115-133 (1943).
+this formally it is, of course, necessary to give the explicit               4. E. F. Moore, “Gedanken-experiments on sequentialma-
+definition of a two-way machine. We shall not give the                            chines,” Automata Studies, Princeton, pp. 129-153 (1956).
+details here, since they are long and not very much dif-                     5. A. Nerode, “Linear automaton transformations,” Pro-
+ferent from the formal definitions needed for two-way,                            ceedings of the American Mathematical Society, 9, 541-
+                                                                                  544 (1958).
+one-tape automata. The main point is that, as with the                       6. E. Post, “A variant of a recursively unsolvable problem,”
+two-way, one-tape automaton, the table of moves of a                             Bulletin of the American Mathematical Society, 52, 264-
+two-way, two-tape automaton sometimesrequires             the                     268 ( 1946).
+machine to back up from the scanned square. However,                         7. J. C . Shepherdson, “The reduction of two-way automata
+an outline of the proof should clarify the method.                               to one-way automata,” IBM Journal, 3, 198-200 (1959).
+   It was shown above that there is no constructive deci-                    Revised
+                                                                              manuscript
+                                                                                   received
+                                                                                     August                             8, 1958                        125
+
+
+
+
+                                                                                                                            IBM JOURNAL      -   APRIL 1959
+

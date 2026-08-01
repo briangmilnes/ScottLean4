@@ -1,0 +1,2451 @@
+                                                   INTERPRETING LAMBDA CALCULUS IN DOMAIN-VALUED
+                                                                  RANDOM VARIABLES
+
+                                                                         a                     a
+                                          ROBERT FURBER                       , RADU MARDARE       , PRAKASH PANANGADEN b , AND DANA SCOTT c
+
+                                            a
+                                                 Heriot-Watt University, Scotland
+                                                 e-mail address: r.furber@hw.ac.uk, r.mardare@hw.ac.uk
+
+                                             b
+                                                 McGill University, Canada
+                                                 e-mail address: prakash@cs.mcgill.ca
+
+                                             c
+                                                 Carnegie Mellon University, USA
+
+
+
+
+arXiv:2112.06339v3 [cs.LO] 8 Jul 2026
+                                                 e-mail address: scott@andrew.cmu.edu
+
+
+                                                    Abstract. We develop Boolean-valued domain theory and show how the lambda-calculus
+                                                    can be interpreted using domain-valued random variables. We focus on the reflexive domain
+                                                    construction rather than the language and its semantics. We develop the Boolean-valued set
+                                                    theory needed from scratch and then develop Boolean-valued domain theory on top of that.
+                                                    The notions of equality and partial order have to be given Boolean-valued interpretations;
+                                                    when we say that an equation is valid in the model we mean that its interpretation is the
+                                                    top element of the Boolean algebra.
+
+
+
+
+                                                                                         1. Introduction
+
+                                        There has been burgeoning interest in probabilistic programming languages in the last
+                                        decade. The main motivation is building compositional models of probabilistic processes
+                                        and performing inference on them [Roy11, GMR+ 08, WvdMM14]. For machine learning
+                                        applications the notion of conditioning is fundamental and the striking results of [AFR11,
+                                        AFR19] show that this is a subtle issue.
+                                            The combination of probability and higher type programming has been both technically
+                                        challenging and important for the development of semantics for such languages. There are
+                                        a variety of approaches based on probabilistic coherence spaces [ETP14] or cones [EPT17],
+                                        quasi-Borel spaces [SYW+ 17, HKSY17, VKS19] and Boolean-valued models [BFK+ 18] which
+                                        was based on Dana Scott’s vision [Sco14]. Stochastic lambda-calculi have appeared [BLGS16,
+                                        DK20, dAKM+ 21] with important contributions to the understanding of probability theory at
+                                        higher type. The work on quasi-Borel spaces gives a cartesian closed category that can serve
+                                        as the foundation for a typed higher-order probabilistic programming language [HKSY17].
+                                            In [BFK+ 18] a Boolean-valued domain theory was developed. The idea is to use one of
+                                        the standard set-theoretic models of the λ-calculus but interpreted in a suitable Boolean-
+                                        valued universe of sets. However, the basic domain theoretic definitions of directed set,
+                                        Preprint submitted to                                                     © R. Furber, R. Mardare, P. Panangaden, and D. Scott
+                                        Logical Methods in Computer Science                                       ⃝
+                                                                                                                  CC Creative Commons
+2                  R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+supremum, reflexive dcpo and continuity were interpreted as usual. The theory presented
+there is rather complicated and had artificial restrictions on the way randomness was handled.
+In the present paper a completely Boolean-valued point of view is adopted and even basic
+concepts, like equality and order, are all interpreted in a Boolean-valued logic. This leads to a
+much simpler theory but still in line with the vision of [Sco14]. The version of Boolean-valued
+domain theory used in the current paper supersedes [BFK+ 18] by working “internally”, by
+transferring theorems from ordinary logic to Boolean-valued logic as much as possible, rather
+than the “bare handed” approach of [BFK+ 18].
+    We show that untyped λ-calculus can be interpreted in domain-valued random variables.
+In order to employ the theory of Boolean-valued sets, for most of the article we actually use
+the Boolean-valued power set rather than random variables, and then show that there is an
+isomorphism between the two at the end. We focus on the reflexive domain construction
+rather than the language and its semantics.
+    We are then able to generalize this way of doing things to random variables valued in an
+arbitrary dcpo with countable base.
+    The main contribution of this paper is the completely Boolean-valued reconstruction
+of domain theory. The notion of equality has to be interpreted in the Boolean algebra and
+when we say that an equation is valid in the model we mean that its interpretation is the
+top element of the domain.
+     What makes the theory of Boolean-valued sets necessary is that domain-valued random
+variables do not form a continuous dcpo. However, when “continuous dcpo” is given its
+interpretation in Boolean-valued sets, they are. The version of Boolean-valued sets we have
+used is the original version in terms of a cumulative hierarchy. If the reader prefers, they may
+rephrase the arguments results in terms of topos theory in a Boolean topos, and we outline
+the connection of the two in Section 3, though the only part of this theory that we use is the
+ability to define functions. As an example of how to apply Boolean-valued domain theory,
+we show that there exist two sets of integers, neither of which can be mapped to the other by
+a λ-definable function. The reason for choosing this example is that it shows that λ-calculus
+and its model based on domain-valued random variables are powerful enough to prove a
+fact that does not mention probability in its statement, and such that the proof is pure
+λ-calculus and probability and doesn’t need to pass via the equivalence between λ-definability
+and general recursion and applying the Kleene-Post theorem [KP54, 2.2 Corollary 1] that
+there are incomparable many-one degrees. The proof, however, is inspired by Spector’s
+probabilistic proof [Spe58, Theorem 2].
+     There are a number of directions for future work. First, one can use this construction to
+give semantics to a λ-calculus extended with probabilistic choice as was done in [BFK+ 18].
+In this model it will be interesting to see which equations involving the interplay of choice and
+the standard λ-calculus constructions are valid. One could then relate it to an operational
+semantics as, for example, in [dAKM+ 21] but one would need a Boolean-valued notion of
+operational semantics. More interestingly one could define conditioning as a primitive and
+explore its semantics.
+    A second line of research is the notion of approximation. A notion of “approximate
+equality” has been developed recently [MPP16]; the connection to the notion of equality used
+in the present paper is unclear but there is a similarity in that in both cases equality may
+only hold partially.
+                      INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                 3
+
+
+
+
+                   2. Background on Boolean-Valued Set Theory
+
+In this section we describe how statements and proofs in ordinary set theory can be re-
+interpreted in a Boolean-valued sense. This interpretation is originally due to Scott and
+Solovay [Sco67, Jec03, Bel05].
+     Throughout this section we let A be an arbitrary complete Boolean algebra. It will play
+the role that the two-element Boolean algebra 2 plays in ordinary logic. We can build up the
+class of A-valued sets, V A , by considering an A-valued set X to be a partial function that
+assigns to each element x of its domain the amount, valued in A, that x is an element of X.
+We build up V A by the following generalization of von Neumann’s construction:
+                                                       [
+            V0A = ∅, Vα+1
+                      A
+                          = {f : VαA ⇀ A}, VαA =             VβA for α a limit ordinal.
+                                                       β<α
+
+
+Then either informally, or using proper classes, V A =             VαA .
+                                                              S
+                                                           α∈Ord
+
+    We use the term A-valued set for the elements of V A , but we also will use the shorter
+term A-set, and this helps to avoid certain confusions arising from the term “valued”.
+    We can then interpret ∈, ⊆ and = by the following mutually recursive formulas:
+                      _                                              ^
+       ∥x ∈ X∥ =             ∥x = t∥ ∧ X(t)         ∥X ⊆ Y ∥ =              X(t) ⇒ ∥t ∈ Y ∥
+                    t∈domX                                         t∈domX
+           ∥x = y∥ = ∥x ⊆ y∥ ∧ ∥y ⊆ x∥.
+                                                                                W      V
+In the above, and all that follows, we use an operator precedence convention for and
+that agrees with operator precedence for ∃ and ∀, so there is an implicit bracket around
+everything to the right of such a join or meet.
+     Recall that the first-order language of set theory, which we write as LSet , is the usual
+first-order language for a signature with equality and one two-place relation symbol, namely
+∈. We write LSet (V A ) for this language extended with constants from V A .
+    In any Boolean algebra, we can interpret the connectives of propositional logic. Using
+the completeness of A, we can interpret the universal quantifier as a meet and the existential
+quantifier as a join. All together, this gives us an interpretation of LSet (V A ) in V A .
+
+Theorem 2.1 (V A as a model).
+
+   (i) If ϕ ∈ LSet (V A ) is a theorem of ZFC set theory, then ∥ϕ∥ = 1 in V A .
+  (ii) The inference rules of first-order logic can be applied to theorems of ZFC set theory
+       and statements about elements of V A in LSet (V A ).
+ (iii) If ∥∃x.Φ(x, X1 , · · · , Xn )∥ = a, where X1 , . . . , Xn ∈ V A (and we allow n = 0), then
+       there exists X0 ∈ V A such that ∥Φ(X0 , X1 , · · · , Xn )∥ = a.
+
+
+Proof. For (i) and (ii), see [Bel05, Theorem 1.17]; (iii) is a particular instance of what we shall
+later call the “completeness” of V A - see [Jec03, Lemma 14.19] or [Bel05, Lemma 1.27].
+4                      R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+    It is helpful to make certain constructions of A-sets explicit. If x, y ∈ V A , we can define
+the singleton {x}A , unordered pair {x, y}A and ordered pair (x, y)A as follows:
+                      dom{x}A = {x}                                  dom({x, y}A ) = {x, y}
+                       {x}A (x) = 1                                         {x, y}A (x) = 1
+                                                                            {x, y}A (y) = 1
+                  dom((x, y)A ) = {{x}A , {x, y}A }
+                 (x, y)A ({x}A ) = 1
+              (x, y)A ({x, y}A ) = 1.
+For X, Y ∈ V A we define X ×A Y as follows.
+      X ×A Y : {(x, y)A | x ∈ dom(X), y ∈ dom(Y )} → A
+    (X ×A Y )(x, y)A = ∥x ∈ X∥ ∧ ∥y ∈ Y ∥.
+For each A-set X, the A-valued power set P A (X) is defined by
+      dom(P A (X)) = {u ∈ V A | dom(u) = dom(X) and ∀t ∈ dom(u).u(t) ≤ X(t)}
+    P A (X)(u) = 1
+For all S, X ∈ V A we have ∥S ∈ P A (X)∥ = ∥S ⊆ X∥, which is how the power set axiom is
+proved for V A .
+If Φ is a set-theoretic formula we can define the A-set
+                                 {x ∈ X | Φ(x)}A : dom(X) → A by
+                          {x ∈ X | Φ(x)}A (t) = X(t) ∧ ∥Φ(t)∥,
+which proves the axiom of separation for V A .
+     If we now consider von Neumann’s universe V of classic set theory constructed inductively
+on ordinals α ∈ Ord, then for each set S ∈ Vα , there is a corresponding element Š ∈ VαA
+defined recursively. The domain of Š is {x̌ | x ∈ S}, and it is defined by:
+                             ˇ
+                             ∅ = ∅, and Š(x̌) = 1 for all x ∈ S.
+To describe how a statement in set theory about an ordinary set in X ∈ V translates to
+a statement about X̌ ∈ V A , we need the notion of a ∆0 statement. Bounded quantifiers
+are those of the form ∀x ∈ X.Φ(x) and ∃x ∈ X.Ψ(x), i.e. in the language of set theory
+∀x.x ∈ X ⇒ Φ(x) and ∃x.x ∈ X ∧ Ψ(x). A ∆0 formula Φ ∈ LSet (V A ) is one containing only
+bounded quantifiers. We have ∆0 invariance1 [Jec03, Lemma 14.21] or [Bel05, Theorem 1.23
+(v)].
+Theorem 2.2 (∆0 invariance). Let Φ(x1 , . . . , xn ) be a ∆0 -formula, whose free variables are
+x1 , . . . , xn . Let X1 , · · · , Xn ∈ V . Then, Φ(X1 , . . . , Xn ) ⇔ ∥Φ(X̌1 , . . . , X̌n )∥ = 1.
+
+    We point out some useful consequences of Theorem 2.2. The statements “S is a singleton
+whose only element is x”, “S is an unordered pair of x and y” and “S is an ordered pair, first
+element x, second element y” are all ∆0 statements, and so the following all hold
+              W                           W                                   W
+
+
+
+               {x} = {x̌}A                 {x, y} = {x̌, y̌}A                  (x, y) = (x̌, y̌)A .
+
+    1Note that Bell uses the alternative terminology “restricted” for ∆ .
+                                                                       0
+                        INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                        5
+
+
+
+
+Another important consequence of Theorem 2.2 is that ω̌ is the smallest inductive2 A-set
+in V A , so that ω̌ is the ω of V A . Given any set X, we say a subset S ⊆ X is finite if there
+exists n ∈ ω and f : n → X such that S = im(f ). We write Pfin (X) for the set of all finite
+subsets of X. If we interpret this with A-sets, for each X ∈ V A we can define Pfin
+                                                                                  A (X) to be
+
+the set of finite A-subsets of X, using the axiom of separation. The following proposition is
+a consequence of the distributive law - see [KK99, 3.1.11].
+                                                        W
+
+
+                                   A (X̌) = P (X)∥ = 1.
+Proposition 2.3. For all sets X, ∥Pfin       fin
+
+     We can define the category SetA from V A as follows. The class of objects is V A , and for
+                                          A
+each X, Y ∈ V A , the set of functions {X → Y } ∈ V A can be defined using products, power
+set, and the axiom of separation. We define:
+                                                   A                     A
+                SetA (X, Y ) = {f ∈ dom({X → Y }) | ∥f ∈ {X → Y }∥ = 1}/ ∼,
+where ∼ is the equivalence relation defined by f ∼ g iff ∥f = g∥ = 1. Identity elements
+are defined as identity relations, and composition by composition of relations, which is
+well-defined with respect to ∼.
+
+
+                                   3. Boolean-Valued Setoids
+
+We now discuss the kind of “Boolean-valued sets” that are essentially A-valued models of
+the theory of =. These can be considered an alternative description of either sheaves or
+separated presheaves on A, and are usually discussed in the more general case where A is a
+Heyting algebra, such as in [FS79, Gol06, Mon86b]. Although we will use only one definition
+of A-valued sets, the distinction between A-valued relations that satisfy the definition of a
+function internally and functions that do so gives us two distinct categories.
+     In order to distinguish the A-valued sets we will be discussing from elements of V A , we
+call them A-valued setoids 3, or simply A-setoids. An A-setoid is a pair (X, ∥=∥X ) where X
+is a set, ∥=∥X : X × X → A. The two axioms of ∥=∥X are symmetry and transitivity, i.e.
+                                           ∀x, y ∈ X.∥x = y∥X = ∥y = x∥X
+                          ∀x, y, z ∈ X.∥x = y∥X ∧ ∥y = z∥X ≤ ∥x = z∥X .
+so A-valued setoids are “A-valued partial equivalence relations”.
+    Since reflexivity is not assumed, the statement ∥x = x∥X does not represent a tautology,
+but its intended interpretation is, in some sense, the degree to which x ∈ X, or the place
+where x ∈ X. So we define the notation εX (x) = ∥x = x∥X .
+     We say (X, ∥=∥X ) is total if ∥x = x∥X = 1 for all x ∈ X, i.e. if reflexivity holds; it is
+strict if ∥x = y∥X = 1 implies x = y.
+Definition 3.1. Let (X, ∥=∥X ) be an A-setoid. We say it is complete 4 if either, hence both,
+of the following equivalent properties holds:
+   2In the sense used to formulate the axiom of infinity in ZF.
+   3Setoid is a long-established term for a set equipped with an equivalence relation.
+   4This definition is slightly different from that used in [FS79, 4.10,4.11] and elsewhere, which would not
+suit us because under that definition P A (X) is not complete, when considered as an A-setoid in the sense we
+will define in Definition 3.12.
+6                       R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+     (i) For any family of elements (ai )i∈I in A and corresponding family (xi )i∈I in X such
+         that for all i, j ∈ I, ai ∧ aj ≤ ∥xi = xj ∥X , there exists x ∈ X such that for all i ∈ I,
+         ai ≤ ∥xi = x∥X .
+    (ii) For any pairwise disjoint family of elements (ai )i∈I in A and corresponding family
+         (xi )i∈I in X such that for all i ∈ I, ai ≤ ∥xi = xi ∥X , there exists x ∈ X such that for
+         all i ∈ I, ai ≤ ∥xi = x∥X .
+Definition 3.2. If (X, ∥=∥X ) is an A-setoid and (Y, ∥=∥Y ) is a set and a function ∥=∥Y :
+Y × Y → A, and f : X → Y is a bijection such that for all x1 , x2 ∈ X:
+                                    ∥f (x1 ) = f (x2 )∥Y = ∥x1 = x2 ∥X ,
+then we say f is a strict isomorphism, and it follows that (Y, ∥=∥Y ) is an A-setoid, and is
+total, strict or complete iff (X, ∥=∥X ) is.
+Definition 3.3. The product (X, ∥=∥X ) × (Y, ∥=∥Y ) is defined to have
+                           ∥(x, y) = (x′ , y ′ )∥X×Y = ∥x = x′ ∥X ∧ ∥y = y ′ ∥Y .
+Definition 3.4. A predicate on (X, ∥=∥X ) is a function S : X → A such that:
+     (i) For all x1 , x2 ∈ X, ∥x1 = x2 ∥X ≤ S(x1 ) ⇔ S(x2 ).
+    (ii) For all x ∈ X, S(x) ≤ εX (x).
+A binary relation X → Y is simply a predicate on X × Y .
+
+     This allows us to define a category of setoids with relations that satisfy the internal
+definition of a function (“relational functions”) as morphisms.
+Definition 3.5. The category SetoidRA has A-setoids as objects and a morphism is a
+relation f : X → Y such that (additionally to (i) and (ii) from Definition 3.4):
+    (iii) For all x ∈ X, y1 , y2 ∈ YW, f (x, y1 ) ∧ f (x, y2 ) ≤ ∥y1 = y2 ∥Y .
+    (iv) For all x ∈ X, εX (x) ≤ y∈Y f (x, y).
+The identity function idX : X → X is defined by: idX (x1 , x2 ) = ∥x1 = x2 ∥X .
+Composition of functions f : X → Y and g : Y → Z is defined by
+                                          _
+                         (g ◦ f )(x, z) =   f (x, y) ∧ g(y, z).
+                                                 y∈Y
+
+       We define the category of A-setoids and “functional functions”, SetoidFA , as follows.
+Definition 3.6. The category SetoidFA has A-setoids as objects. The morphisms are
+defined starting with an A-setoid:
+                X ⊸ Y = {f : X → Y | ∀x1 , x2 ∈ X.∥x1 = x2 ∥X ≤ ∥f (x1 ) = f (x2 )∥Y }
+                          ^
+          ∥f1 = f2 ∥X⊸Y =    εX (x) ⇒ ∥f1 (x) = f2 (x)∥Y .
+                              x∈X
+
+Then the hom set SetoidFA (X, Y ) is the quotient set of this,5 i.e. X ⊸ Y modulo the
+equivalence relation:
+                            f1 ∼ f2 iff ∀x ∈ X.εX (x) ≤ ∥f1 (x) = f2 (x)∥Y .
+Identity maps and composition are defined as for functions.
+     5Monro calls these admissible functions in [Mon86b, Definition 5.2].
+                        INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                     7
+
+
+
+
+    The category SetoidFA is called Mod0 (A) in [Mon86b, Definition 5.2], where it is
+proved to be a quasi-topos. The full subcategory on non-empty6 complete A-setoids is a
+topos [Mon86b, Proposition 5.6 (ii)] equivalent to the category of sheaves on the canonical
+topology on A.
+   Mapping a functional function to its graph defines a faithful functor from SetoidFA →
+SetoidRA .
+Definition 3.7. The following defines a faithful functor γ : SetoidFA → SetoidRA . On
+objects, γ (X, ∥=∥X ) = (X, ∥=∥X ). For f ∈ SetoidFA (X, Y ), we define
+                                γ (f )(x, y) = εX (x) ∧ ∥f (x) = y∥Y .
+
+     We can formulate a notion of poset that does not require us to define ∥=∥X but can
+instead be defined in terms of it. It turns out to be useful in the general theory, as well as
+for dealing with posets that are A-setoids or A-sets.
+Definition 3.8. An A-poset is a pair (X, ∥≤∥X ), where X is a set and ∥≤∥X : X × X → A
+is such that for all x1 , x2 , x3 ∈ X:
+   (i) ∥x1 ≤ x2 ∥X ∧ ∥x2 ≤ x3 ∥X ≤ ∥x1 ≤ x3 ∥X .
+  (ii) ∥x1 ≤ x2 ∥X ≤ ∥x1 ≤ x1 ∥X ∧ ∥x2 ≤ x2 ∥X .
+We then define ∥=∥X by
+                            ∥x1 = x2 ∥X = ∥x1 ≤ x2 ∥X ∧ ∥x2 ≤ x1 ∥X .                               (3.1)
+Then (X, ∥=∥X ) is an A-setoid, and ∥≤∥X is a reflexive, antisymmetric, transitive relation
+when these statements are interpreted in the A-valued sense. If (X, ∥=∥X ) is an A-setoid
+and ∥≤∥X is a relation that is reflexive, antisymmetric and transitive, in the A-valued sense,
+then (X, ∥≤∥X ) is an A-poset in the above sense, and ∥=∥X satisfies (3.1).
+
+    Since ∥=∥X is defined in terms of ∥≤∥X , the following fact is convenient for proving that
+a function on underlying sets f : X → Y not only defines an element of SetoidFA (X, Y )
+but also a monotone function in the A-valued sense.
+Lemma 3.9. Let (X, ∥≤∥X ), (Y, ∥≤∥Y ) be A-posets, and suppose that f : X → Y is A-
+monotone in the sense7 that for all x1 , x2 ∈ X, ∥x1 ≤ x2 ∥X ≤ ∥f (x1 ) ≤ f (x2 )∥Y .
+Then f ∈ X ⊸ Y . Every f ∈ SetoidFA (X, Y ) that is monotone in the A-valued interpreta-
+tion of the term is of this form.
+
+    The following is useful for transferring the property of being an A-poset to a set equipped
+with an A-valued relation.
+Lemma 3.10. Let (Y, ∥≤∥Y ) be an A-valued poset, and (X, ∥≤∥X ) a pair such that X is a
+set and ∥≤∥X is a function X × X → A. Suppose that f : X → Y is a bijection such that
+for all x1 , x2 ∈ X, ∥x1 ≤ x2 ∥X = ∥f (x1 ) = f (x2 )∥Y , then (X, ∥≤∥X ) is an A-poset, and the
+map f and its inverse are A-monotone, and f is a strict isomorphism of setoids.
+  6We mean not having ∅ as an underlying set. It is still allowed, and necessary, to have sets that do not
+assign any value other than 0 to any element, which are “empty” in terms of Boolean-valued logic.
+   7This is monotonicity using the interpretation of logic in Section 2.
+8                   R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+Proof. For all x1 , x2 , x3 ∈ X,
+             ∥x1 ≤ x2 ∥X ∧ ∥x2 ∧ x3 ∥X = ∥f (x1 ) ≤ f (x2 )∥Y ∧ ∥f (x2 ) ≤ f (x3 )∥Y
+                                           ≤ ∥f (x1 ) ≤ f (x3 )∥Y
+                                           = ∥x1 ≤ x3 ∥X ,
+and for all x1 , x2 ∈ X
+                     ∥x1 ≤ x2 ∥X = ∥f (x1 ) ≤ f (x2 )∥Y
+                                   ≤ ∥f (x1 ) ≤ f (x1 )∥Y ∧ ∥f (x2 ) ≤ f (x2 )∥Y
+                                   = ∥x1 ≤ x1 ∥X ∧ ∥x2 ≤ x2 ∥X .
+So we have proved that (X, ∥≤∥X ) is an A-valued poset, and also that f is A-valued monotone,
+and so is its inverse. We also have
+                 ∥f (x1 ) = f (x2 )∥Y = ∥f (x1 ) ≤ f (x2 )∥Y ∧ ∥f (x2 ) ≤ f (x1 )∥Y
+                                      = ∥x1 ≤ x2 ∥X ∧ ∥x2 ≤ x1 ∥X
+                                      = ∥x1 = x2 ∥X ,
+so f is a strict isomorphism of A-setoids.
+    To see that f −1 is A-monotone, simply observe that for all y1 , y2 ∈ Y
+            ∥f −1 (y1 ) ≤ f −1 (y2 )∥X = ∥f (f −1 (y1 )) ≤ f (f −1 (y2 ))∥Y = ∥y1 ≤ y2 ∥Y ,
+and read it in reverse.
+
+    The following definition and theorem are based on [Mon86a, Proposition 3.3].
+Definition 3.11. Let (X, ∥=∥X ), (Y, ∥=∥X ) be A-setoids such that Y is complete, and let
+f ∈ SetoidRA (X, Y ). For each x ∈ X, there exists F (f )(x) ∈ Y such that
+                                    f (x, y) ≤ ∥F (f )(x) = y∥Y .                             (3.2)
+Any choice of F (f )(x) for all x ∈ X defines an element F (f ) ∈ SetoidFA (X, Y ) such that
+γ (F (f )) = f , and in fact this establishes a SetoidFA isomorphism SetoidRA (X, Y ) ∼   =
+SetoidFA (X, Y ).
+
+    Every A-set defines an A-setoid as follows.
+Definition 3.12. Let X ∈ V A . Define ∥=∥X : dom(X) × dom(X) → A by
+                           ∥x = y∥X = ∥x ∈ X∥ ∧ ∥y ∈ X∥ ∧ ∥x = y∥                             (3.3)
+Then (dom(X), ∥=∥X ) is an A-setoid, which we write Oid(X) when we need to be unam-
+biguous. When we speak of elements of Oid(X), we mean elements of the underlying set of
+Oid(X), i.e. elements of dom(X), following the usual convention for sets with structure.
+Definition 3.13. Let X ∈ V A . For each S ∈ V A such that ∥S ⊆ X∥ = 1, then e(S), defined
+as follows, is a predicate on Oid(X):
+                                        e(S)(x) = ∥x ∈ S∥,
+where x ∈ Oid(X). In particular, this holds if S ∈ dom(P A (X)).
+                      INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                              9
+
+
+
+
+Definition 3.14. The following defines Oid : SetA → SetoidRA a functors, where f : X →
+Y is in SetA :
+                                 Oid(f )(x, y) = ∥(x, y)A ∈ f ∥
+This functors is full, faithful and essentially surjective, so SetA ≃ SetoidRA .
+Theorem 3.15. For each X ∈ V A , Oid(P A (X)) is complete. Moreover, if Φ is a formula
+of LSet (V A ) and ∥∃S ∈ P A (X).Φ(S, . . .)∥ = a ∈ A, then there exists S ∈ Oid(P A (X)) such
+that ∥Φ(S, . . .)∥ = a.
+                                                                            A
+Corollary 3.16. For each X, Y ∈ V A , Oid(P A (X ×A Y )) and Oid({X → Y }) are complete,
+and if we prove a relation or a function exists in the Boolean-valued sense, satisfying some
+formula Φ ∈ LSet (V A ), then there exists a corresponding element of Oid(P A (X ×A Y )) or
+         A
+Oid({X → Y }) satisfying Φ.
+
+
+
+
+         4. Models of Untyped Lambda-calculus in Boolean-valued sets
+
+In this section we show how to model untyped λ-calculus in A-valued sets. We use the
+Engeler model [Eng81] as the main example. We will repeatedly use Theorem 2.1 to prove
+statements in V A by proving them in set theory first. The reader who would prefer to use a
+topos formulation might prefer to use the categorical formulation of the Engeler model from
+[HNPR06].
+
+
+
+4.1. Background on Domain Theory. A dcpo (D, ≤) is a poset that is directed complete,
+i.e. such that every directed set has a supremum. Every complete lattice is a dcpo. The
+least element of a dcpo (D, ≤), if it exists, is called the bottom element and is written ⊥. In
+a dcpo D, where d, e ∈ D,Wwe say that d is way below e, written d ≪ e, if for each directed
+set (ei )i∈I such that e ≤ i∈I ei , there exists some j ∈ I such that d ≤ ej . The relation
+≪ is transitive and antisymmetric, but in general is neither reflexive nor irreflexive. We
+     ↠
+write d = {e ∈ DW| e ≪ d}. A dcpo D is called continuous if for all d ∈ D, the set d is   ↠
+directed and d =    ↠  d. A continuous dcpo is called a domain. A complete lattice that is
+continuous as a dcpo is called a continuous lattice. A basis or Wbase for a domain D is a subset
+                                ↠                                 ↠
+B ⊆ D such that for all d ∈ D, d ∩ B is directed, and d = ( d ∩ B). It follows that if D is
+continuous, then D is a base for D. If D has a countable base, we say it is a countably-based
+domain. See [GHK+ 03] for more related concepts.
+     If D and E are dcpos, a function f : D → E is said to be Scott continuous if it is
+monotone and preserves directed suprema. We write [D → E] for the set of Scott-continuous
+maps D → E. This is a dcpo when given the pointwise ordering, and directed suprema are
+calculated pointwise. When we refer to this as a dcpo, we always use this structure. The
+Scott topology on a dcpo D is the topology whose open    W sets are the sets U ⊆ D such that U
+is an up set and for all directed sets (di )i∈I such that i∈I di ∈ U there exists i ∈ I such that
+di ∈ U . If D and E are dcpos, a function f : D → E is Scott continuous iff it is a continuous
+map from D to E equipped with their respective Scott topologies.
+10                      R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+Definition 4.1. A reflexive dcpo is a triple (D, fun, lam), where D is a dcpo with bottom8,
+and fun : D → [D → D] and lam : [D → D] → D are Scott-continuous maps making
+[D → D] a retract of D, i.e. fun ◦ lam = id[D→D] . A reflexive dcpo is extensional iff fun,
+or equivalently lam is an isomorphism, i.e. iff additionally lam ◦ fun = idD .
+
+     It is often convenient to formulate this notion using the uncurried form of fun, which
+is to say, we can equivalently define a reflexive dcpo to be a triple (D, ·, lam) where D is a
+dcpo with bottom, and · : D × D → D and lam : [D → D] → D are Scott-continuous maps
+such that for each f ∈ [D → D] and d ∈ D we have lam(f ) · d = f (d).
+     The language of untyped λ-calculus can be interpreted in a reflexive dcpo as follows.
+Given a reflexive dcpo (D, ·, lam), and a set of variables Var, a valuation is a partial function
+ρ : Var → D. We also choose a set of constants K ⊆ D, which is allowed to be any subset,
+including ∅ and D itself. We then define the language of λ-calculus Λ(D, Var, K) as follows
+Definition 4.2. The language Λ(D, Var, K) is defined inductively by the rules
+                                        x ∈ Var           d∈K
+                                    x ∈ Λ(D, Var, K) d ∈ Λ(D, Var, K)
+
+               x ∈ Var       M ∈ Λ(D, Var, K) M ∈ Λ(D, Var, K)               N ∈ Λ(D, Var, K)
+                    λx.M ∈ Λ(D, Var, K)                       M N ∈ Λ(D, Var, K)
+
+    We write Λ(Var) for Λ(D, Var, ∅), since this does not depend on D. The elements of
+Λ(Var) are called pure λ-terms. We write fv(M ) for the set of free variables of M , defined as
+usual.
+    We make the following observation about how the above definition is formulated in set
+theory9.
+Example 4.3. There exist ∆0 formulas Λ(D, Var, K)-inductive and Λ(Var)-inductive, such
+that the sets Λ(D, Var, K) and Λ(Var) are respectively definable as the smallest sets satisfying
+their corresponding formula.
+     Indeed, to define Λ(Var)-inductive and Λ(D, Var, K)-inductive, we need a way to repre-
+sent the syntax of λ-calculus. For example, we could take the ordinals 0 to mean a variable,
+1 a λ-abstraction, 2 an application and 3 a constant, so that a variable appears as (0, x) for
+x ∈ Var, a λ-abstraction as (1, (x, M )) where x ∈ Var and M is a λ-term, an application as
+(2, (M, N )) where M, N are λ-terms, and a constant as (4, d) where d ∈ K.
+       Then we can define:
+                Λ(Var)-inductive(X) = (∀x ∈ Var.∃p ∈ X.p = (0, x))
+                                          ∧ (∀x ∈ Var.∀M ∈ X.∃p ∈ X.p = (1, (x, M )))
+                                          ∧ (∀M ∈ X.∀N ∈ X.∃p ∈ X.p = (2, (M, N ))).
+Strictly speaking this is not quite a ∆0 formula, but it is not difficult to see that the
+statements p = (0, x), p = (1, (x, M )) and p = (2, (M, N )) are expressible as ∆0 formulas
+     8This is what is meant by a cpo in [Bar84, Definition 1.2.1 (ii)].
+     9This is needed to make the proof of Proposition 4.4 and later results that deal with viewing the syntax of
+λ-calculus from inside V A more comprehensible.
+                       INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                          11
+
+
+
+
+(with the usual set-theoretic representations of ordered pairs). Then, we define:
+      Λ(D, Var, K)-inductive(X) = Λ(Var)-inductive(X) ∧ (∀d ∈ K.∃p ∈ X.p = (3, d))
+Then, Λ(Var) and Λ(D, Var, K) are the least sets satisfying their respective formulas.
+Proposition 4.4. Let Var be a set10. For any complete Boolean algebra A, there exists11
+  W                                            W
+
+
+
+Λ(Var)A that satisfies the definition of Λ(Var) in the Boolean-valued sense, i.e.
+                                     W                W
+
+
+
+                                ∥(Λ(Var)-inductive(Λ(Var)A )∥ = 1
+                                      W                                  W
+
+
+
+and for all X ∈ V A such that ∥Λ(Var)-inductive(X)∥ = 1, we have ∥Λ(Var)A ⊆ X∥ = 1.
+      W              W
+
+
+
+Then ∥Λ(Var) = Λ(Var)A ∥ = 1.
+
+Proof. We know that Λ(Var)-inductive holds of Λ(Var), so by Theorem 2.2,
+   W                W                                               W                W
+
+
+
+∥Λ(Var)-inductive(Λ(Var))∥ = 1. By the defining property of Λ(Var)A , we have ∥Λ(Var)A ⊆
+W
+
+
+
+Λ(Var)∥ = 1, and we only need to show the opposite inclusion.
+                                                              W
+
+
+
+
+W
+    We do this by showing that if X ∈ V A such that ∥Λ(Var)-inductive(X)∥ = 1, then
+                                                          W
+
+
+
+∥Λ(Var) ⊆ X∥ = 1. By expanding the definitions, ∥Λ(Var) ⊆ X∥ = 1 is equivalent to
+                                                                     W
+
+
+
+∀M ∈ Λ(Var).∥M̌ ∈ X∥ = 1, so we show that this follows from ∥Λ(Var)-inductive(X)∥ = 1
+by induction on the structure of elements of Λ(Var).
+• Base case for a variable:                                                 W
+
+
+
+     If (0, x) ∈ Λ(Var) where x ∈ Var, we start with the observation that (0, x) = (0A , x̌)A .
+            W                                                                         W
+
+
+
+  Since ∥Λ(Var)-inductive(X)∥ = 1 we have ∥(0A , x̌)A ∈ X∥ = 1, and therefore (0, x) ∈
+  X∥ = 1, as required.
+• Inductive step for a λ-abstraction:
+     If (1, (x, M )) ∈ Λ(Var) such that x ∈ Var and M ∈ Λ(Var) and ∥M̌ ∈ X∥ = 1,
+                                                      W
+
+
+
+  then again we start with the observation that (1, (x, M )) = (1A , (x̌, M̌ )A )A . We can
+                     W
+
+
+
+  deduce from ∥Λ(Var)-inductive(X) = 1∥ that ∥(1A , (x̌, M̌ )A )A ∈ X∥ = 1, and therefore
+  W
+
+
+
+  ∥(1, (x, M )) ∈ X∥ = 1.
+• Inductive step for an application:
+     If (2, (M, N )) ∈ Λ(Var) such that M, N ∈ Λ(Var) and ∥M̌ ∈ X∥ = ∥Ň ∈ X∥ =
+                                                       W
+
+
+
+  1, then as in the previous cases, we start with (2, (M, N )) = (2A , (M̌ , Ň )A )A . As
+     W                                                                         W
+
+
+
+  ∥Λ(Var)-inductive(X)∥ = 1 we have ∥(2A , (M̌ , Ň )A )A ∈ X∥ = 1, so ∥(2, (M, N )) ∈
+  X∥ = 1.
+This completes the induction.
+
+    The equational theory of λ-calculus, called λ is described following [Bar84]:
+Definition 4.5. Sentences of λ are of the form M = N , where M, N ∈ Λ(Var). The theory
+λ is generated by the following rules, under modus ponens and α-conversion.
+   (i) (λx.M )N = M [x := N ], where M [x := N ] is capture-avoiding substitution of N for x.
+  (ii) M = M .
+ (iii) M = N ⇒ N = M .
+  10Not Boolean-valued, just the usual kind of set.
+  11By Theorem 2.1 (i) and (iii).
+12                  R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+ (iv) M = N, N = L ⇒ M = L.
+  (v) M = N ⇒ M Z = N Z.
+ (vi) M = N ⇒ ZM = ZN .
+(vii) M = N ⇒ λx.M = λx.N .
+
+     We write λ ⊢ M = N to say that the equation M = N is derivable in the theory λ.
+Example 4.6. Here is a brief description of the set-theoretic formulation of λ. We can simply
+consider it to be a subset of Λ(Var) × Λ(Var), and interpret λ ⊢ M = N as (M, N ) ∈ λ. We
+can define a formula λ-inductive(S), which we no longer require to be ∆0 , that encodes the
+rules of forming λ from Definition 4.5, and then λ can be characterized as the least set (with
+respect to ⊆) such that λ-inductive(λ). This allows us to define λA in V A .
+     We can then prove that ∥λ̌ ⊆ λA ∥ = 1 by induction on the structure of an element of λ.
+Definition 4.7. Following [Bar84, Definition 5.4.2], we define the interpretation of λ-terms
+from M ∈ Λ(D, Var, K) in D, using a valuation ρ such that fv(M ) ⊆ dom(ρ), by
+                       JxKρ = ρ(x)                                   x ∈ Var
+                       JkKρ = k                                        k∈K
+                   JM N Kρ = JM Kρ · JN Kρ
+                  Jλx.M Kρ = lam(λd.JM Kρ(x:=d) ),
+where λ is the “meta-lambda”, and ρ(x := d) is the partial function where dom(ρ(x := d)) =
+dom(ρ) ∪ {x} and                       (
+                                        ρ(y) if y ∈ dom(ρ) \ {x}
+                        ρ(x := d)(y) =
+                                        d       if y = x
+This is proved to define a model of λ-calculus in [Bar84, Theorem 5.4.4], which is to say, that
+for all M, N ∈ Λ(D, Var), if λ ⊢ M = N , then for all valuations ρ, JM Kρ = JN Kρ . For closed
+terms M ∈ Λ(D, Var, K), we write JM K for JM K∅ .
+
+     We now give the Boolean-valued version.
+Theorem 4.8. Let D ∈ V A such that the A-setoid of D is strict, total and complete, and
+let there be lam and · in V A such that ∥(D, lam, ·) is a reflexive dcpo∥ = 1. And take
+Var to be a set of variables and K ∈ V A such that ∥K ⊆ D∥ = 1 an A-set of constants.
+                                                        W
+
+
+
+Then for each ρ that defines a partial function from Var to D, there are functions J-KA
+                                                      W
+                                                                                      ρ ∈
+                 W
+
+
+
+SetoidFA (Λ(D, Var, K)A , D) and J-KA
+                                    ρ ∈ SetoidFA (Λ(Var), D) satisfying Definition 4.7 in
+the A-valued sense.
+     Furthermore, for all M, N ∈ Λ(Var), if λ ⊢ M = N , then for all ρ we have JM̌ Kρ = JŇ Kρ .
+
+Proof. It follows from Theorem 2.1 applied to Definition 4.7 that there exist some ele-
+ments of V A representing functions J-KA
+                                       ρ with the required properties holding with Boolean
+                                                                 W
+
+
+
+value 1. So by Corollary 3.16 we can take J-KA
+      W
+                                                                     A                 A
+                                              ρ ∈ SetA (Λ(D, Var, K) , D) and also J-Kρ ∈
+SetA (Λ(Var), D) for pure terms (using Proposition 4.4). So by Definition 3.14, these
+                                  W                              W
+
+
+
+define maps in SetoidRA (Λ(D, Var, K)A , D) and SetoidRA (Λ(Var), D). So by complete-
+                                                                             W
+
+
+
+ness of D, we can apply Definition 3.11 to get maps in SetoidFA (Λ(D, Var, K)A , D) and
+           W
+
+
+
+SetoidFA (Λ(Var), D).
+                        INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                    13
+
+
+
+                                                        W
+
+
+
+    From this, we get that if λ ⊢ M = N , then ∥(M, N ) ∈ λA ∥ = 1, and therefore for all ρ,
+∥JM̌ Kρ = JŇ Kρ ∥ = 1. Since D is strict, this implies that actually JM̌ Kρ = JŇ Kρ in the usual
+sense as well.
+
+
+
+4.2. The Engeler Model. We start with a basic result about the power set.
+Proposition 4.9. For any set X, the power set P(X), when ordered using the subset relation
+⊆, is a dcpo (in fact, a complete lattice). If S, T ∈ P(X), S ≪ T iff S is finite and S ⊆ T .
+The set of finite sets Pfin (X) is a base, and if X is countable, it is a countable base.
+
+    We can then apply this in V A as follows.
+Proposition 4.10. For any X ∈ V A , the A-set P A (X), ordered with the subset relation, is
+                                  A (X), interpreted in the A-valued sense. As an A-setoid,
+a continuous lattice with base Pfin                  W
+
+
+
+P A (X) is complete and total. If X = Y̌ , then Pfin (Y ) is a base, and P A (Y̌ ) is strict.
+
+Proof. We get the first part by applying Theorem 2.1 to Proposition 4.9. By Theorem 3.15,
+P A (X) is complete, and it is clear from its definition that it is total. Now, if X = Y̌ , we use
+                W                                                   W
+
+
+                            A (Y̌ )∥ = 1 (Proposition 2.3), so P (Y ) is also a base for P A (Y̌ )
+the fact that ∥Pfin (Y ) = Pfin                                   fin
+with Boolean value 1.
+     Finally, to show that P A (Y̌ ) is strict, let S, T ∈ P A (Y̌ ) such that ∥S = T ∥P A (Y̌ ) = 1,
+which is equivalent to ∥S = T ∥ = 1. First observe that dom(S) = dom(Y̌ ) = dom(T ), and
+then that for all y̌ ∈ dom(Y̌ ), we have ∥y̌ ∈ S∥ = S(y̌) and likewise for T . Since ∥S = T ∥ = 1,
+for all y ∈ Y we have
+                               S(y̌) = ∥y̌ ∈ S∥ = ∥y̌ ∈ T ∥ = T (y̌),
+so S = T .
+
+    We define the Engeler model [Eng81, Bar84], an adaptation of the Scott-Plotkin graph
+model that uses set-theoretic operations instead of Gödel numbering, as follows12.
+    Let E0 = {∅}. We define En+1 = (Pfin (En ) × En ) ⊎ En and E = ∞
+                                                                         S
+                                                                           n=0 En . Then we
+have a map (-, -) : Pfin (E) × E → E defined by pairing, since for each S ∈ Pfin (E) we have
+S ⊆ En for some n ∈ N. For reasons that will become clear later, we express the existence of
+the Engeler model in the following manner.
+Proposition 4.11. Let E be a set equipped with an injective mapping (-, -) : Pfin (E)×E → E.
+Define lam : [P(E) → P(E)] → P(E) and - · - : P(E) × P(E) → P(E) by
+       lam(f ) = {(K, q) | q ∈ f (K)} = {x ∈ E | ∃K ∈ Pfin (E), q ∈ f (K).x = (K, q)}
+         F · X = {q ∈ E | ∃K ∈ Pfin (E).K ⊆ X and (K, q) ∈ F },
+where f ∈ [P(E) → P(E)], and F, X ∈ P(E). Then (P(E), ·, lam) is a reflexive dcpo.
+
+    We can now build the Engeler model in V A , as follows.
+   12What we really need of E is for it to be countable, non-empty, and an algebra of the functor P × Id,
+                                                                                                   fin
+such that the structure map Pfin (E) × E → E is injective, which implies E must be infinite. We cannot use
+the initial algebra of Pfin × Id, because it is ∅.
+14                    R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+Theorem 4.12. Let E be the set defined before Proposition 4.11. (P A (Ě), ∥ ⊆ ∥, ·, lam) is
+an A-valued reflexive dcpo, where · and lam are defined by the A-valued interpretation of the
+definitions given in Proposition 4.11.
+                            W                                         W          W
+
+
+
+Proof. By Theorem 2.2, (-, -) defines an injective function Pfin (E) ×A Ě = Pfin (E) × E → Ě.
+         W
+
+
+                   A (Ě)∥ = 1 by Prop. 2.3, it also defines an injective function P A (Ě) ×
+Since ∥Pfin (E) = Pfin                                                                fin    A
+Ě → Ě. We apply Theorem 2.1 (i) to Prop. 4.11 to conclude that P A (Ě) is a reflexive
+dcpo.
+
+    By combining Theorem 4.12 with Proposition 4.10 and Theorem 4.8, we obtain a function
+J-KA that interprets λ-terms in a manner that respects provable equations between them.
+   The following lemma shows that if we only use pure λ-terms we do not get anything
+new by using P A (Ě) instead of P(E) as a model of λ-calculus.
+
+Lemma 4.13. Let M ∈ Λ(Var) and ρ a valuation such that fv(M ) ⊆ dom(ρ), and consider
+                                                                                  W
+
+
+
+J-KA and J-K as defined for P A (Ě) and P(E) respectively. Then ∥JM̌ KA
+                                                                      W
+                                                                       ρ̌ = JM Kρ ∥ = 1.
+In particular, since ∅ = ˇ
+                         ∅, if M is closed we have ∥JM̌ KA = JM K∥ = 1.
+
+Proof. We prove it by induction on the structure of M . The inductive hypothesis is for the
+statement to hold for all valuations ρ, we do not do a separate induction proof for each
+valuation.
+
+• Base case M = x with x ∈ Var:
+    By definition, Jx̌KA
+     W
+                                                                      A A
+                       ρ̌ = ρ̌(x̌), by which we really mean ∥(x̌, Jx̌Kρ̌ ) ∈ ρ̌∥ = 1. We also have
+                                   W           W
+
+
+
+  ∥(x, JxKρ ) ∈ ρ̌∥ = 1 and (x̌, JxKρ )A = (x, JxKρ ), so since ρ̌ is a partial function internally in
+                                              W
+
+
+
+  V A , we can conclude that ∥Jx̌KA  ρ̌ = JxKρ ∥ = 1.
+• Inductive step for an application:
+    We first prove the key step, which is that if S, T ⊆ E, then
+                                                      W
+
+
+
+                                            ∥Š · Ť = S · T ∥ = 1.                              (4.1)
+
+     For all q ∈ E, we have
+                                     A
+            ∥q̌ ∈ Š · Ť ∥ = ∥∃K ∈ Pfin (Ě).K ⊆ Ť and (K, q̌)A ∈ Š∥
+                                   W
+
+
+
+                        = ∥∃K ∈ Pfin (E).K ⊆ Ť and (K, q̌)A ∈ Š∥               Prop. 2.3
+                            _
+                        =        ∥Ǩ ⊆ Ť ∥ ∧ ∥(Ǩ, q̌)A ∈ Š∥
+                            K∈Pfin (E)
+                               _                      W
+
+
+
+                        =                ∥Ǩ ⊆ Ť ∥ ∧ ∥(K, q) ∈ Š∥
+                            K∈Pfin (E)
+                        = [ ∃K ∈ Pfin (E).K ⊆ T and (K, q) ∈ S] A
+                                                    W
+
+
+
+                        = [ q ∈ S · T] A = ∥q̌ ∈ S · T ∥,
+
+     where we have used the A-valued Iverson bracket [ -] A above.
+                        INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                              15
+
+
+
+
+     Then the proof of this step proceeds as follows, where for convenience we write at each
+  step simply A = B instead of ∥A = B∥ = 1:
+                 W
+
+
+
+                 JM N KA            A
+                       ρ̌ = JM̌ Ň Kρ
+                            = JM̌ KA         A
+                                   ρ̌ · JŇ Kρ̌
+                              W        W
+
+
+
+                            = JM Kρ · JN Kρ                 by inductive hypothesis
+                             W
+
+
+
+                            = JM Kρ · JN Kρ                                    (4.1)
+                              W
+
+
+
+                            = JM N Kρ .
+• Inductive step for a λ-abstraction:
+    For this step, we first point out that when interpreting Jλx.M Kρ in the Engeler model,
+  we can simplify the expression
+                      lam(λd.JM Kρ(x:=d) ) = {(K, q) ∈ E | q ∈ JM Kρ(x:=K) }
+  So for p ∈ E we have:
+      ∥p̌ ∈ Jλx̌.M̌ KA
+                     ρ̌ ∥
+            A
+   = ∥∃K ∈ Pfin (Ě), q ∈ Ě.p̌ = (K, q) and q ∈ JM̌ KA
+                                                      ρ̌(x̌:=K) ∥
+              W                       W
+
+
+
+   = ∥∃Ǩ ∈ Pfin (E), q̌ ∈ Ě.p̌ = (K, q) and q̌ ∈ JM̌ KA
+                                                        ρ̌(x̌:=Ǩ)
+                                                                   ∥           Proposition 2.3
+              W                       W
+
+
+
+   = ∥∃Ǩ ∈ Pfin (E), q̌ ∈ Ě.p̌ = (K, q) and q̌ ∈ JM̌ KAρ(x := K) ∥
+                                                           W
+
+
+
+
+              W                       W             W
+
+
+
+   = ∥∃Ǩ ∈ Pfin (E), q̌ ∈ Ě.p̌ = (K, q) and q̌ ∈ JM Kρ(x:=K) ∥       by inductive hypothesis
+                                  W
+
+
+
+   = [ p ∈ Jλx.M Kρ] A = ∥p̌ ∈ Jλx.M Kρ ∥.
+
+
+
+
+4.3. Injective Spaces and Oracles. We can encode the Booleans {⊥, ⊤}, and natural
+numbers N in λ-calculus in several ways, e.g. with the Church numerals. The details of the
+encoding do not matter, only the following.
+Definition 4.14. Let (D, fun, lam) be a reflexive dcpo, and let ⊥, ⊤ be closed λ-terms and
+(cn )n∈N a family of closed λ-terms. We say (D, fun, lam, ⊥, ⊤, (cn )n∈N ) is a reflexive dcpo
+with numerals if
+   (i) J⊥K and J⊤K are distinct elements of D.
+  (ii) There exists a closed λ-term if such that for all λ-terms M, N , λ ⊢ if ⊤M N = M and
+       λ ⊢ if ⊥M N = N .
+ (iii) There exist closed λ-terms succ and pred representing the successor and predecessor
+       operations on (cn )n∈N , i.e. for all n ∈ N, λ ⊢ succcn = cn+1 and λ ⊢ predcn+1 = cn
+       and λ ⊢ predc0 = c0 .
+ (iv) There exists a closed λ-term 0? such that λ ⊢ 0? c0 = ⊤ and for all n > 0, λ ⊢ 0? cn = ⊥.
+Proposition 4.15. The Church Booleans and Church numerals make the Engeler model into
+a reflexive continuous lattice with numerals.
+16                    R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+Corollary 4.16. The Engeler model in V A , as described in Theorem 4.12, is a reflexive
+continuous lattice with numerals, when given (-̌ of ) the Church Booleans and Church numerals,
+with this whole statement being interpreted in V A .
+                                     W
+
+
+                        ˇ A = J⊥K∥ = 1, and likewise for ⊤ and the Church numerals.
+Proof. By Lemma 4.13, ∥J⊥K
+    Then part (i) of Definition 4.14 is a ∆0 statement, so it follows by applying Theorem 2.2
+to Proposition 4.15. Parts (ii) - (iv) then follow by Example 4.6.
+
+          ( following, for a set A ⊆ N, we write χA for the function A → 2 such that
+     In the
+            1 if x ∈ A
+χA (x) =                ,
+            0 if x ̸∈ A
+while if {⊥, ⊤} are part of the structure of a reflexive dcpo with numerals D, we write χD
+                                                                                         A
+for the function
+          (      N → {J⊥K, J⊤K} such that:
+            J⊤K if x ∈ A
+χDA (x) =                 .
+            J⊥K if x ̸∈ A
+       Every dcpo is a T0 topological space when equipped with its Scott topology [GHK+ 03].
+     And a T0 topological space X is injective for subspace embeddings in the category of
+T0 -spaces iff X is a continuous lattice equipped with the Scott topology [Sco72]. This has
+useful consequences for representations of the natural numbers in reflexive dcpos that are
+continuous lattices.
+Lemma 4.17. Let (D, fun, lam, ⊥, ⊤, (cn )n∈N ) be a reflexive dcpo with numerals. Then:
+     (i) {J⊥K, J⊤K} and {Jcn K}n∈N are discrete in the Scott topology of D, and also are distinct
+         elements, i.e. Jcm K = Jcn K implies m = n.
+If D is additionally a continuous lattice, then:
+     (ii) For every set A ⊆ N, there is a dg ∈ D such that for all n ∈ N, dg · Jcn K = χD
+                                                                                        A (n).
+
+
+Proof.    (i) As Scott topologies are T0 , part (i) of Definition 4.14 implies that there is a
+      Scott-open set U ⊆ D containing one of {J⊤K, J⊥K} but not the other. We start under
+      the assumption that J⊤K ∈ U and J⊥K ̸∈ U . This implies that {J⊤K} is an open subset
+      of the subspace {J⊤K, J⊥K}.
+         The map fun(J¬K) : D → D is Scott continuous, and fun(J¬K)(J⊥K) = J⊤K and
+      vice-versa. So fun(J¬K)−1 (U ) is an open set containing J⊥K, but not J⊤K, proving that
+      {J⊥K} is an open subset of the subspace {J⊤K, J⊥K}. This proves that {J⊤K, J⊥K} is a
+      discrete subspace of D, and the proof starting with J⊥K ∈ U is similar.
+         To prove the discreteness and distinctness of {Jcn K}n∈N , we will need the fact
+      that there exist closed λ-terms m? such that λ ⊢ m? cn = ⊤ if m = n and λ ⊢
+      m? cn = ⊥ otherwise. It is not difficult to prove directly that we can take 1? =
+      λm.if (0? m)⊥(0? (predm)), and n? = λm.n − 1? (predm). So fun(Jn? K)(Jcm K) = J⊤K
+      if n = m and J⊥K otherwise.
+         Now, if m ̸= n are elements of N, we have λ ⊢ m? cm = ⊤, and λ ⊢ m? cn = ⊥,
+      so fun(Jm? K)(Jcm K) = J⊤K ̸= J⊥K = fun(Jm? K)(Jcn K). As fun(Jm? K is a function, it
+      follows that Jcm K ̸= Jcn K.
+                      INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                  17
+
+
+
+
+          To prove the discreteness of {Jcn K}n∈N , we show that for all m ∈ N, the singleton
+       {Jcm K} is relatively open in {Jcn K}n∈N . Let U ⊆ D be a Scott-open set such that
+       J⊤K ∈ U , but J⊥K ̸∈ U . Then V = fun(Jm? K)−1 (U ) is a Scott-open set such that
+       JmK ∈ V but JnK ̸∈ V for all n ∈ N such that n ̸= m.
+  (ii) Given A ⊆ N, define g : {Jcn K}n∈N → D by g(Jcn K) = χD   A (n). By the discreteness of
+       {Jcn K}n∈N , proved in the previous part, this is continuous. Since D is a continuous
+       lattice, and therefore injective [Sco72, Theorem 2.12], g extends to a Scott-continuous
+       map g : D → D, and since (D, lam, fun) is a reflexive dcpo we can define dg = lamg,
+       and then for all n ∈ N:
+                                   dg · Jcn K = g(Jcn K) = χD
+                                                            A (n).
+
+
+
+
+    We can now define a pre-order on sets of integers to be used in the example (Theorem
+5.7). Readers familiar with recursion theory will see that it is the λ-calculus version of
+comparability of many-one degrees [Soa87, Definition 4.8 (i), (iii)].
+Proposition 4.18. Let D be a reflexive continuous lattice with numerals. The following are
+equivalent for S1 , S2 ⊆ N, in which case we write S1 ≤m S2 :
+   (i) There exists a closed λ-term M ∈ Λ(D, Var) such that for all n ∈ N, there exists
+       m ∈ N such that λ ⊢ M cn = cm , and there exist dS1 , dS2 ∈ D such that for all n ∈ N,
+       JdS1 cn K = χD                    D
+                    S1 (n), JdS2 cn K = χS2 (n) and JdS2 (M cn )K = JdS1 cn K.
+  (ii) There exists a closed λ-term M ∈ Λ(D, Var) such that for all n ∈ N, there exists m ∈ N
+       such that λ ⊢ M cn = cm , and for all dS1 , dS2 ∈ D such that for all n ∈ N, JdS1 cn K =
+       χD                         D
+        S1 (n) and JdS2 cn K = χS2 (n), we have that for all n ∈ N, JdS2 (M cn )K = JdS1 cn K.
+
+Proof. • (i) ⇒ (ii):
+     Suppose that (i) holds, and let d′S1 , d′S2 ∈ D such that for all n ∈ N, Jd′S1 cn K = χD
+                                                                                            S1 (n)
+  and Jd′S2 cn K = χD
+                    S2 (n). Then we have  Jd ′ c K = Jd c K and likewise for S . Let us write
+                                             S1 n      S1 n                     2
+  f (n) for the m ∈ N such that JM cn K = Jcm K. Then we have:
+         Jd′S2 (M cn )K = d′S2 · cf (n) = dS2 · cf (n) = JdS2 (M cn )K = JdS1 cn K = Jd′S1 cn K,
+  using (i) for the second-to-last step, and proving (ii).
+• (ii) ⇒ (i):
+      If (ii) holds, we can avoid the vacuous case of the universal quantification over dS1 and
+  dS2 by observing that Lemma 4.17 (ii) implies that there exists dS1 such that for all n ∈ N,
+  JdS1 cn K = χD S1 (n) and likewise for S2 . Therefore (i) holds.
+
+
+
+
+                            5. P(Y )-valued Random Variables
+
+In this section we relate the Boolean-valued Engeler model in V A from Corollary 4.16 to the
+random-variable-based Boolean-valued models of λ-calculus from [BFK+ 18], and give the
+example application (Theorem 5.7).
+18                       R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+    We start with some terminology. A negligibility space (X, Σ, N ) is a measurable space
+(X, Σ) equipped with a σ-ideal N such that Σ/N is a complete Boolean algebra, not just
+σ-complete. We use A(X) to denote Σ/N , as it is the complete Boolean algebra associated
+to X or simply the algebra associated to X.
+     For a probability space (X, Σ, µ), the null ideal N (µ) is the σ-ideal of sets N ∈ Σ with
+µ(N ) = 0, and Σ/N (µ) is a complete Boolean algebra [Fre02, 322B,322C], so (X, Σ, N (µ))
+is a negligibility space, and Σ/N (µ) is known as the measure algebra of (X, Σ, µ).
+    Let Y be a countable set. For each y ∈ Y , let By = {S ⊆ Y | y ∈ S}, which form a
+subbasis of open sets for the positive topology13 on P(Y ). All notions of measurability for
+P(Y ) will be with respect to the Borel σ-algebra defined by this topology, and since this is a
+second countable topology, (By )y∈Y is also a countable generating set for this σ-algebra.
+Definition 5.1. Let X = (X, ΣX ) be a measurable space and Y a countable set. We define
+L0 (X; P(Y )) to be the set of measurable functions X → P(Y ), using the Borel σ-algebra of
+the Scott topology of P(Y ). We define a ΣX -valued order as follows:
+                                   ∥a ≤ b∥L0 = {x ∈ X | a(x) ⊆ b(x)}.
+
+      The corresponding notion of equality is
+                                   ∥a = b∥L0 = {x ∈ X | a(x) = b(x)}.
+Lemma 5.2. If X = (X, ΣX , NX ) is a negligibility space, define L0 (X; P(Y )) to be
+L0 (X; P(Y )) modulo the relation ∼ defined by: a ∼ b iff X \ ∥a = b∥L0 ∈ NX , which
+is the usual “almost everywhere” equivalence. Then ∥≤∥L0 and ∥=∥L0 , defined by composing
+the corresponding notions for L0 (X; P(Y )) with [-] : Σ → A(X), are well-defined and make
+L0 (X; P(Y )) into an A(X)-poset.
+
+Proof. We prove that ∥a ≤ b∥L0 is measurable as follows. First, define γ ⊆ P(Y ) × P(Y ) to
+be the graph of the ⊆ relation, i.e. γ = {(S, T ) ∈ P(Y ) × P(Y ) | S ⊆ T }.
+    ∥a ≤ b∥L0 = ⟨a, b⟩−1 (γ), so since ⟨a, b⟩ : X → P(Y ) × P(Y ) is measurable, we only need
+to show that γ is measurable with respect to the product measurable space structure. We
+have
+           γ = {(S, T ) ∈ P(Y ) × P(Y ) | ∀y ∈ Y.y ∈ S ⇒ y ∈ T }
+               \
+             =    {(S, T ) ∈ P(Y ) × P(Y ) | y ̸∈ S or y ∈ T }
+                 y∈Y
+                 \
+             =         {(S, T ) ∈ P(Y ) × P(Y ) | y ̸∈ S} ∪ {(S, T ) ∈ P(Y ) × P(Y ) | y ∈ T }
+                 y∈Y
+                 \
+             =         ((P(Y ) \ By ) × P(Y )) ∪ (P(Y ) × By ).
+                 y∈Y
+
+Measurability then follows from the countability of Y .
+    For the well-definedness of ∥≤∥L0 , it is clear that if a ∼ a′ and b ∼ b′ , then ∥a ≤ b∥L0
+and ∥a′ ≤ b′ ∥L0 can only differ where a differs from a′ or b differs from b′ , and the set of all
+such points is in NX .
+     13The positive topology equals the Scott topology.
+                        INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                               19
+
+
+
+
+    It is easy to deduce the transitivity (in the sense of Definition 3.8 (i)) from transitivity
+of ⊆, and part (ii) of the definition of an A(X)-poset follows because ∥a ≤ a∥L0 = 1 for all
+a ∈ L0 (X; P(Y )).
+
+   We define GX : L0 (X; P(Y )) → P A(X) (Y̌ ) as follows, where a ∈ L0 (X; P(Y )) and
+y ∈Y:
+                      GX ([a])(y̌) = [a−1 (By )] = [{x ∈ X | y ∈ a(x)}]           (5.1)
+                                           −1
+The measurability of a guarantees that a (By ) ∈ Σ.
+Proposition 5.3. For any negligibility space (X, Σ, N ) and any countable set Y , the map
+GX is a strict isomorphism of A(X)-posets L0 (X; P(Y )) → P A(X) (Y̌ ).
+
+Proof. We show that for all a, b ∈ L0 (X; P(Y )), ∥GX ([a]) ≤ GX ([b])∥P A(X) (Y̌ ) = ∥[a] ≤ [b]∥L0 .
+This shows, in one go, that GX is an A(X)-monotone function and also injective (using the
+fact that L0 (X; P(Y )) is total, i.e. εL0 (X;P(Y )) ([a]) = [X] for all a ∈ L0 (X; P(Y ))).
+    We start by expanding the definitions:
+        ∥GX ([a]) ≤ GX ([b])∥P A(X) (Y̌ ) = ∥GX ([a]) ⊆ GX ([b])∥
+             ^                                              ^
+      =              ∥t ∈ GX ([a])∥ ⇒ ∥t ∈ GX ([b])∥ =          GX ([a])(y̌) ⇒ GX ([b])(y̌)
+          t∈dom(GX ([a]))                                      y∈Y
+          ^
+      =         [{x ∈ X | y ∈ a(x)}] ⇒ [{x ∈ X | y ∈ b(x)}]
+          y∈Y
+                                                      
+              \
+      =          {x ∈ X | y ∈ a(x) implies y ∈ b(x)}
+           y∈Y
+
+      = [{x ∈ X | ∀y ∈ Y.y ∈ a(x) implies y ∈ b(x)}]
+      = [{x ∈ X | a(x) ⊆ b(x)}] = ∥[a] ≤ [b]∥L0 .
+
+    Since L0 (X; P(Y )) is a strict A(X)-setoid, and P A(X) (Y̌ ) is total, implying that GX is
+an injective function. So to prove that GX is a strict isomorphism, we only need to show
+that GX is surjective.
+     Let b ∈ P A(X) (Y̌ ). For each y ∈ Y , pick Sy ∈ Σ such that [Sy ] = b(y̌). Define a function
+a : X → P(Y ) by a(x) = {y ∈ Y | x ∈ Sy }. For each y ∈ Y , we have
+   a−1 (By ) = {x ∈ X | a(x) ∈ By } = {x ∈ X | y ∈ a(x)} = {x ∈ X | x ∈ Sy } = Sy ∈ Σ.
+Since (By )y∈Y generates the Borel σ-algebra of P(Y ), this implies that a is measurable. For
+all y ∈ Y , we then have
+                              GX ([a])(y̌) = [a−1 (By )] = [Sy ] = b(y̌),
+and therefore GX ([a]) = b, as required to prove GX surjective.
+
+    Since P(E) is a reflexive dcpo and has a binary operation · for application, for any
+measurable space X we can extend this pointwise to L0 (X; P(E)) by defining for a, b ∈
+L0 (X; P(E)) and x ∈ X: (a · b)(x) = a(x) · b(x).
+For a negligibility space X we can then extend this to L0 (X; P(E)) by defining [a]·[b] = [a·b].
+20                           R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+Proposition 5.4. Let (X, Σ, N ) be a negligibility space. Then the above definition of
+· : L0 (X; P(E)) × L0 (X; P(E)) → L0 (X; P(E)) is well-defined, and GX : L0 (X; P(E)) →
+P A(X) (Ě) is an “application homomorphism”, i.e. for all [a], [b] ∈ L0 (X; P(E)),
+                                       GX ([a] · [b]) = GX ([a]) · GX ([b]).
+
+Proof. In fact, we will prove the first part by deducing it from the second part. So let
+a, b ∈ L0 (X; P(E)). Then for all q ∈ E we have
+         (GX ([a]) · GX ([b]))(q̌)
+                      A(X)
+     = ∥∃K ∈ Pfin            (Ě).K ⊆ GX ([b]) and (K, q̌)A(X) ∈ GX ([a])∥
+                W
+
+
+
+     = ∥∃K ∈ Pfin (E).K ⊆ GX ([b]) and (K, q̌)A(X) ∈ GX ([a])∥                          Proposition 2.3
+          _                                W
+
+
+
+     =         ∥Ǩ ⊆ GX ([b])∥ ∧ ∥(K, q) ∈ GX ([a])∥
+         K∈Pfin (E)
+            _                    W         ^
+     =                GX ([a])((K, q)) ∧         GX ([b])(ǩ)
+         K∈Pfin (E)                        k∈K
+            _                                          ^
+     =             [{x ∈ X | (K, q) ∈ a(x)}] ∧              [{x ∈ X | k ∈ b(x)}]
+         K∈Pfin (E)                                   k∈K
+            _
+     =             [{x ∈ X | (K, q) ∈ a(x)}] ∧ [{x ∈ X | K ⊆ b(x)}]
+         K∈Pfin (E)
+     = [{x ∈ X | ∃K ∈ Pfin (E).K ⊆ b(x) and (K, q) ∈ a(x)}]                        as Pfin (E) countable
+     = [{x ∈ X | q ∈ a(x) · b(x)}]
+     = GX ([a · b])(q̌),
+so all together we have proved that GX ([a]) · GX ([b]) = GX ([a · b]). In passing, we have
+proved that for all q ∈ E, (a · b)−1 (Bq ) is measurable, and therefore that a · b ∈ L0 (X; P(E)).
+    If a′ , b′ ∈ L0 (X; P(E)) such that [a′ ] = [a] and [b′ ] = [b], then by Proposition 5.3 and
+the fact that P A(X) (Ě) is a strict A(X)-setoid:
+                GX ([a · b]) = GX ([a]) · GX ([b]) = GX ([a′ ]) · GX ([b′ ]) = GX ([a′ · b′ ]),
+and therefore [a · b] = [a′ · b′ ], so the definition [a] · [b] = [a · b] genuinely defines a function
+L0 (X; P(E)) × L0 (X; P(E)) → L0 (X; P(E)). Putting this together with what we proved
+above gives us GX ([a]) · GX ([b]) = GX ([a] · [b]).
+
+    We now introduce the following notation. If S ⊆ E, define KS ∈ L0 (X; P(E)) to be the
+function taking the constant value S. This relates to -̌ in the following way.
+Lemma 5.5. Let Y be an arbitrary countable set. For all S ⊆ Y we have
+                                             ∥GX ([KS ]) = Š∥ = 1
+
+Proof. It suffices to show that for all y ∈ Y , ∥y̌ ∈ GX ([KS ])∥ = ∥y̌ ∈ Š∥. We have
+ ∥y̌ ∈ GX ([KS ])∥ = GX ([KS ])(y̌) = [{x ∈ X | y ∈ KS (x)}] = [{x ∈ X | y ∈ S}] = ∥y̌ ∈ Š∥.
+                        INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                                    21
+
+
+
+
+    Recall that a subbase of clopens for the product topology of 2ω is given by the sets
+(Cn,b )n∈ω,b∈2 , where Cn,b = {f ∈ 2ω | f (n) = b}.
+These sets also generate the Borel σ-algebra of 2ω .
+    In the following, we will also have to consider the (isomorphic) product space 2ω × 2ω ,
+but for which we will need to describe the subsets in more detail. So for i ∈ {1, 2}, n ∈ ω
+and b ∈ 2 we write Di,n,b = {(f1 , f2 ) ∈ 2ω × 2ω | fi (n) = b}.
+Then for all i ∈ {1, 2}, n ∈ ω and b ∈ 2 we have Di,n,b = πi−1 (Cn,b ).
+    Let X = 2ω × 2ω equipped with its Borel σ-algebra as a measurable space. We define
+µX to be the usual independent fair coin measure, which is to say, it is the unique measure
+such that for all finitely-supported partial functions f1 , f2 : ω → 2
+                                                          
+                    \                   \
+           µ             D1,n,f1 (n) ∩        D2,n,f2 (n)  = 2−(|dom(f1 )|+|dom(f2 )|) .
+                 n∈dom(f1 )                n∈dom(f2 )
+
+We take the null ideal of this measure as the negligible sets of X. Then π1 , π2 are random
+variables in L0 (X; 2ω ). They define S1 , S2 ∈ P A(X) (ω̌) as follows, taking i ∈ {1, 2}:
+                                     Si (ň) = [πi−1 (Cn,1 )] = [Di,n,1 ].                                           (5.2)
+We remind the reader at this point that ∥ň ∈ Si ∥ = Si (ň) because of the way Boolean-valued
+equality behaves for elements of ω̌.
+Proposition 5.6. For all f : ω → ω, neither S1 nor S2 is the preimage of a finite A(X)-
+                           A(X)
+subset of ω̌, i.e. ∥∃K ∈ Pfin (ω̌).∀n ∈ ω̌.n ∈ S1 ⇔ fˇ(n) ∈ K∥ = 0, and likewise for
+S2 .
+     Moreover, ∥S1 = fˇ−1 (S2 )∥ = 0 and ∥S2 = fˇ−1 (S1 )∥ = 0, i.e. these sets cannot be
+mapped to each other by any classical function.
+
+Proof. We only give the proof for S1 , as the proof for S2 is essentially the same. Using
+Proposition 2.3, we have
+                                        A(X)
+                              ∥∃K ∈ Pfin        (ω̌).∀n ∈ ω̌.n ∈ S1 ⇔ fˇ(n) ∈ K∥
+                                     W
+
+
+
+                        = ∥∃K ∈ Pfin (ω).∀n ∈ ω̌.n ∈ S1 ⇔ fˇ(n) ∈ K∥
+                            _     ^                             W
+
+
+
+                        =              ∥ň ∈ S1 ∥ ⇔ ∥f (n) ∈ Ǩ∥
+                              K∈Pfin (ω) n∈ω
+                                 _      ^
+                        =                      [D1,n,1 ] ⇔ [ f (n) ∈ K] A(X) .
+                              K∈Pfin (ω) n∈ω
+
+This being equal to 0 is equivalent to the statement that for all K ∈ Pfin (ω):
+                             ^
+                                 [D1,n,1 ] ⇔ [ f (n) ∈ K] A(X) = 0.
+                                  n∈ω
+
+Then
+                                                                                   "                             #
+         ^                                           ^                                 \
+               [D1,n,1 ] ⇔ [ f (n) ∈ K] A(X) =            [D1,n,[ f (n)∈K] 2 ] =             D1,n,[ f (n)∈K] 2
+         n∈ω                                        n∈ω                                n∈ω
+22                  R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+Since it is an infinite intersection of distinct sets for distinct indices, the measure of the
+intersection above ≤ 2−n for all n, and so it has measure zero, so the above element has
+Boolean value 0, as required.
+     For the second part, we only prove that ∥S1 = fˇ−1 (S2 )∥ = 0, as the proof of the other
+way is analogous. We start by ruling out some possibilities of what f is like. Assume
+for a contradiction that ∥S1 = fˇ−1 (S2 )∥ > 0. If the image of f is finite, then since
+f −1 (S) = f −1 (S ∩ im(f )) classically, by Theorem 2.1 we have ∥S1 = fˇ−1 (S2 )∥ = ∥S1 =
+                                                 A(X)
+fˇ−1 (S2 ∩ im(fˇ))∥ and that ∥S2 ∩ im(fˇ) ∈ Pfin (ω̌)∥ = 1. But this contradicts Lemma 5.6,
+so either ∥S1 = fˇ−1 (S2 )∥ = 0 after all, or the image of f is infinite, so we reduce to the latter
+case.
+    If the image of f is infinite, then by the well-orderedness of ω there exists an infinite set
+I ⊆ ω such that f |I is injective, and we fix such a set until the end of the proof.
+    We now convert ∥S1 = fˇ−1 (S2 )∥ into Boolean-valued set theory.
+                                                                       ^
+       ∥S1 = fˇ−1 (S2 )∥ = ∥∀n ∈ ω̌.n ∈ S1 ⇔ fˇ(n) ∈ S2 ∥ =                  ∥ň ∈ S1 ∥ ⇔ ∥fˇ(ň) ∈ S2 ∥
+                                                                       n∈ω
+
+
+     We can then analyse what ∥fˇ(ň) ∈ S2 ∥ means as a formula in set theory:
+                                                                        ^     W
+
+
+
+     ∥fˇ(ň) ∈ S2 ∥ = ∥∀m ∈ ω̌.(ň, m)A(X) ∈ fˇ ⇒ m ∈ S2 ∥ =                  ∥(n, m) ∈ fˇ∥ ⇒ ∥m ∈ S2 ∥
+                                                                       m∈ω
+                     W
+
+
+
+                 = ∥f (n) ∈ S2 ∥.
+
+     So
+                                    ^                       W
+
+
+
+              ∥S1 = fˇ−1 (S2 )∥ =         ∥ň ∈ S1 ∥ ⇔ ∥f (n) ∈ S2 ∥
+                                    n∈ω
+                                    ^                      W          ^                  W
+
+
+
+                                =         S1 (ň) ⇔ S2 (f (n)) ≤            S1 (ň) ⇔ S2 (f (n))
+                                    n∈ω                               n∈I
+                                    ^
+                                =         [D1,n,1 ] ⇔ [D2,f (n),1 ]
+                                    n∈I
+                                    "                                                        #
+                                        \
+                                =             (D1,n,1 ∩ D2,f (n),1 ) ∪ (D1,n,0 ∩ D2,f (n),0 ) .
+                                        n∈I
+
+We will show that this is equal to 0 by showing that the set inside the brackets has measure
+zero. Recall the finite distributive law, that if we have a finite set K and sequences of sets
+(Sn,0 )n∈K and (Sn,1 )n∈K then
+                               \                          [      \
+                                    Sn,0 ∪ Sn,1 =                     Sn,g(n) .
+                              n∈K                        g:K→2 n∈K
+
+
+                                T on |K|. Note also that if for each n ∈ K, the sets SKn,0 and
+This is easily proved by induction
+Sn,1 are disjoint, then the sets n∈K Sn,g(n) are pairwise disjoint as g ranges over 2 .
+                     INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                             23
+
+
+
+
+    So for all K ∈ Pfin (I), we have
+                                                                                   !
+                               \
+                      µX             (D1,n,1 ∩ D2,f (n),1 ) ∪ (D1,n,0 ∩ D2,f (n),0 )
+                               n∈K
+                                                                      
+                                [       \
+                   = µX                    D1,n,g(n) ∩ D2,f (n),g(n) 
+                               g:K→2 n∈K
+                                                                   !
+                                     \
+                   = 2|K| µX       D1,n,g(n) ∩ D2,f (n),g(n)
+                               n∈K
+                       |K| −2|K|   −|K|
+                   =2      2          =2       ,
+where in the second-to-last step we have used the fact that f |I is injective (and therefore
+f |K is too). Since we can exhaust I by a countable increasing sequence of finite sets, the
+result follows.
+Theorem 5.7. There exist sets T1 , T2 ⊆ N such that neither can be mapped to the other by a
+λ-definable function, i.e. we neither have T1 ≤m T2 nor T2 ≤m T1 (recall Proposition 4.18).
+
+Proof. We start by doing Boolean-valued reasoning about S1 and S2 , as defined in (5.2),
+taking A = A(2ω × 2ω ), and use the fact that the Engeler model P A (Ě) is (A-valuedly)
+a reflexive continuous lattice with numerals (Corollary 4.16) and the characterization of
+many-one reductions from Proposition 4.18.
+     First, by Theorem 2.1 applied to Lemma 4.17 (ii), there exist d1 , d2 ∈ P A (Ě) such that
+                                                 ˇ = ∥ň ∈ Si ∥ and ∥di · cˇn = ⊥∥
+for all n ∈ ω and i ∈ {1, 2} we have ∥di · cˇn = ⊤∥                             ˇ = ¬∥ň ∈ Si ∥.
+    Suppose M ∈ Λ(Var) such that for all n ∈ ω, there exists m ∈ ω such that λ ⊢ M cn = cm .
+In particular, there exists some function f : ω → ω such that for all m ∈ ω, λ ⊢ M cn = cf (n) .
+    Now we consider Jd2 (M̌ čn )KA and Jd1 čn KA . In the following, for ease of notation, we
+write an equality where the fact that an A-valued equality is 1 is meant:
+                                W                    W
+
+
+
+                           Jd2 (M cn )KA = d2 · JM cn KA = d2 · Jcf (n) KA
+                                                                       W
+
+
+
+
+by Theorem 4.8. Therefore
+                   W                                                          W
+
+
+
+              ∥Jd2 (M cn )KA = J ˇ
+                                ⊤KA ∥ = ∥d2 · Jcf (n) KA = J ˇ
+                                                            ⊤KA ∥ = ∥f (n) ∈ S2 ∥,
+                                                     W
+
+
+
+
+and the corresponding negative statement for ⊥. Likewise
+                                                    ˇ = ∥ň ∈ S1 ∥,
+                                     ∥Jd1 čn KA = J⊤K∥
+and the corresponding statement for ⊥. So all together
+                           W                               W
+
+
+
+                    ∥d2 · JM cn KA = d1 · Jčn KA ∥ = ∥f (n) ∈ S2 ⇔ ň ∈ S1 ∥.
+It is proved in Proposition 5.6 that ∥∀n ∈ ω̌.fˇ(n) ∈ S2 ⇔ n ∈ S1 ∥ = 0, so we can conclude
+that                         ^               W
+
+
+
+                                 ∥d2 · JM cn KA = d1 · Jčn KA ∥ = 0
+                                n∈ω
+              W
+
+
+
+for all M ∈ Λ(Var) that map numerals to numerals.
+24                        R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+      We now consider how this appears in L0 (X; P(E)), using G−1      X . We introduce the
+a1 , a2 ∈ L0 (X; P(E)) such that for i ∈ {1, 2} we have [ai ] = G−1
+                                                                 X  (d ),
+                                                                      i which we shall use in
+the following. By Proposition 5.3, we have
+           ^                    W
+
+
+
+       0=      ∥G−1              A     −1            A
+                  X (d2 · JM cn K ) = GX (d1 · Jčn K )∥L0
+           n∈ω
+           ^                          W
+
+                                              −1
+       =         ∥G−1         −1        A                −1       A
+                   X (d2 ) · GX (JM cn K ) = GX (d1 ) · GX (Jčn K )∥L0      Proposition 5.4
+           n∈ω
+           ^                    W                         W
+
+                                                  −1
+       =         ∥[a2 ] · G−1
+                           X (JM cn K) = [a1 ] · GX (Jcn K)∥L0                  Lemma 4.13
+           n∈ω
+           ^
+       =         ∥[a2 ] · [KJM cn K ] = [a1 ] · [KJcn K ]∥L0                     Lemma 5.5
+           n∈ω
+           "                                                             #
+               \
+       =             {x ∈ X | a2 (x) · KJM cn K (x) = a1 (x) · KJcn K (x)}
+               n∈ω
+       = [{x ∈ X | ∀n ∈ ω.a2 (x) · JM cn K = a1 (x) · Jcn K}],
+so the set inside the square brackets has measure zero.
+   Since (as long as Var is countable) Λ(Var) is countable, the set of M ∈ Λ(Var) that
+map numerals to numerals is also countable. Therefore the set of x ∈ X such that for all
+M ∈ Λ(Var) mapping numerals to numerals we have a2 (x) · JM cn K ̸= a1 (x) · Jcn K has measure
+1.
+   For all i ∈ {1, 2}, we have, by the definition of di , for all n ∈ ω the statement ∥di ·Jcn KA =
+J⊤K ∥ ∨ ∥di · Jcn KA = J⊥KA ∥ = 1. By a similar argument to that used above, this means that
+   A
+
+the set of x ∈ X such that ai (x) · Jcn K ∈ {J⊤K, J⊥K} has measure 1, and by the countability
+of ω the set where this is true for both i ∈ {1, 2} and all n ∈ ω is also of measure 1.
+     Therefore the intersection of the sets defined in the previous two paragraphs has measure
+1, and so is non-empty and so there exists a point x in it. We can then define Ti = {n ∈ ω |
+ai (x) · Jcn K = J⊤K}, and we have proved, by Proposition 4.18, that T1 ̸≤m T2 .
+    To get the final result, we re-run the argument swapping the roles of S1 and S2 , and
+take x to be in the intersection of the corresponding sets of measure 1, so that T2 ̸≤m T1
+either.
+
+    We could not have done this proof by using the “fact” that L0 (X; P(E)) is a continuous
+dcpo, because this is not true, as stated in our last proposition.
+Proposition 5.8. Let X = (X, Σ, N ) be a negligibility space such that A(X) is not atomic,
+and let Y be a non-empty countable set. Then L0 (X; P(Y )) is not a continuous dcpo.
+                     W
+Proof. First, let p = {a ∈ A(X) | a an atom}. As A(X) is not atomic, ¬p ̸= 0, so there
+is a set S ∈ Σ such that S ̸∈ N and [S] = ¬p. By definition there are no atoms below [S].
+Define                                  (
+                                          Y if x ∈ S
+                                 b(x) =
+                                          ∅ otherwise,
+where x ∈ X. This defines a measurable function X → P(Y ). As S ̸∈ N , [b] ̸= [K∅ ]. We
+show that L0 (X; P(Y )) is not continuous by showing that [b] is not the supremum of elements
+                        INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                     25
+
+
+
+
+way below it, which will follow from the fact that the only element of L0 (X; P(Y )) that is
+way below [b] is [K∅ ].
+     If the only element below [b] is [K∅ ], then we are finished, so we reduce to the case that
+there is at least one [a] ∈ L0 (X; P(Y )) such that [K∅ ] < [a] <                  −1
+                                                                S [b]. Define T = a (P(Y )\{∅}),
+which is in Σ because a is measurable and P(Y ) \ {∅} = y∈Y By and is therefore a Borel
+set. We have T \ S ∈ N , so we redefine T to be T ∩ S if necessary to make T ⊆ S.
+     Since there are no atoms below [S], there are none below [T ] either, so there exists a
+non-zero element a1 ∈ A(X) such that a1 ≤ [T ] and a1 has no atoms below it. We can repeat
+this argument to form a strictly descending sequence   V∞(ai )i∈N where for all i ∈ N, ai has no
+atoms below it and ai ≤ [T ].VWe can define bi = ai \ i=1 ai , to get such a strictly decreasing
+sequence (bi )i∈N , now with ∞  i=1 bi = 0. Since A(X) = Σ/N , we can find a sequence (Vi )i∈N
+of elements of Σ such that for all i ∈ N, [Vi ] = bi , and by adjusting negligible sets it can
+be arranged that (Vi )i∈N is also strictly descending. Defining Ti = T \ Ui , then (Ti )i∈N is
+    S increasing with respect to ⊆, maps to a strictly increasing sequence under [-], and
+strictly
+T\ ∞   i=1 Ti ∈ N . Define, for each i ∈ N, ci : X → P(Y ) as follows:
+                                        (
+                                         Y if x ∈ Ti ∪ S \ T
+                               ci (x) =
+                                         ∅ if x ∈ T \ Ti ∪ X \ S,
+where x ∈ X. Each ci is measurable for the same reasons that b is, and ([ci ])i∈N is
+a strictly increasing sequence in L0 (X; P(Y )). Since for all i ∈ N, ci (x) = ∅ for all
+x
+W∞∈ T \ Ti and
+             W∞ T \ Ti ̸∈ N , while a(x) ̸= ∅ for all x ∈ T ⊇ T \ Ti , we have [a] ̸≤ [ci ]. But
+                                        S∞
+     [c
+  i=1 i ] = [    c
+              i=1 i ] = [b] because T \  i=1 Ti ∈ N . Therefore a is not way below b.
+
+
+
+               6. Domain-Valued Random Variables More Generally
+
+In this section, we show that if D is a continuous dcpo with a countable base, then L0 (X; D)
+can be equipped with the structure of an A-poset (Definition 3.8) that is compatible with a
+suitable notion in V A . This is similar to Scott’s proof that the Dedekind reals in V A are
+isomorphic to L0 (X; R) (see [Sol71, §4.3] or [Bel05, Theorem 7.1]), but for a countably based
+domain D instead of R.
+    We start by recalling some more background in domain theory, so we can carry over
+results from V to V A . The following is an adaptation of [GHK+ 03, Definition III-4.15].
+Definition 6.1 (Abstract Base). An abstract base is a pair (B, ≺) where ≺ ⊆ B × B such
+that
+   (i) B is non-empty.
+  (ii) ≺ is transitive
+ (iii) For each d ∈ B, there exists b ≺ d
+ (iv) For each b1 , b2 , d ∈ B such that b1 , b2 ≺ d, there exists c ∈ B such that b1 , b2 ≺ c ≺ d.
+  (v) If b1 ̸= b2 , then there exists c ∈ B such that either c ≺ b1 and c ̸≺ b2 or c ≺ b2 and
+       c ̸≺ b1 .
+Important: (B, ≺) has no obligation to be a poset, there is no reflexivity in general.14
+  14In the case that ≺ is reflexive, it will eventually be clear that this corresponds to a base of compact
+elements defining an algebraic dcpo.
+26                  R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+                                                    W
+
+
+
+Proposition 6.2. If (B, ≺) is an abstract base, (B, ≺) = (B̌, ≺)A is an abstract base in V A .
+                                                                   W
+
+
+
+
+Proof. This follows directly from Theorem 2.2, after verifying that (i) - (v) of Definition 6.1
+are ∆0 .
+
+     We summarize the following results about abstract bases, which are relatively easy to
+prove independently (they form the exercises in [GHK+ 03, Exercises III-4.16 and 17] following
+Definition III-4.15), so the proof of the non-definitional parts of the following definition, as
+well as the proof of the following proposition, are omitted.
+Definition 6.3 (Rounded Ideals). Let (B, ≺) be an abstract base. A subset I ⊆ B is called
+a rounded ideal iff it is ≺-directed and a ≺-down set, i.e.
+   (i) I is not empty.
+  (ii) For each b1 , b2 ∈ I there exists b ∈ I with b1 , b2 ≺ b.
+ (iii) If a ∈ B and b ∈ I and a ≺ b, then a ∈ I.
+We write RI(B) for the set of rounded S
+                                      ideals, considered as a poset under ⊆. If (Ij )j∈J is a
+monotone net of rounded ideals, then i∈I Ij is a rounded ideal, so rounded ideals form a
+dcpo.
+Proposition 6.4. Let (B, ≺) be an abstract base. For b ∈ B, define Ib = {a ∈ B | a ≺ b}.
+Then Ib is a rounded ideal of B, and the map b 7→ Ib is injective.
+    For rounded ideals I, J ⊆ B, we have I ≪ J iff there exist a, b ∈ B such that a ≺ b and
+I ⊆ Ia and Ib ⊆ J and {Ib | b ∈ B} is a base for RI(B), so RI(B) is always a continuous
+dcpo.
+    If D is a non-empty dcpo and B ⊆ D is a base, then (B, ≪) is an abstract base. For each
+                    ↠
+d ∈ D, the set Id ≜ d ∩ B is a rounded ideal. The mapping d 7→ Id is a poset isomorphism
+   ∼                          W
+D → RI(B) with inverse I 7→ I.
+
+    When we build RI A (B̌), i.e. RI(B) interpreted according to V A , we would prefer to
+deal with elements of S ∈ P A (B̌) such that ∥S a rounded ideal∥ = 1. This is not the case
+with the usual way of using the axiom of separation with P A (B̌). So we prove the following
+lemma.
+Lemma 6.5. Let X ∈ V A , and let P : dom(P A (X)) → A be a mapping that is well-defined
+with respect to ∥=∥ in the sense that for all S1 , S2 ∈ dom(P A (X))
+                                  P (S1 ) ∧ ∥S1 = S2 ∥ ≤ P (S2 )
+(by symmetry, we could put = instead of ≤). We will use this in the case that P = ∥Φ(x)∥
+where Φ is a formula of set theory with one free variable x, considered as a partial function
+restricted to dom(P(X)).
+     We define two elements of V A , written EP and FP as follows.
+                        dom(EP ) = {S : dom(X) → A | P (S) = 1}
+                          EP (S) = 1
+                        dom(FP ) = {S : dom(X) → A} = dom(P A (X))
+                           FP (S) = P (S)
+                     INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                           27
+
+
+
+
+Then FP is obtained from the usual proof of the axiom of separation in V A applied to P A (X),
+and ∥EP ⊆ FP ∥ = 1. If there exists T ∈ dom(EP ), i.e. dom(EP ) is not empty, then
+∥FP ⊆ EP ∥ = 1, so ∥EP = FP ∥ = 1. The existence of T also implies Oid(EP ) is complete.
+
+Proof. We have ∥EP ⊆ FP ∥ = 1 iff for all S ∈ domEP , EP (S) ≤ ∥S ∈ FP ∥. By definition
+EP (S) = 1, and by the proof of the axiom of separation in V A (see e.g. [Jec03, Theorem
+14.24]), ∥S ∈ FP ∥ = P (S) = 1, since S ∈ domEP . Therefore we conclude via 1 ≤ 1.
+    Now suppose that there exists T ∈ domEP , i.e. T : dom(X) → X and P (T ) = 1. Given
+an arbitrary S ∈ dom(FP ), define a = P (S). We now use the completeness of Oid(P A (X))
+(Theorem 3.15). We have a ≤ P (S), and ¬a ≤ 1 = P (T ). So there exists S ′ ∈ dom(P A (X))
+such that a ≤ ∥S = S ′ ∥ and ¬a ≤ ∥T = S ′ ∥ (we have implicitly used ∥S ∈ P A (X)∥ = 1 and
+also for T and S ′ to simplify ∥S = S ′ ∥P A (X) to ∥S = S ′ ∥ and likewise for T ).
+    We then observe that by well-definedness of P with respect to ∥=∥:
+                           a = a ∧ a ≤ P (S) ∧ ∥S = S ′ ∥ ≤ P (S ′ )
+and also
+                          ¬a = ¬a ∧ 1 ≤ ∥T = S ′ ∥ ∧ P (T ) ≤ P (S ′ ),
+so 1 = a ∨ ¬a ≤ P (S ′ ). We now make clear that what we will use in the next part of the
+argument is that P (S ′ ) = 1 (so P ∈ dom(EP )) and ∥S = S ′ ∥ = P (S).
+   We now prove that ∥FP ⊆ EP ∥ = 1. This means we have to show that for all S ∈
+domFP = domP A (X), FP (S) ≤ ∥S ∈ EP ∥. By definition FP (S) = P (S), while
+                            _                            _
+            ∥S ∈ EP ∥ =          ∥S = R∥ ∧ EP (R) =            ∥S = R∥
+                             R∈domEP                         R∈domEP
+
+, as EP (R) = 1. So the inequality to be proved is
+                                            _
+                                 P (S) ≤           ∥S = R∥.                              (6.1)
+                                          R∈domEP
+
+We have S ′ ∈ domEP and so
+                                                     _
+                        P (S) = a ≤ ∥S = S ′ ∥ ≤             ∥S = S ′ ∥,
+                                                   R∈domEP
+
+proving (6.1), and thereby showing ∥EP = FP ∥ = 1.
+    We can now show that Oid(EP ) is complete, using Definition 3.1 (ii). We first point out
+that ∥S1 = S2 ∥Oid(EP ) = ∥S1 = S2 ∥ for all S1 , S2 ∈ dom(EP ). Suppose there is a pairwise
+disjoint family of elements (ai )i∈I in A, and a corresponding family (Si )i∈I in dom(EP )
+such that ai ≤ ∥Si = Si ∥ (this always holds because ∥Si = Si ∥ = 1). Use completeness
+of Oid(P A (X)) (Theorem 3.15) to obtain an S ∈ dom(P A (X)) such that for all i ∈ I,
+ai ≤ ∥Si = S∥. So for all i ∈ I
+                             ai ∧ 1 ≤ ∥Si = S∥ ∧ P (Si ) ≤ P (S).
+Defining a = P (S), we have that there exists S ′ ∈ dom(EP ) such that a ≤ ∥S = S ′ ∥, and
+therefore for all i ∈ I,
+                      ai = ai ∧ a ≤ ∥Si = S∥ ∧ ∥S = S ′ ∥ ≤ ∥Si = S ′ ∥.
+28                     R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+Definition 6.6. If (B, ≺) is an abstract base, we can represent RI A (B̌) as calculated in
+V A as follows.
+                    RI A (B̌) = {S : dom(B̌) → A | ∥f is a rounded ideal∥ = 1}
+
+                                                         W to the map S being antitone from
+We find that condition (iii), being a down set, translates
+ˇ
+≺ to the ≤ of A, condition (i), being non-empty, to b∈B S(b̌) = 1, and condition (ii), the
+other part of being directed, to
+                                                            _
+                         ∀x1 , x2 ∈ B.S(xˇ1 ) ∧ S(xˇ2 ) ≤          S(x̌)
+                                                          x≺x1 ,x2
+
+For S1 , S2 ∈ RI A (B̌), we have
+                                                       _
+                                    ∥S1 ⊆ S2 ∥ =            S1 (b̌) ⇒ S2 (b̌)
+                                                      b∈B
+                                                       _
+                                    ∥S1 = S2 ∥ =            S1 (b̌) ⇔ S2 (b̌).
+                                                      b∈B
+
+By Theorem 2.1, if we interpret the following statements in V A , RI A (B̌) is a dcpo with base
+B̌ and is therefore continuous15, using ∥⊆∥ as the order relation.
+     There is therefore a strictly isomorphic A-poset that is a little more convenient to use
+in practice, which we write as RI A (B), which consists of functions B → A satisfying the
+following conditions
+       W
+   (i) b∈B S(b) = 1.                         W
+  (ii) For all b1 , b2 ∈ B, S(b1 ) ∧ S(b2 ) ≤ b≺b1 ,b2 S(b).
+ (iii) S is antitone from ≺ to the ≤ of A, i.e. b1 ≺ b2 implies S(b2 ) ≤ S(b1 ).
+To make RI A (B) an A-poset, define
+                                                       ^
+                                    ∥S1 ≤ S2 ∥ =            S1 (b) ⇒ S2 (b).
+                                                      b∈B
+                                ∼
+The strict isomorphism RI A (B) → RI A (B) is given by composition with -̌ : B → B̌. RI A (B)
+and RI A (B) are complete as setoids.
+
+Proof. If we apply the rules for separation in V A , we actually get
+                       dom(RI A              A
+                              0 (B̌)) = dom(P (B̌)) = {S : dom(B̌) → A},
+
+so we use Lemma 6.5, taking X = B̌, and P (S) = ∥S a rounded ideal∥, and use non-
+emptiness of B to pick a b ∈ B and then define T = Ib̌A , i.e. for b′ ∈ B
+                                    dom(Ib̌A ) = domB̌
+                                                      ≺(b̌′ , b̌)A = [ b′ ≺ b] ,
+                                        Ib̌A (b̌′ ) = ˇ
+which is a rounded ideal in the V A sense by Proposition 6.4. Therefore ∥RI(B̌) = RI 0 (B̌)∥ =
+1 and Oid(RI(B̌)) is complete. Transferring the definitions to the strictly isomorphic A-poset
+RI A (B) is then straightforward.
+     15The underlying order will not be continuous if D has a bottom element, one other element, and A(X) is
+not atomic (Proposition 5.8).
+                     INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                           29
+
+
+
+
+    We now relate this to random variables, using some measure-theoretic results from
+Appendix A. By Lemmas A.7 and A.8, if D is a countably-based dcpo, the graph of ≤
+is measurable as a subset of D × D for the product σ-algebra, which is the same as the
+Scott-Borel σ-algebra of the product.
+Definition 6.7. Let (X, Σ) be a measurable space and D a dcpo with countable base. Define
+L0 (X; D) to be the set of D-valued random variables, i.e. measurable functions f : X → D,
+where D is equipped with the Borel σ-algebra of the Scott topology (which we call the
+Scott-Borel σ-algebra).
+    For a, b ∈ L0 (X; D), the set ∥a ≤ b∥L ≜ {x ∈ X | a(x) ≤ b(x)} is measurable (in
+Σ). It follows from antisymmetry of ≤ that {x ∈ X | a(x) = b(x)} and its complement
+{x ∈ X | a(x) ̸= b(x)} are measurable.
+    Now let (X, Σ, N ) be a negligibility space. For a, b ∈ L0 (X; D), we define almost
+everywhere equality of random variables:
+                            a ∼ b ⇔ {x ∈ X | a(x) ̸= b(x)} ∈ N .
+This is an equivalence relation. We then define L0 (X; D) = L0 (X; D)/∼. If a ∼ a′ and
+b ∼ b′ then ∥a ≤ b∥L △ ∥a′ ≤ b∥L ∈ N . We can therefore define
+                       ∥[a] ≤ [b]∥L = [{x ∈ X | a(x) ≤ b(x)}] ∈ A(X)
+
+Proof. We first show that {x ∈ X | a(x) ≤ b(x)} is measurable. Observe that for all x ∈ X,
+
+                  x ∈ ⟨a, b⟩−1 (γ (≤)) ⇔ (a(x), b(x)) ∈ γ (≤) ⇔ a(x) ≤ b(x),
+so {x ∈ X | a(x) ≤ b(x)} = ⟨a, b⟩−1 (γ (≤)). Since γ (≤) is measurable for the product
+σ-algebra, {x ∈ X | a(x) ≤ b(x)} is measurable.
+    It is obvious that ∼ is reflexive and symmetric. For transitivity, we reason as follows,
+writing ¬S for X \ S where S ⊆ X throughout. Suppose a, b, c ∈ L0 (X; D) and a ∼ b and
+b ∼ c, so ¬{x ∈ X | a(x) = b(x)} and ¬{x ∈ X | b(x) = c(x)} are in N . Therefore, by the
+De Morgan dual of transitivity of equality:
+    ¬{x ∈ X | a(x) = c(x)} ⊆ ¬{x ∈ X | a(x) = b(x)} ∪ ¬{x ∈ X | b(x) = c(x)} ∈ N ,
+
+so since N is an ideal, ¬{x ∈ X | a(x) = c(x)} ∈ N , and so a ∼ c.
+    We can now show ∥[a] ≤ [b]∥L is well-defined. Suppose a ∼ a′ and b ∼ b′ , and we consider
+{x ∈ X | a(x) ≤ b(x)} \ {x ∈ X | a′ (x) ≤ b′ (x)}, aiming to prove it is in N . We have
+            {x ∈ X | a(x) ≤ b(x)} \ {x ∈ X | a′ (x) ≤ b′ (x)}
+          = {x ∈ X | a(x) ≤ b(x) ∧ a′ (x) ̸≤ b′ (x)}
+          = {x ∈ X | a(x) = a′ (x) ∧ a(x) ≤ b(x) ∧ a′ (x) ̸≤ b′ (x)}
+             ∪ {x ∈ X | a(x) ̸= a′ (x) ∧ a(x) ≤ b(x) ∧ a′ (x) ̸≤ b′ (x)}
+          = {x ∈ X | b(x) = b′ (x) ∧ a(x) = a′ (x) ∧ a(x) ≤ b(x) ∧ a′ (x) ̸≤ b′ (x)}
+             ∪ {x ∈ X | b(x) ̸= b′ (x) ∧ a(x) = a′ (x) ∧ a(x) ≤ b(x) ∧ a′ (x) ̸≤ b′ (x)}
+             ∪ {x ∈ X | a(x) ̸= a′ (x) ∧ a(x) ≤ b(x) ∧ a′ (x) ̸≤ b′ (x)}
+30                        R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+The bottom two sets in the ternary union are subsets of elements of N , so are in N . The
+top set is equal to
+            {x ∈ X | b(x) = b′ (x) ∧ a(x) = a′ (x) ∧ a(x) ≤ b(x) ∧ a(x) ̸≤ b(x)} = ∅ ∈ N .
+The proof for the set difference in the other direction is similar, and since N is closed under
+countable unions, this shows that the symmetric difference is in N , as required.
+
+    The map FX,B serves the purpose that GX (5.1) served for P(Y )-valued random variables,
+though it doesn’t quite specialize to it in the case that B = Pfin (Y ) for Y a countable set.
+Definition 6.8. Let (X, Σ, N ) be a negligibility space, and D be a continuous dcpo with
+a countable base B. We define a map FX,B : L0 (X; D) → RI A(X) (B) as follows. Given
+a ∈ L0 (X; D)
+                                 FX,B ([a]) = [a−1 ( b)]                  ↠
+and this is well-defined with respect to equality almost everywhere.
+
+Proof. We first show that if a ∼ a′ , then a−1 ( b)△a′−1 ( b) ∈ N . Define N = {x ∈ X |
+                                                                     ↠             ↠
+a(x) ̸= a′ (x)}, and N ∈ N by the definition of ∼. So a|X\N = a′ |X\N , and therefore
+
+                  a−1 ( b) ∩ (X \ N ) = a|−1
+                        ↠                             ′ −1↠
+                                          X\N ( b) = a |X\N ( b) = a
+                                                                    ′−1        ↠
+                                                                        ( b) ∩ X \ N      ↠
+
+Then
+       a−1 ( b) \ a′−1 ( b) = ((a−1 ( b) ∩ (X \ N )) ∪ (a−1 ( b) ∩ N )) \ a′−1 ( b)
+                          ↠
+
+                                                                           ↠ ↠ ↠
+             ↠
+
+                                         ↠ ↠ ↠
+                                                                                                ↠
+                                = ((a−1 ( b) ∩ (X \ N )) \ a′−1 ( b)) ∪ ((a−1 ( b) ∩ N ) \ a′−1 ( b))
+                                                                                          ↠ ↠              ↠ ↠
+                                = ((a′−1 ( b) ∩ (X \ N )) \ a′−1 ( b)) ∪ ((a−1 ( b) ∩ N ) \ a′−1 ( b))
+                                = ∅ ∪ ((a−1 ( b) ∩ N ) \ a′−1 ( b))
+                                                                         ↠ ↠
+                                                  ↠
+                                = a−1 ( b) ∩ N ∩ (X \ a′−1 ( b)) ⊆ N,
+                                       ↠
+
+so a−1 ( b) \ a′−1 ( b) ∈ N . The argument for the other set difference is similar, so a−1 ( b) △
+           ↠            ↠                                                                                        ↠
+a′−1 ( b) ∈ N .
+       ↠
+      We now have to show that FX,D ([a]) ∈ RI A (B), so we use (i)-(iii) from Definition 6.6.
+     (i)
+                 _                       _
+                       FX,D ([a])(b) =         [a−1 ( b)]
+                                                      ↠
+                 b∈B                     b∈B
+                                         "                  #
+                                             [
+                                     =             a−1 ( b)
+                                                       ↠                               since B countable
+                                             b∈B
+                                         "                      !#
+                                                      [
+                                              −1            ↠
+                                     = a                    b
+                                                      b∈B
+                                             −1
+                                     = [a         (D)] = [X] = 1,
+                   S
+                            ↠
+           because b∈B b = D as b is a base, so each element d ∈ D has an element b ∈ B such
+           that b ≪ d.
+                       INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                      31
+
+
+
+
+  (ii) Let b1 , b2 ∈ B. We have
+
+    FX,D ([a])(b1 ) ∧ FX,D ([a])(b2 ) = [a−1 ( b1 )] ∧ [a−1 ( b2 )]
+                                                  ↠ ↠
+                                                                       ↠
+                                      = [a−1 ( b1 ∩ b2 )]   ↠
+                                                        
+                                                  [
+                                      = a−1            b       ↠        see below for explanation
+                                                        b≫b1 ,b2
+                                                                  
+                                              [
+                                      =                a−1 ( b)
+                                                               ↠
+                                           b≫b1 ,b2
+                                              _
+                                      =              [a−1 ( b)]
+                                                              ↠                         B countable
+                                          b≫b1 ,b2
+                                              _
+                                      =              FX,D ([a])(b),
+                                          b≫b1 ,b2
+
+                          S
+             ↠     ↠                ↠
+       where b ∩ b2 = b≫b1 ,b2 b by part (iv) of Definition 6.1, by Proposition 6.4.
+                                                                           ↠
+ (iii) Let b1 , b2 ∈ B, such that b1 ≪ b2 . By transitivity of ≪, b2 ⊆ b1 , so    ↠
+
+                    FX,B ([a])(b2 ) = [a−1 ( b2 )] ≤ [a−1 ( b1 )] = FX,B ([a])(b1 ).
+                                              ↠                    ↠
+
+
+
+
+    This definition makes (L0 (X; D), ∥≤∥) into an A(X)-valued poset, i.e. it satisfies the
+two axioms in Definition 3.8.
+
+Theorem 6.9. Let (X, Σ, N ) be a negligibility space, D a continuous dcpo with a countable
+base B. (L0 (X; D), ∥≤∥L ) is an A-poset whose A-setoid is complete, for each the map FX,B
+                                           ∼
+is a strict poset isomorphism L0 (X; D) → RI A (B). Since the structure of (L0 (X; D), ∥≤∥L )
+does not depend on B, this proves that if B ′ is a countable base for for D, we have RI A (B) ∼
+                                                                                              =
+RI A (B ′ ) as a strict isomorphism. Since RI A (B) ∼
+                                                    = RI A (B̌) by a strict isomorphism, we can
+take any statement provable of dcpos with countable bases in V and have it in the A-valued
+sense for L0 (X; D).
+
+
+Proof. By Lemma 3.10, we only need to show that FX,B is a bijection such that for all
+[a], [b] ∈ L0 (X; D)
+
+                          ∥[a] ≤ [b]∥L = ∥FX,B ([a]) ≤ FX,B ([b])∥RI A (B) .                        (6.2)
+
+In a domain D with a base B with x1 , x2 ∈ D, x1 ≤ x2 iff for all b ∈ B, b ≪ x1 implies
+b ≪ x2 Lemma A.1. As in the proof of Lemma A.7
+                                                        \
+             {(d1 , d2 ) ∈ D × D | d1 ≤ d2 } =                         ↠                ↠
+                                                              ((D \ b) × D) ∪ (D × (D \ b)).
+                                                        b∈B
+32                 R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+So
+
+
+            ∥[a1 ] ≤ [a2 ]∥L = [{x ∈ X | a1 (x) ≤ a2 (x)}]
+                           = [⟨a1 , a2 ⟩−1 (γ (≤))]
+                             "                                           !#
+                                               \
+                                         −1                      ↠                          ↠
+                           = ⟨a1 , a2 ⟩           ((D \ b) × D) ∪ (D × b)
+                                                    b∈B
+                               ^
+                           =         [⟨a1 , a2 ⟩   −1
+                                                        ((D \ b) × D)] ∨ [⟨a1 , a2 ⟩−1 (D × b)]
+                                                             ↠                                  ↠
+                               b∈B
+                               ^
+                           =         [a−1          ↠  −1
+                                       1 (D \ b)] ∨ [a2 ( b)]
+                                                                   ↠
+                               b∈B
+                               ^
+                           =         [a−1  ↠       −1
+                                       1 ( b)] ⇒ [a2 ( b)]
+                                                               ↠
+                               b∈B
+                               ^
+                           =         FX,B (a1 )(b) ⇒ FX,B (a2 )(b)
+                               n∈B
+                           = ∥FX,B (a1 ) ≤ FX,B (a2 )∥RI A (B) .
+
+                                                                     T              V
+where we have used the countability of B to turn the                       to a         .
+     We now observe that L(X; B) is strict, as follows. First see that
+
+
+              ∥[a] = [b]∥L = ∥[a] ≤ [b]∥L ∧ ∥[b] ≤ [a]∥L
+                           = [{x ∈ X | a(x) ≤ b(x)}] ∧ [{x ∈ X | b(x) ≤ a(x)}]
+                           = [{x ∈ X | a(x) = b(x)}],
+
+
+so if ∥[a] = [b]∥L = 1, then {x ∈ X | a(x) ̸= b(x)} ∈ N , so [a] = [b].
+    Since ∥[a] = [b]∥L = ∥FX,B ([a]) = FX,B ([b])∥, and both are strict A-posets, it follows
+that FX,B is injective as a function.
+    We prove surjectivity of FX,B as follows. Suppose S : B → A(X) is in RI A (B). We
+start by building a map S ′ : B → Σ such that for all b1 , b2 ∈ B we have
+
+                                                                 [
+                                 S ′ (b1 ) ∩ S ′ (b2 ) =                 S ′ (b),                   (6.3)
+                                                              b≫b1 ,b2
+
+
+
+as actual equality, instead of just in A(X). So for each b ∈ B, pick an Sb ∈ Σ such
+that [Sb ] = S(b). Now, parts (ii) and (iii) together imply that for all b1 , b2 ∈ B, S(b1 ) ∧
+            W                                             S
+S(b2 ) = b≫b1 ,b2 S(b), so the set Nb1 ,b2 ≜ Sb1 ∩ Sb2 △ b≫b1 ,b2 Sb belongs to N . Define
+N = b1 ,b2 ∈B Nb1 ,b2 , and as a countable union N ∈ N . Define S ′ (b) = Sb ∪ N , and we have
+        S
+
+[S ′ (b)] = [Sb ] = S(b).
+                    INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                  33
+
+
+
+
+     We aim to show that for all b1 , b2 ∈ B, (6.3) holds. We do this by showing the set
+difference each way is ∅. We use ¬S for X \ S to simplify notation.
+                                                      [
+                        S ′ (b1 ) ∩ S ′ (b2 ) \              S ′ (b)
+                                                  b≫b1 ,b2
+                                                                                           
+                                                                             [
+                        = (Sb1 ∪ N ) ∩ (Sb2 ∪ N ) ∩ ¬                                Sb ∪ N 
+                                                                           b≫b1 ,b2
+                                                                               
+                                                                       [
+                        = ((Sb1 ∩ Sb2 ) ∪ N ) ∩ ¬                           Sb  ∩ ¬N
+                                                                 b≫b1 ,b2
+                                                                      
+                                                          [
+                        = (Sb1 ∩ Sb2 ) ∩ ¬                       Sb  ∩ ¬N
+                                                      b≫b1 ,b2
+                                                                 
+                                                      [
+                        = (Sb1 ∩ Sb2 ) \                     Sb  ∩ ¬N
+                                                   b≫b1 ,b2
+                                                                 
+                                                      [
+                        ⊆ (Sb1 ∩ Sb2 ) \                     Sb  ∩ ¬Nb1 ,b2
+                                                   b≫b1 ,b2
+
+                        = ∅,
+
+and the other way
+                                        
+                          [
+                                  S ′ (b) \ (S ′ (b1 ) ∩ S ′ (b2 ))
+                        b≫b1 ,b2
+                                                 
+                              [
+                    =                 Sb ∪ N  \ ((S ′ (b1 ) ∪ N ) ∩ (S ′ (b2 ) ∪ N ))
+                           b≫b1 ,b2
+                                                 
+                              [
+                    =                 Sb ∪ N  ∩ ¬(Sb1 ∩ Sb2 ) ∪ N )
+                           b≫b1 ,b2
+                                                   
+                                   [
+                    =                  Sb  ∪ N  ∩ ¬(Sb1 ∩ Sb2 ) ∩ ¬N
+                              b≫b1 ,b2
+                                                                    
+                                   [
+                    =                  Sb  \ (Sb1 ∩ Sb2 ) ∩ ¬N
+                              b≫b1 ,b2
+                                                                    
+                                   [
+                    =                  Sb  \ (Sb1 ∩ Sb2 ) ∩ ¬Nb1 ,b2
+                              b≫b1 ,b2
+
+                    = ∅.
+34                  R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+     By Theorem A.6, S ′ extends to a σ-Boolean homomorphism Bo(D) → Σ. It then follows
+by Sikorski duality [FKL+ 17, Proposition 9 (ii)] that there exists a measurable function
+f : (X, Σ) → (D, Bo(D)) such that for all b ∈ B, f −1 ( b) = S ′ (b), so
+                                                              ↠
+                  FX,B ([f ]) = [f −1 ( b)] = [S ′ (b)] = [Sb ∪ N ] = [Sb ] = S(b),
+                                       ↠
+finishing the proof of surjectivity.
+
+     It follows that we could use random variables taking values in e.g. Scott’s continuous
+lattice D∞ (see e.g. [Bar84, §18.2]) as the reflexive continuous lattice with numerals in
+Theorem 5.7, and more generally, we can extend the methods described above to countably-
+based domains.
+
+
+                                          7. Conclusions
+
+We have developed domain theory in a Boolean-valued universe of sets. Using the measure
+algebra as the Boolean algebra we obtained a domain of random variables which can be seen
+to be a reflexive domain in the internal language of the Boolean-valued set theory. We have
+focused on the pure λ-calculus here but it should be straightforward to extend this to a
+λ-calculus with probabilistic choice as an explicit primitive.
+     There are a number of directions for future work. First, one can use this construction to
+give semantics to a λ-calculus extended with probabilistic choice as was done in [BFK+ 18].
+In this model it will be interesting to see which equations involving the interplay of choice and
+the standard λ-calculus constructions are valid. One could then relate it to an operational
+semantics as, for example, in [dAKM+ 21] but one would need a Boolean-valued notion of
+operational semantics. More interestingly one could define conditioning as a primitive and
+explore its semantics. A second line of research is the notion of approximation. A notion of
+“approximate equality” has been developed recently [MPP16]; the connection to the notion
+of equality used in the present paper is unclear but there is a similarity in that in both cases
+equality may only hold partially.
+
+
+                                            References
+[AFR11]     Nathanael L. Ackerman, Cameron E. Freer, and Daniel M. Roy. Noncomputable conditional
+            distributions. In Logic in Computer Science (LICS), 2011 26th Annual IEEE Symposium on,
+            pages 107–116. IEEE, 2011.
+[AFR19]     Nathanael L. Ackerman, Cameron E. Freer, and Daniel M. Roy. On the computability of
+            conditional probability. J. ACM, 66(3):23:1–23:40, 2019.
+[Bar84]     Henk P. Barendregt. The Lambda Calculus: Its Syntax and Semantics. North-Holland, Amster-
+            dam, 1984.
+[Bel05]     John L. Bell. Set Theory: Boolean-Valued Models and Independence Proofs, volume 47 of Oxford
+            Logic Guides. Oxford University Press, third edition, 2005.
+[BFK+ 18]   Giorgio Bacci, Robert Furber, Dexter Kozen, Radu Mardare, Prakash Panangaden, and Dana
+            Scott. Boolean-valued semantics for the stochastic λ-calculus. In Proceedings of the 33rd Annual
+            ACM/IEEE Symposium on Logic in Computer Science, pages 669–678. ACM, 2018.
+[BLGS16]    Johannes Borgström, Ugo Dal Lago, Andrew D. Gordon, and Marcin Szymczak. A lambda-
+            calculus foundation for universal probabilistic programming. In Jacques Garrigue, Gabriele
+            Keller, and Eijiro Sumii, editors, Proceedings of the 21st ACM SIGPLAN International Con-
+            ference on Functional Programming, ICFP 2016, Nara, Japan, September 18-22, 2016, pages
+            33–46. ACM, 2016.
+                       INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                    35
+
+
+
+
+[dAKM+ 21] Pedro H. Azevedo de Amorim, Dexter Kozen, Radu Mardare, Prakash Panangaden, and Michael
+           Roberts. Universal semantics for the stochastic λ-calculus. In Proceedings of the ACM-IEEE
+           Symposium on Logic in Computer Science, 2021. arXiv preprint:2011.13171.
+[DK20]     Fredrik Dahlqvist and Dexter Kozen. Semantics of higher-order probabilistic programs with
+           conditioning. Proc. ACM Program. Lang., 4(POPL):57:1–57:29, 2020.
+[Eng81]    Erwin Engeler. Algebras and Combinators. Algebra Universalis, 13(1):389–392, Dec 1981.
+           doi:10.1007/BF02483849.
+[EPT17]    Thomas Ehrhard, Michele Pagani, and Christine Tasson. Measurable cones and stable, measur-
+           able functions: a model for probabilistic higher-order programming. Proceedings of the ACM
+           Symposium on Principles of Programming Languages, 2(POPL):1–28, 2017.
+[ETP14]    Thomas Ehrhard, Christine Tasson, and Michele Pagani. Probabilistic coherence spaces are fully
+           abstract for probabilistic pcf. In Proceedings of the 41st ACM SIGPLAN-SIGACT Symposium
+           on Principles of Programming Languages, pages 309–320, 2014.
+[FKL+ 17]  Robert Furber, Dexter Kozen, Kim Larsen, Radu Mardare, and Prakash Panangaden. Unre-
+           stricted Stone Duality for Markov Processes. In 2017 32nd Annual ACM/IEEE Symposium on
+           Logic in Computer Science (LICS), pages 1–9, June 2017. doi:10.1109/LICS.2017.8005152.
+[Fre02]    David H. Fremlin. Measure Theory, Volume 3. https://www.essex.ac.uk/maths/people/
+           fremlin/mt.htm, 2002.
+[FS79]     Michael P. Fourman and Dana S. Scott. Sheaves and Logic. In Michael Fourman, Christopher
+           Mulvey, and Dana Scott, editors, Applications of Sheaves: Proceedings of the Research Sym-
+           posium on Applications of Sheaf Theory to Logic, Algebra, and Analysis, Durham, July 9–21,
+           1977, pages 302–401. Springer Berlin Heidelberg, 1979. doi:10.1007/BFb0061824.
+[GHK+ 03] Gerhard Gierz, Karl H. Hofmann, Klaus Keimel, Jimmie D. Lawson, Michael W. Mislove, and
+           Dana S. Scott. Continuous Lattices and Domains, volume 93 of Encyclopedia of Mathematics
+           and its Applications. Cambridge University Press, 2003.
+[GMR+ 08] Noah Goodman, Vikash Mansingkha, Daniel Roy, Keith Bonawitz, and Joshua Tenenbaum.
+           Church: a language for generative models. In Proceedings of the 24th Conference on Uncertainty
+           in Artificial Intelligence, pages 220–229, 2008.
+[Gol06]    Robert Goldblatt. Topoi: The Categorial Analysis of Logic. Dover, 2006.
+[HKSY17]   Chris Heunen, Ohad Kammar, Sam Staton, and Hongseok Yang. A convenient category
+           for higher-order probability theory. In Proceedings of the Thirty-second Annual ACM-IEEE
+           Symposium on Logic in Computer Science, pages 1–12, 2017. doi:10.1109/LICS.2017.8005137.
+[HNPR06] Martin Hyland, Misao Nagayama, John Power, and Giuseppe Rosolini. A Category Theoretic
+           Formulation for Engeler-style Models of the Untyped λ-Calculus. Electronic Notes in Theo-
+           retical Computer Science, 161:43–57, 2006. Proceedings of the Third Irish Conference on the
+           Mathematical Foundations of Computer Science and Information Technology (MFCSIT 2004).
+           doi:10.1016/j.entcs.2006.04.024.
+[Jec03]    Thomas J. Jech. Set Theory. Springer, 3rd Millennium edition, 2003.
+[KK99]     Anatoly G. Kusraev and Semën S. Kutateladze. Boolean Valued Analysis, volume 494 of
+           Mathematics and Its Applications. Springer, 1999. doi:10.1007/978-94-011-4443-8.
+[KP54]     Stephen C. Kleene and Emil L. Post. The Upper Semi-Lattice of Degrees of Recursive Unsolv-
+           ability. Annals of Mathematics, 59(3):379–407, 1954. doi:10.2307/1969708.
+[Mon86a]   Gordon P. Monro. A Category-theoretic Approach to Boolean-valued Models of Set Theory. Jour-
+           nal of Pure and Applied Algebra, 42(3):245–274, 1986. doi:10.1016/0022-4049(86)90010-1.
+[Mon86b]   Gordon P. Monro. Quasitopoi, Logic and Heyting-valued Models. Journal of Pure and Applied
+           Algebra, 42(2):141–164, 1986. doi:10.1016/0022-4049(86)90077-0.
+[MPP16]    Radu Mardare, Prakash Panangaden, and Gordon Plotkin. Quantitative algebraic reasoning. In
+           Proceedings of the 31st Annual ACM-IEEE Symposium on Logic in Computer Science, pages
+           700–709, 2016.
+[Roy11]    Dan Roy. Computability, inference and modeling in probabilistic programming. PhD thesis, MIT,
+           June 2011.
+[Sco67]    Dana Scott. A proof of the independence of the continuum hypothesis. Mathematical Systems
+           Theory, 1(2):89–111, 1967.
+[Sco72]    Dana Scott. Continuous Lattices. In F. William Lawvere, editor, Toposes, Algebraic Geometry
+           and Logic, pages 97–136. Springer Berlin Heidelberg, 1972. doi:10.1007/BFb0073967.
+36                      R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+[Sco14]   Dana Scott. Stochastic λ-calculi. Journal of Applied Logic, 12(3):369–376, 2014.
+[Soa87]   Robert I. Soare. Recursively Enumerable Sets and Degrees. Perspectives in Mathematical Logic.
+          Springer, 1987.
+[Sol71]   Robert M. Solovay. Real-valued Measurable Cardinals. In Dana S. Scott, editor, Axiomatic Set
+          Theory, volume 13 of Proceedings of Symposia in Pure Mathematics, pages 397–428. American
+          Mathematical Society, 1971. doi:10.1090/pspum/013.1.
+[Spe58]   Clifford Spector. Measure-Theoretic Construction of Incomparable Hyperdegrees. Journal of
+          Symbolic Logic, 23(3):280–288, 09 1958. doi:10.2307/2964288.
+[SYW+ 17] Sam Staton, Hongseok Yang, Frank Wood, Chris Heunen, and Ohad Kammar. Semantics for
+          probabilistic programming: higher-order functions, continuous distributions, and soft constraints.
+          In Proceedings of the 31st Annual ACM-IEEE Symposium On Logic In Computer Science, pages
+          525–534, 2017.
+[VKS19]   Matthijs Vákár, Ohad Kammar, and Sam Staton. A domain theory for statistical probabilistic
+          programming. Proceedings of the ACM Conference on Principles of Programming Languages,
+          3(POPL):1–29, 2019.
+[WvdMM14] Frank Wood, Jan Willem van de Meent, and Vikash Mansinghka. A new approach to proba-
+          bilistic programming inference. In Proceedings of the 17th International conference on Artificial
+          Intelligence and Statistics, pages 1024–1032, 2014.
+
+
+
+              Appendix A. Measure-Theoretic Results in Domain Theory
+
+The purpose of this appendix is to collect some results about the Borel σ-algebra of a
+countably-based domain. The following lemma is well-known, but included for completeness.
+
+Lemma A.1. Let D be a poset with base B. For all d, d′ ∈ D, d ≤ d′ iff for all b ∈ B, b ≪ d
+implies b ≪ d′ .
+
+Proof. Clearly, if d ≤ d′ , then b ≪ d implies b ≪ d′ by the compatibility of ≪ with ≤. For
+the other direction, if b ≪ d implies b ≪ d′ , then d ∩ B ⊆ d′ ∩ B, and therefore d′ is an
+                                                          ↠           ↠
+upper bound for d ∩ B and d′ ≥ d.
+                      ↠
+
+     We require a description of countably presented σ-Boolean algebras. As in [FKL+ 17,
+§IV], given a set X we use H(X) = Ba(2X ) to refer to the free σ-Boolean algebra on X,
+which is the Baire σ-algebra of the compact Hausdorff space 2X . In the case that X is
+countable, 2X is metrizable, so Ba(2X ) = Bo(2X ). We use ηX for the map X → Ba(2X )
+defined by ηX (x) = {a : X → 2 | a(x) = 1}. In the case of a function f : X → B where X is
+a set and B a σ-Boolean algebra, we use f˜ : H(X) → B for the unique extension along ηX .
+    We also use the categorical version of Sikorski’s duality between σ-Boolean algebras
+and measurable spaces described in [FKL+ 17, §III], changing the notation slightly. Given a
+measurable space (X, Σ), we define σ(X, Σ) = Σ, which is a σ-Boolean algebra, and given
+a measurable function f : (X, Σ) → (Y, Θ) define16 σ(f )(T ) = f −1 (T ), which defines a
+σ-Boolean algebra homomorphism Θ → Σ. Given a σ-Boolean algebra A, we define the
+underlying set of its Sikorski space S(A) to be the set of σ-ultrafilters on A, i.e. ultrafilters
+closed under countable meets. For a ∈ A, define LaM to be the set of σ-ultrafilters u such
+that a ∈ u. We define the σ-field of the Sikorski space to be the image of L-M, so S(A) is a
+measurable space. If f : A → B is a σ-Boolean homomorphism and v ∈ S(B), we define17
+     16In [FKL+ 17, §III] this was called F .
+     17In [FKL+ 17, §III], this functor is called G.
+                       INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                    37
+
+
+
+
+S(f )(v) = f −1 (v), and this defines a measurable function S(f ) : S(B) → S(A). In [FKL+ 17,
+§III, Theorem 5] it is proved that σ : Mble → σ-BAop and S : σ-BAop → Mble are functors
+and σ is a left adjoint to S. The counit is L-M and the unit is ⟨-⟩, where, for a measurable
+space (X, Σ) and x ∈ X, ⟨x⟩ = {S ∈ Σ | x ∈ S}.
+     We say that a measurable space (X, Σ) is separated if for each pair of distinct points
+x, y ∈ X there exists S ∈ Σ such that x ∈ S and y ̸∈ S. Because σ-fields are closed under
+complement, this is symmetric in x and y. Clearly (X, Σ) is separated iff ⟨-⟩ is injective.
+If ⟨-⟩ is also surjective, i.e. for each σ-ultrafilter u on Σ there is an x ∈ X such that
+u = ⟨x⟩, we say, following Sikorski, that (X, Σ) is σ-perfect, and in this case it is also true
+that ⟨-⟩ : (X, Σ) → S(Σ) is a measurable isomorphism18. The full subcategory of Mble on
+σ-perfect measurable spaces will be called PMble.
+    If a σ-Boolean algebra A is separated by its σ-ultrafilters, i.e. if every non-zero element is
+contained in a σ-ultrafilter, then L-M is an isomorphism A → σ(S(A)). We call such σ-Boolean
+algebras σ-spatial, by analogy to the theory of locales, and they form a full subcategory
+σ-BAsp of σ-BA. We have that σ and S define an adjoint equivalence PMble ≃ σ-BAsp .
+    In the following, if A is a σ-Boolean algebra, and X ⊆ A, we write I(X) for the σ-ideal
+generated by X, i.e. the set
+                              (                                    )
+                                                               _
+                     I(X) = a ∈ A ∃(xi )i∈I .xi ∈ X and a ≤      xi ,
+                                                                         i∈I
+
+andWwe use [-]X : A → A/I(X) for the quotient mapping. If X is countable, then I(X) =
+I ({ X}), i.e. countably generated σ-ideals are principal.
+     A presentation of a σ-Boolean algebra A is a triple (G, f, R) where G is a set, f : G → A
+is a function, and R ⊆ H(G) such that f (G) generates A, i.e. f˜(G) = A, and such that
+I(R) = f˜−1 (⊥). We say a presentation (G, f, R) is countable if G and R are countable. Given
+a pair (G, R) where G is a set and R ⊆ H(G), (G, ηG , R) is a presentation of H(G)/I(R), so
+we will also call (G, R) is a presentation, the algebra H(G)/I(R) being implicit. If (G, f, R)
+is a presentation of A, then there is a unique isomorphism i : (H(G)/I(R), [-]R ) → (A, f ) in
+the comma category H(G) ↓ σ-BA, so this does not cause any problems.
+     We say that Σ is countably generated if there exists a set (Si )i∈I with I countable that
+generates Σ as a σ-field. A family of measurable sets (Ti )i∈I is said to be a separating family
+if the statement that x ∈ Ti ⇔ y ∈ Ti holds for all i ∈ I implies that x = y. A measurable
+space is countably separated if it has a countable separating family. We will be using the
+following result without comment in future, but we give the proof now for completeness.
+Lemma A.2. Let (X, Σ) be a separated σ-field generated by (Gi )i∈I . Then (Gi )i∈I is a
+separating family for (X, Σ). In particular, a separated countably generated space is countably
+separated.
+
+Proof. Let x, y ∈ X and suppose that for all i ∈ I, x ∈ Gi ⇔ y ∈ Gi . We need to show that
+x = y. First we show that for all S ∈ Σ, x ∈ S ⇔ y ∈ S. Let Σ′ = {S ∈ Σ | x ∈ S ⇔ y ∈ S}.
+By our initial assumption, for all i ∈ I, Gi ∈ Σ′ . If S ∈ Σ′ , then x ∈ S ⇔ y ∈ S, so
+x ̸∈ S ⇔ y ̸∈ S, so x ∈ X \ S ⇔ y ∈ X \ S. This proves that Σ′ is closed under complement.
+
+  18It is not the case that a bijective measurable function is a measurable isomorphism in general.
+38                  R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+    Let (Sj )j∈N be a sequence of elements of Σ′ , which is to say, x ∈ Sj ⇔ y ∈ Sj for all
+j ∈ N. Then
+                      ∞
+                      [                                                  ∞
+                                                                         [
+                 x∈         Sj ⇔ ∃j ∈ N.x ∈ Sj ⇔ ∃j ∈ N.y ∈ Sj ⇔ y ∈           Sj ,
+                      j=1                                                i=1
+
+so ∞            ′              ′                                                     ′
+  S
+    j=1 Sj ∈ Σ . Therefore Σ is a σ-subfield of Σ containing Gi for all i ∈ I, so Σ = Σ.
+Therefore, for all S ∈ Σ, x ∈ S ⇔ y ∈ S, which, as (X, Σ) is separated, implies x = y.
+
+     We use the following lemma to prove that certain σ-homomorphisms between σ-fields
+arise from embeddings of measure spaces.
+Lemma A.3. Let (Y, Θ) be a σ-perfect measurable space, and (X, Σ) a separated measurable
+space, and R ∈ Θ. Suppose that f : Θ → Σ is a σ-homomorphism that is surjective and such
+that f (R) = ∅, and let g : (X, Σ) → (Y, Θ) be the unique measurable map such that σ(g) = f .
+Then if for all y ∈ Y \ R there exists an x ∈ X such that g(x) = y, I(R) = f −1 (∅) and g
+is an embedding of (X, Σ) into (Y, Θ) with image Y \ R, i.e. it restricts to an isomorphism
+(X, Σ) → (Y \ R, Θ|Y \R ).
+
+Proof. We first remark that g can be defined to be ⟨-⟩−1 Y ◦ S(f ) ◦ ⟨-⟩X , which only requires
+(Y, Θ) to be σ-perfect. It is unique because if g, h : (X, Σ) → (Y, Θ) satisfy σ(g) = σ(h) for
+all T ∈ Θ and x ∈ X we have x ∈ g −1 (T ) ⇔ x ∈ h−1 (T ), so g(x) ∈ T ⇔ h(x) ∈ T . As
+σ-perfect spaces are separated, g(x) = h(x), so g = h.
+    As f (R) = ∅, we have I(R) ⊆ f −1 (∅), so to show that I(R) = f −1 (∅), it suffices to show
+that f (T ) = ∅ implies T ⊆ R, for any T ∈ Θ. We show the contrapositive, that T ̸⊆ R
+implies f (T ) ̸= ∅.
+      Let y ∈ T \ R. Since y ∈ Y \ R, there exists x ∈ X such that g(x) = y. So x ∈ g −1 (y) ⊆
+g −1 (T ) = f (T ), proving f (T ) ̸= ∅.
+     Now we need to show that g is a measurable embedding with image Y \ R. By definition
+it is measurable. The hypothesis on g from the statement of the lemma implies directly
+that Y \ R ⊆ g(X). If there were x ∈ X such that g(x) ∈ R, then f (R) = g −1 (R) ∋ x,
+contradicting f (R) = ∅, so g(X) = Y \ R.
+    We show that g is injective as follows. Suppose that there exist x, x′ ∈ X such that x ̸= x′ .
+As (X, Σ) is separated, there exists S ∈ Σ such that x ∈ S and x′ ̸∈ S. As f is surjective,
+there exists T ∈ Θ such that f (T ) = S, i.e. g −1 (T ) = S. Therefore g(x) ∈ T . If g(x′ ) ∈ T ,
+then x′ ∈ g −1 (S), which is a contradiction, so g(x′ ) ̸∈ T , and therefore g(x) ̸= g(x′ ).
+    We show that g is a measurable embedding, or equivalently an isomorphism onto its image,
+as follows. Let S ∈ Σ. As f is surjective, there exists T ∈ Θ such that S = f (T ) = g −1 (T ).
+As g(X) = Y \ R, S = g −1 (T ∩ (Y \ R)). As g is a bijection between X and Y \ R,
+g(S) = T ∩ (Y \ R). This implies that the set-theoretic inverse of g from Y \ R → X is
+measurable.
+
+    The following is useful for proving that certain triples (G, f, R) are actually presentations,
+and is an extension of the result [FKL+ 17, Lemma 10]. It has the side effect of proving that
+the space being presented is a standard Borel space.
+                     INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                               39
+
+
+
+
+Proposition A.4. Let (X, Σ) be a separated measure space, G a countable set, f : G → Σ a
+function and R ⊆ H(G) a countable set such that:
+   (i) f (G) generates Σ.
+  (ii) For all r ∈ R, f˜(r) = ∅
+ (iii) For all s ∈ 2G such that for all r ∈ R, s ̸∈ r, there exists x ∈ X such that for all g ∈ G,
+       x ∈ f (g) ⇔ s(g) = 1.
+Then (G, f, R) is a countable presentation of (X, Σ), and the unique map h : (X, Σ) →
+(2G , Bo(2G )) such that σ(h) = f˜ is a measurable embedding with image 2G \ r∈R r, proving
+                                                                            S
+(X, Σ) is a standard Borel space.
+
+                                                                    ˜
+    W By (i) and (ii), we have that f (G) generates Σ (i.e. f is surjective). We define
+Proof.
+r = R, which is an element of H(G) because R is countable, and observe that I(R) = I(r),
+and f˜(r) = ∅, by (ii). By (iii), we have that for all s ∈ 2G \ r, there exists x ∈ X such that
+x ∈ f (g) ⇔ s(g) = 1. Let h : X → 2G be the unique measurable map such that σ(h) = f˜.
+We have that
+               x ∈ f (g) ⇔ x ∈ f˜(ηG (g))                          definition of f˜
+                          ⇔ x ∈ σ(h)(ηG (g))                      definition of h
+                                  −1
+                          ⇔x∈h         (ηG (g))
+                          ⇔ h(x) ∈ ηG (g)
+                          ⇔ h(x)(g) = 1                      definition of ηG (g),
+so h(x)(g) = 1 ⇔ s(g) = 1. As s takes values in 2, this implies h(x) = s.
+    Therefore we can apply Lemma A.3 to conclude that I(r) = f˜−1 (∅), so (G, f, R) is a
+presentation of Σ, and h embeds (X, Σ) onto (2G \ r, H(G)|2G \r ). It follows that (X, Σ) is a
+standard Borel space because (2G , H(G)) is a standard Borel space (G is countable), and
+any Borel subspace of a standard Borel space is a standard Borel space.
+Lemma A.5. Let D be a continuous dcpo with countable basis. Then for all d ∈ D, the set
+↑ d is in Bo(D), where D has the Scott topology.
+
+Proof. Let B be a countable basis for D. Then
+             ↑ d = {d′ ∈ D | d ≤ d′ }
+                 = {d′ ∈ D | ∀b ∈ B.b ≪ d ⇒ b ≪ d′ }                  Lemma A.1
+                      ′            ↠              ′   ↠
+                 = {d ∈ D | ∀b ∈ d ∩ B.d ∈ b}
+                     \
+                 =        b. ↠
+                     ↠
+                    b∈ d∩B
+
+As B is countable, this expresses ↑ b as the countable intersection of Scott open sets, which
+is therefore a Borel set.
+
+    For ease of notation, we will write ΣD for Bo(D).
+    If D is a continuous domain with countable base B, we define f : B → ΣD by f (b) = b.     ↠
+This extends to a σ-homomorphism f˜ : H(B) → ΣD . To ease notation, we write gb for ηB (b).
+40                   R. FURBER, R. MARDARE, P. PANANGADEN, AND D. SCOTT
+
+
+
+
+We can define                                                                      
+                                                        [                          
+                            RB =        (gb ∩ gb′ )△               gb′′ b, b′ ∈ B       .
+                                                                                   
+                                                       b′′ ≫b,b′
+
+This is a countable subset of H(B).
+Theorem A.6. (B, f, RB ) is a countable presentation of ΣD , so (D, ΣD ) is a standard Borel
+space.
+
+Proof. We use PropositionWA.4. We first showW that (D, ΣD ) is separated. Let d, d′ ∈ D be
+distinct elements. As d =      ↠         ′
+                              d ∩ B and d =     ′         ↠
+                                               d ∩ B, there must be some b ∈ B such that
+b ≪ d and b ̸≪ d′ , or the other way round. Therefore d ∈ b and d′ ̸∈ b, or vice-versa, so
+                                                                           ↠                ↠
+ΣD is separated.
+              ↠
+      Since { b | b ∈ B} is a countable base for the Scott topology, every Scott-open set in
+                                                               ↠
+D is a countable union of elements of the form b, where b ∈ B, so f S          (B) generates ΣD
+as a σ-field, proving (i). The elements of RB are of the form gb ∩ gb′ △ b′′ ≫b,b′ gb′′ where
+b, b′ ∈ B. To prove (ii), it suffices to show that b ∩ b′ = b′′ ≫b,b′ b′′ . If b′′ ≫ b, b′ , and
+                                                                 S
+                                                            ↠↠         ↠                    ↠
+d ≫ b′′ , then d ≫ b, b′ . Therefore b′′ ≫b,b′ b′′ ⊆ b ∩ b′ . For the opposite inclusion, suppose
+                                    S
+                                                 ↠                  ↠
+that d ∈ b ∩ b′ , i.e. d ≫ b, b′ . Since d =       d ∩ B and b ∩ b′ is Scott open, there exists
+                                               W
+          ↠    ↠                                       ↠                   ↠   ↠
+ ′′                                 ′                    ′′             ′    ′′                 ′′
+                              ↠↠
+     ↠
+b ∈ d ∩ B such that                 ↠                                                                ↠
+                    S b ∈ b′′ ∩ b . It follows that b ∈ B, and b, b ≪ b ≪ d, i.e. d ∈ b ,
+and therefore d ∈ b′′ ≫b,b b . This proves (ii).
+    All that remains is to prove (iii). Let s ∈ 2B such that s ̸∈ r for all r ∈ RB . We need to
+                                                                       ↠
+produce an element d ∈ D such that for all b ∈ B, d ∈ b ⇔ s(b) = 1. To this end, we want
+to define                               _
+                                  d = {b ∈ B | s(b) = 1},
+which will be a definition if {b ∈ B | s(b) = 1} is directed, soS we prove this. S   If b, b′ ∈ B such
+                    ′
+that s(b) = 1 = s(b ), then s ∈ gb ∩ gb′ . Since s ̸∈ gb ∩ gb′ △ b′′ ≫b,b′ gb′′ , s ∈ b′′ ≫b,b′ gb′′ , i.e.
+there exists b′′ ∈ B such that b′′ ≫ b, b′ and s(b′′ ) = 1. Importantly for later, this shows that
+{b ∈ B | s(b) = 1} is not just ≤-directed, but ≪-directed.
+    Therefore d is defined as the supremum of a directed set in D. We need to show that
+     ↠                        ↠
+d ∈ b ⇔ s(b) = 1. If d ∈ b, then b ≤ d, so s(b) = 1 by the definition of d. For the other
+direction, if s(b) = 1, then as {b ∈ B | s(b) = 1} is -directed, there exists b′ ∈ B such that
+                                                                   ↠
+b ≪ b′ and s(b′ ) = 1. Therefore b′ ≤ d and b ≪ b′ , so d ∈ b.             ↠
+
+    By [FKL+ 17, Proposition 9 (ii)], if (X, Σ) is a σ-perfect measurable space, measurable
+                     → (D, ΣD ) are in bijection with functions g : B → Σ such that for
+functions f : (X, Σ) W
+each pair b, b ∈ B, b′′ ≫b,b′ g(b′′ ) = g(b) ∧ g(b′ ), where for a measurable function f the
+              ′
+
+corresponding g is defined by g(b) = f −1 ( b).  ↠
+     We finish with some other facts that are needed in the main text.
+Lemma A.7. Let D be a continuous dcpo with a countable basis. Then the graph of ≤,
+                                   γ (≤) = {(d, e) ∈ D × D | d ≤ e}
+is measurable in (D × D, ΣD ⊗ ΣD ). It follows that the analogous sets with d ̸≤ e, d = e and
+d ̸= e are also measurable.
+                     INTERPRETING λ-CALCULUS IN RANDOM VARIABLES                                                                  41
+
+
+
+
+Proof. Recall that ΣD ⊗ ΣD is the σ-field generated by rectangles, i.e. sets of the form S × T
+for S, T ∈ ΣD . If we take B to be a countable basis for D, we have
+     {(d, e) ∈ D × D | d ≤ e} = {(d, e) ∈ D × D | ∀b ∈ B.b ≪ d ⇒ b ≪ e}                                    Lemma A.1
+                                \
+                              =    {(d, e) ∈ D × D | d ∈ b ⇒ e ∈ b}     ↠               ↠
+                                 b∈B
+                                 \
+                             =         {(d, e) ∈ D × D | d ̸∈ b ∨ e ∈ b}↠              ↠
+                                 b∈B
+                                 \
+                             =              ↠
+                                       ((D \ b) × D ∪ D × b).          ↠
+                                 b∈B
+                       ↠
+As B is countable and b is Scott-open, this is a set in ΣD ⊗ ΣD . We therefore also have
+                                             \
+                 {(d, e) ∈ D × D | d ≥ e} =     (D × (D \ b) ∪ b × D),       ↠         ↠
+                                                     b∈B
+by symmetry, which is clearly in ΣD ⊗ ΣD , and the intersection of these sets, the diagonal
+{(d, e) ∈ D × D | d = e}, is therefore also, as are the complements of these sets.
+Lemma A.8. Let D be a dcpo with countable basis. Then ΣD×D = ΣD ⊗ ΣD .
+
+Proof. Let B ⊆ D be a countable basis. Since the projection maps πi : D × D → D are
+Scott continuous, they are continuous with respect to the Scott topologies, and therefore
+measurable, so ΣD ⊗ ΣD ⊆ ΣD×D . To show the opposite inclusion, first observe that
+B × B is a countable basis for D × D [GHK+ 03, Proposition III-4.12 (i)], and therefore
+↠↠
+( (b1 × b2 ))(b1 ,b2 )∈B×B is a countable set of generators for Bo(D × D) (Theorem A.6). As
+              ↠      ↠
+ (b1 × b2 ) = ( b1 ) × ( b2 ), this shows that ΣD×D is generated by elements of ΣD ⊗ ΣD , and
+therefore ΣD×D ⊆ ΣD ⊗ ΣD .
+
+
+
+
+                                          This work is licensed under the Creative Commons Attribution License. To view a copy of this
+                                          license, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative
+                                          Commons, 171 Second St, Suite 300, San Francisco, CA 94105, USA, or Eisenacher Strasse 2,
+                                          10777 Berlin, Germany
+

@@ -1,0 +1,566 @@
+   EXTENDING           THE     TOPOLOGICAL             INTERPRETATION               TO
+                        INTUITIONISTIC              ANALYSIS,        II
+
+
+
+                                     DANA      SCOTT*
+
+   This paper is a sequel to the paper [12] written for Professor Heyting
+under the same title. Nearly all of the questions left open in [12] have been
+answered. In particular the results of section 3 in [12] having to do with
+universal formulae of the theory of < in three variables have been extended
+to arbitrary universal formulae in section 5. (Our numbering of sections con-
+tinues that of [12].) We then discuss in section 6 the general metama-
+thematical implications of the method of section 5 for the theory of the
+topological model of intuitionistic analysis. In section 7 the important step
+is taken of enlarging the model to encompass arbitrary (extensional) real
+functions. The main result is the verification in the model of Brouwer’s
+theorem on continuity: all functions are uniformly continuous on closed in-
+tervals. The proof is given in detail along with several related results. (The |
+reader will have to refer to [12] for notation and the definition of the model.)
+  The author was thus able to conclude this paper feeling that he had a
+rather good grasp of the basic properties of the real numbers of the model.
+Several further projects remain to be carried out, however. The next im-
+portant step is to discuss the corresponding topological interpretation of
+second-order arithmetic and the theory of free-choice sequences of integers.
+This will make possible an exact comparison of the theory of the model and
+the usual axiomatic theories of intuitionistic analysis (which will no doubt
+be one of the main topics of part III of this series of papers.) Following such
+work it is obvious that attention must be given to obtaining a constructive
+version of the model. Kreisel has suggested that the theory of constructive
+and lawless sequences (the system of [8]) may provide the proper framework
+* Research   on this paper has been supported        by a grant from the National        Science
+Foundation. Special thanks are due to Professor G. Kreisel for the many hours of dis-
+cussion on intuitionism in general and the helpful criticisms of earlier drafts of this paper in
+particular.
+
+                                              235
+236                                    D. SCOTT                                 C XVI           C XVI                       THE TOPOLOGICAL INTERPRETATION
+                                                                                                                                                                                                        237
+
+for this discussion in view of the connection between the topological inter-                    universal consequences of a universal axiom. The proof of
+                                                                                                                                                          this general
+pretation and lawless sequences [5] (part IV?) In this connection it is appro-                  result requires no special knowledge of models.
+priate to take this opportunity to retract a remark of [12], p. 194. Contrary                      Let us consider the theory of <. We can schematically indicate
+                                                                                                                                                                  the gen-
+to what was said, Kreisel has all along felt that the topological interpre-                     eral universal sentence as
+tation has relevance. Indeed in [6] he mentions it along with realizability and
+
+                                                                                         nee
+his own elimination of free choice sequences. Moreover in [5], p. 370, para-                                            VX0++9+5 Xqny A(X, < x,2 i,j <n),
+graph 2, he had already presented the clearest possible statement of his view                   where we mean to suggest that the expression involves the
+                                                                                                                                                          various atomic
+of the interpretation.                                                                          formulae x, < x,. Let P, be propositional letters and let
+   In another direction the theory of species and higher-order functions will
+require consideration. That study will of course bring in connections with                                                              A(P;;:       i,j   <   n)
+
+the Boolean models for set theory ({11] and [13].) To date no particular                       indicate the result of replacing x; < x, by P,, in the matrix
+                                                                                                                                                             of our universal
+technical results about the Boolean models have played a role in the dis-                      sentence. Further let
+cussion of these topological models. In fact, the main effort was given to
+the consideration of those properties of the models and topological spaces                                                              B(P,;: i,j <n)
+most appropriate to foundations of intuitionism. However, it was the success                   be the conjunction of all formulae of the two forms
+of the Boolean models in making clear certain aspects of Cohen’s remarkable
+independence results (such as the type of construction of generic and ran-                                                              os [P ip           AP itl
+                                                                                               and
+dom reals) that encouraged the author to take up again the study of the topo-
+logical interpretation which he had put down some ten years before. And he                                                         [Pij        > Pix Vv Pyjl
+is most happy to see now just how well things fit together. It does not seem                   for i,j,k <n.    In our case the general result mentioned above shows
+                                                                                                                                                                     that
+altogether impossible that work in the intuitionistic theories may throw                       the given universal sentence is a consequence of (1.1)-(1.2)
+                                                                                                                                                            if and only if
+additional light on the properties of the Boolean models (cf. [2] and other
+references given there).
+                                                                                               is a propositional theorem in HPC; hence the decision method
+                                                                                                                                                                   . This approach
+5. Further   independence   results.   In   section   3   we   discussed   universally         is definitely only suited to universal prenex formulae,
+                                                                                                                                                             however. The author
+quantified three-variable consequences of the axioms of order (1.1)}+(1.2)                     is rather inclined to believe that the full first-order intuitio
+                                                                                                                                                                nistic theory based
+and noted that such questions could be thrown back to propositional                            on (1.1)}-(1.2) is undecidable.
+calculus as well as being determined by the model. At the time of                                Having noted the above purely formal result, we may
+                                                                                                                                                     now ask: Are the
+writing the earlier section the results were rather special, and the author                    axioms (1.1)-(1.2) complete for the universal sentences valid
+                                                                                                                                                             in our model?
+suggested that they should generalize. They do. Kreisel jhas pointed out                       We shall prove that, under suitable conditions on the
+                                                                                                                                                        topological space 7,
+the relevance of the following well-known fact about HPC (Heyting’s                            if the universal sentence is not provable in the theory
+                                                                                                                                                       of <, then it Jails in
+predicate calculus):                                                                           the model. Indeed we shall find that the contradictory sentenc
+                                                                                                                                                               e
+   A universal sentence is a consequence in HPC of a given universal axiom
+if and only if its matrix is a propositional consequence of a finite number of -                                 VXo    —   Vx,,   oe    eg   X,-1     A(x,    <    Xj:   i,   j   <   n)
+
+
+substitution instances of the axiom using the variables mentioned in the con-                  is actually valid in the model. For this purpose in view of [10],
+                                                                                                                                                                 pp. 130-131
+clusion.                                                                                       we find it convenient to assume that T is a non-empty, dense-in
+                                                                                                                                                                  -itself, to-
+   Note that our language has only relation symbols, in fact only <, which                     tally disconnected,     metric space;          the two best known                       examples being the
+makes the result so simple; in particular, we have a decision method for                       Cantor space 2" and the Baire space N. We prefer the latter
+                                                                                                                                                           because of
+238                                     D. SCOTT                                       C XVI    C XVI                       THE TOPOLOGICAL INTERPRETATION                                         239
+
+its naturalness in interpreting second-order number theory. Thus for the re-                    hold by definition. The z,,; are by no means non-negative, but we shall see
+mainder of the paper we may as well fix 7 = N. In the future there may                          that
+be reason for greater generality, but this choice of T gives a complicated
+                                                                                                                                   [7    > O] = [P,,].
+enough model with sufficiently many interesting properties.
+                                                                                                Assume that 2,,(t) > 0, then by the definition of the m™,, and the non-nega-
+      Suppose, then, that the universal sentence is not provable from (1.1) — (1.2).
+                                                                                                tive character of the o,, we find o,(t) > 0 for at least one subset J such that
+Thus the corresponding propositional formula is not provable either. By
+                                                                                                iel,j¢J.     But then     by the construction of o,;, we                     have     te [P;)]-   Now
+what we know about T = N”, we can assign open sets [P;,] to the P,, in such
+                                                                                                for the converse,       assume     that te[P,,].             We       must   obtain     a particular
+a way that
+                                                                                                Ic      {0,1,...,m—1}     such that ie J, 7¢Z,               and
+                               [B(P;;: i,j < n)] = T;
+while                                                                                                                                te(\kel I¢t() [Pul.
+                               [A(P;;: i,j < n)] ¥ T.
+                                                                                                where of course k, / range over all indices less than n satisfying the restric-
+We wish to find continuous functions €;¢                        # such that                     tions. To construct J we proceed by induction. Let J, = {i} and Ig = {j}.
+                                                                                                Since
+                                  [c; < ¢j] = [Pi].
+                                                                                                                                   [Pi] 0 [Px] = 9
+and this will give us the counterexample in the model.
+   It seems convenient to construct certain auxiliary functions before ob-                      we know that i # j, because te [P,,] but ¢¢ [P,,]. Hence I,                             A I, = @ and
+taining the &,. In the first place, given open sets [P,,] and given a subset
+                                                                                                                                    te()           () [Pal.
+Ic {0,1,...,}, we can define continuous functions o,¢                         @ that are non-                                           keIg      leIo’
+negative and such that
+                                                                                                Suppose now g <n, and I, 0 I, = 9, and
+                               [o, > O] = () () [Pal.
+                                                   kel I¢I                                                                          te()           () [Pul.
+                                                                                                                                        kelq lelg’
+Next, for given i, 7 < n, we define x,,€              & such that
+                                                                                                Let m be the least integer where m < n,    m¢ I, I,. We will show how to
+                                                                                                adjoin m to J, or to I, preserving the above properties. Because, from the
+                                         Jel              igs                                   assumptions about the P,,, we have
+where the summations run over all the subsets satisfying the indicated re-
+                                                                                                                                 [Pal S [Pum] U [Pm];
+strictions. Finally we set fori <n                                                              so that
+                                        gi     =   Noi>                                                             ()     (\ [Pull <(()               [Pim] U () [Pinil}).
+                                                                                                                    keIg leIg’                 kel g              leIg’
+but it takes several steps to see that these functions so defined have the desired
+properties. (These formulae, by the way, do indeed generalize those of
+                                                                                                Now if té(\ser, [Prml> set I,4, =I, and Iy+1 = 1, {m}. While if
+section 3.)                                                                                     t€ (\rer, [Pm], set I,41 = I, U {m} and Ij+1 = Ij. The required proper-
+                                                                                                ties are obvious in either case. Proceeding in this way tog = n (or isitn—2
+      We note first that, fori, 7 <n,
+                                                                                                since we started with i, j as given?) we obtain J and its complement as desired.
+                                                                                                Having found this J we see ¢;(t) > 0. Now if J is any subset with j e J and
+and                                                                                             i¢ J, then since t¢[|P;,], we have o,(t) = 0. We have thus proved that
+                                                                                                m;,(t) > 0.
+240                                            D. SCOTT                          C XVI     C XVI                   THE TOPOLOGICAL INTERPRETATION                       241
+
+
+      To complete the proof we must prove in addition                                      tion no valid principles have been overlooked. The predicate calculus is
+                                                                                           not that simple, otherwise it would be decidable. Nevertheless, if we con-
+                                   Typ    t Rpt      yy   =   0,
+                                                                                           sider a theory such as that of all (classically) true sentences of first-order
+Note that in view of our above remarks about the 7,,, it is sufficient to assume           arithmetic, we conclude from Gddel’s theorem that each unprovable pre-
+the i,j,k < nare all distinct. We must, unfortunately, write out the sum on                dicate calculus schema has an instance in the language of arithmetic that is
+the left-hand side of the above equation, namely:                                          indeed false. Let us formulate this idea as a general metamathematical no-
+                                                                                           tion.
+                                                                                             On the one hand we have a logical calculus (classical or intuitionistic
+                   Jj¢f    i¢t           kl         J¢J            i¢gt   k¢t
+                                                                                           propositional or predicate calculus, to be definite) which consists of various
+There are two kind of terms: positive and negative, and there are equal                    schemata and some rules (maybe, only modus ponens and generalization.)
+numbers of each. Thus if we can show that each positive term can be can-                   On the other hand we have a theory which consists of a set (species) of valid
+celled by a unique negative term that is formally equal to it, then the whole              formulae in a certain (applied) language. We assume that we know what it
+expression cancels to zero. In view of the symmetry of the situation, consider             means to form an instance of a logical schema in the applied language. Ob-
+a typical term o, with i e       Jandj ¢ J. By inspection, of the six kinds of restric-    viously we want to assume that the logic is sound for the theory; that is, all
+tions on the capital letter subscripts in the expression only two could con-               instances of schemata are valid and all instances of rules lead from valid for-
+tain an occurrence of the same subscript J. And actually only one can arrise:              mulae to valid formulae. What is more interesting is the question of whether
+the cases      ke J and k ¢ J are disjoint. Thus indeed a positive occurrence of           the logic is maximal for the theory. This means that if we take a schema not
+ o, cancels with a unique negative occurrence with the same subscript. Our                 provable in the logical calculus, then the adjunction of all instances of this
+ argument is complete.                                                                     new schema render the given theory inconsistent in the sense of the original
+    From the equation just proved we see that                                              logical calculus. (We can take the inconsistency to be the resultant provability
+                                                                                           of arbitrary formulae.) We use the word ‘maximal’ here as being more des-
+                                          oy     5 = ij
+                                                                                           criptive than the overworked ‘complete’. As pointed out, classical proposi-
+ which implies that
+                                                                                           tional calculus is maximal for any (classical) theory. Classical predicate
+                                    [é: < ¢,] = [Py].                                      calculus is maximal for certain theories, though not for any recursively enu-
+ It follows that
+                                                                                           merable theory. What about the intuitionistic logical calculi?
+                             [A(E; < €: i,j < n)] # T.                                        An analysis of the argument of section 5 shows that atomic formulae of
+ Since the only interesting situation is where m > 2, we can derive exactly as             the form y > 0 have instances which, in the model, take on any value (any
+ in section 3 the validity in the model of                                                 open set). Thus with our choice of T = N* we can easily argue that if
+                                                                                           C(P;: i < m) is a propositional formula not provable in HPC, then
+                     VXq 1 VXy5- + + Xp            1 A(X; < xj: i,j <n),           (5.1)
+                                                                                                                —VYo3-+ +> Vm-n C(; > 0: i < m)                        (6.1)
+ which gives us a large number of independence results. What we would like
+ to discuss next is whether there are reasonable axioms for intuitionistic                 is valid in the model. Note that the negation falls outside the scope of the uni-
+ analysis from which these formulae (5.1) become provable.                                 versal quantifiers. Thus no instance of the unprovable C(P;: i < m) is likely
+                                                                                           to lead to a propositional contradiction (unless it is classically invalid.)
+ 6. Maximality of propositional calculus. In classical logic we have a very                However, an obvious instance combined with universal generalization does
+ easy time of it: an unprovable propositional schema leads at once to contra-              lead to a contradiction. Therefore we can say that the propositional part of
+ diction after a suitable substitution of quite trivial formulae for the pro-              HPC is maximal for the theory of valid sentences of the model in the context
+ positional letters. Thus we know in a most direct way that in our formaliza-               of all the rules of HPC. Whether the full HPC is maximal for this theory the
+242                                               D. SCOTT                                     C XVI   C XVI                              THE TOPOLOGICAL INTERPRETATION                                           243
+
+author cannot see at the moment; though this may in fact follow from the
+                                                                                                       are strictly positive. Thus the formal s; correspond to our use of a; in the
+known topological completeness proofs for HPC.
+                                                                                                       informal proof of section 5. Then we could introduce f,; corresponding to
+   A question that should be answered concerns those axiomatic theories
+                                                                                                       the m,, and then the x, corresponding to the €,. Again by elementary al-
+of analysis for which we have the same HPC maximality. Kreisel has veri-
+                                                                                                       gebra we could transcribe our proof to finally establish (6.2).
+fied in [5], p. 378, propositional maximality for a theory of lawless sequences.
+                                                                                                         Now we invoke (6.1) and the unprovability of the implication combined
+The theories of Kleene-Vesley [4] and Kreisel-Troelstra [14] need investi-
+                                                                                                       with (6.2) to prove
+gation on this point. The many fragmentary results of [4] point in this di-
+rection; and one should consider in this connection whether the full Val p-                                                          — VX05 +++) Xp—1 A(X; < x; i,j <n),                                     (6.3)
+continuity is really needed or just Vo3!f8. Another question: could there
+                                                                                                       which is not quite as strong as what we validated in section 5. But note that
+be any intuitionistically acceptable extension of Heyting’s arithmetic (HA)
+                                                                                                       [x; < xj;<*+ x;+y < x;+y] by elementary algebra. This translation in-
+for which we would have propositional maximality? It seems unlikely.
+                                                                                                       variance makes it easy to prove, as in section 3, the following
+   From the axiomatic point of view, propositional maximality has certain
+useful consequences. We shall now show that (6.1) together with some very                              VXo   5 se   sy Xn~1   A(X;   <   xX;:   i,j   <   n)<>Vx,,   oe   ey Xp   A(x;   <   x;:   i,j   <   n),
+
+elementary algebra allow us to formally derive the results of section 5. Hence,                                                                                                                              (6.4)
+if in [4] it would have been possible to obtain (6.1), many of the results of
+                                                                                                       where on the right-hand side we have left x9 free. Obviously the implication
+[4], ch. IV would have followed directly.
+                                                                                                       goes from left to right; for the converse one just translates the fixed x, to
+  Let   us   recall   the    notation        from       the    previous    section:   BP;;: i,j <n)    an arbitrary x). The reader can surely do this for himself. That is how we
+stood for a certain conjunction related to the axioms of order; A(P i: i,j <n)                         get the formal proof of (5.1).
+was an arbitrary formula such that                                                                        The deduction just outlined illustrates a familiar phenomenon: a result
+                            [B(Pi;: i,j <n) > A(P,j: i,j < n)]                                         purely in the theory of one predicate (in this case it was <) was obtained
+                                                                                                       only with the aid of several auxiliary notions (viz. +, -, —, max, min) to-
+was unprovable in HPC. Let p,, be distinct real variables for i,j <n. Our
+                                                                                                       gether with their elementary properties. In classical theories we have exam-
+construction of the €, in section 5 could be turned into a formal proof of
+                                                                                                       ples in various fragments of integer arithmetic but not in the theory of order
+      B(pyy > 0: i,j <n)           3x9,...,%,-1                  A      [x;<x;op,;>O0],        (6.2)   in the continuum. This is another indication that the intuitionistic theory of
+                                                                i,j<n
+                                                                                                        < is more complicated than the classical theory.
+where /\ is the sign of conjunction of several formulae. The proof would                                  To further illustrate the usefulness of the auxiliary notions for under-
+be rather long: Assuming the left-hand side, we would have to first introduce                          standing the basic theory of < we may mention the definitions of z € [x, y]
+                                                                                                       and z € (x, y) given in (4.2)}-(4.3). These are equivalent to the definitions in
+                                    Pij = max(p;;, 0),                                                 [3] (3.3.2.1, p. 40), and we find in [3], p. 41 a proof that
+to get non-negative variables, and then invoke the elementary theorems to
+have                                                                                                                            z € [x, y] — min(x, y) < z < max (x, y).                                     (6.5)
+                                   Py         > Op;              > 0.                                  That obviously makes very good sense and clears up the doubts the author
+But that is easy. Next we would have to introduce for J ¢ {0, 1,...,—- 1}                              had when he wrote section 4. However, in the case of the open interval the
+                                                                                                       best we can do is
+                                        Sy    =   I]
+                                                  kel
+                                                        TT
+                                                         I¢f
+                                                               Pits
+                                                                                                                          z€ (x, y) ++ 4 [min (x, y) < z <'max (x, y)]}.                                     (6.6)
+where | | is the sign of arithmetic product. Elementary algebra tells us that a
+                                                                                                       The author is only very slowly beginning to understand the role of —— in
+product of non-negative terms is strictly positive if and only if all the terms
+                                                                                                       intuitionistic mathematics, and hopes to discuss it again at another time.
+244                                D. SCOTT                               C XVI    C XVI                    THE TOPOLOGICAL INTERPRETATION                       245
+
+
+  A different kind of consequence of the method used to verify (6.1) shows         where A(x, y) is an arbitrary formula which is assumed to be extensional (as
+us that for arbitrary formulae A                                                   are all of our formulae for the time being) in the sense that
+                               AIy[y > 0< A]                               (6.7)               Vx, x,y, y' [A(x y)Ax       = x’ay    = y’ > A(x’, y’)]
+
+is valid in the model. This is a strong version of Kripke’s schema first men-      must be valid.
+tioned in print by Myhill [7], p. 174. Myhill’s weaker statement of the prin-        There are no surprises here, since (7.1)}-(7.4) are clearly rather   fundamen-
+ciple would read in our notation:                                                  tal for any reasonable theory of functions. What is surprising is that, without
+                                                                                   seeming to have built the fact into our interpretation, we do validate the
+                    Ay[ly < O32     S AlAly > 0       A].
+                                                                                   principle of continuity:
+Clearly this statement follows from (6.7) but one would guess not conver-
+                                                                                   VWfV¥z, we > 04d > OVx, ye[z, w][|x—y| < d > [f(x)—f(y)] < e], (7.5)
+sely. Assuming that the system of analysis supplied by our model is at all
+reasonable intuitionistically, we thus obtain a consistency proof for this         where we have used e and d as rational variables in place of the conventional
+form of Kripke’s schema. As Myhill has already pointed out, (6.7) is incom-        e and 6. Note that (7.5) is not just point-wise continuity of every function
+patible with Vaif-continuity ([7], pp. 173-174). Thus to justify the reason-       but uniform continuity on every closed interval.
+ableness of our model, we must now turn to a discussion of what continuity           A simple consequence        of uniform continuity is: every rational-valued
+properties actually are valid since such principles are desirable intuitionisti-   function is constant, A moment’s reflection shows it is enough to prove that
+cally.                                                                             every integer-valued function is constant; and, even simpler, it is sufficient
+                                                                                   to prove that every two-valued function is constant. This last principle has a
+7. Functions and continuity. We are now going to enrich our language of            simple schematic statement:
+analysis by the adjunction of function variables. We reserve f, g, h (with or
+                                                                                                    Yx[A(x) v — A(x)] ~ [VxA(x) v Vx — A(x)],                  (7.6)
+without subscripts) for such variables and employ the usual function-value
+notation f(x) in the formal language. We are assuming our functions to be          a principle which states, in Brouwer’s terminology, that the continuum is
+everywhere defined, real-valued functions of one argument. The extension of        ‘unzerlegbar’ (cf. [4], *R10.4, p. 155).    The proof of (7.6) begins with the
+the language and the results to functions of several arguments seems to            introduction of a function f such that
+present no difficulties and is left to the reader.
+   The interpretation of these functions in the model will be given in a very                       Vx[[A(x) Af (x) = O]      v[— A(x) f(x) = 1],
+straightforward way and will lead to several obviously basic principles            which is justified by (7.4). Then one applies (7.5) with e = 1 for an ar-
+being valid. In the first place our functions will be extensional:                 bitrary pair of numbers z, w. The interval       [z, w] can easily be covered by
+                                                                                   intervals of length d, where d is supplied by (7.5), and the inequalities
+                       Vf vx, yx = y > f(x) =f0)],                         (7.1)   together with an inductive argument imply that f is constant on [z, w].
+and apartness and equality of functions will be given by the following defi-          It is tempting on rather formal grounds to assume a version of the axiom
+nitions:                                                                           of choice:
+                      Vf OLF # g <> Ax f(x) # g(x)],                       (7.2)                          Vx3yA(x, y) + 3fVxA(x, f(x)),                   (AC-RR)
+                          Vig lf =9goe af # gl].                           (7.3)   where we have followed Kreisel [8], pp. 233f, in style of terminology with RR
+                                                                                   meaning that the choices are from reals to reals. Without thought, (AC-RR)
+Next we will have the principle of function existence:
+                                                                                   would seem to be a reasonable strengthening of (7.4); however, in view of
+                     Vxdly A(x, y) > 3YfWx A(x, f(x)),                     (7.4)   the remarks in connection with (7.6) we see that it is actually invalid for the
+                                                                                            C XVI                     THE TOPOLOGICAL INTERPRETATION                       247
+246                                      D. SCOTT                                 C   XVI
+
+
+extensional notion of function intended here. Indeed the formula [x < ya                    To define p,x(€) we use the same method as in section 2 and set
+y € Q] gives the obvious counter-example.                                                                    Px(€)(t) = inf {re Q: te [3y[A(E, play < ry]}
+   It is quite pleasant that to be able to achieve all the above results the in-
+                                                                                            for t€ K; otherwise the value is 0, as mentioned           above. As in the proof
+terpretation in the model can be as simple as possible: we take as functions
+those mappings 9:        # > & such that for €,7¢Z we have                                  of (2.7) it is elementary to check that
+
+                                [é =] < [e© = on).                                                     Ko of) “(a.4') = Ko [y[AE, y)ag <y <q’),
+                                                                                            which shows that 9x(é) is continuous on K. Therefore 9,(£) is continuous
+This is the extensionality principle: we make (7.1) valid by definition. We
+                                                                                            everywhere in 7. This does not yet prove that yg, ¢ &. We must still verify
+let #*   denote   the   class    of all these       extensional   functions   9:2 —> &.
+Further we define for 0, y ¢ #*
+                                                                                                                   Ka [é =n] S [es(€) = ec(n)];
+                          [e         #¥] = Ute) # W(é)].                                    but this easily follows from the extensionality of A. Since @ x(€) is 0 outside
+                                                                                            of K, we see that indeed gy, ¢ Z*.     Finally it is clear by construction that
+This convention makes (7.2) valid also by definition; similarly for (7.3). But
+this is all that is trivial by definition; the remaining facts require proof.                                             K&[AC(Eé, ox(6))],
+   To prove the validity of (7.4) it is clearly enough to prove existence of f,             and the desired conclusion follows.
+because the uniqueness will follow in view of the hypothesis and (7.2-7.3).                     The proof that (7.5) is valid is by no means as straightforward. Note
+Thus we must show that                                                                      first that (7.5) implies
+
+                        [valy4(x, y)] = [fv                   /@)))                                                 WiVx, vf (x) # f(y) + x # yl,                        (7.7)
+We will take advantage here of the fact that              T = N” is totally disconnected    which is a stronger version of (7.1). As it turned out, it is very useful to
+(though no doubt all we really need to know is that T is metric.) In such a                 validate (7.7) first as a lemma, and then establish (7.5). (This point was a
+space every open set is the union of its clopen subsets. Hence it is sufficient             stumbling block for the author, who formulated the problem in a lecture at
+to prove for every clopen set K ¢ T that if                                                 the University of Texas at Austin. Shortly thereafter the idea of the following
+                                 K & [Vx3ly A(x, y)],                                       proof was communicated to the author by Professor Jack Hardy, whose
+then                                                                                        assistance it is a pleasure to acknowledge.)
+                                Kc    [Af vxA(x, f(x))].-                                      To prove (7.6) we note first that what we have to establish is this inclusion
+                                                                                            for €£,neB and pe &?:
+Indeed, to prove this last inclusion, we need only find a function go, ¢ Z*
+corresponding to K such that                                                                                           [(é) # o()] = [é ¥ a].
+                                 K & [Vx A(x, og(x))].                                      Now after translation back to subsets of T, we can complement both sides
+                                                                                            of the inclusion to obtain:
+The advantage of working with clopen K is that for re K and €€ 4 we
+will have a special way of defining g,(&)(t), but for t¢ K we can simply set                                 ite T: (1) =n} S {te T: e(E\(2) = o(m\(O}.                   (*)
+ox(&)(t) = 0. The clopenness of K will assure that o,(€)¢ & so defined is
+continuous.                                                                                 That is what we must prove; what ‘we aie assuming (because — € 2%) is
+  Thus let € € & be fixed. Our assumption implies that                                      equivalent to:
+
+                                     Ke ByA(é, y)],                                                     In {te T: E(t) = n()} S {te T: gE) = on}.                        (#*)
+248                                D. SCOTT                              C XVI     C XVI                    THE TOPOLOGICAL INTERPRETATION                                249
+
+
+We can state the problem in words: (*) means that @ is an operator on con-         and so again by (***), o(€9)(to) = (yo)(to). Now it follows at once that
+tinuous functions (to continuous functions) such that if two arguments             9(Eo)(to) = 9(no)(to), which is what we needed to establish (*).
+é, n are equal at a point, then their images @(€), y(7) are equal at the same        Filling in the part of the argument about U and V that we had postponed,
+point. Thus ¢(£)(t) only depends on ¢ and €(t), not on the whole of ¢. It          we note first that if fo is isolated we can take              U = V = {t)}. Assume then
+would seem that (#*) is much weaker: g(€)(t) depends on knowing t and              that fy is not isolated and let t,, t2, t3,..., 4,,-.. be an infinite sequence of
+knowing ¢ in some neighborhood of t, that is, on the local behaviorof ¢ around     distinct points converging to fy. Inasmuch as €9 and no are continuous, they
+t. (The author imagined at first that one could have a function ¢ satisfying       both must be bounded on {t.,t,,...,t,,...}. Around each of these points
+(**) without its satisfying (*). It seems odd that a problem like this has not     we can put small open spheres with 1, € S, such that the closures of the spheres
+been considered before, but inquiry failed to uncover any relevant infor-          are pairwise disjoint (T is a metric space!) and on which &) and 7 are uni-
+mation. It would fair to say that most of the operators considered in mathe-       formly bounded. It follows that
+matics usually depend on the whole of € (like integration) or do not give
+continuous functions o(€) as values (like right-hand derivatives).)                                                   U   =       U    Son
+
+   The first main step in deducing (*) (for all €,ne @) from (**) (for all                                                    n=1
+                                                                                   and
+E,n€ @) is to remark that the set on the right-hand side of (**) is closed
+because y(€) and y(n) are each continuous. This means that we can strengh-                                          V=        U       Sant
+ten (**) to read:
+                                                                                   are the required open sets.
+         Clin {te T: &(t) = n()} S {te T: P(E) = o()(},                    (***)
+                                                                                      We shall now investigate the nature of the functions 9 ¢ 2 more closely.
+which we are assuming for all €, n € 2. Now we must prove (*) for a parti-         The reader will appreciate that it is necessary to keep his wits about him in
+cular pair £),)     € &. Suppose tp € T is a point such that € (to) = no(to).      thinking about the model. We already use functions £ : T — R to play the
+We will show below that we can find open subsets U, V of T such that               role of real numbers in the model, so that when we come to functions in the
+                                                                                   model we have to use operators       9: # > &. Thus ¢(€) is a function for;
+                            C1(U) 0 CL(V) = {to},                                  each €e #, as we had to consider in the above proof of (7.7). Looking
+                                                                                   from the outside, the type of the objects used in the model is always higher
+ and such that €, is bounded on U and no is bounded on V. Now the function
+                                                                                   than the formal type of the variable which ranges over them. This process
+                        bo = Sof C1(U) U 0 PCI(V)                                  of going up in type for the definition of the model is very convenient for
+                                                                                   making the construction simple, but we shall now show that a reduction in
+ is obviously continuous on Cl(U) U C1(V) because Eo(to) = no(to), and it          type is possible helping in the analysis of the model.
+ is bounded. Thus by the well-known Tietze extension theorem (7 is a metric          Since g € #* satisfies (*) we define © :                Tx R > R by the condition:
+ space) we can extend the function to the whole of T. We call the extension
+ {, also. (This construction of C,, whichis due to Prof. Hardy, is the main idea            P(t, a) = b iff for some Ce &, E(t) = a and o(E\(t) = b.
+  of the proof.) Now we make use of (***) for €,€q and for Co, 7. In               We thus have ® well-dertermined and such that forte Z,teT:
+ the first instance we see by the construction of [, that:
+                                                                                                                 (E(t) = H(t, &(2)).
+                        to ¢ ClIn {te T: Eo(t) = C(t)},                            The point of bringing in @ is that, as we shall now show, the function @ is
+ and so by (***), p(Eo)(to) = G(Co)(to)- In the second instance we have            continuous on the product space Tx R. We argue by contradiction: suppose
+                                                                                   that ® is not continuous at some point (r, a). Then there must exist an ¢ > 0
+                        ty ClIn {te T: C(t) = no(t)},                              and a sequence of neighborhoods U, of t and a sequence of reals 5,, such that
+250                                          D. SCOTT                                       C XVI
+                                                                                                        C XVI                        THE TOPOLOGICAL INTERPRETATION                         251
+
+the U, monotonically decrease to {¢} and the 6, to 0. Further we can find
+                                                                                                        treat only the case where         z = g,    Ww = r, g <r.   For simplicity we shall in
+a sequence of points (¢,, a,) where t, € U,, and |a,—a|                 < 6,, and
+                                                                                                        addition assume for our g € &              that
+                                 |D(t,, a,)—     P(t, a)|   >e
+                                                                                                                                     T = [vx e[q, r]L g(x) > OJ].
+for all n. Since for fixed a,, a the two expressions @(t, a,) and @(t, a) repre-                        The more general case can be treated as in the proof of (7.4). In terms of @
+set continuous functions of t, we can clearly assume that all ¢, ~¢ t. (Other-                          we are thus assuming that
+wise we could ‘adjust’ ¢, € U, and still preserve the above strict inequality).
+Furthermore, because the diameters of the U, are converging to 0, we can                                                                       @(t,a) > 0
+assume that the ¢, are all distinct. (If not, we can choose a suitable subse-
+                                                                                                        for all   te T and all ae    [q, r]. Define n € & by n(t) = inf{ M(t, a) : ae   [q, r]}
+quence.) After that fuss, we can now remark that we are able to construct
+                                                                                                        for te T. Again by virtue of the compactness of [g, r], we can check that
+a continuous   function    €e€    #   such     that     €(t,) =a,      and   €(t) = a, because
+                                                                                                        7 is continuous. But for fixed t we have @(t, a) as a positive continuous func-
+the a, do converge to a. But then since g(€) is continuous, o(&)(t,) would
+                                                                                                        tion of ae    [g, r], therefore y(t) > O for all      te 7. We can thus easily verify
+have to converge to o(£)(t), which contradicts the above inequality.
+                                                                                                        that
+  Now    that we   see why       @ is continuous,           we   can    quickly     establish    the                                  T = [vxeLq, r]Lo(x) > n]],
+validity of (7.5) for g. Note first that it is sufficient to consider z = q and
+w =r, where g,ré QO andgq <r. Lete > 0,¢€Q. We must show:                                               and (7.8) is established. We may remark that this construction of 4 shows
+                                                                                                        also that every function has a greatest lower bound on every closed interval
+T= UJIn
+      (1) In (16 T:[69sn(0) € La FAI) < 8 >                                                             —a fact that can fairly easily be deduced from continuity (cf [1], p. 35 for
+                                   |O(t, &(1))
+                                            — &(t, n())| < e}.                                          example. )
+                                                                                                           Our reduction of the    p: 2 > & to the 6: TxR — R is very useful in
+Introduce an auxiliary function e:T x (0, 00) > R by:
+                                                                                                        discussing other questions about the model. For example, every ordinary
+         e(t, 6) = sup {|G(t, a)— A(t, b)|: a,              be [q, r], |a—b] < 5}.                      continuous function F : R         > R can be extended to &, as we have often re-
+                                                                                                        marked, by the formula                                                .
+The function inside the sup is a continuous function of three variables f, a, b,
+and the sup is being taken over a compact subset of Rx R. It follows for a                                                                 e(E)(t) = F(E(2)).
+fixed 6 that e(t, 6) is a continuous (and well-defined!) function of ¢. Since                           The question is whether every g € &* is ordinary in this sense. Well, obvious-
+for fixed ¢ the real function @(t, a) is uniformily continuous for aé [q, r],                           ly not: let « e & be fixed and define
+we conclude that e(z, 6) decreases to 0 as 5 decreases to 0. Let, then, fp                 € Tand
+choose 6 so that e(ty, 5) < «. Let U S T be a neighborhood of ty such that                                                               P(E)(t) = S(t) +a(2).
+e(t, 6) < ¢ for all te U. We must verify that U is included in the right-hand                           Could there be an           F: R > R such that
+side of the above topological equation. It is immediate.
+  The method of proof just employed for (7.5) is also very helpful in other                                                               F(E(t)) = E(t) +a(¢)
+problems: for example we shall now validate in the model a principle which
+                                                                                                        holds in general? If so, we could take € to be constant, say 0, and deduce
+states that every positive function on a closed interval is bounded away from
+zero:                                                                                                                                         F(O) = a(t),
+      Vf¥z, wl¥xe[z,      w][ f(x) > 0] > Sy > OVxe[z, w][f(x) = yl].                           (7.8)   thus making « constant. Since « need not be constant, the desired counter-
+                                                                                                        example is produced.
+In view of continuity, and the denseness of the rationals, it is sufficient to
+                                                                                                           The foregoing simple argument leads naturally to a modification of our
+252                                  D. SCOTT                                   C XVI          C XVI                     THE TOPOLOGICAL INTERPRETATION                     253
+
+question: given g € 2% could we find a continuous function         G:     Rx     R-> R         —+ &. However, it is not the case in general that t e #*; for we have
+and a particular    a¢€ # such that
+                                                                                                                         [=(¢) = t(n)J = a(LE = ni).
+                             P(E)(t) = G(a(z), (4)
+                                                                                               (Recall that t is naturally defined on open subsets of T also!) We can re-
+for all   €¢ @ and te T? The answer is again no, but the argument is more
+                                                                                               gard t as acting on 2%, nevertheless. For any y ¢ #* we define (y) so that
+difficult. (The author is indebted to Kenneth Kunen for the suggestion of the
+counter-example.) In terms of the correspondng © the problem is to find G                                                    u(W)(z(E)) = r(W(E))
+and « such that
+                                                                                               for all € € &. It is easy to check that t(W) ¢ @. Having done this, we remark
+                            P(t, £(¢)) = G(@(2), €())                                          that by the usual kind or argument, if B is any formula involving ordinary
+for all €€     & and teT. This simplifies to                                                   functions and predicates bound real and function variables, and parameters
+                                                                                               from & and &*, then
+                              G(t, a) = G(a(t), a)
+                                                                                         ct
+                                                                                                             u[BCC,....¥,---)I) = [BC(E), . .. W), -- -)])-
+for alla e Rand te T. We have only to choose a very bad @ to get into trou-
+ble. In view of the universal properties of N”, we can choose @ so that the                    Applying this automorphism principle to 4 we have
+                                                                                         nnn
+
+functions y, : R > R where                                                               tN
+                                                                                         ae
+                                                                                                                        (LACE, )]) = [AC(E), t(n))]
+                                Wa) = B(t, a)                                                  because there are no other parameters.      But
+
+give us all continuous functions from reals into reals. That is,        © would be                                         [ACE n)] = [e(é) = a],
+a universal function for all real continuous functions with the parameter in                   hence
+T = N%. That is possible; but, by the equation for G above, it would also
+be universal with parameter in R. That is not possible.
+                                                                                                                    [=(e)(x(¢)) = t(n)] = [e(c(€)) = c(n)].
+   We have just shown that in the model not every function need be ordinary                    It follows at once that t(~) = 9.
+                                                                                                                                                                              \
+
+
+
+
+or even quasi-ordinary (i.e. ordinary in a parameter «.) There is a common                       We have thus proved that if g €¢ #     is defined by a parameterless formula,
+special case where we can, however, conclude that the function is indeed                       then it is invariant under all automorphisms of the model determined by
+ordinary. Suppose @ has been introduced to validate                                      ea    autohomeomorphisms of T. Let us see what this means about the corres-
+                                                                                               ponding continuous function  @: Tx R — R. Now
+                                 Vx A(x, o(x))
+                                                                                         ES                                  e(S)(t) = H(z, &(¢)),
+where Vx3!y A(x, y) is valid and A(x, y) has no additional parameters. (The
+formula can involve <, +, -, other ordinary functions and predicates, the                a
+                                                                                               so by substitution
+predicates Q and D, and so on.) We note first that @ must be somehow in-
+variantly determined.                                                                                                P(4(2))(e(z)) = B(e(z), t(€)(z(2)))
+                                                                                                                                   I
+
+   Now we ask: in what sense is g invariant? Well, let t : 7 > T be any auto-                                                        P(r(z), £(2)).
+homeomorphism of T. This extends to the model. For             £¢ # we define                  But t(~) = @, so we derive
+t(€) so that
+                               a(2)(t(t)) = E(2)                                                                      p(t(E))(t(t)) = t()(t(E))(z(t))
+for all te T. (Thus t(€) = €0 t~*) This makes it possible to regard
+                                                                                                                                    = 1(9(E))(z(2))
+                                                                               1: 2 >
+                                                                                                                                     = 9(£)(t).
+
+
+
+                                                                                         a
+254                                     D. SCOTT                                 C XVI         C XVI                         THE TOPOLOGICAL INTERPRETATION                             255
+
+Putting two and two together we find:                                                                                                   REFERENCES
+                                                                                                [1] E. BisHop,   Foundations of constructive analysis, New York (1967).
+                               P(t, E(t)) = H(t(2), E(t).                                       [2]   M. Firmne,  Intuitionistic model theory and the Cohen independence proofs, these
+                                                                                                      proceedings 219-226.
+Since € is arbitrary we can say
+                                                                                                (3] A. Heytina, Intuitionism, an introduction, Amsterdam (1956).
+                                                                                                [4] S. C. Kieene and R. E. Vesey, Foundations of intuitionistic mathematics, Amster-
+                                  P(t, a) = &(t(t), a)
+                                                                                                    dam (1965).
+                                                                                                [5] G. KretseL, A remark on free choice sequences and the topological completeness
+for all te T and all ae R. But hold, the autohomeomorphism 1 is arbitrary,
+                                                                                                      proofs, J. Symb. Logic 23 (1958) 369-388.
+and T = N™ has a transitive autohomeomorphism group; thus                                       [6]  G. KREIsEL, Mathematical logic, in Lectures on modern mathematics, vol. II, ed.
+
+                                                                                         ane
+                                                                                                     T. L. Saaty, New York (1965) 95-195.
+                                   P(t,a) = Bt’, a)                                             [7]. G. KreiseL, Informal rigour and completeness proofs, in Problems in the Philosophy
+                                                                                                     of mathematics, ed. I. Lakatos, Amsterdam (1967) 138-171, with following discus-
+for all t, t’e T.       This means that ® does not depend on ¢ at all and we can         a
+                                                                                                     sion.
+write                                                                                           [8] G. Kreiser, Lawless sequences of natural number, Compositio Math. 20 (1968)
+                                    P(t, a) = F(a)                                                   222-248.
+                                                                                                [9] J. MynHILL, Notes towards an axiomatization of intuitionistic analysis, Logique et
+where F:      R > R so obtained is continuous. Thus                                                   Analyse 35 (1967) 280-297.
+                                                                                               [10]   H. Rasiowa and R. Sixorsk1, The mathematics of metamathematics, Warsaw (1963).
+
+                                  e(E)(t) = F(E(t)),                                           [11]   D. Scott, A proof of the independence of the continuum Hypothesis, Math. Systems
+                                                                                                     Theory 1 (1967) 89-111.
+and we have finally proved that      is just an ordinary function.                             [12] D. Scott, Extending the topological interpretation to intuitionistic analysis, Com-
+                                                                                               “    positio Math. 20 (1968) 194-210.
+   In words we could say that the above argument suggests that in intuitionis-
+                                                                                               [13] D. Scorr and R. SoLovay, Boolean-valued models for set theory, to appear.
+tic analysis it is impossible to give an outright extensional definition of any                [14] A. S. Trogtstra, The theory of choice sequences, in Logic, methodology and philo-
+function not already known from classical analysis. (Of course, the simple-                           sophy of science ITI, eds. B. van Rootselaar and J. F. Staal, North-Holland, Amster-'
+minded identification of intuitionistic analysis with the theory of this model                        dam (1968) 201-223.
+is not justified because the model is defined classically. )
+      We close this section with a problem about continuity. In (7.6) the hypo-
+thesis means that the property A(x) decomposes               the continuum    into two
+disjoint parts. Let us weaken this by having two properties A(x) and B(x)
+where Vx[A(x) v B(x)], but where we do not make any disjointness assump-
+tion. (For example Vx[x < 1 vx > 0] is valid.) We can obviously not hope
+to have any such strong conclusion as [Vx A(x) v Vx B(x)] (by the example!),
+but what about this principle:
+
+      Vx[A(x) v B(x)]     > 4g, r[q < ra [Vx       [q, r] A(x) v Vx € [q, r] B(x)]]?
+
+The author has not yet been able to see an answer to the question of the
+validity of this formula. The situation may become clearer after a study of
+second-order arithmetic in the model.
+

@@ -1,0 +1,1087 @@
+                                                Computer-supported Exploration of a
+                                               Categorical Axiomatization of Modeloids
+
+                                                 Lucca Tiemens1 , Dana S. Scott2 , Christoph Benzmüller3,4 , and
+                                                                       Miroslav Benda5
+                                                          1
+                                                           Technische Universität Berlin, Berlin, Germany
+
+
+
+
+arXiv:1910.12863v2 [cs.LO] 13 Jan 2020
+                                                                    tiemens@campus.tu-berlin.de
+                                                              2
+                                                                 University of California, Berkeley, USA
+                                                                        scott@andrew.cmu.edu
+                                                            3
+                                                                Freie Universität Berlin, Berlin, Germany
+                                                     4
+                                                       University of Luxembourg, Esch-sur-Alzette, Luxembourg
+                                                                     c.benzmueller@fu-berlin.de
+                                                       5
+                                                         Formerly at University of Washington, Seattle, USA
+                                                                            miro@oasa.com
+
+
+
+                                               Abstract. A modeloid, a certain set of partial bijections, emerges from
+                                               the idea to abstract from a structure to the set of its partial automor-
+                                               phisms. It comes with an operation, called the derivative, which is in-
+                                               spired by Ehrenfeucht-Fraı̈ssé games. In this paper we develop a general-
+                                               ization of a modeloid first to an inverse semigroup and then to an inverse
+                                               category using an axiomatic approach to category theory. We then show
+                                               that this formulation enables a purely algebraic view on Ehrenfeucht-
+                                               Fraı̈ssé games.
+
+
+                                         1   Introduction
+
+                                         Modeloids have been introduced by M. Benda [1]. They can be seen as an ab-
+                                         straction from a structure to a partial automorphism semigroup created in the
+                                         attempt to study properties of structures from a different, more general angle
+                                         which is independent of the language that is defining the structure. We do not
+                                         follow Benda’s original formulation in terms of an equivalence relation but treat
+                                         modeloids as a certain set of partial bijections. Our recent interest in them was
+                                         triggered by D. Scott’s suggestion to look at the modeloidal concept from a
+                                         categorical perspective. The new approach aims at establishing a framework in
+                                         which the relationship between different structures of the same vocabulary can
+                                         be studied by means of their partial isomorphisms. The overall project is work
+                                         in progress, but as a first result we obtained a purely algebraic formulation of
+                                         Ehrenfeucht-Fraı̈ssé games.
+                                             Throughout the project, computer-based theorem proving is employed in or-
+                                         der to demonstrate and explore the virtues of automated and interactive theorem
+                                         proving in context. The software used is Isabelle/HOL [13] in the 2019 Edition.
+                                         We are generally interested in conducting as many proofs of lemmas and theo-
+2       L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+rems as possible by using only the sledgehammer 6 command, and to study how
+far full proof automation scales in this area. Reporting on these practically mo-
+tivated studies, however, will not be the focus of this paper. We only briefly
+mention here how we encoded, in Isabelle/HOL, an inverse semigroup and an
+inverse category, and we present a summary of our practical experience.
+     Inverse semigroups (see e.g. [10] for more information) play a major role
+in this paper. They serve as a bridge between modeloids and category theory.
+The justification for this is given by the fact that an inverse semigroup can
+be faithfully embedded into a set of partial bijections by the Wagner-Preston
+representation theorem. This opens up the possibility of generalizing modeloids,
+which are sets of partial bijections, to the language of inverse semigroup theory.
+     Once there, we have a natural transition from an inverse semigroup to an in-
+verse category (for further reference see [12]). We introduce the theory of inverse
+categories by an equational axiomatization that enables computer-supported
+reasoning. This serves as the basis for our formulation of a categorical modeloid.
+     In each stage of generalization the derivative, a central operation in the the-
+ory of modeloids, can be adapted and reformulated. This operation is about
+extending the elements of a modeloid. Suppose that τ is a finite relational vo-
+cabulary meaning that τ consists only of finitely many relation and/or constant
+symbols. As it turns out, the derivative on a categorical modeloid on the category
+of finite τ -structures is equivalent to playing an Ehrenfeucht-Fraı̈ssé game.
+     This paper is organized in the following way. In section 2 we define both mod-
+eloids and the derivative operation. We then turn to inverse semigroups in section
+3 and develop the axiomatization of a modeloid in inverse semigroup language.
+Section 4 shows how to represent a category in Isabelle/HOL and defines the cat-
+egorical modeloid. After the derivative operation is established in this context,
+we give an introduction to Ehrenfeucht-Fraı̈ssé games in Section 5 and present
+the close connection between the categorical derivative and Ehrenfeucht-Fraı̈ssé
+games. Proofs for the stated theorems, propositions and lemmas are presented in
+the extended preprint [16] of this paper (cf. also [15]); the Isabelle/HOL source
+files are available online.7
+
+2    Modeloids
+Let us first recall the definitions of a partial bijection and of partial composition.
+Definition 1 (Partial bijection and partial composition). A partial bijec-
+tion f : X → Y is a partial injective function. The inverse of f , also a partial
+bijection and denoted by f −1 , is given by the preimage of the elements in the
+codomain of f : f −1 (y) = f −1 ({y}), ∀y ∈ cod(f ).
+6
+  Sledgehammer [3] is linking interactive proof development in Isabelle/HOL with
+  anonymous calls to various integrated automated theorem proving systems. Among
+  others, the tool converts the higher-order problems given to it into first-order repre-
+  sentations for the integrated provers, it calls them and analyses their responses, and
+  it tries to identify minimal sets of dependencies for the theorems it proves this way.
+7
+  See http://christoph-benzmueller.de/papers/RAMICSadditionalMaterial.zip.
+                                       Categorical Axiomatization of Modeloids              3
+
+    The composition between two partial functions f : X → Y and g : Y → Z is
+defined only on f −1 (dom(g) ∩ cod(f )). Then the partial composition
+
+                (g ◦ f )(x) = g(f (x)),     ∀x ∈ f −1 (dom(g) ∩ cod(f ))
+
+is well-defined.
+   Furthermore, let Σ be a finite non-empty set. We then define
+
+                   F (Σ) := {f : Σ → Σ | f is a partial bijection}                      (1)
+
+as the set of all partial bijections on Σ.
+Definition 2 (Modeloid [1]). Let M ⊆ F (Σ). M is called a modeloid on Σ
+if, and only if, it satisfies the following axioms:
+1. Closure of composition: f, g ∈ M ⇒ f ◦ g ∈ M
+2. Closure of taking inverses: f ∈ M ⇒ f −1 ∈ M
+3. Inclusion property: f ∈ M and A ⊂ dom(f ) implies f |A ∈ M
+4. Identity: idΣ ∈ M
+   As such, a modeloid is a set of partial bijections which is closed under com-
+position and taking inverses, which has the identity on Σ as a member, and
+which satisfies the inclusion property. The inclusion property can be seen as a
+downward closure in regards of function restriction.
+   In order to further illustrate the definition, we present a motivating example
+from model theory.
+Example 1. Let S = (A, R1 , ...) be a finite relational structure. The set M of all
+partial isomorphisms on S forms a modeloid.
+The name modeloid originates from the above example since S is also called a
+model. For further motivation, background information and details on modeloids,
+we refer to Benda’s paper [1]; a nice example in there is the construction of a
+Scott Sentence presented through modeloidal glasses [1, p. 82]. We, on the other
+hand, turn to the core concept of the derivative which is defined in the following
+way. For convenience we represent a partial bijection as a set of tuples.
+Definition 3 (Derivative). Let M be a modeloid on Σ. Then the derivative
+D(M ) ⊆ F (Σ) is defined by
+
+  {(x1 , y1 ), .., (xn , yn )} ∈ D(M ) :⇔
+                ∀a ∈ Σ ∃b ∈ Σ : {(x1 , y1 ), .., (xn , yn ), (a, b)} ∈ M ∧
+                                 ∀a ∈ Σ ∃b ∈ Σ : {(x1 , y1 ), .., (xn , yn ), (b, a)} ∈ M
+
+   A derivative D(M ) is thus a set which only contains partial bijections that
+can be extended by an arbitrary element from Σ and which then still belong
+to M . This extension can take place either in the domain or in the range of
+the function. The next two results [1, Prop 2.3] provide some insight into why
+modeloids and the derivative operation are in harmony.
+4        L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+Lemma 1. Let M be a modeloid on Σ and D(M ) the derivative. Then we have
+that D(M ) ⊆ M .
+Proposition 1. If M is a modeloid then so is D(M ).
+    The importance of these results is essentially due to the fact that they enable
+us to apply the derivative repeatedly.
+
+3      Inverse Semigroups and Modeloids
+In this section we show how the Wagner-Preston representation theorem justifies
+our generalization of a modeloid to inverse semigroup language. We also discuss
+how well proof automation performs in the context of inverse semigroups. Some
+familiarity with the Isabelle/HOL proof assistant [13,3] is assumed.
+
+3.1     Inverse Semigroups in Isabelle/HOL
+We start with the equational definition of an inverse semigroup.
+Definition 4 (Inverse semigroup [6]). Let S be a set equipped with the binary
+operation ∗ : S × S → S and the unary operation a 7→ a−1 . (S,−1 , ∗) is called
+an inverse semigroup if, and only if, it satisfies the axioms
+1. (x ∗ y) ∗ z = x ∗ (y ∗ z) for all x, y, z ∈ S,
+2. x ∗ x−1 ∗ x = x for all x ∈ S,
+3. (x−1 )−1 = x for all x ∈ S and
+4. x ∗ x−1 ∗ y ∗ y −1 = y ∗ y −1 ∗ x ∗ x−1 for all x, y ∈ S
+   An inverse in semigroup theory is a generalization of the known group the-
+oretical definition. This generalized definition does not depend on a specified
+unique neutral element. Intuitively, it can be thought of as the inverse map of a
+partial bijection.
+Definition 5 (Inverse). Let (S, ∗) be a semigroup and x ∈ S. Then y ∈ S is
+called an inverse of x if, and only if, x ∗ y ∗ x = x and y ∗ x ∗ y = y.
+      We encode an inverse semigroup as follows in Isabelle/HOL.
+                                   Categorical Axiomatization of Modeloids       5
+
+    The domain for individuals is chosen to be 0 a, which is a type variable. This
+means we have encoded a polymorphic version of inverse semigroups.
+    Using this implementation almost all results needed for proving the Wagner-
+Preston representation theorem, which we will discuss shortly, can be found by
+automated theorem proving. Occasionally, however, some additional lemmas to
+the ones usually presented in a textbook (e.g. [10]) are needed. By automated
+theorem proving we here mean the use of sledgehammer [3] for finding the proofs
+of the given statements without any further interaction. Regarding equivalent
+definitions of an inverse semigroup, we were able to automate the proofs of the
+following theorem (except for 2. ⇒ 1., which is due to a Skolemization issue).
+Theorem 1 ([10]). Let (S, ∗) be a semigroup. Then the following are equivalent:
+1. There is −1 : S → S such that (S,−1 , ∗) is an inverse semigroup.
+2. Every element of S has a unique inverse.
+3. Every element of S is regular, meaning ∀x ∈ S ∃y ∈ S : x ∗ y ∗ x = x, and
+   idempotents in S commute.
+    Our experiments confirm that automated theorem proving (and also model
+finding) can well support the exploration of an axiomatic theory as presented.
+However, the intellectual effort needed to model and formulate the presented
+mathematics in the first place is of course still crucial, and a great deal of work
+has gone into this intuitive aspect of the development process. A more tech-
+nical challenge also is to find suitable intermediate steps that can be proven
+automatically by sledgehammer.
+
+3.2   Modeloid as Inverse Semigroup
+We now show that every modeloid M ⊆ F (Σ) under partial composition is an
+inverse semigroup. We make use of Theorem 1 by using the third characteriza-
+tion. For this task regard (M, ◦) as a semigroup. This is clear since composition
+of partial functions is associative. Since the partial identities of M are exactly
+the idempotent elements in (M, ◦), commutativity is ensured by referring to the
+next proposition. Furthermore, also by using the next proposition, the closure
+of taking inverses required by a modeloid implies regularity for all elements in
+M . Hence, (M,−1 , ◦) is an inverse semigroup.
+Proposition 2 ([10]). Let f : X → Y be a partial bijection.
+1. For a partial bijection g : Y → X, the equations f = f gf and g = gf g hold
+   if, and only if, g = f −1
+2. 1A 1B = 1A∩B = 1B 1A for all partial identities 1A and 1B where A, B ⊆ X
+    Not only is every modeloid an inverse semigroup, but by the Wagner-Preston
+representation theorem also every inverse semigroup can be faithfully embedded
+into F (Σ), which is itself a modeloid. This motivates the idea of formulating the
+axioms for a modeloid in inverse semigroup language. Our aim is to restate the
+derivative operation in this context. In order to achieve this, we shall translate
+the axioms from Definition 2, examining them one by one.
+6      L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+1. Closure of Composition: Because of the embedding, the composition of par-
+   tial functions will simply be the ∗-operation in an inverse semigroup.
+2. Closure of taking inverses: By Theorem 1 an inverse semigroup is such that
+   the inverse exists for every element and is unique, hence resembling the
+   inverses of partial functions and in particular the closure property.
+3. The inclusion property: Here it is not immediately apparent how this can be
+   expressed within an inverse semigroup. We shall see that the natural partial
+   order is capable of doing that.
+4. The identity on Σ: The identity is a certain idempotent element in an inverse
+   semigroup. It will lead us to the notion of an inverse monoid.
+
+    It is Axiom 3 that we focus our attention on next. We define the natural
+partial order and present the Wagner-Preston representation theorem, which
+establishes a connection to function restriction in F (Σ). We introduce notation
+for such a restriction. For two partial functions f, g we write g ⊆ f to say that
+dom(g) ⊆ dom(f ) and ∀x ∈ dom(g) : g(x) = f (x).
+
+Definition 6 (Natural partial order). Let Σ = (Σ,−1 , ∗) be an inverse semi-
+group and s, t ∈ Σ. Then we define for some idempotent e ∈ Σ
+
+                               s ≤ t :⇔ s = t ∗ e.
+
+Theorem 2 (Wagner-Preston representation theorem [10]). Let Σ =
+(Σ,−1 , ∗) be an inverse semigroup. Then there is an injective homomorphism
+Ω : Σ → F (Σ), such that for a, b ∈ Σ we have a ≤ b ⇐⇒ Ω(a) ⊆ Ω(b).
+
+    From this theorem it is clear what we mean by a faithful embedding of an in-
+verse semigroup into the set of partial bijections F (Σ). Faithfulness corresponds
+to the fact that the natural partial order in light of the representation theorem
+is equivalent to the partial order which function restriction defines. This nicely
+opens up the possibility to capture the essence of the inclusion property from
+Definition 2 by the natural partial order. Let M ⊂ S, where S is an inverse
+semigroup. Then the inclusion property can be stated as
+
+                       ∀f ∈ M ∀g ∈ S : g ≤ f =⇒ g ∈ M.                        (2)
+
+    By setting S = F (Σ), the dependency of M on F (Σ) can be seen explicitly.
+In the abstract formulation of a modeloid we will keep this subset property. It
+is immediate that a modeloid, seen as an inverse semigroup, fulfills (2) by the
+following proposition.
+
+Proposition 3. Let M be a modeloid on Σ. Then, for f, g ∈ M , we have
+
+                                g ≤ f ⇐⇒ g ⊆ f
+
+    In a modeloid M the inclusion property implies that the empty partial bi-
+jection, which we denote by 0, is also included in M . As a result we want to
+establish a similar behavior in the generalized modeloid. The deeper reason for
+                                   Categorical Axiomatization of Modeloids        7
+
+this is found in the definition of the derivative operation, because it requires the
+notion of an atom, which can only be defined if a zero element is present. Seeing
+M as an inverse semigroup, 0 is an idempotent element for which the following
+property holds: ∀x ∈ M : 0 ∗ x = 0. Hence, we will call the idempotent with this
+property the zero element. When defining a modeloid in semigroup language we
+require the zero element to be part of it.
+    Turning to Axiom 4, which is idΣ ∈ M , we examine which element of an
+inverse semigroup S is most suitable for this task. To evaluate, we again look
+at the modeloid M as an inverse semigroup. In this semigroup, idΣ will be an
+idempotent e satisfying ∀x ∈ M : e∗x = x. Such an element is known as a neutral
+element in the context of group theory. We require for the inverse semigroup,
+which we eventually call a modeloid, that e is part of it. What we get is known
+as an inverse monoid in the literature.
+Remark 1. Given an inverse monoid, denoted by S 1 , and the element e with
+e∗x = x, ∀x ∈ S 1 . Consider the representation theorem again: this theorem is not
+guaranteeing uniqueness of the embedding, and in fact there can be several ones.
+Hence, we cannot assume that e will be mapped to the identity idΣ . However, for
+all idempotent f ∈ S 1 we have that f ≤ e because f = e ∗ f by the assumption
+about e. Hence, e is always the upper bound of all idempotents in S 1 .
+    We have prepared everything needed for defining a modeloid again. We shall
+call it a semimodeloid. Note, as mentioned before, that a modeloid is a subset of
+F (Σ) for some non-empty set Σ and, as discussed, we keep this subset property
+to state the inclusion axiom.
+Definition 7 (Semimodeloid). Let S 1 = (Σ, −1 , ∗, e, 0) be an inverse monoid.
+Then M ⊆ Σ is called a semimodeloid if, and only if,
+1. ∀x, y ∈ M : (x ∗ y) ∈ M
+2. ∀x ∈ M : x−1 ∈ M
+3. ∀x ∈ M ∀y ∈ S 1 : y ≤ x ⇒ y ∈ M
+4. e ∈ M
+Remark 2. A semimodeloid is again an inverse monoid with the zero element.
+Proposition 4. Every semimodeloid can be faithfully embedded into a modeloid.
+Furthermore, by the considerations above, every modeloid is a semimodeloid.
+    Now we develop the derivative operation in the setting of a semimodeloid.
+Consider again Definition 3 in which we have introduced the derivative operation.
+It is evident that the elements of Σ are of crucial importance. Furthermore, we
+are required to be able to extend the domain of a function by one element at
+a time. This poses a challenge because in an inverse monoid this information is
+not directly accessible. But as we shall see, it is possible to obtain.
+    First we characterize the elements of Σ. Therefore, consider F (Σ) and realize
+that all the singleton-identities id{a} , for a ∈ Σ, are in natural bijection to the
+elements of Σ. The special property of such a singleton-identity is
+                  ∀f ∈ F (Σ) : f ⊆ id{a} ⇒ (f = id{a} ∨ f = 0)                  (3)
+8        L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+since dom(id{a} ) = {a}. Seeing F (Σ) as an inverse monoid with zero element
+leads to the following definition.
+Definition 8 (Atom). Let S 1 be an inverse monoid with zero element 0. Then
+a non-zero element x ∈ S 1 is an atom if, and only if,
+
+                        ∀f ∈ S 1 : f ≤ x ⇒ (f = x ∨ f = 0)
+
+Our plan is to use the notion of an atom to define the derivative. The next lemma
+justifies this usage.
+Lemma 2. The idempotent atoms in F (Σ) are exactly the singleton-identities.
+   This suffices to define the derivative for semimodeloids. We then ensure that
+the definition matches Definition 3 if the semimodeloid is on F (Σ).
+Definition 9 (Derivative—semimodeloid). Let M be a semimodeloid on the
+inverse monoid S 1 with zero element 0. We define the derivative D(M ) of M as
+
+    D(M ) := {f ∈ M | ∀ idempotent atoms a ∈ S 1 ∃x ∈ M : (f ≤ x ∧ a ≤ x−1 x) ∧
+                     ∀ idempotent atoms b ∈ S 1 ∃y ∈ M : (f ≤ y ∧ b ≤ yy −1 )}
+
+If we think about x in the above definition as a partial bijection, then x−1 x is
+the identity on the domain of x and, hence, the condition a ≤ x−1 x expresses
+that a is in the domain of x. Similarly b ≤ yy −1 states that b is in the range of
+y.
+Proposition 5. The derivative on a modeloid M produces the same result as
+the semimodeloidal derivative on M .
+
+
+4     Categorical Axiomatization of a Modeloid
+We use an axiomatic approach to category theory based on free logic [14,8,9]. As
+demonstrated by Benzmüller and Scott [2], this approach enables the encoding of
+category theory in Isabelle/HOL. Their encoding work is extended below to cover
+also inverse categories. Subsequently we formalize modeloids and derivatives in
+this setting.
+
+4.1    Category Theory in Isabelle/HOL
+When looking at the definition of a category C, one can realize that the objects
+A, B, C, .. are in natural bijection with the identity morphisms 1A , 1B , 1C , ... be-
+cause those are unique. This enables a characterization of a category just by its
+morphisms and their compositions, which is used to establish a formal axioma-
+tization. However, in this axiomatic approach we are faced with the challenge of
+partiality, because the composition between two morphisms f, g ∈ C is defined
+if, and only if,
+                                  dom(g) = cod(f ).                                 (4)
+                                  Categorical Axiomatization of Modeloids       9
+
+As a result composition is a partial operation.
+    An elegant way to deal with this issue is by changing the underlying logic
+to free logic. In free logic an explicit notion of existence is introduced for the
+objects in the domain that we quantify over. In our case the domain consists of
+the morphisms of a category. The idea now is to define the composition total,
+that is, any two morphisms can always be composed, but only those composi-
+tions “exist” that satisfy (4). Because we can distinguish between existing and
+non-existing morphisms, we are able to formulate statements that take only ex-
+isting morphisms into account. In this paper we want to work with a unique
+non-existing morphism which will be denoted by ?. Hence a composition of mor-
+phisms, that does not satisfy (4), will result in ?. We refer to Benzmüller and
+Scott [2] for more information on the encoding of free logic in Isabelle/HOL.
+    Based upon this groundwork, a category in Isabelle/HOL is defined as follows.
+
+
+
+
+   For convenience, we will assume a category to be small for the rest of this
+paper. As a result, a category for us has only a set of morphisms which satisfies
+the above axiom schema. This allows us to use notation from set theory. We
+write (m : X → Y ) ∈ C to mean that m is a morphism from the category C. In
+addition, it says that dom(m) ∼ = X and cod(m) ∼  = Y , so X is the domain of m
+10        L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+and Y the codomain. The identity morphisms X and Y , which are representing
+objects in the usual sense, are characterized by the property that X ∼= dom(X) ∼ =
+cod(X), respectively for Y . Hence every c ∈ C satisfying c = dom(c) or c ∼
+                                                                 ∼               =
+cod(c) is representing an object, and we refer to such a morphism as an object.
+    We want a categorical generalization of an inverse semigroup, so let’s turn to
+the question of how to introduce generalized inverses to a category. In the above
+setting we found that by adding the axioms of an inverse semigroup, which are
+responsible for shaping these inverses (Definition 4, Axioms 2-4), we arrive at a
+notion that is equivalent to the usual definition of an inverse category. Note that
+this definition is adopted to our free logic foundation by using Kleene equality,
+which is denoted by ∼   =. We emphasize again that this equality between terms
+states that, if either term exists, so does the other one and they are equal.
+
+Definition 10 (Inverse category [7]). A small category C is called an inverse
+category if for any morphism s : X → Y ∈ C there exists a unique morphisms
+ŝ : Y → X such that s ∼
+                       = s · ŝ · s and ŝ ∼
+                                           = ŝ · s · ŝ.
+      For the representation in Isabelle/HOL we skolemized the definition.
+
+
+
+
+      Next, we see the quantifier free definition.
+
+
+
+
+   The equivalence between the two formulations has been shown by interactive
+theorem proving. Again, a significant number of the required subproofs could
+be automated by sledgehammer. In addition, the minimality of the axioms for
+the quantifier free version above was checked effectively using sledgehammer
+and nitpick 8 . Inverse categories are interesting to us because of the following
+proposition.
+
+Proposition 6. Let C be an inverse category with exactly one object. Then C
+is an inverse semigroup.
+8
+     nitpick [4] is a counterexample generator for higher-order logic integrated with Is-
+     abelle/HOL.
+                                   Categorical Axiomatization of Modeloids      11
+
+    This allows us to generalize a semimodeloid to an inverse category by for-
+mulating the new axioms in such a way that this categorical construction will
+collapse to a semimodeloid under the condition of having just one object.
+
+
+4.2   Categorical Axiomatization of a Modeloid
+
+The notion of the natural partial order is also definable in an inverse category.
+To state it, we first introduce a definition for idempotence.
+
+Definition 11 (Idempotence). Let C be a small category. Then a morphism
+e ∈ C is called idempotent if, and only if,
+
+                                     e·e∼
+                                        = e.
+
+   Whenever we do not assume that both sides of the equation exist, we use
+Kleene equality.
+
+Definition 12 (Natural partial order [12]). Let C be an inverse category
+and let s, t : X → Y be morphisms in C. We define
+
+                 s ≤ t :⇔ ∃ idempotent e ∈ EndC (X) : s ∼
+                                                        =t·e
+
+where EndC (X) := {m ∈ C | m : X → X} is called an endoset.
+    When defining a categorical modeloid M on an inverse category C, we will
+see that for each object X in C, EndC (X) is a semimodeloid. We require the
+category to have a zero element in each of its endosets in order to define an
+atom. For this we simply write that C has all zero elements.
+
+Definition 13 (Categorical modeloid). Let C be an inverse category with
+all zero elements. Then a categorical modeloid M on C is such that M ⊆ C
+satisfies the following axioms:
+
+1. a, b ∈ M ⇒ a · b ∈ M
+2. a ∈ M ⇒ a−1 ∈ M
+3. ∀ a ∈ C ∀b ∈ M : a ≤ b ⇒ a ∈ M
+4. ∀ objects X ∈ C : X ∈ M
+
+   It is evident that this definition is close by its appearance to a semimodeloid.
+However, we are now dealing with a network of semimodeloids and have thus
+reached a much more expressive definition.
+
+Proposition 7. Let C be an inverse category with all zero elements and let
+M be a categorical modeloid on C. Then for each object X in M we get that
+EndM (X) is a semimodeloid (on itself ).
+
+Remark 3. Every semimodeloid can easily be seen as a categorical modeloid
+by the fact that an inverse monoid with zero element is an one-object inverse
+category.
+12       L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+    We have formulated a generalization of a modeloid in category theory. What
+is left now is to define the derivative in this context. We will need the notion of
+a homset and of an atom, which we already introduced for semigroups.
+Definition 14 (Homset). Let C be a small category. Then the homset between
+two elements X, Y ∈ C, satisfying X ∼
+                                    = dom(X) and Y ∼
+                                                   = dom(Y ), is defined as
+                      HomC (X, Y ) := {m ∈ C | m : X → Y }
+Hence an endoset is a special case of a homset. We only assume zero elements to
+be present in endosets and as a result an atom needs to be part of an endoset.
+Definition 15 (Atom). Let C be an inverse category with all zero elements.
+Then an element a ∈ EndC (X), for some object X ∈ C, is an atom if, and only
+if, the existence of a implies that a is not the zero element and
+             ∀e ∈ EndC (X) : e ≤ a implies that e ∼=a∨e∼   = 0End (X) .
+                                                                  C
+
+     This concludes the preliminaries for defining the derivative on a homset.
+Definition 16 (Derivative—homset). Let C be an inverse category with all
+zero elements and let M be a categorical modeloid on C. We define the derivative
+on HomM (X, Y ) for X, Y ∈ M as D(HomM (X, Y )) := {f ∈ HomM (X, Y ) |
+∀ idempotent atoms a ∈ EndM (X) ∃h ∈ HomM (X, Y ) : (f ≤ h ∧ a ≤ h−1 h) ∧
+∀ idempotent atoms b ∈ EndM (Y ) ∃g ∈ HomM (X, Y ) : (f ≤ g ∧ b ≤ gg −1 )}
+Remark 4. Let C be an inverse category with just one object X and a zero
+element. Then C is an inverse semigroup by Proposition 6 and the derivative on
+the homset D(HomC (X, X)) is equal to the semimodeloidal derivative D(C).
+  Now the key property of this operation is that it produces a categorical
+modeloid again if we apply it to all homsets simultaneously.
+Theorem 3. Let C be an inverse category with all zero elements and let M be
+a categorical modeloid on C. Then
+                             [
+                                 D(HomM (X, Y ))
+                             X,Y ∈M
+
+is a categorical modeloid on C.
+    As a result we define this to be the derivative operation on categorical mod-
+eloids.
+Definition 17 (Derivative—categorical modeloid). Let C be an inverse
+category with all zero elements and let M be a categorical modeloid on C. Then
+we set the derivative as
+                                  [
+                       D(M ) :=         D(HomM (X, Y )).
+                                  X,Y ∈M
+
+     Let M be a categorical modeloid. We define
+                   D0 (M ) := M and Dn+1 (M ) := D(Dn (M ))                      (5)
+              m
+for n ∈ N. D (M ) thus takes the derivative m-times. This notion is used in the
+next section.
+                                   Categorical Axiomatization of Modeloids       13
+
+5     Algebraic Ehrenfeucht-Fraı̈ssé games
+When moving from classical model theory to the finite case, some machinery
+for proving inexpressibility results in first-order logic, such as the compactness
+theorem, fails. However, Ehrenfeucht-Fraı̈ssé (EF) games are still applicable and,
+therefore, play a central notion in finite model theory due to the possibility to
+show that a property is first-order axiomatizable. For more information see [11].
+    In this section we explicitly show that derivatives on categorical modeloids
+generalize EF games.
+
+5.1    Rules of EF game
+To play an EF game, two finite τ -structures A and B, where τ is a finite rela-
+tional vocabulary, are needed. In general EF games are not restricted to finite
+structures, but for our purpose we shall only deal with this case. In order to give
+an intuitive understanding we imagine two players, which we call the spoiler
+and the duplicator, playing the game. The rules are quite simple. In n ∈ N
+rounds the spoiler tries to show that the two given structures are not equal,
+while the duplicator tries to disprove the spoiler every time. A round consists of
+the following:
+
+ – The spoiler picks either A or B and then makes a move by choosing an
+   element from that structure, so a ∈ A or b ∈ B.
+ – After the spoiler is done, the duplicator picks an element of the other struc-
+   ture and the round ends.
+
+    Next we define what the winning condition for each round will be. For con-
+venience let P art(A, B) be the set of all partial isomorphisms from A to B.
+Furthermore, given a constant symbole c from τ , we denote by cA the interpre-
+tation of c in the structure A.
+
+Definition 18 (Winning position [11]). Suppose the EF game was played for
+n rounds. Then there are moves (a1 , .., an ) picked from A and moves (b1 , .., bn )
+picked from B. For this to be a winning position we require that for some r ∈ N
+the map
+            {(a1 , b1 ), .., (an , bn ), (cA    B          A B
+                                           1 , c1 ), .., (cr , cr )} ∈ P art(A, B)
+
+where the ci are all constant symbols of τ .
+
+    In order to win, the duplicator needs to defeat the spoiler in every possible
+course of the game. We say the duplicator has an n-round winning strategy in
+the Ehrenfeucht-Fraı̈ssé game on A and B [11], if the duplicator is in a winning
+position after n moves regardless of what the spoiler does. This is made precise
+by the back-and-forth method due to Fraı̈ssé.
+
+Definition 19 (Back-and-forth relation [5]).
+    We define a binary relation ≡m , m ∈ N, on all τ -structures by A ≡m B iff
+there is a sequence (Ij ) for 0 ≤ j ≤ m such that
+14     L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+ – Every Ij is a non-empty set of partial isomorphisms from A to B
+ – (Forth property) ∀j < m we have ∀a ∈ A ∀f ∈ Ij+1 ∃g ∈ Ij : f ⊆ g ∧ a ∈
+   dom(g)
+ – (Back property) ∀j < m we have ∀b ∈ B ∀f ∈ Ij+1 ∃g ∈ Ij : f ⊆ g ∧ b ∈
+   cod(g)
+
+Hence A ≡n B means that the duplicator has a n-round winning strategy.
+
+5.2   The derivative and Fraı̈ssé’s method
+We relate the categorical derivative to Fraı̈ssé’s method which we have just seen.
+In order to do this, we define a categorical modeloid on the category of finite
+τ -structures, where τ is a finite relational vocabulary. For that let A and B be
+two finite τ -structures. Denote by F (A, B) the set
+                                   [
+                                           P art(X, Y )
+                            (X,Y )∈{A,B}2
+
+and let ? 6∈ F (A, B) be an arbitrary element. Then define C := F (A, B) ∪ {?}.
+    We construct two functions dom : C → C and cod : C → C such that
+for a partial isomorphism f : X → Y ∈ F (A, B) we set dom(f ) = idX and
+cod(f ) = idY , and for the element ? we define dom(?) = ? and cod(?) = ?.
+    Next we define a binary operation · : C → C by
+                        (
+                          f ◦ g, if dom(f ) = cod(g) and f, g 6= ?
+                 f ·g =
+                          ?,      else
+
+where ◦ denotes the composition of partial functions.
+
+Proposition 8. D := (C, dom, cod, ·, ?,−1 ) is an inverse category where f −1
+denotes the inverse of each partial isomorphism f and ?−1 = ?. The existing
+elements are exactly all elements in F (A, B) and the compositions f ◦ g in case
+dom(f ) = cod(g), for f, g ∈ F (A, B).
+
+   What we have just seen provides a general procedure for creating categories
+in our setting, which is founded on a free logic that is itself encoded in Is-
+abelle/HOL.
+
+Corollary 1. D := (C, dom, cod, ·, ?,−1 ) is also a categorical modeloid on itself.
+
+Remark 5. Hence we have that every inverse category having a zero element for
+each of its endosets is also a categorical modeloid and thus admits a derivative.
+
+    At this point we are able to use the derivative on D. The final theorem draws
+the concluding connection between modeloids and Fraı̈ssé’s method. We show
+that in the established setting, an m-round winning strategy between A and B
+is given by the sets which the derivative produces if applied m times. Note the
+abuse of notation in the way we are using ≡m here.
+                                     Categorical Axiomatization of Modeloids          15
+
+Theorem 4. Let M be the categorical modeloid D. Then
+
+            ∃h : X → Y ∈ Dm (M ) with h 6= ? ⇐⇒ X ≡m Y,              m∈N
+
+   As a result the derivative on this modeloid is equivalent to playing an EF
+game between the two structures. Hence on an arbitrary categorical modeloid
+the derivative can be seen as a generalization of EF games.
+
+
+6    Conclusion
+In this paper we have shown how to arrive at the notion of a categorical modeloid
+using axiomatic category theory. We started out with a set of partial bijections
+abstracting from a structure, then we interpreted this set as an inverse semi-
+group by the embedding due to the Wagner-Preston representation theorem,
+and, finally, we were able to axiomatize a modeloid in an inverse category. The
+key feature we employed is the natural partial order which also enabled us to
+present the derivative operation in each step of abstraction. The categorical
+derivative on the category of finite structures of a finite vocabulary can then be
+used to play Ehrenfeucht-Fraı̈ssé games between two structures. As a result a
+more abstract representation of these games is possible.
+    Using our encoding of inverse categories in Isabelle/HOL, we are currently ex-
+tending this encoding work to cover also categorical modeloids and their deriva-
+tives. This naturally extends the framework established by Benzmüller and Scott
+so far [2]. Furthermore, an investigation of the generalized Ehrenfeucht-Fraı̈ssé
+games in terms of applicability has to be conducted. We believe that the notion
+of a categorical modeloid will continue to play a role when connecting model
+theoretical and categorical concepts.
+
+Acknowledgment. We wish to thank the anonymous referees for their helpful com-
+ments and suggestions.
+
+
+References
+ 1. Benda, M.: Modeloids. I. Transactions of the American Mathematical Society 250,
+    47–90 (1979). https://doi.org/10.1090/s0002-9947-1979-0530044-4
+ 2. Benzmüller, C., Scott, D.S.: Automating free logic in HOL, with an ex-
+    perimental application in category theory. J. Autom. Reasoning (2019).
+    https://doi.org/10.1007/s10817-018-09507-7
+ 3. Blanchette, J.C., Böhme, S., Paulson, L.C.: Extending sledgeham-
+    mer with SMT solvers. J. Autom. Reasoning 51(1), 109–128 (2013).
+    https://doi.org/10.1007/s10817-013-9278-5
+ 4. Blanchette, J.C., Nipkow, T.: Nitpick: A counterexample generator for higher-order
+    logic based on a relational model finder. In: International conference on interactive
+    theorem proving. LNCS, vol. 6172, pp. 131–146. Springer (2010)
+ 5. Ebbinghaus, H.D., Flum, J.: Finite Model Theory. Springer Berlin Heidelberg
+    (1995). https://doi.org/10.1007/3-540-28788-4
+16      L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+ 6. Howie, J.M.: Fundamentals of semigroup theory. Oxford University Press (1995)
+ 7. Kastl, J.: Inverse categories. Algebraische Modelle, Kategorien und Gruppoide 7,
+    51–60 (1979)
+ 8. Lambert, K.: The definition of e! in free logic. In: Abstracts: The International
+    Congress for Logic, Methodology and Philosophy of Science. Stanford University
+    Press Stanford (1960)
+ 9. Lambert, K.: Free logic: Selected essays. Cambridge University Press (2002)
+10. Lawson, M.V.: Inverse Semigroups. WORLD SCIENTIFIC (nov 1998).
+    https://doi.org/10.1142/3645
+11. Libkin, L.: Elements of finite model theory. Springer (2013)
+12. Linckelmann, M.: On inverse categories and transfer in cohomology. Proceedings
+    of the Edinburgh Mathematical Society 56(1), 187–210 (2012), https://doi.org/
+    10.1017/s0013091512000211
+13. Nipkow, T., Paulson, L.C., Wenzel, M.: Isabelle/HOL: a proof assistant for higher-
+    order logic, LNCS, vol. 2283. Springer (2002)
+14. Scott, D.: Existence and description in formal logic. In: Schoenman, R. (ed.) Jour-
+    nal of Symbolic Logic, pp. 181–200 (1967)
+15. Tiemens, L.: Computer-supported Exploration of a Categorical Axioma-
+    tization of Miroslav Benda’s Modeloids. Bachelor’s thesis, Freie Univer-
+    sität Berlin (2019), https://www.mi.fu-berlin.de/inf/groups/ag-ki/Theses/
+    Completed-theses/Bachelor-theses/2019/Tiemens/BA-Tiemens2.pdf
+16. Tiemens, L., Scott, D.S., Benzmüller, C., Benda, M.: Computer-supported ex-
+    ploration of a categorical axiomatization of modeloids. ArXiv abs/1910.12863
+    (2019), https://arxiv.org/abs/1910.12863
+                                      Categorical Axiomatization of Modeloids           17
+
+Appendix
+
+This appendix provides the proofs for all claims we made in the paper. We will
+go through them in the order in which they appear.
+
+
+6.1   Proofs of section 2
+
+Lemma 1. Let M be a modeloid on Σ and D(M ) the derivative. Then we have
+that D(M ) ⊆ M .
+
+Proof. We want to show x ∈ D(M ) ⇒ x ∈ M . Fix x ∈ D(M ). Next fix a ∈ Σ.
+We know we can find b ∈ Σ such that x ∪ {(a, b)} ∈ M . Since M is a modeloid,
+the inclusion property implies x ∈ M .
+
+Proposition 1. If M is a modeloid then so is D(M ).
+
+Proof. We will prove the modeloidal axioms for D(M ) in the order in which they
+appear in the definition of a modeloid.
+    Hence, we start with the closure of composition. Let f, g ∈ D(M ). We need
+to show that for a fixed a ∈ Σ we can find b ∈ Σ such that (g ◦ f ) ∪ {(a, b)} ∈ M .
+The second conjunct of the derivative follows by analogy. Therefore, fix a ∈ Σ.
+We can find b1 ∈ Σ such that f ∪ {(a, b1 )} ∈ M . Then we can find b2 ∈ Σ such
+that g ∪ {(b1 , b2 )} ∈ M . Because M is closed under the composition, it follows
+that (g ∪ {(b1 , b2 )}) ◦ (f ∪ {(a, b1 )}) = (g ◦ f ) ∪ {(a, b2 )} ∈ M . As a result, D(M )
+is closed under composition.
+    Up next is the closure of taking inverses. Let f ∈ D(M ) and fix a ∈ Σ.
+Because of the second conjunct of the derivative, we get that for some b ∈ Σ
+the statement x ∪ {(b, a)} ∈ M holds. Since M is a modeloid, this implies that
+x−1 ∪ {(a, b)} ∈ M . By analogy we also get ∀a ∈ Σ∃b ∈ Σ : x−1 ∪ {(b, a)} ∈ M .
+Thus x−1 ∈ D(M ).
+    The inclusion property is evident. Fix f ∈ D(M ) and a g satisfying g ⊆ f .
+
+                          ∀a ∈ Σ∃b ∈ Σ : f ∪ {(a, b)} ∈ M
+
+immediately implies
+
+                          ∀a ∈ Σ∃b ∈ Σ : g ∪ {(a, b)} ∈ M.
+
+Analogously we get ∀a ∈ Σ∃b ∈ Σ : g ∪ {(b, a)} ∈ M and hence g ∈ D(M ).
+   The fact that idΣ ∈ D(M ) can be seen by noting ∀a ∈ Σ : idΣ ∪ {(a, a)} =
+idΣ and idΣ ∈ M . This concludes the proof.
+
+
+6.2   Proofs of section 3
+
+Proposition 3. Let M be a modeloid on Σ. Then for f, g ∈ M
+
+                                   g ≤ f ⇐⇒ g ⊆ f
+18     L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+Proof. Let Σ be an alphabet and M a functional modeloid on F (Σ). We have
+already established that (M, −1 , ◦) is an inverse semigroup. Fix f, g ∈ M . Sup-
+posing that g ≤ f holds we know g = f ◦ e where e is an idempotent. As such e
+is a partial identity in M . As a result
+
+              dom(g) = e−1 (dom(f ) ∩ cod(e)) = dom(f ) ∩ cod(e)
+
+and hence dom(g) ⊆ dom(f ). Furthermore, g(x) = (f ◦ e)(x) = f (x) for x ∈
+dom(g). This yields g ⊆ f .
+Conversely suppose that g ⊆ f . Since iddom(g) ⊆ idΣ we know that iddom(g) ∈ M .
+In addition, the partial identity is idempotent. Now f ◦ iddom(g) ∈ M and g =
+f ◦ iddom(g) because dom(g) = dom(f ) ∩ cod(iddom(g) ) since dom(g) ⊆ dom(f )
+and g(x) = f (x) = f (iddom(g) (x)) for x ∈ dom(g). As a result g ≤ f holds.
+
+Proposition 4. Every semimodeloid can be faithfully embedded into a modeloid.
+Furthermore, by the considerations above, every modeloid is a semimodeloid.
+
+Proof. This proposition basically summarizes the work done. By taking the mod-
+eloid F (Σ), it is clear that every semimodeloid on Σ can be faithfully embed-
+ded into it by the Wagner-Preston representation theorem because the inclusion
+property only depends on the faithfulness of the embedding with respect to the
+natural partial order. Proposition 3 establishes that every modeloid is a semi-
+modeloid.
+
+Lemma 2. The idempotent atoms in F (Σ) are exactly the singleton-identities.
+
+Proof. Idempotent elements in F (Σ) are the partial identities. So it suffices to
+show that |dom(f )| = 1 if, and only if, the idempotent f ∈ F (Σ) is an atom.
+Assume f ∈ F (Σ) is an atom and idempotent. Suppose now that |dom(f )| > 1.
+Then we can find a, b ∈ dom(f ) with a 6= b. But then we have that id{a} ( f and
+id{a} 6= 0. This is a contradiction to f being an atom. The case |dom(f ) = 0|
+implies that f = 0 but an atom is unequal to the zero element. As such that
+case is also taken care of.
+Conversely assume |dom(f )| = 1 for some non-zero partial identity f ∈ F (Σ).
+Then g ⊆ f implies that dom(g) = ∅ ∨ dom(g) = dom(f ). If it is the first option
+we have g = 0. And if it is the second we get g = f .
+
+Proposition 5. The derivative on a modeloid M produces the same result as
+the semimodeloidal derivative on M .
+
+Proof. Let M be a functional modeloid on F (Σ) for an alphabet Σ. We want
+to show that the two definitions of the derivative are equivalent in this case. We
+show that for fixed f ∈ M
+
+                        ∀a ∈ Σ ∃b ∈ Σ : f ∪ {(a, b)} ∈ M
+                                       ⇐⇒
+          ∀ idempotent atoms b ∈ F (Σ) ∃x ∈ M : (f ≤ x ∧ b ≤ x−1 x)
+                                   Categorical Axiomatization of Modeloids      19
+
+because the second part of the definition of the derivative follows by analogy.
+   To start remember the natural bijection
+
+               Ψ : Σ ≃ {p ∈ F (Σ) | p an atom and idempotent }.
+
+Suppose the upper formula holds. Fix a ∈ Σ. Then setting x := f ∪ {(a, b)}
+yields that f ≤ x by proposition 3. Furthermore, a ∈ dom(x) = dom(x−1 x). But
+then Ψ (a) ≤ x−1 x. Hence we get that ∃x ∈ M : (f ≤ x ∧ Ψ (a) ≤ x−1 x). But
+now we can quantify over {p ∈ F (Σ) | p an atom and idempotent } instead of Σ
+which yields the desired result.
+Conversely suppose the bottom formula holds. Then fix an idempotent atom
+b ∈ F (Σ) and let by assumption x be the element with f ≤ x ∧ b ≤ x−1 x.
+It holds that x|dom(f )∪Ψ −1 ({b}) ∈ M because of the inclusion property. But this
+already yields that
+                         f ∪ {(Ψ −1 (b), x(Ψ −1 (b)))} ∈ M.
+Quantifying over Σ instead of {p ∈ F (Σ) | p an atom and idempotent } con-
+cludes the proof.
+
+6.3   Proofs of section 4
+Proposition 7. Let C be an inverse category with all zero elements and M be a
+categorical modeloid on C. Then for each object X in M we get that EndM (X)
+is a semimodeloid (on itself ).
+Proof. Fix an object X in M . Once we have proven that EndM (X) is an in-
+verse monoid it will follow that EndM (X) is a semimodeloid. That is because
+EndM (X) then is closed under composition and taking inverses. Furthermore,
+the definition of the partial order defined on morphisms will simply reduce to the
+natural partial order. As a result the inclusion axiom also holds. And at last we
+have that X ∈ EndM (X) with the property that y · X ∼      = y for all y ∈ EndM (X)
+hence giving us the neutral element required by a semimodeloid.
+    Let’s now prove that EndM (X) is an inverse monoid. First we will show the
+closure of the composition. For that fix two elements a, b ∈ EndM (X). We know
+that dom(a) ∼  = dom(b) ∼= cod(a) ∼= cod(b) ∼ = X. We distinguish two cases. First,
+we assume that X exists, so X 6= ?. Therefore, dom(a) ≃ cod(b) holds and as a
+result a · b exists. Hence, we have a · b · dom(a · b) ≃ a · b. This implies
+
+                          dom(a · b) ≃ cod(dom(a · b))                         (6)
+
+and the existence of b · dom(a · b) from which we get dom(b) ≃ cod(dom(a · b)).
+By using (6) we deduce dom(b) ≃ dom(a · b) but this holds X ≃ dom(a · b).
+Similarly one obtains X ≃ cod(a · b). As a result, a · b ∈ EndM (X).
+   Now assume X does not exist. This yields that a · b does not exist since
+otherwise, dom(a) and cod(b) would exist which contradicts cod(b) ∼  = dom(a) ∼=
+X. As a result, also dom(a · b) and cod(a · b) do not exist and therefore, X ∼ =
+dom(a · b) ∼
+           = cod(a · b) holds since none of the terms is existing. Hence a · b ∈
+EndM (X).
+20      L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+    The closure of inverses is immediate because taken an element s ∈ EndM (X),
+s−1 ∈ M by assumption but dom(s−1 ) ∼     = cod(s−1 ) ∼
+                                                      = X and as a result s−1 ∈
+EndM (X). Now one can regard the inverse function on EndM (X) as a restriction
+of (−1 ) on C. As a result the inverses are unique. Associativity follows by the
+fact that the composition in M really is the composition in C restricted to M .
+Above we have already taken care of the neutral element.
+
+Theorem 3. Let C be an inverse category with all zero elements and let M be
+a categorical modeloid on C. Then
+                             [
+                                 D(HomM (X, Y ))
+                            X,Y ∈M
+
+is a categorical modeloid on C.
+
+Proof. Assume the assumptions formulated above. Then we define
+                             [
+                      H :=        D(HomM (X, Y )).
+                               X,Y ∈M
+
+
+We will prove (1) that all objects from C are in H, (2) the closure of taking
+inverses from H, (3) the closure of the composition on H and (4) the inclusion
+property hold which is
+
+                        ∀ s ∈ C ∀t ∈ H : s ≤ t ⇒ s ∈ H.
+
+1. Fix an object X ∈ C. Since M is a categorical modeloid, X ∈ M and,
+   furthermore X ∈ EndM (X). We need to prove that X ∈ D(EndM (X)).
+   So fix an idempotent atom a ∈ EndM (X). We show that X ≤ X and
+   a ≤ X −1 X. Note that, since X ∼= dom(X), X is idempotent by axiom S5
+   of a category. As a result X = X · X and hence X ≤ X. On the other hand
+   by definition of EndM (X) we have that a ∼= a·X ∼= a · X −1 X. Because a is
+   idempotent it commutes with X X and hence by definition a ≤ X −1 X. The
+                                  −1
+
+   second part of the condition posed by the derivative holds simply because
+   X −1 X = XX −1 .
+2. Next take an element s ∈ H. Then s ∈ D(HomM (X, Y )) for some X, Y ∈ M .
+   As a result we can write s as s : X → Y . We know that s−1 : Y → X ∈
+   HomM (Y, X) and want to show that s−1 : Y → X ∈ D(HomM (Y, X)).
+   Fix an idempotent atom a ∈ EndM (Y ). Then, since s ∈ H, we find h ∈
+   HomM (X, Y ) : s ≤ h ∧ a ≤ hh−1 . Also s−1 ≤ h−1 and h−1 ∈ HomM (Y, X).
+   Because a ≤ hh−1 we know that a ≤ (h−1 )−1 h−1 . In total that yields
+
+         ∀ idempotent atoms a ∈ EndM (Y )
+                              ∃h0 ∈ HomM (Y, X) : (s−1 ≤ h0 ∧ a ≤ h0−1 h0 )
+
+     The second condition required by the derivative follows by an analogous
+     construction. Hence s−1 ∈ H.
+                                   Categorical Axiomatization of Modeloids         21
+
+3. Up now is the closure of the composition. Let s, t ∈ H. We want to show
+   that t · s ∈ H. We will do this by case analysis.
+   Case 1: s or t does not exist. W.l.o.g. s is non-existent. Then s = ? ∈ H and
+   t · s = ? ∈ H because if t · s existed, so would t and s.
+   Case 2: s and t exist but dom(t) 6≃ cod(s). This implies that there are two
+   different objects in C. This means that t · s = ? ∈ C, the unique non-existing
+   element. Because by definition s, t ∈ M and M is closed for composition this
+   yields ? ∈ M .
+   But then ? ∈ HomM (?, ?). Now we show that ? ∈ D(HomM (?, ?)). Note
+   that EndM (?) = {?} and ? is idempotent. As a result ? is by default an
+   atom. But because ? ≤ ? ∧ ? ≤ ??−1 we get that ? ∈ D(HomM (?, ?)) as
+   desired since the second part of the derivative reduces to what we have just
+   shown. As a result we have t · s ∈ H.
+   Case 3: s and t exist and dom(t) ≃ cod(s). As a result the composition exists
+   and we can write s as s : X → Y and t as t : Y → Z for X ≃ dom(s), Y ≃
+   cod(s) and Z ≃ cod(t). As a result dom(ts) ≃ dom(s) and cod(ts) ≃ cod(t).
+   As a result we want to show that t·s ∈ D(HomM (X, Z)). First we will prove
+
+      ∀ idempotent atoms a ∈ EndM (X)
+                                                                                  (7)
+                             ∃h ∈ HomM (X, Z) : ((t · s) ≤ h ∧ a ≤ h−1 h).
+
+   For that fix such an idempotent atom a ∈ EndM (X). We use the assumptions
+   about s now. That yields
+
+                      ∃f ∈ HomM (X, Y ) : s ≤ f ∧ a ≤ f −1 f.                     (8)
+
+   The idea is now to construct something which can be thought of as applying
+   f to a which will be an idempotent atom in EndM (Y, Y ). This construction
+   is f a(f a)−1 .
+   First note that f a(f a)−1 ≃ f aa−1 f −1 ≃ f af −1 . We get that dom(f af −1 ) ≃
+   dom(f −1 ) ≃ Y and cod(f af −1 ) ≃ cod(f ) ≃ Y . As a result f af −1 ∈
+   EndM (Y, Y ).
+   Next we wish to show that f af −1 is an idempotent atom. For idempotence
+   see that f af −1 ·f af −1 ≃ f a·af −1 ≃ f af −1 by using that from (8) a ≃ f −1 f a
+   and the fact that a is idempotent.
+   In order to show that f af −1 is an atom in EndM (Y, Y ), we assume c ≤
+   f af −1 for c ∈ EndM (Y, Y ) and show that c ≃ f af −1 ∨ c ≃ 0 where 0 is the
+   zero element of EndM (Y, Y ). So let c ≤ f af −1 . Then
+
+                     c ≤ f af −1 ⇒ f −1 c ≤ af −1 ⇒ f −1 cf ≤ a.
+
+   But because a is an atom by assumption it follows that f −1 cf ≃ a∨f −1 cf ≃
+   0. The later implies that c ≃ 0. We prove this by contraposition.
+   Suppose c 6≃ 0. c ≃ f af −1 c−1 c and hence f −1 c 6≃ 0 since otherwise c ≃ 0.
+   Since c is idempotent by the fact that f af −1 is idempotent, (f −1 c)−1 ≃ cf
+   and by axiom C1 of an inverse category cf 6≃ 0. But cf ≃ f af −1 cf and as
+   a result f −1 cf 6≃ 0.
+22      L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+     We may now assume that f −1 cf ≃ a. As a result f −1 cf is an idempotent
+     atom. We wish to show now that c is an inverse of f af −1 because this will
+     yield that c ≃ f af −1 by the fact that f af −1 is its own inverse and as such
+     unique.
+     It is immediate that
+
+                        f af −1 · c · f af −1 ≃ f aaaf −1 ≃ f af −1 .
+
+     Furthermore,
+
+                                  c · f af −1 · c
+                              ≃ f af −1 c · f af −1 · f af −1 c
+                              ≃ f af −1 c · f af −1 c
+                              ≃ f af −1 c
+                              ≃ c.
+
+     We conclude that f af −1 is indeed an atom, idempotent and an element of
+     EndM (Y, Y ). We now use the assumption about t which yields
+
+                     ∃k ∈ HomM (Y, Z) : t ≤ k ∧ f af −1 ≤ k −1 k.                (9)
+
+     We are now in the position to say that we can find h such that (7) is satisfied.
+     For this set h = kf . Because s ≤ f and t ≤ k by (8) and (9) respectively we
+     have that t · s ≤ kf . Furthermore, by (9) it holds that
+
+                                 f af −1 ≃ k −1 kf af −1
+                            ⇒ f af −1 ≃ f af −1 k −1 kf af −1                   (10)
+                                    −1                −1 −1           −1
+                            ⇒ af         ≃ af           k     kf af             (11)
+                                          −1 −1
+                            ⇒ a ≃ af              k    kf a                     (12)
+                                         −1 −1
+                            ⇒ a≤f             k       kf                        (13)
+                                         −1
+                            ⇒ a≤h             h.
+
+   10 follows by the fact that f af −1 is idempotent. 11 and 12 follow because
+   a = f −1 f a. Then 13 follows because a is idempotent.
+   Hence we proved (7). The second part of the derivative is proven in a similar
+   way and we leave it to the reader to write down the details.
+4. What is left to show is that the inclusion property holds in H. For this task
+   fix a morphism s ∈ C with the property that s ≤ t for some t ∈ H. Since M
+   is a categorical modeloid and also t ∈ M we know that s ∈ M . As a result
+   we need to show that
+
+                              s ∈ D(Hom(dom(t), cod(t)))
+
+     by the fact that s ≤ t implies that the domain and codomain of s and t are
+     equal.
+                                    Categorical Axiomatization of Modeloids        23
+
+      Since t ∈ H we know that
+
+        ∀ idempotent atoms a ∈ EndM (dom(t))
+                              ∃f ∈ HomM (dom(t), cod(t)) : (t ≤ f ∧ a ≤ f −1 f )
+
+      and
+
+        ∀ idempotent atoms b ∈ EndM (cod(t))
+                              ∃k ∈ HomM (dom(t), cod(t)) : (t ≤ k ∧ b ≤ kk −1 ).
+
+      Because s ≤ t and the fact that ≤ is a partial order we get that s ≤ f and
+      s ≤ k. But this already implies that s ∈ D(Hom(dom(t), cod(t))).
+
+6.4     Proofs of section 5
+Proposition 8. D := (C, dom, cod, ·, ?,−1 ) is an inverse category where f −1
+denotes the inverse of each partial isomorphism f and ?−1 = ?. The existing
+elements are exactly all elements in F (A, B) and the compositions f ◦ g in case
+dom(f ) = cod(g) for f, g ∈ F (A, B).
+
+Proof. It is easy to verify that the axioms for a category hold by the constructions
+of the functions. Using proposition 2 it also follows that the axioms additionally
+required by an inverse category hold.
+
+Corollary 1. D := (C, dom, cod, ·, ?,−1 ) is also a categorical modeloid on itself.
+
+Proof. Closure of composition and taking inverses follow by the totality of · and
+−1
+   . The inclusion property and the requirement that all objects of C be in C
+trivially hold since the modeloid is on itself.
+    What is to show is that C has a zero element for each endoset EndC (X)
+where X is an object of C. EndC (X) trivially includes the partial isomorphism
+that is only defined on the constant symbols of τ . We denote it by 0X . To see
+that this is a zero element first note that ∀p ∈ EndC (X) : 0X ⊆ p by definition
+of a partial isomorphism. By the definition of partial composition it follows that
+
+       dom(p ◦ 0x ) = 0−1                       −1
+                       X (cod(0X ) ∩ dom(p)) = 0X (dom(0X )) = dom(0X ).
+
+As a result we have that p ◦ 0X = 0X ∀p ∈ EndC (X).
+
+Theorem 4. Let M be the categorical modeloid D. Then
+
+            ∃h : X → Y ∈ Dm (M ) with h 6= ? ⇐⇒ X ≡m Y,          m∈N
+
+Proof. ’⇒’: First we define X and Y to be the sets which are uniquely asso-
+ciated to dom(h) and cod(h) respectively by the fact that dom(h) = idX and
+cod(h) = idY . Then define Ij := Dj (M )∩P art(X, Y ) for 0 ≤ j ≤ m. We want to
+prove that (Ij )0≤j≤m is a m-round winning strategy between X and Y . Because
+Dm (M ) ⊆ Dm−1 (M ) ⊆ ... ⊆ D(M ) ⊆ M holds all Ij are non-empty and it
+24      L. Tiemens, D. S. Scott, C. Benzmüller and M. Benda
+
+is clear that Ij ⊆ P art(X, Y ) for 0 ≤ j ≤ m. To show the forth property fix
+a ∈ X and some g ∈ Ij+1 for j < m. Then we know by the definition of Ij+1
+that dom(g) = X and cod(g) = Y . Furthermore we have that
+
+     ∀ idempotent atoms c ∈ EndM (X)∃f ∈ Hom(X, Y ) : g ≤ f ∧ c ≤ f −1 f.
+
+Similar to proposition 3 we have that s ≤ t ⇔ s ⊆ t for s, t ∈ P art(X, Y ). Note
+that EndM (X) is just P art(X, X) and HomM (X, Y ) ⊆ P art(X, Y ). Now let
+0X denote the zero element of EndM (X). We have that e := 0X ∪ {(a, a)} ∈
+EndM (X) is an idempotent atom. As a result there is f ∈ Hom(X, Y ) such that
+e ⊆ f −1 f . But then we also have that a ∈ dom(f ) and g ⊆ f . Hence the forth
+property holds. The back property follows in a similar way.
+    ’⇐’: Again define X and Y to be the sets which are uniquely associated to
+dom(h) and cod(h) respectively. Assume that (Ij )0≤j≤m is a m-round winning
+strategy between X and Y . Note first that ∀j ∀x : x ∈ P art(X, Y ) implies that
+x exists in terms of free logic. We now want to prove Ij ⊆ Dj (M ) by induction
+on j. The base case is clear since I0 ⊆ M . For the induction step take j 7→ j + 1.
+Fix g ∈ Ij+1 . Then by assumption
+
+                     ∀a ∈ X ∃f ∈ Ij : g ⊆ f ∧ a ∈ dom(f ).
+
+By the induction hypothesis it follows that f ∈ Dj (M ). It is easy to check that
+the set E := {0X ∪ {(c, c)} | c ∈ X} resembles exactly all idempotent atoms in
+EndM (X). Hence fix â ∈ E. By construction â = 0X ∪ {(v, v)} for some v ∈ X.
+Now we know that ∃f ∈ Ij : g ⊆ f ∧ v ∈ dom(f ). This yields g ≤ f and
+â ≤ f −1 f again similar to proposition 3 and by the fact that f is a partial
+isomorphism and hence 0X ⊂ f −1 f . The second condition of the derivative is
+shown to be true in a similar way. As a result g ∈ Dj+1 (M ).
+

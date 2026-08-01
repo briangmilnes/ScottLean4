@@ -1,0 +1,1977 @@
+                  C O N S T R U C T I V E        V A L I D I T Y
+
+
+
+
+                                    DANA SCOTT
+
+
+
+
+       Thls paper    ls a preliminary       report    on work In progress                and Is an
+expanded    and revised     version   of the lecture           given at the conference.
+The author       Is indebted    to N.G.    de BRUIJN,       N. GOODMAN,             G. KREISEL   and
+A.S.    TROELSTRA    for many kinds of help,          information           and advice      as well
+as stimulation.       In particular       KREISEL has been very patient                   over the
+years    In repeating     tlme after tlme points            not taken         In and In offering
+extended    criticism     of faulty   attempts       at u n d e r s t a n d i n g    what he calls
+"non-set-theoretlc"        foundations.      The author         Is also       indebted     to
+D. LACOMBE       for bringing    a formal decidability             problem          to hls attention,
+and to G. KREISEL        for discussions      on the significance                   of thls problem.
+(See postscript).
+
+
+BACKGROUND
+
+       A quote    from HEYTING    (8) wlll    set the stage as well                   as could be
+desired:
+
+       One of BROUWER'S main theses was that mathematics is not based on
+logic, but that logic is based on mathematics.                       This is easily seen to
+be an immediate consequence of his point of departure. If mathematics
+consists of mental constructionsj             then every mathematical theorem is the
+expression of a result of a successful construction. The proof of the
+theorem consists in this construction itself~ and the steps of the proof
+are the same as the steps of the mathematical construction.                               These are
+intuitively clear mental acts, and not applications of logical laws.
+Yet an intuitionistic logic has been developed~                        and thus the question
+of its signifieance was raised. The older interpretations by KOLMOGOROFF
+(as a calculus of problems) and HEYTING                  (as a calculus of intended con-
+structions) were substantially equivalent. In a later paper HEYTING
+interprets logical theorems as simply mathematical theorems of extreme
+generality.       There is no e~sential difference between logical and mathe-
+matical theoremsj becauseiboth sorts of theorems affirm that we have
+succeeded in performing c~nstructions satisfying certain conditions.
+                                                     -   2 3 8    -
+
+
+
+
+       B R O U W E R based his considerations                    on a complex p h i l o s o p h i c a l      stand-
+point and a thorough p s y c h o l o g i s t i c             view of the nature              of mathematics.
+Our purpose         here will be to reexamine                         the idea of the calculus             of con-
+structions.         A formalization           of this calculus                will be presented,             and it
+will be applied to the p r o b l e m of i n t e r p r e t i n g                   logical    formulas        in a
+way that,       to the author at least,                  seems to carry out the p r o g r a m out-
+lined by HEYTING above word for word.                             When this        is done it w o u l d appear
+that the p s y c h o l o g i s m has been reduced to a minimum:                          one only has to
+agree that the theory of constructions                                 has intuitive     appeal.       And one
+particular        advantage        of the theory we shall examine                       is that       it has many
+interpretations            of varying degrees              of constructivity.               Now there will of
+course remain the questions                   of whether B R O U W E R would have considered
+the theory        at all reasonable            and of whether                some essential         part of his
+idea of m a t h e m a t i c s    has been lost.            But the author            feels that until the
+intuitionists          arrive at a greater degree                        of clarity     in f o r m u l a t i n g
+their principles,             the conclusion must                     stand that the notion p r e s e n t e d
+here is i n d i s t i n g u i s h a b l e   from the intended m e a n i n g             on the basis           of
+current practice,             of intuitionistic              mathematics.(This              statement        is in-
+correct;       see postscript.)
+
+
+       These remarks          do not apply directly                     to BROUWER'S     theory of choice
+sequences,        but the present            state of the art                (cf.(19)    and the objections
+of MYHILL        (17))     indicates        that choice               sequences    are eliminable.           Thus,
+h o w e v e r pleasant      they may be in theory                      (and natural     in intuition),              one
+cannot     claim for them at the moment                      any more         fundamental       r~le in
+analysis       than,     say, that of the infinitesimals                          of (classical)         non-
+standard analysis.              For both kinds of analysis                      these various        remarkable
+reals have properties                that aid our u n d e r s t a n d i n g         through the regularity
+of their laws,           but strictly         speaking they are not needed.                       This     situation
+may very well change               in the light of future developments;                           hence the
+cautious       reader may be reluctant               to call the author's                   theory     intuition-
+ism.
+
+
+       The calculus         we shall develop here did not occur as a bolt out of
+the blue but has a long history                    involving many people.                    In the first
+place we have HEYTING'S                 original     work.            The author's      own contact with the
+problem      came through          KREISEL'S      formulations               in (10) and       (il).     Subse-
+quently      interest       was revived in consulting with G O O D M A N on the thesis                                    (5)
+(cf. also        (6), and more on this later.                          In the meantime      we had the work
+by LEUCHLI        (14) and LAWVERE            (15) who both provided                  interpretations               that
+are    closely related.            Their approach            has one serious            defect      from our
+                                             -   239    -
+
+
+
+
+point   of view:     neither    of them formalized             their theories     of functions
+(constructions)       and both of them think rather non-constructlvely.                            (I
+hope they will       forgive me for this remark.)                Therefore    the foundational
+(as distinct     from mathematical)         content          of their interpretations          is not
+evident.     Hopefully    the present      theory will make             it possible    to view
+their results      in a new light.        L~UCHLI       was motivated       by KLEENE'S       realiz-
+ability    interpretation       (cf.(9))    and considered          his notion      as an abstract
+generalization       thereof.    The exact       r21ation       of the present      interpretation
+to realizability       is not clear yet.          KLEENE'S       particular    use of recursive
+functions     introduces    anomalies      (sometimes          formally    usefull)    that make
+comparison     difficult.      GOODMAN    discusses          this in (5), but we shall not
+be able to do so here.
+
+
+    Getting back to KREISEL,             he wanted to formalize             the "intended"
+interpretation       in such a way that proofs                (in an abstract     sense)      were
+objects    of the theory       of the same status             as constructions.       This    is
+reasonable     from the psychologistic            approach       which accepts     mental      acts
+as objects     of mathematical      Investigation~             There were    some difficulties
+in bringing     KREISEL'S      theory    to a precise          enough    state to allow meta-
+mathematical     results,      and this problem was the ooint                of departure          for
+GOODMAN.    He reformulated       KREISEL'S       theory       and obtained    several       results,
+but his version       was not exactly       what KREISEL          had wanted.     KREISEL      felt
+that in view of decidability             of various          features    of proofs,    the functions
+should be total       functions.    GOODMAN       did not find this requirement                con-
+venient    because    operations    on constructions             were to be given by general
+comblnators     (in the sense of Curry-Church),                  and these necessarily             lead
+to partial     functions.      GOODMAN    gave a quite neat treatment               of a calculus
+of partial     functions,      and aside    from this          divergence    carried    out
+KREISEL'S     plan in satisfactory         detail.          It will be noted,     however,         that
+neither    KREISEL    nor GOODMAN       gave an analysis          of the structure        of abstract
+proofs,    and they enter       in a (to the author)             mysterious    way simply          to
+allow certain      properties     to be decidable.
+
+
+    This was how matters          stood at the time the author                came to A m s t e r d a m
+in the fall of 1968.        Soon thereafter            he met    Professor    de BRUIJN,       who
+explained     to him his language         AUTOMATH          (cf. the paper of de BRUIJN             at
+this conference).        The feature      of his language          what was of special
+interest     to de BRUIJN      was the possibility             of writing    a computer       program
+for practical      proof checking        but that will not concern us for the moment.
+What was highly       suggestive    to the author was de BRUIJNWS                 conceptual
+framework.     He had been,      of course,       personally       influenced     by BROUWER
+                                                        -    240   -
+
+
+
+
+and wanted to present                a suitably             constructive         notion of proof.           He
+achieved this,           not surprisingly,                  by means of c o n s t r u c t i o n s       for inter-
+preting the logical notions.                     He d i s t i n g u i s h e s    between constructions
+(functions)         and categories           (certain sets or species)                       of constructions
+and places        the burden of proof on showing that a given compound                                       con-
+struction       belongs       to the desired                category.       The p a r t i c u l a r    conventions
+of language         for w r i t i n g    such proofs,              which are essential                for computer
+work,     need not be d i s c u s s e d        here.
+
+
+      As the reader can well imagine,                           at this point          the author made the
+connection with KREISEL,                  GOODMAN,           LEUCHLI,       and LAWVERE,          and he set out
+to formulate         a system of his own.                    Instead       of the natural             deduction    style
+of de BRUIJN,          it seemed more            succinct              to use the calculus             of sequents
+employed by G O O D M A N f o r          foundational              considerations.           (This also seems
+b e t t e r than the t w o - v a l u e d p r o p o s i t i o n a l        connectives        of KREISEL,         since
+one is only interested                  in certain           implications         in any case.)           Next the
+distinction         between      constructions               and species used by de B R U I J N              seemed
+very convenient,            though as we shall see this does not require notational
+distinctions.          When one does this one finds that partial                                  functions       can
+be avoided by h a v i n g each function                        defined on a "principal"                  domain and
+then m a k i n g function values               arbitrary               outside   this domain           (a plan of
+KREISEL).       Next de BRUIJN made good use of cartesian products                                        of species
+(formation of function                  spaces)     in connection with the u n i v e r s a l                 quanti-
+fier - an idea also familiar to LAWVERE                                  and to a certain extent             to
+LEUCHLI - and the author took this at once.                                  Now dual to products                (as
+LAWVERE knows)           are disjoint          sums which must be used for the interpre-
+tation of the existential                  quantifier              (cf. KREISEL - GOODMAN).                These
+sums were not employed                  by de BRUIJN,              but it would be easy to add them
+to his system.
+
+
+      Now that we have functions                    and species             and sums and products,                we
+take certain primitive                  species     (a one-and t w o - e l e m e n t          species,      and the
+species      of natural numbers)              and their implied                  functions        (ordered pairs
+and definitions           by recursion)           and        combine       and recombine         them as much
+as we please o b t a i n i n g          the basis           species of c o n s t r u c t i v e        mathematics
+(cf. the discussion              in T R O E L S T R A       (20)). These are finally used for the
+interpretation          of logic.
+
+
+      Several points           should be noted:
+(i) We never have occasion to form species                                  of species.         Why? Well        since
+      we can form functions                of functions                of ... of functions              of species,
+                                                     -   241    -
+
+
+
+
+         the species        of species        do not seem to be needed.                   If we can think
+         of some use for them,               the format of the theory will allow for them.
+
+
+(ii)     General     species      variables         (quantification            over species)       are not
+         allowed,        though the effect           can be produced by some simple primi-
+         tives.    This is not a defect,                  because      there may be arguments            a~ainst
+         quantification          over arbitrary            species.
+
+
+(ill) We have no abstract                  proofs    only c o n s t r u c t i o n s    and species    of con-
+         structions.        When the~ author             finally      obtained his f o r m a l i s m the
+         proofs-as-objects            vanished.          May be they should be brought                back in,
+         but for the present               ~he author's             system seems to be simpler than
+         KREISEL     -    GODDMAN'S        (and to a certain extent,                   de BRUIJN'S)    and to
+         be adequate.        Thus it seems more reasonable                      to try it out first in
+         some detail;         only then will one be able to appreciate                          whether
+         abstract        proofs are desirable.                 (But see postsript.)
+
+
+(iv)     The general        comblnators        are not used.            This has the advantage              that
+         models    are conceptually            easier to obtain              (total vs. partial          func-
+         tions,    as m e n t i o n e d    earlier).       Furthermore,         one is forced to make
+         explicit        all the basic m o d e s          of formation,         and they are remarkably
+         few.
+
+
+       Let us digress         for a moment          to discuss         the category-theoretlc
+approach of LAWVERE.             In category         theory we axiomatlze                a calculus    of
+functions u n d e r composition.              We do not, however,               have     (what seems to
+the author)       a convenient            axiomatlzation            of which inflnltary         operations
+(such as direct product)                  actually       exist.      Usually    we consider a category
+as a class and talk about                  (arbitrary)          indexed     families      of objects.       Thus
+the existence        of these       families        is thrown back to set theory.
+
+
+       If there were an a x i o m a t l z a t l o n        of the "category"             of "all" cate-
+gories,     this would not be necessary,                       but in the author's          opinion    this
+all-lnclusive        theory      does not yet exist.                 Even if it did,        it would most
+likely not be a c o n s t r u c t i v e       theory.          If one likes,          one can view the
+author's      theory      as an attempt        at a x i o m a t i z l n g   in a constructive         way a
+theory of both functions                  and families          of sets of functions.           Whether
+thls approach        could have ahy effect                 on category         theory     is a m a t t e r of
+speculation.
+                                                            -    2 4 2    -
+
+
+
+
+      At this point,            mention          should also be made of TAIT'S p a p e r                             [18 3 .
+He called his work              "Constructive                   Reasoning"             and seemed to make a con-
+scious    effort not to define                     validity.                  He does of course discuss               the
+GODEL interpretation,                    but that is not the same thing.                                 Also he uses       in
+an essential          way d e f i n i t i o n a l     equality                 which we have not found necessary,
+though it is a notion favored by KREISEL.                                           Furthermore,          TAIT'S use of
+comblnators       leads to a theory of species                                    that does not seem as elemen-
+tary as the one p r e s e n t e d              here.     The author does, however,                            agree with
+TAIT on the i n t r o d u c t i o n           of species                 of trees used to index quite general
+iterations       and will discuss                  this in detail below.
+
+
+      In summary,            then,       based on the m o t i v a t i o n s                 and contacts        Just ex-
+plained,       we are going to propose a theory of c o n s t r u c t i o n s                                   and species
+and to show how it applies                       in m a k i n g precise                  the meanings         of the logi-
+cal notions.          This theory             involves           the primitive                ideas of sums, products
+and iterations            applied to the finite                           species        to generate        the basic
+species w h i c h provide                the b a c k g r o u n d          for constructive               mathematical
+thought.
+
+
+LANGUAGE
+
+      We shall d i s t i n g u i s h          as usual between terms and formulas;                                however,
+only the terms will be c o m p o u n d e d not the formulas.                                         Thus as formulas
+we have:
+                                          a ~ •       and          ~ = T
+
+where      ~    and      T     are terms.           The first means                      that the        (construction)
+o   belongs      to the        (species)           ~ ; while the second                         is an equation        (between
+constructions          or species).              There          seems to be no need at all to have a
+two-sorted       theory        (indeed later it would actually                                   be inconvenient),             so
+we have Just one type-free                       sort of variable                       (usually,        lower-case
+Roman letters with the Greek letters                                      reserved         for metatheory)        ranging
+over both c o n s t r u c t i o n s         and species,                  variables         are terms.
+
+
+        Among the terms we mention next the constants,                                              namely:
+
+
+
+
+of these       ~,~,          and     ~      are thought                  of as species           and the others        as
+(atomic)       constructions.               (One may guess                     the m e m b e r s h i p   relations    now,
+but they are made explicit                       later by axioms.)
+                                                                  -    243    -
+
+
+
+
+       F u r t h e r we h a v e        some s i m p l e           compound           terms,           namely:
+
+
+                                 o(T),         Oo,O1 , [ ~ ^ T], 0 ( ~ ) , ~ +, ~ ( o ) ,
+
+where        o     and      ~    are p r e v i o u s l y              obtained        terms.           Explanations         of m e a n -
+ings n o w d e s e r v e         special          sections             below.
+
+
+       Finally          we h a v e     the      complex           compound           terms which            involve      bound
+variables:
+
+
+                                                       ],
+Here        ~,B,o        are terms             and in p l a c e              of x     and         v     we may h a v e      any o t h e r
+variables.             One s h o u l d not w o r r y              now about           the use of              ~: it c o u l d be
+Just    another punctuation                       mark.       The r e a s o n         for the p l a c e m e n t        of b r a c k e t s
+is that o u r ' s          is m o r e      a postfix              rather than a ~refix                      notation.        This
+c o u l U be m o d i f i e d ,       but       it m a k e s       formulas           e v e n less b e a u t i f u l .       The r e a s o n
+for w r i t i n g         a,B     is that our c o n v e n t i o n                    is s u c h that the v a r i a b l e
+(x or v)          is b o u n d o n l y         in the         o        not        in the      a        or the      8. One d e f i n e s
+free    and b o u n d o c c u r r e n c e s          of v a r i a b l e s           in the u s u a l way as w e l l as the
+n o t i o n of r e w r i t i n ~ b o u n d v a r i a b l e s .
+
+
+       We    shall o f t e n h a v e            to i n d i c a t e           the    substitution             of a t e r m       o     for
+all    free o c c u r e n c e s        of a v a r i a b l e            (x, say)         w i t h the         implied    rewriting
+of v a r i a b l e s      free    in       a      if they o c c u r b o u n d               in the c o n t e x t        (T, say)
+into w h i c h we s u b s t i t u t e .            We use the n o t a t i o n
+
+
+                                         [oZx]Eq
+(sometimes w i t h o u t the second p a i r of b r a c k e t s ) and remark t h a t t h i s
+i s a n o t a t i o n of the metalanguage not the o b j e c t language.
+
+INFERENCE
+       Connections              between         formulas              are a s s e r t e d by s e q u e n t s
+
+
+
+where        a     is a (finite)                sequence              of f o r m u l a s    and         6    is a s i n g l e
+formula.          The m e a n i n g     is clear:             the c o n j u n c t i o n           of the      formulas       in       A
+implies          the    formula        ~ . We p r o v i d e              no b r a c k e t s       because       this   implication
+is n e v e r      iterated.
+
+
+       A s t o c k of t h e s e         assertions                is p r o v i d e d       l a t e r by the a x i o m s ;           while
+the t h e o r e m s       are d e r i v e d       f r o m t h e m by t h e s e w e l l - k n o w n              rules:
+                                                                  - 244 -
+
+
+                        A,E       ~-6                                        (Weakening)
+
+
+(I2)                    A, ~E',
+                        ,,~,E   A
+                              ,~,a ~6                                        (Interchange)
+
+
+(I5)                    ~'~ ~              a ~--a                            (Cut)
+
+
+(I4)                    ~                                                    (Rewrite)
+
+
+(I5)                    A ~-6                                                (Substitution)
+                        [o/x]~ F [ o / x ] 6
+
+
+where     in the r e w r i t e             rule,        6' r e s u l t s     from      6    by r e w r i t i n g   a bound
+variable.          (It may be p o s s i b l e                  that   (I4)    follows       from s u b s t i t u t i o n    if
+we m a d e the          substitution               conventions           really      precise,         but n e v e r mind.)
+
+
+       The a u t h o r         does not k n o w w h e t h e r            it is true - or even i n t e r e s t i n g
+to s u p p o s e       that       there       Is a " c u t - f r e e "     formulation         of the theory.              This
+question       might           be r e l a t e d     to some d e c i s i o n         problems         mentioned      below.
+
+
+EQUALITY           -        Two a x i o m s      are required:
+
+
+(El)                                     Hx : x
+(E2)                                    x : y, 6 ~ [ y / x ] 6
+these     hardly            need e x p l a n a t i o n .
+
+
+       We note          these       obvious         consequences:
+
+
+
+
+                            x = y,        x = z      ~-y        = z
+                            x:y          ~y      = x       .
+
+It is p o s s i b l e          that      equality          could be e l i m i n a t e d      f r o m the system,            but
+it does not             seem pleasant               to do so.
+
+
+FUNCTIONS
+       We m e a n by              f(x)        the o r d i n a r y     function       value       f     of x . In as m u c h
+as f u n c t i o n s        can take          functions          as values,         we can w r i t e       f(x)(y)          for
+functions          of two a r g u m e n t s ,           and s i m i l a r l y   for more         arguments.         All our
+functions          are total,              so that             f(x)    always       means    something         even    if        x
+                                                               -    245        -
+
+
+
+
+is outside          the p r i n c i p a l      domain of                  f. In that case, we would, i f we
+so desired,           let     f(x)       = f, but we shall                             formulate      n_oo a x i o m to that
+effect leaving the matter open.
+
+
+       For the most part a theory of functions                                               is quite u n i n t e r e s t i n g     un-
+less there           is some method              for i n t r o d u c i n g new functions                         by       (explicit)
+definition.          We provide           such d e f i n i t i o n s                   through      functional            abstraction.
+Thus if         o     is a t e r m       (with the variable                              x    free in ~ , say) and if
+a    is a given species,                  then we can think of the function                                           f     defined
+on     a   w i t h value         c       for        x~a . Our n o t a t i o n                    for this        function is:
+
+
+                                                 f :VxEa[o]                        .
+
+
+       Most people will consider                         the author slightly mad to use the uni-
+versal      quantifier          for functional                 abstraction.                     Nevertheless,              there is
+m e t h o d in his madness               as will be clear in the next section.                                             In the
+meantime,           the reader may rub out the                                 ~        and replace         if by k , if that
+makes hlm happier.               The idea of functional                                  abstraction          is formalized           in
+the axiom of conversion:
+
+
+(F1)                                 f   :~xEa[o],                 xEa ~ f ( x )             : o.
+
+Note the variations                  of the axiom that can be o b t a l n e ~ by substitution.
+
+
+       To the n o n - c o n s t r u c t l v e       mind           it would              seem reasonable              to adjoin at
+this point the rule of extensionality;
+
+
+                                            A,    xca     ~-       O       =       T
+
+                                            A l--WEa[o]                    :
+
+where       x       is not free in               A. Exactly why this is u n r e a s o n a b l e                              the author
+cannot argue           convincingly              at the moment.                         However,      to leave open possible
+"intenslonal"            interpretations                 of the axioms                       (the same functions may be
+given by different               GODEL numbers,                     say),              it seems better to avoid it. In
+any case it was not required                            for the i n t e r p r e t a t i o n               of logic.
+
+
+       We make one apparently                     harmless                concession             to e x t e n s l o n a l l t y   though:
+
+
+(F2)                                 f = Vx         a[ol                  f = VxEa[f(x)]
+
+This may not really be needed,                            but the equation on the right                                     is a way
+                                                       - 246 -
+
+
+of saying that the principal                       domain of         f    is     a.    (We also c o n s i d e r e d
+h a v i n g an operator         Df = a            for computing          domains,       but dropped the
+idea as unnecessary.)
+
+
+       So much for single             functions,            we must now turn to the c o n s i d e r a t i o n
+of species      of functions.
+
+
+PRODUCT3
+
+Familiar     from set theory,                topology,        and algebra          is the cartesian
+                                                                                         A
+
+(direct)     ~roduct.        Familiar            too is its fundamental                role,     and so It will
+be here.     Given species               ~(x)       indexed by           xEa, we consider all
+functions       f     defined       on       a     such that         f(x)E~(x)          for all      x~a.
+These form          a (basic)       species,         whose existence             we wlsh to postulate.
+First being influenced                by ordinary mathematics,                     we might       call It:
+
+
+                                          Xx~a[~(x)].
+
+But let us stop to think a moment.                           We have d i s t i n g u i s h e d    between    species
+and functions,         because we must give the functions                             a special place.          (In
+mathematics         the idea of function                really       is more primitive             than most
+other notions.)          In p a r t i c u l a r     there     is absolutely           no reason to identify
+a function with a set of ordered pairs as is usual in (pure)                                           set theory.
+For one thing such an i d e n t i f i c a t i o n               is not p a r t i c u l a r l y    constructive;
+for another,         our species          are rather more restricted                         that those allowed
+in set theory.         So another plan may be considered.
+
+
+       Let us reason as follows:                    for the moment             functions        and species     are
+separated.      Maybe      an i d e n t i f i c a t i o n    can be r e e s t a b l i s h e d    that is even
+more    convenient       than the usual one.                  (An i d e n t i f i c a t i o n   is a simplifi-
+cation - h o p e f u l l y    - that avoids p r o l i f e r a t i o n            of entities.)         In our
+case the product             Xx~a~a(x)]                is completely            determined        by the function
+Vxaa[~(x)].           Conversely,            a s s u m i n g as we do that no species                is known to
+be empty,     then the product                   also determines          the function           (this point      is
+not too essential),             Hence,           no one can stop us from m a k i n g               the identifi-
+cation:
+                                     xx      aEo(x)]        : Vx     aEo(x)],
+and we therefore           drop the           X     notation.       Of course,          it remains      to be seen
+whether    the i d e n t i f i c a t i o n       (which was partly             suggested by Professor            de
+BRUIJN'S     style)      is actually              useful.
+                                                                 -    2 4 7    -
+
+
+
+
+       Now that we have                 the idea of p r o d u c t s                    as f u n c t i o n s ,    we can f o r m u l a t e
+the a b v i o u s   axioms.         In the         first         place             we have       an a n a l o g u e    to    (F1):
+
+
+(P1)                                f Wx a[o],                                f(x) o
+Next we also            take an a n a l o g u e         to           (F2):
+
+
+(P2)                                 feVx~a[a]             }-f        : Vxea[f(x)]
+
+Finally        we must      assume        what w o u l d             be an a n a l o g u e          to the rule of
+extensionality:
+
+
+(P3)                       A, x~a         ~    ~
+
+
+
+where      x     is not         free     in    ~ . Axioms                     (P1)    and    (P2)     tell us that the
+elements        of a p r o d u c t       have      the p r o p e r                 character;       while       (P3)     expresses
+the    fact that          any    function          of the p r o p e r                 k i n d must      belong.        In contra-
+distinction          to e x t e n s i o n a l i t y ,      this               rule    is h a r m l e s s :    even t h o u g h       there
+may be s e v e r a l       "copies"           of the       same               function        (given by d i f f e r e n t         de-
+finitions,          say),       we can o b v i o u s l y              demand          that     all the copies               belong      to
+the product.            Note that          (P3)      is very m u c h                  like the rule of u n i v e r s a l
+5eneralization,             and this apt                analogy                will    be e x p l o i t e d     later.
+
+
+       Once we       can f o r m p r o d u c t s ,         they               can be       specialized          to what        are
+usually        called      powers.        For r e a s o n s              that will           eventually          become        apparent,
+we use this d e f i n i t i o n            (which may be c o n s i d e r e d                       as a new a x i o m by pre-
+fixing     the      ~):
+
+
+DEFINITION
+
+                                 [a~b] = V x e a ~ ]                 •
+As a f u n c t i o n            [a÷b]         is the c o n s t a n t                 function           on a, as a s p e c i e s
+the use of the n o t a t i o n                     [a+b]              does not d i f f e r            too m u c h      f r o m the use
+of the u s u a l        category-theoretic                   notation                  f : a+b,         but we have to
+write       fe[a+b].                We also          find that                     + does    indeed behave             like      (intui-
+tionistic)          implication,              but b e f o r e            we d i s c u s s      this     in d e t a i l      the r e a d e r
+might     try this t h e o r e m          as an exercise:
+
+
+
+
+The a s s e r t i o n     results        from       (P1) by the rule                        (P3),     and the part u n d e r -
+lined     s h o u l d be c o n s i d e r e d       as a whole.                      What    is i n t e r e s t i n g   is to the
+                                                          -    248    -
+
+
+
+
+right of the principal                       E, an e x p r e s s i o n       reminding       one of the logical
+a x i o m of u n i v e r s a l   instantiation.
+
+
+       Here    is another          simple exercise:
+
+
+
+
+Is this not also suggestive?                        Would you care to fill in the blank in the
+theorem:
+
+
+                                 [[a               c]]         [[a          b]      [a      c]]]
+(The format         is d e c e p t i v e       because        considerably           more    space for w r i t i n g
+the answer is required                      than is indicated                [) Once you have the idea such
+examples may be m u l t i p l i e d              at will.            (This was clear to LXUCHLI                and
+LAWVERE,       for instance.)
+
+
+SUMS
+       Dual to products                are     (disjoint)            sums.       At this    stage we cannot          expect
+any new,       clever n o t a t i o n a l        inovations               because    our previous          identifi-
+cations have e x h a u s t e d              the raw material                p r o v i d e d by the functions.         So
+if     o(x)      are species            for      x ~ a, the disjoint                     sum (union)       of these
+species will be denoted by a new symbol:
+
+                                                     ~ x ~ a [a(x)].
+
+
+(Note that we can usually                       omit the "of x" by c o n s i d e r i n g               x     a free
+variable       of ~ ; this             is a more         formal           approach but a little harder to
+read.)      In ordinary           set theory          the disjoint                union is identified with:
+
+
+                                        ~      ({x} . a(x)),
+                                       x ~ a
+
+but in our theory the ordered pairs                                  cannot be combined            in such an ar-
+bitrary       fashion.       For one reason,                  we are trying to keep our species
+disjoint       (basic      species           are very much like - a g e n e r a l i z a t i o n               of - the
+types     in the theory of types),                       and so the same ordered pair cannot
+belong to distinct                species.         For another reason,                    the reduction       of dis-
+joint union to ordinary                      (cumulative)             union is not c o n s t r u c t i v e     (inform-
+ation is lost in a cumulative                         union).             These    considerations          thus lead
+to a related but independent                         analysis             of the notion.
+                                                   -   249       -
+
+
+
+
+       What we seem to have to do next Is to provide a separate notion of
+ordered pair for each district                    sum. This is Just a bit clumsy, but the
+author could not flnd a simpler device.                                  Thus the pairing function appro-
+priate to the sum        ~xea[a(x)]                    Is called:
+
+
+                                              Pxea [o(x)]                 ,
+
+and we can state the first two axioms governing this pairing function:
+
+        (SI)    f : Px~a[o],       xea, yea             ~-f(x)(y)e ~xea[a]
+
+        (s2)    f = Px    a[o]            :
+
+
+       Obviously,   the import of these axioms is that the pairing function
+i~s a function of the correct type with values in the desired species.
+This does not yet characterize                    the values as ordered pairs, however.
+
+
+       It seemed necessary to provide a distinct pairing for distinct sums,
+because the coordinates           of the pair do not determine the context of
+their occurence      (at most the             a        and the one                  a(x)   is determined by
+xea       and   yea(x)).         On the other hand, we are quite free to assume
+that the resulting pair                 (Px~a[o] (x)(y))                          does indeed completely   de-
+termine not only the coordinates but the whole sum. Hence we can now
+simplify matters by introducing universal                                     inverse pairing operations
+that require no special mention of context.                                       The notation is given by
+the (bold-face)      subscripts          0        and I, and we have these stralght-for-
+ward axioms:
+
+($3)                f = Pxea[a],xea,yea                      ~       f(x)(y) o = x,
+
+($4)                f = pxea[~],xEa,Y~O                      ~- f(x)(~) I = Y'
+
+($5)                 f = Pxea[o],ze~xaa[o]                           ~        f(Zo)(Z i) = z,
+
+(86)                 ze3xea[a]          ~- Zoea,
+
+(s7)                 z     x   a[oS,x    : zo                z1      o        •
+
+       It takes several statements,                    but all we have said here is that the
+elements of     Ix E a[o]         really do correspond to ordered pairs with
+well-behaved    coordinates.
+
+
+       If the reader wishes a simple exercise,                                    he may prove:
+                                                          -   250   -
+
+
+
+
+GENERATORS
+
+
+       As of now our theory                 is empty,          because we have not yet i n t r o d u c e d
+any species,           and so there are no domains                         on which to define      functions.
+This gap we now fill by p r o v i d i n g the finite                             species    from which all
+the other basic species will be generated.                                     In view of the products       and
+sums, we will only need the first                             few of these         species: ~, ~ ,   and [ .
+These        seem to be independent,                and the author doubts                  that any further
+simplification             is possible.
+
+
+       The species             ~   is to be empty,             but we shall no__~tassume the axiom
+
+
+
+
+at the present.                The a u t h o r cannot put his finger on the precise                    reason,
+but somehow this a s s u m p t i o n             is too strong              (there   is some connection
+here with extenslonality).                    Instead we merely                  remain silent:    no axiom or
+theorem will ever produce                    an element             of ~    .(This cautiousness      is actual-
+ly u n n e c e s s a r y . )
+
+
+       Hence,       if we find one in a h y p o t h e t i c a l                 proof,    we know something    is
+absurd or trivial.                 So m u c h for ~ .
+
+
+       The species ~ is to be the one-element                                  species.    It has a much more
+"positive"          character        than        , and so its axioms are clear:
+
+
+
+(G2)                                     x ~ ~    ~x      : 6 .
+
+Thus 6 is the only element                    of~        . (There is absolutely               no real saving
+in m i x i n g types by the i d e n t i f i c a t i o n                 ~=~,    as we do in set theory.)
+Note that we can easily define                          functions          on ~ , since such a function
+has only one value                 (y, say) and can be defined                     as:
+
+
+                                   Vx ~ [ y ]       :    lily]
+
+       It is quite possible                 that it is sensible                  to generalize    (G2) to the
+following         instance         of extensionality.
+
+
+(G2)
+
+
+This    is g e n e r a l i z a t i o n   because        (G2) can be derived by s u b s t i t u t i n g
+                                                   -   251     -
+
+
+
+
+~x ~ ~ [x] for          f. (The reader may carry out this                         simple    exercise.)        Ex-
+tensionallty       of function           on finite      species          seems unexceptional.              (The
+reader may also use              (G2')    to derive          the rule:
+
+
+                        A~ x g ~ f ( x )       : ~(x)
+                           ~ Wx ~ I If(x)] : W                 ~ 4[g(x)]
+where     x     is not free in A ).
+
+
+       The species ~ i s         to be the two-element                   species.    Since       it must be
+kept    (potentially)        disjoint       with       ~ , it has its own elements                   ~     and I.
+Thus:
+
+(a3)
+(a4)                                ~2.
+To say that these are the only elements,                            we must resort          to a rule:
+
+
+
+
+So much is clear;          what is not yet clear is how to obtain                               functions     on~.
+Constant       or identity       functions        are already            at hand,    but the function
+that interchanges            0    and T      is not.          In general         we must    obtain with the
+aid of a new primitive              operation       the arbitrarily               defined       function    on ~ .
+Suppose       its values     are to be        a     and        b    corresponding          to     ~ and ~ ,
+then we call this           function         [a ^ b]          and assume:
+
+
+(s6)                                ~[a     ^ b](O)          = a,
+(Q7)                                ~[a     ^ b](~)          : b,
+(a8)                                W [ a ^ b] : V x           ~ Z[[a ^ b](x)],
+(G9)                                f = Vx    ~ ~[f(x)]             ~f    = [f(~)^f(T)]          .
+
+This last is extensionality                 for the species               ~.
+
+Here is a useful          exercise:        prove the following:
+
+
+                             [x ^ y] ~ [a ^ b] ~ x E a,
+                             [x ^ y] ~ [a ^ b ] ~ y ~ b,
+                              x ~a,y~b      k[x ^y] ~ [a^b]
+
+Thus the reader         can see that nat only does                       [a ^ b]     play the role of an
+ordered    pair,    but it is also the same as the finlte                            cartesian       product
+we usually       call     [a ^ b].        (But the ordered               pairs    are necessarily          distinct
+                                                    -        252 -
+
+
+from the pairs we n e e d e d for sums;                      sad but true.)             If he likes,    the
+reader may also fill in the blanks                           in these theorems:
+
+                                                        ~r
+                                                        L La ^       b] "    a],
+                                               ~ [[a^b] -h],
+                                               ~ [a- [b ~ [ a ^ b ] ] ]
+Suggestive?
+Now that we have finite products                    we should also try to obtain                       finite
+sums.   Fortunately,           these     can naturally               be identified         with combinations
+already available.             By analogy with               (G8) we have this d e f i n i t i o n       instead
+of a new axiom:
+
+DEFINITION
+                  [a Vb] : 3x c ~ [ [ a ~ b ] ( x ) ] .
+
+We find here a new quality of the expression                                   [a % b](x).      In fact, this
+is what is usually             called     in computer            science now the conditional                  ex-
+pression.      If     x = O, the value         is            a; otherwise          if    x = i, the value
+is   b. Ready for your exercises?                   Fill in the blanks,                    please:
+
+
+                                               E [a ÷ [ a v ' b ] ] ,
+                     I-                        ~ [ b - ~ [a V b ] 1 ,
+                     F-                            [[a -~ c] -~ lib -, ci -~ [ [ a ,, b]                 +    c]].
+
+     After so many of these exercise,                          surely the reader is getting the
+point and can begin to guess at a general                               statement.
+
+
+     It would be possible                to identify ~                with     [@~,         but note we could
+not define ~ without                 the aid of ~        . Thus,        this circularity         does not seem
+to get us anywhere.              However,    if we needed the species,                       we could define
+
+
+                        ~:      [~V~],      g~ =        ~ #3],          etc.
+
+
+     The reader should check                (and it is not all that pleasant                          to do so)
+that arbitrary          functions        can indeed be defined on these                       finite    species
+in terms of the constructs                 already           available.
+
+
+TRANSFINITE CONSTRUCTIONS
+
+     The m a t h e m a t i c i a n   has the advantage                over the "ordinary"            mortal    (a
+finite mind)        of g r a s p i n g   (some of the properties                   of)     infinite    species.
+Or at least that is his conceit,                    and the author has no desire to argue
+                                                              -    253    -
+
+
+
+
+against          that attitude.            Neither           does he want to waste                         the time to glori-
+fy this ability                 but rather         wishes          to make          "visible"          the underlying
+mechanism.           What       is about       to be formulated                     is hardly          original,          but the
+new theory            in which       it occurs           does seem to possess                         advantages          over
+previous          proposals.
+
+
+       The idea is simple.                   Suppose          one is given a species                          a, then many
+functions            can be defined            on this            species          (assuming          some elements            are
+known          !). In particular             suppose          we have a special                      object       O    (better:
+O(a)           to show its dependence                  on a) which will be an element                                 of a yet-
+to-be          specified        species~         (better:~7'(a)).                   Now we can at one form a
+function          from      a     into~,         namely        the constant                function            ~a + 0]. Call
+hhis       function         u     for the moment.                 Why not put                  u 6~         and assume           u
+and        0     are distinct?           This way we can try to form even more                                        functions
+in     [a ÷ ~ ] ,         because        some new values                      for functions            are now available.
+And then we want to put those                            functions                in ~     and to continue                this
+process          in an Iterative             fashion.         There            is only one defect                 with the plan:
+the functions               u     already        belong        to certain                species           (u E   [a + ~ ] )         and
+are not available                 for other Jobs.                 The solution                 is easy:       we send instead
+of     u        a proxy     called         u +. To be precise,                      we assume these               axioms:
+
+
+(T1)                              ~- O(a) g ~ ( a ) ,
+                                                                           +
+(T2)                              u ~     [a ÷ ~ ( a ) ]           ~      u E      ~     (a)
+
+
+       So far the axioms                 give positive                   results         about       certain      elements
+belonging,           but we need more:                 a principle                of (transfinite)                induction          to
+assure         that these are the only elements                                   (cf.(G5)       in the finite             case).
+Here is a possible                 formulation:
+
+
+
+A ~- [O(a)/t] [~]~[O(a)/t] IT]
+
+A, u ~ [ a + ~ ( a ) ] , V x c a [ [ u ( x ) / t [ ~ ] ] ~        ~ x ~ a [ [ u ( x ) / t ] [~]]           ~- [u+/t] [~]~[u+/t] [T]
+
+                                      A, t ~ ( a )           ~- ~ T           ,
+
+where          u,t    are not free in                  A. We can also take                       =     instead        of ~, but
+this only seems useful                     for finite               a. Nevertheless,                   let us assume             it as
+(T3').         The lack of extensionality                          for functions                on infinite           a     may make
+the use of these axioms                      somewhat         less         interesting.
+
+
+       Intuitively              (following         Tait       ~8])         the elements               of     ~(a)         can be
+considered           as trees.          Thus       0     is the null tree and                          [a ÷ O] +          is the
+                                                            -    254    -
+
+
+
+
+tree of r a n k        ~ . There         are      (in general)                many       trees      of rank2~.            Suppose
+we take         a = 2, then any d i a g r a m                   such as           :
+                                                                 ÷
+
+
+
+
+can be c o n s i d e r e d       as d e t e r m i n i n g       a function.              Here       u = [0^[0a011                 and
+    +
+U       is our      (abstract)          tree      of rank ~ .                An so on to the h i g h e r                  ranks.
+
+
+        The case         a = 2         leads      to the more                beautiful           diagrams,           but the case
+a = ~       is also of i n t e r e s t            (while             a = ~         is not).          Indeed T(~)               can be
+considered          to be the species                 of integers.                 Let us w r i t e             U4 = ~ ( ~ )     and,
+for the m o m e n t ,       0     for        0(3)       and n +             for       [4~      n] +. T h e n a m o m e n t s
+thought        shows us that              (T1),       (T2),          (T3),        and    (T3')       specialize           to o b v i o u s
+closure        and i n d u c t i o n    principles              for the           integers.
+
+
+        Just    as with         finite       sets,     we do not have                    enough       functions           on the
+new species          unless       we a s s u m e      some a d d i t i o n a l           axioms.        In the case of an
+inductively          defined        species         such as T ( a ) ,                 the p r o p e r m e t h o d        is to
+supply      functions           defined       by r e c u r s i o n .         That       is the p u r p o s e         of the
+operator        ~ :
+
+
+(T4)       f = ~ v [a,b,o]              ~= f ( O ( a ) )        = b
+(T5)       f : ~      v [a,b,o],          u ~ [a ÷ ~ ( a ) ] , v                  : ~/x E a [ f ( u ( x ) ) ]         ~- f ( u +) = ~,
+(T6)       f = ~       v[a,b,a]          ~     f : Vt       ~ ~(a)[f(t)].
+
+
+
+This     completes        the list           of f u n d a m e n t a l        axioms.
+
+
+        As an e x a m p l e      of a d e f i n i t i o n       by r e c u r s i o n ,         we define           the i m p o r t a n t
+notion      of the nodes            of a tree.             We will           define         an o p e r a t i o n
+nd(a)      = ~t     ~ ~(a)[nd(a)(t)],                  whose          values          are    species.           Obviously,        what
+we want        are these         two theorems:
+
+
+                                    nd(a)(O(a))             :
+                u ~ ~       ÷~(a)]           ~ n d ( a ) ( u +) :           [~ V 3x         E aEnd(a)(u(x))]].
+
+The way to o b t a i n t h e m is to define:
+
+
+DEFINITION
+
+                   nd(a)        : ~v[a,~, [~v~x                  E a[v(x)]]]
+                                                               -   255      -
+
+
+
+
+       Then    the d e s i r e d         theorems          will be d e r i v e d            from      (T4) and         (T5).      We
+can then d e f i n e         such n o t i o n s         as a l a b e l e d           tree:      that      is a tree             t E~(a)
+together       with a f u n c t i o n               1 = ~n      e nd(a)(t)[l(n)]                    and so on.            (The tree
+we employ         seem less            general        at first            sight         t h a n those       of T A I T     [18], but
+the idea of a l a b e l e d                 tree     is a c t u a l l y          more    general        than T A I T ' S        notlon.)
+
+
+       It may be that                 the o p e r a t o r      ~         is d e f e c t i v e ,     because        the a u t h o r
+can see no way of d e f i n i n g                    a function                 (call    it pred,         say)     such that
+pred      (0) = 0           and pred             (u +) = u. That                  is, we have not a l l o w e d                 our
+recursive         functions            at      u+     to d e p e n d            not only       on the p r e c e d i n g         function
+values,       but also on the p r e c e d i n g                    arguments             - the o p e r a t i o n       pred      is a
+simple     example.          In the case of ~                   finite            this    seems       to be no problem,
+but    for i n f i n i t e        a      one     sees no easy r e d u c t i o n                 of the more            general
+kind of r e c u r s i o n         to the         simpler        one.            If this     is so, we s h o u l d           probably
+replace       ~    by ~ a w i t h an a p p r o p r i a t e                axiom         such as:
+
+
+(T5')                      f = ~'u,v[a,b,a],                  u e [a ÷ ~ ( a ) ] ,
+                                                 v :Wx        ~ a~(u(x))]                  ~ f ( u ÷)     : a .
+
+
+That may       look the              same as        (T5),     but note             that        u    is now a b o u n d v a r i a b l e
+in ~ 'u,v[a,b,~]                 :     that m e a n s       that          u       occurs       in the same way on b o t h
+sides of          f(u +) = c             as desired.
+
+
+       In case        ~      is a finite              species,            then ~ ( ~ )             is d e n u m e r a b l e .    On the
+o t h e r hand,       if     ~        is I n f i n i t e      (say ~ = Jq = ~ ( ~ ) ) ,                 then ~ ( ~ )            is non-
+denumerable           (the ranks             of these         trees             - classically           anyway       - w o u l d be
+ordinals       of the        second number                 class).
+
+
+       We c o u l d then go on to i t e r a t e                      T           and f o r m       T(~(~)),       ~(~(T(~))),
+and so on - even into                       the t r a n s f i n i t e ,          these new         species       are ever l a r g e r
+and more       complicated,                 but at the m o m e n t                the a u t h o r     does not r e a l l y            know
+how to m a k e g o o d use of a n y t h i n g                   worse            than     T(0W)     - which        seems        to have
+been BROUWER'S              limit        - at least           for o r d i n a r y         analysis.          But we agree
+with TAIT         [18]      that       there        appears        to be n o t h i n g          that will          stop us at
+the s e c o n d    step.         This,       by the way,            seems          to a n s w e r B I S H O P       ~],     who asks
+whether       there        Is any        structure           (of a c o m b i n a t o r i a l          rather       than     function-
+space nature)              beyond        the integers.              Thus           T(~)        is just the           index       set
+one needs         for the p r o p e r            definition              of B O R E L     sets,       for example,              which
+in    [i] w h e r e    defined           by B I S H O P     only         in an i n t u i t i v e ,        non-formal            way.
+                                                   -   2 5 6   -
+
+
+
+
+INTERPRETING        LOGIC
+
+        We have already        introduced        the operators                ~,~,^,V,       ÷,      though the
+reader may not have yet a p p r e c i a t e d Just why we used symbols                                  from logic
+in the way we have.            All will now be e x p l a i n e d              satisfactorily,             let us
+hope.     But before we do, we need the notation                          for the remaining                 logical
+operators:
+
+
+            DEFINITIONS
+                                           T :4,
+                                           _[
+
+                                     [a    b]   = [ [a÷b] ^ [b-a]]
+Let us begin with an example of a (valid)                              logical       formula:
+
+
+           yx     a[[P(x)    + Q(x)]]       .                             -
+
+        Now as this stands           (except maybe             for the pedantic            bracket        con-
+ventions        and the use of the           capital Roman letters                   P    and      Q) it can be
+read both as a formula of ordinary                      predicate         calculus          (with variables
+restricted        to a given domain             a) and as a term of our theory of con-
+structions.        Call the f o r m u l a ~ .      The reason that               ~        is i n t u l t i o n i s t i -
+c all~    (constructively,           if you prefer)            valid is that there                 is a specific
+term      T (involving both of the variables                       p     and     Q       as well as a) such
+that the a s s e r t i o n
+
+
+
+
+is provable        in the theory of c o n s t r u c t i o n s . ( T h e         blank can be filled in,
+as we did in several            elementary        exercises            already.)         It is just as
+Professor HEYTING            said:
+"The proof of the t h e o r e m consists                in this c o n s t r u c t i o n         itself,       and the
+steps of the proof are the same as the steps of the m a t h e m a t i c a l                                     con-
+struction".
+Of course,       we have aided the "intuitively                        clear mental          acts" by our
+formal rules        for o p e r a t i n g with constructions.                  Thus we can ask a
+machine     to check over our proof               (as P r o f e s s o r DE BRUIJN wants to do).
+
+
+        We are a little hasty here               : the exact            term     T       required above has
+not yet been exhibited.              It is rather long to write down,                             and so we shall
+arrive at it indirectly.                  Instead of showing why ~                   is valid          (notation:
+    ~     ), we shall rather establish                  the validity of this sequent                          of
+                                                                    -    257 -
+
+
+logical        formulas:
+
+
+             V x e a[EP(x)              ÷   Q(x)]], ~ [~x                        c a[Q(x)]],               Vx e alP(x)]                 ~'_k •
+
+In g e n e r a l ,       to e s t a b l i s h        the v a l i d i t y          of a s e q u e n t           of l o g i c a l      formulas:
+
+
+                                    ~o'          ~I'        "'''~n-I               ~      ~
+
+we read t h e m as terms                    of the t h e o r y                 of c o n s t r u c t i o n s         and p r o v i d e    both
+a term         •     and a p r o o f             in our t h e o r y              of the a s s e r t i o n :
+
+
+             A, t o c ~ o '            tl    c ~1'           ''''        tn-1 ~ ~ n - 1                  ~:~   T ~
+
+
+where         to,...,tn_ i              are          fresh,       distinct             variables,              ~      contains         the
+proper        information              about          the    free v a r i a b l e s            - including               the p r e d i c a t e
+variables           - (and m o r e on this                       later),          and where                T       may i n v o l v e    all
+the v a r i a b l e s .       This m e a n s           that       giving          the     constructions                  establishing
+the ~ i            we can always                 find       (in a u n i f o r m           way by m e a n s             of      T) a c o n -
+struction           which       establishes                 ~.
+
+
+       Returning              to the example,                    if we have               t o 6 Vx             g a[[P(x)            ÷ Q(x)]~,
+t I e ~[Vx               E a[Q(x)]]              and        t 2 e Vx             e alP(x)],              then we can c e r t a i n l y
+find a t e r m             • ~.         Indeed,             we can let:
+
+
+                                : tl(~X              e a~o(X)(t2(x))]),
+
+and it is a m i l d l y                interstlng                exercise           to v e r i f y         that this           is correct.
+(By the way the use                     of s u b s c r i p t s           here       is not to be c o n f u s e d                    w i t h the
+subscripts               ZO      and        ZI        for d i s j o i n t         sums as t h e s e                subscripts          0 and i
+will be p r i n t e d            in b o l d - f a c e        type.)
+
+
+       As a second              example              consider           the w e l l - k n o w n          law of c o n t r a d i c t i o n
+
+
+                                                 [P ÷ [ " l I P ]          ÷    Q]] '
+
+We     should       try to f i n d               T     such that
+
+
+                                       to e P ,          t 1 E ~[P]              [~ ~ ~        Q.
+
+
+This     cannot          be done        unless           ~ = ~           is     really         assumed             empty,      which     we a r e
+reluctant           to    do.     S o we s l d e - s t e p              the     issue         by    adjoining            (as    part     of
+the      a     mentioned            above)            a side        condition             on       the    variable             Q:    namely
+                                                 -    2 5 8    -
+
+
+
+
+qa[1~Q].     Then • : q(tl(to))            gives the answer.                     This should         be done for
+ all the propositional             variables    in general                - and for the predicate
+variables      too. Thus     if we wanted to establish                          the validity         of       :
+
+
+                     ~yEa~x~a[[P(x)          + [~[P(x)]               +   Q(Y)I]]],
+we would prove        :
+
+
+             qE[~÷Q],     yea,      xsa, tocP(x) , tlE~[P(x) ] ~ - ~ s Q ( y ) ,
+
+where      T = q(tl(to))(y)           in this case.                Correct?          No! we should also have
+ the hypothesis        Q = Vxsa[Q(x)]          to be able to pass                          from    q(ti(to))sQ
+ to     ~¢Q(y),    but that        is all quite         reasonable.
+
+
+        We can think of        A     as the complete                list of the declarations                      of the
+types of the variables.              In case of predicate,                      we must       indicate         their
+domains     and number     of arguments,             as well as providing                     for free such
+ qe[1~O].    We require      no more      formal        statement              for     A     for the present.
+
+
+        As a third    example       we establish              the validity           of a law of double
+negation     :
+
+
+          [Vx~a[[-l[7[P(x)]]         -* P(x)]]÷[l[-IEVx~a[p(x)]]]-~Vx~a[P(x)]]].
+
+Thus    suppose   that     toSVXCa[[TE-iEP(x)]]÷p(x)]]                          and that tlC-l[qE~sa[P(x)]]].
+Then as the reader can easily verify - if he has the patience                                                 - the
+construction that belongs to Vx~a[P(x)]  is
+
+
+             Vx~a [to(X ) (Vuc-1[P(x)] [t1(~vEVx~a [P(x)] [ u ( v ( x ) ) ] ) ] ) ]                       .
+
+(The main point       of this particular              example             was to show how complicated
+and overloaded       with brackets         the terms               can become.         This       is not to be
+regarded    as a conceptual          drawback,        however.)
+
+
+       One major point has been left unexplained                               : our examples         were com-
+pound    formulas,    but when we exhibited                    constructions               we broke the impli-
+cations    up into simpler parts.            The justification                       of this procedure                lies
+in the proof of the deduction               theorem            : if
+
+
+                                        (~o, ~ q ,       ...         ~     ~
+
+is valid,    then so is
+                                                         -    259    -
+
+
+
+
+(Let     ~       be the term establishing                 the validity                    of the first       sequent     then
+~toE~o[~ ] - except             for a quibble            about           subscripts             - is the term we need
+to establish          the validity        of the second                    sequent.)            It may safely    be left
+to the reader to establish                    modus      ponens            :
+
+
+                                ~o'    [(~o    +~1 ]          ~1               '
+and since the analogues                 of all the inference                           rules     (I1)-(I5)    for logic
+are also clearly            valid,     we have all we need for intultlonistlc                                    impli-
+cation.
+
+
+       Furthermore,         the reader,         without             realizing             what he was about        (or
+maybe he did!),            has verified         In the previous                         sections    al_~l the other
+axioms       of Intuitlonistic           propositional                   calculus.          Thus we can take that
+as firmly          established.
+
+
+       Finishing         up the predicate           calculus,               we note that we have already
+done the axioms            of Instantiation.              Therefore,                    it only remains       to discuss
+the rules         of senerallzatlon            :
+
+
+                                                   ~o, ~I,           ...           ~
+                                                                     . .
+
+
+
+
+where        x     is not free In the              ~i'       and
+
+
+                                                   ~ o , ~1,         ...           ~
+
+
+
+~here    thls tlme          x    Is not free In               O(1'         "'''~"          (Let     T    be the term
+establishing          the validity        of the hypothesis                            of the    first   rule.   Then
+VxEa[T]           establishes     the conclusion.                   Let            o , on the otherhand,          establish
+the validity          of the hypothesis             of the second rule.                          Then
+[(to)@/x~[(to)%/to]O                  is the required                term for the conclusion.                    (Note
+the bold-face            subscripts!))
+
+
+       Though       our examples        were restricted                    to monadlc            formulas,    the pro-
+cedure       is quite general;           and we can claim that                            we have given a "mathe-
+matical"         basis    (foundation)         for the whole                       of intuitionlstlc         predicate
+logic.       (By the way,        our pedantic            notation                  for binary      relationships        is
+P(x)(y),         and similarly         for more       arguments.)                      It seems quite      reasonable        to
+suppose          tha~ the proof of L~UCHLI                   [14]        can be transposed               to this theory,
+                                                    -   260    -
+
+
+
+
+and that we can establish                the faithfulness              of the i n t e r p r e t i o n    (formulas
+valid on our interpretation                 are indeed provable                  in HEYTING'S        calculus).
+The author has not yet had time to work out the details,                                      however,
+LEUCHLI did not discuss h i g h e r - o r d e r               logic     (though LAWVERE            did), and
+we wish soon to consider a p a r t i c u l a r l y                 mathematically         important         theory:
+higher-order        analysis        - but withou~ the free choice                     sequences.         Before
+we do this,        however,        we must review the progress                    of our program.
+
+
+REVIEW
+      We began by r e g a r d i n g      species        and constructions            as m a t h e m a t i c a l
+objects     and found that there were some simple axioms                               governing their
+properties.        It then became         slowly apparent              that these properties                were
+highly analogous          to properties          familiar          from formal       logic. We then
+turned this analogy            into a dogma by i n s i s t i n g that the logical                        formulas
+be read     (better      : interpreted)          as (mathematically                meaningful)          terms of
+the theory       of constructions.            This i n t e r p r e t a t i o n    requires     that validity
+be asserted by the act of g i v i n g an explicit                         construction         b e l o n g i n g to
+the   (interpretation          of the)      formula.          Validity      is e s t a b l i s h e d by giving
+a proof from the axioms               for constructions               of the m e m b e r s h i p   assertion.
+
+
+      The next step is to argue that the i n t e r p r e t a t i o n                     is "correct",             but
+so far all we have done is to check the validity                                  of the expected           formulas.
+Thus the situation must be examined in more detail.                                  For one t h i n g        :
+have we verified BROUWER'S                "main thesis"             ? Which is prior            : logic or
+mathematics?        Well,    the answer all depends                   on what one means by logic
+(what is m a t h e m a t i c a l   seems much clearer).                In order to organize               the
+mathematical        properties        of the constructions                into a coherent            body of
+knowledge,       we had to set up some rules of deduction                             (I1) - (I5) and
+some general        axioms     such as (El) - (E2). This represents                          simply a codi-
+fication of h y p o t h e t i c a l    argument         (if such and such conditions                    are ful-
+filled,     then another condition               follows).         If one can hazard a guess,                      these
+principles       are so self-evident             that B R O U W E R may never have ever given
+them a moments'         thought.       This    is the realm of urlogic,                   without       which
+(in the author's          opinion)      mathematics            (and even coherent            thought)         is
+impossible.       All of these principles                 are used naturally              in an unconscious
+fashion.     What BROUWER probably meant                      by "logic"         was the elaborate
+RUSSELL-WHITEHEAD           theory of p r o p o s i t i o n a l       operators,       quantlflers          and
+propositional        functions        and the kind of logic that                    is meant when RUSSELL
+says that m a t h e m a t i c s    is reduced to logic.                The author considers               that
+today there       is a general         agreement        that RUSSELL was wrong                 (or at least
+over-optimistic).           The type-theoretlc                / set-theoretic           foundation         for
+                                                  -    261        -
+
+
+
+
+mathematics       is not pure logic,             because              axioms about abstract               entities
+are required - and this falls on the m a t h e m a t i c a l                           side of the line bet-
+ween the subjects.
+
+
+     Now what the author feels he has d e m o n s t r a t e d                          here is that            - granted
+urlogic    - the combinatorial               aspects         of       (constructive)          logic      can be
+given a "mathematical"              foundation by the theory of constructions.                                       Of
+course,    the axioms         for constructions               are not so different                     from the
+axioms    for logic        ((P3)    is a rule of u n i v e r s a l              generalization).               Never-
+theless     a certain reduction has been effected                                (implication           and quanti-
+fication out of the same operator V, for example)                                      and a considerable
+amount of clarity has been gained                      : one can prove the various proposi-
+tional formulas          from the more elementary                       principles        about        constructions.
+
+
+     Professor       CURRY hoped for a similar reduction based on his theory
+of combinators,          but the author does not feel that                             illatlve         combinatory
+logic    (of. [3] and        [4]) has reached a high enough of development                                      to
+Judge it successful.
+
+
+     In p a r t i c u l a r the author wonders                w h e t h e r CURRY'S         long struggle with
+the many headed m o n s t e r of the partial                          function was a serious tactical
+error.    (Note in this          connection       the remark in footnote                       3, p.296 of            ~]:
+"It seems best to proceed with these                          features           (of partial           functions)         and
+introduce      refinements         later in the lllatlve                     theory".)
+
+
+     One of the author's              statements        in next to last paragraph                         requires
+further discussion            : why are properbles                     of constructions            "more element-
+ary" than valid p r o p o s i t i o n a l       formulas?              From the point of view of class-
+ical two-valued          logic this          is simply not so. But one must keep in mind
+that we are i n v e s t i g a t i n g    propositions                 here in a constructive               way. Thus
+a proposition        does not simply degenerate                         to one of two truth values but
+instead is represented              by a complex species                     of possible         constructions
+that conceivably          can be used in its validation.                            F r o m this constructive
+point    of view p r o p o s i t i o n a l    formulas        are not so trivial.
+
+
+     Now what about the interpretations                               of the logical          connectives            : are
+they "correct"?          Take implication             first.           Assuming       for simplicity            that no
+hypothesis       of declarations             are required,              what must be done in order to
+establish        [~÷~]?        One must produce               a construction              together with a
+proof that this c o n s t r u c t i o n        transforms              every c o n s t r u c t i o n    that    could
+establish 06 into a c o n s t r u c t i o n           for ~ .
+                                                                -   262   -
+
+
+
+       T h e       construction         is an object                of the theory          while    the proof       is an
+elementary               argument      about       the theory.                KREISEL    [13]    calls    such proofs
+'judgements'               and asks        for an abstract                    theory    of them.    We have not pro-
+vided this because                    we did not see why such a theory                            was needed.       The
+reader may decide                   : have we or have we not                         carried     out the spirit       of
+HEYTING'S            interpretation            of implication?                   Of course,       this    is not new       :
+the K R E I S E L - G O O D M A N      theory       can be Justified                   by a similar       discussion.
+The author               only wants      to claim that his theory                         is simple,       and as yet
+t h a t there            is no demonstrated                  need    for "abstract"             proofs.    (But see
+postscript.)
+
+
+Conjunction               :
+       To establish                 [~6^~]         one must          produce         a pair of constructions              the
+first          of which provably              justifles             ~,        and the second       ~.
+
+
+Disjunction               :
+       To establish                 ~^~]           one must produce                  (another     kind of) pair whose
+first          coordinate          is either            ~      or    T    : if       ~, then the second           coordinate
+Justifies           6;        if   T , then ~ .
+
+
+Truth          :
+       The justification                 of        ~-       is known because              6~.
+
+
+Absurdity            :
+       No justification                 of     ~        (=~)        is known.
+
+
+Universal            quantification            :
+      To establish                 ~xEa[~           one must produce                   a construction       that maps
+every element                 of the domain             into a justification                of the corresponding
+instance           of 06.
+
+
+Existential               quantification                :
+       To establish                ~xca[~]          one must produce                   a pair whose       first    coordinate
+is an element                 of the domain             and whose         second        coordinate       provably    justi-
+fies the corresponding                       instance           of ~ .        This     completes    our review and
+our argument               for "correctness"                   (cf. also discussion               in MYHILL       [16] and
+in T R O E L S T R A          ~0]).
+
+      One last topic                  before       we turn to "real"                   mathematics.       KREISEL has
+often          stressed        that the reason                 for having         abstract      proofs     is to make
+the proof predicate                    decidable.            Otherwise           there    is no reduction         in logical
+                                                         -    263    -
+
+
+
+
+complexity     when one says that                 i m p l i c a t i o n means that            if you have a proof
+of the hypothesis,           then you know a proof of the cnnclusion.                                    In our
+theory we have replaced proof by c o n s t r u c t i o n                            and of by membership.                But
+our theory of m e m b e r s h i p         is a completely                      'positive'    theory,     and we have
+no way of f o r m u l a t i n g an assertion                    to the effect          that every object                is
+either a member         or n o n - m e m b e r    of a given species.                   Likewise,        we have no
+superlarge     functions         to serve as                  (~ - ~ - valued)              characteristic             funct-
+ions of species.            (TAIT and GOODMAN would allow such functions,                                      but then
+the door is opened to the murky                      combinators.                  So the question        is    (and it
+is a quite serious           question)           : are these d e f i c i e n c i e s           a real defect             of
+our theory     and has the attempted                         formalization           of the basis        for intuit-
+ionistic    logic aborted?
+
+
+     The question of d e c i d a b i l i t y                 was asked by LACOMBE at the lecture.
+The author cannot           at the moment            give a definite                  answer to this question.
+The best he can do is to formulate                              a conjecture.          You see,        from the
+definition     of validity          of logical                formulas           every such assertion           can be
+put in the form         :
+
+
+                                                    ~-        O~T        .
+
+
+(All the variables           on the left-hand                       side of the        ~     can be moved over
+by   (P3) to the rlght-hand               side.      Likewise                  for the side conditions             in-
+cluding     p~[~÷P].        There only remain the equations                             of the form
+P : VxEa[P(x)];         but by       (F2) these will disappear,                         If we substitute
+Vx~a[P(x)]       for      P. Of course,            the formula                   is no longer either beautiful
+or readable,       but that        is beside the point.)                          So then, we have the             :
+
+
+FUNDAMENTAL      CONJECTURE
+     There is a (primitive recursive)                               decision m e t h o d      for the p r o v a b i l i t y
+in the theory       of constructions               for assertions                   of the from         ~- a ~ .
+
+
+     Even if the answer is yes to this question,                                      it may not satisfy
+KREISEL.    The d e c i d a b i l i t y   is external to the system rather than a con-
+dition h a v i n g an internal            formulation.                       The question may also be related
+to the "normal-form"             p r o b l e m that de BRUIJN has e n c o u n t e r e d                  in his
+system.    It may be that the current proof t h e o r e t i c a l                             work on G~DEL'S
+theory T    (by TAIT and HOWARD,                 among others)                    sheds light on the problem,
+because    the theories          are related.                The only thing the author can definite-
+ly contribute       to the d i s c u s s i o n       at this moment                  !s that there        can be no
+decision m e t h o d    for assertions             of the h y p o t h e t i c a l           form   :
+                                                                 -   2 6 4   -
+
+
+
+
+                OoeT o, OleT 1, ..., O n _ l ~ T n _ 1                            ~-- OneT n .
+
+
+We w i l l p r o v e this r e s u l t           even for the f r a g m e n t                        b a s e d on      (FI) - (F2),
+(PI) - (P3).            (This       is a s t r o n g e r not w e a k e r                   result,           because        it seems
+reasonable          to s u p p o s e      that a t h e o r e m               in the pure t h e o r y                of f u n c t i o n s
+and p r o d u c t s    that        is p r o v e d w i t h the aid of the o t h e r n o t i o n s                               can be
+proved without              them.        But this has not b e e n                         formally           established.)              Now
+if we a l l o w e d        equations         in the h y p o t h e s i s ,                 the u n d i c l d a b i l i t y      is immed-
+iate     : any c a l c u l u s        of c o n d i t i o n a l         equations             between          arbitrary          functions
+is u n d e c i d a b l e    in v i e w of the w o r d p r o b l e m                       for s e m i g r o u p s .      For example,
+we can e a s i l y p r o v e          in our s y s t e m             :
+
+
+
+
+                                                              f(f(g(x)))                  = f(g(g(g(f(f(x))))))
+
+
+In o t h e r words,           any d e d u c t i o n         from generators                      and r e l a t i o n s      written        as
+functional          equations            can be c a r r i e d out                  for the " s e m i g r o u p "            of f u n c t i o n s
+on a d o m a i n      in our c a l c u l u s .          Now we h a v e not                   dicussed models                 for the
+theory      and shall not be able to do so in t h i s p a p e r ,                                             but w i t h t h e i r aid
+we can see that,                 conversely,            every          equational                result       p r o v e d by pure
+semigroup methods.                  Hence,      there         can be no d e c i s i o n m e t h o d                    for the
+calculus.
+
+
+       We n o t e     in p a s s i n g that         the e q u a t i o n                in the       conclusion           - w h i c h was
+written       between         elements         and not b e t w e e n                   functions            in v i e w of the l a c k
+of e x t e n s i o n a l i t y     - c o u l d even have b e e n e l i m i n a t e d                         in f a v o r of m e m b e r -
+ship s t a t e m e n t s .       Thus     (and this no doubt                           can be e s t a b l i s h e d         w i t h the
+aid of m o d e l s )        an a s s e r t i o n        a    ~          : T        is p r o v a b l e        if and o n l y        if      A,
+h(~)~b       ~- h ( T ) ~ b      is p r o v a b l e ,       where            h     and       b      are n e w v a r i a b l e s .        Or
+even     if t h i s    is not the            case in full g e n e r a l i t y ,                       enough        is t r u e to a p p l y
+to " s e m i g r o u p "    equations;          because              for t h e m we n e e d only                    consider         domains
+with a characteristic                     function           for i d e n t i t y .           This       simple-minded              approach
+does not,         however,          eliminate           the e q u a t i o n s             in the h y p o t h e s i s .
+
+
+       To e x p r e s s     deductions          with         semigroup                 equations            entirely        with member-
+ship s t a t e m e n t s ,       we i m a g i n e   a function                     e      s u c h that        for      x,yza         the
+value       e(x)(y)           is     T     in case            x = y,              and is          -[- o t h e r w i s e .    We w i l l
+require       nothing         special        about          "7- and              _~     and c o u l d just t h i n k of t h e m
+as f r e e v a r i a b l e s       - in fact,-/_              w i l l not              e v e n a p p e a r but was j u s t
+mentioned         for d e f i n i t e n e s s .     W i t h this                 idea about             e     we r e c o g n i z e      several
+                                                              -   265   -
+
+
+
+
+correct statements about it (where we omit some tiresome brackets)                                                      :
+
+
+(1) Vxca VtcT[t] cVxca[T+e(x)(x)]
+
+(ii) VxEa ~ y E a ~zsa ~tET~u~e(x)(y)~vEe(x)(z)[t]s~xca                                          ~ y s a ~zsa['~÷[e(x)(y)÷
+
+                                                                                   [e(x) (z)÷e(y)(z)]]]
+
+(lii) VfE[a÷a]Vx~a V y E a ~ t ~ T V u , e ( x ) ( y ) [ t ] ~ f ~ [ a ÷ a ] ~ x E a                ~y~a[T+le(x)(y)+
+
+                                                                                  e(f(x))(f(y))]]
+
+
+Statements           (i) - (iii) express that                           e   is very much like an equality
+relation on the domain - at least in some formal sense. Next we con-
+sider a typical               (defining)          relation between given (generating)                           functions
+f     and      g     for our "semigroup"                  :
+
+
+(iv)        Vxea V t E T [ ~ ] ~ ~ x e a [ T ÷ e ( f ( g ( x ) ) ) ( g ( g ( f ( x ) ) ) ) ]
+
+
+We can call (iv) the translation of the 'equation'                                              fg = ggf. Now if we
+let     A      be the sequence               (i),     (ii),         (iii),        (iv),    fc[a÷a],       gc[a÷a],      then
+it is fairly simple to see that                                   A ~       can be proved, where                ~     is the
+translation of the equatlon                           ffg = ggggff.               Furthermore,       if     6       is the
+translation of some other equation,                                 then it is intuitively                 clear that
+A ~           is provable in our calculus if and only if there is a semigroup
+deduction of the equation from the given                                          fg = ggf. Hence, the undecldab-
+illty result follows with 95% certainty.                                     The status of the conjecture
+remains open, however.                     (The undecidability                    result       is not all that inter-
+esting, but it is a non-trivial                            exercise in the theory of constructions
+that gives some insight into the expressive power of the calculus.)
+
+
+       By the way, in the case where recursion is available                                           in the theory
+it seems very likely that there is no decision method for assertions
+~acx          either.       For suppose the ~erm                        p   represents          (a standard definition
+of) a primitive recursive                        function.           Surely there is no way to decide the
+provability              of such assertions               as
+
+
+                   (~)                     n~--           p(n) : 0            .
+
+Now let                  be introduced by recursion                         so that
+
+                                            ~{(0)        = 0 , and
+
+                                           ne~       ~    ~(n +) : ~ .
+                                                     -   2 6 6    -
+
+
+
+
+It seems reasonable       to suppose                that
+
+
+
+
+is provable    if and only if (a) is provable.                              Hence,       there    could be no
+decision    method.   - This will require                         some more thought.             Maybe there    are
+some sensible     restrictions            to put on the theory,                        or maybe    one is only
+interested    in special       cases       of        ~eT.
+
+
+INTERPRETING    ANALYSIS
+    Of course,     by analysis            we understand                  higher-order       arithmetic,       since
+for foundational      purposes         we do not need to discuss                          here the mathematical
+theory   of the real numbers              - the reduction                  of the reals to          (sequences       of)
+the integers     is assumed known.
+
+
+    We recall     that the species                  of integers            •=T(1),         and that we simpli-
+fied the notation       for     0      and for successors                        (n +=   ~+n]+).     By recursion
+we can introduce      all the usual primitive                            recursive       functions    and prove
+at least all the basic          theorems             of primitive            recursive          arithmetic    (eg.
+GOODSTEIN    (7), Chapter V). In particular                              we can introduce          the equality
+function      E ¢[II~÷[.~T÷~]]            and prove               :
+
+
+                              E (o)(o)          =
+                        me~     ~- E (o)(m+) = [,
+                        ne~-           E (n+)(O) = ~,
+                        ne~,        me~     ~- [ (n+)(m +) = E (n)(m),
+                        ne~,        melq,       E (n)(m) = ~ ~ n = m .
+
+(as will be seen from          [7], this is not s_oo easy, but it is elementary.)
+This allows    us to define          the Rredicate                     of equality       between    integers     :
+
+
+DEFINITION
+                        In = ~ r m S       = [T^]_S(E(n)(m))                     .
+
+
+One can then establish          the validity                     of all the usual          logical    formulas
+involving    equality    over the d o m a i n S .                     It takes       a little    trouble,    but let
+us assume    its done.
+                                                    -    2 6 7    -
+
+
+
+
+       The next     step is to consider                 the validity               of formulas         of higher-
+order arithmetic.           What are these              formulas?               In the first place they con-
+tain variables        of several            sorts or types.                We already           have at hand the
+notation    for these types             :
+
+
+
+
+and so on. We can imagine                what a stratified                       formula    should be         (all the
+types    of arguments         and values        of functions                    in terms    should match).           The
+atomic    formulas are numerical (type ~k~) equations,                                     and we may use            con-
+               +
+stants     O,    , and anyother well-known functions.
+
+
+       The main effort         here     is seeing what the formulas                             are, because
+validity    is already         understood         fin theory).
+
+
+       We leave to the         (poor)       reader the verification                        of    :
+
+
+(A~)                                ~       ~ n ~ " EEn = ~ o ] ]
+
+
+(A3)                                ~       Vn~N [ [o = ~n+]]
+(A4)                                ~       Wn~ ~ [Vm~N[[Em + : Nn+]*[m = Nn]]]],
+
+but they are,        after     all,     rather     easy.              We shall discuss,              however,    the
+induction    axiom      :
+
+
+(AS)                                ~       [P (0) ÷ [[~ng N [ [P (n) ÷P (n+)] ] ÷~ng N E P (n)]]]]
+
+
+For this we must            "fill   in" the        T       of         :
+
+
+   P = Vne~EP(n)],             peEl+P],        t cP(O),          ucYn~IEEP(n)+P(n+)]] ~-~P
+(For this particular            argument        we do not require                    the        peEi+P],      but the
+author wanted        to state the problems                       in full.)
+
+
+       The construction         of the construction                         T     will be given by - recursion,
+which is hardly         surprising.           The only trick                    is to know what the values
+of the function         should be. The function                           we want has values               [nAT(n)]
+(supposing    for the moment             we already               knew our T), because                 they    can
+conveniently        be chosen by recursion                       : let
+
+              • ,   = RvEl, Eo^t], [ v ( O ) ( ~ ) + u ( v ( O ) ( ~ ) ) ( v ( O ) ( i ) ) ] ]
+                                                       -    2 6 8       -
+
+
+
+
+       Then        T = ~ne~[~'(n)(i)]              (In the above                      formula,          the reader       is re-
+minded       that ~ = T ( ~ )       and in (T5),                    v = [~f(u(6))].                    The    "trick"    of the
+recursion          is to let the next value                   of the function                     depend not only on
+the previous           value but also on the previous                               argument.)           The desired
+result       will then be proved            by the induction                        principle           (T3). The reason-
+ing is not really               circular    : we are showing how to reduce                                     a compound
+form of induction               back to a more primitive                           kind.     Nevertheless,             we do
+not do away with all assumptions.                           (Likewise,                in set theory             we still
+need an axiom of infinity                  to have a set of integers.)
+
+
+       Next we have the axiom of choice                                 :
+
+
+(A6)               Vx~a[ 3yEb[P(x)(y)]]            ~       ~f~[a÷b][~x~a[P(x)(f(x))]],
+
+
+where we are using not only a free binary                                       predicate             variable     P, but
+also free "type"             variables       a     and              b        as well.
+
+
+       Let     ~    : Pfc[a+b][~x~a[P(x)(f(x))]].                              Then    for        T     take     • :~(q)(~),
+where we assume               tc~x~a~y~b[P(x)(y)]]                             and let       ~=       ~xEa~(X)o]         and
+O@= ~ x e a ~ ( x ) i ] .     It is that     easy,         because              the interpretation                of the
+existential           quantifiers       is so constructive.
+
+
+       Rather more           complicated     is the axiom of dependent                                  choices,       a prin-
+ciple very          important      for analysis             but curiously                  overlooked           until
+recently           (cf. eg. the end of MYHILL                  [17])           :
+
+
+(AT)     ~xea[[P(x)+            3y~a[[P(y)^      R(x)(y)]]]]
+
+VxEa[[CP(x)^Q(x)]~              3f¢~÷a]      [[[P(f(0))^Q(f(O))]^Vn~[R(f(n))(f(n                                         +))]]]]].
+
+
+With our bracketing               conventions,             this is an axiom that                         is harder to
+write than to understand.                  In words            : if a finite                 chain of relationships
+among elements              of a having property                        P     can be indefinitely                extended,
+then     (assuming          we have a constructive                          verification          of the hypothesis)
+we can find an infinite                 chain of elements                       with successive                terms    of the
+chain related           and the initial           element                   specified.       (The reader          should not
+overlook        the generalizations              of this principle                      to trees             other than those
+in ~ ( ~ ,          but this is neither           the time nor place to discuss                                  them.)    The
+desired       sequence        of elements        is found by recursion,                               but one must be
+careful       on which        species    the recursion                       is done.
+                                                      -   269   -
+
+
+
+
+To verify        (A7), note that the hypothesis                         is equivalent             (in a sense to
+be made precise       in a moment)               to the "formula"              :
+
+
+                 Yu~ ~x~a[P(x)][ ~v~ 3x~a[P(x)] [R(Uo)(Vo)] .
+
+The sense of equivalence               is simply          this        : given a construction                  belong-
+ing to the hypothesis             of (A7), we can find a construction                                 belonging    to
+the above - and conversely.                  (This        is the meaning             of        +-*, too.)     So let t
+be a construction          belonging         to the above.              As in the argument                for (A6)
+consider       the two functions            ~ : ~uc ~x~a[P(x)] ~ ( U ) o ]                      and
+qJ= VuE 3x~a[P(x)] [t(u)1].                From the assumption                  on        t     we note that we
+can prove       in the theory        the conclusion
+
+
+                    ~Vu~ 3x~a[PCx)] [R(uo) (~(~)o)]                        ,
+
+
+
+
+which is Just a more explicit                     version        of our maln hypothesis                   if we also
+remember
+
+
+                   ~ENx~a[e(x)]                  ~ 3x~a[P(x)]]
+
+Next   suppose     that     Zca      and         peP(Z)         and     qEQ(Z).       We then iterate ~                by
+recursion       obtaining    ~      so that
+
+
+
+
+                                 ~ ( 0 ) ° : Z, ~ ( 0 ) 1 : p,                 and
+
+                                 ~ ( n +) : ~ ( ~ ( n ) ) ,
+
+for    nc~.      (We are speaking            informally,              but this       can all be done in the
+system.)       Next we let        f = ~n~[@(n)o]                    , and we find
+
+
+                                  pCP(f(O)),          qcQ(f(O)),          and
+
+                                  @(~(n))cR(f(n))(f(n+))
+
+
+for    nE W . By using all manner of pairing                            functions             all these     facts can
+be put together       to obtain           a term which              can finally           be shown to belong
+to the conclusion          of (A7).         (A note to the reader who tries                            this    : re-
+member     ~    contains     Z      and      p     as free variables                 and that you will have
+to apply       functional    abstraction            to them.)
+                                                          - 270 -
+
+
+       Very much analysis                 can already          be carried          out on the basis of
+(At) - (A7)        (using intuitionistic                       logic!)        and we have BISHOP                [i] as
+evidence.       However,           such topics         as BOREL         sets and continuous                functions
+on BAIRE       space    (eg. functions               of type           [[~÷~          +~])         bring up definit-
+ions by recursion              on the second number                   class      or better         : on    ~ ,          We
+shall only discuss                 one topic here             : the definition              of the predicate             K
+on     [[~÷~       ÷~]             that    determines          the continuous              functions       and which
+is obtained       by recursion.
+
+
+       Before    giving the recursion                    on    T(~),         it is convenient             to introduce
+by an ordinary         recursion            on~        that operator             * such that
+
+
+                            me~,           fe[~+~]            ~- [m * f](0)           = m ,
+and
+                            m~,            fe[~÷~],            ne~      ~     [m,     f](n +) = f(n)
+
+
+       This    is simple and we need not give the explicit                                      definition        for        ~.
+One can think of               •     as a kind of translation                     operator         on BAIRE       space.
+
+
+       To define       K    we define             an auxillary              operator        ~    by recursion           on
+~(~          such that     :
+
+
+ ~- ~(0(~)) = Vke [ [ ~ I ~ ]                ~]      [ 3n~[VfE              [~÷~I] [Elk(f) = ~ n ] ] ] ] ,
+and
+ u~T(~)]               ~- ~(u +) : vk~[E~.~q]                     ~
+                                                         [Vm~[~(u(m))(VfE[N÷~][k([m                              • f])])]].
+
+Then     K     can be defined              by the equation              :
+
+
+              K = Vke[[~÷~]                 ÷~] [ ~ t c T ( ~ ] ) [ ~ ( t ) ( k ) ] ] .
+
+       The intention        of the definition                   is that        a construction             in     K(k)
+when     ke[[~÷~]          ÷~]            gives the direct             evidence           of why     k     is continuous.
+The motivation         for the definition                     is based        on the well-known                inductive
+analysis      of continuous               functions       on      [~÷~].          Unfortunately,               we do not
+have the time to discuss                    the notion          further        here but can only mention
+the axioms       that can be validated,                       namely     those      of closure           and induction:
+
+
+(AS) (i)~ Vn~Iq[K([[~-N] +n])],
+
+                                    K(Vf~ ~q-~] [k(f(o))(When [f(n÷)])])]],
+                                                      -   271    -
+
+
+
+
+(iii)                                ÷n])],
+                                    -NIl                                  -
+
+
+
+
+Clearly,     if we do not soon introduce                        some abbreviations,         our formulas
+will be quite impossible                to read.          The worst       part of the above         (A8) is
+the clumsy r e s t r i c t i o n s     of the variables.
+
+
+      Suppose we let ~ =             [ ~ ]          and         ~:    [B~].      Further    let us define
+   = WnE~[f(n+)].            T h e n for example           (A8)       (ll) reads      :
+
+
+        ~k~ [ ~ ÷ ~ ] [ ~ m E ~ [ K ( k ( m ) )~+K(~fe ~ [k( f (0) ) (~)])],
+
+
+where we have also left out some brackets.                               It could have been shortened
+even further if we had given a special name to the t r a n s f o r m a t i o n                            :
+
+
+
+
+A n o t h e r approach to practical               readibility           would be to have conventions
+that certain variables               were to range over certain                      species.   It is hard
+to stick to these conventions                     when our alphabet            is so finite,        however.
+
+
+This completes         our brief survey of the foundations                            of analysis    based on
+the theory of constructions.                     What we have given should have been enough,
+though,     to convince         the reader that our theory                    is a sufficiently         strong
+and fertile one.
+
+
+CONCLUSION
+
+      We have tried to present                   here with adequate m o t i v a t i o n         a theory of
+constructions        and to show how it is in harmony                         with BROUWER'S        program -
+at least as the p r o g r a m has been e x p l a i n e d by HEYTING.                      We consider the
+attempt     rather successful,              but much remains              to be done.      For example,        we
+have not d i s c u s s e d    quantification              over species        (better     : subspecies        of
+a given species).            This    can be done in a convenient                     way within the frame-
+work of the present             theory,         though     it is n e c e s s a r y   to adjoin new primitive
+notions.     Such c o n s i d e r a t i o n s    bring up problems            of consistency,        and we
+have not had time here to investigate                            the many     i n t e r e s t i n g models that
+can be     (non-constructively!)                 fashioned           for the theory.      Especially     inter-
+esting is a model            (of which the author is 85% sure that it can be defined)
+                                                       -   2 7 2    -
+
+
+
+
+that has the property                 that all functions                  are continuous.                 This thesis,
+which     is certainly             related to BROUWER'S                  view - except we are not m a k i n g
+use of choice              sequences    - ought to have rather i n t e r e s t i n g                        consequences.
+But there are other thesis possible                            too       : we might          want to assume that
+all basic        species are countable                - in the sense that they can all be
+mapped one-one              intq~.      Clearly       that thesis also would have different
+but far r e a c h i n g consequences.                And then there                is CHURCH'S             Thesis   and
+KRIPKE'S        Schema,          and these    should all be i n v e s t i g a t e d               further.      What we
+have a c c o m p l i s h e d here      is the p r o v i d i n g of a good context w i t h i n which
+to compare these assumptions.
+
+
+In another direction,                 we find a host               of p r o o f - t h e o r e t i c a l    problems.      One
+must transpose              L~UCHLI'S    proof to this context                       as well as the results
+of GOODMAN'S           Thesis.       A point to think about                     is w h e t h e r the author has
+made the t r a n s f i n i t e       part of the theory too strong.                            Are there theorems
+of f i r s t - o r d e r    arithmetic       that    can be validated                  using constructions
+based o n ~                 but not without          it? And what about T ( T ( ~ ) ?                       And what      is
+the strength of the theory with only finite                                     species?        A different
+question        : does the constructive                proof of GODEL'S                    Incompleteness           Theorem
+                            t
+suggest       any reflection           principles          that         could be added to the theory
+preserving         its constructive            character?               Would this be a way in which an
+"abstract"         theory of proofs might become                          interesting           again? There         seem
+to be quite a number of things to think about                                      in this area,             and the
+theory of constructions                 - in this form or another                          - gives us a way of
+m a k i n g the questions            and answers       precise.
+
+
+
+
+POSTSCRIPT
+After further discussions                    with KREISEL and G~DEL it has become                               clear
+that the attempt to eliminate                       "proofs"            (as abstract          objects)        and to
+concentrate          on the "pure"           constructions               is not successful                 : the decidab-
+ility problems              definitely       show that the desired reduction                              of logical
+complexity         has not been obtained.                  Therefore,            the theory must be revised.
+(For an exact              formulation       of a relevant               "adequacy         condition",         as KREISEL
+calls     it,    see Problem 10 of his                [13].)            The author         is still unable           to
+formulate        any "abstract"          theory       of proofs             that would seem convenient,
+but he has a suggestion                 that might          be sufficient                for the purpose of an
+adequate        theory          of constructions.          Namely,         we replace the elementary
+                                             -    273   -
+
+
+
+
+assertions     a ~6      by assertions           ~:A    ~    where    ~       is a term d e n o t i n g
+a c o n s t r u c t i o n which measures   the stage at which             A   ~6     can be proved.
+Many people have considered            stages of evidence,           and it seems as though
+the constructions        can easily be used to index these                    stages and to form-
+alize the idea.       For one thing proofs              (and ordinals)        can be related to
+trees (as BROUWER did himself)              and as we noted above,              the constructions
+can also be thought         of as trees.      The idea will require                some development,
+and the a u t h o r did not want to p u b l i s h this paper until he was more
+certain that the approach           is reasonable.          But m a y b e the details we have
+o u t l i n e d here can be of some i n s p i r a t i o n to others.
+                                                  - 274 -
+
+
+(1)    BISHOP,    E.A.
+       Foundations        of constructive      analysis - New-York,          1967.
+
+
+(2)
+       Mathematics        as a numerical      language,       Buffalo    Conference,    1968,
+       to appear.
+
+
+(3) CURRY, H.B.           and FEYS,   R.
+       Combinatory        logic, vol.      I-Amsterdam        1958.
+
+
+(4) CURRY, H.B.
+       Combinatory        logic, in Contemporary            Philosophy,    a survey.
+       (R. Kllbansky,       ed.) Florence,        1968, pp. 295 - 307.
+
+
+(5) GOODMAN,        N.D.
+       Intuitlonistic arithmetic as a theory of constructions.
+       Thesis, Stanford University, 1968.
+
+
+(6)
+       A theory of constructions equivalent                   to arithmetic.
+       Buffalo Conference, 1968, to appear.
+
+
+(7)    GOODSTEIN,     R.L.
+       Recursive number theory - Amsterdam,                   1957.
+
+
+(8) HEYTING,        A.K.
+       Intuitionism        in mathematics,        in Philosophy        in the mld-century,
+       a survey     (R. Klibansky,ed.)       Florence,        1958, pp. i01 - i15.
+
+
+(9) KLEENE,       S.C. and VESLEY,         R.E.
+       Foundations        of intultionistic        mathematics        - Amsterdam,   1965.
+
+
+(10) KREISEL,        G.
+        Foundations        of intuitionistic        logic,     in Loslc~ Methodology,          and
+        the Philosophy        of Science      (E. Nagel,       P. Suppes,    A. Tarskl,       eds.)
+        Stanford,     1962, pp. 198 - 210.
+
+
+(11)
+        Mathematical        logic, in lectures        on modern mathematics,           vol.    3
+        (T.L. Saaty,        ed.) New-York,        1965, pp. 95 - 195.
+                                             -   275    -
+
+
+
+
+(12)
+       Functions, ordinals, species, in Lo~Ic~ Methodology                      and Philosophy
+       of Science III (B. van Rootselaar                    and J.F. Staal,   eds.) Amsterdam
+       1968, pp, 145 - 159.
+
+
+(i3)
+       Church's thesis : a kind of reducibility axiom for constructive
+       mathematics, Buffalo Conference, 1968, to appear.
+
+(14) L~UCHLI,     H.
+       An abstract notion of realizability for which intuitionistic
+       predicate calculus is complete, Buffalo Conference, 1968, to appear.
+
+(15) LAWVERE,     F.W.
+       Category-valued higher-order logic, UCLA Set Theory Institute,
+       1967,to appear.
+
+
+(16) MYHILL,     J.
+       Notes towards a formalization of intuitionistic analysis,
+       Loglque   et Analyse,       vol.   35, 1967, pp. 280 - 297.
+
+
+(17)
+       Formal systems of intuitionistic analysis I, in Lo51c Methodology
+       and Philosophy         of Science III (B. van Rootselaar,              J.F. Staal,   eds.)
+       Amsterdam,      1968, pp. 161 - 178.
+
+
+(•8) TAIT, W.W.
+       Constructive reasoning, in Loglc~ Methodolo~y~                      and Philosophy   of
+       Science   III (B. van Rootselaar,               J.F. Staal, eds.) Amsterdam,
+       1968, pp. 185 - 199.
+
+
+(•9) TROELSTRA,        A.S.
+       The ~heory of choice sequences, in Logic, Methodology                      and Philosophy
+       of Science      III (B. van Rootselaar,               J.F. Staal,   eds.) Amsterdam,
+       1968, pp. 201 - 223.
+
+
+(20)
+       Principles of intuitionism, Lecture Notes in Mathematics                      vol. 95
+       Springer Verlag 1969.
+

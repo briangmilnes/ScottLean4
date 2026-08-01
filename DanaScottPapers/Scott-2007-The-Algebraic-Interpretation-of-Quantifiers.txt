@@ -1,0 +1,1244 @@
+Seventy Years of Foundational Studies: A Tribute to Andrzej Mostowski                         1
+A. Ehrenfeucht, V.W. Marek and M. Srebrny (Eds.)
+IOS Press, 2007
+© 2007 The authors. All rights reserved.
+
+
+
+
+       The Algebraic Interpretation of
+    Quantifiers: Intuitionistic and Classical
+                                    Dana S. SCOTT
+                   Hillman University Professor of Computer Science,
+                    Philosophy, and Mathematical Logic (Emeritus)
+                Computer Science Department, Carnegie Mellon University
+                             Pittsburgh, Pennsylvania, USA
+
+
+             Keywords. Algebraic logic, completeness, Boolean and Heyting algebras
+
+
+
+
+     “Die Mathematiker sind eine Art Franzosen: redet man zu ihnen, so übersetzen sie es in ihre
+     Sprache und dann ist es alsobald ganz etwas Anderes.”
+                                                                              J.W. von Goethe
+
+
+
+1. Introduction
+
+In their 1963 book, The Mathematics of Metamathematics [Rasiowa and Sikorski, 1963],
+the authors present an approach to completeness theorems of various logics using alge-
+braic methods. Perhaps they put the quotation from Goethe over their preface to suggest
+that mathematicians can be forgiven if they introduce new interpretations of old ideas.
+     The idea of an algebra of logic can of course be traced back to Boole, but it
+was revived and generalized by Stone and Tarski in the 1930s; however, the most di-
+rect influence on the work of Rasiowa and Sikorski came from their well-known col-
+league, Andrzej Mostowski, after WW II. Mostowski’s interpretation of quantification
+[Mostowski, 1948] can as well be given for intuitionistic as classical logic.
+     The present expository paper will briefly review the history and content of these
+ideas and then raise the question of why there was at the time no generalization made to
+higher-order logic and set theory. Entirely new light on this kind of algebraic semantics
+has more recently been thrown by the development of topos theory in category theory.
+Some reasons for pursuing this generalization will also be discussed in the last section.
+     In order to dispel any confusion that might arise about the title of this paper, the
+author would like to point out that there are other meanings to “algebraic” as relating to
+the semantics of Logic. Perhaps the first interpretation of quantifiers in an algebraic style
+goes back to consideration of early work in Descriptive Set Theory. Quantifier manip-
+ulation was explained in this regard in the well known book on Topology by K. Kura-
+towski (also quoting Tarski). In 1946 C.J. Everett and S. Ulam published their paper on
+Projective Algebras. A. Tarski, building on his famous paper on Truth in formalized lan-
+2          D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+guages and on his studies of Relation Algebras (along with J.C.C. McKinsey, L. Henkin
+and many collaborators) developed an elaborate equational theory of Cylindric Algebras
+(duly quoting Everett and Ulam). In a related but different style, P.R. Halmos and collab-
+orators studied Polyadic Algebras. A generalization of Relation Algebras was proposed
+by P.C. Bernays and that research has been continued over many years by W. Craig. Most
+recently, F.W. Lawvere unified many of these ideas-along with the lattice-theoretic se-
+mantics explained in the present paper-by showing how quantification can be construed
+in suitable categories by using the idea of adjoint functors. None of these works are cited
+in our bibliography here, because the literature is too vast to be explained in such a short
+paper.
+
+
+2. Preliminaries, Terminology, Notation
+
+The following standard terminology and notation will be used throughout the paper.
+    A complete lattice (cLa) is a partially ordered set (poset) ⟨A, ⩽⟩ where every subset
+has a least upper bound (lub) under ⩽. (Dually we can say, every subset has a greatest
+lower bound (glb).) A broader notion of a lattice requires only every finite subset to have
+a lub and a glb. A lub is also called a sup; and a glb an inf.
+
+Theorem 2.1. If a poset has all lubs, it has all glbs; and conversely.
+
+The proof is well known: the greatest lower bound of a family is the least upper bound
+of all the lower bounds of the family.
+
+Theorem 2.2. Using the following notation, lubs and glbs can be uniquely characterized
+as follows:
+               !
+     (LUB) "y ⩽ X ⇐⇒ ∀z[∀x ∈ X. x ⩽ z =⇒ y ⩽ z]
+     (GLB)    X!⩽ y ⇐⇒ " ∀z[∀x ∈ X. z ⩽ x =⇒ z ⩽ y]
+     (TOP) 1 = " A = ! ∅
+     (BOT) 0 = A = ∅
+
+Theorem 2.3. Lattices (not necessarily complete) are characterized by these axioms:
+    • ⩽ is a partial order
+    • x ⩽ z & y ⩽ z ⇐⇒ x ∨ y ⩽ z
+    • z ⩽ x & z ⩽ y ⇐⇒ z ⩽ x ∧ y
+    • 0⩽x⩽1
+
+    Examples of complete lattices abound in set theory. Here is an example of a direct
+consequence of Theorem 2.1.
+
+Theorem 2.4. The powerset P(A) is always a cLa; hence, if a family C ⊆ P(A) is
+closed under all intersections (unions), then ⟨C, ⊆⟩ is also a cLa.
+
+    We need to remember that in the cLa P(A) the intersection of the empty family is
+taken to be A.
+           D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical   3
+
+
+3. Closures on a Power Set P(A)
+
+Closure operations C : P(A) → P(A) give interesting examples of complete lattices.
+There are several kinds of closures axiomatized as follows.
+
+General:
+    • X ⊆ C(X) = C(C(X))
+    • X ⊆ Y =⇒ C(X) ⊆ C(Y )
+Topological:
+    • X ⊆ C(X) = C(C(X))
+    • C(∅) = ∅
+    • C(X ∪ Y ) = C(X) ∪ C(Y )
+Algebraic:
+    • X ⊆#C(X) = C(C(X))
+                  #
+    • C(    X) =     C(X) for directed W ⊆ P(A)
+         X∈W             X∈W
+
+For any closure operation we say that a set X ⊆ A is closed provided C(X) ⊆ X.
+
+Theorem 3.1. The family of closed sets of a general closure operation is closed under
+arbitrary intersections and so forms under inclusion a complete lattice. Moreover, an
+isomorph of any complete lattice can be found in this way.
+
+    For the easy proof see [Rasiowa and Sikorski, 1963]. The complete lattices formed
+from topological or algebraic closure operations have additional properties. We will dis-
+cuss the topological case further below.
+
+
+4. Implication and Distribution
+
+Definition 4.1. A lattice operation → is called an implication if and only if it satisfies
+this axiom:
+    • x ∧ y ⩽ z ⇐⇒ x ⩽ y → z
+
+Note. The axiom uniquely determines an implication on a lattice if it exists. There is
+      an equational axiomatization where we can define the partial ordering in several
+      ways.
+      • x ⩽ y ⇐⇒ x ∨ y = y
+              ⇐⇒ x ∧ y = x
+              ⇐⇒ x → y = 1
+
+See [Rasiowa and Sikorski, 1963] for details. A lattice with implication is called a Heyt-
+ing algebra. (Ha is used for short.)
+
+Theorem 4.1. All Ha’s are distributive lattices.
+4          D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+Proof. From basic lattice properties we have x ∧ y ⩽ (x ∧ y) ∨ (x ∧ z). Then y ⩽
+x → ((x ∧ y) ∨ (x ∧ z)). Similarly we have x ∧ z ⩽ (x ∧ y) ∨ (x ∧ z). Thus z ⩽
+x → ((x ∧ y) ∨ (x ∧ z)). It follows that y ∨ z ⩽ x → ((x ∧ y) ∨ (x ∧ z)). But then
+x ∧ (y ∨ z) ⩽ (x ∧ y) ∨ (x ∧ z). This is half of the Distributive Law. The other half holds
+in all lattices.
+Definition 4.2. A Heyting algebra which has all glbs and lubs (= complete lattice) is
+called a complete Heyting algebra (or cHa, for short).
+Theorem 4.2. A complete lattice is a cHa if, and only if, it satisfies:
+        $        $
+     x∧     yi =   (x ∧ yi ).
+           i∈I        i∈I
+
+The proof of the above equation is a direct generalization of the proof of Theorem 4.1.
+For the converse we can use the following definition of implication:
+                $
+      y → z = {x| x ∧ y ⩽ z}.
+
+The results about distributivity of Heyting algebras were proved independently by Stone
+[Stone, 1937] and Tarski [Tarski, 1938].
+
+
+5. Boolean Algebras
+
+The difference between classical and intuitionistic logic lies in the fact that the former
+satisfies the law of the Excluded Middle. In algebraic terms we have the following.
+Definition 5.1. A Ha (resp. cHa) is a Boolean algebra (or Ba) (resp. complete Boolean
+algebra or cBa) iff it satisfies x ∨ (x → 0) = 1.
+    The element x → 0 is called the negation of x and is denoted by ¬x.
+
+    Perhaps we should pause to note this passage from [Rasiowa and Sikorski, 1963] on
+pp. 8–9:
+    The inclusion of two chapters on intuitionism is not an indication of the authors’ positive at-
+    titude towards intuitionistic ideas. Intuitionism, like other non-classical logics, has no practi-
+    cal application in mathematics. Nevertheless many authors devote their works to intuitionistic
+    logic. On the other hand, the mathematical mechanism of intuitionistic logic is interesting:
+    it is amazing that vaguely defined philosophical ideas concerning the notion of existence in
+    mathematics have lead to the creation formalize logical systems which, from the mathematical
+    point of view proved to be equivalent to the theory of lattices of open subsets of topological
+    spaces. Finally, the formalization of intuitionistic logic achieved by Heting and adopted in this
+    book is not in agreement with the philosophical views of the founder of intuitionism, Brouwer,
+    who opposed formalism in mathematics. Since in treating intuitionistic logic we have limited
+    ourselves to problems which are directly connected with general algebraic, lattice-theoretical
+    and topological methods employed in the book, we have not included the latest results of Beth
+    and Kreisel concerning other notions of satisfiability which we have adopted.
+As a matter of fact the topological modeling of intuitionistic formal rules is not really to
+be regarded as “amazing”. For, in view of Theorem 4.2, we conclude at once this theorem
+and corollary.
+           D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical           5
+
+                                                                                          !
+Theorem 5.1. Every sublattice of a cBa (also cHa) closed under ∧ and                          is a cHa.
+
+Corollary 5.1. The lattice of open subsets of a topological space forms a cHa.
+
+   There is also a reverse connection between Heyting algebras and Boelean algebras.
+An element x of a Heyting algebra is called stable (sometimes regular) if it satisfies
+x = ¬¬x.
+
+Theorem 5.2. The stable elements of a Ha (cHa) form a Ba (cBa).
+
+     A proof is given in [Rasiowa and Sikorski, 1963], pp. 134–135. Another connection
+is an embedding theorem.
+
+                                                                                                    !
+Theorem 5.3. Every cHa can be embedded in a cBa so as to preserve ∧ and                                 .
+
+For a proof see [Johnstone, 1982].
+
+
+
+6. Finite Lattices
+
+
+A finite lattice is complete. Hence, we conclude
+
+Theorem 6.1. A finite distributive lattice ⟨A, ⩽⟩ is a cHa, as is the dual ⟨A, ⩾⟩.
+
+    Perhaps we should note here that 6.1 is not true constructively. (See [Fourman–Scott,
+1977] for the explanation.)
+    The finite Ha’s can be analyzed in terms of a special kind of elements. These results
+are well known. Detailed references can be found in [Rasiowa and Sikorski, 1963].
+
+Definition 6.1. The set of join irreducible elements of a lattice ⟨A, ⩽⟩ is defined as
+Irr (A) = {x ∈ A| ∀y, z ∈ A [x ⩽ y ∨ z =⇒ x ⩽ y or x ⩽ z]}.
+
+     If an element is not irreducible in a distributive lattice, it can be written as the join of
+two strictly smaller elements. This remark makes it possible to give an inductive proof
+of the next theorem.
+
+Theorem 6.2. If ⟨A, ⩽⟩ is a finite Ha, then for all elements x ∈ A,
+            $
+      x=        {y ∈ Irr (A)| y ⩽ x}.
+
+Here is an example of a finite distributive lattice with the irreducible elements marked.
+6          D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+Example 6.1.
+
+                                 "
+                                1 = ¬¬(p ∨ ¬p)
+
+                              "" !!
+      (¬¬p → p) → (p ∨ ¬p) !"        !"
+                                          ¬¬p ∨ (¬¬p → p)
+                            !
+                            !       "" ! !
+                       ¬¬p ∨ ¬p! ""        ! " ¬¬q → q
+                               " !        "" !
+                             " !
+                ¬¬q = ¬¬p !            "         !! ¬¬p → p
+                                               !
+                           "         !  "
+                            !       q"∨ ¬p
+                                        !        "
+                                   " !          "
+                              q!!          ! ""p ∨ ¬p
+                             !
+                                 "
+                                  !        " !
+                                    p!!          !! ¬p = ¬q
+                                   !     "     !
+                                       "
+                                        !        "
+                                             !
+                                         !     "
+          != Irr                           ! "
+                                            0 = ¬(p ∨ ¬p) = p ∧ ¬p
+
+    We note that some authors exclude 0 as Irr .
+
+   The irreducible elements elements relate directly to what now are known as Kripke
+Models. The following is a classic result.
+
+Theorem 6.3. Every finite poset ⟨I, ⩽⟩ with 0 is isomorphic to the join irreducibles of a
+finite Ha.
+
+Proof. Let A = {X ⊆ I| 0 ∈ X ∧ ∀x ∈ X.{y ∈ I| y ⩽ x} ⊆ X}. The poset ⟨A, ⊆⟩ is
+closed under ∩ and ∪ and hence is a cHa. It is easy to check that Irr (A) = {{y ∈ I| y ⩽
+x}| x ∈ I}.
+    The connection to Kripke Semantics can be explained as follows. For elements
+P, Q ∈ A, x ∈ I, we have these formulae:
+
+      P = I ⇐⇒ ∀x ∈ I. x ∈ P
+      P ⊆ Q ⇐⇒ ∀x ∈ P. x ∈ Q
+      P ∩Q        = {x ∈ I | x ∈ P ∧ x ∈ Q}
+      P ∪Q        = {x ∈ I | x ∈ P ∨ x ∈ Q}
+      P → Q = {x ∈ I | ∀y ⩽ x[y ∈ P =⇒ y ∈ Q]}
+
+     Working with the finite Ha’s – as is well known – leads to a proof of the decidability
+of intuitionistic propositional logic.
+
+Theorem 6.4. If a polynomial equation
+
+      σ(x, y, z, . . .) = τ (x, y, z, . . .)
+
+fails in some Ha, then it fails in some finite Ha.
+            D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical   7
+
+
+Proof. Let [[x]]A , [[y]]A , [[z]]A , . . . be the valuation in a Ha A such that
+
+       [[σ(x, y, z, . . .)]]A ̸= [[τ (x, y, z, . . .)]]A
+
+Let p0 , p1 , . . . , pn be all the subpolynomials of σ and of τ . Let B be the finite ∧,∨-
+sublattice of A generated by the elements [[pi ]]A for i ⩽ n. We need to show
+
+Lemma 6.1. If x, y ∈ B and x → y ∈ B, then x → y = x → y.
+                                        A                     B           A
+
+    The easy proof goes back to Definition 4.1. Then, because all implications in σ and
+τ are in B, we derive
+
+Corollary 6.1. [[σ]]B = [[σ]]A and [[τ ]]B = [[τ ]]A .
+
+Hence, the equation fails in the finite Ha B. This proof was first given in [McKinsey–
+Tarski, 1948].
+
+
+7. Algebras of Formulae
+
+In this section we recall Mostowski’s interpretation of quantifiers as found in algebras
+of formulae. The Lindenbaum algebra of a theory T in classical first-order logic is the
+algebra formed by equivalence classes of formulae under provable equivalence in the
+theory. If we denote this provability by ⊢T Φ, then the equivalence class of Φ is defined
+as
+
+       [[Ψ]]T = {Ψ |       ⊢T Φ → Ψ and               ⊢T Ψ → Φ}.
+
+These equivalence classes form a partially ordered set by defining
+
+       [[Φ]]T ⩽ [[Ψ]]T      iff     ⊢T Φ → Ψ.
+
+    We employ here formulae Φ with possibly free variables, but such variable symbols
+could be taken as additional constants about which the theory T has no special axioms.
+The theory T might also have other constants and operation symbols. We let Term de-
+note the collection of all individual expressions formed from the variables and constants
+with the aid of the operation symbols.
+    In general the Lindenbaum algebra is not a complete Boolean algebra, but it enjoys
+an amount of completeness shown in crucial result of [Rasiowa–Sikorski, 1950] and of
+[Henkin, 1949] which we state in 7.2.
+
+Theorem 7.1. The Lindenbaum algebra of a classical first-order theory is a Ba.
+
+    The proof of this fact in the formulation we have given here is very simple. The
+axioms for Boolean algebras exactly mimic well known rules of inference of logic. Thus,
+when we define lattice operations in the Lindenbaum algebra, such as the following:
+
+       [[Φ]]T ∩ [[Ψ]]T = [[Φ ∧ Ψ]]T ,
+
+then we have a direct translation between algebraic relationships and deduction rules.
+8            D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+Theorem 7.2. In the Lindenbaum algebra of a classical first-order theory T (using free
+variables) we have:
+                       $                                        %
+      [[∃x.Φ(x)]]T =       [[Φ(τ )]]T and [[∀x.Φ(x)]]T =              [[Φ(τ )]]T .
+                            τ ∈Term                                              τ ∈Term
+
+Proof. The proof of the quantification results is also quite simple. First, it is clear from
+rules of logic that
+         [[Φ(τ )]]T ⩽ [[∃x.Φ(x)]]T
+holds for all terms τ . In other words, the equivalence class of the quantified formula is
+an upper bound. Next, suppose that Ψ provides any other upper bound, in the sense that
+         [[Φ(τ )]]T ⩽ [[Ψ]]T
+holds for all terms τ . Because we have infinitely many free variables, we can pick one, v,
+say, not free in Ψ or otherwise in Φ. This means that ⊢T Φ(v) → Ψ. But then by logical
+deduction ⊢T ∃x.Φ(x) → Ψ. In terms of equivalence classes we have [[∃x.Φ(x)]]T ⩽
+[[Ψ]]T . The LUB property is thus established. The GLB property is proved by a dual
+argument (or by using negation).
+
+
+8. Axiomatizing Free Logic
+
+Before discussing models of intuitionistic predicate logic using cHa’s, we need to
+broaden the idea of existence in axiomatic theories. The need to do this is not urgent in
+classical theory, for we can always say that under normal conditions the value of a func-
+tion, f (x), say, is given in a natural way; but then if the conditions on x do not hold, then
+the value of f (x) can be a conventional value, 0, say. This only makes sense, however,
+using Excluded Middle. In other words, values of terms τ in the formal language are not
+always going to be required to exist.
+     The method the author has found to be practical is to build existence conditions into
+the deduction rules for the quantifiers. This has been called free logic ([Lambert, 1969],
+[Mostowski, 1951], [Quine, 1995], [Scott, 1977], [Lambert, 2003]), meaning that logic
+is freed of implicit existence assumptions. And in connection with this point of view, it
+seems most convenient to allow free variables also to be used without existence assump-
+tions. Hence, substitution for free variables will be allowed for arbitrary terms.
+     A second move is to weaken equality statements x = y to equivalence statements
+x ≡ y, meaning roughly that if one or the other of x and y exists, then they are identical.
+This seems to give the most liberal set of rules. Of course, the axioms for propositional
+logic remain the same as commonly known, so we do not repeat them here.
+
+Definition 8.1. The axioms and rules for (intuitionistic) equality and quantifiers are as
+follows:
+                  Φ(x)
+(Sub)
+                  Φ(τ )
+
+(Ref )           x≡x
+             D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical   9
+
+
+(Rep)             x ≡ y ∧ Φ(x) =⇒ Φ(y)
+
+(∀Ins)            (∀x)Φ(x) ∧ (∃x)[x ≡ y] =⇒ Φ(y)
+
+                  Φ ∧ (∃x)[x ≡ y] =⇒ Ψ(y)
+(∀Gen)
+                       Φ =⇒ (∀y)Ψ(y)
+
+(∃Ins)            Φ(y) ∧ (∃x)[x ≡ y] =⇒ (∃x)Φ(x)
+
+                  Φ(y) ∧ (∃x)[x ≡ y] =⇒ Ψ
+(∃Gen)
+                      (∃y)Φ(y) =⇒ Ψ
+
+
+     Existence and strict identity can then be defined.
+
+Definition 8.2.
+     • Ex ⇐⇒ (∃y)[x ≡ y]
+     • x = y ⇐⇒ Ex ∧ Ey ∧ x ≡ y
+
+     Conversely, existence and weak equality can be defined from strong identity.
+
+Theorem 8.1.
+     • x ≡ y ⇐⇒ [Ex ∨ Ey] =⇒ x = y
+     • Ex ⇐⇒ x = x
+
+    Read “Eτ ” as “the value of τ exists”, and “τ = σ” as “the values of τ and σ
+are existing and are identical”. It actually is a matter of taste which notions to take as
+primitive as ≡ and = are interdefinable under our conventions, as we have seen.
+
+
+9. Heyting-Valued Semantics
+
+We take a definition from [Fourman–Scott, 1977] which we use for model theory over a
+cHa. The work reported in that paper was developed over several years in Scott’s graduate
+seminars at Oxford. Independently, D. Higgs proposed similar definitions—especially
+for Boolean-valued models. See [Fourman–Scott, 1977] for references.
+
+Definition 9.1. Let A be a cHa. An A-set is a set M together with a mapping e : M ×
+M → A such that for all x, y, z ∈ M , e(x, y) = e(y, x) and
+
+        e(x, y) ∧ e(y, z) ⩽ e(x, z).
+
+It is called total iff additionally e(x, x) = 1 for all x ∈ M . An n-placed predicate on M
+is a mapping p : M n → A where
+
+        e(x1 , y1 ) ∧ · · · ∧ e(xn , yn ) ∧ p(x1 , . . . , xn ) ⩽ p(y1 , . . . , yn )
+
+holds for all x1 , . . . , xn , y1 , . . . , yn ∈ M .
+10         D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+     We wish to show how A-sets together with predicates as a structure
+
+      ⟨M, e, p1 , . . . pm ⟩
+
+give A-valued models for intuitionistic first-order free logic.
+     Structures for logic with operation symbols can be similarly set up but, to interpret
+operations as functions it is better to consider complete A-sets. The details can be found
+in [Fourman–Scott, 1977].
+
+Definition 9.2. Given an A-structure
+
+      M = ⟨M, e, p1 , . . . pm ⟩
+
+and a given valuation µ : V ar → M of free variables, the A-valuation of formulae of
+free logic is defined recursively as follows:
+
+      [[Pi (v1 , . . . , vni ]]M (µ) = pi (µ(v1 ), . . . , µ(vni ));
+              [[vi = vj ]]M (µ) = e(µ(vi ), µ(vj );
+                [[Φ ∧ Ψ]]M (µ) = [[Φ]]M (µ) ∧ [[Ψ]]M (µ);
+                [[Φ ∨ Ψ]]M (µ) = [[Φ]]M (µ) ∨ [[Ψ]]M (µ);
+              [[Φ ⇒ Ψ]]M (µ) = [[Φ]]M (µ) → [[Ψ]]M (µ);
+                   [[¬Φ]]M (µ) = ¬[[Φ]]M (µ);
+                                 $
+            [[∃vi Φ(vi )]]M (µ) = (e(ν(vi ), ν(vi )) ∧ [[Φ(vi )]]M (ν));
+                                       ν
+                                      %
+            [[∀vi .Φ(vi )]]M (µ) =         (e(ν(vi ), ν(vi )) → [[Φ(vi )]]M (ν)).
+                                       ν
+
+In the above equations, the lattice operations on the right-hand side of the semantic
+equations are those of the cHa A. And in the last two equations the lubs and glbs are
+taken over all valuations ν where ν(vj ) = µ(vj ) for all variables vj different from the
+vi in the quantifier.
+
+    Note that the intention here is that we have a derived semantics for these other two
+kinds of formulae:
+
+          [[Evi ]]M (µ) = [[vi = vi ]]M (µ),          and
+      [[vi ≡ vj ]]M (µ) = [[Evi ∨ Evj → vi = vj ]]M (µ).
+
+And again, because we have defined cHa to exactly mimic the laws and rules of deduction
+of intuitionistic logic, the proof of the next theorem is obvious.
+
+Theorem 9.1. The universally valid formulae (with free variables) of an A-structure
+form a theory in intuitionistic free logic. If A is Boolean, then we have a classical theory.
+           D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical   11
+
+
+10. Completion of Lattices and Completeness of Logic
+
+Lindenbaum algebras give us a certain “formal” interpretation of intuitionistic theories
+in Ha’s. But a Lindenbaum algebra is not usually complete. What is required to ob-
+tain structures over cHa’s is an application of a method called MacNeille Completion
+[MacNeille, 1937].
+
+Theorem 10.1. Every Ha can be isomorphically embedded into a cHa preserving all
+existing glbs and lubs.
+
+    When this theorem is proved we will have at once this conclusion.
+
+Corollary 10.1. Intuitionistic first-order logic is complete with respect to structures over
+cHa’s; that is, every theory has such a model with the same valid formulae.
+
+     Note that the cHa to be used is not fixed in this statement, as it depends on the choice
+of theory to make a Lindenbaum algebra.
+
+Proof of Theorem 10.1. Let ⟨A, ⩽⟩ be a Ha. For X ⊆ A, define the upper bounds and
+lower bounds of X by
+
+      ub(X) = {y ∈ A| ∀x ∈ X. x ⩽ y} and lb(X) = {x ∈ A| ∀y ∈ X. x ⩽ y}.
+
+Lemma 10.1. The map X 3→ lb(ub(X)) is a monotone closure on P(A).
+
+Proof. Clearly X ⊆ lb(ub(X)). Also as ub and lb are antimonotone, so the composition
+is monotone. We need next to show that
+
+      ub(X) ⊆ ub(lb(ub(X))).
+
+Suppose y ∈ ub(X) and x ∈ lb(ub(X)). Then, by definition, x ⩽ y. Thus y ∈
+ub(lb(ub(X))). Hence, we have a closure operation.
+
+    It is interesting to note in this proof that no special properties of ⩽ were needed. By
+the general theorems on closures, we can conclude the following.
+
+Lemma 10.2. A = {L ⊆ A| lb(ub(L)) ⊆ L} is a complete lattice closed under arbi-
+trary intersections.
+
+    Note that {∅} is the least element of A, and A itself = lb(ub({1}))) is the largest
+element. This however does not prove yet that A is a cHa. To this end, for L, M ⊆ A,
+define L → M = {a ∈ A| ∀b ∈ L. a ∧ b ∈ M }.
+
+Lemma 10.3. For K, L, M ∈ A we have K ∩ L ⊆ M iff K ⊆ L → M .
+
+Proof. Assume first that K ∩ L ⊆ M . Suppose a ∈ K and b ∈ L. Then a ∧ b ∈ K ∩ L.
+Thus K ⊆ L → M . Conversely, assume K ⊆ L → M . Suppose a ∈ K ∩ L. Then
+a ∈ L → M . But a = a ∧ a ∈ M . Thus K ∩ L ⊆ M .
+
+Lemma 10.4. If L, M ∈ A, then L → M ∈ A.
+12         D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+                       &
+Proof. L → M =              {a ∈ A| a ∧ b ∈ M }. So, it is sufficient to show for each b ∈ L
+                      b∈L
+that the set
+      K = {a ∈ A| a ∧ b ∈ M } ∈ A.
+As a shorthand let us write y ⩾ K for y ∈ ub(K). Suppose x ∈ lb(ub(K)). Then
+∀y ⩾ K. x ⩽ y. Suppose z ⩾ M . If a ∈ K, then a ∧ b ∈ M . So a ∧ b ⩽ z. Thus
+a ⩽ b → z. So b → z ⩾ K. Hence, x ⩽ b → z and then x ∧ b ⩽ z. Therefore,
+x ∧ b ∈ lb(ub(M )) ⊆ M . So x ∈ K. Thus K ∈ A.
+
+Lemma 10.5. The map x 3→↓ x = lb({x}) is a Ha isomorphism of A into A which
+preserves existing glbs and lubs.
+
+Proof. The map is one-one and monotone. Also, it is easy to check the following condi-
+tions providing a homomorphism.
+
+      ↓ (x ∧ y) = ↓ x ∩ ↓ y;
+      ↓ (x ∨ y) = lb(ub(↓ x ∪ ↓ y));
+      ↓ x →↓ y = {a| ∀b ⩽ x. a ∧ b ⩽ y} = {a| a ∧ x ⩽ y} = ↓ (x → y);
+         "        &
+      ↓     xi =     ↓ xi ;
+        i∈I      i∈I
+         !              #
+      ↓     xi = lb(ub(     ↓ xi )).
+         i∈I                  i∈I
+
+The MacNeille theorem is thus proved.
+     The corresponding completeness theorem for classical logic comes down to the next
+theorem. We use in this proof the well known fact that classical logic results from intu-
+itionistic logic by assuming that every proposition is equivalent to its double negation.
+
+Theorem 10.2. If A is a Ba, then so is A.
+
+Proof. For L ∈ A, we calculate
+      ¬¬L = {a| ∀c ∈ L. b ∧ c = 0 ⇒ a ∧ b = 0}
+               = {a| ∀b[∀c ∈ L. c ⩽ ¬b ⇒ a ⩽ ¬b]}
+               = {a| ∀b[L ⩽ b ⇒ a ⩽ b]} = lb(ub(L)) = L
+    Therefore, in view of Theorem 7.2, every theory T in classical first-order logic has
+a model in cBa with the same set of valid formulae. This, however, is not Gödel’s Com-
+pleteness Theorem. For this we need the famous lemma [Rasiowa–Sikorski, 1950]. But
+note to this point we did not make use of ultrafilters or the Stone Representation Theo-
+rem.
+
+Lemma 10.1 (Rasiowa–Sikorski). Given a countable number of infs and sups in a non-
+trivial Ba, there is an ultrafilter preserving them.
+
+     An ultrafilter is basically a homomorphism from the Ba to the two-element Ba. With-
+out going through the MacNeille completion, however, we can apply the lemma directly
+to the Lindenbaum algebra of a classical first-order theory to prove
+          D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical   13
+
+
+Corollary 10.2 (Gödel). Every consistent, countable first-order classical theory has a
+two-valued model.
+
+    Turning our attention now to intuitionitic logic we need the analogue of Theorem 7.2.
+The proof is essentially same, except that the rules of quantifiers of Section 8 have to be
+employed.
+
+Theorem 10.3. In the Lindenbaum algebra of a theory T in intuitionistic first-order free
+logic (using free variables) we have:
+                         $
+       [[∃x.Φ(x)]]T =         [[Eτ ∧ Φ(τ )]]T and
+                        τ ∈Term
+                           %
+      [[∀x.Φ(x)]]T =              [[Eτ → Φ(t)]]T .
+                        τ ∈Term
+
+     To avoid any misunderstanding, we should stress here (and in 7.2) that the axioms of
+the theories T should not be given with any free variables. The reason is that the proof
+of 7.2 and 10.3 requires at one point choosing a variable not free in T (as well as in
+certain formulae). Note that this step also requires that the formulae be finite, while the
+stock of free variables is infinite.
+
+Theorem 10.4. Every theory T in intuitionistic first-order free logic has a model in a
+cHa with the same set of valid formulae.
+
+     Note that if the theory were inconsistent we would have to use the trivial one-element
+Ha. We also note that in intuitionistic logic there is no Rasiowa–Sikorski Lemma to give
+us models in “simpler” cHa’s other than the one obtained from completing the Linden-
+baum algebra.
+     There are two recent papers on the MacNeille completion method that have been
+brought to the attention of the author. They are [Harding–Bezhanishvili, 2004] and
+[Harding–Bezhanishvili, 2007]. As regards completion of Ha’s, the first paper has the
+interesting result that the only non-trivial varieties of Ha’s for which the desired result
+holds are Ha and Ba. Their paper gives many details and also historical references about
+the method. It should be noted, however, that they are especially interested in topolog-
+ical representations, and in this paper we have not used any representation theory. The
+second paper gives many results about Boolean modal operators, but undoubtedly their
+ideas can be adapted to Ha’s in some cases. The next section has one such result found
+by the author.
+
+
+11. Modal Logic
+
+Starting perhaps with [McKinsey–Tarski, 1944], the algebraic interpretation of logic has
+been applied to investigations of modal logic. Here we shall not take the time to set out
+logical axioms but will be content to state a result about cHa’s and modal-like opera-
+tors. The first point to emphasize is that Heyting algebras give us many possibilities (or
+distinctions) for operators not available in the Boolean world.
+     We consider four algebraic axioms systems, (#), (♦), (∇), (∆), named by the sym-
+bols used for the operator.
+14        D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+(#) • #1 = 1
+    • #(x ∧ y) = #x ∧ #y
+    • ##x = #x ⩽ x
+(♦)   • ♦0 = 0
+      • ♦(x ∨ y) = ♦x ∨ ♦y
+      • ♦♦x = ♦x ⩾ x
+(∇) • ∇(x ∧ y) = ∇x ∧ ∇y
+    • ∇∇x = ∇x ⩾ x
+(∆) • ∆(x ∨ y) = ∆x ∨ ∆y
+    • ∆∆x = ∆x ⩽ x
+
+   It is clear that system (♦) is the dual of system (#). In Boolean algebra, as is well
+known, we can pass from one system to the other by defining
+
+      ♦ = ¬#¬       and # = ¬♦¬.
+
+However, in Heyting algebra the failure of the law of Double Negation blocks this neat
+conversion (just as we cannot say ∃ = ¬∀¬). As far as the author knows there is no sim-
+ple correspondence between models of the one system and the other. The same remarks
+apply to comparing system (∇) to system (∆).
+    What we shall prove here is that—in case there is any interest in quantified modal
+logic—the MacNeille Completion procedure can be applied to Lindenbaum algebras to
+get algebraic completeness proofs over cHa’s for the system (#). The question for the
+other systems is left open.
+
+Theorem 11.1. If A is a Ha and if the operator # : A → A satisfies the (#) axioms,
+then so does the MacNeille completion A with the operator # : A → A defined by
+              $
+      #L =        ↓ #x
+             x∈L
+
+for all L ∈ A. Moreover, the lattice embedding x 3→↓ x preserves the #-operator.
+
+Proof. On A the operator # is monotone, and on A the corresponding operator # is as
+well. Note that we can also write
+      #L = lb(ub({#x| x ∈ L}))
+for all L ∈ A.
+     First, # ↓ 1 = #A = A, as required.
+     Next, note that since #x ∈ L for all x ∈ L, wwe conclude #L ⊆ L. By monotonic-
+ity we also have ## ⊆ #L.
+     To prove # ⊆ ##L, we need to show #x ∈ ##L for all x ∈ L. By definition we
+have
+
+      ##L = lb(ub({#y| y ∈ #L})).
+
+Suppose x ∈ L. Then if z ⩾ {#y| y ∈ #L}, we conclude z ⩾ ##x = #x. Therefore
+#x ∈ ##L as desired.
+          D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical   15
+
+                                      !
+    Finally, we calculate using the ∧- -Distributive Law as follows:
+                     $
+      #L ∩ #M =          (↓ #x ∩ ↓ #y)
+                       x∈L
+                       y∈M
+                       $
+                   =         ↓ #(x ∧ y)
+                       x∈L
+                       y∈M
+                         $
+                   =            ↓ #z
+                       z∈L∩M
+
+                   = #(L ∩ M )
+
+Thus the defined # : A → A satisfies the (#)-equations.
+
+    We remark in passing that to obtain a #-operator on any cHa A, all one needs is a
+subset U ⊆ A such that 1 ∈ U and x ∧ y ∈ U for all y ∈ U . We than define
+           $
+      #x = {y ∈ U |y ⩽ x}.
+
+The verification of the (#)-axioms is straightforward. This, unsurprisingly, generalizes
+how the interior operator is defined in any topological space in terms of basic open sets.
+Of course, any #-operator can be so defined in terms of the set
+
+      U = {#x| x ∈ A}.
+
+    The system (∇) at first looks like (#), but the last inequality is reversed. Such oper-
+ators on cHa’s are variously called j-operators or nuclei (see [Fourman–Scott, 1977] or
+[Johnstone, 2002–2007],
+                 !       vol. 2, pp. 480ff. The significance of such operators is that they
+correspond to ∧- -preserving congruence relations E on a cHa A where we can define
+∇E , given E, by
+               $
+       ∇E x = {y ∈ A| xEy}.
+
+The other way around, give ∇, we can define E∇ by
+
+      xE∇ y     iff    ∇x = ∇y,
+
+It follows that E = E∇E and ∇ = ∇E∇ for such ∇ and E.
+     The ∇-operators on cHa A can also be characterized in terms of fixed-point set
+
+      U∇ = {x ∈ A| ∇x = x} = {∇x| x ∈ A},
+
+Indeed, as for any general closure operation, we can obtain
+             %
+      ∇x = {y ∈ U∇ | x ⩽ y}.
+
+And of course the subset U∇ ⊆ A is a subset closed under arbitrary glbs in A, as it is for
+general closures. However, the first equation in (∇) gives U∇ an additional property:
+
+      • x → y ∈ U∇         for all x ∈ A and all y ∈ U∇ .
+16         D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+To prove this, it is sufficient to prove in system (∇) the equation:
+      • ∇(x → ∇y) = x → ∇y
+On the one hand we have x → ∇y ⩽ ∇(x → ∇y). On the other hand we see:
+      ∇(x → ∇y) ∧ ∇x = ∇(x ∧ (x → ∇y)) ⩽ ∇∇y = ∇y.
+It follows that
+      ∇(x → ∇y) ⩽ ∇x → ∇y
+Inasmuch as x ⩽ ∇x, we conclude
+      ∇x → ∇y ⩽ x → ∇y,
+which is what we needed to prove.
+                                                            "
+    Suppose in a cHa A we have U ⊆ A with the                -closure property and the →-property
+above. Define
+              %
+      ∇U x = {y ∈ U | x ⩽ y}.
+
+The key step is to prove the first equation of (∇). Because ∇U is a closure operation, we
+have at once:
+      ∇U (x ∧ y) ⩽ ∇U x ∧ ∇U y.
+Also we see:
+      x ∧ y ⩽ ∇U (x ∧ y).
+But then
+      x ⩽ y → ∇U (x ∧ y) ∈ U,
+so
+      ∇U x ⩽ y → ∇U (x ∧ y).
+We conclude
+      y ⩽ ∇U x → ∇U (x ∧ y) ∈ U,
+so
+      ∇U y ⩽ ∇U x → ∇U (x ∧ y).
+This establishes
+      ∇U x ∧ ∇U y ⩽ ∇U (x ∧ y)
+as required.
+
+     If A were a cBa, then ∇-operators are not very interesting. In fact, set 0∗ = ∇0, then
+∇x = 0∗ ∨ x, as is easily proved.
+     System (∆) is introduced as a “dual” of (∇), but the author has no idea whether it
+is at all interesting to study.
+          D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical   17
+
+
+12. Higher-Order Logic
+
+Here is a principle the author regards – with hindsight – as self-evident.
+
+Principle. If you understand what first-order models with arbitrary predicates are, then
+you can interpret second-order logic with predicate quantifiers. And then you can go on
+to models of higher-order logic, even set theory.
+
+     In what is perhaps the first modern text book in mathematical logic [Hilbert–
+Ackermann, 1928], second-order logic is presented as a natural step by introducing quan-
+tifiers on predicates and relations. Even though the Hilbert–Ackermann book did not de-
+fine a formal semantics (as was to become standard from the later works of Tarski and
+Carnap) “meaning” and “logical validity” were intuitively understood. Indeed, Hilbert–
+Ackermann clearly presented the completeness problems Gödel was soon to solve. Of
+course, at that stage interpretations of formulae were classical and two valued.
+     Inasmuch as cHa’s generalize cBa’s, we will first consider in this section higher-
+order logic in intuitionistic free logic. For a cHa A, we defined in Section 9 gen-
+eral A-structures containing arbitrary A-valued predicates and relations. For simplic-
+ity, in order to fix ideas, let us restrict attention to one-placed predicates. These are
+functions p : M → A which have to satisfy an extensionality condition requiring
+e(x, y) ⩽ (p(x) ↔ p(y)), for all x, y ∈ M , and a strictness condition requiring
+
+      p(x) ⩽ e(x, x),       for all x ∈ M.
+
+Let PA (M ) be the collection of all such p, and call this the A-valued powerset of M .
+To make this an A-set, we need to define (Leibniz) equality on PA (M ). The definition
+is just a translation into algebraic terms what we know from logic:
+                    %
+        e(p, q) =       (p(x) ↔ q(x))
+                 x∈M
+
+for p, q ∈ PA (M ). We note that
+
+      e(p, p) = 1
+
+for all p ∈ PA (M ), a “totality” condition that need not hold in M .
+     Perhaps, to avoid confusion, we should notate the equality on M as e0 , and the equal-
+ity on PA (M ) as e1 . We can then use subscripts for the equalities in higher powersets.
+     Another side remark concerns totality in A-sets. Experience (and the study of cate-
+gory theory and topos theory) has shown that for models of intuitionistic logic it is es-
+sential to take into account partial elements x ∈ M where e(x, x) ̸= 1. The reason is
+that these models come up naturally, and a key example is discussed below.
+     Given an A-set M , the completion M of M can be taken to be the collection of all
+“singletons” s ∈ PA (M ); that is to say those one-place predicates such that
+
+      s(x) ∧ s(y) ⩽ e(x, y)
+
+for all x, y ∈ M . There is a natural embedding of M into M which we will denote by
+ε : M → M and define by
+
+      ε(x)(y) = ε0 (x, y),
+18         D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+for all x, y ∈ M . It is clear that ε(x) ∈ M for all x ∈ M . However, we have to be a little
+more careful to say how M is an A-set, as it is not correct to use e1 as the equality. Here
+is the appropriate definition:
+                  $               $
+       e(s, t) =        s(x) ∧        t(x) ∧ e1 (s, t).
+                 x∈M              x∈M
+
+The point here is our definition of being a singleton does not guarantee that an s ∈ M is
+non empty. The condition to be so is e(s, s) = 1. But for x ∈ M we will only have
+
+      e(ε(x), ε(y)) = e0 (x, y),
+
+for all x, y ∈ M . If x ∈ M is a properly partial element, then e0 (x, x) ̸= 1. More details
+about this notion of completeness are to be found in [Fourman–Scott, 1977], Section 4.
+We say that an A-set M is complete if, and only if, for all s ∈ M there is a unique x ∈ M
+such that s = ε(x); this means
+
+      s(y) = e0 (x, y),
+
+for all y ∈ M . In general M proves to be complete and we can restrict attention to
+complete A-sets.
+    The next question is in what sense does the multi-sorted structure
+
+      ⟨M, e0 , p1 , . . . , PA (M ), e1 , α1 ⟩
+
+form a model for a second-order logic? Here ⟨M, e0 , p1 , . . .⟩ is a model for first-order
+logic to which we are adding a new sort, namely, the power set. As a connection between
+M and PA (M ) is needed, we let α1 : M × PA (M ) → A stand for “application” or
+“membership” defined by
+
+      α1 (x, p) = p(x)
+
+for all x ∈ M and p ∈ PA (M ). Then the answer to the question is obvious (it is hoped),
+because in PA (M ) there is by design a function p to represent the mapping
+
+      x 3→ [[Φ(v)]]A (µvx ),
+
+where Φ is any formula, of a first- or second-order logic, where µ is a given valuation of
+the variable, and where µvx is the alteration of µ to make µvx (v) = x. The semantics of
+multi-sorted formulae of course evaluates quantifiers as glbs or lubs over the appropriate
+ranges of the variables.
+     We may recall that early formulation of high-order logic used an inference rule of
+substitution of formulae for predicate variables. The paper [Henkin, 1953] was perhaps
+the first to show that an axiomatization using a comprehension axiom suffices for higher-
+order logic. Especially as it is difficult to formulate the substitution rule correctly, the
+Henkin-style has been used ever since.
+     The author is claiming here that the passage from models of first-order logic to mod-
+els of second-order logic by adding a new type of objects is an easy one: we just make
+sure that the new type has the maximal number of objects agreeing with the concept of
+an A-valued predicate. This is the principle articulated at the head of this section.
+           D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical   19
+
+
+     By the same token then, it should be just as easy to continue to third-order logic. (As
+a technical convenience it is better to keep to complete A-sets, and so PA (M ) needs to
+be replaced by PA (M ).) And then fourth-order and higher-order models will folllow by
+the same principle.
+     Some examples will perhaps show how the A-valued semantics works out. As a
+cHa we can take the lattice Ω of open subsets of a convenient topological space T . We
+then use as first-order elements continuous, real-valued functions f on open sets. That is
+f : Ef → R continuously, where Ef , the domain of definition of f , is in Ω. Equality on
+such function is defined by
+
+      e(f, g) = Int{t ∈ Ef ∩ Eg| f (t) = g(t)}.
+
+Using the presentation of [Fourman–Scott, 1977], Section 8, one shows that this set,
+which we can call RΩ , becomes a complete Ω-set. Moreover the usual arithmetic opera-
+tions of + and · make sense on RΩ . The analogue of ordering is defined by
+
+      < (f, g) = {t ∈ Ef ∩ Eg| f (t) < g(t)}.
+
+     As a first-order structure RΩ models (most of) the intuitionistic theory of the reals.
+When using the general method of passing to a second-order structure, one obtains a
+model also satisfying a very suitable version of Dedekind completeness of the ordering.
+See [Scott, 1968] for an early version.
+     Now let us modify the construction by letting B be the cBa of measurable sets mod-
+ulo set of measure zero of a measure space T . The new “reals”, RB , are equivalence
+classes of real-valued measurable functions (functions made equivalent if they agree up
+to a set of measure zero). Equality is defined by
+
+      e([f ], [g]) = {t| f (t) = g(t)}/Null ,
+
+where Null is the ideal of sets of measure zero. In the Boolean B-valued logic, RB
+not only becomes a model of the classical first-order theory of the reals (= real closed
+fields), but in second-order logic it becomes a model for the Dedekind Completeness
+Axiom. (One exposition can be found in [Scott, 1967a].) In third-order logic (and higher)
+it becomes possible to give formally a version of the Continuum Hypothesis. As Solovay
+discovered, we can give a Boolean-valued version of Paul Cohen’s independence proof
+in this way—provided we take T to be a product space (with a product measure) so
+that there are a very large number of independent “random variables” (= measurable
+functions). See [Scott, 1967a] or [Bell, 2005] for further details.
+     Not only can both classical and intuitionistic higher-order logic be modeled in cHa’s
+(or cBa’s) but the iteration of he power set can be pushed into the transfinite obtaining
+models (and independence proofs) for Zermelo–Fraenkel Set Theory. As was said, in
+hindsight (after Cohen’s breakthrough) this all looks easy and natural. The technical facts
+about measures, topologies, and Boolean algebras were well set out in [Sikorski, 1960]
+and were known earlier. So the question the author cannot answer is: Why did not
+Mostowski or Rasiowa or Sikorski or one of their students in Warsaw extend the alge-
+braic interpretations of the quantifiers to higher-order logic?
+20         D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+13. Conclusion
+
+Our discussion in this paper has concentrated on the lattice-theoretic semantical inter-
+pretations of classical and intuitionistic logics championed by the Polish schools of
+Mostowski (Warsaw) and Tarski (Berkeley). A main point of our exposition is that the
+well-known algebraic characterizations of cHa’s and cBa’s exactly mimic the rules of
+deduction in the respective logics; hence the algebraic completeness proofs are not all
+that surprising. (The step to classical two-valued models, of course, needs a further ar-
+gument.) Moreover, once the formal laws are put forward in this way, the connection
+between intuitionistic logic and topology are not surprising either (pace Rasiowa and
+Sikorski). (But the steps to special topological interpretations need further investigation
+and have not been considered here.)
+     A second main point here concerns higher-order logic. The author contends that once
+the situation of first-order is understood, the generalization of the algebraic interpreta-
+tions is clear. As mentioned in the last section, he does not understand why the Polish
+schools did not see this already in about 1955. Being a member at that time of the Tarski
+school, the author also does not understand why he did not see this, since the general-
+ization is based on very simple general principles. If this had been done at the time, the
+question of how the Continuum Hypothesis fares in, say, Boolean-valued interpretations
+would have come up quickly. Moreover the Polish schools had all the necessary technical
+information about special cBa’s at hand to solve the problem of independence. Ah, well,
+history, unlike water, does not always find te most direct path.
+     As a curious sidelight, the idea of the algebraic interpretation in cBa’s was already
+suggested by Alonzo Church in 1953 [Church, 1953]. But neither he nor his later stu-
+dents (including the author) were inspired to look into it further. Instead, it took the
+breakthrough of forcing of Paul Cohen (based on quite different intuitions), which was
+reinterpreted in terms of Boolean-valued logic by Robert Solovay to close the circle.
+     And it should not be forgotten that a completely different intuition stemming from
+algebraic geometry was being developed by Grothendieck and his followers. One result
+was the definition of an elementary topos by F. William Lawvere and Myles Tierney
+around 1970 (for history see [Johnstone, 2002–2007]) which gives the most general no-
+tion of the algebra of higher types in intuitionistic logic. Topos theory includes not only
+the interpretations in cHa’s, but also the interpretations generalizing Kleene’s realizabil-
+ity. However, there are many other aspects of topos theory coming from abstract alge-
+bra and from algebraic geometry and topology that go far beyond what logicians have
+ever imagined. The results and literature are too vast to survey here, but the multi-tomed
+synthesis of Peter Johnstone will provide an excellent and coherent overview. The chal-
+lenge to logicians now is to use these mathematical techniques to draw (or discover) new
+conclusions significant for the foundations of mathematics.
+
+
+14. A Note of Acknowledgement
+
+A first version of this survey was presented at the conference 75 Years of Predicate Logic,
+held at the Humboldt University, Berlin, Germany, September 18–21, 2003, on the occa-
+sion of the anniversary of the publication of [Hilbert–Ackermann, 1928]. Unfortunately
+owing to his retirement and subsequent move from Pittsburgh, PA, to Berkeley, CA, the
+             D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical       21
+
+
+author was unable to complete a manuscript for the proceedings volume, which was
+eventually published under the title First-Order Logic Revisited, Logos-Verlag, Berlin,
+2004. The author would, however, like to thank the organizers of that conference for his
+being able to attend a very interesting workshop and for very warm hospitality in Berlin.
+     Subsequently the invitation to Poland for the Trends in Logic conference in 2005,
+which was dedicated to the memories of Polish colleagues in Logic whom he knew so
+well, gave the author the chance to rework the presentation. An invitation to lecture in the
+Philosophy Department of Carnegie Mellon University in the Spring of 2006 led to fur-
+ther improvements, particularly those concerning the MacNeille Completion and the ap-
+plication to Modal Logic. Thanks go to Steven Awodey for providing that opportunity –
+and for many years of collaboration in related areas.
+     Finally, the publisher and editors of this volume made it possible for Marian Srebrny
+to travel to Berkeley for a week of intense work putting the author’s conference notes
+into publishable form. Without this help this paper would not exist, and the author is es-
+pecially grateful for this stimulating and essential collaboration. Thanks go also to Marek
+Ryćko, Warsaw, and Stefan Sokołowski, Gdańsk, for their expertise in TEX typesetting.
+Warm thanks, too, go to the organizers of the 2005 conference for the chance to visit
+Poland again and to meet so many old friends.
+     Working on this paper and going over the lists of references gave the author a chance
+to review how much he owes to the Polish Schools of Logic. He wishes to dedicate this
+survey to the memories of these teachers and colleagues.
+
+
+A BRIEF, SELECTIVE, HISTORICAL BIBLIOGRAPHY
+
+1928
+Hilbert, D. and Ackermann, W., Grundzüge der theoretischen Logik, Springer-Verlag, 1928.
+
+1930
+Gödel, K., Die Vollständigkeit der Axiome des logischen Funktionenkalküls, Monatshefte für Mathematik und
+Physik, vol. 37(1930), pp. 349–360.
+Heyting, A., Die formalen Regeln der intuitionistischen Logik, Sitzungsberichte der Preussischen Akademie
+der Wissenschaften, Phys. mathem. Klasse. 1930, pp. 42–56.
+
+1931–32
+Gödel, K., Zum intuitionistischen Aussagenkalkül, Ergebnisse eines mathematischen Kolloquiums, vol. 4 (for
+1931–32, pub. 1933), p. 40.
+
+1934
+
+Hilbert, D., and Bernays, P., Grundlagen der Mathematik, Vol. 1, Springer-Verlag, 1934.
+Stone, M.H., Boolean algebras and their relation to topology, Proc. of the National Academy of Sciences, vol.
+20(1934), pp. 197–202.
+
+1935
+Tarski, A., Zur Grundlegung der Boole’schen Algebra, Fundamenta Mathematicae, vol. 24(1935), pp. 177–198.
+
+1936
+Stone, M.H., The theory of representations for Boolean algebras, Transactions of the American Mathematical
+Society, vol. 40(1936), pp. 37–111.
+22           D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+1937
+MacNeille, H., Partially ordered sets, Transactions of the American Mathematical Society, vol. 42(1937), pp.
+416–460.
+Stone, M.H., Applications of the theory of Boolean rings to general topology, Transactions of the American
+Mathematical Society, vol. 41(1937), pp. 21–364.
+Stone, M.H., Topological representations of distributive lattices and Brouwerian logics, Casopis pro pestovani
+matematiky a fysiky, vol. 67(1937–38), pp. 1–25.
+
+1938
+Tarski, A., Der Aussagenkalkül und die Topologie, Fundamenta Mathematicae, vol. 31(1938), pp. 103–134.
+
+1939
+Hilbert, D., and Bernays, P., Grundlagen der Mathematik, Vol. II, Springer-Verlag, 1939.
+
+1944
+Everett, C.J., Closure operators and Galois Theory in Lattices, Transactions of the American Mathematical
+Society, vol. 55(1944), pp. 514–525.
+McKinsey, J.C.C., and Tarski, A., The algebra of topology, Annals of Mathematics, vol. 45(1944), pp. 141–191.
+
+1946
+McKinsey, J.C.C., and Tarski, A., On closed elements in closure algebras, Annals of Mathematics, vol.
+47(1946), pp. 122–162.
+
+1948
+Birkoff, G., Lattice Theory, American Mathematical Society, 1948.
+McKinsey, J.C.C., and Tarski, A., Some theorems about the sentential calculi of Lewis and Heyting, The Journal
+of Symbolic Logic, vol. 13(1948), pp. 1–15.
+Mostowski, A., Proofs of non-deducibility in intuitionistic functional calculus, The Journal of Symbolic Logic,
+vol. 13(1948), pp. 204–207.
+
+1949
+Henkin, L., The completeness of the first order functional calculus, The Journal of Symbolic Logic, vol.
+14(1949), pp. 159–166.
+Rieger, L., A note on topological representations of distributive lattices, Cas. pro p’est. mat. a fys. 74(1949),
+pp. 55–61.
+Rieger, L., On the lattice theory of Brouwerian propositional logic, Acta Facultatis Rerum Naturalium Univer-
+sitatis Carolinae 189(1949), pp. 3–40.
+
+1950
+Henkin, L., An algebraic characterization of quantifiers, Fundamenta Mathematicae, vol. 37(1950), pp. 63–74.
+Henkin, L., Completeness in the theory of types, Journal of Symbolic Logic, vol. 15(1950), pp. 81–91.
+Rasiowa, H., and Sikorski, R., A proof of the completeness theorem of Gödel, Fundamenta Mathematicae, vol.
+37(1950), pp. 193–200.
+
+1951
+Beth, E.W., A topological proof of the theorem of Löwenheim–Skolem–Gödel, Indagationes Mathematicae, vol.
+13(1951), pp. 436–444.
+Mostowski, A., On the rules of proof in the pure functional calculus of the first order, Journal of Symbolic
+Logic, vol. 13(1951), pp. 107–111.
+Rasiowa, H., Algebraic treatment of the functional calculi of Heyting and Lewis, Fundamenta Mathematicae,
+vol. 38(1951), pp. 99–126.
+             D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical         23
+
+Rasiowa, H., and Sikorski, R., A proof of the Skolem–Löwenheim theorem, Fundamenta Mathematicae, vol.
+38(1951), pp. 230–232.
+Rieger, L., On countable generalized σ-algebras, with a new proof of Gödel’s completeness theorem,
+Czechoslovak Math. Journal, vol. 1 (76)(1951), pp. 29–40.
+
+1953
+Church, A., Non-normal truth-tables for the propositional calculus, Boletin de la Sociedad Matematica Mexi-
+cana, vol. 10(1953), pp. 41–52.
+Henkin, L., Banishing the Rule of Substitution for Functional Variables, The Journal of Symbolic Logic, vol.
+18(1953), pp. 201–208.
+Hasenjaeger, G., Eine Bemerkung zu Henkin’s Beweis fur die Vollstandigkeit des Pradikatenkalkuls der Ersten
+Stufe, The Journal of Symbolic Logic, vol. 18(1953), pp. 42–48
+
+1955
+Łoś, J., Quelques remarques, theoremes et problemes sur les classes definissables d’algebres, In: Mathematical
+Interpretations of Formal systems, North-Holland, 1955, pp. 98–113.
+
+1960
+Sikorski, R., Boolean Algebras, Ergebnisse der Mathematik, vol. 25, Springer-Verlag, 1960.
+
+1962
+Frayne, T., Morel, A.C., and D.S. Scott, Reduced direct powers, Fundamenta Mathematicae, vol. 51(1962), pp.
+195–228.
+
+1963
+
+Henkin, L., A Theory of Propositional Types, Fundamenta Mathematicae, vol. 52(1963), pp. 323–344.
+Rasiowa, H., and Sikorski, R., The Mathematics of Metamathematics, Monografie Matematyczne, vol. 41,
+Warszawa 1963, 519 pp.
+
+1963–64
+Cohen, P.J., The Independence of the Continuum Hypothesis I and II, Proceedings of the National Academy of
+Sciences, vol. 50(1963), pp. 1143–1148, and vol. 51(1964), pp. 104–110.
+
+1966
+Solovay, R.M., New proof of a theorem of Gaifman and Hales, Bulletin of the American Mathematical Society,
+vol. 72(1966), pp. 282–284.
+
+1967
+
+Rieger, L., Algebraic Methods of Mathematical Logic, Prague-New York-London, 1967.
+Scott, D., Existence and description in formal logic, In: Bertrand Russell: Philosopher of the Century, edited
+by R. Schoenman, Allen and Unwin, 1967, pp. 181–200.
+Scott, D., A proof of the independence of the continuum hypothesis, Mathematical Systems Theory, vol.
+1(1967), pp. 89–111.
+
+1968
+Scott, D., Extending the topological interpretation to intuitionistic analysis, Compositio Mathematica, vol.
+20(1968), pp. 194–210.
+
+1969
+Lambert, K., ed. The Logical Way of Doing Things, Yale University Press, New Haven, Conn., 1969, Reprinted
+Ann Arbor: University Microfilms International, 1980.
+24           D.S. Scott / The Algebraic Interpretation of Quantifiers: Intuitionistic and Classical
+
+
+1970
+Scott, D., Extending the topological interpretation to intuitionistic analysis, II, In: Proceedings of Conference
+on Proof Theory and intuitionism, edited by J. Myhill, North-Holland, 1970, pp. 235–255.
+
+1971
+Lawvere, F.W., Quantifiers and sheaves, International Congress of Mathematicians, Nice 1970, vol. 1,
+Gauthier-Villars, 1971, pp. 329–334.
+
+1972
+Hasenjäger, G., Introduction to the basic concepts and problems of modern logic, Dordrecht-Holland, D.
+Reidel Pub. Co., 1972, 180 pp.
+
+1974
+Rasiowa, H., An algebraic approach to nonclassical logics, Studies in Logic and the Foundations of Mathe-
+matics, vol. 78, North-Holland, Amsterdam, 1974, xv + 403 pp.
+
+1979
+Grayson, R.J., Heyting-valued models for intuitionistic set theory, In: Applications of Sheaves, Durham Pro-
+ceedings (1977), edited by M. Fourman et al., LNM 753, 1979, Springer-Verlag, 1979, pp. 402–414.
+Fourman, M., and Scott, D., Sheaves and logic, In: Applications of Sheaves, Durham Proceedings (1977),
+edited by M. Fourman, Springer-Verlag, LNM 753, 1979, pp. 302–401.
+Scott, D., Identity and existence in intuitionistic logic, In: Applications of Sheaves, edited by M. Fourman,
+Durham Proceedings (1977), Springer-Verlag, LNM 753, 1979, pp. 660–696.
+
+1982
+
+Johnstone, P.T., Stone Spaces, Cambridge University Press, 1982, xxi + 370 pp.
+
+1995
+Quine, W.V.O., Free logic, description and virtual classes, In: Selected Logic Papers, Harvard University
+Press, 1995, xii + 307 pp.
+
+1996
+Henkin, L., The Discovery of My Completeness Proofs, The Bulletin of Symbolic Logic, Vol. 2(1996), pp.
+127–158.
+
+2002–2007
+Johnstone, P.T., Sketches of an Elephant: A Topos Theory Compendium, Oxford University Press, vol.
+1(2002), 562 pp., vol. 2(2002), 715 pp., vol. 3(2007?)), ???pp.
+
+2003
+
+Lambert, K., Free logic: Selected essays, Cambridge University Press, 204 pp., 2003.
+
+2004
+Harding, J., and Bezhanishvili, G., MacNeille completions of Heyting algebras, Houston Journal of Mathemat-
+ics, vol. 30 (2004), pp. 937–952.
+
+2005
+Bell, J.L., Set Theory: Boolean-Valued Models and Indpendence Proofs, Third Edition, Clarendon Press,
+2005, 216 pp.
+
+2007
+Harding, J., and Bezhanishvili, G., MacNeille completions of modal algebras, Houston Journal of Mathematics,
+vol. 33 (2007), pp. 355–384.
+

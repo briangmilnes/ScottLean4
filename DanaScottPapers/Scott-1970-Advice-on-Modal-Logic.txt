@@ -1,0 +1,887 @@
+                                   DANA   SCOTT
+
+
+
+
+                    ADVICE         ON     MODAL          LOGIC
+
+
+
+
+Everyone knows how much more pleasant it is to give advice than to
+take it. Everyone knows how little heed is taken of all the good advice
+he has to offer. Nevertheless, this knowledge seldom restrains anyone,
+least of all the present author. He has been noting the confusions,
+misdirections of emphasis, and duplications of effort current in studies
+of modal    logic   and   is, by   now,   anxious   to    disseminate    all kinds   of
+valuable advice on the subject. Thus he is very happy that the Irving
+meeting has provided such a suitable and timely forum and hopes that
+all this advice can provoke some useful discussion — at least in self-defense.
+The time really seems to be ripe for a fruitful development of modal logic,
+if only we take care to purify and simplify the foundations. A quite flexible
+framework is indeed possible: the old puzzles can be brushed aside, and
+one can begin to provide meaningful applications.
+   Before embarking on details, here is one general piece of advice. One
+often hears that modal (or some other) logic is pointless because it can
+be translated into some simpler language in a first-order way. Take no
+notice of such arguments. There is no weight to the claim that the original
+system must therefore be replaced by the new one. What is essential is
+to single out important concepts and to investigate their properties. The
+fact that the real numbers can be defined in terms of sets is no argument
+for being interested in arbitrary sets. One must look among the sets for
+the significant ones and cannot be censured if one finds the intrinsic
+properties of the reals more interesting than any of their formulations in
+set theory. Of course if we can argue that set theory provides other
+significant concepts, then we may find some reason for going beyond the
+real numbers (and it is not hard to find the reasons!). But clearly this
+discussion cannot proceed on purely formal grounds alone.
+   This essay is divided into six sections. Section 1 discusses individuals:
+actual, possible, and virtual, Section 2 introduces possible worlds and
+their generalizations, Section 3 combines possible worlds and individuals
+to produce the fundamental notion of individual concept. Section 4 dis-
+
+K.Lambert (ed.), Philosophical Problems in Logic. All rights reserved.
+144                               DANA    SCOTT                                                             ADVICE    ON   MODAL    LOGIC                      145
+
+cusses general intensional operators. Section 5 completes the discussion
+                                                                                      because we want D to be the domain of possible individuals. Here ‘possible’
+of the previous section by showing how to handle variable-binding oper-               means possible with respect to some a priori conception. The term ‘con-
+ators. The final Section     6 brings out the distinction between        incidence    ceivable’ might be more to the point. In any case let me emphasize again
+and equality needed for the problems of cross-world identifications. (The             that it is a relative notion. Of course we can conceive of individuals not
+final discussion is not as satisfactory as the author hoped, and he looks
+                                                                                      in D, but that is neither here ‘nor there. My only demand is that we
+forward to future developments.) The plan of writing was to set out the
+                                                                                      conceive of at least one possible individual, because in general logic on
+semantical framework for modal logic gradually — with (hopefully) ade-                the non-empty domain is simpler. Quantifiers over possibly empty domains
+quate explanation ~ so, that all the good advice would not seem too                   will come in later in a more reasonable context.
+authoritarian. In any case the various critical remarks were meant in the                It took me a very long time to concede the point that the notion of
+spirit of rational discussion. We want a synthesis of all good ideas and              possible individual was reasonable. It was only after many discussions
+not just a triumph of one man’s approach over another’s.                              with the UCLA group (Montague, Kaplan, Cocchiarella and Kamp) that
+                                                                                      I finally saw the light. I was glad to note at the present meeting that
+                                I, INDIVIDUALS                                        others are coming to the same conclusions (van Fraassen and Lambert
+                                                                                      in particular). There are many examples to make the idea plausible:
+What is an individual? A very good question. So good, in fact, that we                consider the following sentences. ‘No two presidents of the United States
+should not even try to answer it. We         could assume that being an indi-         ever looked alike.’ ‘All Nobel prize winners were equally deserving.’ ‘All
+vidual is a primitive concept — that is harmless: any sufficiently clear              readers of the novel will be as deeply moved as I.’ We are playing here
+concept can be made primitive. But maybe we do not want the individuals               with the passage of time. Individuals (in this case persons) come into and
+themselves but only some constructs or tokens representing the individuals.           go out of existence. Nevertheless it is meaningful to compare two of them
+For the moment it does not matter: what is important is to agree that                 existing at different times: not always two specific persons so that quanti-
+the individuals (or their legal representatives) can be collected together            fication over all the possible individuals is actually required. That is the
+into one domain, a set that we may call D.                                            difference between the first two of these sentences (in past tense) and the
+   I feel it is important to be thinking of D as fixed in advance. This does          third (future). This is only one line of examples; once the problem is
+not mean that one knows all the elements of D in any constructive sense,              appreciated hundreds of examples come to mind.
+for one may only know some property specifying D. But much confusion                     We shall return to the distinction between actual and possible individuals
+results if one considers D vague. Any set can be enlarged by the intro-               below in Section 5. In this section we wish to emphasize another dis-
+duction of new elements; but then a new set D’#D obtains, and various                 tinction: possible vs. virtual. It has been Quine who has recently popu-
+results may undergo modification when interpreted relative to the new                 larized virtual entities. Forgive the word ‘entity’, since Quine would seem
+domain. Sometimes this change may take on the aspect of paradox if                    to be happier to treat them merely as facon de parler with all references
+one forgets that D'’#D. Maybe in the future we shall understand the                   thereto avoidable by contextual definition. That seems to me to be a
+logic of potential totalities (through intuitionism possibly?) but for the            mistake of emphases or maybe an error of shortsightedness. The possi-
+present our simple two-valued logic demands this idealization. Be not                 bility of introducing virtual entities is unlimited and for the most part
+discouraged that from the first this idealism hangs in the air: ask yourself          relatively unexplored. They are not to be regarded as ghosts but rather
+if you fully appreciate how powerful and flexible a tool two-valued logic             as ideal objects introduced to enhance the regularity of our language.
+really is. I feel that it is better to work out the idealized situation first — and   By using the names of these entities we often find a simple formulation
+then retrench later when one can value thoroughly what is gained and lost.            that avoids a confusing proliferation of cases. In the ordinary theory of
+  How    big is D? Well, it should be rather large (at least non-empty)               real numbers   +0    are excellent examples of useful ideal points; in pro-
+                                                                                                                                                                          aoe
+
+
+
+
+ 146                           DANA    SCOTT                                                                 ADVICE    ON     MODAL       LOGIC                     147
+
+jective geometry, the points at infinity; in set theory, the virtual classes.   the answer should be a firm no. Quantification (or the ranges of the
+Of course each of the above mentioned notions can be eliminated (at the         bound variables) should only be over the possible individuals. If we have
+cost of much longer statements) by contextual definitions. We must now          come to value the virtual entities so highly that we want to quantify over
+examine my reasons for advising not making contextual elimination the           them, then we have passed to a new theory with a new ontology (and
+central feature of these concepts.                                              with new virtuals also!) The role of the virtual entities is to make clear
+   My most outstanding reservation centers on the feeling that I do not         the     structure   of the   basic   domain    D,   not    to introduce   a whole   new
+know what the general theory of contextual definitions is. I even have          collection of problems. That is why we are happier when references to
+some doubt that there is such a theory. Maybe I am just being stubborn          the virtuals can be eliminated.         But maybe         virtuals can also be used to
+as I have often been in the past, but I do not know of any really serious       simplify the introduction of the primitive structure into D, so elimination
+study of the problem. This is not to say that Quine has not given us some       may not always be possible. Still they must take second place to the
+important examples of the use of contextual definitions. Rather I would         individuals in D.
+propose a somewhat more neutral course that will allow us to think about           The kind of quantification just rejected was quantification over all the
+the question in a clear way before deciding on the final answer. The point      virtuals. It may very well be that quantification over part of them is
+is that the case by case presentation of the contextual eliminations (the       useful. Let us take the theory of actual and virtual classes as an example.
+cases being governed by the possible contexts) always makes me worry            Every actual class has its cardinal number. If a, b are actual classes (sets),
+that some type of discontinuity may creep in, that is to say, in one context    let us write a~b to mean that a one-one correspondence exists (as an
+the virtual object may behave as one kind of thing whereas in another           actual relation). Then the cardinal number of a set a can be defined by
+place it may be quite different. Well, that is not unreasonable: no object      the equation                                                      .
+stands in all the same relationships to all other objects. What disturbs me
+rather is that the contextual method makes it too easy to allow the entities
+                                                                                                lal = {x:x
+                                                                                                         x a}.
+to be fickle.                                                                   In the usual theories of classes |a| is generally virtual but not actual.
+   What is to be done? Simply this: let us think of the expressions for            Among the virtual classes we can define what it means to be a cardinal
+virtual objects as actually denoting (abstract) entities. Instead of defi-      in the obvious way:
+nitions we take axioms (maybe just by using ‘<>’ in place of ‘for’ — working
+in the object language of course!). It is a heavier commitment, no doubt                        Card [t] 4x [+ = |x\],
+about it. Thus if something goes wrong, we have to face the fact that           where t is a term and x is not free in Tt.
+our axioms are inconsistent — we cannot so easily confuse the issue by                Would it not be rather pleasant to be able to have variables ranging
+changing some clause of a ‘definition’ and calling it harmless. That is a       over cardinals, say German letters m, n..., so that various existence
+negative advantage. A positive advantage may also be possible: in the           theorems could be stated in the usual way? The answer is simple: yes,
+case of virtual classes I have shown in my paper on descriptions that the       you may do so and even not compromise your views on virtual objects.
+axioms can be made simpler and more elegant than the definition. I feel         Obviously we simply let
+that this makes virtual classes easier to understand. Of course an elimi-
+nation metatheorem can be justified on the basis of the axioms; this may                        Vin & (m)<+Vx & (|x\),
+ often be the case. Thus my advice is to leave the elimination problems to      and
+the development of the theory rather than having them complicate the                            dm @(m)oAx 6 (|xI).
+formalization.                                                                  The meaning is clearly what was intended, and we see that the quanti-
+    The next question is: should we quantify over virtual objects? I think      fication is no worse than the usual quantification over sets. The same
+  148                               DANA      SCOTT                                                          ADVICE     ON   MODAL   LOGIC                    149
+
+ approach can clearly be applied to quantification over any portion of the           important not to assume a one-one correspondence between the 4, and
+ virtuals that can be enumerated or indexed by the sets with the aid of              the i, for the elements of the set J may possess significant structure not
+ some      definable operation like |a]. By this method      one never quantifies    at all reflected in the change from one A, to another. This is why I reject
+ over all the virtuals, however, for no matter what operation g(a) one               taking either the models of Montague-Kripke (earlier writings) or the
+ takes the virtual class c={x:x¢(x)} is such that “3 ylt=e())]. Still                model sets of Hintikka as fundamental. This point has to be argued a
+ the method seems useful and natural.                                                little more closely. It is not sufficient to point out that with the models
+    In summary then we are distinguishing between virtual, possible, and             or model sets we can assume enough distinctions to gain the effect of
+ actual,    Let us use   V for the domain      of virtual objects, D for possible,   any index set (by using several distinct copies of a set or by introducing
+ A for actual, where we assume for simplicity that                                   special predicates into the language) for that is only to admit that the
+                AGDeYy.                                                              method of indices is in fact more fundamental.
+                                                                                        Let us see how the indices work. The point is that in the expressions of
+ The distinction between A and D does not arise in the usual systems but             our language we make some indefinite reference to the indices — hence
+ becomes very critical in modal logic. (In fact, A will have to be replaced          the terminology. Already we can give one example, though better ex-
+ by a whole      family of domains    A;<D     for ie/). However,    even in non-    amples come soon. This example has to do with quantification. We have
+ modal logic it can be useful to make the separation (cf. the work of                the one quantifier Vx which is interpreted as ranging over D. We now
+ Cocchiarella and of Lambert).                                                       introduce the ‘actual’ quantifier V.x, where the dot is meant to suggest
+   Note that we have already been using the relation of equality (=)                 an indefinite index. Thus even if we know the meaning of the predicate P
+ between individuals ~ even on V. This is just and proper. Equality is a             we cannot say whether                                   °
+ logical notion. Just because people have been in the past confused about
+ the properties of equality does not mean that the notion is basically                           V.x P (x)
+ unclear. We shall be discussing it fully in connection with the modal
+ notions.                                                                            is true or false. However, if we specify an jeJ, then relative to this index
+                                                                                     the sentence assumes a truth value: namely it is true if P(a) is true for
+                             II.   POSSIBLE    WORLDS
+                                                                                     all ae A;. Until we specify the ieJ, the range of the quantified variable is
+ This is not the place to discuss where the idea of possible worlds came             not known.
+ from, it is sufficient to remark that the recent works of Kanger, Montague,            The above example supplies us with a statement whose truth-value is
+ Hintikka, and Kripke have clearly established the usefulness of the notion.         not constant but varies as a function of jef. This situation is easily
+ Indeed the idea seems so useful that I wish to advocate keeping in mind             appreciated in the context of time-dependent statements; that is, in the
+ an extension of the concept, that makes the method much more flexible,              case where J represents the instants of time. Obviously the same statement
+ or so it seems to me.                                                               can be true at one moment and false at another. For more general
+    My     advice is to use the principle of indexical expressions of Carnap-        situations one must not think of the ie/ as anything as simple as instants
+ Bar-Hillel. The possible worlds thought of as particular collections of             of time or even possible worlds. In general we will have
+individuals with or without additional structure give only one aspect of
+                                                                                                 i = (w, t, p, a,...)
+ the idea. Any system of structures can be indexed by the elements of
+ some suitable set, usually in many different ways. Thus we are going to             where the index i has many coordinates: for example, w is a world, tis a
+ take a fixed set J of these indices and in the first instance index the system      time, p=(x, y, z) is a (3-dimensional) position in the world, a is an agent,
+ of actual individuals by having possibly distinct A,¢ D for each ieJ. It is         etc. All these coordinates can be varied, possibly independently, and thus
+                                                                                                                                                                                be,
+
+
+
+
+ 150                             DANA    SCOTT                                                                ADVICE        ON    MODAL     LOGIC                         151
+
+affect the truth values of statements which have indirect references to
+                                                                                    equation
+these coordinates.
+                                                                                                  (Pll; = 1
+   The question arises as to why we cannot simply make the references
+direct and reduce the logic of indexical expressions to ordinary logic.             to mean that © is true at i. Other notations are possible, and some variants
+Well, the answer is that we just do not speak that way. All kinds of                are discussed later. Note that we use the subscript notation /; interchange-
+statements have indirect references to the here, the now, the I (first              ably with the function-value notation f/(@). Sometimes we may wish to
+person). And these statements have a logic; it is possible to say that some         refer to the set of all functions from J into 2; it is denoted by 2’, and we
+of them are true by virtue of their syntactical form. Thus in view of the           may write
+commonness and simplicity of these statements, we are certainly obliged                           ISI]   27
+to investigate their intrinsic logic. Of course a translation into a more           whereas
+elementary language may help for certain results, but that does not mean                          |@l],e2
+that the more involved language has been eliminated or made uninter-                for iel.
+esting. It is somewhat like the idea of typical ambiguity: we need not                 We have already in effect agreed that our language will contain the
+specify the exact type of variables — only the relative distances between           usual propositional connectives   4, v, A, >, <> and the quantifiers V, V.,
+levels. Many statements are true at all levels, and it is only painful to           4, and 3. with other operators to be discussed later. In explaining the
+force oneself to carry along the exact levels in the notation.                      meaning of these symbols we give the usual kinds of semantical definitions
+   One could call the ieZ points of reference because to determine the              as follows:
+truth of an expression the point of reference must be established. Previ-
+ously I had suggested that terminology as more neutral and more sug-                  (7)         | Ol,=1 i            ||O],=0,
+gestive of the proper generality than possible worlds. Maybe index is just            (v)         Iv Yl,=1             iF Ol;=1                 of [YI,=1,
+as good   a term,   though   it seems   to me    to make   them   sound   rather      (A)         IL A W]=1            iff |O,=1                and |VI,=1,
+insignificant. In any case in making up interpretations of the language             and similarly for the clauses of the truth definition (->) and (<=). Note
+the set J, along with 4,;<DCY,       is to be fixed in advance.   Remember     it   that we do not have to say ||         16,0       otherwise in (1) because we have
+is not fair to shift the size of Jin the middle of a discussion (or to invoke       already agreed to the two-valued character of the logic.
+unsuspected coordinates) and then deride the logic as inconsistent or                 To be able to interpret the quantifiers I would advise                     introducing
+counter-intuitive. Such arguments may, if they have any serious content,            constants d into the language corresponding to all the ae V. Of course
+show an interpretation to be inadequate for representing a complicated              the correspondence between a and d must be one-one. We can then write:
+situation. That is to say a particular interpretation may be discredited,
+but that does not discredit the method of constructing interpretations.               (v)         |Vx®(x)|,=1       iff      |@(@l),=1           forall    aeD
+   in summary then we conclude that the truth values of statements vary               (V.)        |V.x O(x)|;=1        if        |]O(@)],;,=1     forall   aeA,.
+with the ieJ. In order to state in a convenient way the connections be-             Similarly for (4) and (4.). Now I know that some people do not like to
+tween statements and their parts some notation is in order. Let us first            have their languages made uncountable with too heavy a ‘telephone book’
+make the truth-values visible: we write 1 for true and 0 for false. The             of individual names. That was one of the reasons Tarski introduced his
+reason for this choice of notation is that 2={0, 1} is a simple and readily         version of the definition of satisfaction. I have worked with both kinds
+available symbol for the set of the two truth values. Next associated with          of definitions and have found the style with individual constants much
+a statement @ will be a function, call it ||®||, the value of © in the interpre-    easier to communicate to those unpracticed in set theory. For one thing
+tation, defined on J with values in 2. In other words we shall write the            the clause of the truth definition is shorter.
+152                              DANA   SCOTT
+                                                                                                       ADVICE         ON   MODAL    LOGIC                          153
+
+   So far we have only discussed the connections between and quantifi-
+                                                                                mental because it is so easily defined in terms of the other notions:
+cation of propositions. The nature of the interpretation of atomic formulas
+and terms (like descriptions) deserves a section of its own.                                lx ® (x) = Ixd.y [y =x A G(y)].
+                                                                                This last remark reminds us that we have not discussed equality. As usual
+                       Ill    INDIVIDUAL    CONCEPTS                            our language has terms and formulas combined by the usual particles as
+                                                                                well as by some     unusual     ones yet to be introduced.      In particular two
+Why should we not throw ourselves into the midst of the battle at once
+                                                                                terms t and o can be combined into an equation t=o             which is a formula.
+by discussing definite descriptions. They illustrate all the problems and
+                                                                                We are going to be able to evaluate every well-formed expression without
+lead directly to the general operators. So first of all what is the notation?
+                                                                                free variables, so we may assume that we know what               ||t|| and   |lo|| are:
+We have had 2, T, U to suggest the and unique, but I do not care for any
+                                                                                namely partial functions from J into              into what? So far for de-
+of these. It is a matter of taste, but since I am using inverted sans-serif V
+                                                                                scriptions the values have only been in D but in general the values should
+and J for the quantifiers, I have finally decided to use an (inverted?) sans-
+                                                                                clearly lie in V. Let us write V for the set of partial functions whereas V7
+serif capital | to suggest the word individual. (Actually T is not bad, but
+                                                                                would denote the set of total functions, so that
+then what about T and F, or T and L, for the truth values?) The semantics
+is rather obvious no matter what the notation, for we have:                                 Ic, loll      eV.
+  ()        lk ®(@);=a iff {a} = {be D:|6 (5), = 1}.                            Now for equality:
+
+That is to say, given ief so that we know how to evaluate |(5)||; for             (=)       ct = oll, =         iff   either ||\c||; and ||o||; are both defined and
+each be D we can ask whether there is a unique b making the formula true.                   equal or neither are defined.
+If so, call it the individual a and that will be the value of the descriptive      Yes, yes, I can hear the objections being shouted from ail corners.
+phase relative to i. Hence,    ||lx(x)|| is being defined as a function from    If one is going to use undefined terms why not undefined truth values?
+Tinto D. But what kind of a function? What of the improper descriptive
+                                                                                Is not that more natural? Maybe so, but I have yet to see a really workable
+phrases? Answer: the function is most naturally taken as a PARTIAL              three-valued logic. I know it can be defined, and at least four times a year
+FUNCTION; improper descriptions have ‘undefined’ values.                        someone comes up with the idea anew, but it has not really been developed
+   The opinion just presented is a change of mind over what I have been         to the point where one could say it is pleasant to work with. Maybe the
+advocating previously (even in my original Irvine lecture!). It was only        day will come, but I have yet to be convinced. So my advice is to continue
+when I started to set down in an informal, conversational way my                with the two-valued logic because it is easy to understand and easy to
+accumulated suggestions that I saw how to take full advantage of the            use in applications; then when someone has made the other logic workable
+idea (yet to be explained here in detail) of individual concepts. The scheme    a switch should be reasonably painless.
+will become clearer as we go along.                                                On the basis of (=) it is obvious that the following two formulas are
+   Note that along with | we also have the operator I. which picks out          always true for all ie/:
+actual individuals and is defined in the obvious way by:
+                                                                                             t=t,      and      [tr=cAt=O030=6],
+  (1)       lx @@)I,=a          if {a} = {be A;:|% (5), = 13,                   which was the reason for the choice of the definition. As will become
+where we take the value to be undefined in case there is no a satisfying        apparent as we go along the following generally fails:
+the condition on the right. Of course this operator is not really funda-                     t=oA@(t)> O(a),
+fhe   cil   alten   tie aman
+                           a       lA                lle   he    lh   a       ee      jie
+
+
+
+
+                      154                                                 DANA     SCOTT                                                           ADVICE       ON   MODAL   LOGIC                     155
+
+                     which seems disturbing. However, an important special
+                                                                               case does hold.                               t and o have the same extension (if any) relative to the current point of
+                     First we must say what to do with (virtual) indivi
+                                                                        dual constants:                                      reference. This does not in general imply equality of intensions. Hence
+                                         lal]; = a                                                                           we cannot have a general substitutivity of equais — unless like true indi-
+                                                                                                                             vidual constants the intension is indeed a constant function.
+                     for all ae V. That is surely the intended meaning of
+                                                                          d. Now it is easy to                                  Returning now for a moment to descriptions we note the validity of:
+                     check that
+                                                                                                                                        Vy Ly = Ix @ (x)
+                                                                                                                                                       6 Vx [x = po G(x)
+                                                                                                                                                                       ]]-
+                                        d=bha        D (a)        >   © (b)
+                                                                                                                             This is the basic property of descriptions that has been advocated by
+                     is always true.           In particular this slightly weaker statement also
+                                                                                                                         a
+
+                                                                                                 holds:                      many of us (Hintikka, Van Fraassen, Lambert, the present author, to
+                                                                                                                         i
+                                        VxVy [x=                 yA ®(x)>@(y)].                                              name only a few), and by now it seems natural. According to the way
+                        To understand better how the semantics goes let                                                      I have treated individual concepts we also have a definite result for the
+                                                                         us take over (more
+                                                                                                                         —
+
+
+                     or less) the following terminology from Carnap:                                                         improper descriptions. We see that ||Ix[x#x]|| is the totally undefined
+                                                                       we call the elements                                  function in V; let us call it «. This concept «« V™ works very much like
+                    of 2 propositional concepts and those of V” individual concept
+                                                                                   s. Note that                              Frege’s nuli-entity and it now seems to me to be more natural than an
+                                        AMPs DP cy                                                                           arbitrary choice of a null element in V~D. For one thing it is uniquely
+                    so that we have a classification of our individual concept                                               determined: it can be called a semantical construct, which seems to put
+                                                                               s parailel to that
+                    for individuals. We call these things concepts because                                                   it in its proper place. We find, however, the same valid sentence we had
+                                                                               they have values
+                    depending on the index or point of reference in J and                                                    before when      *e&V~D:
+                                                                                together form a
+                    coherent range of values, that is to say a functio                                                                   — dy [y = Ix 6(x)] > Ix @ (x) = Ix [x # x].
+                                                                          n. Such a stringing
+                    together of individuals (or truth values) gives us, not
+                                                                             a single individual,
+                    but a concept of an individual relative to the point
+                                                                         of reference. Everyone                                                   IV.   INTENSIONAL      OPERATORS
+                    is familiar with this from such old descriptive phrases
+                                                                            as ‘the present
+                    king of France’. Note that V is constructed first and V© constru                                         So far we have been moving along on a very pure logical level: all the
+                                                                                     cted
+                    second to be able to evaluate terms. That is to say the individ                                          notions (except for individual constants) have been logical notions. it is
+                                                                                    ual concept
+                    is a semantical construct rather than a primitive ontological                                            now time to discuss the non-logical notions and to be led by this discussion
+                                                                                     notion.
+                       To repeat: for terms t and formulas 9:                                                                even to further logical notions.
+                                        It}   eV           and                                                                 What about (atomic) predicates? Let us discuss binary relations as a
+                                                                      ||O| e2?.
+                                                                                                                             prime example. Our only example so far has been equality and it is
+                    Thus       ||t||   is somewhat          like Frege’s sense while        ||t||, is like denotation.       somewhat special. Note first, however, that just as with equality we should
+                    But not exactly. Let us not get into that discussion here. Maybe                                         allow for expressions
+                                                                                          it would
+                    be better to be a little more like Carnap and call ||t|| the intension
+                                                                                               of t                                      tRo
+                    and ||t||, the extension of t at ieI. The basic principle of our
+                                                                                     semantics is:
+                                                                                                                             where t and o may be arbitrary terms. (We        certainly want to be able to
+                                       The intension of a whole expression is determined by the in-
+                                                                                                                             say such things as “Yvonne     is the wife of the present king of France’.)
+                                       tensions of its parts.
+                                                                                                                             Now this brings up the question as how we are to interpret R; call the
+                    The     same       may    very well not be true of the extension.                                        interpretation ||R||. Is it to be a relation between individuals or individual
+                                                                                                   This is how     we
+                    explain the ‘paradox’ of equality: the natural reading of t=o is only                                    concepts? Answer: the latter. Why? Because even if we only start with
+                                                                                          that
+alt    acl      atl   mili   Ab    srtim   onuttiaenatiths    eile   elie
+
+
+
+
+        156                                                  DANA SCOTT
+                                                                                                                   ADVICE      ON   MODAL    LOGIC                   157
+        individual relations, we will be able to
+                                                 define an intensional relation that
+        depends on the whole intension of each of                                            Intensional relations do not spring to mind as easily as do intensional
+                                                  the arguments. (This will be
+        obvious as soon as we have the modal operators.)                                   propositional operators. The simplest example is 1], necessity, defined by
+                                                         Therefore, in general
+        we should take                                                                       (O)        (OOl;=1        if    ||O];=1     forall     jel
+                         IR] @(2tyrpnvr                                                    This means nothing more or less than true in all possible worlds. What
+       so that in the corresponding clause in the                                          should we call it? Logical necessity does not seem correct since it depends
+                                                  truth definition we have
+                                                                                           on I (as do the values ||R||). How about universal necessity? Because
+          (R)           It   Rol] = IRI (Ici, hol).                                        we are in effect quantifying over our universe 7. Whatever we call it
+       Similarly for predicates with more places. Note                                     we find that it is an S5 modal operator, and a very useful one. Of course
+                                                       that the subscript 7 is
+       unnecessary here because we took the values                                         possibility is defined in the dual way and we do not need to write down
+                                                   of |R|| to belong to 2°.
+          The main reason for making general predicates                                    here the clause (<) of the truth definition.
+                                                               so complicated was
+       not simply to torture the reader but to make                                          If we want we can say that [] has a value ||[]|| just as we did for ||RIl.
+                                                      our logic general. When we
+       know that a formula is logically valid (that is,                                    Indeed   ||[|| is of the same logical type as ||-1 ||:
+                                                         true in all interpretations
+       relative to all points of reference of the interp
+       remain valid when formulas are substituted for
+                                                         retation), then it should                      ION, In      e(2*
+                                                        predicate letters. There is
+      no other convention that is reasonable. But                                          They are mappings from propositional concepts to propositional concepts.
+                                                       that does not keep us from
+      discussing special kinds of predicates, as is                                        The difference is that one is extensional and the other is not. Note that
+                                                     clear.
+         One special kind of predicate is extensional.                                     we can write
+                                                           The best examples come
+      from ordinary relations ROVxV. (Reme
+                                                    mber: 2<-+00, so that our                           (Oe) = JO) Ge)
+      relations must be defined over all of V.) Let us write
+                                                             R for the constant
+      in the language that corresponds to R in analogy                                     (without subscripts!) making our dogma about intensions quite evident.
+                                                         with individuals. Then
+                                                                                              Now that our logical notation is becoming more interesting it is useful
+         (R)          It Rol;=1            i                 (IIlolH,
+                                                                    eR.                    to examine certain compound phases: for example []Jt=c. By definition
+       Note for this atomic formula to be true, both                                       we have:                  ;
+                                                            |[t||; and ||ol|, must be
+       defined. This convention was not what we chose
+                                                                   to do for equality
+                                                                                                        JOc=ol;=1           iff rl ;=lol; for all jer,
+      ~ because the special role of equality favors a differe                              where we agree that the equation on the right holds in case both sides
+                                                              nt convention making
+      for more regularity among the valid formulas. (An interes                            are undefined. That is to say ||[]t=cl| is the concept of the true propo-
+                                                                         ting sidelight:
+      if all our atomic formulas were either made with =                                   sition iff ||t||=||o|| which means ||t|| and ||o|| are the same individual
+                                                                    or various R’s and
+      if our only terms were either variables or descriptions                              concept. Let us introduce a symbol for this notion:
+                                                                  , then descriptions
+      could be entirely eliminated. In general this is not
+                                                               so.) For example the
+      extensionality principle (for R) reads                                                            T=   oeLt=c.
+
+
+                      tT=t   AG=a ntRao>r
+                                        Ro’.                                               Thus we are distinguishing between extensional equality (t=o) and in-
+                                                                                           tensional equality (t=0). Let us call the stronger notion identity for short.
+      Not every extensional predicate in this sense comes                                    In view of our-dogma of intensions (which can be formally justified
+                                                           from an ordinary R.
+      The reader can easily work out for himself other                                     from the semantics) we find that if t and o have no free variables, then:
+                                                        examples, and we shall
+      return to this question below.
+                                                                                                        t=0A      @(t)>     O(c)
+158                                      DANA         SCOTT                                                    ADVICE           ON    MODAL    LOGIC           159
+
+
+is valid for identity; while the corresponding principle for equality fails.       We then find the following valid:
+Similarly if © and Y are without free variables and @’ results from @
+by replacing occurrences of © by ¥, then                                                         V.x @ (x)oVx [Ax > 6 (x)],
+                                                                                   that is to say V. is a restricted quantifier. Now it is easy to see why
+               OLG@ePF]A0>06'
+also holds. Thus our logic has a certain degree of extensionality: logically                     [Ax +1            (x)]
+equivalent formulas are substitutible. Some people feel that a truly in-           and
+tensional logic should reject even this principle. I have not seen a clear                       [Ax > & (x)]
+semantical discussion of such a logic. Usually there is a confusion between        are independent, which accounts for the phenomenon we noted.
+propositional operators and predicates of sentences; that is, the object              The use of variable predicates in the way just indicated seems to me to
+language must formalize a part of syntax. Even then I have not seen any            be preferable to the manner in which Van Fraassen suggested using what
+reasonable general system. My advice is to work for a while on this                he calls logical space. If I understand his method, he treats D (which may
+intermediate intensional level, because I shall try to argue in the final          as well be equal to V for the moment) as a set of abstract place-holders
+section that there is much to do involving notions of interest.                    for individuals. I imagine something like a giant egg crate. Defined on
+   The next most interesting combination involves [] and V. This is valid:         this space are certain fixed predicates. The actual individuals are thought
+               L1Vx & (x)<+Vx            0     (x),                                of as being mapped (or stored) into the set D. Next a family of transfor-
+                                                                                   mation T= {t,:ieI} is given, and we can follow an individual around D
+This is not:
+                                                                                   by seeing how aeéD is transformed into t,(a). Of course, a and t,(a) have
+               D1V.x & (x)        V.x 18 (x),                                      different properties with respect to the fixed predicates. There is just
+                                                                                   something about this idea that strikes me as being inconvenient — or at
+indeed, neither direction is valid for V.. The counterexamples are easy to
+                                                                                   least not general enough. I would imagine we can obtain the same effect
+come by. There has been so much fuss over these principles in the last
+                                                                                   by replacing the fixed relation R by the family R; of relations defined by
+few years, and it was all unnecessary: there are two kinds of quantifiers
+with different properties. All we needed to do was to make the semantics                         aR, b<>t,;(a) Rt, (b)
+clear. (This point has been made by Kripke and others — but it does not
+                                                                                   and by keeping the individuals fixed in place. The point is that I feel
+hurt to make it again.)
+                                                                                   that Van Fraassen is mixing the variability of the predicates together with
+   To make the counterexample more obvious for the quantifier problem
+                                                                                   the interpretation of his modal operator. These are things that I feel
+just mentioned it is useful to discuss extensional predicates again. Suppose
+                                                                                   should be kept separate, and so my advice is to adopt the kind of model
+that to each ieJ we attach a relation R,&@V x V with possibly different
+                                                                                   structure presented here where the modal operators can be treated in
+R,’s for different i’s. (We can treat R as a relation-valued function).
+                                                                                   isolation.
+Then we can introduce into our language a constant R (the bar ~ suggests
+                                                                                         For example we may assume that J is a system with a binary mode of
+a constant relation, the tilde ~ a variable relation) where the meaning is
+                                                                                   composition °, where, if we like the transformational approach, we may
+given by
+                                                                                   assume
+  (R)          It Rol,=1          iff        (itll, lol eR,                                      t; (t, (a))   —    bij   (a)   .
+
+
+Indeed A,<D      is just such a variable one-place predicate so we can write        We can then define a propositional operator                        by:
+                                                                               \
+  (A)          |Ac];=1       iF         [cll
+                                          € A:.                                          (i)       IE] Sl;=1               if        |Ol,;=1    for all jel.
+iin sna lliararactt sensi   naattlittanss Simaatgtiitine   tic...   ilien ..akseaunsadin,    iki
+
+
+
+
+                   160                                                                             DANA      SCOTT
+                                                                                                                                                                                  ADVICE     ON   MODAL    LOGIC                        161
+
+                 That will give a fairly interesting operator, but of course it is one of a
+                                                                                                                                                       structure of /, With a proper definition (invariance under permutation of
+                 rather special kind — it would come up in tense logic for example. It is
+                                                                                                                                                       I, for example) we can no doubt show that the only logical operators are
+                 only one of many different types, however.
+                                                                                                                                                       “1,   17, (1, and        ©. This of course does not mean      that the others are
+                    More generally let p <I x Ibe a binary relation on J, corresponding to p
+                                                                                                                                                       uninteresting — far from it. Here is what I consider one of the biggest
+                 is the operator |@} defined by
+                                                                                                                                                       mistakes of all in modal logic: concentration on a system with just one
+                                                   Ol;=1                                iff        |O],;=1     forall     jel      whereipj.           modal operator. The only way to have any philosophically significant re-
+                                                                                                                                                       sults in deontic logic or epistemic logic is to combine those operators with:
+                 In other words, g is simply an alternative relation on possible worlds.                                                               tense operators (otherwise how can you formulate principles of change’);
+                 We are by now very familiar with all the work done on this type of                                                                    the logical operators (otherwise how can you compare the relative with
+                 operator. It must be stressed, however,                                                        that this is not the only way to       the absolute?) ; the operators like historical or physical necessity (otherwise
+                obtain interesting operators; though it does include the previous example.                                                             how can you relate the agent to his environment?); and so on and so on.
+                   The simplest example*of an operator which is not naturally specified                                                                But where to stop? This list can be extended further and further. One
+                by an alternative relation occurs in tense logic. Suppose J is taken as time                                                           must stop somewhere, but to stop the list at one is obviously missing out
+                (i.e. the set of real numbers).                                                     We    define the progressive     tense operator    on something important. The point I am trying to make is that the
+                bol by:                                                                                                                                semantics being explained here allows for several operators side by side
+                     (&)                          S| @||, = 1 iff there is an open interval J < I with ie J such                                       in a simple convenient, and natural way: one has only to think what
+                                                                                                                                                       coordinates i=(w, ft, p,a,...) one wants. Furthermore one should not
+                                                             that |®],=1       forall jeJ.
+                                                                                                                                                       forget the logical operators.                       °
+                      Long ago McKinsey and Tarski showed that the logic of                                                               is exactly      This last point is one on which I am somewhat critical of Hintikka.
+                54. Now on some other index set J we can capture S4 with the help of an                                                                He uses only one operator (which I would            write here as (el) and      tries
+                alternative relation — but on the ordinary reals there is no way of obtaining                                                          to express the various conditions for substitutivity and existence in terms
+                the same fo.                                                                                                                           of equations lei"t=0 with iterated modalities. I feel that this is making
+                   Itis by now only a small step to the most general monadic propositional                                                             the alternative relation do too much work: the fundamental condition
+                operator. Associate with each ieI a family Y; of subsets of I. We then                                                                 for substitutivity is [Jt=o, The conditions involving the weaker relation
+                can define the corresponding operator:                                                                                                 should be presented as metatheorems concerning special contexts (special
+                                                                                                                                                       formulas ©(r)) rather than being emphasized as part of the basic semantics.
+                        (4)                      Wel=1                                      if     (Fer: |o],=1}e 9h                                   It seems to me that the present approach provides quite a suitable place
+                                                                                                                                                       for Hintikka’s useful and important insights.
+               which we see is only a trivial reformulation of the statement that
+
+                                                  IA e(2".                                                                                                                 V.    VARIABLE     BINDING     OPERATORS
+
+               But somehow                                 it reads differently in terms                             of sets. We   note that in the    Up to this point we have been discussing at most intensional relations or
+               example of | , the family %, should be taken as the collection of all                                                                   intensional   operators     on   propositions.   Though   it is painful,   a certain
+               subsets of J containing the point Y; in their interiors; the neighborhoods                                                              greater degree of generality is called for. In particular the extensional
+               of iin other terminology.                                                                                                               operators like the quantifiers and the discriptive operators have intensional
+                     Among                   all the various operators                                       it is clear that only very few should     counterparts. Let us consider first an operator $ which binds one variable
+               be called logical operators — that is those that do not depend on the                                                                   and operates on one term and one formula: we can employ it in the
+162                                   DANA   SCOTT
+                                                                                                         ADVICE   ON   MODAL    LOGIC                      163
+
+language with the following format:
+                                                                               some further thought.      Note    that in case $ were   a formula maker,   the
+            $x [t(x), © (x)].                                                  only change would be to make its values propositional concepts.
+                                                                                  To emphasize again the kind of interchangeability inherent in this logic
+Now we have our choice: the result is either a term or a formula.              we have the following as valid:
+  Let us take the first case where $ makes terms. Now the values of this
+compound term must be allowed to be virtual (cf. the expression                            Vx Ct (x) = 0’ (x) A Vx D1 [6 (x) @' (x)]J >
+
+            Ui c(x)                                                                        $x [2(x), ©@)] = $x [0 (x), 8'(a)].
+            xeA
+                                                                               And at risk of repetition, let it be noted that 1 is the only modal operator
+in class theory: its being a set depends on A and t(x) in an essential way).   that is suitable for this purpose: that is one of the main reasons for
+But we have an intensional logic so (virtual) individual concepts are called   including it among the logical constants.
+for as values. Thus                                                              An important consideration that has been neglected up to this point
+                                                                               concerns the use of various interpretations. Indeed we have not actually
+            [$x [c (x),     & (x)]}     eV                                     said what an interpretation is. This must be remedied at once. An interpre-
+is required. Now how does this value depend on t(x) and ®(x)? Well,            tation assigns values to the symbols according to their logical types. To
+these expressions represent functions of x and all our bound variables         specify an interpretation one must first specify V, D, J, and the 4; for iel.
+range over D. This leads us to the statement that                              Next for each symbol $ one must specify its value. What are the symbols?
+                                                                               Well at a minimum they are the d for aeV; the 4, -, V, I, =; the special
+            [S|    e(VO)U, where         U = (V™?) x (27).                     A; the (1; and finally all the non-logical symbols $ which include all the
+                                                                               terms and formula makers, with and without bound variables, in whatever
+because (V“)? is the set of all concept-valued functions and (27)? is the
+                                                                               number we choose. The first listed are logical (at least they are logical
+set of all propositional functions on D. Thus
+                                                                               with respect to the given domains of virtual, possible, actual individuals
+  ($)       [$x [c (x), & i = ISA),                                            and the indices.) The remainder are non-logical. The values of the logical
+                                                                               symbols are fixed; the values of the non-logical symbols are open to
+where fe(V™)? and Fe(2")? are defined by:
+                                                                               variation. So far I have not indicated this freedom in my notation. Let us
+            f (a); = ||t (4)|\;                                                then call the given interpretation 2{ (a German capital A). It is some
+and                                                                            God-awful multi-tuple, which has hidden in it all the information about
+            F (a);= ||\@(@)||;,        for allaeD.                             the domains, indices, and non-logical symbols. Once we know % we know
+                                                                               everything. All our semantical rules (like (V), (=), (C2), ($)) are energized
+  It is a little hard to give really dramatic examples of such operators
+                                                                               and we can find the value of any well-formed expression (without free
+which stand by themselves: usually they are compounded out of other,
+                                                                               variables). The notation I would use is:
+simpler operators. For example
+                                                                                           Iz"     and      |",
+            ly Vx O[% (x) > y = t(x)]
+                                                                               whereas Montague has recommended:
+would be a likely compound. (Do not ask for a poetic reading of that
+descriptive phrase, please). It might be possible to always reduce an                      T     and     @,.
+operator to a compound where the only variable bindings came in the            His is shorter — too short it seems to me. The notation leaves us nothing
+quantifiers and descriptions; but then again maybe not. The matter bears       to write when mention of Y& is suppressed. (Of course to some, sup-
+164                            DANA   SCOTT                                                               ADVICE    ON   MODAL      LOGIC                           165
+
+pression is evil, and they would never consider doing it.) Thus I prefer        I can only    refer to the latest papers of Montague for a discussion. It is
+the writing of the double bars as forcing me to remember the distinction        interesting   to note that in his Helsinki lecture Lemmon discussed modal
+between the expression and its value. That clearly is the kind of advice        set theory     without giving semantics. That can now possibly be done,
+that one can either take or leave: all I ask it that you be reasonably          but I have    not worked out the details in full.
+clear about what you are doing. I only hope I have made the content of
+the present approach definite enough.                                                                  VI.    INCIDENCE   VS.    EQUALITY
+   Having admitted the variability of interpretations, the definition of
+logical validity becomes more definite. Let us state it for formulas            We have already been led to the distinction between equality and identity.
+©(x, y,...) with free variables. Such a formula is valid if and only if for     It took me a very long time to understand what was involved inasmuch
+all interpretations & and all individuals a, b,...¢D (the possible indi-        as I was confused about a weaker relation I shail write as
+viduals of 20) we have
+                                                                                              THE
+
+            |   (4, 5...)= 1                                                    and call incidence. I was pleased (in a sense) to find that the same con-
+for all ieJ (the index set of QM). Since our logic has been first-order logic   fusion has been the crux, at least in my opinion, of the recent interchanges
+(only bound individual variables) it will be no surprise to hear that the       between Hintikka and Fellesdal. It would seem to be finally the proper
+valid formulas are axiomatizable. The axioms and rules are in fact well-        time to clear up the distinction through the use of the semantics advocated
+known: predicate logic with an S5 modal logic for 1); in addition the           here. In fact, I feel that the present approach is better suited to providing
+axiom schema of replacement of necessary equalities (and biconditionals)        the needed clarification than are Hintikka’s model séts — though he can
+is required. David Kaplan and I will present his completeness proof (a          claim other advantages for his method. The point is that we must clearly
+standard type of Henkin argument) in our joint paper devoted to the             distinguish between individuals and individual concepts — which our
+more technical details. Thomason has also made a detailed study of the          semantics does. I do not feel that the situation is as transparent with
+completeness proofs in the paper he read here at Irvine. His systems are,       Hintikka,     but maybe      it can be made     so. I am    completely   indebted     to
+however, only fragments of the general system described in this paper           Montague and Kaplan for showing me the way to the present formulations.
+~ though the methods he developed will apply. One bit of advice seems -           The idea intuitively is that two individuals that are generally distinct
+needed at this juncture: the aim of logic is not solely to provide com-         might share all the same properties (of a certain kind!) with respect to
+pleteness proofs. The real aim is conceptual clarification. Completeness        the present world (present index). Hence they are equivalent or incident
+proofs are needed but are not ends in themselves.                               at the moment. Relative to other points of reference they may cease to
+   One small point concerning the proper formalizations can be mentioned        be incident. This will allow for branching and merging of individuals — at
+here. It will be noted in the definition of logical validity that the free      least as far as distinctions concerned with certain kinds of properties
+variables were replaced by constants for elements aeD and not aeV.              permit. My feeling is that the confusion about merging of individuals
+The reason being that individual variables are for the individuals over         rests on this question of the allowed properties: if the class of properties
+which one quantifies. The Greek letters t, o, ... in the metalanguage            is vague and changeable, then the equivalence of individuals will seem
+are the ones that can be replaced by expressions for virtual entities.           paradoxial. We have to agree to a class of properties given in advance — or
+In foundational studies I advise not making the individual variables do          at least agree that the notion is relative to a fixed class of properties that
+double duty. (For pedagogical purposes I found that the double use is            we wish to investigate more closely. I am reasonably certain that this is
+better because students dislike too heavy use of Greek letters!)                 what Hintikka has in mind. Unfortunately he uses the equality symbol =
+   The next step is to push on to the higher-type logic. For the present         for this incidence relation, which leads to unnecessary arguments when
+ 166                                DANA     SCOTT                                                                ADVICE   ON       MODAL     LOGIC                           167
+
+ others read = in a different way. We shall see why it is temptin
+                                                                      g to use =         The trouble comes in with the individual concepts. I hope that I have
+ in this way in a moment.
+                                                                                      finally made this distinction between individuals and individual concepts
+    How can we represent the idea of incidence-in our semantic
+                                                                    s? We could       clear to everyone. At least for me it was the semantic approach and the
+ of course add a non-logical constant ~ and the axioms of an
+                                                                      equivalence     suggestions of Montague and Kapian that made the clarity possible.
+relation. This is unsatisfactory because no particular analysis
+                                                                      is involved.    You see, even if we treat individuals as functions in S’, the concepts
+A better approach is the specialization of the class of models
+                                                                         (interpre-   enter in a secondary way (on top of the individuals, as it were) and have
+tations) to those with a more defined structure, the features of
+                                                                        which can     values which are functions with the individuals as values. It seems to me
+be interpreted in an intuitive and suggestive way. So we
+                                                                 begin by sup-        now that this is really the only proper arrangement. Thus for a term t
+posing that to each individual ae V and relative to each icI
+                                                                  we can attach       we will find that
+certain particulars that specify or individuate a with respect
+                                                                  to the proper-
+ties involved. We take these particulars as forming some kind                                        It]     e(S3®.
+                                                                       of abstract
+object, call it the state of a at i, and for convenience let S' be
+                                                                     a set having     (The value of a term, remember, is a partial function. It seems better to
+all these states of all the individuals as members. Now this next
+                                                                         step may     take the aeV         as total functions aeS?, because an individual can always
+be an oversimplification: we then WENTIFY the individual
+                                                                     a with this      be given some abstract entity as its state no matter which jeJ is chosen.)
+individuating function. Thus we make Vc S', and for each ae
+                                                                        V and ie      This requires the following semantics:
+write a; for the state of a ati. The meanin g of incidence is now
+                                                                    determined:
+                                                                                                     It      Sol,=1   iF   Ctl       = (|lol|,);.
+   (=)       |a@xd|;=1        iff   a,=5,.
+(I have written ~ , because this clause involves only individual                      That is, find out which individuals t and o denote (||ti|; and                  |lo||), and
+                                                                 constants;           then see if they have the same state. Everything is fine (i.e. the truth value
+the full version for compound terms will be given later.)
+  It is seen that we are assuming that, to know an individual,                        is well-determined) if both      ||t||; and    |lo||; are defined; otherwise our con-
+                                                               it is sufficient
+to know all particulars about him from all points of reference.                       vention for truth is that they both be undefined.              .
+                                                                   In words              Now for the trouble: what does t~o mean in general? Formally we
+that does not sound too bad, but itis an assumption that there are
+                                                                     enough           have:
+points of reference and sufficiently detailed particulars. I can imagine
+later development that we may drop this condition; but for
+                                                                           in
+                                                                     present
+                                                                                                     |Orxol,=1 if (Iel,);=(loll,); all jer.
+purpose of trying to see how a coherent incidence relation
+                                                            can be intro-             Clearly this is not the same as ||t|| = ||o|| unless          ||t|| and   |lo|| are constant
+duced, the convention does not seem too unreasonable.
+                                                                                      functions in V. Let us try a homely example: take t to be ‘the President
+  Note that equality of individuals, under our convention, can
+                                                               be defined             of the United States’ and o to be ‘the biggest crook in the world’. (In our
+in terms of incidence because the following is now valid:                             interpretation any similarity to persons living or dead is purely coinci-
+            d=boax~sd                                                                 dental.) For simplicity we assume 7 to involve time. Thus for each ieJ,
+                                                                                      the individual ||t||, is the (whole) person who is President at time 7. If we
+It is this feature that undoubtedly led Hintikka to take ~ as more                    like we can think of (||t||;); as an instantaneous portrait of the man which
+fundamental than what I write as =. The relationship between the two                  captures on very sensitive paper his essential qualities at time i. As i varies
+notions is somewhat obscured by Hintikka, however, because                            in J we run through the (rather extensive) official portrait gallery dedicated
+                                                                 he uses an
+operator || instead of the stronger [1], and this introduces some
+                                                                    compli-           to the office of president.      Meanwhile       the FBI,      acting quite on its own,
+cations. In any case, I want to argue now that no matter how the
+                                                                 modalities           has been photographing at each instant the biggest crook of the moment.
+are treated we cannot take ~ and define =.                                            One can imagine the consternation when a comparison reveals the truth
+ 168                                  DANA    SCOTT
+                                                                                                                        ADVICE       ON   MODAL        LOGIC                            169
+of []Jtxo. One can charitably excuse the President himself, however, for
+it is only by virtue of his high office that he must be put in that other                 that the diagrams are different for individuals and individual concepts.
+distasteful category. The statement []t~ <0, though unpleasant, is perfectly              The biconditionals are all firmly justified; the single arrows are clearly
+                                                                                          not reversible — except for the questionable ---—>. I guess we will come
+meaningful and does not entail t=c.
+     Why   does not it? As I write the above I notice a certain weakness of
+                                                                                          to reject that also.
+argument. Thinking of J as simple time may not be enough. Our ele-
+mentary view of individuals is such that if a,=b, at one time i, then a=)                                  t)}         Sl                              4
+
+(all times!). We have to consider not only of the flow of time but also of                                       ill
+alternative courses of events. — No, come to think of it, that is not
+                                                                       the
+
+
+
+                                                                                                                                          a
+                                                                                                                       Gl                              DOr=o¢
+answer either, for that only makes the individual concept ||t|| fatter but
+not more amusing. — Or maybe it does. (Oh my, I see that much more
+thought and experimentation are needed to make the ideas into something                                          Ie
+
+
+
+                                                                                                                                          NA
+                                                                                                           sul         oi                                             Tv
+useful. In any case I feel that a precise and general semantical framework
+
+                                                                                                                 RTT
+is essential, and that is, as I have been trying to indicate, now available.)
+Let us attempt to save this example. We can imagine as a possible indi-                                                oI
+vidual the stirling public servant, possessor of mountains of good qualities
+
+                                                                                                                 Ye—
+from every point of reference. Next imagine a master crook. These are
+not individual concepts but possible individuals — distinct individuals.                                   oul         Gt
+
+The     public   servant   is not   always   president;   the   crook   is not   always
+successful. But at that moment of triumph when both reach the high
+points of their careers we find that they are the same in all particulars.                  The puzzle of cross indentifications of individuals has been treated by
+                                                                                          David Lewis from another point of view. He thinks of
+   No, it just will not do. I am twisting the language to fit an abstractly
+constructed semantics! Nevertheless I still think that the relation ~ has
+                                                                                                       D=\(JA;
+a sensible meaning.        The trouble is that I have been trying to defend the                             iel
+
+principle:
+                                                                                          and of the 4,;’s as being disjoint:
+                 G=be-Dawx~b,
+
+and the defense has gone wrong as I have tried to write it down. It seems
+to me that one must read dw            as ‘d and 6 are equivalent (indistinguish-         That is, each world ieJ has its own separate set of tokens representing
+able) with respect to certain (fixed) properties’. Indeed, as Hintikka has
+                                                                                          individuals. Having made the individuals separate, we now join some of
+pointed out, there may be several different ways of individuating our
+                                                                                          them together again by the counterpart relation C. If ae A; and be A,, then
+individuals (different perceptions) which would provide for several equiva-
+                                                                                          aCb means that a is the counterpart of b in A;: the person b would be if
+lence relations ~,, %, ..., ~,, in my framework. Whether any of these
+                                                                                          he lived in A,, or at least one who is very much like him — we will allow
+should satisfy the above biconditional is a moot point. But let me again
+                                                                                          for several. In case i=j,            we agree that the reading          of the relationship
+stress that we must take care not to confuse equivalence and equality.
+                                                                                          demands a=b.                                                            .
+We     must, on my view, make the distinctions which can be summarized
+                                                                                            We   can   easily     put       Lewis’   relation   into    our   language     by   using   the
+in the following diagrams where the arrows indicate implications. Note
+                                                                                          constant C as with our previous notation. These principles will then be
+ 170                             DANA     SCOTT                                                            ADVICE    ON   MODAL      LOGIC                         171
+
+ satisfied:                                                                     models. Up to this point our indices of possible worlds have been too
+              Vx, y[x Cy > Ax],                                                 vague, too abstract. The idea of using Y<S! was to treat an individual
+              Vx, y[xCya d4yox=yl],                                             as a process (in the mathematical sense of the word.) That is, an analysis
+              Vx [Ax  +x Cx].                                                   of the individual must be attempted. The method is not yet discredited,
+                                                                                because it has not really been carried out in sufficient detail. Just to write
+ (if one wants, he can rewrite these using the V. and J. quantifiers.)          S" is only to indicate a skeleton but not to give it any flesh. One essential
+                                                                       Lewis
+ then uses his counterpart relation to introduce a kind of modal operator       step to take in this analysis is to make the elements more specific, That
+ which does not please me very much. My reading of his operator gives           miust be done first before we can decide what to put in S. I do not feel
+for a formula (x) with one free variable:                                       that Hintikka’s method of model sets would give the right solution,
+                                                                                because I feel that one must have a concept of the kind of possible worlds
+              Vy [Ly Cx> @(y)]                                                  there are before one can specify what is true about them. Well, that is a
+for the meaning of necessarily G(x). I feel that this operator is too compli-   very philosophical question, and it would seem best discussed after one
+cated to be taken as fundamental — but that is a discussion for another         has tried to construct interesting models within the framework of this
+time and place.                                                                 semantics. My advice is to work on this problem.
+   The reason for bringing up the counterpart relation here is that it does
+have intuitive appeal, and it does lead to an incidence relation that may       Princeton   University
+
+be natural. Let us define
+
+              tw aoeV.x [x Ctx          Ca]                                                              POSTSCRIPT (DECEMBER,          1969)
+We then find that:
+                                                                                This paper was written very hastily in the latter part of May, 1968. The
+              Vx, y[Axaxwyo>xCy],                                               haste is apparent and the style intolerable; I find it now very painful
+                                                                                reading. The point of writing the essay was to stimulate discussion, but
+though the converse does not hold in general. Thus the incidence relation       only two of my colleagues took the time to respond (to me) in writing:
+is too weak to be used to define counterparts, but it does have a very          Kaplan and Montague. Their detailed criticisms showed me that the
+close connection with them. We can read dx5 as saying that @ and 4              paper should be completely rewritten — a task which I have unfortunately
+have the same counterparts in the current world, which means that they          not had the time to undertake. Nevertheless the editor was kind enough
+will have a large number of properties in common.                               to encourage publication in this very imperfect form. I would like to
+   To summarize the foregoing rather unsatisfactory discussion we can           thank him for this and hope the obvious flaws will provoke others to do a
+make these points: (1) at least three relations x, =, = (which are easily       better job.
+confused) do arise naturally; (2) semantical discussions are available that        Though I was only able to take account of a few of the many points
+make the distinctions precise; (3) one needs to keep in mind that individual    made to me by Kaplan and Montague it will be helpful to quote some
+concepts behave differently from individuals. Though David Kaplan has           of their remarks so that my paper will not make entirely the wrong im-
+spoken at length on these distinction in several public lectures, I find in     pression. First from a letter by David Kaplan (July 28, 1968):
+rereading his notes that I am not really convinced that we have a final
+solution to cross-world identifications. But I do have some advise to give      I am repelled by your calling = ‘identity’. This stems, I believe, from a rejection of
+                                                                                what Carnap calls ‘the method of the relation’ [see Meaning & Necessity] and the
+(surprise!): we need to make more experiments on the construction of            attendant talk of denotation. There are just these two entities associated with each
+  172                                    DANA     SCOTT
+                                                                                                                               ADVICE      ON   MODAL      LOGIC                          173
+  term: an extension and an intension. = indicates same extension
+                                                                        and = indicates same        highways veer off somewhere (and besides, don’t run beyond the state borders).
+  intension. But this is to ignore the primacy of extensional contexts.
+                                                                                It is technically      To defend the principle on your page 132. From left to right we have tr =oa->tw cis
+  more convenient to treat all constants as intensional simply
+                                                                   because we can represent
+  the extensional ones as a subset. But one of the main aims of                                     valid so    (tr =o)> (1 (rx), and as you point out earlier we have     d=h-> Oda=B5).
+                                                                      doing intensional logic       From right to left: 1 (@~ 5) says that for all fe/, (|la||:=((5l|ox. But by definition
+  in the way we do it is to describe intensional object languages
+                                                                         in extensional meta~       for allie, ||al|:= a, so we have for allie/, a; = b;. Now a and b are just functions with
+  languages. If one is overly impressed by the simplifications that
+                                                                      come from treating all
+  constants as (at most) intensional, they may even start thinking                                  domain J, so    a= 5.
+                                                                         of the intension as a
+ kind of denotatum and talk, as you do at places, of the principles
+ change as supplying a degree of “extensionality’ to the language.
+                                                                           of intensional inter-    Montague makes one of these points in a different way (June 30, 1968):
+                                                                        Look at the values of
+ the variables to find the individuals and then keep individuals                                    You raise the question of the intuitive meaning of 0 (ot). Your example, of ‘the
+                                                                    and individual concepts
+ forever distinct. Although it is in a technical sense correct to say                               President’ & ‘the biggest crook’, is unfortunate, because both terms denote humans,
+                                                                       that extensional logic
+ is a special case of the more general intensional logic, it is also                                and hence continuants which (as you noticed) are identical if ever incident. But let’s
+                                                                       in an important sense
+ correct to say that extensional logic can be taken as the most                                     try o== ‘the President’? & t= ‘the heap of molecules in the President’s chair’. Then
+                                                                      general form. That is,
+ that we can keep the sense and denotation distinction (or the                                      o#T    is true, because no organism is a heap of molecules; indeed, the equality fails
+                                                                    name relation) between
+ what we are talking about and how we talk about it. It was this                                    not only at present but at all times:
+                                                                          that Frege saw and                                                  (0 #1) is true. But suppose that the president
+ Church assumed. I suppose the situation here is very much like                                     (and nothing else) is now occupying the president’s chair. Then o ~ Tis true. If we also
+                                                                          the question of the
+ primacy of two valued logic and can be argued on both sides.                                       suppose that the presidency is so engrossing that at every time i, the President at time f
+                                                                  The important thing is to
+ be clear; I don’t think it helps to call = ‘identity’ or to pretend                                (and nothing else) occupies the President’s chair (so that each president sits at his desk
+                                                                            that the displayed
+ formulas on p. 121 are like Leibniz’ law.                                                          continuously from the moment he is sworn in till the moment he leaves office), then
+                                                                                                    Ci(o*t) is true. Thus [](¢~7) is compatible not only with o7, but even with
+ Concerning incidence, Kaplan had written to me earlier (July 10, 1968):                            Cl(o#t). (it’s of course easy to construct examples in which we have [lo=t And
+It appears that around page 132 you lost track of some entities.                                    (a*7)]; but as you observe we cannot have [o=tA O74 (o1)] or [O(o~r1)
+                                                                 I think there are two              AnN0@*2})
+problems here. (1) can = be defined using ~ ?, (2) can t=o   be defined by 0 (to)?
+The answer to (1) is yes but only if there is no merging of individual                              Further Montague objects strongly to my interpretation of predicate con-
+                                                                        s. So in your
+example of people through time (where, as you remark, merging
+                                                                    is implausible) we              stants and feels that preservation of validity under substitution of formu-
+can use the definition:
+                 TH   COPTR GS
+                                                                                                    las for predicates is an ‘empty dogma’. And he has good grounds for this
+ But of course if merging is allowed, as for highways through space
+                                                                                                    view. He goes on to say:
+                                                                         this definition won’t
+ work, since U.S. 60 ~ U.S. 70 is true at West Covina but US.                                       Thus I remain unregenerately convinced that the natural systems are, in order of in-
+                                                                         60=US. 70 is false
+ everywhere. (Here we can even use essential names of the                                           creasing strength: (1) strict modal logic, which is the lst order part, containing only
+                                                                  highways, U.S.      60 names
+ U.S. 60 everywhere.)                                                                               individual terms and the logical operator (0, of the system I have sketched (this is
+    The answer to (2) is always NO. And your example shows                                          essentially the system of Kripke-Cocchiarella-Thomason); (2) pragmatics, which adds
+                                                                       that [](t~<@) is not         arbitrary nonlogical propositional operators (of 1 or more places, but binding 0 var’s),
+ necessary for t= o. To put it another way t =o does not imply
+                                                                     (](t ~ a). For suppose         on the interpretation of which we agree; (3) extended pragmatics, which contains
+ that at the moment The President = The Crook, then the gallery representi
+                                                                                   ng the office    arbitrary variable-binding operators but in connection with which there is some latitude
+ of the President and the FBI gallery will share a picture: namely
+                                                                          that of the current       as to which kinds of operators shall be taken as basic; (4) the 2nd order system I have
+ office holder. But if in olden days presidents were more honest,
+                                                                       the two galleries will
+ disagree at many points and so [J (The President ~ The Crook)                                      sketched for you; (5) higher order systems built up on that pattern.
+                                                                       will be false.
+    To show that [](t     +0) is not sufficient, we must of course again assume the possi-
+bility of merging and dividing (otherwise [O(txo)+texo]                                             He then concludes that my system as amended with regards predicate
+                                                                      and [rxcer= o}).
+Did you know that the soon to be built Federal highway 0 will be,
+                                                                        for its whole length,
+                                                                                                    constants, or where “predicate constants are (as a technical simplifica-
+a 73 lane road? (It will run through the center of all major cities;                                tion) discarded and general variable-binders (more general than yours)
+                                                                            the idea was con-
+ceived in Los Angeles.) Being built with joint Federal State funds
+coincide at every point with one of the state highways which will
+                                                                             the Highway will       used instead”, could be regarded as a variant of his extended pragmatics.
+                                                                          of course widen to
+73 lanes where it joins Fed. 0 and then narrow down again when                                      I am sorry not to be able to summarize his systems and arguments here
+                                                                           it separates. Our
+points of reference are the major cities, in each city it is true that:                             (nor the subsequent correspondence between Kaplan and Montague) but
+                                                                           The State highway
+with 73 lanes ~ Fed. 0,80 (1 (The State highway with 73 lanes ex Fed.                               can only refer the reader to the several recent papers where Montague
+                                                                                0) is also true.
+But it is nowhere true that The State highway with 73 lanes = Fed.
+                                                                             0, since ali State     explains his approach to intensional logic.
+

@@ -1,0 +1,982 @@
+                 On   constructing models for arithmetic
+
+                            DANA     SCOTT     (Chicago)
+
+
+         § 0. Introduction. In geometry models have been used
+    with great success for proofs of independence. In arithmetic
+    the situation is considerably different: even though one can
+    construct many kinds of models for this theory using general
+    metamathematical      methods,     it    has    not    yet   been     possible    to
+    apply these models in new independence proofs. No doubt one
+    important fact is that arithmetic has a recursively unsolvable
+    decision problem. Simple questions about existence of solutions
+~   of polynomial equations probably lead to unsolvable problems,
+    though this fact has not yet been proved. Thus the first
+    attempt to examine a proposed model will lead at once to
+    difficult situations with the most straightforward combinations
+    of elements under addition and multiplication. Of course, one
+    would hope for an indirect proof that the model satisfies the
+    axioms of arithmetic which would avoid such direct veriti-
+    cations, but this indirect method has not yet been found.
+    Another point to remember in comparing geometry and arith-
+    metic is that the axioms for first-order geometry can be given
+    with sentences of universal-existential type (cf. Tarski [23]),
+    while the axioms of first-order arithmetic must always involve
+    arbitrarily many changes of quantifiers in their formulation.
+    The effect of this state of affairs on building models is clear.
+    One conclusion is that it may be more reasonable to try to
+    construct    models   for   interesting        fragments     or     subtheories   of
+    arithmetic rather than for the whole of first-order arithmetic.
+    Another     conclusion is that one might          well turn one’s        attention
+    to questions of definability rather than independence, for such
+    problems may find a more workable translation into model-
+    theoretical terms. In any case only a scant beginning has been
+    made in any of these directions.
+         In this paper in Section 1 some simple algebraic facts
+    about ordered rings are given together with a result about
+ 236                           D.   Seott
+
+
+finite   generation   of   models    for    arithmetic.   In   Section   2
+ a method is given for constructing models for all true sentences
+ of arithmetic as homomorphie images of function rings which
+can be stated in purely ring-theoretical terms. The method is
+related to the well-known Skolem construction and is a special
+case of a general procedure that has been used by several
+authors. Certain natural modifications of the idea do not lead
+to models for all provable sentences as will be indicated.
+In Section 3 constructions within polynomial rings are shown
+not to give models, but some unsolved questions in this
+direction are stated. Finally in Section 4 topics of recursiveness
+and definability are discussed, and the ideas are related to
+Gédel’s Incompleteness Theorem yielding another proof of
+this result.
+     The author should like to record his indebtedness to
+Simon     Kochen, Georg Kreisel and Stanley          Tennenbaum,
+with whom he has had many long hours of discussion. The
+enthusiastic and original ideas of these people have had con-
+siderable influence on the author’s point of view, no doubt
+to a greater extent than has been properly indicated here in
+this expository account.
+       § 1. Ordered rings. All rings considered will be com-
+ mutative rings with unit. The notion of a (totally or linearly)
+ordered ring is assumed as known. To be somewhat more spe-
+ cific a ring is an algebraic structure of the form <R, +, -, 0,1),
+ while an ordered ring is of the form <R, +, -, 0,1, <>. This
+ distinction is only important when we wish to discuss the
+ first-order theory corresponding to a given ring, for the ordering
+ relation is not always definable in terms of the plain ring
+ structure. An integral domain (or simply domain) is a ring
+ without zero divisors. A ring is called formally real if the zero
+ of the ring is not the finite sum of any number of non-zero
+ Squares in the ring.
+       In the sequel in stating results the word ‘Proposition’
+ will be used to apply to those facts that are either well-known
+ or particularly easy to prove. They have been included only
+ for emphasis and completeness.
+     PROPOSITION 1.1. An ordered ring is always a formally
+real integral domain.                      )
+     Conversely, every formally real domain can be ordered,
+though not always in a unique way. In this connection see
+                  On constructing models for arithmetic                      237
+
+                                                       is densely
+xan der Waerden [25], p. 242-244. An ordered domain
+                                 in the sense that betwee n any
+ordered if the ordering is dense
+                                                    is discretely
+two elements there is a third. An offered domain
+                                                  that  there is
+ordered if there are no “fractions’’ in the sense
+no element between 0 and 1.
+     PROPOSITION 1.2. An        ordered domain         is either densely
+ordered or discretely ordered .
+                                                                         d
+      Proof. Suppose that the domain is not discretely ordere
+            0<2r<1. Suppose a<b,           then   a<     ra+(1  —2)b  <b.
+and let
+Hence, the domain is densely ordered.
+                                                                      non-
+      An ordered domain is well-ordered if every bounded
+                                                                          is
+empty subset has a least element. An ordered domain
+                                   er  for   elemen ts    a, } in the ring,
+archimedean ordered if whenev
+ 0<a<b, then there is an integer ” such that ) < na.
+      PROPOSITION 1.3. (i) Every well-ordered domain is isomor-
+phic to the rings of integers;
+                                                                         is
+      (ii) Every diseretely and archimedean ordered domain
+isomorphic to the ring of integers.
+      The ring of integers will be denoted by Z. Clearly if we
+                                                                         of
+are to study other similar kinds of domains, the notion
+                                            ement   can   be  weaken   ed
+well-ordering is too strong. The requir
+                                                                       the
+by applying the minimum condition not to all subsets of
+                                                                 defined .
+ordered domain but only to those that are algebraically
+                                                                         )
+An algebraically defined subset of a domain (ordered domain
+                               elemen ts of   the  domain      satisfy ing
+ consists exactly of those
+                                                                       one
+ relative to the domain a certain first-order formula with
+ free variable involving symbols for —, -, 9,          1 (<).   An   alge-
+ braically well-ordered domain is an ordered domain in which
+                                                                       has
+ every non-empty bounded algebraically defined subset
+                                  domain  is  inducti ve if  every   alge-
+ a least element. An ordered
+                                                                        the
+ braically defined subset containing 0 and closed under
+ function r—+1 always includes all non-negative element          s.
+
+      PROPOSITION 1.4. An ordered domain                is   inductive     tf and
+ only if it is algebrazcally well-ordered.
+       Proposition     1.5.   An   inductive   domain    is always       discretely
+ ordered.
+       It will be noticed that the usual terminology has been
+                                                              for
+  changed somewhat in this discussion. Instead of models
+  arithmetic we use the term inductive domain,   and  instead   of
+  non-standard model for arithmetic we refer to non-arc himedea n
+ 238                  ;            D.   Scott
+
+
+inductive domains. This rather more colorful algebraic termi-
+nology, it is felt, conveys a better indication of the nature of
+the objects studied fron’’a mathematical point of view.
+     In the integers and in many other rings, the ordering is
+uniquely determined by the ring structure. In particular, an
+ordered ring is quadratically ordered if every non-negative
+element is a (finite) sum of squares. The usual proofs in books
+on number theory can be used to establish the following.
+     PROPOSITION 1.6. In an inductive domain every non-negative
+element 1s a sum of four squares.
+     It turns out that the proper homomorphic images of
+inductive rings are never inductive (cf. Mendelson [12]). Indeed
+we can prove even more.
+      PROPOSITION 1.7. If a quadratically ordered domain is dis-
+cretely ordered, then no proper homomorphic image of the domain
+is formally real.
+      Proof. Let D be a domain satisfying the hypothesis and
+let h be a (ring) homomorphism onto another domain which
+is not an isomorphism. Hence, there must be a positive element
+aeD such that h(a)=0. Now a>1, so that a—1 = » di,
+                                                                     t<n
+for    suitable   elements   0),..., Dn—1 6D.   Thus     —1=   >» (h(d;))”
+                                                               t<n
+in the image domain which clearly implies that it is not
+formally real.
+      Finally we shall discuss in this section questions of how
+inductive domains can (or better cannot) be generated. The
+notion of an algebraically (first-order) definable set was ex-
+plained above, and algebraically definable functions may be
+introduced in a similar way. A function (f(z) say) will be
+called parametrically definable in a domain D, if there is an
+element a in.D and an algebraically definable function g(x, y)
+over D such that f(x) = g(x, a) for all « in D. A sequence
+fox’), fi(2),...»   of functions   indexed by integers    will be    called
+parametrically definable if there is an a in D and an algebraically
+definable function g(x, y, 2) such that f,(x) = g(x, a, ») for all
+elements x of D and integers n. Here we consider the integer
+also as an element of D. The notion of a parametrically definable
+sequence of elements can be explained in an analogous way.
+     A straight-forward use of algebraic well-ordering or the
+induction axiom will show that parameters (which were not
+used at first) can be allowed. In particular one proves
+                   On constructing models for arithmetic                 239
+
+
+     Lema 1.8. If f(a) is a parametrically definable               function
+in an inductive domain D and a> 0, then the set
+                              {f(@):     0<a47<a}
+has   a least upperbound in D.
+     COROLLARY 1.9. In a non-archimedean inductive domavn,
+no parametrically definable sequence of elements can contain all
+elements of the domain.
+     Proof. Let the sequence be given by f(x) where f(x) is
+parametrically definable. Let a be chosen so that a> n for
+all integers n. Then apply 1.8.
+     THEOREM 1.10. No non-archimedean inductive domain can
+be generated from a parametrically definable sequence of elements
+by making use of a parametrically definable sequence of functions.
+      Proof   (in outline).    Let the    sequence   of elements   be   given
+by f(n) and the sequence of functions by g(t, m). In an in-
+ductive domain consider the least subring containing the
+elements and closed under the given functions. All the possible
+ways of writing down elements made up from the f(n)’s by
+applying the g(z, m)’s and addition and multiplication can be
+indexed in a recursive way independent of any special char-
+acter of f and g. Thus, I say that the subring of this inductive
+domain is the range of a parametrically definable sequence
+of elements. The conclusion follows by 1.9.
+     It of course follows that no non-archimedean inductive
+domain can be a finitely generated ring. Further, no finite
+number of definable functions can be of any help in generating
+the whole domain. This fact at once rules out many standard
+algebraic ways of obtaining domains which would be inductive.
+      § 2. Function rings. Let Z be the ring of integers, and
+let I be an infinite index set. (The cardinal number of I
+should not be too large because of some technical reasons.
+Cardinals such as x), 2%°, 9280 are quite suitable.) By Z/ we shall
+understand the complete direct power of Z with index J, that
+is the ring of all functions from J into Z with the usual point-
+wise operations. Notice that Z! is not integral domain and
+only is endowed with a partial ordering rather than a linear
+ordering (the pointwise partial ordering, of course). Now Z! has
+ many ideals, and in particular it has many prime ideals P
+which give integral domains Z//P. Maximal ideals M are prime,
+but Z// is always a field and not an inductive domain.
+240                                      D. Scott
+
+Consider       then   the   question     whether      any   homomorphic    images
+of Z are inductive domains. Projection of Z! onto a particular
+coordinate gives Z as an image. The corresponding ideal of
+Z? is principal. Indeed all principal prime ideals of Z/ are
+either of this form or come from the composition of a projection
+of Z onto Z followed by a homomorphism onto Z/(p), where
+p is a prime. These homomorphisms are not interesting. What
+needs to be investigated is whether a quotient Z//P, where
+P is a non-principal ideal, is ever inductive. Since maximal
+ideals did not yield the desired result, one should apply the
+principle of passing from one extreme to another.
+      THEOREM 2.1. If P is a non-principal minimal prime ideal
+of 21, then ZI/P is a non-archimedean inductive domain of
+uncountable       cardinality.
+       To understand        the hypothesis          of 2.1 better, recall the fact
+that the class of prime ideals of a ring is closed under the
+intersection of chains. Hence, by Zorn’s Lemma every prime
+ideal contains a minimal prime. Now it is very easy to con-
+struct in Z? a maximal ideal which contains no principal prime
+ideals simply by taking a maximal extension of the ideal
+of those functions in Z/ which are zero on all but a finite
+number of coordinates. These two applications of Zorn’s Lemma
+show that the hypothesis is not vacuous. However, a closer
+analysis of the notion of a minimal prime ideal will show that
+so    many     uses   of the     axiom     of   choice   were   unnecessary.
+     Suppose that & is any ring with unit. We shall say that &
+has enough idempotents if there is a function e: R>        such
+that for all z,y in & the following equations are satisfied:
+         (i) e(0) =0;
+        (li)   e(a-y) = e(a)- e(y);
+       (iii)   e(e(x)) = e(a);
+     (iv) e(a@)-v =a,
+     It is easy to show from these conditions that if x7 = a,
+then e(z) =, that e(v)? =e(x), and that the function e is
+unique. Professor I. Kaplansky pointed out to the author
+that the existence of the function e is equivalent to assuming
+that the annihilator of every element of R is a principal ideal
+generated by an idempotent.                He    had used this latter condition
+in investigating minimal prime ideals in another connection.
+It is clear that integral domains have enough idempotents,
+for set e(x) equal to 0, if ¢ = 0, and equal to 1,if #0. Also
+                         On constructing models for arithmetic                      241
+
+Zi has such a function e: if     ris in Z/, then e(z) is the char-
+acteristic function of the non-zero coordinates of #. (In fact,
+the class of rings satisfying the condition is closed under
+arbitrary direct product.)
+     Lema 2.2, If R has enough idempotents, and P is a prime
+ideal of R, then P is minimal if and only if e(P)CP.
+      Remark. The condition given in 2.2 means that P is
+closed under e, or in other words the homomorphism determined
+by P also preserves the function e. If e(P) CP, it is easy to
+see that        P = R-e(P), that is, P is completely determined by
+the idempotents it contains. Also, e(P) will be a prime ideal
+in the Boolean algebra of idempotents of FR.
+     Proof of 2.2 (in outline). Let P be any prime ideal.
+Consider
+                         QO=e'P)             = {we R:    e(ale P}.
+
+By direct computation one proves that QC P, Q is a prime
+ideal, and e(Q) CQ. Hence, if P is minimal, then P =@ and
+e(P)C P. Next if e(P) C P and not minimal, take P, C P which
+is a minimal prime. Now e(P,) CP, by the first argument,
+and e(P,) C e(P). But e(P,) is a maximal ideal in the Boolean
+algebra of idempotents. Hence e(P,) = e(P), and so P, = P,
+a contradiction.
+      COROLLARY 2.3. The function e gives a one-one corre-
+spondence between the minimal prime ideals of R and the prime
+ideals of the Boolean algebra of idempotents of R making principal
+ideals correspond to principal ideals.
+     Next the partial ordering of Z? must be related to the
+structure of the homomorphic images by minimal prime ideals.
+The ring Z/ is a special case of a ring R partially ordered by
+idempotents in the sense that R has enough idempotents and
+in addition possesses a function p: RF      such that for all
+x,y in R the following equations are satisfied:
+         (i)     p(x). p(—z) = 9;
+        (ii)     p(v)+ p(—2) = e(2);
+       (ill)     p(z+y)-p(—2):    p(—y) = 9;
+       (iv)      p(w-y) = p(x): p(y) + p(—2): p(—y).
+The partial          ordering     of     R    may      now   be   introduced   by   the
+definition:
+                     x<y        if and       only if    p(r—y)=0,
+Infinitistic   Methods                                                                16
+v4?                                   D.    Scott
+
+
+and the desired properties of the relation follow easily from
+the above equations. If R is an ordered integral domain set
+p(x) = 1, if    > 0, and p(x) = 0, if e <0. In the ring Z/, p(x)
+for « in Z! is the characteristic function of the positive co-
+ordinates of z. In as much as the ordering of an integral domain
+need not be unique, the same R may possess many different:
+such functions p, even though the function e is unique. Notice
+that the class of rings partially ordered by idempotents is
+closed under direct products.
+     As a matter of fact, in the ring Z/ the function p is uniquely
+determined, for Z7 is quadratically partially ordered in the sense
+that each element x in Z! can be written in the form
+
+      z=        yi2    »'4,2     where‘               we
+                                                  Y;-2;  =90      for ae   ‘os
+                                                                           t,j<n.
+           <n         j<n
+
+Hence,     from the equations          (i)-(iv) one         can prove
+
+                                pla) = (Sy).      t<n
+
+In other words, the non-negative elements of Z/ are just the
+sums of (four) squares. Notice also that Z/ is discretely partially
+ordered in the sense that for each # in Z/,
+                            if x>0,        then         w>e(x).
+      Consider now a homomorphic image of a ring # partially
+ordered by idempotents. From the characterization of the
+function p, it is a simple matter to show that if the homo-
+morphism preserves the function e, then it must also preserve
+the function p. Hence, the image ring can also be partially
+ordered by idempotents. In particular, if the image is an
+integral domain and if the function e is preserved, then the
+image is an ordered integral domain; further, if RF is quadratically
+and discretely partially ordered by idempotents, then this image
+is a quadratically and discretely ordered domain. The next
+proposition can now be established at once by making use
+of 1.7 and 2.2.
+      PROPOSITION 2.4. 1f KR is quadratically and discretely par-
+tially ordered by idempotents, and if P is an ideal, then R/P is
+a formally real integral domain if and only if P is a minimal
+prime ideal,
+      AS a consequence of 2.4 we see that 2.1 cannot be improved:
+the   only inductive domains that are images of Z/ are those
+                         On constructing       models for arithmetic                             243
+
+obtained by minimal primes. Of course, we have not vet seen
+why every such image is inductive. There is no room here for
+the full proof of 2.1, for in any case a more general result with
+all details is to appear elsewhere. But the main outlines of
+the method can be indicated.
+     Let P be a minimal prime of Z/. By 2.2 and 2.3, e(P) is
+a prime ideal in the algebra of idempotents of Z/, The algebra
+of idempotents of Z/ is nothing more than the Boolean algebra
+of   all    subsets   of    J,    where      sets    have         been     replaced    by       their
+characteristic functions. Let 8B be the corresponding prime
+(maximal) ideal in the algebra of all subsets of J. The fact
+that e(P) completely determines P may now be expressed
+in the following equivalence which holds for all # in Z/:
+                xeP        if and only         if     Wels             7% =O}EP.
+Further all the basic operations and relations in Z!/P                                      can be
+translated into this set language as follows:
+              r/P=y/P            if and      only    if         Gel:      am =y    fe B;
+              2/P <y/P           if and only if                 {iel: a <yj}Ee PB;
+     2/P+y/P=2/P                 if and only if                 (iel:     a+y,=2}€DB:
+     a[fP   -y/P=2/P             if and only if                 Wel:      a y =a       }e PB.
+      Having these formulas to begin the induction, one now
+proves by a straight forward method of elimination of quanti-
+fiers that for every first-order formula © of elementary ordered
+ring theory
+     @(2/P,y/P,...)          holds in Z1/P           if and            only if
+                                       {ftel: O(x;,y;,...)                holds in ZheP.
+      This method proves that not only is Z//P inductive, but
+that Z//P and Z satisfy exactly the same first-order sentences.
+Even stronger is the conclusion that Z//P is isomorphic to an
+elementary extension of Z in the sense of Tarski-Vaught [22],
+where Z is embedded in Z!/P by use of the constant sequences
+in Z!. Actually, all these consequences hold for an arbitrary
+integral domain D in place of Z, and there is a generalization
+to any      relational     system       as    shown            in Frayne-Morel-Scott             [4].
+However, certain special properties of Z were obviously necessary
+to apply 2.4. The proof that Z7/P is uncoutable involves certain
+technical details about the relation of the cardinality.of J to the
+structure      of P   and        can   be    found        in    [4].
+                                                                                                  16*
+ Odd                                          D.   Seott
+
+          One   of the        most    pleasant     features    of 2.1 is that a method
+ for constructing inductive domains can be stated in ordinary
+ algebraical terms with a minimum of machinery. However,
+ one feels disappointment upon learning that no independence
+ results can be obtained this way for the new inductive domains
+ share the same elementary properties with the ring of integers.
+ Thus in the hope that something may come out of these ideas
+ one may ask whether other kinds of function rings can lead
+ to inductive domains.
+       Several rings at once come to mind, and all of them turn
+ out to be quadratically and discretely partially ordered by
+idempotents. These rings are the following:
+       (1) the ring PR of all primitive recursive functions;
+       (2) the ring GR of all general recursive funetions;
+      (3) the ring GR(A) of all functions general recursive in some
+definable (arithmetical) predicate A;
+      (4) the ring DF of all algebraically (first-order) definable
+functions from integers to integers:
+      (5) the ring CN of all definable constants (u-terms without
+free variables) in the formal first-order theory of arithmetic
+(inductive domains ).
+     The last mentioned ring does not degenerate simply to
+the integers in view of the incompleteness of the axioms for
+inductive domains. For let ® be any sentence undecidable
+on the basis of the axioms. Then the following property defines
+an     idempotent        in     ON:
+
+                               [tv =1AG]v[~e=0A               494].
+
+Indeed all the idempotents of CN can be given definitions
+of this form.
+     By virtue of 2.4 we know exactly which homomorphic
+images of these rings can conceivably yield inductive domains.
+The results, however, are not comforting. In joint work with
+8. Feferman [3] it has been shown that if P is a non-principal
+minimal prime, then none of the rings PR/P, GR/P, GR(A)/P
+is inductive. In fact, in each separate case there is a cor-
+responding single formula provable by means of the induction
+axioms which fails in all of the homomorphic images. This is
+closely     related      to     the    fact    that   one     cannot   derive   all   true
+sentences        about integers from any class of true sentences
+involving       a fixed, bounded number of changes of quantifiers,
+                      On   constructing    models    for arithmetic                          245
+
+
+for even some instances of the induction axioms are not so
+derivable (cf. Kreisel [8] and Ryll-Nardzewski [16]).
+      In the case of the ring DF all quotients DF/P, P a minimal
+prime, are isomorphic to elementary extensions of Z. This is
+simply an algebraic reformulation of the original result of
+Skolem (cf. [19]) and, in a slightly different form, was first
+called to the author’s attention by S. Kochen (cf. [6]). To
+understand the connection with Skolem's method, recall that
+we have shown in 2.3 that the minimal prime ideals correspond
+to the prime ideals in the Boolean algebra of idempotents.
+Now the idempotents of DF are simply the characteristic
+functions of (first-order) definable sets of integers, which form
+a denumerable Boolean algebra. The non-principal ideals of
+a denumerable algebra can always be given an ordered basis.
+For example if % is a non-principal prime ideal in the algebra
+of definable sets, then there exists a sequence of sets X,«$
+such    that    X, # Xnzi        and       X,C      Yy1:         for     all     n=0,1,2,...
+Further the sets X, form a basis in the sense that Ye              if
+and only if ¥Y C X, for some n, where ¥ is in the algebra.
+Now since we have an algebra of sets, let a set S be chosen
+so that S = {59, 8:5 82) «+; Sny +} ADd 8, € Xn4i—Ay. It is easy
+to conclude that S is not (first-order) definable. However,
+S& does determine , for one may show directly that for all Y
+in the algebra, ¥ « P if and only if ¥ 4 S is finite. In particular,
+if f,ge DF, then
+       HP =/P        if and only if there is an N such that
+                                         f(8n) = g(Sn) for alln>y.
+
+And similar equivalences hold for the relations //P < g/P, ete.
+Thus the sequence s, is exactly the comparing function used
+by Skolem to divide the definable functions into congruence
+classes.
+      In the case of the ring of functions GR the Boolean algebra
+is the algebra of recursive sets and many non-principal prime
+ideals correspond to sets similar to the S above but which may
+be taken as the complements of the recursively enumerable
+ macimal simple sets constructed by Friedberg in [5]. It was this
+remark showing the interesting way in which Skolem’s method
+for constructing non-archimedean domains could be applied to
+the recursive functions that was made to the author by D. Ten-
+ nenbaum       and     stimulated         much      of     our         present    research     in
+ these directions.
+   246                                                D.   Scott
+
+          It would seem fair to say that the method
+                                                     of Theorem 2.1
+   for obtaining non-archimedean inductive
+                                              domains is the correct
+   generalization of Skolem’s method to non-
+                                              denumerable function
+   rings,
+          Finally, we may examine the ring CN, which
+                                                        was included
+   only     for     illustration.          The       minimal           prime     ideals       of   this    ring
+  correspond exactly to the complete exten
+                                            sions of the axioms
+  for inductive domains (because of the
+                                          nature of the Boolean
+  algebra of idempotents). The quotiens
+                                           CN/P are exactly the
+  prime models for arithmetic considered by
+                                             A. Robinson in [14].
+        § 3. Polynomial rings. In an attempt to const
+                                                         ruct models
+  for any theory one very attractive proce
+                                              dure is to carry out
+  the construction by successive adjunction
+                                              s of new elements,
+  as in the construction of the algebraic
+                                              closure of a field or
+  indeed as in some proofs of the Completene
+                                                   ss Theorem for
+  first-order logic. In the case of arithmetic
+                                                  we shall see that
+  this method cannot be applied without
+                                               discrimination. The
+ first question that comes to mind is wheth
+                                                  er an arbitrary
+ discretely ordered domain can be extended
+                                                    to an inductive
+ domain. To this end note first of all two
+                                                simple facts.
+       PROPOSITION 3.1. (i) In a discretely ordered
+                                                      domain no ele-
+ ment can be both even and odd;
+         (ii) in     an   inductive          domain            every     element         is   either      even
+ or odd.
+      Proof. (ii) is obvious; for (i) notice                               that if 27 — 2y+,
+ then 2(4—y) = 1. Hence, «—y> 0, and
+                                                                           therefore “—y >,
+ which is impossible,
+         THEOREM 3.2.              There        is    a    discretely          ordered        domain       in
+ which     the equation
+                                           PHtil              = Py
+has a solution.
+       This statement              at once answers               our question            above     for we
+have      the
+       COLLORARY 3.3, The discretely ordered domain
+                                                    of Theorem 3.2
+cannot     be     extended    to    an     inductive           domain.
+       Proof.       One      need        only        recall     that     from      knowing          every
+element is either even or odd, it follows
+                                          that the polynomial
+w-+-r-+1 takes on only odd values. The
+                                            conslusion follows
+from     3.1.
+                         On constructing models for arithmetic                             PLT
+
+
+      It   remains        now      to       establish     the   existence      of   required
+domain.
+        Lema 3.4. If R is an ordered domain, then there is
+a unique ordering of the polynomial domain R(t] of polynomials
+in one indeterminate t such that t > r for all constant polynomeals
+ye R. If in addition R is discretely ordered, then under this order-
+ing   so is R{t].
+      Notice that if p(t)« R[t] and r<p(t)<s for r,seR,
+then p(t) is constant, ie., p(t)e« R also. The ordering of R{t]
+is of course always non-archi medean under the stipulation in 3.4.
+      Proof of 3.2. Let @ be the (ordered) field of rationals and
+consider        the   polynomial            domain      Q[t],   ordered   as   in   3.4.   Let
+
+                                    w= 4(2@+t+1),
+and let D be the ordered subdomain of Q[t] generated by ¢
+and u. If we can show that D is discretely ordered, the proof
+will be complete.
+     First of all it is easy to verify that D consists exactly of
+those polynomials of the form
+
+
+                            p(t)        +         SEE HELD,
+                                              a
+
+                                        NV Galt)         atk
+                                            k=0
+ where p(t) « Z[t] is an integral polynomial and the a,(t) have
+ as coefficients only 0 or 1. If in D there were an element be-
+ tween 0 and 1, we would find in Z[t] an inequality of the form
+
+                 0 < 2p            (ty — NW at-*ayay(P t+)                < 2",
+
+ But this would mean that the polynomial mentioned is a con-
+ stant in Z(t]. Reducing modulo 2 we find that the polynomial
+ a,(t)(t? -+t+1)" is constant in Zt], where Z, is the two element
+_ Ting. However, the polynomial f-+-¢-+1 is neither a divisor of
+  zero nor a unit in Zt]. Assuming that if » #0, then in the
+  original polynomial a,(t) = 0. we conclude that n = 0. In other
+ words     we     have    in Z[f],
+
+                                   0 < 2p(t)—a,(t) <1,
+ which is impossible in the discretely ordered domain Z[t].
+      In general, even though polynomial rings are seen to yield
+ many discretely ordered domains, they do not seem to lead
+   248                                              D.   Scott
+
+   very directly to inductive domains. In
+                                          a (negative) direction
+   somewhat different from 3.2 we have the
+                                            next result.
+           THEOREM             3.5.     If R is a formally       real domain   and D C Rit]
+   is quadratically                 ordered,    then DCR.
+         Before giving the proof, notice that 1.7
+                                                     shows at once
+   that if D were discretely ordered, D must
+                                                 be isomorphic to
+   a subdomain of R, for there is a homomorp
+                                              hism h: DR such
+   that h (p(t) = p(0). However, the stronger
+                                                conclusion can be
+   derived by making use of some simple ideas
+                                                   from the theory
+  of valuations.
+        Let D by any ordered domain and consider
+                                                         a function
+  w: D+Zu {co}. This function w is called
+                                                  an integral order
+  preserving valuation over D if the folowing
+                                               four conditions are
+  Satistied for all elements xL,ye D:
+           (i) (0) = —co,
+          (i)         w(a-y) = w(x) +w(y),
+         (iii) w(e+y) < max (w(x), w(y)),
+         (iv)         if     O<a<y,   S wy).   then W(L)
+ These conditions on a valuation are slightly
+                                                different from the
+ ordinary ones (in, Say, van der Waerden
+                                                [25], p. 252-254)
+ because the non-archimedean elements empha
+                                                  sized here are
+ infinitely large rather than infinitely small.
+                                                 Notice that con-
+ dition (iv) may be replaced by
+       (iv’) if x,y >0, then w(e+y) = max (w(x), w(y)).
+Notice also that (i)-(iv) imply that if w+
+                                              0, then w(x) > 0.
+Such a valuation is trivial if it takes on
+                                           only the values —oco
+and 0. The essential step in proving 3.5 may
+                                                be formulated as
+follows:
+      LEMMA 3.6. Yo quadratically ordered domai
+                                                      n can have
+a@ non-trivial integral order-preserving valua
+                                               tion.
+      Proof. Suppose that D is the domain and w
+                                                     the valuation.
+Choose an element xr so that w(xr) is-&
+                                          minimum among                               the
+non-zero (positive) values of w. Since
+                                        w(x) = w(—.2), we                            may
+assume v > 0. Now x=)’ yi, and by (iv’) above
+                                              w(a) =maxw(y}).
+                     t<n
+                                                      i<n
+Clearly we can assume that yo > yi for i<n.
+                                                   Hence u (Yo)
+>w(y})          for        i< nm,     and      w(x) = w(y3) = 2W(Yo).      Now    yy #0,
+and 80 w(Y) << w(z). Whence,                       w(y,) =0 = 2W (Yo) = w(x), which
+is a contradiction.
+                         On     constructing     models    for arithmetic                     249
+
+
+     Proof of 3.5. In the polynomial domain F[t] define a func-
+tion « such that w(p(t)) = —oo if p(t) = 0, otherwise w(p(t)) =
+the degree of p(t). Notice that p(t) « R if and only if w(p(t)) =
+—oo or 0. Thus, if we can show that « restricted to the quadra-
+tically ordered subdomain D is an order preserving valuation,
+then an application of 3.6 will complete the proof. Now the
+conditions (i), (il), (iii) are satisfied throughout #{t]. Thus it
+remains only to verify condition (iv), or better (iv’), on D.
+Let   rv,     ye D. x.y >0.          Then      x =    ) p,(t)? and     y = > a(t).           Thus
+                                                     t<n                    i<m
+the coefficients of the highest powers of ¢ in both x and y are
+sums of squares, and hence in r-y the larger of these two
+powers must still appear, because no non-trivial sum of squares
+is zero in AR. In other words w(r—y) = max (w(x), w(y)); as
+was to be shown.
+      Comparing 3.5 and 3.6 with 1.10 we see that inductive
+domains cannot be finitely generated or even be included in
+finitely generated rings in a non-trivial way. Indeed it might
+be possible to give a common generalization of these results,
+but the author has been unable to isolate the essential fact that
+seems to be contained in all of these proofs. In any case, one
+has many danger signals to watch for in any attempt at con-
+structing an inductive domain.
+      In 3.2 the discretely ordered domain constructed fails to
+satisfy the condition that every element is either even or odd.
+One might ask whether a discretely ordered domain in which
+finite congruences are solvable can be extended to an inductive
+domain. To be more specific, we shall say that finite congru-
+ences are solvable in D if for each m, D/(m) is isomorphic to
+Z/(m); ie., each element in D congruent to 0,1,..., or m—1
+modulo m. Note first that the square root of 2 is irrational in
+the following          sense.
+      PROPOSITION             3.7.   In   an    inductive     domain    there     are   no   non-
+zero solutions         of the equation.
+                                               f=    2,
+
+     Again a polynomial ring leads to a counterexample.
+     THEOREM 3.8. There is a discretely ordered domain in which
+all finite congruences are solvable and in which the equation
+                                               f=    Pu
+
+has   a     non-zero    solution.
+lo
+ Or   an)                         D.    Scott
+
+
+     Proof. Let Re be the field of real numbers and let D be
+the subdomain of Re[t] consisting of those polynomials p(t)
+such that p(0) « Z (i.e., integral constant term). Re[t] is ordered
+as in 3.4, and it is easy to show that D is discretely ordered
+and that finite congruences are solvable in D. However, wu = }'2t
+is in D, which completes the proof.
+     A way of recasting the results in 3.2 and 3.8 is to say
+that both of the (universal) sentences
+
+(1)                          P4+t+1 ~2Qu;
+(2)                   P=2u             imphes    t=0,
+
+are independent of the axioms for discretely ordered domains.
+In fact, the independence result in the case of (2) is slightly
+stronger. Both (1) and (2) are provable by the induction axiom
+for inductive domains, but every such application of induction
+axiom seems to require a formula with at least one quantifier
+in the inductive hypothesis. Hence we may ask whether these
+sentences can be proved from the axioms of discretely ordered
+domains by means of a rule of induction applied only to free
+variable formulas.
+      In other words, if we take statement (2) above as an
+example, the fact that the square root of 2 is irrational can
+be expressed by a universal sentence involving only the functions
+of addition and multiplication. Now the simple algebraic prop-
+erties of these operations are embodied in the axioms for
+discretely ordered domains, and the rule of free variable in-
+ductions allows us to deduce further consequences from these
+axioms which correspond to directly understandable algebraic
+properties   of the   integers.   However,      in   every   proof   of   (2) in
+ordinary number theory some new functions must be intro-
+duced by recursive definitions to carry out the argument
+(e.g. the ged(x,y) or 2”, ete.). Can this necessity for using
+notions in the proof that do not appear in the statement of
+the problem be made precise? One method is to ask whether (2)
+can be proved by free variable induction. Presumably the
+answer is no, but the demonstration is lacking.
+      This question about proving (2) was first raised by Skolem
+in [19], and similar questions have been emphasized by
+Kreisel in [27]. The only positive results known to the author
+are contained in the interesting paper of Shoenfield [17] where
+the problem is treated in the theory of addition alone.
+                   On    constructing   models   for arithmetic        251
+
+
+Unfortunately. none of Shoenfield’s models for addition can
+be ordered, and so his method does not seem to generalize.
+Is it possible that the domain constructed in the proof of 3.2
+satisfies the rule of free variable induction? The author was
+not able to decide thi§ question.
+      The question discussed above is closely related to Hilbert’s
+Problem about which diophantine equations have solutions in
+the integers. Hilbert’s Problem can be rephrased as asking
+which universal sentences in terms of addition, multiplication
+and order are true in the domain of integers. It seems unlikely
+that there is a decision method for such sentences (cf. Ro-
+binson [15] and Davis-Putnam [1]), but even if Hilbert’s Prob-
+lem is not recursively solvable, one still would like to know
+what is the relation between the universal sentences true in
+ the integers and those provable by the induction axiom. (If
+every true universal sentence is provable, then Hilbert’s Prob-
+lem is recursively solvable.)
+      In particular, can the provable universal sentences about
+ all inductive domains be characterized in a natural way making
+ use of simple algebraically meaningful rules involving only
+ universal sentences?      The rule of free variable induction
+ probably is  inadequate ,  but it would seem to be of real interest
+to   understand    the   complete       situation.
+     The questions about universal sentences are also closely
+related to the extension problem. A general theorem in [4]
+shows that if D and D’ are two domains, then every universal
+sentence true in D is true in D’ if and only if D’ is isomorphic
+to a subdomain of some D!/P where P is a minimal prime
+ideal of D'. Looking back to 2.1 and its generalizations men-
+tioned in the discussion, we conclude that a domain D can be
+extended to an inductive domain if and only if every universal
+sentence true in all inductive domains is true in D. (For a simpler
+discussion of this type of conclusion cf. Tarski [21)).
+     § 4. Recursive and definable rings. If a denumerable ring &
+is put into a one-one correspondence with the integers Z by
+a function e: Z>R, then the addition and multiplication of &
+induce two functions a, u:       ZxZ—Z by the relations
+       e(n)—e(m)     = e(a(n, mj},         — e(n)-e(m) = e(u(n, m)).
+ The functions a and pare called the addition and multiplication
+ tables of R relative to the enumeration e. We may ask whether
+ algebraic properties of R influence the nature of the possible
+ 259                                          D.   Scott
+
+
+ addition and multiplication tables which the ring may possess.
+ In particular, can the a and yu ever be recursive for a suitable ¢?
+ or can they be functions on Z algebraically                                    (first-order) defi-
+ nable in the doman Z? In these two cases                                       we shall say for
+ short that the ring & is recursive or definable. An analysis of
+ the original proof in Gédel [10] or Hilbert-Bernays [9] of the
+ Completeness           Theorem        allows      us      to        conclude    the     following
+        PROPOSITION           4.1.    There        exist         definable       non-archimedean.
+inductive          domains.
+     It should be stressed that the proof of 4.1 does not require
+the method of arithmetization of syntax which plays such
+a central role in the proof of incompleteness in Godel [11]. For
+we need only note that there are finitely axiomatizable theories
+involving other predicate constants beyond those for addition
+and multiplication from which the inductive axiom schema
+for arithmetic can be deduced. A system close to the set-theory
+of Bernays-Gédel can be used for example. Call the axiom for
+this (consistent) theory A. To this sentence we shall adjoin
+a new sentence involving a new monadic predicate symbol P
+as follows:
+            [P (0) A(2)LP(@) > P(@+1)AP(e—1)]A7 (a) P(a)} .
+There are several ways to show that if A is consistent, then the
+resulting conjunction is also consistent. It is at once clear
+that in every model for this extended theory the domain involved
+is a non-archimedean                 inductive      domain.             Now     it is exactly        the
+point of Gédel’s proof of completeness that one may write
+out directly a definition in aritmetic of predicates satisfying
+this single sentence.          .
+     In other words, an explicitly definable non-archimedean
+inductive domain can be given. Of course, the actual definitions
+required would be far from short. In particular the model in
+arithmetic is constructed as the union of finite “partial” models,
+and the structure of these finite systems must be described in
+algebraic terms. This description can be carried out by the use
+of the Chinese remainder theorem for representing finite sets,
+sequences, and functions in arithmetic. Of course, it is just the
+use    of   this     kind     of representation                 of    sequences        that     permits
+the arithmetization of syntax; however, the description of the
+finite relational systems is far simpler than the explicit defini-
+tions of the necessary syntactical notions. The author                                        definitely
+feels that a complete                proof of 4.1 would                  require       much      less in
+                          On constructing models for arithmetic                                  253
+
+the way of preparation and comprehension than the usual
+proofs of incompleteness of arithmetic. We note next that
+Tennenbaum has proved in [24] the following result first proved
+by Feferman [2].
+      THEOREM            4.2.   Every           definable     non-archimedean            inductive
+                                          #       ae                       e              *       °
+
+
+
+
+domain       satisfies     a sentence false in the integers.
+      The proof shows that the sentence in question is one of
+the instances of the formula that defines the addition table
+a(n, m) of the definable domain. A slightly different method
+of proof not requiring the more advanced ideas from recursive
+function theory is given in [18]. There the sentence in question
+is constructed by a simple diagonal argument. The method of
+proof applies when there are additional predicates besides ad-
+dition and multiplication giving a common          generalization
+of 4.2 and the result of Rabin [13] (Theorem                               6). We     thus obtain
+as a consequence of 4.1 and 4.2 the Incompleteness Theorem.
+Indeed, this method is adequate to show that any theory which
+has   a set     of axioms            definable         in   arithmetic         is inadequate     for
+proving all true sentences of arithmetic—a result which is of
+course already known. The method of proof of incompleteness
+outlined here should                 be       compared       with   that       of   Kreisel   in [7]
+and Wang in [26].
+     Another result of Tennenbaum                             [24] closely related to 4.2
+is as follows:
+      THEOREM            4.3.   No            non-archimedean        inductive         domain         is
+FECUISIVE.
+     Thus, if we try to construct a non-archimedean domain to
+prove incompleteness by showing by means of the model that
+a certain true sentence is independent of the inductive axioms,
+then this domain cannot have effectively computable addition
+and multiplication tables. For example, the domain constructed
+in 3.2 is recursive and hence not inductive. (Actually it fails
+to be inductive for a very simple reason as shown in the proof
+of 3.2.) Hence,            we   have           a new    warning     sign in our         search    for
+models of arithmetic: Do not use addition and multiplication
+tables that are too simple. Nevertheless the investigation of
+certain recursive discretely ordered domains may be of real
+interest, for these may be models for useful fragments of arithme-
+tic, as in the problem of Skolem mentioned in Section 3.
+      Another way to phrase the content of £.3 uses the sequences
+of finite residues by finite moduli of elements of an inductive
+  2od                                                   D. Scott
+
+  domain. In the notation of Specker [20], the sequence                                                                 is
+  (41, 4M, 43, 44,...) Where a is some element of the domain and                                                       Bn.
+  is the residue modulo 7. We can interpret a, as an actual integer,
+ where            0 <a,<,              rather           than    as         a    (finite)      element       of    the
+ domain. With this terminology the result of Tennenbaum
+ shows that in any non-archimedean inductive domain there nust
+ exist an element a such that the sequence of residues (Q,, A, Ag, ...)
+  is not recursive. This rephrasing higlights in a different way
+ the complexity of inductive domains that are not the integers.
+       The author sincerely hopes that the discussion presented
+ here, which is rather weighted to the side of negative results,
+ is not discouraging. Even though the problem of constructing
+ inductive domains is clearly extremely difficult to solve in
+ useful ways, a deeper study of this question can surely bring us
+ better understanding of the nature of arithmetic.
+
+                                                       References
+
+        [1] M. Davis and H. Putnam, Reduction of Hilbert’s tenth problem,
+ Journ.   Symb. Logic 23 (1958), pp. 183-187.
+        [2] 8S. Feferman,    Arithmetically definable models of formalized
+arithmetic, Notices Amer. Math. Soc. 5 (1958), pp. 679-680 (Abstract 550-21).
+        [3] — D. Scott and 8. Tennenbaum, Models of arithmetic through
+function rings, Notices Amer. Math. Soc. 6 (1959), pp. 173-174 (Abstract
+ 556-31).
+       [4] T. Frayne, A. C. Morel and D. Scott, Reduced direct products,
+to appear.
+       [5] R. M. Friedberg,    Three theorems on recursive enumeration,
+Journ. Symb. Logie 23 (1958), pp. 309-316.
+           [6]    S.     Kochen,       Filtration        systems,         I,    Notices     Amer.      Math.     Soc.
+5 (1958), p. 605 (Abstract 549-24).
+        [7] G. Kreisel, Note on arithmetic models for consistent formulae
+of the predicate calculus. Part I, Fund. Math. 37 (1950), pp. 265-285.
+        [8] — Some concepts concerning formal systems of number theory,
+Math, Zeit. 57 (1952), pp. 1-12.
+        [9] D. Hilbert     and P. Bernays,    Grundlagen der Mathematik,
+vol. 2, Berlin 1939.
+      [10] K. Godel, Die Vollstandigkeit der Aziome des logischen Funk-
+tionenkalkiils,           Monatshefte            fir     Mathematik              und       Physik      37   (1930),
+pp.   349-360.
+       (11] —            Uber formal     unentscheidbare             Sttze der Principia              Mathematica
+und     verwandter         Systeme,     I,       Monatshefte        fir        Mathematik       und    Physik     38
+(1931),     pp.        173-198,
+         [12]     E.    Mendelson,           A    proposed     nonstandard             model,   Notices        Amer.
+Math. Soc. 6 (1959), pp. 143-144 (Abstract 554-31).
+         [13] M. O. Rabin,             Arithmetical extensions with prescribed                         cardinality,
+Indag.      Math. 21 (1959),           pp. 439-446.
+                           On constructing models for arithmetic                            255
+
+      [14] A. Robinson,     Jodel theory and non-standard arithmetic, this
+volume, pp. 265-303.
+      [15] R. M. Robinson,       <Arithmetical representations of recursively
+enumerable sets, Journ. Symb. Logic 21 (1956), pp. 162-186.
+      [16] C. Ryll-Nardzewski, The role of the axiom of induction in
+elementary arithmetic, Fund. Math. 39 (1953), pp. 239-263.
+      [17] J. R. Shoenfield, Open sentences and the induction ariom,
+Journ. Symb. Logic 23 (1958), pp. 7-12.
+      [18] D. Scott, On a theorem of Rabin, to appear.
+      {[19] T. Skolem, Peano’s axioms and models od arithmetic, Mathe-
+matical interpretations of formal systems, Amsterdam 1955, pp. 1-14.
+      (20] E. Specker und R. Mac Dowell, Modelle der Arithmetik, this
+volume, pp. 257-263.
+      [21] A. Tarski, Contributions to the theory of models, I-II, Indag.
+Math. 16 (1954), pp. 572-588.
+      (22] A. Tarski and R.L. Vaught, Arithmetical extenstons of relational
+systems, Compositio Math. 13 (1957), pp. 81-102.
+      (23] A. Tarski, What is elementary geometry? The axiomatic method,
+with special reference to geometry and physics, Amsterdam 1957, pp. 16-29.
+         [24]   S.   Tennenbaum,            Non-archimedean    systems   of   arithmetic,    to
+appear.
+      [25] B.        L.   van      der     Waerden,    Moderne     Algebra,    3rd   edition,
+Berlin     1950.
+         (26] H. Wang,           Undecidable sentences generated by semantic paradozes,
+Journ.      Symb. Logie         20 (1955), pp. 31-43.
+         [27] G. Kreisel,         Applications of mathematical logic to various bran-
+ches of mathematics,            Colloque    de la Logique     Mathématique,     Paris   1954,
+pp. 37-49,
+
+THE   UNIVERSITY          OF CHICAGO
+

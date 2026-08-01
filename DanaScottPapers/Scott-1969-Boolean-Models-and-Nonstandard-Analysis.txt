@@ -1,0 +1,292 @@
+Boolean           Models
+and Nonstandard                      Analysis
+         by DANA SCOTT!
+
+
+
+   It is certainly debatable whether the crisis over the set-theoretical
+paradoxes was really a crisis or not. For a long time there was really
+no impact on the working (or should one say proving) mathematician.
+Only in the last few years have the people in abstract category theory
+found anything to complain about. It seems to the author that the
+situation with the continuum hypothesis is much worse. The Russell
+paradox can be easily dismissed by saying that such all inclusive sets
+were not intended, but not so with the question of the cardinality of the
+continuum. Everyone who does modern abstract mathematics uses the
+continuum as a well-determined set. Only the strict constructivist ques-
+tions this ‘‘obvious” fact. But as Gédel and Cohen have shown us, the
+cardinality of this continuum is not at all well determined by the current
+axioms. What to do? Maybe we have to face the fact that there are
+many distinct theories of the continuum. It is hard to swallow the idea,
+but, as will be shown below, it is easy to cook up those exotic models                       —
+out of everyday ingredients.
+
+The Construction of Models for Analysis
+   We shall employ the Boolean algebraic method presented in my exposi-
+tory paper [4]. As is done there, we shall construct models for analysis
+(a portion of the higher-order theory of real numbers). For details of
+checking the logical properties of the models we shall refer to [4] and be
+content here with descriptive remarks. A thorough exposition of the
+models for full set theory will be found in the joint paper with Solo-
+vay [5].                                          |
+   The idea of constructing Boolean-valued models could have been
+  1 Preparation of this manuscript   was   partially   supported   by   National   Science
+Foundation Grant 7655.
+
+                                                                                        87
+ 88                                 BOOLEAN        MODELS   AND   NONSTANDARD       ANALYSIS
+
+
+
+  (but was not) discovered as a generalization of the ultraproduct method
+ used now so often to obtain nonstandard models for ordinary analysis.
+ Roughly, we can say that ultraproducts use the standard Boolean algebras                      ~
+ (the power-set algebras) to obtain models elementarily equivalent to the
+ standard model, whereas the Boolean method allows the nonstandard
+ complete algebras (such as the Lebesgue algebra of measurable sets modulo
+ sets of measure zero or the Batre algebra of Borel sets modulo sets of the
+ first category). Thus the Boolean method leads to nonstandard nonstand-
+ ard models that are not only not isomorphic to the standard model but
+ are not even equivalent. Nevertheless, they do satisfy all the usual
+ axioms and deserve to be called models of analysis.
+     To make this comparison clear, let us consider the ultraproduct con-
+ struction in general. So as not to complicate notation, let us use structures
+                                    @ = (A,R),
+ where & C A X A is a binary relation. Suppose that for 7 in an index
+ set [ we have corresponding structures
+                                    ;   =   (Aj,   R;).
+
+
+ We then form the product                             |
+
+                            X @: = (XAj,
+                           1El      1E.
+                                         8) = (B, 8),
+where S is not a binary relation in the ordinary sense. Instead we make
+S a Boolean-valued relation. We define
+                                 S:BxXxB-PI
+
+(where P is the power-set operator), so that for a,               b   © B we have
+                            S(a, b) = {tC LT: ak,b,}.
+
+
+Extension    of the Definition of Boolean Values
+
+  In regard to PI as a complete Boolean algebra, the mapping S defined
+above   allows us to extend      the definition of Boolean            values from   atomic
+formulas to all logical formulas by means of the following obvious rules
+(for more detail see [3] and [4]):
+
+                         [laSb]] = S(a, b) = {cE TL: a R,b,},
+                   lla    = bf] = {cE
+                                    I: a; = b;},
+                       (P]] = 2 — fe],
+                  le V vi] = [eo] U Tv),
+                  [Arb(x) ]] = S [P(a)|].
+EXTENSION   OF   THE   DEFINITION        OF    BOOLEAN          VALUES                               89
+
+
+
+  Thus every formula ®(a, b,---) with constants a, b,-::G B                                       (and
+without free variables) has a uniquely determined Boolean value
+
+                                    [P(a, 6, ---)] E PL.
+We call such a formula valid (Boolean valid) iff
+                                    [P(a, b,- +) = T.
+We note that
+                  [[B(a,   b,   _   )]   —     {2    =    q:   GQ;   |   Pla,    bi,    i   )h3
+
+hence it is valid iff it is true in all the Q;.
+  The basic lemma about ultraproducts shows (see [1], Theorem                                     2.2):
+Given 4r®(x, b,---), there exists an element a € B such that
+
+                       [Are (x, b,--           )I]   =     [[P (a, b,-°         *) I.
+That is, even though the value of the existentially quantified formula
+was defined as a union (supremum), it is actually a maximum. That
+is interesting. There are very few homomorphisms of PJ (into {0, lL},
+say) that preserve all sups; but it is obvious that any homomorphism of
+one Boolean algebra into another preserves a max. Therefore, if we regard
+an ultrafilter D as really being              a homomorphism,
+                                     D: PI —              }{0, 1},
+
+then we can form in the obvious way the quotient structure
+
+                                               X     @,/D.
+                                              tel
+This structure in view of the above maximum principle is such that any
+sentence valid in XQ, is true in X@,/D. (Of course, this can be sharpened,
+but the point is to see the conclusion as a consequence of general facts
+about quotients of Boolean-valued models.) In short, we have divided
+the ultraproduct construction into two stages: product followed by wléra.
+It is the generalization of the product part we wish to emphasize.
+   Let @ be an arbitrary complete Boolean algebra. Since @ is in par-
+ticular a Boolean o-algebra, we know that ® can be represented
+
+                                              B=         @/N
+where @ is a o-algebra of subsets of a set J and 9 is a o-ideal of @. (In [4]
+the set I was called 2 because it was a measure space. We also change
+another convention of [4] by using the notation +, -, 2, Il for the Boolean
+operations of ®, saving U, ™, U, O for use with their ordinary set-
+theoretical meanings.)
+   Now since we are interested in the theory of the real numbers (the set
+of which is denoted by R) we will form a special product structure. We
+90                                BOOLEAN       MODELS          AND   NONSTANDARD   ANALYSIS
+
+
+do not use the full Cartesian power R’ but only the subset ® C RI,
+consisting of the @-measurable functions a: I — R. This makes it possible
+to define the @-values of formulas:
+
+                        la = b] = {tEI: a; = 0} /%,
+                        [la   > b] =   ttEI: a; < b,}/%,
+
+                  la+b=c]          =   {2   €   I:   a;   +b;     =   ¢}/N.
+
+
+Indeed, if & C R* is any n-ary relation with a Borel graph, then we can
+be sure that
+                       {7 EI: R(a,, b;,:--)} € @, |
+so that we can define
+
+                 [A(a, 6,---)] = tc EI: Rai, bi, + + -)}/9.
+Thus any ordinary Borel relation on R becomes a @-valued relation on @.
+This makes ® into quite an interesting structure. (Quantified formulas
+get values just as above. So far @ is only a first-order structure havingto
+do with Borel relations. By the same token we extend Borel functions
+g: R?— R to functions g: R"— R, as we already indicated with +:
+R? > R.)                                                    |
+   Well, just how interesting a structure is ®? First, it is fairly easy to
+see that ® 1s a (@-valued) real-closed field. For example, it is clear that
+                              ax<bVa=bVa>b
+
+is ®-valid, and similarly for all the other axioms for ordered fields. Using
+the extensions of Borel functions to ® we get the roots needed for the
+axioms of real-closure (see [4] for more details). By quite a different
+method (see [2]) it can be shown that if R C R? is a Borel relation such that
+
+                                dz Vy dz R(a, y, 2)
+
+is true in R, then this formula is valid in @. [We can replace x, y, z here each
+by a string of variables and R(z, y, z) by any quantifier-free combination
+of Borel relations.] This goes quite a way. Many facts about analytic
+sets can be expressed in this elementary form. Note, however, that we
+have only claimed an zmplication: from truth to validity. The converse is
+not correct. There are choices of (nonstandard) algebras ®@ where the
+converse fails. (This has to do with Gédel’s axiom of constructibility ;
+see [5].)
+   Of course, analysis wants to have results about arbitrary real functions,
+and our theory of ® so far has only to do with formulas involving real
+variables. To bring in the functions we define the set @® of allowed
+EXTENSION   OF   THE   DEFINITION   OF BOOLEAN     VALUES                  91
+
+
+functions to be those mappings
+                                      f:R-R
+
+such that                    la = b] < [f(@) =f) ]l
+for all a,b © @. (Here < is Boolean inclusion in ®.) All formulas involv-
+ing function values f(z) and real variables can now be given @-values _
+for any f € @. We can also evaluate equations between functions using
+the definition
+                          if =91 = Il V@            =9@].
+                                       aER
+
+   The next step is to give @-values to formulas involving quantifiers —
+over functions. And then we can go on to the higher orders. As is shown
+in [4] (and more fully in [5]) all axioms of higher-order real number theory
+are ®-valid. But for a suitable choice of ® the continuum hypothesis fails
+to be valid. The form of this sentence is very simple:
+
+vhlaf Vy[h(y) = 0O— az[M(2) Ay = f(a)]] V 3g Vy azlh(z) =O AY
+                                                           = g(x)]].
+Why is it that this fails when the axiom of choice holds?
+   We remark that this ®-valued model for analysis satisfies the maximum
+principle. Hence quotients can be taken by ultrafilters forming really
+nonstandard models for analysis in the usual sense of model (see [5] for
+the proof of the maximum            principle and remarks on the Lowenheim—
+Skolem theorem). We must ask whether there is any interest in these
+nonstandard models aside from the independence proof; that is, do they
+have any mathematical interest?
+   The answer must be yes, but we cannot yet give a really good argument.
+Certainly there is intrinsic interest in certain of the models. Take the case
+where @ is a measure algebra, J is a measure space, @ is the o-field of
+measurable sets, and N is the o-ideal of sets of measure 0. Then @ is the
+space of random variables, a very well-known space. That it forms a
+model for real number theory in a precise (although ®-valued) sense must
+mean something.                            ,
+  Here is one remark that  may  be useful.   In general, one wants to know
+how various notions familiar from ordinary analysis look in the model.
+Take the concept of a Borel function; there is a certain formula,
+
+                                      Borel (f),
+
+that expresses this in higher-order logic. What can be shown is that if
+Borel (f) is valid for some f € @®®%, then there exists an ordinary Borel
+     92                                BOOLEAN   MODELS   AND   NONSTANDARD   ANALYSIS
+
+
+     function ¢g: R*? > R and a particular a € ® such that
+
+                                      f(x) = ¢(a, x)
+  for all « © ®. In words, we can say that all the nonstandard Borel
+  functions are quasi-standard in the sense that they result from standard
+  Borel functions by specializing certain parameters to nonstandard reals.
+  (The details of this theorem were worked out in [2].) There must be other
+  such results.                                                               |
+      Of course, the Boolean-valued models have been remarkably successful
+in solving problems about the existence of certain kinds of unpleasant,
+  complete Boolean algebras (see [5]). But this is a different kind of appli-
+ cation from what we usually want nonstandard analysis to do. But
+ maybe there is some hope. Note that in the usual nonstandard models
+ certain standard sets are made subsets of finite sets (finite in the model,
+ that is). Then, some fact about finite sets gives us the desired conclusion.
+ The unpleasant Boolean algebras mentioned above can be chosen to make
+ a given standard set countable in the Boolean model (see [5]).
+     In many ways these Boolean models are more like the standard model
+ than the usual nonstandard models (witness the remark about Borel
+ functions). In fact, countability behaves very well in the Boolean sense,
+ so that perhaps an argument that uses some formal property of countable
+ sets may reveal something.
+
+
+               References
+
+1.        T. FRAYNE, A. MOREL, AND D. ScoTT, Reduced Direct Products, Fundamenta
+           Math. 51 (1962), 195-228.     ,
+2.        P. KRAUSS, Probability Logic, Ph.D. dissertation, Berkeley: Univ. of Calif.
+           1966.                                                            ,
+3.        H. RASIOWA AND R. SIKORSKI, The Mathematics of Metamathematics. Warsaw:
+           1963.
+4.        p.scort, A Proof of the Independence of the Continuum Hypothesis, M ath.
+          Systems Theory 1 (1967), 89-111.
+5.        D. SCOTT AND R. SOLOVAY, Boolean-Valued Models for Set Theory, Proc.
+          AMS Summer Institute on Set Theory, Los Angeles: Univ. Calif., 1967. In
+          preparation.
+    Applications
+    of Model Theory
+    to Algebra, Analysis,
+    and Probability
+
+    Edited by W. A.                    J. LUXEMBURG
+
+    California Institute of Technology
+
+
+
+
+Copyright © 1969 by Holt, Rinehart and Winston, Inc.
+All Rights Reserved       |
+Library of Congress Catalog Card Number:                69-11203
+
+2721751
+Printed in the United States of America
+
+9     8   7    6    5    4   3    2     I
+
+
+
+
+    HOLT,          RINEHART             and WINSTON
+    New   York          Chicago        San Francisco    Atlanta    Dallas
+    Montreal        Toronto           London   Sydney
+

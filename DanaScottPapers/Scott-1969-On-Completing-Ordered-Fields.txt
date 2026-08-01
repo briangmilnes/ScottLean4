@@ -1,0 +1,223 @@
+On       Completing              Ordered           Fields
+         by DANA SCOTT
+
+
+
+
+    Every ordered field, not only the field of rationals, can be completed—
+in a suitable sense. This no doubt follows from the fact that an ordered
+field is a uniform space, but we shall show here that the completion
+process has a simple algebraic interpretation. The first step is to define
+what we mean by a complete field in a way applicable to arbitrary cardi-
+nalities, for the usual Dedekind notion of completeness for fields implies
+isomorphism    with   the   reals.   The   definition   that   is appropriate   is as
+follows:
+
+Definition.   A given ordered field is called coimplete if it has no proper
+extension to an ordered field in which the given field is order-dense.
+   If K and L are ordered fields and K C L, then K is dense in L (order-
+dense) if between any two distinct elements of Z there lies an element
+of K. We say K is cofinal in L if every element of L is exceeded by an
+element of K. If K is cofinal in L, it is easy to see that it is also coindtial
+in the sense that for      eC L,   «> 0, there always exists        6G K with
+0 <8<«. Note, however, that K can be cofinal in L without being
+dense.   [Give a non-Archimedean           ordering to K = Q((t)), the field of
+formal power series. Let L = K be the real-closure of K, and ask yourself
+what lies between        «/i and 2 +/.] Note also that every ordered field is
+cofinal in its real-closure, because easy estimates on the roots of a poly-
+nomial are always rationally computable from the coefficients.
+   We shall establish two results that seem to answer the obvious ques-
+tions about fields complete in the sense of our chosen definition.
+
+Theorem 1. Given any ordered field K, there is a complete ordered field
+K in which K is dense. Any other complete ordered field in which K 1s
+dense is isomorphic to K by a unique isomorphism that ts the identity on K.
+274
+ON   COMPLETING     ORDERED   FIELDS                                               275
+
+
+   It follows that if K is dense in L, then K is dense in L. Thus K and f,
+are isomorphic. This makes L isomorphic to a subfield of K. This isomor-
+phism is the identity on K and is unique—because density implies that
+each element of Z is determined by the cut it makes in the ordered set
+K. Thus in many senses K is a maximal ordered field in which K is
+dense. Note that if K is the field of rationals, then clearly K is isomor-
+phic to the reals.
+
+
+Theorem       2.   If K is dense in L, then passing to the real-closures we have
+K dense in L.
+   From Theorem 2 it follows that if K is real-closed, then so is K. Or
+better, K is real-closed if and only if K is dense in its real-closure K.
+Because if K is real-closed, then K C K C K, which means K is dense
+in K. On the other hand, if K is dense in K, then since K is dense in K,
+the theorem implies K is dense in K. Therefore, K is dense in K, and so
+K = K, which shows that the field is real-closed. [We note that the
+example of Q((t)) mentioned above shows that not every ordered field
+is dense in its real-closure.]
+   Proof of Theorem 1, Given an ordered field K we first extend K to
+an ordered field Af in which every cut in K is filled. In other words, if
+sets A,B C K are such that A < B (that is, every element of A is less
+than every element of B), then there is at least one element s C M
+with A <2 < B. The existence of such an M is very easy to establish.
+One can use the compactness theorem of first-order logic, or use the
+ultrapowers, or use the enlargements employed for nonstandard models
+of analysis, or simply adjoin indeterminates one after another until all
+the cuts are filled. Of course, M is a miserable field with many too many
+elements. The next step is to form a more reasonable quotient field
+of subring of Af.
+   Let F be the subring of all K-finite elements of Af; that is, F consists
+of those    x € M for which there exists a y © K with |z| < y. We let
+I be the ideal of K-infinitesimal elements of F; that is, I consists of those
+x € F for which |z| < y for all y € K where y > 0. Now J is a maximal
+ideal of F and we let K’ = F/T. It is easy to see that K’ is an ordered
+field and that K is isomorphic to a subfield by the obvious injection.
+Let us simply make K C K’. Now K’ is less miserable than Jf for K
+is cofinal in K’. Furthermore, for every cut A < B in K, there will exist
+zC   K’    with    A <x   < B,   when   A   and B   are   nonempty,   But   generally
+K’ is still too large to be K; we shall find our completion as a subfield
+of K’.
+   To this end let A+ be the set of strictly positive elements of K, and
+276                                         ON   COMPLETING   ORDERED   FIELDS
+
+
+let K be the set of z © K’ such that for every a © K+ there is an element
+of K between x and « + a. Note that K contains not only K but also
+all subfields of K’ in which K is dense. Furthermore, K is dense in K,
+because if z, y © K and x < y, then we can choose a € Kt with a <
+y — x (K is coinitial in K’). Next take          bC K with x <b<2z+a,
+which puts b between z and y. If we can only show that K is a subfield
+of K’, then K will be the maximal subfield of K’ in which K is dense,
+which is a more pleasant characterization of K.
+   Well, let us show first that K is closed under addition. Suppose x, y C K
+and a © Kt. Choose b, cEG K so thatr <b<a+lioaandy<cc<
+y+a.        Then     t+ y <b+ec< (@+y) +a, and we see whyz+
+yER.
+   To show that K is closed under minus, let x © K and a € Kt. By
+the above, since —a © K C K, we know « —a€ K. Thus for some
+bE K we have t-a<b<(x—a)+a=2.                          Hence   -x< -—b<
+ —x + a, and we see why —xz € K.
+   To show that K is closed under product, it is enough to consider z, y € K
+with z, y > 0. First pick b € K+ with b < a/2y. Next pick ¢ © Kt
+with c < a/2(2 + 6). This is all arranged to make by + cx + be < a.
+Now take d,e€       K witha <d<a+bandy<e<y+e.                       We find
+
+             vy    <d-e<ax-ytbytoactbe<2-yta,
+
+and we see why      «-y € K.
+   Finally, to show that K is closed under inverse, let rx © K, x > 0, and
+let a € Kt. Choose b € Kt so that b < az?/(1 + ax), and pick ¢ € K
+with      c—~b<c< 2. Since this proof was found working backward,
+we are not surprised that
+                      x              ax?
+                   ———— = 7 -~ ——
+              0<
+                    lfac            l+tac—” <r-b<e<sa,
+                                                  os
+whence z-! < c-! < g-! + a, which shows us why 27! € K.
+   Let us now establish the completeness of K. Suppose K C L and K           is
+dense in L. Then K is dense in L also. Let x € LE and let
+
+                          A
+                              fy    K:y <x},
+                          B   {ye   Kia <y}
+be the cut in K determined by x. Now in K’ there is an element x’ such
+that A <2’ < B. We note that 2’ © K because if a © Kt, then for
+someb € K wehaver < b < x + a. This meansb € Bwhileb ~ a E€ A.
+Therefore, 2’ <b < 2’ + a. Now either the strict inequalities hold, or
+if not, x’ © K and we can modify b to make the inequalities strict.
+ ON     COMPLETING   ORDERED   FIELDS                                             277
+
+ Hence z’ € RK. But then 2’ € L also, and in view of the density of K in L,
+ it follows, from the fact that the two elements determine the same cut,
+ that     x = x’. This puts    x © K; therefore,    L = K.
+    It is now time to reveal the nature of K. The elements of & are in a
+one-to-one correspondence with the cuts in K that are never invariant
+under a nonzero translation by an element of K. We could have indeed
+constructed K this way. But then the proof that K is a field is quite
+tiresome. We have side-stepped this issue by starting with Af (better, K’)
+in which the axioms for a field are already satisfied. Then K can be a
+subfield. The necessary algebra is not avoided, however, because we
+still had to prove that A was closed under the field operations.
+    There is still one step missing, unfortunately: the uniqueness of K.
+For this it seems best to use the cuts. Suppose L is another complete
+ordered field in which K is dense; then we can map each element z € I
+uniquely and one to one to an element f(z) © K so that
+
+                      tye K:2 <y}        = lye
+                                             K: f(x) < y}.
+This mapping is the identity on K. One can then proceed directly to
+show that this mapping preserves order, addition, minus, and products
+of positive elements. This is enough to conclude that L is mapped onto
+                                                                       a
+subfield. But since L is complete, it must be mapped onto K.
+   Proof of Theorem 2. Suppose K is dense in L. We wish to show that
+K is dense in L. (Obviously we are assuming that K C L, which is reason-
+able because K C L and L is real-closed.) Note that since L is cofinal in i
+and K     is dense in L, then K   is also cofinal in Z. To establish the denseness
+of K in L it is enough to prove:
+  (*) for each z € L and » € K+, there exists y € K with lz —y| <9
+For if u,» © L and u < V, then let x = 14(u + v) and choose n & Kt
+with » < }4(v — u). Then whenever |r — y| < 7, obviously y must lie
+between u and v. So, by (*), some element of K lies between u and v.
+  Our     proof of (*) will be based      essentially   on the principle   that   the
+roots of a polynomial depend continuously on the coefficients. Roughly,
+we take a polynomial which z satisfies with coefficients in L, then modify
+the coefficients ever so slightly to lie in K in such a manner that the new
+polynomial has a root within » of « which, of course lies in K. It is
+                                                                      pos-
+sible to make this argument precise as it stands, but the following proof
+is slightly more elementary.
+   Let f(z) = 0 where
+
+                     SO   = M+     ae     +--> +a            itt a,
+278                                                        ON   COMPLETING         ORDERED    FIELDS
+
+
+with    the   a;   © L.    Now    we   can   assume       that f(t)    has    no   multiple    roots
+and that it is monotonic in a neighborhood of z, say for ¢ where |x — ¢| <
+n’ <n. Thus f(z — 7’) and f(x + n’) have opposite signs. Choose e € K+
+so that e < min(|f(z ~ n’)|, [f(@ + n’)]). Next choose k C K+ so large
+that    |x + 7'|)<k         for   i =0,---,        n — 1. We          can    now    pick     }; € K,
+a=     1,-+-+,n, so that ja; — b,| < €/nk for each 7. Let
+
+                          g(t) = t + byt       +      +    + bait + by,
+and note that
+                                                                              n
+
+
+
+  f@+tn)           -g@tn)]         < y la; — Bi je t9'|P-* < > (<) ‘k=.
+                                                                             y=1
+
+
+Hence g(z — 7’) has the same sign as f(x — 7’), and g(t + 7’) has the
+same sign as f(z + 7’). Therefore, g(t) changes sign between x — 7’ and
+x +’. Hence g(y) = 0 for some y € K with |x — y| < 9’ < 7, and the
+proof is complete.
+   Historical remarks.      The results presented in this paper were
+obtained in the summer of 1961 while the author was a Miller Research
+Fellow at the University of California at Berkeley. The author profited
+at that time very much from conversations with A. Robinson and
+G. Kreisel. The paper was never published before because no application
+was apparent, and, in any case, the results are rather elementary. How-
+ever, since several people have asked about them, the author is glad to
+have this opportunity to present them.
+   After reading a draft of the paper, E. Zakon kindly pointed out that
+similar results for ordered Abelian groups were formed by L. W. Cohen
+and Casper Goffman [Trans. Am. Math. Soc. 67 (1949), 310-319]. Indeed,
+the idea of using the special cuts goes back to R. Baer [J. Reine Angew.
+Math. 160 (1929), 208-226], who calls them Dedekindean cuts. We have
+in effect reproved some of the Cohen—Goffman results (sec. 2 of their
+paper) and extended the method to fields. They do not, for some reason,
+stress the fact that the original structure is order-dense in its completion
+and, further, their notion of completeness has to do with convergent
+(transfinite) sequences, but the notion proves to be equivalent to ours.
+They do, however, prove the interesting fact that the groups (and hence
+the real-closed fields) constructed by H. Hahn’s method of formal
+power series are complete. Although the algebra is very simple, it is
+not at once obvious that the cuts they use for the additive structure
+are also appropriate for the full field structure. That, in a (rather small)
+nut shell, is the contribution of the present paper, for whatever it is
+worth.
+

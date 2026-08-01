@@ -21,10 +21,9 @@ tramp
 # macOS
 .DS_Store
 
-# Downloaded third-party PDFs stay local (copyright: do not redistribute via the
-# public repo). Remove/adjust per-file if a specific PDF is openly licensed.
-*.pdf
-
-# Harper PFPL working area: the abbreviated edition is personal-use / no
-# redistribution, so its extracted text and derivatives stay local.
-/HarperBook/
+# The one carve-out: the verbatim Harper PFPL book is Cambridge University Press
+# copyright, and its free edition is marked no-redistribution. Keep the raw book
+# local; our own OUTLINE.md and generated Lean under HarperBook/ are tracked.
+# (Remove these two lines if the repo is private.)
+/HarperBook/PFPL.pdf
+/HarperBook/PFPL.txt

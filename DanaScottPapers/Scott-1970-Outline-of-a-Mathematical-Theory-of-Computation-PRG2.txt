@@ -1,0 +1,1032 @@
+                                          :'
+J                                         ,I
+                                      ",
+                                      "
+                                      :1
+                                      "
+                                      i
+                                      I
+                                 I
+                                 :I
+                                ,,
+                            ;1
+                                !I
+                            "
+                           :1
+                            !
+                           'I
+                       :1
+               "
+             '1
+                       I
+                      II
+                 ;;
+                 ,,
+                 I'
+             :1'I
+             "
+         "
+           I
+         "
+     ,
+     ,
+    ,
+    ,
+         .,,
+    I'   !
+!I
+                     O"L~   ..   _J   I I .... i"...,,..~;""!   rf'lm!""l' r.;:-1 L~t;C'i·~I.,~ry
+                                                                              j
+
+                                                lIAIVI U \)/.1 jdd
+
+
+
+
+                                      OUTL1NE
+                                        OF A
+                      MATHEMAT1CAL THEORY
+                                          OF
+                                 COMPUTATION
+
+
+
+
+                                          by
+
+                          Dana Scott
+                     Princeton Univers i ty
+
+
+
+
+Technical Monograph PRG-2
+November 1970
+
+Oxford University Computing Laboratory.
+Programming Research Group.
+4S Banbury Road.
+Oxford.
+                      ©   1970 by Dana Scott
+
+                          Department of Philosophy,
+                          1879 Hall,
+                          Princeton University,
+                          Princeton, New Jersey, 08540.
+
+
+
+
+       This paper is a revised and slightly expanded version
+of a paper under the same title in the Proceedings of the Fourth
+Annual Princeton Conference on Information Sciences and Systems
+(1970) .
+                            ABSTRACT
+
+
+       This paper introduces a theory of computation which
+is mathematical rather than operational in its approach.
+The theory is based on the idea that data types can be partial­
+ly ordered by a relation similar to that of approximation,
+and as a resul t   can be considered as complete lattices.   The
+properties of these lattices and the functions on them are
+discussed in an informal manner and shown to be very suit­
+able for developing a mathematical theory of the semantics
+of programming languages.     A preliminary result of this
+approach is the construction of the first "mathematical"
+model for the A-calculus.
+                  CONTENTS
+
+
+                                       ~
+
+
+O.   Introduction
+1.   The Problem of Self-Application    4
+
+2.   Data Types and Mappings            6
+
+3.   Completeness and Continuity        9
+
+4.   Computability                     12
+5.   Construction of Data Typ~s        15
+6.   Conclusion                        21
+     Background and References         00
+                              OUTLINE
+                                 o F    A
+                MAT HEM ATIC AL THE 0 RY
+                                  o F
+                         COM PUT AT ION
+
+
+                         D.   INTRODUCTION
+
+        The motivation for trying to formulate a mathematical
+theory of computation is to give mathematicaZ semantics for
+high-level computer languages.    The word "mathematical" is to
+be contrasted in this context with some such term as "operational".
+Thus the mathematical meaning of a procedure ought to be the
+function from elements of the data type of the input variables to
+elements of the data type of the output.     On the other hand, the
+operational meaning will generally provide a trace of the whole
+history of the computation following the seqtlencing stipulated
+in the stated procedure definition and will involve an explicit
+finitary choice of representations of data     eventually in some­
+thing close to bit patterns.    The point is that, mathematically
+speaking, functions are independent of their mea~s of computation
+and hence are "simpler" than the explicitly generated, step-by-step
+evolved sequences of operations on representations.     In giving
+precise definitions of operational semantics there are always to be
+made more or less arbitrary choices of schemes for cataloging
+partial results and the links between phases of the calculation
+(cf. the formal definitions of such languages as PL/I and A.LGOL 68)
+and to a great extent these choices are irrelevant for a true
+"understanding" of a program.    ~fathematical semantics tries to
+
+avoid these irrelevancies and should be more suitable to a study
+of such problems as the ~quival~nc~ of programs.
+2
+
+
+          It is all very well to aim for a more "abstract" and a
+"cleaner" approach to semantics. but if the plan is     to be any
+good, the operational aspects cannot be completely ignored.          The
+reason is obvious:      in the end the program still must be run on a
+machine - a machine which does not possess the benefit of
+"abstract" human understanding, a machine that must operate with
+finite configurations.     Therefore, a mathematical semantics,
+which \l"i11 represent the first major segment of the complete,
+rigorous definition of a programming language, must     lead naturally
+to an operational simulation of the abstract enti ties. which (if
+done properly) will establish the practicality of the language, and
+which is necessary for a full presentation.
+
+          Thinking only of functions for the moment, it is clear
+that a mathematically defined function can be known to be      computab~e
+
+without its being quite obvious }ww to compute the function in a
+practical sense -    just as it is possible to know that an infinite
+series is convergent wi thout having a clear idea of its sum.
+Even though the abstract definition of the function is sufficient
+to determine it, we cannot really say that the fum:tion is kno1Jn
+until the algorithm is revealed.      (Even then our knowledge is
+somewhat "indirect" or "potential", but never mind.)       The con­
+clusion is, then, that an adequate theory of computation must not
+only provide the abstractions    (what is computable) but also their
+"physical" realizations    (how to compute them).
+
+          What is new in the present theory is exactly these
+abstr'adions;   whereas the means of realization, the    techniques
+of implementation, have been known for some time, as     the many,
+highly complex compilers that are presently in operation demon­
+strate.    Of course, new concepts may require (or suggest) new
+methods of implementation, but that remains to be seen.        However,
+notice this essential point:     unless there is a prior, generally
+accepted mathematical definition of a language at hand, who is to
+say whether a proposed implementation is correct?       What is the
+"standard" against which a realization is to be measured?        Now
+it is often suggested that the meaning of the language resides
+                                                                       3
+
+
+in one particular compiler for it.     But that idea is wrong:   the
+"same" language can have many "different" compilers.   The person
+who wrote one of these compilers obviously had a (hopefully) clear
+understanding of the language to guide him, and it is the purpose
+of mathematical semantics to make this underst3nding "visible".
+This visibility is to be achieved by abstracting the central ideas
+into mathematical entities. which can then be "manipulated" in the
+familiar mathematical manner.     Even if the compiler-oriented approach
+(even compiled to run on an "abstract" machine) were transparent ­
+which it is not -   there would still be interest in bringing out the
+abstractions to connect the theory with standard mathematical practice.
+4
+
+                      1.   THE PROBLEM OF SElF-APPUCATION
+
+
+
+         Having this obviously desirable mathematical        theory seems
+to require some new structural notions, some new insights into the
+nature of data types and the fu.nctions (mappings) that are to be
+allowed from one to another.       ~Ioreover.   it soon be.comes clear in
+thinking about "higher-type" programming concepts (e. g. procedures)
+that spaces of functions must also be considered as         forming data
+types.       Since a function (say, mapping integers to     integers) is
+generally in itself an infinite object. it also becomes necessary
+to introduce some idea of finite approximation -        just as we do in
+a sense for real numbers.       On top of this there are     already
+operationally "defined" concepts of function which seem to have no
+mathematical counterparts.        In particular it is not    unknown in
+programming languages to allow unrestricted procedures which can
+very well produce unrestricted procedures as values.           Speaking
+mathematically this is tantamount to allowing a function that is to
+be well defined on all allowable functions as arguments -         a kind of
+super-functional -     and which is even applicable to it;self as an
+argument.       To date no mathematical theory of functions has ever
+been able to supply conveniently such a free-wheeling notion of
+function except at the cost of being inconsistent.           The main
+mathematical novelty of the present study is the creation of the
+proper mathematical theory of functions which accomplishes these
+aims (consistently!) and which can be used as the basis for the meta­
+mathematical project of providing the "correct" approach to semantics.
+
+             It should be stressed at once that the problem of Belf­
+application arises in ways more crucial to the interpretation of
+programming languages than in the contemplation of the (to some,
+impractical) unrestricted procedures.        The problem concerns the
+related questions of keeping track of Bide effects and of the
+storage of commands.        In the first place, what is a    store?
+Physically, we have several remarkable answers, but mathematically
+it   com~s   down to being simply a mapping (a function)     which connects
+contenB to locations.        Speaking more precisely, the     (current)
+state of the store, call it 0, is mathematically a function:
+                                  o : l ... V
+
+which assigns to each location 1 E l            (the set of all locations)
+its (current) contents o(£) E V (the set of all allowable values).
+Let S be the set of all states.           What is a side effeC!t?    Obviously
+a change of state.       What is a C!ommand?        A request for a side
+effect.      More mathematically, a command is a function
+
+                                  y   S'" S
+
+which transforms      (old) states into (new) states.
+
+          Question:   can a command be stored?         Answer:   well, we do
+it operationally all the time.          Question:     is that mathematically
+justified?      Let's see.      Suppose 0 is the current state of the
+store, and suppose 1 E l is a location at which a command is stored.
+Then 0(1) is a comma!J.d; that is
+                             0" (1)   S -+ S.
+Hence, 0(1)(0) is well defined.          Or is it?      This is just an in­
+significant step away from the self-application problem pCp) for
+"unrestricted" procedures p, and it is just as hard to justify
+mathematically.       Of course. in the operational approach we do not
+store the command itself as a function but rather a "code word" or
+"piece of text" that stands for the command in an unambiguolJs way.
+But to carry out the formal description of how this works - especially
+for compound commands depending on parameters - involves us in most
+of the nasty questions of programming language semantics and is not
+really a satisfactory conceptual way out.
+6
+
+
+
+                            2.   DATA TYPES AND MAPPINGS
+
+
+          Getting down to particulars, we must ask:               what exactly
+is a dc;;ta type?       To simplify matters, we can identify a data
+type with the set D of all objects of that type.                   But this is in
+itself too simple:          the objects are structured and bear certain
+relations to one another, so the type is something more than a
+set.      Now this structuring must not be confused with the idea
+of data   6tl'I.H~tu.l'eS   (lists, trees, graphs, etc.);         these will come
+in later.      The kind of structure being discussed he re is much
+more primitive and more general and has to do with the basic sense
+of approximation.           Suppose or,   lj E   0 are two elements of the data
+type, then the idea is not immediately to think of them as being
+completely separate entities just because they may be different.
+Instead y, say, may be a better version of what              ;r   is    trying to
+approximate.        In fact,     let us write the relationship
+
+                                          x ~ y
+
+to meaTI intlLitively that y is consistent with x and                  is (possibly)
+more qccurate than x.            For short we can say that x appI'oximate6 y.
+This iTItuitively understood relationship exists on most data types
+naturally, and it is part of the thesis of this paper that                     <i   data
+type should alwaylJ be provided with such a relationship.                      This may
+require some adjustment of thought to accommodate certain standard
+ideas, but it seems worth the effort to unify the treatment of
+various types.
+
+          So let us agree for the sake of argument that types 0 are
+structured by relations C; (at least).               What can we say abstractly
+about such a relationship?            With reference to the intuitive
+understanding, it is clear that we want to assume that ~ is
+reflexive.    tl'anlJitive. and antisymmetl'ic.
+
+          AXIOM~.       A data type is a partially ordered              set.
+
+That may not seem like much (partially ordered sets are so very
+general) but it is slight progress.                The next bit of progress
+should concern mappings.
+
+        Suppose 0 and 0' are two data types (with appropriate
+partial orderings       ~   and   r;;:: ' ) .      Suppose f:   0 ->- 0' is a reasonablE'
+mapping of the elements of the one into the other.                           Should thE're
+be anything to say in general about properties of mappings?                              Well.
+suppose :1:, y   E   D and x   ~ y.              If [ were a function defined by a
+program in any of the usual ways, it would be sensitive to thE'
+accuracy of its arguments (inputs] in a special way:                          the more
+accurate the input, the more                    ac~urate   the output.      In symbols:
+                            x r;;:: y implies [(x) 1;.' fry),
+
+In other words, with respect to the partial orderings f                         is monotonic.
+We make this an axiom also:
+
+        AXIOM 2       Mappings between              dat~   types are monotonic.
+
+Note that such a condition easily generalizes to functions of
+several variables, even variables of mixed types.
+        In numerical computation Axiom 2 is sometimES denied, but
+this is a confusion about the use of the word aC'curacy.                          It is
+true that we know some clever asymptotic algorithms which give
+better answers when the accuracy is cruder, but they should be
+considered as functions of two variables:                       the usual input data
+together with a parameter indicating the degree of accuracy - or
+maybe better the number of "terms" to be selected from the
+"expansion".         It can certainly happen that taking more terms
+just ruins the already good approximation, but note that the
+input and the number of terms are already supposed known perfectly.
+The notion of accuracy we are trying to capture with the r;;::
+relation is something else and does not depend on this presup­
+position.        Maybe it would be better to talk about infol'matl:on;
+thus, x r;;. y means that x and y want to approximate the same
+entity, but y gives more information about it.                           This means we
+have to allow "incomplete" entities, like x, containing only
+"partial" information.            (The way to do this in numerical cal­
+culation is called interval analysis. but we do not have the
+space here to be more specific.)                      Allowing for partiality of
+ 8
+
+
+arguments and values has the good effect that our functions become
+F'aT·t.iai too;   for even if the arguments aTe perfect the values may
+only be partial.       This   i~   necessary in considering algorithmically
+defined functions, since for some combinations of arguments it may
+happen that the algori thm docs not "converge".         As   a consequence
+of this point of view, then, there can he no numcrical function of
+the kind allo..·ed by Axiom 2 ... hich maps a "partial" real number to an_
+integer exponent representing the degree of accuracy.            But this is
+not a dra.. back. as can be seen ;,'hen one examines the details of the
+method:    there are sufficiently many monotonic functions.
+                                                                                                        9
+
+
+                              3.    COMPLETENESS AND CONTINUITY
+
+
+             The theory based on Axioms 1 and 2 would be too abstract,
+though it is not vacuous.                    We need to he more specific about the
+behaviour of approximations for the applications we have in mind.
+Thus    suppos~    an    infinite sequence of approximations is such that
+
+                        X o ~ ~1 ~           ~    .Tn ~ x nT1   ~   ...•
+
+then it seems reasonable to suppose that the                          ,   Ii
+                                                                                   aTE'   tencling to
+a l-:mi t.      Call     thc limit :'. and \o.'e I,r i t E'
+
+
+                                        :<        U In'
+                                                  n=J
+
+hecause in the sense of the partial ordering ~ the limit is
+naturally taken to be the Zea~t uppe~ hound (l.u.b.),   If we
+imagine the successive terms of the sequence as giving us more
+and more information, than the limit represents a kind of "union"
+or jo   ~    of the separate contributions.                     In fact, for mathematical
+simplicity,      \~'e   assume that euer!1          subset of the data type has a
+least upper bound, which anlounts to:
+
+             AX IOM-2'        A data type is a complete lattice
+                              under its partial ordering.
+
+In particular,          3S   is ....· ell known,    the existence of arbitrary least
+upper bounds implies the              exi~tcncc           of greatest lower hounds (g.l.b.)
+\"hich is why we say we have a compI"te lattice.
+
+             This last assumption require,; some explanation.                                   In case
+:r, yEO, it may be that they are either approximations to the
+same "perfect" entity or not, in ,",'hieh case they are somehow "incon­
+sistent" with one another.                   In    an~'   case we are assuming t.1.cy have
+a l.u.b. or .join            xU yEO.              Even worse, we assume that the whole
+of 0 has a l.u.h., which ,",'e call                 TEO.        This           T    is the "top" of
+the lattice,       the very "largest" clement in the partial oreering                                   ~.
+
+It is not to be regarded as a "perfect" E'IemE'nt, but rathcr as an
+"over-determined" clement.                   Ilence, we can regard the equation
+10
+
+
+                                               x U Y         T
+
+as me<lning intuitively that x and yare i1'!consistent;.                          This is to
+be distinguished from the much weaker relationship of being incompar­
+able, ~hich is simply:                  x   q y and y q x.
+          The l.u.b. of the empty suhset of our data type 0 is an
+element    .1   E       D.   This is the "bottom" of the latt ice,              the very
+"smallest" element in the partial ordering.                             I t may be regarded
+as the most "under determined" element.                           The lou.b.   of the set
+of all lower bounds of a subset X ~ D, is the g. 1. b.                         nx ED.
+For x,y E D         I    we have   the meet x n y '" n{x~y} E D.               We can io­
+tuitively read the equation
+
+                                               oX   n y ==   .1
+
+
+as meaning that x and y aTe unconnec-ted, in the sense that there
+is no "overlap" of information between them.
+
+          f1aving supposed that the data type permits "limits", we
+have to re-examine our view of functions.                           If a function is
+computable in some intuitive sense, then getting out                           a "finite"
+amount of information about one of its values ought to reqUire
+putting in only a "finite" amount of information about the
+argument.               Now our notion of "information" is quali-tative rather
+than qiwntitative, but it is still possible to express this
+fundamental idea in terms of the notions we have avai lab Ie .
+
+          First of all, the proper notion of limit is expressed
+best in terms of directed sets.                        A subset X .s. D is dirf](Jted if
+every Hni te subset {,x O,x l ' ••• ,x _ l } ~ X has an upper bound
+                                      n
+y E X so that I.ie have:
+
+                                   X
+                                       o U Xl '"       U x n _ 1 ~ y.
+
+Note that a directed set is always non-empty.                             (Hint: take n    =   0.)
+The li~it of the directed set is the l.u.h.  UX.                            Suppose we
+want a "fini te" amount of information about Ux.                            Each lObi tit we
+need (arguing very intuitively) is contained in some                           element of X;
+hence by the directedness, all. of it is contained in                          at least one
+single element of             x.
+                                                                                        II
+
+
+           Now consider a monotonic function f: D -+ 0'.                 Given a
+limit  Ux of a directed subset X ~ D, \ole ask for a "finite" amount
+of information about f( U X}.  We agree that to do this requires
+only a "finite" amount of information about                 UX; thus only a single
+element x E    X     is    needed, and it is such that       f(;r)   gives what we Want.
+Note that    !(x) ';       flUX)   and that {fLrJ:x E xl is a directed sub­
+set of D'.         Al.l.   the information about f(UX) ought to be the "limit"
+of its "finite" parts.             Instead of speaking intuitively and meta­
+phorically, we can expres5 the idea by the mathematical. equation:
+
+                               flU Xl ~ U (f(x),x E xl.
+In words we can say:            the mapping presel"ves the limit.            A mapping
+that preserves alZ limits is called continuous.                      What \ole have just
+motivated is:
+
+           AXIOM 4.          Mappings between data types are continuous.
+
+           A function of two variables is continuous just \oIhen it is
+continuous in each of its variables separately.                      Suppose g{:J:,y)
+is such a function.             It is easy to see that the function! defined
+by the equation
+
+                                     flX)   ""   g(x,x)
+
+is also continuous.             (Indeed all the usual methods of composition
+and identification of variabl.er; produce continuous functions given
+continuous functions.)             The example of f ahove is the easiest \oIay
+to obtain a continuous function which does not preserve arbitrary
+l.u.b's.    (with a suitable choice of g).                There is absolutely
+no reason to suppose that the functions ought to preserve g.l.h.'s:
+one cannot expect any "smoothness" while decreasing information.
+Hence the continuity restriction is about as far as one should go
+in giving general conditions on functions that have a chance of
+being computable.
+12
+
+
+                                      4.     COMPUTABILITY
+
+
+
+            So much for the broad outlines of the theory.                   I t still
+is    to~   abstract, however, because even though certain essential
+pI'opeTtie~     of computable functions have been isolated, the poss­
+ibility of "physical" realization. has not yet been assumed in any
+form.       This we must do.                The problem is to restrict attention to
+exactly those data types where the elements can be approximated
+by "finite configurations" representable in machines, thereby also
+making more precise the concept of a "finite amount                    of information".
+
+            The solution to this problem is to take a topological
+approach:       in any case our previous mention of Z-imi"t3 and              ~on­
+
+tinuity ought to have suggested that there are some topological
+ideas in the background.                    Indeed, any data type D satisfying
+Axioms 1 and 3 can be regarded as a topological space.                       To
+defin€ a topology on a set one needs to say which subsets are
+ope71,      In the case of the data type 0, there are two conditions
+to be satisfied for a subset U ~ D to be open:
+
+             (U ) whenever :t' E If and :t' ~ y, then y E U; and
+               l
+             (U ) whenever I: C 0 is directed and
+               2
+                                                                  Ux
+                                                          E u, then X n U'" 6.
+
+It is ~asy to check that D becomes a topological space in this way.
+and that f:D          ~    D' is continuous in the limit preserving         sense if
+and only if it is continuous in the topologicaL sense.
+
+            If x.] E D, we write
+
+                                                   x -< Y
+to mean that y belongs to the topological interior of the upper
+section determined             by~;        that is, the interior of the set
+
+                                           {x' E    D: x ~ x'}.
+The relationship is not as irreflexive as it looks.                    for there are
+iBoZar~l elements             x of certain data types such that        = x.
+                                                                        ~         For
+example.i     .(.1.       always holds;       it is probably reasonable to assmne
+T    is lSolated also.            We write
+                                                                                                                        13
+
+
+ to mean that the g.l.b. of the topological interior of the UppPT
+section u0tcrmined by x is ~~.                               Thus the three relationships
+                                       x -< y, ~: '" Y J                and ~ ~ .'1
+
+ aTe   successively 'WeaKer.
+
+             Taking the hint from topological spaces like the real
+numbers          (which topologicallY are a bit diffcrent from our data­
+type sp.:u;:cs), we        consider the possibility of having a ,iense
+subset of the space in terms of which all the other elements can
+be found as ] 1m! ts.                We call such a subset a                           h.lsi.~.           The proper
+definition seems to be the following:                                    a subset F ~ 0 is a b'.1sis
+if it satisfies           these two conditions:
+
+            (E ) whenever c, e' E E. then                          fJ   LJ   e' E E; and
+              1
+            (£2) for all xED we have x '" U{e E F.": e                                         "'<   xL
+
+The existence of a basis has several consequences; for example,
+the meet operation           =
+                     n y is continuous if a basis exi~ts, and
+not necessarily continuous otherwise.
+
+             Conditions (E ) and (£2) are still not strong enough.
+                                 I
+make data types "physical".                       We need the stronger assumption:
+
+
+             AXIOU·         A data type has an effectively given basis.
+
+That is to         s~y   the set F must be "known".                                Given e, e'            E   F,
+we have to know how to finl! the element                                 ~   U e' E E.                Given
+e, ro' E j<;. we have to know hOI'. to decide hlhich of the                                           rel~tion­
+
+ships:
+                                      c   -< e'              '" e "      e r; ["
+
+are true and which are /r..Zsc.                          Th:is cert.1.inl}             is going to require
+that the set E is at most countahly infinite, .1.nJ probably that we
+bave an effective enumeration
+
+                             f   '"   {e 'J'   ,'. l '    t'::,'             ,C: r:'
+                                                                                         . }
+
+in terms of ".,hich the ahoyc oper;,tions and relationships are
+:'·"'c·urn·':e    (in the technical sense of recursion theory).                                               To make
+the data type !',:a1I"i! physical we ..'auld need to as<;IlJne all 1"('l:1tion­
+Sllips to be very recursive indeed, but we do not have to go into
+14
+
+that here:      the intuitive idea of an effectively given basis can
+be left a bit vague because in particular examples it will be clear
+what is going on.
+
+       Note that as a consequence of Axiom 5 the topologies of data
+types are separable because not only is there a countable dense
+subset (the basis), but the sets
+                                   {xED:e<x}
+
+for e E E form a countable basis for the topology of D.
+
+                The most important consequence of the assumption of an
+effectively given basis is the possibility of being able to define
+what it means for an element to be computable.                           Suppose xED
+and E is the basis.        Then (relative to this basis)                   :r   is   ~omputable
+
+if and only if there is an effectively given sub-sequence.
+
+                       {e~J e {J   e ~.   •   •• J   e'n'   ... } s: E
+such that e' [   e'      for each n, and
+              " ­ ""
+                                    x"        U e'n·
+                                              n=O
+This m.eans that we must be able to give effectively better and better
+approximations to x which converge to x in the limit.                                This is an
+essential notion;      because, for one thing, it may very well be the
+case th.at the data type D has unaountably many elements, while there
+can be only aountably many computable elements.                          Note that there
+will be in general many sequences converging to an element x, so
+that jllst knowing that     :r   is computable does not mean that the "best"
+...· ar to compute it is also known.
+
+               This completes the discussion of the foundations of the
+subject.      Someone may want to point out that Axiom 3 implies Axiom
+1 and ,uiOID 4 implies Axiom 2 - but the axioms are given in the order
+in which the ideas naturally occur.                     It can all be said very quickly
+in summary:     data types are complete lattices with effectivelY given
+bases and all allowable mappings are to be continuous.
+                                                                  15
+
+                      5.   CONSTRUCTION OF DATA TYPES
+
+            We must now look into the construction of useful data types
+satisfying the axioms, remembering that the lattice structure is only
+the most primitive structure on a data type, and the "interesting"
+structure is supplied by various kinds of continuous functions
+special to the type.   (In the examples and constructs to be men­
+tioned, the element T will always be assumed isolated.)
+       In the first place all finite lattices satisfy the axioms,
+and     them continui ty plays no role.
+      fOT                                 Of course finite structures
+aTe sufficient for "practical" appl ications, but many concepts mOre
+easily find their expression with reference to infinite structures.
+In the case of OUT lattices there are the two numerical data types
+Nand R for the integer6 and the real6.     As a lattice N has for
+elements O. 1, 2•...• n • ... (these elements are pairwise incompar­
+able under ~) plus the two elements T and ~. respectively ahove
+and below all the others (cf. Fig.l).   In this case the whole
+lattice is its own basis.
+
+
+
+                                      ,
+
+
+                                                        ~
+
+
+
+
+                                                        ~
+
+
+
+
+                                     "
+
+                                 Figure 1.
+                              The Lattice N.
+16
+
+        For R the elements are ~loBed intervals [::£... of ordinary            xJ
+real numbers (~~            x)
+                     plus two elements T and ~.     The partial
+ordering between the intervals is defined thus:
+
+                            [:£~xJ !; [:&yJ iff E£" !i. '" Y '" x
+(We use the abbreviation; ff in place of the phrase i f and only if.)
+The "perfect" reals              "e the one-point intervals [£, x] wi th :=. '" x.
+The "apprOXimate" reals have E?- <                    :r. (ef . Fig.2) .
+
+
+                                                       T   ./""':"too much
+                                                   o ~       information
+
+
+
+
+           -3              -2       -1            o          +1          +2         +3
+
+                                                                        c...
+                                                                         el ements
+                                                                     with perfect
+                                                                      information
+
+                                                 xU y
+
+
+                 x l                 --------i
+                       x                    x
+
+ elements        E:                                            ) y
+ with imperfect!i..                                           Y
+ information ~
+       x   n y     ~[L - - - - - - - - - - - - ' l 3
+
+
+
+                                                                  ( n o information
+
+
+                                                      L
+
+
+
+
+                                                 Figure 2
+
+                                          The Lattice R
+                                                                                     17
+
+The basis consists of the intervals with :rational end points plus
+the   element~.             There is a very close cOnnection between the
+continuous funct ions on the 1at tice R and the ordinary theory of
+continuous point            functions.           In both lattices the usual arith­
+metic operations are represented by continuous functions, and it
+is especially interesting to consider division in R. as well as
+other functions with singularities. or functions that are normally
+left undefined over part of their domain.
+        Suppose 0 and 0' are two given data types.                     There are
+three particularly important constructs:
+                               (D    X    0'), (0 t o ' ) , (0'" 0')
+
+for obtaining new. "structured" data types from the given ones.
+The (cartesian) product 0 x 0' has as elements pairs                    ~x,x')
+
+where :c E 0 and x' EO'. and for which we define
+
+        <:1:,:1:'> ~ <y,y') iff:l:!; y and x'~' yf
+
+The sum is defined as a "disjoint" union of 0 and 0', except that
+we identify .1    =;   J-    and    T =    T·.   (eL Fig.3.)
+
+
+
+
+                                                      0'
+
+
+
+
+                                             ,
+
+
+                                   Figure 3.
+                              The Lattice 0 + 0'
+18
+
+The f1J.natio71 spaoe (0             +      0') has as elements all the continuous
+mappings from 0 into 0', for which we define
+
+                   f   ~ g       iff        f(z)      1;' g(x) fOT all :r. E D.
+
+What one must check is how the effectively given bases for 0 and
+OJ determine the basis for the construct.                                  This is easy   fOT
+
+products and sums but somewhat more trouble for function spaces.
+            Sums and products can be obviously generalized to more
+terms and factors. even infinitely many.                                   For example. On can
+be taken as the set of all                         n~tuples     of elements of       partially
+ordered in the ohvious coordinate-wise fashion.                                  We can then set
+
+                             o· = D° + 0 1 + 0 2 + ••• ~ On +
+which represents the data type of all finite lists of elements
+of the given O.          Similarly one can go on to lists of lists of
+lists of . • . .        If this were done in the right way, it would
+seem reasonah Ie that a lattice 0'" would be obtained such that
+                                            0'" = D + (0"')*,
+
+that is to say, each element of 0'" is either an element of the
+given 0 or is a list of other elements of 0"'.                                  This sounds very
+much like the usual kind of recursive definition of lists;                                      but
+one must take care as the following argument shows.
+
+             It is a well-known theorem that every continuous (even
+monotonic) function mapping a complete lattice into itself has
+a fi;r;ed point.        Applying this remark to the supposed 0'" above,
+we note that for fixed a E 0, the expression <a.x> defines a
+continuous function of                   oCO::>   into itself.         Consider a   fixed point:
+
+                                                  x   = <a,x>.
+
+Thus   :r   is a list whose first term is a and whose second term
+is.          ?   The second term is the list x itself!                              Thus x is a
+kind of infinite list:
+
+                             x   =       <a.       <a,   <a,   <a,   •••   »»
+
+which is illustrated in two different ways in Fig.4.
+                                                                                           19
+
+
+
+                      I
+
+
+
+         a
+
+              a
+
+                  a
+                                                                   @
+                            a
+                                       \
+
+
+
+                                           Figure 4
+                                    The list x ~ <a,x>
+
+
+
+
+That does not square with              OUT   usual ideas about data types of
+lists, but is it bad?                The answer is          rIO.     FOT    it can be shown that
+the data type             Om does in fact exist;            it contains all the ordinary
+finite lists as well as many quite interesting and useful limits
+of sequences of finite lists.                    One might say that 0'" gives us
+the topological completion of the space of finite lists. and the
+various limit points need not be used if one does not care to
+take advantage of them.
+             The process of "completing" spaces is a very general one.
+and the full implications of the method require further explor­
+ation.        A second example of the completion idea concerns function
+spaces.        Let 0 be given. and set DO               =    0 and
+
+                                0n+1 = (On   +   On)'
+The spaces        °
+                  n are a selection of the "higher-type" spaces of
+functions of functions of functions of 000                                 It turns out that
+there is a natural way of isomorphically embedding each On success­
+ively into the next space 0n+10                    These emheddings make it possible
+to pass to a limit space 0"", which contains the originally given
+°   and is such that
+20
+
+                          °00   :   (0""   -+    Om)'
+
+(Strictly speaking this surprising equation must be taken with a
+grain of salt:     it is only true "up to isomorphism" which is good
+enough for our purposes.)            This space provides the solution to
+the self-application problem of Section 1.                 because each element
+of Da> can be regarded as a (continuous!) function on 0", into D"".
+And conversely, every continuous function can be represented
+fai thfully by an element.  Technically speaking what we have
+here is the first known. "mathematically" defined model of the
+so-called    A-~atcuZu8   of Church and Curry.
+
+
+        The reader should take notice of the fact that                 OUT
+abstractly presented theory of computable elements of lattices
+with effectively given bases applies to the function spaces.
+So we know what computable functions are.                   Even better we
+"know" what are the computable elements of the space Om of
+functions of "infinite" type.                   Clearly the calculus of operators
+which can be used to generate computable functions                 is going to be
+interesting, and this brings us back to semantics £or programming
+languages.     Indeed the natural way to define computable functions
+is within the context of a suitable programming language.                     The
+),,-calculus itself is a prograrrtming language:             it is the pure
+language of "unrestricted" procedures.                   It is only one of the
+many possible languages.
+                                                                                   21
+
+
+                               6.   CONCLUSION
+
+
+
+        We may now sketch the solution to the                  "storage~of-commands"
+
+problem mentioned in Section 1.                 Let L be the location space
+(finite or, if you like, take L '" N, so that the locations aTe
+indexed by the integers).   The spaCe V of values is to be con­
+structed by the limiting methods alluded to above.   Supposing it
+is already constructed. the space S of states of tIle stare is
+defined by:
+
+                                    S=(L+V)
+
+The space C of command 8 is de fined by:
+
+                                    C '"   fS   --. S)
+
+The space P of   p~ocedure8 -        with one parameter and with side
+effects -   is defined by:
+
+                          p = (V      -+   (5 -+ V >< S)),
+
+that is, a procedure is a function, which given first a value of
+its argument and next given a state of the store, then produces
+a "computed" value together with the necessary change of the state
+of the store.     Now what can those values be?                 Well, they might
+be numbers (in   N or in R), or they might be                Zocations, or they
+might be lists, or they might be commands, or they might be
+prOCedUN!E.      (Even to formalize a mode of expression for such
+an array of possible types of values would already require a fairly
+involved programming language.)                 We are thus led to write:
+
+                      v   ='   N + R + l + V* + C + P
+
+If one substitutes the definitions of S, C, and P into this equation,
+one obtains only a slightly more complicated "definition" than those
+                        m
+that we had for Dm and D . Sue!; a space V does exist mathematicQZly~
+and it provides the values for expressions of a programming language
+of the kind we have understood previously in the "operational" way.
+We should at once begin trying to understand these lanRuages math­
+ematically. because we now have all the tools to do so.
+22
+
+
+                       7.   BACKGROUND AND R£FERENCES
+
+           The idea of using monotonic and continuous functions in
+connection wi th recursion theory has been current for some time.
+The author believes, however, that his use of the idea along
+with more abstract lattices (in particular:              with limits of
+lattices) is new and adds greater flexibility to the program,
+
+           The first published references that the author knows are
+a sequence of four notes by Lacombe in the mid-fifties in which
+he im'estigates the notions of recursive real number and recursive
+function of a real variable,          The method is essentially the same
+as   OUT   use of the lattice R sketched above.           The exact references
+are:
+           Daniel Lacombe, Extension de la          n~tion   de fonction
+            recursive au.x functions d'unl?   014    plusieul'B variables
+            pedes I, II, Ill.       Comptes rendus, vol. 240 (l955),
+           pp. 2478-80;     vol. 241 (1955), pp. 13-14; vol. 20
+            (l955). pp. 151-153.
+
+           ________ , Remarques surles opeI'ateUI'B               I'ecul'sifs
+           et surles function I'eCUI'sives d'une variable I'eele.
+            Ibid. vol. 241 C 1955), pp. 1250-52.
+
+The author is indebted to G. Kreisel for pointing out these
+intensting notes to him.           The idea that the method could be
+extended to the real numbers first became apparent               to the author
+in reading the much later book on numerical analysis:
+
+           Ramon E. Moore, Intwl'val Analysis, Prentice-Hall (1966),
+           14 5 pp.
+
+           From a different direction we have the work:
+
+           Martin Davis. Computable functionals of arbitrary finite
+            type~   in Constructivity in Mathematics (A.         Heyting, ed.).
+           North Holland (1959), pp. 281-284.
+
+Here the important step is taken of using partial functionals
+satisfying a consistency condition.           Davis relates his ideas
+to the continuous and the cOl.lntable functions of Kreisel and
+Kleene (cf. their papers in the same volume.)                 Note. however,
+                                                                      23
+
+that kleene and Kreisel work generally with total £unctionals.
+a restriction that is not convenient for the type of applications
+the author has in mind here.
+
+        Further work on partial functionals is contained in:
+        A. Nerode, Some Stone spaces and recursion theory, Duke
+        Mathematical Journal, vol. 26 (1959), pp. 397-406.
+
+Both Nerode and Davis had reported on their ideas at the Cornell
+Logic Summer School in 1957.     A really systematic approach did
+not appear unti 1:
+
+        Richard Platek. Foundations of Recursion Theory,
+        Stanford Ph.D. Thesis (1965). unpublished.
+It was from Platek in 1963 that the author learned the usefulness
+of a more abstract approach via monotonic functions.      Platek
+discusses the continuous theory, but not in as much detail as
+the transfinite recursions.     Very recent work on abstract forms
+of recursion theory has been done by Wagner, Strong, Friedman,
+and Moschovakis.     The explicit connections will have to be
+discussed elsewhere.
+        During the spring and summer of 1969 the author worked
+jointly with J. W. deBakker of Amsterdam on an "algebraic"
+theory of program schemata and at that time realized that the
+calculus of monotonic and continuous functions was exactly
+appropriate to t.his study.    It was a question of David Park
+about. justifying a rule of double induction in this calculus
+together with a conversation with Robin Gandy at Oxford on
+formulae as operators that brought forward the idea that the
+calculus should be extended to higher-type function spaces.
+
+        In t.he meantime, during the fall of 1969 at Oxford, the
+author was working with Christopher Strachey on his theory of
+semantics of programming languages via L- and R-values and an
+abstract model of storage.     Woe attempted to apply the formalism
+of the calculus of recursive functionals of higher types, but
+were very much hampered by the necessity of having to store
+representations of functions rather than the functions themselves.
+Having been brought to the right abstract level by the previous
+24
+
+work, the author was able to then conjecture that there might
+very well exist structures with the proper self-referential
+"storage" properties.    And he subsequently was able to offer a
+rigorous mathematical construction which was finally cast into
+the realm of lattice theory on account of the simplicity and
+familiarity of that study,   The result was to provide a
+mathematical basis for the previously employed, entirely formal
+use of the A-calculus by Strachey. Landin and others.      It was
+this success that showed that the lattices provided a simple
+and general enough context to develop a recursion theory in­
+volving not only the previously studied structures connected
+with the integers and the Teals, but also some quite new
+structures.   And these new structures seem to be naturally
+requiTed by programming language semantics besides having
+mathematical interest.   How this connects with McCarthyt s
+program for a mathematical theory of computation will require
+further discussion in a future publication.
+

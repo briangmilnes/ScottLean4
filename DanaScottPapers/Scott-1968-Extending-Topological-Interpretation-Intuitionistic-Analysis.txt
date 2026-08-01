@@ -1,0 +1,827 @@
+C OMPOSITIO M ATHEMATICA
+
+
+
+
+DANA S COTT
+Extending the topological interpretation to
+intuitionistic analysis
+Compositio Mathematica, tome 20 (1968), p. 194-210.
+<http://www.numdam.org/item?id=CM_1968__20__194_0>
+
+
+
+
+   © Foundation Compositio Mathematica, 1968, tous droits réservés.
+   L’accès aux archives de la revue « Compositio Mathematica » (http://
+   http://www.compositio.nl/) implique l’accord avec les conditions générales
+   d’utilisation (http://www.numdam.org/legal.php). Toute utilisation commer-
+   ciale ou impression systématique est constitutive d’une infraction pé-
+   nale. Toute copie ou impression de ce fichier doit contenir la pré-
+   sente mention de copyright.
+
+
+
+
+                  Article numérisé dans le cadre du programme
+                Numérisation de documents anciens mathématiques
+                             http://www.numdam.org/
+           Extending the topological interpretation
+                  to intuitionistic analysis
+
+           Dedicated to A. Heyting on the occasion of his 70th birthday
+
+                                       by
+                                 Dana Scott
+
+
+   The well-known Stone-Tarski interpretation of the intuitionistic
+propositional logic was extended by Mostowski to the quantifier
+logic in a natural way. For details and references the reader may
+consult the work Rasiowa-Sikorski [5], where intuitionistic
+theories are discussed in general, but where no particular theory
+is analysed from this point of view. The purpose of this paper
+is to present some classically interesting models for the intuition-
+istic theory of the continuum. These models will be applied to
+some simple independence questions. The idea of the model can
+also be used for models of second-order intuitionistic arithmetic
+(cf. the system of [6]), but lack of time and space force us to
+postpone this discussion to another paper. Also, the author has
+encountered some difficulty in verifying certain of the continuity
+assumptions (Axiom F4 of [6] for Voc3fJ to be précise) and hopes
+to try to understand the motivation behind these principles better
+before presenting the details of the model. It is not impossible
+that there are several distinct intuitionistic notions of free-choice
+sequence (real number) with various continuity properties.
+   The paper has four sections In Section 1 the properties of order
+are discussed in a way that motivates the construction of the
+model in Section 2. In Section 3 the model is used to contrast
+classical and intuitionistic properties of order. In Section 4 the
+model is extended to include other relations, operations and
+higher-order notions, and the continuity question is touched on
+briefly.
+   The author hopes that the reader will be convinced that the
+model merits further study. The question is often raised whether
+the topological interpretation has any relevance at all to intuition-
+istic thought (e.g. [4], p. 189). Of course, the intended intuition-
+istic interpretation has to do with some abstract notion of "proof",
+                                      194
+                                                                   195
+
+but it seems fair to say that a formalization of this idea has not
+been carried far enough to treat analysis (again cf. [4] pp. 125 ff. ).
+However, the topological interpretation is not unrelated to this
+program, even though it is not the desired theory. One may view
+a neighborhood of a topological space as a kind of "proof" :
+
+a proof that a point belongs to a more complicated set because
+
+the neighborhood of the point is included in the set. With this
+in mind, the usual topological facts follow the generally accepted
+intuitionistic prescriptions rather well, as follows:
+   Let X and Y be open subsets of a topological space T ; let
+t E T be a point; and let t E U Ç T be given so that U is an open
+neighborhood of t. Then U is a "proof" that t E (X n Y) if and
+only if U C X n Y; which means that U is a "proof" that t e X
+and that t E Y. Similarly U is a "proof " that t E (X u Y) if and
+only if U contains a neighborhood U’ of t which is either a "proof"
+that t E X or a "proof" that t E Y. Finally U is a "proof" that
+t E (X ~ Y )  =  In ((T ~ X) ~ Y ) if and only if U is a "method"
+whereby, given a "proof " U’ that t E X ( i. e., t E U’ Ç X), a "proof"
+that t E Y is produced (viz. U n U’ ).
+   Even if these remarks are not a philosophical justification of
+the topological interpretation (which indeed they are not), we at
+least see why it is that the "logic" of open sets proved to be
+formally an intuitionistic system. What may actually turn out
+to be the main interest of this study is the application of the
+reasonings of intuitionistic analysis to a very simple and well-
+known classical structure.
+
+         1. The properties of order in the continuum
+   The author must first admit to never having read a paper of
+Brouwer: he has taken nearly all of his information about the
+continuum from Heyting [2] and Kleene-Vesley [3]. Since the
+properties needed for this paper are quite elementary, these two
+references seem sufficient. In particular the relation , the
+"measurable natural ordering" (written     o in [3]), is
+                                                         very basic.
+It enjoys these two fundamental properties:
+
+
+
+
+These are justified in [2, p. 25] and in [3, p.      143]. Note that
+transitivity follows at once from the above:
+196
+
+  Next the "apartness relation", for which we shall write =1=,
+can be defined in terms of   :
+
+
+
+Both in   [2] and [3] the relation ~ is written as #. We have
+changed the notation for the sake of the model that will be
+presented below. In general, relations denoted by single symbols
+in the intuitionistic theory will have a very close connection
+with the corresponding classical relations. In order to keep these
+connections clearly in mind, it was found to be easier not to
+abbreviate an intuitionistically negated relation by drawing a
+stroke through the symbol for the relation to be negated. However,
+the negated relations are also of basic importance, and we use
+special symbols for them:
+
+
+
+We may also employ &#x3E; and &#x3E; with the obvious meanings.
+  In both [2] and [3] the above use of ~ is avoided because it is
+not intuitionistically valid that:
+
+
+
+We shall see, nevertheless, that the model makes our usage natural
+even in the face of the above failure. Note, on the other hand, the
+
+validity of these two principles:
+
+
+
+  The deductions of (1.7) and (1.8) from (1.1-(1.6) are quite
+straight forward, as are the proofs of the following:
+
+
+
+
+From these it easily follows that   =   is indeed an equality relation:
+
+
+
+
+where A is any first-order formula involving only , ~, =, and
+                                                                  197
+
+. Note that the proofs of (1.10)-(1.12) make essential use of
+(1.3), which is the intuitionistic replacement for the invalid
+principle :
+
+  The intuitionistic and classical theories are very close. One may
+show in general that an open sentence of the form
+
+
+
+where the A i and Bj are atomic formulae of the form x y or
+x ~ y (maybe with other variables), is either provable from
+(1.1)-(1.4) (in intuitionistic logic!) or has a counterexample in
+the integers. The proof is effective. In case x y and x = y are
+allowed (especially in the conclusion), one must take m          =  1.
+Surely  it must be possible give simple
+                             to       a         decision  method   for
+all open consequences of (1.1)-(1.6). Maybe our model below
+will aid in seeing how the argument could be constructed. The
+quantified formulae should also be investigated, but the situation
+looks to be more involved.
+   We now extend our language by adding variables q, r, s (with or
+without various super- or subscripts) ranging over the rational
+numbers. We shall also use the usual rational constants, if necessary.
+In view of the constructive character of the rationals we can
+assume:
+
+
+
+
+The (open) theories of rationals in intuitionistic and classical logic
+coincide. (Instead of special variables we could, of course, have
+introduced a special predicate x E Q, but the formulas become
+too cumbersome.) Passing now for the first time to formulae
+involving existential quantifiers, we assume that the rationals are
+dense in the continuum in the following sense:
+
+
+
+
+These principles are justified in [3, p. 149, *R9.19].
+  Even though in the intuitionistic theory the order relations of
+an arbitrary real to the rationals are not necessarily decided,
+a real does in some sense determine a cut in the rationals. Indeed,
+
+we can prove at once from (1.17):
+198
+
+(1.18)   The following are equivalent:
+
+
+
+
+A similar result (1.18’) holds with     and replaced by &#x3E; and
+&#x3E;, respectively. In these formulae, the bounded quantifiers
+should, of course, be interpreted as:
+
+
+  We also have:
+
+   (1.19) The following are equivalent:
+
+
+
+
+By the way of proof, it is obvious that (i) - (ii) - (iii). Assume
+(iii) and recall that (i) means -1 r x. So assume r x. By (1.18’)
+we know there is an s with r          s and s     x. By (iii), x    s
+follows,  which  gives  a contradiction. We call (1.19’) the result of
+replacing all the relations by their converses.
+
+               2. The topological interpretation
+
+   The idea of this interpretation (which is carried out in classical
+mathematics ) is to use the lattice of open subsets of a given topo-
+logical space T as "truth values" for formulae. Thus to each
+formula A we associate an open subset [[A]] of the space T satis-
+fying some simple rules:
+
+
+
+
+where In denotes the interior operator on subsets of T. In addition,
+the individual variables are interpreted as ranging over the ele-
+ments e in some given domain R (we use "e" here because we are
+thinking of models for the real numbers.) Thus for quantified
+formulae we have :
+                                                                              199
+
+
+
+
+(Note that we really should write A(03BE) where r$1 is the name
+of the object 03BE in the formal language. )
+  As is proved in [5], all formulas A provable in Heyting’s predi-
+cate logic are valid in this interpretation in the sense that [[A]]    T. =
+
+
+
+Let us assume       further that all of (1.1)-(1.6) are   valid   in fhis
+particular interpretation as well as (1.16)-(1.17) where R is
+assumed to include the set Q of rational numbers. We wish to
+investigate more closely the behavior of the elements e e .9.
+  To start out note that for each t e T an element e e .9 deter-
+mines a cut in Q where the upper part of the eut is the set
+
+
+This suggests associating with e c- 9 a function ; : T ~ R (where
+R is the set of classical reals, and where we are using "03BE" again
+to denote the function) defined as:
+
+
+
+In case e = q e Q, note that e(t) is the constants function with
+value q. In general we have:
+
+(2.7)           e : T - R is continuous for all e E .9.
+  PROOF: We note first that
+
+
+Because if 03BE(t)    q, then by definition t e [e     rl where r              q.
+But then obviously, t e [[03BE   q]]. Conversely,   assume   t e [[03BE       q].
+By (1.18) and    (2.5), [[03BE r]]
+                        t e        for some r    q.  Thus 03BE(t) r            q.
+Next we show that
+
+
+Assume first that q            e(t). Then, by definition, there exists an
+r &#x3E; q such that t 0 [[03BE     sl for all s r. Take any s with
+q s r. By (1.3) we see
+
+hence, t e [[q el. Assume for the converse that t e [[q el. In
+view of (1.18’) we have t e [[r     el for some r &#x3E; q. Thus, for all
+s   r we have t 0 [[03BE s]]; this means   r e(t) and so q          e(t).
+200
+
+From these two equations we see that the inverse image under e
+of any open interval (q, q’ ) is the open set [[q el n [[03BE q’]],
+which proves that the funetion e : T ~ R is indeed continuous.
+  Now that we know that the functions are continuous, the open
+"truth" values of some other formulas are clear:
+
+
+
+
+In fact (2.8) follows from (1.17) and the formulas used for the
+proof of (2.7) above; and the others follow by (1.4)-(1.6). Note
+that by (2.11) we have 03BE = ~ valid (that is, [[03BE =
+                                                            q] T) if
+                                                             =
+
+
+
+and only if 03BE(t)
+                  =
+                      q(t) for all t e T. Hence  it is safe  simply to
+identily e with  the continuous   function it determines.
+   These simple facts suggest that the obvious classical model for
+the intuitionistic continuum is to take R to be the collection of
+all continuous funetions e: T ~ R and to use the rules (2.1 )- (2.6),
+(2.8)-(2.11) for evaluating formulae. The reason for using all the
+continuous functions is that R should be complete. No doubt this
+statement could be justified more formally with reference to some
+suitable model of a higher-order intuitionistic theory of species.
+Since the author does not want to say at this moment what
+this theory is like, he must leave this matter somewhat vague.
+
+
+                3. Some independence results
+
+  Consider, for the sake of illustration, an open formula in two
+variables x and y. In view of (1.4)-(1.6), we need employ as
+atomic formulae only x      y and y     x. Thus, corresponding to
+the given formula, there is a formula A ( P, Q) of propositional
+calculus such that the given formula is equivalent to
+
+
+We shall show that the universal statement
+
+
+is provable (intuitionistically) from (1.1)-(1.2) if and only if the
+propositional formula
+                                                                   201
+
+is provable in Heyting’s calculus. This gives a decision method
+for open formulae in two variables. No doubt the method can be
+extended to more variables, but the proper formulation of the
+result seems to be combinatorially rather complicated. We will
+discuss the case of three variables below.
+   Note first that the provability of the propositional formula is
+sufficient: because one can substitute x     y for P and y x for
+Q  and invoke  (1.1). Suppose then that the formula is not provable.
+By the results    stated  in [5, pp. 385-396],    there  is a metric
+topological space T and there are assignments of open subsets
+[P] and [[Q]] to P and Q such that:
+
+Since we could relativize to a subspace, we can assume without
+loss of generality that
+
+
+which means that [[P]] and [[Q]] are disjoint open sets.
+  We are now going to use our model for the intuitionistic con-
+tinuum based on the metric space T. Let np : T - R be defined
+by the formula
+
+where à is the metric in T ; similarly for nQ. These two non-
+negative functions are continuous and
+
+
+similarly for 03C0Q. Define continuous functions 03BE, ~ : T - R by:
+
+
+
+Since [[P]] and [[Q]] are disjoint, we have
+
+
+and
+
+which implies that
+
+
+Thus the universal formula is not valid in the model.
+  There are several remarks to be made here. In the first place
+the choice of the model was made to dépend on the formula. If
+202
+
+we     set T NN (the Baire space, which is homeomorphic to the
+               =
+
+
+
+space irrationals, a zero-dimensional complete space), then by
+virtue of Theorem 4.1 in [5, pp. 130-131] this space can be
+used for all the counterexamples thus fixing the mode].
+   Secondly, now that the space is fixed, we note that e 0. If=
+
+
+
+e’ is any other continuous function, we replace e by e’ and iî by
+7y’   =
+          03BE’+~. Obviously
+
+and so
+
+
+But note that if f : T ~ T is an autohomeomorphism of T onto
+itself, then
+
+
+Inasmuch as the autohomeomorphism group is transitive             on
+T   NN, we conclude that
+      =
+
+
+
+
+This means that
+
+
+and in view of the remarks above
+
+
+
+      Among the more interesting of the formulae that fall within the
+scope of this discussion we may mention:
+
+
+
+
+and, of course, many more, all of which are valid in the model.
+                                                              203
+
+   The above formulae are closely related to those discussed in
+Chapter IV of [3]. Kleene shows that certain of them are provable
+in his system, which is a stronger theory than any we have con-
+sidered so far in this paper. Now under suitable definitions our
+models ought to satisfy Kleene’s axioms and more. Thus it would
+seem that we have somewhat stronger consistency results than
+those obtained by Kleene’s method. However, judgement should
+be suspended until a better understanding of the model is ob-
+tained. We shall discuss the matter further in Section 4.
+   Passing now to three variables, the situation is more compli-
+cated. Suppose xo, xl, and x2 are the variables. Let the proposi-
+tional letter P ii correspond to the atomic formula xi    xj. Let
+A be the given open formula, and let A(P) be the propositional
+formula that results from replacing xi xj by Pu- Let B(P) be
+the conjunction of all formulae of the forms:
+
+
+and
+
+
+for i, j, k   3. We wish to show that
+
+
+
+is provable if and only if the propositional formula
+
+
+is provable. In case of unprovability, we will find that
+
+
+is valid in the model.
+   As in the previous argument, sufficiency is obvious. Suppose
+then the propositional formula is unprovable. We evaluate the
+Po with open sets [[Pij]] so that
+
+while
+
+
+  We define non-negative continuous functions 03C3ijkl : T - R so
+that
+
+
+We then introduce (by a formula which cost the author several
+hours to discover) functions nu : T - R where
+204
+
+This equation for the continuous function 03C0ij is, of course, under-
+stood as a functional equation. In view of the inclusion
+
+
+we see that
+
+
+
+The main reason for making the formula for 03C0ij so complicated
+was to assure:
+
+
+
+
+for all i, j, k 3. This means that we can solve the (over-
+determined) system of equations
+
+for functions 03BE0. 03BE1, 03BE2 : T ~ R. Indeed let eo   =   0 and el   =
+                                                                              noi
+and e2    n02. We then have
+          =
+
+
+
+
+so that
+
+
+
+
+where A(03BE) is the result of substituting the e’s for the x’s. Just
+as before we can show
+
+
+
+
+for all 03BE’0, and the desired conclusion follows. The author was
+unable to come up with the proper 03C0-formula for cases with more
+variables, though it would seem that the method should gener-
+alize.
+
+                        4. Enlarging the model
+
+   Up to this point we have discussed the properties of only
+, ~, , and         Suppose $ is any relation between (classical)
+                   =.
+
+real numbers. We may extend $ to the model R in the spirit of
+(2.8)-(2.11) by the formula:
+
+In case $ represents an open relation (open subset of R X R),
+we can   drop the In on the right-hand side. This we did in the
+cases of     and ~. In case $ is a closed relation and $’ is the
+complementary (open) relation, then
+                                                                 205
+
+This is what we did in the cases of ~ and =. The uniformity of
+these connections was the main motivation for the author’s choice
+of notation. He feels that it makes comparison with the classical
+theory much easier and hopes others will agree with him. The
+author notes with satisfaction that Bishop in [1] (which is the
+deepest and most thorough mathematical development of in-
+tuitionistic analysis available) adopts the same notation for in-
+equalities, of course based on an intuitive motivation.
+   By the way of example, let us consider the notions of closed
+and open intervals as defined in [3, *R8.1, p. 147 and *RI3.1,
+p. 161]. After suitable logical simplifications, these two concepts
+can be defined as follows:
+
+
+
+
+In the above we have abbreviated a conjunction of successive
+relationships in the usual way. The exact reason why the doubly
+negated relationship is considered more basic than that without
+the escapes the author.
+  In view of the topological equation
+
+
+
+we see that if A o , A1, ···, An-1, Bo are atomic formula of the
+kind just considered with the new relational symbols, then if
+
+
+
+is valid   classically, it is also valid in our model. In case
+Bo , B1, ···, Bn-1 all have symbols for open relations, then the
+same holds for
+
+
+
+
+By the way, it may turn out that the only interesting relations $
+that ought to be considered in the model are those that are either
+open or closed. But this remains to be seen.
+  Quantified formulae are as usual more difficult to understand.
+Suppose
+
+is valid classically because there is a continuous function f : R - R
+such that
+206
+
+is true. Then obviously
+
+
+will be valid in our model. The same remark can be made about
+formulae with implications of the kind considered above. Actually
+it is enough to have a f amily {fi : i ~ I} of continuous functions
+such that
+
+
+is classically valid for
+
+
+to be valid in the model in case $ happens to be open.
+   Besides relations, there are also some interesting functions on
+the elements of the model. For example, suppose f : R X R - R
+is continuous. We interpret the equation
+
+
+for 03BE, ~ E e, to mean that
+
+
+
+for all t E T. Then 03B6 also belongs to R. We can apply this method
+to the arithmetic operations +, .,     -
+
+                                            and to such functions as
+sin, cos, ex, etc.  Note   that any (universal) (conditional) equation
+satisfied by functions on R is also valid on R. Thus
+
+
+
+is valid in the model; while
+
+
+
+is not. In fact,
+
+
+is valid.
+   This last remark points up the fact that if a sentence A has only
+constants (say, rational constants) and operations and relations
+like +, =, etc., then its value is invariant under all autohomeo-
+morphisms of T. Now if T NN (our favorite choice for T),
+                                =
+
+
+
+then the only open sets so invariant are 0 and T ; thus if the
+sentence A is not valid, then -i A is valid. In particular, the law
+of excluded middle holds for such sentences in the model. Many
+people may regard this feature as undesirable; it is a consequence
+of our classical construction of the model. It does not seem too
+                                                              207
+
+serious, however, when we realize that the most interesting
+sentences have parameters and then this conclusion does not hold.
+  We can weaken the unnegated (4.5) to make it valid; thus:
+
+
+One should not conclude, however, that a disjunctive conclusion
+with closed relations is always invalid. For example, we have:
+
+
+This can easily be checked in the model, or we can prove it from
+other principles. Suppose X  =  x2. By the obvious equations of
+algebra this can be written as
+
+
+
+
+Now by (1.2) we have [0 x ~ x I]. In the first case we derive
+by (4.6) the equation 1-x 0, and so x 1. In the second case
+                            =             =
+
+
+
+1-x ~ 0 follows, so x   =   0. We see that (1.2) in intuitionistic
+analysis replaces the invalid principle
+
+by the valid and almost as useful principle
+
+where e can be any (very small) positive rational number.
+  The use of certain continuous functions and of some of their
+obvious properties sometimes gives us results about the pure
+theory of order which no doubt cannot be derived simply from
+(1.1)-(1.8). For example, the average (x+y)12 clearly satisfies
+
+  From this and some other obvious arithmetic principles we
+derive easily:
+
+
+We can adjoin double negations and write the result as:
+
+
+which seems to be slightly stronger (and more easily proved) than
+*R13.8 in [3, p. 161].
+  Other properties of order seem to require rather complicated
+proofs. In particular, the author could not see a more elementary
+proof of *R14.11 in [3, p. 168]. He can only remark that after
+208
+
+the définitions are unwound the principle boils down to:
+
+
+
+
+That seems interesting, but the author finds the hypothesis very
+hard to work with. All in all, the quantified theory of order in
+the intuitionistic continuum may prove to be fairly difficult.
+  Partial functions are very annoying. In [2, p. 21] Heyting
+states that x-1 is defined only for x ~ 0. It seems rather difficult
+to make this procedure rigorous in a formal intuitionistic theory
+that allows the free formation of terms x-1 and not just the relation
+y =  x-1 (which is equivalent to x · y       1.) We can, however,
+                                                =
+
+
+show that
+
+
+
+is valid in our model. For let e E f!4 and suppose t e [[03BE ~ 0]]. Then
+there is an integer n E N, n &#x3E; 0, such that |03BE(t)| &#x3E; 1/n. Let f be
+any continuous function such that f(u)          u-1 for lul ~ 1/n. We
+                                                 =
+
+
+
+see that
+
+
+
+
+Hence,
+
+which shows that       (4.10) is valid. There ought to be a general
+principle to cover this situation, but the author is not quite sure
+what its proper formulation should be.
+   Instead of restricted variables such as the rational variables q,
+r, s, we could introduce predicates such as 03BE E Q into our formal
+language. By definition:
+
+
+where on the right-hand side we have used q for the rational and
+for the constant function with value q. The reader should note that
+
+
+
+if and only if the sets [[03BE
+                             =
+                               q]] are both open and closed in T. This
+means   that T is partitional into such sets on each of which the
+funetion e has a constant value. Even though such functions are
+not strictly constant, we can show:
+                                                                  209
+
+and
+
+
+
+This means that the use of the predicates has the same effect as
+the use of restricted variables.
+  Another interesting predicate is defined by
+
+
+
+where again a is used to denote a constant function. We can think
+of e E D as meaning e is definite. It is just the point of the intui-
+tionistic theory that it allows for "indefinite" numbers. That is
+why a statement
+
+is so strong because the y must exist not only for the definite but
+also for the indefinite numbers x.
+   It is seen that our model allows only for continuous functions on
+R to be automatically extended to f!4. This limitation may indeed
+be essential. In view of Brouwer’s Theorem on Continuity (cf.
+[2, p. 46] and [3, pp. 151ff.]) it may be reasonable to conjecture
+that if ~x!yA(x, y) is valid in the model, then there exists a
+continuous function f : R ~ R such that ~xA (x, f(x)) is also valid
+(at least if A (x, y ) has no additional parameters). It is clear that
+we cannot weaken 3 ! to 3 for this model, because
+
+
+
+
+is valid, but there is no continuous function that can be used to
+obtain y even for all x where x E D is valid. The above conjecture
+about 3 ! may be too optimistic: it will probably turn out that there
+are more functions F : 9 - éP that are appropriate for the model
+than there are ordinary continuous functions f : R ~ R, even
+though the F may satisfy the formal statement of continuity in
+the model.
+   The predicates introduced in (4.13 ) and (4.16) are what might
+be called "non-standard"-predicates to distinguish them from the
+kind of predicates $ discussed at the beginning of this section.
+The non-standard notions are somehow peculiar to the model and
+have no counterpart in the classical theory. (This remark is
+somewhat misleading in connection with Q; but note that the
+equation
+210
+
+is not in general correct for all e E R.) This suggests that we should
+have a theory of predicates (sets, species). A general predicate is
+represented by a function .5’ defined on Q taking arbitrary open
+subsets of T as values. We write:
+
+
+We may use variables X, Y, Z, etc., to range over these predicates.
+We note that the general comprehension principle is valid:
+
+
+where A (r) is an arbitrary formula. We are being careful not to
+assume that these species are extensional in the sense of the validity
+of:
+
+
+because remarks in [4] and elsewhere seem to indicate that non-
+extensional predicates may be of interest and even of importance.
+   In [3], free (i.e., universally quantified) species variables are
+used at several places; in particular, the obviously fundamental
+*R14.14 [3, p. 171] expressing a kind of Dedekind completeness
+(called being "freely connected") uses them, and they enter at
+many other points. Note that there is no reason to stop at second-
+order species: we can easily continue upward to higher-order
+species and even to a kind of transfinite intuitionistic set theory.
+That last sounds almost like a contradiction in terms, but the
+model certainly can be defined in classical set theory.
+
+
+                               BIBLIOGRAPHY
+
+E. BISHOP
+[1] Foundations of Constructive Analysis, New York, 1967.
+A. HEYTING
+[2] Intuitionism. An Introduction, Amsterdam, 1956.
+S. C. KLEENE and R. E. VESLEY
+[3] Foundations of Intuitionistic Mathematics, Amsterdam, 1965.
+G. KREISEL
+[4] Mathematical Logic, in Lectures on Mathematics, vol. III, (ed. T. L. Saaty),
+    New York, 1965, pp. 95-195.
+H. RASIOWA and R. SIKORSKI
+[5] The Mathematics of Metamathematics, Warsaw, 1963.
+A. S. TROELSTRA
+[6] The Theory of Choice Sequences, to appear.
+
+(Oblatum 3-1-’68)                                           Stanford University
+

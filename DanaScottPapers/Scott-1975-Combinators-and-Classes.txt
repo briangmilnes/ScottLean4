@@ -1,0 +1,1575 @@
+                                          COMBINATORS             AND CLASSES
+
+                                                             by
+
+                                                       Dana       Scott
+
+                                                Oxford       University
+
+
+
+
+Abstract.          The p a p e r      tries      to answer            the question:            What    is the r e l a t i o n
+
+between      class        abstraction           and        A-abstraction            in m o d e l s    for the          A-cal-
+
+culus?
+
+
+Introduction.             It seems        fair to say that                one of the original                  motivations
+
+for the s t u d y of            A-calculus            and the c o m b i n a t o r s         was   to give       a founda-
+
+tion    for logic.          The      pure c o m b i n a t o r s       were    to be v e r y general             operators
+
+which would          provide         an analysis           of " s u b s t i t u t i o n "    and the b e h a v i o u r        of
+
+variables.          (An a l l - p e r v a d i n g     confusion          between        use and m e n t i o n      haunts
+
+the l i t e r a t u r e   on        A-calculus.          Perhaps         it w o u l d    make more         sense       to say
+
+that    the p u r p o s e      of    the c o m b i n a t o r s       is to a n a l y z e     the n o t i o n    o f func-
+
+tional      dependence          by producing             a few b a s i c       combinators            from w h i c h     the
+
+others     could       be e x p l i c i t l y    defined.         And,       besides        this e x p r e s s i v e    power,
+
+it was      also n e c e s s a r y      to u n c o v e r     the laws         - usually           identities       - that
+
+hold    among      the combinators.)                  Adjoined          to these        general       operators,         we
+
+were    then      to have       the q u a n t i f i e r s     and logical            connectives           to be used
+
+in the a n a l y s i s      of p r o p o s i t i o n s .     All of this was                to turn out to be a
+
+Fregian      paradise          of    "type-free"            functions.         Alas,        the    first w o r k e r s
+
+h a r d l y had    time     to savour           the f o r b i d d e n      fruit b e f o r e      they w e r e     turned
+
+o u t of this p a r a d i s e         b y the d i s c o v e r y        o f the usual           paradoxes.        A cruel
+
+fate,     but     in r e t r o s p e c t ,   it is not a v e r y              surprising          one.
+
+
+        In one w a y or the other we have                             all b e e n    trying       to get back           into
+
+this    lost paradise,               though      some have            been content           to pause       along       the
+
+w a y to p l a y w i t h       the n o n - p a r a d o x i c a l ,     pure      A-calculus           part of the
+                                                                  2
+
+
+subject.      It is a pity,               however,        to have            a study w i t h o u t       real m o t i v a t i o n ~
+
+and w i t h o u t    the p r o p o s i t i o n a l    component              of the t h e o r y       it is not          all that
+
+easy    to e x p l a i n     the interest            in the c o m b i n a t o r s .          This     is not to          say that
+
+t h e y are not fun~ b u t aside                   from     formal           amusement,         what      is the point?
+
+It is no good pointing                    to c o m b i n a t o r y      arithmetic,            because       there       are    far
+
+easier ways          of explaining              recursive             number-theoretic              functions.
+
+
+        There       are    two good        answer~which                establish          the m a t h e m a t i c a l    value
+
+of   the combinators.               The    first was          g i v e n b y Kleene w h e n he d e f i n e d                in
+
+number     theory          {e}(n) , w h i c h        certainly           is a kind           of t y p e - f r e e    applica-
+
+tion.     (We should          also     note that K l e e n e             also        defined         {~}(~)         for arbi-
+
+trary    number-theoretic                 functions           ~        and      ~      (see the K l e e n e - V e s l e y
+
+book).     This      application           too has        an i n t e r e s t i n g       theory 0 K l e e n e        intro-
+
+d uced m a n y      techniques         from        A-calculus            into recursive               function          theory
+
+by defining          whatever         he needed         in terms             of GSdel        numbers.        More       recently
+
+we   speak    of the URS of W a g n e r - S t r o n g                 which         gives    an abstract            version         of
+
+Kleene's      idea        (see the paper             in this v o l u m e             b y Barendregt).            But these
+
+structures          have     not b e e n     adequately               related        to "traditional"               A-calculus,
+
+because      a URS        is o n l y a p a r t i a l      algebra            in that        the a p p l i c a t i o n     {e}(n)
+
+is not     always         defined.
+
+
+        Models       in w h i c h     application           is always            meaningful           were     discovered
+
+b y the p r e s e n t      author.        The    first w e r e          the      Dm      models,        and the         second
+
+kind     (building         on an idea of Plotkin)                       were        the graph m o d e l s ~ l i k e        Po       .
+
+We shall not need               any detail           about        the c o n s t r u c t i o n     of such m o d e l s          in
+
+this paper          except      to note         that they all                satisfy        these basic          axioms:
+
+                                (~)        Ax.T      = Xy.T[y/x]
+
+                                            (xx.T) (y) : T[y/x]
+
+                                (~)        AZ~.T = AZK.U ~              VX.T =
+
+
+We can call          these      the axioms           of e x t e n s i o n a l        A-calculus.         The     fact that
+the    specific        models         mentioned        above      s a t i s f y m u c h more       than w h a t      is
+
+implied        by      (~),     (~) , (~)        is not r e l e v a n t        here,      as e v e r y t h i n g    we want
+
+to say can be done                in the c o n t e x t        of this r a t h e r weak             system.         (That
+
+term m o d e l s      for these           axioms were           already known           as a c o n s e q u e n c e     of
+
+the C h u r c h - R o s s e r    Theorem        is also         irrelevant         for the reasons             pointed
+
+out    in the a u t h o r ' s         other p a p e r      in this volume.)
+
+
+         Before       going      further,        we    should      stress        that     the kind of truth de-
+
+f init i o n    that we shall propose                    in this p a p e r         could       also be done          for the
+
+URS.    We     stick     to      A-calculus           of the t r a d i t i o n a l      sort~because            it is more
+
+familiar        and     it illustrates             a general            idea neatly.
+
+
+        What was         learned          from the c o n s t r u c t i o n      of the          A-calculus          models
+
+is that        there     are m a n y c o h e r e n t      notions         of f u n c t i o n    and f u n c t i o n a l
+
+application           which      admit      the c l o s u r e    properties          demanded          b y the combi-
+
+nators.        In all of these              examples        paradox        is a v o i d e d     because      the     func-
+
+tions used           are of a limited              sort     and are        far from a r b i t r a r y          (e.g.      the
+
+space o f c o n t i n u o u s         functions        rather      than      the    full       function      space        in the
+
+usual     sense       of set theory).              Conflict        is r e s o l v e d     by eliminating             opera-
+
+tors of an i n f i n i t a r y           nature       (like the quantifiers!)                    The    trick was           to
+
+retain       enough      to have         the    (pure)      combinators.            It was       possible~          and     it
+
+was good        for      A-calculus,           but bad       for logic,            because       it was      just      the
+
+pr~positional           notions          that had b e e n        eliminated.            There was a gain               for
+
+recursion           theory,      since      the e x t e n s i o n a l    combinators            are    less m e s s y       than
+
+Kleene's       and     ideas      c o u l d be applied           more      abstractly~           But still          the ori-
+
+ginal m o t i v a t i o n       was    definitely         not regained.
+
+
+        The one p e r s o n           w h o had c l i m b e d    farthest          back    into       "paradise t' was
+
+Fitch.       For one r e a s o n         or the other his               ideas      are not very well known~
+
+partly because           his      presentations            are h i g h l y      formal         and rather          complica
+
+ted.    There        is no c l a i m here         to have        correctly          interpreted          his       program,
+but    his m e t h o d was       the d i r e c t      inspiration.           In somewhat           different          con-
+
+texts b o t h F e f e r m a n     and Aczel           have    used     the plan to a d v a n t a g e            and have
+
+found c o n n e c t i o n s     with    other      theories,          but    their       papers      are not yet
+
+published.         (As the m e t h o d         is v e r y    closely        related        to iterated          truth
+
+definitions            similar    to K l e e n e ' s    hyperarithmetic              hierarchy,           they may
+
+not    feel that their            inspiration           can be        traced      directly         to Fitch,          though
+
+Feferman       comments         on Fitchfs         system      and     indicates           h o w his own has              ad-
+
+vantages.)         Earlier,       in work w i t h Fitch,               M y h i l l had pusued            the    idea and
+
+mentioned        it in conversation.                  The    author      at this p o i n t         cannot       remember
+
+whether       Myhill      came    to any d e f i n i t e       conclusions           and c a n n o t      recall          what
+
+he p u b l i s h e d    about    it.    But the p r o b l e m         of p r i o r i t y    is not v e r y acute:
+
+Fitch     started        in the m i d - t h i r t i e s      and gets        the main credit.               There         are
+
+many    variations,           and we have          to try to judge which                    of the       roads back
+
+into p a r a d i s e     (if a n y ! ) a r e    not    a dead       ends.Maybe           they all        are.     The
+
+purpose       of this paper            is to e n c o u r a g e      more     exploration.
+
+
+         it comes        to mind       that C h u c h m e n t i o n s       in his       little b o o k l e t        on
+
+k-calculus         that there were              some    lecture        notes      on a h i e r a r c h y       of q u a n t i -
+
+fiers     to be added           to his      system.         These     notes were           not p u b l i s h e d ;    and
+
+t h o u g h he spent        some time at Princeton,                    the author           does not r e m e m b e r
+
+seeing      them and does           not k n o w w h e t h e r       they are r e l e v a n t         to the p r e s e n t
+
+discussion.            By the time C h u r c h         published         his m o n o g r a p h     one     feels      that
+
+he had      lost       interest     in giving          any    foundation          v i9      k-calculus          of the
+
+untyped       kind.      No one seems           to have       tried      to follow u p C h u r c h ' s            ideas.
+
+As all the p r i n c i p a l s         are still        alive        (except      for Turing,            of course),
+
+someone       should      perhaps       do some h i s t o r i c a l         investigation.             It is not
+
+always      so easy to d e d u c e          from the w r i t i n g s         w h a t was      intended.         In par-
+
+ticular       the recent         publication           by F i t c h     of "Elements            of C o m b i n a t o r y
+
+Logic"      is very d i s a p p o i n t i n g       in that he did not try to m a k e                       a uniform
+
+exposition         of his papers            in the JSL w h i c h            contain        the d e t a i l s     of the
+consistency           proof          (truth d e f i n i t i o n ) .       He p r o p o s e d    over    the years
+
+several         different         systems,          and we c o u l d h a v e h o p e d             to see a complete,
+
+final version.
+
+
+           One c o n c l u s i o n     we m i g h t    reach       in this paper               is that the t e r m i n o -
+
+logy       "combinatory           !0q~P"        is still p r e m a t u r e          dispite         all the w o r k s        of
+
+C u r r y and Fitch.             We    shall c e r t a i n l y      establish            connections         with      the
+
+usual k i n d        of p r e d i c a t e     logic,         but    it seems         to this        author     that m u c h
+
+remains         to be done            to d e t e r m i n e    whether        these       are the right           connections
+
+or even         especially            useful      ones.       And the        question          of whether        we have
+
+foundations            in this w a y should                  also r e m a i n      open.
+
+
+
+w    •     Syntax.         In the b a c k g r o u n d         we are a s s u m i n g       that we have              a n y non-
+
+trivial m o d e l          for        (~) , (~) , (~).             "Non-trivial"           here m e a n s      a domain of
+
+indi v i d u a l s     (or objects)             of at least               two elements.            The axioms         are all
+
+schematic,           and    the terms used               (the         T     and    ~ ) are         just pure          A-terms
+
+b u i l t up      from v a r i a b l e s      by a p p l i c a t i o n      and      A-abstraction.
+
+
+           We shall h a v e           to make       a very c o n s c i o u s         effort        to avoid      confusion
+
+between         use and m e n t i o n         because         we are g o i n g          to formalize         the s y n t a x
+
+in the model.              We shall          not be quite           as r i g o r o u s     as Quine         in k e e p i n g
+
+the d i s t i n c t i o n ,      b u t we shall          be r i g o r o u s       enough.       The point        is that
+
+certain         objects       of the model             are going            to r e p r e s e n t    formulas         somelwhat
+
+in the style of G 6 d e l                  numbers.          As we have           an a b s t r a c t model,          however,
+
+we       do n o t speak of its elements                       as n u m b e r s .    Nevertheless,            certain         ele-
+
+ments       can be c h o s e n         to r e p r e s e n t    numbers,           and we regard            0,1,2,3,4              as
+
+distinct         elements         of our model.               (The c h o i c e      of r e p r e s e n t a t i o n    is not
+
+important.           This     is a standard              construction              as    in the C u r r y volumes.)
+
+
+           Aside     from the numbers                 we need c o m b i n a t o r s        to form ~                   like
+
+<a,b,c>         . Again,         just h o w the          tuple        is d e f i n e d    is not important,               though
+to    save     notation          we       will        assume                that           a construction                            is   effected         whereby:
+
+
+                                      < a,b,c              >       (O)       = a               ,
+
+                                      < a,b,c              >       (1)       = b               ,
+
+                                      <    a,b,c           >       (2)       =     c           ,
+
+
+and    similarly           for    other              size          tuples.                 We              shall         often       write      "Uk"         for
+
+"u(k) "~       especially             for        numerical                    subscripts.
+
+
+Definition.           The    primitive                    formula                constructs                             are       represented        as    follows:
+
+
+                                           a = b               =        < O,a,b                        >
+
+                                           Vx.~                =        <    1,Ax.~                        >
+
+                                           ~ ~                 :        <    2,~           >
+
+                                           q)    A    qJ       =        <    3,(p,Uj                   >
+
+                                           q~ ~ <         q~ =          < 4,q~,~p                      >
+
+
+
+        We     have    tried          to       choose              as       few        primitives                            as    possible     without         be-
+
+ing    incomprehensible.                        Still          we       need           various                      defined          operations           as w e l l
+
+in o r d e r    to m a k e       formulas                 look          normal                     and         familiar.
+
+
+Definition.           The    defined                 formula                constructs                             are       represented        as    follows:
+
+
+                                           a     ~ b           =        b (a)
+
+                                           3x. ~               =        ~ Vx.              ~
+
+                                           ~v         ~        =        N     [~       ~           ^       ~   ~]
+
+
+                                           ~                   =        ~ v
+
+
+                                           ~-.-,- ~            =        [~^~]              v           [~      ~    ^    ~    ~]
+
+                                                 T             =        0    =     0
+
+
+                                                 F             =        ~    T
+
+
+                                                 *             =        T    ~         F
+
+
+
+        By way        of    example              consider                   the        formula:
+
+
+                                                 3X.       a(x)             = x
+                                                                     7
+
+
+In the m o d e l        this        is r e p r e s e n t e d    by the           element:
+
+
+                       < 2,<i,kx.<2,<O,a(x)                    ,x > > > >        .
+
+
+A little         odd    looking,            but    it is a p e r f e c t l y             good       A-term.        (As w e k n o w ,
+
+this     is a t r u e         formula;          b u t w e do n o t            get     the    truth       definition          until
+
+the next         section.)
+
+
+         The     point        to k e e p       in m i n d     here       is t h a t w e a r e           doing     syntax       (except
+
+for the        case     of      a     e b, b u t m o r e        of t h a t           later).       At    the m o m e n t     we    are
+
+concerned         with        form       and    not with        meaning.              What       we have     done       is to m a k e
+
+it p o s s i b l e     to a s s i g n       to e v e r y      logical          formula           (containing        possibly
+
+constants         for e l e m e n t s          o f the model)             a      A-term          which,of       course~denotes
+
+an element           of the m o d e l .           This      element           represents           the     formula         itself,
+
+not    its     interpretation.                  And,     as    long       as w e d o n o t          use     the     ~-notation,
+
+the    representation                of     formulas          by elements               is u n i q u e ,    because         the w h o l e
+
+system       is b a s e d      on    tuples.         (If w e w a n t e d             full uniqueness,              we      could make
+
+the      e-combination               a primitive              - say           <5,a,b>            - and     save    the       b(a)-
+
+part     for the        truth        definition.)              We have           not      tried     to r e s p e c t       the di-
+
+stinction         between           use     and mention           by going              to t h e m e t a l a n g u a g e     and
+
+then     defining         a mappinq             from     formulas             to o b j e c t s .    Instead        we have
+
+shown      the    effect         of the mapping                by regarding                 the    logical        connectives
+
+as c o m b i n a t o r s .     But note           - and       this       is v e r y       important         - the a p p r o a c h
+
+is    intensional.             Our definition                 contributes               almost      nothing        toward         mea-
+
+ning.
+
+         A smaller            point       we    should        keep       in m i n d       is t h a t w e are n o t           saying
+
+which      elements           represent           formulas.          All       the      definition          does    is to g i v e
+
+laws     of composition                  whereby       new     formulas              c a n be o b t a i n e d     f r o m old.
+
+Since        a = b           is at o n c e        a formula          (better:             an element         t h a t r__@_presents
+
+a formula),            we have           something          to s t a r t w i t h .          We    just have        no need         to
+
+say how        far w e w a n t           to i t e r a t e     formula          construction.               Whatever         they       area
+
+they     are     elements           of    the m o d e l ;      and we          shall        f i n d w e do n o t n e e d          to
+                                                                  8
+
+
+be more         definite         than      that.
+
+
+          Part      o f the t r i c k       of the d e f i n i t i o n         (aside             f r o m the o b v i o u s      use
+
+of tuples           to g i v e u s a n       "abstract"           syntax)           is the u s e           of       A-abstraction
+
+in t h e q u a n t i f i e r .      It w o u l d      not be      unreasonable                    to s a y t h a t    the       formulas
+
+represented            in the m o d e l        are     those without                free v a r i a b l e s .         A formula
+
+with      free variables              could be         taken      as     the    corresponding                   A-abstract.
+
+Or    if w e     like:        a formula with              a free variable                    is a m a p p i n q      from con-
+
+stants        to t h e c o r r e s p o n d i n g      substitution             instance.              In t h i s w a y w e        eli-
+
+minate        all    fuss w i t h       variables          in the        formalization                  - the u s e        of     A
+
+does      all    the w o r k      behind       the     scenes.         This     may          not be quite            the    idea
+
+that Curry           had      in m i n d    in the b e g i n i n g        of    the          subject,        but     it d o e s       not
+
+seem      like      such      a bad     idea.       (Thus,       if we       choose           to r e g a r d        <l,u>        as a
+
+quantified           formula,         then     for a n y      constant              a    , the        element         u(a)        is
+
+the c o r r e s p o n d i n g     "substitution"              instance.)                At    least we can            say we
+
+are     putting          A-calculus          to w o r k .
+
+
+
+     2. S e m a n t i c s .      We can now pass              on to t h e           truth          definition,         but we
+
+shall       find     it is a t r a n s f i n i t e         one.       This     is       something          that Fitch           has
+
+never      made      especially            clear      in h i s w r i t i n g s ,         but       the method         is a c t u a l l y
+
+very well known                 in logic.          (For r e f e r e n c e s     see the r e c e n t             book       by
+
+Moschovakis.)              We need         only     take    a little           care          to f o r m u l a t e    the defini-
+
+tion      in s u c h a w a y        that we will            know       - on     the          grounds       of general            prin-
+
+ciples        - that       the    truth predicate                actually           exists.           T o do t h i s       it is
+
+helpful         to d e f i n e    the predicate             of    falsehood              at the         same    time       as t r u t h
+
+in a m u t u a l l y       recursive         way.      This      will be        found             to b e o n l y     a very       slight
+
+complication            in c o n c e p t     which        makes       it e a s i e r         to    formulate         the    clauses
+
+of the definition.                 We w i l l       see    that       the definition                  is v e r y m u c h        like
+
+that of first-order                   truth       in m o d e l    theory,           but       since we made            syntax
+
+part      o f the m o d e l       there      is e x t r a     "feed back"                that drives            us    to t r a n s -
+finite        lengths.            The     important           question         will       be: h o w     can we make                 u s e of
+
+this     feed back?                It is n o t l i k e l y          that we         can give         a very convincing
+
+answer        at o n c e .
+
+
+Definition.             The        subsets            ~     and      ~       are    the     least      subsets        of    the model
+
+such     that      the          following         equivalences               hold     for    all     elements          u    :
+
+
+                   ~u           iff   either          u = <0,Ul,U2>                 and     uI = u2
+
+                                          or          u : <l,ul>                    and      ~ul(x)          for a l l          x
+
+                                          or          u = <2,ul>                    and      Zh/i
+
+                                          or          u = <3 ,u l , u 2 >           and      ~u i      and     ~u 2
+
+                                          or          u = <4 ,u l , u 2 >           and      ~u i      and     ~u 2
+
+
+
+                   ~u           iff e i t h e r       u = <O,ul,u2>                 and      uI ~ u2
+
+                                          or          u = <I ~ul>                   and      ~u I (x)        for     some           x
+
+                                          or          u = <2,u1>                    and      ~u 1
+
+                                          or          u = <3,ul,u2>                 and      ~u I      or     ~u 2
+
+                                          or          u : <4,u l,u2>                and      ~u I      and     ~u 2
+
+
+         Since we went                   to all       the     trouble         to     formalize         the s y n t a x w i t h i n
+
+the m o d e l ,     the r e a d e r            will       notice     that we have               relapsed       into E n g l i s h
+
+in the m e t a l a n g u a g e .           We h a v e w r i t t e n           "~u"        to m e a n    the    same        as           "u
+
+belongs        to t h e          subset         ~". We w i l l w a n t             te r e a d       "~u"      as      "u        is true",
+
+but    first we             should        see w h y        the d e f i n i t i o n      is a p r o p e r      one.
+
+
+         We    remark            first     that negation                 is n e v e r     applied       to the p r e d i c a t e s
+
+      and      ~        in the           definition.            So, b y       transfinite            recursion,            let us
+
+begin       with        ~          and     ~o      as      the e m p t v      subsets.          At e a c h o r d i n a l        stage
+                            O
+
+      in t h e r e c u r s i o n ,         put        ~       and        ~     on     the r i g h t     hand       sides        o f the
+
+above,        thereby            defining         by these          equivalences             new predicates                 ~+i
+
+and      ~+I       " At a limit                 stage we take                unions:
+                                                                        10
+
+
+                                                                        p<(x       P
+
+
+
+
+Because       negation          was    avoided,              we can prove                   by    transfinite         induction
+
+that    if     ~ < ~       , then           ~        c_ ~         and        ~     _~ ~           ; that       is~we have          two
+
+chains       of subsets.           B u t the m o d e l             is a s P t           (that is, o f l i m i t e d              cardi-
+
+nality) , thus            there must             exist           a stage                    where       the definition             "closes
+
+off"    in the        sense      that:
+
+                                                                    and            ~+I           = Ea
+                                        ~+1           = ~
+
+
+These    are       the d e s i r e d    predicates                           and        ~    , and w e c a l l        the        least
+
+such     ~     the       ordinal       of       the m o d e l .         (Question:                Which     ordinals         are    ordi-
+
+nals    of models          of      A-calculus?).
+
+
+        We    also note          that       thanks           to the          separation             of c a s e s     (by 0 , 1 , 2 , 3 , 4 )
+
+and by the          careful        choice            of the clauses,                    we can prove             by transfinite
+
+induction          that     9         and        ~          are    always          disjoint.             This means          that    no
+
+formula       (element          o f the m o d e l )              can be          both       true    and     false     at the        same
+
+time.
+
+        We note,          too,     that         if w e r e s t r i c t            attention             to t h e u s u a l       first-
+
+order    formulas          (that       is,       start with              equations               between           A-terms,         and
+
+then use       only        V,~,A       ) , t h e n the d e f i n i t i o n                   is e x a c t l y    the u s u a l      truth
+
+definition          - word       for w o r d ,         except           for o u r use o f                the    formalized          syntax.
+
+To check       these       points       it is h e l p f u l              to       separate          out     cases making            use    of
+
+a readable          notation:
+
+
+Lemma.       The    following          equivalences                 hold:
+
+                    ~a = b            iff            a = b                          ~a = b               iff       a / b
+
+                    9a    c b         iff            ~b(a)                          ~a       ~ b         iff       ~b(a)
+
+                    ~Vx.~             iff            ~[a/x]                         ~Vx.~                iff       ~[a/x]
+
+                                                     all     a                                                     some      a
+                                                                          11
+
+
+                       ~HX.~            iff            ~[a/x]                                     ~x.~             iff        ~[a/x]
+
+                                                       some    a                                                              all     a
+
+                            ~ ~         iff            ~                                          ~ ~ ~            iff        ~
+
+                       9~ A ~           iff            ~       and          ~                     ~     ^ ~        iff        ~           or     ~
+
+                       ~     V ~        iff            ~           or       ~                     ~e    V ~        iff        ~       and        ~@
+
+                       ~     ~     ~ iff               ~       and             ~                  ~     ~     ~ iff           ~       and        ~
+
+
+           W e do n o t b o t h e r           to       include          the o t h e r             connectives,              except         to r e -
+
+mark       that        T     is t r u e ,          F       is false,               and        *        is n e i t h e r .     Thus        some
+
+formulas          lack       truth       values.
+
+
+           This     last r e m a r k          seems         very        arbitrary                 indeed.          Why put         in t h a t
+
+stupid        connective                )<x    at a l l ?          There           is a n a n s w e r             to this,         but     it w a s
+
+not    just       to       find    truth-value                gaps.       These              are       forced        on u s       in a n y c a s e
+
+by    the R u s s e l        Paradox.          Consider             the a b s t r a c t :
+
+                                               r = ~x.             ~x ~ x
+
+
+We    ask     as u s u a l        for    the       truth       value        of           r    ~ r        . If it is true,                  it is
+
+false;        if f a l s e ,       then       true.         But     true           and       false          are    exclusive;             hence,
+
+r    ~ r      has      no t r u t h      value.
+
+
+           Is t h i s       really       the Russell                Paradox?                 (Actually             there      is no p a r a d o x
+
+unless        you      thought          every          likely       looking              formula             should       have      a truth
+
+value.)        The         answer       is yes,            because         for a n y a b s t r a c t                 we h a v e :
+
+
+                                               9 a e AX.~                  iff               ~[a/x]
+
+                                               ~a ~ kx~                    iff               ~[a/x]
+
+
+That       is to say,             A-abstraction                 in c o n j u n c t i o n               with       the t r u t h     definition
+
+works       just       like       class       abstraction.                All we have                       to d o    is to i n t e r p r e t
+
+membership             by    functional                application.                 This          is s o m e t h i n g      we have            always
+
+wanted        to do b l e a r           back~to            the g e n e s i s         of       the       subject          when      Schoen-
+
+finkel        created            the combinators.                   We h a v e           now done             it, b u t       at a c e r t a i n
+                                                                   12
+
+
+loss     of innocence.
+
+
+         The price          we have         had      to p a y    is t h e         tax of        intensionality.                      When
+
+we write:
+                                                   Ax.~ = Ax.~               ,
+
+
+
+
+we    cannot       mean     that the          two c l a s s e s        are       extensionally               equivalent.               The
+
+way    the     truth definition                   is s e t up,         what       we mean        is,        for e a c h        constant
+
+a    , that        ~[a/x]         is t h e        same    formula        as           @[a/x].        This        is a m u c h
+
+stricter          relationship           than        that we       thought             we were        promised            at     the
+
+base     of t h e      tree of knowledge.                  Is the p r i c e             worth        the o u t c o m e ?         Fitch
+
+certainly          thinks        so, b u t one m u s t           say that              in h i s b o o k h e d o e s              not        ex-
+
+plain      all that well           just what             rules     of extensionality                        he       really      wants.
+
+Maybe     he will          find    the c h o i c e        made here              to o .strict; b u t                 if so, t h e
+
+alternatives              will have         to b e       spelled        out more           simply.
+
+
+         Since       we    see n o w as a c o n s e q u e n c e              of a l l o w i n g       self-application
+
+that we        are     stuck with           truth-value            gaps,          we realize            that the              "logic"
+
+of    this     truth       definition             is t h r e e   valued.              Using     the s y m b o l s         to     stand
+
+for t h e      truth       "values",          we have        these       tables:
+
+
+                                                             A     T     *        F        V     T      *        F       x)<     T      *     F
+
+                                              T     F       T      T     *        F        T     T      T        T        T      T      *     *
+                                                     9       *     *     *        F              T      *        *        *      *      *     *
+
+                                              F     T        F     F     F        F        F     T      *        F        F      *      *     F
+
+
+We    of c o u r s e      read     "*"        as     "having       no value".              And       now we can               see     the
+
+reason       for the n o t a t i o n              ")<x": t h i s       connective              gives        the c o m m o n          part
+
+of the       and     and    the o__rr, S i n c e          "v"      is o f t e n         called        the wedge                , we    call
+
+"~"        the squadqe,            since          it is f o r m e d      by       squeezing           symbols            together
+
+making       an    ideogram.           What       is the p o i n t       of       this new connective?
+
+
+         The      idea o f        KM     may well          have been              thought        of before,               but        it w a s
+
+discovered           as n e c e s s a r y     by    Stephen        Blarney o f O x f o r d              in h i s         study of
+                                                                    13
+
+
+presuppositions               and t r u t h - v a l u e          gaps.      Without         going    into the d e t a i l s
+
+of Blamey's            motivation,            we can        say that c o n s i d e r i n g           the truth           values
+
+as p a r t i a l l y    ordered        in this natural                     pattern:
+
+                                              T                        F
+
+
+
+
+Then the         ~-connective                 is    just      w h a t you n e e d           to    adjoin     to     -,^        and
+
+v    to have       a system           complete          for       defining          all     monotone       three-valued
+
+propositional            operators             (that       is,     monotone          in the        partial        ordering).
+
+These     are the c o n n e c t i v e s            whose          ~-~ c o n d i t i o n s        can be defined           ppsiti-
+
+        in terms         of      ~     and         ~ . We could use                  no others.
+
+
+         (We m i g h t    remark           that     if this m e t h o d w e r e              applied        to a URS,          then
+
+in the c l a u s e s      for         a = b         we w o u l d       only assign               a truth     value w h e n
+
+both    sides      are d e f i n e d ,        and      in the q u a n t i f i e r           clause     the v a r i a b l e
+
+should      range       over     just the defined                    elements.             It does     not seem r e a s o n -
+
+able    to this         author        to treat          the u n d e f i n e d        element        of a URS as a real
+
+element.       It seems          especially             unnatural            to let         it enter        into d e c i d a b l e
+
+equations         (equations           with        truth         values).       )
+
+
+        A good         question        to ask is w h e t h e r               we need         any other p r i m i t i v e
+
+quantifiers            besides         V , but the                author      does         not have        enough    experience
+
+with    the m o d e l     theory           of this t h r e e - v a l u e d           logic        to answer        the question.
+
+
+
+w 3. P r o o f Theory.               The    sketch here will be quite brief;                                 for the case             of
+
+pure     (three-valued)               first-order                logic~      more         details    will be        found        in
+
+Blamey's       Oxford         thesis.         It is useful                 to see         something        of what        is
+
+achieved       b y the t r u t h d e f i n i t i o n ,             however,          in order        to evaluate               further
+
+the claims         that       there        are c o n n e c t i o n s        between              A-calculus        and     logic~
+                                                                               14
+
+
+Definition.             The     consequence                  relation                     F    ~A     , which          stands       between
+
+two    subsets          of     the m o d e l ,          holds             if a n d        only       if w e    have         these       two    con-
+
+ditions :
+                          (i)              if         F ~    ~        ,        then            A n ~ / ~           ;       and
+
+                          (ii)             if       A ~      ~        ,        then            F n ~ ~ ~           .
+
+
+           We h a v e     taken          care       to make               the       definition          of consequence                   symmet-
+
+ric    in t h e     true        and        the        false.          In w o r d s             F ~ A          means         that    whenever
+
+all    formulas           in        F         are      true,          then          at    least       one     in       A         must    be    true
+
+also;       and    whenever              all      formulas                in        A     are       false,     then         at    least       one    in
+
+F     is    false       also.           In t w o - v a l u e d            logic          condition           (ii)      follows          from     (i) ,
+
+but    in t h e     three-valued                    case         we    must             be more       explicit.             The    definition
+
+was    formulated              for       arbitrary               subsets,                but    in the        sequel         we    consider
+
+only       finite         F     and           A   . In e x p r e s s i n g                various        laws,         we    use    a comma
+
+to    indicate          union        of       sets:
+
+
+                                              F,F'      =    F u F'                 and
+
+
+
+
+We    also     write:
+
+
+
+The    Laws       of Consequenc e . The                          following                general       principles                hold    for       all
+
+subsets :
+                    (R)         F ~ A                   provided                        F n A /
+
+                   (M)          r hA
+                              P,FI~A,A            t
+
+
+                    (T)        F,q) ~-A
+
+
+
+                                r       ~-a
+
+
+        The       consequence               relation              is a k i n d             of multiary              partial         ordering,
+
+and    these       general           laws         are       the       reflexive,                monotone,           and      transitive
+
+properties          of        ~ ~ In        logic           the       transitive                law    (T)     is u s u a l l y         called
+                                                                            15
+
+
+the c u t         rule.       It is a g e n e r a l               form o f m 0 d u s              poDeDs.
+
+
+
+The Laws           o f the T r u t h            Values.
+
+
+                                    (T * F)             ~ T
+                                                                            F~             .k-             *           -*        k*
+
+            We w a n t        T      to b e      true,            F        to b e       false,        and         ,    to h a v e        no value.
+
+We h a v e        not quite            said      the l a t t e r ;           rather            the    law gives             ,     the     same
+
+truth        value       as       its n e g a t i o n .          We     could write               this more            shortly           as:
+
+
+
+
+as    an a b b r e v i a t i o n          for    the two               laws.       After        we    exhibit          the       laws     of ne-
+
+gation         we will            discuss        how         ,         fails       to h a v e        a truth          value.
+
+
+The    Laws        of Neqation.
+
+                                               F ~ A
+                                    (~)      -A ~ ~r                    ~H--        9             ~,~~          k *
+
+
+            The    first          principle         captures                part        of the        symmetry          between           the       true
+
+and    the        false;          while      the       second,             the     law of double                  negation,           provides
+
+t h e rest.          In p a r t i c u l a r ,        the t w o             together            - with          t h e aid of c u t          - give:
+
+
+
+
+and    other         obvious           variations.                The       last        law     is    that        non-contradiction:
+
+•       ~      and       ~ ~         were       both     true,             then     something              without          a    truth     value
+
+would        have     one.         But why         does            *       lack a truth               value?
+
+
+         The       answer          to t h e      question               is t h a t         *     could          indeed be given                 a
+
+truth        value       if w e w o u l d          want          to b e p e r v e r s e ,            but       there    is n o        need      to
+
+be    so.      In g i v i n g        a completeness                    proof        for        (a s u i t a b l e      portion           of)    our
+
+logic,        we would             consider         the s i t u a t i o n               where          V ~A             was       not     deriva-
+
+ble.        B y cut,      either                F~ ~ , , A            or     F, , ~ A                would        fail.         In the     latter
+
+case by all              the v a r i o u s         laws          involving              negation,              we w o u l d      equivalently
+
+say that             ~ A~,,            ~ F       fails~           and this              is n o w p a r a l l e l        to         F~          ,A    o
+                                                                      16
+
+
+When       an    entailment          fails      in       such    a     formal          system,             we    can       usually             argue
+
+that       there       is a t o t a l       valuation            v         defined          on    formulas             where             all    on
+
+the    left       of    the       failing       ~have           the        value           T , while            all    on       the       right
+
+have the         value        F    . In     either        case       above        we       are making             sure          that
+
+v(*)       = F    . Now       this    equation            does       not        mean       that        ,        has    the       truth          value
+
+false;          rather       it m e a n s    that        it    is n o t         true.       The    truth          sets          corresponding
+
+to     v        are    defined       by:
+
+
+                                                V
+                                                     =    {~    [ V(~)           = T}
+
+
+
+
+Now    we       can    see    the    reasoning            behind           the    rules:          we       want        ~         and           ~v
+                                                                                                                           v
+to h a v e       the biconditionals                  of       a truth           definition             as d o n e          in t h e           pre-
+
+vious       section.          And    we     also     see       that         *     belongs          neither             to        ~            nor    to
+                                                                                                                                     v
+     , as w a s        desired.        (We a r e         of    course           not    giving          the       details             of       any
+ v
+completeness             proof       here,      and       these       remarks              correspond             to       just          a few
+
+steps       in    such       a proof.)
+
+
+           Inumerable             writers     have        discussed              three-valued                   logic.          Feferman
+
+rejected          it    in h i s     study      an not          practical,                 but    the       reasons             do       not    seem
+
+just.       Anderson/Belnap                 (partly           influenced              by    Fitch          one would             guess          )
+
+have       mentioned          it - a l s o      the       four-valued                 case       without          the          law       of    non-
+
+contradiction.                But    to t h e       author's          best        knowledge,                no p a p e r         has          made
+
+any    really          serious       contribution               to    a general              study          of    the model                   theory.
+
+Perhaps          the    very       rich      k-calculus              models           will       provide          some          incentive.
+
+
+
+The . Laws        of    the Connectiyes.
+
+
+           (^)          q,,qJ I-- ~ ^ ~                              (v)          q~v~ I- ~,qJ
+
+                                                                                       l-~vq j
+
+                                                                                       ~- ~v~
+                                                                                17
+
+
+
+
+                                                                                           ~,*        ~e     ~<~
+
+                                                                                           4,*        ~      ~
+
+
+        What    has       been         done             here          is j u s t     to    transcribe              the    three-valued
+
+truth    tables          for      these             connectives.                    Note       how        useful     *        is    in b l o c k i n g
+
+the    symmetry          of    the          rules            when         necessary.             Note       too    that       the    various
+
+De    Morgan    laws          follow            easily                using     laws       of        negation:
+
+
+                     ~    [ ~ A ~ ] ~ - 4       ~       ~v    ~       $
+
+
+
+                     ~    [~v~]l~l              ~       ~A    ~
+
+
+
+
+                     ~    [~o,c~]           H       ~    ~x~~
+
+
+
+
+The    Laws    of    the       Quantifiers.
+
+
+        (v)              v x . e ~-e[a/x]                                    (3)           e[a/x] ~ 3x.~
+
+
+
+                         1" [--VX.q~,A                                                     A,3X.q~ ~ F
+
+                         provided               that              x       is n o t    free           in     F .
+
+
+        These       laws       are          the         standard            ones      and        they       work    just       as w e l l      in
+
+the    three-valued               logic.
+
+
+
+The    Laws    of Equality.
+
+
+                         (=)            ha          = a                     a = b,         e[a/x] ~e[b/x]
+
+
+        Transitivity                and         symmetry!of                     =     of       course        follow.          If w e     use
+
+as     ~ x = b       , we        have:
+
+
+                                             a = b            , ~ a = b ~                  b     = b
+
+
+From    the    first          law      of       equality                  and   the       laws        of    negat~n           we    derive:
+
+
+                                                ~a       = b,             ~ a = b          ,
+
+
+that    is,    the       law     of         the         excluded            middle             for    equality.          As    remarked
+                                                                    18
+
+
+ earlier,       we might           not wish           to a s s u m e      this        for all     systems         like      those
+
+ based       o n a URS.
+
+
+         Remember           that    formulas           are    elements            o f the m o d e l .         Thus    a special
+
+case     of      (=)        above     is the o d d           looking:
+
+
+
+
+In o u r      type-free        logic       this make           quite           good     sense,         once    you    think        it
+
+over.      In h i s b o o k        (w 5.5 pp.           43-44)         Fitch          seems    to s u g g e s t      the    follow-
+
+ing    law of        "extensionality":
+
+
+
+                                           ~      =
+
+
+
+
+The    present         author       is q u i t e u n a b l e        to see w h y            Fitch      wants      this.      perhaps,
+
+for some        very restricted                  set o f       9       and        ~     it s h o u l d    hold,       but    even
+
+this     seems     intuitively             doubtful.           Experience              based      on     some of Fefermants
+
+arguments        suggests           that       almost        any    form       of extensionality                  is r i s k y      in
+
+such     systems.        Fitch       of course            claims         a consistency              proof,        but his         rules
+
+are    so n u m e r o u s     (four d o u b l e         columns          of     index!)        and the        exceptions            are
+
+so w e l l    hidden        in t h e      text,        it is n e x t          to i m p o s s i b l e     to j u d g e      his    claim.
+
+(In a n y c a s e he d o e s             not    give     the       proof       in t h e b o o k . )       Certainly          the
+
+very     intensional          view of            formulas          in our m o d e l           makes      this rule          invalid
+
+(for e x a m p l e      * ~        ~ ,     even        though          *H~       *     holds).         Possibly         a further
+
+study     of extensionality                    would     be worthwhile,                 but     a way      out       is t o be
+
+satisfied        with       equivalence               relations          rather        than     identities.             Equiva-
+
+lences       and congruences               are n e c e s s a r y         sooner        or     later      any way,        and
+
+Fitch's       rule     of extensionality                   seems         to h a v e n o v e r y          special        merit~
+
+since we       can assume           all        the e q u a t i o n s      we     need       in a m o r e      standard           for ~-
+
+mat.    For    example:
+                                                                    19
+
+
+The    Laws        of        A-Calculus.
+
+                   (~)             ~AX.T       = ky.T[y/x]                  (y      not      free      in T )
+
+                   (~)             ~ ( A X . T ) (y) = T[y/xl
+
+                   (~)              AX.T       = ky.~ ~-4VX. T =
+
+
+        The        only difference                   with    w h a t we     said       at the b e g i n n i n g          of    this
+
+paper       is the u s e            of      " ~"       and      -b-4,        and       the    view         that    the        "Vx"     is
+
+now    formalized.                 It all       fits       together       quite        neatly.
+
+
+        Because               "~"        is a d e f i n e d     symbol,          the       (~)      rule         along    with       the
+
+rules       of equality                 give    us at o n c e w h a t        might         be c a l l e d        "Church's         Rule":
+
+
+                                    y    ~ Ax.e~-~[y/x]
+
+
+By u s i n g       laws       (and d e f i n i t i o n s ! )      of the         connectives               and    the q u a n t i f i e r s ,
+
+we    can    show:
+
+
+
+where          a        is not          free    in     ~    . Thus       a version           of n a i v e        set t h e o r y     does
+
+come    out,           but    it     is one p r o t e c t e d       from c o n t r a d i c t i o n          by the       three-
+
+valued       logic           (the b a s i c      idea of F i t c h ) .           The      question          remains:          is this
+
+theory       of c l a s s e s           a n y good?        What--ever       w e do        it w i l l       remain      somewhat
+
+messy       owing           to the       failure       of e x t e n s i o n a l i t y .
+
+
+        The        laws       that       have    been       stated       in this          section          refer     to a fixed
+
+but    arbitrary              model       onto which           we h a v e     grafted         a fairly            natural       truth
+
+definition.                 (Truth       is of c o u r s e      not d i r e c t l y        definable             in the       original
+
+model       without           the       external       transfinite           recursion.             Note,         however,         that
+
+truth       is d e f i n a b l e         in terms          of truth:
+
+                                         ~ Ax.x~J~
+
+
+That    is,        the c o m b i n a t o r           Ax.x      defines        the      class           9     while         kx. ~ x
+
+defines            ~    .) O n c e       formal       laws     have      been     isolated,            though,         they     take
+
+on a life              of    their       own    - unfortunately.                 Even      we c a n n o t        refrain       from
+                                                              20
+
+
+   asking      some formal questions:                  are the laws as formulated c o m p l e t e w i t h
+
+   respect to the intended                i n t e r p r e t a t i o n s ? The author is afraid that the
+
+   p r o p o s e d truth d e f i n i t i o n takes on something of the c h a r a c t e r of truth
+
+   in h i g h e r - o r d e r logic and is t h e r e f o r e not axiomatizable.                   But he does
+
+  not see the answer off hand.                       Even if the rules are not c o m p l e t e             for
+
+   "standard" models,              the formal system m ~ h t               be interesting.         Can there
+
+  be a c u t - f r e e v e r s i o n of this logic w i t h a n o r m a l i z a t i o n theorem,                or
+
+  do the        A-terms w i t h o u t normal forms spoil things? The author simply
+
+  does not k n o w enough p r o o f theory to a n s w e r this question.
+
+
+           It m i g h t be useful to look at other v a r i a t i o n s of this                       logic
+
+  using,      for instance,          the lattice or cpo m o d e l s of                  k-calculus.      For
+
+  these, we should replace                     =    as a p r i m i t i v e by     ~     and include laws of
+
+  a partial ordering               (even: lattice).             R e m e m b e r too that the p a r a d o x i c a l
+
+ combinator           y     m a y have special p r o p e r t i e s        in such models,          so one m a y
+
+ also wish to formalize what                       is c a l l e d   "Scott's Induction Rule":
+
+
+                          [', a(x) ~ b ( x )       ~a(u(x))         ~b(u(x))
+
+                          P, a(1) ~ b(1)           ~a(Y(u))         ~ b(Y(u))
+
+ provided         x       is not free in            F .
+
+
+
+.w 4. A p p l i c a t i o n s .   There is no q u e s t i o n n o w that we have w e l l - g r o u n d e d
+
+ connections between               logic and           A-calculus:        the truth d e f i n i t i o n can be
+
+ faulted for its i n f i n i t i s t i c character,                   but it cannot be ignored. We
+
+ s i m p l y leave aside in this paper the q u e s t i o n of w h e t h e r u s i n g these
+
+ ideas the tables can be turned so that we could argue that we have a
+
+ f o u n d a t i o n for logic.      Until we h a v e the a p p l i c a t i o n s more          firmly in
+
+hand,      this q u e s t i o n is unimportant.                We understand          set theory and m o d e l
+
+t h e o r y and truth d e f i n i t i o n s well e n o u g h to be able to i n v e s t i g a t e
+
+A-calculus         from this point of v i e w more t h o r o u g h l y w i t h o u t going all
+
+mystical        or becoming m i l i t a n t type-liberso
+                                                           21
+
+
+       One a p p l i c a t i o n       that has in effect a l r e a d y b e e n proposed                is the
+
+i n v e s t i g a t i o n of par tigular m o d e l s b y trying to formalize m o r e                        fully
+
+the rules that are valid                    for them. This a c t i v i t y             is interesting o n l y
+
+inJso/far as the m o d e l s               themselves are interesting.                    But there m a y be
+
+some p o i n t   in c o n n e c t i n g the m o d e l s w i t h the logic. Mc C a r t h y has
+
+suggested m a n y times adjoining q u a n t i f i e r s                   to the LCF system of Milner.
+
+There is a serious q u e s t i o n of w h e t h e r a q u a n t i f i e r                 calculus    is ever
+
+practical        for any kind of automatic                      theorem p r o v i n g or even theorem
+
+c h e c k i n g program; but            if we put this q u e s t i o n aside,              the p r o p o s a l of
+
+this paper does just what is asked for.                                Indeed the feed b a c k g e n e r a t e d
+
+b y the syntax f o r m a l i z a t i o n goes           far b e y o n d w h a t was expected.               If we
+
+can show that the expressive power of the p r o p o s e d                                system is of inde-
+
+pendent     interest,         then a further look at a u t o m a t e d rules m a y be called
+
+for. Some p r e l i m i n a r y hints about the e x p r e s s i v e power will n o w be
+
+given.
+
+       Go back and look at the form of the truth d e f i n i t i o n                                in Section 2.
+
+We have a m o n o t o n e ,        first-order,         inductive definition.                  We are using
+
+(in the m e t a l a n g u a g e )       (1) equations and the given algebraic                         structure
+
+of the      A - c a l c u l u s model;       (2) p o s i t i v e c o n n e c t i v e s   like and and or;
+
+(3) q u a n t i f i e r s over the model.              (The fact that we had to define tw___o_o
+
+predicates         9    and        ~     is irrelevant.)           Consider        any other such defi-
+
+nition defining,            say, a one-place p r e d i c a t e                ~ . The d e f i n i t i o n    is
+
+done in the m e t a l a n g u a g e remember,               but we can          formalize       it by repla-
+
+cing     ~ x      e v e r y w h e r e by     x ~ p      and b y using the formal c o n n e c t i v e s
+
+and quantifiers.            H a v i n g done so, we find c o r r e s p o n d i n g to the right-
+
+h a n d side of the d e f i n i t i o n a formula                  ~     with      p     and    x   as the only
+
+free variables.           By the fixed point t h e o r e m of the                        A-calculus,        we can
+
+find a specific elgmentj' p                     of the model            such that the e q u a t i o n
+
+
+                                            p = kx. q~
+                                                                   22
+
+
+is true-         By itself           this     is n o t      the d e f i n i t i o n          of         ~     , but only          a
+
+"formal"         solution.          We get         t h e reqllired           solution             by    invoking          the    truth
+
+definition,            for we c a n p r o v e b y               transfinite             induction              that
+
+
+                                               x          iff          ~x   ~ p
+
+
+for a l l        x     in t h e m o d e l .        Thus     the e l e m e n t           p     does          in f a c t    represent
+
+the    predicate            (or class)             ~ . Another              way of stating                   this       result        is to
+
+say that         the        ~-predicate            is u n i v e r s a l      for a l l        such recursively                   defined
+
+predicates~since                  a direct         formalization                 of t h e i r d e f i n i t i o n s           provides
+
+a reduction.               This makes        it c l e a r        that       the c l a s s e s          represented             by the
+
+combinators            are    very,       very complicated                   (and t h a t          the o r d i n a l          o f the
+
+model     is q u i t e       large).
+
+        As u s u a l        with    recursive            definitions,               the      law of          the e x c l u d e d
+
+middle      fades.          It is     interesting               to a s k     about          those       classes          for which
+
+it h o l d s .       We define:
+
+
+                                   V = Aa.         V x [x       ~ av ~ x          ~ a]
+
+
+Note    that         the    formula         a ~ V           can never             be    false;          it o f t e n      fails       to
+
+be true,         but       that    is s o m e t h i n g     else.       Those          a where           a ~ V            is t r u e
+
+are c a l l e d       definite:         for e a c h         x     the       truth       definition              has      decided
+
+membership            o n e w a y o r the o t h e r .            There       are m a n y          definite          a     because
+
+we made          = a        definite        relation.            Thus
+
+
+                                             a =c~x.            u(x)    =    v(x)]
+
+
+is d e f i n i t e     for a n y c h o i c e        of      u     and        v    , and t h e a u t h o r               has    shown
+
+that    t h i s c a n be a v e r y           extensive            family          of classes.               Quite        generally,
+
+however,         we can       show that            V      enjoys        pleasant            closure           properties.
+
+
+        L e t us d e f i n e        some new           "logical"            combinators:
+                                                                                   23
+
+
+                                  Fab           =       kf.     Vx[ ~ x         ~ a v f(x)                ~ hi
+
+                                   Kab          = Af.           Vx[ ~ x         c avf(x)                  ~ b(x)]
+
+                                   Zab          =       Au.     3x    ~y[x         c a ^ y             r b(x)        ^ u       = <x,y>          ]
+
+
+We    want       to       relate            F           to    Curry's           ideas          on       functionality                 and           II   and        Z
+
+to    de    Bruijn's             and        Martin-L~f's                       ideas          on       types.
+
+
+           As    regards               F    , we             can     easily          establish                 the       validity          of       these
+
+rules :
+                                   f       ~ Fab             , x     r a       ~ *       , f(x)           r b
+
+                                   F, x             ~ a       ~ *,        f(x)       ~ b
+                                   F,       a       ~ V       ~ ,,        f    ~ Fab
+
+
+provided              x     is    not           free          in      r         In o t h e r            words,           when    a         is       definite,
+
+we    can       read        f    s Fab                  as m e a n i n g        that           f        maps         a     into        b    . This          seems
+
+to    formalize             in     our          system             what        Curry          had        in m i n d       about       functionality,
+
+but    he       was       never        very             definite              about       what           it m e a n s      to b e      definite.
+
+
+           A very          important                    point        about           F        and         V     is       the    closure             condition:
+
+
+                                   a       ~ V          , b     r V ~          Fab       ~ V
+
+
+This       is    already           indication                      enough          that            V      is    a big          universe             since      so
+
+many       different             definite                    classes           can       be    represented                 by        F-expressions.
+
+We    should          note       too        the           functionality                   laws          of     the       favourite          combinators:
+
+
+                                   a       ~ V          ~,      , I       s Faa
+
+                                   a       ~ V          , b     ~ V       ~,       , K        ~ Fa        Fba
+
+                                   a       ~ V          , b     r V       , c      ~ V ~,                , S    r FFaFbcFFabFac
+
+
+In    the       case       of      I        we          can     even          write:
+
+
+                                   a       s V~-~I              ~ Faa          ,
+
+
+but    this       does          not        seem           too      important.
+
+
+           The    combinator                        F        gives        a    function-space                     construction,                     while       ]I
+
+
+makes       a cartesian                    product.                The        notation                 ]Ia A x . b ( x )        would       correspond
+                                                                            24
+
+
+to the n o t a t i o n            [x,a]b(x)                  of de Bruijn                  (see the p a p e r        by de Vrijer
+
+from    this      symposium).                We have               the     rules:
+
+
+                              f ~ Eab           , x          ~ a ~,              , f(x)       ~ b(x)
+
+                              F,    X    ~ a    ~        *     ,    f(x)         ~ b(x)
+
+                              F, a ~ V ~ *                     , f ~ ~ab
+
+
+provided         x      is n o t        free        in        V . The relevant                      closure      condition         reads:
+
+
+                              a    a V       , b r FaV ~                   ~ab       a V
+
+
+This    is a p r i n c i p l e          of    "type           inclusion"                 (see     w 1.1.3       o f de V r i j e r ' s
+
+paper),       but we are            not       at all               identifying               b     with       Kab     which       would
+
+be v e r y    confusing.            The       rules           for the                Z-combinator          c a n be       left    to the
+
+reader.
+
+        We    are     thinking           of     V            as t h e       type         o f all t y p e s .     Of course          V     is
+
+not    really        a type because                      V    ~ V          is n o t t r u e ~       however,         it is a s e m i -
+
+type,    and w h a t        we wrote           about                ~      and       V      above     is q u i t e    coherent.          Thus
+
+V     represents           a very        interesting                     class        (which       gives      some k i n d       of a model
+
+for s o m e k i n d        of type           theory)               and w e w o u l d         like    to d o      some r e c u r s i v e
+
+definitions           on    it. W e          cannot           go v e r y          far,     however,        because          V     is n o t
+
+definite.        Well,        why    not make                 it d e f i n i t e ?         We can,        but    this      involves       a
+
+new recursive              truth definition.                            (The a u t h o r         learned      this    idea       from
+
+Aczel    at     the K i e l        Logic       Summer               School.)             In fact we s h a l l m a k e            a whole
+
+hierarchy        of    truth        definitions                     in a w a y           that would        seem      to    incorporate
+
+an old       idea o f F i t c h .
+
+
+        We    add     to our        syntactical                     primitives             a new equation:
+
+                                              (i)
+                                                     = < 5+i,~                   >
+
+
+Instead       of one pair               ~,~         we have                an    infinite         number         ~(n)     ~(n)      where
+                                                                      th
+the    recursion           is s u c h        that    the             n--         pair      is d e f i n e d     in t e r m s o f the
+
+pairs    for        i < n           Indeed we                change             the c l a u s e s    o f the        truth       definition
+
+to be a b l e       to a d j o i n      these        equivalences:
+                                                       25
+
+
+                                   ~ ( n ) (i)       iff        i < n       and    ~(i)
+
+                                   ~(n)     (i)      iff        i < n       and not       ~(i)
+
+
+We see at once that this is not a m o n o t o n e                   d e f i n i t i o n because neqation
+
+is being used. However,               the pair       ~(0) ,~(O)         is just our original             ~,~;
+
+so we k n o w they exist.          When we pass then to                  ~(i) ,~(1)      we are taking
+
+~(O)       as qiyen     (that is to say, definite).                 As far as the recursion              goes
+
+we are not defining             the infinite number of predicates                   together~but         one
+
+after the other.             (The ordinals will get r e a l l y large now.)                   From the
+
+infinitistic,         set-theoretical          point of view there             is nothing wrong          in
+
+this, and there          is no reason why we cannot                 iterate       it, as suggested.
+
+
+       Unless     the author has made an oversight,                      we have the c o n s i s t e n c y
+
+conditions:
+                                   ~(n)        ~(n+•          and   ~(n) ~ ~(n+l)         ,
+
+
+since each successive             truth d e f i n i t i o n    changes    nothing of the previous
+
+ones but just makes more               formulas      "meaningful".         Thus we can take the
+
+unions,      obtaining          ~(~) ,~(~) . (We could also iterate this passage,                        but
+
+enough      is enough.)       Using     ~(~)       and      ~(~)    for our logic, we can now
+
+employ a whole         range of universes             (somewwhat        in the way proposed         by
+
+Martin-L~f) , w h i c h       are defined by:
+
+                     V (i) = Aa. Vx[x ~ a v ~ x ~ a] (i)
+
+           (o)
+Now    V         represents       our old         V ; but since we changed             the truth      sets,
+
+the symbol       V     has a new meaning            (that is, it represents               a different
+
+class).      In fact,
+
+                                 ~-V (n) ~ V (n+l)
+
+and                              ~'V (n) ~ V
+
+
+The various          V (n)    will~have      very extensive          closure properties~
+
+
+       Fitch once suggested             a hierarchy           of stronger     and stronger negations.
+                                                    26
+
+
+The author      is only guessing, but w h y not look at formulas                    (~ 9)(i)?
+
+We would have
+                             (~ ~) (i)    ~*    , (~ ~) (i+i)
+
+
+and                           ~(~    ~) (i)     iff      ~(i) e .
+
+
+In other words,        if we are right, F i t c h introduced the series of                  ~-
+
+classes.     But since       (~ ~ ~) (i)       is   just as good as      (i)     , the two
+
+ideas come to the same thing. C l e a r l y this plan of m a k i n g c e r t a i n
+
+classes d e f i n i t e could be carried out in m a n y d i f f e r e n t ways.
+
+
+       This would seem to be enough to s h o w that there are a p p l i c a t i o n s
+
+of the truth d e f i n i t i o n to connect w i t h other ideas.          So the author n o w
+
+leaves it to someone else to make the next move.
+
+
+
+
+Acknowledqement.        Thanks are due to Oxford U n i v e r s i t y for giving           the
+
+author    leave for one term and to the ETH, Z~rich, whose v e r y g e n e r o u s
+
+h o s p i t a l i t y provided the e x c e l l e n t w o r k i n g conditions under w h i c h this
+
+paper could be w r i t t e n and very e f f i c i e n t l y typed.
+

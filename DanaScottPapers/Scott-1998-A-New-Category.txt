@@ -1,0 +1,860 @@
+                       A New Category?
+          Domains, Spaces and Equivalence Relations
+
+                                Dana S. Scott
+                         School of Computer Science
+                         Carnegie Mellon University
+
+
+                         dana.scott@cs.cmu.edu
+
+                   Version 1: Draft of 31 December 1996
+                   Version 2: Corrected on 19 April 1998
+
+
+
+1 Introduction.
+The familiar categories           and        , consisting of sets and arbitrary
+mappings and of topological spaces and continuous mappings, have many
+well known closure properties. For example, they are both complete and
+cocomplete, meaning that they have all (small) limits and colimits. They
+are well-powered and co-well-powered, meaning that collections of subobjects
+and quotients of objects can be represented by sets. They are also nicely
+related, since       can be regarded as a full subcategory of        , and the for-
+getful functor that takes a topological space to its underlying set preserves
+limits and colimits (but reflects neither).
+    The category          is also a cartesian closed category, meaning that the
+function-space construct or the internal hom-functor is very well behaved, in
+the sense that the functor          is adjoint to        for all objects . How-
+ever, it has been known for a long time that in               no such assertion
+is available, because in general it is not possible to assign a topology to
+the set of continuous functions making this adjointness valid—except un-
+der some special conditions on the space . Many remedies have been
+
+                                        1
+proposed, notably, (a) cutting down to compactly generated spaces, or (b) ex-
+panding the category to the category of filter spaces (or a related kind of
+limit space). These are interesting suggestions, but both have some draw-
+backs. Suggestion (a) applies only to Hausdorff spaces, and suggestion
+(2)—which the author considers the more interesting—introduces very
+unfamiliar spaces at the higher types (i.e., after iterating the function-space
+construct several times). It remains to be seen whether the suggestion of
+this paper can be regarded as more concrete or more helpful.
+    The author’s solution to the problem of cartesian closedness is moti-
+vated by domain theory. The (new?) category is formed from the cate-
+gory          of topological -spaces by using spaces together with arbi-
+trary equivalence relations, to form the category, to be called called           ,
+where the mappings are (suitable equivalence classes of) continuous map-
+pings which preserve the equivalence relations. (A more precise definition
+will be given below.) Let us call these spaces equilogical spaces and the map-
+pings equivariant. It seems surprising that this category has not been no-
+ticed before—if in fact it has not. It is easy to see that      is complete and
+cocomplete and that it embedds               as a full and faithful subcategory
+(by taking the equivalence relation to be the identity relation).
+    What is perhaps not so obvious is that             is indeed cartesian closed.
+The proof of cartesian closedness outlined here uses old theorems in do-
+main theory originally discovered by the author: in particular, an injective
+property of algebraic lattices treated as topological spaces and the fact that
+they form a cartesian closed category (along with continuous functions)1 .
+Of course, algebraic lattices are just one of many cartesian closed cate-
+gories proposed for domain theory—and not the most popular one. They
+allow, however, for some helpful embeddings of -spaces.
+    For a long time the author has been distressed that there are too many
+proposed categories of domains and that their study has become too ar-
+cane. He hoped that the idea of synthetic domain theory would be the nat-
+ural solution—but that theory has been slowed by many technical prob-
+lems. The related idea of axiomatic domain theory is likewise hampered
+by the need to overcome technical difficulties. Despite very good work
+in both these directions a final theory has not emerged—in the author’s
+opinion. Perhaps some of the ideas that have been used in these other ap-
+   1
+    A more abstract, categorical proof can be found in the paper by Birkedal et al. to be
+found at our WWW site mentioned below
+
+
+                                           2
+proaches can be transplanted to the study of        , which seems to be a
+rich and fairly natural category with many subcategories. The basic idea
+is to establish a typed -calculus once and for all, and then to single out
+useful types (or domains) by means of special properties—just as is done
+in several other branches of mathematics2 .
+
+
+2         -Spaces and Algebraic Lattices.
+Topological spaces will be considered as structures                   , where
+is the set of points of the space, and where       is the set of open sets of .
+We shall often write          , so as not to have to use a special letter for the
+points of a space.
+
+2.1 Definition. The neighborhood filter of a point                  of a topological
+space is defined by the equation:
+
+
+
+2.2 Definition. The spaces we shall be concerned with are the -spaces,
+where the topology distinguishes the points. More precisely, a topological
+space is a -space provided that for every pair of distinct points there is
+an open set that contians one but not the other. Another way to say this
+condition is to say that for all       it is the case that
+
+                                      always implies
+
+The category of all such spaces and continuous mappings between them
+is denoted by       .
+
+2.3 Definition. The specialization ordering of a topological space              is de-
+fined by:
+                           if, and only if,
+for all           .
+    2
+    Along with my students Andrej Bauer, Lars Birkedal, and Jesse Hughes, and our col-
+league Steven Awodey, we have started on this project, for the time being concentrating
+on countably based spaces and the connections with interpretations of type theory and
+higher-order intuitionistic logic by the realizability method.
+
+
+                                          3
+    It is obvious from the definitions that -spaces are partially ordered by
+the specialization ordering. What may not be so obvious to those who
+have been concerned mostly with Hausdorff spaces is that the specializa-
+tion ordering can be interesting. For example, a very simple argument
+shows that any given partial ordering can be reobtained from the topology
+that uses the same set of points and takes as open sets the upward-closed
+sets of elements. More interesting spaces come from complete lattices.
+    Complete lattices will be considered as structures              , where
+    partially orders and where every subset of has a least upper bound
+(equivalently, a greatest lower bound). We write              , and we use
+the usual notation for lattice operations (namely,           ). In order to
+distinguish a special class of complete lattices, the algebraic lattices, we
+need to pick out special elements of a lattice.
+
+2.4 Definition. A compact (sometimes “finite” or “isolated”) element of a
+complete lattice             is an element such that whenever
+for a subset      , then           for a finite subset    . We denote the
+set of compact elements of the lattice by          .
+
+   It is easy to show that the least upper bound of a finite collection of
+compact elements is again compact. In particular, the least element       of
+a complete lattice is always compact—but no other elements need be in
+general. In a finite lattice, all elements are compact. In the lattice of all
+subsets of a set , the compact elements are exactly the finite subsets. Al-
+gebraic lattices are distinguished as complete lattices with “enough” com-
+pact elements.
+
+2.5 Definition. A complete lattice is algebraic provided that every ele-
+ment is determined by the compact elements it contains. This means that
+         and           .                , always imply      .
+
+    It should be noted that in an algebraic lattice, every element is the least
+upper bound of the compact elements it contains. The typical examples
+of algebraic lattices come from the study of algebraic systems (hence, the
+name). More abstractly we define the well known notion of a closure sys-
+tem. We need a preliminary definition.
+
+2.6 Definition. A directed subset of a partially ordered set is a subset   such
+that every finite subset of has an upper bound in .
+
+                                       4
+2.7 Definition. An algebraic closure system on a set is a family
+closed under (i) arbitrary intersections (but note we must set the empty
+intersection Ø       ), and (ii) unions of directed subfamilies.
+
+    The most typical examples of algebraic closure systems are the fam-
+ily of subgroups of a group, the family of ideals of a ring, and the family
+of subspaces of a linear vector space. The downward closed subsets of a
+partially ordered set form an algebraic closure system, as do the down-
+ward closed, directed subsets. The deductively closed sets of formulae of
+a logical system with finitary inference rules also form an algebraic closure
+system. However, the closed subsets of a topological space in general do
+not form an algebraic closure system (failing condition (ii)). We also note
+that the intersection of any number of algebraic closure systems is again
+such a system (all on a common fixed set).
+    Associated with an algebraic closure system             is a closure opera-
+tor, where the closure of a subset         is the intersection of all sets in
+containing the set . The sets in are then just the “closed” sets equal to
+their own closures.
+    An algebraic closure system is—by definition—a complete lattice (un-
+der the set-inclusion relation). It is always an algebraic lattice, since an
+easy argument shows that the compact elements are the closures of finite
+sets, and that there are enough of them. Conversely, a well known ar-
+gument also shows that every abstract algebraic lattice is isomorphically
+represented as an algebraic closure system: one takes the underlying set to
+be the set      of compact elements and takes the collection of downward-
+closed, directed sets of compact elements as the algebraic closure system.
+Hence, thinking about algebraic lattices is the same as thinking about al-
+gebraic closure systems—from the point of view of the partial ordering.
+    What is the connection between lattices and -spaces? We are going to
+show (in a well known proof) why every complete lattice is such a space,
+and why the specialization ordering is the original partial ordering.
+
+2.8 Definition. Let be a complete lattice. The -topology on the lattice is
+defined as the collection of all upward closed subsets            such that
+whenever            and            , then            for some finite subset
+      . The collection of all such subsets is denoted by .
+
+
+                                      5
+2.9 Theorem. Given a complete lattice , the structure                 is a   -space
+whose specialization ordering is exactly .
+
+Proof: That     is closed under arbtrary unions and finite intersections
+is very easy to check from the definition (but notice that the upward-
+closedness property has to be invoked). To check the -property, one
+has only to remark that if     , then we have
+
+
+
+Since the open sets in     are upward closed, then       is included in the
+specialization ordering. But the particular open sets displayed above are
+sufficient to show that the inclusion of the specialization ordering in
+holds as well. Q.E.D.
+
+   Having established a topology, we can turn complete lattices into a
+subcategory of the category of -spaces.
+
+2.10 Definition. The category CLat of complete lattices consists of such
+lattices and the functions that are continuous under the -topology.
+
+   For complete lattices and , we remark that continuity of a function
+            can be defined in lattice-theoretic terms as a mapping where
+
+
+
+for all directed          Note, too, that continuous functions between
+complete lattices are monotone in the sense of preserving the underlying
+partial orderings.
+   A “classical” result about monotone functions and complete lattices
+concerns fixed points.
+
+2.11 Theorem. [Knaster-Tarski-Davis-Kleene] A lattice is complete if, and
+only if, every monotone self-function                      has a fixed point. In a
+complete lattice the partially ordered set of fixed points of a self-function form a
+complete lattice, and the least and greatest fixed points are, respectively,
+
+                                       and
+
+                                         6
+In case the function   is continuous, the least fixed point is given by
+
+
+
+
+    For the powerset spaces        the -topology is very easy to describe:
+the open sets          are the families of “finite character”; that is, a subset
+         belongs to if, and only if, some finite subset of belongs to .
+This is the same as giving     the topology that corresponds to the product
+topology on where the two-element set has the topology with one open
+point and one closed point. The powerset spaces have an important role
+as being able to embed every -space.
+
+2.12 Theorem. [The Embedding Theorem] Given a -space , the mapping
+          is a topological embedding of into considered as a space with
+the -topology.
+
+Proof: This is a well known, easy theorem. We have already remarked
+that the mapping is an injection. To show that it is continuous, we only
+have to show that the inverse image of the elementary open subsets of
+      are open in . In fact, suppose that                        is a finite
+subset of   . This determines as an open subset of      the following set:
+
+
+
+All open sets are unions of such sets. The inverse image of the above set is
+the set
+
+But this set is equal to             , which is obviously open. Thus, the
+mapping is indeed continuous.
+   It remains to be proved that inverse mapping from the subspace of
+      to the given space is also continuous. This amounts to showing
+that the image of an open set in is open in the subspace. Let        . Its
+image under the embedding is
+
+
+
+But this last set is indeed the intersection of the image of the space with
+the set                    , which is an open set of    . Q.E.D.
+
+                                         7
+   Powerset spaces also have another important property concerning con-
+tinouous functions which is key for the definitions we will give in the next
+section.
+
+2.13 Theorem. [The Extension Theorem] If             is a subspace of a topological
+space , and if                 is continuous, then the function has a continuous
+extension to all the points of .
+
+Proof: This theorem was noticed by the author in 1970/71. One proof re-
+marks that the conclusion is obvious in case the set is a one-point set.
+Since a continuous function                  is basically just an open subset
+of , we just have to recall that every open subset of a subspace is a re-
+striction of (or extends to) an open subspace of a superspace. Then, the
+theorem must remain true if the range space is replaced by a product of
+powerset spaces. Since, as a space,     is homeomorphic to the product of
+the spaces        for      , the theorem follows for      .
+    Another proof gives directly a formula for the extension of the function
+               to a function              :
+
+
+
+for all          . Of course, it has to be verified that this (well defined)
+function    is a continuous extension of . Q.E.D.
+
+     The author also pointed out that the Extension Theorem holds for all
+continuous retracts of the powerset spaces—these are the continuous lat-
+tices. We do not need to have their general theory reviewed here, inas-
+much as we can make the necessary later definitions with a special class
+of retracts—giving the algebraic lattices. Remember that every algebraic
+closure system            has an associated closure operation               .
+It is not difficult to show that is a continuous retract. More generally we
+can consider the class of closure operations as in the following definition.
+
+2.14 Definition. A continuous closure operation                      is a continu-
+ous function such that                  .
+
+   In the above definition we use the notation of the identity function and
+the relationship         as a shorthand for the condition that
+
+                                        8
+holds for all subsets         . The main point here is that the above opera-
+tors give us all algebraic closure systems (and, hence, all algebraic lattices)
+as and vary.
+
+2.15 Theorem. The set of fixed points of a continuous closure operation is equal
+to the range of the function and forms an algebraic closure system.
+
+Proof: The equation              implies that every value of the function is a
+fixed point (the converse is obvious). Now, the fixed points of a continuous
+functions in general are closed under directed unions, because the function
+is continuous.
+    Suppose now                   is a monotone closure operation (continu-
+ity need not be invoked again). Suppose that                is any collection
+of fixed points. By assumption we know
+
+
+
+But, since, for each      , we have
+
+
+
+we conclude
+
+
+Therefore,
+
+
+This establishes closure under intersection.     Q.E.D.
+
+    Now, it is simple matter to show that is a continuous closure opera-
+tion if, and only if,              . We can conclude that those operations
+form a complete lattice by use of facts about the lattice of continuous func-
+tions we are about to define. A more refined argument shows that they
+actually form an algebraic lattice, but we do not need to refer to this inter-
+esting fact further here.
+
+2.16 Theorem. The function space of all continuous functions from one com-
+plete lattice into another again forms a complete lattice under the pointwise
+ordering of functions.
+
+                                       9
+Proof: We need some notation. Let              be the structure with the
+underlying set of all continuous function, where, for                we
+define
+                                        .
+    To show that the partially ordered set                becomes a complete
+lattice, we need to define least upper bounds. Let        be a set of continous
+functions. We introduce the function
+
+
+for        . It is necessary first to show that this function is continuous (be-
+cause it preserves least upper bounds of directed sets), and then it easily
+follows it is the least-upper-bound function in the function-space lattice.
+Q.E.D.
+    At the time of writing this first draft of this paper, the author is not at
+all certain whether there is a simple explaination of what the open subsets
+of            are. All the calculations he has ever done in this space have
+been carried out using the lattice operations. This remark applies as well
+to the following theorem.
+2.17 Theorem. The category CLat of complete lattices and continuous functions
+is a cartesian closed category.
+Proof: (in outline). Basically, we have to show that, given three complete
+lattices      and , there is a one-one correspondence between functions
+in the two spaces:
+                                    and
+In fact this one-one correspondence is an isomorphism of lattices (and a
+homeomorphism of topological spaces). The nub of the argument is to
+check that a function of several variables on complete lattices to complete
+lattices is continuous in each of the variables separately if, and only if, it is
+continuous in the variables jointly (that is to say, continuous on the product
+space). This proves to be a direct calculation involving directed sets and
+least upper bounds. This fact needs to be combined with the fact that if a
+function is in the space                   , then the function      defined by
+
+
+for        and           is in                      Q.E.D.
+
+                                      10
+   Returning to algebraic lattices, there is a direct argument to show that
+the function space of two algebraic lattices is an algebraic lattice by find-
+ing a description of the compact elements of the function space. We give
+here another argument using algebraic closure operations that relates the
+function-space construction to powerset spaces.
+
+2.18 Definition. For any set , let         denote the disjoint union of all the
+finite cartesian powers; that is,
+
+
+
+
+We use the notation                for elements of a power       .
+
+2.19 Theorem. The function space                  is a retract of the powerset
+space          by a continuous closure operation.
+
+Proof: Given a continuous function                            we associate its
+“graph”      by means of the formula
+
+
+
+It is easy to check that    is continuous. Moreover there is a continuous
+function defined on                 with values in           given by the
+formula
+                                               .
+for                and        . Inasmuch as a set is the directed union of
+its finite subsets, a continuous function                    is completely
+determined by its action on finite sets. This observation shows why we
+have
+
+In the other direction, it is easy to check that for             we have
+
+
+
+In this way we find that the composition       is a continuous closure
+operation whose range is isomorphic to the complete lattice          .
+Q.E.D.
+
+                                      11
+   The use of the closure operation in the above theorem shows that the
+function space               is always an algebraic lattice. Now any alge-
+braic lattice is isomorphic to the range of a continuous closure on a
+powerset      , and another such lattice   is isomorphic to the range of a
+continuous closure     on another powerset       . We then check that the
+function space           is isomorphic to the range of the mapping
+
+
+which proves to be a continuous closure operation on                 . Hence,
+the function space of algebraic lattices is again an algebraic lattice. More-
+over, we conclude as an application of the previous theorem that the fol-
+lowing holds.
+
+2.20 Theorem. The category ALat of algebraic lattices and continuous functions
+is a cartesian closed category.
+
+    Though ALat is a very nice category, and though the function-space
+topology can be precisely described in simple and explicit terms, it is still
+the case that ALat is quite a “small” (full) subcategory of   , and that it
+is virtually completely disjoint with the important subcategory SET. What
+we are going to try to achieve is a cartesian closed category naturally
+including all these categories and possessing good properties proved by
+making use of what we have learned about the category ALat.
+
+
+3 Equilogical Spaces.
+We will give two definitions of the category of equilogical spaces and then
+show that the two categories are equivalent. We will then prove that the
+category is cartesian closed.
+
+3.1 Definition. The category EQU of equilogical spaces consists of struc-
+tures                  , where          is a -space and       is an (arbi-
+trary) equivalence relation on the set . The mappings between equilog-
+ical spaces are the equivalence classes of continuous mappings between
+the topological spaces that preserve the equivalence relation (equivariant
+mappings), where the equivalence relation on mappings is defined by
+                                     .
+
+                                     12
+    We remark that it has to be proved that         actually is an equivalence
+relation, but this is an elementary exercise. It also has to be proved that the
+equilogical spaces and equivariant maps form a category, but this can also
+be safely left to the reader.
+    One odd feature of this definition is that the equivalence relation of
+an equilogical space may have very little to do with the topology. This
+means that in some cases the only equivariant mappings between two
+spaces might be the constant maps, or the only automorphisms of a given
+space might be the identity—despite a rich underlying topology. Thus,
+future investigations may suggest limiting the equivalence relations. But,
+for now, the general properties of the category seem to work out well for
+arbitrary equivalence relations, so we have not been motivated to make
+any restrictions.
+3.2 Theorem. The category EQU is complete, co-complete, regular well-powered,
+and regular co-well-powered 3.
+Proof: The proof proceeds along standard lines making use of the corre-
+sponding properties of topological spaces.
+    Take products first. The product (of any number) of topological spaces
+is a space with a product topology. The product of equivalence relations is
+an equivalence relation. The projection mappings are clearly equivariant.
+And, if we have a family of (equivalence classes of) equivariant mappings
+into the various factor spaces, then (after applying the Axiom of Choice
+to pick representatives) we can obtain in the usual way one equivariant
+mapping into the product that combines all the separate mappings.
+    Next, take equalizers. Suppose                are two (representatives
+of) equivariant mappings. Form the set                               . En-
+dow this set with the subspace topology and with the restriction of the
+equivalence relation . This structure, along with the obvious inclusion
+mapping into , is the desired equailizer. Thus, EQU is a complete cate-
+gory.
+    On to coproducts. The coproduct of topological spaces is just a disjoint
+union of the underlying sets with the topology on the union generated by
+   3
+    The author is indebted to Peter Johnstone for pointing out that, contrary to the asser-
+tion made in the first draft of this paper, EQU is not well powered, for there are fairly sim-
+ple examples of objects in the category with an unbounded number of non-isomorphic
+subobjects.
+
+
+                                             13
+the union of all the topologies. For equivalence relations, we have only
+to note that the union of equivalence relations on disjoint sets is indeed
+an equivalence relation. The injection mappings from the separate spaces
+into the union are obvious, as well as is the lifting property of a family of
+mappings from the separate spaces into a given target space.
+    Next, we discuss coequalizers. Suppose                    are two (repre-
+sentatives of) equivariant mappings. On         we form the least equivalence
+relation containing both      and the set of pairs                       . Us-
+ing the same topological space as does and this equivalence relation, we
+form the equilogical space . There is an obvious equivariant mapping
+              . This structure , along with the mapping , is the desired
+coequailizer. Thus, EQU is a cocomplete category.
+    The properties of being regular well-powered and regular co-well-pow-
+ered follow from the corresponding properties of            and the category
+of equivalence relations. But, one has to be careful to check that the regular
+subobjects are obtained by selecting some equivalence classes and taking
+the union of them to form a subspace; likewise, forming a regular quo-
+tient is just making the equivalence relation coarser (putting equivalence
+classes together). The trouble is that there are subobjects and quotients
+which are not formed in this simple way. Q.E.D.
+
+    The proof just given is sketchy in the handling of equivalence classes
+of maps, and in the construction of the equalizer and coequalizer it has
+to be checked that the structures suggested have the required universal
+properties. But, this argument—modulo equivalence classes—is exactly
+similar to what is done for the catgory         . We remark that the category
+of equivalence relations on sets is included here: a set is just a discrete
+topological space (and these form a full subcategory of            ). Of course,
+with the aid of the Axiom of Choice, it is quickly shown that the category
+of equivalence relations is equivalent to the category of sets (via the obvious
+use of quotient sets). However, the category EQU introduced here is not
+equivalent to the category        . (For one thing, no topology is being put
+on the quotient space           . And, if we are right about the properties
+of EQU, this category has a property—cartesian closure—that                does
+not share.)
+    To investigate EQU further, we introduce a closely connected category.
+
+
+
+                                      14
+3.3 Definition. The category PEQU of partial equilogical spaces consists of
+structures                    , where           is the -topology of an alge-
+braic lattice, and where     is a partial equivalence relation, reflexive only
+on a subset of     . The mappings between partial equilogical spaces are
+the equivalence classes of continuous mappings between the algebraic lat-
+tices that preserve the partial equivalence relation, where the equivalence
+relation on mappings is defined by
+
+                                      .
+
+These mappings will also be called equivariant.
+
+    If we consider the relation             as being defined between arbi-
+trary continuous functions, then equivariant maps for the category PEQU
+are the (equivalence classes of) the functions satisfying          , since
+that means that the function preserves the underlying equivalence rela-
+tion. This remark gives a hint as to how we will define function spaces,
+but first we want to check the equivalence of categories.
+
+3.4 Theorem. The categories EQU and PEQU are equivalent.
+
+Proof: The naturally suggested functor from PEQU to EQU is the one that
+takes                and restricts the topology to the subspace on the subset
+                    . On this subset the equivalence relation is “total”. The
+mappings are likewise restricted. Call the functor         (for “restriction”).
+Now, if                 is a map of PEQU, then                               is
+clearly valid as a map of EQU, and identities and compositions are pre-
+served. (Admittedly, there is some equivalence-class fussing that has to
+go on here.)
+    We note first that the functor is faithful by definition. Then, the func-
+tor is full in view of The Extension Theorem (because continuous func-
+tions between -spaces can be extended to any algebraic lattices embed-
+ding them). Finally, the functor is surjective by virtue of The Embedding
+Theorem (and note that the equivalence relation on the -space does not
+have to be extended but remains partial). This is enough to show that the
+categories are equivalent. Q.E.D.
+
+
+
+                                     15
+    The idea of partial equivalence relations is very widely employed. (The
+author believes he first called general attention to it in the late ’60s after ex-
+tracting it from the studies by G. Kreisel on extensional theories of higher-
+type functionals in recursion theory.) However, it has been mostly used
+recently in the context of giving types to (quotients of) subsets of a uni-
+versal model of some sort. Allowing partial equivalence relations over a
+large category (such as algebraic lattices) is possibly a new idea. But, cer-
+tainly, many familiar proofs get reused in the new context. The following
+theorem is an example of this reuse.
+
+3.5 Theorem. The category EQU is cartesian closed.
+
+Proof: In view of the previous theorem, we will show that PEQU is carte-
+sian closed. Given structures and in PEQU we define the structure
+         so that
+
+  (i)          is the set of continuous functions;
+ (ii)        is the -topology on this algebraic lattice;
+ (iii)       is the partial equivalence defined previously.
+
+As in the argument for complete lattices, we have to show that, given three
+structures in PEQU, say,       and , there is a one-one correspondence
+between functions in in the two spaces:
+
+                                    and
+As we know, there is a particular one-one correspondence that is an iso-
+morphism of the underlying algebraic lattices (and a homeomorphism of
+topological spaces). It only remains to show that the isomorphism pre-
+serves the partial equivalence relation on the compound space. This is a
+“self-proving” theorem, in the sense that once the question is stated it is
+just a matter of unpacking the definitions to finish it off. Q.E.D.
+
+
+4 Some Subcategories.
+We have already remarked that SET is embedded as a full and faithful sub-
+category of EQU, and the same goes for    . Every -space is given the
+
+                                       16
+identity relation as its equivalence relation, and this produces the desired
+embedding into EQU. We have to be careful on how these embeddings are
+interpreted, however. They certainly preserve products and coproducts
+(and maybe even all limits and colimits), but they do not preserve func-
+tion spaces. For SET, the classical theorem of Cantor tells us that function
+spaces (starting with a denumerable set such as IN, for example, and iter-
+ating) become very large in cardinality. This is not so in EQU. As regards
+       , one can define what it means for given spaces to have an exponen-
+tial, and the embedding does preserve exponentials that exist.
+
+4.1 Theorem. For every infinite set , the space (the algebraic lattice) of all con-
+tinuous functions                 is a retract of      by means of a continuous
+closure operation. The same is true of the product space             .
+
+Proof: We refer back to Theorem 2.19, which tells us that
+is such a retract of         . But the infinite set is—by virtue of the
+Axiom of Choice—in a one-one correspondence with the set         . Hence,
+the lattices    and           are isomorphic. For the product space, we
+remark that            is isomorphic to            , and so isomorphic to
+    as well. Q.E.D.
+
+4.2 Theorem. Given an infinite set , the category of partial equivalence rela-
+tions on   is a sub-cartesian-closed full subcategory of PEQU.
+
+Proof: The idea is that in forming products and function spaces we always
+embed the necessary algebraic lattices as retracts of     , and we never
+have to go outside this space. Q.E.D.
+
+    Thus, starting with IN, the higher-type spaces IN      IN, IN   IN     IN,
+  IN    IN    IN      IN, and so on, are all represented via equivalence rela-
+tions on subspaces of one space, IN, of the cardinality of the continuum.
+    Even better, if is a -space with a countable basis                 for its
+topology, then the mapping                      shows that can be regarded
+as a subspace of       , which is isomorphic to IN, if is infinite, and to a
+subspace, otherwise. Therefore, the countably based spaces in EQU form a
+sub-cartesian-closed full subcategory equivalent to a small category. And
+the same can be said of spaces where the topology has a bound in cardi-
+nality on the size of a basis. The whole category EQU is thus stratified by
+
+                                       17
+the cardinalities of the bases for the topologies. Note, too, that the finite
+spaces in EQU form an interesting sub-cartesian-closed full subcategory,
+which is probably rather different from just finite -spaces.
+   The closed subspaces of algebraic lattices (under the -topology) have
+been much studied. A closed subset of such a lattice is a set that is down-
+ward-closed (under the partial ordering) and additionally closed under
+the formation of least upper bounds of directed subsets. As partially or-
+dered sets, they can also be characterized as algebraic, bounded-complete,
+directed-closed posets. It is well known that they form a cartesian closed
+category, where the maps in the category are continuous functions be-
+tween closed subsets. The -topology also works for them, and they are
+also a full subcategory of the -spaces. The category is often called BCPO.
+
+4.3 Theorem. The category BCPO can be regarded as a sub-cartesian-closed full
+subcategory of EQU; i.e., there is a full and faithful functor from BCPO to EQU
+which preserves the ccc-structure.
+
+Proof: Working in PEQU we can clearly construe the category as being the
+algebraic lattices with a partial identity relation over a closed subset. If
+and are such structures, and if         and     are the corresponding closed
+subsets, then the function-space construction we are looking at takes all
+continuous functions between the algebraic lattices (which form an alge-
+braic lattice), and puts a partial equivalence relation on the functions map-
+ping      into    according to whether they restrict down to the same func-
+tion on . This is a perfectly fine structure in PEQU, but it is not directly
+seen to be in the subcategory BCPO. We can call this structure               in
+PEQU, however.
+    In BCPO, the function space is just the set of continuous functions from
+    into     with the pointwise partial ordering. This space, which we can
+call temporarily             , proves to be in BCPO. The -topology has as
+a subbase for the open sets the sets of continuous functions of the form
+
+
+
+where is a compact element of , and is a compact element of . The
+poset           can be made into an algebraic lattice just by adding a top
+element, and so we can put ourselves into the image of BCPO in PEQU.
+
+
+                                      18
+What we have to show is that the two functions spaces are isomorphic in
+PEQU.
+    Now, if is in            , we map it to the restriction      . By definition
+equivalent functions in              go into equal functions. Conversely, if
+is a function in              , then we extend it to a continuous function
+on all of the lattice part of by setting the values to the top element of
+outside the closed subset . To see that                 is continuous, we take
+compact elements of and of , and we note that
+                                               or
+Hence, the inverse image of a subbasic open subset of        is either the
+whole space or a subbasic open subset of            . We have continuity,
+and the two mappings are clearly inverse to one another in PEQU. This
+establishes isomorphism. Q.E.D.
+
+
+5 Acknowledgments and Questions.
+The idea that there might be a cartesian closed category like EQU occurred
+to the author at the end of the Fall Semester 1996 while lecturing to a post-
+graduate class on Domain Theory. He would like to thank that class for
+being such a lively one and for asking so many questions4 . Without the
+task of having to explain the many details and trying to make the motiva-
+tion for the mathematical concepts convincing—in which he only partly
+succeeded—he would never have had the stimulation to pursue this di-
+rection. The idea in fact came up in the context of polymorphism, which
+brings us to our first question.
+
+Question 1. Our arguments above show that the (small) category of all
+spaces in PEQU with the same underlying space          over an infinite set
+is cartesian closed. But, since these are just partial equivalence relations
+on a fixed set, they also form a lattice, where the greatest lower bounds
+are intersections of partial equivalence relations. By using a retraction of
+    onto            , we make      into a model for the untyped -calculus
+   4
+    The author would be grateful to receive any further answers, counterexamples, com-
+ments or objections by e-mail. Last year various detailed comments from Mike Barr, Peter
+Johnstone, Peter Freyd, Pino Rosolini, and Martin Escardo were most helpful.
+
+
+                                          19
+which can be used to give the cartesian structure to the category. How
+good a model for polymorphism are the partial equivalence relations as
+types?
+    Comments. Actually, a very good model is obtained for polymorphism.
+This can be seen by looking at the construction of the realizability topos
+over     and properties of “modest sets”, which have been studied by a
+large number of authors over that last 15 years. The author’s research
+group5 is going to study this interpretation in particular detail for the case
+  IN.
+
+Question 2. Another popular category for domain theory is the category
+of SFP objects or the more general category of bifinite domains. These are
+certain inverse limits of finite posets. Since EQU is so complete, will these
+categories turn out to be sub-cartesian-closed full subcategories of EQU as
+well? What about other categories of domains (say, many of those men-
+tioned in the “Domain Theory” survey of Abramsky and Jung)?
+    Comments. We have not had time to look into the various categories in
+detail, but it still seems very likely that these will be well behaved subcat-
+egories. So, the advantage we hope to find is being to to put them all into
+one category.
+
+Question 3. Can the powerset spaces,        with the identity equivalence,
+be defined in EQU by a condition expressed entirely in category-theoretical
+terms? What about the subcategories of algebraic lattices and of continu-
+ous lattices? What about BCPO? What about SET? What about            ?
+   Comments. Andrej Bauer has checked that the projective objects of EQU
+are just those isomorphic to sets, and the regular projectives are the iso-
+morphs of -spaces. There are indeed going to be characterizations of
+those other subcategories, but just which are going to be “memorable”
+needs further study.
+
+Question 4. Which functors have fixed points? (These are solutions to
+   5
+     Progress on our project can be checked on the WWW at the following site:
+                                   . We have also recorded in the thesis proposals of
+Bauer, Birkedal, and Hughes many more questions for future work than can be explained
+in the present document.
+
+
+
+                                         20
+“domain equations”.) Which functors have initial or final algebras?
+   Comments. This question can be vexing. We know many examples and
+we know sufficient conditions on functors. We know                  has
+many solutions (in known subcategories). But it seems quite difficult to
+find all solutions. See the next question.
+
+Question 5. Can Peter Freyd’s theory of fixed points of functors of mixed
+variance be applied to EQU? In particular, when is a structure in EQU
+with          a (special kind of?) retract of , can this space always be
+embedded in a space                ?
+
+Question 6. Which structures in EQU satisfy the fixed-point property
+(fpp) for all self-maps? Or is it better to look at the structures all of whose
+powers satisfy the fixed-point property (the generalized fpp)? The author
+thought he had a proof once that they would form a cartesian closed full
+subcategory. Do they? How good is this subcategory for domain theory?
+   Comments. Yes, we checked this. The spaces in EQU satisfying the gen-
+eralized fpp not only form a cartesian closed subcategory, but they are (by
+definition) an exponential ideal. The category of Scott domains (closed
+subspaces of algebraic lattices) and continuous Scott domains (closed sub-
+spaces of continuous lattices) also form exponential ideals. Satisfying the
+generalized fpp is definitely more general, however; but, it seems hard to
+say exactly how much more general.
+
+Question 7. Many of the proofs indicated in the previous sections required
+the Axiom of Choice. Can EQU be defined in any topos so as to have good
+properties? Does the construction give an interesting computability theory
+in the effective topos?
+    Comments. We have not looked at EQU in toposes other than SET.
+But, the realizability interpretion over IN leads to finding connections be-
+tween three toposes which include very satisfactory information on com-
+putability. We feel we can thus combine theories of continuity over stan-
+dard (countably based) spaces with a theory of computability in a common
+logic giving a basis for type theory and topos logic6 .
+   6
+   See the WWW site mentioned earlier for our detailed plans and progress reports. The
+papers cited there (availble by ftp) also have many references to other relevant work.
+
+
+                                         21
+Question 8. The real numbers naturally form a space IR in EQU. Is the
+space IR      IR in EQU a topological space (say, the continuous func-
+tion space with the compact-open topology)? And how can we describe
+higher-type spaces such as IR     IR    IR, and so on? What is the connec-
+tion to the new theory of “total functions” recently put foward by Ulrich
+Berger? Is the (definite) Riemann integral
+
+                               IR   IR     IR    IR     IR
+
+a map in EQU?
+   Comments. Andrej Bauer has proved that, in view of known theorems
+on exponentials in         , IR     IR in EQU is indeed topological: the
+space of continuous real functions with the so-called compact-open topol-
+ogy. It is much harder to say what IR    IR    IR is, because it is not topo-
+logical. The work of Abbas Edalat can be invoked to settle positively the
+question about integration. Moreover, integration is a computable map-
+ping. Bauer has also clarified the connections with the work of Berger7.
+
+
+
+
+   7
+  See the discussions of the concepts in the thesis proposal of Bauer available on our
+WWW site.
+
+
+                                         22
+

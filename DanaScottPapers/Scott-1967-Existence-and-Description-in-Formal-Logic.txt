@@ -1,0 +1,1006 @@
+                                       16
+
+                                DANA        SCOTT
+
+
+
+         Existence and Description in
+                 Formal Logic
+                                                               phrases has
+The problem of what to do with improper descriptive
+                          long   time.  There   have    been   three   major
+bothered logicians for a
+               how to treat  descri ptions  usually   associa ted   with  the
+suggestions of                                                            not
+                                                    The   author   does
+names of Russell, Frege and Hilbert-Bernays.
+                                                      In many ways
+consider any of these approaches really satisfactory.
+                                                             However,
+Russell’s idea is most attractive because of its simplicity.
+                                                   Russellian method
+on second thought one is saddened to find that the
+                                                                   elimination.
+of elimination depends heavily on the scope of the
+                                  g  of  Russell ’s  transf  ormati    on is not
+Further, the semantical meanin
+                       gh it could  be  made    quite   precise .   Frege’s    use
+all that clear; althou                                                           of
+                                                          descrip   tion   has
+of a null entity for the denotation of an improper                              ry
+                                              etation ,   but     the   arbitra
+course an immediate semantical interpr
+                                                                      natural. In
+choice of a null entity in each domain is really not very
+                                                     for example, the
+many axiomatic theories, Euclidean geometry
+                                                         very desirable.
+choice of a distinguished point is not possible or even
+                                                     of ‘local’ null
+Bernays in [1] used Fregean descriptions with a kind            and
+                                                         though clear
+entity carried along in the notation itself. This idea,
+                  very  elegant in the author’ s opinion .
+workable, is not
+                                                        having un-
+   It is curious that in ordinary mathematical practice          -
+                                                     improper descrip
+ defined function values, a situation close to using
+                                                          n will often
+ tions, does not seem to trouble people. A mathematicia
+ formulate condit ionals    of  the  form
+                   if f(x) exists for all x <a, then...
+                                                        of the meaning
+ and will not give a moment’s thought to the problem                on
+                                                  ption or a functi
+ of f(a). More careful authors never use a descri
+                                                                    exists. This
+ value unless it has been previously proved that its value
+                                                  of  requir ing  such    a proof
+ style led Hilbert-Bernays in [3] to the point                             as well
+                                    descri ption   can  be consid  ered
+ before a formula containing the                                           As  has
+                      tion is to  be  rejecte d  on  many     ground s.
+ formed. This sugges
+                                                                as   will   hardly
+ often been pointed out, the class of well-formed formul
+                                                  formulas will change
+ ever be recursive. Also the class of well-formed
+                                                        serious is the fact
+ upon the introduction of additional axioms. More
+                          to employ  descri ptions before  they have been
+ that it is quite natural
+                                    181
+                           BERTRAND          RUSSELL                                          EXISTENCE        A
+
+proved to be proper. In axiomatic set theory in the discussion of                        We define the noti
+recursive definitions, it is very tempting to give an explicit definition                   (i) all variables ¢
+of the required function by means of a description and then prove a                        (ii) if « and Pp é
+theorem of the form:                                                                            formulas;
+                   for all a in a set well-ordered by <,                                  (iii) if ® and Y
+              if f(x) exists for all x <a, then f(a) exists.                                   [D — ¥’] and        i
+
+
+
+
+It will then follow by transfinite induction that f(a) exists for all a                 The precise definitic
+in the well-ordered set. Only a logician would have objections to this                  us here, and it may |
+use of the ‘exists’. It is the purpose of this paper to lay these objections            - To give a semanti
+to rest by presenting a formal theory of descriptions that corresponds                  a structure (A, R>,
+quite faithfully to such natural modes of reasoning.                                    Ris a binary relatic
+  After the author had explicitly formulated his plan (December                         Then relative to the
+1963), he discovered that around 1959-60 several other logicians                        (they will be truth
+had come to nearly the same idea: notably Hailperin and Leblanc in                      sponding to the val
+[2], Hintikka in [4] and [5], Rescher in [8] and Smiley in [10]. These                  this definition, it w:
+papers have not received the attention they deserve; thus a complete                    principles that hav
+exposition including a full discussion of the semantics required seems                   Above all we wish
+desirable. Further the author wishes to show how the idea can be                           Principle 1. Bou
+applied to a theory like Quine’s system of virtual classes in [7].                         given domain of i
+Quine,     following    Russell,   employs     contextual        definitions   which
+avoid    giving an independent       meaning      to the virtual classes. The            The author will no
+author will replace Quine’s definitions by axioms and present a                          since he is sure eve:
+simple semantical interpretation for the theory. The paper will                          does not, he shoul
+conclude     with   a   model-theoretic       discussion    of     eliminability   of    quantified formula
+notions by contextual definitions. There is an interesting problem                       ciple is not so imp
+here that is left open..                                                                 eye to future appli
+  The author is indebted to Professors Hintikka, D. Kaplan, Kreisel,                        Principle 2. The
+Mostowski, Quine, A. Robinson, Suszko, Suppes, and Tarski who
+were kind enough to comment on earlier versions of this paper.                           Finally, and very i
+
+1. Descriptions
+                                                                                            Principle 3. The
+                                                                                            to the domain 0,
+To simplify matters let us consider a first-order logic with just one
+non-logical constant: a binary predicate symbol R. The logical                            To see in a simp:
+symbols are — (for negation), —> (for implication), V (for universal                      the question raise:
+quantification), = (for equality) and I (for description). Note that 1                    domain. Namely,
+is an inverted capital I, which the author prefers to Russell’s inverted
+iota. The other propositional connectives A,               V,<-~, and the quanti-
+fier J should be considered as introduced by definition, or better,                       is valid    in   all <
+the formulas involving them may be taken as abbreviations of                              sentence,
+formulas containing only the basic symbols. The individual variables
+are Up, 1},..+) Uy... In the metalanguage x, y, z, w are metavariables
+                                                                                                             [x|
+ranging over the individual variables of the object language.                              is valid, because i
+                                       182
+                        BXISTENCE     AND    DESCRIPTION      IN FORMAL     LOGIC
+‘ussion of          We define the notion of term and formula in the usual way:
+ definition
+                     (i) all variables are terms;
+<0 prove a
+                    Gi) if w and     f# are terms, then a = # and «RB        are (atomic)
+                         formulas;
+                    (iii) if © and VY are formulas and x is a variable, then — ®,
+                          [D+   PY] and VW x ® are formulas; while I x ® is a term.
+ « for all a      The precise definition of free and bound variables need not concern
+ons to this       us here, and it may be assumed as known.
+ objections         To give a semantical interpretation of this language one first gives
+orresponds        a structure (A, R), where A is a set (the domain of individuals) and
+                  Risa    binary relation (the interpretation of the predicate symbol R).
+ December         Then relative to the given structure one defines the values of formulas
+   logicians      (they will be truth values) and terms (they will be objects) corre-
+Leblanc in        sponding to the values given to the free variables. Before presenting
+QO]. These        this definition, it will be wise to consider some informal, motivating
+. complete        principles that have guided the choice of our precise formulation.
+sired seems       Above all we wish to follow:
+‘ea can be
+                    Principle 1. Bound individual variables should range only over the
+ses in [7].
+sas Which           given domain of individuals
+asses, The        The author will not attempt to define what he means by ‘range over’
+ present   a      since he is sure everyone understands this statement. In case someone
+saper will        does not, he should wait to see the formal definition of value for the
+ ability of       quantified formulas and for the descriptive phrases. The second prin-
+< problem         ciple is not so important, but the author wishes to include it with an
+                  eye to future applications:
+n, Kreisel,
+arski who           Principle 2. The domain of individuals should be allowed to be empty
+2aper,            Finally, and very important for the basic idea of the paper, we have:
+                    Principle 3. The values of terms and free variables need not belong
+> just one           to the domain of individuals
+ne logical        To see in a simple example the usefulness of Principle 3, consider
+~ universal       the question raised by Mostowski in [6] in connection with the empty
+‘ote that I       domain. Namely, it is ‘clear’ that the formula
+"5s inverted
+ne quanti-                                     xRx>xRx
+ or better,       is valid in all domains      including the empty     one. Similarly the
+Jations of        sentence,
+} variables
+avariables ~~                      [xRx>xRxJ> J ypRy>yRy!
+26.           x
+                  is valid, because if x is given a value in the domain, then there is some
+                                                       183
+                             BERTRAND        RUSSELL
+   value of y to satisfy the formula within the quanti
+  hand, the formula
+                                                         fier. On the other
+                         .
+
+                               JyyRy>yRy]
+  is not valid in the empty domain; hence
+                                          , the valid formulas are not
+  closed under the rule of modus ponen
+                                        s when the empty domain is
+  included. The fallacy (or better inconvenience)
+                                                  here lies in allowing
+  the secondformula to be valid. The first formula is
+                                                      completely valid
+  no matter what value we assign to x. The
+                                              second formula will fail
+  in the  empty domai
+                    n, however, if we recognize Principle 3. To have
+  a valid formula we must modify the implicatio
+                                                n to read:
+          WR+>xRx] A dye =y]> a yyRysyRy
+  We can make this point better after the precis
+                                                 e definition of value js
+ given.           -
+    Before presenting the definition of value, we
+                                                   must still decide what
+ to do with the improper descriptive phrases.
+                                                  Under the guidance of
+ Principle 3 we   are no longer required to give such terms
+                                                              values within
+ the given domain. Indeed, it seems much
+                                               better to give an improper
+ description a value definitely outside of the
+                                                 domain, thereby emphas-
+ izing its impropriety. The way to do this
+                                             is to assign to each domain
+ A a null entity *, such that > A€A, This
+                                               is much easier than trying
+ to make the null entity belong to A as Frege
+                                                   wished (especially when
+ A is empty!). Assuming a reasonable set theory
+                                                , we could     let 4
+ the set of all sets belonging to A which are
+                                               non-self-members. Thus
+  Kal A but ky EA. Assuming the so-cal
+                                             led Axiom of Regularity
+ we could even take ky = A. The exact choic
+                                                e is quite irrelevant as
+ long as we agree >k,¢      A. Now we are ready for the definition
+ value.                                                               of
+                   ;     ;
+   In the following we  shall write AH — <A, R> for short; while s will
+denote an assignment which is simply a funct
+                                              ion whose domain is the
+set of integers  N= {0,1,2,.. .}. Forie N, s(i), or simply
+value we wish to assign to the variable v,.                   s,, is the
+                                            We define
+                  S(i/a) = (s~ {<i, 5) U {di, ad},
+in other words s(i/a) is like s except the ith value
+                                                       s, has been replaced
+by a. We shall read
+                                                                              where D(x/«)
+                                x     Ps]                                     of xin ® rev
+as: the (trath) value of the   formula © is true for the assignment s         ~ Tn as mucl
+relative to the structure A, or better, s satisfi                             that the rule {
+                                                  es D in A, or also, ® is
+true at sin WH. The symbol
+                                                                                   (EG)
+                                Hm (5) laa
+                                   184
+                          EXISTENCE       AND    DESCRIPTION            IN   FORMAL       LOGIC
+
+                 is read: the (object) value of the term « for the assignment s relative
+                 to the structure HA, or better, the value of « at s in H. (Maybe the use
+                 of ‘in’ is bad here, because in view of Principle 3 | & [s] |l_ «A need
+                 not be so.) The exact clauses of the recursive definition of these
+                 notions are as follows:
+                                                  Il % Es) la = 5s;
+                              na     R As) if< || & [5] lln, IIBEs} |la> € R
+                              =n & = Bis) if|| @ [5] lle = 1 B Es) lie
+                              =2 5 Os] if not |=5 O[s]
+                              =n [P > ¥] [s] 7 =a Pls], then = y PIs]
+                              =a V v; O[s] if for allae A, |~_ P[s(i/a)]
+
+                                                      a if a is the unique element of A such
+                               | 1»; Os] Ila =               that |=» P[s(i/a));
+Les within                                           *,         if there is no such element.
+unproper :         We say that © is valid in Hi and write |=, ® to mean that |=, [5]
+             ;   holds for all assignments s. We           say that ©® is universally valid and
+                 write |= ® to mean that |=g ® holds for all structures H.
+                    The question now is to find an exiomatization of the universally
+                 valid formulas.      Note first that these two rules are correct:
+
+                      (MP)         If |= ® and |= [© > Y, then |= ¥.
+                      (UG)         If    [®—- WV] and x is not free in ©, then
+                                   l= [(O > WV x’.
+                 Next note that these schemata comprise only valid formulas:
+
+                      (SO)         ®, if ® is a tautology,
+                      S]l)         Wre[®>P)-[VxO>5
+                                                Vy xV¥,
+                      (S2))        Wy Aa x[x=I,
+                      (S3)         a=a,
+                      ($4)         B(x/a) A « = B> O/B),
+                 where O(x/a) is the result of substituting « for all the free occurrences
+                 of x in ® rewriting bound variables if necessary.
+                    In as much as J x ® abbreviates = YW x4 ©, it is easy to see
+                 that the rule (UG) includes the rule
+                     (EG)        If |= [Y— ©] and x is not free in ®, then
+                                   j= [3 xP > O].                                     |
+                                                          185
+                            BERTRAND       RUSSELL
+ Also using the schemata, especially (S1), we can show that
+                I=Vx®A            dx¥+>3dx[®         A VY
+ and
+                KE Wx[O>Y]>[3              x®@+>I     xi.
+ Using these together with (S4) we establish easily the validity of the
+ schema
+
+        (UD     Vx ® AE x[x =a] > O(x/a),
+ where x is not free in the term «. This is the correct version of the
+ law of universal instantiation which is valid not only when the
+ domain is empty, but also when the values of terms are allowed to
+ be outside the domain. Using (S2) we can also show
+
+                          = VW       x ® > D(x/y)],
+ which some authors would take as an axiom but which is superfluous
+ when principles of equality are available. On the other hand ($2) is
+ practically a special case of this last schema.       Replace   ® by the
+ formula — x = y obtaining
+
+                       = VolVxlAx=y>-y=yI,
+from which we derive
+
+                         I= V yy = y > Ax{x = yy,
+and then
+
+                       I= [Vy = yl > Vy        3 xfx =].
+In view of (S3), we can now easily obtain (S2). So it is really just a
+matter of taste as to which schemata are chosen as the fundamental!
+ones.
+     To understand better what is going on here, consider the meaning
+of
+                                  J x[x = a]
+under our semantical rules. When x is not free in a, then
+
+                            l=_   Jd x[x = o] {s]
+holds if and only if | «[s] |lq_ ¢A. Let us call the elements of 4 the
+(properly) existing individuals (of the particular structure &\). Then
+to say that 4 x[x =a] is true means that the value of «& exists
+(properly). Is that not exactly what 3 x[x = «] ought to mean? Thus
+if V x ® is true, it is not correct to conclude that® (x/«) is true
+                   ,                 186
+      EXISTENCE             AND        DESCRIPTION               IN     FORMAL    LOGIC
+
+unless the value of « exists. Again, is that not quite reasonable? ‘To
+be is to be the value of a bound variable’, as Quine would say.
+   Turning now to the descriptive operator we have first of all this
+valid schema:
+           GQ)          VWypp=Ix
+                           Oo V xx=y<> OF,
+where y is not free in ®. In words: an existing individual is the value
+of a descriptive phrase if and only if it is indeed the unique individual
+satisfying the formula of the phrase. As a consequence of (I 1) we
+have at once:
+             I=    J yfp =I xO] <>                        Sy V xx         = yp    V);
+that is, proper phrases are the only ones whose values exist. What of
+improper phrases? According to our definition of value they are all
+given the same         value >k,4. Now                  the term I v[—- vp = %] clearly is
+an improper descriptive phrase; call it >< for short. The rest of the
+definition of value for descriptive phrases can be expressed by the
+schema:
+                  2)         a3         yy =x              O] > K=Ix®.
+The converse of this implication already follows from (I 1).
+  One important reason for insisting that improper descriptions all
+assume the same improper value is to have this highly useful law
+of extensionality:
+                       I=    WxfO<-               PJ > Ixd=I1xP
+This would not be valid if one wanted ‘the golden mountain’ and ‘the
+round square’ to have different values. While making unkind remarks
+about ‘the golden mountain’, Russell also rejected this law of
+extensionality, which this author considers an unfortunate choice.
+Of course, Russell was particularly interested in eliminating descrip-
+tions altogether, and we now must discuss that question.
+"Using (1 1) and (1 2) we can almost completely eliminate descrip-
+tions, because we have the schema of elimination:
+
+     GE)    YO/Ix ®) <<                     A yV        ax = yo           O] A FIV
+                                              ay               Vv xx = yo        8] A PO/%)),
+where the variable y is not free in ©. Several applications of (IE)
+will confine all occurrences of the descriptive operator to the follow-
+ing contexts:
+                                  v;    R    >,    *&    Rv,     *K    Rox,
+
+                                  , = K, OK = vj                      K = OK.
+                                         187,
+                             BERTRAND        RUSSELL
+     Now, assuming that a formula @ has no free variables, the equalit
+                                                                       y
+     formulas can be eliminated,     because the last one is true, and the
+     first two are always false in contexts where the variable v, is
+                                                                      bound.
+     To be able to eliminate descriptions completely we would
+                                                                     have to
+     add a new schema such as:
+
+                     (3)    *K=eV           *=B>—aRBP.
+     However, this schema is not valid with our present semanti
+                                                                     cs. It is        gto the
+     valid in those structures A = <A, R>, where R C A
+                                                                   X A. This       the   virtuz
+     restriction that the relation of a structure should be confine
+                                                                         d to
+     existing individuals is not at all desirable, as we shall see
+                                                                     when we
+     discuss Quine’s virtual classes.
+        We could have validated (13) by choosing >k, to lie outside the
+     field of the relation R. Again this is not too desirable, because it is                   al
+                                                                                               3!
+     often felt that the valid formulas should be closed under substitution
+     of formulas for predicate symbols. Clearly (I 3) becomes invalid
+     when R   is replaced by =. So for pure logic we reject (I 3). When
+                                                                                   except we
+ giving axioms for a theory on the other hand, a schema like (I
+                                                                  3)             membership
+ might be very reasonable. Then in that theory complete elimination
+                                                                                 being and u
+ of descriptions from sentences would be possible.
+                                                                                 terms are no
+       In summary the author feels that it is fair to say that the theory
+                                                                          of
+ descriptions presented here combines the best features of Russeil’s
+ and Frege’s theories. With Frege, we preserve the laws of identity
+                                                                                 where xis a’
+ and the extensionality of the descriptive        operator     without giving
+ improper descriptions an unintended proper designation. Assumi                  formulas pr:
+                                                                ng                  As axiom
+ the very reasonable (I 3), we would be in complete agreement with
+                                                                                 (UG),   and
+ Russell in non-equality atomic contexts, for from (I 3) we could
+                                                                                 formulas m.
+derive:
+                                                                                  three princ
+              l=a Rix @ <> J y[V x[x = p<> O] A aw Ry),                          -abstraction:
+This possibility is of course excluded by F rege.
+   We shall not pause here to give the proof that every valid formula
+can be derived from (S0)-(S4), (I 1)-(I 2) by the rules (MP) and
+(UG), because in Section 3 a more general completeness proof will
+be presented in full.                                                            where the v
+                                                                                 also have bi
+2.     Virtual Classes
+In his new book [7] Professor Quine makes thorough use of what he                 (Q3)
+calls virtwal classes to simplify the development and comparison of              Combining
+various systems of set theory. For example,            the different kinds of
+existential assumptions about the real classes can be presented in a             3") «
+uniform manner in Quine’s notation. More than that, with mild
+                                                                                 is a conseq:
+assumptions on real classes, the reduction of arithmetic to class
+                                                                                  ~ Tt is quit
+                                      188
+                     EXISTENCE     AND   DESCRIPTION      IN    FORMAL   LOGIC
+
+                                                                            the
+             theory can be very conveniently described in Quine’s style; so
+             device has considerable appeal.
+                In the author’s opinion, the only thing missing in Quine’s pre-
+             sentation is a semantical analysis of the notion of virtual classes.
+             No doubt Quine feels no need for such an analysis, since his class
+             symbols are all eliminable by design. Virtual classes function mainly
+             as an aid in condensing long formulas; the programme is successful
+             owing   to the transfer of standard set-theoretical notions from the rea]
+             to the virtual. Nevertheless, semantical insights can be helpful in
+             understanding a formal system; especially when one can check
+             formulas without having to first eliminate the contextually defined
+             notions. In the presentation to be given here, virtual classes will be
+             treated axiomatically, Quine’s contextual definitions will be proved
+              as theorems, and the model theory for the system will naturally
+              suggest itself along the lines of what we did for descriptions.
+                 Our language will be much like the first-order language of Section
+              1, except we replace the predicate symbol R by the symbol ¢€ for
+              membership. Further we drop the descriptive operator for the time
+Jnation .     being and use instead the operator of class abstraction; thus the
+              terms are now either single variables or expressions of the form
+:cOry of -
+                                               {x : O}
+.ussell’s
+identity      where xis a variable and ® a formula. The construction of compound
+              formulas proceeds as before.
+                As    axioms   and rules of inference for the theory we use (MP),
+              (UG), and (S0)-(S4) as before, except the notions of terms and
+             - formulas must be understood in the new sense. In addition we employ
+              three principles    governing   the   behaviour     of membership    and
+              abstraction:
+                Ql)       Vylyeasyeslre=B,                 -
+                (Q2)      a«eB>
+                             JA yy=al,
+                (Q3)         O}< 3afx=y A
+                          Vylpe{x:
+              where the variable y is not free in «, B, or ®. The last schema could
+              also have been written in the form
+                (Q3')     Wy e{x : O} <> O@/y))
+              Combining (Q 2) and (Q 3) note that
+                 (Q 3”) we {x: O} <> 3 xfx =e] A PQ/o)
+              is a consequence, where x is not free in the term a.
+                 It is quite easy to see that every theorem provable in the present
+                                                  189
+                           BERTRAND      RUSSELL
+  theory is provable in Quine’s theory. Note that
+                                                      (83) and (S4) are
+  Quine’s 6.4 and 6.6. Next (Q 1) follows from Quine’
+                                                            s 2.7; (Q 2)
+  follows from 6.9 and 6.12; and (Q 3) is given on p.
+                                                          17 of {6}. Con-
+  versely, except for our allowing the empty domai
+                                                      n of (real) indi-
+  viduals, all of Quine’s theory can be deduced from
+                                                     ours. In particular,
+  the contextual definitions 2.1, 2.7, and 5.5 are
+                                                   provable  at once as
+  biconditionals, and the lone axiom 4.1 is a special
+                                                      case of (S4). We
+  are not concerned here with the additional axiom
+                                                   s on the existence
+  of real classes.
+    To discuss the models of Quine’s theory, we first
+                                                      remark that
+  having virtual class forces us to contemplate many
+                                                     improper indi-
+  viduals and not just one as was the case for descriptions
+                                                             . However,a
+ virtual class is completely determined by its real
+                                                     members. So let us
+ take as models structures of the form A — <A, E>,
+                                                      where E CAXA,
+ and where the relation E is extensional in A.
+                                                    In other words the
+ structure A must satisfy the sentence
+                    VxVxlV       ylyex<syexJox= x]
+ in the usual sense. The elements of A will correspond
+                                                               to the real
+ classes ; while the subsets of A will correspond to the virtual
+                                                                  classes—
+ well, not quite. We must identify the real classes with
+                                                                the virtual
+ classes having the same members. This is best done
+                                                               by making
+ the values of terms always be subsets of A. To get the
+                                                        correspondence
+ between the elements of A and the subsets of A we define
+                                                          a function
+ Eon A such that for ae    A,
+                       E(a) = {be      A: <b, a) € E}.
+ By virtue of the extensionality of E, this is a one-one corresponden
+                                                                      ce
+between elements of A and certain subsets of A. Next
+                                                     in the definition
+of value we make these changes:
+
+        |=n + € Bs] iff for some ae | Bis} lly, E(a) = | efs] Ila
+            =x V v, Os] if for all ae    A, l= O[s(i/E(a))]
+              2 O} lin = (ae A:             O[/E@)]}
+All the other clauses remain the same. In the definition
+                                                          of validity
+we make the restriction that assignments should have only
+                                                             subsets
+of A as values. Even if A is empty there is one subset
+                                                       of A; so this
+restriction does not cause any trouble.
+  Note that if a,    b< A and sy = E(a) and 5, = E(b), then
+                     =x % € 0,[5] if <a, b> ¢ E,                              wi!
+and
+                       =n Yo = 2 [5] iff'a = b.
+                                   190
+      EXISTENCE      AND     DESCRIPTION        IN    FORMAL     LOGIC
+
+Hence, if © is a formula without free variables and without the
+abstraction operator, then © is true in Hi in the new sense if and only
+if it is true in the sense of Section 1].
+  It is easily checked that all the schemata (S0)-{S4) and (Q IH{Q 3)
+are valid in all extensional structures. The converse, that all formulas
+valid in all extensional structures are provable in the present theory,
+will follow from the completeness theorem of Section 3. Thus we
+have a full explanation of the model theory for Quine’s system.
+  When he introduced the descriptive operator into his system,
+Quine, the modern day champion of contextual definition, abandoned
+the Russell approach in favour of Frege’s idea. That seems a bit
+odd, does it not? The explanation is probably this: with Russell’s
+elimination the formula « = « is not always valid, whereas Quine
+wants this law of equality. Besides, it is a waste of effort to introduce
+new operators by contextual definition when an explicit definition
+is at hand. Quine chose this definition (more or less):
+            Ix O=      {x:   3 pV xx         =y<>     O] A ze yy}.
+
+Thus when 4 Jy W x[x = y <> ®] holds, I x ® denotes the empty
+class. Since Quine wants the empty class to be a real class, we see
+that the improper description is behaving in the Fregean manner.
+   Another definition was open to Quine, however, namely:
+           IxO=       (2:3 ypVxx=y<>P] Azey                        V
+                [MAS yAx[x=y<O}] A 2z€2)}
+ If we let A be the term {z:—42z € 2}, then by the argument of the
+ Russell paradox we can prove that
+                                 —   4d yy    = Al.
+
+ Hence, with the revised definition we prove exactly (I 1) and (I 2)
+ with > replaced by A. Of course =A                  is at once provable, so the
+ former theory is recaptured. The author strongly feels that this path
+ to descriptions is much more in harmony with the concept of virtual
+ classes than is the version adopted by Quine.!
+    Let us see now what happens to the elimination of descriptions
+ with the definition just proposed. In view of (Q 2) we have first:
+                JW xx
+             IxDe P<   yo GP] A ye Bl,
+                      =o
+ where y is not free in @ or 8. That would please Russell. In the other
+ argument place we have:
+                                                                       section.
+   1 See, however, Professor Quine’s remarks quoted at the end of this
+                                       19}
+                            BERTRAND        RUSSELL
+
+  eelxO<>          JV
+                    xx =yoOl                A acy]    V
+                    [m5 ay Vales
+                              yo O] A I yy=a A syeyl,
+ That would probably confound followers of Russell or Frege; the
+ author hopes it is not too displeasing to the Quine school,
+                                                             however,
+    Parallel to the revision of the definition of descriptions, the author
+ would like to also suggest a revision of Quine’s definition of function
+ value. Let us assume along with Quine enough axioms to guarant
+                                                                        ee
+ the existence of ordered pairs of real classes. In the author’s notation,
+ the definition of function value will read:              .
+                     P(E) =Ty A xfx =         A dy, x € 4],
+ where x and y are variables not free in ¢ and &. Quine gave as his
+ definition:
+
+                            o(f) = Ly{<y, 5 € 4].
+ This is ‘defective’ not only because the wrong kind of descript
+                                                                 ion
+ was used, but because when ¢ does not exist (ic.         + 3 x[x = &),
+ then
+
+                 WO     = {9},    %         = {0} =p.
+By chance there might be a unique y with <y, ¥> Ed,             and   we are
+uncomfortable. Now Quine avoids this unpleasantness by restricting
+attention to the class
+                arg@=    {x:] ZY yy =z            <y, x €d]}
+      Using the proposed new definition we can simplify this last equation
+to:
+                        argh = {x: A yly = d(x)]}.
+Further, there is no need to avoid unintended function values,
+                                                               for
+we can prove quite generally:
+
+                        J yly = 4(£)] <> Ee arg ¢.
+   This last biconditional reads so well that it seems justification
+enough for the revised definition. (This discussion of function value
+is improved over an earlier version at the suggestion of David
+Kaplan.) The general principle to be applied to such questions is
+this: things should exist only when it is intended that they exist.
+It seems quite remarkable to the author that there is a fexible enough
+formalism that actually allows us to follow this principle.
+   In connection with these suggestions, Professor Quine wrote to
+the author on May 3, 1965, as follows:
+                                      192
+              EXISTENCE       AND    DESCRIPTION                 IN   FORMAL   LOGIC
+
+      ‘The redefinition of description and of function value that you
+      propose sacrifices an advantage that I had gone out of my way for:
+      the freedom to substitute descriptions for bound variables without
+      regard to special existence premisses. This freedom, touched on in
+      pp. 58, 68, and 107 of Set Theory and Its Logic, covers a lot, since so
+      many notations are defined as function values and ultimately as
+      descriptions. It even covers function values where function and
+      argument are rendered by Greek letters, without presumption of
+      existence; cf. p. 68. Also it covers arithmetical expressions containing
+      Greek letters; cf. p. 107. Without this freedom the book would be
+      appreciably more laboured. Perhaps you could devise alternative
+      conventions, on your basis, that would work smoothly too; but then
+      I’d want to see some trial runs for comparison.’
+      Professor Quine is quite justified in asking for trial runs for
+      comparison, and the author will try to apply these com-
+101   parisons in future publications. For the time being the reader is
+      asked     to consider     the merits     of the proposal           on the grounds   of
+      ‘naturalness’ as indicated above. He should also imagine having to
+      make all existential assumptions explicit, and ask himself whether
+      unrestricted substitution is to be preferred over the gain of informa-
+      tion obtained by using formulas with explicitly displayed assumptions.
+      3. General operators
+      The system that we shall treat here will be of the same type as the
+      systems     of Sections     1 and 2, The language will involve a binary
+      predicate symbol R and a variable binding operator O of the same
+      syntactical category as the operators of description and abstraction.
+      Thus
+                                               Ox®
+       is a term when x is a variable and @ is a formula. As before we shall
+       not assume that the values of terms are necessarily in the range of
+       the individual variables. A convenient way to express this is to
+       consider structures of the form
+                                     ya)   =   <A,    Ag;   R,    O>,
+
+       where A is a set (the domain of properly existing individuals), A,is a
+       non-empty superset of A (the domain of ‘improper’ individuals), R
+       is a binary relation where R C A, X Az, and Oisa function defined
+       on subsets of A taking values in A,. The definition of value is now
+       modified in this particular:
+                      | O », O[s] Ip = O(fo € A: [=n Plsti/a))})
+                                                     193
+                           BERTRAND         RUSSELL
+   Further, the definition of validity is chang
+                                                ed so that [= © means
+  that |=, fs] only for assignments s where
+                                                 the values of the function
+  s are all in the set A,. When the set A, is
+                                                 explicitly mentioned it jg
+  not reasonabie to allow the values of assi
+                                             guments to the free variables
+  to be completely arbitrary.
+     If A = <A, R) is a structure in the sense of Secti
+                                                          on
+  correlate with it a structure in the new sense, namel 1, then we can
+                                                           y:
+                           B, = <A, Ay, RD,
+  where
+
+                    A, =A YV {4} U field (2),
+ and where /is defined on subsets Y ¢ Aso that:
+
+                   .      a if X= {a},
+              nay={             if ¥ # {a} for all ae A.
+ It is then easy to prove that for an assignment
+                                                 s with values in Ax,
+ [=   ®[s] holds in the old sense if and only if x, ®[s]
+                                                             holds in the
+ new sense, and that | a[s} jl, = | o[s] lls%- Of course
+                                                          the symbol O
+ should be replaced by I to make sense of this last
+                                                      statement.
+    if A = <A, EY is a structure in the sense
+                                              of Section 2, then the
+ correlated structure is
+
+                          Fp    =   «Ao, Ay, Lo, J»,
+where dp = {E(a) : a € A}, A, is the set of all subset
+                                                       s of 4, J is the
+identity function on A,, and the relation £p is define
+                                                       d for X¥, Ye A,
+so that:
+                                                            :
+                 XE iff
+                     oYfor some ae Y, E(a) = X.
+Again, for assignments with values in A,, the old and
+                                                        new definitions
+of value agree completely. Therefore, the struct
+                                                 ures considered here
+do properly generalize those used in earlier exampl
+                                                    es,
+  Aside from (SO){S4) which are all valid in the
+                                                 present sense, we
+have also
+
+  (O1)     [V x[O<>P]          > O0xd=Ox¥),
+and
+
+  (02)     OxO®=Oy        Ox/y),
+where the variable y is not free in ®.
+   These kinds of schemata were not needed explicitly
+                                                      in Sections 1
+and 2 because the required formulas were in each case
+                                                          deducible
+                                  194
+       EXISTENCE      AND       DESCRIPTION      IN     FORMAL    LOGIC
+
+from the others given. In the general case they are the only schemata
+required that involves the operator O in a special way. We want
+now to show that a formula is universally valid if and only if it is
+deducible from (S0)-(S$4), (Ol), (02) by the rules (MP) and (UG).
+Let K ® mean that the formula ® is so deducible. All we need to
+prove is that if not F ®, then there is a structure H{ and an assign-
+ment s such that not >» Pfs].
+   To this end let ®) be a particular formula such that not F ®p.
+Let
+                                Wo   Ei... Pa
+be a list containing every formula at least once such that ‘Vy is — Go,
+and if Y, is of the form
+                                     “V0, 0
+then 1        is of the form
+                     | 0411/41        = v;) Am        O(v,/2,),
+
+where v, is the first variable not free in ‘Po, Vi,... V,. It is easy to
+show that such a sequence exists. We define by recursion the sequence
+of formulas                 .
+                                Wo, Pio   Va     eee
+where VY, is — VY, or ‘VY’, according as
+                    EIoA..-A              M174]
+or not.
+   We let
+                                 M = {¥, ine N}.
+   Clearly Vp « M and the set M of formulas has these properties:
+     (i)  if ®, then De M,
+    (ii)     “De Mif DEM,
+   (iii)   [D> VY] eMif Dé More M,
+    (iv) Wo, DeM iff for all j if J yjsilyj4i = ole,                  then
+           D(v,/v,) « M.
+ So far  the  details of the proof are just as in any standard version as
+ the completeness proof for first-order logic based on the method due
+ to Henkin.
+    Let T be the set of all terms, and define an equivalence relation =
+ on the set T by the condition that
+                                      195
+                                      BERTRAND            RUSSELL
+
+                                       «= Biffle =fleM
+      The equivalence class of a term « is denoted by a/=. We define
+
+                          A=         o/=    2 3 ys ily            = vj] « M},
+      and
+                                Ay = {e/= :aeT}.
+  The relation          R C A, x A, is defined by the equation
+                           R= {<a/=, B/=)> : [x RB] « M},
+  and the operator O is defined for ¥ © Aso that:
+
+             OX) = {° vy, O/=              if X=         {u/s eA: D(v;/v,) « M}
+                                     Uo/= if there is no such formula ®.
+    For the particular assignment s where S; = v;/=, we wish to show
+ that |= Dols] does not hold where H = <A, Ay, R, OD is the
+ structure just defined. This cannot be done quite directly: one must
+ prove by induction that if ® is a formula, « is a term, and
+                                                             s is an
+ assignment where s; = «,/=, then                                                     :
+                  Fax    D[s] iff D(vp9/x0, v1 /e1, tee           Vn [Cny oa ) € M,
+ and
+
+                      I es] Ilex =    au(%g/ax, v/a,          eaey Vp [Gps ws Y=,
+ where the notation on the right-hand sides indicates -simult
+                                                              aneous
+substitution of terms for free variables. Again this step is just
+                                                                  like
+the corresponding step in the usual proofs, and conditions (Hiv) on
+M were explicitly chosen so that the argument would work out.
+       In case the additional axioms of Sections 1 or 2 were added,
+                                                                    the
+structure H just obtained could be modified directly to obtain the
+structure in the earlier sense that is required.
+
+4. Eliminability                                                                          a,
+
+A sentence is a formula without free variables. A theory is a set of                      [= -
+
+
+sentences containing all universally valid sentences and closed under
+the rule of modus ponens. The operator O is eliminable in a theory
+                                                                   T,
+if for each formula © there is a formula ¥ not containing O such
+that
+                             VimV          1...         Vom      [O   o   PF]
+
+belongs to T, where the free variables of ® and ¥ are among v9,
+VY,    @ 4 49 Um-1>
+
+
+                                                  196
+                                          AND     DESCRIPTION       IN   FORMAL    LOGIC
+                              EXISTENCE
+
+                        The theory based on schemata (I 1)-(I 3) from Section 1 (where O
+define               replaces the symbol I) is a theory in which O is eliminable. Similarly
+                     for the theory based on (Q 1)-(Q 3) (where O replaces the abstrac-
+                                                                                            ©
+                     tion operator). The purpose of this section is to give necessary and
+                                                                                       in a
+                     sufficient model-theoretic conditions for O to be eliminable
+                                            ns  found will be very close to those of Beth’s
+                     theory T. The conditio
+                     Definability Theorem (cf. [9]).
+                        If H = <A, Ay, R, OD and BH’ = <4’, A,, R', O'> are two struc-
+                     tures, we say that Hand Hi’ are weakly isomorphic if there is a one-one
+                     function mapping the set 4 on to the set A’ such that for all a,b eA,
+                                           <a, b> «      Rif f@, FO) € RR.
+                     When s is an assignment with values in A, we let f((s)) denote the
+                     assignment with values in A’ such that
+ show                                                 Fs); = Fi).
+5s     the       ©
+     must            The condition of f to give a weak isomorphism can be equivalently
+     is an   -       stated as:
+                                               a Os] ff Fa CUO)
+                                                                                    contain-
+                      for all assignments s with values in A and all formulas ® not
+                                                                                     hism
+                      ing the operator O. We shall say that f gives a strong isomorp
+                      if this last bicondi tional holds for arbitrar y formula s ®,
+                                                                                            es
+                        A model for a theory is of course a structure for which all sentenc
+                      of the theory are true. We can now state the theorem on eliminability:
+                                                                                           r
+                         The operator O is eliminable in a theory T if and only if wheneve
+                               models   of T    are   weakly   isomorphic   by a   certain   one-one
+                        two
+                        function, they are also strongly isomorphic by the same function.
+                         If OQ is eliminable in T, then it is clear that weak isomorphism
+                                                                                          g
+                      implies strong isomorphism. The converse will be proved by applyin
+                                                             er  theory with many predicat e
+                      Beth’s theorem to a suitable first-ord
+                      symbols but without     operator s.
+                         Let T be a theory for which weak isomorphism implies strong
+                                                                              onding to
+                      isomorphism. Introduce new predicate symbols S® corresp
+                                                                                      a
+                     ‘each formula ® in the original sense. The predicate S®° will be
+                      m-place predicate, where         m is the least integer such that the free
+                       variables of © are among %, 0, . . -» Um—1- Consider the extension of
+                       T obtained by adjoining these sentences as axioms:
+                                 W 09 VOW             Pm 1S,        OL, + + os Pm—1) <> O
+                       The theory To is the set of sentences of the extension of T involving
+                                                          197
+                                          BERTRAND          RUSSELL
+ the predicates R and S® but ot O. It is obvious that O is eliminable
+ in T if and only if aff the S® are definable in To in terms of the
+ predicate R in the ordinary sense of first-order definability.
+    According to Beth’s theorem, to show that the S® are definabl
+                                                                  e in
+ terms of R it is enough to show that two models
+
+                  :                 By = <A, Ry,...,S®,...
+ and             :
+                                    Fo = <A’, Ro... 8%...)
+ of To, where (A, Ro> and <A’, Rj) are isomorphic by a function f,
+_are also isomorphic by the same function J. To prove this we
+                                                              will
+ construct structures
+
+                                      A = <A, Ay, R, OY
+                  '                  RY’   =   <A’,   Ay,   R,    oy
+
+ such that for all assignments s with values in A and for all formulas
+ ®
+
+                      :   0        S° (x, VI, - 0 oy Ym—1)         [s] if   =a    Ofs];
+similarly for Zo and A’. Now by assumption (A, Ro> and <A’, Ro>
+are isomorphic. Hence HW and Alo are weakly isomorphic; therefor
+                                                                     e
+strongly isomorphic. But this means that Fo and Hy’ are isomorp
+                                                                 hic,
+all by the same function we started with. It will be enough to
+                                                                show
+how to construct A from Ay: actually it will be easier to construc
+                                                                   t a
+structure A which is strongly isomorphic to the structure we want.
+      First let U be the set of all pairs (a, s> where « is a term of
+                                                                      the
+original language and s is an assignment with values in A. We define
+an equivalence relation = on the set U:
+  <a, s>    =   <B,       t> if    |=x0    S*="(u,      sey      Um ty Ving      oe oy Umin—1)   [ul],
+
+where m is the least integer such that the free variables of a are among
+U9, -++»Um—1;     is the least integer such that the free variables of B
+are among %,..., U1; B’ is the term B(v9/0 ms». «, Y%—-1/° men—D3
+and y is the assignment where
+                                 8, fi <m,
+                                      uu,=
+                                                ti mifi>           m.
+We let <a, s>/= be the equivalence class of (a, s> in U and put
+
+                              A* = {<a, 5>/= 1 Ca, 8) € U}.
+and
+                                  A = {X%, 5)/= + (Ug, 8) € U}
+                                             198
+              EXISTENCE     AND     DESCRIPTION        IN     FORMAL       LOGIC
+
+        We note that A and 4 are in a one-one correspondence by the
+        function e such that for ae A,
+                                     e(a) = <0, 8>/=
+        for all assignments s with sp = a. The relation R on A, is such that
+                                (<a, >/=, <8, D/=)> € Riff
+                   =o     SRP (up, vey Um—1s Um        es ss Um+n—1)      [x],
+
+    £
+        where m, n, B’ and u are determined as before. Finally to define 0,
+?       we let r be a fixed assignment with values in A and for X C A we set
+                    (0v,9,/=           fX= -                           :
+        O(X) =                       {e(a) € A: |=n0 So (eo, - « -» Um—1) IsG/a)]}
+                    (vp, F>/=     if there is no such formula ® and assignment s.
+        The desired properties of the structure
+
+                                   js =   <A, Ag, R,   O>
+
+        will be established by proving for all formulas ®, all terms «, and
+        all assignments s with values in A that
+
+                      x    Pe((s))) iff I=x0 Sup,           tery Ym—1)   [s],
+
+        and                               a                                      ,
+                                 I| «fe((s))] lla = <@, 5>/=.
+          This result on eliminability is not very satisfactory. The operators
+        of Sections 1 and 2 are eliminable in a much stronger sense: for
+        example, the schema (IE) gives practically a wholesale way of
+        eliminating the descriptive operator. Similar things may be said for
+        Quine’s abstraction operator. In other words to eliminate an occur-
+        rence of Ix ® we need only examine the context in which this
+        term is found; we do not have to make our elimination depend on
+        any peculiarities of the formula ® within the scope of the operator.
+        The author has no idea what kind of model-theoretic conditions
+        would correspond to this uniform eliminability that we always have
+        when operators are introduced by contextual definitions. It seems
+        like an interesting problem.
+
+                                   BIBLIOGRAPHY
+          1. P. Bernays and A. A. Fraenkel. Axiomatic set theory, Amsterdam
+                (1958), 226 pp.
+          2. T. Hailperin and H. Leblanc. ‘Non-designating singular terms.’
+                The philosophical review, vol 68 (1959), pp. 239-243.
+                                              199
+                           BERTRAND       RUSSELL
+
+D.    Hilbert    and: P,   Bernays.    Grundlagen    der   Mathematik,     Bd.      }
+     (1934), Bd. If (1939), Berlin, 471 + 498 pp.
+J.  Hintikka. ‘Existential presuppositions and existential commit-
+   ments.’ The journal of philosophy, vol. 56 (1959), pp. 125-137.
+J. Hintikka. ‘Towards a theory of definite descriptions.’ Analysis
+  (Oxford), vol. 19, no. 4 (1959), pp. 79-85.                |
+A. Mostowski. ‘On the rules of proof in the pure functional calculus
+     of the first order.’ The Journal of Symbolic Logic, vol. 16 (1951),
+     pp. 107-111.
+W. V. Quine. Set theory and its logic, Harvard (1963), xv + 359 pp.
+N. Rescher. ‘On the logic of existence and denotation.’ The Philo-
+     sophical review, vol. 69 (1959), pp. 157-180.
+A. Robinson.        Introduction   to model theory and to the metamathe-
+     matics of algebra, Amsterdam (1963), ix + 284 pp.
+T. Smiley.      ‘Sense   without   denotation.’   Analysis (Oxford),     vol. 20,
+     no. 4 (1960), pp. 125-135.
+
