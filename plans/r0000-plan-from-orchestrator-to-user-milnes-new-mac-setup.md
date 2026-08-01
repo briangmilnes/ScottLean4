@@ -95,6 +95,22 @@ step runs `sudo` and needs a real terminal for the password. ~6 GB download (slo
 CTAN mirror, 20–50 min) + install. Open a new terminal after; verify:
 `/Library/TeX/texbin/pdflatex --version`.
 
+## 9b. Mathematica / Wolfram — to open Dana's `.nb` notebooks **[you]**
+Dana's 37 recovered course notebooks (`ScottClasses/`) are Mathematica `.nb`
+files and need a Wolfram app to open.
+- If Dana has a Mathematica license (e.g. via CMU), install full **Mathematica**.
+- Otherwise the free **Wolfram Engine** (CLI kernel) or **Wolfram Player** (GUI
+  viewer/runner, no save) opens them:
+```bash
+brew install --cask wolfram-engine        # free kernel; Player is a download from wolfram.com
+```
+Verify: open `ScottClasses/15-491/Lectures/01.ComplexNumbers.nb`.
+
+## 9c. Plotting — pick one on the box **[you/claude]**
+- **Mathematica** — nothing more to install if 9b is done (matches his notebooks).
+- **Python/matplotlib**: `python3 -m pip install --user matplotlib`
+- **LaTeX TikZ/pgfplots**: already available via MacTeX (step 9).
+
 ## 10. Clone the repositories **[claude]**
 ```bash
 cd ~/projects
@@ -134,6 +150,8 @@ Install/sign in to Claude Code on `milnes`, same account as this machine.
 - [ ] `pdftotext`, `tesseract` present
 - [ ] VS Code opens a `.lean` file with the Infoview goal state
 - [ ] Live Share installed (for the pairing session)
+- [ ] Mathematica/Wolfram opens a `.nb` notebook
+- [ ] a plotting option chosen and working
 
 ## Files NOT in the repo (recreate locally on `milnes`)
 - `HarperBook/PFPL.pdf` / `.txt` — CUP copyright, kept local.
