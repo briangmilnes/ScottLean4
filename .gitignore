@@ -1,6 +1,14 @@
 # The ComputAItionalThinking ruleset is a separate repository, cloned/installed
 # on its own. It is imported by CLAUDE.md, not committed into this repo.
-/ComputAItionalThinking/
+# (no trailing slash: also matches the local symlink form of this path)
+/ComputAItionalThinking
+
+# Third-party Lean tutorials cloned locally under tutorials/ (each keeps its own
+# .git so it can `git pull` upstream). Not vendored into this repo. To vendor a
+# snapshot instead, delete its .git and drop the matching line here.
+/tutorials/theorem_proving_in_lean4/
+/tutorials/mathematics_in_lean/
+/tutorials/logical_verification_2024/
 
 # Lean build output (any depth — Mathlib's checkout lives under a nested .lake/)
 .lake/
