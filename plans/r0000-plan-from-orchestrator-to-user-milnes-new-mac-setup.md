@@ -190,8 +190,9 @@ When done, capture results in
 # ~/.zshrc — personal zsh configuration
 
 if [[ -n "$INSIDE_EMACS" ]]; then
-    # Running inside an Emacs "dumb" shell: keep it plain
-    PROMPT='%~ %# '
+    # Running inside an Emacs "dumb" shell: keep it plain.
+    # %d (absolute path, not %~) so Emacs dirtrack captures a leading `/`.
+    PROMPT='%d %# '
     PROMPT_EOL_MARK=''
 else
     # Real terminal (Terminal.app, iTerm, VS Code)
@@ -228,7 +229,10 @@ autoload -Uz compinit && compinit
           (lambda ()
             (setq comint-process-echoes t)
             (shell-dirtrack-mode -1)
-            (setq-local dirtrack-list '("^\\([^ ]+\\) [#%] " 1))
+            ;; Capture from the literal `/` and exclude CR/space/newline, so zsh's
+            ;; ZLE carriage-return prompt prefix can't sneak into the path. Requires
+            ;; the in-Emacs PROMPT to use %d (absolute) — see ~/.zshrc above.
+            (setq-local dirtrack-list '("\\(/[^ \r\n]*\\) [#%] " 1 nil))
             (dirtrack-mode 1)))
 
 (add-to-list 'default-frame-alist '(background-color . "white"))
