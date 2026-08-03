@@ -1,0 +1,14 @@
+name = "Playground"
+version = "0.1.0"
+defaultTargets = ["Playground"]
+
+# Tracked, Mathlib-enabled Lean 4 project for Dana's experiments/demos.
+# Pinned to the same Mathlib as Beeson/lean4 (v4.32.2) so the olean cache is
+# reused, not re-downloaded.  Its .lake/ build directory is gitignored.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.32.2"
+
+[[lean_lib]]
+name = "Playground"
