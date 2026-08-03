@@ -1,0 +1,76 @@
+% Lean4ProofTrees.tex — natural-deduction proof trees paired with Lean 4 terms.
+% Compile:  scripts/tex2pdf.sh scripts/Lean4ProofTrees.tex  ->  generated-latex/Lean4ProofTrees.pdf
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{bussproofs}
+\usepackage{fontspec}
+\setmonofont{Menlo}[Scale=0.85]
+
+\title{Lean 4 proof trees}
+\author{ScottLean4 \textperiodcentered\ for Dana Scott}
+\date{}
+\newcommand{\lean}[1]{\texttt{#1}}
+
+\begin{document}
+\maketitle
+
+By the Curry--Howard correspondence, a natural-deduction \emph{proof tree} is the
+same object as a Lean~4 \emph{proof term}: each inference rule is a term
+constructor, and discharging an assumption is a $\lambda$-abstraction.
+
+\bigskip
+\noindent\textbf{$\wedge$-introduction.}\quad From $a$ and $b$, conclude $a\wedge b$.
+\begin{center}
+\AxiomC{$a$}
+\AxiomC{$b$}
+\RightLabel{\scriptsize $\wedge$I}
+\BinaryInfC{$a \wedge b$}
+\DisplayProof
+\end{center}
+Lean: \lean{⟨ha, hb⟩}\; (i.e.\ \lean{And.intro ha hb}).
+
+\bigskip
+\noindent\textbf{$\rightarrow$-elimination (modus ponens).}\quad
+From $a \to b$ and $a$, conclude $b$.
+\begin{center}
+\AxiomC{$a \to b$}
+\AxiomC{$a$}
+\RightLabel{\scriptsize $\to$E}
+\BinaryInfC{$b$}
+\DisplayProof
+\end{center}
+Lean: \lean{h ha}\; (apply the arrow to its argument; the \lean{apply} tactic).
+
+\bigskip
+\noindent\textbf{$\rightarrow$-introduction / discharge.}\quad
+Proof of $a \to (b \to a)$; superscripts mark the discharged assumptions.
+\begin{center}
+\AxiomC{$[a]^{1}$}
+\RightLabel{\scriptsize $\to$I$^{2}$}
+\UnaryInfC{$b \to a$}
+\RightLabel{\scriptsize $\to$I$^{1}$}
+\UnaryInfC{$a \to (b \to a)$}
+\DisplayProof
+\end{center}
+Lean: \lean{fun (ha : a) (\_ : b) => ha}.
+
+\bigskip
+\noindent\textbf{A two-branch derivation.}\quad
+$(a \wedge b) \to (b \wedge a)$.
+\begin{center}
+\AxiomC{$[a \wedge b]^{1}$}
+\RightLabel{\scriptsize $\wedge$E$_2$}
+\UnaryInfC{$b$}
+\AxiomC{$[a \wedge b]^{1}$}
+\RightLabel{\scriptsize $\wedge$E$_1$}
+\UnaryInfC{$a$}
+\RightLabel{\scriptsize $\wedge$I}
+\BinaryInfC{$b \wedge a$}
+\RightLabel{\scriptsize $\to$I$^{1}$}
+\UnaryInfC{$(a \wedge b) \to (b \wedge a)$}
+\DisplayProof
+\end{center}
+Lean: \lean{fun h => ⟨h.right, h.left⟩}.
+
+\end{document}

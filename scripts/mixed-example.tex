@@ -1,0 +1,45 @@
+% mixed-example.tex — template mixing prose, mathematics, and Lean 4 code.
+% XeLaTeX (Menlo renders Lean's Unicode).  Compile: scripts/tex2pdf.sh scripts/mixed-example.tex
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\setmonofont{Menlo}[Scale=0.85]
+\usepackage{amsmath, amssymb}
+\usepackage{fvextra}
+\usepackage{xcolor}
+
+\title{Prose, mathematics, and Lean 4 code together}
+\author{ScottLean4 \textperiodcentered\ for Dana Scott}
+\date{}
+
+\begin{document}
+\maketitle
+
+This template shows the three kinds of content you will interleave: ordinary
+\textbf{prose}, typeset \textbf{mathematics}, and blocks of \textbf{Lean~4 code}.
+
+\medskip
+Prose flows as usual, with inline math such as
+$\forall n \in \mathbb{N},\; n + 0 = n$, and displayed math:
+\[
+  \sum_{k=0}^{n} k \;=\; \frac{n(n+1)}{2}, \qquad
+  (a \wedge b) \to (b \wedge a).
+\]
+
+A block of Lean~4 code is set verbatim; its Unicode ($\mathbb{N}$, $\to$, $\forall$)
+renders directly because we compile with XeLaTeX and a Unicode monospace font:
+
+\begin{Verbatim}[fontsize=\small, frame=leftline, framerule=0.4pt, numbers=left]
+theorem add_zero (n : ℕ) : n + 0 = n := by
+  simp
+
+theorem and_comm (a b : Prop) (h : a ∧ b) : b ∧ a :=
+  ⟨h.right, h.left⟩
+\end{Verbatim}
+
+\noindent
+And then prose resumes, and can refer back to the code above and to the display
+equation. The pattern — \emph{paragraph, equation, code block, paragraph} —
+repeats for as long as the document needs.
+
+\end{document}

@@ -1,0 +1,17 @@
+% plot-demo.tex — pgfplots demo (native LaTeX plotting for the ScottLean4 bundle).
+% Compile:  pdflatex plot-demo.tex   (pgfplots ships with MacTeX; no extra install)
+\documentclass[border=8pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[
+      axis lines=middle, xlabel=$x$, ylabel=$y$,
+      domain=-3:3, samples=200, grid=both,
+      width=14cm, height=9cm, legend pos=north west]
+    \addplot[blue,  thick]              {exp(-x^2)};        \addlegendentry{$e^{-x^2}$}
+    \addplot[red,   thick, dashed]      {(x^3)/6 - x};      \addlegendentry{$x^3/6 - x$}
+    \addplot[green!60!black, thick, dotted] {sin(deg(2*x))}; \addlegendentry{$\sin 2x$}
+  \end{axis}
+\end{tikzpicture}
+\end{document}
