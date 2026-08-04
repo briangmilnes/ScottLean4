@@ -1,0 +1,214 @@
+\documentclass[11pt]{article}
+
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=RoyalBlue,urlcolor=RoyalBlue]{hyperref}
+
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\finsupp}{\to_{0}}        % finitely-supported maps
+\newcommand{\code}[1]{\texttt{#1}}
+
+\DefineVerbatimEnvironment{lean}{Verbatim}{fontsize=\small,frame=single,framesep=6pt}
+
+\title{\bfseries Factoring Polynomials:\\
+       Classical Algorithms, Representations, and Lean/Mathlib}
+\author{ScottLean4 --- tutoring notes}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Two linked questions. \emph{First:} what are the classical algorithms that
+\emph{factor} a polynomial, organized by coefficient domain, with their costs.
+\emph{Second:} which of them live in Lean's \code{Mathlib} --- and the answer is
+essentially \emph{none}, because \code{Mathlib} carries the \emph{theory} of
+factorization, not its \emph{algorithms}. The reason is visible in the data
+structure Lean chose for a polynomial: a finitely-supported coefficient map,
+optimized for proof rather than computation.
+\end{abstract}
+
+\section{Classical factoring algorithms}
+
+Factoring splits by coefficient domain. Univariate over a finite field is the
+best-developed pipeline; everything else reduces toward it.
+
+\subsection{Univariate over a finite field $\FF_q$}
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Square-free factorization} (Yun, 1976). Strip repeated factors
+        using $\gcd(f, f')$ (with care in characteristic $p$, where the
+        derivative can vanish and the Frobenius map intervenes).
+  \item \textbf{Distinct-degree factorization} (DDF). Separate the square-free
+        part into products of irreducibles of equal degree, using
+        $\gcd\!\big(f,\; x^{q^{d}} - x\big)$ to peel off the degree-$d$ factors.
+  \item \textbf{Equal-degree factorization} (EDF). Split a product of
+        equal-degree irreducibles.
+        \begin{itemize}[leftmargin=1.4em]
+          \item \textbf{Cantor--Zassenhaus} (1981): randomized, computing
+                $h^{(q^{d}-1)/2} \bmod f$ for random $h$; fast for large $q$.
+          \item \textbf{Berlekamp} (1967): deterministic, via linear algebra ---
+                the \emph{Berlekamp subalgebra} $\ker(\mathrm{Frob} - I)$; good
+                for small $q$.
+        \end{itemize}
+\end{enumerate}
+
+\subsection{Univariate over $\QQ$ and $\ZZ$}
+
+Reduce to $\ZZ$ by Gauss's lemma (take the primitive part) and make square-free.
+Then:
+\begin{enumerate}[leftmargin=*]
+  \item Factor \textbf{modulo a good prime} $p$ (one that keeps the polynomial
+        square-free).
+  \item \textbf{Hensel lifting} (Zassenhaus, 1969): lift the factorization
+        $\bmod\, p$ to $\bmod\, p^{k}$, then \emph{recombine} the lifted factors
+        into true integer factors. Recombination is worst-case exponential.
+  \item \textbf{Lenstra--Lenstra--Lov\'asz (LLL, 1982)}: lattice basis reduction
+        yields the first \emph{polynomial-time} factorization over $\QQ$.
+        \textbf{van Hoeij} (2002) made recombination practical via knapsack
+        lattices. Consequently, factoring over $\QQ$ is in \textbf{P}.
+\end{enumerate}
+
+\subsection{Multivariate}
+
+Reduce to the univariate case: \textbf{Kronecker substitution} plus
+\textbf{multivariate Hensel lifting} (Wang; Zippel sparse interpolation; Gao).
+The ancestor is \textbf{Kronecker's method} (1882) --- the first algorithm,
+finite but exponential.
+
+\subsection{Over $\RR$ and $\CC$}
+
+Exact factorization is \textbf{root-finding}: Aberth, Jenkins--Traub, or
+companion-matrix eigenvalues over $\CC$; over $\RR$ one lands on linear and
+irreducible-quadratic factors.
+
+\subsection{Cost anchor}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Domain & Method & Cost (soft-$O$) \\
+\midrule
+$\FF_q$ & DDF $+$ EDF (Cantor--Zassenhaus) & $\tilde{O}(n^{2}\log q)$, less with fast arithmetic \\
+$\FF_q$ & Berlekamp                        & $O(n^{3})$ linear algebra $+$ splitting \\
+$\QQ$   & LLL / van Hoeij                  & polynomial time \\
+$\QQ$   & Zassenhaus (recombination)       & exponential worst case \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Is it in Mathlib? No --- theory, not algorithms}
+
+A grep of \code{Mathlib} (v4.32.2) settles it. The classical factoring
+\emph{algorithms} are absent:
+\begin{itemize}[leftmargin=*]
+  \item \code{Berlekamp} occurs \emph{once}, as a name in
+        \code{Analysis/Polynomial/MahlerMeasure.lean} --- not the algorithm.
+  \item The \code{Zassenhaus} hits are \code{SchurZassenhaus} (a group-theory
+        lemma), \emph{not} Cantor--Zassenhaus.
+  \item There is \emph{no} \code{CantorZassenhaus}, \emph{no} LLL, \emph{no}
+        distinct-degree factorization.
+\end{itemize}
+
+What \code{Mathlib} \emph{does} carry is the \textbf{theory} of factorization:
+\begin{itemize}[leftmargin=*]
+  \item \code{UniqueFactorizationMonoid} --- existence and uniqueness of
+        factorization in a UFD (a $\sim$92-file development);
+  \item \code{Polynomial.roots} --- the multiset of roots, but
+        \textbf{\code{noncomputable}};
+  \item splitting fields and \code{Polynomial.factor} ---
+        \textbf{\code{noncomputable}}, choosing \emph{an} irreducible factor in
+        order to \emph{construct} a splitting field, not to compute one;
+  \item square-free theory, and irreducibility criteria: Eisenstein
+        (\code{IsEisensteinAt}), cyclotomic irreducibility, the rational-root
+        theorem;
+  \item \textbf{Hensel's lemma as a theorem} (for complete local rings /
+        $p$-adics), not as a lifting-and-recombination \emph{procedure}.
+\end{itemize}
+
+So computing a factorization is a computer-algebra-system task
+(FLINT, NTL, Singular, Sage, Magma); Lean's \code{polyrith} tactic literally
+shells out to Sage. No \emph{verified} factoring algorithm has been ported into
+\code{Mathlib}.
+
+\section{Representations of polynomials}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Representation & Form & Good at \\
+\midrule
+Dense coefficient & array $[a_0,\dots,a_n]$ & dense polynomials; FFT \\
+Sparse coefficient & list of $(\text{exp},\text{coeff})$ & high degree, few terms \\
+Point--value & $\{(x_i, f(x_i))\}$, $n{+}1$ points & $O(n)$ multiply; FFT $\leftrightarrow$ coeffs in $O(n\log n)$ \\
+Product / root & $c\prod_i (x - r_i)$ & factored; trivial multiply, hard add \\
+Basis & coeffs in Newton / Bernstein / & numerics, CAGD, \\
+      & Chebyshev / Lagrange basis & stability \\
+Multivariate & recursive (nested) vs.\ & — \\
+             & distributed (monomials $+$ order) & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Point--value and the Lagrange basis coincide; the FFT is exactly the fast
+change of basis between the dense-coefficient and point--value representations,
+which is why fast multiplication runs in $O(n\log n)$.
+
+\section{Lean/Mathlib's representation}
+
+Lean uses the abstract \textbf{sparse-coefficient representation via
+\code{Finsupp}}. A univariate polynomial \emph{is} a finitely-supported map from
+exponents $\NN$ to coefficients $R$, written $\NN \finsupp R$, wrapped in a
+one-field structure:
+
+\begin{lean}
+structure Polynomial (R : Type*) [Semiring R] where ofFinsupp ::
+  toFinsupp : AddMonoidAlgebra R Nat     -- AddMonoidAlgebra R Nat  =  (Nat ->0 R)
+\end{lean}
+
+\noindent that is, $\code{AddMonoidAlgebra}\ R\ \NN \;=\; (\NN \finsupp R)$. The
+wrapper (\code{ofFinsupp} / \code{toFinsupp}) is deliberate: it blocks bad
+definitional unfolding and forces use of the API (\code{coeff}, \code{degree},
+\code{eval}, \code{C}, \code{X}). Multivariate is the same pattern, distributed:
+
+\begin{lean}
+abbrev MvPolynomial (sigma R) [CommSemiring R] :=
+  AddMonoidAlgebra R (sigma ->0 Nat)     -- = ((sigma ->0 Nat) ->0 R)
+\end{lean}
+
+\noindent a \code{Finsupp} from \emph{multi-exponents} $\sigma \finsupp \NN$ to
+coefficients --- the basis-free distributed representation over monomials.
+
+\paragraph{Why this representation.} It is chosen for \emph{reasoning}, not
+\emph{computing}. \code{Finsupp} gives clean algebra over any semiring, an
+isomorphism $\code{Polynomial}\ R \simeq \bigoplus_{\NN} R$, and uniform
+definitions of \code{degree}, \code{coeff}, and \code{eval}; the module, algebra,
+and evaluation-homomorphism structure is transparent. The price is that it is
+largely \textbf{\code{noncomputable}} in practice: \code{roots} is
+\code{noncomputable}; equality needs \code{DecidableEq R} and even then is not an
+efficient data structure.
+
+\section{Synthesis}
+
+The two questions are one fact seen from two sides. \code{Mathlib} picked the
+representation that is best for \emph{proofs} --- an abstract finitely-supported
+coefficient map --- and it correspondingly carries the factorization
+\emph{theory} (unique factorization, roots, splitting fields, irreducibility
+criteria, Hensel's lemma) but \emph{none} of the computer-algebra
+\emph{machinery} (dense arrays, sparse term lists, the FFT, Berlekamp,
+Cantor--Zassenhaus, LLL) that makes factoring fast. Lean's polynomial is a
+mathematical object to reason about, not a data structure to compute with ---
+which is exactly why the classical factoring algorithms are not, and were never
+meant to be, in \code{Mathlib}.
+
+\end{document}

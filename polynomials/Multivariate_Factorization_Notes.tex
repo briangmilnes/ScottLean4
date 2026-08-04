@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{titlesec}
+\usepackage{setspace}
+
+\title{\vspace{-2cm}\textbf{Formal Verification of Multivariate Polynomial Factorization over $\mathbb{Q}$}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\vspace{-1.5cm}
+
+\section*{The Computability Barrier of the Reals}
+Mechanizing real-valued algorithms introduces a fundamental clash between classical mathematics and computational logic. In formal proof systems, the continuous real numbers ($\mathbb{R}$) are typically constructed non-constructively (e.g., via Cauchy sequences or Dedekind cuts). Because true real numbers have infinite precision, exact arithmetic over arbitrary reals is not directly computable, and equality testing ($a = 0$) is undecidable. 
+
+To perform mathematically verified factorization, the problem must be shifted to a computable domain such as $\mathbb{Q}[x,y,z]$. Because $\mathbb{Q}$ is a field, it guarantees exact computability. By iterative application of Gauss's Lemma, $\mathbb{Q}[x,y,z]$ is mathematically guaranteed to be a Unique Factorization Domain (UFD), shifting the problem back into the realm of classical, executable algebra.
+
+\section*{Algorithmic Approaches over $\mathbb{Q}$}
+
+\subsection*{1. Kronecker Substitution}
+This approach uses an injective ring homomorphism to pack a multivariate polynomial into a massive univariate polynomial, which can then be factored using existing verified univariate libraries. 
+
+\begin{itemize}
+    \item \textbf{Determine Degree Bounds:} Calculate a degree bound $d$ that strictly exceeds the degree of $f(x,y,z)$ in any single variable.
+    \item \textbf{Apply Substitution Mapping:} Map $f(x,y,z)$ to $F(w) \in \mathbb{Q}[w]$ using the substitution $x \mapsto w$, $y \mapsto w^d$, $z \mapsto w^{d^2}$. This establishes a strict bijection between the multivariate terms and the resulting univariate terms, ensuring the mapping preserves factorability.
+    \item \textbf{Univariate Factorization:} Execute a verified univariate factorization algorithm on $F(w)$ over $\mathbb{Q}[w]$.
+    \item \textbf{Inverse Mapping and Recombination:} Apply the inverse mapping via base-$d$ expansion of the univariate exponents to pull the factors back to $\mathbb{Q}[x,y,z]$. Because the substitution can artificially split irreducible factors, recombine and test candidate factors via polynomial division.
+\end{itemize}
+
+\subsection*{2. Multivariate Hensel Lifting}
+Instead of inflating the degree, this method projects the polynomial down to a univariate domain, factors it, and iteratively lifts the factors back up.
+
+\begin{itemize}
+    \item \textbf{Variable Evaluation:} Choose an evaluation ideal $I = \langle y-a, z-b \rangle$ for integers $a,b$ such that the projected polynomial $f(x,a,b) \in \mathbb{Q}[x]$ remains square-free and retains the exact same total degree in $x$.
+    \item \textbf{Base Factorization:} Factor $f(x,a,b)$ univariately over $\mathbb{Q}$.
+    \item \textbf{Hensel Lifting:} Iteratively lift the factorization modulo $I^k$ for increasing $k$ until $k$ exceeds the total degree bound of the original multivariate polynomial.
+    \item \textbf{Recombination:} Group the lifted tentative factors to find the true irreducible components in $\mathbb{Q}[x,y,z]$.
+\end{itemize}
+
+\end{document}
