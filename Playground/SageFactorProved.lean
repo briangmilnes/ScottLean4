@@ -70,6 +70,13 @@ sage_factor fermat3         : "x^3 + y^3 + z^3 - 3*x*y*z"
 sage_factor quartic         : "x^4 - y^4 + x^2*z^2 - y^2*z^2"
 #check @quartic
 
+-- A projective cubic from Dana Scott's 15-491 course: the *cuspidal* cubic
+-- y² z = x³ (a curve with a cusp). It is IRREDUCIBLE, so Sage returns only a
+-- unit times itself; the certified theorem records that this projective cubic
+-- does NOT split into a line and a conic — unlike `fermat3` above, which does.
+sage_factor cuspidal_cubic  : "x^3 - y^2*z"
+#check @cuspidal_cubic
+
 -- The theorems are ordinary Lean facts. `cube_diff` mentions only x,y, so its
 -- signature is `∀ (x y : ℚ), …` — use it like any lemma.
 example (a b : ℚ) : a^3 - b^3 = (a - b) * (a^2 + a*b + b^2) := cube_diff a b
