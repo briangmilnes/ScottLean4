@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{fontspec}
+\setmonofont{Menlo}[Scale=0.85]   % renders Lean's Unicode (⟶ ≫ 𝟙 ⥤) in \texttt
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\title{Category Theory in Mathlib}
+\author{ScottLean4 \textperiodcentered\ for Dana Scott}
+\date{}
+
+\begin{document}
+\maketitle
+
+Grounded in the copy on disk (Lean~4 \code{v4.32.2}): \code{Mathlib/CategoryTheory/}
+is about \textbf{1{,}089 files} --- one of the largest formalized
+category-theory libraries anywhere. Its shape:
+
+\section*{Foundations}
+\begin{itemize}
+  \item \code{Category} (the class): objects in \code{Type u}, hom-types
+    \code{X ⟶ Y} in \code{Type v} (universe-polymorphic, so small vs.\ large is
+    handled by universes), identity \code{𝟙 X}, composition written
+    \emph{diagrammatically} \code{f ≫ g} (``\code{f} then \code{g}''), and the
+    three laws. A \code{Category} extends \code{Quiver} (a graph) --- quivers are
+    the substrate.
+  \item \code{Functor} (\code{C ⥤ D}), \code{NatTrans} / \code{NatIso},
+    \code{Iso}, \code{Equivalence} of categories, and \textbf{Yoneda} (embedding
+    and lemma).
+\end{itemize}
+
+\section*{Universal constructions --- the bulk}
+\begin{itemize}
+  \item \code{Limits} --- \emph{208 files}: cones/cocones, all (co)limits,
+    products/coproducts, equalizers, pullbacks/pushouts, terminal/initial
+    objects, \textbf{Kan extensions}, filtered colimits, and the full
+    preservation/reflection/creation apparatus.
+  \item \code{Adjunction} (22): units/counits, reflective subcategories,
+    adjoint-functor theorems, monadicity.
+  \item \code{Comma} (17), \code{ComposableArrows}, over/under (slice)
+    categories, \code{WithTerminal}.
+\end{itemize}
+
+\section*{Monoidal, enriched, higher}
+\begin{itemize}
+  \item \code{Monoidal} --- \emph{108 files}: monoidal, braided, symmetric,
+    \textbf{closed} and \textbf{cartesian-closed}, rigid/autonomous categories,
+    coherence, monoidal functors. (Mathlib's CCC lives here.)
+  \item \code{Enriched} (10), \code{Bicategory} (44: 2-categories,
+    pseudofunctors), \code{Center}.
+\end{itemize}
+
+\section*{The homological tower}
+\code{Preadditive} (34) $\to$ \code{Linear} $\to$ \code{Abelian} (56:
+kernels/cokernels, exactness) $\to$ \code{Triangulated} (30) with \code{Shift}
+(17) $\to$ \code{Localization} (40: calculus of fractions, the machinery behind
+derived categories). Also \code{Idempotents} (Karoubi envelope),
+\code{GradedObject}, \code{Subobject}.
+
+\section*{Topos-theoretic / geometric}
+\code{Sites} --- \emph{113 files}: Grothendieck topologies, sheaves on a site,
+sheafification. Plus \code{Topos} (elementary topoi), \code{Galois} (11: Galois
+categories \& the fundamental group), \code{LocallyCartesianClosed},
+\code{Distributive}, \code{EffectiveEpi}, \code{RegularCategory}, \code{Adhesive}.
+
+\section*{Monads \& special categories}
+\code{Monad} (12): monads, \textbf{Eilenberg--Moore} and \textbf{Kleisli}
+categories, \code{Endofunctor}. And \code{Groupoid}, \code{Discrete},
+\code{FinCategory}, \code{Filtered}, \code{Types} (the category of Lean types),
+\code{ConcreteCategory} (a faithful functor to \code{Type} --- forgetful
+functors), \code{Quotient}, \code{PathCategory} (free category on a quiver).
+
+\section*{The everyday categories (filed elsewhere)}
+Concrete categories of structures live under their subject, not
+\code{CategoryTheory/}: \code{Algebra/Category/} (\code{MonCat}, \code{GrpCat},
+\code{RingCat}, \code{ModuleCat}, \dots), \code{Order/Category/} (\code{Lat},
+\code{DistLat}, \code{HeytAlg}, \code{Preord}, \dots), \code{Topology/Category/}
+(\code{TopCat}, \code{Profinite}, \dots) --- each with (co)completeness and
+forgetful/free adjunctions proved.
+
+\section*{Two design points}
+\begin{itemize}
+  \item \textbf{Automation:} a dedicated tactic \code{aesop\_cat} discharges the
+    naturality/coherence side-goals, so most bookkeeping is automated;
+    \code{simp} carries the rewriting.
+  \item \textbf{Modern frontier:} \code{Presentable}/accessible categories (18),
+    the small-object argument (\code{SmallObject}), and
+    \code{MorphismProperty}/\code{ObjectProperty} (classes of maps/objects --- the
+    model-category-flavored infrastructure), \code{LiftingProperties}.
+\end{itemize}
+
+\section*{A few in your own orbit}
+\code{Topos}, \code{Galois} categories, and cartesian-/locally-cartesian-closed
+structure are all present; there is even a \code{Dialectica} category (Gödel's
+Dialectica, categorically) and \code{MarkovCategory}/\code{CopyDiscardCategory}
+(categorical probability, à la Fritz).
+
+\end{document}
