@@ -13,10 +13,10 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **7** | 6 | ≈13 |
-| 2 | **Numbered** results complete | **4** (Lem 4, Lem 5, Thm 6, Thm 7) | 24 | 28 |
+| 2 | **Numbered** results complete | **5** (Thm 1, Lem 4, Lem 5, Thm 6, Thm 7) | 24 | **29** |
 | 3 | **Unnumbered prose claims** proved | **11** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | 108 | — | — |
+| 5 | Theorems in the development | 119 | — | — |
 | 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
@@ -73,18 +73,23 @@ step-function adjunction. The paper assumes or elides all of it.
 
 | 13 | r0016 | `ScottDomains/Theorem6.lean` | **Theorem 6** — `p_N` is finitary, `p_{im(p) ∩ K(D)} = p`, and the correspondence assembled |
 
-§3.1 is now formalized apart from effective presentations (§3.2).
+| 14 | r0017 | `ScottDomains/FixedPoint.lean` | **Theorem 1** — `⨆ₙ fⁿ(⊥)` is the least fixed point of a continuous `f` on a cpo. Not Mathlib reuse; see the §2 table |
 
-Next: **Theorem 3** (uniqueness of the uniform fixed-point operator), which is
-§2's one outstanding result — and verifying the "reuse Mathlib" claim for
-**Theorem 1**, since `OrderHom.lfp` is Knaster–Tarski for a *complete lattice*,
-not the paper's Kleene `⨆ₙ fⁿ(⊥)` for a *cpo*.
+§3.1 is now formalized apart from effective presentations (§3.2), and §2 apart
+from Theorem 3.
+
+Next: **Theorem 3** — `fix` is the unique *uniform* fixed-point operator. Its
+statement quantifies over a class of operators indexed by **all** cpos, so it
+needs a formalization decision before it can be stated at all.
 
 ## Work counts
 
-- **Reuse from Mathlib — no work (12):** poset, directed, cpo, `⊥`, monotone,
-  continuous, Fixed-Point Theorem (1) & operator, Schröder–Bernstein (2),
-  algebraic lattice, product, λ-notation.
+- **Reuse from Mathlib — no work (11):** poset, directed, cpo, `⊥`, monotone,
+  continuous, fixed-point operator, Schröder–Bernstein (2),
+  algebraic lattice, product, λ-notation. (Theorem 1 was listed here in an
+  earlier draft and has been removed: Mathlib's `OrderHom.lfp` is Knaster–Tarski
+  over a complete lattice, not Kleene's `⨆ₙ fⁿ(⊥)` over a cpo. It is proved in
+  `ScottDomains/FixedPoint.lean`, so **29** numbered results needed proof, not 28.)
 - **Generalize / adapt (4):** compact element (`IsCompactElement` — its *definition*
   is already stated at `[PartialOrder α]` and so applies to a dcpo verbatim; what is
   `CompleteLattice`-only is every lemma about it, so the dcpo API must be re-proved),
@@ -121,8 +126,8 @@ Mathlib v4.32.2, confirmed by grep).
 | 2.1 | Def | — | **bottom** `⊥` (least element) | ✓ `OrderBot` |
 | 2.1 | Def | — | **monotone** function | ✓ `Monotone` / `OrderHom` |
 | 2.1 | Def | — | **continuous**: monotone, `f(⨆M) = ⨆f(M)` for directed `M` | ✓ `ScottContinuous` |
-| 2.1 | Thm | 1 | **Fixed-Point Theorem**: `f : D → D` continuous ⟹ least fixed point `⨆_n fⁿ(⊥)` | ✓ `OrderHom.lfp` (Kleene: `OmegaCompletePartialOrder`) |
-| 2.2 | Thm | 2 | **Schröder–Bernstein** for sets | ✓ `Function.Embedding.schroederBernstein` |
+| 2.1 | Thm | 1 | **Fixed-Point Theorem**: `f : D → D` continuous ⟹ least fixed point `⨆_n fⁿ(⊥)` | ✓ **proved** (r0017) — `ScottDomains.theorem1`. **Not** Mathlib reuse: `OrderHom.lfp` is Knaster–Tarski over a *complete lattice* with only monotonicity, a different theorem |
+| 2.2 | Thm | 2 | **Schröder–Bernstein** for sets | ✓ `Function.schroeder_bernstein` (`SetTheory/Cardinal/SchroederBernstein.lean:90`) — the name in an earlier draft of this row, `Function.Embedding.schroederBernstein`, does not exist |
 | 2.3 | Def | — | **fixed-point operator** (uniform) | ✓ `OrderHom.lfp` / `LawfulFix` |
 | 2.3 | Thm | 3 | The standard operator is the **unique uniform** fixed-point operator | ✗ prove |
 
