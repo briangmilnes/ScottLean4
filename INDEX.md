@@ -27,7 +27,9 @@ Separate project from Playground; the domain-theory development lives here.
 - [ScottDomains/ScottDomains/Powerset.lean](ScottDomains/ScottDomains/Powerset.lean) — the paper's `P N` (p. 9): compact elements of `Set X` are exactly the finite subsets, hence `Domain (Set ℕ)` — the nondegenerate witness for the classes above
 - [ScottDomains/ScottDomains/ScottHom.lean](ScottDomains/ScottDomains/ScottHom.lean) — the continuous function space `D → E`: `ScottHom`, the pointwise order, `CompletePartialOrder`, and `BoundedComplete` when `E` is — Theorem 7's first sentence in full
 - [ScottDomains/ScottDomains/StepFunction.lean](ScottDomains/ScottDomains/StepFunction.lean) — the single step function `step k e` (Gunter & Scott, Theorem 7): continuity from `k` compact, the adjunction `step k e ≤ f ↔ e ≤ f k`, compactness in `D → E` from `e` compact
-- [ScottDomains/ScottDomains/FunctionSpaceDomain.lean](ScottDomains/ScottDomains/FunctionSpaceDomain.lean) — **`D → E` is algebraic**: the step functions form a basis. Three of Theorem 7's four conjuncts are now proved; only countability of `K(D → E)` remains
+- [ScottDomains/ScottDomains/FunctionSpaceDomain.lean](ScottDomains/ScottDomains/FunctionSpaceDomain.lean) — **`D → E` is algebraic**: the step functions form a basis
+- [ScottDomains/ScottDomains/CompactFunction.lean](ScottDomains/ScottDomains/CompactFunction.lean) — every compact function is a **finite** join of step functions
+- [ScottDomains/ScottDomains/FunctionSpaceCountable.lean](ScottDomains/ScottDomains/FunctionSpaceCountable.lean) — `K(D → E)` is countable, and **Theorem 7**: `D → E` is a bounded complete domain (proved without assuming `D` bounded complete)
 - [ScottDomains/lakefile.toml](ScottDomains/lakefile.toml) — project config (pinned Mathlib v4.32.2)
 - [ScottDomains/README.md](ScottDomains/README.md) — what the project develops, and the source paper
 - [ScottDomains/papers/Gunter Scott 1990.pdf](ScottDomains/papers/Gunter%20Scott%201990.pdf) — **Gunter & Scott, "Semantic Domains" (HTCS Vol. B, 1990)** — the source paper (copy from D. Scott)

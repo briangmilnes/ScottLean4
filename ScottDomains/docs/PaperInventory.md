@@ -13,7 +13,7 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **4** | 9 | ≈13 |
-| 2 | **Numbered** results complete | 0 | 28 | 28 |
+| 2 | **Numbered** results complete | **1** (Thm 7) | 27 | 28 |
 | 3 | Mathlib foundations reused | 12 | — | 12 |
 | 4 | `sorry` in the development | — | **0** | — |
 
@@ -34,9 +34,14 @@ are formally verified:
 | 7 | "they form a basis for `D → E`" | Thm 7 proof | `instance : IsAlgebraic (ScottHom α β)` |
 | 8 | every compact function is a *finite* join of step functions | Thm 7 proof, implicit | `exists_finite_isLUB_of_isCompactElement` |
 
-Six of those eight are the body of **Theorem 7**, which stands at three of its
-four conjuncts proved — cpo, bounded complete, algebraic — with only countability
-of `K(D → E)` outstanding. Row 2 will move from 0 to 1 when that closes.
+Six of those eight are the body of **Theorem 7**, which is now **complete** — all
+four conjuncts of its conclusion (cpo, bounded complete, algebraic, countably
+based) are formally verified, as `ScottHom.isBoundedCompleteDomain_scottHom`.
+
+It is proved under **weaker hypotheses than the paper states**: bounded
+completeness of `D` is never used. `D` need only be a domain. The function space
+is a cpo for any preordered `D`, algebraic when `D` and `E` are, bounded complete
+because `E` is, and countably based because `D` and `E` are.
 
 The remaining ~47 theorems are supporting API: the `≪` calculus, the
 `compactsBelow` machinery, the pointwise order and suprema on `D → E`, and the
@@ -53,10 +58,11 @@ step-function adjunction. The paper assumes or elides all of it.
 | 4 | r0006–r0007 | `ScottDomains/ScottHom.lean` | the continuous function space `D → E`: `ScottHom`, the pointwise order, `CompletePartialOrder`, and `BoundedComplete` when `E` is — **Theorem 7's first sentence in full** |
 | 5 | r0008 | `ScottDomains/StepFunction.lean` | the single step function `step k e`: continuity (from `k` compact), the adjunction `step k e ≤ f ↔ e ≤ f k`, and compactness in `D → E` (from `e` compact) |
 | 6 | r0009 | `ScottDomains/FunctionSpaceDomain.lean` | **`D → E` is algebraic** — the paper's "they form a basis for `D → E`"; the two halves of `IsAlgebraic` use disjoint hypotheses (directedness needs only `E` bounded complete; the lub needs only `D`, `E` algebraic) |
+| 7 | r0010 | `ScottDomains/CompactFunction.lean` | every compact function is a **finite** join of step functions — the finiteness half of the basis claim |
+| 8 | r0011 | `ScottDomains/FunctionSpaceCountable.lean` | `K(D → E)` is countable, hence `Domain (ScottHom α β)` — **Theorem 7 complete** |
 
-Next: countability of `K(D → E)` — every compact function is a finite join of
-step functions — which is all that remains between here and **Theorem 7**, the
-first numbered result.
+Next: the §3.1 results that need new definitions first — embedding–projection
+pairs and (finitary) projections, for Lemmas 4 and 5 and Theorem 6.
 
 ## Work counts
 
@@ -120,7 +126,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 3.1 | Lem | 4 | `⟨P(C), ◁⟩` of substructures is a cpo with `{⊥}` least | ✗ prove |
 | 3.1 | Lem | 5 | `p` finitary projection ⟹ compacts of `im(p)` are `{p(x):x∈K(D)}` | ✗ prove |
 | 3.1 | Thm | 6 | Isomorphism: normal substructures `≅` `Fp(D)` (finitary projections) | ✗ prove |
-| 3.1 | Thm | 7 | `D,E` bounded-complete domains ⟹ `D → E` bounded-complete domain | ✗ prove |
+| 3.1 | Thm | 7 | `D,E` bounded-complete domains ⟹ `D → E` bounded-complete domain | ✓ **proved** (r0006–r0011) — `ScottHom.isBoundedCompleteDomain_scottHom`; `D` bounded complete is not needed |
 | 3.2 | Def | — | **effective presentation** `d : ℕ → K(D)`; **effectively presented domain** | ✗ define |
 
 ## §4 Operators and functions

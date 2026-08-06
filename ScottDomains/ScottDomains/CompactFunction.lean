@@ -41,9 +41,19 @@ section Steps
 
 variable [PartialOrder α] [CompletePartialOrder β]
 
+/-- The pair `p = (k, e)` **names** the step function `g`: both coordinates are
+compact and `g`'s underlying function is `stepFun k e`.
+
+Phrased through `stepFun` and the coercion rather than through `step`, so that it
+carries no compactness proof inside a term. That is what lets a *set of pairs*
+name a *set of step functions*, which is how countability of `K(D → E)` is
+obtained. -/
+def IsStepPair (g : ScottHom α β) (p : α × β) : Prop :=
+  IsCompactElement p.1 ∧ IsCompactElement p.2 ∧ ⇑g = stepFun p.1 p.2
+
 /-- The step functions with compact value lying below `f`. -/
 def stepsBelow (f : ScottHom α β) : Set (ScottHom α β) :=
-  {g | (∃ (k : α) (hk : IsCompactElement k) (e : β), IsCompactElement e ∧ g = step hk e) ∧ g ≤ f}
+  {g | (∃ p, IsStepPair g p) ∧ g ≤ f}
 
 theorem le_of_mem_stepsBelow {f g : ScottHom α β} (h : g ∈ stepsBelow f) : g ≤ f := h.2
 
@@ -117,7 +127,7 @@ theorem isLUB_finiteJoinsBelow (f : ScottHom α β) : IsLUB (finiteJoinsBelow f)
   have hmem : step hk.1 e ∈ finiteJoinsBelow f := by
     refine ⟨{step hk.1 e}, Set.finite_singleton _, ?_, isLUB_singleton⟩
     rintro g rfl
-    exact ⟨⟨k, hk.1, e, he, rfl⟩, (step_le_iff hk.1).mpr hek⟩
+    exact ⟨⟨(k, e), hk.1, he, rfl⟩, (step_le_iff hk.1).mpr hek⟩
   have hle := hu hmem x
   dsimp only at hle
   rwa [coe_step, stepFun_of_le hk.2] at hle
