@@ -16,7 +16,7 @@ order, matched to its Lean equivalent.
 | 2 | **Numbered** results complete | **6** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7) | 23 | **29** |
 | 3 | **Unnumbered prose claims** proved | **11** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | 124 | — | — |
+| 5 | Theorems in the development | 126 | — | — |
 | 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
@@ -77,11 +77,13 @@ step-function adjunction. The paper assumes or elides all of it.
 
 | 15 | r0018 | `ScottDomains/UniformFixedPoint.lean` | **Theorem 3** — `fix` is the unique uniform fixed-point operator; `↓a` as a cpo |
 
+| 16 | r0019 | `ScottDomains/Product.lean` | `D × E` as a cpo (the one construction needing no case split) and **Lemma 8 parts 1–3** |
+
 **§2 and §3.1 are now complete** (§3.2's effective presentations excepted).
 
-Next: §4 — the smash product `D ⊗ E`, sum and lift, and the currying and
-product/function-space isomorphism laws (Lemmas 8, 9, 10), then Theorem 11
-(ideal completion) and Theorem 14.
+Next: **Lemma 8 part 4** — currying, `D → (E → F) ≅ (D × E) → F`, which needs
+the equivalence of joint and separate Scott continuity. Then the smash product
+`D ⊗ E`, sum and lift, and Lemmas 9 and 10.
 
 ## Work counts
 
@@ -155,11 +157,11 @@ Mathlib v4.32.2, confirmed by grep).
 
 | § | Kind | Ref | Concept / statement | In Lean / Mathlib? |
 |---|------|-----|---------------------|--------------------|
-| 4.1 | Def | — | **product** `D × E` | ✓ `Prod` (order/cpo instances) |
+| 4.1 | Def | — | **product** `D × E` | ✓ `Prod` order from Mathlib; the **cpo instance** is `ScottDomains.instCompletePartialOrderProd` (r0019) — Mathlib has `Prod.supSet` and `isLUB_prod` but no cpo instance |
 | 4.2 | Def | — | **Church's λ-notation** (continuous abstraction) | ✓ `OrderHom` / ωCPO `ContinuousHom` |
 | 4.3 | Def | — | **smash product** `D ⊗ E` | ✗ define |
 | 4.4 | Def | — | **sum** `D + E`; **lift** `D⊥` | ~ `Sum` / `WithBot`,`Part` (partial) |
-| 4.x | Lem | 8 | Currying/iso laws for function spaces over `D,E,F` | ✗ prove |
+| 4.x | Lem | 8 | `D×E ≅ E×D`; `(D×E)×F ≅ D×(E×F)`; `D→(E×F) ≅ (D→E)×(D→F)`; `D→(E→F) ≅ (D×E)→F` | ~ **3 of 4 parts** (r0019) — `prodComm`, `prodAssoc`, `scottHomProd`. Part 4 is currying, which needs joint-vs-separate continuity |
 | 4.x | Lem | 9 | Product/function-space iso laws over `D,E,F` | ✗ prove |
 | 4.5 | Lem | 10 | `D,E` bounded complete ⟹ `→,×,⊗,+,()⊥` bounded complete | ✗ prove |
 | 4.5 | Thm | 11 | **Ideal completion** of a countable pre-order is a domain (all domains so arise) | ~ `Order.Ideal` exists → prove |
