@@ -8,6 +8,24 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
+## Work counts
+
+- **Reuse from Mathlib — no work (12):** poset, directed, cpo, `⊥`, monotone,
+  continuous, Fixed-Point Theorem (1) & operator, Schröder–Bernstein (2),
+  algebraic lattice, product, λ-notation.
+- **Generalize / adapt (4):** compact element (`IsCompactElement`, lattice → dcpo),
+  sum, lift (`WithBot`/`Sum`), ideal completion (`Order.Ideal`).
+- **Definitions to define — new (≈13):** way-below `≪`, algebraic cpo, **domain**,
+  bounded-complete, embedding–projection pair, (finitary) projection, normal
+  subposet, effective presentation, smash product, the three powerdomains
+  (Hoare / Smyth / Plotkin), bifinite / Plotkin order, and `D∞`.
+- **Theorems to prove (28):** 28 of the paper's 30 numbered results — Theorems 3,
+  6, 7, 11, 12, 14, 16, 18, 21, 22, 25, 26, 27, 29; Lemmas 4, 5, 8–10, 13, 17,
+  19, 20, 23, 24, 28, 30; Proposition 15. Only Theorems 1 & 2 come free from Mathlib.
+
+**Bottom line: ≈13 definitions to define + 28 results to prove**, on top of 12
+reused Mathlib foundations.
+
 **Lean column legend:** `✓` reuse Mathlib (name given) · `~` partial (Mathlib has
 a related or lattice-only version — generalize) · `✗` define / prove (absent from
 Mathlib v4.32.2, confirmed by grep).
