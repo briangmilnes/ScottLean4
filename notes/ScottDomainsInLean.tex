@@ -4,7 +4,11 @@
 \usepackage{fontspec}
 \setmonofont{Menlo}[Scale=0.85]
 
-\newcommand{\code}[1]{\texttt{#1}}
+% \code renders inline code in the mono font, and (via url) is allowed to break
+% at path separators `/` and `.`, so long file paths wrap instead of overrunning
+% the right margin.
+\usepackage{xurl}
+\DeclareUrlCommand\code{\urlstyle{tt}}
 
 \title{Scott Domains in Lean / Mathlib}
 \author{ScottLean4 \textperiodcentered\ for Dana Scott}
