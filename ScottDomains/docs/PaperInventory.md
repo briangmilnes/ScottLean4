@@ -13,10 +13,10 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **7** | 6 | ≈13 |
-| 2 | **Numbered** results complete | **5** (Thm 1, Lem 4, Lem 5, Thm 6, Thm 7) | 24 | **29** |
+| 2 | **Numbered** results complete | **6** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7) | 23 | **29** |
 | 3 | **Unnumbered prose claims** proved | **11** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | 119 | — | — |
+| 5 | Theorems in the development | 124 | — | — |
 | 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
@@ -75,12 +75,13 @@ step-function adjunction. The paper assumes or elides all of it.
 
 | 14 | r0017 | `ScottDomains/FixedPoint.lean` | **Theorem 1** — `⨆ₙ fⁿ(⊥)` is the least fixed point of a continuous `f` on a cpo. Not Mathlib reuse; see the §2 table |
 
-§3.1 is now formalized apart from effective presentations (§3.2), and §2 apart
-from Theorem 3.
+| 15 | r0018 | `ScottDomains/UniformFixedPoint.lean` | **Theorem 3** — `fix` is the unique uniform fixed-point operator; `↓a` as a cpo |
 
-Next: **Theorem 3** — `fix` is the unique *uniform* fixed-point operator. Its
-statement quantifies over a class of operators indexed by **all** cpos, so it
-needs a formalization decision before it can be stated at all.
+**§2 and §3.1 are now complete** (§3.2's effective presentations excepted).
+
+Next: §4 — the smash product `D ⊗ E`, sum and lift, and the currying and
+product/function-space isomorphism laws (Lemmas 8, 9, 10), then Theorem 11
+(ideal completion) and Theorem 14.
 
 ## Work counts
 
@@ -129,7 +130,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 2.1 | Thm | 1 | **Fixed-Point Theorem**: `f : D → D` continuous ⟹ least fixed point `⨆_n fⁿ(⊥)` | ✓ **proved** (r0017) — `ScottDomains.theorem1`. **Not** Mathlib reuse: `OrderHom.lfp` is Knaster–Tarski over a *complete lattice* with only monotonicity, a different theorem |
 | 2.2 | Thm | 2 | **Schröder–Bernstein** for sets | ✓ `Function.schroeder_bernstein` (`SetTheory/Cardinal/SchroederBernstein.lean:90`) — the name in an earlier draft of this row, `Function.Embedding.schroederBernstein`, does not exist |
 | 2.3 | Def | — | **fixed-point operator** (uniform) | ✓ `OrderHom.lfp` / `LawfulFix` |
-| 2.3 | Thm | 3 | The standard operator is the **unique uniform** fixed-point operator | ✗ prove |
+| 2.3 | Thm | 3 | The standard operator is the **unique uniform** fixed-point operator | ✓ **proved** (r0018) — `ScottDomains.theorem3`; a fixed point operator is formalized as a family over every `CompletePartialOrder` in a universe |
 
 ## §3 Effectively presented domains
 
