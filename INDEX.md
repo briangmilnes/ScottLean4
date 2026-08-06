@@ -26,6 +26,7 @@ Separate project from Playground; the domain-theory development lives here.
 - [ScottDomains/README.md](ScottDomains/README.md) — what the project develops, and the source paper
 - [ScottDomains/papers/Gunter Scott 1990.pdf](ScottDomains/papers/Gunter%20Scott%201990.pdf) — **Gunter & Scott, "Semantic Domains" (HTCS Vol. B, 1990)** — the source paper (copy from D. Scott)
 - [ScottDomains/docs/PaperInventory.md](ScottDomains/docs/PaperInventory.md) — inventory of the paper's definitions & theorems (the work list)
+- ScottDomains/docs/SymbolMap — reference sheet: PDF garbling→Unicode (reading the paper) + symbol↔Unicode↔Lean input↔display (reading/writing the Lean) — [.tex](ScottDomains/docs/SymbolMap.tex) · [.pdf](ScottDomains/docs/SymbolMap.pdf)
 
 ## Notes (LaTeX source + compiled PDF)
 
