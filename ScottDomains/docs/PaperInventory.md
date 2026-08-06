@@ -8,20 +8,20 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
-## Progress (as of r0023, 2026-0806)
+## Progress (as of r0024, 2026-0806)
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **8** | 5 | ≈13 |
 | 2 | **Numbered** results complete | **7** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8) | 22 | **29** |
-| 3 | **Unnumbered prose claims** proved | **11** | — | — |
+| 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **129** live (+6 commented out as unused) | — | — |
+| 5 | Theorems in the development | **133** live (+6 commented out as unused) | — | — |
 | 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
 Proposition 1–30). Row 3 counts the claims the paper makes **in prose** rather
-than as numbered results; these are paper content too, and all eleven are
+than as numbered results; these are paper content too, and all twelve are
 formally verified:
 
 | # | Paper claim | Where | Lean |
@@ -37,6 +37,7 @@ formally verified:
 | 9 | "an embedding is an injection" | §3.1 | `IsEmbeddingProjectionPair.injective_embedding` |
 | 10 | "a projection is a surjection" | §3.1 | `IsEmbeddingProjectionPair.surjective_projection` |
 | 11 | "it is easy to check that `p_N` … is a finitary projection" | §3.1 | `isFinitaryProjection_normalHom` |
+| 12 | "the set of strict continuous functions `D → E` is also a cpo" | §2.1 | `ScottDomains.strictHomCpo` |
 
 Six of those eleven are the body of **Theorem 7**, which is now **complete** — all
 four conjuncts of its conclusion (cpo, bounded complete, algebraic, countably
@@ -62,7 +63,7 @@ it exists and what is instructive about it, and the build is unchanged — which
 also confirms that the three `@[simp]` ones among them were never firing
 implicitly.
 
-The development is **20 modules, 2921 lines, 0 `sorry`, 0 warnings**. Counts of
+The development is **21 modules, 3033 lines, 0 `sorry`, 0 warnings**. Counts of
 definitions, results and theorems are in the Progress table above — they are not
 repeated here, so that this section cannot drift out of step with it. What each
 round delivered:
@@ -88,11 +89,25 @@ round delivered:
 | 17 | r0021 | `ScottDomains/Currying.lean` | **Lemma 8.4** — currying, `D → (E → F) ≅ (D × E) → F`, and with it **Lemma 8 complete** |
 | 18 | r0022 | `ScottDomains/EffectivePresentation.lean` | §3.2's **effective presentation** — the enumeration of the basis with its two decidability conditions |
 | 19 | r0023 | `ScottDomains/Lift.lean` | the **lift** `D⊥` as a cpo, on Mathlib's `WithBot` |
+| 20 | r0024 | `ScottDomains/StrictHom.lean` | the **strict function space** `D →⊥ E` as a cpo — needs no case split, since both branches of `ScottHom`'s `sSup` are strict |
 
 **§2 and §3 are now complete** — the only §3 omission is the paper's *computable
 function*, which needs an r.e.-predicate notion Mathlib does not supply.
 
-Next: the smash product `D ⊗ E`, sum `D + E` and lift `D⊥`, then Lemma 9 (the
+### Dependency structure of the five remaining definitions
+
+| # | Definition | Prerequisites | Status |
+| -- | ---------- | ------------- | ------ |
+| 1 | smash product `D ⊗ E` | `Domain`, `OrderBot` — both built | **independent, ready** |
+| 2 | sum `D + E` | `Domain` — built | **independent, ready** |
+| 3 | bifinite / Plotkin order | `IsNormalIn` (`◁`, r0012) — built | **independent, ready** |
+| 4 | `D∞` | embedding–projection pairs (r0012) — built | independent, but large (inverse limits) |
+| 5 | the three powerdomains | the **ideal completion** (Theorem 11) — *not* built | **blocked**; the three are independent of each other once it exists |
+
+Rows 1–3 are mutually independent with every prerequisite in place, so they can be
+written as three separate modules and checked in a single build.
+
+Next: those three, then Theorem 11 to unblock the powerdomains, then Lemma 9 (the
 strict analogues of Lemma 8) and Lemma 10 (closure of bounded completeness).
 
 ## Work counts

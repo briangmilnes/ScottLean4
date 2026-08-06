@@ -214,6 +214,15 @@ theorem coe_sSup_of_continuous {d : Set (ScottHom α β)}
   simp only [SupSet.sSup, dif_pos h]
   rfl
 
+/-- The other branch: when the pointwise supremum is not continuous, `sSup` is the
+constant-`⊥` function. Needed by any argument that must account for *every* set,
+not only the directed ones. -/
+theorem sSup_eq_const_bot {d : Set (ScottHom α β)}
+    (h : ¬ ScottContinuous fun x => sSup ((fun f : ScottHom α β => f x) '' d)) :
+    sSup d = const ⊥ := by
+  classical
+  simp only [SupSet.sSup, dif_neg h]
+
 theorem coe_sSup_of_directed {d : Set (ScottHom α β)} (hd : DirectedOn (· ≤ ·) d) (x : α) :
     (sSup d) x = sSup ((fun f : ScottHom α β => f x) '' d) :=
   coe_sSup_of_continuous (scottContinuous_pointwiseSup hd) x
