@@ -71,6 +71,25 @@ theorem wayBelow_of_isCompactElement {x k y : α} (hk : IsCompactElement k)
   LE.le.trans_wayBelow hxk
     (WayBelow.trans_le ((wayBelow_self_iff_isCompactElement k).mpr hk) hky)
 
+/-- A least upper bound of two compact elements is compact. Stated for a bare
+`[PartialOrder α]` with the least upper bound as a hypothesis, because that is
+all the argument uses — no completeness, no bottom, and no lattice structure.
+
+This is what makes `compactsBelow` directed in a bounded complete cpo, where such
+a least upper bound exists for every bounded pair. -/
+theorem isCompactElement_of_isLUB_pair {k₁ k₂ c : α} (h₁ : IsCompactElement k₁)
+    (h₂ : IsCompactElement k₂) (hc : IsLUB ({k₁, k₂} : Set α) c) : IsCompactElement c := by
+  intro s u hne hd hlub hcu
+  obtain ⟨x₁, hx₁, h1x⟩ :=
+    h₁ s u hne hd hlub ((hc.1 (Set.mem_insert _ _)).trans hcu)
+  obtain ⟨x₂, hx₂, h2x⟩ :=
+    h₂ s u hne hd hlub ((hc.1 (Set.mem_insert_of_mem _ rfl)).trans hcu)
+  obtain ⟨y, hy, hxy₁, hxy₂⟩ := hd x₁ hx₁ x₂ hx₂
+  refine ⟨y, hy, hc.2 ?_⟩
+  rintro z (rfl | rfl)
+  · exact h1x.trans hxy₁
+  · exact h2x.trans hxy₂
+
 variable [OrderBot α]
 
 /-- `⊥` is compact. This is r0003's dividend rather than a new argument:
