@@ -8,7 +8,7 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
-## Progress (as of r0022, 2026-0806)
+## Progress (as of r0023, 2026-0806)
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
@@ -16,7 +16,7 @@ order, matched to its Lean equivalent.
 | 2 | **Numbered** results complete | **7** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8) | 22 | **29** |
 | 3 | **Unnumbered prose claims** proved | **11** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **125** live (+6 commented out as unused) | — | — |
+| 5 | Theorems in the development | **129** live (+6 commented out as unused) | — | — |
 | 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
@@ -62,7 +62,7 @@ it exists and what is instructive about it, and the build is unchanged — which
 also confirms that the three `@[simp]` ones among them were never firing
 implicitly.
 
-The development is **19 modules, 2823 lines, 0 `sorry`, 0 warnings**. Counts of
+The development is **20 modules, 2921 lines, 0 `sorry`, 0 warnings**. Counts of
 definitions, results and theorems are in the Progress table above — they are not
 repeated here, so that this section cannot drift out of step with it. What each
 round delivered:
@@ -87,6 +87,7 @@ round delivered:
 | 16 | r0019 | `ScottDomains/Product.lean` | `D × E` as a cpo (the one construction needing no case split) and **Lemma 8 parts 1–3** |
 | 17 | r0021 | `ScottDomains/Currying.lean` | **Lemma 8.4** — currying, `D → (E → F) ≅ (D × E) → F`, and with it **Lemma 8 complete** |
 | 18 | r0022 | `ScottDomains/EffectivePresentation.lean` | §3.2's **effective presentation** — the enumeration of the basis with its two decidability conditions |
+| 19 | r0023 | `ScottDomains/Lift.lean` | the **lift** `D⊥` as a cpo, on Mathlib's `WithBot` |
 
 **§2 and §3 are now complete** — the only §3 omission is the paper's *computable
 function*, which needs an r.e.-predicate notion Mathlib does not supply.
@@ -169,7 +170,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 4.1 | Def | — | **product** `D × E` | ✓ `Prod` order from Mathlib; the **cpo instance** is `ScottDomains.instCompletePartialOrderProd` (r0019) — Mathlib has `Prod.supSet` and `isLUB_prod` but no cpo instance |
 | 4.2 | Def | — | **Church's λ-notation** (continuous abstraction) | ✓ `OrderHom` / ωCPO `ContinuousHom` |
 | 4.3 | Def | — | **smash product** `D ⊗ E` | ✗ define |
-| 4.4 | Def | — | **sum** `D + E`; **lift** `D⊥` | ~ `Sum` / `WithBot`,`Part` (partial) |
+| 4.4 | Def | — | **sum** `D + E`; **lift** `D⊥` | lift ✓ `ScottDomains.liftCpo` on `WithBot` (r0023) — Mathlib gives the order, not the cpo; sum still `~` |
 | 4.x | Lem | 8 | `D×E ≅ E×D`; `(D×E)×F ≅ D×(E×F)`; `D→(E×F) ≅ (D→E)×(D→F)`; `D→(E→F) ≅ (D×E)→F` | ✓ **proved** — `prodComm`, `prodAssoc`, `scottHomProd` (r0019); `scottHomCurry` (r0021) |
 | 4.x | Lem | 9 | Product/function-space iso laws over `D,E,F` | ✗ prove |
 | 4.5 | Lem | 10 | `D,E` bounded complete ⟹ `→,×,⊗,+,()⊥` bounded complete | ✗ prove |
