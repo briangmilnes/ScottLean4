@@ -13,15 +13,16 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **7** | 6 | ≈13 |
-| 2 | **Numbered** results complete | **3** (Lem 4, Lem 5, Thm 7) | 25 | 28 |
-| 3 | Mathlib foundations reused | 12 | — | 12 |
-| 4 | `sorry` in the development | — | **0** | — |
+| 2 | **Numbered** results complete | **4** (Lem 4, Lem 5, Thm 6, Thm 7) | 24 | 28 |
+| 3 | **Unnumbered prose claims** proved | **11** | — | — |
+| 4 | Mathlib foundations reused | 12 | — | 12 |
+| 5 | Theorems in the development | 108 | — | — |
+| 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
-Proposition 1–30) and so understates what is proved. The development contains 55
-theorems, 15 definitions and 12 instances; of the theorems, these **eight are
-claims the paper makes in prose** rather than as numbered results, and all eight
-are formally verified:
+Proposition 1–30). Row 3 counts the claims the paper makes **in prose** rather
+than as numbered results; these are paper content too, and all eleven are
+formally verified:
 
 | # | Paper claim | Where | Lean |
 | -- | ----------- | ----- | ---- |
@@ -33,6 +34,9 @@ are formally verified:
 | 6 | "… and compact in the ordering on `D → E`" | Thm 7 proof | `isCompactElement_step` |
 | 7 | "they form a basis for `D → E`" | Thm 7 proof | `instance : IsAlgebraic (ScottHom α β)` |
 | 8 | every compact function is a *finite* join of step functions | Thm 7 proof, implicit | `exists_finite_isLUB_of_isCompactElement` |
+| 9 | "an embedding is an injection" | §3.1 | `IsEmbeddingProjectionPair.injective_embedding` |
+| 10 | "a projection is a surjection" | §3.1 | `IsEmbeddingProjectionPair.surjective_projection` |
+| 11 | "it is easy to check that `p_N` … is a finitary projection" | §3.1 | `isFinitaryProjection_normalHom` |
 
 Six of those eight are the body of **Theorem 7**, which is now **complete** — all
 four conjuncts of its conclusion (cpo, bounded complete, algebraic, countably
@@ -67,8 +71,14 @@ step-function adjunction. The paper assumes or elides all of it.
 
 | 12 | r0015 | `ScottDomains/NormalProjection.lean` | `p_N(x) = ⨆{y ∈ N \| y ⊑ x}`: continuous, a projection, and `im(p_N) ∩ K(D) = N` — half of **Theorem 6**'s correspondence, plus order preservation both ways |
 
-Next: the rest of **Theorem 6** — that `p_N` is *finitary*, the reverse identity
-`p_{im(p) ∩ K(D)} = p`, and the two assembled as an order isomorphism.
+| 13 | r0016 | `ScottDomains/Theorem6.lean` | **Theorem 6** — `p_N` is finitary, `p_{im(p) ∩ K(D)} = p`, and the correspondence assembled |
+
+§3.1 is now formalized apart from effective presentations (§3.2).
+
+Next: **Theorem 3** (uniqueness of the uniform fixed-point operator), which is
+§2's one outstanding result — and verifying the "reuse Mathlib" claim for
+**Theorem 1**, since `OrderHom.lfp` is Knaster–Tarski for a *complete lattice*,
+not the paper's Kleene `⨆ₙ fⁿ(⊥)` for a *cpo*.
 
 ## Work counts
 
@@ -131,7 +141,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 3.1 | Def | — | **normal subposet** / substructure | ✓ `ScottDomains.IsNormalIn`, notation `◁` (r0012) |
 | 3.1 | Lem | 4 | `⟨P(C), ◁⟩` of substructures is a cpo with `{⊥}` least | ✓ **proved** (r0012), all four parts |
 | 3.1 | Lem | 5 | `p` finitary projection ⟹ compacts of `im(p)` are `im(p) ∩ K(D)`, and `im(p) ∩ K(D) ◁ K(D)` | ✓ **proved** (r0014) — `IsProjection.isCompactElement_iff` (needs only *projection*) and `IsFinitaryProjection.isNormalIn_compacts` |
-| 3.1 | Thm | 6 | Isomorphism: normal substructures `≅` `Fp(D)` (finitary projections) | ✗ prove |
+| 3.1 | Thm | 6 | Isomorphism: normal substructures `≅` `Fp(D)` (finitary projections) | ✓ **proved** (r0015–r0016) — `ScottDomains.theorem6` |
 | 3.1 | Thm | 7 | `D,E` bounded-complete domains ⟹ `D → E` bounded-complete domain | ✓ **proved** (r0006–r0011) — `ScottHom.isBoundedCompleteDomain_scottHom`; `D` bounded complete is not needed |
 | 3.2 | Def | — | **effective presentation** `d : ℕ → K(D)`; **effectively presented domain** | ✗ define |
 
