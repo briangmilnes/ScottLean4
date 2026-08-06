@@ -13,7 +13,7 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **7** | 6 | ≈13 |
-| 2 | **Numbered** results complete | **2** (Lem 4, Thm 7) | 26 | 28 |
+| 2 | **Numbered** results complete | **3** (Lem 4, Lem 5, Thm 7) | 25 | 28 |
 | 3 | Mathlib foundations reused | 12 | — | 12 |
 | 4 | `sorry` in the development | — | **0** | — |
 
@@ -63,9 +63,11 @@ step-function adjunction. The paper assumes or elides all of it.
 | 9 | r0012 | `ScottDomains/NormalSubposet.lean` | the normal-subposet relation `◁` and **Lemma 4**, all four parts |
 | 10 | r0012–r0013 | `ScottDomains/Projection.lean` | embedding–projection pairs, projections, the paper's "an embedding is an injection, a projection is a surjection"; **`im(p)` is a cpo** and **finitary projections** |
 
-Next: **Lemma 5** — the compact elements of `im(p)` are `im(p) ∩ K(D)`, and
-`im(p) ∩ K(D) ◁ K(D)` — then **Theorem 6**, the isomorphism between normal
-substructures of `K(D)` and the finitary projections `Fp(D)`.
+| 11 | r0014 | `ScottDomains/FinitaryProjection.lean` | **Lemma 5** — the compacts of `im(p)` are `im(p) ∩ K(D)` (needs only that `p` is a projection), and `im(p) ∩ K(D) ◁ K(D)` |
+
+Next: **Theorem 6**, the isomorphism between the cpo of normal substructures of
+`K(D)` and the poset `Fp(D)` of finitary projections, via `N ↦ p_N` where
+`p_N(x) = ⨆{y ∈ N | y ⊑ x}`.
 
 ## Work counts
 
@@ -127,7 +129,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 3.1 | Def | — | **projection**; **finitary projection** `p`: `p∘p=p⊑id`, `im(p)` a domain | ✓ `ScottHom.IsProjection` (r0012), `ScottHom.IsFinitaryProjection` (r0013) — `im(p)` carries a `CompletePartialOrder` via `IsProjection.rangeCompletePartialOrder` |
 | 3.1 | Def | — | **normal subposet** / substructure | ✓ `ScottDomains.IsNormalIn`, notation `◁` (r0012) |
 | 3.1 | Lem | 4 | `⟨P(C), ◁⟩` of substructures is a cpo with `{⊥}` least | ✓ **proved** (r0012), all four parts |
-| 3.1 | Lem | 5 | `p` finitary projection ⟹ compacts of `im(p)` are `{p(x):x∈K(D)}` | ✗ prove |
+| 3.1 | Lem | 5 | `p` finitary projection ⟹ compacts of `im(p)` are `im(p) ∩ K(D)`, and `im(p) ∩ K(D) ◁ K(D)` | ✓ **proved** (r0014) — `IsProjection.isCompactElement_iff` (needs only *projection*) and `IsFinitaryProjection.isNormalIn_compacts` |
 | 3.1 | Thm | 6 | Isomorphism: normal substructures `≅` `Fp(D)` (finitary projections) | ✗ prove |
 | 3.1 | Thm | 7 | `D,E` bounded-complete domains ⟹ `D → E` bounded-complete domain | ✓ **proved** (r0006–r0011) — `ScottHom.isBoundedCompleteDomain_scottHom`; `D` bounded complete is not needed |
 | 3.2 | Def | — | **effective presentation** `d : ℕ → K(D)`; **effectively presented domain** | ✗ define |
