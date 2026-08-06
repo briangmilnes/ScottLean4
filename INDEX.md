@@ -29,6 +29,7 @@ Separate project from Playground; the domain-theory development lives here.
 - Category theory in Mathlib — [.tex](notes/CategoryTheoryInMathlib.tex) · [.pdf](notes/CategoryTheoryInMathlib.pdf)
 - Scott domains in Lean/Mathlib — [.tex](notes/ScottDomainsInLean.tex) · [.pdf](notes/ScottDomainsInLean.pdf)
 - Scott–Strachey criticisms — [.tex](notes/ScottStracheyCriticisms.tex) · [.pdf](notes/ScottStracheyCriticisms.pdf)
+- Scott–Strachey criticisms — Gemini Deep Research report, re-typeset from a share link (prints empty in-browser) — [.tex](notes/ScottStracheyGeminiReport.tex) · [.pdf](notes/ScottStracheyGeminiReport.pdf)
 - Dana Scott — biography — [.tex](notes/DanaScottBio.tex) · [.pdf](notes/DanaScottBio.pdf)
 - Homogeneous factorization — [.tex](notes/HomogeneousFactorization.tex) · [.pdf](notes/HomogeneousFactorization.pdf)
 
