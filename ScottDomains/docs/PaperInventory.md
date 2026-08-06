@@ -8,15 +8,15 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
-## Progress (as of r0024, 2026-0806)
+## Progress (as of r0025, 2026-0806)
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
-| 1 | Definitions to define | **8** | 5 | ≈13 |
+| 1 | Definitions to define | **10** | 3 | ≈13 |
 | 2 | **Numbered** results complete | **7** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8) | 22 | **29** |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **133** live (+6 commented out as unused) | — | — |
+| 5 | Theorems in the development | **142** live (+6 commented out as unused) | — | — |
 | 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
@@ -63,7 +63,7 @@ it exists and what is instructive about it, and the build is unchanged — which
 also confirms that the three `@[simp]` ones among them were never firing
 implicitly.
 
-The development is **21 modules, 3033 lines, 0 `sorry`, 0 warnings**. Counts of
+The development is **23 modules, 3254 lines, 0 `sorry`, 0 warnings**. Counts of
 definitions, results and theorems are in the Progress table above — they are not
 repeated here, so that this section cannot drift out of step with it. What each
 round delivered:
@@ -90,25 +90,28 @@ round delivered:
 | 18 | r0022 | `ScottDomains/EffectivePresentation.lean` | §3.2's **effective presentation** — the enumeration of the basis with its two decidability conditions |
 | 19 | r0023 | `ScottDomains/Lift.lean` | the **lift** `D⊥` as a cpo, on Mathlib's `WithBot` |
 | 20 | r0024 | `ScottDomains/StrictHom.lean` | the **strict function space** `D →⊥ E` as a cpo — needs no case split, since both branches of `ScottHom`'s `sSup` are strict |
+| 21 | r0025 | `ScottDomains/Smash.lean` | §4.3's **smash product** `D ⊗ E` — the non-bottom pairs with a new bottom adjoined, as a cpo |
+| 22 | r0025 | `ScottDomains/Bifinite.lean` | §6.1's **Plotkin order** and **bifinite** domain |
 
 **§2 and §3 are now complete** — the only §3 omission is the paper's *computable
 function*, which needs an r.e.-predicate notion Mathlib does not supply.
 
-### Dependency structure of the five remaining definitions
+### Dependency structure of the remaining definitions
 
 | # | Definition | Prerequisites | Status |
 | -- | ---------- | ------------- | ------ |
-| 1 | smash product `D ⊗ E` | `Domain`, `OrderBot` — both built | **independent, ready** |
-| 2 | sum `D + E` | `Domain` — built | **independent, ready** |
-| 3 | bifinite / Plotkin order | `IsNormalIn` (`◁`, r0012) — built | **independent, ready** |
-| 4 | `D∞` | embedding–projection pairs (r0012) — built | independent, but large (inverse limits) |
+| 1 | smash product `D ⊗ E` | `Domain`, `OrderBot` | ✓ **done, r0025** |
+| 2 | bifinite / Plotkin order | `IsNormalIn` (`◁`, r0012) | ✓ **done, r0025** |
+| 3 | sum `D + E` | `Domain` | independent, ready |
+| 4 | `D∞` | embedding–projection pairs (r0012) | independent, but large (inverse limits) |
 | 5 | the three powerdomains | the **ideal completion** (Theorem 11) — *not* built | **blocked**; the three are independent of each other once it exists |
 
-Rows 1–3 are mutually independent with every prerequisite in place, so they can be
-written as three separate modules and checked in a single build.
+Rows 1 and 2 were written as two modules and checked in a single build, which is
+the parallelism the structure actually admits — the bottleneck is the
+build-and-fix loop, not the writing.
 
-Next: those three, then Theorem 11 to unblock the powerdomains, then Lemma 9 (the
-strict analogues of Lemma 8) and Lemma 10 (closure of bounded completeness).
+Next: the sum `D + E`, then Theorem 11 to unblock the powerdomains, then Lemma 9
+(the strict analogues of Lemma 8) and Lemma 10 (closure of bounded completeness).
 
 ## Work counts
 
@@ -184,7 +187,7 @@ Mathlib v4.32.2, confirmed by grep).
 |---|------|-----|---------------------|--------------------|
 | 4.1 | Def | — | **product** `D × E` | ✓ `Prod` order from Mathlib; the **cpo instance** is `ScottDomains.instCompletePartialOrderProd` (r0019) — Mathlib has `Prod.supSet` and `isLUB_prod` but no cpo instance |
 | 4.2 | Def | — | **Church's λ-notation** (continuous abstraction) | ✓ `OrderHom` / ωCPO `ContinuousHom` |
-| 4.3 | Def | — | **smash product** `D ⊗ E` | ✗ define |
+| 4.3 | Def | — | **smash product** `D ⊗ E` | ✓ `ScottDomains.Smash` + `smashCpo` (r0025) |
 | 4.4 | Def | — | **sum** `D + E`; **lift** `D⊥` | lift ✓ `ScottDomains.liftCpo` on `WithBot` (r0023) — Mathlib gives the order, not the cpo; sum still `~` |
 | 4.x | Lem | 8 | `D×E ≅ E×D`; `(D×E)×F ≅ D×(E×F)`; `D→(E×F) ≅ (D→E)×(D→F)`; `D→(E→F) ≅ (D×E)→F` | ✓ **proved** — `prodComm`, `prodAssoc`, `scottHomProd` (r0019); `scottHomCurry` (r0021) |
 | 4.x | Lem | 9 | Product/function-space iso laws over `D,E,F` | ✗ prove |
@@ -206,7 +209,7 @@ Mathlib v4.32.2, confirmed by grep).
 
 | § | Kind | Ref | Concept / statement | In Lean / Mathlib? |
 |---|------|-----|---------------------|--------------------|
-| 6.1 | Def | — | **Plotkin order** / **bifinite (SFP) domain**: bilimit of finite pointed posets | ✗ define |
+| 6.1 | Def | — | **Plotkin order** / **bifinite (SFP) domain** | ✓ `ScottDomains.IsPlotkinOrder`, `IsBifinite` (r0025) |
 | 6.1 | Prop | 15 | Every bounded-complete domain is bifinite | ✗ prove |
 | 6.1 | Thm | 16 | `D` bifinite ⟹ `Fp(D)` is an algebraic lattice | ✗ prove |
 | 6.2 | Lem | 17 | `D,E` bifinite ⟹ `→,×,⊗,+,()⊥` bifinite (incl. function space) | ✗ prove |
