@@ -1,0 +1,80 @@
+# r0001
+# agent3 — md2pdf pipeline reproduction and glyph-coverage measurement
+# host: Linux 7.0.0-28-generic ; pandoc 3.9.0.2 ; LuaHBTeX 1.17.0 (TeX Live 2023/Debian)
+# all renders written to the scratchpad; nothing under ScottDomains/docs was overwritten
+
+== 1. scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md <scratch> ==
+$ ./scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md $SCRATCH
+/bin/bash: line 1: ./scripts/md2pdf.sh: cannot execute: required file not found
+exit 127   (shebang #!/bin/zsh ; zsh is not installed on this host)
+
+== 2. same pandoc invocation under bash, current scripts/md-pdf-header.tex ==
+Error producing PDF.
+! Package fontspec Error: The font "STIXTwoText" cannot be found.
+
+For immediate help type H <return>.
+ ...                                              
+                                                  
+l.67 ...o Text}[RawFeature={fallback=scottfallback}]
+exit 43
+
+== 3. lualatex log, current header (grep) ==
+424:! Package fontspec Error: The font "STIXTwoText" cannot be found.
+601:! Package fontspec Error: The font "STIXTwoText" cannot be found.
+617:! Package fontspec Error: The font "STIXTwoText" cannot be found.
+787:! Package fontspec Error: The font "STIXTwoText" cannot be found.
+850:! Package fontspec Error: The font "STIXTwoText" cannot be found.
+866:! Package fontspec Error: The font "STIXTwoText" cannot be found.
+928:! Package fontspec Error: The font "Menlo" cannot be found.
+1011:! Package fontspec Error: The font "Menlo" cannot be found.
+1027:! Package fontspec Error: The font "Menlo" cannot be found.
+1109:! Package fontspec Error: The font "Menlo" cannot be found.
+1192:! Package fontspec Error: The font "Menlo" cannot be found.
+1208:! Package fontspec Error: The font "Menlo" cannot be found.
+Missing character count: 0
+PDF produced: none (Fatal error occurred, no output PDF file produced)
+
+== 4. proposed header, STIX Two absent (this host as it stands) ==
+TAG            DOC             rc   missing_ch fontERR  pages  bytes   
+proposed-nostix PaperInventory  0    0          0        4      78500   
+proposed-nostix INDEX           0    0          0        2      45630   
+proposed-nostix SymbolCorpus    0    0          0        2      34285   
+--- distinct missing glyphs across the three documents:
+--- embedded fonts (SymbolCorpus.pdf):
+name                                 type              encoding         emb sub uni object ID
+------------------------------------ ----------------- ---------------- --- --- --- ---------
+YQXEPT+STIXTwoText-Bold              CID Type 0C       Identity-H       yes yes yes      9  0
+ILKUIP+STIXTwoText-Regular           CID Type 0C       Identity-H       yes yes yes     10  0
+OTKFRV+STIXTwoMath-Regular           CID Type 0C       Identity-H       yes yes yes     12  0
+DEPOOY+DejaVuSans                    CID TrueType      Identity-H       yes yes yes     18  0
+
+== 5. proposed header, STIX Two present (CTAN stix2-otf via OSFONTDIR) ==
+=== rebuilding isolated luaotfload db ===
+rc=0 ; db entries: 
+luaotfload | resolve : Font "STIX Two Text" found!
+luaotfload | resolve : Resolved file name "/usr/share/texlive/texmf-dist/fonts/opentype/public/stix2-otf/STIXTwoText-Regular.otf"
+luaotfload | resolve : Font "STIX Two Math" found!
+luaotfload | resolve : Resolved file name "/usr/share/texlive/texmf-dist/fonts/opentype/public/stix2-otf/STIXTwoMath-Regular.otf"
+TAG            DOC             rc   missing_ch fontERR  pages  bytes   
+proposed-stix  PaperInventory  0    0          0        4      78500   
+proposed-stix  INDEX           0    0          0        2      45630   
+proposed-stix  SymbolCorpus    0    0          0        2      34285   
+--- distinct missing glyphs across the three documents:
+--- embedded fonts (SymbolCorpus.pdf):
+name                                 type              encoding         emb sub uni object ID
+------------------------------------ ----------------- ---------------- --- --- --- ---------
+YQXEPT+STIXTwoText-Bold              CID Type 0C       Identity-H       yes yes yes      9  0
+ILKUIP+STIXTwoText-Regular           CID Type 0C       Identity-H       yes yes yes     10  0
+OTKFRV+STIXTwoMath-Regular           CID Type 0C       Identity-H       yes yes yes     12  0
+DEPOOY+DejaVuSans                    CID TrueType      Identity-H       yes yes yes     18  0
+
+== 6. branch-discriminator test ==
+mac       -> BRANCH SELECTED = macos
+linux     -> BRANCH SELECTED = linux
+noprobe   -> BRANCH SELECTED = macos
+
+== 7. pdftotext cross-check ==
+=== proposed-nostix : pdftotext round-trip of the 58-codepoint corpus ===
+corpus codepoints: 58 ; recovered by pdftotext: 58 ; not recovered: 0
+=== proposed-stix : pdftotext round-trip of the 58-codepoint corpus ===
+corpus codepoints: 58 ; recovered by pdftotext: 58 ; not recovered: 0

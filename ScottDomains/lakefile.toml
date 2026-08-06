@@ -13,3 +13,7 @@ rev = "v4.32.2"
 
 [[lean_lib]]
 name = "ScottDomains"
+# Without globs, `lake build` elaborates only the modules reachable from the
+# ScottDomains.lean root.  ExistingTheories.lean is not imported by it, so a
+# Mathlib bump could break that file while the build still exits 0.
+globs = ["ScottDomains.+"]

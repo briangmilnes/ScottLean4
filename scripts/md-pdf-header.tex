@@ -1,13 +1,47 @@
 % Font setup for md2pdf.sh (lualatex). STIX Two Text reads well but lacks some
 % symbols (⊥ ≈ ✗ …) and Menlo lacks others (≪); register a per-glyph fallback to
 % STIX Two Math then Apple Symbols so nothing renders as a blank box.
+%
+% One file, two platforms. Menlo, Arial Unicode MS and Apple Symbols ship only
+% with macOS, so a Linux host needs different families. \IfFontExistsTF{Menlo}
+% selects the branch.
+%
+% What the macs render does not change: on macOS the test is true and the branch
+% below is the previous header verbatim. A false negative cannot silently swap
+% Dana's symbols either — \IfFontExistsTF and \setmonofont use the same
+% luaotfload name lookup, so if the test failed on a mac the previous header's
+% \setmonofont{Menlo} would have failed there as well.
+%
+% Two traps, each of which yields a broken PDF with no obvious cause; the code
+% below avoids both by construction. (1) No `#' may appear inside \directlua:
+% TeX doubles a catcode-6 `#' when it stringifies the chunk, so Lua's length
+% operator aborts it — hence literal tables, not incremental appends. (2) Naming
+% an unregistered fallback table in RawFeature makes the font itself unloadable
+% rather than ignoring the feature — hence add_fallback always runs first.
 \usepackage{luaotfload}
-\directlua{
-  luaotfload.add_fallback("scottfallback", {
-    "STIX Two Math:mode=base;",
-    "Arial Unicode MS:mode=base;",
-    "Apple Symbols:mode=base;"
-  })
+\IfFontExistsTF{Menlo}{%
+%%% macOS branch — identical in effect to the pre-2026-08 header.
+  \directlua{
+    luaotfload.add_fallback("scottfallback", {
+      "STIX Two Math:mode=base;",
+      "Arial Unicode MS:mode=base;",
+      "Apple Symbols:mode=base;"
+    })
+  }
+  \setmainfont{STIX Two Text}[RawFeature={fallback=scottfallback}]
+  \setmonofont{Menlo}[Scale=MatchLowercase, RawFeature={fallback=scottfallback}]
+}{%
+%%% Linux branch — same fallback discipline over families Debian/Ubuntu ships.
+%%% STIX Two Text and STIX Two Math come from texlive-fonts-extra, which installs
+%%% them into the texmf tree: luaotfload finds them via kpathsea, but fontconfig
+%%% does not index them, so fc-list will not list them.
+  \directlua{
+    luaotfload.add_fallback("scottfallback", {
+      "STIX Two Math:mode=base;",
+      "DejaVu Sans:mode=base;",
+      "Noto Sans Symbols2:mode=base;"
+    })
+  }
+  \setmainfont{STIX Two Text}[RawFeature={fallback=scottfallback}]
+  \setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase, RawFeature={fallback=scottfallback}]
 }
-\setmainfont{STIX Two Text}[RawFeature={fallback=scottfallback}]
-\setmonofont{Menlo}[Scale=MatchLowercase, RawFeature={fallback=scottfallback}]
