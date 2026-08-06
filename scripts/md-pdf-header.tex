@@ -1,0 +1,13 @@
+% Font setup for md2pdf.sh (lualatex). STIX Two Text reads well but lacks some
+% symbols (⊥ ≈ ✗ …) and Menlo lacks others (≪); register a per-glyph fallback to
+% STIX Two Math then Apple Symbols so nothing renders as a blank box.
+\usepackage{luaotfload}
+\directlua{
+  luaotfload.add_fallback("scottfallback", {
+    "STIX Two Math:mode=base;",
+    "Arial Unicode MS:mode=base;",
+    "Apple Symbols:mode=base;"
+  })
+}
+\setmainfont{STIX Two Text}[RawFeature={fallback=scottfallback}]
+\setmonofont{Menlo}[Scale=MatchLowercase, RawFeature={fallback=scottfallback}]

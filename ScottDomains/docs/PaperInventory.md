@@ -45,7 +45,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 2.1 | Def | — | **bottom** `⊥` (least element) | ✓ `OrderBot` |
 | 2.1 | Def | — | **monotone** function | ✓ `Monotone` / `OrderHom` |
 | 2.1 | Def | — | **continuous**: monotone, `f(⨆M) = ⨆f(M)` for directed `M` | ✓ `ScottContinuous` |
-| 2.1 | Thm | 1 | **Fixed-Point Theorem**: `f : D → D` continuous ⟹ least fixed point `⨆ₙ fⁿ(⊥)` | ✓ `OrderHom.lfp` (Kleene: `OmegaCompletePartialOrder`) |
+| 2.1 | Thm | 1 | **Fixed-Point Theorem**: `f : D → D` continuous ⟹ least fixed point `⨆_n fⁿ(⊥)` | ✓ `OrderHom.lfp` (Kleene: `OmegaCompletePartialOrder`) |
 | 2.2 | Thm | 2 | **Schröder–Bernstein** for sets | ✓ `Function.Embedding.schroederBernstein` |
 | 2.3 | Def | — | **fixed-point operator** (uniform) | ✓ `OrderHom.lfp` / `LawfulFix` |
 | 2.3 | Thm | 3 | The standard operator is the **unique uniform** fixed-point operator | ✗ prove |
