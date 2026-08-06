@@ -30,6 +30,8 @@ Separate project from Playground; the domain-theory development lives here.
 - [ScottDomains/ScottDomains/FunctionSpaceDomain.lean](ScottDomains/ScottDomains/FunctionSpaceDomain.lean) — **`D → E` is algebraic**: the step functions form a basis
 - [ScottDomains/ScottDomains/CompactFunction.lean](ScottDomains/ScottDomains/CompactFunction.lean) — every compact function is a **finite** join of step functions
 - [ScottDomains/ScottDomains/FunctionSpaceCountable.lean](ScottDomains/ScottDomains/FunctionSpaceCountable.lean) — `K(D → E)` is countable, and **Theorem 7**: `D → E` is a bounded complete domain (proved without assuming `D` bounded complete)
+- [ScottDomains/ScottDomains/NormalSubposet.lean](ScottDomains/ScottDomains/NormalSubposet.lean) — the normal-subposet relation `N ◁ A` (§3.1) and **Lemma 4**, all four parts
+- [ScottDomains/ScottDomains/Projection.lean](ScottDomains/ScottDomains/Projection.lean) — embedding–projection pairs and projections; an embedding is injective, a projection surjective
 - [ScottDomains/lakefile.toml](ScottDomains/lakefile.toml) — project config (pinned Mathlib v4.32.2)
 - [ScottDomains/README.md](ScottDomains/README.md) — what the project develops, and the source paper
 - [ScottDomains/papers/Gunter Scott 1990.pdf](ScottDomains/papers/Gunter%20Scott%201990.pdf) — **Gunter & Scott, "Semantic Domains" (HTCS Vol. B, 1990)** — the source paper (copy from D. Scott)

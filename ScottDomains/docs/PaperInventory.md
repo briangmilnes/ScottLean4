@@ -12,8 +12,8 @@ order, matched to its Lean equivalent.
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
-| 1 | Definitions to define | **4** | 9 | ≈13 |
-| 2 | **Numbered** results complete | **1** (Thm 7) | 27 | 28 |
+| 1 | Definitions to define | **6** | 7 | ≈13 |
+| 2 | **Numbered** results complete | **2** (Lem 4, Thm 7) | 26 | 28 |
 | 3 | Mathlib foundations reused | 12 | — | 12 |
 | 4 | `sorry` in the development | — | **0** | — |
 
@@ -60,9 +60,11 @@ step-function adjunction. The paper assumes or elides all of it.
 | 6 | r0009 | `ScottDomains/FunctionSpaceDomain.lean` | **`D → E` is algebraic** — the paper's "they form a basis for `D → E`"; the two halves of `IsAlgebraic` use disjoint hypotheses (directedness needs only `E` bounded complete; the lub needs only `D`, `E` algebraic) |
 | 7 | r0010 | `ScottDomains/CompactFunction.lean` | every compact function is a **finite** join of step functions — the finiteness half of the basis claim |
 | 8 | r0011 | `ScottDomains/FunctionSpaceCountable.lean` | `K(D → E)` is countable, hence `Domain (ScottHom α β)` — **Theorem 7 complete** |
+| 9 | r0012 | `ScottDomains/NormalSubposet.lean` | the normal-subposet relation `◁` and **Lemma 4**, all four parts |
+| 10 | r0012 | `ScottDomains/Projection.lean` | embedding–projection pairs and projections; the paper's "an embedding is an injection, a projection is a surjection" |
 
-Next: the §3.1 results that need new definitions first — embedding–projection
-pairs and (finitary) projections, for Lemmas 4 and 5 and Theorem 6.
+Next: finitary projections, which need `im(p)` to carry a `Domain` structure as a
+subtype — a sub-cpo construction. Lemma 5 and Theorem 6 both quantify over them.
 
 ## Work counts
 
@@ -120,10 +122,10 @@ Mathlib v4.32.2, confirmed by grep).
 | 3.1 | Def | — | **domain** = algebraic cpo **whose basis `K(D)` is countable** (the paper's definition, p. 9 — the countability condition was missing from an earlier draft of this row) | ✓ `ScottDomains.Domain` (r0004) |
 | 3.1 | Def | — | **bounded complete**: `⊥` + every bounded subset has a sup — a *separate* predicate; the paper composes them as "bounded complete domain" (Thm 7, Lem 10, Lem 13, Thm 14), which is the literature's *Scott domain* | ✓ `ScottDomains.BoundedComplete` (r0004); the compound is `[Domain α] [BoundedComplete α]` |
 | 3.1 | Def | — | **(countably based) algebraic lattice** | ✓ `IsCompactlyGenerated` (+`CompleteLattice`) |
-| 3.1 | Def | — | **embedding–projection pair** `(g, f)` | ✗ define |
-| 3.1 | Def | — | **projection**; **finitary projection** `p`: `p∘p=p⊑id`, `im(p)` a domain | ✗ define |
-| 3.1 | Def | — | **normal subposet** / substructure | ✗ define |
-| 3.1 | Lem | 4 | `⟨P(C), ◁⟩` of substructures is a cpo with `{⊥}` least | ✗ prove |
+| 3.1 | Def | — | **embedding–projection pair** `(g, f)` | ✓ `ScottHom.IsEmbeddingProjectionPair` (r0012) |
+| 3.1 | Def | — | **projection**; **finitary projection** `p`: `p∘p=p⊑id`, `im(p)` a domain | ~ `ScottHom.IsProjection` (r0012); the *finitary* condition needs `im(p)` as a sub-cpo |
+| 3.1 | Def | — | **normal subposet** / substructure | ✓ `ScottDomains.IsNormalIn`, notation `◁` (r0012) |
+| 3.1 | Lem | 4 | `⟨P(C), ◁⟩` of substructures is a cpo with `{⊥}` least | ✓ **proved** (r0012), all four parts |
 | 3.1 | Lem | 5 | `p` finitary projection ⟹ compacts of `im(p)` are `{p(x):x∈K(D)}` | ✗ prove |
 | 3.1 | Thm | 6 | Isomorphism: normal substructures `≅` `Fp(D)` (finitary projections) | ✗ prove |
 | 3.1 | Thm | 7 | `D,E` bounded-complete domains ⟹ `D → E` bounded-complete domain | ✓ **proved** (r0006–r0011) — `ScottHom.isBoundedCompleteDomain_scottHom`; `D` bounded complete is not needed |
