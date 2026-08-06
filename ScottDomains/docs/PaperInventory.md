@@ -65,9 +65,10 @@ step-function adjunction. The paper assumes or elides all of it.
 
 | 11 | r0014 | `ScottDomains/FinitaryProjection.lean` | **Lemma 5** — the compacts of `im(p)` are `im(p) ∩ K(D)` (needs only that `p` is a projection), and `im(p) ∩ K(D) ◁ K(D)` |
 
-Next: **Theorem 6**, the isomorphism between the cpo of normal substructures of
-`K(D)` and the poset `Fp(D)` of finitary projections, via `N ↦ p_N` where
-`p_N(x) = ⨆{y ∈ N | y ⊑ x}`.
+| 12 | r0015 | `ScottDomains/NormalProjection.lean` | `p_N(x) = ⨆{y ∈ N \| y ⊑ x}`: continuous, a projection, and `im(p_N) ∩ K(D) = N` — half of **Theorem 6**'s correspondence, plus order preservation both ways |
+
+Next: the rest of **Theorem 6** — that `p_N` is *finitary*, the reverse identity
+`p_{im(p) ∩ K(D)} = p`, and the two assembled as an order isomorphism.
 
 ## Work counts
 
