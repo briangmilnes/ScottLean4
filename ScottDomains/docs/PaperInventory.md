@@ -115,7 +115,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 7 | Lem | 23 | The function-space operator is representable over `P(ℕ)` | ✗ prove |
 | 7 | Lem | 24 | `U` cpo; `×` and `→` representable over `U` ⟹ (setup for universality) | ✗ prove |
 | 7 | Thm | 25 | `U` non-trivial domain representing `×`,`→` ⟹ `U` **universal** | ✗ prove |
-| 7 | Thm | 26 | Any signature `(s₁,…,sₙ)`: combinators `F₁,…,Fₙ` solving the equations | ✗ prove |
+| 7 | Thm | 26 | Any signature `(s₁,…,s_n)`: combinators `F₁,…,F_n` solving the equations | ✗ prove |
 | 7 | Thm | 27 | Any bounded-complete `D`: a projection of the universal domain onto `D` | ✗ prove |
 | 7 | Lem | 28 | Operators `→,×,⊗,+,()⊥,()],()[` representable over `U` | ✗ prove |
 | 7 | Thm | 29 | `D` bifinite ⟹ `D+` bifinite; solving `D ≅ D+` | ✗ prove |
