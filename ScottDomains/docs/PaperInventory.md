@@ -8,7 +8,7 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
-## Progress (as of r0006, 2026-0806)
+## Progress (as of r0007, 2026-0806)
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
@@ -18,18 +18,20 @@ order, matched to its Lean equivalent.
 | 4 | `sorry` in the development | — | **0** | — |
 
 **4 of ≈13 definitions are formally verified and building**, in 4 modules,
-620 lines, 0 `sorry`, 0 warnings:
+689 lines, 0 `sorry`, 0 warnings:
 
 | # | Round | Module | Contents |
 | -- | ----- | ------ | -------- |
 | 1 | r0003 | `ScottDomains/WayBelow.lean` | way-below `≪` at `[Preorder α]`, 7 theorems; `x ≪ x ↔ IsCompactElement x` holds by `Iff.rfl` |
 | 2 | r0004 | `ScottDomains/Domain.lean` | `IsAlgebraic`, `Domain` (with the paper's countable-basis condition), `BoundedComplete`, 8 theorems, `Domain Prop` |
 | 3 | r0005 | `ScottDomains/Powerset.lean` | the paper's `P N` (p. 9): compacts of `Set X` are exactly the finite subsets, hence `Domain (Set ℕ)` — the nondegenerate witness |
-| 4 | r0006 | `ScottDomains/ScottHom.lean` | the continuous function space `D → E` as a cpo: `ScottHom`, the pointwise order, and `CompletePartialOrder (ScottHom α β)` with suprema computed pointwise |
+| 4 | r0006–r0007 | `ScottDomains/ScottHom.lean` | the continuous function space `D → E`: `ScottHom`, the pointwise order, `CompletePartialOrder`, and `BoundedComplete` when `E` is — **Theorem 7's first sentence in full** |
 
-Next: the step-function basis for `D → E`, which turns r0006's cpo into a
-**domain** and yields **Theorem 7** — the first numbered result within reach.
-The paper's own proof sketch splits Theorem 7 exactly where r0006 stopped.
+Next: the step-function basis for `D → E`, which turns the cpo into a **domain**
+and completes **Theorem 7** — the first numbered result within reach. The paper's
+own proof sketch splits Theorem 7 exactly where r0007 stopped: "It is not hard to
+see that `D → E` is a bounded complete cpo whenever `E` is" is done; "to prove
+that `D → E` is a domain we must demonstrate its basis" is next.
 
 ## Work counts
 

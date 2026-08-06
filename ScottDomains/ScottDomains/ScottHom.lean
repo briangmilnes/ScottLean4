@@ -40,12 +40,19 @@ for `d = ∅`, where every appeal to `DirectedOn.sSup_le` is vacuous.
 ## Why `sSup` needs a case split
 
 `CompletePartialOrder` extends `SupSet`, so `sSup` must return a `ScottHom` for
-*every* set of functions — but the pointwise supremum of a non-directed set need
-not be continuous, and in a dcpo it is unconstrained anyway. `sSup` is therefore
-defined by `dite` on directedness, returning the constant-`⊥` function otherwise.
-`CompletePartialOrder` constrains `sSup` only on directed sets, so the junk value
-is invisible to every consumer; `coe_sSup_of_directed` strips the `dite` for
-downstream use. The cost is a `Classical.choice` dependency in the instance.
+*every* set of functions — but the pointwise supremum need not be continuous.
+`sSup` is therefore defined by `dite` on **continuity of the pointwise
+supremum**, returning the constant-`⊥` function otherwise, since continuity is
+precisely the condition under which the pointwise supremum is the right answer.
+Directedness and boundedness are two sufficient conditions for it, proved
+separately as `scottContinuous_pointwiseSup` and
+`scottContinuous_pointwiseSup_of_bddAbove`; `coe_sSup_of_directed` and
+`coe_sSup_of_bddAbove` strip the `dite` for downstream use. The cost is a
+`Classical.choice` dependency in the instance.
+
+Branching on directedness instead — as an earlier version of this file did —
+makes `BoundedComplete (ScottHom α β)` false as stated, because a bounded set of
+functions need not be directed and `sSup` would return the junk value on it.
 
 `⊥` is a plain definition (`ScottHom.const ⊥`) rather than an `OrderBot`
 instance, and the `CompletePartialOrder` instance splices the `PartialOrder` and
@@ -120,44 +127,89 @@ theorem directedOn_eval_image {d : Set (ScottHom α β)} (hd : DirectedOn (· �
   obtain ⟨h, hh, hfh, hgh⟩ := hd f hf g hg
   exact ⟨h x, ⟨h, hh, rfl⟩, hfh x, hgh x⟩
 
-/-- The pointwise supremum of a directed set of Scott-continuous functions is
-Scott-continuous. The four steps of the module docstring, in order. -/
-theorem scottContinuous_pointwiseSup {d : Set (ScottHom α β)}
-    (hd : DirectedOn (· ≤ ·) d) :
+/-- Evaluation carries a set of functions bounded above to a set of values
+bounded above. -/
+theorem bddAbove_eval_image {d : Set (ScottHom α β)} (hd : BddAbove d) (x : α) :
+    BddAbove ((fun f : ScottHom α β => f x) '' d) := by
+  obtain ⟨g, hg⟩ := hd
+  refine ⟨g x, ?_⟩
+  rintro _ ⟨f, hf, rfl⟩
+  exact hg hf x
+
+/-- The pointwise supremum of a set of Scott-continuous functions is
+Scott-continuous as soon as `sSup` is the least upper bound of every evaluation
+image. The four steps of the module docstring, in order.
+
+Directedness is not what the argument needs — only that each evaluation image
+attains its least upper bound at `sSup`. Stating it this way lets the directed
+case and the bounded case share one script. -/
+theorem scottContinuous_pointwiseSup_of_forall_isLUB {d : Set (ScottHom α β)}
+    (h : ∀ x : α, IsLUB ((fun f : ScottHom α β => f x) '' d)
+      (sSup ((fun f : ScottHom α β => f x) '' d))) :
     ScottContinuous fun x => sSup ((fun f : ScottHom α β => f x) '' d) := by
   have hmono : Monotone fun x => sSup ((fun f : ScottHom α β => f x) '' d) := by
     intro x y hxy
-    refine (directedOn_eval_image hd x).sSup_le ?_
+    refine (h x).2 ?_
     rintro _ ⟨f, hf, rfl⟩
-    exact le_trans (f.monotone hxy) ((directedOn_eval_image hd y).le_sSup ⟨f, hf, rfl⟩)
+    exact le_trans (f.monotone hxy) ((h y).1 ⟨f, hf, rfl⟩)
   intro s hne hs a ha
   refine ⟨?_, ?_⟩
   · rintro _ ⟨x, hx, rfl⟩
     exact hmono (ha.1 hx)
   · intro u hu
-    refine (directedOn_eval_image hd a).sSup_le ?_
+    refine (h a).2 ?_
     rintro _ ⟨f, hf, rfl⟩
     refine (f.scottContinuous hne hs ha).2 ?_
     rintro _ ⟨x, hx, rfl⟩
-    exact le_trans ((directedOn_eval_image hd x).le_sSup ⟨f, hf, rfl⟩) (hu ⟨x, hx, rfl⟩)
+    exact le_trans ((h x).1 ⟨f, hf, rfl⟩) (hu ⟨x, hx, rfl⟩)
+
+/-- The directed case: `DirectedOn.isLUB_sSup` supplies the hypothesis. -/
+theorem scottContinuous_pointwiseSup {d : Set (ScottHom α β)}
+    (hd : DirectedOn (· ≤ ·) d) :
+    ScottContinuous fun x => sSup ((fun f : ScottHom α β => f x) '' d) :=
+  scottContinuous_pointwiseSup_of_forall_isLUB fun x => (directedOn_eval_image hd x).isLUB_sSup
+
+/-- The bounded case, when `E` is bounded complete: `isLUB_sSup_of_bddAbove`
+supplies the hypothesis. This is what makes `D → E` bounded complete. -/
+theorem scottContinuous_pointwiseSup_of_bddAbove [BoundedComplete β]
+    {d : Set (ScottHom α β)} (hd : BddAbove d) :
+    ScottContinuous fun x => sSup ((fun f : ScottHom α β => f x) '' d) :=
+  scottContinuous_pointwiseSup_of_forall_isLUB fun x =>
+    isLUB_sSup_of_bddAbove (bddAbove_eval_image hd x)
 
 open Classical in
-/-- Suprema are pointwise on directed sets. On a non-directed set the value is
-the constant-`⊥` function: `SupSet` is total, continuity of the pointwise
-supremum is not, and `CompletePartialOrder` never looks at the junk value. -/
+/-- Suprema are pointwise exactly when the pointwise supremum is continuous;
+otherwise the value is the constant-`⊥` function. `SupSet` is total and
+continuity is not, so some case split is forced — and continuity is the right
+condition to split on, because it is precisely what makes the pointwise supremum
+the correct answer. Directedness and boundedness are then two *sufficient*
+conditions, neither privileged in the definition.
+
+Branching on directedness instead would make `BoundedComplete (ScottHom α β)`
+false as stated: a bounded set of functions need not be directed, and `sSup`
+would return the junk value on it. -/
 noncomputable instance : SupSet (ScottHom α β) where
   sSup d :=
-    if hd : DirectedOn (· ≤ ·) d then
-      ⟨fun x => sSup ((fun f : ScottHom α β => f x) '' d), scottContinuous_pointwiseSup hd⟩
+    if h : ScottContinuous fun x => sSup ((fun f : ScottHom α β => f x) '' d) then ⟨_, h⟩
     else const ⊥
 
 /-- The defining equation of `sSup`, with the case split discharged. Downstream
 proofs use this and never see the `dite`. -/
-theorem coe_sSup_of_directed {d : Set (ScottHom α β)} (hd : DirectedOn (· ≤ ·) d) (x : α) :
+theorem coe_sSup_of_continuous {d : Set (ScottHom α β)}
+    (h : ScottContinuous fun x => sSup ((fun f : ScottHom α β => f x) '' d)) (x : α) :
     (sSup d) x = sSup ((fun f : ScottHom α β => f x) '' d) := by
   classical
-  simp only [SupSet.sSup, dif_pos hd]
+  simp only [SupSet.sSup, dif_pos h]
   rfl
+
+theorem coe_sSup_of_directed {d : Set (ScottHom α β)} (hd : DirectedOn (· ≤ ·) d) (x : α) :
+    (sSup d) x = sSup ((fun f : ScottHom α β => f x) '' d) :=
+  coe_sSup_of_continuous (scottContinuous_pointwiseSup hd) x
+
+theorem coe_sSup_of_bddAbove [BoundedComplete β] {d : Set (ScottHom α β)}
+    (hd : BddAbove d) (x : α) :
+    (sSup d) x = sSup ((fun f : ScottHom α β => f x) '' d) :=
+  coe_sSup_of_continuous (scottContinuous_pointwiseSup_of_bddAbove hd) x
 
 /-- `D → E` is a cpo: directed sets of continuous functions have least upper
 bounds, computed pointwise. The parents are spliced from the instances already in
@@ -192,6 +244,23 @@ example : (inferInstance : PartialOrder (ScottHom α β)) =
     CompletePartialOrder.toPartialOrder := rfl
 
 example : (inferInstance : SupSet (ScottHom α β)) = CompletePartialOrder.toSupSet := rfl
+
+/-- `D → E` is bounded complete whenever `E` is — the rest of Theorem 7's first
+sentence. Suprema of bounded sets are pointwise, by the same argument as for
+directed sets with `isLUB_sSup_of_bddAbove` in place of `DirectedOn.isLUB_sSup`. -/
+instance [BoundedComplete β] : BoundedComplete (ScottHom α β) where
+  isLUB_sSup_of_bddAbove d hd := by
+    constructor
+    · intro f hf x
+      dsimp only
+      rw [coe_sSup_of_bddAbove hd]
+      exact (isLUB_sSup_of_bddAbove (bddAbove_eval_image hd x)).1 ⟨f, hf, rfl⟩
+    · intro g hg x
+      dsimp only
+      rw [coe_sSup_of_bddAbove hd]
+      refine (isLUB_sSup_of_bddAbove (bddAbove_eval_image hd x)).2 ?_
+      rintro _ ⟨f, hf, rfl⟩
+      exact hg hf x
 
 end CompletePartialOrder
 
