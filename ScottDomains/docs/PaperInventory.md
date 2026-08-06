@@ -13,9 +13,34 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **4** | 9 | ≈13 |
-| 2 | Numbered results to prove | 0 | 28 | 28 |
+| 2 | **Numbered** results complete | 0 | 28 | 28 |
 | 3 | Mathlib foundations reused | 12 | — | 12 |
 | 4 | `sorry` in the development | — | **0** | — |
+
+Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
+Proposition 1–30) and so understates what is proved. The development contains 55
+theorems, 15 definitions and 12 instances; of the theorems, these **eight are
+claims the paper makes in prose** rather than as numbered results, and all eight
+are formally verified:
+
+| # | Paper claim | Where | Lean |
+| -- | ----------- | ----- | ---- |
+| 1 | "the compact elements [of `P N`] are just the finite subsets of `N`" | p. 9 | `isCompactElement_iff_finite` |
+| 2 | "`P N` … is a domain" | p. 9 | `instance : Domain (Set X)` |
+| 3 | "`D → E` is a … cpo" | Thm 7 proof | `instance : CompletePartialOrder (ScottHom α β)` |
+| 4 | "… bounded complete … whenever `E` is" | Thm 7 proof | `instance : BoundedComplete (ScottHom α β)` |
+| 5 | "step(s) … is continuous" | Thm 7 proof | `scottContinuous_stepFun` |
+| 6 | "… and compact in the ordering on `D → E`" | Thm 7 proof | `isCompactElement_step` |
+| 7 | "they form a basis for `D → E`" | Thm 7 proof | `instance : IsAlgebraic (ScottHom α β)` |
+| 8 | every compact function is a *finite* join of step functions | Thm 7 proof, implicit | `exists_finite_isLUB_of_isCompactElement` |
+
+Six of those eight are the body of **Theorem 7**, which stands at three of its
+four conjuncts proved — cpo, bounded complete, algebraic — with only countability
+of `K(D → E)` outstanding. Row 2 will move from 0 to 1 when that closes.
+
+The remaining ~47 theorems are supporting API: the `≪` calculus, the
+`compactsBelow` machinery, the pointwise order and suprema on `D → E`, and the
+step-function adjunction. The paper assumes or elides all of it.
 
 **4 of ≈13 definitions are formally verified and building**, in 6 modules,
 985 lines, 0 `sorry`, 0 warnings:
