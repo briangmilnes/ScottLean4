@@ -8,6 +8,29 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
+## Progress (as of r0006, 2026-0806)
+
+| # | Quantity | Done | Remaining | Of |
+| -- | -------- | ---- | --------- | -- |
+| 1 | Definitions to define | **4** | 9 | ≈13 |
+| 2 | Numbered results to prove | 0 | 28 | 28 |
+| 3 | Mathlib foundations reused | 12 | — | 12 |
+| 4 | `sorry` in the development | — | **0** | — |
+
+**4 of ≈13 definitions are formally verified and building**, in 4 modules,
+620 lines, 0 `sorry`, 0 warnings:
+
+| # | Round | Module | Contents |
+| -- | ----- | ------ | -------- |
+| 1 | r0003 | `ScottDomains/WayBelow.lean` | way-below `≪` at `[Preorder α]`, 7 theorems; `x ≪ x ↔ IsCompactElement x` holds by `Iff.rfl` |
+| 2 | r0004 | `ScottDomains/Domain.lean` | `IsAlgebraic`, `Domain` (with the paper's countable-basis condition), `BoundedComplete`, 8 theorems, `Domain Prop` |
+| 3 | r0005 | `ScottDomains/Powerset.lean` | the paper's `P N` (p. 9): compacts of `Set X` are exactly the finite subsets, hence `Domain (Set ℕ)` — the nondegenerate witness |
+| 4 | r0006 | `ScottDomains/ScottHom.lean` | the continuous function space `D → E` as a cpo: `ScottHom`, the pointwise order, and `CompletePartialOrder (ScottHom α β)` with suprema computed pointwise |
+
+Next: the step-function basis for `D → E`, which turns r0006's cpo into a
+**domain** and yields **Theorem 7** — the first numbered result within reach.
+The paper's own proof sketch splits Theorem 7 exactly where r0006 stopped.
+
 ## Work counts
 
 - **Reuse from Mathlib — no work (12):** poset, directed, cpo, `⊥`, monotone,
@@ -134,16 +157,5 @@ completion Thm 11, Thm 22) · `✗` define / prove ≈ **44**, of which 4 are do
 (`≪` r0003; algebraic, domain, bounded-complete r0004) → **40 remaining** — the
 bifinite / powerdomain / `D∞` development and all 28 numbered results.
 
-**Done so far.** `ScottDomains/WayBelow.lean` (r0003) — `≪` at `[Preorder α]`,
-7 theorems. `ScottDomains/Domain.lean` (r0004) — `IsAlgebraic`, `Domain`,
-`BoundedComplete`, 8 theorems, and a `Domain Prop` instance witnessing that the
-classes are satisfiable. `ScottDomains/Powerset.lean` (r0005) — the paper's `P N`
-example (p. 9): the compact elements of `Set X` are exactly the finite subsets,
-giving `IsAlgebraic (Set X)`, `BoundedComplete (Set X)`, and `Domain (Set X)` for
-countable `X`, hence `Domain (Set ℕ)`. 0 `sorry` in any of the three.
-
-**Next target:** the first numbered results that rest on these definitions —
-Lem 4 and Lem 5 (§3.1, substructures and finitary projections), which first need
-embedding–projection pairs and (finitary) projections defined; or Thm 7
-(`D → E` is a bounded complete domain), which needs the continuous function
-space as a cpo.
+What is done, and what is next, is listed under **Progress** at the top of this
+file.

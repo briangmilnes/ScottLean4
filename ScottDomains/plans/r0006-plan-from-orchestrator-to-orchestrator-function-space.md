@@ -4,7 +4,7 @@ from: orchestrator
 to: orchestrator
 subject: function-space
 date: 2026-0806-13:52
-status: pending
+status: done
 related:
   - plans/r0005-plan-from-orchestrator-to-orchestrator-powerset-domain.md
 ---
@@ -128,10 +128,26 @@ space, and Theorem 7. The paper's own proof sketch separates them, and bounded
 completeness of the function space needs suprema of *bounded* rather than
 directed families, whose continuity argument is not the one above.
 
-## Revision point
+## Revision after r0005 (2026-0806-13:58)
 
-This plan is written before r0005 runs. Re-read it after r0005's report: if
-`Set X` exposes a difficulty in the r0004 class shapes — most plausibly in how
-`IsAlgebraic` interacts with a `CompleteLattice`-derived `CompletePartialOrder`
-instance — steps 7 and 8 here are where the same difficulty would recur, and the
-plan should be revised before execution rather than during.
+r0005 raised no difficulty in the r0004 class shapes — `IsAlgebraic (Set X)` and
+`Domain (Set ℕ)` went through against a `CompleteLattice`-derived
+`CompletePartialOrder` instance unchanged. That concern is closed.
+
+It did, however, make a different risk visible by contrast. In r0005 every order
+instance on `Set X` came from Mathlib, already coherent. Here they are built by
+hand, and `CompletePartialOrder` **extends** `PartialOrder`, `SupSet`, and
+`OrderBot`. Declaring a standalone `PartialOrder (ScottHom α β)` and then a
+separate `CompletePartialOrder (ScottHom α β)` would leave two `LE` instances
+with no reason to be identified — exactly the instance diamond that broke
+r0004's `Iff.rfl`, in a new place. Steps 4, 7 and 8 are revised accordingly:
+
+* No standalone `OrderBot` instance. The constant-`⊥` function becomes a plain
+  definition, `ScottHom.const`, used for the `dite`'s else branch. `bot` and
+  `bot_le` are supplied as fields of the `CompletePartialOrder` instance.
+* The `CompletePartialOrder` instance splices its parents from the instances
+  already in scope — `__ := inferInstanceAs (PartialOrder (ScottHom α β))` and
+  likewise for `SupSet` — rather than re-deriving them.
+
+This replaces steps 4 and 8 in the table above; step numbering is otherwise
+unchanged.
