@@ -58,7 +58,14 @@ def compacts (α : Type*) [PartialOrder α] : Set α := {k | IsCompactElement k}
 statement that this set is directed with least upper bound `x`. -/
 def compactsBelow (x : α) : Set α := {k | IsCompactElement k ∧ k ≤ x}
 
+/- UNUSED — commented out, kept for reading. A reference audit found nothing in
+the development cites this; `compacts` is only ever used as a set, never unfolded
+through a membership lemma. Rule 2 (nothing speculative) says it should not have
+been written; it is preserved here rather than deleted because the `Iff.rfl` is
+instructive: membership in a `setOf` is *definitionally* the predicate.
+
 @[simp] theorem mem_compacts {k : α} : k ∈ compacts α ↔ IsCompactElement k := Iff.rfl
+-/
 
 @[simp] theorem mem_compactsBelow {k x : α} :
     k ∈ compactsBelow x ↔ IsCompactElement k ∧ k ≤ x := Iff.rfl
@@ -126,10 +133,18 @@ section IsAlgebraic
 
 variable [CompletePartialOrder α] [IsAlgebraic α]
 
+/- UNUSED — commented out, kept for reading. The `sSup` form of algebraicity.
+Every proof in the development works with `IsLUB` directly instead, because
+`IsLUB` needs no `SupSet` and transfers across subtypes; this form never got a
+caller. Worth reading for the idiom: `IsLUB.unique` against
+`DirectedOn.isLUB_sSup` is how one turns "is a least upper bound" into
+"equals `sSup`".
+
 /-- The `sSup` form of algebraicity. -/
 theorem sSup_compactsBelow (x : α) : sSup (compactsBelow x) = x :=
   ((IsAlgebraic.directedOn_compactsBelow x).isLUB_sSup).unique
     (IsAlgebraic.isLUB_compactsBelow x)
+-/
 
 /-- In an algebraic cpo, `≪` is exactly factorization through a compact element.
 The forward direction is where algebraicity is spent: apply `x ≪ y` to the

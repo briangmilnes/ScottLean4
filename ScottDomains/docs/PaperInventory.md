@@ -16,7 +16,7 @@ order, matched to its Lean equivalent.
 | 2 | **Numbered** results complete | **6** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7) | 23 | **29** |
 | 3 | **Unnumbered prose claims** proved | **11** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | 126 | — | — |
+| 5 | Theorems in the development | **120** live (+6 commented out as unused) | — | — |
 | 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
@@ -47,9 +47,20 @@ completeness of `D` is never used. `D` need only be a domain. The function space
 is a cpo for any preordered `D`, algebraic when `D` and `E` are, bounded complete
 because `E` is, and countably based because `D` and `E` are.
 
-The remaining ~47 theorems are supporting API: the `≪` calculus, the
-`compactsBelow` machinery, the pointwise order and suprema on `D → E`, and the
-step-function adjunction. The paper assumes or elides all of it.
+The remaining theorems are supporting API: the `≪` calculus, the `compactsBelow`
+machinery, the pointwise order and suprema on `D → E`, and the step-function
+adjunction. The paper assumes or elides all of it.
+
+**Reference audit (r0020).** Of the theorems in the development, 16 are never
+cited elsewhere. Nine of those are *terminal by design* — they are the paper's
+own claims, so nothing should cite them (`injective_embedding`,
+`surjective_projection`, the `isNormalIn_sUnion*` family and `mono_right` for
+Lemma 4, `singleton_bot_isNormalIn` for `{⊥} ∈ P(C)`, `isLeast_kleeneFix_le`,
+`eq_kleeneOperator_op`). The other six were speculative API written for callers
+that never appeared; they are **commented out in place**, each with a note on why
+it exists and what is instructive about it, and the build is unchanged — which
+also confirms that the three `@[simp]` ones among them were never firing
+implicitly.
 
 **4 of ≈13 definitions are formally verified and building**, in 6 modules,
 985 lines, 0 `sorry`, 0 warnings:

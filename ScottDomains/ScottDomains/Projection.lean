@@ -74,6 +74,15 @@ theorem IsEmbeddingProjectionPair.injective_embedding (h : IsEmbeddingProjection
 theorem IsEmbeddingProjectionPair.surjective_projection (h : IsEmbeddingProjectionPair g f) :
     Function.Surjective f := fun x => ⟨g x, h.1 x⟩
 
+/- UNUSED — commented out, kept for reading. That `g ∘ f` is a projection is a
+real fact and the paper alludes to it ("one may well think of the image of an
+embedding as a special kind of sub-cpo"), but nothing in this development needs
+it: Theorem 6 goes through `p_N` and `im(p) ∩ K(D)`, never through a composite.
+
+Note the workaround in the statement — there is no composition operation on
+`ScottHom` yet, so the composite is passed in as `p` with a defining equation
+`hp`. If §4 ever needs `ScottHom` composition, this is the first customer.
+
 /-- The composite `g ∘ f` of an embedding–projection pair is a projection on `E`:
 idempotent by the first equation, below the identity by the second. -/
 theorem IsEmbeddingProjectionPair.isProjection_comp
@@ -83,6 +92,7 @@ theorem IsEmbeddingProjectionPair.isProjection_comp
   · rw [hp, hp, h.1]
   · rw [hp]
     exact h.2 y
+-/
 
 end EmbeddingProjection
 

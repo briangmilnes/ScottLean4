@@ -118,10 +118,18 @@ theorem step_le_iff (hk : IsCompactElement k) {f : ScottHom α β} :
     · rw [stepFun_of_not_le hkx]
       exact bot_le
 
+/- UNUSED — commented out, kept for reading. Monotonicity of `step` in its value.
+Written on the assumption that comparing step functions would come up; it never
+did — every later use goes through `step_le_iff` against an arbitrary `f`, which
+is strictly more general. Instructive as the shortest possible demonstration that
+the adjunction is the only tool needed: the whole proof is one `mpr` and a
+rewrite.
+
 /-- Step functions are monotone in their value. -/
 theorem step_mono (hk : IsCompactElement k) {e₁ e₂ : β} (h : e₁ ≤ e₂) :
     step hk e₁ ≤ step hk e₂ :=
   (step_le_iff hk).mpr (by rw [step_self]; exact h)
+-/
 
 /-- A step function with a compact value is compact in the function space.
 

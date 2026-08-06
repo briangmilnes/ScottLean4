@@ -85,7 +85,14 @@ instance : FunLike (ScottHom α β) α β where
   coe := toFun
   coe_injective := by intro f g h; cases f; cases g; congr
 
+/- UNUSED — commented out, kept for reading. The standard Mathlib idiom for
+relating a structure's raw field to its `FunLike` coercion. Nothing here ever
+touches `.toFun` directly — every proof goes through the coercion — so it never
+fired. Keep the shape in mind: in Mathlib-style files this lemma is what stops
+`simp` from leaving goals stated in terms of the underlying field.
+
 @[simp] theorem toFun_eq_coe (f : ScottHom α β) : f.toFun = ⇑f := rfl
+-/
 
 @[ext] theorem ext {f g : ScottHom α β} (h : ∀ x, f x = g x) : f = g :=
   DFunLike.ext f g h
@@ -99,7 +106,12 @@ as the least element of the function space and as the junk value of `sSup` on a
 non-directed set. -/
 def const (b : β) : ScottHom α β := ⟨Function.const α b, ScottContinuous.const b⟩
 
+/- UNUSED — commented out, kept for reading. `const` itself *is* used — it is the
+junk value of `sSup` and the `⊥` of the function space — but always as a term,
+never rewritten through this equation.
+
 @[simp] theorem coe_const (b : β) : ⇑(const b : ScottHom α β) = Function.const α b := rfl
+-/
 
 end Preorder
 
