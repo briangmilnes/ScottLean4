@@ -137,7 +137,10 @@ bifinite / powerdomain / `D∞` development and all 28 numbered results.
 **Done so far.** `ScottDomains/WayBelow.lean` (r0003) — `≪` at `[Preorder α]`,
 7 theorems. `ScottDomains/Domain.lean` (r0004) — `IsAlgebraic`, `Domain`,
 `BoundedComplete`, 8 theorems, and a `Domain Prop` instance witnessing that the
-classes are satisfiable. 0 `sorry` in either.
+classes are satisfiable. `ScottDomains/Powerset.lean` (r0005) — the paper's `P N`
+example (p. 9): the compact elements of `Set X` are exactly the finite subsets,
+giving `IsAlgebraic (Set X)`, `BoundedComplete (Set X)`, and `Domain (Set X)` for
+countable `X`, hence `Domain (Set ℕ)`. 0 `sorry` in any of the three.
 
 **Next target:** the first numbered results that rest on these definitions —
 Lem 4 and Lem 5 (§3.1, substructures and finitary projections), which first need
