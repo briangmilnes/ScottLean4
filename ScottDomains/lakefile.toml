@@ -16,4 +16,9 @@ name = "ScottDomains"
 # Without globs, `lake build` elaborates only the modules reachable from the
 # ScottDomains.lean root.  ExistingTheories.lean is not imported by it, so a
 # Mathlib bump could break that file while the build still exits 0.
-globs = ["ScottDomains.+"]
+# `ScottDomains.+` covers the submodules but NOT the root module itself, so a
+# clean checkout never built `ScottDomains.olean` — the main working copy was
+# coasting on an artifact built before this glob was added, and `lake build` in a
+# fresh git worktree failed with "object file ScottDomains.olean does not exist".
+# Both entries are needed.
+globs = ["ScottDomains", "ScottDomains.+"]
