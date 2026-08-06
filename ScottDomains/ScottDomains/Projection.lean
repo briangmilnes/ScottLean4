@@ -1,4 +1,5 @@
 import ScottDomains.ScottHom
+import ScottDomains.Domain
 
 /-!
 # Embedding–projection pairs and projections
@@ -84,6 +85,85 @@ theorem IsEmbeddingProjectionPair.isProjection_comp
     exact h.2 y
 
 end EmbeddingProjection
+
+section RangeCpo
+
+variable [CompletePartialOrder α] {p : ScottHom α α}
+
+/-- A projection fixes `⊥`: `p ⊥ ≤ ⊥` from `p ⊑ id`, and `⊥ ≤ p ⊥` always. -/
+theorem IsProjection.map_bot (hp : IsProjection p) : p ⊥ = ⊥ :=
+  le_antisymm (hp.le ⊥) bot_le
+
+theorem IsProjection.bot_mem_range (hp : IsProjection p) : (⊥ : α) ∈ Set.range ⇑p :=
+  ⟨⊥, hp.map_bot⟩
+
+/-- A directed set in the image has a directed image in the ambient order. -/
+theorem directedOn_val_image {s : Set ↥(Set.range ⇑p)} (hs : DirectedOn (· ≤ ·) s) :
+    DirectedOn (· ≤ ·) (Subtype.val '' s) := by
+  rintro _ ⟨a, ha, rfl⟩ _ ⟨b, hb, rfl⟩
+  obtain ⟨c, hc, hac, hbc⟩ := hs a ha b hb
+  exact ⟨c.val, ⟨c, hc, rfl⟩, hac, hbc⟩
+
+/-- The image of a projection is closed under directed suprema: continuity moves
+`p` inside, and `p` fixes its own image. The empty case is `p ⊥ = ⊥`, since
+`sSup ∅` is a least element. -/
+theorem IsProjection.apply_sSup_of_directed (hp : IsProjection p)
+    {s : Set ↥(Set.range ⇑p)} (hs : DirectedOn (· ≤ ·) s) :
+    p (sSup (Subtype.val '' s)) = sSup (Subtype.val '' s) := by
+  rcases Set.eq_empty_or_nonempty s with rfl | hne
+  · have hbot : sSup ((Subtype.val : ↥(Set.range ⇑p) → α) '' ∅) = ⊥ := by
+      rw [Set.image_empty]
+      exact le_antisymm (DirectedOn.sSup_le (by simp [DirectedOn]) (by simp)) bot_le
+    rw [hbot, hp.map_bot]
+  · have hdir := directedOn_val_image hs
+    have hlub : IsLUB ((⇑p) '' (Subtype.val '' s)) (p (sSup (Subtype.val '' s))) :=
+      p.scottContinuous (hne.image _) hdir hdir.isLUB_sSup
+    have himg : (⇑p) '' (Subtype.val '' s) = Subtype.val '' s := by
+      ext y
+      constructor
+      · rintro ⟨_, ⟨a, ha, rfl⟩, rfl⟩
+        exact ⟨a, ha, (hp.apply_of_mem_range a.2).symm⟩
+      · rintro ⟨a, ha, rfl⟩
+        exact ⟨a.val, ⟨a, ha, rfl⟩, hp.apply_of_mem_range a.2⟩
+    rw [himg] at hlub
+    exact hlub.unique hdir.isLUB_sSup
+
+/-- **The image of a projection is a cpo.** Suprema are computed in the ambient
+order and pushed back through `p`, which lands in the range *by construction* —
+so no case split on directedness is needed and the definition is free of
+`Classical.choice`, unlike `ScottHom`'s. On a directed set the extra `p` is the
+identity, which is what `lubOfDirected` records. -/
+@[reducible] def IsProjection.rangeCompletePartialOrder (hp : IsProjection p) :
+    CompletePartialOrder ↥(Set.range ⇑p) :=
+  { (inferInstance : PartialOrder ↥(Set.range ⇑p)) with
+    sSup := fun s => ⟨p (sSup (Subtype.val '' s)), Set.mem_range_self _⟩
+    bot := ⟨⊥, hp.bot_mem_range⟩
+    bot_le := fun _ => bot_le
+    lubOfDirected := fun s hs => by
+      constructor
+      · intro a ha
+        show a.val ≤ p (sSup (Subtype.val '' s))
+        rw [hp.apply_sSup_of_directed hs]
+        exact (directedOn_val_image hs).le_sSup ⟨a, ha, rfl⟩
+      · intro u hu
+        show p (sSup (Subtype.val '' s)) ≤ u.val
+        rw [hp.apply_sSup_of_directed hs]
+        refine (directedOn_val_image hs).sSup_le ?_
+        rintro _ ⟨a, ha, rfl⟩
+        exact hu ha }
+
+/-- A **finitary projection**: a projection whose image is a domain.
+
+The cpo structure on `im(p)` depends on the projection *proof*, so it cannot be
+an instance; the `Domain` claim is applied to it explicitly. Proof irrelevance
+makes the choice of `hp` immaterial. -/
+def IsFinitaryProjection (p : ScottHom α α) : Prop :=
+  ∃ hp : IsProjection p, @Domain _ (IsProjection.rangeCompletePartialOrder hp)
+
+theorem IsFinitaryProjection.isProjection {p : ScottHom α α} (h : IsFinitaryProjection p) :
+    IsProjection p := h.choose
+
+end RangeCpo
 
 end ScottHom
 

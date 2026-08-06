@@ -12,7 +12,7 @@ order, matched to its Lean equivalent.
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
-| 1 | Definitions to define | **6** | 7 | ≈13 |
+| 1 | Definitions to define | **7** | 6 | ≈13 |
 | 2 | **Numbered** results complete | **2** (Lem 4, Thm 7) | 26 | 28 |
 | 3 | Mathlib foundations reused | 12 | — | 12 |
 | 4 | `sorry` in the development | — | **0** | — |
@@ -61,10 +61,11 @@ step-function adjunction. The paper assumes or elides all of it.
 | 7 | r0010 | `ScottDomains/CompactFunction.lean` | every compact function is a **finite** join of step functions — the finiteness half of the basis claim |
 | 8 | r0011 | `ScottDomains/FunctionSpaceCountable.lean` | `K(D → E)` is countable, hence `Domain (ScottHom α β)` — **Theorem 7 complete** |
 | 9 | r0012 | `ScottDomains/NormalSubposet.lean` | the normal-subposet relation `◁` and **Lemma 4**, all four parts |
-| 10 | r0012 | `ScottDomains/Projection.lean` | embedding–projection pairs and projections; the paper's "an embedding is an injection, a projection is a surjection" |
+| 10 | r0012–r0013 | `ScottDomains/Projection.lean` | embedding–projection pairs, projections, the paper's "an embedding is an injection, a projection is a surjection"; **`im(p)` is a cpo** and **finitary projections** |
 
-Next: finitary projections, which need `im(p)` to carry a `Domain` structure as a
-subtype — a sub-cpo construction. Lemma 5 and Theorem 6 both quantify over them.
+Next: **Lemma 5** — the compact elements of `im(p)` are `im(p) ∩ K(D)`, and
+`im(p) ∩ K(D) ◁ K(D)` — then **Theorem 6**, the isomorphism between normal
+substructures of `K(D)` and the finitary projections `Fp(D)`.
 
 ## Work counts
 
@@ -123,7 +124,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 3.1 | Def | — | **bounded complete**: `⊥` + every bounded subset has a sup — a *separate* predicate; the paper composes them as "bounded complete domain" (Thm 7, Lem 10, Lem 13, Thm 14), which is the literature's *Scott domain* | ✓ `ScottDomains.BoundedComplete` (r0004); the compound is `[Domain α] [BoundedComplete α]` |
 | 3.1 | Def | — | **(countably based) algebraic lattice** | ✓ `IsCompactlyGenerated` (+`CompleteLattice`) |
 | 3.1 | Def | — | **embedding–projection pair** `(g, f)` | ✓ `ScottHom.IsEmbeddingProjectionPair` (r0012) |
-| 3.1 | Def | — | **projection**; **finitary projection** `p`: `p∘p=p⊑id`, `im(p)` a domain | ~ `ScottHom.IsProjection` (r0012); the *finitary* condition needs `im(p)` as a sub-cpo |
+| 3.1 | Def | — | **projection**; **finitary projection** `p`: `p∘p=p⊑id`, `im(p)` a domain | ✓ `ScottHom.IsProjection` (r0012), `ScottHom.IsFinitaryProjection` (r0013) — `im(p)` carries a `CompletePartialOrder` via `IsProjection.rangeCompletePartialOrder` |
 | 3.1 | Def | — | **normal subposet** / substructure | ✓ `ScottDomains.IsNormalIn`, notation `◁` (r0012) |
 | 3.1 | Lem | 4 | `⟨P(C), ◁⟩` of substructures is a cpo with `{⊥}` least | ✓ **proved** (r0012), all four parts |
 | 3.1 | Lem | 5 | `p` finitary projection ⟹ compacts of `im(p)` are `{p(x):x∈K(D)}` | ✗ prove |
