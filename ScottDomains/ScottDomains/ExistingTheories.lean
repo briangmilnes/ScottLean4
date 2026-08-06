@@ -1,11 +1,12 @@
 import ScottDomains
 
 /-!
-# Landmarks — the central definition of each domain-theory strand, made clickable
+# Existing theories — the Mathlib domain-theory definitions we build on, made clickable
 
 `import` brings in whole *modules*, not individual symbols, so the root module
 names no definitions to jump to.  This file names the key definition of each
-imported theory in a `#check`, turning it into a clickable table of contents:
+**existing** Mathlib theory in a `#check`, turning it into a clickable table of
+contents (the *new* Scott-domain classes we define will get their own files):
 put the cursor on any name and go to its Mathlib definition —
 `M-.` (Emacs lean4-mode), or F12 / ⌘-click (VS Code).
 -/
