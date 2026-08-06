@@ -16,6 +16,13 @@ See `CLAUDE.md` → "Repository workflow and file index."
 - [Playground/SageFactorProved.lean](Playground/SageFactorProved.lean) — couples Sage's factoring to a `ring`-checked theorem
 - [Playground/ComputabilityDemo.lean](Playground/ComputabilityDemo.lean) — ℚ computable vs ℝ noncomputable, shown via `#eval`
 
+## ScottDomains — Dana Scott's domain theory (Lean 4, Mathlib-enabled)
+
+Separate project from Playground; the domain-theory development lives here.
+
+- [ScottDomains/ScottDomains.lean](ScottDomains/ScottDomains.lean) — root module: commented imports of ωCPOs, CPOs, Scott continuity, the Scott topology, and fixed points
+- [ScottDomains/lakefile.toml](ScottDomains/lakefile.toml) — project config (pinned Mathlib v4.32.2)
+
 ## Notes (LaTeX source + compiled PDF)
 
 - Category theory in Mathlib — [.tex](notes/CategoryTheoryInMathlib.tex) · [.pdf](notes/CategoryTheoryInMathlib.pdf)

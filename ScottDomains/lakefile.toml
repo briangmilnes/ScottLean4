@@ -1,0 +1,15 @@
+name = "ScottDomains"
+version = "0.1.0"
+defaultTargets = ["ScottDomains"]
+
+# Tracked, Mathlib-enabled Lean 4 project for Dana Scott's domain theory,
+# separated from Playground so the domain-theory development stands on its own.
+# Pinned to the same Mathlib as Beeson/lean4 and Playground (v4.32.2) so the
+# olean cache is reused, not re-downloaded.  Its .lake/ build dir is gitignored.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.32.2"
+
+[[lean_lib]]
+name = "ScottDomains"
