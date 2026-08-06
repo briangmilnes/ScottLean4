@@ -13,10 +13,10 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **7** | 6 | ≈13 |
-| 2 | **Numbered** results complete | **6** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7) | 23 | **29** |
+| 2 | **Numbered** results complete | **7** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8) | 22 | **29** |
 | 3 | **Unnumbered prose claims** proved | **11** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **120** live (+6 commented out as unused) | — | — |
+| 5 | Theorems in the development | **122** live (+6 commented out as unused) | — | — |
 | 6 | `sorry` in the development | — | **0** | — |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
@@ -92,9 +92,10 @@ implicitly.
 
 **§2 and §3.1 are now complete** (§3.2's effective presentations excepted).
 
-Next: **Lemma 8 part 4** — currying, `D → (E → F) ≅ (D × E) → F`, which needs
-the equivalence of joint and separate Scott continuity. Then the smash product
-`D ⊗ E`, sum and lift, and Lemmas 9 and 10.
+| 17 | r0021 | `ScottDomains/Currying.lean` | **Lemma 8.4** — currying, `D → (E → F) ≅ (D × E) → F`, and with it **Lemma 8 complete** |
+
+Next: the smash product `D ⊗ E`, sum `D + E` and lift `D⊥`, then Lemma 9 (the
+strict analogues of Lemma 8) and Lemma 10 (closure of bounded completeness).
 
 ## Work counts
 
@@ -172,7 +173,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 4.2 | Def | — | **Church's λ-notation** (continuous abstraction) | ✓ `OrderHom` / ωCPO `ContinuousHom` |
 | 4.3 | Def | — | **smash product** `D ⊗ E` | ✗ define |
 | 4.4 | Def | — | **sum** `D + E`; **lift** `D⊥` | ~ `Sum` / `WithBot`,`Part` (partial) |
-| 4.x | Lem | 8 | `D×E ≅ E×D`; `(D×E)×F ≅ D×(E×F)`; `D→(E×F) ≅ (D→E)×(D→F)`; `D→(E→F) ≅ (D×E)→F` | ~ **3 of 4 parts** (r0019) — `prodComm`, `prodAssoc`, `scottHomProd`. Part 4 is currying, which needs joint-vs-separate continuity |
+| 4.x | Lem | 8 | `D×E ≅ E×D`; `(D×E)×F ≅ D×(E×F)`; `D→(E×F) ≅ (D→E)×(D→F)`; `D→(E→F) ≅ (D×E)→F` | ✓ **proved** — `prodComm`, `prodAssoc`, `scottHomProd` (r0019); `scottHomCurry` (r0021) |
 | 4.x | Lem | 9 | Product/function-space iso laws over `D,E,F` | ✗ prove |
 | 4.5 | Lem | 10 | `D,E` bounded complete ⟹ `→,×,⊗,+,()⊥` bounded complete | ✗ prove |
 | 4.5 | Thm | 11 | **Ideal completion** of a countable pre-order is a domain (all domains so arise) | ~ `Order.Ideal` exists → prove |

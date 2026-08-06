@@ -218,6 +218,7 @@ theorem coe_sSup_of_directed {d : Set (ScottHom α β)} (hd : DirectedOn (· ≤
     (sSup d) x = sSup ((fun f : ScottHom α β => f x) '' d) :=
   coe_sSup_of_continuous (scottContinuous_pointwiseSup hd) x
 
+
 theorem coe_sSup_of_bddAbove [BoundedComplete β] {d : Set (ScottHom α β)}
     (hd : BddAbove d) (x : α) :
     (sSup d) x = sSup ((fun f : ScottHom α β => f x) '' d) :=
@@ -243,6 +244,19 @@ noncomputable instance : CompletePartialOrder (ScottHom α β) :=
         refine (directedOn_eval_image hd x).sSup_le ?_
         rintro _ ⟨f, hf, rfl⟩
         exact hg hf x }
+
+/-- A least upper bound in the function space is a least upper bound pointwise.
+The bridge from statements about `D → E` to statements about `E`: identify the
+bound with `sSup` by uniqueness, then compute `sSup` pointwise.
+
+Must come after the `CompletePartialOrder` instance — `DirectedOn.isLUB_sSup`
+needs it to even elaborate. -/
+theorem isLUB_eval_image_of_isLUB {d : Set (ScottHom α β)} (hd : DirectedOn (· ≤ ·) d)
+    {F : ScottHom α β} (hF : IsLUB d F) (x : α) :
+    IsLUB ((fun f : ScottHom α β => f x) '' d) (F x) := by
+  have hFs : F = sSup d := hF.unique (DirectedOn.isLUB_sSup hd)
+  rw [hFs, coe_sSup_of_directed hd]
+  exact (directedOn_eval_image hd x).isLUB_sSup
 
 /-! ### No instance diamond
 
