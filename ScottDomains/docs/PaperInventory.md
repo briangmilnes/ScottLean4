@@ -12,7 +12,7 @@ order, matched to its Lean equivalent.
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
-| 1 | Definitions to define | **7** | 6 | ≈13 |
+| 1 | Definitions to define | **8** | 5 | ≈13 |
 | 2 | **Numbered** results complete | **7** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8) | 22 | **29** |
 | 3 | **Unnumbered prose claims** proved | **11** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
@@ -94,6 +94,11 @@ implicitly.
 
 | 17 | r0021 | `ScottDomains/Currying.lean` | **Lemma 8.4** — currying, `D → (E → F) ≅ (D × E) → F`, and with it **Lemma 8 complete** |
 
+| 18 | r0022 | `ScottDomains/EffectivePresentation.lean` | §3.2's **effective presentation** — the enumeration of the basis with its two decidability conditions. **§3 complete** |
+
+**§2 and §3 are now complete** — the only §3 omission is the paper's *computable
+function*, which needs an r.e.-predicate notion Mathlib does not supply.
+
 Next: the smash product `D ⊗ E`, sum `D + E` and lift `D⊥`, then Lemma 9 (the
 strict analogues of Lemma 8) and Lemma 10 (closure of bounded completeness).
 
@@ -163,7 +168,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 3.1 | Lem | 5 | `p` finitary projection ⟹ compacts of `im(p)` are `im(p) ∩ K(D)`, and `im(p) ∩ K(D) ◁ K(D)` | ✓ **proved** (r0014) — `IsProjection.isCompactElement_iff` (needs only *projection*) and `IsFinitaryProjection.isNormalIn_compacts` |
 | 3.1 | Thm | 6 | Isomorphism: normal substructures `≅` `Fp(D)` (finitary projections) | ✓ **proved** (r0015–r0016) — `ScottDomains.theorem6` |
 | 3.1 | Thm | 7 | `D,E` bounded-complete domains ⟹ `D → E` bounded-complete domain | ✓ **proved** (r0006–r0011) — `ScottHom.isBoundedCompleteDomain_scottHom`; `D` bounded complete is not needed |
-| 3.2 | Def | — | **effective presentation** `d : ℕ → K(D)`; **effectively presented domain** | ✗ define |
+| 3.2 | Def | — | **effective presentation** `d : ℕ → K(D)`; **effectively presented domain** | ✓ `ScottDomains.EffectivePresentation` (r0022). The paper's **computable function** is *not* formalized: it needs "recursively enumerable", and Mathlib v4.32.2 has no `RePred` or equivalent (grep finds none) — building it is recursion theory, not domain theory |
 
 ## §4 Operators and functions
 
