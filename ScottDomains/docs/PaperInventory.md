@@ -13,9 +13,12 @@ order, matched to its Lean equivalent.
 - **Reuse from Mathlib — no work (12):** poset, directed, cpo, `⊥`, monotone,
   continuous, Fixed-Point Theorem (1) & operator, Schröder–Bernstein (2),
   algebraic lattice, product, λ-notation.
-- **Generalize / adapt (4):** compact element (`IsCompactElement`, lattice → dcpo),
+- **Generalize / adapt (4):** compact element (`IsCompactElement` — its *definition*
+  is already stated at `[PartialOrder α]` and so applies to a dcpo verbatim; what is
+  `CompleteLattice`-only is every lemma about it, so the dcpo API must be re-proved),
   sum, lift (`WithBot`/`Sum`), ideal completion (`Order.Ideal`).
-- **Definitions to define — new (≈13):** way-below `≪`, algebraic cpo, **domain**,
+- **Definitions to define — new (≈13; 1 done in r0003, 12 remaining):**
+  way-below `≪` (**done** — `ScottDomains/WayBelow.lean`), algebraic cpo, **domain**,
   bounded-complete, embedding–projection pair, (finitary) projection, normal
   subposet, effective presentation, smash product, the three powerdomains
   (Hoare / Smyth / Plotkin), bifinite / Plotkin order, and `D∞`.
@@ -24,7 +27,7 @@ order, matched to its Lean equivalent.
   19, 20, 23, 24, 28, 30; Proposition 15. Only Theorems 1 & 2 come free from Mathlib.
 
 **Bottom line: ≈13 definitions to define + 28 results to prove**, on top of 12
-reused Mathlib foundations.
+reused Mathlib foundations. After r0003: **12 definitions + 28 results** remain.
 
 **Lean column legend:** `✓` reuse Mathlib (name given) · `~` partial (Mathlib has
 a related or lattice-only version — generalize) · `✗` define / prove (absent from
@@ -54,8 +57,8 @@ Mathlib v4.32.2, confirmed by grep).
 
 | § | Kind | Ref | Concept / statement | In Lean / Mathlib? |
 |---|------|-----|---------------------|--------------------|
-| 3.1 | Def | — | **compact element** `x`: `x ⊑ ⨆M` (dir.) ⟹ `x ⊑ y` some `y∈M`; `K(D)` | ~ `IsCompactElement` (lattice only → dcpo) |
-| 3.1 | Def | — | **way-below** `≪` (approximation relation behind compactness) | ✗ define |
+| 3.1 | Def | — | **compact element** `x`: `x ⊑ ⨆M` (dir.) ⟹ `x ⊑ y` some `y∈M`; `K(D)` | ~ `IsCompactElement` — def is `[PartialOrder]`, so reusable on a dcpo; its lemmas are all `CompleteLattice`-only |
+| 3.1 | Def | — | **way-below** `≪` (approximation relation behind compactness) | ✓ `ScottDomains.WayBelow` (r0003) — `x ≪ x ↔ IsCompactElement x` by `Iff.rfl` |
 | 3.1 | Def | — | **algebraic** cpo: `x = ⨆{x'∈K(D) : x'⊑x}` (directed) | ✗ define |
 | 3.1 | Def | — | **domain** = algebraic cpo (central object) | ✗ define (`ScottDomain`) |
 | 3.1 | Def | — | **bounded complete**: `⊥` + every bounded subset has a sup | ✗ define |
@@ -126,8 +129,14 @@ Mathlib v4.32.2, confirmed by grep).
 **Tally (matched):** `✓` reuse Mathlib ≈ **12** (poset, directed, cpo, ⊥, monotone,
 continuous, fixed-point Thm 1 & operator, Schröder–Bernstein, algebraic lattice,
 product, λ-notation) · `~` partial ≈ **4** (compact element, sum/lift, ideal
-completion Thm 11, Thm 22) · `✗` define / prove ≈ **44** — the entire
-domain / `≪` / bounded-complete / bifinite / powerdomain / `D∞` development.
+completion Thm 11, Thm 22) · `✗` define / prove ≈ **44**, of which 1 is done
+(`≪`, r0003) → **43 remaining** — the domain / bounded-complete / bifinite /
+powerdomain / `D∞` development.
 
-**First target unchanged:** `WayBelow.lean` (`≪`, `✗`), since `compact`, `algebraic`,
-`domain`, and `bounded complete` all sit on it.
+**First target, done (r0003):** `ScottDomains/WayBelow.lean` — `≪` at `[Preorder α]`,
+7 theorems, 0 `sorry`. `compact`, `algebraic`, `domain`, and `bounded complete` all
+sit on it.
+
+**Next target:** algebraic cpo and **domain** (`ScottDomain`), both stated by
+quantifying over `≪` and `IsCompactElement`; then bounded-complete, which the
+§3.1 and §4.5 results (Thm 7, Lem 10, Lem 13, Thm 14) all assume.

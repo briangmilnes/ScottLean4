@@ -22,6 +22,7 @@ Separate project from Playground; the domain-theory development lives here.
 
 - [ScottDomains/ScottDomains.lean](ScottDomains/ScottDomains.lean) — root module: commented imports of ωCPOs, CPOs, Scott continuity, the Scott topology, and fixed points
 - [ScottDomains/ScottDomains/ExistingTheories.lean](ScottDomains/ScottDomains/ExistingTheories.lean) — clickable `#check` catalog of the Mathlib domain-theory definitions we build on (jump with `M-.` / F12 / ⌘-click)
+- [ScottDomains/ScottDomains/WayBelow.lean](ScottDomains/ScottDomains/WayBelow.lean) — the way-below relation `≪` (Gunter & Scott §3.1), absent from Mathlib: definition + 7 theorems, including `x ≪ x ↔ IsCompactElement x` by `Iff.rfl`
 - [ScottDomains/lakefile.toml](ScottDomains/lakefile.toml) — project config (pinned Mathlib v4.32.2)
 - [ScottDomains/README.md](ScottDomains/README.md) — what the project develops, and the source paper
 - [ScottDomains/papers/Gunter Scott 1990.pdf](ScottDomains/papers/Gunter%20Scott%201990.pdf) — **Gunter & Scott, "Semantic Domains" (HTCS Vol. B, 1990)** — the source paper (copy from D. Scott)
