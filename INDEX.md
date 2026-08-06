@@ -21,6 +21,7 @@ See `CLAUDE.md` → "Repository workflow and file index."
 Separate project from Playground; the domain-theory development lives here.
 
 - [ScottDomains/ScottDomains.lean](ScottDomains/ScottDomains.lean) — root module: commented imports of ωCPOs, CPOs, Scott continuity, the Scott topology, and fixed points
+- [ScottDomains/ScottDomains/Landmarks.lean](ScottDomains/ScottDomains/Landmarks.lean) — clickable `#check` landmarks: the key definition of each theory (jump with `M-.` / F12 / ⌘-click)
 - [ScottDomains/lakefile.toml](ScottDomains/lakefile.toml) — project config (pinned Mathlib v4.32.2)
 
 ## Notes (LaTeX source + compiled PDF)
