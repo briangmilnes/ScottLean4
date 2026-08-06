@@ -66,6 +66,27 @@ here — not the full GRASE process.
 - The `from-…` slot is the author's own role; `<subject>` is short kebab-case.
   Any timestamps use `YYYY-MMDD-HH:MM` in the project timezone (America/Los_Angeles).
 
+## Repository workflow and file index
+
+**Commit and push through `scripts/gitcp.sh`, never raw git.** Compound git
+invocations (`git … && git commit -m … && git push | tail`) cannot be
+allowlisted, so they prompt on every call. Use the one-shot helper:
+
+    scripts/gitcp.sh "<commit message>" [path …]
+
+It stages (the given paths, or everything with no args), commits with the
+`Co-Authored-By` trailer, **rebases onto `origin` before pushing** — this repo is
+written from two machines/agents in parallel, so always rebase — and pushes, as a
+single permitted command. Pass explicit paths to avoid sweeping in unrelated
+untracked files.
+
+**`INDEX.md` (repo root) is the file hub.** It links the working artifacts —
+Playground Lean modules, `notes/`, `polynomials/`, `docs/`, and the Mathlib
+reading paths. Keep it current when you add a notable file. Jump to a linked
+file: VS Code ⌘-click or ⌘P (fuzzy open); Emacs `ffap` (`C-x C-f` on a path
+anywhere, including Lean comments), markdown `C-c C-o`, or lean4-mode `M-.` on an
+`import`.
+
 ## Imported ruleset
 
 The ComputAItionalThinking agent ruleset (Personas, Language rules, numbered
