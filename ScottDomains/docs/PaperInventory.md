@@ -8,7 +8,7 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
-## Progress (as of r0007, 2026-0806)
+## Progress (as of r0008, 2026-0806)
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
@@ -17,8 +17,8 @@ order, matched to its Lean equivalent.
 | 3 | Mathlib foundations reused | 12 | — | 12 |
 | 4 | `sorry` in the development | — | **0** | — |
 
-**4 of ≈13 definitions are formally verified and building**, in 4 modules,
-689 lines, 0 `sorry`, 0 warnings:
+**4 of ≈13 definitions are formally verified and building**, in 5 modules,
+837 lines, 0 `sorry`, 0 warnings:
 
 | # | Round | Module | Contents |
 | -- | ----- | ------ | -------- |
@@ -26,12 +26,11 @@ order, matched to its Lean equivalent.
 | 2 | r0004 | `ScottDomains/Domain.lean` | `IsAlgebraic`, `Domain` (with the paper's countable-basis condition), `BoundedComplete`, 8 theorems, `Domain Prop` |
 | 3 | r0005 | `ScottDomains/Powerset.lean` | the paper's `P N` (p. 9): compacts of `Set X` are exactly the finite subsets, hence `Domain (Set ℕ)` — the nondegenerate witness |
 | 4 | r0006–r0007 | `ScottDomains/ScottHom.lean` | the continuous function space `D → E`: `ScottHom`, the pointwise order, `CompletePartialOrder`, and `BoundedComplete` when `E` is — **Theorem 7's first sentence in full** |
+| 5 | r0008 | `ScottDomains/StepFunction.lean` | the single step function `step k e`: continuity (from `k` compact), the adjunction `step k e ≤ f ↔ e ≤ f k`, and compactness in `D → E` (from `e` compact) |
 
-Next: the step-function basis for `D → E`, which turns the cpo into a **domain**
-and completes **Theorem 7** — the first numbered result within reach. The paper's
-own proof sketch splits Theorem 7 exactly where r0007 stopped: "It is not hard to
-see that `D → E` is a bounded complete cpo whenever `E` is" is done; "to prove
-that `D → E` is a domain we must demonstrate its basis" is next.
+Next: `step(s)` for finite `N ⊆ K(D)` — the join of single step functions — and
+the proof that these form a basis, which turns the cpo into a **domain** and
+completes **Theorem 7**, the first numbered result within reach.
 
 ## Work counts
 
