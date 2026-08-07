@@ -175,15 +175,24 @@ direction and does not follow from it.
 **Not proved.** Gunter & Scott state the theorem with no proof at all: "The
 theorem is due to Smyth and its proof may be found in [Smy83a]. It is carried out
 by analyzing each of the cases pictured in Figure 3 and showing that if `D → D`
-is not a domain, then `D` cannot be bifinite." The three configurations of
-Figure 3 are (a) a finite set with no complete set of minimal upper bounds,
-(b) one whose complete set of minimal upper bounds is infinite, and (c) one whose
-iterated minimal-upper-bound closure `U^∞(u)` is infinite; the argument
-constructs, from each, a continuous `D → D` witnessing failure of algebraicity of
-the function space. None of the three constructions is in this development:
-`MUB(u)`, completeness of a set of minimal upper bounds, and `U^∞` are not
-defined anywhere in `ScottDomains/`, and the contrapositive needs a compact
-element of `ScottHom α α` exhibited for each configuration. -/
+is not a domain, then `D` cannot be bifinite." (The quoted implication as printed
+is the converse of what Theorem 18 asserts; the proof must run the other way —
+each Figure 3 configuration occurring in `K(D)` makes `D → D` fail to be
+algebraic.)
+
+The three configurations of Figure 3 are (a) a finite subset of `K(D)` with no
+complete set of minimal upper bounds, (b) one whose complete set of minimal upper
+bounds is infinite, and (c) one whose iterated minimal-upper-bound closure
+`U^∞(u)` is infinite. For each, Smyth exhibits a continuous `h : D → D` that is
+not the least upper bound of the compact elements below it, contradicting
+algebraicity of the function space.
+
+Nothing that argument quantifies over exists in this development: minimal upper
+bounds, completeness of a set of minimal upper bounds, and the operator `U` with
+its iterate `U^∞` are undefined throughout `ScottDomains/` (0 occurrences), and
+case (c) additionally needs König's lemma against the countability of `K(D)`
+carried by `Domain.countable_compacts`. Proving `thm18` is therefore a separate
+development, not a proof script over the present API. -/
 theorem thm18 [Domain α] [Domain (ScottHom α α)] : IsBifinite α := by
   sorry
 
