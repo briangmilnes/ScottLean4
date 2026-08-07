@@ -241,4 +241,172 @@ theorem lemma129
 
 end Lemma129Compacts
 
+/-! ## König's lemma for an `ℕ`-graded system
+
+Jung's Theorem 2.1 is Rado's Selection Theorem, stated for an arbitrary index set
+and proved by Tychonoff. Lemma 2.2 applies it only at index set `ℕ`, where the
+elementary argument below suffices: choose one parent per node, call `x` *fat* if
+it has infinitely many descendants, and observe that each level contains a fat
+node and that every fat node has a fat child. -/
+
+section Konig
+
+/-- The `k`-fold parent of `x`, taken from level `n + k` down to level `n`, for a
+level-indexed parent map `p`.
+
+The recursion peels **from the bottom** — `p n` is applied last — which is what
+makes `desc_subset_insert_biUnion` hold: a descendant of `x` at distance `k + 1`
+is a descendant at distance `k` of one of `x`'s immediate children. -/
+def climbDown (p : ℕ → α → α) : ℕ → ℕ → α → α
+  | 0, _, x => x
+  | k + 1, n, x => p n (climbDown p k (n + 1) x)
+
+/-- The descendants of `x ∈ B n`: the members of the later levels whose iterated
+parent at level `n` is `x`. -/
+def desc (p : ℕ → α → α) (B : ℕ → Set α) (n : ℕ) (x : α) : Set α :=
+  {z | ∃ k, z ∈ B (n + k) ∧ climbDown p k n z = x}
+
+variable {p : ℕ → α → α} {B : ℕ → Set α}
+
+section Preorder
+
+variable [Preorder α]
+
+/-- Iterated parents stay in the graded family: `climbDown p k n` maps `B (n + k)`
+into `B n`. -/
+theorem climbDown_mem (hp : ∀ n, ∀ x ∈ B (n + 1), p n x ∈ B n ∧ p n x ≤ x) :
+    ∀ k n, ∀ x ∈ B (n + k), climbDown p k n x ∈ B n := by
+  intro k
+  induction k with
+  | zero => intro n x hx; exact hx
+  | succ k ih =>
+    intro n x hx
+    rw [show n + (k + 1) = (n + 1) + k by omega] at hx
+    exact (hp n _ (ih (n + 1) x hx)).1
+
+/-- Iterated parents lie below the node they came from, by transitivity of the
+single-step inequality. -/
+theorem climbDown_le (hp : ∀ n, ∀ x ∈ B (n + 1), p n x ∈ B n ∧ p n x ≤ x) :
+    ∀ k n, ∀ x ∈ B (n + k), climbDown p k n x ≤ x := by
+  intro k
+  induction k with
+  | zero => intro n x _; exact le_rfl
+  | succ k ih =>
+    intro n x hx
+    rw [show n + (k + 1) = (n + 1) + k by omega] at hx
+    exact ((hp n _ (climbDown_mem hp k (n + 1) x hx)).2).trans (ih (n + 1) x hx)
+
+/-- Every node of a later level is a descendant of some node of level `n`, namely
+of its own iterated parent. This is what makes the finitely many descendant sets
+at level `n` cover the whole tail. -/
+theorem subset_biUnion_desc (hp : ∀ n, ∀ x ∈ B (n + 1), p n x ∈ B n ∧ p n x ≤ x)
+    (n : ℕ) : (⋃ k, B (n + k)) ⊆ ⋃ x ∈ B n, desc p B n x := by
+  rintro z hz
+  obtain ⟨k, hk⟩ := Set.mem_iUnion.mp hz
+  exact Set.mem_iUnion₂.mpr ⟨climbDown p k n z, climbDown_mem hp k n z hk, k, hk, rfl⟩
+
+/-- **The decomposition König's lemma turns on.** A descendant of `x` is either
+`x` itself or a descendant of one of `x`'s immediate children. Since the children
+form a subset of the finite level `B (n + 1)`, a node all of whose children have
+finitely many descendants has finitely many descendants. -/
+theorem desc_subset_insert_biUnion (hp : ∀ n, ∀ x ∈ B (n + 1), p n x ∈ B n ∧ p n x ≤ x)
+    (n : ℕ) (x : α) :
+    desc p B n x ⊆ insert x (⋃ y ∈ {y ∈ B (n + 1) | p n y = x}, desc p B (n + 1) y) := by
+  rintro z ⟨k, hzk, hzx⟩
+  cases k with
+  | zero => rw [show z = x from hzx]; exact Set.mem_insert _ _
+  | succ k =>
+    rw [show n + (k + 1) = (n + 1) + k by omega] at hzk
+    exact Set.mem_insert_iff.mpr (Or.inr (Set.mem_iUnion₂.mpr
+      ⟨climbDown p k (n + 1) z, ⟨climbDown_mem hp k (n + 1) z hzk, hzx⟩, k, hzk, rfl⟩))
+
+end Preorder
+
+section Main
+
+variable [Preorder α]
+
+/-- **König's lemma, graded by `ℕ`.** A family of finite nonempty levels whose
+union is infinite, in which every node of level `n + 1` lies above some node of
+level `n`, contains a monotone transversal — a sequence `x` with `x n ∈ B n` and
+`x` monotone.
+
+This is the instance of Jung's Theorem 2.1 (Rado's Selection Theorem) that
+Lemma 2.2 uses, and unlike Rado's general form it needs no compactness argument:
+the index set is `ℕ`, so the standard finitely-branching-tree proof applies. Note
+that the levels being finite is used twice — once to make some node of each level
+have infinitely many descendants, once to make some child of such a node inherit
+that property — and that no cardinality hypothesis on `α` appears.
+
+`hne` is used only to supply a junk value when totalizing the parent choice; it is
+not otherwise needed, since infiniteness of the union already forces every level
+to be nonempty. -/
+theorem exists_monotone_seq (hfin : ∀ n, (B n).Finite) (hne : ∀ n, (B n).Nonempty)
+    (hinf : (⋃ n, B n).Infinite)
+    (hpar : ∀ n, ∀ x ∈ B (n + 1), ∃ y ∈ B n, y ≤ x) :
+    ∃ x : ℕ → α, (∀ n, x n ∈ B n) ∧ Monotone x := by
+  classical
+  -- a total parent map at each level
+  have hpar' : ∀ n : ℕ, ∃ q : α → α, ∀ x ∈ B (n + 1), q x ∈ B n ∧ q x ≤ x := by
+    intro n
+    obtain ⟨b, hb⟩ := hne n
+    refine ⟨fun x => if h : ∃ y ∈ B n, y ≤ x then h.choose else b, fun x hx => ?_⟩
+    have h : ∃ y ∈ B n, y ≤ x := hpar n x hx
+    simp only [dif_pos h]
+    exact ⟨h.choose_spec.1, h.choose_spec.2⟩
+  choose q hq using hpar'
+  -- the tail above any level is still infinite
+  have htail : ∀ n, (⋃ k, B (n + k)).Infinite := by
+    intro n hfinTail
+    refine hinf (Set.Finite.subset (Set.Finite.union
+      ((Set.finite_Iio n).biUnion fun m _ => hfin m) hfinTail) ?_)
+    rintro z hz
+    obtain ⟨m, hm⟩ := Set.mem_iUnion.mp hz
+    by_cases h : m < n
+    · exact Or.inl (Set.mem_iUnion₂.mpr ⟨m, h, hm⟩)
+    · refine Or.inr (Set.mem_iUnion.mpr ⟨m - n, ?_⟩)
+      rwa [show n + (m - n) = m by omega]
+  -- the nodes with infinitely many descendants
+  set Good : ℕ → Set α := fun n => {x ∈ B n | (desc q B n x).Infinite} with hGoodDef
+  have hGoodne : ∀ n, (Good n).Nonempty := by
+    intro n
+    by_contra hemp
+    rw [Set.not_nonempty_iff_eq_empty] at hemp
+    refine htail n (Set.Finite.subset ((hfin n).biUnion fun x hx => ?_)
+      (subset_biUnion_desc hq n))
+    by_contra hnf
+    exact Set.eq_empty_iff_forall_notMem.mp hemp x ⟨hx, hnf⟩
+  have hstep : ∀ n : ℕ, ∀ x ∈ Good n, ∃ y ∈ Good (n + 1), x ≤ y := by
+    intro n x hx
+    by_contra hno
+    have hno' : ∀ y, y ∈ Good (n + 1) → ¬ x ≤ y := fun y hy hxy => hno ⟨y, hy, hxy⟩
+    refine hx.2 (Set.Finite.subset (Set.Finite.insert x
+      (((hfin (n + 1)).subset fun y hy => hy.1).biUnion fun y hy => ?_))
+      (desc_subset_insert_biUnion hq n x))
+    by_contra hnf
+    exact hno' y ⟨hy.1, hnf⟩ (hy.2 ▸ (hq n y hy.1).2)
+  -- totalize the successor choice and iterate it
+  have hstep' : ∀ n : ℕ, ∃ F : α → α, ∀ x ∈ Good n, F x ∈ Good (n + 1) ∧ x ≤ F x := by
+    intro n
+    obtain ⟨b, hb⟩ := hGoodne (n + 1)
+    refine ⟨fun x => if h : ∃ y ∈ Good (n + 1), x ≤ y then h.choose else b, fun x hx => ?_⟩
+    have h : ∃ y ∈ Good (n + 1), x ≤ y := hstep n x hx
+    simp only [dif_pos h]
+    exact ⟨h.choose_spec.1, h.choose_spec.2⟩
+  choose F hF using hstep'
+  obtain ⟨x₀, hx₀⟩ := hGoodne 0
+  set g : ℕ → α := fun n => Nat.rec x₀ (fun m y => F m y) n with hgDef
+  have hgsucc : ∀ n, g (n + 1) = F n (g n) := fun _ => rfl
+  have hgmem : ∀ n, g n ∈ Good n := by
+    intro n
+    induction n with
+    | zero => exact hx₀
+    | succ n ih => rw [hgsucc n]; exact (hF n (g n) ih).1
+  exact ⟨g, fun n => (hgmem n).1, monotone_nat_of_le_succ fun n =>
+    (hgsucc n) ▸ (hF n (g n) (hgmem n)).2⟩
+
+end Main
+
+end Konig
+
 end ScottDomains.JungFinite
