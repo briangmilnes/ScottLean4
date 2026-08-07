@@ -622,4 +622,182 @@ theorem rep_strictArrow [Domain U] [BoundedComplete U]
 
 end StrictArrowConjunct
 
+/-! ## Conjunct 4: `⊗`, and the two things the development did not have
+
+r0034 refuted `⊗` at the *closure* notion with a three-chain counterexample. That
+refutation does not apply here: a projection satisfies `p ⊥ = ⊥`, which is
+exactly the hypothesis the counterexample violated. Measured, nothing in this
+section reproduces it — the smash's `⊥` is the adjoined one and every map below
+sends it to itself.
+
+What blocks `⊗` is different, and it is two missing constructions rather than an
+obstruction:
+
+1. **`r ⊗ s` does not exist.** `grep` over every module finds no functorial
+   action on the smash; `Isomorphism/Smash.lean` supplies only `smashComm` and
+   `smashAssoc`. This section builds it.
+2. **`Domain (D ⊗ E)` does not exist.** `ClosureProperties.lean` has
+   `lem10_smash : BoundedComplete (Smash α β)` and
+   `lem17_smash : IsBifinite (Smash α β)`, and the `IsAlgebraic` instances in the
+   development are `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
+   `IdealCompletion A` — the smash is not among them. `SmashObstruction` below
+   names this as a `Prop`, so the gap is a statement the kernel elaborates rather
+   than a sentence of prose.
+
+The decomposition this section is built on is worth stating separately, because
+it is what makes `r ⊗ s` cheap: `D ⊗ E` sits between `D × E` and itself by a
+**Scott-continuous pair**
+
+    ι : D ⊗ E → D × E     the adjoined bottom to `(⊥, ⊥)`, a pair to itself
+    π : D × E → D ⊗ E     a pair with both coordinates non-`⊥` to itself,
+                          anything else to the adjoined bottom
+
+and `r ⊗ s = π ∘ (r × s) ∘ ι`. Continuity of `r ⊗ s` is then a composite instead
+of a case analysis over `Smash`'s branching `sSup`. `ι` is *not* a retraction of
+`π` in either direction — `π (ι x) = x` holds but `ι (π p) ≠ p` when `p` has one
+`⊥` coordinate — so this is a decomposition, not a conjugation. -/
+
+section SmashMaps
+
+variable {α β : Type*} [CompletePartialOrder α] [CompletePartialOrder β]
+
+/-- `ι : D ⊗ E → D × E`. -/
+def smashEmbed : Smash α β → α × β :=
+  WithBot.recBotCoe (⊥, ⊥) Subtype.val
+
+@[simp] theorem smashEmbed_bot : smashEmbed (⊥ : Smash α β) = (⊥, ⊥) := rfl
+
+@[simp] theorem smashEmbed_coe (q : NonBotPair α β) :
+    smashEmbed (↑q : Smash α β) = q.val := rfl
+
+open Classical in
+/-- `π : D × E → D ⊗ E`, collapsing every pair with a `⊥` coordinate onto the
+adjoined bottom. -/
+noncomputable def smashCollapse (p : α × β) : Smash α β :=
+  if h : p.1 ≠ ⊥ ∧ p.2 ≠ ⊥ then ↑(⟨p, h⟩ : NonBotPair α β) else ⊥
+
+theorem smashCollapse_of {p : α × β} (h : p.1 ≠ ⊥ ∧ p.2 ≠ ⊥) :
+    smashCollapse p = ↑(⟨p, h⟩ : NonBotPair α β) := by
+  classical simp only [smashCollapse, dif_pos h]
+
+theorem smashCollapse_of_not {p : α × β} (h : ¬ (p.1 ≠ ⊥ ∧ p.2 ≠ ⊥)) :
+    smashCollapse p = (⊥ : Smash α β) := by
+  classical simp only [smashCollapse, dif_neg h]
+
+theorem monotone_smashCollapse : Monotone (smashCollapse : α × β → Smash α β) := by
+  intro x y hxy
+  by_cases hx : x.1 ≠ ⊥ ∧ x.2 ≠ ⊥
+  · have hy : y.1 ≠ ⊥ ∧ y.2 ≠ ⊥ :=
+      ⟨fun h => hx.1 (le_bot_iff.mp (hxy.1.trans (le_of_eq h))),
+        fun h => hx.2 (le_bot_iff.mp (hxy.2.trans (le_of_eq h)))⟩
+    rw [smashCollapse_of hx, smashCollapse_of hy]
+    exact WithBot.coe_le_coe.mpr hxy
+  · rw [smashCollapse_of_not hx]
+    exact bot_le
+
+/-- **`ι` is Scott continuous.** On a family whose base is empty every member is
+the adjoined bottom and both sides are `(⊥, ⊥)`; otherwise the least upper bound
+is a coercion, and `smashSup_of_directed` identifies its value with the ambient
+supremum of the base, which the arbitrary upper bound in `D × E` already
+dominates. -/
+theorem scottContinuous_smashEmbed :
+    ScottContinuous (smashEmbed : Smash α β → α × β) := by
+  intro d hne hd u hu
+  by_cases hb : (smashBase d).Nonempty
+  · obtain ⟨q₀, hq₀⟩ := hb
+    have hdb : DirectedOn (· ≤ ·) (smashBase d) := directedOn_smashBase hd
+    have hvdb : DirectedOn (· ≤ ·) (Subtype.val '' smashBase d) :=
+      directedOn_val_smashBase hdb
+    have hsup : u = smashSup d := hu.unique hd.isLUB_sSup
+    rw [smashSup_of_directed ⟨q₀, hq₀⟩ hdb] at hsup
+    subst hsup
+    refine ⟨?_, ?_⟩
+    · rintro _ ⟨x, hx, rfl⟩
+      induction x using WithBot.recBotCoe with
+      | bot => exact ⟨bot_le, bot_le⟩
+      | coe q => exact hvdb.le_sSup ⟨q, hx, rfl⟩
+    · intro v hv
+      refine hvdb.sSup_le ?_
+      rintro _ ⟨q, hq, rfl⟩
+      exact hv ⟨(↑q : Smash α β), coe_mem_of_mem_smashBase hq, rfl⟩
+  · have hbot : ∀ x ∈ d, x = (⊥ : Smash α β) := by
+      intro x hx
+      induction x using WithBot.recBotCoe with
+      | bot => rfl
+      | coe q => exact absurd ⟨q, hx⟩ hb
+    have hubot : u = (⊥ : Smash α β) :=
+      le_antisymm (hu.2 fun x hx => le_of_eq (hbot x hx)) bot_le
+    subst hubot
+    obtain ⟨x₀, hx₀⟩ := hne
+    refine ⟨?_, fun v hv => ?_⟩
+    · rintro _ ⟨x, hx, rfl⟩
+      rw [hbot x hx]
+    · rw [← hbot x₀ hx₀]
+      exact hv ⟨x₀, hx₀, rfl⟩
+
+/-- **`π` is Scott continuous.** The branch where the supremum has a `⊥`
+coordinate is forced: every member of the family is below it, so every member has
+that coordinate `⊥` too, and the whole image is the adjoined bottom.
+
+The other branch is the one with content, and the step it turns on is that the
+members with **both** coordinates non-`⊥` are *cofinal*: `isLUB_prod` gives an
+`x₁ ∈ t` with `x₁.1 ≠ ⊥` and an `x₂ ∈ t` with `x₂.2 ≠ ⊥`, directedness produces
+one above both — which then has both coordinates non-`⊥` — and directedness again
+puts any member below such a one. -/
+theorem scottContinuous_smashCollapse :
+    ScottContinuous (smashCollapse : α × β → Smash α β) := by
+  intro t hne ht w hw
+  by_cases hb : w.1 ≠ ⊥ ∧ w.2 ≠ ⊥
+  · rw [smashCollapse_of hb]
+    refine ⟨?_, ?_⟩
+    · rintro _ ⟨x, hx, rfl⟩
+      rw [← smashCollapse_of hb]
+      exact monotone_smashCollapse (hw.1 hx)
+    · intro v hv
+      -- a member of `t` with both coordinates non-`⊥`
+      obtain ⟨x₁, hx₁t, hx₁⟩ : ∃ x ∈ t, x.1 ≠ ⊥ := by
+        by_contra hcon
+        refine hb.1 (le_bot_iff.mp ((isLUB_prod.mp hw).1.2 ?_))
+        rintro _ ⟨x, hx, rfl⟩
+        exact le_of_eq (not_not.mp fun h => hcon ⟨x, hx, h⟩)
+      obtain ⟨x₂, hx₂t, hx₂⟩ : ∃ x ∈ t, x.2 ≠ ⊥ := by
+        by_contra hcon
+        refine hb.2 (le_bot_iff.mp ((isLUB_prod.mp hw).2.2 ?_))
+        rintro _ ⟨x, hx, rfl⟩
+        exact le_of_eq (not_not.mp fun h => hcon ⟨x, hx, h⟩)
+      obtain ⟨c, hct, hc₁, hc₂⟩ := ht x₁ hx₁t x₂ hx₂t
+      have hcne : c.1 ≠ ⊥ ∧ c.2 ≠ ⊥ :=
+        ⟨fun h => hx₁ (le_bot_iff.mp (hc₁.1.trans (le_of_eq h))),
+          fun h => hx₂ (le_bot_iff.mp (hc₂.2.trans (le_of_eq h)))⟩
+      -- so `v` is not the adjoined bottom
+      have hvc : (↑(⟨c, hcne⟩ : NonBotPair α β) : Smash α β) ≤ v := by
+        rw [← smashCollapse_of hcne]; exact hv ⟨c, hct, rfl⟩
+      induction v using WithBot.recBotCoe with
+      | bot => exact absurd hvc (WithBot.not_coe_le_bot _)
+      | coe r =>
+        refine WithBot.coe_le_coe.mpr (hw.2 fun x hx => ?_)
+        obtain ⟨e, het, hxe, hce⟩ := ht x hx c hct
+        have hene : e.1 ≠ ⊥ ∧ e.2 ≠ ⊥ :=
+          ⟨fun h => hcne.1 (le_bot_iff.mp (hce.1.trans (le_of_eq h))),
+            fun h => hcne.2 (le_bot_iff.mp (hce.2.trans (le_of_eq h)))⟩
+        have hle : (↑(⟨e, hene⟩ : NonBotPair α β) : Smash α β) ≤ (↑r : Smash α β) := by
+          rw [← smashCollapse_of hene]
+          exact hv ⟨e, het, rfl⟩
+        have hle2 : (⟨e, hene⟩ : NonBotPair α β) ≤ r := WithBot.coe_le_coe.mp hle
+        exact hxe.trans hle2
+  · have hbot : ∀ x ∈ t, smashCollapse x = (⊥ : Smash α β) := by
+      intro x hx
+      refine smashCollapse_of_not fun hxne => hb ?_
+      exact ⟨fun h => hxne.1 (le_bot_iff.mp ((hw.1 hx).1.trans (le_of_eq h))),
+        fun h => hxne.2 (le_bot_iff.mp ((hw.1 hx).2.trans (le_of_eq h)))⟩
+    rw [smashCollapse_of_not hb]
+    obtain ⟨x₀, hx₀⟩ := hne
+    refine ⟨?_, fun v hv => ?_⟩
+    · rintro _ ⟨x, hx, rfl⟩
+      exact le_of_eq (hbot x hx)
+    · rw [← hbot x₀ hx₀]
+      exact hv ⟨x₀, hx₀, rfl⟩
+
+end SmashMaps
+
 end ScottDomains.PRepFun
