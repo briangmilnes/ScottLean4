@@ -1,0 +1,58 @@
+---
+prompt: p0007
+round: r0028
+type: execution
+opened: 2026-0806-19:06
+closed: 2026-0806-19:12
+subject: create-worktrees-launch-five
+---
+# turn-timing: estimated
+
+## turn 1 — user 2026-08-06T19:06-07:00
+
+create the worktrees for agent4 and agent5. Get it running.
+
+## turn 1 — assistant 2026-08-06T19:12-07:00
+
+Bash ls -la agent1 .lake; ls -la main .lake
+Bash git worktree add ScottLean4-agent4 -b agent4
+Bash git worktree add ScottLean4-agent5 -b agent5
+Bash mkdir .lake; ln -sfn packages symlinks for both
+Bash mkdir .claude; cp settings.local.json into both
+Write /home/milnes/projects/ScottLean4-agent4/.write-check
+Write /home/milnes/projects/ScottLean4-agent5/.write-check
+Bash lake build in agent4 — 962 jobs
+Bash lake build in agent5 — 962 jobs
+Bash rm probes; du -sh; git worktree list
+Bash git merge --ff-only main in agent1-3 (failed, diverged)
+Bash git merge main in agent1-3
+Agent agent1 — coalesced sum and its conjuncts
+Agent agent2 — Theorem 11 ideal completion
+Agent agent3 — Theorem 16 and Lemma 20
+Agent agent4 — Theorem 18 via Smyth
+Agent agent5 — Theorem 22 and Lemma 23
+
+Five worktrees, five agents, running.
+
+Setup, verified before launch — the r0027 lesson was that a permission assumption went
+unchecked, so I checked it: git worktree add ×2 created agent4 and agent5 at 40c461d; both
+.lake/packages symlink the main checkout's Mathlib; settings.local.json copied into both;
+a Write probe into each succeeded with no prompt, so no session restart is needed, because
+/home/milnes/projects is already in additionalDirectories and covers the children; lake build
+in each gave `Build completed successfully (962 jobs).`; 327 MiB per worktree, not the ~7 GiB
+a vendored Mathlib would cost; agent1–agent3 synced to main so all five branches start from
+the same commit.
+
+The five streams: agent1 CoalescedSum.lean + Skeleton/Sum.lean — finish D + E as a cpo, then
+lem10_sum, lem17_sum, lem17_smash; agent2 IdealCompletion.lean — Theorem 11, unblocks §5;
+agent3 FinitaryProjectionPoset.lean + Skeleton/Section6b.lean — Theorem 16, Lemma 20 after
+building Fp(D)/Fc(D) as posets; agent4 MinimalUpperBounds.lean + thm18's body — Theorem 18,
+the last sorry; agent5 UniversalDomain.lean — Theorems 22 and Lemma 23, opens §7.
+
+Ownership is disjoint except two named exceptions, both stated in the plan and in the
+prompts: agent1 may edit CoalescedSum.lean, agent4 may edit thm18's body and nothing else in
+Section6.lean. Agents 3 and 5 both need IsClosure from that file and are told it is read-only.
+
+Agent1's prompt makes the sSup guard the explicit point: branch on membership in NonBotSum,
+not on directedness. That defect has now cost two repairs — ScottHom, then Smash — and the
+coalesced sum is where it would land a third time.

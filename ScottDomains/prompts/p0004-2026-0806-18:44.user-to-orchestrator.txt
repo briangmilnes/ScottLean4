@@ -1,0 +1,53 @@
+---
+prompt: p0004
+round: r0027
+type: execution
+opened: 2026-0806-18:44
+closed: 2026-0806-18:47
+subject: commit-push-and-rev-list-allowlist
+related:
+  - p0005
+---
+# turn-timing: estimated
+
+## turn 1 — user 2026-08-06T18:44-07:00
+
+commit. push.
+
+## turn 1 — assistant 2026-08-06T18:45-07:00
+
+Bash git status --short; git rev-list --left-right --count origin/main...main; git log origin/main
+
+Nothing left to commit — main is clean and already at origin/main.
+
+| # | Item | Commit | On origin |
+| 1 | Permission-stall fix (settings.json, CLAUDE.md) | 2a8989e | yes |
+| 2 | Merge agent3 — Lemma 17 | a7cb041 | yes |
+| 3 | Merge agent2 — Prop 15, Lem 19 | 10bb561 | yes |
+| 4 | Inventory update + agents-never-push rule | a45886e → f145b60 | yes |
+
+git status reports no modified or untracked files; git rev-list --left-right --count
+origin/main...main reports `0 0`, so nothing is ahead or behind.
+
+Still outstanding, and deliberately not pushed: agent1's branch. It has five local commits
+from the first run (product, lift, strict function space, the smash refutation, the
+axiom-audit docstring) and is now adding the smashSup repair. Per the rule we just recorded,
+those stay local until it reports and I review the Smash.lean diff — that is the one merge
+that touches a shared module, so it needs the closest reading.
+
+## turn 2 — user 2026-08-06T18:46-07:00
+
+Need another git command in there.
+
+## turn 2 — assistant 2026-08-06T18:47-07:00
+
+Edit .claude/settings.json — add Bash(git rev-list:*)
+Bash jq validate; scripts/gitcp.sh commit and push
+
+`Bash(git rev-list:*)` added to the tracked `.claude/settings.json`, committed and pushed as
+`12500e8`.
+
+That was the read-only ahead/behind check
+(`git rev-list --left-right --count origin/main...main`). It now joins status, log, show,
+diff, rev-parse in the project allowlist, so it will not prompt again — and because it is in
+the tracked file rather than settings.local.json, the agent worktrees inherit it too.

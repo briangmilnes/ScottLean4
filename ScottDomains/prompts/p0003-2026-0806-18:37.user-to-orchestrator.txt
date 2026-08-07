@@ -1,0 +1,69 @@
+---
+prompt: p0003
+round: r0027
+type: execution
+opened: 2026-0806-18:37
+closed: 2026-0806-18:41
+subject: merge-agent2-agent3-set-push-policy
+---
+# turn-timing: estimated
+
+## turn 1 — user 2026-08-06T18:37-07:00
+
+1, 2, 4. Agents may commit but not push. You have to review their results, merge then push.
+
+## turn 1 — assistant 2026-08-06T18:41-07:00
+
+ToolSearch select:SendMessage
+Bash git log/diffstat for agent2 and agent3
+SendMessage agent1 — approve the smashSup repair, finish lem10_smash
+Bash git show agent3:Skeleton/Lemma17.lean > scratchpad
+Read scratchpad/Lemma17.agent3.lean
+Read scratchpad/Section6.agent2.lean
+Bash git merge --no-ff agent3; git merge --no-ff agent2
+Bash lake build — tally warnings
+Write scratchpad/AxCheck.lean
+Bash lake env lean AxCheck.lean
+Bash grep inventory sections; Read PaperInventory.md
+Edit ScottDomains/docs/PaperInventory.md — progress table and burn-down
+Edit CLAUDE.md — agents commit, only the orchestrator pushes
+Bash scripts/gitcp.sh commit and push
+Write memory/agents-commit-orchestrator-pushes.md
+Edit memory/MEMORY.md
+
+Items 1, 2, 4 are done; agent1 is running the repair now.
+
+Reviewed and merged (`a7cb041`, `10bb561`, pushed as `f145b60`). The review was a read of
+both diffs, not a rubber stamp — I checked that every statement matches the r0026 skeleton
+verbatim (no weakened hypotheses, no dropped conjuncts), that neither agent touched a shared
+module, and that the added imports are the ones the proofs actually need.
+
+Files changed: only Skeleton/Lemma17.lean (+417/−3) and Skeleton/Section6.lean (+203/−6).
+Statements vs skeleton: identical. Build on merged main:
+`Build completed successfully (962 jobs).` — 0 errors, 5 sorry warnings, no others.
+`#print axioms`, run by me: prop15, lem19, lem17_prod, lem17_lift, lem17_fun →
+[propext, Classical.choice, Quot.sound]; lem19 needs only [propext, Quot.sound]. No sorryAx.
+thm18 carries sorryAx, as reported.
+
+The sorry count on main went 10 → 5: 4 in Lemma10.lean (agent1's branch, unmerged) and thm18.
+
+Two proofs worth noting from the review. Agent3 did not route lem17_fun through Theorem 6's
+correspondence — since IsBifinite is the Plotkin condition here, it proved instead that a
+projection with finite image already has that image inside the basis and normal in it,
+bypassing IsFinitaryProjection and Lemma 5 entirely. Its compHom is the paper's Φ operator,
+which §7 will want. Agent2's isCompactElement_of_isLUB_finite spends algebraicity rather
+than bounded completeness, so it is strictly more general than the existing pair-wise route.
+
+Agent1 is running with the smashSup repair authorized — scoped to Smash.lean only, told to
+delete lem10_smash_refuted (once the definition is repaired, a proof of False from the
+statement must not stay in the tree) and keep the defect, the witness D = Prop × Prop, and
+the repair in a docstring. I required it to verify the two agreement claims explicitly and
+to check the whole-project build, since Smash.lean has downstream importers.
+
+Inventory updated: numbered results 7 → 10 of 29, burn-down 10 → 5 with per-statement state,
+development 27 modules / 4191 lines / 192 theorems, axiom check recorded. I also corrected
+the stale "23 modules, 3254 lines, 0 sorry" line and the Skeleton.lean references, which
+have pointed at a deleted file since r0026.
+
+The commit-but-never-push rule is now in CLAUDE.md so future agent prompts inherit it, and I
+saved it to memory.
