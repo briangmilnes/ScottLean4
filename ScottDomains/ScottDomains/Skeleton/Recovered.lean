@@ -5,6 +5,7 @@ import ScottDomains.Lift
 import ScottDomains.Product
 import ScottDomains.Bifinite
 import ScottDomains.FinitaryProjectionPoset
+import ScottDomains.SFP
 import ScottDomains.Isomorphism.Smash
 import ScottDomains.Isomorphism.Lift
 import ScottDomains.Isomorphism.Copair
@@ -23,10 +24,12 @@ r0032 recovered both. The evidence — the raw extraction, the page content
 stream decoded through the Computer Modern font encodings, and the rendered page
 images — is in [`docs/StatementRecovery.md`](../../docs/StatementRecovery.md).
 
-Round r0034 closed every statement in this file. The proofs live under
-`ScottDomains.Isomorphism` (five modules under `ScottDomains/Isomorphism/`) and
-each theorem below names the map that discharges it, so this file continues to
-read as the statement of the results rather than as their proof.
+Round r0034 closed Lemma 9's six conjuncts and round r0036 closed Theorem 14, so
+this file carries no `sorry`. The proofs live elsewhere — Lemma 9's under
+`ScottDomains.Isomorphism` (five modules under `ScottDomains/Isomorphism/`),
+Theorem 14's in [`ScottDomains/SFP.lean`](../SFP.lean) — and each theorem below
+names the map or lemma that discharges it, so this file continues to read as the
+statement of the results rather than as their proof.
 
 ## Confidence, per statement
 
@@ -220,42 +223,52 @@ has used it as *the* definition throughout §6 — `prop15`, `thm18`, Lemma 17's
 five conjuncts. Theorem 14 is what licenses that substitution, and it is the one
 place the left-hand side is needed.
 
-**Still open after r0034, and the obstacle is mathematical, not definitional.**
-This is Plotkin's characterization of the SFP objects, and neither direction is
-a rearrangement of the other's data. Four gaps are measured, in the order they
-block the proof.
+**Proved in r0036.** The proof is `SFP.thm14_forward` and `SFP.thm14_converse`
+in [`ScottDomains/SFP.lean`](../SFP.lean); this file keeps the statement. Of the
+four gaps r0034 measured, two were real and two were false constraints:
 
-1. *The `Fp(D)` machinery cannot serve the forward direction.* Every result in
-   `FinitaryProjectionPoset.lean`'s `FpLattice` section — `toFp`,
-   `Fp.le_iff_fpBasis_subset`, `isCompactElement_toFp_of_finite`,
-   `isLUB_compactsBelow_fp` — is stated under `variable [Domain α]`. `Domain α`
-   is precisely what the forward direction has to *conclude*, so none of it is
-   available there.
-2. *Finite basis and finite image are different conditions.* `Fp(D)`'s
-   compactness results are stated for `(fpBasis q).Finite`, i.e. `range q ∩ K(D)`
-   finite; `finiteImageProjections` asks for `(Set.range ⇑q).Finite`. Closing
-   Theorem 14 needs `Set.range ⇑(toFp hN) = N` for finite normal `N` — that a
-   finite normal subposet is closed under the directed suprema its projection
-   can form. No lemma in the development states this.
-3. *`IsLUB` does not transfer from `Fp(D)` to `D → D` for free.* The two orders
-   agree, but an upper bound of `M` in `ScottHom α α` need not be a finitary
-   projection, so leastness in `↥(Fp α)` is a weaker statement than the
-   `IsLUB … ScottHom.id` this definition asks for. Discharging the stronger one
-   is a second appeal to approximation, not a coercion.
-4. *Two finite-combinatorial lemmas are missing.* The forward direction needs
-   that a nonempty finite directed set contains its own greatest element (this
-   is what makes each element of a finite image compact) and that a finite
-   subset of a directed set has an upper bound inside the set (this is what
-   produces the single projection whose image contains a given finite set of
-   compacts, hence the Plotkin witness).
+1. *The `Fp(D)` machinery is stated at `[Domain α]`.* **Dissolved.** The forward
+   direction needs none of it. `toFp`, `fpBasis` and `Fp.le_iff_fpBasis_subset`
+   all speak about `im(p) ∩ K(D)`, and on a *finite* image
+   `im(p) ∩ K(D) = im(p)` (`SFP.range_inter_compacts_of_finite`), so the whole
+   argument runs on `im(p)` inside `D` with no basis coordinate. The measurement
+   the r0036 plan asked for is therefore moot: `toFp` does still need
+   `[Domain α]`, because `isFinitaryProjection_normalHom` spends countability of
+   `K(D)` on the basis of `im(p_N)`.
+2. *Finite basis and finite image are different conditions.* **Real, and
+   proved** as `SFP.range_normalHom_of_finite` (`SFP.range_toFp_eq` in the
+   `Fp(D)` coordinates). `p_N(x) = ⨆(N ∩ ↓x)`, and for finite `N` the directed
+   set `N ∩ ↓x` contains its own greatest element, which is that supremum — so
+   `im(p_N) = N`. For infinite `N` the statement is false and only
+   `im(p_N) ∩ K(D) = N` survives.
+3. *`IsLUB` does not transfer from `Fp(D)` to `D → D`.* **Dissolved.** It is not
+   transferred. `SFP.isLUB_id_of_normalHom_mem` argues in `ScottHom α α`
+   directly: an upper bound `b` of `M` dominates `p_{⟨k⟩} x` for every compact
+   `k ⊑ x`, and `k ⊑ p_{⟨k⟩} x`, so `x = ⨆(K(D) ∩ ↓x) ⊑ b x` by algebraicity.
+4. *Two finite-combinatorial lemmas.* **Real, and proved** as
+   `SFP.exists_upperBound_of_finite_subset` and `SFP.exists_greatest_of_finite`.
 
-The forward direction is otherwise routine given 4: each `p ∈ M` has compact
-image, `{p x | p ∈ M}` is a directed set of compacts with least upper bound `x`,
-which gives `IsAlgebraic`; `K(D) ⊆ ⋃_{p ∈ M} range p` gives countability; and a
-single `p` fixing a finite set of compacts gives the Plotkin order via
-`IsFinitaryProjection.isNormalIn_compacts`. The converse is where 1–3 bite. -/
+One ingredient the r0034 note did not list is needed: `M` must be **nonempty**,
+because `IsCompactElement` quantifies over *nonempty* directed sets and the
+forward direction applies it to `{p x | p ∈ M}`. Mathlib's `DirectedOn` is
+vacuous on `∅`, so the paper's "directed" — which asks every finite subset,
+including `∅`, for an upper bound in the set — is not recovered from the second
+conjunct above. `SFP.isFinitaryProjection_const_bot` supplies the witness: the
+constant-`⊥` map is the least finitary projection.
+
+The forward direction is then the paper's own sketch, three sentences above the
+theorem on printed page 30: each `p ∈ M` has compact image, `{p x | p ∈ M}` is a
+directed set of compacts with least upper bound `x`, which gives `IsAlgebraic`;
+`K(D) ⊆ ⋃_{p ∈ M} im(p)` gives countability; and a single `p` fixing a finite set
+of compacts gives the Plotkin order via
+`IsFinitaryProjection.isNormalIn_compacts`. -/
 theorem thm14 : IsBifiniteViaProjections α ↔ Domain α ∧ IsBifinite α := by
-  sorry
+  constructor
+  · rintro ⟨hcount, hdir, hlub⟩
+    exact SFP.thm14_forward (fun _ => Iff.rfl) hcount hdir hlub
+  · rintro ⟨hdom, hbif⟩
+    haveI := hdom
+    exact SFP.thm14_converse hbif fun _ => Iff.rfl
 
 end Theorem14
 
