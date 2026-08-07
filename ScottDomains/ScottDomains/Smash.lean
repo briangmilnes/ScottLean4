@@ -28,6 +28,28 @@ non-bottom pairs is again non-bottom, because some member `q` of the set has
 `q.1 ≠ ⊥` and `q.1 ⊑ (⨆t).1`, so `(⨆t).1 = ⊥` would force `q.1 = ⊥`. The
 nonemptiness is essential — the empty set's coordinatewise supremum *is*
 `(⊥, ⊥)`, which is why the empty case is sent to the adjoined bottom instead.
+
+## What `smashSup` branches on (r0027)
+
+`SupSet` is total, so `smashSup` must answer on every set and some case split is
+forced. It branches on **the coordinatewise supremum having neither coordinate
+`⊥`** — the condition under which that supremum is an element of `D ⊗ E` at all —
+and not on any merely *sufficient* condition for it.
+
+An earlier version branched on the base being nonempty and directed. That made
+`BoundedComplete (Smash α β)` false as stated, which agent1 refuted by the kernel
+in r0027: for the bounded complete domains `D = Prop × Prop` and `E = Prop`, the
+set `{↑((True, False), True), ↑((False, True), True)}` is bounded above by
+`↑((True, True), True)` but is not directed, so the old `smashSup` returned the
+adjoined bottom — not even an upper bound of the set — while the least upper bound
+is `↑((True, True), True)`. `ScottHom`'s module docstring records the identical
+defect and the identical repair for the function space, where the condition to
+branch on is continuity of the pointwise supremum rather than directedness.
+
+The repair is conservative: `smashSup_of_directed` and `smashSup_of_empty` below
+are unchanged in statement, so the new guard agrees with the old one wherever the
+old one applied — `sSup_ne_bot_of_nonempty` discharges the new guard on a nonempty
+directed base, and `sSup_val_smashBase_eq_bot` refutes it on an empty base.
 -/
 
 namespace ScottDomains
@@ -86,25 +108,54 @@ theorem sSup_ne_bot_of_nonempty {t : Set (NonBotPair α β)} (hne : t.Nonempty)
     exact q.2.2 (le_bot_iff.mp (le_of_le_of_eq hle.2 hbot))
 
 open Classical in
-/-- Suprema in `D ⊗ E`: the coordinatewise supremum of the base when the base is
-nonempty and directed, and the adjoined bottom otherwise. -/
+/-- Suprema in `D ⊗ E`: the coordinatewise supremum of the base when that supremum
+has neither coordinate `⊥`, and the adjoined bottom otherwise. The guard is the
+condition under which the coordinatewise supremum is an element of `D ⊗ E`, not a
+sufficient condition for it — see the module docstring for what branching on
+directedness instead cost. -/
 noncomputable def smashSup (s : Set (Smash α β)) : Smash α β :=
-  if h : (smashBase s).Nonempty ∧ DirectedOn (· ≤ ·) (smashBase s) then
-    ↑(⟨sSup (Subtype.val '' smashBase s), sSup_ne_bot_of_nonempty h.1 h.2⟩ : NonBotPair α β)
+  if h : (sSup (Subtype.val '' smashBase s)).1 ≠ ⊥ ∧
+      (sSup (Subtype.val '' smashBase s)).2 ≠ ⊥ then
+    ↑(⟨sSup (Subtype.val '' smashBase s), h⟩ : NonBotPair α β)
   else ⊥
 
+/-- The defining equation of `smashSup` on the branch it is meant for, with the
+`dite` discharged. -/
+theorem smashSup_of_ne_bot {s : Set (Smash α β)}
+    (h : (sSup (Subtype.val '' smashBase s)).1 ≠ ⊥ ∧
+      (sSup (Subtype.val '' smashBase s)).2 ≠ ⊥) :
+    smashSup s = ↑(⟨sSup (Subtype.val '' smashBase s), h⟩ : NonBotPair α β) := by
+  classical simp only [smashSup, dif_pos h]
+
+/-- **The new guard agrees with the old one on a nonempty directed base**, which
+is what keeps `smashCpo` below unchanged: `sSup_ne_bot_of_nonempty` discharges the
+guard, and the resulting `NonBotPair` differs from the one named here only in its
+proof component, where Lean's definitional proof irrelevance applies. -/
 theorem smashSup_of_directed {s : Set (Smash α β)} (hne : (smashBase s).Nonempty)
     (hdir : DirectedOn (· ≤ ·) (smashBase s)) :
     smashSup s =
       ↑(⟨sSup (Subtype.val '' smashBase s), sSup_ne_bot_of_nonempty hne hdir⟩ :
-        NonBotPair α β) := by
-  classical simp only [smashSup, dif_pos (And.intro hne hdir)]
+        NonBotPair α β) :=
+  smashSup_of_ne_bot (sSup_ne_bot_of_nonempty hne hdir)
 
+/-- The coordinatewise supremum of an empty base is `(⊥, ⊥)`. The empty set is
+directed, so `sSup ∅` is its least upper bound; `⊥` is an upper bound of it; hence
+`sSup ∅ ≤ ⊥`. This is what makes the guard fail on an empty base. -/
+theorem sSup_val_smashBase_eq_bot {s : Set (Smash α β)} (h : ¬ (smashBase s).Nonempty) :
+    sSup (Subtype.val '' smashBase s) = (⊥ : α × β) := by
+  rw [Set.not_nonempty_iff_eq_empty.mp h, Set.image_empty]
+  have hdir : DirectedOn (· ≤ ·) (∅ : Set (α × β)) := fun _ hx => hx.elim
+  exact le_bot_iff.mp (hdir.isLUB_sSup.2 fun _ hx => hx.elim)
+
+/-- **The new guard agrees with the old one on an empty base**: both send it to
+the adjoined bottom, the first because `sSup ∅ = (⊥, ⊥)` fails the guard. -/
 theorem smashSup_of_empty {s : Set (Smash α β)} (h : ¬ (smashBase s).Nonempty) :
     smashSup s = ⊥ := by
   classical
-  have hneg : ¬ ((smashBase s).Nonempty ∧ DirectedOn (· ≤ ·) (smashBase s)) :=
-    fun hc => h hc.1
+  have hneg : ¬ ((sSup (Subtype.val '' smashBase s)).1 ≠ ⊥ ∧
+      (sSup (Subtype.val '' smashBase s)).2 ≠ ⊥) := by
+    rw [sSup_val_smashBase_eq_bot h]
+    exact fun hc => hc.1 rfl
   simp only [smashSup, dif_neg hneg]
 
 /-- **`D ⊗ E` is a cpo.** -/
