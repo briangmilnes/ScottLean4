@@ -115,4 +115,67 @@ theorem sameSide_of_directedOn {t : Set (NonBotSum α β)} (ht : DirectedOn (· 
         exact absurd h2 (by simp)
     | inr y₂ => exact Or.inr ⟨y₁, y₂, rfl, rfl⟩
 
+/-- The `α`-parts of a set in the base. -/
+def leftParts (t : Set (NonBotSum α β)) : Set α := {x : α | ∃ q ∈ t, q.val = Sum.inl x}
+
+/-- The `β`-parts. -/
+def rightParts (t : Set (NonBotSum α β)) : Set β := {y : β | ∃ q ∈ t, q.val = Sum.inr y}
+
+theorem directedOn_leftParts {t : Set (NonBotSum α β)} (ht : DirectedOn (· ≤ ·) t) :
+    DirectedOn (· ≤ ·) (leftParts t) := by
+  rintro x₁ ⟨q₁, hq₁, e₁⟩ x₂ ⟨q₂, hq₂, e₂⟩
+  obtain ⟨q₃, hq₃, hle₁, hle₂⟩ := ht q₁ hq₁ q₂ hq₂
+  cases hq : q₃.val with
+  | inl x₃ =>
+    refine ⟨x₃, ⟨q₃, hq₃, hq⟩, ?_, ?_⟩
+    · have h : q₁.val ≤ q₃.val := hle₁
+      rw [e₁, hq] at h
+      exact Sum.inl_le_inl_iff.mp h
+    · have h : q₂.val ≤ q₃.val := hle₂
+      rw [e₂, hq] at h
+      exact Sum.inl_le_inl_iff.mp h
+  | inr y₃ =>
+    have h : q₁.val ≤ q₃.val := hle₁
+    rw [e₁, hq] at h
+    exact absurd h (by simp)
+
+theorem directedOn_rightParts {t : Set (NonBotSum α β)} (ht : DirectedOn (· ≤ ·) t) :
+    DirectedOn (· ≤ ·) (rightParts t) := by
+  rintro y₁ ⟨q₁, hq₁, e₁⟩ y₂ ⟨q₂, hq₂, e₂⟩
+  obtain ⟨q₃, hq₃, hle₁, hle₂⟩ := ht q₁ hq₁ q₂ hq₂
+  cases hq : q₃.val with
+  | inr y₃ =>
+    refine ⟨y₃, ⟨q₃, hq₃, hq⟩, ?_, ?_⟩
+    · have h : q₁.val ≤ q₃.val := hle₁
+      rw [e₁, hq] at h
+      exact Sum.inr_le_inr_iff.mp h
+    · have h : q₂.val ≤ q₃.val := hle₂
+      rw [e₂, hq] at h
+      exact Sum.inr_le_inr_iff.mp h
+  | inl x₃ =>
+    have h : q₁.val ≤ q₃.val := hle₁
+    rw [e₁, hq] at h
+    exact absurd h (by simp)
+
+/-- A supremum of left parts is non-bottom, provided there is one to start from. -/
+theorem sSup_leftParts_ne_bot {t : Set (NonBotSum α β)} (ht : DirectedOn (· ≤ ·) t)
+    {x₀ : α} (hx₀ : x₀ ∈ leftParts t) : sSup (leftParts t) ≠ ⊥ := by
+  obtain ⟨q₀, hq₀, e₀⟩ := hx₀
+  intro hbot
+  have hle : x₀ ≤ sSup (leftParts t) := (directedOn_leftParts ht).le_sSup ⟨q₀, hq₀, e₀⟩
+  have hx : x₀ = ⊥ := le_bot_iff.mp (le_of_le_of_eq hle hbot)
+  have := q₀.2
+  rw [IsNonBotSum.eq_def, e₀] at this
+  exact this hx
+
+theorem sSup_rightParts_ne_bot {t : Set (NonBotSum α β)} (ht : DirectedOn (· ≤ ·) t)
+    {y₀ : β} (hy₀ : y₀ ∈ rightParts t) : sSup (rightParts t) ≠ ⊥ := by
+  obtain ⟨q₀, hq₀, e₀⟩ := hy₀
+  intro hbot
+  have hle : y₀ ≤ sSup (rightParts t) := (directedOn_rightParts ht).le_sSup ⟨q₀, hq₀, e₀⟩
+  have hy : y₀ = ⊥ := le_bot_iff.mp (le_of_le_of_eq hle hbot)
+  have := q₀.2
+  rw [IsNonBotSum.eq_def, e₀] at this
+  exact this hy
+
 end ScottDomains
