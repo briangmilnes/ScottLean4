@@ -1,0 +1,31 @@
+# agent3 — lake build ScottDomains.ContinuousAlgebra
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T21:28:04-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ContinuousAlgebra ===
+⚠ [843/843] Built ScottDomains.ContinuousAlgebra (2.3s)
+warning: ScottDomains/ContinuousAlgebra.lean:867:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousAlgebra.isLUB_op_image`:
+  [IsSemilattice E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsSemilattice E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (843 jobs).
+--- times ---
+Elapsed (wall clock): 0:03.87
+Maximum resident set size (kbytes): 1736588
+--- build ---
+finished:         2026-08-06T21:28:09-07:00
+exit status:      0
+user cpu:         5.34s
+system cpu:       1.06s
+cpu use:          165%
+peak rss single:  1695 MiB (largest one process, GNU time)
+peak pss tree:    1826 MiB (process group, shared pages apportioned)
+peak rss tree:    2486 MiB (process group, shared pages counted per process)
+jobs:             843
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   1

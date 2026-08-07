@@ -1,0 +1,48 @@
+# agent3 — lake build ScottDomains.ContinuousAlgebra
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T21:13:15-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ContinuousAlgebra ===
+✖ [843/843] Building ScottDomains.ContinuousAlgebra (1.1s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/ContinuousAlgebra.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousAlgebra.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousAlgebra.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousAlgebra.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousAlgebra.setup.json --json
+warning: ScottDomains/ContinuousAlgebra.lean:674:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousAlgebra.isIdeal_opSet`:
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/ContinuousAlgebra.lean:834:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousAlgebra.foldGen_union`:
+  [IsAlgebraic D]
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/ContinuousAlgebra.lean:871:2: Type mismatch
+  scottContinuous_op hne ?m.74 ?m.76
+has type
+  IsLUB ((fun p => p.1 ⋓ p.2) '' X ×ˢ Y) ((fun p => p.1 ⋓ p.2) ?m.75)
+but is expected to have type
+  IsLUB ((fun p => p.1 ⋓ p.2) '' X ×ˢ Y) (a ⋓ b)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ContinuousAlgebra
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.73
+Maximum resident set size (kbytes): 1721396
+--- build ---
+finished:         2026-08-06T21:13:18-07:00
+exit status:      1
+user cpu:         2.40s
+system cpu:       0.51s
+cpu use:          168%
+peak rss single:  1681 MiB (largest one process, GNU time)
+peak pss tree:    1804 MiB (process group, shared pages apportioned)
+peak rss tree:    2463 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   2

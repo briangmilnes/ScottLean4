@@ -1,0 +1,35 @@
+# agent3 — lake build ScottDomains.ContinuousAlgebra
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T21:30:37-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ContinuousAlgebra ===
+✖ [843/843] Building ScottDomains.ContinuousAlgebra (2.4s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/ContinuousAlgebra.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousAlgebra.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousAlgebra.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousAlgebra.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousAlgebra.setup.json --json
+error: ScottDomains/ContinuousAlgebra.lean:1103:4: Type mismatch: After simplification, term
+  this
+ has type
+  @Eq (Set ↑(compacts D)) u.carrier v.carrier
+but is expected to have type
+  @Eq (Set ↑(compacts D)) ↑u ↑v
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ContinuousAlgebra
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.87
+Maximum resident set size (kbytes): 1730212
+--- build ---
+finished:         2026-08-06T21:30:42-07:00
+exit status:      1
+user cpu:         5.64s
+system cpu:       1.02s
+cpu use:          172%
+peak rss single:  1689 MiB (largest one process, GNU time)
+peak pss tree:    1821 MiB (process group, shared pages apportioned)
+peak rss tree:    2480 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   0

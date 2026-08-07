@@ -1,0 +1,31 @@
+# agent3 — lake build ScottDomains.ContinuousAlgebra
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T21:43:23-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ContinuousAlgebra ===
+✖ [843/843] Building ScottDomains.ContinuousAlgebra (2.4s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/ContinuousAlgebra.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousAlgebra.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousAlgebra.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousAlgebra.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousAlgebra.setup.json --json
+error: ScottDomains/ContinuousAlgebra.lean:1067:73: unexpected token 'open'; expected 'lemma'
+error: ScottDomains/ContinuousAlgebra.lean:1112:29: unexpected token 'open'; expected 'lemma'
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ContinuousAlgebra
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:04.11
+Maximum resident set size (kbytes): 1728136
+--- build ---
+finished:         2026-08-06T21:43:29-07:00
+exit status:      1
+user cpu:         5.94s
+system cpu:       1.15s
+cpu use:          172%
+peak rss single:  1687 MiB (largest one process, GNU time)
+peak pss tree:    1821 MiB (process group, shared pages apportioned)
+peak rss tree:    2481 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   0
