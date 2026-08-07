@@ -77,6 +77,109 @@ Nothing here restates or re-derives the refutation, which is kernel-checked in
 precisely because `{⊥, a, m₁}` and `{⊥, b, m₁}` are two *maximal* normal
 subposets inside `S_{λx.m₁}` with no normal subposet above both — and it is not
 bounded complete, which is consistent with the second result above.
+
+# Theorem 18: Smyth's proof, recovered
+
+> **Theorem 18** If `D` and `D → D` are domains, then `D` is bifinite.
+> "The theorem is due to Smyth and its proof may be found in [Smy83a]."
+
+`ScottDomains.thm18` (`Skeleton/Section6.lean`) has been the development's only
+open `sorry` in the §6 line since r0027, and three rounds (r0029–r0031) failed on
+the same monotonicity side condition. r0034 read the source rather than
+re-deriving it. **The proof is fully recovered**, and the reason the perturbation
+route failed is now exact rather than conjectural.
+
+## Sources
+
+Smyth's own paper is [Smy83a], *The largest cartesian closed category of
+domains*, Theoretical Computer Science **27** (1983) 109–119, DOI
+`10.1016/0304-3975(83)90095-6`. It is Elsevier "bronze" open access and
+ScienceDirect answered an automated fetch with HTTP 403, so it is **not** in
+`ScottDomains/papers/`. Two sources that reproduce the proof in full were
+obtained and are committed there:
+
+* `papers/Jung 1989 Cartesian Closed Categories of Domains.pdf` — A. Jung,
+  *Cartesian Closed Categories of Domains*, CWI Tract 66 (1989); the thesis's
+  §2.1 is titled "The theorem of Smyth" and gives the proof as Theorem 2.3 with
+  its three lemmas. **This is the authoritative recovery.**
+* `papers/Abramsky Jung Domain Theory 1994.pdf` — S. Abramsky and A. Jung,
+  *Domain Theory*, Handbook of Logic in Computer Science Vol. 3; §4.3 gives the
+  same material as the classification theorems 4.3.3–4.3.5.
+
+## The proof, and the terminology map
+
+Jung's Theorem 2.3 is Theorem 18 with a *weaker* hypothesis: `D` need only be an
+algebraic dcpo with least element, and only the **function space** need have a
+countable basis.
+
+> **Theorem 2.3 (M. B. Smyth 1983)** If `D` is an algebraic dcpo with least
+> element and if `[D → D]` is ω-algebraic then `D` is bifinite.
+
+Jung's *property m* is "every finite `A` has a **complete** set of minimal upper
+bounds" — Gunter & Scott's Figure 3a. *Property M* is property m together with
+"every finite `A` has **finitely many** minimal upper bounds" — Figure 3b. `U ⁿ`
+and `U ^∞` are the development's `mubIter` and `mubClosure`; Figure 3c is
+`U ^∞(A)` infinite. The proof is four steps:
+
+| # | Step | Jung | In this development |
+| -- | ---- | ---- | ------------------- |
+| 1 | `[D → D]` continuous ⟹ `K(D)` has property m (Figure 3a) | Theorem 1.37 | absent |
+| 2 | `[D → D]` algebraic ⟹ `D` bifinite **or** `D` is an algebraic L-domain | Lemma 2.13, Theorem 2.14 | **absent — this is the gap** |
+| 3 | `[D → D]` ω-algebraic ⟹ `K(D)` has property M (Figure 3b) | Lemma 2.17 | absent |
+| 4 | property M ⟹ `U ^∞(A)` finite (Figure 3c) | Lemma 2.2 | ingredients present; two steps proved below |
+| 5 | property m + `U ^∞` finite ⟹ bifinite | Theorem 1.32 (Plotkin) | **`isBifinite_iff_mubClosure`, r0028** |
+
+## Why three rounds failed, exactly
+
+Step 3 is where countability is spent, and it is a **cardinality argument**, not a
+perturbation. Given compact `a₁, a₂` with `mub{a₁, a₂}` infinite, Jung defines for
+**every subset** `S ⊆ mub{a₁, a₂}` a function
+
+    f_S x = ⊥   if x ⋣ a₁ and x ⋣ a₂ ;   a₁  if x ⊒ a₁, x ⋣ a₂ ;
+            a₂  if x ⋣ a₁ and x ⊒ a₂ ;   b₁  if x ⊒ s for some s ∈ S ;   b₂ otherwise
+
+and shows each `f_S` is a *minimal* upper bound of the compact step functions
+`a₁ ↘ a₁` and `a₂ ↘ a₂`, hence compact, with `f_S ≠ f_{S'}` for `S ≠ S'`. That is
+`2 ^ℵ⁰` compact elements of `D → D`, contradicting countability of `K(D → D)`.
+
+**`f_S` is well defined only because step 2 has already forced `D` to be an
+L-domain**, so that "any element above both `a₁` and `a₂` is above *exactly one*
+element of `mub{a₁, a₂}`" (Jung, proof of Lemma 2.17). That uniqueness is
+precisely the side condition r0031 reported as unavailable — its report records
+the failing case as needing `g k₁ ⊑ g (x_{m₀+1})` where "a domain that is not
+bounded complete has no join to compare them at". The development was trying to
+discharge that condition directly. It is not dischargeable directly: it is *false*
+in general, and Smyth's proof reaches it only after the bifurcation of step 2 has
+restricted `D` to the L-domains, where it holds. **The missing prerequisite is
+Lemma 2.13, which the development does not have in any form.**
+
+Two further measurements on the failed rounds, both from the recovered proof:
+
+* All three variants used only algebraicity of `D → D`, never
+  `Domain.countable_compacts` of the function space. No such argument can succeed:
+  Abramsky & Jung, §4.3, "Forming the function space of an L-domain may in general
+  increase the cardinality of the basis"; Theorem 4.3.4 says every cartesian
+  closed full subcategory of `ALG⊥` is contained in `B` **or `aL`**, and only
+  Theorem 4.3.5, which restricts cardinality, forces `B`. Without countability
+  Theorem 18 is **false**, the algebraic L-domains being the counterexamples.
+* r0031's (★) — "a compact deflation `g ⊑ id` has finite image on the upper
+  bounds of `u`" — is indeed equivalent to Theorem 18 rather than below it, as
+  that round's audit said. Smyth's proof never passes through it.
+
+## What is proved here
+
+Step 4's induction and its terminal contradiction, which are the two parts of
+Lemma 2.2 that need no new machinery. Jung's Lemma 2.2 runs: Rado's Selection
+Theorem extracts from an infinite `U ^∞(A)` an infinite chain `C ⊆ U ^∞(A)`; a
+compact `f ≪ id` fixing `A` fixes all of `U ^∞(A)`, hence fixes `⨆C`; but
+Corollary 1.36 gives `f(d) ≪ d` for every `d`, making `⨆C` compact, which an
+infinite strictly ascending chain cannot have as its least upper bound.
+
+`apply_eq_self_of_mem_mubClosure` is the middle step — a deflation fixing `u`
+fixes `U ^∞(u)` — and `not_isCompactElement_of_isLUB_strictMono` is the last. What
+remains for step 4 is Rado's Selection Theorem (or König's lemma against
+`Domain.countable_compacts`) and Corollary 1.36; the deflation `f` itself is
+r0031's `exists_isCompactElement_le`, already proved.
 -/
 
 namespace ScottDomains.Section62
@@ -281,5 +384,79 @@ theorem thm16_positive_isEmbeddingProjectionPair
     exact fpOfStable_le g
 
 end BoundedComplete
+
+/-! ## Theorem 18, step 4: two parts of Jung's Lemma 2.2
+
+Both are stated for a bare `[PartialOrder α]` and a plain function `g`, because
+that is all the arguments use — no cpo structure, no algebraicity, and no
+countability. They are the parts of Smyth's case (c) that the development can
+reach today. -/
+
+section Theorem18
+
+variable [PartialOrder α] {A u : Set α} {g : α → α}
+
+/-- **A deflation that fixes `u` fixes every stage `Uⁿ(u)`.** Jung, *Cartesian
+Closed Categories of Domains*, Lemma 2.2: "Since `f` is below the identity it must
+also fix minimal upper bounds of subsets of `A` and by induction we see that in
+fact it keeps all elements of `U ^∞(A)` fixed."
+
+Induction on `n`. The successor case is the argument of r0031's
+`minimalUpperBounds_subset_image`, run for the fixed point rather than the image:
+for `m` a minimal upper bound of a finite `v ⊆ Uⁿ(u)`, the inductive hypothesis
+makes every `k ∈ v` satisfy `k = g k ⊑ g m`, so `g m` is again an upper bound of
+`v` lying in `A`; `g m ⊑ m` is the deflation law, and minimality of `m` then forces
+`m ⊑ g m`.
+
+`hgA` — that `g` maps `A` into `A` — is what keeps `g m` inside `upperBoundsIn A v`
+so that minimality of `m` applies to it. -/
+theorem apply_eq_self_of_mem_mubIter (hmono : Monotone g) (hgle : ∀ z, g z ≤ z)
+    (hgA : ∀ z ∈ A, g z ∈ A) (hu : ∀ k ∈ u, g k = k) :
+    ∀ n, ∀ m ∈ mubIter A u n, g m = m := by
+  intro n
+  induction n with
+  | zero => exact hu
+  | succ n ih =>
+    rintro m (hm | ⟨v, hvN, -, hmub, hmin⟩)
+    · exact ih m hm
+    · have hgm : g m ∈ upperBoundsIn A v := by
+        refine ⟨hgA m hmub.1, fun k hk => ?_⟩
+        rw [← ih k (hvN hk)]
+        exact hmono (hmub.2 hk)
+      exact le_antisymm (hgle m) (hmin hgm (hgle m))
+
+/-- **A deflation that fixes `u` fixes the whole mub-closure `U ^∞(u)`.** Every
+member lies in some stage, and `apply_eq_self_of_mem_mubIter` fixes each stage. -/
+theorem apply_eq_self_of_mem_mubClosure (hmono : Monotone g) (hgle : ∀ z, g z ≤ z)
+    (hgA : ∀ z ∈ A, g z ∈ A) (hu : ∀ k ∈ u, g k = k) {m : α} (hm : m ∈ mubClosure A u) :
+    g m = m := by
+  obtain ⟨n, hn⟩ := Set.mem_iUnion.mp hm
+  exact apply_eq_self_of_mem_mubIter hmono hgle hgA hu n m hn
+
+/-- The range of a monotone sequence is directed: `max` supplies the upper
+bound. -/
+theorem directedOn_range_of_monotone {x : ℕ → α} (hx : Monotone x) :
+    DirectedOn (· ≤ ·) (Set.range x) := by
+  rintro _ ⟨m, rfl⟩ _ ⟨n, rfl⟩
+  exact ⟨x (max m n), ⟨max m n, rfl⟩, hx (le_max_left m n), hx (le_max_right m n)⟩
+
+/-- **The terminal contradiction of Jung's Lemma 2.2.** The least upper bound of a
+*strictly* ascending sequence is never compact: compactness applied to the
+sequence's own range returns some `x n` with `c ⊑ x n`, and `x (n+1) ⊑ c` then
+gives `x (n+1) ⊑ x n`, contradicting strictness.
+
+In Lemma 2.2 the chain `C` is produced inside an infinite `U ^∞(A)` by Rado's
+Selection Theorem, is fixed pointwise by the compact deflation `f`
+(`apply_eq_self_of_mem_mubClosure`), and therefore has `f (⨆C) = ⨆C`; Corollary
+1.36's `f(d) ≪ d` then makes `⨆C` compact, which this rules out. -/
+theorem not_isCompactElement_of_isLUB_strictMono {x : ℕ → α} (hx : StrictMono x) {c : α}
+    (hc : IsLUB (Set.range x) c) : ¬ IsCompactElement c := by
+  intro hcc
+  obtain ⟨_, ⟨n, rfl⟩, hcz⟩ :=
+    hcc (Set.range x) c ⟨x 0, 0, rfl⟩ (directedOn_range_of_monotone hx.monotone) hc le_rfl
+  have hle : x (n + 1) ≤ x n := (hc.1 ⟨n + 1, rfl⟩).trans hcz
+  exact absurd (lt_of_lt_of_le (hx (Nat.lt_succ_self n)) hle) (lt_irrefl _)
+
+end Theorem18
 
 end ScottDomains.Section62
