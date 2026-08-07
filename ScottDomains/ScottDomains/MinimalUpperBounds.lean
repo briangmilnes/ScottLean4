@@ -330,7 +330,7 @@ theorem hasCompleteMub_of_isNormalIn (hfin : N.Finite) (hN : N ◁ A)
     (hu : u.Finite) (huN : u ⊆ N) : HasCompleteMub A u := by
   intro x hx
   obtain ⟨z, hzN, hzx, hzub⟩ := hN.exists_mem_le_of_finite hu huN hx
-  set S : Set α := {y | y ∈ N ∧ y ∈ upperBounds u ∧ y ≤ x} with hSdef
+  set S : Set α := {y | y ∈ N ∧ y ∈ upperBounds u ∧ y ≤ x}
   have hSfin : S.Finite := hfin.subset fun _ hy => hy.1
   obtain ⟨m, _, hmS, hmmin⟩ := hSfin.exists_le_minimal (a := z) ⟨hzN, hzub, hzx⟩
   refine ⟨m, ⟨⟨hN.subset hmS.1, hmS.2.1⟩, ?_⟩, hmS.2.2⟩
