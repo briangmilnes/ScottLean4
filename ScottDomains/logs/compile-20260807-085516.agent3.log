@@ -1,0 +1,55 @@
+# r0036
+# agent3 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T08:55:16-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [958/1022] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1091/1213] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1195/1213] Built ScottDomains.Isomorphism.Lift (1.2s)
+✔ [1196/1213] Built ScottDomains.ClosureProperties.SeparatedSum (1.4s)
+✔ [1197/1213] Built ScottDomains.ClosureProperties.Powerdomain (1.4s)
+✔ [1198/1213] Built ScottDomains.PRepresentable (1.6s)
+✔ [1199/1213] Built ScottDomains.Isomorphism.StrictCurry (1.9s)
+✔ [1200/1213] Built ScottDomains.Section62 (1.8s)
+✔ [1201/1213] Built ScottDomains.Isomorphism.Smash (1.0s)
+✔ [1202/1213] Built ScottDomains.Dyadic (1.0s)
+✔ [1203/1213] Built ScottDomains.BifiniteUniversal (1.9s)
+✔ [1204/1213] Built ScottDomains.CombinatorRep (2.1s)
+✔ [1205/1213] Built ScottDomains.ClosureProperties.StrictFunction (2.0s)
+✔ [1206/1213] Built ScottDomains.Isomorphism.Copair (2.2s)
+✔ [1207/1213] Built ScottDomains.Isomorphism.Distribute (2.4s)
+✔ [1208/1213] Built ScottDomains.Combinator (2.5s)
+✔ [1209/1213] Built ScottDomains.ClosureProperties (770ms)
+✔ [1210/1213] Built ScottDomains.Isomorphism.Counterexample (750ms)
+✔ [1211/1213] Built ScottDomains.Atomless (1.4s)
+⚠ [1212/1213] Built ScottDomains.Skeleton.Recovered (728ms)
+warning: ScottDomains/Skeleton/Recovered.lean:257:8: declaration uses `sorry`
+Build completed successfully (1213 jobs).
+--- times ---
+Elapsed (wall clock): 0:04.52
+Maximum resident set size (kbytes): 1865988
+--- build ---
+finished:         2026-08-07T08:55:22-07:00
+exit status:      0
+user cpu:         33.26s
+system cpu:       5.62s
+cpu use:          859%
+peak rss single:  1822 MiB (largest one process, GNU time)
+peak pss tree:    3110 MiB (process group, shared pages apportioned)
+peak rss tree:    23267 MiB (process group, shared pages counted per process)
+jobs:             1213
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      2
+other warnings:   0
