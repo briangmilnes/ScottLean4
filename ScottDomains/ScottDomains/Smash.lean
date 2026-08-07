@@ -108,7 +108,7 @@ theorem smashSup_of_empty {s : Set (Smash α β)} (h : ¬ (smashBase s).Nonempty
   simp only [smashSup, dif_neg hneg]
 
 /-- **`D ⊗ E` is a cpo.** -/
-@[reducible] noncomputable def smashCpo : CompletePartialOrder (Smash α β) :=
+noncomputable instance smashCpo : CompletePartialOrder (Smash α β) :=
   { (inferInstance : PartialOrder (Smash α β)),
     (inferInstance : OrderBot (Smash α β)) with
     sSup := smashSup

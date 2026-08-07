@@ -17,7 +17,22 @@ order, matched to its Lean equivalent.
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
 | 5 | Theorems in the development | **142** live (+6 commented out as unused) | — | — |
-| 6 | `sorry` in the development | — | **0** | — |
+| 6 | `sorry` in the development | — | **10**, all in `Skeleton.lean` | — |
+
+**The `sorry` burn-down (from r0026).** For the first time in 26 rounds the
+development carries `sorry`s. They are deliberate scaffolding: fixed *statements*
+of outstanding results, all confined to `ScottDomains/Skeleton.lean`, so that
+three agent worktrees can prove them in parallel without any agent editing a
+declaration another depends on. Every other module remains `sorry`-free, and the
+count above is the burn-down metric — it goes 10 → 0.
+
+| # | Open statement | Result |
+| -- | -------------- | ------ |
+| 1 | `prop15` | Prop 15 — every bounded complete domain is bifinite |
+| 2 | `thm18` | Thm 18 — `D`, `D → D` domains ⟹ `D` bifinite |
+| 3 | `lem19` | Lem 19 — the image of a closure is a domain |
+| 4–7 | `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict` | Lem 10 — bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥`. The `→` conjunct is **already proved** (Thm 7's bounded-complete half, r0007) |
+| 8–10 | `lem17_prod`, `lem17_lift`, `lem17_fun` | Lem 17 — bifiniteness closed under `×`, `()⊥`, `→` |
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
 Proposition 1–30). Row 3 counts the claims the paper makes **in prose** rather

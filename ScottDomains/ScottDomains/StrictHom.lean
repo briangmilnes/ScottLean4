@@ -76,7 +76,7 @@ theorem isStrict_sSup {s : Set (ScottHom α β)} (hs : ∀ f ∈ s, IsStrict f) 
 
 /-- **`D →⊥ E` is a cpo.** Suprema are those of `D → E`, which stay strict by
 `isStrict_sSup`, so the construction needs no case split of its own. -/
-@[reducible] noncomputable def strictHomCpo : CompletePartialOrder (StrictHom α β) :=
+noncomputable instance strictHomCpo : CompletePartialOrder (StrictHom α β) :=
   { (inferInstance : PartialOrder (StrictHom α β)) with
     sSup := fun s => ⟨sSup (Subtype.val '' s), isStrict_sSup (by rintro _ ⟨f, _, rfl⟩; exact f.2)⟩
     bot := ⟨ScottHom.const ⊥, isStrict_const_bot⟩

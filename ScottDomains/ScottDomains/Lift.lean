@@ -64,8 +64,10 @@ theorem liftSup_of_empty {s : Set (WithBot α)} (h : ¬ (liftBase s).Nonempty) :
     liftSup s = ⊥ := by
   classical simp only [liftSup, if_neg h]
 
-/-- **`D⊥` is a cpo.** -/
-@[reducible] noncomputable def liftCpo : CompletePartialOrder (WithBot α) :=
+/-- **`D⊥` is a cpo.** An `instance`, not a `def`: it depends only on the cpo
+structure of `α`, so downstream statements (Lemmas 10 and 17, which quantify over
+all five operators at once) can be written without threading it by hand. -/
+noncomputable instance liftCpo : CompletePartialOrder (WithBot α) :=
   { (inferInstance : PartialOrder (WithBot α)),
     (inferInstance : OrderBot (WithBot α)) with
     sSup := liftSup
