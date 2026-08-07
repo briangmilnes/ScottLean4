@@ -201,8 +201,10 @@ Log: `ScottDomains/logs/compile-20260806-201136.agent1.log`.
 Module-only build: `ScottDomains/logs/compile-20260806-201034.agent1.log`
 (919 jobs, 0 errors, 0 warnings, 0 `sorry`).
 
-Commits on branch `agent1`: **`cf0cc3c`** (the module, this report, and the two
-build logs) and **`7a6075d`**, **`d0c5a49`** (this section, recording the SHAs).
+Commit on branch `agent1` carrying all the work: **`cf0cc3c`** — the module, this
+report, and the two build logs. It is followed only by no-op edits to this
+section recording SHAs (`7a6075d`, `7691379`, and this one); a self-referential
+SHA cannot be written into the object it names, so the final one is unnamed here.
 `scripts/gitcp.sh` then reported "There is no tracking
 information for the current branch", which is the expected outcome: agents commit
 and do not push.
