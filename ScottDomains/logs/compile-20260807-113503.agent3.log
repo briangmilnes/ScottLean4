@@ -1,0 +1,37 @@
+# r0037
+# agent3 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T11:35:03-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [960/1115] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1110/1115] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1217/1218] Built ScottDomains.PRepFun (972ms)
+Build completed successfully (1218 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.93
+Maximum resident set size (kbytes): 1789444
+--- build ---
+finished:         2026-08-07T11:35:06-07:00
+exit status:      0
+user cpu:         2.18s
+system cpu:       0.60s
+cpu use:          144%
+peak rss single:  1747 MiB (largest one process, GNU time)
+peak pss tree:    1866 MiB (process group, shared pages apportioned)
+peak rss tree:    2536 MiB (process group, shared pages counted per process)
+jobs:             1218
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   0
