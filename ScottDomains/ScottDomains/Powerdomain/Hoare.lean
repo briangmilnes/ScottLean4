@@ -119,10 +119,6 @@ instance : Membership A (Pf A) := ⟨fun u a => a ∈ u.toFinset⟩
 
 @[simp] theorem mem_def {a : A} {u : Pf A} : a ∈ u ↔ a ∈ u.toFinset := Iff.rfl
 
-/-- Every `u : Pf A` has an element — the non-emptiness clause, in the form the
-proofs below consume. -/
-theorem exists_mem (u : Pf A) : ∃ a, a ∈ u := u.toFinset_nonempty
-
 /-- Two points of `Pf(A)` are equal exactly when their underlying finite sets
 are. -/
 @[ext] theorem ext {u v : Pf A} (h : u.toFinset = v.toFinset) : u = v := Subtype.ext h
@@ -150,11 +146,6 @@ instance instPreorder : Preorder (Pf A) where
 
 theorem le_def {u v : Pf A} : u ≤ v ↔ ∀ x ∈ u, ∃ y ∈ v, x ≤ y := Iff.rfl
 
-/-- `⊑♭` is monotone in the underlying finite sets: enlarging the right-hand side
-can only make the relation easier to satisfy. -/
-theorem le_of_toFinset_subset {u v : Pf A} (h : u.toFinset ⊆ v.toFinset) : u ≤ v :=
-  fun x hx => ⟨x, h hx, le_rfl⟩
-
 end Preorder
 
 /-! ### The least element
@@ -175,8 +166,6 @@ instance instOrderBot : OrderBot (Pf A) where
     refine ⟨y, hy, ?_⟩
     rw [show x = ⊥ from Finset.mem_singleton.mp hx]
     exact bot_le
-
-@[simp] theorem toFinset_bot : (⊥ : Pf A).toFinset = {⊥} := rfl
 
 @[simp] theorem mem_bot {a : A} : a ∈ (⊥ : Pf A) ↔ a = ⊥ := Finset.mem_singleton
 
@@ -283,7 +272,6 @@ depends on `sorryAx`.
   ScottDomains.Hoare.Pf.ext                        [propext, Quot.sound]
   ScottDomains.Hoare.Pf.instPreorder               [propext, Quot.sound]
   ScottDomains.Hoare.Pf.le_def                     [propext, Quot.sound]
-  ScottDomains.Hoare.Pf.le_of_toFinset_subset      [propext, Quot.sound]
   ScottDomains.Hoare.Pf.instOrderBot               [propext, Quot.sound]
   ScottDomains.Hoare.Pf.mem_bot                    [propext, Quot.sound]
   ScottDomains.Hoare.Pf.instCountable              [propext, Classical.choice, Quot.sound]
