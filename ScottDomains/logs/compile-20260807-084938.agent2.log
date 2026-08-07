@@ -1,0 +1,131 @@
+# r0036
+# agent2 — lake build ScottDomains.JungSFP
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-07T08:49:38-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.JungSFP ===
+✖ [834/834] Building ScottDomains.JungSFP (762ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/JungSFP.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/JungSFP.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/JungSFP.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/JungSFP.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/JungSFP.setup.json --json
+error: ScottDomains/JungSFP.lean:264:12: Invalid rewrite argument: The pattern to be substituted is a metavariable (`?m.159 d`) in this equality
+  ?m.159 d = jungFun x₁ x₂ a₁ a₂ ?m.159 d
+error: ScottDomains/JungSFP.lean:268:35: Invalid rewrite argument: The pattern to be substituted is a metavariable (`?m.208`) in this equality
+  ?m.208 = jungFun x₁ x₂ ?m.208 a₂ t d
+error: ScottDomains/JungSFP.lean:273:36: Invalid rewrite argument: The pattern to be substituted is a metavariable (`?m.268`) in this equality
+  ?m.268 = jungFun x₁ x₂ a₁ ?m.268 t d
+error: ScottDomains/JungSFP.lean:343:15: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ⇑(jungHom ?hx₁ ?hx₂ ?m.293 ?m.294 ?m.295 ?h)
+in the target expression
+  (fun f => ⇑f) f d ≤ (fun f => ⇑f) (jungHom hx₁ hx₂ a₁ a₂ t h) d
+
+case pos.refine_2
+D : Type u_1
+E : Type u_2
+inst✝¹ : CompletePartialOrder D
+inst✝ : CompletePartialOrder E
+x₁ x₂ : D
+a₁ a₂ : E
+t : D → E
+hx₁ : IsCompactElement x₁
+hx₂ : IsCompactElement x₂
+h : IsJungPatch x₁ x₂ a₁ a₂ t
+hmin : ∀ (d : D), x₁ ≤ d → x₂ ≤ d → Minimal (fun x => x ∈ upperBounds {a₁, a₂}) (t d)
+hub₁ : ScottHom.step hx₁ a₁ ≤ jungHom hx₁ hx₂ a₁ a₂ t h
+hub₂ : ScottHom.step hx₂ a₂ ≤ jungHom hx₁ hx₂ a₁ a₂ t h
+f : ScottHom D E
+hf : f ∈ upperBounds {ScottHom.step hx₁ a₁, ScottHom.step hx₂ a₂}
+hfg : f ≤ jungHom hx₁ hx₂ a₁ a₂ t h
+d : D
+hf₁ : ScottHom.step hx₁ a₁ ≤ f
+hf₂ : ScottHom.step hx₂ a₂ ≤ f
+ha₁ : ∀ (e : D), x₁ ≤ e → a₁ ≤ f e
+ha₂ : ∀ (e : D), x₂ ≤ e → a₂ ≤ f e
+h₁ : x₁ ≤ d
+h₂ : x₂ ≤ d
+this : (fun f => ⇑f) f d ≤ (fun f => ⇑f) (jungHom hx₁ hx₂ a₁ a₂ t h) d
+⊢ f d ≤ t d
+warning: ScottDomains/JungSFP.lean:366:0: automatically included section variable(s) unused in theorem `ScottDomains.JungSFP.fVal_pos`:
+  [CompletePartialOrder D]
+  [CompletePartialOrder E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder D] [CompletePartialOrder E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/JungSFP.lean:370:0: automatically included section variable(s) unused in theorem `ScottDomains.JungSFP.fVal_neg`:
+  [CompletePartialOrder D]
+  [CompletePartialOrder E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder D] [CompletePartialOrder E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/JungSFP.lean:384:0: automatically included section variable(s) unused in theorem `ScottDomains.JungSFP.exists_eq_of_forall_minimal`:
+  [IsAlgebraic D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/JungSFP.lean:451:58: unexpected token 'where'; expected ':=' or '|'
+error: ScottDomains/JungSFP.lean:451:7: Missing cases:
+error: ScottDomains/JungSFP.lean:430:36: unsolved goals
+D : Type u_1
+E : Type u_2
+inst✝³ : CompletePartialOrder D
+inst✝² : CompletePartialOrder E
+inst✝¹ : IsAlgebraic D
+x₁ x₂ : D
+hx₁ : IsCompactElement x₁
+hx₂ : IsCompactElement x₂
+inst✝ : IsAlgebraic E
+a₁ a₂ b₁ b₂ c : E
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+hb₁ : b₁ ∈ minimalUpperBounds (compacts E) {a₁, a₂}
+hb₂ : b₂ ∈ minimalUpperBounds (compacts E) {a₁, a₂}
+hne : b₁ ≠ b₂
+hc₁ : b₁ ≤ c
+hc₂ : b₂ ≤ c
+hAlg this : IsAlgebraic (ScottHom D E)
+M : Set D := minimalUpperBounds (compacts D) {x₁, x₂}
+hMinf : M.Infinite
+hM : M = minimalUpperBounds (compacts D) {x₁, x₂}
+hxfin : {x₁, x₂}.Finite
+hxc : {x₁, x₂} ⊆ compacts D
+hafin : {a₁, a₂}.Finite
+hac : {a₁, a₂} ⊆ compacts E
+hMmin : ∀ m ∈ M, Minimal (fun x => x ∈ upperBounds {x₁, x₂}) m
+hMub : ∀ m ∈ M, x₁ ≤ m ∧ x₂ ≤ m
+hab₁ : a₁ ≤ b₁
+hab₁' : a₂ ≤ b₁
+hab₂ : a₁ ≤ b₂
+hab₂' : a₂ ≤ b₂
+hpatchG : IsJungPatch x₁ x₂ a₁ a₂ fun x => b₁
+⊢ False
+warning: ScottDomains/JungSFP.lean:644:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ScottDomains/JungSFP.lean:647:9: Tactic `rcases` failed: `hL : HasAtMostOneMubBelow D → False` is not an inductive datatype
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.JungSFP
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.43
+Maximum resident set size (kbytes): 1712008
+--- build ---
+finished:         2026-08-07T08:49:40-07:00
+exit status:      1
+user cpu:         1.52s
+system cpu:       0.45s
+cpu use:          137%
+peak rss single:  1671 MiB (largest one process, GNU time)
+peak pss tree:    1765 MiB (process group, shared pages apportioned)
+peak rss tree:    2435 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 8
+lake errors:      2
+sorry decls:      0
+other warnings:   4
