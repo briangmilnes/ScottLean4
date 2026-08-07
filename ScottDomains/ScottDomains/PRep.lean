@@ -56,6 +56,32 @@ paper's own "for the remainder of this section", since Lemma 28 stands four
 paragraphs *after* the redefinition and inside the same subsection. This file
 takes the source's reading: **Lemma 28 is `Fp(U)`.**
 
+### The reading above is confirmed — do not re-derive it
+
+The nine-operator list in the table is **settled**, by three independent reads of
+the page image, made in two rounds by three agents that did not share a worktree:
+
+| # | Round | Reader | Method | Finding |
+| - | ----- | ------ | ------ | ------- |
+| 1 | r0036 | agent4 | page 42 at 600 dpi | `→ ⇸ × ⊗ + ⊕ (·)⊥ (·)♯ (·)♭`; corrected the then-current list from seven |
+| 2 | r0037 | agent4 | page 42 at 600 dpi, re-read from scratch | the same nine; reported **no correction**, the first stream in three rounds to do so |
+| 3 | r0037 | agent3 | pages 41–43 at 200 dpi | the same nine; `PRep.Lemma28` confirmed correct as written |
+
+A fourth read settles the notion rather than the list: r0037's agent5, reading
+page 43 for Lemma 30, found that **Lemma 30 spells out "p-representable" where
+Lemma 28 says only "representable"**, and that its carrier is printed **V** in
+bold. That is independent evidence for the "remainder of this section" argument
+above — both lemmas are about `Fp`, and the abbreviation in Lemma 28 is exactly
+what §7.3 announced.
+
+So the operator list and the notion are no longer open questions. Re-rendering
+the page to check them has zero expected yield; spend the effort on the two
+conjuncts that remain. What *did* keep changing across rounds was the derived
+prose about these conjuncts — see the `(·)♯`/`(·)♭` section above, and the
+staleness note in `ScottDomains.Lemma28AtU` — so a claim about *status* deserves
+re-checking against the files in a way that a claim about the printed list no
+longer does.
+
 ## The two obligations `Fp` adds that `Fc` does not
 
 `ClosurePoset U` is `{r // IsClosure r}` — two equations and nothing else.
