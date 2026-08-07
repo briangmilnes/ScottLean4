@@ -1,0 +1,66 @@
+# r0034
+# agent6 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent6
+# started: 2026-08-06T22:58:44-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [951/1004] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+⚠ [954/1004] Replayed ScottDomains.Skeleton.Recovered
+warning: ScottDomains/Skeleton/Recovered.lean:99:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:106:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:124:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:134:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:148:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:159:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:214:8: declaration uses `sorry`
+✔ [1050/1073] Built ScottDomains.FixedPoint (944ms)
+✔ [1051/1073] Built ScottDomains.Powerset (1.0s)
+✔ [1052/1073] Built ScottDomains.EffectivePresentation (1.1s)
+✔ [1053/1073] Built ScottDomains.MinimalUpperBounds (1.1s)
+✔ [1054/1073] Built ScottDomains (1.2s)
+✔ [1055/1073] Built ScottDomains.Skeleton.Lemma17 (1.4s)
+✔ [1056/1073] Built ScottDomains.Currying (1.4s)
+✔ [1057/1073] Built ScottDomains.Skeleton.Lemma10 (1.5s)
+✔ [1058/1073] Built ScottDomains.Skeleton.Sum (1.8s)
+✔ [1059/1073] Built ScottDomains.IdealCompletion (1.8s)
+✔ [1060/1073] Built ScottDomains.ComputableFunction (931ms)
+ℹ [1061/1073] Built ScottDomains.ExistingTheories (861ms)
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1062/1073] Built ScottDomains.UniformFixedPoint (1.2s)
+✔ [1063/1073] Built ScottDomains.ContinuousConstruction (1.3s)
+✔ [1064/1073] Built ScottDomains.UniversalDomain (1.2s)
+✔ [1065/1073] Built ScottDomains.Powerdomain.Smyth (888ms)
+✔ [1066/1073] Built ScottDomains.Powerdomain.Hoare (926ms)
+✔ [1067/1073] Built ScottDomains.Powerdomain.Plotkin (1.0s)
+✔ [1068/1073] Built ScottDomains.RecursiveDomain (844ms)
+✔ [1069/1073] Built ScottDomains.Powerdomain.BoundedComplete (844ms)
+✔ [1070/1073] Built ScottDomains.Powerdomain.Universal (931ms)
+✔ [1071/1073] Built ScottDomains.ContinuousAlgebra (1.5s)
+✔ [1072/1073] Built ScottDomains.Universality (821ms)
+Build completed successfully (1073 jobs).
+--- times ---
+Elapsed (wall clock): 0:05.94
+Maximum resident set size (kbytes): 1757856
+--- build ---
+finished:         2026-08-06T22:58:51-07:00
+exit status:      0
+user cpu:         31.97s
+system cpu:       6.34s
+cpu use:          644%
+peak rss single:  1716 MiB (largest one process, GNU time)
+peak pss tree:    2788 MiB (process group, shared pages apportioned)
+peak rss tree:    14245 MiB (process group, shared pages counted per process)
+jobs:             1073
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      8
+other warnings:   0
