@@ -25,9 +25,33 @@ namespace ScottDomains
 
 variable {α β : Type*} [CompletePartialOrder α] [CompletePartialOrder β]
 
+section Prod
+
+/-- The first-coordinate image of a set bounded above is bounded above. -/
+theorem bddAbove_fst_image {s : Set (α × β)} (hs : BddAbove s) : BddAbove (Prod.fst '' s) := by
+  obtain ⟨u, hu⟩ := hs
+  exact ⟨u.1, by rintro _ ⟨p, hp, rfl⟩; exact (hu hp).1⟩
+
+/-- The second-coordinate image of a set bounded above is bounded above. -/
+theorem bddAbove_snd_image {s : Set (α × β)} (hs : BddAbove s) : BddAbove (Prod.snd '' s) := by
+  obtain ⟨u, hu⟩ := hs
+  exact ⟨u.2, by rintro _ ⟨p, hp, rfl⟩; exact (hu hp).2⟩
+
+/-- **Lemma 10, `D × E`.** Suprema in the product cpo are coordinatewise
+(`Prod.supSet`), and `isLUB_prod` says a least upper bound in a product is a pair
+of least upper bounds. Boundedness passes to each coordinate image, so each
+coordinate supremum is a least upper bound by bounded completeness of the factor.
+No case split — unlike `ScottHom`, `WithBot` and `Smash`, the product's `sSup` is
+correct on every set on which the factors' `sSup` is. -/
 theorem lem10_prod [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
-    BoundedComplete (α × β) := by
-  sorry
+    BoundedComplete (α × β) where
+  isLUB_sSup_of_bddAbove s hs := by
+    have hsup : (sSup s : α × β) = (sSup (Prod.fst '' s), sSup (Prod.snd '' s)) := rfl
+    rw [isLUB_prod, hsup]
+    exact ⟨isLUB_sSup_of_bddAbove (bddAbove_fst_image hs),
+      isLUB_sSup_of_bddAbove (bddAbove_snd_image hs)⟩
+
+end Prod
 
 theorem lem10_smash [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (Smash α β) := by
