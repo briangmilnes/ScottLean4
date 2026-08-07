@@ -33,14 +33,28 @@ pointwise order of `D → D`; without that conjunct the existential would be
 satisfied by any complete lattice structure whatever and would say nothing.
 
 The **second** conjunct of the paper's sentence — that the inclusion
-`i : Fp(D) ↪ (D → D)` is an embedding — is *not* stated here. It is a separate
-claim about an embedding–projection pair, and the paper's sketch of it ("Let
-`S_f = {x ∈ K(D) | x ⊑ f(x)}` … there is a least set `N_f` with
-`S_f ⊆ N_f ◁ K(D)`") does not obviously produce the projection half `i ∘ s ⊑ id`:
-`S_f` is in general **not** normal, so `N_f` is strictly larger, and a minimal
-upper bound `m` of `a, b ∈ S_f` lies in `N_f` without satisfying `m ⊑ f(m)`.
-Recording the claim with a guessed proof strategy would be worse than recording
-the gap, so it is recorded here.
+`i : Fp(D) ↪ (D → D)` is an embedding — is *not* stated here, and r0032 settled
+why: **it is false.** `FinitaryProjectionEmbedding.lean` refutes it by the kernel
+for the embedding–projection reading (`ScottHom.IsEmbeddingProjectionPair`, the
+reading the paper's own sketch names when it asks one to "verify that `f ↦ N_f`
+is a projection"). The witness is a five-element bifinite domain with two
+incomparable minimal upper bounds `m₁, m₂` over an incomparable pair `a, b`; for
+`f = λx. m₁` there are two incomparable maximal finitary projections below `f`
+and no greatest one, while any monotone section would have to produce one. The
+refutation is proved against a `D` that satisfies `thm16` above, so it isolates
+the second conjunct.
+
+The sketch's error is exact, and is recorded as
+`Fp.le_iff_fpBasis_subset_stableCompacts`: `p ⊑ f ⟺ im(p) ∩ K(D) ⊆ S_f`. The
+paper takes `N_f` to be the least normal set **containing** `S_f`, but what is
+needed is a normal set **contained in** it; the two agree only when `S_f` is
+itself normal, which holds exactly when `f` is already a finitary projection. So
+no choice of `N_f` repairs the argument — the earlier note here, that this was an
+unclosed gap in the proof, understated it.
+
+A positive statement is still available and is not proved here: the conjunct
+holds whenever every `S_f` contains a greatest normal subposet, which bounded
+complete domains satisfy.
 
 `lem20` is Lemma 20 in full. Note that its content is the *existence* of the cpo
 structure on `Fc(D)`, not a particular one, so — as with `lem19` — the statement

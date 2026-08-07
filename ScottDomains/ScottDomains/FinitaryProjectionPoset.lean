@@ -20,10 +20,15 @@ order they carry is the one `D → D` already has — the pointwise order
 
 1. Every statement the paper makes about these posets is a statement about the
    pointwise order. Theorem 6's monotonicity clause is `N ⊆ N' → p_N ⊑ p_{N'}`,
-   proved pointwise in `normalHom_mono`; Lemma 17 computes `⨆M = id` for a set
-   `M` of finitary projections, which is a pointwise supremum; and Theorem 16
-   asserts that the *inclusion* `Fp(D) ↪ (D → D)` is an embedding, which is only
-   meaningful if `Fp(D)` carries the subspace order.
+   proved pointwise in `normalHom_mono`; and Lemma 17 computes `⨆M = id` for a
+   set `M` of finitary projections, which is a pointwise supremum.
+
+   An earlier version of this paragraph also cited Theorem 16's claim that the
+   *inclusion* `Fp(D) ↪ (D → D)` is an embedding, as only meaningful under the
+   subspace order. That reason is withdrawn: r0032 proved the claim **false** for
+   the embedding–projection reading (`FinitaryProjectionEmbedding.lean`), and
+   under the order-embedding reading it is true by `Fp.le_def`'s `Iff.rfl` and so
+   supports nothing. The design choice stands on the two reasons that remain.
 2. On projections the pointwise order agrees with inclusion of images
    (`IsProjection.range_mono`, and `range_normalHom_inter_compacts` in the
    opposite direction), so it is also the order that makes Theorem 6 an order

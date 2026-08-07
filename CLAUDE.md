@@ -66,6 +66,41 @@ here — not the full GRASE process.
 - The `from-…` slot is the author's own role; `<subject>` is short kebab-case.
   Any timestamps use `YYYY-MMDD-HH:MM` in the project timezone (America/Los_Angeles).
 
+## Shell discipline — why permission prompts happen
+
+Permission rules match a **command prefix**. A compound command has no single
+prefix, so it can never match one however many of its parts are allowlisted.
+Measured over one day's `.claude/permission-requests.log`: 133 prompts contained
+`&&`, `;`, `|` or `$(…)`, and **58 began with `cd …` — about 45% of every prompt
+in the session**. Bare `grep`, `sed`, `cat`, `head`, `ls`, `wc`, `find` and `git`
+are allowlisted and prompted 3 times between them.
+
+Four rules, in order of how much they save:
+
+1. **One command per call. Never chain.** No `&&`, no `;`, no pipes into `tail`
+   or `head`. If output needs filtering, read the file afterwards or let the
+   script do it.
+2. **Never `cd`.** Use absolute paths, or a tool's own flag: `git -C <path>`,
+   `find <path>`, `scripts/compile.sh` (which resolves its own root). The shell's
+   working directory drifts between calls; `cd` to compensate costs a prompt every
+   time.
+3. **Multi-step logic goes in `scripts/`**, which is allowlisted as a prefix —
+   never inline in the terminal, and never in `/tmp`, which is not allowlisted.
+   `compile.sh`, `counts.sh`, `parallel-cost.sh`, `save-prompts.sh` exist for this.
+4. **Never pipe an allowlisted script.** `scripts/compile.sh -r rNNNN` is allowed;
+   `scripts/compile.sh -r rNNNN 2>&1 | tail -2` is a compound command and prompts.
+   The wrapper already prints its own summary line.
+
+Reading and editing files never prompts — `Read`, `Write` and `Edit` are covered
+by `Edit(//home/milnes/projects/**)` and `Write(//home/milnes/projects/**)`, and
+zero `Write`/`Edit` entries appear in the prompt log. Prefer them over shell for
+file work, and never use `sed -i`.
+
+`scripts/allow-bash.sh` is a `PreToolUse` hook that auto-approves compound
+commands whose every clause is read-only, but **hooks bind at session start** — one
+installed mid-session does nothing until `/hooks` is opened once or the session
+restarts.
+
 ## Logs (GRASE convention)
 
 Builds go through `scripts/compile.sh`, never a bare `lake build` when the run is
