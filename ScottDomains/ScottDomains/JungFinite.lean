@@ -409,4 +409,114 @@ end Main
 
 end Konig
 
+/-! ## Step 4, part 1: the stages of `U`, and the chain inside an infinite `U ^∞(A)`
+
+> Since the base of `D` has property M each set `Uⁿ(A)` is finite and contains
+> elements which are not in `Uⁿ⁻¹(A)` already. So for each `n ∈ ℕ` we have the
+> finite nonempty set `Bₙ = Uⁿ(A) \ Uⁿ⁻¹(A)`. Each element of `Bₙ` is above some
+> element of `Bₙ₋₁` because otherwise it would belong to `Uⁿ⁻¹(A)` already.
+
+`mubDiff A u n` is Jung's `Bₙ₊₁`, indexed from `0` so that no truncated
+subtraction appears. -/
+
+section Stages
+
+variable [PartialOrder α] {A N u : Set α}
+
+/-- **Property M preserves finiteness under one application of `U`.** A finite
+`N ⊆ A` has finitely many finite subsets, and property M gives each of them
+finitely many minimal upper bounds. -/
+theorem mubStep_finite
+    (hM : ∀ v : Set α, v ⊆ A → v.Finite → (minimalUpperBounds A v).Finite)
+    (hN : N.Finite) (hNA : N ⊆ A) : (mubStep A N).Finite := by
+  refine hN.union (Set.Finite.subset (hN.finite_subsets.biUnion
+    fun v hv => hM v (Set.Subset.trans hv hNA) (hN.subset hv)) ?_)
+  rintro m ⟨v, hvN, _, hmv⟩
+  exact Set.mem_iUnion₂.mpr ⟨v, hvN, hmv⟩
+
+/-- Every stage `Uⁿ(u)` of a finite `u` is finite, under property M. -/
+theorem mubIter_finite
+    (hM : ∀ v : Set α, v ⊆ A → v.Finite → (minimalUpperBounds A v).Finite)
+    (hu : u.Finite) (huA : u ⊆ A) : ∀ n, (mubIter A u n).Finite
+  | 0 => hu
+  | n + 1 => mubStep_finite hM (mubIter_finite hM hu huA n) (mubIter_subset huA n)
+
+/-- Jung's `Bₙ₊₁ = Uⁿ⁺¹(u) \ Uⁿ(u)`: the elements the `n`-th application of `U`
+adds. -/
+def mubDiff (A u : Set α) (n : ℕ) : Set α := mubIter A u (n + 1) \ mubIter A u n
+
+theorem mubDiff_subset_mubClosure {n : ℕ} : mubDiff A u n ⊆ mubClosure A u :=
+  fun _ hx => mubIter_subset_mubClosure A u (n + 1) hx.1
+
+theorem mubDiff_finite (hstage : ∀ n, (mubIter A u n).Finite) (n : ℕ) :
+    (mubDiff A u n).Finite := (hstage (n + 1)).subset fun _ hx => hx.1
+
+/-- **A stage that adds nothing has stabilized.** If `Uⁿ⁺¹(u) = Uⁿ(u)` then every
+later stage is contained in `Uⁿ(u)`, so `U ^∞(u)` is finite. Contrapositively, an
+infinite mub-closure makes every difference `Bₙ₊₁` nonempty. -/
+theorem mubDiff_nonempty (hstage : ∀ n, (mubIter A u n).Finite)
+    (hinf : (mubClosure A u).Infinite) (n : ℕ) : (mubDiff A u n).Nonempty := by
+  by_contra hemp
+  rw [Set.not_nonempty_iff_eq_empty] at hemp
+  have hsub : mubIter A u (n + 1) ⊆ mubIter A u n := fun x hx => by
+    by_contra hxn
+    exact Set.eq_empty_iff_forall_notMem.mp hemp x ⟨hx, hxn⟩
+  have key : ∀ m, mubIter A u m ⊆ mubIter A u n := by
+    intro m
+    induction m with
+    | zero => exact mubIter_mono A u (Nat.zero_le n)
+    | succ m ih => exact (mubStep_mono ih).trans hsub
+  exact hinf ((hstage n).subset (Set.iUnion_subset key))
+
+/-- **Jung's descent step.** A member of `Bₙ₊₂` lies above a member of `Bₙ₊₁`: it
+is a minimal upper bound of a finite `v ⊆ Uⁿ⁺¹(u)`, and if every member of `v`
+were already in `Uⁿ(u)` then it would itself lie in `Uⁿ⁺¹(u)`. -/
+theorem exists_mem_mubDiff_le (n : ℕ) {x : α} (hx : x ∈ mubDiff A u (n + 1)) :
+    ∃ y ∈ mubDiff A u n, y ≤ x := by
+  obtain ⟨hx1, hx2⟩ := hx
+  rcases hx1 with h | ⟨v, hvN, hvfin, hmv⟩
+  · exact absurd h hx2
+  · by_contra hno
+    refine hx2 (Or.inr ⟨v, fun y hy => ?_, hvfin, hmv⟩)
+    by_contra hyn
+    exact hno ⟨y, ⟨hvN hy, hyn⟩, (minimalUpperBounds_subset hmv).2 hy⟩
+
+/-- Consecutive differences are disjoint, which turns the monotone transversal
+König's lemma produces into a **strictly** ascending one. -/
+theorem mubDiff_ne {n : ℕ} {x y : α} (hx : x ∈ mubDiff A u n)
+    (hy : y ∈ mubDiff A u (n + 1)) : x ≠ y := fun h => hy.2 (h ▸ hx.1)
+
+/-- **The chain of Jung's Lemma 2.2.** Under property M an infinite `U ^∞(u)`
+contains an infinite strictly ascending sequence.
+
+This is where Jung invokes Rado's Selection Theorem; `exists_monotone_seq` — König's
+lemma graded by `ℕ` — is applied instead, to the family `Bₙ₊₁ = Uⁿ⁺¹(u) \ Uⁿ(u)`.
+Its four hypotheses are the four facts above; the union of the differences is
+infinite because it misses only `u`, which is finite. -/
+theorem exists_strictMono_mem_mubClosure
+    (hM : ∀ v : Set α, v ⊆ A → v.Finite → (minimalUpperBounds A v).Finite)
+    (hu : u.Finite) (huA : u ⊆ A) (hinf : (mubClosure A u).Infinite) :
+    ∃ x : ℕ → α, (∀ n, x n ∈ mubClosure A u) ∧ StrictMono x := by
+  classical
+  have hstage := mubIter_finite hM hu huA
+  have hsub : mubClosure A u ⊆ u ∪ ⋃ n, mubDiff A u n := by
+    intro z hz
+    by_cases h0 : z ∈ mubIter A u 0
+    · exact Or.inl h0
+    · have hex : ∃ m, z ∈ mubIter A u m := Set.mem_iUnion.mp hz
+      have hzk : z ∈ mubIter A u (Nat.find hex) := Nat.find_spec hex
+      have hkpos : Nat.find hex ≠ 0 := fun h => h0 (h ▸ hzk)
+      obtain ⟨j, hj⟩ : ∃ j, Nat.find hex = j + 1 := ⟨Nat.find hex - 1, by omega⟩
+      exact Or.inr (Set.mem_iUnion.mpr ⟨j, hj ▸ hzk, Nat.find_min hex (by omega)⟩)
+  have hUinf : (⋃ n, mubDiff A u n).Infinite := fun hfinU =>
+    hinf (Set.Finite.subset (hu.union hfinU) hsub)
+  obtain ⟨x, hxmem, hxmono⟩ := exists_monotone_seq (B := mubDiff A u)
+    (mubDiff_finite hstage) (mubDiff_nonempty hstage hinf) hUinf
+    fun n _ hx => exists_mem_mubDiff_le n hx
+  exact ⟨x, fun n => mubDiff_subset_mubClosure (hxmem n),
+    strictMono_nat_of_lt_succ fun n =>
+      lt_of_le_of_ne (hxmono (Nat.le_succ n)) (mubDiff_ne (hxmem n) (hxmem (n + 1)))⟩
+
+end Stages
+
 end ScottDomains.JungFinite
