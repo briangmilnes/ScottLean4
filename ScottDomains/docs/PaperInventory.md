@@ -8,17 +8,50 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
-## Progress (as of r0028, 2026-0806)
+## Progress (as of r0029, 2026-0806)
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
-| 1 | Definitions to define | **11** | 2 (the three powerdomains, `D∞`) | ≈13 |
-| 2 | **Numbered** results complete | **15** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Lem 10, Thm 11, Prop 15, Lem 17, Lem 19, Lem 20, Thm 22, Lem 23) | 14 | **29** |
+| 1 | Definitions to define | **all** — see the note below on `D∞` | 0 | ≈13 |
+| 2 | **Numbered** results complete | **16** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Lem 10, Thm 11, Prop 15, Lem 17, Lem 19, Lem 20, **Thm 21**, Thm 22, Lem 23) | 13 | **29** |
 | 2a | — of which **partially** proved | Thm 16 (the algebraic-lattice conjunct proved; the `Fp(D) ↪ (D → D)` embedding conjunct not stated) | — | — |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **384** live (+6 commented out as unused) | — | — |
+| 5 | Theorems in the development | **447** live (+6 commented out as unused) | — | — |
 | 6 | `sorry` in the development | — | **1**: `thm18` in `Skeleton/Section6.lean` | — |
+
+**Round r0029** ran four agents in parallel and closed the definition list.
+
+| # | Stream | Landed |
+| -- | ------ | ------ |
+| 1 | `Powerdomain/Hoare.lean` | the Hoare (lower) powerdomain: `Pf` the finite non-empty subsets of `K(D)`, the lower pre-order, and `Domain` from Theorem 11 |
+| 2 | `Powerdomain/Smyth.lean` | the Smyth (upper) powerdomain, same shape, dual orientation |
+| 3 | `Powerdomain/Plotkin.lean` | the Plotkin (convex) powerdomain under the Egli–Milner pre-order |
+| 4 | `RecursiveDomain.lean` | the recursive domain equation, two formalizations of *universal domain*, and **Theorem 21** — plus `recursiveDomain_funSpace`, the reflexive domain `D ≅ (D → D)` |
+
+**There is no `D∞` to build.** Earlier drafts of this inventory listed `D∞`
+(inverse limit) as an outstanding definition. Reading §7 directly refutes that:
+the section raises the chain `T₀ →e₀ T₁ →e₁ T₂ → ⋯`, says "This is all very
+informal, however; how are we to make this idea mathematically precise…?", and
+answers with §7.1, *Solving domain equations with closures*. `D ≅ D → D` is
+reached from Theorem 21 and Lemma 23, and the limit is taken inside `Fc(U)`. What
+stands in `D∞`'s place is `Recursive.Solves` / `IsSolvable`, and the two
+formalizations of universal domain — `IsUniversal` (every domain of the class is
+a closure of `U`) and `IsUniversalRetract` (every one is a retract), which the
+paper states as two different sentences.
+
+**`Pf` is the finite *non-empty* subsets.** The paper defines `Pf(S)` that way and
+reserves `P̄f(S)` for the version including `∅`; all three powerdomains are built
+over `Pf`. The distinction is load-bearing and in opposite directions for the
+three orderings: under the Hoare order `∅ ⊑ v` holds vacuously, so admitting `∅`
+would add a point strictly below `{⊥}`; under the Smyth order `∅` is a **top**, so
+it would add a spurious maximum; under Egli–Milner `∅` is comparable to nothing
+but itself, destroying `OrderBot`. The orchestrator's brief said "finite subsets";
+each agent read the PDF and corrected it.
+
+**Namespace per agent worked.** Every r0029 declaration lives in
+`ScottDomains.{Hoare, Smyth, Plotkin, Recursive}`. Four agents, **zero** name
+collisions — against two in r0028, when five agents shared one namespace.
 
 **Round r0028** ran five agents in parallel and roughly doubled the development:
 27 → 33 modules, 4440 → 8212 lines, 199 → 384 theorems, 9 → 15 numbered results.
@@ -45,7 +78,7 @@ one indexed by a set of the subtype `↥(im r)`, one by an ambient `D : Set α` 
 `IsClosure.apply_sSup_val_image_of_directed`. **A green build is not evidence
 that parallel work composes**; importing every new module together is.
 
-Row 5 counts lines matching `^(@[…] )?(theorem|lemma) ` across the 27 modules.
+Row 5 counts lines matching `^(@[…] )?(theorem|lemma) ` across the 37 modules.
 
 **The `sorry` burn-down (from r0026).** The `sorry`s are deliberate scaffolding:
 fixed *statements* of outstanding results, confined to `ScottDomains/Skeleton/`,
@@ -134,7 +167,7 @@ it exists and what is instructive about it, and the build is unchanged — which
 also confirms that the three `@[simp]` ones among them were never firing
 implicitly.
 
-The development is **33 modules, 8212 lines, 1 `sorry`, 0 other warnings**. Counts of
+The development is **37 modules, 9595 lines, 1 `sorry`, 0 other warnings**. Counts of
 definitions, results and theorems are in the Progress table above — they are not
 repeated here, so that this section cannot drift out of step with it. What each
 round delivered:
@@ -259,43 +292,43 @@ Mathlib v4.32.2, confirmed by grep).
 | 4.1 | Def | — | **product** `D × E` | ✓ `Prod` order from Mathlib; the **cpo instance** is `ScottDomains.instCompletePartialOrderProd` (r0019) — Mathlib has `Prod.supSet` and `isLUB_prod` but no cpo instance |
 | 4.2 | Def | — | **Church's λ-notation** (continuous abstraction) | ✓ `OrderHom` / ωCPO `ContinuousHom` |
 | 4.3 | Def | — | **smash product** `D ⊗ E` | ✓ `ScottDomains.Smash` + `smashCpo` (r0025) |
-| 4.4 | Def | — | **sum** `D + E`; **lift** `D⊥` | lift ✓ `ScottDomains.liftCpo` on `WithBot` (r0023) — Mathlib gives the order, not the cpo; sum still `~` |
+| 4.4 | Def | — | **sum** `D + E`; **lift** `D⊥` | both ✓ — lift `ScottDomains.liftCpo` on `WithBot` (r0023); the coalesced sum `CoalescedSum` with `sumSup` and `sumCpo` (r0028), its `sSup` guarded on landing in `NonBotSum` |
 | 4.x | Lem | 8 | `D×E ≅ E×D`; `(D×E)×F ≅ D×(E×F)`; `D→(E×F) ≅ (D→E)×(D→F)`; `D→(E→F) ≅ (D×E)→F` | ✓ **proved** — `prodComm`, `prodAssoc`, `scottHomProd` (r0019); `scottHomCurry` (r0021) |
-| 4.x | Lem | 9 | Product/function-space iso laws over `D,E,F` | ✗ prove |
-| 4.5 | Lem | 10 | `D,E` bounded complete ⟹ `→,×,⊗,+,()⊥` bounded complete | ✗ prove |
-| 4.5 | Thm | 11 | **Ideal completion** of a countable pre-order is a domain (all domains so arise) | ~ `Order.Ideal` exists → prove |
-| 4.5 | Thm | 12 | Initiality of a continuous algebra satisfying axioms `T` | ✗ prove |
-| 4.5 | Lem | 13 | `D` bounded complete ⟹ powerdomains `D]`,`D[` bounded complete | ✗ prove |
-| 4.5 | Thm | 14 | Equivalent characterizations of an (algebraic/BC) domain | ✗ prove |
+| 4.x | Lem | 9 | Product/function-space iso laws over `D,E,F` | ✗ **not statable** — the PDF drops every `⊗` and `⊥`, so which operators the laws range over is unreadable. Statement recovery is r0030 agent5's assignment |
+| 4.5 | Lem | 10 | `D,E` bounded complete ⟹ `→,×,⊗,+,()⊥` bounded complete | ✓ **proved, 6 of 6 conjuncts** — `→` r0007; `×`, `⊗`, `()⊥`, `→⊥` r0027 (`Skeleton/Lemma10.lean`); `+` r0028 (`Skeleton/Sum.lean`) |
+| 4.5 | Thm | 11 | **Ideal completion** of a countable pre-order is a domain (all domains so arise) | ✓ **proved** (r0028) — `IdealCompletion.thm11` and `thm11_converse`, on Mathlib's `Order.Ideal` |
+| 4.5 | Thm | 12 | Initiality of a continuous algebra satisfying axioms `T` | ✗ **not statable** — "axioms `T`" is never defined in the legible text. Statement recovery is r0030 agent5's assignment |
+| 4.5 | Lem | 13 | `D` bounded complete ⟹ powerdomains `D]`,`D[` bounded complete | ✗ prove — unblocked by r0029's powerdomains; r0030 agent1's assignment |
+| 4.5 | Thm | 14 | Equivalent characterizations of an (algebraic/BC) domain | ✗ **not statable** — the list of characterizations is garbled. Statement recovery is r0030 agent5's assignment |
 
 ## §5 Powerdomains
 
 | § | Kind | Ref | Concept / statement | In Lean / Mathlib? |
 |---|------|-----|---------------------|--------------------|
-| 5.1 | Def | — | **powerdomain** (non-deterministic outcomes) | ✗ define |
-| 5.2 | Def | — | **Hoare (lower)**, **Smyth (upper)**, **Plotkin (convex)** powerdomains | ✗ define |
-| 5.3 | — | — | Universal & closure properties (see Lem 13, 28, 30) | ✗ prove |
+| 5.1 | Def | — | **powerdomain** (non-deterministic outcomes) | ✓ each of the three is `IdealCompletion (Pf K(D))` under its pre-order (r0029) |
+| 5.2 | Def | — | **Hoare (lower)**, **Smyth (upper)**, **Plotkin (convex)** powerdomains | ✓ `ScottDomains.Hoare.Powerdomain`, `Smyth.Powerdomain`, `Plotkin.Powerdomain` (r0029), each with its `Domain` instance from Theorem 11 and its compacts characterized as the principal ideals |
+| 5.3 | — | — | Universal & closure properties (see Lem 13, 28, 30) | ✗ prove — r0030 wave A |
 
 ## §6 Bifinite (SFP) domains
 
 | § | Kind | Ref | Concept / statement | In Lean / Mathlib? |
 |---|------|-----|---------------------|--------------------|
 | 6.1 | Def | — | **Plotkin order** / **bifinite (SFP) domain** | ✓ `ScottDomains.IsPlotkinOrder`, `IsBifinite` (r0025) |
-| 6.1 | Prop | 15 | Every bounded-complete domain is bifinite | ✗ prove |
-| 6.1 | Thm | 16 | `D` bifinite ⟹ `Fp(D)` is an algebraic lattice | ✗ prove |
-| 6.2 | Lem | 17 | `D,E` bifinite ⟹ `→,×,⊗,+,()⊥` bifinite (incl. function space) | ✗ prove |
-| 6.2 | Thm | 18 | If `D` and `D → D` are domains, then `D` is bifinite | ✗ prove |
-| 6.2 | Lem | 19 | closure `r:D→D` (`r∘r=r⊒id`) ⟹ `im(r)` is a domain | ✗ prove |
-| 6.2 | Lem | 20 | `D` domain ⟹ `Fc(D)` (finitary closures) is a cpo | ✗ prove |
+| 6.1 | Prop | 15 | Every bounded-complete domain is bifinite | ✓ **proved** (r0027) — `ScottDomains.prop15`, the paper's own proof over `lubClosure u` |
+| 6.1 | Thm | 16 | `D` bifinite ⟹ `Fp(D)` is an algebraic lattice | ~ **algebraic-lattice conjunct proved** (r0028) — `ScottDomains.thm16`. The `Fp(D) ↪ (D → D)` embedding conjunct is not stated; the paper's `S_f` sketch has a documented gap, and it is r0030 agent4's assignment |
+| 6.2 | Lem | 17 | `D,E` bifinite ⟹ `→,×,⊗,+,()⊥` bifinite (incl. function space) | ✓ **proved, 5 of 5 conjuncts** — `×`, `()⊥`, `→` r0027 (`Skeleton/Lemma17.lean`); `⊗`, `+` r0028 (`Skeleton/Sum.lean`) |
+| 6.2 | Thm | 18 | If `D` and `D → D` are domains, then `D` is bifinite | ✗ prove — **the development's only `sorry`**. Reduced by `isBifinite_iff_mubClosure` (r0028) to two obligations; blocked on a constructor for continuous functions on a domain that is not bounded complete |
+| 6.2 | Lem | 19 | closure `r:D→D` (`r∘r=r⊒id`) ⟹ `im(r)` is a domain | ✓ **proved** — `lem19` (r0027) gives the cpo structure; `IsClosure.domain_range` (r0028) gives the paper's full strength, `im(r)` a domain with basis `{r(k) | k ∈ K(D)}` |
+| 6.2 | Lem | 20 | `D` domain ⟹ `Fc(D)` (finitary closures) is a cpo | ✓ **proved** (r0028) — `ScottDomains.lem20`, over `Fc α` with the pointwise order |
 
 ## §7 Recursive definitions of domains (universal domain, `D∞`)
 
 | § | Kind | Ref | Concept / statement | In Lean / Mathlib? |
 |---|------|-----|---------------------|--------------------|
-| 7 | Def | — | **recursive domain equation**; **universal domain** / `D∞` (inverse limit) | ✗ define |
-| 7 | Thm | 21 | `F` representable over cpo `U` ⟹ a domain `D` with `D ≅ F(D)` | ✗ prove |
-| 7 | Thm | 22 | Any countably-based algebraic lattice `L`: a closure `r : P(ℕ) → L` | ~ `IsCompactlyGenerated` → prove |
-| 7 | Lem | 23 | The function-space operator is representable over `P(ℕ)` | ✗ prove |
+| 7 | Def | — | **recursive domain equation**; **universal domain**. (Earlier drafts of this row said "`D∞` (inverse limit)" — §7 builds no inverse limit; see the note under Progress) | ✓ `Recursive.Solves` / `IsSolvable`, and `Recursive.IsUniversal` / `IsUniversalRetract` for the paper's two phrasings (r0029) |
+| 7 | Thm | 21 | `F` representable over cpo `U` ⟹ a domain `D` with `D ≅ F(D)` | ✓ **proved** (r0029) — `ScottDomains.Recursive.thm21`; with `IsRepresentable₂.diag` and Lemma 23 it yields `recursiveDomain_funSpace`, the reflexive domain `D ≅ (D → D)` |
+| 7 | Thm | 22 | Any countably-based algebraic lattice `L`: a closure `r : P(ℕ) → L` | ✓ **proved** (r0028) — `ScottDomains.thm22`, with `thm22_of_isCompactlyGenerated` the Mathlib-vocabulary form |
+| 7 | Lem | 23 | The function-space operator is representable over `P(ℕ)` | ✓ **proved** (r0028) — `ScottDomains.lem23` |
 | 7 | Lem | 24 | `U` cpo; `×` and `→` representable over `U` ⟹ (setup for universality) | ✗ prove |
 | 7 | Thm | 25 | `U` non-trivial domain representing `×`,`→` ⟹ `U` **universal** | ✗ prove |
 | 7 | Thm | 26 | Any signature `(s₁,…,s_n)`: combinators `F₁,…,F_n` solving the equations | ✗ prove |
