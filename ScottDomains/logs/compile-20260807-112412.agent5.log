@@ -1,0 +1,51 @@
+# r0037
+# agent5 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-07T11:24:12-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [961/1049] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1108/1218] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1211/1218] Built ScottDomains.SFP (904ms)
+✔ [1212/1218] Built ScottDomains.Dyadic (1.1s)
+✔ [1213/1218] Built ScottDomains.JungSFP (1.3s)
+✔ [1214/1218] Built ScottDomains.Skeleton.Recovered (771ms)
+✔ [1215/1218] Built ScottDomains.PRep (1.2s)
+✔ [1216/1218] Built ScottDomains.Atomless (1.3s)
+✖ [1217/1218] Building ScottDomains.LemThirty (648ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/LemThirty.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/LemThirty.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/LemThirty.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/LemThirty.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/LemThirty.setup.json --json
+error: ScottDomains/LemThirty.lean:169:2: failed to synthesize instance of type class
+  Domain (plotkinOp D).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.LemThirty
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.83
+Maximum resident set size (kbytes): 1865612
+--- build ---
+finished:         2026-08-07T11:24:16-07:00
+exit status:      1
+user cpu:         11.69s
+system cpu:       2.09s
+cpu use:          359%
+peak rss single:  1821 MiB (largest one process, GNU time)
+peak pss tree:    2118 MiB (process group, shared pages apportioned)
+peak rss tree:    5826 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      1
+other warnings:   0
