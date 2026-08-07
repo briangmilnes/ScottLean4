@@ -221,5 +221,14 @@ Changed:
 * `ScottDomains/logs/compile-*.agent1.log` — build telemetry
 * this report
 
-Committed on branch `agent1` with `scripts/gitcp.sh`; not pushed and no upstream
-set, per the plan.
+Commit SHAs on branch `agent1`, both by `scripts/gitcp.sh`:
+
+| # | SHA | Contents |
+| -- | --- | -------- |
+| 1 | `e5b7a45` | `Universality.lean`, `INDEX.md`, build logs, this report |
+| 2 | see `git log -1` | this table |
+
+Branch parent is `main` at `f4f9b00`, verified before work began. Not pushed and
+no upstream set, per the plan; `gitcp.sh` reported `fatal: The current branch
+agent1 has no upstream branch`, which is the documented expected outcome for an
+`agentN`.
