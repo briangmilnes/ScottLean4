@@ -1,0 +1,32 @@
+# r0034
+# agent3 — lake build ScottDomains.Dyadic
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T07:44:41-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Dyadic ===
+⚠ [959/959] Built ScottDomains.Dyadic (1.9s)
+warning: ScottDomains/Dyadic.lean:559:8: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.projHom_apply`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (959 jobs).
+--- times ---
+Elapsed (wall clock): 0:03.60
+Maximum resident set size (kbytes): 1767556
+--- build ---
+finished:         2026-08-07T07:44:45-07:00
+exit status:      0
+user cpu:         4.44s
+system cpu:       1.13s
+cpu use:          154%
+peak rss single:  1726 MiB (largest one process, GNU time)
+peak pss tree:    1860 MiB (process group, shared pages apportioned)
+peak rss tree:    2520 MiB (process group, shared pages counted per process)
+jobs:             959
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   1

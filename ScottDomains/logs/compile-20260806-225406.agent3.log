@@ -1,0 +1,407 @@
+# r0034
+# agent3 — lake build ScottDomains.Dyadic
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T22:54:06-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Dyadic ===
+✔ [836/837] Built ScottDomains.IdealCompletion (1.8s)
+✖ [837/837] Building ScottDomains.Dyadic (1.5s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Dyadic.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.setup.json --json
+error: ScottDomains/Dyadic.lean:89:57: Type mismatch
+  n
+has type
+  ℕ
+but is expected to have type
+  ℚ
+error: ScottDomains/Dyadic.lean:91:56: unknown tactic
+error: ScottDomains/Dyadic.lean:91:22: failed to synthesize instance of type class
+  OfNat ℚ 0
+numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+  ℚ
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:93:21: don't know how to synthesize implicit argument `α`
+  @Set.Nonempty ?m.2 S
+context:
+⊢ Type ?u.3
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:93:23: don't know how to synthesize placeholder
+context:
+⊢ Type ?u.3
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:99:35: unknown tactic
+error: ScottDomains/Dyadic.lean:97:47: failed to synthesize instance of type class
+  LE ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:97:55: failed to synthesize instance of type class
+  LT ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:97:47: failed to synthesize instance of type class
+  OfNat ℚ 0
+numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+  ℚ
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:97:59: failed to synthesize instance of type class
+  OfNat ℚ 1
+numerals are polymorphic in Lean, but the numeral `1` cannot be used in a context where the expected type is
+  ℚ
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:107:57: Type mismatch
+  n
+has type
+  ℕ
+but is expected to have type
+  ℚ
+error: ScottDomains/Dyadic.lean:109:56: unknown tactic
+error: ScottDomains/Dyadic.lean:109:22: failed to synthesize instance of type class
+  OfNat ℚ 0
+numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+  ℚ
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:111:55: unknown tactic
+error: ScottDomains/Dyadic.lean:111:21: failed to synthesize instance of type class
+  OfNat ℚ 1
+numerals are polymorphic in Lean, but the numeral `1` cannot be used in a context where the expected type is
+  ℚ
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:115:56: failed to synthesize instance of type class
+  Max ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:116:9: failed to synthesize instance of type class
+  LinearOrder ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:116:27: Tactic `rcases` failed: `x✝ : ℚ` is not an inductive datatype
+error: ScottDomains/Dyadic.lean:120:56: failed to synthesize instance of type class
+  Min ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:121:9: failed to synthesize instance of type class
+  LinearOrder ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:121:27: Tactic `rcases` failed: `x✝ : ℚ` is not an inductive datatype
+error: ScottDomains/Dyadic.lean:128:42: failed to synthesize instance of type class
+  LE ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:128:50: failed to synthesize instance of type class
+  LT ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:130:60: failed to synthesize instance of type class
+  LE ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:130:68: failed to synthesize instance of type class
+  LT ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+warning: ScottDomains/Dyadic.lean:132:8: declaration uses `sorry`
+warning: ScottDomains/Dyadic.lean:135:8: declaration uses `sorry`
+error: ScottDomains/Dyadic.lean:142:31: failed to synthesize instance of type class
+  Max ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:142:42: failed to synthesize instance of type class
+  Min ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+warning: ScottDomains/Dyadic.lean:144:37: This simp argument is unused:
+  max_le_iff
+
+Hint: Omit it from the simp argument list.
+  simp only [mem_Ivl, mem_inter_iff, m̵a̵x̵_̵l̵e̵_̵i̵f̵f̵,̵ ̵lt_min_iff]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ScottDomains/Dyadic.lean:144:49: This simp argument is unused:
+  lt_min_iff
+
+Hint: Omit it from the simp argument list.
+  simp only [mem_Ivl, mem_inter_iff, max_le_iff,̵ ̵l̵t̵_̵m̵i̵n̵_̵i̵f̵f̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ScottDomains/Dyadic.lean:153:48: unsolved goals
+ℚ : Type u_1
+F : Finset (ℚ × ℚ)
+s : ℚ
+⊢ s ∈ S ∧ (∃ a b, (a, b) ∈ F) ∧ sorry () ↔ (∃ a b, (a, b) ∈ F) ∧ s ∈ S ∧ sorry ()
+warning: ScottDomains/Dyadic.lean:161:16: declaration uses `sorry`
+error: ScottDomains/Dyadic.lean:177:20: don't know how to synthesize implicit argument `ℚ`
+  @IsBasic ?m.2 S
+context:
+⊢ Type ?u.3
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:177:28: don't know how to synthesize implicit argument `ℚ`
+  @S ?m.2
+context:
+⊢ Type ?u.3
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:178:10: Unknown identifier `S_nonempty`
+error: ScottDomains/Dyadic.lean:178:29: Unknown identifier `ℚ`
+
+Hint: Perhaps you meant `Rat` in place of `ℚ`:
+  [apply] `Rat`
+error: ScottDomains/Dyadic.lean:178:38: Unknown identifier `ℚ`
+
+Hint: Perhaps you meant `Rat` in place of `ℚ`:
+  [apply] `Rat`
+error: ScottDomains/Dyadic.lean:189:41: failed to synthesize instance of type class
+  Max ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:189:60: failed to synthesize instance of type class
+  Min ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:189:15: failed to synthesize instance of type class
+  DecidableEq (ℚ × ℚ)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:194:13: failed to synthesize instance of type class
+  Max ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:194:26: failed to synthesize instance of type class
+  Min ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:205:41: failed to synthesize instance of type class
+  Max ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:205:60: failed to synthesize instance of type class
+  Min ℚ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:205:15: failed to synthesize instance of type class
+  DecidableEq (ℚ × ℚ)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:206:4: Unknown identifier `unionOf_inter`
+error: ScottDomains/Dyadic.lean:218:26: Unknown identifier `ℚ`
+
+Hint: Perhaps you meant `Rat` in place of `ℚ`:
+  [apply] `Rat`
+warning: ScottDomains/Dyadic.lean:223:4: declaration uses `sorry`
+error: ScottDomains/Dyadic.lean:225:27: don't know how to synthesize implicit argument `ℚ`
+  @IsBasic (?m.3 X) X.toSet
+context:
+X : U₀
+⊢ Type ?u.4
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:225:36: don't know how to synthesize implicit argument `ℚ`
+  @toSet (?m.3 X) X
+context:
+X : U₀
+⊢ Type ?u.4
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+warning: ScottDomains/Dyadic.lean:228:4: declaration uses `sorry`
+error: ScottDomains/Dyadic.lean:230:0: Not a definitional equality: the left-hand side
+  (mk X h).toSet
+is not definitionally equal to the right-hand side
+  X
+error: ScottDomains/Dyadic.lean:230:77: Type mismatch
+  rfl
+has type
+  ?m.7 = ?m.7
+but is expected to have type
+  (mk X h).toSet = X
+error: ScottDomains/Dyadic.lean:232:35: don't know how to synthesize implicit argument `α`
+  @Eq (Set ?m.5) X.toSet Y.toSet
+context:
+X Y : U₀
+⊢ Type ?u.5
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:232:45: don't know how to synthesize implicit argument `ℚ`
+  @toSet ?m.5 Y
+context:
+X Y : U₀
+⊢ Type ?u.5
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:232:35: don't know how to synthesize implicit argument `ℚ`
+  @toSet ?m.5 X
+context:
+X Y : U₀
+⊢ Type ?u.5
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:234:34: don't know how to synthesize implicit argument `α`
+  @Set.Nonempty (?m.3 X) X.toSet
+context:
+X : U₀
+⊢ Type ?u.4
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:234:35: don't know how to synthesize implicit argument `ℚ`
+  @toSet (?m.3 X) X
+context:
+X : U₀
+⊢ Type ?u.4
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:236:34: don't know how to synthesize implicit argument `α`
+  @Mathlib.Meta.SetNotationForOrder.SubsetElabAux (Set (?m.5 X)) X.toSet S
+context:
+X : U₀
+⊢ Type ?u.5
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:236:44: don't know how to synthesize implicit argument `ℚ`
+  @S (?m.5 X)
+context:
+X : U₀
+⊢ Type ?u.5
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:236:34: don't know how to synthesize implicit argument `ℚ`
+  @toSet (?m.5 X) X
+context:
+X : U₀
+⊢ Type ?u.5
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:245:31: Application type mismatch: The argument
+  Subset.antisymm h₂ h₁
+has type
+  x✝¹.toSet = x✝.toSet
+but is expected to have type
+  ∀ (x : ?m.31), x ∈ ?m.32 ↔ x ∈ ?m.33
+in the application
+  ext (Subset.antisymm h₂ h₁)
+error: ScottDomains/Dyadic.lean:247:36: don't know how to synthesize implicit argument `α`
+  @Mathlib.Meta.SetNotationForOrder.SubsetElabAux (Set ?m.7) Y.toSet X.toSet
+context:
+X Y : U₀
+⊢ Type ?u.7
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:247:46: don't know how to synthesize implicit argument `ℚ`
+  @toSet ?m.7 X
+context:
+X Y : U₀
+⊢ Type ?u.7
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:247:36: don't know how to synthesize implicit argument `ℚ`
+  @toSet ?m.7 Y
+context:
+X Y : U₀
+⊢ Type ?u.7
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:247:57: Type mismatch
+  Iff.rfl
+has type
+  ?m.8 ↔ ?m.8
+but is expected to have type
+  X ≤ Y ↔ Y.toSet ⊆ X.toSet
+warning: ScottDomains/Dyadic.lean:250:0: declaration uses `sorry`
+error: ScottDomains/Dyadic.lean:254:28: don't know how to synthesize implicit argument `α`
+  @Eq (Set ?m.1) ⊥.toSet S
+context:
+⊢ Type ?u.3
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:254:45: don't know how to synthesize implicit argument `ℚ`
+  @S ?m.1
+context:
+⊢ Type ?u.3
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:254:28: don't know how to synthesize implicit argument `ℚ`
+  @toSet ?m.1 ⊥
+context:
+⊢ Type ?u.3
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:254:50: Type mismatch
+  rfl
+has type
+  ?m.7 = ?m.7
+but is expected to have type
+  ⊥.toSet = S
+error: ScottDomains/Dyadic.lean:260:32: failed to synthesize instance of type class
+  Countable (Finset (ℚ × ℚ))
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+warning: ScottDomains/Dyadic.lean:264:0: declaration uses `sorry`
+error: ScottDomains/Dyadic.lean:273:34: Type mismatch
+  hZ (mem_insert X {Y})
+has type
+  X ≤ Z
+but is expected to have type
+  Z.toSet ⊆ X.toSet
+error: ScottDomains/Dyadic.lean:271:38: unsolved goals
+X Y Z : U₀
+hZ : Z ∈ upperBounds {X, Y}
+⊢ ∃ c, IsLUB {X, Y} c
+error: ScottDomains/Dyadic.lean:308:44: don't know how to synthesize implicit argument `α`
+  @Mathlib.Meta.SetNotationForOrder.SubsetElabAux (Set ?m.10) X.toSet Y.toSet
+context:
+X Y : U₀
+⊢ Type ?u.10
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:308:57: don't know how to synthesize implicit argument `ℚ`
+  @U₀.toSet ?m.10 Y
+context:
+X Y : U₀
+⊢ Type ?u.10
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:308:44: don't know how to synthesize implicit argument `ℚ`
+  @U₀.toSet ?m.10 X
+context:
+X Y : U₀
+⊢ Type ?u.10
+
+Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
+error: ScottDomains/Dyadic.lean:308:71: Type mismatch
+  Iff.rfl
+has type
+  ?m.11 ↔ ?m.11
+but is expected to have type
+  Y ∈ IdealCompletion.principal X ↔ X.toSet ⊆ Y.toSet
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Dyadic
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:04.89
+Maximum resident set size (kbytes): 1707152
+--- build ---
+finished:         2026-08-06T22:54:12-07:00
+exit status:      1
+user cpu:         5.73s
+system cpu:       1.44s
+cpu use:          146%
+peak rss single:  1667 MiB (largest one process, GNU time)
+peak pss tree:    1788 MiB (process group, shared pages apportioned)
+peak rss tree:    2448 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 71
+lake errors:      2
+sorry decls:      7
+other warnings:   2
