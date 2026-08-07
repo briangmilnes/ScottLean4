@@ -27,15 +27,29 @@ else
 fi
 
 if git diff --cached --quiet; then
-  echo "gitcp: nothing staged — working tree clean, nothing to commit."
-  exit 0
-fi
-
-git commit -q -m "${msg}
+  # Nothing new to commit is not a reason to skip the push: an earlier run may
+  # have committed and then failed to push, leaving commits stranded locally.
+  echo "gitcp: nothing staged — no commit made."
+else
+  git commit -q -m "${msg}
 
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-echo "gitcp: committed $(git rev-parse --short HEAD)"
+  echo "gitcp: committed $(git rev-parse --short HEAD)"
+fi
 
-git pull --rebase --quiet
+# Integrate the remote only when it actually has commits we lack. An
+# unconditional `git pull --rebase` is wrong once the branch carries merge
+# commits: rebasing linearizes them and replays each merged agent commit onto
+# origin, which conflicts against the very content already merged there. Merge,
+# do not rebase, for the same reason.
+git fetch --quiet
+upstream="$(git rev-parse --abbrev-ref '@{u}' 2>/dev/null || echo origin/main)"
+if git merge-base --is-ancestor "$upstream" HEAD; then
+  echo "gitcp: up to date with ${upstream}, no integration needed"
+else
+  echo "gitcp: ${upstream} has new commits — merging"
+  git pull --no-rebase --quiet
+fi
+
 git push
 echo "gitcp: pushed to $(git rev-parse --abbrev-ref '@{u}' 2>/dev/null || echo origin/main)"
