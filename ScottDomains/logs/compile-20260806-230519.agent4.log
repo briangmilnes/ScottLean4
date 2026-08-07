@@ -1,0 +1,36 @@
+# r0034
+# agent4 — lake build ScottDomains.CombinatorRep
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-06T23:05:19-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.CombinatorRep ===
+⚠ [838/853] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+⚠ [853/853] Built ScottDomains.CombinatorRep (813ms)
+warning: ScottDomains/CombinatorRep.lean:471:10: This simp argument is unused:
+  Function.comp_apply
+
+Hint: Omit it from the simp argument list.
+  simp only [liftRangeMap, Subtype.mk_le_mk, WithBot.map_coe, WithBot.map_bot,̵
+  ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵F̵u̵n̵c̵t̵i̵o̵n̵.̵c̵o̵m̵p̵_̵a̵p̵p̵l̵y̵] at h
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Build completed successfully (853 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.51
+Maximum resident set size (kbytes): 1707216
+--- build ---
+finished:         2026-08-06T23:05:22-07:00
+exit status:      0
+user cpu:         1.74s
+system cpu:       0.53s
+cpu use:          149%
+peak rss single:  1667 MiB (largest one process, GNU time)
+peak pss tree:    1794 MiB (process group, shared pages apportioned)
+peak rss tree:    2453 MiB (process group, shared pages counted per process)
+jobs:             853
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   1
