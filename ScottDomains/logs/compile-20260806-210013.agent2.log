@@ -1,0 +1,67 @@
+# r0032
+# agent2 — lake build ScottDomains.Powerdomain.BoundedComplete
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-06T21:00:13-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Powerdomain.BoundedComplete ===
+ℹ [837/841] Built ScottDomains.IdealCompletion (916ms)
+info: ScottDomains/IdealCompletion.lean:625:0: 'ScottDomains.IdealCompletion.genIdeal' depends on axioms: [propext, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:626:0: 'ScottDomains.IdealCompletion.genIdeal_eq_sUnion_of_isIdeal' depends on axioms: [propext, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:627:0: 'ScottDomains.IdealCompletion.idealSup' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:628:0: 'ScottDomains.IdealCompletion.coe_idealSup_of_isIdeal_genIdeal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ScottDomains/IdealCompletion.lean:629:0: 'ScottDomains.IdealCompletion.isLUB_idealSup_of_isIdeal_genIdeal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ScottDomains/IdealCompletion.lean:630:0: 'ScottDomains.IdealCompletion.coe_idealSup_of_isIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:631:0: 'ScottDomains.IdealCompletion.idealSup_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:632:0: 'ScottDomains.IdealCompletion.mem_sSup_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:633:0: 'ScottDomains.IdealCompletion.isIdeal_genIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:634:0: 'ScottDomains.IdealCompletion.boundedComplete' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:635:0: 'ScottDomains.IdealCompletion.instCompletePartialOrder' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:636:0: 'ScottDomains.IdealCompletion.instIsAlgebraic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:637:0: 'ScottDomains.IdealCompletion.instDomain' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:638:0: 'ScottDomains.IdealCompletion.thm11' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:639:0: 'ScottDomains.IdealCompletion.thm11_converse' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:640:0: 'ScottDomains.IdealCompletion.compacts_eq_range_principal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:641:0: 'ScottDomains.IdealCompletion.isCompactElement_iff_exists_eq_principal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ScottDomains/IdealCompletion.lean:642:0: 'ScottDomains.IdealCompletion.orderIsoIdealCompletionCompacts' depends on axioms: [propext, Quot.sound]
+info: ScottDomains/IdealCompletion.lean:643:0: 'OrderIso.map_sSup_of_directedOn' depends on axioms: [propext, Quot.sound]
+ℹ [841/841] Built ScottDomains.Powerdomain.BoundedComplete (754ms)
+info: ScottDomains/Powerdomain/BoundedComplete.lean:485:0: 'ScottDomains.PowerdomainBC.mem_sUnion_coe_iff' does not depend on any axioms
+info: ScottDomains/Powerdomain/BoundedComplete.lean:486:0: 'ScottDomains.PowerdomainBC.exists_isLUB_of_bddAbove_idealCompletion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:487:0: 'ScottDomains.PowerdomainBC.hoare_exists_isLUB_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:488:0: 'ScottDomains.PowerdomainBC.lem13_hoare' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:489:0: 'ScottDomains.PowerdomainBC.instBoundedCompleteHoare' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:490:0: 'ScottDomains.PowerdomainBC.joinCompact' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:491:0: 'ScottDomains.PowerdomainBC.mem_smythJoin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:492:0: 'ScottDomains.PowerdomainBC.smyth_exists_isLUB_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:493:0: 'ScottDomains.PowerdomainBC.lem13_smyth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:494:0: 'ScottDomains.PowerdomainBC.instBoundedCompleteSmyth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:495:0: 'ScottDomains.PowerdomainBC.not_isIdeal_sUnion_hoareWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:496:0: 'ScottDomains.PowerdomainBC.isLUB_sSup_hoareWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/Powerdomain/BoundedComplete.lean:497:0: 'ScottDomains.PowerdomainBC.sSup_hoareWitness_ne_bot' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (841 jobs).
+--- times ---
+Elapsed (wall clock): 0:02.30
+Maximum resident set size (kbytes): 1708212
+--- build ---
+finished:         2026-08-06T21:00:16-07:00
+exit status:      0
+user cpu:         2.84s
+system cpu:       0.71s
+cpu use:          154%
+peak rss single:  1668 MiB (largest one process, GNU time)
+peak pss tree:    1796 MiB (process group, shared pages apportioned)
+peak rss tree:    2455 MiB (process group, shared pages counted per process)
+jobs:             841
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   0
