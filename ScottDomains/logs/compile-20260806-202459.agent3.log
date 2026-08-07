@@ -1,0 +1,123 @@
+# r0031
+# agent3 — lake build ScottDomains.ContinuousConstruction
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T20:24:59-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ContinuousConstruction ===
+✖ [835/835] Building ScottDomains.ContinuousConstruction (772ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/ContinuousConstruction.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousConstruction.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousConstruction.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousConstruction.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousConstruction.setup.json --json
+warning: ScottDomains/ContinuousConstruction.lean:106:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousConstruction.mem_valuesAt`:
+  [CompletePartialOrder β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/ContinuousConstruction.lean:108:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousConstruction.mem_valuesAt_of_mem`:
+  [CompletePartialOrder β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/ContinuousConstruction.lean:111:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousConstruction.valuesAt_mono_family`:
+  [CompletePartialOrder β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/ContinuousConstruction.lean:115:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousConstruction.valuesAt_mono_point`:
+  [CompletePartialOrder β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/ContinuousConstruction.lean:199:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (G ?i) ?z
+in the target expression
+  (fun f => ⇑f) (G i) z ≤ (fun f => ⇑f) F z
+
+case left
+α : Type u_1
+β : Type u_2
+inst✝¹ : PartialOrder α
+inst✝ : CompletePartialOrder β
+ι : Type u_3
+s : ι → Set (α × β)
+F : ScottHom α β
+G : ι → ScottHom α β
+hG : ∀ (i : ι), ⇑(G i) = familyFun (s i)
+hF : ⇑F = familyFun (⋃ i, s i)
+hds : ∀ (i : ι) (x : α), DirectedOn (fun x1 x2 => x1 ≤ x2) (valuesAt (s i) x)
+hdt : ∀ (x : α), DirectedOn (fun x1 x2 => x1 ≤ x2) (valuesAt (⋃ i, s i) x)
+hG' : ∀ (i : ι) (z : α), (G i) z = familyFun (s i) z
+hF' : ∀ (z : α), F z = familyFun (⋃ i, s i) z
+i : ι
+z : α
+⊢ (fun f => ⇑f) (G i) z ≤ (fun f => ⇑f) F z
+error: ScottDomains/ContinuousConstruction.lean:203:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  F ?z
+in the target expression
+  (fun f => ⇑f) F z ≤ (fun f => ⇑f) H z
+
+case right
+α : Type u_1
+β : Type u_2
+inst✝¹ : PartialOrder α
+inst✝ : CompletePartialOrder β
+ι : Type u_3
+s : ι → Set (α × β)
+F : ScottHom α β
+G : ι → ScottHom α β
+hG : ∀ (i : ι), ⇑(G i) = familyFun (s i)
+hF : ⇑F = familyFun (⋃ i, s i)
+hds : ∀ (i : ι) (x : α), DirectedOn (fun x1 x2 => x1 ≤ x2) (valuesAt (s i) x)
+hdt : ∀ (x : α), DirectedOn (fun x1 x2 => x1 ≤ x2) (valuesAt (⋃ i, s i) x)
+hG' : ∀ (i : ι) (z : α), (G i) z = familyFun (s i) z
+hF' : ∀ (z : α), F z = familyFun (⋃ i, s i) z
+H : ScottHom α β
+hH : H ∈ upperBounds (Set.range G)
+z : α
+⊢ (fun f => ⇑f) F z ≤ (fun f => ⇑f) H z
+warning: ScottDomains/ContinuousConstruction.lean:226:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousConstruction.valuesAt_graphOn`:
+  [IsAlgebraic α]
+  [CompletePartialOrder β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic α] [CompletePartialOrder β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/ContinuousConstruction.lean:418:2: No goals to be solved
+warning: ScottDomains/ContinuousConstruction.lean:477:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ScottDomains/ContinuousConstruction.lean:483:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ContinuousConstruction
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.43
+Maximum resident set size (kbytes): 1692504
+--- build ---
+finished:         2026-08-06T20:25:02-07:00
+exit status:      1
+user cpu:         1.50s
+system cpu:       0.45s
+cpu use:          136%
+peak rss single:  1652 MiB (largest one process, GNU time)
+peak pss tree:    1758 MiB (process group, shared pages apportioned)
+peak rss tree:    2418 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      0
+other warnings:   7
