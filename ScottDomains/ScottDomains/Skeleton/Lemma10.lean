@@ -57,8 +57,58 @@ theorem lem10_smash [Domain α] [BoundedComplete α] [Domain β] [BoundedComplet
     BoundedComplete (Smash α β) := by
   sorry
 
-theorem lem10_lift [Domain α] [BoundedComplete α] : BoundedComplete (WithBot α) := by
-  sorry
+section Lift
+
+/-- The base of a set bounded above by a *coercion* is bounded above. The
+hypothesis has to name the bound in `D`, not merely in `D⊥`: an upper bound of `s`
+that is the adjoined bottom bounds nothing in the base. -/
+theorem bddAbove_liftBase {s : Set (WithBot α)} {b : α} (hb : (↑b : WithBot α) ∈ upperBounds s) :
+    BddAbove (liftBase s) :=
+  ⟨b, fun _a ha => WithBot.coe_le_coe.mp (hb (coe_mem_of_mem_liftBase ha))⟩
+
+/-- An upper bound of a set whose base is nonempty is a coercion, never the
+adjoined bottom — `WithBot.not_coe_le_bot`. -/
+theorem exists_coe_of_mem_upperBounds {s : Set (WithBot α)} (hne : (liftBase s).Nonempty)
+    {u : WithBot α} (hu : u ∈ upperBounds s) : ∃ b : α, u = ↑b := by
+  obtain ⟨a₀, ha₀⟩ := hne
+  induction u using WithBot.recBotCoe with
+  | bot => exact absurd (hu (coe_mem_of_mem_liftBase ha₀)) (WithBot.not_coe_le_bot a₀)
+  | coe b => exact ⟨b, rfl⟩
+
+/-- **Lemma 10, `D⊥`.** `liftSup` branches on nonemptiness of the base, not on
+directedness, so the branch a *bounded* set takes is already the correct one — the
+point `ScottHom`'s module docstring makes about splitting on continuity rather
+than directedness. On the nonempty branch the value is `↑(sSup (liftBase s))`, and
+bounded completeness of `D` makes that inner supremum a least upper bound; on the
+empty branch `s ⊆ {⊥}` and the value is `⊥`. -/
+theorem lem10_lift [Domain α] [BoundedComplete α] : BoundedComplete (WithBot α) where
+  isLUB_sSup_of_bddAbove s hs := by
+    show IsLUB s (liftSup s)
+    by_cases hne : (liftBase s).Nonempty
+    · obtain ⟨u, hu⟩ := hs
+      obtain ⟨b, rfl⟩ := exists_coe_of_mem_upperBounds hne hu
+      have hlub : IsLUB (liftBase s) (sSup (liftBase s)) :=
+        isLUB_sSup_of_bddAbove (bddAbove_liftBase hu)
+      rw [liftSup_of_nonempty hne]
+      constructor
+      · intro x hx
+        induction x using WithBot.recBotCoe with
+        | bot => exact bot_le
+        | coe a => exact WithBot.coe_le_coe.mpr (hlub.1 hx)
+      · intro v hv
+        obtain ⟨c, rfl⟩ := exists_coe_of_mem_upperBounds hne hv
+        exact WithBot.coe_le_coe.mpr
+          (hlub.2 fun a ha => WithBot.coe_le_coe.mp (hv (coe_mem_of_mem_liftBase ha)))
+    · rw [liftSup_of_empty hne]
+      constructor
+      · intro x hx
+        induction x using WithBot.recBotCoe with
+        | bot => exact le_rfl
+        | coe a => exact absurd ⟨a, hx⟩ hne
+      · intro _ _
+        exact bot_le
+
+end Lift
 
 theorem lem10_strict [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (StrictHom α β) := by
