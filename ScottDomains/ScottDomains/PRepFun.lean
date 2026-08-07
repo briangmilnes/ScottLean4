@@ -798,6 +798,193 @@ theorem scottContinuous_smashCollapse :
     · rw [← hbot x₀ hx₀]
       exact hv ⟨x₀, hx₀, rfl⟩
 
+/-! The order on `D ⊗ E` between two coercions is the order of `D × E`. Both
+directions are `WithBot.coe_le_coe`, named here because the coercion `D × E ↪
+(D × E)⊥` is also in scope and the elaborator picks it from the expected type
+otherwise. -/
+
+theorem smash_le_of_coe_le {q r : NonBotPair α β} (h : (↑q : Smash α β) ≤ ↑r) :
+    q.val ≤ r.val :=
+  have h' : q ≤ r := WithBot.coe_le_coe.mp h
+  h'
+
+theorem smash_coe_le_of_le {q r : NonBotPair α β} (h : q.val ≤ r.val) :
+    (↑q : Smash α β) ≤ ↑r := WithBot.coe_le_coe.mpr h
+
+/-- Being non-`⊥` in both coordinates is an upward-closed property. -/
+theorem nonBot_of_le {x y : α × β} (h : x ≤ y) (hx : x.1 ≠ ⊥ ∧ x.2 ≠ ⊥) :
+    y.1 ≠ ⊥ ∧ y.2 ≠ ⊥ :=
+  ⟨fun hb => hx.1 (le_bot_iff.mp (h.1.trans (le_of_eq hb))),
+    fun hb => hx.2 (le_bot_iff.mp (h.2.trans (le_of_eq hb)))⟩
+
+/-- **A directed family whose least upper bound has both coordinates non-`⊥` has a
+member with both coordinates non-`⊥`.** If every member had first coordinate `⊥`
+then `isLUB_prod` would make the supremum's first coordinate `⊥`; the same on the
+second; and directedness puts the two witnesses under one member. -/
+theorem exists_nonBot_of_isLUB {t : Set (α × β)} (ht : DirectedOn (· ≤ ·) t)
+    {w : α × β} (hw : IsLUB t w) (hb : w.1 ≠ ⊥ ∧ w.2 ≠ ⊥) :
+    ∃ c ∈ t, c.1 ≠ ⊥ ∧ c.2 ≠ ⊥ := by
+  obtain ⟨x₁, hx₁t, hx₁⟩ : ∃ x ∈ t, x.1 ≠ ⊥ := by
+    by_contra hcon
+    refine hb.1 (le_bot_iff.mp ((isLUB_prod.mp hw).1.2 ?_))
+    rintro _ ⟨x, hx, rfl⟩
+    exact le_of_eq (not_not.mp fun h => hcon ⟨x, hx, h⟩)
+  obtain ⟨x₂, hx₂t, hx₂⟩ : ∃ x ∈ t, x.2 ≠ ⊥ := by
+    by_contra hcon
+    refine hb.2 (le_bot_iff.mp ((isLUB_prod.mp hw).2.2 ?_))
+    rintro _ ⟨x, hx, rfl⟩
+    exact le_of_eq (not_not.mp fun h => hcon ⟨x, hx, h⟩)
+  obtain ⟨c, hct, hc₁, hc₂⟩ := ht x₁ hx₁t x₂ hx₂t
+  exact ⟨c, hct, fun h => hx₁ (le_bot_iff.mp (hc₁.1.trans (le_of_eq h))),
+    fun h => hx₂ (le_bot_iff.mp (hc₂.2.trans (le_of_eq h)))⟩
+
 end SmashMaps
+
+/-! ## `IsAlgebraic (D ⊗ E)` and `Domain (D ⊗ E)`
+
+The gap named in this section's opening docstring, and confirmed independently by
+this round's stream 5: the smash product carries Lemma 10 and Lemma 17 in the
+library and is proved algebraic nowhere. `IsPRepresentable` routes obligation 4
+through `Domain` of the operator's image, and `Domain` is `IsAlgebraic` plus a
+countable basis, so `⊗` cannot be closed without this.
+
+It is proved here rather than assumed, and the continuous pair `ι`, `π` above is
+what makes it short. The characterization of the compacts runs one direction
+through each map:
+
+* `q.val` compact in `D × E` ⟹ `↑q` compact in `D ⊗ E` — push the family through
+  `ι`, and note the witness cannot be the adjoined bottom because `q` has no `⊥`
+  coordinate;
+* `↑q` compact in `D ⊗ E` ⟹ `q.val` compact in `D × E` — push the family through
+  `π`, whose value at the supremum is a coercion precisely because `q.val` sits
+  below it.
+
+Algebraicity then transports from `isAlgebraic_prod`, with `exists_nonBot_of_isLUB`
+supplying the one step that is not formal: the compact approximants of `q.val`
+with a `⊥` coordinate are discarded, and what remains is still cofinal. -/
+
+section SmashDomain
+
+variable {α β : Type*} [CompletePartialOrder α] [CompletePartialOrder β]
+
+/-- **Compactness in `D ⊗ E` is compactness in `D × E`**, for the non-bottom
+elements. -/
+theorem isCompactElement_smash_coe_iff {q : NonBotPair α β} :
+    IsCompactElement (↑q : Smash α β) ↔ IsCompactElement q.val := by
+  constructor
+  · -- push a family of `D × E` through `π`
+    intro hq t w hne ht hw hqw
+    have hb : w.1 ≠ ⊥ ∧ w.2 ≠ ⊥ := nonBot_of_le hqw q.2
+    have hdir : DirectedOn (· ≤ ·) ((smashCollapse : α × β → Smash α β) '' t) := by
+      rintro _ ⟨a, ha, rfl⟩ _ ⟨b, hb', rfl⟩
+      obtain ⟨c, hc, hac, hbc⟩ := ht a ha b hb'
+      exact ⟨_, ⟨c, hc, rfl⟩, monotone_smashCollapse hac, monotone_smashCollapse hbc⟩
+    have hlub := scottContinuous_smashCollapse hne ht hw
+    rw [smashCollapse_of hb] at hlub
+    obtain ⟨_, ⟨x, hx, rfl⟩, hle⟩ :=
+      hq _ _ (hne.image _) hdir hlub (smash_coe_le_of_le (r := ⟨w, hb⟩) hqw)
+    by_cases hxb : x.1 ≠ ⊥ ∧ x.2 ≠ ⊥
+    · rw [smashCollapse_of hxb] at hle
+      exact ⟨x, hx, smash_le_of_coe_le hle⟩
+    · rw [smashCollapse_of_not hxb] at hle
+      exact absurd hle (WithBot.not_coe_le_bot q)
+  · -- push a family of `D ⊗ E` through `ι`
+    intro hq s u hne hs hu hqu
+    have hdir : DirectedOn (· ≤ ·) ((smashEmbed : Smash α β → α × β) '' s) := by
+      rintro _ ⟨a, ha, rfl⟩ _ ⟨b, hb, rfl⟩
+      obtain ⟨c, hc, hac, hbc⟩ := hs a ha b hb
+      exact ⟨_, ⟨c, hc, rfl⟩,
+        (scottContinuous_smashEmbed).monotone hac, (scottContinuous_smashEmbed).monotone hbc⟩
+    obtain ⟨_, ⟨x, hx, rfl⟩, hle⟩ :=
+      hq _ _ (hne.image _) hdir (scottContinuous_smashEmbed hne hs hu)
+        ((scottContinuous_smashEmbed).monotone hqu)
+    refine ⟨x, hx, ?_⟩
+    induction x using WithBot.recBotCoe with
+    | bot => exact absurd (le_bot_iff.mp hle.1) q.2.1
+    | coe k => exact WithBot.coe_le_coe.mpr hle
+
+/-- **`D ⊗ E` is algebraic when `D` and `E` are.** -/
+theorem smashIsAlgebraic [IsAlgebraic α] [IsAlgebraic β] : IsAlgebraic (Smash α β) := by
+  haveI : IsAlgebraic (α × β) := isAlgebraic_prod
+  constructor
+  · -- directedness of `compactsBelow x`
+    intro x
+    induction x using WithBot.recBotCoe with
+    | bot =>
+      intro y hy z hz
+      exact ⟨⊥, bot_mem_compactsBelow ⊥, le_of_eq (le_bot_iff.mp hy.2),
+        le_of_eq (le_bot_iff.mp hz.2)⟩
+    | coe q =>
+      intro y
+      induction y using WithBot.recBotCoe with
+      | bot => exact fun _ z hz => ⟨z, hz, bot_le, le_rfl⟩
+      | coe ky =>
+        intro hy z
+        induction z using WithBot.recBotCoe with
+        | bot => exact fun _ => ⟨(↑ky : Smash α β), hy, le_rfl, bot_le⟩
+        | coe kz =>
+          intro hz
+          have hcy : IsCompactElement ky.val := isCompactElement_smash_coe_iff.mp hy.1
+          have hcz : IsCompactElement kz.val := isCompactElement_smash_coe_iff.mp hz.1
+          obtain ⟨K, hK, hKy, hKz⟩ := IsAlgebraic.directedOn_compactsBelow q.val
+            ky.val ⟨hcy, smash_le_of_coe_le hy.2⟩ kz.val ⟨hcz, smash_le_of_coe_le hz.2⟩
+          have hKne : K.1 ≠ ⊥ ∧ K.2 ≠ ⊥ := nonBot_of_le hKy ky.2
+          exact ⟨(↑(⟨K, hKne⟩ : NonBotPair α β) : Smash α β),
+            ⟨isCompactElement_smash_coe_iff.mpr hK.1,
+              smash_coe_le_of_le (q := ⟨K, hKne⟩) hK.2⟩,
+            smash_coe_le_of_le (q := ky) (r := ⟨K, hKne⟩) hKy,
+            smash_coe_le_of_le (q := kz) (r := ⟨K, hKne⟩) hKz⟩
+  · -- `x` is the least upper bound of its compact approximants
+    intro x
+    refine ⟨fun k hk => hk.2, ?_⟩
+    intro v hv
+    induction x using WithBot.recBotCoe with
+    | bot => exact bot_le
+    | coe q =>
+      -- a non-`⊥` compact approximant of `q.val` exists, so `v` is not the bottom
+      obtain ⟨c, hc, hcne⟩ := exists_nonBot_of_isLUB
+        (IsAlgebraic.directedOn_compactsBelow q.val)
+        (IsAlgebraic.isLUB_compactsBelow q.val) q.2
+      have hcv : (↑(⟨c, hcne⟩ : NonBotPair α β) : Smash α β) ≤ v :=
+        hv ⟨isCompactElement_smash_coe_iff.mpr hc.1,
+          smash_coe_le_of_le (q := ⟨c, hcne⟩) (r := q) hc.2⟩
+      induction v using WithBot.recBotCoe with
+      | bot => exact absurd hcv (WithBot.not_coe_le_bot _)
+      | coe r =>
+        refine smash_coe_le_of_le ((IsAlgebraic.isLUB_compactsBelow q.val).2 ?_)
+        intro k hk
+        by_cases hkne : k.1 ≠ ⊥ ∧ k.2 ≠ ⊥
+        · have h : (↑(⟨k, hkne⟩ : NonBotPair α β) : Smash α β) ≤ ↑r :=
+            hv ⟨isCompactElement_smash_coe_iff.mpr hk.1,
+              smash_coe_le_of_le (q := ⟨k, hkne⟩) (r := q) hk.2⟩
+          exact smash_le_of_coe_le h
+        · -- a compact approximant with a `⊥` coordinate is dominated by one without
+          obtain ⟨K, hK, hKc, hKk⟩ := IsAlgebraic.directedOn_compactsBelow q.val
+            c hc k hk
+          have hKne : K.1 ≠ ⊥ ∧ K.2 ≠ ⊥ := nonBot_of_le hKc hcne
+          have h : (↑(⟨K, hKne⟩ : NonBotPair α β) : Smash α β) ≤ ↑r :=
+            hv ⟨isCompactElement_smash_coe_iff.mpr hK.1,
+              smash_coe_le_of_le (q := ⟨K, hKne⟩) (r := q) hK.2⟩
+          exact hKk.trans (smash_le_of_coe_le h)
+
+/-- **`D ⊗ E` is a domain when `D` and `E` are.** The basis injects into
+`K(D × E)` with one extra point, the adjoined bottom; `domain_prod` supplies the
+countability of the former. -/
+theorem smashDomain [Domain α] [Domain β] : Domain (Smash α β) := by
+  haveI : Domain (α × β) := domain_prod
+  refine { __ := smashIsAlgebraic, countable_compacts := ?_ }
+  have hsub : compacts (Smash α β) ⊆
+      insert (⊥ : Smash α β)
+        ((fun p : α × β => (smashCollapse p : Smash α β)) '' compacts (α × β)) := by
+    intro x hx
+    induction x using WithBot.recBotCoe with
+    | bot => exact Set.mem_insert _ _
+    | coe q =>
+      refine Set.mem_insert_of_mem _ ⟨q.val, isCompactElement_smash_coe_iff.mp hx, ?_⟩
+      exact (smashCollapse_of q.2).trans rfl
+  exact Set.Countable.mono hsub
+    (Set.Countable.insert _ ((Domain.countable_compacts (α := α × β)).image _))
+
+end SmashDomain
 
 end ScottDomains.PRepFun
