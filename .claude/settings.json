@@ -1,4 +1,17 @@
 {
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "matcher": "Bash|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "{ printf '%s\\t' \"$(date '+%F %T')\"; jq -r '.tool_name + \"\\t\" + (.tool_input.command // .tool_input.file_path // \"\")'; } >> /home/milnes/projects/ScottLean4/.claude/permission-requests.log 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "additionalDirectories": [
       "/home/milnes/projects"

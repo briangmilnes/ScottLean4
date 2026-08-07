@@ -13,11 +13,11 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **10** | 3 | ≈13 |
-| 2 | **Numbered** results complete | **10** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Prop 15, Lem 17, Lem 19) | 19 | **29** |
+| 2 | **Numbered** results complete | **11** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Lem 10, Prop 15, Lem 17, Lem 19) | 18 | **29** |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **192** live (+6 commented out as unused) | — | — |
-| 6 | `sorry` in the development | — | **5**: 4 in `Skeleton/Lemma10.lean`, 1 in `Skeleton/Section6.lean` | — |
+| 5 | Theorems in the development | **199** live (+6 commented out as unused) | — | — |
+| 6 | `sorry` in the development | — | **1**: `thm18` in `Skeleton/Section6.lean` | — |
 
 Row 5 counts lines matching `^(@[…] )?(theorem|lemma) ` across the 27 modules.
 
@@ -26,20 +26,34 @@ fixed *statements* of outstanding results, confined to `ScottDomains/Skeleton/`,
 one file per agent worktree, so that three agents can prove them in parallel
 without any agent editing a declaration another depends on. Every other module
 remains `sorry`-free, and the count above is the burn-down metric — it goes
-10 → 0. Round r0027 took it 10 → 5, and the four `Lemma10.lean` statements are
-proved on branch `agent1` but not yet merged.
+10 → 0. Round r0027, run as three agents in parallel, took it **10 → 1**.
 
 | # | Open statement | Result | State after r0027 |
 | -- | -------------- | ------ | ----------------- |
 | 1 | `prop15` | Prop 15 — every bounded complete domain is bifinite | **proved** |
-| 2 | `thm18` | Thm 18 — `D`, `D → D` domains ⟹ `D` bifinite | `sorry` — the paper gives no proof, citing Smyth [Smy83a]; see the obstacle recorded in the docstring |
+| 2 | `thm18` | Thm 18 — `D`, `D → D` domains ⟹ `D` bifinite | **`sorry`** — the paper gives no proof, citing Smyth [Smy83a]; the obstacle is recorded in the docstring |
 | 3 | `lem19` | Lem 19 — the image of a closure is a domain | **proved**, via `IsClosure.rangeCompletePartialOrder` |
-| 4–7 | `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict` | Lem 10 — bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥`. The `→` conjunct is **already proved** (Thm 7's bounded-complete half, r0007) | `sorry` on `main`; on branch `agent1` product, lift and strict are proved, and `smash` exposed a defect in `smashSup` (it branches on directedness, so a bounded non-directed base returns `⊥`) whose repair is in progress |
+| 4–7 | `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict` | Lem 10 — bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥`. The `→` conjunct is **already proved** (Thm 7's bounded-complete half, r0007) | **all four proved** |
 | 8–10 | `lem17_prod`, `lem17_lift`, `lem17_fun` | Lem 17 — bifiniteness closed under `×`, `()⊥`, `→` | **all three proved** |
 
-Kernel check on the r0027 merges (`#print axioms`): `prop15`, `lem19`,
-`lem17_prod`, `lem17_lift`, `lem17_fun` depend only on `propext`,
-`Classical.choice`, `Quot.sound` — none on `sorryAx`.
+**The `smashSup` defect (r0027).** `lem10_smash` was not merely open: as `smashSup`
+stood, it was **false**, and the kernel confirmed a refutation. `smashSup` branched
+its `dite` on the base being nonempty *and directed*, so a merely **bounded**
+non-directed base fell to the adjoined `⊥`, which is not even an upper bound.
+Witness: `D = Prop × Prop`, `E = Prop`, `s = {↑((True, False), True),
+↑((False, True), True)}`, bounded by `↑((True, True), True)`. This is the same
+defect `ScottHom.lean` records having already hit for the function space. The
+repair branches on the coordinatewise supremum landing in `NonBotPair` — the
+condition under which it is an element of `D ⊗ E` at all, rather than a merely
+sufficient condition for it. `smashSup_of_directed` and `smashSup_of_empty` kept
+their statements and were reproved, which is the agreement claim stated in Lean
+rather than in prose, and `smashCpo` needed no change.
+
+Kernel check on the r0027 merges (`#print axioms`): all ten proved statements
+plus `smashCpo`, `smashSup_of_directed` and `smashSup_of_empty` depend only on
+`propext`, `Classical.choice`, `Quot.sound` — `lem10_prod` and `lem19` do not even
+need `Classical.choice`. None depends on `sorryAx`. `thm18` does, as its `sorry`
+requires.
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
 Proposition 1–30). Row 3 counts the claims the paper makes **in prose** rather
@@ -85,7 +99,7 @@ it exists and what is instructive about it, and the build is unchanged — which
 also confirms that the three `@[simp]` ones among them were never firing
 implicitly.
 
-The development is **27 modules, 4191 lines, 5 `sorry`, 0 other warnings**. Counts of
+The development is **27 modules, 4440 lines, 1 `sorry`, 0 other warnings**. Counts of
 definitions, results and theorems are in the Progress table above — they are not
 repeated here, so that this section cannot drift out of step with it. What each
 round delivered:
