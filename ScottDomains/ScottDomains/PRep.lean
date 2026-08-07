@@ -240,4 +240,215 @@ not about `P N`, over which §7.1 says `X ↦ X + X` has no representation at al
 This abbreviation fixes the carrier so the instantiation cannot drift. -/
 abbrev Lemma28AtU : Prop := Lemma28 Dyadic.U
 
+/-! ## Suprema of projections, and least upper bounds in `Fp(U)`
+
+The closure notion's `isClosure_sSup` and `isLUB_val_image_of_isLUB` are what let
+`Fc(U)`-indexed continuity proofs be written against the pointwise order. This
+section is their projection counterpart, and it separates cleanly into the half
+that is free and the half that is not: the pointwise supremum of a directed set
+of *projections* is always a projection (`isProjection_sSup`, no hypothesis on
+`α` at all), whereas the supremum being **finitary** — `im` a domain — is extra
+content, so `isLUB_val_image_of_isLUB_fp` takes it as a hypothesis rather than
+pretending it is free. -/
+
+section ProjectionSups
+
+open ScottHom
+
+variable {α : Type u} [CompletePartialOrder α]
+
+/-- **The pointwise supremum of a nonempty directed set of projections is a
+projection.**
+
+The counterpart of `isClosure_sSup`, and the inequality runs the other way at
+every step. `p ⊑ id` is immediate from the least-upper-bound property. For
+idempotence only `⨆d ⊑ (⨆d) ∘ (⨆d)` needs an argument: each `r ∈ d` satisfies
+`r x = r (r x)`, and `r x ⊑ (⨆d) x` pushes through `r`'s monotonicity to give
+`r x ⊑ r ((⨆d) x) ⊑ (⨆d) ((⨆d) x)`. Note this needs no directedness beyond what
+makes the pointwise supremum continuous — unlike the closure case, no element of
+`d` above a given pair is chosen. -/
+theorem isProjection_sSup {d : Set (ScottHom α α)}
+    (hd : DirectedOn (· ≤ ·) d) (hp : ∀ p ∈ d, IsProjection p) :
+    IsProjection (sSup d) := by
+  have hsup : ∀ x : α, IsLUB ((fun f : ScottHom α α => f x) '' d) ((sSup d) x) := fun x => by
+    rw [ScottHom.coe_sSup_of_directed hd x]
+    exact (ScottHom.directedOn_eval_image hd x).isLUB_sSup
+  have hle : ∀ x : α, (sSup d) x ≤ x := fun x =>
+    (hsup x).2 (by rintro _ ⟨r, hr, rfl⟩; exact (hp r hr).le x)
+  refine ⟨fun x => le_antisymm (hle _) ?_, hle⟩
+  refine (hsup x).2 ?_
+  rintro _ ⟨r, hr, rfl⟩
+  calc r x = r (r x) := ((hp r hr).idem x).symm
+    _ ≤ r ((sSup d) x) := r.monotone ((hsup x).1 ⟨r, hr, rfl⟩)
+    _ ≤ (sSup d) ((sSup d) x) := (hsup ((sSup d) x)).1 ⟨r, hr, rfl⟩
+
+/-- **A larger projection fixes a smaller one's image.** `q y ⊑ y` from `q ⊑ id`,
+and `y = p y = p (p y) ⊑ q (p y) = q y` from `p ⊑ q`. Used to see the images of a
+directed family of projections nest inside the image of their supremum. -/
+theorem apply_eq_of_mem_range_of_le {p q : ScottHom α α} (hp : IsProjection p)
+    (hq : IsProjection q) (hpq : p ≤ q) {y : α} (hy : y ∈ Set.range ⇑p) : q y = y := by
+  refine le_antisymm (hq.le y) ?_
+  calc y = p y := (hp.apply_of_mem_range hy).symm
+    _ ≤ q y := hpq y
+
+theorem range_subset_of_le {p q : ScottHom α α} (hp : IsProjection p)
+    (hq : IsProjection q) (hpq : p ≤ q) : Set.range ⇑p ⊆ Set.range ⇑q := by
+  rintro y hy
+  exact ⟨y, apply_eq_of_mem_range_of_le hp hq hpq hy⟩
+
+/-- **`im(p)` is bounded complete whenever `D` is.** A set of the image bounded
+inside the image is bounded in `D`, so it has an ambient least upper bound;
+applying `p` lands it back in the image without moving it past any bound, because
+`p` fixes the image and is monotone.
+
+This is one of the two structural facts a representability proof at the
+projection notion needs and the closure notion does not: `Fp`'s second conjunct
+demands a `Domain` on `im(R p)`, and the function-space conjunct's route to that
+`Domain` runs through `Domain (D → E)`, whose Mathlib-side hypothesis set
+includes `BoundedComplete E`. -/
+theorem boundedComplete_range [BoundedComplete α] {p : ScottHom α α}
+    (hp : IsProjection p) :
+    @BoundedComplete _ (IsProjection.rangeCompletePartialOrder hp) := by
+  letI : CompletePartialOrder ↥(Set.range ⇑p) := IsProjection.rangeCompletePartialOrder hp
+  refine ⟨fun s hs => ?_⟩
+  obtain ⟨u, hu⟩ := hs
+  have hbdd : BddAbove (Subtype.val '' s) :=
+    ⟨u.val, by rintro _ ⟨a, ha, rfl⟩; exact hu ha⟩
+  have hlub := isLUB_sSup_of_bddAbove hbdd
+  constructor
+  · intro a ha
+    show a.val ≤ p (sSup (Subtype.val '' s))
+    calc a.val = p a.val := (hp.apply_of_mem_range a.2).symm
+      _ ≤ p (sSup (Subtype.val '' s)) := p.monotone (hlub.1 ⟨a, ha, rfl⟩)
+  · intro v hv
+    show p (sSup (Subtype.val '' s)) ≤ v.val
+    calc p (sSup (Subtype.val '' s))
+        ≤ p v.val := p.monotone (hlub.2 (by rintro _ ⟨a, ha, rfl⟩; exact hv ha))
+      _ = v.val := hp.apply_of_mem_range v.2
+
+/-- **`K(im p)` is countable whenever `K(D)` is.** By Lemma 5's first sentence
+(`IsProjection.isCompactElement_iff`) the compacts of the image are exactly the
+image points compact in `D`, so the set injects into `K(D)`. The closure
+counterpart is `IsClosure.countable_compacts_range`, which has to work harder —
+it factors `K(im r)` through `r '' K(D)` — because a closure does not fix its
+image pointwise in the way the compactness criterion needs. -/
+theorem countable_compacts_range [Domain α] {p : ScottHom α α} (hp : IsProjection p) :
+    (compacts ↥(Set.range ⇑p)).Countable := by
+  have hsub : compacts ↥(Set.range ⇑p) ⊆ Subtype.val ⁻¹' compacts α :=
+    fun _ hc => hp.isCompactElement_iff.mp hc
+  exact Set.Countable.mono hsub
+    ((Domain.countable_compacts (α := α)).preimage Subtype.val_injective)
+
+/-- **Least upper bounds in `Fp(D)` are pointwise**, given that the pointwise one
+stays inside `Fp(D)`.
+
+The script is `isLUB_val_image_of_isLUB`'s, with `isClosure_sSup` replaced by the
+hypothesis `hfin`. Stating `hfin` as a hypothesis rather than proving it is the
+honest form: for closures the corresponding fact is a theorem with no side
+condition, while for projections the *finitary* half — `im(⨆d)` a domain — is
+genuinely extra content, and nothing in this development supplies it. -/
+theorem isLUB_val_image_of_isLUB_fp {d : Set ↥(Fp α)}
+    (hd : DirectedOn (· ≤ ·) d)
+    (hfin : IsFinitaryProjection (sSup ((fun q : ↥(Fp α) => q.val) '' d)))
+    {a : ↥(Fp α)} (ha : IsLUB d a) :
+    IsLUB ((fun q : ↥(Fp α) => q.val) '' d) a.val := by
+  have hedir : DirectedOn (· ≤ ·) ((fun q : ↥(Fp α) => q.val) '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, h₁, h₂⟩ := hd p hp q hq
+    exact ⟨c.val, ⟨c, hc, rfl⟩, h₁, h₂⟩
+  have hub : (⟨_, hfin⟩ : ↥(Fp α)) ∈ upperBounds d :=
+    fun c hc => hedir.le_sSup ⟨c, hc, rfl⟩
+  have heq : a.val = sSup ((fun q : ↥(Fp α) => q.val) '' d) :=
+    le_antisymm (ha.2 hub) (hedir.sSup_le (by rintro _ ⟨c, hc, rfl⟩; exact ha.1 hc))
+  rw [heq]
+  exact hedir.isLUB_sSup
+
+end ProjectionSups
+
+/-! ## The representation scheme at a projection
+
+`R(C) = F⁺ ∘ C ∘ F⁻` for a pair `F⁻ : U → V`, `F⁺ : V → U` with
+`F⁻ ∘ F⁺ = id` and `F⁺ ∘ F⁻ ⊑ id` — the paper's own recipe, quoted at `+` in
+§7.3 and at `(·)♮` in §7.4. Three of the four obligations are already discharged
+elsewhere and none of them mentions closures:
+
+| # | Obligation | Discharged by |
+| - | ---------- | ------------- |
+| 1 | `R(C) = gr ∘ C ∘ fn` as a map | `PowerdomainRep.repOf` |
+| 2 | `im(R C) ≅ im C` | `PowerdomainRep.repRangeOrderIso` |
+| 3 | `R(C)` is a projection when `C` is | `BifiniteUniversal.isProjection_repOf` |
+| 4 | `im(R C)` is a **domain** | nothing — hypothesis `hCfin` below |
+
+Obligation 4 is the whole difference from the closure notion, where the
+corresponding subtype `ClosurePoset U` asks only for two equations. -/
+
+section Scheme
+
+open PowerdomainRep ScottHom
+
+variable {U V : Type u} [CompletePartialOrder U] [CompletePartialOrder V]
+variable {fn : ScottHom U V} {gr : ScottHom V U}
+
+/-- **`p ↦ R(C p)` is continuous into `Fp(U)`**, over an arbitrary preordered
+index `P`.
+
+This is `Combinator.scottContinuous_repFamily` with `Fp(U)` in place of `Fc(U)`,
+and the script is unchanged. That it *is* unchanged is the measurement worth
+recording: the closure proof of continuity never inspects the target subtype
+beyond its pointwise order, so replacing closures by projections there costs
+nothing. The cost is all in `hCfin`, which is what puts the family in `Fp(U)` in
+the first place. -/
+theorem scottContinuous_repFamilyFp {P : Type*} [Preorder P]
+    {C : P → ScottHom V V}
+    (hCfin : ∀ p, IsFinitaryProjection (repOf fn gr (C p)))
+    (hCmono : ∀ {p q : P}, p ≤ q → C p ≤ C q)
+    (hCeval : ∀ {d : Set P}, d.Nonempty → DirectedOn (· ≤ ·) d → ∀ {a : P}, IsLUB d a →
+      ∀ y : V, IsLUB ((fun p => C p y) '' d) (C a y)) :
+    ScottContinuous (fun p : P => (⟨repOf fn gr (C p), hCfin p⟩ : ↥(Fp U))) := by
+  intro d hne hd a ha
+  refine ⟨?_, ?_⟩
+  · rintro _ ⟨p, hp, rfl⟩ x
+    exact gr.monotone (hCmono (ha.1 hp) (fn x))
+  · intro u hu x
+    have hE := hCeval hne hd ha (fn x)
+    have hEdir : DirectedOn (· ≤ ·) ((fun p : P => C p (fn x)) '' d) := by
+      rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+      obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+      exact ⟨_, ⟨c, hc, rfl⟩, hCmono hpc (fn x), hCmono hqc (fn x)⟩
+    refine (gr.scottContinuous (hne.image _) hEdir hE).2 ?_
+    rintro _ ⟨_, ⟨p, hp, rfl⟩, rfl⟩
+    exact hu ⟨p, hp, rfl⟩ x
+
+/-- **The representation scheme at a projection, unary.** -/
+theorem isPRepresentable_of_repFamily {F : Cpo.{u} → Cpo.{u}}
+    (hfg : ∀ y, fn (gr y) = y)
+    {C : ↥(Fp U) → ScottHom V V}
+    (hCfin : ∀ p, IsFinitaryProjection (repOf fn gr (C p)))
+    (hCmono : ∀ {p q : ↥(Fp U)}, p ≤ q → C p ≤ C q)
+    (hCeval : ∀ {d : Set ↥(Fp U)}, d.Nonempty → DirectedOn (· ≤ ·) d →
+      ∀ {a : ↥(Fp U)}, IsLUB d a → ∀ y : V, IsLUB ((fun p => C p y) '' d) (C a y))
+    (hCiso : ∀ p, Nonempty (↥(Set.range ⇑(C p)) ≃o (F (FpImage p)).carrier)) :
+    IsPRepresentable U F :=
+  ⟨fun p => ⟨repOf fn gr (C p), hCfin p⟩,
+    scottContinuous_repFamilyFp hCfin hCmono hCeval,
+    fun p => (hCiso p).map fun e => (PowerdomainRep.repRangeOrderIso hfg (C p)).trans e⟩
+
+/-- **The representation scheme at a projection, binary** — the paper's displayed
+`R₊(r, s) = Ψ₊ ∘ (r + s) ∘ Φ₊`, with `(Φ₊, Ψ₊)` abstracted to the pair
+`(fn, gr)`. -/
+theorem isPRepresentable₂_of_repFamily {F : Cpo.{u} → Cpo.{u} → Cpo.{u}}
+    (hfg : ∀ y, fn (gr y) = y)
+    {C : ↥(Fp U) × ↥(Fp U) → ScottHom V V}
+    (hCfin : ∀ q, IsFinitaryProjection (repOf fn gr (C q)))
+    (hCmono : ∀ {q q' : ↥(Fp U) × ↥(Fp U)}, q ≤ q' → C q ≤ C q')
+    (hCeval : ∀ {d : Set (↥(Fp U) × ↥(Fp U))}, d.Nonempty → DirectedOn (· ≤ ·) d →
+      ∀ {a : ↥(Fp U) × ↥(Fp U)}, IsLUB d a → ∀ y : V, IsLUB ((fun q => C q y) '' d) (C a y))
+    (hCiso : ∀ q, Nonempty (↥(Set.range ⇑(C q)) ≃o (F (FpImage q.1) (FpImage q.2)).carrier)) :
+    IsPRepresentable₂ U F :=
+  ⟨fun q => ⟨repOf fn gr (C q), hCfin q⟩,
+    scottContinuous_repFamilyFp hCfin hCmono hCeval,
+    fun q => (hCiso q).map fun e => (PowerdomainRep.repRangeOrderIso hfg (C q)).trans e⟩
+
+end Scheme
+
 end ScottDomains.PRep
