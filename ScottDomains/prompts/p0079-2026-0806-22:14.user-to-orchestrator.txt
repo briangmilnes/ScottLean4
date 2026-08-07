@@ -2,7 +2,7 @@
 prompt: p0079
 type: interaction
 opened: 2026-0806-22:14
-closed: 2026-0806-22:22
+closed: 2026-0806-22:27
 subject: yes-and-i-want-a-six-way-plan-to-prove-t
 session: 5d1a7664
 ---
@@ -81,3 +81,32 @@ Now saving the prompts for this round, then committing everything.
     Bash ls /home/milnes/projects/ScottLean4/prompts/ /home/milnes/projects/ScottLean4/ScottDomains/prompts/ 2>&1 | tail -20
     Read /home/milnes/projects/ScottLean4/scripts/save-prompts.sh
     Bash /home/milnes/projects/ScottLean4/scripts/save-prompts.sh
+    Bash /home/milnes/projects/ScottLean4/scripts/gitcp.sh "r0034: six-way plan for the ten outstanding numbered results; inventory rows 2/2a/6 corrected to 18
+    Bash /home/milnes/projects/ScottLean4/scripts/worktree-sync.sh --ff
+## turn — assistant 2026-08-06T22:27:18-07:00
+
+Round r0034 is set up six-wide. Everything is committed and pushed at `9fc4522`, and all six worktrees are synced to it, clean, with the packages symlink.
+
+**Inventory corrected.** Row 2 now reads 18 complete / 10 remaining of 29, with the two partials named inside the remaining column instead of counted as done; row 2a records the arithmetic 18 + 10 + 1 = 29 and why the old "20 / 9" was inconsistent; row 6 now reads 8 `sorry` in 2 files instead of the stale 1.
+
+**The six streams:**
+
+| # | Agent | Stream | Namespace | Character |
+| -- | ----- | ------ | --------- | --------- |
+| 1 | agent1 | Lemma 9 (6 conjuncts, 2 of them refutations) + Theorem 14 | `Isomorphism` | retires 7 of 8 `sorry` |
+| 2 | agent2 | Lemma 10's `+`; Lemma 17's `◦→`, `+`, `D♮`, `D♯`, `D♭` | `ClosureProperties` | takes 18 → 20 of 29 |
+| 3 | agent3 | §7.3's universal domain `U`, then Theorem 27 | `Dyadic` | new carrier; streams 4 and 5 depend on it |
+| 4 | agent4 | Theorem 26 + Lemma 28 over an abstract carrier | `Combinator` | decoupled from 3 by interface |
+| 5 | agent5 | Theorem 29 + §7.4's `V` + Lemma 30 | `BifiniteUniversal` | largest; ranked acceptance criteria |
+| 6 | agent6 | Theorem 18 + Theorem 16's positive form | `Section62` | research; obstruction is an acceptable deliverable |
+
+Two design decisions worth flagging. **agent4's Lemma 28 does not wait on agent3's `U`** — it proves representability over an abstract carrier and instantiates at merge, which is sound because Lemma 24 and Theorem 25 were proved at cpo strength and spend neither algebraicity nor countability. And **agent6 is instructed to read [Smy83a] rather than re-derive Theorem 18**: three rounds produced three perturbation variants failing at the same monotonicity side condition, and r0031's reduction is provably equivalent to Theorem 18 rather than below it, so more grinding is circular. A written obstruction counts as landing that stream.
+
+Realistic target is **28 of 29** — everything but Theorem 18. All 29 only if agent6 recovers Smyth's case analysis.
+
+Three new scripts, all committed: `worktree-sync.sh` (report, `--ff` to sync), `init-worktree.sh N`, `collect-agent-plans.sh rNNNN`. Prompts saved — 79 interactions rebuilt into `ScottDomains/prompts/`.
+
+I did not re-measure parallel costs; the plan cites Performance.md's existing 4-to-6 recommendation, and I've recorded that the figures are settled so future rounds don't re-derive them.
+
+To start the round, attach a session in each `~/projects/ScottLean4-agentN/` and point it at `ScottDomains/plans/r0034-plan-from-orchestrator-to-agentN-*.md`.
+

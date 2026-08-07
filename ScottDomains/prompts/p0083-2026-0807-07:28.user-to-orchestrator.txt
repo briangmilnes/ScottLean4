@@ -1,0 +1,203 @@
+---
+prompt: p0083
+type: interaction
+opened: 2026-0807-07:28
+closed: 2026-0807-07:57
+subject: make-a-list-of-the-papers-for-me-to-hand
+session: 5d1a7664
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/5d1a7664….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-07T07:28:18-07:00
+
+Make a list of the papers for me to hand collect. Open web fetching so I don't have to say yes 10 times.
+
+## turn — assistant 2026-08-07T07:28:44-07:00
+
+Opening web fetching first so nothing prompts, then I'll pull the exact citations from the paper's own bibliography.
+
+    Edit /home/milnes/projects/ScottLean4/.claude/settings.local.json
+    Bash pdftotext -f 38 -l 46 "/home/milnes/projects/ScottLean4/ScottDomains/papers/Gunter Scott 1990.pdf" /tmp/claude-1000/-home-milnes-projects-ScottLean4/5
+    Bash grep -n "Smy\|Gun\|Plo\|Sco\|Jun" /tmp/claude-1000/-home-milnes-projects-ScottLean4/5d1a7664-57af-4c91-bba1-036101b41a12/scratchpad/bib.txt
+    Read /tmp/claude-1000/-home-milnes-projects-ScottLean4/5d1a7664-57af-4c91-bba1-036101b41a12/scratchpad/bib.txt
+    Read /tmp/claude-1000/-home-milnes-projects-ScottLean4/5d1a7664-57af-4c91-bba1-036101b41a12/scratchpad/bib.txt
+    Bash pdftotext -f 46 -l 52 "/home/milnes/projects/ScottLean4/ScottDomains/papers/Gunter Scott 1990.pdf" /tmp/claude-1000/-home-milnes-projects-ScottLean4/5
+    Bash git -C /home/milnes/projects/ScottLean4 ls-files .claude/
+    Bash grep -n "Smy\|Win\|Vic" /tmp/claude-1000/-home-milnes-projects-ScottLean4/5d1a7664-57af-4c91-bba1-036101b41a12/scratchpad/bib2.txt
+## turn — assistant 2026-08-07T07:29:30-07:00
+
+Answering the machine question first, since it changes where the rules go: `git ls-files` shows **only `.claude/settings.json` is tracked**. `settings.local.json` is the personal-override tier and is not in the repo — nothing in it reaches Dana's machine. So the web-fetch rules belong in the tracked file.
+
+    Edit /home/milnes/projects/ScottLean4/.claude/settings.local.json
+    Edit /home/milnes/projects/ScottLean4/.claude/settings.json
+    Read /tmp/claude-1000/-home-milnes-projects-ScottLean4/5d1a7664-57af-4c91-bba1-036101b41a12/scratchpad/bib2.txt
+## turn — assistant 2026-08-07T07:29:47-07:00
+
+Now the collection list, as a GRASE plan addressed to you.
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/plans/r0034-plan-from-orchestrator-to-user-papers-to-collect.md
+    Bash /home/milnes/projects/ScottLean4/scripts/gitcp.sh "r0034: papers-to-collect plan for the user (Smyth 1983 and the Gun87 manuscript block Theorem 18 an
+## turn — assistant 2026-08-07T07:30:20-07:00
+
+`.gitignore` confirms it — `settings.local.json` is deliberately excluded. Committing without it.
+
+    Bash /home/milnes/projects/ScottLean4/scripts/gitcp.sh "r0034: papers-to-collect plan for the user (Smyth 1983 and the Gun87 manuscript block Theorem 18 an
+## turn — assistant 2026-08-07T07:30:41-07:00
+
+**On Dana's machine — no, `settings.local.json` would not have worked.** It's in `.gitignore`, and `git ls-files .claude/` shows only `settings.json` tracked. That's by design: `settings.local.json` is the personal-override tier, and yours is full of things that shouldn't travel — absolute `/tmp/claude-1000/…` scratchpad paths from this session, one-off `sed -i` approvals from r0007, machine-specific `cp` commands. Shipping it would hand Dana a file of dead paths.
+
+So I put `WebFetch` and `WebSearch` in the tracked `.claude/settings.json` instead, alongside the `curl` and script rules from earlier. Those travel. Committed and pushed at `8083cad`. Web fetching is open now — no more per-domain approvals.
+
+**The collection list** is at `ScottDomains/plans/r0034-plan-from-orchestrator-to-user-papers-to-collect.md`, with citations taken from the paper's own bibliography rather than paraphrased. Two rows actually block work:
+
+| # | Reference | Blocks | Why you have to do it |
+| -- | --------- | ------ | --------------------- |
+| 1 | Smyth, *The largest cartesian closed category of domains*, TCS **27**:109–119, 1983 | **Theorem 18** | Open access on paper, unreachable in practice — ScienceDirect 403s behind Cloudflare on every route, Elsevier's API needs a key, CORE's records have empty download URLs, and every Wayback capture of the PDF is interstitial HTML. Needs a browser session or an institutional proxy |
+| 2 | Gunter, *Sets and the semantics of bounded nondeterminism*, Manuscript, 1987 | **Theorem 29's second sentence**, **`V`**, and all ten conjuncts of **Lemma 30** | Unpublished, not on Gunter's own publication list, nothing on the web. This one may mean asking Gunter directly — it may have no public form at all |
+
+Four more are worth having but block nothing: Gunter 1986 (the bounded-complete analogue of Theorem 18, the nearest provable neighbour if 18 stays open), Gunter's 1985 CMU thesis *Profinite Domains* (likely carries the `A⁺` construction `V` needs), Plotkin 1976, and Smyth–Plotkin 1982. The plan also lists the six papers already collected so you don't duplicate, and repeats the caution that Jung's Lemma 2.17 cannot stand in for Smyth's argument.
+
+**Restart plan after the agents land** — agreed, and it's the right sequencing: the settings changes from tonight are written but inert until a session restart, exactly as r0033 described. I'll write it once agent1, agent3, agent4 and agent6 report, so it captures the merged state and the real counts rather than projections. Those four are still running.
+
+## turn — assistant 2026-08-07T07:32:42-07:00
+
+**agent4 finished** — and it corrected my plan on two points.
+
+**Theorem 26 landed**, but not the theorem I specified. `ScottDomains.Combinator.thm26` is kernel-checked, 0 `sorry`, axioms `[propext, Classical.choice, Quot.sound]`, with `thm26_subalgebra`, `thm26_retract` and `exists_lambdaModel_of_thm25`. My plan called it "combinators solving a signature's equations" and told the agent to state it in `Recursive.Solves`/`IsSolvable` vocabulary. §7.2 is actually an **Engeler-style universal-algebra result**: variable-free applicative terms over `S`, `K`, `fst`, `snd` into which every continuous algebra carried by a retract of `D` embeds as a subalgebra. Nothing is solved. The agent formalized the real statement and built `Comb`/`combEval` so the `Fᵢ` are genuinely combinations. Signature indexing is `Fin n → ℕ` rather than a general `Fintype`, because `Fᵢ` reads its slot by applying `snd` exactly `i` times — the index has to carry a position.
+
+**A correction to the paper:** Theorem 26 is false for any signature containing arity 0, which the paper explicitly admits. Two one-point retracts with different constants would both embed onto the same `Fᵢ`, and `fst(ψ(x)) = x` forces them equal. `thm26` therefore carries `hs : ∀ i, 0 < s i`. The argument is in the docstring and is **not Lean-checked** — unlike r0032's Theorem 16 refutation, this one is prose, so I'll record it as a stated correction rather than a kernel-checked one.
+
+**Lemma 28: 3 of 7 over the abstract carrier** — `rep_arrow`, `rep_prod`, `rep_lift`, plus a generic `isRepresentable_of_retracts` scheme. The interface turned out to be a single hypothesis per operator, `Retracts U V`, using nothing about the carrier — no algebraicity, countability, lattice structure, `Domain` or `Nontrivial`. Merge needs three witnesses, and one carries a warning: `Retracts U (WithBot U)` is **not** obtainable at `P N` via Theorem 22, because `P N⊥` is not a lattice.
+
+The other four produced findings rather than proofs. `⊗` and `⊕` are **refuted for the closure reading** by an explicit counterexample — three-chain `⊥ ⊏ p ⊏ q` with the closure `⊥↦p`, giving `im(r) ⊗ im(s)` 2 elements against `im(r ⊗ s)` 4. The cause is that `im(r)`'s bottom is `r⊥ ≠ ⊥`. A projection has `p⊥ = ⊥` and the obstruction vanishes. `+` is reachable in 150–200 lines. `()♯` and `()♭` are blocked at the operator's *type*: they require `[Domain D]`, and `im r` for a closure on a cpo is not a domain, so the statement does not typecheck.
+
+**The cross-agent finding that matters most.** agent4 independently corroborates r0031: Lemma 28 lists **nine** operators, and its "representable" means **p-representable over `Fp(U)`** at §7.3's dyadic-interval domain — not seven operators over `P N`, as my plan said. That converges with two other results from tonight: agent4's own `⊗`/`⊕` counterexample is an independent argument that the paper must mean projections, and **agent5 already defined `IsPRepresentable` over `Fp(U)`** and proved the two posets meet only at `ScottHom.id`. So agent4's three closure-reading proofs are proofs of a *different* statement from the one Lemma 28 makes. At merge I need to re-examine them against agent5's class rather than accept them as Lemma 28 conjuncts.
+
+Counts: 2 modules, 1201 lines, 71 theorems, 0 new `sorry`, build clean. Head `339c9fa` on `agent4`, not pushed.
+
+Two of my six stream descriptions were wrong on the mathematics and both were caught by agents reading the PDF instead of the plan. agent1, agent3 and agent6 are still running; merges stay held until they report.
+
+## turn — assistant 2026-08-07T07:32:53-07:00
+
+Three of my four remaining are in. Before I report agent6, one gap: its plan required `thm16_positive` and the report never mentions it.
+
+    Bash grep -rn "thm16_positive" /home/milnes/projects/ScottLean4-agent6/ScottDomains/ --include=*.lean --include=*.md -l
+    Bash git -C /home/milnes/projects/ScottLean4-agent3 log --oneline main..agent3
+    Bash grep -n "thm16_positive" /home/milnes/projects/ScottLean4-agent6/ScottDomains/ScottDomains/Section62.lean
+## turn — assistant 2026-08-07T07:33:28-07:00
+
+`thm16_positive` is proved — `Section62.lean:289`, with `thm16_positive_isEmbeddingProjectionPair` at 420. agent6's summary just led with the attribution correction it was replying about. Both parts of that stream landed.
+
+**agent6 — Theorem 18 obstruction, written as the deliverable.** `thm18` is untouched and still `sorry`; nothing was presented as Theorem 18. The agent sharpened the caution I sent past what I gave it: **L-domains are Jung's own 1988–89 contribution, so `f_S` cannot be Smyth's 1983 argument** — that is the decisive point, and it means only the *conclusion* (infinite `mub` ⟹ uncountable `K(D→D)`) is attested of Smyth. Every "Smyth's proof" in the module and report now reads "Jung's proof". It also reframed its own headline honestly: [Smy83a] is unobtainable and Smyth's case analysis is not recovered; what *is* recovered is a complete proof of the same statement, Jung's. The failing step is named — **Jung's Lemma 2.13, absent from the development in any form** — and r0031's (★) is confirmed equivalent to Theorem 18 rather than below it.
+
+Beyond the brief, it retrieved **Plotkin's 1981 Pisa notes** and verified both quotations against the file rather than a search summary: the conjecture Smyth settled, verbatim, and the **2/3 SFP Theorem** proved by König's Lemma — cases (a) and (b) in their original form. That is the origin of the problem, and a primary source we now hold. Build 1073 jobs, 0 errors, head `3a97a60`.
+
+**agent1 — Lemma 9 complete, Theorem 14 not, and my plan was wrong about why.** All six conjuncts proved as named `≃o` maps across six modules, 65 declarations, 1506 lines, `axioms.sh` showing no `sorryAx` anywhere. Both misprints are kernel-checked negations, and it **declined my witness for a better one**: rather than `D = E = Prop`, `F = Prop × Prop` — which needs `Fintype` instances for `WithBot` of a subtype plus an enumeration of strict monotone maps — it used `PUnit`-based witnesses and the coarsest invariant an order isomorphism must preserve, one element versus more than one, discharged by `Equiv.subsingleton` in a step. Each witness is chosen so the *corrected* law survives it, so the separation is specific to the misprint.
+
+`thm14` did not close, and my plan's premise — "the obstacle is definitional, not mathematical" — is false. Supplying `IsBifiniteViaProjections` removes the `P ↔ P` degeneracy, but what remains is Plotkin's SFP characterization, with four concrete gaps now in the docstring: the whole `FpLattice` section sits under `variable [Domain α]`, which is exactly what the forward direction must conclude; `Fp(D)`'s compactness uses `(fpBasis q).Finite` where `finiteImageProjections` needs `(Set.range ⇑q).Finite`, and the bridging lemma does not exist; `IsLUB` in `↥(Fp α)` is strictly weaker than `IsLUB … ScottHom.id` in `ScottHom α α`; and two finite-combinatorial lemmas are missing. It stopped rather than land a half-proof, on the correct reasoning that a proved forward direction still leaves the `sorry` while adding review burden. Its recommendation — Theorem 14 as its own round, gap 2 first since gaps 1 and 3 route through it — is sound.
+
+**`sorry` is 8 → 2**: `thm14` and `thm18`.
+
+That is three of my six stream descriptions now corrected by agents reading the source: Theorem 26's statement, Lemma 28's operator count and notion, and Theorem 14's obstacle. agent6 also caught a documentation defect I introduced — `PaperInventory`'s §6.2 row still calls `thm18` "the development's only `sorry`", contradicting the row 6 I corrected earlier. I'll fix it at merge.
+
+agent3 is the last one running, with `U` compiling and committed and its interface note out; Theorem 27 is in progress. When it lands I'll merge all six, run the composition check across every new module in one environment, update the inventory from measured counts, and write the restart plan.
+
+## turn — assistant 2026-08-07T07:49:00-07:00
+
+All six agents are in. Now the merge, the composition check, and the restart plan. Merging six branches sequentially, stopping at the first conflict.
+
+    Write /home/milnes/projects/ScottLean4/scripts/merge-round.sh
+    Bash chmod +x /home/milnes/projects/ScottLean4/scripts/merge-round.sh
+    Bash /home/milnes/projects/ScottLean4/scripts/merge-round.sh
+## turn — assistant 2026-08-07T07:49:33-07:00
+
+Four merged cleanly; agent5 conflicts on `INDEX.md` only — two agents adding entries in the same place. Let me look.
+
+    Bash grep -n "<<<<<<<\|=======\|>>>>>>>" /home/milnes/projects/ScottLean4/INDEX.md
+    Read /home/milnes/projects/ScottLean4/INDEX.md
+## turn — assistant 2026-08-07T07:49:49-07:00
+
+Purely additive on both sides — both sets of entries belong.
+
+    Edit /home/milnes/projects/ScottLean4/INDEX.md
+    Bash git -C /home/milnes/projects/ScottLean4 add INDEX.md
+    Bash git -C /home/milnes/projects/ScottLean4 commit --no-edit
+    Bash /home/milnes/projects/ScottLean4/scripts/merge-round.sh
+## turn — assistant 2026-08-07T07:50:29-07:00
+
+All six merged. Now the build and the composition check — the check that `lake build` structurally cannot perform.
+
+    Bash /home/milnes/projects/ScottLean4/scripts/compile.sh -r r0034
+## turn — assistant 2026-08-07T07:50:51-07:00
+
+Build clean: **1137 jobs, 0 errors, 0 warnings, 2 `sorry`**. Now the composition check — importing every new module into one environment, which is the only way a cross-agent name clash surfaces.
+
+    Bash /home/milnes/projects/ScottLean4/scripts/axioms.sh -i ScottDomains.ClosureProperties -i ScottDomains.Section62 -i ScottDomains.PRepresentable -i Scott
+    Bash /home/milnes/projects/ScottLean4/scripts/axioms.sh -i ScottDomains.ClosureProperties -i ScottDomains.Section62 -i ScottDomains.PRepresentable -i Scott
+## turn — assistant 2026-08-07T07:51:16-07:00
+
+All fourteen modules import into one environment with no clash, and every headline theorem rests on `[propext, Classical.choice, Quot.sound]` — no `sorryAx`.
+
+    Bash /home/milnes/projects/ScottLean4/scripts/counts.sh
+## turn — assistant 2026-08-07T07:51:38-07:00
+
+Now the inventory, from measured counts rather than the plan's expectations.
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Read /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+## turn — assistant 2026-08-07T07:52:39-07:00
+
+Now the r0034 round section, and the stale §6.2 row agent6 flagged.
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash grep -n "the development's only \`sorry\`" /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+## turn — assistant 2026-08-07T07:53:21-07:00
+
+Now the §7 rows for the five results r0034 changed there.
+
+    Bash grep -n "| 7 | Thm | 26\|| 7 | Thm | 27\|| 7 | Lem | 28\|| 7 | Thm | 29\|| 7 | Lem | 30" /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInven
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash grep -n "| 4.x | Lem | 9 \|| 4.5 | Lem | 10 \|| 4.5 | Thm | 14 \|| 6.2 | Lem | 17 \|| 6.1 | Thm | 16 " /home/milnes/projects/ScottLean4/ScottDomains/d
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+## turn — assistant 2026-08-07T07:55:17-07:00
+
+Inventory is current. Now the restart plan.
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/plans/r0035-plan-from-orchestrator-to-orchestrator-session-restart.md
+    Bash /home/milnes/projects/ScottLean4/scripts/gitcp.sh "r0034 complete: merge all six agents — Lemma 9, Lemma 10 at 7 of 7, Lemma 17 at 10 of 10, Theorem 2
+    Bash /home/milnes/projects/ScottLean4/scripts/worktree-sync.sh --ff
+## turn — assistant 2026-08-07T07:57:01-07:00
+
+Round r0034 is merged, built, checked, and pushed at `6b5381b`. All six worktrees synced.
+
+| # | Quantity | Before | After |
+| -- | -------- | ------ | ----- |
+| 1 | Numbered results complete | 18 of 29 | **22 of 29** |
+| 2 | `sorry` | 8 | **2** — `thm14`, `thm18` |
+| 3 | Modules / lines / theorems | 45 / 14048 / 659 | **61 / 19497 / 906** |
+| 4 | Build | 1072 jobs | **1137 jobs**, 0 errors, 0 warnings beyond `sorry`, 7.38 s |
+
+One merge conflict, in `INDEX.md` only — agent4 and agent5 adding entries at the same line. Both sides were additive, so both are kept.
+
+**The composition check passed**, which is the one that matters: all fourteen new modules import into a single environment with no name clash, and `lemma10`, `lemma17`, `thm26`, `thm27`, `thm29`, `thm16_positive` each depend only on `[propext, Classical.choice, Quot.sound]` — no `sorryAx`. `lake build` cannot detect a cross-agent duplicate, since it never loads two unrelated modules together; that is how r0028 hid a clash behind 971 green jobs.
+
+**The inventory is rewritten from measured counts, and it records the qualifications rather than rounding them off.** Lemma 17 is 10 of 10 *with* `[BoundedComplete β]` on two conjuncts — stronger than the paper states, and §6 exists to avoid exactly that. Theorem 26 carries `hs : ∀ i, 0 < s i` and its arity-0 refutation is prose, not kernel-checked. Theorem 27 is proved *conditionally* on `IsNormallyRepresented`, which needs Vaught's theorem — Mathlib has zero occurrences of `IsAtomless`. Theorem 29 is recorded as split. Lemma 28 is 3 of 9 **at the wrong notion**, which is worse than a partial count and is flagged as such.
+
+**Four of my six stream descriptions were wrong on the mathematics** — Theorem 26's statement, Lemma 28's operator count and notion, Theorem 14's obstacle, Theorem 27's route — and every one was caught by an agent reading the PDF instead of trusting the plan. I've written that into the restart plan as a process rule: the plan is not evidence, and contradicting it is expected behaviour.
+
+**The restart plan** is `ScottDomains/plans/r0035-plan-from-orchestrator-to-orchestrator-session-restart.md`. It names the four permission changes that are written but inert until you restart, records why they went in the tracked `settings.json` rather than the gitignored local file, lists six open decisions, and ranks candidate work — Theorem 14 first, since it's the larger remaining `sorry` and the only one not blocked on a source we can't obtain.
+
+Two results stay blocked on paper you'd have to collect by hand: Theorem 18 on Smyth 1983, and Theorem 29's second sentence plus all of Lemma 30 on the unpublished Gunter 1987 manuscript.
+
