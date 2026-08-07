@@ -80,6 +80,11 @@ written from two machines/agents in parallel, so always rebase — and pushes, a
 single permitted command. Pass explicit paths to avoid sweeping in unrelated
 untracked files.
 
+**Build with a bare `lake build`.** Do not prefix it with the `timeout` command:
+`timeout` is not on the permission allowlist, and one unlisted clause makes the
+whole `cd … && timeout … lake build …` command prompt the user. When a build
+needs a longer budget, raise the Bash tool's own `timeout` parameter instead.
+
 **`INDEX.md` (repo root) is the file hub.** It links the working artifacts —
 Playground Lean modules, `notes/`, `polynomials/`, `docs/`, and the Mathlib
 reading paths. Keep it current when you add a notable file. Jump to a linked
