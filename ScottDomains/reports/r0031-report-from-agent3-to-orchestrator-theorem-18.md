@@ -20,7 +20,7 @@ related:
 | 1 | Final build | `Build completed successfully (976 jobs).` |
 | 2 | Errors | 0 |
 | 3 | Warnings | 1, the declared `sorry` at `Skeleton/Section6.lean:196` (`thm18`) |
-| 4 | New module | `ScottDomains/ContinuousConstruction.lean`, 597 lines, 44 declarations (9 definitions, 35 theorems) |
+| 4 | New module | `ScottDomains/ContinuousConstruction.lean`, 609 lines, 44 declarations (9 definitions, 35 theorems) |
 | 5 | `sorry` in the development | 1, unchanged — `thm18` |
 | 6 | Files edited outside the new module | 0. `Skeleton/Section6.lean` is untouched, so there is nothing to conflict with agent2's round |
 | 7 | Axioms | every new theorem: `[propext, Classical.choice, Quot.sound]` or a subset; `sorryAx` occurrences in the audit: **0** |
