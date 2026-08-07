@@ -774,6 +774,26 @@ instance instIsSemilatticeIdealCompletion : IsSemilattice (IdealCompletion A) wh
     · intro hw
       exact ⟨w, hw, w, hw, le_of_eq (union_self w).symm⟩
 
+/-- **Axiom `4♯` holds as soon as union is a *lower* bound in the pre-order.**
+For the Smyth ordering `union u v ⊑♯ u`, so every generator of `s ⋓ t` is below a
+generator of `s`, and `s` is downward closed. -/
+theorem isUpper_of_union_le (h : ∀ u v : A, union u v ≤ u) :
+    IsUpper (IdealCompletion A) where
+  __ := instIsSemilatticeIdealCompletion (A := A)
+  op_le_left s _ w := by
+    rintro ⟨u, hu, v, _, hw⟩
+    exact s.lower (le_trans hw (h u v)) hu
+
+/-- **Axiom `4♭` holds as soon as union is an *upper* bound in the pre-order.**
+For the Hoare ordering `u ⊑♭ union u v`, so each `w ∈ s` is itself a generator of
+`s ⋓ t`, using any member of `t`. -/
+theorem isLower_of_le_union (h : ∀ u v : A, u ≤ union u v) :
+    IsLower (IdealCompletion A) where
+  __ := instIsSemilatticeIdealCompletion (A := A)
+  left_le_op s t w hw := by
+    obtain ⟨v, hv⟩ := t.nonempty
+    exact ⟨w, hw, v, hv, h w v⟩
+
 end Bot
 
 end Operation
@@ -987,4 +1007,248 @@ theorem thm12 (hf : ScottContinuous f) (hmono : Monotone (foldGen (A := A) f)) :
 
 end Theorem12
 
+/-! ## 7. The three powerdomains
+
+The paper's assignment of theory to powerdomain, checked against §5.2 and §5.3
+rather than assumed:
+
+| # | theory | axiom added to `T♮` | free algebra | this file |
+| - | ------ | ------------------- | ------------ | --------- |
+| 1 | `T♮` | — | `D♮`, the **convex** (Plotkin) powerdomain | `thm12_plotkin` |
+| 2 | `T♯` | `4♯`, `s ⋓ t ⊑ s` | `D♯`, the **upper** (Smyth) powerdomain | `thm12_smyth` |
+| 3 | `T♭` | `4♭`, `s ⊑ s ⋓ t` | `D♭`, the **lower** (Hoare) powerdomain | `thm12_hoare` |
+
+The correspondence is *not* inverted: §5.2 defines `⊢♯` by
+`u ⊢♯ v ↔ (∀ x ∈ u)(∃ y ∈ v). x ⊒ y` and calls `D♯` the **upper** powerdomain,
+and §5.3 attaches `4♯ : s ⋓ t ⊑ s` to it. Adding an element to a set makes it
+*smaller* in the upper ordering, which is exactly what `4♯` says at the level of
+the algebra; dually for `♭`. The three `hmono` discharges below are where that
+matching is checked by the kernel: `fold_le_fold_of_smyth` needs `IsUpper` and
+consumes the Smyth conjunct, and it is the Smyth conjunct that
+`Smyth.Basis.le_def` supplies.
+
+Each instance is `noncomputable` only because `union` needs a `DecidableEq` on
+`K(D)`, supplied classically. -/
+
+section Instances
+
+open IdealCompletion
+
+variable {D : Type u} [CompletePartialOrder D]
+
+/-! ### `D♭`, the Hoare (lower) powerdomain -/
+
+open Classical in
+/-- `Pf(K(D))` under `⊢♭` presents the finite non-empty sets of compacts. -/
+noncomputable instance instFinSetsHoare :
+    FinSets ↥(compacts D) (Hoare.Pf ↥(compacts D)) where
+  toFinset u := u.toFinset
+  toFinset_injective _ _ h := Hoare.Pf.ext h
+  toFinset_nonempty u := u.toFinset_nonempty
+  ofFinset w hw := Hoare.Pf.ofFinset w hw
+  toFinset_ofFinset w hw := rfl
+  union u v := Hoare.Pf.ofFinset (u.toFinset ∪ v.toFinset)
+    (u.toFinset_nonempty.mono Finset.subset_union_left)
+  mem_toFinset_union u v a := Finset.mem_union
+  union_mono {u u' v v'} huu hvv x hx := by
+    rcases Finset.mem_union.mp hx with hx' | hx'
+    · obtain ⟨y, hy, hxy⟩ := huu x hx'
+      exact ⟨y, Finset.mem_union_left _ hy, hxy⟩
+    · obtain ⟨y, hy, hxy⟩ := hvv x hx'
+      exact ⟨y, Finset.mem_union_right _ hy, hxy⟩
+  singleton k := Hoare.Pf.ofFinset {k} (Finset.singleton_nonempty k)
+  toFinset_singleton _ := rfl
+  singleton_mono {k k'} h x hx := by
+    rw [Hoare.Pf.mem_def, Hoare.Pf.toFinset_ofFinset, Finset.mem_singleton] at hx
+    exact ⟨k', Finset.mem_singleton_self k', hx ▸ h⟩
+
+open Classical in
+/-- **`D♭` satisfies `T♭`.** The free algebra for a theory must itself be a model
+of that theory, or `thm12_hoare` would be initiality in the wrong category. Here
+it is `u ⊑♭ u ∪ v`, which holds because each `x ∈ u` witnesses itself. -/
+instance instIsLowerHoare : IsLower (Hoare.Powerdomain D) :=
+  isLower_of_le_union fun _ _ x hx => ⟨x, Finset.mem_union_left _ hx, le_rfl⟩
+
+/-- **Theorem 12 at `D♭`.** Under `T♭` the Hoare (lower) powerdomain is the free
+continuous algebra over `D`: for every continuous `f : D → E` there is exactly
+one homomorphism `D♭ → E` with `h ∘ {|·|} = f`.
+
+The single fact that carries the instantiation is `fold_le_fold_of_hoare`, and it
+consumes precisely the Hoare conjunct `∀ x ∈ u, ∃ y ∈ v, x ⊑ y` that
+`Hoare.Pf.le_def` gives. -/
+theorem thm12_hoare [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
+    [IsLower E] {f : D → E} (hf : ScottContinuous f) :
+    ∃! h : Hoare.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
+  refine thm12 hf fun u v huv => ?_
+  exact fold_le_fold_of_hoare _ _ (fun _ _ h => hf.monotone h) fun a ha =>
+    Hoare.Pf.le_def.mp huv a ha
+
+/-! ### `D♯`, the Smyth (upper) powerdomain -/
+
+open Classical in
+/-- `Pf(K(D))` under `⊢♯`. -/
+noncomputable instance instFinSetsSmyth : FinSets ↥(compacts D) (Smyth.Basis D) where
+  toFinset u := u.toFinset
+  toFinset_injective := Smyth.Basis.toFinset_injective
+  toFinset_nonempty u := u.nonempty'
+  ofFinset w hw := ⟨w, hw⟩
+  toFinset_ofFinset _ _ := rfl
+  union u v := ⟨u.toFinset ∪ v.toFinset,
+    u.nonempty'.mono Finset.subset_union_left⟩
+  mem_toFinset_union _ _ _ := Finset.mem_union
+  union_mono {u u' v v'} huu hvv b hb := by
+    rcases Finset.mem_union.mp hb with hb' | hb'
+    · obtain ⟨a, ha, hab⟩ := huu b hb'
+      exact ⟨a, Finset.mem_union_left _ ha, hab⟩
+    · obtain ⟨a, ha, hab⟩ := hvv b hb'
+      exact ⟨a, Finset.mem_union_right _ ha, hab⟩
+  singleton := Smyth.Basis.singleton
+  toFinset_singleton _ := rfl
+  singleton_mono _ _ h := Smyth.Basis.singleton_le_singleton.mpr h
+
+open Classical in
+/-- **`D♯` satisfies `T♯`**, the counterpart of `instIsLowerHoare`: in the upper
+ordering `u ∪ v ⊑♯ u`, because each `b ∈ u` is matched by itself in `u ∪ v`. Note
+the direction — adding elements makes a set *smaller* for `⊑♯`, which is exactly
+the content of axiom `4♯`. -/
+instance instIsUpperSmyth : IsUpper (Smyth.Powerdomain D) :=
+  isUpper_of_union_le fun _ _ b hb => ⟨b, Finset.mem_union_left _ hb, le_rfl⟩
+
+/-- **Theorem 12 at `D♯`.** Under `T♯` the Smyth (upper) powerdomain is the free
+continuous algebra over `D`. `fold_le_fold_of_smyth` consumes the Smyth conjunct
+`∀ y ∈ v, ∃ x ∈ u, x ⊑ y` that `Smyth.Basis.le_def` gives, and needs `4♯`. -/
+theorem thm12_smyth [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
+    [IsUpper E] {f : D → E} (hf : ScottContinuous f) :
+    ∃! h : Smyth.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
+  refine thm12 hf fun u v huv => ?_
+  exact fold_le_fold_of_smyth _ _ (fun _ _ h => hf.monotone h) fun b hb =>
+    Smyth.Basis.le_def.mp huv b hb
+
+/-! ### `D♮`, the Plotkin (convex) powerdomain -/
+
+open Classical in
+/-- `Pf(K(D))` under Egli–Milner. The carrier is a subtype of `Set`, not of
+`Finset`, so `toFinset` goes through `Set.Finite.toFinset`. -/
+noncomputable instance instFinSetsPlotkin :
+    FinSets ↥(compacts D) (Plotkin.FinCompacts D) where
+  toFinset u := u.finite.toFinset
+  toFinset_injective u v h := by
+    have h1 : ((u.finite.toFinset : Finset ↥(compacts D)) : Set ↥(compacts D))
+        = ((v.finite.toFinset : Finset ↥(compacts D)) : Set ↥(compacts D)) :=
+      congrArg (fun w : Finset ↥(compacts D) => (w : Set ↥(compacts D))) h
+    rw [Set.Finite.coe_toFinset, Set.Finite.coe_toFinset] at h1
+    exact Subtype.ext h1
+  toFinset_nonempty u := by
+    obtain ⟨a, ha⟩ := u.nonempty
+    exact ⟨a, Set.Finite.mem_toFinset _ |>.mpr ha⟩
+  ofFinset w hw := ⟨(w : Set ↥(compacts D)), w.finite_toSet, by
+    obtain ⟨a, ha⟩ := hw; exact ⟨a, ha⟩⟩
+  toFinset_ofFinset w hw := by
+    ext a
+    rw [Set.Finite.mem_toFinset]
+    exact Finset.mem_coe
+  union u v := ⟨u.carrier ∪ v.carrier, u.finite.union v.finite,
+    u.nonempty.mono Set.subset_union_left⟩
+  mem_toFinset_union u v a := by
+    rw [Set.Finite.mem_toFinset, Set.Finite.mem_toFinset, Set.Finite.mem_toFinset]
+    exact Set.mem_union _ _ _
+  union_mono {u u' v v'} huu hvv := by
+    constructor
+    · rintro a (ha | ha)
+      · obtain ⟨b, hb, hab⟩ := huu.1 a ha
+        exact ⟨b, Or.inl hb, hab⟩
+      · obtain ⟨b, hb, hab⟩ := hvv.1 a ha
+        exact ⟨b, Or.inr hb, hab⟩
+    · rintro b (hb | hb)
+      · obtain ⟨a, ha, hab⟩ := huu.2 b hb
+        exact ⟨a, Or.inl ha, hab⟩
+      · obtain ⟨a, ha, hab⟩ := hvv.2 b hb
+        exact ⟨a, Or.inr ha, hab⟩
+  singleton := Plotkin.FinCompacts.single
+  toFinset_singleton k := by
+    ext a
+    rw [Set.Finite.mem_toFinset, Finset.mem_singleton]
+    exact Plotkin.FinCompacts.mem_single
+  singleton_mono {k k'} h :=
+    ⟨fun a ha => ⟨k', rfl, (Plotkin.FinCompacts.mem_single.mp ha) ▸ h⟩,
+     fun b hb => ⟨k, rfl, (Plotkin.FinCompacts.mem_single.mp hb) ▸ h⟩⟩
+
+/-- **Theorem 12 at `D♮`, the paper's own statement.** Under `T♮` alone — the
+three semi-lattice axioms and nothing more — the Plotkin (convex) powerdomain is
+the free continuous algebra over `D`.
+
+This is the case the paper states as Theorem 12 proper; `thm12_hoare` and
+`thm12_smyth` are the two it adds in the paragraph after the proof. It is also
+the case where `fold_le_fold_of_convex` must do real work, since under `T♮` the
+operation `⋓` is unrelated to the domain order. -/
+theorem thm12_plotkin [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
+    [IsSemilattice E] {f : D → E} (hf : ScottContinuous f) :
+    ∃! h : Plotkin.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
+  refine thm12 hf fun u v huv => ?_
+  refine fold_le_fold_of_convex _ _ (fun _ _ h => hf.monotone h) ?_ ?_
+  · intro a ha
+    obtain ⟨b, hb, hab⟩ := huv.1 a ((Set.Finite.mem_toFinset _).mp ha)
+    exact ⟨b, (Set.Finite.mem_toFinset _).mpr hb, hab⟩
+  · intro b hb
+    obtain ⟨a, ha, hab⟩ := huv.2 b ((Set.Finite.mem_toFinset _).mp hb)
+    exact ⟨a, (Set.Finite.mem_toFinset _).mpr ha, hab⟩
+
+end Instances
+
+/-! ## 8. The three algebras resolve
+
+An instance that is never demanded is never checked. These force typeclass
+resolution to run the whole chain — the `FinSets` presentation, the `Binop`, and
+the axioms — at each of the three carriers, over `Prop`, the cheapest domain in
+the development. The first three lines are the paper's "*each of the algebras
+`D♮`, `D♯` and `D♭` satisfies `T♮`*"; the last two are the model conditions that
+make `thm12_smyth` and `thm12_hoare` initiality statements inside their own
+varieties. -/
+
+section Witnesses
+
+example : IsSemilattice (Hoare.Powerdomain Prop) := inferInstance
+example : IsSemilattice (Smyth.Powerdomain Prop) := inferInstance
+example : IsSemilattice (Plotkin.Powerdomain Prop) := inferInstance
+
+example : IsUpper (Smyth.Powerdomain Prop) := inferInstance
+example : IsLower (Hoare.Powerdomain Prop) := inferInstance
+
+end Witnesses
+
 end ScottDomains.ContinuousAlgebra
+
+/- Axiom audit, by `#print axioms` (run, then removed so the build emits no
+`info` lines). Every declaration depends only on the three standard axioms; none
+depends on `sorryAx`.
+
+  ScottDomains.ContinuousAlgebra.thm12                            [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.thm12_hoare                      [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.thm12_smyth                      [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.thm12_plotkin                    [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.isHom_ext                        [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.ext_unit                         [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.principal_eq_fold_unit           [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.eq_idealExtend                   [propext, Quot.sound]
+  ScottDomains.ContinuousAlgebra.scottContinuous_idealExtend      [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.scottContinuous_unit             [propext, Quot.sound]
+  ScottDomains.ContinuousAlgebra.fold_le_fold_of_hoare            [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.fold_le_fold_of_smyth            [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.fold_le_fold_of_convex           [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.instBinopIdealCompletion         [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.instIsSemilatticeIdealCompletion [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.instFinSetsHoare                 [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.instFinSetsSmyth                 [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.instFinSetsPlotkin               [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.instIsUpperSmyth                 [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.instIsLowerHoare                 [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.instSemilatticeSupAlgOrder       (none)
+
+`instSemilatticeSupAlgOrder` is the outlier and the informative one: the
+algebraic order of `⋓` and the proof that `⋓` is its join are pure equational
+reasoning from axioms 1–3, with no appeal to choice, propositional extensionality
+or quotients. Everything downstream inherits `Classical.choice` from
+`IdealCompletion`'s `idealSup` (a `dite` on the undecidable `Order.IsIdeal`),
+from `Set.Countable`/`Finset` decidability, and — in the convex case only — from
+the `choose!` that picks the Egli–Milner witnesses `φ` and `ψ`. `eq_idealExtend`
+and `scottContinuous_unit` need none of it. -/
