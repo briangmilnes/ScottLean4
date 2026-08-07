@@ -1,0 +1,46 @@
+# r0034
+# agent4 — lake build ScottDomains.CombinatorRep
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-06T23:04:16-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.CombinatorRep ===
+⚠ [838/853] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [853/853] Building ScottDomains.CombinatorRep (761ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/CombinatorRep.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/CombinatorRep.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/CombinatorRep.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/CombinatorRep.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/CombinatorRep.setup.json --json
+warning: ScottDomains/CombinatorRep.lean:361:17: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+error: ScottDomains/CombinatorRep.lean:382:6: No goals to be solved
+warning: ScottDomains/CombinatorRep.lean:383:6: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ScottDomains/CombinatorRep.lean:471:25: Try `simp at h` instead of `simpa using h`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+error: ScottDomains/CombinatorRep.lean:489:73: Invalid field `toRelEmbedding`: The environment does not contain `RelEmbedding.toRelEmbedding`, so it is not possible to project the field `toRelEmbedding` from an expression
+  OrderEmbedding.ofMapLEIff (liftRangeMap r) ⋯
+of type
+  (fun x1 x2 => x1 ≤ x2) ↪r fun x1 x2 => x1 ≤ x2
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.CombinatorRep
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.52
+Maximum resident set size (kbytes): 1695920
+--- build ---
+finished:         2026-08-06T23:04:19-07:00
+exit status:      1
+user cpu:         1.64s
+system cpu:       0.50s
+cpu use:          140%
+peak rss single:  1656 MiB (largest one process, GNU time)
+peak pss tree:    1772 MiB (process group, shared pages apportioned)
+peak rss tree:    2431 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      1
+other warnings:   3

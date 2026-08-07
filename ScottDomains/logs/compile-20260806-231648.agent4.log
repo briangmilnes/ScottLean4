@@ -1,0 +1,198 @@
+# r0034
+# agent4 — lake build ScottDomains.Combinator
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-06T23:16:48-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Combinator ===
+⚠ [838/856] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [856/856] Building ScottDomains.Combinator (1.1s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Combinator.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Combinator.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Combinator.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Combinator.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Combinator.setup.json --json
+error: ScottDomains/Combinator.lean:338:24: Invalid field notation: Function `combEval` does not have a usable parameter of type `LambdaModel ...` for which to substitute `M`
+
+Note: Such a parameter must be explicit, or implicit with a unique name, to be used by field notation
+error: ScottDomains/Combinator.lean:338:40: Invalid field notation: Function `combEval` does not have a usable parameter of type `LambdaModel ...` for which to substitute `M`
+
+Note: Such a parameter must be explicit, or implicit with a unique name, to be used by field notation
+error: ScottDomains/Combinator.lean:340:0: Not a definitional equality: the left-hand side
+  M.combEval (c₁.ap c₂)
+is not definitionally equal to the right-hand side
+  (M.app (M.combEval c₁)) (M.combEval c₂)
+error: ScottDomains/Combinator.lean:341:70: Type mismatch
+  rfl
+has type
+  ?m.14 = ?m.14
+but is expected to have type
+  M.combEval (c₁.ap c₂) = (M.app (M.combEval c₁)) (M.combEval c₂)
+warning: ScottDomains/Combinator.lean:344:6: declaration uses `sorry`
+warning: ScottDomains/Combinator.lean:347:6: declaration uses `sorry`
+error: ScottDomains/Combinator.lean:353:76: unsolved goals
+D : Type u
+inst✝ : CompletePartialOrder D
+M : LambdaModel D
+f g x : D
+⊢ (M.app ((M.app ((M.app ((M.app sorry) sorry)) f)) g)) x = (M.app f) ((M.app g) x)
+warning: ScottDomains/Combinator.lean:354:33: declaration uses `sorry`
+warning: ScottDomains/Combinator.lean:354:20: This simp argument is unused:
+  combEval_ap
+
+Hint: Omit it from the simp argument list.
+  simp only [bComb, c̵o̵m̵b̵E̵v̵a̵l̵_̵a̵p̵,̵ ̵combEval, sElem_apply, kElem_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ScottDomains/Combinator.lean:354:43: This simp argument is unused:
+  sElem_apply
+
+Hint: Omit it from the simp argument list.
+  simp only [bComb, combEval_ap, combEval, s̵E̵l̵e̵m̵_̵a̵p̵p̵l̵y̵,̵ ̵kElem_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ScottDomains/Combinator.lean:354:56: This simp argument is unused:
+  kElem_apply
+
+Hint: Omit it from the simp argument list.
+  simp only [bComb, combEval_ap, combEval, sElem_apply,̵ ̵k̵E̵l̵e̵m̵_̵a̵p̵p̵l̵y̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ScottDomains/Combinator.lean:382:43: Invalid field `appFst`: The environment does not contain `ScottDomains.Combinator.LambdaModel.appFst`, so it is not possible to project the field `appFst` from an expression
+  M
+of type `LambdaModel D`
+error: ScottDomains/Combinator.lean:391:41: Invalid field `appFst`: The environment does not contain `ScottDomains.Combinator.LambdaModel.appFst`, so it is not possible to project the field `appFst` from an expression
+  M
+of type `LambdaModel D`
+error: ScottDomains/Combinator.lean:391:72: Application type mismatch: The argument
+  M
+has type
+  LambdaModel D
+of sort `Type u` but is expected to have type
+  ℕ
+of sort `Type` in the application
+  WHom M
+error: ScottDomains/Combinator.lean:393:0: Not a definitional equality: the left-hand side
+  (WHom M 0) ψ
+is not definitionally equal to the right-hand side
+  ψ
+error: ScottDomains/Combinator.lean:393:65: Type mismatch
+  rfl
+has type
+  ?m.11 = ?m.11
+but is expected to have type
+  (WHom M 0) ψ = ψ
+error: ScottDomains/Combinator.lean:396:53: Invalid field `appFst`: The environment does not contain `ScottDomains.Combinator.LambdaModel.appFst`, so it is not possible to project the field `appFst` from an expression
+  M
+of type `LambdaModel D`
+error: ScottDomains/Combinator.lean:411:6: Unknown constant `ScottDomains.Combinator.LambdaModel.appFst_apply`
+error: ScottDomains/Combinator.lean:408:27: unsolved goals
+D : Type u
+inst✝ : CompletePartialOrder D
+M : LambdaModel D
+ψ : ScottHom D D
+hψ : ∀ (b : D), M.fstH (ψ b) = b
+k : ℕ
+c b : D
+l : List D
+h : (b :: l).length = k + 1
+hl : l.length = k
+⊢ M.iterApp (((WHom M k) ψ) (sorry (ψ b))) (List.map (⇑ψ) l) = ψ (M.iterApp c (b :: l))
+error: ScottDomains/Combinator.lean:405:2: Type mismatch
+  rfl
+has type
+  ?m.35 = ?m.35
+but is expected to have type
+  M.iterApp (((WHom M 0) ψ) c) (List.map ⇑ψ []) = ψ (M.iterApp c [])
+error: ScottDomains/Combinator.lean:498:4: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  c ≥ 0
+  b ≥ 0
+  b - c ≥ 1
+  b - c - d ≥ 1
+where
+ b := ↑n
+ c := ↑j
+ d := ↑i
+ e := ↑m
+error: ScottDomains/Combinator.lean:555:39: Application type mismatch: The argument
+  hs i
+has type
+  0 < s i
+but is expected to have type
+  s i < [].length
+in the application
+  Nat.ne_of_lt (hs i)
+error: ScottDomains/Combinator.lean:595:13: Tactic `cases` failed with a nested error:
+Dependent elimination failed: Failed to solve equation
+  List.map (⇑e) l = b✝ :: as✝
+at case `List.Mem.head`
+error: ScottDomains/Combinator.lean:598:6: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  List.map ?m.186 (List.map ?m.187 ?m.188)
+in the target expression
+  M.iterApp (M.combEval (F i)) (List.map (fun a => ψ (e a)) l) =
+    (fun a => ψ (e a)) (p (M.iterApp (o i) (List.map (⇑e) l)))
+
+D : Type u
+inst✝¹ : CompletePartialOrder D
+M : LambdaModel D
+n : ℕ
+s : Fin n → ℕ
+hs : ∀ (i : Fin n), 0 < s i
+A : Type u
+inst✝ : CompletePartialOrder A
+e : ScottHom A D
+p : ScottHom D A
+hpe : ∀ (a : A), p (e a) = a
+o : Fin n → D
+hclosed : ∀ (i : Fin n) (l : List D), l.length = s i → (∀ b ∈ l, b ∈ Set.range ⇑e) → M.iterApp (o i) l ∈ Set.range ⇑e
+F : Fin n → Comb
+hF :
+  ∀ (o : Fin n → D),
+    ∃ ψ,
+      Function.Injective ⇑ψ ∧
+        (∀ (a : D), M.fstH (ψ a) = a) ∧
+          ∀ (i : Fin n) (l : List D),
+            l.length = s i → M.iterApp (M.combEval (F i)) (List.map (⇑ψ) l) = ψ (M.iterApp (o i) l)
+ψ : ScottHom D D
+hinj : Function.Injective ⇑ψ
+left✝ : ∀ (a : D), M.fstH (ψ a) = a
+heq :
+  ∀ (i : Fin n) (l : List D), l.length = s i → M.iterApp (M.combEval (F i)) (List.map (⇑ψ) l) = ψ (M.iterApp (o i) l)
+hein : Function.Injective ⇑e
+i : Fin n
+l : List A
+hl : l.length = s i
+c : A
+hc : e c = M.iterApp (o i) (List.map (⇑e) l)
+⊢ M.iterApp (M.combEval (F i)) (List.map (fun a => ψ (e a)) l) =
+    (fun a => ψ (e a)) (p (M.iterApp (o i) (List.map (⇑e) l)))
+error: ScottDomains/Combinator.lean:616:6: Function expected at
+  IsClosureOf
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  D
+
+Hint: The identifier `IsClosureOf` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Combinator
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1714260
+--- build ---
+finished:         2026-08-06T23:16:51-07:00
+exit status:      1
+user cpu:         2.14s
+system cpu:       0.44s
+cpu use:          150%
+peak rss single:  1674 MiB (largest one process, GNU time)
+peak pss tree:    1811 MiB (process group, shared pages apportioned)
+peak rss tree:    2471 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 19
+lake errors:      2
+sorry decls:      4
+other warnings:   3
