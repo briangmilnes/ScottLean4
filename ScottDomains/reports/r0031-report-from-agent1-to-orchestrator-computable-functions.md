@@ -201,5 +201,7 @@ Log: `ScottDomains/logs/compile-20260806-201136.agent1.log`.
 Module-only build: `ScottDomains/logs/compile-20260806-201034.agent1.log`
 (919 jobs, 0 errors, 0 warnings, 0 `sorry`).
 
-Commit on branch `agent1`: recorded below by `scripts/gitcp.sh`; not pushed and
-no upstream set, per the plan.
+Commit on branch `agent1`: **`cf0cc3c`** (one commit — the module, this report,
+and the two build logs). `scripts/gitcp.sh` then reported "There is no tracking
+information for the current branch", which is the expected outcome: agents commit
+and do not push.
