@@ -363,6 +363,144 @@ theorem isLUB_val_image_of_isLUB_fp {d : Set ↥(Fp α)}
   rw [heq]
   exact hedir.isLUB_sSup
 
+/-! ### The supremum of a directed family of *finitary* projections
+
+`isLUB_val_image_of_isLUB_fp` above takes finitarity of the pointwise supremum as
+a hypothesis. This subsection discharges it over a domain. It is the keystone of
+the whole notion change: every conjunct of Lemma 28 needs continuity of its
+representing map, continuity needs least upper bounds in `Fp(U)` to be pointwise,
+and that needs exactly this.
+
+The proof runs on two observations about a directed family `d` of projections
+with pointwise supremum `P`:
+
+1. `im(p) ⊆ im(P)` for each `p ∈ d` (`range_subset_of_le`), and
+2. conversely every **compact** point of `im(P)` already lies in some `im(p)` —
+   because `k = P k = ⨆_{p ∈ d} p k` is a directed supremum and compactness of
+   `k` pushes it below a single `p k`, which `p ⊑ id` then forces to equal `k`.
+
+Together these say `K(im P) = ⋃_{p ∈ d} K(im p)` as subsets of `K(D)`, and each
+`K(im p)` is the basis of a domain by finitarity of `p`. Algebraicity of `im(P)`
+follows by transporting each computation into one `im(p)` chosen large enough. -/
+
+/-- **A compact point of `im(⨆d)` lies in `im(p)` for some `p ∈ d`.** Compactness
+of `k` applied to the directed set `{p k | p ∈ d}`, whose least upper bound is
+`P k = k`, produces one `p` with `k ⊑ p k`; `p ⊑ id` supplies the converse. -/
+theorem exists_mem_range_of_isCompactElement {d : Set (ScottHom α α)} (hne : d.Nonempty)
+    (hd : DirectedOn (· ≤ ·) d) (hp : ∀ p ∈ d, IsProjection p)
+    {k : α} (hk : IsCompactElement k) (hkP : k ∈ Set.range ⇑(sSup d)) :
+    ∃ p ∈ d, k ∈ Set.range ⇑p := by
+  have hsup : ∀ x : α, IsLUB ((fun f : ScottHom α α => f x) '' d) ((sSup d) x) := fun x => by
+    rw [ScottHom.coe_sSup_of_directed hd x]
+    exact (ScottHom.directedOn_eval_image hd x).isLUB_sSup
+  have hPk : (sSup d) k = k := (isProjection_sSup hd hp).apply_of_mem_range hkP
+  obtain ⟨_, ⟨p, hpd, rfl⟩, hkz⟩ :=
+    hk ((fun f : ScottHom α α => f k) '' d) ((sSup d) k) (hne.image _)
+      (ScottHom.directedOn_eval_image hd k) (hsup k) (le_of_eq hPk.symm)
+  exact ⟨p, hpd, ⟨k, le_antisymm ((hp p hpd).le k) hkz⟩⟩
+
+/-- **The pointwise supremum of a nonempty directed set of finitary projections on
+a domain is a finitary projection.**
+
+`isProjection_sSup` gives the equations. For the `Domain` on `im(P)`:
+
+* *directedness of the compact approximants* — two compacts below `x ∈ im(P)`
+  land in `im(p₁)` and `im(p₂)` by `exists_mem_range_of_isCompactElement`, hence
+  both in `im(p₃)` for a `p₃ ∈ d` above the pair; `im(p₃)` is algebraic, so its
+  compacts below `p₃ x` are directed, and the bound it returns is compact in `D`
+  (Lemma 5) and below `x` because `p₃ ⊑ id`;
+* *`x` is the supremum of its compact approximants* — `x = ⨆_{p ∈ d} p x`, and
+  each `p x` is the supremum in `im(p)` of *its* compacts, all of which are
+  compact approximants of `x` in `im(P)`;
+* *countability* — `countable_compacts_range`.
+
+`IsProjection.isCompactElement_iff` (Lemma 5's first sentence, which needs only
+that the map is a projection) is what lets compactness be moved between `D`,
+`im(p)` and `im(P)` at every step. -/
+theorem isFinitaryProjection_sSup [Domain α] {d : Set (ScottHom α α)} (hne : d.Nonempty)
+    (hd : DirectedOn (· ≤ ·) d) (hfp : ∀ p ∈ d, IsFinitaryProjection p) :
+    IsFinitaryProjection (sSup d) := by
+  have hp : ∀ p ∈ d, IsProjection p := fun p hpd => (hfp p hpd).isProjection
+  have hP : IsProjection (sSup d) := isProjection_sSup hd hp
+  have hsup : ∀ x : α, IsLUB ((fun f : ScottHom α α => f x) '' d) ((sSup d) x) := fun x => by
+    rw [ScottHom.coe_sSup_of_directed hd x]
+    exact (ScottHom.directedOn_eval_image hd x).isLUB_sSup
+  have hle : ∀ p ∈ d, p ≤ sSup d := fun p hpd x => (hsup x).1 ⟨p, hpd, rfl⟩
+  -- Every point of `im(p)` is a point of `im(⨆d)`.
+  have hrange : ∀ p ∈ d, Set.range ⇑p ⊆ Set.range ⇑(sSup d) := fun p hpd =>
+    range_subset_of_le (hp p hpd) hP (hle p hpd)
+  letI : CompletePartialOrder ↥(Set.range ⇑(sSup d)) := hP.rangeCompletePartialOrder
+  -- A point of `α` compact, in `im(p)` and below `x` gives a compact approximant of `x`.
+  have hmk : ∀ (x : ↥(Set.range ⇑(sSup d))) (c : α) (hcr : c ∈ Set.range ⇑(sSup d)),
+      IsCompactElement c → c ≤ x.val →
+      (⟨c, hcr⟩ : ↥(Set.range ⇑(sSup d))) ∈ compactsBelow x :=
+    fun _ _ _ hc hcx => ⟨hP.isCompactElement_iff.mpr hc, hcx⟩
+  refine ⟨hP, ?_⟩
+  refine { toIsAlgebraic := ⟨?_, ?_⟩, countable_compacts := countable_compacts_range hP }
+  · -- directedness of `compactsBelow x` in `im(⨆d)`
+    intro x k₁ hk₁ k₂ hk₂
+    have hc₁ : IsCompactElement k₁.val := hP.isCompactElement_iff.mp hk₁.1
+    have hc₂ : IsCompactElement k₂.val := hP.isCompactElement_iff.mp hk₂.1
+    obtain ⟨p₁, hp₁d, hm₁⟩ := exists_mem_range_of_isCompactElement hne hd hp hc₁ k₁.2
+    obtain ⟨p₂, hp₂d, hm₂⟩ := exists_mem_range_of_isCompactElement hne hd hp hc₂ k₂.2
+    obtain ⟨p, hpd, h₁p, h₂p⟩ := hd p₁ hp₁d p₂ hp₂d
+    have hpp : IsProjection p := hp p hpd
+    have hin₁ : k₁.val ∈ Set.range ⇑p := range_subset_of_le (hp p₁ hp₁d) hpp h₁p hm₁
+    have hin₂ : k₂.val ∈ Set.range ⇑p := range_subset_of_le (hp p₂ hp₂d) hpp h₂p hm₂
+    letI : CompletePartialOrder ↥(Set.range ⇑p) := hpp.rangeCompletePartialOrder
+    haveI : Domain ↥(Set.range ⇑p) := (hfp p hpd).domain
+    set X : ↥(Set.range ⇑p) := ⟨p x.val, Set.mem_range_self _⟩ with hX
+    have hK₁ : (⟨k₁.val, hin₁⟩ : ↥(Set.range ⇑p)) ∈ compactsBelow X :=
+      ⟨hpp.isCompactElement_iff.mpr hc₁,
+        show k₁.val ≤ p x.val from
+          (hpp.apply_of_mem_range hin₁).symm.trans_le (p.monotone hk₁.2)⟩
+    have hK₂ : (⟨k₂.val, hin₂⟩ : ↥(Set.range ⇑p)) ∈ compactsBelow X :=
+      ⟨hpp.isCompactElement_iff.mpr hc₂,
+        show k₂.val ≤ p x.val from
+          (hpp.apply_of_mem_range hin₂).symm.trans_le (p.monotone hk₂.2)⟩
+    obtain ⟨K, ⟨hKc, hKX⟩, hK₁K, hK₂K⟩ :=
+      IsAlgebraic.directedOn_compactsBelow X _ hK₁ _ hK₂
+    have hKcα : IsCompactElement K.val := hpp.isCompactElement_iff.mp hKc
+    have hKr : K.val ∈ Set.range ⇑(sSup d) := hrange p hpd K.2
+    refine ⟨⟨K.val, hKr⟩, hmk x K.val hKr hKcα ((show K.val ≤ p x.val from hKX).trans (hpp.le _)),
+      hK₁K, hK₂K⟩
+  · -- `x` is the least upper bound of its compact approximants in `im(⨆d)`
+    intro x
+    refine ⟨fun k hk => hk.2, ?_⟩
+    intro u hu
+    show x.val ≤ u.val
+    have hfix : (sSup d) x.val = x.val := hP.apply_of_mem_range x.2
+    refine (le_of_eq hfix.symm).trans ((hsup x.val).2 ?_)
+    rintro _ ⟨p, hpd, rfl⟩
+    have hpp : IsProjection p := hp p hpd
+    letI : CompletePartialOrder ↥(Set.range ⇑p) := hpp.rangeCompletePartialOrder
+    haveI : Domain ↥(Set.range ⇑p) := (hfp p hpd).domain
+    set Y : ↥(Set.range ⇑p) := ⟨p x.val, Set.mem_range_self _⟩ with hY
+    have hYlub : IsLUB (Subtype.val '' compactsBelow Y) (p x.val) :=
+      hpp.isLUB_val_image (IsAlgebraic.isLUB_compactsBelow Y)
+    refine hYlub.2 ?_
+    rintro _ ⟨K, hK, rfl⟩
+    have hKcα : IsCompactElement K.val := hpp.isCompactElement_iff.mp hK.1
+    have hKr : K.val ∈ Set.range ⇑(sSup d) := hrange p hpd K.2
+    have hKx : K.val ≤ x.val := (show K.val ≤ p x.val from hK.2).trans (hpp.le _)
+    exact hu (hmk x K.val hKr hKcα hKx)
+
+/-- **Least upper bounds in `Fp(D)` are pointwise, over a domain.**
+`isLUB_val_image_of_isLUB_fp` with its hypothesis discharged by
+`isFinitaryProjection_sSup`. This is the form the per-operator continuity proofs
+consume, and the projection counterpart of `isLUB_val_image_of_isLUB`. -/
+theorem isLUB_val_image_of_isLUB_fp' [Domain α] {d : Set ↥(Fp α)} (hne : d.Nonempty)
+    (hd : DirectedOn (· ≤ ·) d) {a : ↥(Fp α)} (ha : IsLUB d a) :
+    IsLUB ((fun q : ↥(Fp α) => q.val) '' d) a.val :=
+  isLUB_val_image_of_isLUB_fp hd
+    (isFinitaryProjection_sSup (hne.image _)
+      (by
+        rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+        obtain ⟨c, hc, h₁, h₂⟩ := hd p hp q hq
+        exact ⟨c.val, ⟨c, hc, rfl⟩, h₁, h₂⟩)
+      (by rintro _ ⟨p, _, rfl⟩; exact mem_Fp.mp p.2))
+    ha
+
 end ProjectionSups
 
 /-! ## Transporting `Domain` along an order isomorphism
