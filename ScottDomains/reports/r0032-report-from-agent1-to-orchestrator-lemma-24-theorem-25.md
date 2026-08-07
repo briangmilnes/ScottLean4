@@ -226,7 +226,11 @@ Commit SHAs on branch `agent1`, both by `scripts/gitcp.sh`:
 | # | SHA | Contents |
 | -- | --- | -------- |
 | 1 | `e5b7a45` | `Universality.lean`, `INDEX.md`, build logs, this report |
-| 2 | see `git log -1` | this table |
+| 2 | `9129671` | this table of SHAs |
+| 3 | last commit on `agent1` | row 2's own SHA, filled in after it existed |
+
+All three touch only this report except row 1, which carries the whole
+deliverable.
 
 Branch parent is `main` at `f4f9b00`, verified before work began. Not pushed and
 no upstream set, per the plan; `gitcp.sh` reported `fatal: The current branch
