@@ -1,0 +1,39 @@
+# r0034
+# agent2 — lake build ScottDomains.ClosureProperties.StrictFunction
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-06T23:14:19-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ClosureProperties.StrictFunction ===
+✖ [846/846] Building ScottDomains.ClosureProperties.StrictFunction (779ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/ClosureProperties/StrictFunction.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/ClosureProperties/StrictFunction.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/ClosureProperties/StrictFunction.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/ClosureProperties/StrictFunction.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/ClosureProperties/StrictFunction.setup.json --json
+warning: ScottDomains/ClosureProperties/StrictFunction.lean:109:8: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ScottDomains/ClosureProperties/StrictFunction.lean:246:58: unexpected token 'open'; expected 'lemma'
+error: ScottDomains/ClosureProperties/StrictFunction.lean:323:12: Unknown identifier `IsProjection`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ClosureProperties.StrictFunction
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.52
+Maximum resident set size (kbytes): 1698076
+--- build ---
+finished:         2026-08-06T23:14:22-07:00
+exit status:      1
+user cpu:         1.50s
+system cpu:       0.46s
+cpu use:          128%
+peak rss single:  1658 MiB (largest one process, GNU time)
+peak pss tree:    1774 MiB (process group, shared pages apportioned)
+peak rss tree:    2433 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   1
