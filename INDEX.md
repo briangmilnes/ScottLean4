@@ -32,10 +32,33 @@ Separate project from Playground; the domain-theory development lives here.
 - [ScottDomains/ScottDomains/FunctionSpaceCountable.lean](ScottDomains/ScottDomains/FunctionSpaceCountable.lean) — `K(D → E)` is countable, and **Theorem 7**: `D → E` is a bounded complete domain (proved without assuming `D` bounded complete)
 - [ScottDomains/ScottDomains/NormalSubposet.lean](ScottDomains/ScottDomains/NormalSubposet.lean) — the normal-subposet relation `N ◁ A` (§3.1) and **Lemma 4**, all four parts
 - [ScottDomains/ScottDomains/Projection.lean](ScottDomains/ScottDomains/Projection.lean) — embedding–projection pairs and projections; an embedding is injective, a projection surjective
+- [ScottDomains/ScottDomains/FinitaryProjection.lean](ScottDomains/ScottDomains/FinitaryProjection.lean) — finitary projections; `im(p)` as a cpo, and **Lemma 5** — the compacts of `im(p)` are `im(p) ∩ K(D)`
+- [ScottDomains/ScottDomains/NormalProjection.lean](ScottDomains/ScottDomains/NormalProjection.lean) — `p_N(x) = ⨆{y ∈ N | y ⊑ x}`: continuous, a projection, and `im(p_N) ∩ K(D) = N`
+- [ScottDomains/ScottDomains/Theorem6.lean](ScottDomains/ScottDomains/Theorem6.lean) — **Theorem 6**: normal substructures of `K(D)` correspond to the finitary projections
+- [ScottDomains/ScottDomains/FixedPoint.lean](ScottDomains/ScottDomains/FixedPoint.lean) — **Theorem 1**: `⨆ₙ fⁿ(⊥)` is the least fixed point of a continuous `f` (Kleene, not Knaster–Tarski)
+- [ScottDomains/ScottDomains/UniformFixedPoint.lean](ScottDomains/ScottDomains/UniformFixedPoint.lean) — **Theorem 3**: `fix` is the unique uniform fixed-point operator
+- [ScottDomains/ScottDomains/Product.lean](ScottDomains/ScottDomains/Product.lean) — `D × E` as a cpo (the one construction needing no case split) and **Lemma 8** parts 1–3
+- [ScottDomains/ScottDomains/Currying.lean](ScottDomains/ScottDomains/Currying.lean) — **Lemma 8.4**: `D → (E → F) ≅ (D × E) → F`, completing Lemma 8
+- [ScottDomains/ScottDomains/EffectivePresentation.lean](ScottDomains/ScottDomains/EffectivePresentation.lean) — §3.2's effective presentation: the basis enumeration with its two decidability conditions
+- [ScottDomains/ScottDomains/ComputableFunction.lean](ScottDomains/ScottDomains/ComputableFunction.lean) — the paper's **computable function**, on Mathlib's `REPred` (r0031)
+- [ScottDomains/ScottDomains/Lift.lean](ScottDomains/ScottDomains/Lift.lean) — the lift `D⊥` as a cpo, on Mathlib's `WithBot`
+- [ScottDomains/ScottDomains/StrictHom.lean](ScottDomains/ScottDomains/StrictHom.lean) — the strict function space `D →⊥ E` as a cpo
+- [ScottDomains/ScottDomains/Smash.lean](ScottDomains/ScottDomains/Smash.lean) — §4.3's smash product `D ⊗ E`; its `sSup` branches on **landing in `NonBotPair`**, not on directedness — see the r0027 defect note in the module docstring
+- [ScottDomains/ScottDomains/CoalescedSum.lean](ScottDomains/ScottDomains/CoalescedSum.lean) — §4.4's coalesced sum `D + E` as a cpo, guarded the same way
+- [ScottDomains/ScottDomains/Bifinite.lean](ScottDomains/ScottDomains/Bifinite.lean) — §6.1's **Plotkin order** and **bifinite** domain
+- [ScottDomains/ScottDomains/MinimalUpperBounds.lean](ScottDomains/ScottDomains/MinimalUpperBounds.lean) — minimal upper bounds, the operator `U` and its iterate `U^∞`, and a characterization of the Plotkin order the paper does not state
+- [ScottDomains/ScottDomains/FinitaryProjectionPoset.lean](ScottDomains/ScottDomains/FinitaryProjectionPoset.lean) — `Fp(D)` and `Fc(D)` as posets; **Theorem 16**'s algebraic-lattice conjunct and **Lemma 20**
+- [ScottDomains/ScottDomains/IdealCompletion.lean](ScottDomains/ScottDomains/IdealCompletion.lean) — **Theorem 11**: the ideal completion of a countable pre-order is a domain, and every domain so arises
+- [ScottDomains/ScottDomains/UniversalDomain.lean](ScottDomains/ScottDomains/UniversalDomain.lean) — **Theorem 22** and **Lemma 23**: closures onto `P(ℕ)`, and *representable* as the paper defines it
+- [ScottDomains/ScottDomains/RecursiveDomain.lean](ScottDomains/ScottDomains/RecursiveDomain.lean) — recursive domain equations, two formalizations of *universal domain*, and **Theorem 21** — with it, `D ≅ (D → D)`
+- [ScottDomains/ScottDomains/Powerdomain/Hoare.lean](ScottDomains/ScottDomains/Powerdomain/Hoare.lean) · [Smyth.lean](ScottDomains/ScottDomains/Powerdomain/Smyth.lean) · [Plotkin.lean](ScottDomains/ScottDomains/Powerdomain/Plotkin.lean) — §5.2's three powerdomains, each `IdealCompletion (Pf K(D))` under its pre-order
+- **`Skeleton/`** — fixed statements proved in parallel, one file per agent: [Lemma10.lean](ScottDomains/ScottDomains/Skeleton/Lemma10.lean) (bounded completeness under the operators) · [Lemma17.lean](ScottDomains/ScottDomains/Skeleton/Lemma17.lean) (bifiniteness under them) · [Section6.lean](ScottDomains/ScottDomains/Skeleton/Section6.lean) (Prop 15, Lem 19, and the one open `sorry`, Thm 18) · [Section6b.lean](ScottDomains/ScottDomains/Skeleton/Section6b.lean) (Thm 16, Lem 20) · [Sum.lean](ScottDomains/ScottDomains/Skeleton/Sum.lean) (the `+` and `⊗` conjuncts)
 - [ScottDomains/lakefile.toml](ScottDomains/lakefile.toml) — project config (pinned Mathlib v4.32.2)
 - [ScottDomains/README.md](ScottDomains/README.md) — what the project develops, and the source paper
 - [ScottDomains/papers/Gunter Scott 1990.pdf](ScottDomains/papers/Gunter%20Scott%201990.pdf) — **Gunter & Scott, "Semantic Domains" (HTCS Vol. B, 1990)** — the source paper (copy from D. Scott)
-- [ScottDomains/docs/PaperInventory.md](ScottDomains/docs/PaperInventory.md) — inventory of the paper's definitions & theorems (the work list)
+- [ScottDomains/docs/PaperInventory.md](ScottDomains/docs/PaperInventory.md) — inventory of the paper's definitions & theorems (the work list) — [.pdf](ScottDomains/docs/PaperInventory.pdf)
+- [ScottDomains/docs/Performance.md](ScottDomains/docs/Performance.md) — what a whole validation costs: time, memory, and how far the build parallelizes — [.pdf](ScottDomains/docs/Performance.pdf)
+- [ScottDomains/plans/](ScottDomains/plans) · [ScottDomains/reports/](ScottDomains/reports) · [ScottDomains/prompts/](ScottDomains/prompts) — GRASE round artifacts: plans addressed to each agent, their reports back, and the session transcript one file per interaction
 - ScottDomains/docs/SymbolMap — reference sheet: PDF garbling→Unicode (reading the paper) + symbol↔Unicode↔Lean input↔display (reading/writing the Lean) — [.tex](ScottDomains/docs/SymbolMap.tex) · [.pdf](ScottDomains/docs/SymbolMap.pdf)
 
 ## Notes (LaTeX source + compiled PDF)

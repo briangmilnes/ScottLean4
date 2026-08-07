@@ -29,14 +29,22 @@ Both conditions live on `ℕ` and `Finset ℕ` — the *indices* — rather than
 domain, which is the point of a presentation: it moves decidability questions
 onto a countable index set where they can be asked at all.
 
-## What is deliberately absent
+## The computable function (r0031)
 
-The paper's notion of a **computable function** needs "recursively enumerable",
-and this Mathlib (v4.32.2) has no `RePred` or equivalent under a ready name — a
-grep across the whole library finds no definition of r.e. predicates. Stating it
-would mean building that notion first, which is recursion theory rather than
-domain theory. It is left out rather than approximated, and recorded as a gap in
-`docs/PaperInventory.md`.
+An earlier version of this docstring said the paper's **computable function**
+could not be stated because "this Mathlib (v4.32.2) has no `RePred` or equivalent
+under a ready name — a grep across the whole library finds no definition of r.e.
+predicates". **That was wrong, and the error was the grep's capitalization.**
+Mathlib spells it `REPred`, at `Mathlib/Computability/RE.lean:157`:
+`REPred p := Partrec fun a => Part.assert (p a) fun _ => Part.some ()`, the domain
+of a partial recursive function. `ComputablePred` sits beside it.
+
+The definition is now in `ScottDomains/ComputableFunction.lean` (r0031). One
+consequence for *this* structure, recorded here because it constrains callers:
+`decidableLE` is too weak to prove anything computable, since a Lean `Decidable`
+instance may be `Classical.dec`. A computability result needs a *recursiveness*
+hypothesis on the enumeration — `RecursiveLE` in `ComputableFunction.lean` — and
+whether that should instead become a field of this structure is an open decision.
 -/
 
 namespace ScottDomains
