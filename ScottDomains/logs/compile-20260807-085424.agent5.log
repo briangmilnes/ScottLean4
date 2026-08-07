@@ -1,0 +1,72 @@
+# r0036
+# agent5 — lake build ScottDomains.Colimit
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-07T08:54:24-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Colimit ===
+✖ [844/844] Building ScottDomains.Colimit (832ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/Colimit.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Colimit.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Colimit.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Colimit.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Colimit.setup.json --json
+error: ScottDomains/Colimit.lean:278:32: Unknown constant `Finset.fintype`
+error: ScottDomains/Colimit.lean:352:13: failed to synthesize instance of type class
+  PartialOrder (stage n).fst
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Colimit.lean:354:0: Not a definitional equality: the left-hand side
+  stgEmb (n + 1)
+is not definitionally equal to the right-hand side
+  stepEmb (stgEmb n)
+error: ScottDomains/Colimit.lean:354:69: Type mismatch
+  rfl
+has type
+  ?m.13 = ?m.13
+but is expected to have type
+  stgEmb (n + 1) = stepEmb (stgEmb n)
+error: ScottDomains/Colimit.lean:358:2: Type mismatch
+  stepEmb_bot (stgEmb n) (stgEmb_bot n)
+has type
+  (stepEmb (stgEmb n)) ⊥ = ⊥
+but is expected to have type
+  (stgEmb (n + 1)) ⊥ = ⊥
+error: ScottDomains/Colimit.lean:377:23: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Set.range ⇑(stepEmb ?f)
+in the target expression
+  Set.range ⇑(stepEmb (stgEmb n)) ◁ Set.univ
+
+n : ℕ
+hM : Set.range (mpairMap (stgEmb n)) ◁ Set.univ
+⊢ Set.range ⇑(stepEmb (stgEmb n)) ◁ Set.univ
+
+Note: The target expression is not type-correct under the `instances` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    stepEmb (stgEmb n)
+  has type
+    @OrderEmbedding (Step (Stg n)) (Step (Stg (n + 1))) (instPartialOrderStep (Stg n)).toLE
+      (instPartialOrderStep (Stg (n + 1))).toLE
+  but is expected to have type
+    @OrderEmbedding (Stg (n + 1)) (Stg (n + 1 + 1)) (instPartialOrderStg (n + 1)).toLE
+      (instPartialOrderStg (n + 1 + 1)).toLE
+  in the application
+    ⇑(stepEmb (stgEmb n))
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Colimit
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.54
+Maximum resident set size (kbytes): 1709624
+--- build ---
+finished:         2026-08-07T08:54:26-07:00
+exit status:      1
+user cpu:         1.68s
+system cpu:       0.49s
+cpu use:          141%
+peak rss single:  1669 MiB (largest one process, GNU time)
+peak pss tree:    1806 MiB (process group, shared pages apportioned)
+peak rss tree:    2475 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 6
+lake errors:      2
+sorry decls:      0
+other warnings:   0
