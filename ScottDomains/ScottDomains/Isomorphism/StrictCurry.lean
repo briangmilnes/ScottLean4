@@ -73,7 +73,9 @@ theorem scottContinuous_subtypeVal :
     obtain ⟨c, hc, hac, hbc⟩ := hS a ha b hb
     exact ⟨c.val, ⟨c, hc, rfl⟩, hac, hbc⟩
   have hFs : F = sSup S := hF.unique (DirectedOn.isLUB_sSup hS)
-  have hval : F.val = sSup (Subtype.val '' S) := by rw [hFs]
+  have hval : F.val = sSup (Subtype.val '' S) := by
+    rw [hFs]
+    rfl
   rw [hval]
   exact hdir.isLUB_sSup
 
@@ -214,8 +216,15 @@ theorem scottContinuous_smashPair : ScottContinuous (smashPair : α × β → Sm
 /-! ### Strict uncurrying -/
 
 /-- Forgetting strictness in the codomain of `g : D ◦→ (E ◦→ F)`. -/
-def strictToScottHom (g : StrictHom α (StrictHom β γ)) : ScottHom α (ScottHom β γ) :=
+noncomputable def strictToScottHom (g : StrictHom α (StrictHom β γ)) :
+    ScottHom α (ScottHom β γ) :=
   ⟨fun x => (g.val x).val, g.val.scottContinuous.comp scottContinuous_subtypeVal⟩
+
+/-- A doubly strict map is `⊥` as soon as its **first** argument is `⊥`: `g ⊥` is
+the least element of `E ◦→ F`, which is the constant-`⊥` function. -/
+theorem strictHom_apply_bot_left (g : StrictHom α (StrictHom β γ)) (y : β) :
+    (g.val (⊥ : α)).val y = ⊥ :=
+  congrArg (fun k : StrictHom β γ => k.val y) g.2
 
 /-- **Strict apply.** `(D ⊗ E) ◦→ F` from `D ◦→ (E ◦→ F)`. -/
 noncomputable def uncurryStrict (g : StrictHom α (StrictHom β γ)) :
@@ -301,10 +310,10 @@ noncomputable def smashCurry :
           by_contra hcon
           exact hb ⟨fun hbx => hcon (Or.inl hbx), fun hby => hcon (Or.inr hby)⟩
         rcases hxy with hx | hy
-        · rw [hx, g.2]
-          exact bot_le
-        · rw [hy, (g.val x).2]
-          exact bot_le
+        · rw [hx]
+          exact (strictHom_apply_bot_left g y).trans_le bot_le
+        · rw [hy]
+          exact ((g.val x).2).trans_le bot_le
     · intro hle z
       induction z using WithBot.recBotCoe with
       | bot => exact le_of_eq ((uncurryStrict g).2.trans (uncurryStrict h).2.symm)

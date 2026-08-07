@@ -5,6 +5,12 @@ import ScottDomains.Lift
 import ScottDomains.Product
 import ScottDomains.Bifinite
 import ScottDomains.FinitaryProjectionPoset
+import ScottDomains.Isomorphism.Smash
+import ScottDomains.Isomorphism.Lift
+import ScottDomains.Isomorphism.Copair
+import ScottDomains.Isomorphism.StrictCurry
+import ScottDomains.Isomorphism.Distribute
+import ScottDomains.Isomorphism.Counterexample
 
 /-!
 # Lemma 9 and Theorem 14, recovered from the PDF
@@ -17,8 +23,10 @@ r0032 recovered both. The evidence — the raw extraction, the page content
 stream decoded through the Computer Modern font encodings, and the rendered page
 images — is in [`docs/StatementRecovery.md`](../../docs/StatementRecovery.md).
 
-Every statement here is open (`sorry`). This file fixes *what the results say*;
-proving them is later work.
+Round r0034 closed every statement in this file. The proofs live under
+`ScottDomains.Isomorphism` (five modules under `ScottDomains/Isomorphism/`) and
+each theorem below names the map that discharges it, so this file continues to
+read as the statement of the results rather than as their proof.
 
 ## Confidence, per statement
 
@@ -96,15 +104,15 @@ Confidence **certain**. The operator is `\n` = `0x0A` = `cmsy` `circlemultiply`,
 read from the page content stream; Lemma 8.1 one line above carries `\002` =
 `0x02` = `multiply` in the identical position, which is what makes the pair of
 lemmas the product laws and their smash analogues. -/
-theorem lem9_1 : Nonempty (Smash α β ≃o Smash β α) := by
-  sorry
+theorem lem9_1 : Nonempty (Smash α β ≃o Smash β α) :=
+  ⟨Isomorphism.smashComm⟩
 
 /-- **Lemma 9.2.** `(D ⊗ E) ⊗ F ≅ D ⊗ (E ⊗ F)` — the smash product is
 associative.
 
 Confidence **certain**; same decoding as `lem9_1`. -/
-theorem lem9_2 : Nonempty (Smash (Smash α β) γ ≃o Smash α (Smash β γ)) := by
-  sorry
+theorem lem9_2 : Nonempty (Smash (Smash α β) γ ≃o Smash α (Smash β γ)) :=
+  ⟨Isomorphism.smashAssoc⟩
 
 /-- **Lemma 9.3, corrected.** `(E ⊕ F) ◦→ D ≅ (E ◦→ D) × (F ◦→ D)` — the
 coalesced sum is the coproduct in the category of pointed cpo's and strict
@@ -122,8 +130,8 @@ continuous functions, then there is a unique strict continuous function `[f, g]`
 which completes the following diagram". Uniqueness of `[f, g]` in `f` and `g` is
 exactly this isomorphism. -/
 theorem lem9_3 :
-    Nonempty (StrictHom (CoalescedSum β γ) α ≃o StrictHom β α × StrictHom γ α) := by
-  sorry
+    Nonempty (StrictHom (CoalescedSum β γ) α ≃o StrictHom β α × StrictHom γ α) :=
+  ⟨Isomorphism.coalescedSumCopair⟩
 
 /-- **Lemma 9.4.** `D ◦→ (E ◦→ F) ≅ (D ⊗ E) ◦→ F` — strict currying; the smash
 product is the tensor for which the strict function space is the internal hom.
@@ -132,8 +140,8 @@ Confidence **certain**. This is Lemma 8.4 (`scottHomCurry`, r0021) with `×`
 replaced by `⊗` and `→` by `◦→` throughout, and the paper supplies the two maps
 by name on the preceding page: `strict apply` and `strict curry`. -/
 theorem lem9_4 :
-    Nonempty (StrictHom α (StrictHom β γ) ≃o StrictHom (Smash α β) γ) := by
-  sorry
+    Nonempty (StrictHom α (StrictHom β γ) ≃o StrictHom (Smash α β) γ) :=
+  ⟨Isomorphism.smashCurry⟩
 
 /-- **Lemma 9.5, corrected.** `D ⊗ (E ⊕ F) ≅ (D ⊗ E) ⊕ (D ⊗ F)` — the smash
 product distributes over the coalesced sum.
@@ -146,8 +154,8 @@ positions. That form is false. On the same witness as `lem9_3` —
 corrected right side `5`. Replacing the second `E` by `F` is the only completion
 consistent with the left-hand side, and it is the standard distributive law. -/
 theorem lem9_5 :
-    Nonempty (Smash α (CoalescedSum β γ) ≃o CoalescedSum (Smash α β) (Smash α γ)) := by
-  sorry
+    Nonempty (Smash α (CoalescedSum β γ) ≃o CoalescedSum (Smash α β) (Smash α γ)) :=
+  ⟨Isomorphism.smashDistribCoalescedSum⟩
 
 /-- **Lemma 9.6.** `D⊥ ◦→ E ≅ D → E` — lifting is left adjoint to the forgetful
 functor from pointed cpo's and strict maps to cpo's and continuous maps. This is
@@ -156,8 +164,8 @@ the sentence §4.4 already makes operationally, with `up : D → D⊥` the unit 
 
 Confidence **certain**; decoded as `D` `\077` (`0x3F` = `perpendicular`,
 subscript) `\016\041` `E` `\030=` `D` `\041` `E`. -/
-theorem lem9_6 : Nonempty (StrictHom (WithBot α) β ≃o ScottHom α β) := by
-  sorry
+theorem lem9_6 : Nonempty (StrictHom (WithBot α) β ≃o ScottHom α β) :=
+  ⟨Isomorphism.liftStrictHomIso⟩
 
 end Lemma9
 
