@@ -8,31 +8,62 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
-## Progress (as of r0025, 2026-0806)
+## Progress (as of r0027, 2026-0806)
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **10** | 3 | ≈13 |
-| 2 | **Numbered** results complete | **7** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8) | 22 | **29** |
+| 2 | **Numbered** results complete | **9** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Prop 15, Lem 19) | 20 | **29** |
+| 2a | — of which **partially** proved | Lem 10 (5 of 6 conjuncts — `+` unstated), Lem 17 (3 of 5 — `⊗` and `+` unstated) | — | — |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **142** live (+6 commented out as unused) | — | — |
-| 6 | `sorry` in the development | — | **10**, all in `Skeleton.lean` | — |
+| 5 | Theorems in the development | **199** live (+6 commented out as unused) | — | — |
+| 6 | `sorry` in the development | — | **1**: `thm18` in `Skeleton/Section6.lean` | — |
 
-**The `sorry` burn-down (from r0026).** For the first time in 26 rounds the
-development carries `sorry`s. They are deliberate scaffolding: fixed *statements*
-of outstanding results, all confined to `ScottDomains/Skeleton.lean`, so that
-three agent worktrees can prove them in parallel without any agent editing a
-declaration another depends on. Every other module remains `sorry`-free, and the
-count above is the burn-down metric — it goes 10 → 0.
+Row 5 counts lines matching `^(@[…] )?(theorem|lemma) ` across the 27 modules.
 
-| # | Open statement | Result |
-| -- | -------------- | ------ |
-| 1 | `prop15` | Prop 15 — every bounded complete domain is bifinite |
-| 2 | `thm18` | Thm 18 — `D`, `D → D` domains ⟹ `D` bifinite |
-| 3 | `lem19` | Lem 19 — the image of a closure is a domain |
-| 4–7 | `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict` | Lem 10 — bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥`. The `→` conjunct is **already proved** (Thm 7's bounded-complete half, r0007) |
-| 8–10 | `lem17_prod`, `lem17_lift`, `lem17_fun` | Lem 17 — bifiniteness closed under `×`, `()⊥`, `→` |
+**The `sorry` burn-down (from r0026).** The `sorry`s are deliberate scaffolding:
+fixed *statements* of outstanding results, confined to `ScottDomains/Skeleton/`,
+one file per agent worktree, so that three agents can prove them in parallel
+without any agent editing a declaration another depends on. Every other module
+remains `sorry`-free, and the count above is the burn-down metric — it goes
+10 → 0. Round r0027, run as three agents in parallel, took it **10 → 1**.
+
+| # | Open statement | Result | State after r0027 |
+| -- | -------------- | ------ | ----------------- |
+| 1 | `prop15` | Prop 15 — every bounded complete domain is bifinite | **proved** |
+| 2 | `thm18` | Thm 18 — `D`, `D → D` domains ⟹ `D` bifinite | **`sorry`** — the paper gives no proof, citing Smyth [Smy83a]; the obstacle is recorded in the docstring |
+| 3 | `lem19` | Lem 19 — the image of a closure is a domain | **proved**, via `IsClosure.rangeCompletePartialOrder` |
+| 4–7 | `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict` | Lem 10 — bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥`. The `→` conjunct is **already proved** (Thm 7's bounded-complete half, r0007) | **all four proved**; Lem 10 is then **5 of 6** conjuncts — `D + E` is not stated |
+| 8–10 | `lem17_prod`, `lem17_lift`, `lem17_fun` | Lem 17 — bifiniteness closed under `×`, `()⊥`, `→` | **all three proved**; Lem 17 is then **3 of 5** conjuncts — `D ⊗ E` and `D + E` are not stated |
+
+**Why `+` is unstated in both.** `ScottDomains/CoalescedSum.lean` is 181 lines of
+ingredients — `NonBotSum`, `sumBase`, the same-side lemmas, `sSup_leftParts_ne_bot`
+— but it defines **no `sSup` and no `CompletePartialOrder` instance**, and it is not
+imported by `ScottDomains.lean`. There is no cpo `D + E` to state a conjunct over.
+Finishing it is the prerequisite for `lem10_sum` and `lem17_sum`, and its `sSup`
+must branch on landing in `NonBotSum`, not on directedness — the defect fixed in
+`ScottHom` and then in `Smash` would otherwise recur a third time. `lem17_smash`
+is unstated for no such reason: it was simply left out of the r0026 skeleton.
+
+**The `smashSup` defect (r0027).** `lem10_smash` was not merely open: as `smashSup`
+stood, it was **false**, and the kernel confirmed a refutation. `smashSup` branched
+its `dite` on the base being nonempty *and directed*, so a merely **bounded**
+non-directed base fell to the adjoined `⊥`, which is not even an upper bound.
+Witness: `D = Prop × Prop`, `E = Prop`, `s = {↑((True, False), True),
+↑((False, True), True)}`, bounded by `↑((True, True), True)`. This is the same
+defect `ScottHom.lean` records having already hit for the function space. The
+repair branches on the coordinatewise supremum landing in `NonBotPair` — the
+condition under which it is an element of `D ⊗ E` at all, rather than a merely
+sufficient condition for it. `smashSup_of_directed` and `smashSup_of_empty` kept
+their statements and were reproved, which is the agreement claim stated in Lean
+rather than in prose, and `smashCpo` needed no change.
+
+Kernel check on the r0027 merges (`#print axioms`): all ten proved statements
+plus `smashCpo`, `smashSup_of_directed` and `smashSup_of_empty` depend only on
+`propext`, `Classical.choice`, `Quot.sound` — `lem10_prod` and `lem19` do not even
+need `Classical.choice`. None depends on `sorryAx`. `thm18` does, as its `sorry`
+requires.
 
 Row 2 counts only the paper's 30 **numbered** results (Theorems / Lemmas /
 Proposition 1–30). Row 3 counts the claims the paper makes **in prose** rather
@@ -78,7 +109,7 @@ it exists and what is instructive about it, and the build is unchanged — which
 also confirms that the three `@[simp]` ones among them were never firing
 implicitly.
 
-The development is **23 modules, 3254 lines, 0 `sorry`, 0 warnings**. Counts of
+The development is **27 modules, 4440 lines, 1 `sorry`, 0 other warnings**. Counts of
 definitions, results and theorems are in the Progress table above — they are not
 repeated here, so that this section cannot drift out of step with it. What each
 round delivered:
