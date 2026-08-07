@@ -308,6 +308,39 @@ theorem exists_isLUB_pair (X Y : U₀) (h : BddAbove ({X, Y} : Set U₀)) :
 
 end U₀
 
+/-! ### The basis is nondegenerate
+
+Three `def`s and a `Prop`-valued predicate can be satisfied vacuously: if `E` or
+`Ivl` were mis-stated so that every basis element were `[0, 1)`, `U₀` would be a
+one-point poset, every instance above would still hold, and `U` would be the
+one-point cpo. `[0, 1/2)` is the witness that rules that out. -/
+
+theorem half_mem_S : (1 / 2 : ℚ) ∈ S := ⟨1, 1, one_pos, by norm_num, by norm_num⟩
+
+theorem half_mem_E : (1 / 2 : ℚ) ∈ E := ⟨1, 1, one_pos, by norm_num, by norm_num⟩
+
+theorem isBasic_lowerHalf : IsBasic (Ivl 0 (1 / 2)) := by
+  refine ⟨⟨0, zero_mem_S, le_rfl, by norm_num⟩, {((0 : ℚ), (1 / 2 : ℚ))}, ?_, ?_⟩
+  · intro p hp
+    rw [Finset.mem_singleton] at hp
+    subst hp
+    exact ⟨zero_mem_E, half_mem_E⟩
+  · rw [unionOf_singleton]
+
+/-- `[0, 1/2)`, a basis element strictly above the least one. -/
+def lowerHalf : U₀ := U₀.mk (Ivl 0 (1 / 2)) isBasic_lowerHalf
+
+/-- `[0, 1) < [0, 1/2)`: strictly more information, strictly fewer points. `1/2`
+is the point that separates them. -/
+theorem bot_lt_lowerHalf : (⊥ : U₀) < lowerHalf := by
+  refine lt_of_le_of_ne bot_le fun h => ?_
+  have hmem : (1 / 2 : ℚ) ∈ U₀.toSet lowerHalf := by
+    rw [← h]
+    exact half_mem_S
+  exact absurd hmem.2.2 (lt_irrefl _)
+
+instance : Nontrivial U₀ := ⟨⊥, lowerHalf, bot_lt_lowerHalf.ne⟩
+
 /-! ### `U`: the domain of ideals over `U₀` -/
 
 /-- **§7.3's universal domain `U`**: the domain of ideals over the dyadic
