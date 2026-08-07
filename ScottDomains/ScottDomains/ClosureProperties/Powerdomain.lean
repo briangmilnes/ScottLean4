@@ -294,7 +294,9 @@ theorem finite_plotkinBasisOf (hfin : N.Finite) : (plotkinBasisOf N).Finite := b
       (fun w : Plotkin.FinCompacts D => w.carrier) ⁻¹'
         {t | t ⊆ (Subtype.val ⁻¹' N : Set ↥(compacts D))} := fun w hw x hx => hw x hx
   refine Set.Finite.subset (Set.Finite.preimage ?_ (finite_preimage_val hfin).finite_subsets) hsub
-  exact (fun w _ v _ h => Plotkin.FinCompacts.ext fun a => by rw [show w.carrier = v.carrier from h])
+  intro w _ v _ h
+  exact Plotkin.FinCompacts.ext fun a => by
+    simp only [← Plotkin.FinCompacts.mem_carrier, show w.carrier = v.carrier from h]
 
 /-- **`p_N[w]` is the greatest member of `Pf(N)` that is `⊑♮`-below `w`.**
 Egli–Milner is the conjunction of the two previous orderings, and `p_N[w]` is
