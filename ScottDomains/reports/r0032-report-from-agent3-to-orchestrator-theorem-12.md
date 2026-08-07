@@ -14,7 +14,7 @@ related:
 
 ## Result in one line
 
-`ScottDomains/ScottDomains/ContinuousAlgebra.lean`, 1254 lines, 79 top-level
+`ScottDomains/ScottDomains/ContinuousAlgebra.lean`, 1254 lines, 84 top-level
 declarations, **0 `sorry`**, `lake build` exits 0 with **0 errors and 0
 warnings**. Theorem 12 is kernel-accepted three times — `thm12_plotkin` for `T♮`
 at `D♮`, `thm12_smyth` for `T♯` at `D♯`, `thm12_hoare` for `T♭` at `D♭` — each
@@ -203,7 +203,7 @@ Eight sections, of which 1–6 are generic in the carrier and 7 instantiates.
 | # | quantity | value |
 | - | -------- | ----- |
 | 1 | lines in `ContinuousAlgebra.lean` | 1254 |
-| 2 | top-level declarations | 79 (51 `theorem`, 10 `def`, 8 `instance`, 6 `class`/`structure`, 4 `example`) |
+| 2 | top-level declarations | 84 (53 `theorem`, 10 `def`, 10 `instance`, 5 `class`, 1 `structure`, 5 `example`) |
 | 3 | `sorry` in the file | **0** (the string "sorryAx" appears once, in the audit comment) |
 | 4 | `lake build` errors | 0 |
 | 5 | `lake build` warnings | 0 |
