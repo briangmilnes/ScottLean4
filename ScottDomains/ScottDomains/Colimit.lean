@@ -465,4 +465,201 @@ theorem isNormalIn_range_liftStg {n m : ℕ} (h : n ≤ m) :
       (isNormalIn_image_range (fun _ _ => (stgEmb m).map_rel_iff) ih)
       (isNormalIn_range_stgEmb m)
 
+/-! ## The connecting map is not `eta`, kernel-checked
+
+§7.4 states that "each stage of the construction is embedded in the next one by
+the map `x ↦ (x, {x})`". At stage 0 → 1 that is the only map available and it is
+`stgEmb 0`. At stage 1 → 2 the two differ, and the difference is what makes the
+`eta` chain's colimit fail to be a fixed point of `M`: `eta` sends §7.4's
+`b = (⊥, ∅)` to `(b, {b})` while `M` applied to the previous connecting map sends
+it to `(a, ∅)`. Both are among §7.4's own five elements of `I⁺⁺`. -/
+
+section EtaCounterexample
+
+/-- §7.4's `b = (⊥, ∅)`, as a point of stage 1. -/
+def pointB1 : Stg 1 := mk (⟨(⊥ : Stg 0), ∅, by simp⟩ : MPair (Stg 0))
+
+/-- `b` is not `⊥ = a = (⊥, {⊥})`: the printed relation fails because the cover is
+empty, and the identification fails because `∅` and `↑⊥` generate different
+up-sets. -/
+theorem not_pointB1_le_bot : ¬ (pointB1 ≤ (⊥ : Stg 1)) := by
+  rintro (⟨z, hz, -⟩ | ⟨-, hu⟩)
+  · exact absurd hz (Finset.notMem_empty z)
+  · have hmem : (⊥ : Stg 0) ∈ (⊥ : MPair (Stg 0)).upper := mem_upper_eta.mpr le_rfl
+    obtain ⟨z, hz, -⟩ := (Set.ext_iff.mp hu (⊥ : Stg 0)).mpr hmem
+    exact absurd hz (Finset.notMem_empty z)
+
+theorem pointB1_ne_bot : pointB1 ≠ (⊥ : Stg 1) := fun h => not_pointB1_le_bot (le_of_eq h)
+
+/-- **The connecting map differs from §7.4's `eta` at the second step.** If they
+agreed at `b` then `eta b ⊑ (a, ∅)` in `M(I⁺)`, and both disjuncts of
+`MPair.le_iff` force `b ⊑ a = ⊥`, which `not_pointB1_le_bot` refutes. -/
+theorem stgEmb_ne_mk_eta : stgEmb 1 pointB1 ≠ mk (eta pointB1) := by
+  intro h
+  have hstep : (mk (eta pointB1) : Stg 2) ≤ stgEmb 1 pointB1 := le_of_eq h.symm
+  have hle : eta pointB1 ≤ mpairMap (stgEmb 0) (⟨(⊥ : Stg 0), ∅, by simp⟩ : MPair (Stg 0)) :=
+    hstep
+  have hbase : (mpairMap (stgEmb 0) (⟨(⊥ : Stg 0), ∅, by simp⟩ : MPair (Stg 0))).base
+      = (⊥ : Stg 1) := stgEmb_bot 0
+  rcases hle with hp | ⟨hb, -⟩
+  · rw [MPair.PaperLE, hbase] at hp
+    exact not_pointB1_le_bot (mem_upper_eta.mp hp)
+  · exact pointB1_ne_bot (hbase ▸ hb)
+
+end EtaCounterexample
+
+/-! ## The ω-colimit `A∞` -/
+
+/-- A **germ**: an element of some stage of the chain. -/
+def Germ : Type := Σ n : ℕ, Stg n
+
+instance instCountableGerm : Countable Germ := inferInstanceAs (Countable (Σ n : ℕ, Stg n))
+
+/-- The pre-order on germs: lift both to the later of the two stages and compare
+there. `germLE_at` says any common stage gives the same answer, because `liftStg`
+is an order embedding. -/
+def germLE (p q : Germ) : Prop :=
+  liftStg (le_max_left p.1 q.1) p.2 ≤ liftStg (le_max_right p.1 q.1) q.2
+
+/-- **The comparison does not depend on the stage it is taken at.** -/
+theorem germLE_at {p q : Germ} {N : ℕ} (hp : p.1 ≤ N) (hq : q.1 ≤ N) :
+    germLE p q ↔ liftStg hp p.2 ≤ liftStg hq q.2 := by
+  have hMN : max p.1 q.1 ≤ N := max_le hp hq
+  rw [liftStg_trans (le_max_left p.1 q.1) hMN p.2 hp,
+    liftStg_trans (le_max_right p.1 q.1) hMN q.2 hq, liftStg_le_liftStg hMN]
+  exact Iff.rfl
+
+theorem germLE_refl (p : Germ) : germLE p p :=
+  (germLE_at (le_refl p.1) (le_refl p.1)).mpr le_rfl
+
+theorem germLE_trans {p q r : Germ} (h₁ : germLE p q) (h₂ : germLE q r) : germLE p r := by
+  have hp : p.1 ≤ max (max p.1 q.1) r.1 := (le_max_left p.1 q.1).trans (le_max_left _ _)
+  have hq : q.1 ≤ max (max p.1 q.1) r.1 := (le_max_right p.1 q.1).trans (le_max_left _ _)
+  have hr : r.1 ≤ max (max p.1 q.1) r.1 := le_max_right _ _
+  exact (germLE_at hp hr).mpr
+    (((germLE_at hp hq).mp h₁).trans ((germLE_at hq hr).mp h₂))
+
+instance instPreorderGerm : Preorder Germ where
+  le := germLE
+  le_refl := germLE_refl
+  le_trans _ _ _ := germLE_trans
+
+/-- **`A∞`**, the ω-colimit of `I ⊴ I⁺ ⊴ I⁺⁺ ⊴ ⋯`: germs modulo the pre-order's
+own equivalence, which is the same identification `Step` performs at each finite
+stage. -/
+def Ainf : Type := Antisymmetrization Germ (· ≤ ·)
+
+instance instPartialOrderAinf : PartialOrder Ainf :=
+  inferInstanceAs (PartialOrder (Antisymmetrization Germ (· ≤ ·)))
+
+instance instCountableAinf : Countable Ainf := inferInstanceAs (Countable (Quotient _))
+
+/-- The canonical map from stage `n` into the colimit. -/
+def incl (n : ℕ) (x : Stg n) : Ainf := toAntisymmetrization (· ≤ ·) (⟨n, x⟩ : Germ)
+
+theorem incl_surjective (q : Ainf) : ∃ (n : ℕ) (x : Stg n), incl n x = q :=
+  Quotient.inductionOn' q fun p => ⟨p.1, p.2, rfl⟩
+
+/-- Comparison in the colimit is comparison at any stage above both indices. -/
+theorem incl_le_incl_iff {n m N : ℕ} (x : Stg n) (y : Stg m) (hn : n ≤ N) (hm : m ≤ N) :
+    incl n x ≤ incl m y ↔ liftStg hn x ≤ liftStg hm y := germLE_at hn hm
+
+/-- **Each `incl n` is an order embedding**: the colimit does not collapse a
+stage. -/
+@[simp] theorem incl_le_incl {n : ℕ} (x y : Stg n) : incl n x ≤ incl n y ↔ x ≤ y := by
+  rw [incl_le_incl_iff x y (le_refl n) (le_refl n), liftStg_self, liftStg_self]
+
+theorem incl_injective (n : ℕ) : Function.Injective (incl n) := fun x y h =>
+  le_antisymm ((incl_le_incl x y).mp h.le) ((incl_le_incl y x).mp h.ge)
+
+theorem incl_lift {n m : ℕ} (h : n ≤ m) (x : Stg n) : incl m (liftStg h x) = incl n x := by
+  refine le_antisymm ?_ ?_
+  · rw [incl_le_incl_iff _ _ (le_refl m) h, liftStg_self]
+  · rw [incl_le_incl_iff _ _ h (le_refl m), liftStg_self]
+
+theorem range_incl_subset {n m : ℕ} (h : n ≤ m) : Set.range (incl n) ⊆ Set.range (incl m) := by
+  rintro _ ⟨x, rfl⟩
+  exact ⟨liftStg h x, incl_lift h x⟩
+
+theorem incl_zero_le (q : Ainf) : incl 0 (⊥ : Stg 0) ≤ q := by
+  obtain ⟨m, y, rfl⟩ := incl_surjective q
+  rw [incl_le_incl_iff _ _ (Nat.zero_le m) (le_refl m), liftStg_bot, liftStg_self]
+  exact bot_le
+
+instance instOrderBotAinf : OrderBot Ainf where
+  bot := incl 0 ⊥
+  bot_le := incl_zero_le
+
+/-- Each stage's `⊥` is the colimit's `⊥`, because every connecting map preserves
+it (`stgEmb_bot`). -/
+theorem incl_bot (n : ℕ) : incl n (⊥ : Stg n) = (⊥ : Ainf) := by
+  show incl n ⊥ = incl 0 ⊥
+  rw [← liftStg_bot (Nat.zero_le n), incl_lift]
+
+/-- **Every stage is normal in the colimit.** Directedness reduces to
+`isNormalIn_range_liftStg` at a stage above both the two elements and the bound;
+nonemptiness is `⊥`. -/
+theorem isNormalIn_range_incl (n : ℕ) : Set.range (incl n) ◁ (Set.univ : Set Ainf) := by
+  refine ⟨Set.subset_univ _,
+    fun q _ => ⟨⟨⊥, ⟨(⊥ : Stg n), incl_bot n⟩, Set.mem_Iic.mpr bot_le⟩, ?_⟩⟩
+  rintro _ ⟨⟨x₁, rfl⟩, hq₁⟩ _ ⟨⟨x₂, rfl⟩, hq₂⟩
+  obtain ⟨m, y, rfl⟩ := incl_surjective q
+  have hn : n ≤ max n m := le_max_left n m
+  have hm : m ≤ max n m := le_max_right n m
+  have h₁ : liftStg hn x₁ ≤ liftStg hm y := (incl_le_incl_iff x₁ y hn hm).mp (Set.mem_Iic.mp hq₁)
+  have h₂ : liftStg hn x₂ ≤ liftStg hm y := (incl_le_incl_iff x₂ y hn hm).mp (Set.mem_Iic.mp hq₂)
+  obtain ⟨_, ⟨⟨x₃, rfl⟩, hz⟩, hz₁, hz₂⟩ :=
+    (isNormalIn_range_liftStg hn).directedOn (Set.mem_univ (liftStg hm y))
+      (liftStg hn x₁) ⟨⟨x₁, rfl⟩, Set.mem_Iic.mpr h₁⟩
+      (liftStg hn x₂) ⟨⟨x₂, rfl⟩, Set.mem_Iic.mpr h₂⟩
+  refine ⟨incl n x₃,
+    ⟨⟨x₃, rfl⟩, Set.mem_Iic.mpr ((incl_le_incl_iff x₃ y hn hm).mpr (Set.mem_Iic.mp hz))⟩,
+    (incl_le_incl x₁ x₃).mpr ((liftStg_le_liftStg hn x₁ x₃).mp hz₁),
+    (incl_le_incl x₂ x₃).mpr ((liftStg_le_liftStg hn x₂ x₃).mp hz₂)⟩
+
+/-- **`M` is finitary at the level of sets**: a finite subset of the colimit
+already lies in a single stage, because finitely many indices have a maximum. -/
+theorem exists_stage_of_finite {S : Set Ainf} (hS : S.Finite) :
+    ∃ N : ℕ, S ⊆ Set.range (incl N) := by
+  induction S, hS using Set.Finite.induction_on with
+  | empty => exact ⟨0, Set.empty_subset _⟩
+  | @insert a s _ _ ih =>
+    obtain ⟨N, hN⟩ := ih
+    obtain ⟨n, x, rfl⟩ := incl_surjective a
+    refine ⟨max n N, ?_⟩
+    rintro y (rfl | hy)
+    · exact range_incl_subset (le_max_left n N) ⟨x, rfl⟩
+    · exact range_incl_subset (le_max_right n N) (hN hy)
+
+/-- **`A∞` is a Plotkin order.** The finite normal subposet witnessing a finite
+`u` is a whole stage: finite because every `Stg N` is
+(`instFiniteStg`), normal by `isNormalIn_range_incl`, and above `u` by
+`exists_stage_of_finite`. -/
+theorem isPlotkinOrder_Ainf : IsPlotkinOrder (Set.univ : Set Ainf) := by
+  intro u hu _
+  obtain ⟨N, hN⟩ := exists_stage_of_finite hu
+  exact ⟨Set.range (incl N), Set.finite_range _, isNormalIn_range_incl N, hN⟩
+
+/-! ## `V` -/
+
+/-- **`V`** (Gunter & Scott §7.4): the domain of ideals over the colimit of
+`I ⊴ I⁺ ⊴ I⁺⁺ ⊴ ⋯`. Theorem 11 (`IdealCompletion.instDomain`) supplies its whole
+domain structure, because `A∞` is a countable pre-order with a least element. -/
+abbrev V : Type := IdealCompletion Ainf
+
+/-- `V` is a domain: `A∞` is countable (`instCountableAinf`) with a least element
+(`instOrderBotAinf`), which is exactly what **Theorem 11** consumes. -/
+theorem domain_V : Domain V := inferInstance
+
+/-- **`V` is bifinite.** `A∞` is a Plotkin order and `principal` reflects the
+order, so `isPlotkinOrder_image` carries it onto `K(V) = im(principal)` — the
+same two steps `thm29` takes for `D⁺`. -/
+theorem isBifinite_V : IsBifinite V := by
+  have h := isPlotkinOrder_image
+    (f := (IdealCompletion.principal : Ainf → V))
+    (fun _ _ => principal_le_principal_iff) isPlotkinOrder_Ainf
+  rw [Set.image_univ] at h
+  rw [IsBifinite, IdealCompletion.compacts_eq_range_principal]
+  exact h
+
 end ScottDomains.Colimit
