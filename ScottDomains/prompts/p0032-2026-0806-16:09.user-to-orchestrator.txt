@@ -1,0 +1,68 @@
+---
+prompt: p0032
+type: interaction
+opened: 2026-0806-16:09
+closed: 2026-0806-16:14
+subject: keep-going
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T16:09:44-07:00
+
+keep going
+
+## turn — assistant 2026-08-06T16:10:05-07:00
+
+r0022 — the remaining §4 constructions. Reading the paper's definitions first, since Lemma 9's statement is heavily garbled in the PDF.
+
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/papers; pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | grep -n "smash\|lift\|separated 
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/papers; pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | sed -n '885,900p;925,960p'
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/papers; pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | sed -n '579,600p'
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib; grep -rn "^def RePred\|RePred " Mathlib/Computability/Halting.lean 2>/dev/nul
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib; grep -rn "def RePred" Mathlib/ --include=*.lean | head -3
+## turn — assistant 2026-08-06T16:11:35-07:00
+
+No `RePred` in this Mathlib. Defining the presentation itself and recording that gap:
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/EffectivePresentation.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | grep -A8 "err
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/EffectivePresentation.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | grep -A8 "err
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/EffectivePresentation.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | grep -A8 "err
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Write /home/milnes/projects/ScottLean4/ScottDomains/reports/r0022-report-from-orchestrator-to-user-effective-presentation.md
+    Bash cd /home/milnes/projects/ScottLean4; wc -l ScottDomains/ScottDomains/*.lean | tail -1; scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md ScottDoma
+## turn — assistant 2026-08-06T16:14:23-07:00
+
+Two more rounds pushed — `6db6e8e` (Lemma 8 complete) and `1eecb5c` (§3 complete).
+
+## r0022 — §3.2, and a gap I did not paper over
+
+`EffectivePresentation` renders "effectively decidable" as `DecidablePred`, which is faithful: a `Decidable` instance in Lean *is* a deciding program. I deliberately did not use Mathlib's `ComputablePred`, which additionally ties the decision to a recursion-theoretic model — nothing in the paper's conditions 1 and 2 needs that. Both conditions sit on `ℕ` and `Finset ℕ` rather than on the domain, which is the whole point of a presentation: it moves decidability onto a countable index set where it can be asked at all.
+
+**One thing is left out on purpose.** The paper's *computable function* needs `{m | eₘ ⊑ f(dₙ)}` to be recursively enumerable, and Mathlib v4.32.2 has **no `RePred` or equivalent** — `grep "def RePred"` across the library returns nothing. Building r.e. predicates is recursion theory, not domain theory. Approximating it with `Decidable` would be strictly stronger and therefore wrong, so I recorded the gap in the inventory rather than filling it badly.
+
+The one elaboration failure was another instance of the ordering discipline you asked about: `countable_compacts` concludes `(compacts α).Countable`, which never mentions the presentation `d`, so Lean's automatic section-variable inclusion dropped it. `include d in` restores it — and must sit *before* the docstring, not between it and the declaration.
+
+## State
+
+| # | Quantity | Count |
+| -- | -------- | ----- |
+| 1 | Numbered results | **7 of 29** — Thm 1, 3, 6, 7; Lem 4, 5, 8 |
+| 2 | Prose claims | 11 |
+| 3 | Definitions | **8 of ≈13** |
+| 4 | Modules / lines / live theorems | 19 / 2823 / 125 |
+| 5 | `sorry` / warnings | 0 / 0 |
+
+**§2 and §3 are complete.** §4 has Lemma 8 done and the product cpo built.
+
+Remaining definitions: smash product, the three powerdomains, bifinite/Plotkin order, `D∞`. Next round is the smash product `D ⊗ E` — encoded as a new bottom adjoined to the non-bottom pairs, which needs its own cpo construction — then sum and lift, then Lemma 9. One caution worth flagging now: **Lemma 9's statement is badly garbled in the PDF** (the `⊗` and the `⊥` subscripts are dropped, so part 5 reads `D (E × F) ≅ (D E) × (D E)`). I'll reconstruct it from the surrounding definitions and flag any part I cannot read with confidence rather than guess at it.
+

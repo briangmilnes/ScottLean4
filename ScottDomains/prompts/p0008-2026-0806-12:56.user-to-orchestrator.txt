@@ -1,0 +1,102 @@
+---
+prompt: p0008
+type: interaction
+opened: 2026-0806-12:56
+closed: 2026-0806-13:00
+subject: the-installs-are-done-and-i-can-run-vsco
+session: aad537a0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/aad537a0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T12:56:41-07:00
+
+The installs are done and I can run vscode with lean in it.
+
+    Bash for f in "STIX Two Text" "STIX Two Math" "DejaVu Sans Mono" "Noto Sans Symbols 2"; do printf '%-18s %s\n' "$f" "$(fc-list "$f" family 2>/dev/null | he
+## turn — assistant 2026-08-06T12:57:01-07:00
+
+All five packages installed and the font count rose 786 → 1118 — but the two fonts the pipeline actually names still don't resolve. Checking what Debian's `fonts-stix` actually provides:
+
+    Bash echo "=== families matching stix ==="; fc-list : family 2>/dev/null | tr ',' '\n' | grep -i stix | sort -u echo "=== files from fonts-stix pkg ==="; d
+    Bash echo "=== apt candidates ==="; apt-cache search stix 2>/dev/null; echo "--- policy fonts-stix2 ---"; apt-cache policy fonts-stix2 2>/dev/null | head -
+## turn — assistant 2026-08-06T12:57:40-07:00
+
+Your install did more than `fc-list` shows. Correcting my own baseline: `fc-list` is the wrong oracle for the lualatex path.
+
+    Bash cd /tmp/claude-1000/-home-milnes-projects-ScottLean4/aad537a0-bcac-4132-a1fd-f4cbe66c00c4/scratchpad && cat > orch-fonttest.tex <<'EOF' \documentclass
+## turn — assistant 2026-08-06T12:58:08-07:00
+
+`STIX Two Text` resolves — `texlive-fonts-extra` supplied it at `/usr/share/texlive/.../stix2-otf/`, and lualatex finds it via kpathsea even though fontconfig doesn't index it. The 16 missing characters are the exact reason the header has a fallback chain. Testing the Linux fallback:
+
+    Bash cd /tmp/claude-1000/-home-milnes-projects-ScottLean4/aad537a0-bcac-4132-a1fd-f4cbe66c00c4/scratchpad && cat > orch-fbtest.tex <<'EOF' \documentclass{a
+## turn — assistant 2026-08-06T12:58:34-07:00
+
+0 missing characters, across 40+ domain-theory symbols in both the main and monospace faces. Four fonts embedded and subsetted: `STIXTwoText-Regular`, `STIXTwoMath-Regular`, `DejaVuSans`, `DejaVuSansMono`. The Linux branch is confirmed empirically, not by inspection.
+
+    Bash which zsh 2>&1; zsh --version 2>&1 | head -1; echo "--- luaotfload version ---"; grep -m1 -o 'luaotfload.*v[0-9.]*' /tmp/claude-1000/-home-milnes-proj
+## turn — assistant 2026-08-06T12:59:04-07:00
+
+`zsh` is not installed here, so `scripts/md2pdf.sh` can't run at all on this host regardless of fonts. That's a second defect. Let me build both proposed fixes and test them end-to-end before showing you the diff.
+
+    Bash cd /tmp/claude-1000/-home-milnes-projects-ScottLean4/aad537a0-bcac-4132-a1fd-f4cbe66c00c4/scratchpad && cat > orch-md-pdf-header.tex <<'EOF' % Font se
+## turn — assistant 2026-08-06T12:59:31-07:00
+
+Rendered: exit 0, 4 pages, 78,451 bytes. Now the tofu count — pandoc discards the lualatex log, so I'll run the engine directly:
+
+    Bash cd /tmp/claude-1000/-home-milnes-projects-ScottLean4/aad537a0-bcac-4132-a1fd-f4cbe66c00c4/scratchpad && pandoc /home/milnes/projects/ScottLean4/ScottD
+## turn — assistant 2026-08-06T13:00:02-07:00
+
+agent3 finished. Its denied call was `apt-file search`, already answered another way — nothing was blocked. And installing zsh is the right call: it closes the interpreter defect without editing a file both macs execute.
+
+One correction to agent3's package findings: its `dpkg` survey ran *before* your install. `texlive-fonts-extra` is now present (2023.20240207-1), which is where STIX Two came from — so its recommendations 2 and 3 are already satisfied. Let me compare its proposed header against the one I tested.
+
+    Bash cd /tmp/claude-1000/-home-milnes-projects-ScottLean4/aad537a0-bcac-4132-a1fd-f4cbe66c00c4/scratchpad && ls -l *.tex 2>/dev/null | head; echo "=== agen
+## turn — assistant 2026-08-06T13:00:26-07:00
+
+zsh installed — that closes the interpreter defect. Confirming what's left:
+
+    Bash zsh --version; scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md /tmp/claude-1000/-home-milnes-projects-ScottLean4/aad537a0-bcac-4132-a1fd-f4cbe66
+## turn — assistant 2026-08-06T13:00:51-07:00
+
+`md2pdf.sh` now executes under zsh 5.9 and reaches lualatex; it fails only at the font stage (exit 43, Menlo). The zsh-only `${0:A:h}` and the macOS `PATH` prepends work fine here, so that script needs no change at all — one defect left, the header.
+
+Two candidate headers, both measured at 0 tofu on `PaperInventory.md` and `INDEX.md`:
+
+| # | Candidate | Lines added | Discriminator | Behavior on an unforeseen host |
+|---|---|---|---|---|
+| 1 | Mine (recommended) | ~33 | `\IfFontExistsTF{Menlo}` — fontspec's own test | hard error naming the missing font |
+| 2 | agent3's | 86 | Lua probe of 4 families via `fonts.names.lookup_font_name` | degrades to DejaVu Serif / Latin Modern Mono, or drops the fallback chain |
+
+I recommend #1. Candidate #2's extra 53 lines handle configurations that don't exist on any of your three machines — a Linux host with STIX Two Math but no STIX Two Text, or with no fallback family at all. That's error handling for impossible scenarios. Its one property worth keeping is the macOS-safe default, which #1 gets for free: `\IfFontExistsTF{Menlo}` is true on every mac, so the macOS branch is selected there by the same test that has always worked.
+
+Here is #1 in full — the macOS block is the current header verbatim, only re-indented:
+
+```latex
+\usepackage{luaotfload}
+\IfFontExistsTF{Menlo}{%
+  % ---- macOS branch: unchanged from the original header ----
+  \directlua{
+    luaotfload.add_fallback("scottfallback", {
+      "STIX Two Math:mode=base;", "Arial Unicode MS:mode=base;", "Apple Symbols:mode=base;" })
+  }
+  \setmainfont{STIX Two Text}[RawFeature={fallback=scottfallback}]
+  \setmonofont{Menlo}[Scale=MatchLowercase, RawFeature={fallback=scottfallback}]
+}{%
+  % ---- Linux branch ----
+  \directlua{
+    luaotfload.add_fallback("scottfallback", {
+      "STIX Two Math:mode=base;", "DejaVu Sans:mode=base;", "Noto Sans Symbols2:mode=base;" })
+  }
+  \setmainfont{STIX Two Text}[RawFeature={fallback=scottfallback}]
+  \setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase, RawFeature={fallback=scottfallback}]
+}
+```
+
+Two facts agent3 established that I'll keep as comments either way, because both silently produce a broken PDF: `#` cannot appear inside `\directlua` (TeX doubles the catcode-6 `#`, the Lua chunk aborts), and naming an unregistered fallback table in `RawFeature` makes the font itself unloadable rather than being ignored. Candidate #1 avoids both by construction — literal table, always registered.
+
+Say which and I'll apply it, then run `md2pdf.sh` end-to-end for the final measurement.
+

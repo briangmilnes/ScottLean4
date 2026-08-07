@@ -1,0 +1,86 @@
+---
+prompt: p0017
+type: interaction
+opened: 2026-0806-13:27
+closed: 2026-0806-13:32
+subject: execute-it
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T13:27:05-07:00
+
+execute it
+
+    Bash cd /home/milnes/projects/ScottLean4 && git status --short && echo "--- pull ---" && git pull --rebase 2>&1 | tail -5 && echo "--- scripts ---" && ls s
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains && time lake build 2>&1 | tail -20
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib && grep -rn "theorem directedOn_singleton\|lemma directedOn_singleton\|theorem
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/WayBelow.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains && lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | tail -30
+## turn — assistant 2026-08-06T13:28:54-07:00
+
+Three failures, each diagnosable. Fixing them:
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/WayBelow.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/WayBelow.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/WayBelow.lean
+    Bash lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -30
+    Bash echo "=== steady-state rebuild ===" && lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | tail -5 && echo "=== warnings/errors/sorry =
+    Bash lake build 2>&1 | tail -2 && echo "--- again ---" && lake build 2>&1 | tail -2
+    Bash SP=/tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad mv ScottDomains/WayBelow.lean $SP/WayBelow.lean e
+    Bash SP=/tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad cat > $SP/AxiomCheck.lean <<'EOF' import ScottDom
+## turn — assistant 2026-08-06T13:31:01-07:00
+
+All 8 declarations built and kernel-checked. Now the two documentation steps:
+
+    Bash cd /home/milnes/projects/ScottLean4 && grep -n "ScottDomains" INDEX.md
+    Edit /home/milnes/projects/ScottLean4/INDEX.md
+## turn — assistant 2026-08-06T13:31:11-07:00
+
+Now the inventory corrections:
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash TZ=America/Los_Angeles date "+%Y-%m%d-%H:%M" && git status --short
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/plans/r0003-plan-from-orchestrator-to-orchestrator-way-below.md
+    Write /home/milnes/projects/ScottLean4/ScottDomains/reports/r0003-report-from-orchestrator-to-user-way-below.md
+    Bash wc -l ScottDomains/ScottDomains/WayBelow.lean && lake --version >/dev/null 2>&1; cd ScottDomains && lake build 2>&1 | tail -1
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/reports/r0003-report-from-orchestrator-to-user-way-below.md
+## turn — assistant 2026-08-06T13:32:56-07:00
+
+r0003 executed. `ScottDomains/ScottDomains/WayBelow.lean` — 117 lines, 1 definition, 7 theorems, 0 `sorry`, kernel-accepted.
+
+| # | Criterion | Measurement |
+| -- | --------- | ----------- |
+| 1 | Builds | exit 0, **825 jobs** (plan predicted 4 — wrong, cause isolated below), 0 errors, 0 warnings, 1.5 s |
+| 2 | Nothing unproved | `grep -c sorry` = 0; `#print axioms` on all 8 declarations shows no `sorryAx` |
+| 3 | Bridge is definitional | `wayBelow_self_iff_isCompactElement := Iff.rfl` typechecks |
+| 4 | Mathlib untouched | no edit under `.lake/`, no re-elaboration |
+| 5 | Inventory updated | 5 edits to `PaperInventory.md`, 1 line in `INDEX.md` |
+
+The axiom check is stronger than the criterion asked for: 6 of 8 declarations depend on **no axioms at all**, and the other two use `propext` only, entering through the `Set.mem_singleton_iff` rewrite in `WayBelow.le`. No `Classical.choice`, no `Quot.sound` — `≪` is constructive as developed.
+
+The design decision paid off as predicted. `x ≪ x` and `IsCompactElement x` are the same term after delta-reduction, not merely equivalent propositions, so the kernel closes the bridge by conversion alone.
+
+## Three elaboration failures on the first build
+
+**An instance diamond, caught by the `overlappingInstances` linter.** I wrote the bridge theorem inside `section Preorder` while adding `[PartialOrder α]` to its signature. Two instance arguments then supply `LE α` independently — `≪` elaborated against `Preorder.toLE`, `IsCompactElement` against `PartialOrder.toPreorder.toLE` — and `Iff.rfl` failed. A definitional failure with a typeclass cause. Fixed by moving the theorem out of the section so `[PartialOrder α]` is its only order instance.
+
+**Dot notation does not survive an unfolded projection.** `hxy.le.trans_wayBelow hyz` failed: `le hxy has type inst✝.toLE.1 x y which does not have the necessary form`. Dot notation resolves the namespace from the head constant of the type, and `x ≤ y` had already reduced to a raw structure projection with no head constant `LE.le` to name. Fixed by writing `LE.le.trans_wayBelow hxy.le hyz`. The inner `hxy.le` works, because `WayBelow` is a constant.
+
+## Correcting my own plan
+
+The plan's criterion 1 said "4 jobs (was 3)". Measured 825, stable over four builds. I isolated the cause rather than guessing: with `WayBelow.lean` moved out of the library the count is 3, moved back, 825. The file adds one module to the import closure that was not already reachable — `Mathlib.Order.CompactlyGenerated.Basic` — and lake counts every module in the transitive closure as a job. Those 822 are olean replays from `~/.cache/mathlib`, not elaboration; wall clock is 1.5 s total, 1.3 s of it this file. Job count measures import surface, not work done. The plan should have named wall clock and error counts as the acceptance measurements.
+
+## Inventory corrections applied
+
+The §3.1 compact-element row said `~ (lattice only → dcpo)`; the definition is `[PartialOrder α]` and reusable on a dcpo verbatim — only its 20 lemmas are `CompleteLattice`-only. Way-below moves from `✗ define` to `✓ ScottDomains.WayBelow (r0003)`. Remaining work is now **≈12 definitions and 28 results**, down from ≈13 and 28.
+
+Report at `ScottDomains/reports/r0003-report-from-orchestrator-to-user-way-below.md`; plan marked `status: done`. Nothing is committed — four files are new or modified. Want me to run `scripts/gitcp.sh`, and is r0004 the algebraic cpo and `ScottDomain`?
+

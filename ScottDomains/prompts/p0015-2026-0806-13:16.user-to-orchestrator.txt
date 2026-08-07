@@ -1,0 +1,59 @@
+---
+prompt: p0015
+type: interaction
+opened: 2026-0806-13:16
+closed: 2026-0806-13:17
+subject: read-the-restart-plan-in-scottdomainspla
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T13:16:36-07:00
+
+Read the restart plan in ScottDomains/plans.
+
+## turn — assistant 2026-08-06T13:16:38-07:00
+
+I'll look for the restart plan in `ScottDomains/plans`.
+
+    Bash ls -la /home/milnes/projects/ScottLean4/ScottDomains/plans/
+    Read /home/milnes/projects/ScottLean4/ScottDomains/plans/r0002-plan-from-orchestrator-to-orchestrator-session-restart.md
+## turn — assistant 2026-08-06T13:17:01-07:00
+
+Read `ScottDomains/plans/r0002-plan-from-orchestrator-to-orchestrator-session-restart.md` (r0002, status `pending`, dated 2026-0806-13:10).
+
+## State it hands off
+
+Branch `main`, tree committed at 2026-0806-13:10, nothing in flight — the three r0001 subagents reported and exited. Round r0001 closed with the Linux host building `ScottDomains` against Mathlib, VS Code driving interactive proofs, and `scripts/md2pdf.sh` rendering at 0 tofu with macOS output byte-identical.
+
+Measured environment facts it says not to re-measure: Lean 4.32.2 (commit `f3b06c7`, elan 4.2.3, both `lean-toolchain` files pinned); Mathlib rev `905b9581` with 9 deps pinned; `lake build` → 3 jobs, 0 errors, 0 warnings, 0 `sorry`, ~2 s; olean cache 874 MiB in `~/.cache/mathlib`; volume at 97% with 15 GiB free while `ScottDomains/.lake` alone is 7.4 GiB; `leanprover.lean4@0.0.239` on VS Code 1.130.0; pandoc 3.9.0.2 + lualatex 1.17.0 with STIX Two resolved through `kpsewhich`, not `fc-list`.
+
+## Resume steps it prescribes
+
+1. `git status --short` at the repo root — expect empty; `git pull --rebase` first, since two machines write this repo.
+2. `cd ScottDomains && lake build` — expect `Build completed successfully (3 jobs).` If it proposes rebuilding Mathlib, compare `lean-toolchain` against `lake-manifest.json` before allowing it.
+3. `scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md /tmp` — expect exit 0, 4 pages; fastest check that the font path holds.
+4. Open `ScottDomains/` as its own VS Code folder, not the repo root.
+
+## Four decisions left open
+
+1. Build `Playground/` or `Beeson/lean4/` on this host — each costs ~7 GiB against 15 GiB free, so both would exhaust the volume.
+2. Render one Markdown file on a mac — r0001 criterion 4 is proved by construction, not by an actual render.
+3. Live Share sign-in — deferred by you.
+4. Make `md2pdf.sh` interpreter-neutral — it is `#!/bin/zsh` using zsh-only `${0:A:h}`; nothing is broken, but the file executes on both macs.
+
+## Where the next round starts
+
+The plan is explicit that r0001 was infrastructure and advanced no mathematics. The development is 2 files, 59 lines, of which `ScottDomains/ExistingTheories.lean` is a `#check` catalog of 8 reused Mathlib declarations (`OmegaCompletePartialOrder`, `CompletePartialOrder`, `ScottContinuous`, `ScottContinuousOn`, `Topology.IsScott`, `Topology.IsScottHausdorff`, `OrderHom.lfp`, `OrderHom.gfp`). `ScottDomains/docs/PaperInventory.md` puts the remaining work at ~13 definitions, 28 theorems, 12 Mathlib-reusable results — that inventory is the starting point, not the toolchain.
+
+Want me to (pick any):
+
+1. Execute resume steps 1–3 and report the measured results.
+2. Read the r0001 report the plan says to read first.
+3. Read `PaperInventory.md` and propose the r0003 plan against the 13/28/12 inventory.
+4. Resolve any of the four open decisions.
+

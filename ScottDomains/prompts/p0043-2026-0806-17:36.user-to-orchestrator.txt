@@ -1,0 +1,72 @@
+---
+prompt: p0043
+type: interaction
+opened: 2026-0806-17:36
+closed: 2026-0806-17:38
+subject: keep-going
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T17:36:05-07:00
+
+keep going
+
+## turn — assistant 2026-08-06T17:36:23-07:00
+
+Converting the three cpo structures from `def` to `instance` so the skeleton's statements can even be written:
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Lift.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Smash.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/StrictHom.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -A6 "error" | head -25; echo "=== result ==="; lake build 2>&1 | tail -1; lak
+## turn — assistant 2026-08-06T17:36:55-07:00
+
+All three convert cleanly. Now the skeleton:
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Skeleton.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -A6 "error" | head -30; echo "=== result ==="; lake build 2>&1 | tail -1
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; echo "=== sorry count (the burn-down metric) ==="; grep -c 'sorry' ScottDomains/Skeleton.lean; echo 
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -c "uses \`sorry\`"; echo "--- other warnings ---"; lake build 2>&1 | grep -i
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash cd /home/milnes/projects/ScottLean4; scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md ScottDomains/docs 2>&1 | tail -1; scripts/gitcp.sh "r0026: 
+## turn — assistant 2026-08-06T17:38:37-07:00
+
+Skeleton landed and pushed (`7941c7f`). The parallel machinery is now fully in place.
+
+## What the skeleton actually contains
+
+**10 `sorry`s, all in `Skeleton.lean`, nothing else in the development touched.** Every other module stays `sorry`-free — verified by `grep -l`, and the build's only warnings are the 10 intended ones.
+
+| # | Open statement | Result |
+| -- | -------------- | ------ |
+| 1 | `prop15` | Every bounded complete domain is bifinite |
+| 2 | `thm18` | `D`, `D → D` domains ⟹ `D` bifinite |
+| 3 | `lem19` | The image of a closure is a domain |
+| 4–7 | `lem10_*` | Bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥` |
+| 8–10 | `lem17_*` | Bifiniteness closed under `×`, `()⊥`, `→` |
+
+Two judgement calls worth surfacing:
+
+**Lemma 10's `→` conjunct is already proved** — it's Theorem 7's bounded-complete half from r0007 — so I split the lemma into separate statements rather than restate a solved case as open. Same for splitting Lemma 17.
+
+**I did not state seven results, and named the blocker for each** rather than guess: Lemma 9 (the PDF drops every `⊗` and `⊥`, so part 5 reads `D (E × F) ≅ (D E) × (D E)` — reconstruction, not transcription), Theorem 11 (needs the ideal completion as a construction), Theorem 12 ("continuous algebra satisfying axioms `T`" is undefined here), Lemma 13 (powerdomains), Theorem 14 (characterizations garbled), Theorem 16 and Lemma 20 (`Fp(D)`/`Fc(D)` as posets), and all of §7. Writing those would have been inventing the paper's content.
+
+Converting `liftCpo`/`smashCpo`/`strictHomCpo` from `def` to `instance` was the enabling change — without it, statements quantifying over all five operators can't be written at all.
+
+## State
+
+| # | Quantity | Count |
+| -- | -------- | ----- |
+| 1 | Numbered results proved | 7 of 29 |
+| 2 | Prose claims | 12 |
+| 3 | Definitions | 11 of ≈13 |
+| 4 | **Open `sorry`s** | **10** — the burn-down metric |
+| 5 | Worktrees ready | 3, all building 960 jobs, 970 MiB total |
+
+The three worktrees are synced and building; the statements are fixed; the `sorry` count is in `PaperInventory.md` and the PDF. What remains before dispatch is assigning the 10 statements across `agent1`/`agent2`/`agent3` and writing each a plan file — and I should check with you on one thing first: I can't run those agents autonomously in their worktrees from here, so this is either you opening a session in each directory, or me working them sequentially myself. Which did you have in mind?
+

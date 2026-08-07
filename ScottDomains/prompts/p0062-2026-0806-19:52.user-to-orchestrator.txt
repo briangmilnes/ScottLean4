@@ -1,0 +1,75 @@
+---
+prompt: p0062
+type: interaction
+opened: 2026-0806-19:52
+closed: 2026-0806-19:56
+subject: you-update-the-paper-inventories-if-not
+session: 57a99ce0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/57a99ce0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T19:52:18-07:00
+
+You update the paper inventories? If not do so, then commit and push.
+
+## turn — assistant 2026-08-06T19:52:34-07:00
+
+Not yet — doing it now.
+
+    Bash echo "modules: $(find ScottDomains -name '*.lean' | wc -l)"; echo "lines: $(cat $(find ScottDomains -name '*.lean') | wc -l)"; echo "decls: $(grep -hE
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains && echo "modules: $(find ScottDomains -name '*.lean' | wc -l)" && echo "lines: $(cat $(find ScottDoma
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash grep -n "27 modules\|33 modules\|8212 lines\|the 27 modules\|across the 27" ScottDomains/docs/PaperInventory.md
+    Bash cd /home/milnes/projects/ScottLean4 && grep -n "modules,\|across the .* modules" ScottDomains/docs/PaperInventory.md | head
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+## turn — assistant 2026-08-06T19:54:02-07:00
+
+Now the per-section rows for §5 and §7, which still say "define" / "prove":
+
+    Bash grep -n "5.1 | Def\|5.2 | Def\|5.3\|Thm | 21\|7 | Def\|Thm | 22\|Lem | 23" ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash grep -n "Lem | 20\|Prop | 15\|Thm | 16\|Lem | 17\|Thm | 18\|Lem | 19\|Lem | 10\|Thm | 11" ScottDomains/docs/PaperInventory.md
+## turn — assistant 2026-08-06T19:54:48-07:00
+
+Several §4 and §6 rows are stale from r0027–r0028 too. Fixing them all:
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash grep -n "sum still\|4.4 | Def\|4.x | Lem | 9\|Lem | 13\|Thm | 12\|Thm | 14" ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md 2>&1 | tail -1; pdftotext -f 1 -l 1 ScottDomains/docs/PaperInventory.pdf - | grep -nE "r0029|16 
+    Bash scripts/gitcp.sh "r0029: merge the four definition agents — Hoare, Smyth and Plotkin powerdomains, recursive domains and Theorem 21; inventory brought
+## turn — assistant 2026-08-06T19:56:16-07:00
+
+Updated, committed, pushed (`9f0a4f3`).
+
+**The definition list is closed.** All four r0029 agents merged; the composition check — importing all ten r0028/r0029 modules together, which `lake build` alone does not do — passes with no clash, and every new result is kernel-clean (`propext`, `Classical.choice`, `Quot.sound`, no `sorryAx`).
+
+| # | Quantity | Before r0029 | After |
+| -- | -------- | ------------ | ----- |
+| 1 | Definitions | 11 of ≈13 | **all** |
+| 2 | Numbered results | 15 of 29 | **16 of 29** (Theorem 21) |
+| 3 | Modules / lines / theorems | 33 / 8212 / 384 | **37 / 9595 / 447** |
+| 4 | Build | — | `Build completed successfully (975 jobs).`, 0 errors, 1 `sorry` |
+
+While updating the inventory I found it was stale well beyond r0029: rows for Lemma 10, Theorem 11, Proposition 15, Theorem 16, Lemma 17, Lemma 19, Lemma 20, Theorem 22, Lemma 23 and the sum `D + E` all still read "✗ prove" for results proved in r0027 and r0028. The per-section tables had not been touched since r0025 — only the Progress table was being maintained. All of them now carry what was proved, in which round, and under which Lean name.
+
+Two substantive corrections went into the inventory rather than being smoothed over:
+
+**There is no `D∞` to build.** The row had said "universal domain / `D∞` (inverse limit)". Reading §7 directly refutes that: the section raises the `T₀ →e₀ T₁ → ⋯` chain, says "This is all very informal, however; how are we to make this idea mathematically precise…?", and answers with §7.1, *solving domain equations with closures*. `D ≅ D → D` comes from Theorem 21 and Lemma 23, with the limit taken inside `Fc(U)`. What stands in its place is `Recursive.Solves`/`IsSolvable` plus two formalizations of *universal domain*, because the paper states it as two different sentences — every domain of the class is a closure of `U`, and every one is a retract of `U`.
+
+**`Pf` is the finite non-empty subsets**, not all finite subsets — my brief to the agents said the latter. The distinction cuts three different ways: under Hoare, `∅` would sit strictly below `{⊥}`; under Smyth, `∅` is a *top*, so it would add a spurious maximum; under Egli–Milner it is comparable to nothing but itself, destroying `OrderBot`. Each agent caught it from the PDF instead of following me.
+
+Also worth recording: **four agents, zero name collisions**, against two in r0028 when five agents shared one namespace. The namespace-per-agent rule is doing its job.
+
+Remaining: 13 numbered results, one `sorry` (Theorem 18). The r0030 plans are written and pushed — five agents in wave A, ready to launch when you want them.
+

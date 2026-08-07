@@ -1,0 +1,40 @@
+---
+prompt: p0012
+type: interaction
+opened: 2026-0806-13:13
+closed: 2026-0806-13:14
+subject: so-what-is-not-in-settingslocaljson-thta
+session: aad537a0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/aad537a0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T13:13:23-07:00
+
+So what is not in settings.local.json thta this projet needs before I restart.
+
+    Bash ls -la .claude/ 2>&1; echo "=== settings.json ==="; cat .claude/settings.json 2>&1; echo "=== settings.local.json ==="; cat .claude/settings.local.jso
+    Bash git check-ignore -v .claude/settings.local.json .claude/settings.json 2>&1; echo "--- tool paths here ---"; which pdftotext pdfinfo pdffonts kpsewhich
+## turn — assistant 2026-08-06T13:14:20-07:00
+
+Two things frame the answer: `settings.local.json` is gitignored globally (`~/.config/git/ignore`), so nothing you put there reaches the macs — cross-machine entries belong in `.claude/settings.json`, which is checked in. And `date` already returns PDT here, so GRASE rule 0.8's `TZ` env would be a no-op on this host.
+
+What's missing, ranked by how often it will prompt you:
+
+| # | Missing | Where | Why |
+|---|---|---|---|
+| 1 | `Bash(scripts/gitcp.sh:*)` | settings.json | CLAUDE.md mandates every commit go through it, but only the one exact r0001 message string is allowed. Every future commit prompts |
+| 2 | `Bash(lake build:*)`, `Bash(lake exe cache get)` | settings.json | The core loop of the project. Neither is allowlisted |
+| 3 | `Bash(scripts/md2pdf.sh:*)`, `Bash(scripts/tex2pdf.sh:*)`, `Bash(scripts/lean2tex.sh:*)` | settings.json | The PDF exchange path to Dana |
+| 4 | `Bash(pdftotext:*)`, `Bash(pdfinfo:*)`, `Bash(pdffonts:*)` | settings.json | settings.json allowlists `/opt/homebrew/bin/pdftotext` and `pdfinfo` — mac absolute paths. Here they're `/usr/bin`, so those two entries never match. `pdffonts` is absent on both |
+| 5 | `Bash(kpsewhich:*)`, `Bash(fc-list:*)` | settings.json | The font-resolution checks; `kpsewhich` is allowlisted only for one exact pair of filenames |
+| 6 | `Bash(git status:*)`, `Bash(git log:*)`, `Bash(git show:*)`, `Bash(git diff:*)` | settings.json | Read-only git, prompted repeatedly this session |
+| 7 | `"env": {"TZ": "America/Los_Angeles"}` | settings.local.json | GRASE 0.8 requires it. No-op here since the system zone already matches; it matters if you ever run with a different system zone |
+
+There's also dead weight: roughly 35 of the ~50 entries in `settings.local.json` embed this session's scratchpad UUID (`…/aad537a0-bcac-…/scratchpad/measure.sh`, exact `pandoc … orch-PI.tex` invocations). That path changes every session, so none of them will ever match again. They're harmless but they make the file unreadable.
+
+My recommendation: add rows 1–6 to `.claude/settings.json` so both macs get them too, add row 7 to `settings.local.json`, and prune the UUID-bearing entries. Want me to do that? It edits your permission allowlist, so I'd rather you say yes than assume it.
+

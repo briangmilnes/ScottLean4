@@ -1,0 +1,72 @@
+---
+prompt: p0024
+type: interaction
+opened: 2026-0806-15:01
+closed: 2026-0806-15:05
+subject: keep-going
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T15:01:08-07:00
+
+keep going
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/plans/r0013-plan-from-orchestrator-to-orchestrator-projection-image.md
+## turn — assistant 2026-08-06T15:02:16-07:00
+
+Not stopping — mid-round. Writing the module now.
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -35
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -30
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -15; ech
+    Write /tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad/AxiomCheck8.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake env lean /tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Write /home/milnes/projects/ScottLean4/ScottDomains/reports/r0013-report-from-orchestrator-to-user-projection-image.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/plans/r0013-plan-from-orchestrator-to-orchestrator-projection-image.md
+    Bash cd /home/milnes/projects/ScottLean4; scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md ScottDomains/docs 2>&1 | tail -1; scripts/gitcp.sh "r0013: 
+## turn — assistant 2026-08-06T15:05:51-07:00
+
+r0013 pushed as `6bd62ac`.
+
+## r0013 — `im(p)` is a cpo, finitary projections defined
+
+The design claim held: `sSup s := ⟨p (⨆ (val '' s)), _⟩` lands in `Set.range p` **by construction**, since `p` applied to anything is in its own range. No `dite` on directedness, unlike `ScottHom`'s `SupSet`.
+
+**One acceptance criterion I wrote was not met, and I'm recording it rather than the intention.** Criterion 4 claimed the construction would avoid `Classical.choice`. Measurement says otherwise: `apply_sSup_of_directed` carries it, entering through `Set.eq_empty_or_nonempty` — `ScottContinuous` quantifies over *nonempty* directed sets, so the empty case must be split off and handled by `p ⊥ = ⊥`, and that split is classical. The precise statement: the `SupSet` **definition** is case-split-free, which was the point; the **proof** that it is a least upper bound is not. `IsProjection.map_bot` is axiom-free.
+
+"`im(p)` is a domain" needed care because the cpo structure depends on a *proof*, `hp : IsProjection p`, so it cannot be an instance. It is a `@[reducible]` definition — Lean requires that marking on any definition of class type, and it is right here since instance search must see through it — with `Domain` applied to it explicitly:
+
+```
+def IsFinitaryProjection (p : ScottHom α α) : Prop :=
+  ∃ hp : IsProjection p, @Domain _ (IsProjection.rangeCompletePartialOrder hp)
+```
+
+Proof irrelevance makes the choice of `hp` immaterial.
+
+All three elaboration failures were repeats: `__ :=` splicing failing inside `where` but working in term-mode `{ … with }` (as in r0006), dot notation resolving against `And` rather than the `def` that unfolds to it, and a `Set.image` membership wanting its equation reversed.
+
+## State
+
+| # | Quantity | Count |
+| -- | -------- | ----- |
+| 1 | Numbered results | 2 of 28 — Lemma 4, Theorem 7 |
+| 2 | Definitions | **7 of ≈13** |
+| 3 | Modules / lines | 11 / 1647 |
+| 4 | `sorry` / warnings | 0 / 0 |
+
+Everything Lemma 5 and Theorem 6 quantify over now exists — `◁`, embedding–projection pairs, projections, `im(p)` as a cpo, finitary projections. Lemma 5 is next: the compact elements of `im(p)` are exactly `im(p) ∩ K(D)`, and `im(p) ∩ K(D) ◁ K(D)`.
+

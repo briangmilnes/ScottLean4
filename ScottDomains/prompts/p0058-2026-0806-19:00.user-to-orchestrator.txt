@@ -1,0 +1,110 @@
+---
+prompt: p0058
+type: interaction
+opened: 2026-0806-19:00
+closed: 2026-0806-19:13
+subject: so-is-it-logging-right-timememory-and-er
+session: 57a99ce0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/57a99ce0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T19:00:43-07:00
+
+So is it logging right time/memory and errors?
+
+## turn — assistant 2026-08-06T19:01:07-07:00
+
+Good question — I asserted the metrics were right without testing the failure path. Let me verify empirically.
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ZZProbe.lean
+    Bash scripts/compile.sh -r r0028 ScottDomains.ZZProbe; echo "wrapper exit: $?"
+## turn — assistant 2026-08-06T19:01:25-07:00
+
+Error path works — exit 1 propagates and the log is complete. But it exposed a defect: `errors: 6` for **two** bad theorems. Lake's own `error: build failed` and `error: Lean exited with code 1` summary lines are being counted as diagnostics. Also checking whether a true process-tree memory peak is available:
+
+    Bash systemd-run --user --scope -p MemoryAccounting=yes true 2>&1 | tail -3; echo "---"; ls /sys/fs/cgroup/memory.peak 2>&1
+## turn — assistant 2026-08-06T19:02:26-07:00
+
+`systemd-run --user --scope` works, but reading a scope's `memory.peak` after exit is racy. A process-group sampler is simpler and excludes the agents' concurrent builds. Rewriting the measurement section:
+
+    Read /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Bash zsh -n scripts/compile.sh && scripts/compile.sh -r r0028 ScottDomains.ZZProbe 2>&1 | tail -3; echo "wrapper exit: $?"
+## turn — assistant 2026-08-06T19:03:29-07:00
+
+Counting is right now: 4 Lean diagnostics (two theorems × two each) and 2 Lake summary lines, separated. The `wrapper exit: 0` there is `tail`'s status, not the script's — verifying properly:
+
+    Bash scripts/compile.sh -r r0028 ScottDomains.ZZProbe > /dev/null 2>&1; echo "wrapper exit: $?"
+    Bash rm -f ScottDomains/ScottDomains/ZZProbe.lean ScottDomains/.lake/build/lib/lean/ScottDomains/ZZProbe.* ScottDomains/.lake/build/ir/ScottDomains/ZZProbe
+## turn — assistant 2026-08-06T19:08:31-07:00
+
+Now re-taking the whole-library measurement with the corrected instrument:
+
+    Bash rm -rf ScottDomains/.lake/build/lib/lean/ScottDomains ScottDomains/.lake/build/lib/lean/ScottDomains.olean ScottDomains/.lake/build/lib/lean/ScottDoma
+## turn — assistant 2026-08-06T19:08:57-07:00
+
+Tree sum is 11.8 GiB against 1.7 GiB single — but summing RSS **double-counts shared pages**, and Lean `mmap`s Mathlib's `.olean`s read-only into every worker. The honest figure is PSS. Fixing the sampler:
+
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Bash zsh -n scripts/compile.sh && rm -rf ScottDomains/.lake/build/lib/lean/ScottDomains ScottDomains/.lake/build/lib/lean/ScottDomains.olean ScottDomains/.
+## turn — assistant 2026-08-06T19:09:49-07:00
+
+Three figures now, and they differ by 7×. Re-measuring the other two rows with the corrected instrument:
+
+    Bash scripts/compile.sh -r r0028 2>&1 | tail -2
+    Bash rm -f ScottDomains/.lake/build/lib/lean/ScottDomains/Skeleton/Lemma17.* && scripts/compile.sh -r r0028 ScottDomains.Skeleton.Lemma17 2>&1 | tail -2
+## turn — assistant 2026-08-06T19:11:46-07:00
+
+Instrument corrected and re-measured. Getting the work figure from the new log, then updating the doc:
+
+    Bash grep -oE "\([0-9]+ms\)" ScottDomains/logs/compile-20260806-190929.orchestrator.log | grep -oE "[0-9]+" | awk '{s+=$1; n++} END {printf "modules: %d  w
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/Performance.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/Performance.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/Performance.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/Performance.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/Performance.md
+    Bash scripts/gitcp.sh "r0028: compile.sh measures memory correctly — PSS across the build's process group, not GNU time's single-process max; separate Lean
+## turn — assistant 2026-08-06T19:13:07-07:00
+
+No — it was logging two of the three wrong. I tested instead of assuming, and both defects are now fixed (`870bafc`).
+
+**Errors.** The failure path was untested when I told you it was set up. Two bad theorems reported **6 errors**, because Lake's own `error: build failed` and `error: Lean exited with code 1` summary lines were counted as diagnostics. Lean diagnostics carry a source position and Lake's do not, so they are now counted separately: the same probe reports **4 diagnostics, 2 Lake errors**. Exit status 1 propagates through the wrapper, and the log is complete on failure.
+
+**Memory.** This was the bigger error. GNU `time -v`'s "Maximum resident set size" is the peak of the *largest single process*, not the build. It ignores that ~20 Lean workers run at once. But summing RSS across them is wrong in the other direction, because Mathlib's `.olean`s are `mmap`ed read-only and shared, and every sharer gets charged in full. Three figures for the same whole-library build:
+
+| # | Figure | Value | Error |
+| -- | ------ | ----- | ----- |
+| 1 | GNU time, single largest process | 1674 MiB | understates |
+| 2 | Σ RSS over the process group | 11774 MiB | overstates ~5× — double-counts shared pages |
+| 3 | **Σ PSS over the process group** | **2275 MiB** | the true footprint |
+
+The wrapper now samples `/proc/<pid>/smaps_rollup` every 200 ms across the build's own process group — `setsid` isolates it, so the five agents' concurrent builds are not counted — and records both sums. **A whole validation costs 7.4 s and about 2.3 GiB.** Quoting 1.7 GiB under-provisions; quoting 11.8 GiB would have wrongly ruled out five agents on this machine. Five worktrees need ≤11.4 GiB against 31 GiB, and that is an upper bound since they symlink the same Mathlib.
+
+**Time** was right: 7.43 s span against 21.00 s of work over 25 modules, 2.83× parallelism on 20 cores — dependency-bound, not core-bound.
+
+`Performance.md` carries the corrected numbers and an explicit note that its earlier figures were the single-process maxima and are superseded.
+
+**Meanwhile four of the five agents finished.** Headlines only; I have not reviewed the diffs yet:
+
+| # | Agent | Result |
+| -- | ----- | ------ |
+| 1 | agent1 | `lem10_sum`, `lem17_sum`, `lem17_smash` proved, plus `sumSup`/`sumCpo` — **Lemma 10 now 6 of 6, Lemma 17 5 of 5** |
+| 2 | agent2 | **Theorem 11** both halves, 491 lines; §5 unblocked |
+| 3 | agent3 | **Theorem 16** and **Lemma 20** proved; had to strengthen Lemma 19 to the paper's form first |
+| 4 | agent4 | **Theorem 18 not proved** — landed the §6.1 minimal-upper-bounds development (455 lines) and a characterization theorem, then hit a specific obstacle |
+| 5 | agent5 | still running (Theorem 22, Lemma 23) |
+
+Two things from those reports need your attention when I do the merges. Agent4 reports Theorem 18 is blocked *before* the case analysis: the perturbing family needs suprema of bounded non-directed sets, and `CompactFunction.lean`'s decomposition carries `[BoundedComplete β]` — the hypothesis Theorem 18 exists to do without. It recommends a dedicated round. And agent3 flags a possible collision: it introduced `ScottHom.id`, which agent5 may also have defined.
+

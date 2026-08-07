@@ -1,0 +1,62 @@
+---
+prompt: p0016
+type: interaction
+opened: 2026-0806-13:17
+closed: 2026-0806-13:21
+subject: 2-3
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T13:17:35-07:00
+
+2. 3.
+
+    Read /home/milnes/projects/ScottLean4/ScottDomains/reports/r0001-report-from-orchestrator-to-user-toolchain-audit.md
+    Read /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains && ls -R --ignore=.lake --ignore=.git . | head -60 && echo "=== lakefile ===" && cat lakefile.toml &&
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib 2>/dev/null && grep -rl "way_below\|WayBelow\|wayBelow\|≪" Mathlib/ 2>/dev/nul
+    Bash echo "=== wayBelow/CompactlyGenerated ===" && grep -rn "wayBelow\|WayBelow\|way_below\|way-below\|continuous lattice\|ContinuousLattice" Mathlib/Order
+    Bash echo "=== IsCompactElement ===" && sed -n '50,80p' Mathlib/Order/CompactlyGenerated/Basic.lean && echo "=== CompletePartialOrder ===" && sed -n '1,80p
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains && cat ScottDomains.lean && echo "======" && cat ScottDomains/ExistingTheories.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib && echo "=== IsCompactElement occurrences by file ===" && grep -rc "IsCompactE
+    Bash grep -rn '"[^"]*≪[^"]*"\|infix.*≪\|notation.*≪' Mathlib/ --include=*.lean | grep -v "≪≫" | head -20
+    Bash TZ=America/Los_Angeles date "+%Y-%m%d-%H:%M"
+    Write /home/milnes/projects/ScottLean4/ScottDomains/plans/r0003-plan-from-orchestrator-to-orchestrator-way-below.md
+## turn — assistant 2026-08-06T13:21:28-07:00
+
+Read both. Wrote the plan to `ScottDomains/plans/r0003-plan-from-orchestrator-to-orchestrator-way-below.md` (not committed).
+
+## From the r0001 report — what the restart plan omitted
+
+Four defects, two unpredicted. D1: no `.lake` here, but `lake exe cache get` downloaded **0 bytes** — `~/projects/PFPL` had already pinned Mathlib `905b9581`, so all 8,638 oleans were cached and only needed 7.4 s of decompression. D2 (agent1, unpredicted): `lake build` elaborated 1 of 2 modules, because `defaultTargets = ["ScottDomains"]` with no `globs` and `ScottDomains.lean` never imports `ExistingTheories`; a Mathlib bump could have broken the unreferenced file while the build still exited 0. D3: `md2pdf.sh` exited 127 — zsh absent. D4: the plan named the wrong font package; `fonts-stix` is STIX 1.x and contains no STIX Two, which comes from `texlive-fonts-extra`.
+
+The report also records an instrument error worth keeping: `fc-list` reported all five fonts missing and was the wrong tool — `texlive-fonts-extra` installs into the texmf tree, which lualatex resolves through kpathsea and fontconfig never indexes. `\setmainfont{STIX Two Text}` succeeded on a host whose `fc-list` still showed nothing.
+
+Two operational facts the restart plan does not carry: the repo-root `mathlib/` copy is 8,264 files byte-identical to the package copy at the same commit, on no import path, costing 113 MiB of a 7.4 GiB tree — keep it, but never open it in VS Code, since `findLeanProjectRootInfo` walks up for `lean-toolchain`, finds none, and resolves to the Mathlib-less root so the infoview fails. And elan reaches PATH only via `/etc/gdm3/Xsession` sourcing `~/.profile` — a Wayland session would skip it.
+
+## From the inventory — and two corrections I measured
+
+The inventory's first target is `WayBelow.lean`, since compact, algebraic, domain, and bounded-complete all quantify over `≪`. I checked the premise against the local Mathlib rather than taking it on the inventory's word:
+
+| # | Query | Result |
+| -- | ----- | ------ |
+| 1 | `wayBelow`/`WayBelow`/`way_below` in `Mathlib/Order/`, `Mathlib/Topology/Order/` | 0 hits — the relation is genuinely absent |
+| 2 | `IsCompactElement` | `Order/CompactlyGenerated/Basic.lean:62`, stated at `[PartialOrder α]` |
+| 3 | Its lemmas | all under `variable [CompleteLattice α]` — 20 mentions in the file, 0 usable on a dcpo |
+| 4 | `≪` | taken only by `scoped[MeasureTheory]` at `infixl:50` — scoping avoids the collision |
+
+Correction 1: the inventory marks compact element `~ (lattice only → dcpo)`. The definition is already `PartialOrder`-general; only the API is lattice-only. That is favorable — replacing the two occurrences of `k` in `IsCompactElement` by `x` and `y` independently gives `x ≪ y`, which makes `x ≪ x ↔ IsCompactElement x` hold by `Iff.rfl`, a kernel-checked identity rather than a proof.
+
+Correction 2: `CompletePartialOrder` `extends OrderBot`, so Mathlib's dcpo is pointed by construction with `⊥ = sSup ∅`, while `ScottContinuous` quantifies over *nonempty* directed sets and therefore does not demand strictness. Gunter & Scott's directedness forces nonemptiness too, so keeping `s.Nonempty` explicit in the definition matches both — and it is what makes `⊥ ≪ x` provable.
+
+## The r0003 plan
+
+One module, 1 definition and 7 theorems: the definition plus scoped notation, the `Iff.rfl` bridge to `IsCompactElement`, `WayBelow.le`, the two monotonicity directions, transitivity by composing them, `bot_wayBelow`, and the `sSup` rewriting form over `CompletePartialOrder`. Steps 3–8 are independent given step 1, so span is 3 sequential elaborations, not 8. Acceptance: `lake build` 4 jobs (was 3), 0 errors, 0 warnings, 0 `sorry`, no Mathlib re-elaboration — disk is the binding constraint at 15 GiB free. Algebraic cpo, `ScottDomain`, bounded-complete, and all 30 numbered results are explicitly deferred to r0004.
+
+Want me to execute it, or commit the plan first?
+
