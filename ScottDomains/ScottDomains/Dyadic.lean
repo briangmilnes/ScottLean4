@@ -1,4 +1,14 @@
 import ScottDomains.IdealCompletion
+-- `ℚ` as a linearly ordered field: the order instances, then the field structure,
+-- then `div_lt_one` and its neighbours.  Without these `ℚ` is not even a known
+-- name and Lean auto-binds it as an implicit type variable.
+import Mathlib.Algebra.Order.Ring.Rat
+import Mathlib.Algebra.Field.Rat
+import Mathlib.Algebra.Order.Field.Basic
+-- `Finset.countable`, the instance `Countable α → Countable (Finset α)` that
+-- makes the basis `U₀` countable, and `Countable ℚ`, which it needs.
+import Mathlib.Logic.Equiv.List
+import Mathlib.Data.Rat.Denumerable
 
 /-!
 # §7.3: the universal domain `U`, the ideal completion of the dyadic half-open intervals
@@ -80,8 +90,6 @@ finite unions of half-open intervals are closed under intersection.
 
 namespace ScottDomains.Dyadic
 
-open Set
-
 /-! ### `S`: the dyadic points of `[0, 1)` -/
 
 /-- The paper's `S`: the rationals `n/2^m` with `0 ≤ n < 2^m` and `0 < m` — that
@@ -96,8 +104,8 @@ theorem S_nonempty : S.Nonempty := ⟨0, zero_mem_S⟩
 `n < 2^m` the right one. -/
 theorem mem_Ico_of_mem_S {q : ℚ} (h : q ∈ S) : 0 ≤ q ∧ q < 1 := by
   obtain ⟨n, m, -, hn, rfl⟩ := h
-  have h2 : (0 : ℚ) < 2 ^ m := by positivity
-  refine ⟨div_nonneg (by positivity) h2.le, (div_lt_one h2).mpr ?_⟩
+  have h2 : (0 : ℚ) < 2 ^ m := pow_pos (by norm_num) m
+  refine ⟨div_nonneg (Nat.cast_nonneg n) h2.le, (div_lt_one h2).mpr ?_⟩
   exact_mod_cast hn
 
 /-! ### `E`: the admissible endpoints -/
@@ -141,7 +149,7 @@ about intervals that bounded completeness of `U` consumes. -/
 theorem Ivl_inter (r t r' t' : ℚ) :
     Ivl r t ∩ Ivl r' t' = Ivl (max r r') (min t t') := by
   ext s
-  simp only [mem_Ivl, mem_inter_iff, max_le_iff, lt_min_iff]
+  simp only [mem_Ivl, Set.mem_inter_iff, max_le_iff, lt_min_iff]
   tauto
 
 /-! ### `U₀`: finite non-empty unions of intervals -/
@@ -151,16 +159,22 @@ def unionOf (F : Finset (ℚ × ℚ)) : Set ℚ := ⋃ p ∈ F, Ivl p.1 p.2
 
 theorem mem_unionOf {F : Finset (ℚ × ℚ)} {s : ℚ} :
     s ∈ unionOf F ↔ ∃ p ∈ F, s ∈ Ivl p.1 p.2 := by
-  simp [unionOf]
+  simp only [unionOf, Set.mem_iUnion, exists_prop]
 
 theorem unionOf_subset_S {F : Finset (ℚ × ℚ)} : unionOf F ⊆ S := by
   intro s hs
   obtain ⟨p, -, hp⟩ := mem_unionOf.mp hs
   exact Ivl_subset_S hp
 
-@[simp] theorem unionOf_singleton (r t : ℚ) : unionOf {(r, t)} = Ivl r t := by
+theorem unionOf_singleton (r t : ℚ) : unionOf {(r, t)} = Ivl r t := by
   ext s
-  simp [mem_unionOf]
+  rw [mem_unionOf]
+  constructor
+  · rintro ⟨p, hp, hs⟩
+    rw [Finset.mem_singleton] at hp
+    subst hp
+    exact hs
+  · exact fun hs => ⟨(r, t), Finset.mem_singleton_self _, hs⟩
 
 /-- The paper's `U₀` as a predicate: a **finite non-empty union of half-open
 intervals** with dyadic endpoints. Non-emptiness is the paper's own parenthesis,
@@ -188,7 +202,7 @@ theorem unionOf_inter (F G : Finset (ℚ × ℚ)) :
     unionOf F ∩ unionOf G =
       unionOf ((F ×ˢ G).image fun pq => (max pq.1.1 pq.2.1, min pq.1.2 pq.2.2)) := by
   ext s
-  simp only [mem_inter_iff, mem_unionOf, Finset.mem_image, Finset.mem_product]
+  simp only [Set.mem_inter_iff, mem_unionOf, Finset.mem_image, Finset.mem_product]
   constructor
   · rintro ⟨⟨p, hp, hsp⟩, q, hq, hsq⟩
     refine ⟨(max p.1 q.1, min p.2 q.2), ⟨(p, q), ⟨hp, hq⟩, rfl⟩, ?_⟩
@@ -198,12 +212,19 @@ theorem unionOf_inter (F G : Finset (ℚ × ℚ)) :
     rw [← Ivl_inter] at hs
     exact ⟨⟨p, hp, hs.1⟩, q, hq, hs.2⟩
 
+/-- A finite family of intervals with endpoints in `E` and a non-empty union is a
+basis element. Stated separately so `isBasic_inter` never has to unify two
+independently elaborated copies of the `Finset.image` term (which forces defeq
+checks on `DecidableEq ℚ` and exhausts the `whnf` budget). -/
+theorem isBasic_unionOf {F : Finset (ℚ × ℚ)} (hF : ∀ p ∈ F, p.1 ∈ E ∧ p.2 ∈ E)
+    (hne : (unionOf F).Nonempty) : IsBasic (unionOf F) := ⟨hne, F, hF, rfl⟩
+
 theorem isBasic_inter {X Y : Set ℚ} (hX : IsBasic X) (hY : IsBasic Y)
     (hne : (X ∩ Y).Nonempty) : IsBasic (X ∩ Y) := by
   obtain ⟨-, F, hF, rfl⟩ := hX
   obtain ⟨-, G, hG, rfl⟩ := hY
-  refine ⟨hne, (F ×ˢ G).image fun pq => (max pq.1.1 pq.2.1, min pq.1.2 pq.2.2), ?_,
-    unionOf_inter F G⟩
+  rw [unionOf_inter F G] at hne ⊢
+  refine isBasic_unionOf ?_ hne
   intro p hp
   rw [Finset.mem_image] at hp
   obtain ⟨⟨a, b⟩, hab, rfl⟩ := hp
@@ -242,7 +263,7 @@ instance : PartialOrder U₀ where
   le X Y := toSet Y ⊆ toSet X
   le_refl _ := subset_rfl
   le_trans _ _ _ h₁ h₂ := h₂.trans h₁
-  le_antisymm _ _ h₁ h₂ := ext (Subset.antisymm h₂ h₁)
+  le_antisymm _ _ h₁ h₂ := U₀.ext (Set.Subset.antisymm h₂ h₁)
 
 theorem le_iff {X Y : U₀} : X ≤ Y ↔ toSet Y ⊆ toSet X := Iff.rfl
 
@@ -270,15 +291,16 @@ know the intersection is non-empty and therefore a basis element. -/
 theorem exists_isLUB_pair (X Y : U₀) (h : BddAbove ({X, Y} : Set U₀)) :
     ∃ c, IsLUB ({X, Y} : Set U₀) c := by
   obtain ⟨Z, hZ⟩ := h
-  have hZX : toSet Z ⊆ toSet X := hZ (mem_insert X {Y})
-  have hZY : toSet Z ⊆ toSet Y := hZ (mem_insert_of_mem X rfl)
+  have hZX : toSet Z ⊆ toSet X := le_iff.mp (hZ (Set.mem_insert X {Y}))
+  have hZY : toSet Z ⊆ toSet Y := le_iff.mp (hZ (Set.mem_insert_of_mem X rfl))
   obtain ⟨s, hs⟩ := Z.toSet_nonempty
   refine ⟨mk (toSet X ∩ toSet Y) (isBasic_inter X.isBasic Y.isBasic ⟨s, hZX hs, hZY hs⟩), ?_, ?_⟩
   · rintro W (rfl | rfl)
     · exact fun a ha => ha.1
     · exact fun a ha => ha.2
   · intro W hW a ha
-    exact ⟨hW (mem_insert X {Y}) ha, hW (mem_insert_of_mem X rfl) ha⟩
+    exact ⟨le_iff.mp (hW (Set.mem_insert X {Y})) ha,
+      le_iff.mp (hW (Set.mem_insert_of_mem X rfl)) ha⟩
 
 end U₀
 
@@ -305,7 +327,8 @@ instance : BoundedComplete U := IdealCompletion.boundedComplete U₀.exists_isLU
 the basis elements **containing** `X`, since a superset is a coarser
 approximation. -/
 theorem mem_principal_iff {X Y : U₀} :
-    Y ∈ (IdealCompletion.principal X : U) ↔ U₀.toSet X ⊆ U₀.toSet Y := Iff.rfl
+    Y ∈ (IdealCompletion.principal X : U) ↔ U₀.toSet X ⊆ U₀.toSet Y :=
+  IdealCompletion.mem_principal.trans U₀.le_iff
 
 /-- **`K(U)` is the set of principal ideals over `U₀`** — the second half of
 Theorem 11's conclusion, at `A = U₀`. Concretely, the compact elements of `U` are
