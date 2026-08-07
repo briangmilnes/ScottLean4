@@ -19,20 +19,35 @@ independently.
 
 ## Status
 
-`lem10_prod`, `lem10_lift` and `lem10_strict` are proved. `lem10_smash` is
-**refutable as stated**, and `lem10_smash_refuted` at the end of this file proves
-it: `smashSup` (in `Smash.lean`) branches its `dite` on *directedness* of the
-base, so on a bounded but non-directed set `sSup` returns the adjoined bottom
-instead of the least upper bound. The paper's mathematics is fine — `D ⊗ E` is
-bounded complete — but the Lean rendering of `sSup` has to branch on the
-condition that makes the coordinatewise supremum correct, which is that it lands
-in `NonBotPair`, not on directedness. `ScottHom.lean`'s module docstring records
-having hit and fixed the identical defect in the function space. The repair is a
-change to the shared module `Smash.lean` and is written out in `lem10_smash`'s
-docstring below.
+All four are proved: `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict`.
+Zero `sorry`.
 
-**Owned by agent1.** No other file's declarations are edited when these are
-proved.
+## The defect `lem10_smash` exposed, and the repair (r0027)
+
+`lem10_smash` was first refutable, not merely open. `smashSup` in `Smash.lean`
+branched its `dite` on the base being nonempty **and directed**, so on a bounded
+but non-directed set `sSup` returned the adjoined bottom, which is not even an
+upper bound of the set. The kernel-checked refutation used the bounded complete
+domains `D = Prop × Prop` (all four elements compact, hence a domain; bounded
+complete by `lem10_prod`) and `E = Prop`, with
+
+    s = {↑((True, False), True), ↑((False, True), True)} ⊆ D ⊗ E,
+
+bounded above by `↑((True, True), True)` and not directed, since `(True, False)`
+and `(False, True)` are incomparable in `Prop × Prop`.
+
+The paper's mathematics was never in doubt — `D ⊗ E` is bounded complete — the
+defect was in the Lean rendering of a total `sSup`. `Smash.lean` now branches on
+the condition that makes the coordinatewise supremum an element of `D ⊗ E`, that
+it lands in `NonBotPair`, rather than on a sufficient condition for it;
+`smashSup_of_directed` and `smashSup_of_empty` keep their statements, so the new
+guard provably agrees with the old wherever the old one applied, and `smashCpo`
+needed no change. `ScottHom.lean`'s module docstring records the identical defect
+and repair for the function space, where the condition is continuity of the
+pointwise supremum. The refutation itself is not kept: it is false against the
+repaired definition. It is in the git history at commit `1f1f10c`.
+
+**Owned by agent1**, except for the authorized repair to `Smash.lean`.
 -/
 
 namespace ScottDomains
@@ -69,170 +84,74 @@ end Prod
 
 section Smash
 
-/-- `smashSup` returns the adjoined bottom on **every** set whose base is not
-directed, bounded or not — its `dite` guard is
-`(smashBase s).Nonempty ∧ DirectedOn (· ≤ ·) (smashBase s)`. -/
-theorem smashSup_of_not_directedOn {s : Set (Smash α β)}
-    (h : ¬ DirectedOn (· ≤ ·) (smashBase s)) : smashSup s = ⊥ := by
-  classical
-  have hneg : ¬ ((smashBase s).Nonempty ∧ DirectedOn (· ≤ ·) (smashBase s)) := fun hc => h hc.2
-  simp only [smashSup, dif_neg hneg]
+/-- An upper bound of a set whose base is nonempty is a coerced pair, never the
+adjoined bottom — the smash-product form of `exists_coe_of_mem_upperBounds`. -/
+theorem exists_coe_of_mem_upperBounds_smash {s : Set (Smash α β)}
+    (hne : (smashBase s).Nonempty) {u : Smash α β} (hu : u ∈ upperBounds s) :
+    ∃ r : NonBotPair α β, u = ↑r := by
+  obtain ⟨q₀, hq₀⟩ := hne
+  induction u using WithBot.recBotCoe with
+  | bot => exact absurd (hu (coe_mem_of_mem_smashBase hq₀)) (WithBot.not_coe_le_bot q₀)
+  | coe r => exact ⟨r, rfl⟩
 
-/-- **The obstacle to `lem10_smash`, stated and checked.** For a set with a
-nonempty, non-directed base, `sSup` is the adjoined bottom, which is not even an
-upper bound of the set — so `IsLUB s (sSup s)` is refutable. Nothing here assumes
-`s` is bounded above, so `BoundedComplete (Smash α β)` holds only if every
-bounded subset of `D ⊗ E` has directed base, which fails as soon as `D` has two
-incomparable elements with a common upper bound.
+/-- **Lemma 10, `D ⊗ E`.** The base of a bounded set is bounded in `D × E` —
+an upper bound of a set with nonempty base is a coerced pair, and coercion
+reflects `≤`. `lem10_prod` makes the coordinatewise supremum of the base's image
+its least upper bound, and a member of a nonempty base sits below it with both
+coordinates non-`⊥`, so `smashSup`'s guard holds and the value is that supremum
+coerced. On an empty base the set is contained in `{⊥}` and the value is `⊥`.
 
-Concretely: take `D = 𝒫{0,1}` ordered by inclusion (a finite lattice, hence a
-bounded complete domain — every element compact) and `E = Prop`. Then
-`s = {↑({0}, True), ↑({1}, True)} ⊆ D ⊗ E` is bounded above by `↑({0,1}, True)`
-and its base is not directed, so `sSup s = ⊥` while the least upper bound is
-`↑({0,1}, True)`. -/
-theorem not_isLUB_sSup_of_not_directedOn_smashBase {s : Set (Smash α β)}
-    (hne : (smashBase s).Nonempty) (h : ¬ DirectedOn (· ≤ ·) (smashBase s)) :
-    ¬ IsLUB s (sSup s) := by
-  obtain ⟨q, hq⟩ := hne
-  intro hlub
-  have hle : (↑q : Smash α β) ≤ sSup s := hlub.1 (coe_mem_of_mem_smashBase hq)
-  rw [show (sSup s : Smash α β) = smashSup s from rfl, smashSup_of_not_directedOn h] at hle
-  exact WithBot.not_coe_le_bot q hle
-
-/-- **Lemma 10, `D ⊗ E`.** Not proved: false as stated against the current
-`smashSup`, by `not_isLUB_sSup_of_not_directedOn_smashBase` above.
-
-`ScottHom`'s module docstring already names the defect and avoids it there:
-"Branching on directedness instead — as an earlier version of this file did —
-makes `BoundedComplete (ScottHom α β)` false as stated, because a bounded set of
-functions need not be directed and `sSup` would return the junk value on it."
-`smashSup` branches on directedness, so it has exactly that defect.
-
-The repair is in `Smash.lean` (a shared module, so it is reported rather than
-made): branch on the condition that actually makes the coordinatewise supremum
-the right answer — that it lies in `NonBotPair` — instead of on directedness,
-
-    noncomputable def smashSup (s : Set (Smash α β)) : Smash α β :=
-      if h : (sSup (Subtype.val '' smashBase s)).1 ≠ ⊥ ∧
-             (sSup (Subtype.val '' smashBase s)).2 ≠ ⊥ then ↑(⟨_, h⟩ : NonBotPair α β) else ⊥
-
-which is strictly more permissive and agrees with the present definition on
-nonempty directed bases (`sSup_ne_bot_of_nonempty` discharges the new guard) and
-on empty bases (`sSup ∅ = (⊥, ⊥)`, so the new guard fails and the value is still
-`⊥`). With that definition the bounded case goes through: `lem10_prod` above makes
-`sSup (Subtype.val '' smashBase s)` the least upper bound of the base's image, and
-a member of a nonempty base has both coordinates non-`⊥` below it. -/
+This is the conjunct that `smashSup`'s original `dite` guard made false: it
+branched on the base being nonempty and *directed*, so a bounded non-directed set
+received the adjoined bottom. The r0027 refutation used `D = Prop × Prop`,
+`E = Prop` and `s = {↑((True, False), True), ↑((False, True), True)}`, which is
+bounded above by `↑((True, True), True)` and not directed. `Smash.lean` now
+branches on the coordinatewise supremum landing in `NonBotPair` — the condition
+that makes it an element of `D ⊗ E` — and its module docstring carries the full
+account. -/
 theorem lem10_smash [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
-    BoundedComplete (Smash α β) := by
-  sorry
+    BoundedComplete (Smash α β) where
+  isLUB_sSup_of_bddAbove s hs := by
+    haveI : BoundedComplete (α × β) := lem10_prod
+    show IsLUB s (smashSup s)
+    by_cases hne : (smashBase s).Nonempty
+    · obtain ⟨q₀, hq₀⟩ := hne
+      have hne : (smashBase s).Nonempty := ⟨q₀, hq₀⟩
+      obtain ⟨u, hu⟩ := hs
+      obtain ⟨r, rfl⟩ := exists_coe_of_mem_upperBounds_smash hne hu
+      have hbdd : BddAbove (Subtype.val '' smashBase s) := by
+        refine ⟨r.val, ?_⟩
+        rintro _ ⟨q, hq, rfl⟩
+        exact (WithBot.coe_le_coe (α := NonBotPair α β)).mp (hu (coe_mem_of_mem_smashBase hq))
+      have hlub := isLUB_sSup_of_bddAbove hbdd
+      have hq₀le : q₀.val ≤ sSup (Subtype.val '' smashBase s) := hlub.1 ⟨q₀, hq₀, rfl⟩
+      have hguard : (sSup (Subtype.val '' smashBase s)).1 ≠ ⊥ ∧
+          (sSup (Subtype.val '' smashBase s)).2 ≠ ⊥ :=
+        ⟨fun hbot => q₀.2.1 (le_bot_iff.mp (le_of_le_of_eq hq₀le.1 hbot)),
+          fun hbot => q₀.2.2 (le_bot_iff.mp (le_of_le_of_eq hq₀le.2 hbot))⟩
+      rw [smashSup_of_ne_bot hguard]
+      constructor
+      · intro x hx
+        induction x using WithBot.recBotCoe with
+        | bot => exact bot_le
+        | coe q => exact WithBot.coe_le_coe.mpr (hlub.1 ⟨q, hx, rfl⟩)
+      · intro v hv
+        obtain ⟨w, rfl⟩ := exists_coe_of_mem_upperBounds_smash hne hv
+        refine WithBot.coe_le_coe.mpr ?_
+        show sSup (Subtype.val '' smashBase s) ≤ w.val
+        refine hlub.2 ?_
+        rintro _ ⟨q, hq, rfl⟩
+        exact (WithBot.coe_le_coe (α := NonBotPair α β)).mp (hv (coe_mem_of_mem_smashBase hq))
+    · rw [smashSup_of_empty hne]
+      constructor
+      · intro x hx
+        induction x using WithBot.recBotCoe with
+        | bot => exact le_rfl
+        | coe q => exact absurd ⟨q, hx⟩ hne
+      · intro _ _
+        exact bot_le
 
 end Smash
-
-/-!
-## The refutation, checked by the kernel
-
-`lem10_smash_refuted` below derives `False` from the *statement* of `lem10_smash`
-(taken as a hypothesis, at universe `Type`), so the `sorry` above is not merely
-unfinished — it cannot be finished while `smashSup` branches on directedness.
-
-The witness is `D = Prop × Prop`, `E = Prop`. `Prop × Prop` is a bounded complete
-domain: every element is compact (`isCompactElement_prod` over
-`isCompactElement_prop`), and `BoundedComplete (Prop × Prop)` is `lem10_prod`.
-Unlike `Prop` itself it is not a chain — `(True, False)` and `(False, True)` are
-incomparable with common upper bound `(True, True)` — which is exactly what the
-smash product's `sSup` mishandles.
--/
-
-section Refutation
-
-/-- A pair is compact when both coordinates are: take a witness in each coordinate
-image of the directed set, then spend directedness once to merge the two
-witnesses into a single member above both. -/
-theorem isCompactElement_prod {x : α × β} (h₁ : IsCompactElement x.1)
-    (h₂ : IsCompactElement x.2) : IsCompactElement x := by
-  intro s u hne hd hlub hxu
-  rw [isLUB_prod] at hlub
-  obtain ⟨_, ⟨p, hp, rfl⟩, hxp⟩ :=
-    h₁ (Prod.fst '' s) u.1 (hne.image _) (directedOn_fst_image hd) hlub.1 hxu.1
-  obtain ⟨_, ⟨r, hr, rfl⟩, hxr⟩ :=
-    h₂ (Prod.snd '' s) u.2 (hne.image _) (directedOn_snd_image hd) hlub.2 hxu.2
-  obtain ⟨c, hc, hpc, hrc⟩ := hd p hp r hr
-  exact ⟨c, hc, hxp.trans hpc.1, hxr.trans hrc.2⟩
-
-/-- `Prop × Prop` is a domain: all four elements are compact, so algebraicity is
-`isAlgebraic_of_forall_isCompactElement`, and the type is countable. -/
-theorem domain_prop_prod : Domain (Prop × Prop) where
-  __ := isAlgebraic_of_forall_isCompactElement fun x =>
-    isCompactElement_prod (isCompactElement_prop x.1) (isCompactElement_prop x.2)
-  countable_compacts := (compacts (Prop × Prop)).to_countable
-
-/-- `((True, False), True)` — a non-bottom pair of `(Prop × Prop) ⊗ Prop`. -/
-def cex₁ : NonBotPair (Prop × Prop) Prop :=
-  ⟨((True, False), True), by simp [Prod.ext_iff], by simp⟩
-
-/-- `((False, True), True)` — incomparable with `cex₁`. -/
-def cex₂ : NonBotPair (Prop × Prop) Prop :=
-  ⟨((False, True), True), by simp [Prod.ext_iff], by simp⟩
-
-/-- `((True, True), True)` — an upper bound of both. -/
-def cex₃ : NonBotPair (Prop × Prop) Prop :=
-  ⟨((True, True), True), by simp [Prod.ext_iff], by simp⟩
-
-/-- The two-element set that is bounded above but whose base is not directed. -/
-def cexSet : Set (Smash (Prop × Prop) Prop) := {(↑cex₁ : Smash (Prop × Prop) Prop), ↑cex₂}
-
-theorem cex₁_mem_smashBase : cex₁ ∈ smashBase cexSet := Or.inl rfl
-
-theorem cex₂_mem_smashBase : cex₂ ∈ smashBase cexSet := Or.inr rfl
-
-theorem bddAbove_cexSet : BddAbove cexSet := by
-  refine ⟨↑cex₃, ?_⟩
-  -- every component of `cex₃` is `True`, so each obligation is `_ → True`.
-  rintro x (rfl | rfl) <;>
-    exact WithBot.coe_le_coe.mpr ⟨⟨fun _ => trivial, fun _ => trivial⟩, fun _ => trivial⟩
-
-/-- The base of `cexSet` is `{cex₁, cex₂}`, and neither is above the other, so no
-member of the base bounds both. -/
-theorem not_directedOn_smashBase_cexSet : ¬ DirectedOn (· ≤ ·) (smashBase cexSet) := by
-  intro hd
-  obtain ⟨c, hc, h₁, h₂⟩ := hd cex₁ cex₁_mem_smashBase cex₂ cex₂_mem_smashBase
-  have hcc : c = cex₁ ∨ c = cex₂ := by
-    rcases hc with hc | hc
-    · exact Or.inl (WithBot.coe_inj.mp hc)
-    · exact Or.inr (WithBot.coe_inj.mp (Set.mem_singleton_iff.mp hc))
-  rcases hcc with rfl | rfl
-  · exact h₂.1.2 trivial
-  · exact h₁.1.1 trivial
-
-/-- **`D ⊗ E` is not bounded complete as `smashSup` currently stands**, for the
-bounded complete domains `D = Prop × Prop` and `E = Prop`. -/
-theorem not_boundedComplete_smash_cex : ¬ BoundedComplete (Smash (Prop × Prop) Prop) := by
-  intro hbc
-  exact not_isLUB_sSup_of_not_directedOn_smashBase ⟨cex₁, cex₁_mem_smashBase⟩
-    not_directedOn_smashBase_cexSet
-    (hbc.isLUB_sSup_of_bddAbove cexSet bddAbove_cexSet)
-
-/-- **`lem10_smash` is refutable, not merely open.** Its statement, assumed as the
-hypothesis `h`, instantiates at `D = Prop × Prop`, `E = Prop` — both bounded
-complete domains — and contradicts `not_boundedComplete_smash_cex`. -/
-theorem lem10_smash_refuted
-    (h : ∀ {α β : Type} [CompletePartialOrder α] [CompletePartialOrder β] [Domain α]
-      [BoundedComplete α] [Domain β] [BoundedComplete β], BoundedComplete (Smash α β)) :
-    False := by
-  haveI : Domain (Prop × Prop) := domain_prop_prod
-  haveI : BoundedComplete (Prop × Prop) := lem10_prod
-  exact not_boundedComplete_smash_cex (h (α := Prop × Prop) (β := Prop))
-
-/- The hypothesis of `lem10_smash_refuted` is `lem10_smash`'s statement verbatim,
-specialized to `Type`. Checked by elaborating
-
-    example : False := lem10_smash_refuted (fun {_ _} _ _ _ _ _ _ => lem10_smash)
-
-which typechecks. It is not kept in the file: it is a proof of `False` that leans
-on the `sorry` in `lem10_smash`, so committing it would put a sorry-backed `False`
-into the environment for any later file to pick up. -/
-
-end Refutation
 
 section Lift
 
@@ -314,9 +233,9 @@ theorem lem10_strict [Domain α] [BoundedComplete α] [Domain β] [BoundedComple
 end Strict
 
 /- Axiom audit, by `#print axioms` (run, then removed so the build emits no `info`
-lines): `lem10_prod` depends on `[propext, Quot.sound]`; `lem10_lift`,
-`lem10_strict` and `lem10_smash_refuted` on `[propext, Classical.choice,
-Quot.sound]` — `Classical.choice` entering through the `dite` in `liftSup` and in
+lines): `lem10_prod` depends on `[propext, Quot.sound]`; `lem10_smash`,
+`lem10_lift` and `lem10_strict` on `[propext, Classical.choice, Quot.sound]` —
+`Classical.choice` entering through the `dite` in `smashSup`, in `liftSup` and in
 `ScottHom`'s `sSup`. None depends on `sorryAx`. -/
 
 end ScottDomains
