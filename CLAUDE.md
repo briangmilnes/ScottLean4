@@ -86,7 +86,16 @@ Four rules, in order of how much they save:
    time.
 3. **Multi-step logic goes in `scripts/`**, which is allowlisted as a prefix —
    never inline in the terminal, and never in `/tmp`, which is not allowlisted.
-   `compile.sh`, `counts.sh`, `parallel-cost.sh`, `save-prompts.sh` exist for this.
+   `compile.sh`, `counts.sh`, `axioms.sh`, `parallel-cost.sh`, `save-prompts.sh`
+   exist for this.
+
+   **Creating a script in `scripts/` is standing-authorized — do it without
+   asking.** Anything needing more than one command, or needing a pipe, a loop,
+   a `cd`, or a heredoc, becomes a script there instead. Writing the file never
+   prompts (`Write(//home/milnes/projects/**)` covers it); only *running* a new
+   script can prompt, and only until the allowlist is reloaded. Give it a
+   docstring saying what it measures or does and why it exists, per the examples
+   above.
 4. **Never pipe an allowlisted script.** `scripts/compile.sh -r rNNNN` is allowed;
    `scripts/compile.sh -r rNNNN 2>&1 | tail -2` is a compound command and prompts.
    The wrapper already prints its own summary line.
