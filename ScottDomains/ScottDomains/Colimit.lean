@@ -1,5 +1,9 @@
 import ScottDomains.BifiniteUniversal
 import ScottDomains.IdealCompletion
+-- `IsPRepresentable₂` and `Cpo.funSpace`, for stating Lemma 30's first conjunct;
+-- `IsEmbeddingProjectionPair`, for stating Theorem 29's second sentence. Both
+-- statements are new here only because `V` is.
+import ScottDomains.PRepresentable
 -- `Finset.fintype`: `Finset α` is a `Fintype` when `α` is. Needed to show each
 -- stage of the chain is finite, and not reachable from the imports above.
 import Mathlib.Data.Fintype.Powerset
@@ -78,18 +82,32 @@ element counts supply still selects the same order.
 | 3 | `stgEmb n` | `Stg n ↪o Stg (n+1)`, `M` applied to the previous one |
 | 4 | `liftStg` | `Stg n ↪o Stg m` for `n ≤ m`, by `Nat.leRecOn` |
 | 5 | `Germ`, `Ainf` | the ω-colimit, as the antisymmetrization of a pre-order on `Σ n, Stg n` |
-| 6 | `V` | `IdealCompletion Ainf`; `Domain V` and `IsBifinite V` |
+| 6 | `V` | `IdealCompletion Ainf`; `Domain V` (`domain_V`) and `IsBifinite V` (`isBifinite_V`) |
+| 7 | `expand` | `A∞ → M(A∞)/≈`, order-reflecting and surjective — `M` is finitary |
+| 8 | `idealCongr` | ideal completions agree along a monotone order-reflecting surjection |
+| 9 | `isoPlus` | **`V ≅ V⁺`**, and `iso_plus_V` for the cpo form |
+
+`isoPlus` is `idealCongr` applied three times: to `expand` (the fixed point), to
+`mk` backwards (the identification), and to `M(toCompacts)` (`A∞ = K(V)`). The
+one hypothesis `idealCongr` needs is a monotone order-reflecting **surjection** —
+injectivity is not required, which is what lets the identification `M(A) → M(A)/≈`
+be an instance of it.
+
+`incl_pointB1_ne_bot` and `principal_pointB1_ne_bot` check that `A∞` and `V` are
+not one-point, so `isoPlus` is not vacuous.
 
 ## What is not built
 
-`V ≅ V⁺` is **not** proved. The remaining step is that `M` is finitary — every
-element of `M(A_∞)` already lies in the image of some `M(A_N)` — which turns
-`Antisymmetrization (MPair Ainf) ≃o Ainf` into a surjectivity statement.
-`exists_stage_of_finset` and `exists_stage_mpair` below discharge the finitariness
-itself; what is missing is the four transports that carry it to `V⁺`:
-`↥(compacts V) ≃o Ainf`, `M` on an `≃o`, `IdealCompletion` on an `≃o`, and
-invariance of `IdealCompletion` under antisymmetrization. No `sorry` stands in
-for any of them.
+Neither of the two results §7.4 defers to [Gun87] is proved; each is now
+**statable** for the first time, and each is recorded as a `Prop` at the end of
+this file with the missing step named.
+
+| # | statement | what is missing |
+| - | --------- | --------------- |
+| 1 | `Thm29Second` — Theorem 29's second sentence at `D = V` | the universality argument: extending a normal embedding of a finite normal subposet of `K(E)` into `Stg n` to the next one into `Stg (n+1)` |
+| 2 | `Lem30Arrow` — Lemma 30's `→` conjunct | a representation of the function space over `V`; the paper's other **nine** operators are not present in this development as functions `Cpo → Cpo` at all |
+
+No `sorry` stands in for either.
 -/
 
 namespace ScottDomains.Colimit
@@ -204,7 +222,97 @@ theorem range_mpairMap (f : α ↪o β) : Set.range (mpairMap f) = MSub (Set.ran
 theorem mpairMap_eta (f : α ↪o β) (x : α) : mpairMap f (eta x) = eta (f x) :=
   MPair.ext rfl (by simp [mpairMap, eta])
 
+/-- `M(f)` is surjective when `f` is: `range_mpairMap` plus `MSub Set.univ = Set.univ`. -/
+theorem surjective_mpairMap {f : α ↪o β} (hs : Function.Surjective f) :
+    Function.Surjective (mpairMap f) := by
+  intro m
+  have hm : m ∈ MSub (Set.range f) := by
+    rw [hs.range_eq]
+    exact ⟨Set.mem_univ _, fun _ _ => Set.mem_univ _⟩
+  rw [← range_mpairMap] at hm
+  exact hm
+
+theorem mpairMap_congr {f g : α ↪o β} (h : ∀ x, f x = g x) (m : MPair α) :
+    mpairMap f m = mpairMap g m := by
+  refine MPair.ext (h m.base) (Finset.ext fun y => ?_)
+  simp only [mpairMap_cover, Finset.mem_map]
+  constructor
+  · rintro ⟨a, ha, rfl⟩
+    exact ⟨a, ha, (h a).symm⟩
+  · rintro ⟨a, ha, rfl⟩
+    exact ⟨a, ha, h a⟩
+
+theorem mpairMap_trans {γ : Type w} [PartialOrder γ] (f : α ↪o β) (g : β ↪o γ) (m : MPair α) :
+    mpairMap g (mpairMap f m) = mpairMap (f.trans g) m := by
+  refine MPair.ext rfl ?_
+  simp only [mpairMap_cover, Finset.map_map]
+  rfl
+
 end Functor
+
+/-! ## The ideal completion of a pre-order depends only on its poset reflection
+
+A monotone order-**reflecting surjection** — not necessarily injective — induces
+an order isomorphism of ideal completions, by direct image and preimage. It is
+the one transport the fixed point needs, and it covers all three steps: the
+identification `M(A) → M(A)/≈`, the passage between `A∞` and `K(V)`, and the
+fixed-point map itself. -/
+
+section IdealTransport
+
+variable {α : Type u} {β : Type v} [Preorder α] [Preorder β] {f : α → β}
+
+theorem isIdeal_image (hf : ∀ a b : α, f a ≤ f b ↔ a ≤ b) (hs : Function.Surjective f)
+    (I : IdealCompletion α) : Order.IsIdeal (f '' (I : Set α)) := by
+  refine ⟨?_, I.nonempty.image f, ?_⟩
+  · intro y z hzy hy
+    obtain ⟨a, ha, rfl⟩ := hy
+    obtain ⟨b, rfl⟩ := hs z
+    exact ⟨b, I.lower ((hf b a).mp hzy) ha, rfl⟩
+  · rintro _ ⟨a, ha, rfl⟩ _ ⟨b, hb, rfl⟩
+    obtain ⟨c, hc, hac, hbc⟩ := I.directed a ha b hb
+    exact ⟨f c, ⟨c, hc, rfl⟩, (hf a c).mpr hac, (hf b c).mpr hbc⟩
+
+theorem isIdeal_preimage (hf : ∀ a b : α, f a ≤ f b ↔ a ≤ b) (hs : Function.Surjective f)
+    (J : IdealCompletion β) : Order.IsIdeal (f ⁻¹' (J : Set β)) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro a b hba ha
+    exact J.lower ((hf b a).mpr hba) ha
+  · obtain ⟨y, hy⟩ := J.nonempty
+    obtain ⟨x, rfl⟩ := hs y
+    exact ⟨x, hy⟩
+  · intro a ha b hb
+    obtain ⟨c, hc, hac, hbc⟩ := J.directed (f a) ha (f b) hb
+    obtain ⟨z, rfl⟩ := hs c
+    exact ⟨z, hc, (hf a z).mp hac, (hf b z).mp hbc⟩
+
+/-- **The ideal completions of `α` and `β` agree along a monotone order-reflecting
+surjection.** Direct image and preimage are mutually inverse: `f⁻¹(f(I)) = I`
+needs order-reflection (`f x = f a` forces `x` and `a` equivalent, and `I` is
+downward closed), and `f(f⁻¹(J)) = J` needs surjectivity. Injectivity of `f` is
+*not* required, which is what lets it be applied to the identification
+`MPair A → Step A`. -/
+def idealCongr (hf : ∀ a b : α, f a ≤ f b ↔ a ≤ b) (hs : Function.Surjective f) :
+    IdealCompletion α ≃o IdealCompletion β where
+  toFun I := IdealCompletion.ofIdeal (isIdeal_image hf hs I).toIdeal
+  invFun J := IdealCompletion.ofIdeal (isIdeal_preimage hf hs J).toIdeal
+  left_inv I := by
+    refine SetLike.coe_injective ?_
+    show f ⁻¹' (f '' (I : Set α)) = (I : Set α)
+    refine Set.Subset.antisymm ?_ (Set.subset_preimage_image _ _)
+    rintro x ⟨a, ha, hfa⟩
+    exact I.lower ((hf x a).mp (le_of_eq hfa.symm)) ha
+  right_inv J := by
+    refine SetLike.coe_injective ?_
+    show f '' (f ⁻¹' (J : Set β)) = (J : Set β)
+    exact Set.image_preimage_eq _ hs
+  map_rel_iff' {I I'} := by
+    show (f '' (I : Set α) ⊆ f '' (I' : Set α)) ↔ (I : Set α) ⊆ (I' : Set α)
+    refine ⟨fun h x hx => ?_, Set.image_mono⟩
+    obtain ⟨a, ha, hfa⟩ := h ⟨x, hx, rfl⟩
+    exact I'.lower ((hf x a).mp (le_of_eq hfa.symm)) ha
+
+end IdealTransport
 
 /-! ## Normality transported along an order-reflecting map -/
 
@@ -661,5 +769,229 @@ theorem isBifinite_V : IsBifinite V := by
   rw [Set.image_univ] at h
   rw [IsBifinite, IdealCompletion.compacts_eq_range_principal]
   exact h
+
+/-! ## `A∞` is a fixed point of `M`
+
+`expand` sends a point of the colimit to its decomposition as a pair over the
+colimit: an element of `Stg (n+1)` *is* a class of pairs over `Stg n`, and
+pushing its base and cover into `A∞` gives a point of `Step A∞`. It is
+well defined precisely because the connecting map is `M` applied to the previous
+one — `expandStg_stgEmb` is where that is spent, and it is the step that fails
+for §7.4's `eta` chain (`stgEmb_ne_mk_eta`). -/
+
+section FixedPoint
+
+/-- `incl n` as an order embedding. -/
+def inclEmb (n : ℕ) : Stg n ↪o Ainf := OrderEmbedding.ofMapLEIff (incl n) incl_le_incl
+
+@[simp] theorem inclEmb_apply (n : ℕ) (x : Stg n) : inclEmb n x = incl n x := rfl
+
+theorem liftStg_one_step (n : ℕ) (x : Stg n) (h : n ≤ n + 1) : liftStg h x = stgEmb n x := by
+  rw [liftStg_succ (le_refl n) x h, liftStg_self]
+
+theorem incl_stgEmb (n : ℕ) (x : Stg n) : incl (n + 1) (stgEmb n x) = incl n x := by
+  rw [← liftStg_one_step n x (Nat.le_succ n), incl_lift]
+
+/-- The decomposition at a successor stage: a class of pairs over `Stg n` becomes
+a class of pairs over `A∞`. -/
+def expandSucc (n : ℕ) (x : Step (Stg n)) : Step Ainf :=
+  Quotient.liftOn' x (fun m => mk (mpairMap (inclEmb n) m))
+    (fun _ _ h => le_antisymm (mk_le_mk.mpr ((mpairMap_le_mpairMap_iff _).mpr h.1))
+      (mk_le_mk.mpr ((mpairMap_le_mpairMap_iff _).mpr h.2)))
+
+/-- The decomposition at an arbitrary stage; stage 0 is `⊥`. -/
+def expandStg : (n : ℕ) → Stg n → Step Ainf
+  | 0, _ => ⊥
+  | n + 1, x => expandSucc n x
+
+@[simp] theorem expandStg_zero (x : Stg 0) : expandStg 0 x = ⊥ := rfl
+
+@[simp] theorem expandStg_mk (n : ℕ) (m : MPair (Stg n)) :
+    expandStg (n + 1) (mk m) = mk (mpairMap (inclEmb n) m) := rfl
+
+/-- **The decomposition is stable along the chain.** At stage 0 both sides are
+`⊥`; at a successor it is exactly `M`'s functoriality applied to
+`incl (n+1) ∘ stgEmb n = incl n`. -/
+theorem expandStg_stgEmb : ∀ (n : ℕ) (x : Stg n), expandStg (n + 1) (stgEmb n x) = expandStg n x
+  | 0, x => by
+    have h1 : stgEmb 0 x = (⊥ : Stg 1) := rfl
+    rw [h1, expandStg_zero]
+    show mk (mpairMap (inclEmb 0) (⊥ : MPair (Stg 0))) = (⊥ : Step Ainf)
+    rw [BifiniteUniversal.bot_eq_eta_bot, mpairMap_eta]
+    show mk (eta (incl 0 (⊥ : Stg 0))) = mk (⊥ : MPair Ainf)
+    rw [incl_bot, BifiniteUniversal.bot_eq_eta_bot]
+  | n + 1, x => by
+    obtain ⟨m, rfl⟩ := mk_surjective (α := Stg n) x
+    have h1 : mpairMap (inclEmb (n + 1)) (mpairMap (stgEmb n) m)
+        = mpairMap ((stgEmb n).trans (inclEmb (n + 1))) m := mpairMap_trans _ _ m
+    have h2 : mpairMap ((stgEmb n).trans (inclEmb (n + 1))) m = mpairMap (inclEmb n) m :=
+      mpairMap_congr (fun y => incl_stgEmb n y) m
+    exact congrArg mk (h1.trans h2)
+
+theorem expandStg_lift {n m : ℕ} (h : n ≤ m) (x : Stg n) :
+    expandStg m (liftStg h x) = expandStg n x := by
+  induction m, h using Nat.le_induction with
+  | base => rw [liftStg_self]
+  | succ m hm ih => rw [liftStg_succ hm x, expandStg_stgEmb, ih]
+
+/-- **The decomposition reflects the order within a stage.** At stage 0 both
+sides are trivially true; at a successor it is `mpairMap_le_mpairMap_iff` for
+`incl n`, which is an order embedding. -/
+theorem expandStg_le_iff_same :
+    ∀ (N : ℕ) (x y : Stg N), expandStg N x ≤ expandStg N y ↔ x ≤ y
+  | 0, x, y => iff_of_true le_rfl (le_of_eq (Subsingleton.elim x y))
+  | N + 1, x, y => by
+    obtain ⟨mx, rfl⟩ := mk_surjective (α := Stg N) x
+    obtain ⟨my, rfl⟩ := mk_surjective (α := Stg N) y
+    exact mpairMap_le_mpairMap_iff (inclEmb N)
+
+theorem expandStg_le_iff {n m N : ℕ} (x : Stg n) (y : Stg m) (hn : n ≤ N) (hm : m ≤ N) :
+    expandStg n x ≤ expandStg m y ↔ liftStg hn x ≤ liftStg hm y := by
+  rw [← expandStg_lift hn x, ← expandStg_lift hm y, expandStg_le_iff_same]
+
+/-- **`A∞ → M(A∞)/≈`**, the decomposition of a point of the colimit into a pair
+over the colimit. Well defined on the antisymmetrization because
+`expandStg_le_iff` makes it order-reflecting and `Step A∞` is a partial order. -/
+def expand (q : Ainf) : Step Ainf :=
+  Quotient.liftOn' q (fun p : Germ => expandStg p.1 p.2)
+    (fun p r h => le_antisymm
+      ((expandStg_le_iff p.2 r.2 (le_max_left p.1 r.1) (le_max_right p.1 r.1)).mpr
+        ((germLE_at (le_max_left p.1 r.1) (le_max_right p.1 r.1)).mp h.1))
+      ((expandStg_le_iff r.2 p.2 (le_max_right p.1 r.1) (le_max_left p.1 r.1)).mpr
+        ((germLE_at (le_max_right p.1 r.1) (le_max_left p.1 r.1)).mp h.2)))
+
+@[simp] theorem expand_incl (n : ℕ) (x : Stg n) : expand (incl n x) = expandStg n x := rfl
+
+theorem expand_le_iff (a b : Ainf) : expand a ≤ expand b ↔ a ≤ b := by
+  obtain ⟨n, x, rfl⟩ := incl_surjective a
+  obtain ⟨m, y, rfl⟩ := incl_surjective b
+  rw [expand_incl, expand_incl, expandStg_le_iff x y (le_max_left n m) (le_max_right n m),
+    ← incl_le_incl_iff x y (le_max_left n m) (le_max_right n m)]
+
+/-- **`expand` is surjective — `M` is finitary.** A pair over the colimit mentions
+only its base and its finite cover, so `exists_stage_of_finite` puts all of them
+in one stage `N`; `range_mpairMap` then exhibits the pair as `M(incl N)` of a pair
+over `Stg N`, which is a point of `Stg (N+1)`. -/
+theorem expand_surjective : Function.Surjective expand := by
+  intro q
+  obtain ⟨m, rfl⟩ := mk_surjective (α := Ainf) q
+  have hfin : (insert m.base (↑m.cover : Set Ainf)).Finite :=
+    (m.cover.finite_toSet).insert _
+  obtain ⟨N, hN⟩ := exists_stage_of_finite hfin
+  have hmem : m ∈ MSub (Set.range (inclEmb N)) :=
+    ⟨hN (Set.mem_insert _ _), fun y hy => hN (Set.mem_insert_of_mem _ hy)⟩
+  rw [← range_mpairMap] at hmem
+  obtain ⟨m', hm'⟩ := hmem
+  exact ⟨incl (N + 1) (mk m'), by rw [expand_incl, expandStg_mk, hm']⟩
+
+end FixedPoint
+
+/-! ## `V ≅ V⁺` -/
+
+section Plus
+
+/-- `A∞ → K(V)`, `a ↦ ↓a`. It is the identification of `A∞` with `V`'s basis that
+Theorem 11's second conclusion supplies. -/
+def toCompacts (a : Ainf) : ↥(compacts V) :=
+  ⟨IdealCompletion.principal a, by
+    rw [IdealCompletion.compacts_eq_range_principal]; exact ⟨a, rfl⟩⟩
+
+theorem toCompacts_le_iff (a b : Ainf) : toCompacts a ≤ toCompacts b ↔ a ≤ b :=
+  principal_le_principal_iff
+
+theorem toCompacts_surjective : Function.Surjective toCompacts := by
+  rintro ⟨k, hk⟩
+  rw [IdealCompletion.compacts_eq_range_principal] at hk
+  obtain ⟨a, rfl⟩ := hk
+  exact ⟨a, rfl⟩
+
+def toCompactsEmb : Ainf ↪o ↥(compacts V) :=
+  OrderEmbedding.ofMapLEIff toCompacts toCompacts_le_iff
+
+@[simp] theorem toCompactsEmb_apply (a : Ainf) : toCompactsEmb a = toCompacts a := rfl
+
+/-- **`V ≅ V⁺`**, §7.4's fixed point, as a composite of three applications of
+`idealCongr`:
+
+| # | step | the surjection |
+| - | ---- | -------------- |
+| 1 | `V = ideals over A∞ ≅ ideals over M(A∞)/≈` | `expand` |
+| 2 | `≅ ideals over M(A∞)` | `mk`, backwards |
+| 3 | `≅ ideals over M(K(V)) = V⁺` | `M(toCompacts)` |
+
+Step 1 is the fixed-point content; steps 2 and 3 are bookkeeping. Together with
+`isBifinite_V` this is the hypothesis `D ≅ D⁺` of Theorem 29's second
+sentence, met by a `D` that this file constructs. -/
+noncomputable def isoPlus : V ≃o Plus V :=
+  (idealCongr expand_le_iff expand_surjective).trans
+    ((idealCongr (fun _ _ => mk_le_mk) (mk_surjective (α := Ainf))).symm.trans
+      (idealCongr (fun _ _ => mpairMap_le_mpairMap_iff toCompactsEmb)
+        (surjective_mpairMap toCompacts_surjective)))
+
+/-- **`V ≅ V⁺` as cpos, not merely as posets.** An `OrderIso` between cpos
+preserves directed suprema (`OrderIso.map_sSup_of_directedOn`), so no separate
+continuity argument is needed. -/
+theorem iso_plus_V :
+    ∃ e : V ≃o Plus V, ∀ s : Set V, DirectedOn (· ≤ ·) s → e (sSup s) = sSup (e '' s) :=
+  ⟨isoPlus, fun _ hs => isoPlus.map_sSup_of_directedOn hs⟩
+
+end Plus
+
+/-! ## The construction is nondegenerate
+
+`V ≅ V⁺` would hold vacuously of a one-point domain, so the two-element check
+below is not decoration. §7.4's own `b = (⊥, ∅)` is the witness, at the paper's
+own second stage. -/
+
+/-- `A∞` has at least the two points §7.4's second stage has: `⊥` and `b`. -/
+theorem incl_pointB1_ne_bot : incl 1 pointB1 ≠ (⊥ : Ainf) := by
+  intro h
+  rw [← incl_bot 1] at h
+  exact pointB1_ne_bot (incl_injective 1 h)
+
+/-- `V` has at least two points, since `principal` is injective on `A∞`. -/
+theorem principal_pointB1_ne_bot :
+    (IdealCompletion.principal (incl 1 pointB1) : V) ≠ (⊥ : V) := by
+  intro h
+  refine incl_pointB1_ne_bot (le_antisymm ?_ bot_le)
+  have := h.le
+  rw [IdealCompletion.bot_eq_principal] at this
+  exact principal_le_principal_iff.mp this
+
+/-! ## What `V` now makes statable
+
+Neither statement below was type-correct before `V` existed, and neither is
+proved here. They are recorded as `Prop`-valued definitions so that the exact
+proposition is fixed and can be cited, rather than paraphrased.
+
+**Theorem 29's second sentence.** `Thm29Second` is the paper's "if `D ≅ D⁺` and
+`E` is any bifinite domain, then there is a projection `p : D → E`", instantiated
+at the `D = V` this file constructs — `iso_plus_V` discharges the hypothesis
+`D ≅ D⁺` and `isBifinite_V` the standing assumption on `D`. What is missing is
+the universality argument itself, which §7.4 states and defers in full to
+[Gun87]: given a bifinite `E`, build an embedding–projection pair `E ⇄ V` by
+matching `E`'s Plotkin order against the chain `Stg n`. The pieces this file
+supplies for it are `isNormalIn_range_incl` (each stage is normal in `A∞`) and
+`exists_stage_of_finite` (a finite set of `A∞` lies in one stage); what is not
+supplied is the step-by-step extension of a normal embedding `N ◁ K(E)` into
+`Stg n` to one of the next finite normal subposet into `Stg (n+1)`, which is
+where `M`'s universal property among finite Plotkin orders is used.
+
+**Lemma 30.** The paper lists ten operators, not nine: Lemma 28's nine plus the
+convex powerdomain `()♮`, which is the whole reason §7.4 exists ("The convex
+powerdomain `()♮` cannot be representable over `U` because it does not preserve
+bounded completeness"). Of the ten, only `→` is available in this development as
+a function `Cpo → Cpo` — `CombinatorRep.lean` records that `()♯` and `()♭` are
+not, and `⊗, +, ⊕, ()⊥, ()♮` are likewise absent — so `Lem30Arrow` is the only
+conjunct that can be written down today. -/
+
+/-- **Theorem 29's second sentence**, at the `D = V` built above. Unproved. -/
+def Thm29Second : Prop :=
+  ∀ (E : Type) [CompletePartialOrder E], IsBifinite E →
+    ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p
+
+/-- **Lemma 30's `→` conjunct**, the first conjunct of the lemma to become
+type-correct. Unproved. -/
+def Lem30Arrow : Prop := IsPRepresentable₂ V Cpo.funSpace
 
 end ScottDomains.Colimit

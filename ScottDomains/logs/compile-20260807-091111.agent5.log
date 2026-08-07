@@ -1,0 +1,33 @@
+# r0036
+# agent5 — lake build ScottDomains.Colimit
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-07T09:11:11-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Colimit ===
+⚠ [853/865] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [865/865] Building ScottDomains.Colimit (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/Colimit.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Colimit.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Colimit.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Colimit.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Colimit.setup.json --json
+error: ScottDomains/Colimit.lean:977:45: Unknown identifier `IsEmbeddingProjectionPair`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Colimit
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.90
+Maximum resident set size (kbytes): 1730608
+--- build ---
+finished:         2026-08-07T09:11:14-07:00
+exit status:      1
+user cpu:         2.79s
+system cpu:       0.47s
+cpu use:          172%
+peak rss single:  1690 MiB (largest one process, GNU time)
+peak pss tree:    1785 MiB (process group, shared pages apportioned)
+peak rss tree:    2493 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      1
+other warnings:   0
