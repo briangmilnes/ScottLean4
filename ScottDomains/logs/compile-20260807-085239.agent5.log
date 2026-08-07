@@ -1,0 +1,84 @@
+# r0036
+# agent5 — lake build ScottDomains.Colimit
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-07T08:52:39-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Colimit ===
+✖ [844/844] Building ScottDomains.Colimit (830ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/Colimit.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Colimit.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Colimit.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Colimit.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Colimit.setup.json --json
+error: ScottDomains/Colimit.lean:184:18: Tactic `subst` failed: invalid equality proof, it is not of the form (x = t) or (t = x)
+  f b = m.base
+
+case refine_2
+α : Type u
+β : Type v
+inst✝¹ : PartialOrder α
+inst✝ : PartialOrder β
+f : α ↪o β
+m : MPair β
+hc : ↑m.cover ⊆ Set.range ⇑f
+b : α
+h✝ : f b = m.base
+⊢ m ∈ Set.range (mpairMap f)
+error: ScottDomains/Colimit.lean:267:30: Type mismatch
+  bot_le
+has type
+  ⊥ ≤ ?m.18
+but is expected to have type
+  mk ⊥ ≤ mk x✝
+error: ScottDomains/Colimit.lean:269:0: Not a definitional equality: the left-hand side
+  ⊥
+is not definitionally equal to the right-hand side
+  mk ⊥
+error: ScottDomains/Colimit.lean:269:68: Type mismatch
+  rfl
+has type
+  ?m.11 = ?m.11
+but is expected to have type
+  ⊥ = mk ⊥
+error: ScottDomains/Colimit.lean:277:4: failed to synthesize instance of type class
+  Finite (α × Finset α)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Colimit.lean:303:2: 'show' tactic failed, pattern
+  mk (mpairMap f (eta ⊥)) = mk (eta ⊥)
+is not definitionally equal to target
+  (stepEmb f) ⊥ = ⊥
+error: ScottDomains/Colimit.lean:349:13: failed to synthesize instance of type class
+  PartialOrder (stage n).fst
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Colimit.lean:353:2: Type mismatch
+  stepEmb_bot (stgEmb n) (stgEmb_bot n)
+has type
+  (stepEmb (stgEmb n)) ⊥ = ⊥
+but is expected to have type
+  (stgEmb (n + 1)) ⊥ = ⊥
+error: ScottDomains/Colimit.lean:372:84: Type mismatch
+  rfl
+has type
+  ?m.153 = ?m.153
+but is expected to have type
+  ⇑(stgEmb (n + 1)) = ⇑(stepEmb (stgEmb n))
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Colimit
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.52
+Maximum resident set size (kbytes): 1707492
+--- build ---
+finished:         2026-08-07T08:52:42-07:00
+exit status:      1
+user cpu:         1.60s
+system cpu:       0.50s
+cpu use:          138%
+peak rss single:  1667 MiB (largest one process, GNU time)
+peak pss tree:    1806 MiB (process group, shared pages apportioned)
+peak rss tree:    2476 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 9
+lake errors:      2
+sorry decls:      0
+other warnings:   0

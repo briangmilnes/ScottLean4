@@ -1,0 +1,39 @@
+# r0036
+# agent5 — lake build ScottDomains.Colimit
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-07T08:57:38-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Colimit ===
+✖ [845/845] Building ScottDomains.Colimit (841ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/Colimit.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Colimit.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Colimit.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Colimit.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Colimit.setup.json --json
+error: ScottDomains/Colimit.lean:402:53: Application type mismatch: The argument
+  mk_surjective
+has type
+  Function.Surjective mk
+but is expected to have type
+  Function.Surjective fun x => x
+in the application
+  @isNormalIn_image_univ (MPair (Stg (n + 1))) (MPair (Stg (n + 1))) instPreorder instPreorder (fun x => x)
+    (fun x x_1 => Iff.rfl) mk_surjective
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Colimit
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.53
+Maximum resident set size (kbytes): 1710580
+--- build ---
+finished:         2026-08-07T08:57:41-07:00
+exit status:      1
+user cpu:         1.61s
+system cpu:       0.49s
+cpu use:          137%
+peak rss single:  1670 MiB (largest one process, GNU time)
+peak pss tree:    1809 MiB (process group, shared pages apportioned)
+peak rss tree:    2479 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   0
