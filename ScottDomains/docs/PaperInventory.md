@@ -13,7 +13,8 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **10** | 3 | ≈13 |
-| 2 | **Numbered** results complete | **11** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Lem 10, Prop 15, Lem 17, Lem 19) | 18 | **29** |
+| 2 | **Numbered** results complete | **9** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Prop 15, Lem 19) | 20 | **29** |
+| 2a | — of which **partially** proved | Lem 10 (5 of 6 conjuncts — `+` unstated), Lem 17 (3 of 5 — `⊗` and `+` unstated) | — | — |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
 | 5 | Theorems in the development | **199** live (+6 commented out as unused) | — | — |
@@ -33,8 +34,17 @@ remains `sorry`-free, and the count above is the burn-down metric — it goes
 | 1 | `prop15` | Prop 15 — every bounded complete domain is bifinite | **proved** |
 | 2 | `thm18` | Thm 18 — `D`, `D → D` domains ⟹ `D` bifinite | **`sorry`** — the paper gives no proof, citing Smyth [Smy83a]; the obstacle is recorded in the docstring |
 | 3 | `lem19` | Lem 19 — the image of a closure is a domain | **proved**, via `IsClosure.rangeCompletePartialOrder` |
-| 4–7 | `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict` | Lem 10 — bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥`. The `→` conjunct is **already proved** (Thm 7's bounded-complete half, r0007) | **all four proved** |
-| 8–10 | `lem17_prod`, `lem17_lift`, `lem17_fun` | Lem 17 — bifiniteness closed under `×`, `()⊥`, `→` | **all three proved** |
+| 4–7 | `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict` | Lem 10 — bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥`. The `→` conjunct is **already proved** (Thm 7's bounded-complete half, r0007) | **all four proved**; Lem 10 is then **5 of 6** conjuncts — `D + E` is not stated |
+| 8–10 | `lem17_prod`, `lem17_lift`, `lem17_fun` | Lem 17 — bifiniteness closed under `×`, `()⊥`, `→` | **all three proved**; Lem 17 is then **3 of 5** conjuncts — `D ⊗ E` and `D + E` are not stated |
+
+**Why `+` is unstated in both.** `ScottDomains/CoalescedSum.lean` is 181 lines of
+ingredients — `NonBotSum`, `sumBase`, the same-side lemmas, `sSup_leftParts_ne_bot`
+— but it defines **no `sSup` and no `CompletePartialOrder` instance**, and it is not
+imported by `ScottDomains.lean`. There is no cpo `D + E` to state a conjunct over.
+Finishing it is the prerequisite for `lem10_sum` and `lem17_sum`, and its `sSup`
+must branch on landing in `NonBotSum`, not on directedness — the defect fixed in
+`ScottHom` and then in `Smash` would otherwise recur a third time. `lem17_smash`
+is unstated for no such reason: it was simply left out of the r0026 skeleton.
 
 **The `smashSup` defect (r0027).** `lem10_smash` was not merely open: as `smashSup`
 stood, it was **false**, and the kernel confirmed a refutation. `smashSup` branched
