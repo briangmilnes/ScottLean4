@@ -1,0 +1,36 @@
+# r0034
+# agent3 — lake build ScottDomains.Dyadic
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T23:13:50-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Dyadic ===
+✖ [956/956] Building ScottDomains.Dyadic (743ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Dyadic.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.setup.json --json
+error: ScottDomains/Dyadic.lean:161:48: Type mismatch
+  Set.mem_iUnion₂
+has type
+  ?m.19 ∈ ⋃ i, ⋃ j, ?m.20 i j ↔ ∃ i j, ?m.19 ∈ ?m.20 i j
+but is expected to have type
+  s ∈ unionOf F ↔ ∃ p ∈ F, s ∈ Ivl p.1 p.2
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Dyadic
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.55
+Maximum resident set size (kbytes): 1743456
+--- build ---
+finished:         2026-08-06T23:13:53-07:00
+exit status:      1
+user cpu:         1.56s
+system cpu:       0.51s
+cpu use:          133%
+peak rss single:  1702 MiB (largest one process, GNU time)
+peak pss tree:    1063 MiB (process group, shared pages apportioned)
+peak rss tree:    2439 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   0

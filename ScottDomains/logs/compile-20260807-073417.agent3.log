@@ -1,0 +1,48 @@
+# r0034
+# agent3 — lake build ScottDomains.Dyadic
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T07:34:17-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Dyadic ===
+✖ [959/959] Building ScottDomains.Dyadic (1.6s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Dyadic.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.setup.json --json
+error: ScottDomains/Dyadic.lean:441:7: Invalid rewrite argument: The pattern to be substituted is a metavariable (`?m.49`) in this equality
+  ?m.49 = ⊥
+warning: ScottDomains/Dyadic.lean:446:0: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.emb_bot`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Dyadic.lean:508:0: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.directedOn_projSet`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Dyadic.lean:531:33: Unknown identifier `hN_`
+error: ScottDomains/Dyadic.lean:541:29: Unknown identifier `hNI`
+error: ScottDomains/Dyadic.lean:542:4: No goals to be solved
+error: ScottDomains/Dyadic.lean:581:24: Unknown identifier `hNI`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Dyadic
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.21
+Maximum resident set size (kbytes): 1755624
+--- build ---
+finished:         2026-08-07T07:34:22-07:00
+exit status:      1
+user cpu:         3.95s
+system cpu:       1.13s
+cpu use:          158%
+peak rss single:  1714 MiB (largest one process, GNU time)
+peak pss tree:    1845 MiB (process group, shared pages apportioned)
+peak rss tree:    2504 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 5
+lake errors:      2
+sorry decls:      0
+other warnings:   2

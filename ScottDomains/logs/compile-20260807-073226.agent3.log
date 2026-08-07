@@ -1,0 +1,80 @@
+# r0034
+# agent3 — lake build ScottDomains.Dyadic
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T07:32:26-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Dyadic ===
+✖ [959/959] Building ScottDomains.Dyadic (1.6s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Dyadic.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.setup.json --json
+warning: ScottDomains/Dyadic.lean:422:0: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.emb_mem`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Dyadic.lean:424:8: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.emb_le_emb`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Dyadic.lean:430:0: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.exists_emb_eq`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Dyadic.lean:437:7: Invalid rewrite argument: The pattern to be substituted is a metavariable (`?m.49`) in this equality
+  ?m.49 = ⊥
+error: ScottDomains/Dyadic.lean:448:11: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(φ (φ.symm ⟨⊥, ⋯⟩))
+in the target expression
+  ↑(φ ⊥) ≤ emb φ (φ.symm ⟨⊥, ⋯⟩)
+
+D : Type u
+inst✝¹ : CompletePartialOrder D
+inst✝ : Domain D
+N : Set U₀
+φ : ↑(compacts D) ≃o ↑N
+hN : N ◁ Set.univ
+hb : ⟨⊥, ⋯⟩ = φ (φ.symm ⟨⊥, ⋯⟩)
+this : ↑(φ ⊥) ≤ emb φ (φ.symm ⟨⊥, ⋯⟩)
+⊢ emb φ ⊥ ≤ ⊥
+warning: ScottDomains/Dyadic.lean:517:28: Variable name `hN` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ScottDomains/Dyadic.lean:522:0: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.projSet_mono`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Dyadic.lean:565:40: Invalid field `congr_left`: The environment does not contain `And.congr_left`, so it is not possible to project the field `congr_left` from an expression
+  isLUB_projElem φ hN (embIdeal φ x)
+of type
+  projElem φ hN (embIdeal φ x) ∈ upperBounds (projSet φ (embIdeal φ x)) ∧
+    projElem φ hN (embIdeal φ x) ∈ lowerBounds (upperBounds (projSet φ (embIdeal φ x)))
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Dyadic
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.20
+Maximum resident set size (kbytes): 1755852
+--- build ---
+finished:         2026-08-07T07:32:30-07:00
+exit status:      1
+user cpu:         4.09s
+system cpu:       1.04s
+cpu use:          160%
+peak rss single:  1714 MiB (largest one process, GNU time)
+peak pss tree:    1850 MiB (process group, shared pages apportioned)
+peak rss tree:    2509 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      0
+other warnings:   5

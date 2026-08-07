@@ -1,0 +1,125 @@
+# r0034
+# agent3 — lake build ScottDomains.Dyadic
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T07:31:46-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Dyadic ===
+✖ [956/956] Building ScottDomains.Dyadic (1.8s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Dyadic.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.setup.json --json
+error: ScottDomains/Dyadic.lean:411:16: Type mismatch
+  N
+has type
+  Set U₀
+but is expected to have type
+  Prop
+error: ScottDomains/Dyadic.lean:411:18: expected token
+warning: ScottDomains/Dyadic.lean:418:0: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.emb_mem`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Dyadic.lean:420:8: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.emb_le_emb`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Dyadic.lean:426:0: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.exists_emb_eq`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Dyadic.lean:431:38: expected token
+error: ScottDomains/Dyadic.lean:438:24: expected token
+error: ScottDomains/Dyadic.lean:485:13: Function expected at
+  ScottHom
+but this term has type
+  ?m.7
+
+Note: Expected a function because this term is being applied to the argument
+  D
+
+Hint: The identifier `ScottHom` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+warning: ScottDomains/Dyadic.lean:487:16: declaration uses `sorry`
+error: ScottDomains/Dyadic.lean:495:33: expected token
+error: ScottDomains/Dyadic.lean:501:35: expected token
+error: ScottDomains/Dyadic.lean:513:35: expected token
+error: ScottDomains/Dyadic.lean:515:31: expected token
+warning: ScottDomains/Dyadic.lean:518:0: automatically included section variable(s) unused in theorem `ScottDomains.Dyadic.projSet_mono`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Dyadic.lean:522:30: expected token
+error: ScottDomains/Dyadic.lean:526:41: expected token
+error: ScottDomains/Dyadic.lean:540:34: expected token
+error: ScottDomains/Dyadic.lean:543:38: expected token
+error: ScottDomains/Dyadic.lean:559:34: expected token
+error: ScottDomains/Dyadic.lean:566:37: expected token
+error: ScottDomains/Dyadic.lean:581:11: Function expected at
+  ScottHom
+but this term has type
+  ?m.7
+
+Note: Expected a function because this term is being applied to the argument
+  D
+
+Hint: The identifier `ScottHom` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/Dyadic.lean:581:30: Function expected at
+  ScottHom
+but this term has type
+  ?m.7
+
+Note: Expected a function because this term is being applied to the argument
+  U
+
+Hint: The identifier `ScottHom` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/Dyadic.lean:581:45: Invalid field notation: Type of
+  ScottHom
+is not known; cannot resolve field `IsEmbeddingProjectionPair`
+error: ScottDomains/Dyadic.lean:592:11: Function expected at
+  ScottHom
+but this term has type
+  ?m.7
+
+Note: Expected a function because this term is being applied to the argument
+  D
+
+Hint: The identifier `ScottHom` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/Dyadic.lean:592:30: Function expected at
+  ScottHom
+but this term has type
+  ?m.7
+
+Note: Expected a function because this term is being applied to the argument
+  U
+
+Hint: The identifier `ScottHom` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/Dyadic.lean:592:45: Invalid field notation: Type of
+  ScottHom
+is not known; cannot resolve field `IsEmbeddingProjectionPair`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Dyadic
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.49
+Maximum resident set size (kbytes): 1749420
+--- build ---
+finished:         2026-08-07T07:31:51-07:00
+exit status:      1
+user cpu:         4.14s
+system cpu:       1.12s
+cpu use:          150%
+peak rss single:  1708 MiB (largest one process, GNU time)
+peak pss tree:    1843 MiB (process group, shared pages apportioned)
+peak rss tree:    2503 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 21
+lake errors:      2
+sorry decls:      1
+other warnings:   4

@@ -1,0 +1,44 @@
+# r0034
+# agent3 — lake build ScottDomains.Dyadic
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T23:11:47-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Dyadic ===
+✖ [953/953] Building ScottDomains.Dyadic (8.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Dyadic.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Dyadic.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Dyadic.setup.json --json
+error: ScottDomains/Dyadic.lean:160:48: unsolved goals
+F : Finset (ℚ × ℚ)
+s : ℚ
+⊢ (s ∈ S ∧ ∃ a ≤ s, ∃ x, (a, x) ∈ F ∧ s < x) ↔ ∃ a b, (a, b) ∈ F ∧ s ∈ S ∧ a ≤ s ∧ s < b
+error: ScottDomains/Dyadic.lean:208:0: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: ScottDomains/Dyadic.lean:267:32: failed to synthesize instance of type class
+  Countable (Finset (ℚ × ℚ))
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Dyadic.lean:277:8: (kernel) unknown constant 'ScottDomains.Dyadic.isBasic_inter'
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Dyadic
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:08.93
+Maximum resident set size (kbytes): 1744748
+--- build ---
+finished:         2026-08-06T23:11:57-07:00
+exit status:      1
+user cpu:         9.00s
+system cpu:       0.50s
+cpu use:          106%
+peak rss single:  1703 MiB (largest one process, GNU time)
+peak pss tree:    1843 MiB (process group, shared pages apportioned)
+peak rss tree:    2502 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   0
