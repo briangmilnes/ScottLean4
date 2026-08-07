@@ -110,8 +110,30 @@ theorem lem10_lift [Domain α] [BoundedComplete α] : BoundedComplete (WithBot �
 
 end Lift
 
+section Strict
+
+/-- **Lemma 10, `D →⊥ E`.** `StrictHom α β` is a subtype of `ScottHom α β` whose
+`sSup` is the ambient one — `isStrict_sSup` shows strictness survives *every*
+supremum, so there is no branch to get wrong. Bounded completeness therefore
+transports along the subtype: a bound in `D →⊥ E` gives a bound on the image in
+`D → E`, `ScottHom`'s own `BoundedComplete` instance (Theorem 7's first sentence)
+supplies the least upper bound there, and the order on the subtype is the ambient
+order restricted, so the same element is least upper bound of `s`. -/
 theorem lem10_strict [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
-    BoundedComplete (StrictHom α β) := by
-  sorry
+    BoundedComplete (StrictHom α β) where
+  isLUB_sSup_of_bddAbove s hs := by
+    obtain ⟨u, hu⟩ := hs
+    have hb : BddAbove (Subtype.val '' s) := ⟨u.val, by rintro _ ⟨f, hf, rfl⟩; exact hu hf⟩
+    have hlub : IsLUB (Subtype.val '' s) (sSup (Subtype.val '' s)) :=
+      isLUB_sSup_of_bddAbove hb
+    constructor
+    · intro f hf
+      show f.val ≤ sSup (Subtype.val '' s)
+      exact hlub.1 ⟨f, hf, rfl⟩
+    · intro v hv
+      show sSup (Subtype.val '' s) ≤ v.val
+      exact hlub.2 (by rintro _ ⟨f, hf, rfl⟩; exact hv hf)
+
+end Strict
 
 end ScottDomains
