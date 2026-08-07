@@ -365,6 +365,85 @@ theorem isLUB_val_image_of_isLUB_fp {d : Set ↥(Fp α)}
 
 end ProjectionSups
 
+/-! ## Transporting `Domain` along an order isomorphism
+
+`Fp`'s second conjunct is a `Domain` on `im(R p)`, and the only handle on
+`im(R p)` any representability proof has is `repRangeOrderIso : im(R C) ≃o im(C)`.
+So the obligation is only usable once `Domain` is known to transport along `≃o`,
+which it does: `IsCompactElement`, `compacts`, `compactsBelow`, `DirectedOn` and
+`IsLUB` are all defined from `≤` alone, so an order isomorphism carries each to
+its counterpart. Nothing here depends on the two `CompletePartialOrder`
+structures agreeing on `sSup` — only on their orders, which is what `≃o` relates. -/
+
+section Transport
+
+variable {A B : Type*} [PartialOrder A] [PartialOrder B]
+
+theorem directedOn_orderIso_image (e : A ≃o B) {s : Set A} (hs : DirectedOn (· ≤ ·) s) :
+    DirectedOn (· ≤ ·) (e '' s) := by
+  rintro _ ⟨a, ha, rfl⟩ _ ⟨b, hb, rfl⟩
+  obtain ⟨c, hc, hac, hbc⟩ := hs a ha b hb
+  exact ⟨e c, ⟨c, hc, rfl⟩, e.monotone hac, e.monotone hbc⟩
+
+theorem isLUB_orderIso_image (e : A ≃o B) {s : Set A} {u : A} (hu : IsLUB s u) :
+    IsLUB (e '' s) (e u) := by
+  refine ⟨?_, ?_⟩
+  · rintro _ ⟨a, ha, rfl⟩
+    exact e.monotone (hu.1 ha)
+  · intro v hv
+    have h : u ≤ e.symm v := hu.2 fun a ha => by
+      simpa using e.symm.monotone (hv ⟨a, ha, rfl⟩)
+    simpa using e.monotone h
+
+/-- Compactness is order-theoretic, so an order isomorphism preserves it. -/
+theorem isCompactElement_orderIso (e : A ≃o B) {k : A} (hk : IsCompactElement k) :
+    IsCompactElement (e k) := by
+  intro s u hne hd hlub hle
+  obtain ⟨z, hz, hkz⟩ := hk (⇑e.symm '' s) (e.symm u) (hne.image _)
+    (directedOn_orderIso_image e.symm hd) (isLUB_orderIso_image e.symm hlub)
+    (by simpa using e.symm.monotone hle)
+  obtain ⟨w, hw, rfl⟩ := hz
+  exact ⟨w, hw, by simpa using e.monotone hkz⟩
+
+theorem compacts_orderIso (e : A ≃o B) : compacts B = ⇑e '' compacts A := by
+  ext y
+  constructor
+  · intro hy
+    exact ⟨e.symm y, isCompactElement_orderIso e.symm hy, e.apply_symm_apply y⟩
+  · rintro ⟨k, hk, rfl⟩
+    exact isCompactElement_orderIso e hk
+
+theorem compactsBelow_orderIso (e : A ≃o B) (x : A) :
+    compactsBelow (e x) = ⇑e '' compactsBelow x := by
+  ext y
+  constructor
+  · rintro ⟨hy, hyx⟩
+    exact ⟨e.symm y, ⟨isCompactElement_orderIso e.symm hy, by simpa using e.symm.monotone hyx⟩,
+      e.apply_symm_apply y⟩
+  · rintro ⟨k, ⟨hk, hkx⟩, rfl⟩
+    exact ⟨isCompactElement_orderIso e hk, e.monotone hkx⟩
+
+variable {A B : Type*} [CompletePartialOrder A] [CompletePartialOrder B]
+
+/-- **Algebraicity transports along `≃o`.** -/
+theorem isAlgebraic_orderIso (e : A ≃o B) [IsAlgebraic A] : IsAlgebraic B where
+  directedOn_compactsBelow y := by
+    have h := directedOn_orderIso_image e (IsAlgebraic.directedOn_compactsBelow (α := A) (e.symm y))
+    rwa [← compactsBelow_orderIso e (e.symm y), e.apply_symm_apply] at h
+  isLUB_compactsBelow y := by
+    have h := isLUB_orderIso_image e (IsAlgebraic.isLUB_compactsBelow (α := A) (e.symm y))
+    rwa [← compactsBelow_orderIso e (e.symm y), e.apply_symm_apply] at h
+
+/-- **`Domain` transports along `≃o`**: algebraicity by `isAlgebraic_orderIso`,
+and the countable basis because `K(B)` is the image of `K(A)`. -/
+theorem domain_orderIso (e : A ≃o B) [Domain A] : Domain B where
+  __ := isAlgebraic_orderIso e
+  countable_compacts := by
+    rw [compacts_orderIso e]
+    exact (Domain.countable_compacts (α := A)).image _
+
+end Transport
+
 /-! ## The representation scheme at a projection
 
 `R(C) = F⁺ ∘ C ∘ F⁻` for a pair `F⁻ : U → V`, `F⁺ : V → U` with
@@ -388,6 +467,63 @@ open PowerdomainRep ScottHom
 
 variable {U V : Type u} [CompletePartialOrder U] [CompletePartialOrder V]
 variable {fn : ScottHom U V} {gr : ScottHom V U}
+
+/-- **`R(C)` is a *finitary* projection when `C` is, given that `im(C)` is a
+domain.** This is obligation 4 reduced to a statement about the conjugating
+family alone: `isProjection_repOf` supplies the equations, and the `Domain`
+travels backwards along `repRangeOrderIso`.
+
+The reduction is what makes the remaining per-operator work nameable. For `→`,
+`im(C(p,q)) ≅ im(p) → im(q)`, so the outstanding fact is `Domain (D → E)` for
+`D`, `E` the images — which `FunctionSpaceCountable.lean` proves under
+`[Domain D] [Domain E] [BoundedComplete E]`, the first two of which
+`IsFinitaryProjection` hands over and the third of which is
+`boundedComplete_range`. -/
+theorem isFinitaryProjection_repOf (hfg : ∀ y, fn (gr y) = y) (hgf : ∀ x, gr (fn x) ≤ x)
+    {C : ScottHom V V} (hC : IsProjection C)
+    (hdom : @Domain _ (IsProjection.rangeCompletePartialOrder hC)) :
+    IsFinitaryProjection (repOf fn gr C) := by
+  refine ⟨BifiniteUniversal.isProjection_repOf hfg hgf hC, ?_⟩
+  letI : CompletePartialOrder ↥(Set.range ⇑C) := IsProjection.rangeCompletePartialOrder hC
+  letI : CompletePartialOrder ↥(Set.range ⇑(repOf fn gr C)) :=
+    IsProjection.rangeCompletePartialOrder (BifiniteUniversal.isProjection_repOf hfg hgf hC)
+  haveI : Domain ↥(Set.range ⇑C) := hdom
+  exact domain_orderIso (PowerdomainRep.repRangeOrderIso hfg C).symm
+
+/-! ### Why r0034's three proofs do not transfer
+
+`Combinator.rep_arrow`, `rep_prod` and `rep_lift` are stated under
+`Combinator.Retracts U V`, which is `∃ fn gr, IsClosurePair fn gr` — and
+`IsClosurePair fn gr` is `fn ∘ gr = id` together with **`id ⊑ gr ∘ fn`**. The
+projection scheme needs the same first equation and the *opposite* second
+inequality, `gr ∘ fn ⊑ id`, because that is what makes `gr ∘ C ∘ fn ⊑ id`.
+
+These are not two routes to one hypothesis. Holding both forces
+`gr ∘ fn = id` by antisymmetry, and then `fn` and `gr` are mutually inverse order
+isomorphisms: `U ≅ V`. At `V = ScottHom U U` that is `U ≅ (U → U)`, at
+`V = U × U` it is `U ≅ U × U`, at `V = WithBot U` it is `U ≅ U⊥` — the last of
+which is false for every `U` with a compact bottom. So the closure-side
+hypothesis is not merely proved differently at the projection notion; outside
+the degenerate case where the two carriers are isomorphic, it is a different and
+incompatible assumption. -/
+
+/-- **The closure pair and the projection pair coincide only on an isomorphism.**
+Antisymmetry, applied pointwise to `id ⊑ gr ∘ fn` and `gr ∘ fn ⊑ id`. -/
+theorem gr_fn_eq_of_both (hgf_c : ∀ x, x ≤ gr (fn x)) (hgf_p : ∀ x, gr (fn x) ≤ x) (x : U) :
+    gr (fn x) = x :=
+  le_antisymm (hgf_p x) (hgf_c x)
+
+/-- **A carrier satisfying both readings of the retraction hypothesis is
+isomorphic to the retract.** The order isomorphism whose existence
+`gr_fn_eq_of_both` forces — so an operator's conjunct can be proved from
+r0034's `Retracts U V` *and* the projection scheme only when `V ≅ U`. -/
+def orderIsoOfBothPairs (hfg : ∀ y, fn (gr y) = y)
+    (hgf_c : ∀ x, x ≤ gr (fn x)) (hgf_p : ∀ x, gr (fn x) ≤ x) : U ≃o V :=
+  Equiv.toOrderIso
+    { toFun := ⇑fn, invFun := ⇑gr
+      left_inv := gr_fn_eq_of_both hgf_c hgf_p
+      right_inv := hfg }
+    fn.monotone gr.monotone
 
 /-- **`p ↦ R(C p)` is continuous into `Fp(U)`**, over an arbitrary preordered
 index `P`.
