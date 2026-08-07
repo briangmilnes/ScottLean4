@@ -12,7 +12,7 @@ order, matched to its Lean equivalent.
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
-| 1 | Definitions to define | **all** — see the note below on `D∞` | 0 | ≈13 |
+| 1 | Definitions to define | **12** — see the note below on `D∞` | **1**: the paper's **computable function** (§3.2), unblocked and assigned in r0031 | ≈13 |
 | 2 | **Numbered** results complete | **16** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Lem 10, Thm 11, Prop 15, Lem 17, Lem 19, Lem 20, **Thm 21**, Thm 22, Lem 23) | 13 | **29** |
 | 2a | — of which **partially** proved | Thm 16 (the algebraic-lattice conjunct proved; the `Fp(D) ↪ (D → D)` embedding conjunct not stated) | — | — |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
@@ -283,7 +283,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 3.1 | Lem | 5 | `p` finitary projection ⟹ compacts of `im(p)` are `im(p) ∩ K(D)`, and `im(p) ∩ K(D) ◁ K(D)` | ✓ **proved** (r0014) — `IsProjection.isCompactElement_iff` (needs only *projection*) and `IsFinitaryProjection.isNormalIn_compacts` |
 | 3.1 | Thm | 6 | Isomorphism: normal substructures `≅` `Fp(D)` (finitary projections) | ✓ **proved** (r0015–r0016) — `ScottDomains.theorem6` |
 | 3.1 | Thm | 7 | `D,E` bounded-complete domains ⟹ `D → E` bounded-complete domain | ✓ **proved** (r0006–r0011) — `ScottHom.isBoundedCompleteDomain_scottHom`; `D` bounded complete is not needed |
-| 3.2 | Def | — | **effective presentation** `d : ℕ → K(D)`; **effectively presented domain** | ✓ `ScottDomains.EffectivePresentation` (r0022). The paper's **computable function** is *not* formalized: it needs "recursively enumerable", and Mathlib v4.32.2 has no `RePred` or equivalent (grep finds none) — building it is recursion theory, not domain theory |
+| 3.2 | Def | — | **effective presentation** `d : ℕ → K(D)`; **effectively presented domain** | ✓ `ScottDomains.EffectivePresentation` (r0022). The paper's **computable function** is the one definition still missing — and it is **unblocked**: an earlier draft of this row said "Mathlib v4.32.2 has no `RePred` or equivalent (grep finds none)", but that grep used the wrong capitalization. Mathlib has **`REPred`** at `Mathlib/Computability/RE.lean:157`, with `ComputablePred`, `Partrec.dom_re` and `ComputablePred.to_re`. Assigned in r0031 |
 
 ## §4 Operators and functions
 
