@@ -1,0 +1,40 @@
+# r0034
+# agent6 — lake build ScottDomains.Section62
+# checkout: /home/milnes/projects/ScottLean4-agent6
+# started: 2026-08-06T23:11:02-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Section62 ===
+⚠ [840/847] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [847/847] Building ScottDomains.Section62 (647ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent6/ScottDomains/ScottDomains/Section62.lean -o /home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/lib/lean/ScottDomains/Section62.olean -i /home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/lib/lean/ScottDomains/Section62.ilean -c /home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/ir/ScottDomains/Section62.c --setup /home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/ir/ScottDomains/Section62.setup.json --json
+error: ScottDomains/Section62.lean:457:47: Application type mismatch: The argument
+  not_le.mpr ?m.97
+has type
+  ¬@LE.le ?m.89 (@Preorder.toLE ?m.89 (@PartialOrder.toPreorder ?m.89 LinearOrder.toPartialOrder)) ?m.91 ?m.92
+but is expected to have type
+  ¬@LE.le α (@Preorder.toLE α (@PartialOrder.toPreorder α inst✝)) (x (n + 1)) (x n)
+in the application
+  absurd (LE.le.trans (hc.left (Exists.intro (n + 1) rfl)) hcz) (not_le.mpr ?m.97)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Section62
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.37
+Maximum resident set size (kbytes): 1685992
+--- build ---
+finished:         2026-08-06T23:11:05-07:00
+exit status:      1
+user cpu:         1.30s
+system cpu:       0.46s
+cpu use:          129%
+peak rss single:  1646 MiB (largest one process, GNU time)
+peak pss tree:    1756 MiB (process group, shared pages apportioned)
+peak rss tree:    2416 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      1
+other warnings:   0

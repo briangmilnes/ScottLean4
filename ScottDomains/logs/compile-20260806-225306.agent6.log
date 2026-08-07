@@ -1,0 +1,50 @@
+# r0034
+# agent6 — lake build ScottDomains.Section62
+# checkout: /home/milnes/projects/ScottLean4-agent6
+# started: 2026-08-06T22:53:06-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Section62 ===
+✔ [829/846] Built ScottDomains.WayBelow (1.3s)
+✔ [830/846] Built ScottDomains.Domain (1.3s)
+✔ [831/846] Built ScottDomains.NormalSubposet (1.4s)
+✔ [832/846] Built ScottDomains.ScottHom (1.4s)
+✔ [833/846] Built ScottDomains.Bifinite (1.2s)
+✔ [834/846] Built ScottDomains.Projection (1.3s)
+✔ [835/846] Built ScottDomains.StepFunction (1.3s)
+✔ [836/846] Built ScottDomains.FunctionSpaceDomain (1.2s)
+✔ [837/846] Built ScottDomains.FinitaryProjection (1.2s)
+✔ [838/846] Built ScottDomains.CompactFunction (1.2s)
+✔ [839/846] Built ScottDomains.NormalProjection (1.2s)
+✔ [840/846] Built ScottDomains.FunctionSpaceCountable (1.2s)
+✔ [841/846] Built ScottDomains.Theorem6 (1.2s)
+⚠ [842/846] Built ScottDomains.Skeleton.Section6 (1.4s)
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✔ [843/846] Built ScottDomains.FinitaryProjectionPoset (1.7s)
+✔ [844/846] Built ScottDomains.Skeleton.Section6b (1.2s)
+✔ [845/846] Built ScottDomains.FinitaryProjectionEmbedding (1.7s)
+⚠ [846/846] Built ScottDomains.Section62 (1.3s)
+warning: ScottDomains/Section62.lean:164:0: automatically included section variable(s) unused in theorem `ScottDomains.Section62.stableCompacts_isNormalIn`:
+  [Domain α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (846 jobs).
+--- times ---
+Elapsed (wall clock): 0:19.59
+Maximum resident set size (kbytes): 1718992
+--- build ---
+finished:         2026-08-06T22:53:26-07:00
+exit status:      0
+user cpu:         27.23s
+system cpu:       6.97s
+cpu use:          174%
+peak rss single:  1678 MiB (largest one process, GNU time)
+peak pss tree:    1987 MiB (process group, shared pages apportioned)
+peak rss tree:    5656 MiB (process group, shared pages counted per process)
+jobs:             846
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   1
