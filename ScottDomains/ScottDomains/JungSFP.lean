@@ -2,12 +2,14 @@ import ScottDomains.MinimalUpperBounds
 import ScottDomains.StepFunction
 
 /-!
-# Jung's step 2: the bifurcation "bifinite or algebraic L-domain"
+# Jung's steps 2 and 3: the bifurcation, and the uncountable family
 
-This file formalizes **Lemma 2.13** and **Theorem 2.14** of A. Jung,
-*Cartesian Closed Categories of Domains*, CWI Tract 66 (1989) — the step that
-`ScottDomains/Section62.lean` identifies as the missing prerequisite of
-Theorem 18 and that rounds r0029–r0031 each failed for want of.
+This file formalizes **Lemma 2.13**, **Theorem 2.14** and **Lemma 2.17** of
+A. Jung, *Cartesian Closed Categories of Domains*, CWI Tract 66 (1989) — steps 2
+and 3 of the five into which `ScottDomains/Section62.lean` decomposes Theorem 18.
+Step 2 is the one that file identifies as the missing prerequisite, and that
+rounds r0029–r0031 each failed for want of; step 3 is the one that spends
+countability, without which Theorem 18 is false.
 
 Everything here is read off the PDF in `ScottDomains/papers/Jung 1989 Cartesian
 Closed Categories of Domains.pdf`, quoted rather than paraphrased:
@@ -19,6 +21,9 @@ Closed Categories of Domains.pdf`, quoted rather than paraphrased:
 > **Theorem 2.14** If `D` is a pointed dcpo with an algebraic function space then
 > `D` is a bifinite domain or `D` is an algebraic L-domain.
 
+> **Lemma 2.17** Let `D` be a pointed dcpo with an ω-algebraic function space.
+> Then the base of `D` has property M.
+
 ## Terminology map
 
 Jung's *property m* is `HasCompleteMub`; *property M* is property m together with
@@ -28,7 +33,7 @@ finiteness of `minimalUpperBounds`; `U ⁿ` and `U ^∞` are `mubIter` and
 
 ## What is proved, and in which form
 
-Three groups of results, in dependency order.
+Four groups of results, in dependency order.
 
 1. **Jung's Proposition 1.9 and its converse** —
    `isCompactElement_of_minimal_upperBounds`,
@@ -47,10 +52,15 @@ Three groups of results, in dependency order.
    `↑x₁ ∩ ↑x₂`; the other three regions carry `⊥`, `a₁`, `a₂` in all of them.
    `jungFun x₁ x₂ a₁ a₂ t` is that shape with the top region abstracted as `t`,
    and `IsJungPatch` is exactly the four conditions on `t` that make the result
-   monotone and Scott continuous. Both later families are instances, so the case
+   monotone and Scott continuous. All three families are instances, so the case
    analysis is paid for once.
 
-3. **Lemma 2.13 and Theorem 2.14** — `lemma213`, `thm214`.
+3. **Step 2 — Lemma 2.13 and Theorem 2.14** — `lemma213`, `thm214`.
+
+4. **Step 3 — Lemma 2.17** — `lemma217`. It consumes step 2 (the L-domain
+   uniqueness is what makes `f_S` monotone), the countability of `K(D → D)`, and
+   one hypothesis the development cannot yet discharge: property m at the pair,
+   which is Jung's Theorem 1.37 — step 1. See the second obstruction note.
 
 ## Two deviations from the source, both weakenings
 
@@ -86,15 +96,33 @@ bounded and is worth stating exactly:
   Until that is done `thm214`'s second disjunct is the strictly weaker,
   formally-checked statement it says it is.
 
-## Where countability is *not* spent
+## Precisely-located obstruction: `lemma217` assumes property m
 
-Neither `lemma213` nor `thm214` uses `Domain.countable_compacts`, and neither
-should: Jung's Theorem 2.14 is the purely algebraic bifurcation, and it is true
-without any cardinality hypothesis. `Section62.lean` records that Theorem 18 is
-**false** without countability — the algebraic L-domains are the counterexamples
-(Abramsky & Jung Theorem 4.3.4 against 4.3.5). Countability is spent in Jung's
-Lemma 2.17, the *next* step, which kills the L-domain disjunct by building
-`2 ^ #mub(A)` compact elements of `[D → D]`. That step is not in this file.
+`lemma217` carries the hypothesis `HasCompleteMub (compacts D) {a₁, a₂}` — Jung's
+property m at the pair. Jung does not assume it; he cites his **Theorem 1.37**,
+"a dcpo with continuous function space is bicomplete", which is step 1 of the
+five and is absent from the development. Its proof is not a proof script over the
+present API: it runs over ordinal-indexed codirected nets (his Corollary 1.3),
+uses interpolation in a continuous dcpo, and builds a retraction onto
+`A ∪ αᵒᵖ` (his Proposition 1.22). Nothing in `ScottDomains/` quantifies over any
+of that. Discharging it is a separate development, and no `sorry` stands in for
+it: the hypothesis is explicit in `lemma217`'s statement.
+
+The two remaining steps of the five are step 1 as just described and step 4,
+Jung's Lemma 2.2 — property M implies `U ^∞(A)` finite — whose middle and last
+parts are proved in `Section62.lean` and which still needs Rado's Selection
+Theorem (his Theorem 2.1) and his Corollary 1.36. Step 5 is
+`isBifinite_iff_mubClosure`, already proved.
+
+## Where countability is spent
+
+Not in `lemma213` or `thm214`: Jung's Theorem 2.14 is the purely algebraic
+bifurcation and is true with no cardinality hypothesis. It is spent in
+`lemma217`, and it must be spent somewhere — `Section62.lean` records that
+Theorem 18 is **false** without countability, the algebraic L-domains being the
+counterexamples (Abramsky & Jung Theorem 4.3.4 against 4.3.5). `lemma217` is
+where the L-domain disjunct of `thm214` is killed, by injecting the powerset of
+an infinite `mub(A)` into `K(D → D)`.
 -/
 
 namespace ScottDomains.JungSFP
