@@ -1,0 +1,52 @@
+# r0031
+# agent2 — lake build ScottDomains.Powerdomain.BoundedComplete
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-06T20:16:36-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Powerdomain.BoundedComplete ===
+✔ [839/841] Built ScottDomains.Powerdomain.Hoare (731ms)
+✔ [840/841] Built ScottDomains.Powerdomain.Plotkin (771ms)
+✖ [841/841] Building ScottDomains.Powerdomain.BoundedComplete (727ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Powerdomain/BoundedComplete.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Powerdomain/BoundedComplete.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Powerdomain/BoundedComplete.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Powerdomain/BoundedComplete.setup.json --json
+warning: ScottDomains/Powerdomain/BoundedComplete.lean:129:0: automatically included section variable(s) unused in theorem `ScottDomains.PowerdomainBC.mem_sUnion_coe_iff`:
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Powerdomain/BoundedComplete.lean:431:92: `simp` made no progress
+error: ScottDomains/Powerdomain/BoundedComplete.lean:433:92: `simp` made no progress
+error: ScottDomains/Powerdomain/BoundedComplete.lean:436:58: `simp` made no progress
+error: ScottDomains/Powerdomain/BoundedComplete.lean:439:58: `simp` made no progress
+warning: ScottDomains/Powerdomain/BoundedComplete.lean:509:7: Variable name `a` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ScottDomains/Powerdomain/BoundedComplete.lean:510:7: Variable name `b` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Powerdomain.BoundedComplete
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:02.20
+Maximum resident set size (kbytes): 1692876
+--- build ---
+finished:         2026-08-06T20:16:39-07:00
+exit status:      1
+user cpu:         3.09s
+system cpu:       0.87s
+cpu use:          179%
+peak rss single:  1653 MiB (largest one process, GNU time)
+peak pss tree:    1886 MiB (process group, shared pages apportioned)
+peak rss tree:    4005 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   3
