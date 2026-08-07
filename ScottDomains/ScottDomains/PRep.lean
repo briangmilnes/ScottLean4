@@ -113,10 +113,20 @@ Lemma 28 are statable. `smythOp` and `hoareOp` below are those functions, and
 
 Both proved conjuncts are conditional on the paper's own retraction pair for the
 operator, exactly as `Combinator.rep_arrow`, `rep_prod` and `rep_lift` are at the
-closure notion. At §7.3's `U` the pair is what **Theorem 27** supplies, and
-`Dyadic.thm27` is still conditional on `IsNormallyRepresented`, so
-`Lemma28AtU` is not yet derivable from them — the instantiation is blocked one
-level below this file.
+closure notion. At §7.3's `U` the pair is what **Theorem 27** supplies.
+
+**Correction (r0037).** An earlier revision of this paragraph said the pair was
+unavailable at `U`, because `Dyadic.thm27` carried the hypothesis
+`IsNormallyRepresented ↥(compacts D)` and nothing discharged it. That was true
+when it was written and is **false**: `Atomless.isNormallyRepresented_compacts`
+discharges the hypothesis for every bounded complete domain, so `Atomless.thm27`
+is Theorem 27 with no hypothesis at all — proved in the same round as this file,
+by an agent that could not see this one. The instantiation is therefore not
+blocked. `ScottDomains.PRepSum` performs it: `PRepSum.pairAtU` transposes
+`Atomless.thm27` into the `(fn, gr)` shape used below, and `PRepSum.repProdAtU`
+and `PRepSum.repLiftAtU` are conjuncts 3 and 7 over `Dyadic.U` with no
+hypothesis. What remains open for `Lemma28AtU` is the other seven conjuncts, and
+`PRepSum.lemma28AtU_of` takes exactly those.
 
 No conjunct is stubbed with `sorry`. `lemma28_of` takes each conjunct as a named
 hypothesis, so the count nine is checked by the kernel — the anonymous
@@ -880,9 +890,9 @@ theorem isLUB_liftFamily [Domain U] {d : Set ↥(Fp U)} (hne : d.Nonempty)
 
 The hypothesis is the paper's own pair, `Φ⊥ ∘ Ψ⊥ = id` and `Ψ⊥ ∘ Φ⊥ ⊑ id`, and
 the second inequality points the *opposite* way from `Combinator.Retracts`, which
-is what `rep_lift` assumes. At §7.3's `U` the pair is what Theorem 27 would
-supply; that instantiation is not available here because `Dyadic.thm27` is still
-conditional on `IsNormallyRepresented`. -/
+is what `rep_lift` assumes. At §7.3's `U` the pair is what Theorem 27 supplies —
+unconditionally, via `Atomless.thm27` — so `PRepSum.repLiftAtU` is this theorem
+with the hypothesis discharged. -/
 theorem rep_lift [Domain U] {fn : ScottHom U (WithBot U)} {gr : ScottHom (WithBot U) U}
     (hfg : ∀ y, fn (gr y) = y) (hgf : ∀ x, gr (fn x) ≤ x) :
     IsPRepresentable U liftOp :=

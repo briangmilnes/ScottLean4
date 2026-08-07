@@ -1,0 +1,72 @@
+# r0037
+# agent4 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-07T11:26:13-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [961/1138] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1111/1138] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1217/1218] Building ScottDomains.PRepSum (732ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/PRepSum.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/PRepSum.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/PRepSum.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/PRepSum.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/PRepSum.setup.json --json
+error: ScottDomains/PRepSum.lean:155:52: unexpected token '/-!'; expected 'lemma'
+error: ScottDomains/PRepSum.lean:362:10: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  sumInl ?m.104 x
+in the target expression
+  (fun k => sumInl B k) x = ↑q
+
+case coe.inl
+A : Type u_1
+B : Type u_2
+inst✝¹ : CompletePartialOrder A
+inst✝ : CompletePartialOrder B
+q : NonBotSum A B
+hz : ↑q ∈ compacts (CoalescedSum A B)
+x : A
+hq : ↑q = Sum.inl x
+⊢ (fun k => sumInl B k) x = ↑q
+error: ScottDomains/PRepSum.lean:366:10: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  sumInr ?m.145 y
+in the target expression
+  (fun k => sumInr A k) y = ↑q
+
+case coe.inr
+A : Type u_1
+B : Type u_2
+inst✝¹ : CompletePartialOrder A
+inst✝ : CompletePartialOrder B
+q : NonBotSum A B
+hz : ↑q ∈ compacts (CoalescedSum A B)
+y : B
+hq : ↑q = Sum.inr y
+⊢ (fun k => sumInr A k) y = ↑q
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.PRepSum
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1824248
+--- build ---
+finished:         2026-08-07T11:26:16-07:00
+exit status:      1
+user cpu:         1.65s
+system cpu:       0.64s
+cpu use:          133%
+peak rss single:  1781 MiB (largest one process, GNU time)
+peak pss tree:    1866 MiB (process group, shared pages apportioned)
+peak rss tree:    2536 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      1
+other warnings:   0
