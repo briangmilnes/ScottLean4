@@ -24,10 +24,12 @@ r0032 recovered both. The evidence — the raw extraction, the page content
 stream decoded through the Computer Modern font encodings, and the rendered page
 images — is in [`docs/StatementRecovery.md`](../../docs/StatementRecovery.md).
 
-Round r0034 closed every statement in this file. The proofs live under
-`ScottDomains.Isomorphism` (five modules under `ScottDomains/Isomorphism/`) and
-each theorem below names the map that discharges it, so this file continues to
-read as the statement of the results rather than as their proof.
+Round r0034 closed Lemma 9's six conjuncts and round r0036 closed Theorem 14, so
+this file carries no `sorry`. The proofs live elsewhere — Lemma 9's under
+`ScottDomains.Isomorphism` (five modules under `ScottDomains/Isomorphism/`),
+Theorem 14's in [`ScottDomains/SFP.lean`](../SFP.lean) — and each theorem below
+names the map or lemma that discharges it, so this file continues to read as the
+statement of the results rather than as their proof.
 
 ## Confidence, per statement
 
