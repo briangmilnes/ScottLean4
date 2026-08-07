@@ -18,10 +18,15 @@ base="$(basename "$SRC" .md)"
 dir="$(cd "$(dirname "$SRC")" && pwd)"
 OUT="${2:-$dir}"; mkdir -p "$OUT"
 
+# --lua-filter: pandoc sizes pipe-table columns from the dash runs in the
+# separator row, not from the cells, so a column holding 90-word paragraphs gets
+# the same share as one holding an em dash. pandoc-table-widths.lua reallocates
+# in proportion to the widest cell. See its header for the measurement.
 pandoc "$SRC" -o "$OUT/$base.pdf" \
   --pdf-engine=lualatex \
+  --lua-filter="${0:A:h}/pandoc-table-widths.lua" \
   -H "${0:A:h}/md-pdf-header.tex" \
-  -V geometry:margin=0.75in \
+  -V geometry:margin=0.6in \
   -V fontsize=10pt \
   -V colorlinks=true -V linkcolor=blue -V urlcolor=blue
 
