@@ -1,0 +1,98 @@
+# r0037
+# agent3 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T11:31:05-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [960/1095] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1112/1218] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1217/1218] Building ScottDomains.PRepFun (940ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/PRepFun.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/PRepFun.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/PRepFun.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/PRepFun.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/PRepFun.setup.json --json
+error: ScottDomains/PRepFun.lean:556:34: Tactic `rewrite` failed: motive is not type correct:
+  fun _a => ↑⟨↑c.2 _a, ⋯⟩ = ↑⊥
+Error: Application type mismatch: The argument
+  restrictHomP._proof_1 ↑↑G ⊥
+has type
+  ↑c.2 (↑↑G ↑⊥) ∈ Set.range ⇑↑c.2
+but is expected to have type
+  ↑c.2 _a ∈ Set.range ⇑↑c.2
+in the application
+  ⟨↑c.2 _a, ⋯⟩
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+U : Type u
+inst✝ : CompletePartialOrder U
+c : ↑(Fp U) × ↑(Fp U)
+hp : (↑c.1).IsProjection
+hq : (↑c.2).IsProjection
+G : ↑(Set.range ⇑(strictArrowFamily c))
+⊢ ↑⟨↑c.2 (↑↑G ⊥), ⋯⟩ = ↑⊥
+
+Note: The target expression is not type-correct under the `instances` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    ⊥
+  has type
+    (FpImage c.1).carrier
+  but is expected to have type
+    ↑(Set.range ⇑↑c.1)
+  in the application
+    restrictHomP._proof_1 ↑↑G ⊥
+error: ScottDomains/PRepFun.lean:561:73: failed to synthesize instance of type class
+  Bot { x // x ∈ Set.range ⇑↑c.1 }
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepFun.lean:561:80: Type mismatch
+  rfl
+has type
+  ?m.283 = ?m.283
+but is expected to have type
+  ⟨⊥, ⋯⟩ = ⊥
+error: ScottDomains/PRepFun.lean:567:75: failed to synthesize instance of type class
+  Bot { x // x ∈ Set.range ⇑↑c.1 }
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepFun.lean:567:82: Type mismatch
+  rfl
+has type
+  ?m.366 = ?m.366
+but is expected to have type
+  ⟨⊥, ⋯⟩ = ⊥
+error: ScottDomains/PRepFun.lean:599:70: failed to synthesize instance of type class
+  Domain (FpImage c.1).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.PRepFun
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.82
+Maximum resident set size (kbytes): 1780912
+--- build ---
+finished:         2026-08-07T11:31:08-07:00
+exit status:      1
+user cpu:         2.06s
+system cpu:       0.56s
+cpu use:          144%
+peak rss single:  1739 MiB (largest one process, GNU time)
+peak pss tree:    1878 MiB (process group, shared pages apportioned)
+peak rss tree:    2548 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 6
+lake errors:      2
+sorry decls:      1
+other warnings:   0

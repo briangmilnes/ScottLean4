@@ -38,7 +38,7 @@ proof with the notion changed — and is what this file measures.
 | # | Conjunct | Statement | Status |
 | - | -------- | --------- | ------ |
 | 1 | `→` | `IsPRepresentable₂ U funOp` | **proved** — `rep_arrow`, under `[Domain U] [BoundedComplete U]` and the paper's pair |
-| 2 | `⇸` | `IsPRepresentable₂ U strictFunOp` | open at this commit |
+| 2 | `⇸` | `IsPRepresentable₂ U strictFunOp` | **proved** — `rep_strictArrow`, same hypotheses |
 | 4 | `⊗` | `IsPRepresentable₂ U smashOp` | open; the obstruction is located below |
 
 Nothing is stubbed with `sorry`.
@@ -438,5 +438,188 @@ theorem strictHomDomain [Domain α] [Domain β] [BoundedComplete β] :
       ((Domain.countable_compacts (α := ScottHom α β)).preimage Subtype.val_injective)
 
 end StrictDomain
+
+/-! ## Conjunct 2: `⇸` is p-representable
+
+The paper draws this operator `∘→`; it is §4.2's strict continuous function
+space, `StrictHom`. The conjugating object is `U ⇸ U` rather than `U → U`, and
+the conjugating family is the **same** `(q, p)`, restricted — which is legitimate
+because `isStrict_compHom` says `(q, p) f` is strict whenever `p`, `q` and `f`
+are, and a projection is strict for free (`IsProjection.map_bot`, `p ⊥ = ⊥`).
+
+So the arrow's pattern goes through with strictness threaded along one component
+at a time. The plan asked whether that is all there is to it; measured, it is
+*not*: the extra content is the `Domain` obligation, which needed
+`strictHomDomain` above — a closure property the development did not have. -/
+
+section StrictArrowConjunct
+
+variable {U : Type u} [CompletePartialOrder U]
+
+/-- **The conjugating family for `⇸`**, indexed by `Fp(U) × Fp(U)`: Gunter &
+Scott's `(s, r)` cut down to the strict function space.
+
+Continuity in `f` is `compHom`'s, moved across the subtype: least upper bounds in
+`U ⇸ U` are those of `U → U` (`ClosureProperties.isLUB_val_image_of_isLUB`), so
+neither half needs a case split on `⊥`. -/
+noncomputable def strictArrowFamily (c : ↥(Fp U) × ↥(Fp U)) :
+    ScottHom (StrictHom U U) (StrictHom U U) :=
+  ⟨fun f => ⟨compHom c.1.val c.2.val f.val,
+      ClosureProperties.isStrict_compHom (mem_Fp.mp c.1.2).isProjection.map_bot
+        (mem_Fp.mp c.2.2).isProjection.map_bot f.2⟩, by
+    intro d hne hd a ha
+    have hdv : DirectedOn (· ≤ ·) ((Subtype.val : StrictHom U U → ScottHom U U) '' d) := by
+      rintro _ ⟨f, hf, rfl⟩ _ ⟨g, hg, rfl⟩
+      obtain ⟨e, he, hfe, hge⟩ := hd f hf g hg
+      exact ⟨e.val, ⟨e, he, rfl⟩, hfe, hge⟩
+    have hval : IsLUB ((Subtype.val : StrictHom U U → ScottHom U U) '' d) a.val :=
+      ClosureProperties.isLUB_val_image_of_isLUB hd ha
+    have hC := (compHom c.1.val c.2.val).scottContinuous (hne.image _) hdv hval
+    refine ⟨?_, ?_⟩
+    · rintro _ ⟨f, hf, rfl⟩
+      exact (compHom c.1.val c.2.val).monotone (ha.1 hf)
+    · rintro v hv
+      show compHom c.1.val c.2.val a.val ≤ v.val
+      refine hC.2 ?_
+      rintro _ ⟨_, ⟨f, hf, rfl⟩, rfl⟩
+      exact hv ⟨f, hf, rfl⟩⟩
+
+@[simp] theorem strictArrowFamily_val (c : ↥(Fp U) × ↥(Fp U)) (f : StrictHom U U) :
+    (strictArrowFamily c f).val = compHom c.1.val c.2.val f.val := rfl
+
+/-- `(q, p)` restricted to `U ⇸ U` is a projection: both laws are the ambient
+ones, because the order on the subtype is the ambient order on `.val`. -/
+theorem isProjection_strictArrowFamily (c : ↥(Fp U) × ↥(Fp U)) :
+    IsProjection (strictArrowFamily c) := by
+  have h := isProjection_compHom (mem_Fp.mp c.1.2).isProjection (mem_Fp.mp c.2.2).isProjection
+  exact ⟨fun f => Subtype.ext (h.idem f.val), fun f => h.le f.val⟩
+
+theorem strictArrowFamily_mono {c c' : ↥(Fp U) × ↥(Fp U)} (h : c ≤ c') :
+    strictArrowFamily c ≤ strictArrowFamily c' :=
+  fun f => compHom_mono h.1 h.2 f.val
+
+/-- The `Fp`-indexed least upper bound for `⇸`, obtained from the arrow's by
+`ClosureProperties.isLUB_val_image_of_isLUB`'s observation that suprema of
+`U ⇸ U` are suprema of `U → U`: an upper bound in the subtype is in particular
+an ambient one, so nothing beyond `isLUB_arrowFamily` is needed. -/
+theorem isLUB_strictArrowFamily [Domain U] {d : Set (↥(Fp U) × ↥(Fp U))}
+    (hne : d.Nonempty) (hd : DirectedOn (· ≤ ·) d) {a : ↥(Fp U) × ↥(Fp U)}
+    (ha : IsLUB d a) (f : StrictHom U U) :
+    IsLUB ((fun c => strictArrowFamily c f) '' d) (strictArrowFamily a f) := by
+  have hA := isLUB_arrowFamily hne hd ha f.val
+  refine ⟨?_, ?_⟩
+  · rintro _ ⟨c, hc, rfl⟩
+    exact compHom_mono (ha.1 hc).1 (ha.1 hc).2 f.val
+  · rintro v hv
+    show compHom a.1.val a.2.val f.val ≤ v.val
+    refine hA.2 ?_
+    rintro _ ⟨c, hc, rfl⟩
+    exact hv ⟨c, hc, rfl⟩
+
+/-! ### `im((q, p)|⇸) ≅ (im p ⇸ im q)`
+
+The paper's evident isomorphism again, with `StrictHom` on both sides. The two
+underlying maps are `restrictHomP` and `extendHomP` unchanged; all that is new is
+that each preserves strictness, and each of those two facts is one equation:
+`q (G ⊥) = ⊥` and `(F ⊥)ᵥ = ⊥`, using `p ⊥ = ⊥` and `q ⊥ = ⊥`. -/
+
+section StrictEvident
+
+variable (c : ↥(Fp U) × ↥(Fp U))
+
+/-- `G` in the image of the restricted `(q, p)` has `G.val` in the image of the
+ambient `(q, p)`. -/
+theorem val_mem_range_compHom {G : StrictHom U U}
+    (hG : G ∈ Set.range ⇑(strictArrowFamily c)) :
+    (G.val : ScottHom U U) ∈ Set.range ⇑(compHom c.1.val c.2.val) := by
+  obtain ⟨f, rfl⟩ := hG
+  exact ⟨f.val, rfl⟩
+
+/-- **Restriction preserves strictness**: `q (G ⊥) = q ⊥ = ⊥`. Stated as the map
+into `im p ⇸ im q`, so the `OrderBot` and `CompletePartialOrder` instances are
+the ones `strictFunOp` uses rather than ones re-synthesized. -/
+noncomputable def strictRestrict (G : StrictHom U U) :
+    (strictFunOp (FpImage c.1) (FpImage c.2)).carrier :=
+  ⟨restrictHomP (mem_Fp.mp c.1.2).isProjection (mem_Fp.mp c.2.2).isProjection G.val, by
+    apply Subtype.ext
+    show c.2.val (G.val ⊥) = (⊥ : U)
+    rw [G.2]
+    exact (mem_Fp.mp c.2.2).isProjection.map_bot⟩
+
+/-- **Extension preserves strictness**: `(F ⟨p ⊥, _⟩)ᵥ = (F ⊥)ᵥ = ⊥`, using
+`p ⊥ = ⊥` to identify the argument with `⊥` of `im(p)`. -/
+noncomputable def strictExtend (F : (strictFunOp (FpImage c.1) (FpImage c.2)).carrier) :
+    StrictHom U U :=
+  ⟨extendHomP (mem_Fp.mp c.1.2).isProjection (mem_Fp.mp c.2.2).isProjection F.val, by
+    show (F.val ⟨c.1.val ⊥, Set.mem_range_self ⊥⟩).val = (⊥ : U)
+    have harg : (⟨c.1.val ⊥, Set.mem_range_self ⊥⟩ : ↥(Set.range ⇑c.1.val)) =
+        ⟨⊥, (mem_Fp.mp c.1.2).isProjection.bot_mem_range⟩ :=
+      Subtype.ext (mem_Fp.mp c.1.2).isProjection.map_bot
+    rw [harg]
+    exact congrArg Subtype.val F.2⟩
+
+/-- **`im((q,p)|⇸) ≅ (im p ⇸ im q)`.** The forward map is `restrictHomP`, whose
+strictness is `q (G ⊥) = q ⊥ = ⊥`; the inverse is `extendHomP`, whose strictness
+is `(F ⟨p ⊥, _⟩)ᵥ = (F ⊥)ᵥ = ⊥`. The two round trips are `evidentOrderIsoP`'s,
+wrapped in one extra `Subtype.ext` each. -/
+noncomputable def strictEvidentOrderIso :
+    ↥(Set.range ⇑(strictArrowFamily c)) ≃o
+      (strictFunOp (FpImage c.1) (FpImage c.2)).carrier :=
+  have hp : IsProjection c.1.val := (mem_Fp.mp c.1.2).isProjection
+  have hq : IsProjection c.2.val := (mem_Fp.mp c.2.2).isProjection
+  Equiv.toOrderIso
+    { toFun := fun G => strictRestrict c G.val
+      invFun := fun F => ⟨strictExtend c F,
+        ⟨strictExtend c F, Subtype.ext (compHom_extendHomP hp hq F.val)⟩⟩
+      left_inv := fun G => by
+        refine Subtype.ext (Subtype.ext (ScottHom.ext fun x => ?_))
+        show c.2.val (G.val.val (c.1.val x)) = G.val.val x
+        exact DFunLike.congr_fun
+          ((isProjection_compHom hp hq).apply_of_mem_range (val_mem_range_compHom c G.2)) x
+      right_inv := fun F => by
+        refine Subtype.ext (ScottHom.ext fun x => Subtype.ext ?_)
+        show c.2.val ((F.val ⟨c.1.val x.val, _⟩).val) = (F.val x).val
+        have hx : (⟨c.1.val x.val, Set.mem_range_self x.val⟩ : ↥(Set.range ⇑c.1.val)) = x :=
+          Subtype.ext (hp.apply_of_mem_range x.2)
+        rw [hx]
+        exact hq.apply_of_mem_range (F.val x).2 }
+    (fun _ _ h x => c.2.val.monotone (h x.val)) (fun _ _ h x => h _)
+
+end StrictEvident
+
+/-- **`im(R⇸(p,q))` is a domain**, the obligation `Fp` adds. Through
+`strictEvidentOrderIso` it reduces to `Domain (im p ⇸ im q)`, which is
+`strictHomDomain` — the closure property proved above precisely for this step. -/
+theorem domain_range_strictArrowFamily [Domain U] [BoundedComplete U]
+    (c : ↥(Fp U) × ↥(Fp U)) :
+    @Domain _ (IsProjection.rangeCompletePartialOrder (isProjection_strictArrowFamily c)) := by
+  haveI : Domain (FpImage c.1).carrier := (mem_Fp.mp c.1.2).domain
+  haveI : Domain (FpImage c.2).carrier := (mem_Fp.mp c.2.2).domain
+  haveI : BoundedComplete (FpImage c.2).carrier :=
+    boundedComplete_range (mem_Fp.mp c.2.2).isProjection
+  haveI : Domain (strictFunOp (FpImage c.1) (FpImage c.2)).carrier := strictHomDomain
+  letI : CompletePartialOrder ↥(Set.range ⇑(strictArrowFamily c)) :=
+    IsProjection.rangeCompletePartialOrder (isProjection_strictArrowFamily c)
+  exact domain_orderIso (strictEvidentOrderIso c).symm
+
+/-- **`⇸` is p-representable over any bounded complete domain that retracts onto
+its own strict function space** — conjunct 2 of Lemma 28.
+
+The hypothesis is again the paper's pair, with the inequality pointing the
+projection way. `[BoundedComplete U]` is spent in exactly one place,
+`boundedComplete_range` inside `domain_range_strictArrowFamily`, and Theorem 27
+is the sentence that makes it the setting's own hypothesis rather than an extra
+one. -/
+theorem rep_strictArrow [Domain U] [BoundedComplete U]
+    {fn : ScottHom U (StrictHom U U)} {gr : ScottHom (StrictHom U U) U}
+    (hfg : ∀ y, fn (gr y) = y) (hgf : ∀ x, gr (fn x) ≤ x) :
+    IsPRepresentable₂ U strictFunOp :=
+  isPRepresentable₂_of_repFamily hfg
+    (fun c => isFinitaryProjection_repOf hfg hgf (isProjection_strictArrowFamily c)
+      (domain_range_strictArrowFamily c))
+    strictArrowFamily_mono isLUB_strictArrowFamily
+    fun c => ⟨strictEvidentOrderIso c⟩
+
+end StrictArrowConjunct
 
 end ScottDomains.PRepFun
