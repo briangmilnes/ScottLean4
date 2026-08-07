@@ -218,7 +218,42 @@ Note what the two sides cost. The development has always had the right-hand side
 (`Domain α ∧ IsBifinite α`, `IsBifinite` being `IsPlotkinOrder (compacts α)`) and
 has used it as *the* definition throughout §6 — `prop15`, `thm18`, Lemma 17's
 five conjuncts. Theorem 14 is what licenses that substitution, and it is the one
-place the left-hand side is needed. -/
+place the left-hand side is needed.
+
+**Still open after r0034, and the obstacle is mathematical, not definitional.**
+This is Plotkin's characterization of the SFP objects, and neither direction is
+a rearrangement of the other's data. Four gaps are measured, in the order they
+block the proof.
+
+1. *The `Fp(D)` machinery cannot serve the forward direction.* Every result in
+   `FinitaryProjectionPoset.lean`'s `FpLattice` section — `toFp`,
+   `Fp.le_iff_fpBasis_subset`, `isCompactElement_toFp_of_finite`,
+   `isLUB_compactsBelow_fp` — is stated under `variable [Domain α]`. `Domain α`
+   is precisely what the forward direction has to *conclude*, so none of it is
+   available there.
+2. *Finite basis and finite image are different conditions.* `Fp(D)`'s
+   compactness results are stated for `(fpBasis q).Finite`, i.e. `range q ∩ K(D)`
+   finite; `finiteImageProjections` asks for `(Set.range ⇑q).Finite`. Closing
+   Theorem 14 needs `Set.range ⇑(toFp hN) = N` for finite normal `N` — that a
+   finite normal subposet is closed under the directed suprema its projection
+   can form. No lemma in the development states this.
+3. *`IsLUB` does not transfer from `Fp(D)` to `D → D` for free.* The two orders
+   agree, but an upper bound of `M` in `ScottHom α α` need not be a finitary
+   projection, so leastness in `↥(Fp α)` is a weaker statement than the
+   `IsLUB … ScottHom.id` this definition asks for. Discharging the stronger one
+   is a second appeal to approximation, not a coercion.
+4. *Two finite-combinatorial lemmas are missing.* The forward direction needs
+   that a nonempty finite directed set contains its own greatest element (this
+   is what makes each element of a finite image compact) and that a finite
+   subset of a directed set has an upper bound inside the set (this is what
+   produces the single projection whose image contains a given finite set of
+   compacts, hence the Plotkin witness).
+
+The forward direction is otherwise routine given 4: each `p ∈ M` has compact
+image, `{p x | p ∈ M}` is a directed set of compacts with least upper bound `x`,
+which gives `IsAlgebraic`; `K(D) ⊆ ⋃_{p ∈ M} range p` gives countability; and a
+single `p` fixing a finite set of compacts gives the Plotkin order via
+`IsFinitaryProjection.isNormalIn_compacts`. The converse is where 1–3 bite. -/
 theorem thm14 : IsBifiniteViaProjections α ↔ Domain α ∧ IsBifinite α := by
   sorry
 
