@@ -1,0 +1,76 @@
+# r0034
+# agent5 — lake build ScottDomains.BifiniteUniversal
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-06T22:54:53-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.BifiniteUniversal ===
+✔ [839/840] Built ScottDomains.IdealCompletion (1.8s)
+✖ [840/840] Building ScottDomains.BifiniteUniversal (1.4s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/BifiniteUniversal.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/BifiniteUniversal.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/BifiniteUniversal.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/BifiniteUniversal.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/BifiniteUniversal.setup.json --json
+warning: ScottDomains/BifiniteUniversal.lean:157:15: Variable name `z` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ScottDomains/BifiniteUniversal.lean:172:9: Variable name `m` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ScottDomains/BifiniteUniversal.lean:172:27: Variable name `z` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+error: ScottDomains/BifiniteUniversal.lean:265:33: Invalid field `prod`: The environment does not contain `Finite.prod`, so it is not possible to project the field `prod` from an expression
+  hN
+of type `Finite ↑N`
+error: ScottDomains/BifiniteUniversal.lean:288:25: Application type mismatch: The argument
+  bot_le
+has type
+  ⊥ ≤ ?m.38
+but is expected to have type
+  ⊥ ∈ Set.Iic n
+in the application
+  ⟨⟨?m.33, ?m.34⟩, bot_le⟩
+error: ScottDomains/BifiniteUniversal.lean:362:83: Type mismatch
+  hgA y hy
+has type
+  g y hy ∈ A
+but is expected to have type
+  ?m.53 y ∈ A
+warning: ScottDomains/BifiniteUniversal.lean:407:0: automatically included section variable(s) unused in theorem `ScottDomains.BifiniteUniversal.principal_le_principal_iff`:
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/BifiniteUniversal.lean:418:0: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'instCompletePartialOrder', which is 'noncomputable'
+warning: ScottDomains/BifiniteUniversal.lean:431:0: automatically included section variable(s) unused in theorem `ScottDomains.BifiniteUniversal.thm29`:
+  [Domain D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.BifiniteUniversal
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:04.86
+Maximum resident set size (kbytes): 1708476
+--- build ---
+finished:         2026-08-06T22:54:59-07:00
+exit status:      1
+user cpu:         5.67s
+system cpu:       1.46s
+cpu use:          146%
+peak rss single:  1668 MiB (largest one process, GNU time)
+peak pss tree:    1791 MiB (process group, shared pages apportioned)
+peak rss tree:    2451 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   5

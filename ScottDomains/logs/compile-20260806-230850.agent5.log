@@ -1,0 +1,47 @@
+# r0034
+# agent5 — lake build ScottDomains.BifiniteUniversal
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-06T23:08:50-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.BifiniteUniversal ===
+✖ [843/843] Building ScottDomains.BifiniteUniversal (729ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/BifiniteUniversal.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/BifiniteUniversal.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/BifiniteUniversal.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/BifiniteUniversal.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/BifiniteUniversal.setup.json --json
+error: ScottDomains/BifiniteUniversal.lean:175:22: invalid `▸` notation, expected result type of cast is 
+  m.PaperLE p
+however, the equality 
+  hu₁
+of type 
+  m.upper = n.upper
+does not contain the expected result type on either the left or the right hand side
+error: ScottDomains/BifiniteUniversal.lean:273:9: invalid occurrence of `·` notation, it must be surrounded by parentheses (e.g. `(· + 1)`)
+error: ScottDomains/BifiniteUniversal.lean:273:16: Tactic `rcases` failed: `x✝ : ?m.4` is not an inductive datatype
+error: ScottDomains/BifiniteUniversal.lean:346:26: Application type mismatch: The argument
+  hb
+has type
+  m₁.base = n.base
+but is expected to have type
+  m₂.base = MPair.base ?m.146
+in the application
+  And.intro hb
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.BifiniteUniversal
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.42
+Maximum resident set size (kbytes): 1699576
+--- build ---
+finished:         2026-08-06T23:08:52-07:00
+exit status:      1
+user cpu:         1.45s
+system cpu:       0.49s
+cpu use:          136%
+peak rss single:  1659 MiB (largest one process, GNU time)
+peak pss tree:    1775 MiB (process group, shared pages apportioned)
+peak rss tree:    2435 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   0
