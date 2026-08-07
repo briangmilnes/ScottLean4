@@ -928,6 +928,10 @@ noncomputable def isoPlus : V ≃o Plus V :=
       (idealCongr (fun _ _ => mpairMap_le_mpairMap_iff toCompactsEmb)
         (surjective_mpairMap toCompacts_surjective)))
 
+/-- Consistency check against Theorem 29's **first** sentence: `V⁺` is bifinite
+because `V` is, and `isoPlus` says `V` is order-isomorphic to it. -/
+theorem isBifinite_plus_V : IsBifinite (Plus V) := thm29 V isBifinite_V
+
 /-- **`V ≅ V⁺` as cpos, not merely as posets.** An `OrderIso` between cpos
 preserves directed suprema (`OrderIso.map_sSup_of_directedOn`), so no separate
 continuity argument is needed. -/
@@ -942,6 +946,25 @@ end Plus
 `V ≅ V⁺` would hold vacuously of a one-point domain, so the two-element check
 below is not decoration. §7.4's own `b = (⊥, ∅)` is the witness, at the paper's
 own second stage. -/
+
+/-- **Stage 1 has exactly §7.4's two elements**, `a = ⊥ = (⊥, {⊥})` and
+`b = (⊥, ∅)`. With `pointB1_ne_bot` this is the paper's count 2 of the sequence
+1, 2, 5, 20, checked by the kernel. The later two counts are measured by
+`scripts/mpair-stages.py`, which enumerates `Mⁿ(I)` modulo the same
+identification `Step` performs and reports 1, 2, 5, 20 for the order `MPair.le`
+formalizes against 1, 2, 5, 21 for the rival Smyth reading. -/
+theorem stg_one_eq (x : Stg 1) : x = ⊥ ∨ x = pointB1 := by
+  obtain ⟨m, rfl⟩ := mk_surjective (α := Stg 0) x
+  rcases Finset.eq_empty_or_nonempty m.cover with h | ⟨z, hz⟩
+  · exact Or.inr (congrArg mk (MPair.ext (Subsingleton.elim _ _) h))
+  · left
+    have hm : m = (⊥ : MPair (Stg 0)) := by
+      refine MPair.ext (Subsingleton.elim _ _) ?_
+      rw [BifiniteUniversal.bot_eq_eta_bot, eta_cover]
+      refine Finset.eq_singleton_iff_unique_mem.mpr ⟨?_, fun w _ => Subsingleton.elim _ _⟩
+      exact (Subsingleton.elim z (⊥ : Stg 0)) ▸ hz
+    rw [hm]
+    rfl
 
 /-- `A∞` has at least the two points §7.4's second stage has: `⊥` and `b`. -/
 theorem incl_pointB1_ne_bot : incl 1 pointB1 ≠ (⊥ : Ainf) := by
