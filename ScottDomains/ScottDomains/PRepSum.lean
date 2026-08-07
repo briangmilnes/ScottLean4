@@ -1,5 +1,6 @@
 import ScottDomains.PRep
 import ScottDomains.Atomless
+import ScottDomains.Isomorphism.Copair
 
 /-!
 # Lemma 28 at §7.3's own `U`, and the sum conjuncts
@@ -80,6 +81,8 @@ proof.
 namespace ScottDomains.PRepSum
 
 open ScottDomains ScottDomains.BifiniteUniversal ScottDomains.PRep
+
+universe u
 
 /-! ## §7.3's retraction pair at `U`, from Theorem 27
 
@@ -370,9 +373,445 @@ theorem domain_coalescedSum [Domain A] [Domain B] : Domain (CoalescedSum A B) :=
         ((((Domain.countable_compacts (α := A)).image _).union
           ((Domain.countable_compacts (α := B)).image _)).insert ⊥) }
 
+/-! ### The three shapes of a point of `A ⊕ B`, and how `≤` reads on them
+
+Every point of `A ⊕ B` is the adjoined bottom or the injection of a non-`⊥` point
+of a summand. Writing the two injections as `sumInl` / `sumInr` — total functions
+sending `⊥` to `⊥` — rather than as `↑⟨Sum.inl x, h⟩` removes the `≠ ⊥` side
+condition from every definition below and leaves it only in the two order lemmas,
+where it is genuinely needed: `sumInl B ⊥ = ⊥` is below everything. -/
+
+/-- **The case analysis on `A ⊕ B`.** -/
+theorem coalescedSum_cases (z : CoalescedSum A B) :
+    z = ⊥ ∨ (∃ x : A, x ≠ ⊥ ∧ z = sumInl B x) ∨ (∃ y : B, y ≠ ⊥ ∧ z = sumInr A y) := by
+  induction z using WithBot.recBotCoe with
+  | bot => exact Or.inl rfl
+  | coe q =>
+    cases hq : q.val with
+    | inl x =>
+      refine Or.inr (Or.inl ⟨x, ne_bot_of_val_eq_inl hq, ?_⟩)
+      rw [sumInl_of_ne_bot (ne_bot_of_val_eq_inl hq)]
+      exact congrArg _ (Subtype.ext hq)
+    | inr y =>
+      refine Or.inr (Or.inr ⟨y, ne_bot_of_val_eq_inr hq, ?_⟩)
+      rw [sumInr_of_ne_bot (ne_bot_of_val_eq_inr hq)]
+      exact congrArg _ (Subtype.ext hq)
+
+theorem not_sumInl_le_bot {x : A} (hx : x ≠ ⊥) : ¬ (sumInl B x ≤ (⊥ : CoalescedSum A B)) := by
+  rw [sumInl_of_ne_bot hx]; exact WithBot.not_coe_le_bot _
+
+theorem not_sumInr_le_bot {y : B} (hy : y ≠ ⊥) : ¬ (sumInr A y ≤ (⊥ : CoalescedSum A B)) := by
+  rw [sumInr_of_ne_bot hy]; exact WithBot.not_coe_le_bot _
+
+/-- `inl` reflects the order away from `⊥`. -/
+theorem sumInl_le_sumInl_iff {x x' : A} (hx : x ≠ ⊥) :
+    (sumInl B x ≤ sumInl B x') ↔ x ≤ x' := by
+  refine ⟨fun h => ?_, fun h => monotone_sumInl h⟩
+  by_cases hx' : x' = ⊥
+  · rw [hx', sumInl_bot] at h
+    exact absurd h (not_sumInl_le_bot hx)
+  · rw [sumInl_of_ne_bot hx, sumInl_of_ne_bot hx'] at h
+    exact Sum.inl_le_inl_iff.mp ((WithBot.coe_le_coe (α := NonBotSum A B)).mp h)
+
+theorem sumInr_le_sumInr_iff {y y' : B} (hy : y ≠ ⊥) :
+    (sumInr A y ≤ sumInr A y') ↔ y ≤ y' := by
+  refine ⟨fun h => ?_, fun h => monotone_sumInr h⟩
+  by_cases hy' : y' = ⊥
+  · rw [hy', sumInr_bot] at h
+    exact absurd h (not_sumInr_le_bot hy)
+  · rw [sumInr_of_ne_bot hy, sumInr_of_ne_bot hy'] at h
+    exact Sum.inr_le_inr_iff.mp ((WithBot.coe_le_coe (α := NonBotSum A B)).mp h)
+
+/-- The two summands are incomparable above `⊥`: `Sum`'s order relates only
+same-side points, which is what keeps the coalesced sum's directed sets on one
+side. -/
+theorem not_sumInl_le_sumInr {x : A} (hx : x ≠ ⊥) (y : B) :
+    ¬ (sumInl B x ≤ sumInr A y) := by
+  by_cases hy : y = ⊥
+  · rw [hy, sumInr_bot]; exact not_sumInl_le_bot hx
+  · rw [sumInl_of_ne_bot hx, sumInr_of_ne_bot hy]
+    intro h
+    have h2 : (Sum.inl x : A ⊕ B) ≤ Sum.inr y := (WithBot.coe_le_coe (α := NonBotSum A B)).mp h
+    simp at h2
+
+theorem not_sumInr_le_sumInl {y : B} (hy : y ≠ ⊥) (x : A) :
+    ¬ (sumInr A y ≤ sumInl B x) := by
+  by_cases hx : x = ⊥
+  · rw [hx, sumInl_bot]; exact not_sumInr_le_bot hy
+  · rw [sumInr_of_ne_bot hy, sumInl_of_ne_bot hx]
+    intro h
+    have h2 : (Sum.inr y : A ⊕ B) ≤ Sum.inl x := (WithBot.coe_le_coe (α := NonBotSum A B)).mp h
+    simp at h2
+
+/-- `Skeleton/Sum.lean`'s `sumInl` and `Isomorphism/Copair.lean`'s `sumInlFun`
+are the same function with the `dite` branches swapped. Recorded so that the
+continuity proof written for one name serves the other, which is what lets the
+compactness criterion (stated at `sumInl`) and the copairing construction
+(stated at `sumInlFun`) be used in the same proof. -/
+theorem sumInlFun_eq_sumInl (x : A) : Isomorphism.sumInlFun (β := A) (γ := B) x = sumInl B x := by
+  by_cases h : x = ⊥
+  · rw [h, Isomorphism.sumInlFun_bot, sumInl_bot]
+  · rw [Isomorphism.sumInlFun_of_ne h, sumInl_of_ne_bot h]
+
+theorem sumInrFun_eq_sumInr (y : B) : Isomorphism.sumInrFun (β := A) (γ := B) y = sumInr A y := by
+  by_cases h : y = ⊥
+  · rw [h, Isomorphism.sumInrFun_bot, sumInr_bot]
+  · rw [Isomorphism.sumInrFun_of_ne h, sumInr_of_ne_bot h]
+
+theorem scottContinuous_sumInl : ScottContinuous (sumInl B : A → CoalescedSum A B) := by
+  have h : (sumInl B : A → CoalescedSum A B) = Isomorphism.sumInlFun :=
+    funext fun x => (sumInlFun_eq_sumInl x).symm
+  rw [h]
+  exact Isomorphism.scottContinuous_sumInlFun
+
+theorem scottContinuous_sumInr : ScottContinuous (sumInr A : B → CoalescedSum A B) := by
+  have h : (sumInr A : B → CoalescedSum A B) = Isomorphism.sumInrFun :=
+    funext fun y => (sumInrFun_eq_sumInr y).symm
+  rw [h]
+  exact Isomorphism.scottContinuous_sumInrFun
+
 end CoalescedSumDomain
 
+/-! ## Conjunct 6: `⊕` is p-representable
+
+The paper's recipe verbatim, at the coalesced sum: `R⊕(r, s) = Ψ⊕ ∘ (r ⊕ s) ∘ Φ⊕`
+with `(Φ⊕, Ψ⊕)` the pair Theorem 27 supplies at `U ⊕ U`. What has to be built is
+the conjugating family `r ⊕ s` and its two properties.
+
+**This conjunct was refuted in r0034 and the refutation does not apply here.**
+That round's three-chain counterexample is a statement about the *closure*
+notion, where the operator has to satisfy `id ⊑ r` and therefore `⊥ ⊑ r ⊥` with
+nothing forcing equality — the coalesced sum's two summands then get glued to
+different points. A projection satisfies `r ⊥ ⊑ ⊥`, hence `r ⊥ = ⊥`
+(`isStrict_of_isProjection`), so `r ⊕ s` is well defined by the copairing
+`[inl ∘ r, inr ∘ s]` and `Isomorphism.copair` supplies its continuity. The
+notion, not the operator, was the obstruction.
+
+| # | Obligation | Discharged by |
+| - | ---------- | ------------- |
+| 1 | `r ⊕ s` continuous | `Isomorphism.copair`, whose whole point is this |
+| 2 | `r ⊕ s` a projection | `isProjection_coalSumMap`, three cases |
+| 3 | `im(r ⊕ s) ≅ im(r) ⊕ im(s)` | `coalSumRangeOrderIso` |
+| 4 | `im(r ⊕ s)` a domain | `domain_coalescedSum` through 3 |
+| 5 | continuity in the `Fp(U)` index | `isLUB_coalSumFamily`, spending `isFinitaryProjection_sSup` |
+-/
+
+section CoalSumConjunct
+
+open ScottHom
+
+variable {U : Type u} [CompletePartialOrder U]
+
+/-- The image of a projection as a `Cpo`. At `p ∈ Fp(U)` this is `FpImage p`
+definitionally; it is stated at a bare projection because the range isomorphism
+below is a fact about `r` and `s`, not about their memberships.
+
+Deliberately **not** reducible. `Cpo.str` is an instance, so instance search
+resolves `CompletePartialOrder (projCpo hp).carrier` by matching the head
+`Cpo.carrier ?D` — which is exactly what a reducible definition would destroy by
+unfolding to the bare subtype before the match is attempted. Keeping it opaque is
+what lets the coalesced sum of two images typecheck with no `letI` at all. -/
+def projCpo {p : ScottHom U U} (hp : IsProjection p) : Cpo.{u} :=
+  ⟨↥(Set.range ⇑p), hp.rangeCompletePartialOrder⟩
+
+/-- **A projection is strict.** `p ⊥ ⊑ ⊥` from `p ⊑ id`. This one line is what
+separates the projection notion from the closure notion for `⊕`. -/
+theorem isStrict_of_isProjection {p : ScottHom U U} (hp : IsProjection p) : IsStrict p :=
+  hp.map_bot
+
+/-- A point of `im(p)` is `⊥` exactly when it is `⊥` in `U`: the bottom of the
+image cpo is `⟨⊥, _⟩`, since a projection fixes `⊥`. -/
+theorem val_ne_bot_of_ne_bot {p : ScottHom U U} (hp : IsProjection p)
+    {a : (projCpo hp).carrier} (ha : a ≠ ⊥) : a.val ≠ ⊥ :=
+  fun hb => ha (Subtype.ext hb)
+
+/-! ### `r ⊕ s`, the conjugating family -/
+
+/-- `x ↦ inl (r x)`, strict and continuous. -/
+noncomputable def inlHom (r : ScottHom U U) (hr : IsStrict r) :
+    StrictHom U (CoalescedSum U U) :=
+  ⟨⟨fun x => sumInl U (r x), r.scottContinuous.comp scottContinuous_sumInl⟩,
+    show sumInl U (r ⊥) = (⊥ : CoalescedSum U U) by rw [hr, sumInl_bot]⟩
+
+/-- `y ↦ inr (s y)`, strict and continuous. -/
+noncomputable def inrHom (s : ScottHom U U) (hs : IsStrict s) :
+    StrictHom U (CoalescedSum U U) :=
+  ⟨⟨fun y => sumInr U (s y), s.scottContinuous.comp scottContinuous_sumInr⟩,
+    show sumInr U (s ⊥) = (⊥ : CoalescedSum U U) by rw [hs, sumInr_bot]⟩
+
+/-- **`r ⊕ s`**, the copairing `[inl ∘ r, inr ∘ s]`. Strictness of `r` and `s` is
+what makes the two components strict, which is what `Isomorphism.copair`
+requires — and it is exactly what a projection supplies for free. -/
+noncomputable def coalSumMap (r s : ScottHom U U) (hr : IsStrict r) (hs : IsStrict s) :
+    ScottHom (CoalescedSum U U) (CoalescedSum U U) :=
+  (Isomorphism.copair (inlHom r hr) (inrHom s hs)).val
+
+variable {r s : ScottHom U U} {hr : IsStrict r} {hs : IsStrict s}
+
+@[simp] theorem coalSumMap_bot : coalSumMap r s hr hs (⊥ : CoalescedSum U U) = ⊥ := rfl
+
+theorem coalSumMap_coe (q : NonBotSum U U) :
+    coalSumMap r s hr hs (↑q : CoalescedSum U U) =
+      Sum.elim (fun x => sumInl U (r x)) (fun y => sumInr U (s y)) q.val := rfl
+
+@[simp] theorem coalSumMap_sumInl (x : U) :
+    coalSumMap r s hr hs (sumInl U x) = sumInl U (r x) := by
+  by_cases hx : x = ⊥
+  · rw [hx, sumInl_bot, coalSumMap_bot, hr, sumInl_bot]
+  · rw [sumInl_of_ne_bot hx, coalSumMap_coe]
+    rfl
+
+@[simp] theorem coalSumMap_sumInr (y : U) :
+    coalSumMap r s hr hs (sumInr U y) = sumInr U (s y) := by
+  by_cases hy : y = ⊥
+  · rw [hy, sumInr_bot, coalSumMap_bot, hs, sumInr_bot]
+  · rw [sumInr_of_ne_bot hy, coalSumMap_coe]
+    rfl
+
+/-- **`r ⊕ s` is a projection when `r` and `s` are.** Both laws hold summand by
+summand, with the adjoined bottom a fixed point of every case. -/
+theorem isProjection_coalSumMap (hpr : IsProjection r) (hps : IsProjection s) :
+    IsProjection (coalSumMap r s hpr.map_bot hps.map_bot) := by
+  constructor
+  · intro z
+    rcases coalescedSum_cases z with rfl | ⟨x, _, rfl⟩ | ⟨y, _, rfl⟩
+    · rfl
+    · rw [coalSumMap_sumInl, coalSumMap_sumInl, hpr.idem]
+    · rw [coalSumMap_sumInr, coalSumMap_sumInr, hps.idem]
+  · intro z
+    rcases coalescedSum_cases z with rfl | ⟨x, _, rfl⟩ | ⟨y, _, rfl⟩
+    · exact le_rfl
+    · rw [coalSumMap_sumInl]; exact monotone_sumInl (hpr.le x)
+    · rw [coalSumMap_sumInr]; exact monotone_sumInr (hps.le y)
+
+/-- `r ⊕ s` is monotone in `(r, s)`, summand by summand. -/
+theorem coalSumMap_mono {r' s' : ScottHom U U} {hr' : IsStrict r'} {hs' : IsStrict s'}
+    (hrr : r ≤ r') (hss : s ≤ s') :
+    coalSumMap r s hr hs ≤ coalSumMap r' s' hr' hs' := by
+  intro z
+  rcases coalescedSum_cases z with rfl | ⟨x, _, rfl⟩ | ⟨y, _, rfl⟩
+  · exact le_rfl
+  · show coalSumMap r s hr hs (sumInl U x) ≤ coalSumMap r' s' hr' hs' (sumInl U x)
+    rw [coalSumMap_sumInl, coalSumMap_sumInl]
+    exact monotone_sumInl (hrr x)
+  · show coalSumMap r s hr hs (sumInr U y) ≤ coalSumMap r' s' hr' hs' (sumInr U y)
+    rw [coalSumMap_sumInr, coalSumMap_sumInr]
+    exact monotone_sumInr (hss y)
+
+/-! ### `im(r ⊕ s) ≅ im(r) ⊕ im(s)`
+
+The map runs from `im(r) ⊕ im(s)` into `U ⊕ U`, forgetting which summand a point
+came from. Writing it with `sumInl` / `sumInr` rather than with `↑⟨Sum.inl a, _⟩`
+means the definition carries no proof obligation at all — the injections are total
+and send `⊥` to `⊥` — and the three computation rules below hold without any
+`≠ ⊥` hypothesis. -/
+
+/-- `im(r) ⊕ im(s) → U ⊕ U`, forgetting the images. -/
+noncomputable def rangeSumVal (hpr : IsProjection r) (hps : IsProjection s)
+    (w : CoalescedSum (projCpo hpr).carrier (projCpo hps).carrier) : CoalescedSum U U :=
+  WithBot.recBotCoe (C := fun _ => CoalescedSum U U) ⊥
+    (fun t => Sum.elim (fun a : (projCpo hpr).carrier => sumInl U a.val)
+      (fun b : (projCpo hps).carrier => sumInr U b.val) t.val) w
+
+variable {hpr : IsProjection r} {hps : IsProjection s}
+
+@[simp] theorem rangeSumVal_bot : rangeSumVal hpr hps ⊥ = (⊥ : CoalescedSum U U) := rfl
+
+/-- The bottom of `im(p)` is `⊥` of `U`, since a projection fixes `⊥`. -/
+theorem projCpo_bot_val {p : ScottHom U U} (hp : IsProjection p) :
+    (⊥ : (projCpo hp).carrier).val = (⊥ : U) := rfl
+
+@[simp] theorem rangeSumVal_sumInl (a : (projCpo hpr).carrier) :
+    rangeSumVal hpr hps (sumInl _ a) = sumInl U a.val := by
+  by_cases ha : a = ⊥
+  · rw [ha, sumInl_bot, rangeSumVal_bot, projCpo_bot_val, sumInl_bot]
+  · rw [sumInl_of_ne_bot ha]; rfl
+
+@[simp] theorem rangeSumVal_sumInr (b : (projCpo hps).carrier) :
+    rangeSumVal hpr hps (sumInr _ b) = sumInr U b.val := by
+  by_cases hb : b = ⊥
+  · rw [hb, sumInr_bot, rangeSumVal_bot, projCpo_bot_val, sumInr_bot]
+  · rw [sumInr_of_ne_bot hb]; rfl
+
+/-- **`rangeSumVal` lands in `im(r ⊕ s)`**, because each of its three values is a
+fixed point: a projection fixes its own image, so `r a = a` for `a ∈ im(r)`. -/
+theorem rangeSumVal_mem_range (w : CoalescedSum (projCpo hpr).carrier (projCpo hps).carrier) :
+    rangeSumVal hpr hps w ∈ Set.range ⇑(coalSumMap r s hpr.map_bot hps.map_bot) := by
+  refine ⟨rangeSumVal hpr hps w, ?_⟩
+  rcases coalescedSum_cases w with rfl | ⟨a, _, rfl⟩ | ⟨b, _, rfl⟩
+  · rfl
+  · rw [rangeSumVal_sumInl, coalSumMap_sumInl, hpr.apply_of_mem_range a.2]
+  · rw [rangeSumVal_sumInr, coalSumMap_sumInr, hps.apply_of_mem_range b.2]
+
+/-- The map as a function into the subtype. -/
+noncomputable def coalSumRangeMap (hpr : IsProjection r) (hps : IsProjection s)
+    (w : CoalescedSum (projCpo hpr).carrier (projCpo hps).carrier) :
+    ↥(Set.range ⇑(coalSumMap r s hpr.map_bot hps.map_bot)) :=
+  ⟨rangeSumVal hpr hps w, rangeSumVal_mem_range w⟩
+
+/-- **`rangeSumVal` preserves and reflects the order.** Nine cases, one per pair
+of shapes; the six mixed ones are all closed by the incomparability of the two
+summands, and the two same-side ones by `sumInl_le_sumInl_iff` applied on both
+sides of the equivalence. -/
+theorem coalSumRangeMap_le_iff
+    (w w' : CoalescedSum (projCpo hpr).carrier (projCpo hps).carrier) :
+    coalSumRangeMap hpr hps w ≤ coalSumRangeMap hpr hps w' ↔ w ≤ w' := by
+  show rangeSumVal hpr hps w ≤ rangeSumVal hpr hps w' ↔ w ≤ w'
+  rcases coalescedSum_cases w with rfl | ⟨a, ha, rfl⟩ | ⟨b, hb, rfl⟩
+  · simp
+  · have hav : a.val ≠ ⊥ := val_ne_bot_of_ne_bot hpr ha
+    rcases coalescedSum_cases w' with rfl | ⟨a', _, rfl⟩ | ⟨b', _, rfl⟩
+    · rw [rangeSumVal_sumInl, rangeSumVal_bot]
+      exact iff_of_false (not_sumInl_le_bot hav) (not_sumInl_le_bot ha)
+    · rw [rangeSumVal_sumInl, rangeSumVal_sumInl, sumInl_le_sumInl_iff hav,
+        sumInl_le_sumInl_iff ha]
+      exact Iff.rfl
+    · rw [rangeSumVal_sumInl, rangeSumVal_sumInr]
+      exact iff_of_false (not_sumInl_le_sumInr hav _) (not_sumInl_le_sumInr ha _)
+  · have hbv : b.val ≠ ⊥ := val_ne_bot_of_ne_bot hps hb
+    rcases coalescedSum_cases w' with rfl | ⟨a', _, rfl⟩ | ⟨b', _, rfl⟩
+    · rw [rangeSumVal_sumInr, rangeSumVal_bot]
+      exact iff_of_false (not_sumInr_le_bot hbv) (not_sumInr_le_bot hb)
+    · rw [rangeSumVal_sumInr, rangeSumVal_sumInl]
+      exact iff_of_false (not_sumInr_le_sumInl hbv _) (not_sumInr_le_sumInl hb _)
+    · rw [rangeSumVal_sumInr, rangeSumVal_sumInr, sumInr_le_sumInr_iff hbv,
+        sumInr_le_sumInr_iff hb]
+      exact Iff.rfl
+
+/-- **`rangeSumVal` is onto `im(r ⊕ s)`.** Every value of `r ⊕ s` is `⊥`,
+`inl (r x)` or `inr (s y)`, and each is the image of the corresponding point of
+`im(r) ⊕ im(s)`. -/
+theorem coalSumRangeMap_surjective : Function.Surjective (coalSumRangeMap hpr hps) := by
+  rintro ⟨_, y, rfl⟩
+  rcases coalescedSum_cases y with rfl | ⟨x, _, rfl⟩ | ⟨z, _, rfl⟩
+  · exact ⟨⊥, rfl⟩
+  · refine ⟨sumInl (projCpo hps).carrier
+      (⟨r x, Set.mem_range_self x⟩ : (projCpo hpr).carrier), Subtype.ext ?_⟩
+    show rangeSumVal hpr hps (sumInl _ _) = coalSumMap r s hpr.map_bot hps.map_bot (sumInl U x)
+    rw [rangeSumVal_sumInl, coalSumMap_sumInl]
+  · refine ⟨sumInr (projCpo hpr).carrier
+      (⟨s z, Set.mem_range_self z⟩ : (projCpo hps).carrier), Subtype.ext ?_⟩
+    show rangeSumVal hpr hps (sumInr _ _) = coalSumMap r s hpr.map_bot hps.map_bot (sumInr U z)
+    rw [rangeSumVal_sumInr, coalSumMap_sumInr]
+
+/-- **`im(r ⊕ s) ≅ im(r) ⊕ im(s)`** — Lemma 28's `⊕` conjunct at the level of a
+single pair of projections, and the third obligation of the representation
+scheme. -/
+noncomputable def coalSumRangeOrderIso (hpr : IsProjection r) (hps : IsProjection s) :
+    ↥(Set.range ⇑(coalSumMap r s hpr.map_bot hps.map_bot)) ≃o
+      CoalescedSum (projCpo hpr).carrier (projCpo hps).carrier :=
+  (RelIso.ofSurjective
+    (OrderEmbedding.ofMapLEIff (coalSumRangeMap hpr hps) (coalSumRangeMap_le_iff))
+    coalSumRangeMap_surjective).symm
+
+/-- **`im(r ⊕ s)` is a domain when `im(r)` and `im(s)` are** — the obligation `Fp`
+adds and `Fc` does not. Through `coalSumRangeOrderIso` it reduces to
+`domain_coalescedSum`. -/
+theorem domain_range_coalSumMap (hpr : IsProjection r) (hps : IsProjection s)
+    (hdr : @Domain _ (IsProjection.rangeCompletePartialOrder hpr))
+    (hds : @Domain _ (IsProjection.rangeCompletePartialOrder hps)) :
+    @Domain _ (IsProjection.rangeCompletePartialOrder (isProjection_coalSumMap hpr hps)) := by
+  haveI : Domain (projCpo hpr).carrier := hdr
+  haveI : Domain (projCpo hps).carrier := hds
+  haveI : Domain (CoalescedSum (projCpo hpr).carrier (projCpo hps).carrier) :=
+    domain_coalescedSum
+  letI : CompletePartialOrder ↥(Set.range ⇑(coalSumMap r s hpr.map_bot hps.map_bot)) :=
+    IsProjection.rangeCompletePartialOrder (isProjection_coalSumMap hpr hps)
+  exact domain_orderIso (coalSumRangeOrderIso hpr hps).symm
+
+/-! ### The family, indexed by `Fp(U) × Fp(U)` -/
+
+/-- The conjugating family for `⊕`. -/
+noncomputable def coalSumFamily (q : ↥(Fp U) × ↥(Fp U)) :
+    ScottHom (CoalescedSum U U) (CoalescedSum U U) :=
+  coalSumMap q.1.val q.2.val (mem_Fp.mp q.1.2).isProjection.map_bot
+    (mem_Fp.mp q.2.2).isProjection.map_bot
+
+theorem isProjection_coalSumFamily (q : ↥(Fp U) × ↥(Fp U)) : IsProjection (coalSumFamily q) :=
+  isProjection_coalSumMap (mem_Fp.mp q.1.2).isProjection (mem_Fp.mp q.2.2).isProjection
+
+theorem coalSumFamily_mono {q q' : ↥(Fp U) × ↥(Fp U)} (h : q ≤ q') :
+    coalSumFamily q ≤ coalSumFamily q' := coalSumMap_mono h.1 h.2
+
+/-- Pointwise Scott continuity of the family in its `Fp(U) × Fp(U)` index. The
+adjoined bottom is constant; each summand is `isLUB_val_image_of_isLUB_fp'`
+followed by `ScottHom.isLUB_eval_image_of_isLUB` and then Scott continuity of the
+injection. This is where `isFinitaryProjection_sSup` is spent. -/
+theorem isLUB_coalSumFamily [Domain U] {d : Set (↥(Fp U) × ↥(Fp U))}
+    (hne : d.Nonempty) (hd : DirectedOn (· ≤ ·) d) {a : ↥(Fp U) × ↥(Fp U)}
+    (ha : IsLUB d a) (z : CoalescedSum U U) :
+    IsLUB ((fun q => coalSumFamily q z) '' d) (coalSumFamily a z) := by
+  have hdfst : DirectedOn (· ≤ ·) (Prod.fst '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.1, ⟨c, hc, rfl⟩, hpc.1, hqc.1⟩
+  have hdsnd : DirectedOn (· ≤ ·) (Prod.snd '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.2, ⟨c, hc, rfl⟩, hpc.2, hqc.2⟩
+  have h₁ : IsLUB ((fun q : ↥(Fp U) × ↥(Fp U) => q.1.val) '' d) a.1.val := by
+    have := isLUB_val_image_of_isLUB_fp' (hne.image _) hdfst (isLUB_prod.mp ha).1
+    rwa [Set.image_image] at this
+  have h₂ : IsLUB ((fun q : ↥(Fp U) × ↥(Fp U) => q.2.val) '' d) a.2.val := by
+    have := isLUB_val_image_of_isLUB_fp' (hne.image _) hdsnd (isLUB_prod.mp ha).2
+    rwa [Set.image_image] at this
+  have hd₁ : DirectedOn (· ≤ ·) ((fun q : ↥(Fp U) × ↥(Fp U) => q.1.val) '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.1.val, ⟨c, hc, rfl⟩, hpc.1, hqc.1⟩
+  have hd₂ : DirectedOn (· ≤ ·) ((fun q : ↥(Fp U) × ↥(Fp U) => q.2.val) '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.2.val, ⟨c, hc, rfl⟩, hpc.2, hqc.2⟩
+  rcases coalescedSum_cases z with rfl | ⟨x, _, rfl⟩ | ⟨y, _, rfl⟩
+  · refine ⟨?_, fun u _ => ?_⟩
+    · rintro _ ⟨q, _, rfl⟩; exact le_rfl
+    · exact bot_le
+  · have hev := ScottHom.isLUB_eval_image_of_isLUB hd₁ h₁ x
+    rw [Set.image_image] at hev
+    have hdx : DirectedOn (· ≤ ·) ((fun q : ↥(Fp U) × ↥(Fp U) => q.1.val x) '' d) := by
+      rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+      obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+      exact ⟨c.1.val x, ⟨c, hc, rfl⟩, hpc.1 x, hqc.1 x⟩
+    have := scottContinuous_sumInl (A := U) (B := U) (hne.image _) hdx hev
+    rw [Set.image_image] at this
+    simpa [coalSumFamily] using this
+  · have hev := ScottHom.isLUB_eval_image_of_isLUB hd₂ h₂ y
+    rw [Set.image_image] at hev
+    have hdy : DirectedOn (· ≤ ·) ((fun q : ↥(Fp U) × ↥(Fp U) => q.2.val y) '' d) := by
+      rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+      obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+      exact ⟨c.2.val y, ⟨c, hc, rfl⟩, hpc.2 y, hqc.2 y⟩
+    have := scottContinuous_sumInr (A := U) (B := U) (hne.image _) hdy hev
+    rw [Set.image_image] at this
+    simpa [coalSumFamily] using this
+
+/-- **`⊕` is p-representable over any domain that retracts onto its own coalesced
+square** — conjunct 6 of Lemma 28, at the notion §7.3 uses. -/
+theorem rep_coalSum [Domain U] {fn : ScottHom U (CoalescedSum U U)}
+    {gr : ScottHom (CoalescedSum U U) U}
+    (hfg : ∀ y, fn (gr y) = y) (hgf : ∀ x, gr (fn x) ≤ x) :
+    IsPRepresentable₂ U coalSumOp :=
+  isPRepresentable₂_of_repFamily hfg
+    (fun q => isFinitaryProjection_repOf hfg hgf (isProjection_coalSumFamily q)
+      (domain_range_coalSumMap _ _ (mem_Fp.mp q.1.2).domain (mem_Fp.mp q.2.2).domain))
+    coalSumFamily_mono isLUB_coalSumFamily
+    fun q => ⟨coalSumRangeOrderIso (mem_Fp.mp q.1.2).isProjection
+      (mem_Fp.mp q.2.2).isProjection⟩
+
+end CoalSumConjunct
+
 /-! ## Lemma 28 at `U`, from what remains -/
+
+/-- **`⊕` is p-representable over `U`** — conjunct 6 of Lemma 28, at the paper's
+own carrier and with no hypothesis. `U ⊕ U` is a bounded complete domain by
+`domain_coalescedSum` and Lemma 10's sixth conjunct, so Theorem 27 supplies the
+pair `(Φ⊕, Ψ⊕)`. -/
+theorem repCoalSumAtU : IsPRepresentable₂ Dyadic.U coalSumOp := by
+  haveI : Domain (CoalescedSum Dyadic.U Dyadic.U) := domain_coalescedSum
+  haveI : BoundedComplete (CoalescedSum Dyadic.U Dyadic.U) := lem10_sum
+  obtain ⟨_fn, _gr, hfg, hgf⟩ := pairAtU (CoalescedSum Dyadic.U Dyadic.U)
+  exact rep_coalSum hfg hgf
 
 /-- **`Lemma28AtU` from the conjuncts still open.** `PRep.lemma28_of` with the
 proved conjuncts substituted at `U`. The arity is the measurement: one hypothesis
@@ -386,11 +825,10 @@ theorem lemma28AtU_of
     (h_strictArrow : IsPRepresentable₂ Dyadic.U strictFunOp)
     (h_smash : IsPRepresentable₂ Dyadic.U smashOp)
     (h_sepSum : IsPRepresentable₂ Dyadic.U sepSumOp)
-    (h_coalSum : IsPRepresentable₂ Dyadic.U coalSumOp)
     (h_smyth : IsPRepresentable Dyadic.U smythOp)
     (h_hoare : IsPRepresentable Dyadic.U hoareOp) :
     Lemma28AtU :=
-  lemma28_of h_arrow h_strictArrow repProdAtU h_smash h_sepSum h_coalSum
+  lemma28_of h_arrow h_strictArrow repProdAtU h_smash h_sepSum repCoalSumAtU
     repLiftAtU h_smyth h_hoare
 
 end ScottDomains.PRepSum

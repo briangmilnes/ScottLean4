@@ -1,0 +1,218 @@
+# r0037
+# agent4 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-07T11:36:23-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [962/1218] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1112/1218] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1217/1218] Building ScottDomains.PRepSum (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/PRepSum.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/PRepSum.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/PRepSum.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/PRepSum.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/PRepSum.setup.json --json
+error: ScottDomains/PRepSum.lean:523:41: failed to synthesize instance of type class
+  Bot (projCpo hp).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:524:28: Application type mismatch: The argument
+  hb
+has type
+  ↑a = ⊥
+but is expected to have type
+  ↑a = ↑⊥
+in the application
+  Subtype.ext hb
+error: ScottDomains/PRepSum.lean:609:9: failed to synthesize instance of type class
+  CompletePartialOrder (projCpo hpr).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:612:56: Invalid field notation: Type of
+  t
+is not known; cannot resolve field `val`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `AddUnits.val`
+  • `Char.val`
+  • `Fin.val`
+  • `Finset.val`
+  • `Float.val`
+  • `Float32.val`
+  • `FloatSpec.val`
+  • `NonScalar.val`
+  • `PNat.val`
+  • `Subtype.val`
+  • `Units.val`
+  • `Array.Mem.val`
+  • `Lean.ElabBlock.val`
+  • `Lean.ElabInline.val`
+  • `Lean.ExprStructEq.val`
+  • `OrderHom.Subtype.val`
+  • `ST.Out.val`
+  • `Vector.Mem.val`
+  • `Lean.Doc.Parser.val`
+  • `Lean.Doc.WithSyntax.val`
+  • `Lean.Elab.FieldInfo.val`
+  • `Lean.Language.DynamicSnapshot.val`
+  • `Lean.Language.SyntaxGuarded.val`
+  • `Lean.Meta.InstanceEntry.val`
+  • `Lean.Server.WithRpcRef.val`
+  • `Std.Time.Timestamp.val`
+  • `Std.Time.WallTime.val`
+  • `Batteries.BinomialHeap.Imp.FindMin.val`
+  • `Lean.Elab.Term.LetRecToLift.val`
+  • `Lean.Elab.Term.NamedArg.val`
+  • `Lean.Meta.Match.Example.val`
+  • `Lean.Meta.Match.Pattern.val`
+  • `Lean.Meta.Sym.BitVecValue.val`
+  • `Lean.Meta.Sym.FinValue.val`
+  • `Lean.Meta.SynthInstance.Instance.val`
+  • `Std.Time.Internal.UnitVal.val`
+  • `Lean.Meta.Try.Collector.InductionCandidate.val`
+  • `Mathlib.Tactic.Ring.Common.Result.val`
+  • `Lean.Meta.Grind.Arith.Cutsat.SymbolicBound.val`
+warning: ScottDomains/PRepSum.lean:616:16: declaration uses `sorry`
+error: ScottDomains/PRepSum.lean:620:5: failed to synthesize instance of type class
+  Bot (projCpo hp).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:623:25: failed to synthesize instance of type class
+  CompletePartialOrder (projCpo hpr).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:624:20: failed to synthesize instance of type class
+  Bot (projCpo hpr).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:625:8: Unknown identifier `ha`
+error: ScottDomains/PRepSum.lean:623:57: unsolved goals
+case neg
+U : Type u
+inst✝ : CompletePartialOrder U
+r s : ScottHom U U
+hpr : r.IsProjection
+hps : s.IsProjection
+a : (projCpo hpr).carrier
+ha : ¬a = ⊥
+⊢ rangeSumVal hpr hps sorry = sumInl U ↑a
+error: ScottDomains/PRepSum.lean:629:25: failed to synthesize instance of type class
+  CompletePartialOrder (projCpo hps).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:630:20: failed to synthesize instance of type class
+  Bot (projCpo hps).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:631:8: Unknown identifier `hb`
+error: ScottDomains/PRepSum.lean:629:57: unsolved goals
+case neg
+U : Type u
+inst✝ : CompletePartialOrder U
+r s : ScottHom U U
+hpr : r.IsProjection
+hps : s.IsProjection
+b : (projCpo hps).carrier
+hb : ¬b = ⊥
+⊢ rangeSumVal hpr hps sorry = sumInr U ↑b
+error: ScottDomains/PRepSum.lean:636:35: failed to synthesize instance of type class
+  CompletePartialOrder (projCpo hpr).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:646:9: failed to synthesize instance of type class
+  CompletePartialOrder (projCpo hpr).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:655:12: failed to synthesize instance of type class
+  CompletePartialOrder (projCpo hpr).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:655:12: failed to synthesize instance of type class
+  CompletePartialOrder (projCpo hpr).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:686:21: Invalid `⟨...⟩` notation: The expected type of this term could not be determined
+error: ScottDomains/PRepSum.lean:686:2: unsolved goals
+case inr.inl
+U : Type u
+inst✝ : CompletePartialOrder U
+r s : ScottHom U U
+hpr : r.IsProjection
+hps : s.IsProjection
+x : U
+left✝ : x ≠ ⊥
+⊢ sumInl U ↑?inr.inl✝ = sumInl U (r x)
+
+case inr.inl
+U : Type u
+inst✝ : CompletePartialOrder U
+r s : ScottHom U U
+hpr : r.IsProjection
+hps : s.IsProjection
+x : U
+left✝ : x ≠ ⊥
+⊢ (projCpo hpr).carrier
+error: ScottDomains/PRepSum.lean:689:21: Invalid `⟨...⟩` notation: The expected type of this term could not be determined
+error: ScottDomains/PRepSum.lean:689:2: unsolved goals
+case inr.inr
+U : Type u
+inst✝ : CompletePartialOrder U
+r s : ScottHom U U
+hpr : r.IsProjection
+hps : s.IsProjection
+z : U
+left✝ : z ≠ ⊥
+⊢ sumInr U ↑?inr.inr✝ = sumInr U (s z)
+
+case inr.inr
+U : Type u
+inst✝ : CompletePartialOrder U
+r s : ScottHom U U
+hpr : r.IsProjection
+hps : s.IsProjection
+z : U
+left✝ : z ≠ ⊥
+⊢ (projCpo hps).carrier
+error: ScottDomains/PRepSum.lean:698:6: failed to synthesize instance of type class
+  CompletePartialOrder (projCpo hpr).carrier
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/PRepSum.lean:717:8: typeclass instance problem is stuck
+  Domain ?m.112
+
+Note: Lean will not try to resolve this typeclass instance problem because the first and second type arguments to `Domain` are metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+error: ScottDomains/PRepSum.lean:796:14: typeclass instance problem is stuck
+  CompletePartialOrder ?m.96
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `CompletePartialOrder` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.PRepSum
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:02.23
+Maximum resident set size (kbytes): 1855236
+--- build ---
+finished:         2026-08-07T11:36:27-07:00
+exit status:      1
+user cpu:         2.71s
+system cpu:       0.63s
+cpu use:          150%
+peak rss single:  1811 MiB (largest one process, GNU time)
+peak pss tree:    1945 MiB (process group, shared pages apportioned)
+peak rss tree:    2615 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 24
+lake errors:      2
+sorry decls:      2
+other warnings:   0
