@@ -1,0 +1,56 @@
+# r0034
+# agent5 — lake build ScottDomains.BifiniteUniversal
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-06T22:57:08-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.BifiniteUniversal ===
+✖ [840/840] Building ScottDomains.BifiniteUniversal (795ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/BifiniteUniversal.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/BifiniteUniversal.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/BifiniteUniversal.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/BifiniteUniversal.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/BifiniteUniversal.setup.json --json
+error: ScottDomains/BifiniteUniversal.lean:265:46: Application type mismatch: The argument
+  hN
+has type
+  N.Finite
+of sort `Prop` but is expected to have type
+  (i : ?m.69) → ?m.71 i
+of sort `Sort (max ?u.37 (?u.39 + 1))` in the application
+  Function.prod hN
+error: ScottDomains/BifiniteUniversal.lean:265:30: Application type mismatch: The argument
+  Set.Finite
+has type
+  Set ?m.68 → Prop
+but is expected to have type
+  ?m.69 → Type ?u.39
+in the application
+  @Function.prod ?m.69 Set.Finite
+error: ScottDomains/BifiniteUniversal.lean:288:26: Application type mismatch: The argument
+  bot_le
+has type
+  ⊥ ≤ ?m.38
+but is expected to have type
+  ⊥ ∈ Set.Iic n
+in the application
+  ⟨⟨?m.33, ?m.34⟩, bot_le⟩
+error: ScottDomains/BifiniteUniversal.lean:406:58: unexpected token 'omit'; expected 'lemma'
+error: ScottDomains/BifiniteUniversal.lean:419:0: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'instCompletePartialOrder', which is 'noncomputable'
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.BifiniteUniversal
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.52
+Maximum resident set size (kbytes): 1700272
+--- build ---
+finished:         2026-08-06T22:57:11-07:00
+exit status:      1
+user cpu:         1.48s
+system cpu:       0.48s
+cpu use:          129%
+peak rss single:  1660 MiB (largest one process, GNU time)
+peak pss tree:    1763 MiB (process group, shared pages apportioned)
+peak rss tree:    2423 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 5
+lake errors:      2
+sorry decls:      0
+other warnings:   0

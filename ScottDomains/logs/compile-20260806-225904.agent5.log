@@ -1,0 +1,32 @@
+# r0034
+# agent5 — lake build ScottDomains.BifiniteUniversal
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-06T22:59:04-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.BifiniteUniversal ===
+⚠ [843/843] Built ScottDomains.BifiniteUniversal (795ms)
+warning: ScottDomains/BifiniteUniversal.lean:259:0: automatically included section variable(s) unused in theorem `ScottDomains.BifiniteUniversal.MSub_finite`:
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (843 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.53
+Maximum resident set size (kbytes): 1715260
+--- build ---
+finished:         2026-08-06T22:59:06-07:00
+exit status:      0
+user cpu:         1.50s
+system cpu:       0.50s
+cpu use:          130%
+peak rss single:  1675 MiB (largest one process, GNU time)
+peak pss tree:    1771 MiB (process group, shared pages apportioned)
+peak rss tree:    2431 MiB (process group, shared pages counted per process)
+jobs:             843
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   1
