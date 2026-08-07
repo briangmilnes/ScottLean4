@@ -72,6 +72,46 @@ closes that failure mode for these two.
 | 5 | **Theorem 27's remaining step** | `IsNormallyRepresented` needs Vaught's theorem. Mathlib v4.32.2 has zero `IsAtomless`. Either build the countable atomless Boolean algebra or leave Theorem 27 conditional and say so |
 | 6 | **Two results are blocked on unobtainable sources** | Theorem 18 on `[Smy83a]`, Theorem 29's second sentence and all of Lemma 30 on the `[Gun87]` manuscript. See `plans/r0034-plan-from-orchestrator-to-user-papers-to-collect.md` — rows 1 and 2 are for the user to collect by hand |
 
+## Paper collection — state as of 2026-0807-08:20
+
+Updated after the first r0035 session; supersedes decision 6's "for the user to
+collect by hand" as the current status.
+
+| # | Reference | Status |
+| -- | --------- | ------ |
+| 1 | `[Gun87]` | **Requested from Gunter directly.** The user has asked the author for a copy. Awaiting reply — do not spend agent time searching for it |
+| 2 | `[Smy83a]` | **Not found by the user.** Still blocking Theorem 18 |
+
+Row 2 was re-checked against two indexes this session, and the result is stronger
+than r0034 recorded — it is not that the copies are hard to reach, it is that
+**there are none**:
+
+| # | Index | Finding |
+| -- | ----- | ------- |
+| 1 | OpenAlex | exactly one location, `sciencedirect.com/…/0304397583900956/pdf`; `oa_status: bronze`; **`any_repository_has_fulltext: false`** |
+| 2 | Semantic Scholar | `isOpenAccess: true`, `openAccessPdf.status: BRONZE`, same single ScienceDirect URL |
+
+No preprint, no institutional-repository deposit, no mirror. Bronze open access
+means the publisher alone hosts it, under no open licence. So searching harder
+has zero expected yield — every remaining route needs a credential or a browser
+the machine does not have:
+
+| # | Route | Who can do it |
+| -- | ----- | ------------- |
+| 1 | ScienceDirect in a real browser (the Cloudflare challenge is what 403s `curl`; a logged-in human session usually passes it) | user |
+| 2 | Institutional proxy — any university library with an Elsevier subscription | user |
+| 3 | Elsevier Article Retrieval API with a free `dev.elsevier.com` key; the content API already confirms `openaccess=1` for this PII | user registers the key, then the machine can fetch |
+| 4 | Interlibrary loan / a colleague with access | user |
+| 5 | Email Smyth, as with `[Gun87]` | user |
+
+Do not re-run the OpenAlex/Semantic Scholar/CORE/Wayback sweep — r0034 and this
+session both ran it and it is settled.
+
+If none of these lands, decision 6 stands and **the Theorem 18 obstruction is the
+result** — it is already written up and kernel-checked as far as it goes. Row 3
+of the not-blocking table (`[Gun86]`, the bounded-complete analogue) becomes the
+nearest provable neighbour, and it is retrievable.
+
 ## Candidate work for r0035
 
 Ordered by cost-to-value, not by paper order:
@@ -94,6 +134,12 @@ The r0028–r0032 rules all held. r0034 added three:
 3. **The plan is not evidence.** Four of six stream descriptions in the r0034 plan were wrong on the mathematics — Theorem 26's statement, Lemma 28's operator count and notion, Theorem 14's obstacle, and Theorem 27's route. Every one was caught by an agent reading the PDF. Write plans so that contradicting them is the expected behaviour, and check reports for it.
 
 ## Resume steps
+
+This plan has now served two restarts. The second (2026-0807-08:20) was an editor
+mishap on the user's side, not a state change: **no Lean source, script, or
+settings file was touched between them.** Every quantity in "State at restart"
+still holds unmeasured-since-r0034, and the r0034 permission changes above are
+still the thing the restart exists to activate.
 
 1. `scripts/compile.sh -r r0035` — expect 1137 jobs, 2 `sorry`.
 2. `scripts/counts.sh` — expect 61 modules, 19497 lines, 906 theorems.
