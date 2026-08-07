@@ -27,6 +27,7 @@ cmd="$(jq -r '.tool_input.command // ""' 2>/dev/null)" || exit 0
 DANGER=(
   'sudo' 'doas' 'chmod ' 'chown ' 'mkfs' 'dd if=' 'shutdown' 'reboot'
   '| sh' '|sh' '| bash' '|bash' '| zsh' '|zsh'
+  'sh -c' 'bash -c' 'zsh -c'
   'wget' 'ssh ' 'scp ' 'nc ' 'ncat' 'telnet'
   'git push' 'git reset --hard' 'git clean' 'git checkout' 'git rebase'
   'git branch -D' 'git worktree remove' 'git filter'
@@ -61,8 +62,23 @@ GIT_OK=(status log show diff rev-parse rev-list branch worktree merge-base
         fetch add commit merge stash config describe shortlog blame cat-file
         ls-files ls-tree symbolic-ref for-each-ref)
 
+# Mask quoted spans before splitting. A `;`, `|` or `&&` inside a quoted argument
+# is data, not a clause separator, so splitting on it invents clauses that never
+# run. Measured from .claude/permission-requests.log: every scripts/ prompt in
+# rounds r0034 and r0036 was a gitcp.sh call whose commit message contained a
+# semicolon — the message `"… JungSFP; Prop 1.9 plus the bridge"` split into a
+# clause with head `Prop`, which is not on SAFE, so the hook fell through. The
+# house commit-message style uses semicolons, so every agent commit prompted.
+#
+# Masking is a tightening, not a loosening: text inside quotes is an argument to
+# the head, never a command in its own right. The DANGER scan below deliberately
+# stays on the *raw* command so a payload hidden in quotes is still refused, and
+# `sh -c`/`bash -c`/`zsh -c`, whose whole point is to execute a quoted string,
+# are on DANGER for the same reason.
+scan="$(print -r -- "$cmd" | sed -E "s/'[^']*'/QUOTEDSTR/g; s/\"[^\"]*\"/QUOTEDSTR/g")"
+
 # Split into clauses on && || ; | and newlines, then check each head.
-clauses=("${(@f)$(print -r -- "$cmd" | sed -E 's/(\&\&|\|\||;|\|)/\n/g')}")
+clauses=("${(@f)$(print -r -- "$scan" | sed -E 's/(\&\&|\|\||;|\|)/\n/g')}")
 for c in $clauses; do
   c="${c##[[:space:]]#}"
   [[ -z "${c// }" ]] && continue
@@ -83,9 +99,23 @@ for c in $clauses; do
   ok=0
   for s in $SAFE; do [[ "$head" == "$s" ]] && ok=1 && break; done
   (( ok )) || exit 0
-  # git needs its subcommand checked too.
+  # git needs its subcommand checked too. Skip git's *global* options first:
+  # `-C <path>` and `-c <name>=<value>` each take an argument, the rest are
+  # flags. Reading words[2] blindly made every `git -C <path> status` prompt,
+  # which is the form CLAUDE.md mandates in place of `cd` — so the rule and the
+  # instruction contradicted each other, exactly as the scripts/ pattern did
+  # before r0034.
   if [[ "$head" == git ]]; then
-    sub="$words[2]"
+    gi=2
+    while (( gi <= $#words )); do
+      case "$words[gi]" in
+        -C|-c|--git-dir|--work-tree|--namespace|--exec-path) gi=$((gi + 2)) ;;
+        --no-pager|--paginate|--bare|--literal-pathspecs|--no-replace-objects)
+          gi=$((gi + 1)) ;;
+        *) break ;;
+      esac
+    done
+    sub="${words[gi]:-}"
     gok=0
     for g in $GIT_OK; do [[ "$sub" == "$g" ]] && gok=1 && break; done
     (( gok )) || exit 0
