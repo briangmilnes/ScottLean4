@@ -99,6 +99,11 @@ except that two of Lemma 17's ten conjuncts carry an instance the others do not:
 | 3 | `lem17_prod`, `lem17_smash`, `lem17_sum`, `lem17_separated` | `[Domain α] [Domain β]` | available |
 | 4 | `lem17_lift`, `lem17_plotkin`, `lem17_smyth`, `lem17_hoare` | `[Domain α]` | available |
 
+Five of the eight available conjuncts land at an algebraic result and so go
+through `Thm29SecondAlgebraic`, which `Thm29Normal` implies; `⊗`, `+` and `⊕`
+land at a type this development never proves algebraic and so still take the
+stronger `Colimit.Thm29Second`.
+
 `BoundedComplete V` is not available and is not expected to be: `V` is universal
 for bifinite domains, `PRep.boundedComplete_range` says a projection of a
 bounded-complete domain is bounded complete, and not every bifinite domain is
@@ -117,15 +122,34 @@ through Theorem 7's step functions, "a real open item, not a formality".
 | 1 | `plotkinOp` — `(·)♮` as a function `Cpo → Cpo` | defined |
 | 2 | `Lemma30` — the ten-fold conjunction, and `lemma30_of` | stated, arity checked by the kernel |
 | 3 | `lemma30_iff_lemma28_and_plotkin` | proved |
-| 4 | eight retraction pairs over `V` from `Thm29Second` | proved |
-| 5 | `rep_lift_V`, `rep_prod_V` — conjuncts 7 and 3 | proved from `Thm29Second` |
-| 6 | `Colimit.Thm29Second` itself | **not proved**; see below |
+| 4 | five retraction pairs over `V` from `Thm29SecondAlgebraic` | proved |
+| 5 | three more from the stronger `Colimit.Thm29Second` | proved |
+| 6 | `rep_lift_V`, `rep_prod_V` — conjuncts 7 and 3 | proved from `Thm29SecondAlgebraic` |
+| 7 | `Thm29Normal ⟹ Thm29SecondAlgebraic` | **proved** |
+| 8 | `Thm29Normal` itself | not proved — this is [Gun87]'s content |
 
-Theorem 29's second sentence remains where `Colimit.lean` left it. `Thm29Normal`
-below names the one missing step, so that what stands between this development
-and eight of Lemma 30's ten conjuncts is a single proposition and not a
-paragraph — and `exists_stage_ge_of_finite` measures that the step is *not* the
-one the round plan located it at. No `sorry` appears in this file.
+Theorem 29's second sentence is therefore no longer a paragraph away. What
+remains is one proposition: `Thm29Normal`, that `A∞` is universal among the bases
+of bifinite domains under normal embedding.
+`exists_embeddingProjectionPair_of_thm29Normal` derives the whole sentence from
+it in about sixty lines of ideal manipulation, and
+`exists_stage_ge_of_finite` measures that the missing step is *not* the
+stage-by-stage extension the round plan located it at — the stages are already
+cofinal among finite subsets of `A∞`. No `sorry` appears in this file.
+
+Two hypotheses turned out to be worth separating, and both separations are
+recorded in signatures rather than in prose:
+
+1. **`Colimit.Thm29Second` is stronger than the printed sentence.** The paper
+   says "`E` is any bifinite *domain*"; `IsBifinite` alone is the Plotkin
+   condition on `K(E)` and implies neither algebraicity nor a countable basis.
+   `Thm29SecondAlgebraic` is the sentence with the algebraicity half of "domain"
+   restored, and it is what the proof from `Thm29Normal` establishes — the
+   countable basis is never used.
+2. **`⊗`, `+` and `⊕` are not known to be algebraic here.** Their retraction
+   pairs therefore take `Colimit.Thm29Second` rather than
+   `Thm29SecondAlgebraic`. This is a gap next to Lemma 17, not next to
+   Theorem 29.
 -/
 
 namespace ScottDomains.LemThirty
@@ -233,6 +257,32 @@ sentence says `(·)♮` *cannot* be representable. This abbreviation fixes the
 carrier so the instantiation cannot drift, exactly as `PRep.Lemma28AtU` does. -/
 abbrev Lemma30AtV : Prop := Lemma30 Colimit.V
 
+/-! ## Theorem 29's second sentence at the paper's own hypothesis
+
+`Colimit.Thm29Second` quantifies over every cpo `E` with `IsBifinite E`. The
+paper's sentence says "`E` is any bifinite **domain**", and `IsBifinite` is only
+the Plotkin condition on `K(E)` (`Bifinite.lean:62`) — it does not imply
+algebraicity or a countable basis. So `Colimit.Thm29Second` as recorded in r0036
+is *stronger* than the printed sentence.
+
+The version below carries the algebraicity half of "domain" and nothing else,
+because that is exactly what the proof from `Thm29Normal` spends: the countable
+basis is never used. Every result about `V` that only needs an algebraic `E` is
+stated against this proposition, so that it follows from the weaker of the two
+hypotheses. -/
+
+/-- **Theorem 29's second sentence**, at algebraic `E`. Implied by
+`Colimit.Thm29Second` (`thm29SecondAlgebraic_of_thm29Second`) and implied by
+`Thm29Normal` (`thm29SecondAlgebraic_of_thm29Normal`, proved below). -/
+def Thm29SecondAlgebraic : Prop :=
+  ∀ (E : Type) [CompletePartialOrder E] [IsAlgebraic E], IsBifinite E →
+    ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p
+
+/-- Dropping the algebraicity hypothesis strengthens the statement, so the
+r0036 form implies this one. -/
+theorem thm29SecondAlgebraic_of_thm29Second (h : Colimit.Thm29Second) :
+    Thm29SecondAlgebraic := fun E _ _ hE => h E hE
+
 /-! ## The retraction pairs over `V`
 
 Every one of the paper's ten recipes opens the same way: "take a pair of
@@ -258,14 +308,51 @@ theorem retracts_of_isBifinite (h : Colimit.Thm29Second) (E : Type) [CompletePar
   obtain ⟨g, p, hgp⟩ := h E hE
   exact ⟨g, p, hgp.1, hgp.2⟩
 
-/-- Conjunct 7's pair, `(·)⊥`. Lemma 17's `lem17_lift` needs `[Domain V]` and
-nothing else. -/
-theorem retracts_lift (h : Colimit.Thm29Second) : Retracts (WithBot V) :=
-  retracts_of_isBifinite h _ (lem17_lift isBifinite_V)
+/-- The same reduction from the weaker hypothesis, for an `E` that is algebraic.
+Five of the ten operator results are algebraic in this development, so five of
+the ten pairs go through this route and therefore follow from `Thm29Normal`
+(`thm29SecondAlgebraic_of_thm29Normal`). -/
+theorem retracts_of_isAlgebraic (h : Thm29SecondAlgebraic) (E : Type)
+    [CompletePartialOrder E] [IsAlgebraic E] (hE : IsBifinite E) : Retracts E := by
+  obtain ⟨g, p, hgp⟩ := h E hE
+  exact ⟨g, p, hgp.1, hgp.2⟩
 
-/-- Conjunct 3's pair, `×`. -/
-theorem retracts_prod (h : Colimit.Thm29Second) : Retracts (V × V) :=
-  retracts_of_isBifinite h _ (lem17_prod isBifinite_V isBifinite_V)
+/-- Conjunct 7's pair, `(·)⊥`. `IsAlgebraic (WithBot V)` is
+`ClosureProperties.liftIsAlgebraic`, an instance. -/
+theorem retracts_lift (h : Thm29SecondAlgebraic) : Retracts (WithBot V) :=
+  retracts_of_isAlgebraic h _ (lem17_lift isBifinite_V)
+
+/-- Conjunct 3's pair, `×`. `IsAlgebraic (V × V)` comes from
+`PowerdomainRep.domain_prod`, which is a theorem rather than an instance. -/
+theorem retracts_prod (h : Thm29SecondAlgebraic) : Retracts (V × V) := by
+  haveI : Domain (V × V) := PowerdomainRep.domain_prod
+  exact retracts_of_isAlgebraic h _ (lem17_prod isBifinite_V isBifinite_V)
+
+/-- Conjunct 8's pair, `(·)♯`. The three powerdomains are ideal completions, and
+`IdealCompletion` carries an unconditional `IsAlgebraic` instance. -/
+theorem retracts_smyth (h : Thm29SecondAlgebraic) : Retracts (Smyth.Powerdomain V) :=
+  retracts_of_isAlgebraic h _ (ClosureProperties.lem17_smyth isBifinite_V)
+
+/-- Conjunct 9's pair, `(·)♭`. -/
+theorem retracts_hoare (h : Thm29SecondAlgebraic) : Retracts (Hoare.Powerdomain V) :=
+  retracts_of_isAlgebraic h _ (ClosureProperties.lem17_hoare isBifinite_V)
+
+/-- Conjunct 10's pair, `(·)♮` — the pair the paper displays in full on page 43,
+`Φ♮ : V → V♮` and `Ψ♮ : V♮ → V`. This is the conjunct §7.4 exists for, and
+nothing beyond `Thm29Normal` stands in its way. -/
+theorem retracts_plotkin (h : Thm29SecondAlgebraic) : Retracts (Plotkin.Powerdomain V) :=
+  retracts_of_isAlgebraic h _ (ClosureProperties.lem17_plotkin isBifinite_V)
+
+/-! ### The three pairs that need the stronger hypothesis, and why
+
+`⊗`, `+` and `⊕` take `Colimit.Thm29Second` rather than `Thm29SecondAlgebraic`,
+because **this development never proves those three constructions algebraic.**
+Measured over the whole library, `IsAlgebraic` instances exist for `ScottHom`,
+`Set X`, `IdealCompletion` and `WithBot`, and `PowerdomainRep.domain_prod`
+supplies the product; `Smash`, `CoalescedSum` and `SeparatedSum` have Lemma 10's
+bounded completeness and Lemma 17's bifiniteness but no algebraicity and no
+`Domain`. That is a gap in the neighbourhood of Lemma 17 that no round has
+recorded, and it is independent of Theorem 29. -/
 
 /-- Conjunct 4's pair, `⊗`. -/
 theorem retracts_smash (h : Colimit.Thm29Second) : Retracts (Smash V V) :=
@@ -279,20 +366,6 @@ theorem retracts_sepSum (h : Colimit.Thm29Second) :
 /-- Conjunct 6's pair, `⊕`. -/
 theorem retracts_coalSum (h : Colimit.Thm29Second) : Retracts (CoalescedSum V V) :=
   retracts_of_isBifinite h _ (lem17_sum isBifinite_V isBifinite_V)
-
-/-- Conjunct 8's pair, `(·)♯`. -/
-theorem retracts_smyth (h : Colimit.Thm29Second) : Retracts (Smyth.Powerdomain V) :=
-  retracts_of_isBifinite h _ (ClosureProperties.lem17_smyth isBifinite_V)
-
-/-- Conjunct 9's pair, `(·)♭`. -/
-theorem retracts_hoare (h : Colimit.Thm29Second) : Retracts (Hoare.Powerdomain V) :=
-  retracts_of_isBifinite h _ (ClosureProperties.lem17_hoare isBifinite_V)
-
-/-- Conjunct 10's pair, `(·)♮` — the pair the paper displays in full on page 43,
-`Φ♮ : V → V♮` and `Ψ♮ : V♮ → V`. This is the conjunct §7.4 exists for, and it is
-not blocked by anything beyond `Thm29Second`. -/
-theorem retracts_plotkin (h : Colimit.Thm29Second) : Retracts (Plotkin.Powerdomain V) :=
-  retracts_of_isBifinite h _ (ClosureProperties.lem17_plotkin isBifinite_V)
 
 /-- Conjunct 1's pair, `→`, **with the extra instance the development's Lemma 17
 needs made explicit.** `lem17_fun` carries `[BoundedComplete β]`, which `V` does
@@ -326,13 +399,13 @@ Theorem 29's second sentence.
 instance resolution; its two equations are `retracts_lift`'s. Nothing else about
 `V` enters — which is the sense in which §7.3's proof transfers to §7.4's
 carrier unchanged. -/
-theorem rep_lift_V (h : Colimit.Thm29Second) : IsPRepresentable V PRep.liftOp := by
+theorem rep_lift_V (h : Thm29SecondAlgebraic) : IsPRepresentable V PRep.liftOp := by
   obtain ⟨_gr, _fn, hfg, hgf⟩ := retracts_lift h
   exact PRep.rep_lift hfg hgf
 
 /-- **Conjunct 3 of Lemma 30: `×` is p-representable over `V`**, given
 Theorem 29's second sentence. `PRep.rep_prod` at `U := V`. -/
-theorem rep_prod_V (h : Colimit.Thm29Second) : IsPRepresentable₂ V PRep.prodOp := by
+theorem rep_prod_V (h : Thm29SecondAlgebraic) : IsPRepresentable₂ V PRep.prodOp := by
   obtain ⟨_gr, _fn, hfg, hgf⟩ := retracts_prod h
   exact PRep.rep_prod hfg hgf
 
@@ -389,5 +462,243 @@ def Thm29Normal : Prop :=
   ∀ (E : Type) [CompletePartialOrder E], IsBifinite E →
     ∃ f : ↥(compacts E) → Ainf,
       (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf)
+
+/-! ## `Thm29Normal` suffices: the reduction, proved
+
+Everything between a normal embedding `f : K(E) → A∞` and the embedding–projection
+pair `E ⇄ V` is elementary manipulation of ideals, and it is carried out below.
+The two maps are
+
+| # | map | definition |
+| - | --- | ---------- |
+| 1 | `E → V` | `x ↦ ↓(f '' {k ∈ K(E) | k ⊑ x})` — `embIdeal ∘ idealOfElem` |
+| 2 | `V → E` | `J ↦ ⨆ f⁻¹(J)` — `elemOfIdeal ∘ projIdeal` |
+
+Each of the two hypotheses of `Thm29Normal` is spent exactly once and in a
+different place:
+
+* **order-reflection** gives `p ∘ g = id`, since `f k ⊑ f k'` collapses to
+  `k ⊑ k'` and the ideal `{k | k ⊑ x}` is recovered on the nose;
+* **normality of `range f`** gives directedness of `f⁻¹(J)`, which is what makes
+  the projection well defined: two compacts with `f k₁, f k₂ ∈ J` are bounded in
+  `J` by some `a`, and `range f ◁ A∞` at `a` returns a *third point of the range*
+  between them and `a`.
+
+Compactness of the members of `K(E)` is never used — the argument is about
+ideals, not about compact approximation — and countability is never used either,
+so the hypothesis is `[IsAlgebraic E]` rather than the paper's `[Domain E]`. -/
+
+section Universality
+
+variable {E : Type} [CompletePartialOrder E] {f : ↥(compacts E) → Ainf}
+
+/-- An order-reflecting map is monotone. -/
+theorem monotone_of_reflects (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) : Monotone f :=
+  fun _ _ hab => (hf _ _).mpr hab
+
+/-- **A normal embedding preserves `⊥`.** Normality supplies a point of the range
+below `⊥`, which is therefore `⊥` itself; order-reflection then forces its
+argument to be `⊥`. Nothing has to be assumed about `f` at `⊥` separately. -/
+theorem map_bot_of_normal (hf : ∀ a b, f a ≤ f b ↔ a ≤ b)
+    (hn : Set.range f ◁ (Set.univ : Set Ainf)) : f ⊥ = ⊥ := by
+  obtain ⟨y, hyr, hyle⟩ := hn.nonempty (Set.mem_univ (⊥ : Ainf))
+  obtain ⟨k, rfl⟩ := hyr
+  have hk : k = ⊥ := le_antisymm ((hf k ⊥).mp ((Set.mem_Iic.mp hyle).trans bot_le)) bot_le
+  exact le_antisymm (hk ▸ Set.mem_Iic.mp hyle) bot_le
+
+/-! ### The embedding `E → V` -/
+
+/-- `↓(f '' I)`: the down-set of `A∞` generated by the image of an ideal of
+`K(E)`. -/
+def embSet (f : ↥(compacts E) → Ainf) (I : IdealCompletion ↥(compacts E)) : Set Ainf :=
+  {a | ∃ k ∈ I, a ≤ f k}
+
+/-- `↓(f '' I)` is an ideal. Lower-closedness and non-emptiness are free;
+directedness needs only that `f` is monotone, which order-reflection supplies. -/
+theorem isIdeal_embSet (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) (I : IdealCompletion ↥(compacts E)) :
+    Order.IsIdeal (embSet f I) := by
+  refine ⟨?_, ?_, ?_⟩
+  · rintro a b hba ⟨k, hk, hak⟩
+    exact ⟨k, hk, hba.trans hak⟩
+  · obtain ⟨k, hk⟩ := I.nonempty
+    exact ⟨f k, k, hk, le_rfl⟩
+  · rintro a ⟨k₁, hk₁, ha⟩ b ⟨k₂, hk₂, hb⟩
+    obtain ⟨k, hk, h₁, h₂⟩ := I.directed k₁ hk₁ k₂ hk₂
+    exact ⟨f k, ⟨k, hk, le_rfl⟩, ha.trans ((hf k₁ k).mpr h₁), hb.trans ((hf k₂ k).mpr h₂)⟩
+
+/-- The ideal `↓(f '' I)` as a point of `V`. -/
+def embIdeal (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) (I : IdealCompletion ↥(compacts E)) : V :=
+  IdealCompletion.ofIdeal (isIdeal_embSet hf I).toIdeal
+
+@[simp] theorem mem_embIdeal {hf : ∀ a b, f a ≤ f b ↔ a ≤ b}
+    {I : IdealCompletion ↥(compacts E)} {a : Ainf} :
+    a ∈ embIdeal hf I ↔ ∃ k ∈ I, a ≤ f k := Iff.rfl
+
+theorem embIdeal_mono (hf : ∀ a b, f a ≤ f b ↔ a ≤ b)
+    {I J : IdealCompletion ↥(compacts E)} (hIJ : I ≤ J) : embIdeal hf I ≤ embIdeal hf J := by
+  rintro a ⟨k, hk, hle⟩
+  exact ⟨k, hIJ hk, hle⟩
+
+/-! ### The projection `V → E` -/
+
+/-- `f⁻¹(J)`: the compacts of `E` whose images lie in the ideal `J`. -/
+def projSet (f : ↥(compacts E) → Ainf) (J : V) : Set ↥(compacts E) := {k | f k ∈ J}
+
+/-- **`f⁻¹(J)` is an ideal, and this is where normality is spent.** Two members
+`k₁, k₂` give `f k₁, f k₂ ∈ J`, bounded in `J` by directedness; normality of
+`range f` at that bound returns `f k₃` between them and the bound, so `f k₃ ∈ J`
+by lower-closedness and `k₁, k₂ ⊑ k₃` by order-reflection. Non-emptiness is
+`map_bot_of_normal`. -/
+theorem isIdeal_projSet (hf : ∀ a b, f a ≤ f b ↔ a ≤ b)
+    (hn : Set.range f ◁ (Set.univ : Set Ainf)) (J : V) : Order.IsIdeal (projSet f J) := by
+  refine ⟨?_, ⟨⊥, ?_⟩, ?_⟩
+  · intro a b hba ha
+    exact J.lower ((hf b a).mpr hba) ha
+  · show f ⊥ ∈ J
+    rw [map_bot_of_normal hf hn]
+    exact IdealCompletion.bot_mem J
+  · intro k₁ h₁ k₂ h₂
+    obtain ⟨a, ha, hle₁, hle₂⟩ := J.directed (f k₁) h₁ (f k₂) h₂
+    obtain ⟨y, ⟨hyr, hyle⟩, hd₁, hd₂⟩ :=
+      hn.directedOn (Set.mem_univ a) (f k₁) ⟨⟨k₁, rfl⟩, Set.mem_Iic.mpr hle₁⟩
+        (f k₂) ⟨⟨k₂, rfl⟩, Set.mem_Iic.mpr hle₂⟩
+    obtain ⟨k₃, rfl⟩ := hyr
+    exact ⟨k₃, J.lower (Set.mem_Iic.mp hyle) ha, (hf k₁ k₃).mp hd₁, (hf k₂ k₃).mp hd₂⟩
+
+/-- The ideal `f⁻¹(J)` as a point of the ideal completion of `K(E)`. -/
+def projIdeal (hf : ∀ a b, f a ≤ f b ↔ a ≤ b)
+    (hn : Set.range f ◁ (Set.univ : Set Ainf)) (J : V) : IdealCompletion ↥(compacts E) :=
+  IdealCompletion.ofIdeal (isIdeal_projSet hf hn J).toIdeal
+
+@[simp] theorem mem_projIdeal {hf : ∀ a b, f a ≤ f b ↔ a ≤ b}
+    {hn : Set.range f ◁ (Set.univ : Set Ainf)} {J : V} {k : ↥(compacts E)} :
+    k ∈ projIdeal hf hn J ↔ f k ∈ J := Iff.rfl
+
+/-! ### The two equations -/
+
+/-- **`f⁻¹(↓(f '' I)) = I`** — the first equation of the pair, and the one
+order-reflection buys. -/
+theorem projIdeal_embIdeal (hf : ∀ a b, f a ≤ f b ↔ a ≤ b)
+    (hn : Set.range f ◁ (Set.univ : Set Ainf)) (I : IdealCompletion ↥(compacts E)) :
+    projIdeal hf hn (embIdeal hf I) = I := by
+  ext k
+  constructor
+  · rintro ⟨k', hk', hle⟩
+    exact I.lower ((hf k k').mp hle) hk'
+  · intro hk
+    exact ⟨k, hk, le_rfl⟩
+
+/-- **`↓(f '' f⁻¹(J)) ⊑ J`** — the second equation of the pair, by
+lower-closedness of `J` alone. -/
+theorem embIdeal_projIdeal_le (hf : ∀ a b, f a ≤ f b ↔ a ≤ b)
+    (hn : Set.range f ◁ (Set.univ : Set Ainf)) (J : V) :
+    embIdeal hf (projIdeal hf hn J) ≤ J := by
+  rintro a ⟨k, hk, hle⟩
+  exact J.lower hle hk
+
+/-! ### Continuity of both maps
+
+Both are continuous for the same reason and by the same three lines: a directed
+supremum in an ideal completion is the union (`IdealCompletion.mem_sSup_iff`),
+and both maps are defined by a condition on a single member, so a member of the
+image of the supremum already lies in the image of one ideal of the family. -/
+
+theorem scottContinuous_embIdeal (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) :
+    ScottContinuous (embIdeal hf) := by
+  intro d hne hd a ha
+  refine ⟨?_, ?_⟩
+  · rintro _ ⟨I, hI, rfl⟩
+    exact embIdeal_mono hf (ha.1 hI)
+  · intro J hJ x hx
+    obtain ⟨k, hk, hle⟩ := hx
+    have hae : a = sSup d := ha.unique hd.isLUB_sSup
+    rw [hae] at hk
+    obtain ⟨I, hI, hkI⟩ := (IdealCompletion.mem_sSup_iff hne hd).mp hk
+    exact hJ ⟨I, hI, rfl⟩ ⟨k, hkI, hle⟩
+
+theorem scottContinuous_projIdeal (hf : ∀ a b, f a ≤ f b ↔ a ≤ b)
+    (hn : Set.range f ◁ (Set.univ : Set Ainf)) : ScottContinuous (projIdeal hf hn) := by
+  intro d hne hd a ha
+  refine ⟨?_, ?_⟩
+  · rintro _ ⟨I, hI, rfl⟩
+    exact fun k hk => ha.1 hI hk
+  · intro J hJ k hk
+    have hk' : f k ∈ a := hk
+    have hae : a = sSup d := ha.unique hd.isLUB_sSup
+    rw [hae] at hk'
+    obtain ⟨I, hI, hkI⟩ := (IdealCompletion.mem_sSup_iff hne hd).mp hk'
+    exact hJ ⟨I, hI, rfl⟩ hkI
+
+/-! ### The embedding–projection pair -/
+
+/-- **Theorem 29's second sentence follows from `Thm29Normal`.**
+
+The one missing input is the normal embedding of `K(E)` into `A∞`; everything
+after it is the composite of that embedding with Theorem 11's converse
+isomorphism `E ≃o IdealCompletion K(E)`
+(`IdealCompletion.orderIsoIdealCompletionCompacts`).
+
+The hypothesis is `[IsAlgebraic E]`, not the paper's `[Domain E]`: only the
+algebraicity half of "bifinite **domain**" is spent, on
+`elemOfIdeal_idealOfElem` and `idealOfElem_elemOfIdeal`. The countability half is
+not used anywhere in this argument. -/
+theorem exists_embeddingProjectionPair_of_thm29Normal (h : Thm29Normal)
+    (E : Type) [CompletePartialOrder E] [IsAlgebraic E] (hE : IsBifinite E) :
+    ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p := by
+  obtain ⟨f, hf, hn⟩ := h E hE
+  have hgc : ScottContinuous fun x : E => embIdeal hf (IdealCompletion.idealOfElem x) := by
+    intro s hne hs x hx
+    have h1 : IsLUB ((IdealCompletion.idealOfElem : E → _) '' s)
+        (IdealCompletion.idealOfElem x) :=
+      PRep.isLUB_orderIso_image IdealCompletion.orderIsoIdealCompletionCompacts hx
+    have h2 : DirectedOn (· ≤ ·) ((IdealCompletion.idealOfElem : E → _) '' s) :=
+      PRep.directedOn_orderIso_image IdealCompletion.orderIsoIdealCompletionCompacts hs
+    have h3 := scottContinuous_embIdeal hf (hne.image _) h2 h1
+    rwa [Set.image_image] at h3
+  have hpc : ScottContinuous fun J : V =>
+      IdealCompletion.elemOfIdeal (projIdeal hf hn J) := by
+    intro s hne hs J hJ
+    have h1 := scottContinuous_projIdeal hf hn hne hs hJ
+    have h2 : DirectedOn (· ≤ ·) (projIdeal hf hn '' s) := by
+      rintro _ ⟨I₁, hI₁, rfl⟩ _ ⟨I₂, hI₂, rfl⟩
+      obtain ⟨I, hI, h₁, h₂⟩ := hs I₁ hI₁ I₂ hI₂
+      exact ⟨projIdeal hf hn I, ⟨I, hI, rfl⟩, fun _ hk => h₁ hk, fun _ hk => h₂ hk⟩
+    have h3 : IsLUB ((IdealCompletion.orderIsoIdealCompletionCompacts (D := E)).symm ''
+        (projIdeal hf hn '' s))
+        ((IdealCompletion.orderIsoIdealCompletionCompacts (D := E)).symm
+          (projIdeal hf hn J)) :=
+      PRep.isLUB_orderIso_image _ h1
+    rwa [Set.image_image] at h3
+  refine ⟨⟨_, hgc⟩, ⟨_, hpc⟩, fun x => ?_, fun J => ?_⟩
+  · show IdealCompletion.elemOfIdeal (projIdeal hf hn
+      (embIdeal hf (IdealCompletion.idealOfElem x))) = x
+    rw [projIdeal_embIdeal hf hn, IdealCompletion.elemOfIdeal_idealOfElem]
+  · show embIdeal hf (IdealCompletion.idealOfElem
+      (IdealCompletion.elemOfIdeal (projIdeal hf hn J))) ≤ J
+    rw [IdealCompletion.idealOfElem_elemOfIdeal]
+    exact embIdeal_projIdeal_le hf hn J
+
+/-- **`Thm29Normal ⟹ Thm29SecondAlgebraic`.** The whole of Theorem 29's second
+sentence, at the paper's own hypothesis that `E` is a bifinite *domain*, reduces
+to the single statement that `A∞` is universal among the bases of bifinite
+domains under normal embedding. That reduction is what this file proves; the
+universality itself is what §7.4 defers to [Gun87].
+
+Composing with `retracts_of_isAlgebraic`, this makes five of Lemma 30's ten
+retraction pairs — `×`, `(·)⊥`, `(·)♯`, `(·)♭`, `(·)♮` — consequences of
+`Thm29Normal` alone. -/
+theorem thm29SecondAlgebraic_of_thm29Normal (h : Thm29Normal) : Thm29SecondAlgebraic :=
+  fun E _ _ hE => exists_embeddingProjectionPair_of_thm29Normal h E hE
+
+/-- **Conjunct 7 of Lemma 30 from `Thm29Normal`.** The composite of
+`thm29SecondAlgebraic_of_thm29Normal`, `retracts_lift` and `PRep.rep_lift`. -/
+theorem rep_lift_V_of_thm29Normal (h : Thm29Normal) : IsPRepresentable V PRep.liftOp :=
+  rep_lift_V (thm29SecondAlgebraic_of_thm29Normal h)
+
+/-- **Conjunct 3 of Lemma 30 from `Thm29Normal`.** -/
+theorem rep_prod_V_of_thm29Normal (h : Thm29Normal) : IsPRepresentable₂ V PRep.prodOp :=
+  rep_prod_V (thm29SecondAlgebraic_of_thm29Normal h)
+
+end Universality
 
 end ScottDomains.LemThirty
