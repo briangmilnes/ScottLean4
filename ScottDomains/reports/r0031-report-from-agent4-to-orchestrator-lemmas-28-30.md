@@ -197,7 +197,7 @@ section of this file.
 
 | # | Quantity | Value |
 | -- | -------- | ----- |
-| 1 | New files | 1 — `ScottDomains/Powerdomain/Universal.lean`, 435 lines |
+| 1 | New files | 1 — `ScottDomains/Powerdomain/Universal.lean`, 447 lines |
 | 2 | Files edited outside it | 0 |
 | 3 | New declarations | 20, all in `namespace ScottDomains.PowerdomainRep` |
 | 4 | Paper results proved | 1 — §7.1's product-representability remark |
@@ -219,7 +219,7 @@ elaborated, at 841 ms.)
 | # | SHA | Contents |
 | -- | --- | -------- |
 | 1 | `94accbc` | `isRepresentable_prod` and the generic scheme, 19 declarations, plus build logs |
-| 2 | see below | `recursiveDomain_prod`, the axiom-audit comment, and this report |
+| 2 | `38989e3` | `recursiveDomain_prod`, the axiom-audit comment, and this report |
 
 Not pushed and no upstream set, per plan rule 5.
 
