@@ -1,0 +1,59 @@
+# r0034
+# agent2 — lake build ScottDomains.ClosureProperties.Powerdomain
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-06T22:54:10-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ClosureProperties.Powerdomain ===
+✖ [857/857] Building ScottDomains.ClosureProperties.Powerdomain (8.4s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/ClosureProperties/Powerdomain.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/ClosureProperties/Powerdomain.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/ClosureProperties/Powerdomain.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/ClosureProperties/Powerdomain.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/ClosureProperties/Powerdomain.setup.json --json
+error: ScottDomains/ClosureProperties/Powerdomain.lean:212:4: Type mismatch
+  Set.Finite.image ?m.45 (Set.Finite.biUnion hv fun w x => Finset.finite_toSet w.toFinset)
+has type
+  (?m.45 '' ⋃ i ∈ v, ↑i.toFinset).Finite
+but is expected to have type
+  (Subtype.val '' ⋃ w, ⋃ (h : w ∈ v), ?m.30).Finite
+error: ScottDomains/ClosureProperties/Powerdomain.lean:270:4: Type mismatch
+  Set.Finite.image ?m.47 (Set.Finite.biUnion hv fun w x => Finset.finite_toSet w.toFinset)
+has type
+  (?m.47 '' ⋃ i ∈ v, ↑i.toFinset).Finite
+but is expected to have type
+  (Subtype.val '' ⋃ w, ⋃ (h : w ∈ v), ?m.31).Finite
+error: ScottDomains/ClosureProperties/Powerdomain.lean:297:66: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  w.carrier
+in the target expression
+  a ∈ w ↔ a ∈ v
+
+D : Type u
+inst✝ : CompletePartialOrder D
+N : Set D
+hfin : N.Finite
+hsub : plotkinBasisOf N ⊆ (fun w => w.carrier) ⁻¹' {t | t ⊆ Subtype.val ⁻¹' N}
+w : Plotkin.FinCompacts D
+x✝¹ : w ∈ (fun w => w.carrier) ⁻¹' {b | b ⊆ Subtype.val ⁻¹' N}
+v : Plotkin.FinCompacts D
+x✝ : v ∈ (fun w => w.carrier) ⁻¹' {b | b ⊆ Subtype.val ⁻¹' N}
+h : w.carrier = v.carrier
+a : ↑(compacts D)
+⊢ a ∈ w ↔ a ∈ v
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ClosureProperties.Powerdomain
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:09.81
+Maximum resident set size (kbytes): 1826012
+--- build ---
+finished:         2026-08-06T22:54:20-07:00
+exit status:      1
+user cpu:         16.40s
+system cpu:       1.09s
+cpu use:          178%
+peak rss single:  1783 MiB (largest one process, GNU time)
+peak pss tree:    1916 MiB (process group, shared pages apportioned)
+peak rss tree:    2576 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      0
+other warnings:   0
