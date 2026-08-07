@@ -41,9 +41,13 @@ Acceptance item 1 of the plan's ranked list is met: all three conjuncts proved a
 | 3 | Modules / lines / theorems | 67 / 24863 / 1171 (baseline 66 / 23596 / 1119) | `scripts/counts.sh` |
 | 4 | Axioms of `rep_arrow`, `rep_strictArrow`, `rep_smash`, `strictHomDomain`, `smashDomain`, `smashIsAlgebraic`, `isCompactElement_smash_coe_iff`, `isProjection_smashMap` | `[propext, Classical.choice, Quot.sound]` for all eight — no `sorryAx` | `scripts/axioms.sh` |
 
-Nine build runs, seven of which reported errors; the largest error count in a
-single run was six, all of them instance-resolution or coercion-level mismatches
-rather than mathematical.
+Twenty build runs this session, of which **12 reported errors and 8 did not**.
+The largest number of distinct error messages in one run was six. Every one of
+them was an instance-resolution or coercion-level mismatch — `Bot` not being
+found on a bare `↥(Set.range ⇑p)`, or `WithBot.coe_le_coe` instantiating at
+`(D × E)⊥` instead of at `D ⊗ E` because the expected type drove the unifier.
+**None was mathematical**: no proof obligation turned out to be false, and no
+argument had to be rethought after it was written down.
 
 ## 3. The source, read directly — the plan is confirmed, not corrected
 
