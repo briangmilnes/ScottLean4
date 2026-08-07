@@ -1,0 +1,49 @@
+# r0028
+# orchestrator — lake build ScottDomains.ZZProbe
+# checkout: /home/milnes/projects/ScottLean4
+# started: 2026-08-06T19:03:21-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ZZProbe ===
+✖ [2/2] Building ScottDomains.ZZProbe (140ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ZZProbe.lean -o /home/milnes/projects/ScottLean4/ScottDomains/.lake/build/lib/lean/ScottDomains/ZZProbe.olean -i /home/milnes/projects/ScottLean4/ScottDomains/.lake/build/lib/lean/ScottDomains/ZZProbe.ilean -c /home/milnes/projects/ScottLean4/ScottDomains/.lake/build/ir/ScottDomains/ZZProbe.c --setup /home/milnes/projects/ScottLean4/ScottDomains/.lake/build/ir/ScottDomains/ZZProbe.setup.json --json
+error: ScottDomains/ZZProbe.lean:3:0: Not a definitional equality: the left-hand side
+  1
+is not definitionally equal to the right-hand side
+  2
+error: ScottDomains/ZZProbe.lean:3:40: Type mismatch
+  rfl
+has type
+  ?m.7 = ?m.7
+but is expected to have type
+  1 = 2
+error: ScottDomains/ZZProbe.lean:5:0: Not a definitional equality: the left-hand side
+  3
+is not definitionally equal to the right-hand side
+  4
+error: ScottDomains/ZZProbe.lean:5:41: Type mismatch
+  rfl
+has type
+  ?m.7 = ?m.7
+but is expected to have type
+  3 = 4
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ZZProbe
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:00.78
+Maximum resident set size (kbytes): 796548
+--- build ---
+finished:         2026-08-06T19:03:23-07:00
+exit status:      1
+user cpu:         0.46s
+system cpu:       0.27s
+cpu use:          94%
+peak rss single:  777 MiB (largest one process)
+peak rss tree:    1172 MiB (sum over the build's process group)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   0
