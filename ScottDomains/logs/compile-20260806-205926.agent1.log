@@ -1,0 +1,67 @@
+# r0032
+# agent1 — lake build ScottDomains.Universality
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-06T20:59:26-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Universality ===
+⚠ [838/854] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✔ [852/854] Built ScottDomains.RecursiveDomain (689ms)
+✔ [853/854] Built ScottDomains.Powerdomain.Universal (825ms)
+✖ [854/854] Building ScottDomains.Universality (742ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/Universality.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Universality.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Universality.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Universality.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Universality.setup.json --json
+error: ScottDomains/Universality.lean:114:46: Invalid field `isLUB_image'`: The environment does not contain `RelIso.isLUB_image'`, so it is not possible to project the field `isLUB_image'` from an expression
+  e
+of type
+  (fun x1 x2 => x1 ≤ x2) ≃r fun x1 x2 => x1 ≤ x2
+error: ScottDomains/Universality.lean:168:16: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+δ : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : CompletePartialOrder β
+inst✝¹ : CompletePartialOrder γ
+inst✝ : CompletePartialOrder δ
+e : α ≃o β
+f : γ ≃o δ
+g : ScottHom α γ
+x : α
+⊢ { toFun := ⇑f.symm ∘ ⇑{ toFun := ⇑f ∘ ⇑g ∘ ⇑e.symm, scottContinuous' := ⋯ } ∘ ⇑e, scottContinuous' := ⋯ } x = g x
+error: ScottDomains/Universality.lean:169:17: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+δ : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : CompletePartialOrder β
+inst✝¹ : CompletePartialOrder γ
+inst✝ : CompletePartialOrder δ
+e : α ≃o β
+f : γ ≃o δ
+h : ScottHom β δ
+y : β
+⊢ { toFun := ⇑f ∘ ⇑{ toFun := ⇑f.symm ∘ ⇑h ∘ ⇑e, scottContinuous' := ⋯ } ∘ ⇑e.symm, scottContinuous' := ⋯ } y = h y
+error: ScottDomains/Universality.lean:400:10: Unknown constant `Prod.nontrivial_left`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Universality
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.03
+Maximum resident set size (kbytes): 1710180
+--- build ---
+finished:         2026-08-06T20:59:30-07:00
+exit status:      1
+user cpu:         3.17s
+system cpu:       0.88s
+cpu use:          133%
+peak rss single:  1670 MiB (largest one process, GNU time)
+peak pss tree:    1792 MiB (process group, shared pages apportioned)
+peak rss tree:    2452 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      1
+other warnings:   0
