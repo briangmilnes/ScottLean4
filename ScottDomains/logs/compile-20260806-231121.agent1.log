@@ -1,0 +1,86 @@
+# r0034
+# agent1 — lake build ScottDomains.Isomorphism.StrictCurry
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-06T23:11:21-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Isomorphism.StrictCurry ===
+✖ [834/834] Building ScottDomains.Isomorphism.StrictCurry (871ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Isomorphism/StrictCurry.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Isomorphism/StrictCurry.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Isomorphism/StrictCurry.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Isomorphism/StrictCurry.setup.json --json
+error: ScottDomains/Isomorphism/StrictCurry.lean:76:49: unsolved goals
+β : Type u_2
+γ : Type u_3
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+S : Set { f // IsStrict f }
+hne : S.Nonempty
+hS : DirectedOn (fun x1 x2 => x1 ≤ x2) S
+F : { f // IsStrict f }
+hF : IsLUB S F
+hdir : DirectedOn (fun x1 x2 => x1 ≤ x2) (Subtype.val '' S)
+hFs : F = sSup S
+⊢ ↑(sSup S) = sSup (Subtype.val '' S)
+error: ScottDomains/Isomorphism/StrictCurry.lean:217:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'strictHomCpo', which is 'noncomputable'
+error: ScottDomains/Isomorphism/StrictCurry.lean:304:18: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑g ⊥
+in the target expression
+  (fun f => ⇑f) (↑((fun f => ⇑f) ↑g ⊥)) y ≤ (fun f => ⇑f) (↑((fun f => ⇑f) ↑h ⊥)) y
+
+case neg.inl
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+g h : StrictHom α (StrictHom β γ)
+hle :
+  { toFun := uncurryStrict, invFun := curryStrict, left_inv := ⋯, right_inv := ⋯ } g ≤
+    { toFun := uncurryStrict, invFun := curryStrict, left_inv := ⋯, right_inv := ⋯ } h
+x : α
+y : β
+hb : ¬(x ≠ ⊥ ∧ y ≠ ⊥)
+hx : x = ⊥
+⊢ (fun f => ⇑f) (↑((fun f => ⇑f) ↑g ⊥)) y ≤ (fun f => ⇑f) (↑((fun f => ⇑f) ↑h ⊥)) y
+error: ScottDomains/Isomorphism/StrictCurry.lean:306:18: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(↑g x) ⊥
+in the target expression
+  (fun f => ⇑f) ↑((fun f => ⇑f) (↑g) x) ⊥ ≤ (fun f => ⇑f) ↑((fun f => ⇑f) (↑h) x) ⊥
+
+case neg.inr
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+g h : StrictHom α (StrictHom β γ)
+hle :
+  { toFun := uncurryStrict, invFun := curryStrict, left_inv := ⋯, right_inv := ⋯ } g ≤
+    { toFun := uncurryStrict, invFun := curryStrict, left_inv := ⋯, right_inv := ⋯ } h
+x : α
+y : β
+hb : ¬(x ≠ ⊥ ∧ y ≠ ⊥)
+hy : y = ⊥
+⊢ (fun f => ⇑f) ↑((fun f => ⇑f) (↑g) x) ⊥ ≤ (fun f => ⇑f) ↑((fun f => ⇑f) (↑h) x) ⊥
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Isomorphism.StrictCurry
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.52
+Maximum resident set size (kbytes): 1692076
+--- build ---
+finished:         2026-08-06T23:11:24-07:00
+exit status:      1
+user cpu:         1.54s
+system cpu:       0.44s
+cpu use:          130%
+peak rss single:  1652 MiB (largest one process, GNU time)
+peak pss tree:    1787 MiB (process group, shared pages apportioned)
+peak rss tree:    2446 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   0
