@@ -1,0 +1,52 @@
+# r0034
+# agent5 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-06T23:14:42-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [957/1053] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [962/1053] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1065/1074] Built ScottDomains.Skeleton.Section6b (749ms)
+⚠ [1066/1074] Built ScottDomains.Skeleton.Recovered (825ms)
+warning: ScottDomains/Skeleton/Recovered.lean:99:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:106:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:124:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:134:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:148:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:159:8: declaration uses `sorry`
+warning: ScottDomains/Skeleton/Recovered.lean:214:8: declaration uses `sorry`
+✔ [1067/1074] Built ScottDomains.Powerdomain.Hoare (885ms)
+✔ [1068/1074] Built ScottDomains.Powerdomain.Plotkin (950ms)
+✔ [1069/1074] Built ScottDomains.Powerdomain.Smyth (944ms)
+✔ [1070/1074] Built ScottDomains.Universality (1.1s)
+✔ [1071/1074] Built ScottDomains.FinitaryProjectionEmbedding (987ms)
+✔ [1072/1074] Built ScottDomains.Powerdomain.BoundedComplete (834ms)
+✔ [1073/1074] Built ScottDomains.ContinuousAlgebra (1.4s)
+Build completed successfully (1074 jobs).
+--- times ---
+Elapsed (wall clock): 0:03.14
+Maximum resident set size (kbytes): 1722720
+--- build ---
+finished:         2026-08-06T23:14:46-07:00
+exit status:      0
+user cpu:         10.88s
+system cpu:       2.37s
+cpu use:          421%
+peak rss single:  1682 MiB (largest one process, GNU time)
+peak pss tree:    2603 MiB (process group, shared pages apportioned)
+peak rss tree:    10495 MiB (process group, shared pages counted per process)
+jobs:             1074
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      8
+other warnings:   0
