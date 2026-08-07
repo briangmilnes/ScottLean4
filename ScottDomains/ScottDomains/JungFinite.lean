@@ -281,8 +281,13 @@ theorem climbDown_mem (hp : ∀ n, ∀ x ∈ B (n + 1), p n x ∈ B n ∧ p n x 
     rw [show n + (k + 1) = (n + 1) + k by omega] at hx
     exact (hp n _ (ih (n + 1) x hx)).1
 
-/-- Iterated parents lie below the node they came from, by transitivity of the
-single-step inequality. -/
+/- UNUSED — commented out, kept for reading. "Iterated parents lie below the node
+they came from" is the fact one expects to need, and it is true; but the
+transversal `exists_monotone_seq` builds is monotone by the *single-step*
+inequality `p n y ≤ y` applied at each successor, never by the iterated one, so
+this never got a caller. Kept because it is the statement that says `climbDown`
+climbs down in the order and not merely in the grading.
+
 theorem climbDown_le (hp : ∀ n, ∀ x ∈ B (n + 1), p n x ∈ B n ∧ p n x ≤ x) :
     ∀ k n, ∀ x ∈ B (n + k), climbDown p k n x ≤ x := by
   intro k
@@ -292,6 +297,7 @@ theorem climbDown_le (hp : ∀ n, ∀ x ∈ B (n + 1), p n x ∈ B n ∧ p n x �
     intro n x hx
     rw [show n + (k + 1) = (n + 1) + k by omega] at hx
     exact ((hp n _ (climbDown_mem hp k (n + 1) x hx)).2).trans (ih (n + 1) x hx)
+-/
 
 /-- Every node of a later level is a descendant of some node of level `n`, namely
 of its own iterated parent. This is what makes the finitely many descendant sets
