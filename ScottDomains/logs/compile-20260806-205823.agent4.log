@@ -1,0 +1,42 @@
+# r0032
+# agent4 — lake build ScottDomains.FinitaryProjectionEmbedding
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-06T20:58:23-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.FinitaryProjectionEmbedding ===
+⚠ [840/845] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [845/845] Built ScottDomains.FinitaryProjectionEmbedding (822ms)
+info: ScottDomains/FinitaryProjectionEmbedding.lean:480:0: 'ScottDomains.FpEmbedding.TwoMub.not_exists_monotone_projection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ScottDomains/FinitaryProjectionEmbedding.lean:481:0: 'ScottDomains.FpEmbedding.TwoMub.not_isEmbeddingProjectionPair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ScottDomains/FinitaryProjectionEmbedding.lean:482:0: 'ScottDomains.FpEmbedding.TwoMub.not_isGreatest_below_fConst' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/FinitaryProjectionEmbedding.lean:483:0: 'ScottDomains.FpEmbedding.TwoMub.thm16_first_conjunct' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/FinitaryProjectionEmbedding.lean:484:0: 'ScottDomains.FpEmbedding.TwoMub.isBifinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/FinitaryProjectionEmbedding.lean:485:0: 'ScottDomains.FpEmbedding.Fp.le_iff_fpBasis_subset_stableCompacts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: ScottDomains/FinitaryProjectionEmbedding.lean:486:0: 'ScottDomains.FpEmbedding.stableCompacts_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ScottDomains/FinitaryProjectionEmbedding.lean:487:0: 'ScottDomains.FpEmbedding.isGreatest_of_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (845 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.52
+Maximum resident set size (kbytes): 1709528
+--- build ---
+finished:         2026-08-06T20:58:25-07:00
+exit status:      0
+user cpu:         1.56s
+system cpu:       0.49s
+cpu use:          134%
+peak rss single:  1669 MiB (largest one process, GNU time)
+peak pss tree:    1778 MiB (process group, shared pages apportioned)
+peak rss tree:    2437 MiB (process group, shared pages counted per process)
+jobs:             845
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   0
