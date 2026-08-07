@@ -27,9 +27,9 @@ ff=no
 [ "${1:-}" = "--ff" ] && ff=yes
 
 printf '%-8s %-10s %-8s %-7s %-6s %-9s %s\n' agent tip merged behind dirty packages synced
-for n in 1 2 3 4 5; do
-  wt="$root-agent$n"
-  [ -d "$wt" ] || { printf '%-8s %s\n' "agent$n" "MISSING"; continue; }
+for wt in "$root"-agent*; do
+  [ -d "$wt" ] || continue
+  n=${wt##*-agent}
 
   synced=-
   if [ "$ff" = yes ]; then

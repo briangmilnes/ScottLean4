@@ -13,13 +13,13 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **all ≈13** — the computable function landed in r0031; see the note below on `D∞` | 0 | ≈13 |
-| 2 | **Numbered** results complete | **20** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Thm 11, **Thm 12**, Lem 13, Prop 15, Lem 19, Lem 20, Thm 21, Thm 22, Lem 23, Lem 24, Thm 25) — plus Lem 10 and Lem 17, **partially**, see row 2b | 9 | **29** |
-| 2a | — **resolved by refutation** | **Thm 16** — the algebraic-lattice conjunct is proved; the `Fp(D) ↪ (D → D)` embedding conjunct is **false**, kernel-checked (r0032). The result is settled, but it is not a proof of the paper's sentence, so it is counted in neither column | — | — |
+| 2 | **Numbered** results complete | **18** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Thm 11, **Thm 12**, Lem 13, Prop 15, Lem 19, Lem 20, Thm 21, Thm 22, Lem 23, Lem 24, Thm 25) | **10** (Lem 9, Lem 10, Thm 14, Lem 17, Thm 18, Thm 26, Thm 27, Lem 28, Thm 29, Lem 30 — of these Lem 10 and Lem 17 are **partially** proved, see row 2b) | **29** |
+| 2a | — **resolved by refutation** | **Thm 16** — the algebraic-lattice conjunct is proved; the `Fp(D) ↪ (D → D)` embedding conjunct is **false**, kernel-checked (r0032). The result is settled, but it is not a proof of the paper's sentence, so it is counted in neither column. The row-2 arithmetic is therefore 18 + 10 + 1 = 29. An earlier draft of row 2 read "20 done, 9 remaining" while naming only 18: it counted the two *partial* results as complete and Thm 16 as remaining, contradicting this row and row 2b | — | — |
 | 2b | — **conjunct counts corrected (r0032)** | **Lem 10 is 6 of 7**; **Lem 17 is 5 of 10**. Earlier drafts called both complete. See the note below on the dropped glyphs | — | — |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
 | 5 | Theorems in the development | **659** live (+6 commented out as unused) | — | — |
-| 6 | `sorry` in the development | — | **1**: `thm18` in `Skeleton/Section6.lean` | — |
+| 6 | `sorry` in the development | — | **8**, in 2 files: `thm18` in `Skeleton/Section6.lean`, and 7 in `Skeleton/Recovered.lean` — Lemma 9's six conjuncts and Theorem 14, statable only since r0032 recovered their statements. An earlier draft of this row read "1: `thm18`"; it predates that commit | — |
 
 **Round r0032.** Five agents; three landed, two were still running when this was
 written.

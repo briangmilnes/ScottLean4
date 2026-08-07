@@ -1,0 +1,61 @@
+---
+prompt: p0076
+type: interaction
+opened: 2026-0806-22:09
+closed: 2026-0806-22:11
+subject: you-should-check-the-worktrees-though
+session: 5d1a7664
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/5d1a7664….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T22:09:34-07:00
+
+You should check the worktrees though.
+
+    Bash git -C /home/milnes/projects/ScottLean4 worktree list
+## turn — assistant 2026-08-06T22:09:49-07:00
+
+All five worktrees exist. The per-worktree checks are a loop, so that goes in a script.
+
+    Write /home/milnes/projects/ScottLean4/scripts/worktree-sync.sh
+    Bash chmod +x /home/milnes/projects/ScottLean4/scripts/worktree-sync.sh
+    Bash /home/milnes/projects/ScottLean4/scripts/worktree-sync.sh
+    Bash ls -la /home/milnes/projects/ScottLean4-agent1/.lake /home/milnes/projects/ScottLean4-agent3/.lake 2>&1 | head -30
+    Bash find /home/milnes/projects/ScottLean4 -maxdepth 3 -name ".lake" -o -maxdepth 3 -name "lakefile*" | head
+## turn — assistant 2026-08-06T22:10:54-07:00
+
+My script checked the wrong path — the lake root is `ScottDomains/`, not the repo root.
+
+    Edit /home/milnes/projects/ScottLean4/scripts/worktree-sync.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/worktree-sync.sh
+    Bash /home/milnes/projects/ScottLean4/scripts/worktree-sync.sh
+## turn — assistant 2026-08-06T22:11:25-07:00
+
+Checked. All five worktrees are structurally sound but every one is behind `main`:
+
+| # | Tree | Tip | Merged into `main`? | Behind | Dirty paths | `ScottDomains/.lake/packages` |
+| -- | ---- | --- | ------------------- | ------ | ----------- | ----------------------------- |
+| 1 | agent1 | `f31d9a9` | yes | 25 | 0 | symlink |
+| 2 | agent2 | `14ff6fa` | yes | 25 | 0 | symlink |
+| 3 | agent3 | `3611289` | yes | 23 | 0 | symlink |
+| 4 | agent4 | `3328ac3` | yes | 26 | 0 | symlink |
+| 5 | agent5 | `f163da2` | yes | 25 | 0 | symlink |
+
+Three conclusions:
+
+**Nothing is unmerged.** `git merge-base --is-ancestor HEAD main` succeeds for all five, so the plan's "nothing in flight" is measured, not asserted — no agent branch holds work that `main` lacks.
+
+**All five are 23–26 commits behind.** This is exactly the failure the plan's rule 6 names (three agents in two rounds found their worktree behind while a plan claimed otherwise). Since each tip is an ancestor of `main` and each tree is clean, `git merge --ff-only main` fast-forwards all five with no possibility of conflict.
+
+**The `.lake/packages` symlinks are intact** in all five, so no worktree needs a from-scratch Mathlib build.
+
+Correction to my first run: I checked `.lake/packages` at the repo root and reported "absent" for all five. The lake root for this work is `ScottDomains/`; the script now checks there, and the symlinks are present.
+
+The check itself is now `scripts/worktree-sync.sh` (new, standing-authorized per the shell-discipline rules) so it's one call next round instead of a hand-built loop.
+
+Want me to fast-forward all five to `main` now, and commit the script?
+

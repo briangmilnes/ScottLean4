@@ -1,0 +1,51 @@
+---
+prompt: p0078
+type: interaction
+opened: 2026-0806-22:12
+closed: 2026-0806-22:13
+subject: okay-how-many-numbered-theorems-do-we-ha
+session: 5d1a7664
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/5d1a7664….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T22:12:35-07:00
+
+Okay how many numbered theorems do we have left?
+
+    Bash grep -n "^|" /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+## turn — assistant 2026-08-06T22:13:22-07:00
+
+Counting from `docs/PaperInventory.md` against the paper's numbering (the denominator is 29: results 1–30 minus Thm 2, Schröder–Bernstein, which is Mathlib reuse via `Function.schroeder_bernstein`):
+
+**Fully proved — 18:** Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Thm 11, Thm 12, Lem 13, Prop 15, Lem 19, Lem 20, Thm 21, Thm 22, Lem 23, Lem 24, Thm 25.
+
+**Not fully proved — 11:**
+
+| # | Result | State | Blocker |
+| -- | ------ | ----- | ------- |
+| 1 | Lem 9 | statement recovered, 6 `sorry` | none — proof work only; items 3 and 5 are false as printed and want refutations |
+| 2 | Lem 10 | 6 of 7 conjuncts | the `+` conjunct; cheap via `D + E = D⊥ ⊕ E⊥` |
+| 3 | Thm 14 | statement recovered, 1 `sorry` | none — `IsBifiniteViaProjections` supplies the missing side |
+| 4 | Thm 16 | settled half each way | algebraic-lattice conjunct proved; embedding conjunct refuted, kernel-checked. Nothing left to prove; the positive form is unstated |
+| 5 | Lem 17 | 5 of 10 conjuncts | `◦→`, `+`, and `D♮`, `D♯`, `D♭` — the powerdomains exist since r0029 |
+| 6 | Thm 18 | `sorry` | needs a continuous-function constructor on a non-bounded-complete domain; the remaining reduction is *equivalent* to Thm 18 |
+| 7 | Thm 26 | nothing | none named |
+| 8 | Thm 27 | nothing | the universal domain `U` (§7.3) does not exist |
+| 9 | Lem 28 | nothing | `U` plus representability of seven operators |
+| 10 | Thm 29 | nothing | check what [Gun87] defers |
+| 11 | Lem 30 | nothing | `V` (§7.4) and p-representability over `Fp(U)` |
+
+So: **8 with no proof content at all** (rows 1, 3, 6–11 minus the two partials), **2 partially proved**, **1 settled but not by a proof of the paper's sentence**.
+
+Two errors in the inventory to flag:
+
+**Row 2 double-counts.** It reports "20 done, 9 remaining" but names only 18. The arithmetic works only if Lem 10 and Lem 17 count as *done* while Thm 16 counts as *remaining* — which directly contradicts row 2a ("counted in neither column") and row 2b ("6 of 7", "5 of 10"). The honest split is 18 / 2 partial / 1 settled / 8 untouched.
+
+**Row 6 is stale.** It says 1 `sorry` (`thm18`); the build measures **8** — `thm18` plus the seven in `Skeleton/Recovered.lean` that r0032 added when it recovered Lem 9 and Thm 14. Row 6 predates that commit.
+
+Want me to correct both rows?
+

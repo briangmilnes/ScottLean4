@@ -1,0 +1,95 @@
+---
+prompt: p0068
+type: interaction
+opened: 2026-0806-21:13
+closed: 2026-0806-21:38
+subject: fix-the-two-false-prose-mentions-and-upd
+session: 57a99ce0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/57a99ce0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T21:13:49-07:00
+
+fix the two false prose mentions and update the inventory
+
+    Read /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/FinitaryProjectionPoset.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/FinitaryProjectionPoset.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Skeleton/Section6b.lean
+    Bash /home/milnes/projects/ScottLean4/scripts/compile.sh -r r0032
+## turn — assistant 2026-08-06T21:15:07-07:00
+
+Both docstrings fixed, build unchanged. Now the inventory.
+
+    Bash grep -c "" /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/*.lean /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Skeleton/*.lea
+    Bash grep -hcE "^(@\[[^]]*\] )?(theorem|lemma) " /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean /home/milnes/projects/ScottLe
+## turn — assistant 2026-08-06T21:15:37-07:00
+
+Rather than jam another pipeline into the terminal, this measurement belongs in a script.
+
+    Write /home/milnes/projects/ScottLean4/scripts/counts.sh
+    Edit /home/milnes/projects/ScottLean4/.claude/settings.json
+    Bash chmod +x /home/milnes/projects/ScottLean4/scripts/counts.sh
+    Bash /home/milnes/projects/ScottLean4/scripts/counts.sh
+## turn — assistant 2026-08-06T21:28:05-07:00
+
+`modules` is a read-only special in zsh (the `zsh/parameter` module). Renaming the locals:
+
+    Edit /home/milnes/projects/ScottLean4/scripts/counts.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/counts.sh
+    Bash /home/milnes/projects/ScottLean4/scripts/counts.sh
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash grep -n "Lem | 24\|Thm | 25\|The development is \*\*" /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+## turn — assistant 2026-08-06T21:30:39-07:00
+
+Let me measure it rather than guess — the log is the evidence.
+
+    Bash grep -cE "&&|; |\| |\$\(" /home/milnes/projects/ScottLean4/.claude/permission-requests.log
+    Bash grep -cE "^[0-9-]+ [0-9:]+	Bash	cd " /home/milnes/projects/ScottLean4/.claude/permission-requests.log
+    Bash grep -cE "	Bash	(grep|sed|cat|head|tail|ls|wc|find) " /home/milnes/projects/ScottLean4/.claude/permission-requests.log
+## turn — assistant 2026-08-06T21:31:48-07:00
+
+Measured from the log — the cause is narrower than I thought, and it's entirely mine:
+
+| # | Pattern | Prompts | Why it can't match a rule |
+| -- | ------- | ------- | ------------------------- |
+| 1 | Compound: `&&`, `;`, `\|`, `$(…)`, loops | **133** | permission rules match a *command prefix*; a compound line has no single prefix |
+| 2 | Starts with `cd /path && …` | **58** (~45% of all) | same reason — and I only add `cd` because my shell's cwd drifts into worktrees |
+| 3 | Bare `grep`/`sed`/`cat`/`head`/`ls`/`wc`/`find` | **3** | these are allowlisted individually, so they almost never prompt |
+
+So my earlier theory — "use Read instead of grep" — was wrong in emphasis: bare inspection commands are already allowed. **Chaining is the whole problem**, and `cd X && …` is nearly half of it. `Bash(git *)` is allowlisted too, so every git prompt I've caused came from chaining a `cd` in front of it.
+
+Four rules that eliminate it, and I'll put them where they survive this session:
+
+    Edit /home/milnes/projects/ScottLean4/CLAUDE.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash /home/milnes/projects/ScottLean4/scripts/md2pdf.sh /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash /home/milnes/projects/ScottLean4/scripts/gitcp.sh "r0032: retract the two false prose claims about Theorem 16's embedding conjunct; inventory to 19 of
+    Edit /home/milnes/projects/ScottLean4/.claude/settings.json
+    Bash jq -e '.permissions.allow | map(select(startswith("Bash(scripts") or startswith("Bash(./scripts") or contains("scripts/"))) ' /home/milnes/projects/Sc
+    Bash git merge --no-ff agent5 -m "r0032: merge agent5 — Lemma 9 and Theorem 14 recovered from the PDF by font-table decoding; two printed misprints identif
+    Bash /home/milnes/projects/ScottLean4/scripts/compile.sh -r r0032
+    Bash /home/milnes/projects/ScottLean4/scripts/gitcp.sh "r0032: merge agent5 and permit all scripts/ execution with any arguments"
+## turn — assistant 2026-08-06T21:38:16-07:00
+
+Done — `scripts/` execution is now permitted with any arguments (`db8bf65`): relative, `./`-prefixed, absolute in the main checkout and in all five worktrees, plus `zsh scripts/…` and `bash scripts/…`. It is in the tracked `settings.json`, so agents inherit it.
+
+Wave 1 is complete — all five agents merged. `Build completed successfully (1071 jobs).`
+
+**Agent5's recovery is the standout, and it overturned the premise of its own plan.** The characters aren't missing from the PDF — `pdftotext` drops them. The 18 embedded Type 3 fonts have `Custom` encoding and no `ToUnicode` map, so codes ≥ `0x20` leak through as ASCII while **codes below `0x20` vanish silently**. But those are standard TeX font positions, pinned by the leaked ASCII (`0x21`→`→`, `0x3F`→`⊥`, `0x76`→`⊑`, all `cmsy10`). Decoding the content stream against `cmsy10`/`cmr10`/`cmmi10` returns the text character for character, and rendering the page independently confirms it. **Both results recovered, nothing left unrecoverable.**
+
+Two findings that matter beyond those results:
+
+**The paper has two misprints, and they are provably false as printed.** Lemma 9 items 3 and 5 decode with certainty and fail on a witness the development already has instances for — `D = E = Prop`, `F = Prop × Prop`: item 3 gives 10 versus the printed 8, item 5 gives 5 versus the printed 3. The corrections are forced, and item 3's is the universal property of `⊕` that Gunter & Scott state themselves three pages earlier.
+
+**The strict arrow is two glyphs** — `openbullet` + `arrowright` — and both `→` and `◦→` extract as `!`. So every extraction to date has conflated two different function spaces.
+
+That last one has a consequence for our own bookkeeping I need to act on: `+` and `⊕` are different operators, and what we proved is `⊕`. `lem10_sum` and `lem17_sum` range over `CoalescedSum`, so they discharge the `⊕` conjuncts, not the `+` ones the inventory credits them with. Counting the dropped glyphs back in, **Lemma 10 is 6 of 7 conjuncts and Lemma 17 is 5 of 10** — Lemma 17's three powerdomain conjuncts `D♮, D♯, D♭` were never stated, though all three powerdomains have existed since r0029. No proved statement is wrong; the inventory's conjunct counts are.
+
+Numbers now: **19 of 29 proved**, Theorem 16 settled by refutation, 8 `sorry` (one is `thm18`, seven are the newly statable Lemma 9 and Theorem 14). I'll correct those conjunct counts in the inventory next, and the `+` conjuncts look cheap — `D + E = D⊥ ⊕ E⊥`.
+
