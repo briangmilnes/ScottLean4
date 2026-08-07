@@ -495,4 +495,76 @@ theorem rep_lift (h : Retracts U (WithBot U)) : IsRepresentable U liftOp :=
 
 end Lift
 
+/-! ## 4–7. The four operators that are *not* proved here, and exactly why
+
+Three of the four are blocked by mathematics, not by effort. Each is stated with
+the obstruction and with the work that would remove it, so the gap is visible
+rather than shipped silently.
+
+### `⊗` (smash) and `⊕` (coalesced sum): the closure reading is **false**
+
+The paper's recipe for `⊗` is its own §4.3 definition of the functorial action,
+`f ⊗ g = smash ∘ (f × g) ∘ unsmash`, conjugated by a retraction
+`U ⇄ (U ⊗ U)`. That action does **not** satisfy `im(r ⊗ s) ≅ im(r) ⊗ im(s)` when
+`r` and `s` range over *closures*, and here is a counterexample — a hand
+computation, not Lean-checked.
+
+Let `U` be the three-element chain `⊥ ⊏ p ⊏ q`, and let `r = s` be the map
+`⊥ ↦ p`, `p ↦ p`, `q ↦ q`. It is a closure: idempotent, and inflationary because
+every point is below its image. Then
+
+* `im(r) = {p, q}`, a two-element cpo whose bottom is `p`;
+* `im(r) ⊗ im(s)` adjoins a bottom to the pairs of *non-bottom* elements, of which
+  there is one, `(q, q)`; so the target has **2** elements;
+* `Smash U U` has the four pairs drawn from `{p, q}` plus the adjoined bottom;
+  `C(r,s)` sends the adjoined bottom to `smash(r ⊥, s ⊥) = ⟨(p, p)⟩` and each
+  `⟨(x, y)⟩` to `⟨(r x, s y)⟩`, so `im(C(r,s))` is all four pairs — **4** elements.
+
+Two is not four. The mechanism is general: `im(r)`'s bottom is `r ⊥`, which a
+closure need not send to the ambient `⊥`, and `x = r ⊥` is then a non-bottom point
+of `U` that the target collapses and the source does not. The identical
+computation refutes the coalesced sum `⊕` (target `{⊥, inl q, inr q}`, 3 elements;
+`im(C(r,s))` all four injections plus the bottom, 5 elements).
+
+Under the *projection* reading — `Fp(U)`, which is what §7.3's Lemma 28 actually
+uses — the obstruction disappears: a projection satisfies `p ⊑ id`, hence
+`p ⊥ = ⊥`, so `im(p)`'s bottom *is* the ambient bottom and no point is collapsed.
+This is a precise reason why the paper states Lemma 28 for `Fp(U)` and not for
+`Fc(U)`, beyond the reason it gives (that `P N` cannot represent `+`).
+
+### `+` (separated sum): the scheme applies; the functorial action is missing
+
+`+` is *not* refuted. §4.4 defines `D + E` as `D⊥ ⊕ E⊥`, so its bottom is
+**adjoined**, exactly as in `()⊥` above, and the collapse that kills `⊗` and `⊕`
+does not occur: `im(r⊥ ⊕ s⊥) ≅ (im r)⊥ ⊕ (im s)⊥ = im(r) + im(s)` for closures
+`r, s`. The carrier `CoalescedSum (WithBot U) (WithBot U)` already has its cpo
+structure (`CoalescedSum.lean`), so no new construction is needed.
+
+What is missing is the functorial action `r + s` on that carrier together with its
+Scott continuity, which has to be proved against `CoalescedSum.sumSup` — the four
+lemmas `isLUB_leftParts_of_isLUB`, `isLUB_rightParts_of_isLUB`,
+`isLUB_image_sumInl`, `isLUB_image_sumInr` are the intended instruments. With that
+in hand `rep_sepSum` is `isRepresentable₂_of_retracts` applied exactly as
+`rep_prod` is, under `Retracts U (CoalescedSum (WithBot U) (WithBot U))`.
+
+### `()♯` (Smyth) and `()♭` (Hoare): the operator is not defined on `Cpo`
+
+These are blocked one level earlier than the proof. `Powerdomain/Smyth.lean` and
+`Powerdomain/Hoare.lean` define the powerdomain of `D` as
+`IdealCompletion (Pf ↥(compacts D))` — the ideal completion of the finite
+non-empty subsets of `K(D)` — which requires `[Domain D]`, algebraicity with a
+countable basis. `IsRepresentable` quantifies over `r : Fc(U)` and needs
+`F (im r)`, and `im r` for a closure on a bare cpo carries no `Domain` instance
+(`Skeleton/Section6.lean`'s `lem19` gives it a `CompletePartialOrder` and nothing
+more). So `()♯` and `()♭` are not functions `Cpo → Cpo` in this development and
+`IsRepresentable U ()♯` does not typecheck.
+
+Removing this needs one of: a definition of the two powerdomains for arbitrary
+cpos (Smyth: the Scott-closed filters; Hoare: the non-empty Scott-closed subsets),
+or a version of `IsRepresentable` restricted to closures whose image is a domain —
+which is the paper's own `Fc(D)`, whose second conjunct ("`im(r)` is a domain")
+`ClosurePoset` deliberately drops, as `UniversalDomain.lean` records. The second
+route is the smaller one and is the one §7.3 takes, since Theorem 27's projections
+land in **bounded complete domains**. -/
+
 end ScottDomains.Combinator
