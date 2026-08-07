@@ -1,0 +1,75 @@
+# r0031
+# orchestrator — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4
+# started: 2026-08-06T20:22:32-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+✔ [1024/1065] Built ScottDomains (585ms)
+✔ [1025/1065] Built ScottDomains.WayBelow (695ms)
+ℹ [1026/1065] Built ScottDomains.ExistingTheories (654ms)
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1027/1065] Built ScottDomains.Domain (704ms)
+✔ [1028/1065] Built ScottDomains.Powerset (864ms)
+✔ [1029/1065] Built ScottDomains.Lift (899ms)
+✔ [1030/1065] Built ScottDomains.NormalSubposet (1.1s)
+✔ [1031/1065] Built ScottDomains.ScottHom (1.1s)
+✔ [1032/1065] Built ScottDomains.FixedPoint (1.2s)
+✔ [1033/1065] Built ScottDomains.IdealCompletion (1.2s)
+✔ [1034/1065] Built ScottDomains.CoalescedSum (1.4s)
+✔ [1035/1065] Built ScottDomains.EffectivePresentation (976ms)
+✔ [1036/1065] Built ScottDomains.Bifinite (909ms)
+✔ [1037/1065] Built ScottDomains.StrictHom (1.1s)
+✔ [1038/1065] Built ScottDomains.Product (1.2s)
+✔ [1039/1065] Built ScottDomains.Powerdomain.Hoare (1.1s)
+✔ [1040/1065] Built ScottDomains.StepFunction (1.5s)
+✔ [1041/1065] Built ScottDomains.Projection (1.4s)
+✔ [1042/1065] Built ScottDomains.Powerdomain.Plotkin (1.3s)
+✔ [1043/1065] Built ScottDomains.UniformFixedPoint (1.4s)
+✔ [1044/1065] Built ScottDomains.Powerdomain.Smyth (1.5s)
+✔ [1045/1065] Built ScottDomains.ComputableFunction (1.0s)
+✔ [1046/1065] Built ScottDomains.MinimalUpperBounds (1.2s)
+✔ [1047/1065] Built ScottDomains.Smash (1.1s)
+✔ [1048/1065] Built ScottDomains.FunctionSpaceDomain (921ms)
+✔ [1049/1065] Built ScottDomains.FinitaryProjection (974ms)
+✔ [1050/1065] Built ScottDomains.Currying (1.4s)
+✔ [1051/1065] Built ScottDomains.Powerdomain.BoundedComplete (1.1s)
+✔ [1052/1065] Built ScottDomains.CompactFunction (881ms)
+✔ [1053/1065] Built ScottDomains.NormalProjection (835ms)
+✔ [1054/1065] Built ScottDomains.Skeleton.Sum (1.4s)
+✔ [1055/1065] Built ScottDomains.FunctionSpaceCountable (801ms)
+✔ [1056/1065] Built ScottDomains.Theorem6 (802ms)
+✔ [1057/1065] Built ScottDomains.Skeleton.Lemma10 (831ms)
+⚠ [1058/1065] Built ScottDomains.Skeleton.Section6 (867ms)
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✔ [1059/1065] Built ScottDomains.Skeleton.Lemma17 (974ms)
+✔ [1060/1065] Built ScottDomains.FinitaryProjectionPoset (1.0s)
+✔ [1061/1065] Built ScottDomains.UniversalDomain (1.1s)
+✔ [1062/1065] Built ScottDomains.Skeleton.Section6b (673ms)
+✔ [1063/1065] Built ScottDomains.RecursiveDomain (775ms)
+✔ [1064/1065] Built ScottDomains.Powerdomain.Universal (857ms)
+Build completed successfully (1065 jobs).
+--- times ---
+Elapsed (wall clock): 0:10.96
+Maximum resident set size (kbytes): 1756476
+--- build ---
+finished:         2026-08-06T20:22:44-07:00
+exit status:      0
+user cpu:         45.23s
+system cpu:       10.60s
+cpu use:          509%
+peak rss single:  1715 MiB (largest one process, GNU time)
+peak pss tree:    2653 MiB (process group, shared pages apportioned)
+peak rss tree:    14913 MiB (process group, shared pages counted per process)
+jobs:             1065
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   0
