@@ -1,0 +1,103 @@
+# r0036
+# agent2 — lake build ScottDomains.JungSFP
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-07T08:51:38-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.JungSFP ===
+✖ [834/834] Building ScottDomains.JungSFP (968ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/JungSFP.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/JungSFP.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/JungSFP.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/JungSFP.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/JungSFP.setup.json --json
+warning: ScottDomains/JungSFP.lean:515:8: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ScottDomains/JungSFP.lean:590:27: `Set.Infinite.diff` has been deprecated: Use `Set.Infinite.sdiff` instead
+error: ScottDomains/JungSFP.lean:594:9: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ⇑(jungHom ?hx₁ ?hx₂ ?m.2040 ?m.2041 ?m.2042 ?h)
+in the target expression
+  (fun f => ⇑f) g d ≤ (fun f => ⇑f) (F A) d
+
+D : Type u_1
+E : Type u_2
+inst✝³ : CompletePartialOrder D
+inst✝² : CompletePartialOrder E
+inst✝¹ : IsAlgebraic D
+x₁ x₂ : D
+hx₁ : IsCompactElement x₁
+hx₂ : IsCompactElement x₂
+inst✝ : IsAlgebraic E
+a₁ a₂ b₁ b₂ c : E
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+hb₁ : b₁ ∈ minimalUpperBounds (compacts E) {a₁, a₂}
+hb₂ : b₂ ∈ minimalUpperBounds (compacts E) {a₁, a₂}
+hne : b₁ ≠ b₂
+hc₁ : b₁ ≤ c
+hc₂ : b₂ ≤ c
+hAlg this✝ : IsAlgebraic (ScottHom D E)
+M : Set D := minimalUpperBounds (compacts D) {x₁, x₂}
+hMinf : M.Infinite
+hM : M = minimalUpperBounds (compacts D) {x₁, x₂}
+hxfin : {x₁, x₂}.Finite
+hxc : {x₁, x₂} ⊆ compacts D
+hafin : {a₁, a₂}.Finite
+hac : {a₁, a₂} ⊆ compacts E
+hMmin : ∀ m ∈ M, Minimal (fun x => x ∈ upperBounds {x₁, x₂}) m
+hMub : ∀ m ∈ M, x₁ ≤ m ∧ x₂ ≤ m
+hab₁ : a₁ ≤ b₁
+hab₁' : a₂ ≤ b₁
+hab₂ : a₁ ≤ b₂
+hab₂' : a₂ ≤ b₂
+hpatchG : IsJungPatch x₁ x₂ a₁ a₂ fun x => b₁
+g : ScottHom D E := jungHom hx₁ hx₂ a₁ a₂ (fun x => b₁) hpatchG
+hg : g = jungHom hx₁ hx₂ a₁ a₂ (fun x => b₁) hpatchG
+hgmin : Minimal (fun x => x ∈ upperBounds {ScottHom.step hx₁ a₁, ScottHom.step hx₂ a₂}) g
+hstepc : {ScottHom.step hx₁ a₁, ScottHom.step hx₂ a₂} ⊆ compacts (ScottHom D E)
+hgc : IsCompactElement g
+hpatchF : ∀ (A : Set D), IsJungPatch x₁ x₂ a₁ a₂ (fVal M A b₂ c)
+F : Set D → ScottHom D E := fun A => jungHom hx₁ hx₂ a₁ a₂ (fVal M A b₂ c) ⋯
+hF : F = fun A => jungHom hx₁ hx₂ a₁ a₂ (fVal M A b₂ c) ⋯
+𝓕 : Set (ScottHom D E) := {f | ∃ A, A.Finite ∧ f = F A}
+h𝓕 : 𝓕 = {f | ∃ A, A.Finite ∧ f = F A}
+hmono : ∀ (A A' : Set D), A ⊆ A' → F A ≤ F A'
+hdir : DirectedOn (fun x1 x2 => x1 ≤ x2) 𝓕
+hFne : 𝓕.Nonempty
+hpatchH : IsJungPatch x₁ x₂ a₁ a₂ fun x => c
+H : ScottHom D E := jungHom hx₁ hx₂ a₁ a₂ (fun x => c) hpatchH
+hH : H = jungHom hx₁ hx₂ a₁ a₂ (fun x => c) hpatchH
+hHlub : IsLUB 𝓕 H
+hgH : g ≤ H
+A : Set D
+hAfin : A.Finite
+hgf : g ≤ F A
+d : D
+hd : d ∈ M \ A
+hd₁ : x₁ ≤ d
+hd₂ : x₂ ≤ d
+this : (fun f => ⇑f) g d ≤ (fun f => ⇑f) (F A) d
+⊢ b₁ ≤ b₂
+error: ScottDomains/JungSFP.lean:659:28: Unknown constant `Set.not_finite_iff_infinite.mp`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.JungSFP
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1733924
+--- build ---
+finished:         2026-08-07T08:51:41-07:00
+exit status:      1
+user cpu:         1.95s
+system cpu:       0.51s
+cpu use:          142%
+peak rss single:  1693 MiB (largest one process, GNU time)
+peak pss tree:    1835 MiB (process group, shared pages apportioned)
+peak rss tree:    2505 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   2
