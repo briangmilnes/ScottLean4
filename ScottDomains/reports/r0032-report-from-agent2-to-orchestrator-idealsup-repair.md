@@ -298,5 +298,9 @@ files. `IdealCompletion.lean` grew from 491 to 653 lines;
 
 ## Commits
 
-See the trailing section of this file after commit; SHAs are recorded in the
-orchestrator-facing summary.
+On branch `agent2`, off `main` at `f4f9b00`. Not pushed, no upstream set.
+
+| # | SHA | Contents |
+| - | --- | -------- |
+| 1 | `e371ed9` | the repair: `IdealCompletion.lean`, `Powerdomain/BoundedComplete.lean`, and the five `compile` logs |
+| 2 | `dd37d49` | this report |
