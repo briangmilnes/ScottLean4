@@ -1,3 +1,4 @@
+import ScottDomains.ContinuousConstruction
 import ScottDomains.JungSFP
 import ScottDomains.Section62
 
@@ -14,13 +15,15 @@ Steps 2, 3 and 5 are proved (`JungSFP.lemma213`, `JungSFP.thm214`,
   concludes finiteness of `mub{a₁, a₂}` for a *pair*, and
   `isBifinite_iff_mubClosure` consumes a statement about *every* finite subset of
   `K(D)`;
-* **step 4, Jung's Lemma 2.2** — property M implies `U ^∞(A)` finite — in full,
-  together with the two prerequisites `Section62.lean` records as missing:
-  the selection principle that extracts an infinite chain from an infinite
-  `U ^∞(A)`, and Jung's Corollary 1.36;
-* **the assembly**, `thm18_of_hasCompleteMub`, which is Theorem 18 with Jung's
-  Theorem 1.37 — step 1 — as an explicit hypothesis, in the shape `lemma217`
-  already uses.
+* **step 4, Jung's Lemma 2.2** (`lemma22`), including the first of the two
+  prerequisites `Section62.lean` records as missing: the selection principle that
+  extracts an infinite chain from an infinite `U ^∞(A)`. The second, **Jung's
+  Corollary 1.36**, is *not* discharged; it is the explicit hypothesis
+  `FixedPointOfCompactDeflationIsCompact`, whose docstring locates the obstruction
+  and records what was measured about two failed direct routes;
+* **the assembly**, `thm18_of_propertyM`, which is Theorem 18 with Jung's
+  Theorem 1.37 — step 1 — and Corollary 1.36 as its two explicit hypotheses, in
+  the shape `JungSFP.lemma217` already uses.
 
 Everything is read off the PDF in `ScottDomains/papers/Jung 1989 Cartesian Closed
 Categories of Domains.pdf`, quoted rather than paraphrased.
@@ -69,12 +72,13 @@ Jung's proof, in the order the parts appear below.
    grading here is by `ℕ`, so **König's lemma** suffices and is what is proved,
    by the standard infinite-descendant argument. See the note below.
 4. Algebraicity of `[D → D]` supplies a compact `f ⊑ id` fixing `A`
-   (`exists_isCompactElement_le`, r0031); `apply_eq_self_of_mem_mubClosure`
-   (r0034) propagates that to all of `U ^∞(A)`, hence to the chain and to its
-   least upper bound `c`.
+   (`ContinuousConstruction.exists_isCompactElement_le`, r0031);
+   `apply_eq_self_of_mem_mubClosure_compacts` propagates that to all of `U ^∞(A)`,
+   hence to the chain and, by Scott continuity of `f`, to its least upper bound
+   `c`.
 5. **Corollary 1.36** makes `c` compact, and
-   `not_isCompactElement_of_isLUB_strictMono` (r0034) says the least upper bound
-   of a strictly ascending sequence never is.
+   `Section62.not_isCompactElement_of_isLUB_strictMono` (r0034) says the least
+   upper bound of a strictly ascending sequence never is.
 
 ### Which selection principle, and why
 
@@ -91,40 +95,33 @@ category theory, and no cardinality hypothesis. In particular **countability of
 itself. Countability of `K(D → D)` is still indispensable to Theorem 18, and is
 still spent exactly once, in `JungSFP.lemma217`.
 
-### Corollary 1.36, and the form proved here
+### Corollary 1.36 is the one step not discharged
 
-> **Corollary 1.36** If `D` is a dcpo with a continuous function space and if for
-> `f, g ∈ [D → D]`, `f` is way-below `g`, then `f(d)` is way-below `g(d)` for all
-> `d ∈ D`.
+Move 5 above is Jung's Corollary 1.36 at `g = idD`, specialized to a fixed point:
+a compact `f ⊑ id` with `f(c) = c` forces `c ≪ c`, that is `IsCompactElement c`.
+It is the hypothesis `FixedPointOfCompactDeflationIsCompact`, and its docstring
+carries the obstruction: Jung's derivation goes through Proposition 1.34, which
+restricts to `↓c` and cites Proposition 1.22 — continuity of the function space of
+a retract — neither of which this development has. That docstring also records
+what was measured about the two direct routes tried here, both of which fail on a
+single identified condition, so the next attempt need not repeat them.
 
-Jung derives it from Proposition 1.34, whose proof restricts to the principal
-ideal `↓e` and needs his Proposition 1.22 — continuity of the function space of a
-retract — to know that `f|↓e ≪ id↓e`. Lemma 2.2 uses only the instance `g = id`
-with `f` **compact**, and at `g = id` that detour is unnecessary:
-`isCompactElement_of_apply_eq_self` below proves the instance directly.
-
-The argument is Jung's, with compactness in place of the way-below relation. Let
-`c = ⨆↑S` with `S` directed and let `f` be compact in `[D → D]` with `f ⊑ id` and
-`f(c) = c`. Restricting to `↓c` is legitimate because `f ⊑ id` maps `↓c` into
-itself; the restriction `f|↓c` is again **compact**, by extending any directed
-family `T` of functions on `↓c` to `D` by the identity outside `↓c`
-(`extendIic`) and applying compactness of `f` there. The extension is where
-`f ⊑ id` is spent a second time: it is what makes `f ⊑ ext h` off `↓c`. Now the
-constant functions `c_s`, `s ∈ S`, are a directed family on `↓c` with least upper
-bound the constant `c_c`, which is the top of `[↓c → ↓c]` and so is above `f|↓c`;
-compactness of `f|↓c` therefore puts `f|↓c ⊑ c_s` for a single `s ∈ S`, and
-evaluating at `c` gives `c = f(c) ⊑ s`. That is compactness of `c`.
-
-`↓c` carries only the `PartialOrder` instance the subtype inherits, which is all
-`ScottHom` and `IsCompactElement` need; no cpo structure on the subtype is
-constructed.
+Nothing else in the step-4 chain depends on it: `lemma22` takes it as an argument
+and everything else in the file is kernel-checked without it.
 
 ## What is still open between this file and `thm18`
 
-One step: Jung's **Theorem 1.37**, "a dcpo with continuous function space is
-bicomplete", which is property m and is the hypothesis `hm` of
-`thm18_of_hasCompleteMub`. No `sorry` stands in for it; it is an explicit
-argument of the theorem, exactly as in `JungSFP.lemma217`.
+Two hypotheses, both explicit arguments of `thm18_of_propertyM`, neither stubbed
+with `sorry`:
+
+1. Jung's **Theorem 1.37**, "a dcpo with continuous function space is bicomplete",
+   which for `K(D)` is property m — the argument `hm`. This is step 1 of the five
+   and is `JungSFP.lemma217`'s own outstanding hypothesis, promoted here to a
+   statement about every finite subset of `K(D)` rather than about one pair.
+2. Jung's **Corollary 1.36** — the argument `hcor`, as above.
+
+Discharge both and `thm18` is `thm18_of_propertyM` applied to them; the assembly
+itself is proved.
 -/
 
 namespace ScottDomains.JungFinite
@@ -518,5 +515,194 @@ theorem exists_strictMono_mem_mubClosure
       lt_of_le_of_ne (hxmono (Nat.le_succ n)) (mubDiff_ne (hxmem n) (hxmem (n + 1)))⟩
 
 end Stages
+
+/-! ## Step 4, part 2: Jung's Lemma 2.2 -/
+
+section Lemma22
+
+open ScottDomains.ContinuousConstruction ScottDomains.Section62
+
+variable [CompletePartialOrder α] [IsAlgebraic α] {u : Set α} {g : α → α}
+
+/-- **A deflation fixing `u` fixes every stage of `U`, over the basis `K(D)`.**
+
+This is `Section62.apply_eq_self_of_mem_mubIter` with its hypothesis `hgA` — that
+`g` maps `A` into `A` — removed. `hgA` at `A = K(D)` is "a compact function has
+compact values", Jung's Proposition 1.41, which is itself a consequence of
+Corollary 1.36 and so is exactly as expensive as the step this file cannot
+discharge. It is avoidable: `JungSFP.minimal_upperBounds_of_mem_minimalUpperBounds`
+upgrades minimality of `m` inside `K(D)` to minimality among **all** upper bounds
+of `v`, and then `g m` needs no compactness to be tested against it. -/
+theorem apply_eq_self_of_mem_mubIter_compacts (hmono : Monotone g) (hgle : ∀ z, g z ≤ z)
+    (huc : u ⊆ compacts α) (hu : ∀ k ∈ u, g k = k) :
+    ∀ n, ∀ m ∈ mubIter (compacts α) u n, g m = m := by
+  intro n
+  induction n with
+  | zero => exact hu
+  | succ n ih =>
+    rintro m (hm | ⟨v, hvN, hvfin, hmub⟩)
+    · exact ih m hm
+    · have hvc : v ⊆ compacts α := hvN.trans (mubIter_subset huc n)
+      have hmin := JungSFP.minimal_upperBounds_of_mem_minimalUpperBounds hvfin hvc hmub
+      refine le_antisymm (hgle m) (hmin.2 (fun k hk => ?_) (hgle m))
+      rw [← ih k (hvN hk)]
+      exact hmono (hmin.1 hk)
+
+/-- **A deflation fixing `u` fixes the whole mub-closure `U ^∞(u)` of `u` in
+`K(D)`.** Every member lies in some stage. -/
+theorem apply_eq_self_of_mem_mubClosure_compacts (hmono : Monotone g) (hgle : ∀ z, g z ≤ z)
+    (huc : u ⊆ compacts α) (hu : ∀ k ∈ u, g k = k) {m : α}
+    (hm : m ∈ mubClosure (compacts α) u) : g m = m := by
+  obtain ⟨n, hn⟩ := Set.mem_iUnion.mp hm
+  exact apply_eq_self_of_mem_mubIter_compacts hmono hgle huc hu n m hn
+
+end Lemma22
+
+/-! ## The one prerequisite this file does not discharge: Jung's Corollary 1.36 -/
+
+section Cor136
+
+/-- **Jung 1989, Corollary 1.36, in the single instance Lemma 2.2 consumes.**
+
+> **Corollary 1.36** If `D` is a dcpo with a continuous function space and if for
+> `f, g ∈ [D → D]`, `f` is way-below `g`, then `f(d)` is way-below `g(d)` for all
+> `d ∈ D`.
+
+At `g = idD` this reads `f ≪ id ⟹ f(d) ≪ d`; a fixed point `f(d) = d` of such an
+`f` therefore satisfies `d ≪ d`, which is `IsCompactElement d`. That specialization
+is the whole use Lemma 2.2 makes of the corollary, and is what this predicate
+states.
+
+**Precisely-located obstruction.** Jung derives 1.36 from Proposition 1.34, whose
+proof restricts to the principal ideal `↓e`, cites Proposition 1.22 — continuity
+of the function space of a retract — to get `f|↓e ≪ id↓e`, and only then applies
+the constant functions `c_{e_j}`, which are available on `↓e` because `↓e` has a
+top element. Neither Proposition 1.22 nor Proposition 1.5 is formalized here, and
+`ScottDomains/` quantifies over neither retracts nor the function space of a
+subposet.
+
+**What was measured about the direct route, so the next attempt does not repeat
+it.** Restricting to `↓c` needs no cpo structure on the subtype — `ScottHom` and
+`IsCompactElement` both need only `PartialOrder`, which `↥(Set.Iic c)` inherits —
+and the constant family `{c_s | s ∈ S}` on `↓c` is directed with least upper bound
+`c_c`, the top of `[↓c → ↓c]`, so `IsCompactElement (f|↓c)` would finish the
+argument in one step: `f|↓c ⊑ c_s` evaluated at `c` gives `c = f(c) ⊑ s`.
+
+`IsCompactElement (f|↓c)` is what does **not** follow cheaply. The natural proof
+extends a directed family `T` on `↓c` to `D` by `ext(h)(x) = h(x)` for `x ⊑ c` and
+`ext(h)(x) = x` otherwise, and applies compactness of `f` on `D`. That extension is
+monotone only when `h ⊑ id↓c`: for `x ⊑ c ` and `y ⋣ c` with `x ⊑ y` it must produce
+`h(x) ⊑ y`, and `h(x) ⊑ x ⊑ y` is the only route. The definition of
+`IsCompactElement` quantifies over *every* directed family, including those not
+below the identity, so the extension does not apply to it. Extending by the
+constant `c` instead of by the identity is monotone for every `h`, but then `f ⊑ ext(h)`
+fails off `↓c`, where `f(x) ⊑ x` gives nothing below `c`. Both variants were checked;
+each fails on exactly one of the two conditions, which is why Jung's proof needs
+the retraction and not merely a restriction.
+
+No `sorry` stands in for this: it is an explicit hypothesis of `lemma22` and of
+`thm18_of_propertyM`. -/
+def FixedPointOfCompactDeflationIsCompact (α : Type*) [CompletePartialOrder α] : Prop :=
+  ∀ f : ScottHom α α, IsCompactElement f → (∀ z : α, f z ≤ z) →
+    ∀ d : α, f d = d → IsCompactElement d
+
+end Cor136
+
+section Lemma22Main
+
+open ScottDomains.ContinuousConstruction ScottDomains.Section62
+
+variable [CompletePartialOrder α] [IsAlgebraic α] [IsAlgebraic (ScottHom α α)]
+
+/-- **Jung 1989, Lemma 2.2 — step 4.**
+
+> If `D` is a dcpo with algebraic function space and if `B(D)` has property M then
+> `U ^∞(A)` is finite for each finite set `A` of compact elements.
+
+The proof is Jung's, in five moves, with the selection principle replaced by
+König's lemma (see the module docstring):
+
+1. `exists_strictMono_mem_mubClosure` — property M plus an infinite `U ^∞(A)`
+   produces a strictly ascending sequence inside `U ^∞(A)`;
+2. `ContinuousConstruction.exists_isCompactElement_le` at `f = idHom` — algebraicity
+   of `[D → D]` produces a compact `g ⊑ id` with `g k = k` for every `k ∈ A`;
+3. `apply_eq_self_of_mem_mubClosure_compacts` — `g` then fixes all of `U ^∞(A)`,
+   hence every term of the sequence;
+4. Scott continuity of `g` carries that to the least upper bound `c`: the image of
+   the sequence's range is the range itself, so `g c = c`;
+5. Corollary 1.36 (`hcor`) makes `c` compact, and
+   `Section62.not_isCompactElement_of_isLUB_strictMono` says the least upper bound
+   of a strictly ascending sequence is not. -/
+theorem lemma22 (hcor : FixedPointOfCompactDeflationIsCompact α)
+    (hM : ∀ v : Set α, v ⊆ compacts α → v.Finite → (minimalUpperBounds (compacts α) v).Finite)
+    {u : Set α} (hu : u.Finite) (huc : u ⊆ compacts α) :
+    (mubClosure (compacts α) u).Finite := by
+  by_contra hinf
+  obtain ⟨x, hxmem, hxmono⟩ := exists_strictMono_mem_mubClosure hM hu huc hinf
+  obtain ⟨g, hgcomp, hgid, hgu⟩ :=
+    exists_isCompactElement_le (f := (idHom : ScottHom α α)) hu huc fun _ _ => le_rfl
+  have hgle : ∀ z : α, g z ≤ z := fun z => hgid z
+  have hgfix : ∀ n, g (x n) = x n := fun n =>
+    apply_eq_self_of_mem_mubClosure_compacts g.monotone hgle huc
+      (fun k hk => le_antisymm (hgle k) (hgu k hk)) (hxmem n)
+  have hdir : DirectedOn (· ≤ ·) (Set.range x) := directedOn_range_of_monotone hxmono.monotone
+  have hlub : IsLUB (Set.range x) (sSup (Set.range x)) := hdir.isLUB_sSup
+  have himg : (⇑g) '' Set.range x = Set.range x := by
+    refine Set.Subset.antisymm ?_ ?_
+    · rintro _ ⟨_, ⟨n, rfl⟩, rfl⟩
+      exact ⟨n, (hgfix n).symm⟩
+    · rintro _ ⟨n, rfl⟩
+      exact ⟨x n, ⟨n, rfl⟩, hgfix n⟩
+  have hcont := g.scottContinuous (Set.range_nonempty x) hdir hlub
+  rw [himg] at hcont
+  exact not_isCompactElement_of_isLUB_strictMono hxmono hlub
+    (hcor g hgcomp hgle _ (hcont.unique hlub))
+
+end Lemma22Main
+
+/-! ## The assembly: Theorem 18 with step 1 as a hypothesis -/
+
+section Assembly
+
+variable [CompletePartialOrder α] [Domain α] [Domain (ScottHom α α)]
+
+/-- **Theorem 18, assembled from Jung's five steps, conditionally on steps 1 and
+on Corollary 1.36.**
+
+> **Theorem 18** If `D` and `D → D` are domains, then `D` is bifinite.
+
+`hm` is Jung's **Theorem 1.37** — "a dcpo with continuous function space is
+bicomplete", which for `K(D)` is property m — and `hcor` is his **Corollary
+1.36**. Everything between them is proved:
+
+| # | Step | Jung | Here |
+| -- | ---- | ---- | ---- |
+| 1 | property m | Theorem 1.37 | hypothesis `hm` |
+| 2 | the bifurcation | Lemma 2.13, Theorem 2.14 | `JungSFP.lemma213`, `JungSFP.thm214` |
+| 3 | property M at pairs | Lemma 2.17 | `JungSFP.lemma217` |
+| — | pairs to all finite sets | Lemma 1.29 | `lemma129` |
+| 4 | `U ^∞(A)` finite | Lemma 2.2 | `lemma22`, given `hcor` |
+| 5 | bifiniteness | Theorem 1.32 | `isBifinite_iff_mubClosure` |
+
+Countability of `K(D → D)` enters exactly once, through `lemma217`, via
+`Domain.countable_compacts` on the function space. Without it the statement is
+false — the algebraic L-domains are the counterexamples — so its appearance here
+is not incidental. -/
+theorem thm18_of_propertyM (hcor : FixedPointOfCompactDeflationIsCompact α)
+    (hm : ∀ v : Set α, v ⊆ compacts α → v.Finite → HasCompleteMub (compacts α) v) :
+    IsBifinite α := by
+  have hpair : ∀ a₁ a₂ : α, IsCompactElement a₁ → IsCompactElement a₂ →
+      (minimalUpperBounds (compacts α) ({a₁, a₂} : Set α)).Finite := by
+    intro a₁ a₂ ha₁ ha₂
+    refine JungSFP.lemma217 (inferInstance : IsAlgebraic (ScottHom α α))
+      (Domain.countable_compacts (α := ScottHom α α)) ha₁ ha₂ (hm _ ?_ (Set.toFinite _))
+    rintro y (rfl | rfl) <;> assumption
+  have hM : ∀ v : Set α, v ⊆ compacts α → v.Finite →
+      (minimalUpperBounds (compacts α) v).Finite :=
+    fun v hvc hvfin => lemma129 hm hpair hvfin hvc
+  exact isBifinite_iff_mubClosure.mpr
+    ⟨fun v hvfin hvc => hm v hvc hvfin, fun u hufin huc => lemma22 hcor hM hufin huc⟩
+
+end Assembly
 
 end ScottDomains.JungFinite

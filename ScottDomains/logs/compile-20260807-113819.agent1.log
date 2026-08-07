@@ -1,0 +1,49 @@
+# r0037
+# agent1 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-07T11:38:19-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [961/1103] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1117/1218] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1217/1218] Building ScottDomains.JungFinite (768ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/JungFinite.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/JungFinite.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/JungFinite.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/JungFinite.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/JungFinite.setup.json --json
+error: ScottDomains/JungFinite.lean:657:16: Application type mismatch: The argument
+  hgfix n
+has type
+  g (x n) = x n
+but is expected to have type
+  x n = g (x n)
+in the application
+  Exists.intro n (hgfix n)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.JungFinite
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.61
+Maximum resident set size (kbytes): 1726392
+--- build ---
+finished:         2026-08-07T11:38:21-07:00
+exit status:      1
+user cpu:         1.84s
+system cpu:       0.57s
+cpu use:          150%
+peak rss single:  1685 MiB (largest one process, GNU time)
+peak pss tree:    1812 MiB (process group, shared pages apportioned)
+peak rss tree:    2482 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      1
+other warnings:   0
