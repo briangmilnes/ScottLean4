@@ -101,18 +101,25 @@ Lemma 28 are statable. `smythOp` and `hoareOp` below are those functions, and
 
 | # | Operator | Conjunct of `Lemma28` | Status in this file |
 | - | -------- | --------------------- | ------------------- |
-| 1 | `→`  | `IsPRepresentable₂ U funOp` | open — hypothesis of `lemma28_of` |
-| 2 | `⇸`  | `IsPRepresentable₂ U strictFunOp` | open — hypothesis of `lemma28_of` |
-| 3 | `×`  | `IsPRepresentable₂ U prodOp` | open — hypothesis of `lemma28_of` |
-| 4 | `⊗`  | `IsPRepresentable₂ U smashOp` | open — hypothesis of `lemma28_of` |
-| 5 | `+`  | `IsPRepresentable₂ U sepSumOp` | open — hypothesis of `lemma28_of` |
-| 6 | `⊕`  | `IsPRepresentable₂ U coalSumOp` | open — hypothesis of `lemma28_of` |
-| 7 | `(·)⊥` | `IsPRepresentable U liftOp` | open — hypothesis of `lemma28_of` |
-| 8 | `(·)♯` | `IsPRepresentable U smythOp` | open — hypothesis of `lemma28_of` |
-| 9 | `(·)♭` | `IsPRepresentable U hoareOp` | open — hypothesis of `lemma28_of` |
+| 1 | `→`  | `IsPRepresentable₂ U funOp` | open |
+| 2 | `⇸`  | `IsPRepresentable₂ U strictFunOp` | open |
+| 3 | `×`  | `IsPRepresentable₂ U prodOp` | **proved** — `rep_prod`, given the pair and `[Domain U]` |
+| 4 | `⊗`  | `IsPRepresentable₂ U smashOp` | open |
+| 5 | `+`  | `IsPRepresentable₂ U sepSumOp` | open |
+| 6 | `⊕`  | `IsPRepresentable₂ U coalSumOp` | open |
+| 7 | `(·)⊥` | `IsPRepresentable U liftOp` | **proved** — `rep_lift`, given the pair and `[Domain U]` |
+| 8 | `(·)♯` | `IsPRepresentable U smythOp` | open |
+| 9 | `(·)♭` | `IsPRepresentable U hoareOp` | open |
 
-No conjunct is stubbed with `sorry`. `lemma28_of` takes each unproved conjunct as
-a named hypothesis, so the count nine is checked by the kernel — the anonymous
+Both proved conjuncts are conditional on the paper's own retraction pair for the
+operator, exactly as `Combinator.rep_arrow`, `rep_prod` and `rep_lift` are at the
+closure notion. At §7.3's `U` the pair is what **Theorem 27** supplies, and
+`Dyadic.thm27` is still conditional on `IsNormallyRepresented`, so
+`Lemma28AtU` is not yet derivable from them — the instantiation is blocked one
+level below this file.
+
+No conjunct is stubbed with `sorry`. `lemma28_of` takes each conjunct as a named
+hypothesis, so the count nine is checked by the kernel — the anonymous
 constructor must supply exactly nine components — and the file never asserts more
 than it proves.
 -/
@@ -724,5 +731,272 @@ theorem isPRepresentable₂_of_repFamily {F : Cpo.{u} → Cpo.{u} → Cpo.{u}}
     fun q => (hCiso q).map fun e => (PowerdomainRep.repRangeOrderIso hfg (C q)).trans e⟩
 
 end Scheme
+
+/-! ## Conjunct 7: `(·)⊥` is p-representable
+
+r0034's `Combinator.rep_lift` proves this at the *closure* notion. Re-proved here
+at the projection notion, and the measurement of what transferred is:
+
+| # | Ingredient | r0034 version | Here |
+| - | ---------- | ------------- | ---- |
+| 1 | conjugating family `r⊥` | `Combinator.liftMap` | reused unchanged |
+| 2 | its Scott continuity | `Combinator.scottContinuous_liftFun` | reused unchanged |
+| 3 | monotonicity in `r` | `Combinator.liftMap_mono` | reused unchanged |
+| 4 | the two equations on `r⊥` | `isClosure_liftMap` | **re-proved** as `isProjection_liftMap`; the inequality reverses |
+| 5 | `im(r⊥) ≅ (im r)⊥` | `liftRangeOrderIso`, indexed by `Fc(U)` | **re-derived** at a bare `ScottHom`, since the index type changes |
+| 6 | `im(R(r⊥))` a domain | not required | **new** — `domain_range_liftMap` |
+| 7 | the index least upper bound | `isLUB_val_image_of_isLUB` | `isLUB_val_image_of_isLUB_fp'`, which costs `isFinitaryProjection_sSup` |
+| 8 | the pair hypothesis | `Retracts U (WithBot U)`, i.e. `id ⊑ gr ∘ fn` | **incompatible** — `gr ∘ fn ⊑ id` here, and `gr_fn_eq_of_both` shows holding both forces `U ≅ U⊥` |
+
+So rows 1–3 transfer verbatim, rows 4, 5 and 7 are re-proved, row 6 is new work
+the closure notion never had, and row 8 is a different hypothesis. "The proof
+transfers" is false; "the construction transfers, the proof obligations do not"
+is the measurement. -/
+
+section LiftConjunct
+
+open ScottHom
+
+variable {U : Type u} [CompletePartialOrder U]
+
+/-- `r⊥` is a projection whenever `r` is. Both laws hold on the coercions by the
+corresponding law for `r` and trivially at the adjoined bottom. The companion of
+`Combinator.isClosure_liftMap`, with `r x ⊑ x` in place of `x ⊑ r x`. -/
+theorem isProjection_liftMap {r : ScottHom U U} (hr : IsProjection r) :
+    IsProjection (Combinator.liftMap r) := by
+  constructor
+  · intro z
+    induction z using WithBot.recBotCoe with
+    | bot => rfl
+    | coe a => simp [hr.idem]
+  · intro z
+    induction z using WithBot.recBotCoe with
+    | bot => exact le_rfl
+    | coe a => simpa using WithBot.coe_le_coe.mpr (hr.le a)
+
+/-! ### `im(r⊥) ≅ (im r)⊥` at a bare `ScottHom`
+
+`Combinator`'s version of this isomorphism is indexed by `ClosurePoset U`, so it
+cannot be applied at an element of `Fp(U)`. The four lemmas are re-derived here
+against `r : ScottHom U U`, which is all any of them ever used. -/
+
+theorem liftRange_mem (r : ScottHom U U) (z : WithBot ↥(Set.range ⇑r)) :
+    WithBot.map Subtype.val z ∈ Set.range ⇑(Combinator.liftMap r) := by
+  induction z using WithBot.recBotCoe with
+  | bot => exact ⟨⊥, rfl⟩
+  | coe a =>
+    obtain ⟨x, hx⟩ := a.2
+    exact ⟨(↑x : WithBot U), by simp [hx]⟩
+
+/-- The direction of `im(r⊥) ≅ (im r)⊥` carrying no proof obligation in its data. -/
+noncomputable def liftRangeMap (r : ScottHom U U) (z : WithBot ↥(Set.range ⇑r)) :
+    ↥(Set.range ⇑(Combinator.liftMap r)) :=
+  ⟨WithBot.map Subtype.val z, liftRange_mem r z⟩
+
+theorem liftRangeMap_le_iff (r : ScottHom U U) (z w : WithBot ↥(Set.range ⇑r)) :
+    liftRangeMap r z ≤ liftRangeMap r w ↔ z ≤ w := by
+  induction z using WithBot.recBotCoe with
+  | bot => simp [liftRangeMap]
+  | coe a =>
+    induction w using WithBot.recBotCoe with
+    | bot =>
+      constructor
+      · intro h
+        simp only [liftRangeMap, Subtype.mk_le_mk, WithBot.map_coe, WithBot.map_bot] at h
+        exact absurd h (WithBot.not_coe_le_bot a.val)
+      · intro h
+        exact absurd h (WithBot.not_coe_le_bot a)
+    | coe b => simp [liftRangeMap, Subtype.coe_le_coe]
+
+theorem liftRangeMap_surjective (r : ScottHom U U) :
+    Function.Surjective (liftRangeMap r) := by
+  rintro ⟨z, w, rfl⟩
+  induction w using WithBot.recBotCoe with
+  | bot => exact ⟨⊥, rfl⟩
+  | coe x =>
+    refine ⟨(↑(⟨r x, Set.mem_range_self x⟩ : ↥(Set.range ⇑r)) : WithBot _), ?_⟩
+    exact Subtype.ext rfl
+
+/-- **`im(r⊥) ≅ (im r)⊥`**, for any continuous `r`. -/
+noncomputable def liftRangeOrderIso (r : ScottHom U U) :
+    ↥(Set.range ⇑(Combinator.liftMap r)) ≃o WithBot ↥(Set.range ⇑r) :=
+  (RelIso.ofSurjective (OrderEmbedding.ofMapLEIff (liftRangeMap r) (liftRangeMap_le_iff r))
+    (liftRangeMap_surjective r)).symm
+
+/-- **`im(r⊥)` is a domain when `im(r)` is** — the obligation `Fp` adds and `Fc`
+does not. Through `liftRangeOrderIso` it reduces to `Domain (D⊥)` for `D` a
+domain, which is `ClosureProperties.liftDomain`. -/
+theorem domain_range_liftMap {r : ScottHom U U} (hr : IsProjection r)
+    (hdr : @Domain _ (IsProjection.rangeCompletePartialOrder hr)) :
+    @Domain _ (IsProjection.rangeCompletePartialOrder (isProjection_liftMap hr)) := by
+  letI : CompletePartialOrder ↥(Set.range ⇑r) := IsProjection.rangeCompletePartialOrder hr
+  haveI : Domain ↥(Set.range ⇑r) := hdr
+  letI : CompletePartialOrder (WithBot ↥(Set.range ⇑r)) := liftCpo
+  haveI : Domain (WithBot ↥(Set.range ⇑r)) := ClosureProperties.liftDomain
+  letI : CompletePartialOrder ↥(Set.range ⇑(Combinator.liftMap r)) :=
+    IsProjection.rangeCompletePartialOrder (isProjection_liftMap hr)
+  exact domain_orderIso (liftRangeOrderIso r).symm
+
+/-! ### The family, indexed by `Fp(U)` -/
+
+/-- The conjugating family for `(·)⊥`, indexed by `Fp(U)` rather than `Fc(U)`. -/
+noncomputable def liftFamily (p : ↥(Fp U)) : ScottHom (WithBot U) (WithBot U) :=
+  Combinator.liftMap p.val
+
+theorem isProjection_liftFamily (p : ↥(Fp U)) : IsProjection (liftFamily p) :=
+  isProjection_liftMap (mem_Fp.mp p.2).isProjection
+
+theorem liftFamily_mono {p q : ↥(Fp U)} (h : p ≤ q) : liftFamily p ≤ liftFamily q :=
+  Combinator.liftMap_mono h
+
+/-- Pointwise Scott continuity of the family in its `Fp(U)` index. This is where
+`isFinitaryProjection_sSup` is spent: the closure version of this lemma calls
+`isLUB_val_image_of_isLUB`, which is free, and the projection version calls
+`isLUB_val_image_of_isLUB_fp'`, which is not. -/
+theorem isLUB_liftFamily [Domain U] {d : Set ↥(Fp U)} (hne : d.Nonempty)
+    (hd : DirectedOn (· ≤ ·) d) {a : ↥(Fp U)} (ha : IsLUB d a) (y : WithBot U) :
+    IsLUB ((fun p => liftFamily p y) '' d) (liftFamily a y) := by
+  induction y using WithBot.recBotCoe with
+  | bot =>
+    refine ⟨?_, fun u _ => ?_⟩
+    · rintro _ ⟨r, _, rfl⟩
+      exact le_rfl
+    · exact bot_le
+  | coe x =>
+    have hdv : DirectedOn (· ≤ ·) ((fun c : ↥(Fp U) => c.val) '' d) := by
+      rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+      obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+      exact ⟨c.val, ⟨c, hc, rfl⟩, hpc, hqc⟩
+    have hval := isLUB_val_image_of_isLUB_fp' hne hd ha
+    have heval := ScottHom.isLUB_eval_image_of_isLUB hdv hval x
+    rw [Set.image_image] at heval
+    have hcoe := Combinator.isLUB_coe_image (S := (fun c : ↥(Fp U) => c.val x) '' d)
+      (hne.image _) heval
+    rw [Set.image_image] at hcoe
+    exact hcoe
+
+/-- **`(·)⊥` is p-representable over any domain that retracts onto its own lift**
+— conjunct 7 of Lemma 28, at the notion §7.3 actually uses.
+
+The hypothesis is the paper's own pair, `Φ⊥ ∘ Ψ⊥ = id` and `Ψ⊥ ∘ Φ⊥ ⊑ id`, and
+the second inequality points the *opposite* way from `Combinator.Retracts`, which
+is what `rep_lift` assumes. At §7.3's `U` the pair is what Theorem 27 would
+supply; that instantiation is not available here because `Dyadic.thm27` is still
+conditional on `IsNormallyRepresented`. -/
+theorem rep_lift [Domain U] {fn : ScottHom U (WithBot U)} {gr : ScottHom (WithBot U) U}
+    (hfg : ∀ y, fn (gr y) = y) (hgf : ∀ x, gr (fn x) ≤ x) :
+    IsPRepresentable U liftOp :=
+  isPRepresentable_of_repFamily hfg
+    (fun p => isFinitaryProjection_repOf hfg hgf (isProjection_liftFamily p)
+      (domain_range_liftMap (mem_Fp.mp p.2).isProjection (mem_Fp.mp p.2).domain))
+    liftFamily_mono isLUB_liftFamily
+    fun p => ⟨liftRangeOrderIso p.val⟩
+
+end LiftConjunct
+
+/-! ## Conjunct 3: `×` is p-representable
+
+Cheaper than `(·)⊥` at the projection notion, because
+`PowerdomainRep.prodRangeOrderIso` is already stated at a bare `ScottHom` pair —
+it needs no property of `r` and `s` at all, the range of `r × s` being the
+rectangle `im(r) × im(s)` — so nothing has to be re-derived for the change of
+index. What is re-proved is the same three items as for the lift: the two
+equations (`isProjection_prodMap`), the `Domain` on the image
+(`domain_range_prodMap`, new to `Fp`), and the index least upper bound
+(`isLUB_prodFamily`, which spends `isFinitaryProjection_sSup`). -/
+
+section ProdConjunct
+
+open ScottHom PowerdomainRep
+
+variable {U : Type u} [CompletePartialOrder U]
+
+/-- `r × s` is a projection when `r` and `s` are: both laws hold coordinatewise,
+exactly as for closures with the inequality reversed. -/
+theorem isProjection_prodMap {r s : ScottHom U U} (hr : IsProjection r) (hs : IsProjection s) :
+    IsProjection (prodMap r s) := by
+  refine ⟨fun p => ?_, fun p => ⟨hr.le p.1, hs.le p.2⟩⟩
+  show (r (r p.1), s (s p.2)) = (r p.1, s p.2)
+  rw [hr.idem, hs.idem]
+
+/-- **`im(r × s)` is a domain when `im(r)` and `im(s)` are.** Through
+`prodRangeOrderIso` this is `PowerdomainRep.domain_prod`. -/
+theorem domain_range_prodMap {r s : ScottHom U U} (hr : IsProjection r) (hs : IsProjection s)
+    (hdr : @Domain _ (IsProjection.rangeCompletePartialOrder hr))
+    (hds : @Domain _ (IsProjection.rangeCompletePartialOrder hs)) :
+    @Domain _ (IsProjection.rangeCompletePartialOrder (isProjection_prodMap hr hs)) := by
+  letI : CompletePartialOrder ↥(Set.range ⇑r) := IsProjection.rangeCompletePartialOrder hr
+  letI : CompletePartialOrder ↥(Set.range ⇑s) := IsProjection.rangeCompletePartialOrder hs
+  haveI : Domain ↥(Set.range ⇑r) := hdr
+  haveI : Domain ↥(Set.range ⇑s) := hds
+  haveI : Domain (↥(Set.range ⇑r) × ↥(Set.range ⇑s)) := domain_prod
+  letI : CompletePartialOrder ↥(Set.range ⇑(prodMap r s)) :=
+    IsProjection.rangeCompletePartialOrder (isProjection_prodMap hr hs)
+  exact domain_orderIso (prodRangeOrderIso r s).symm
+
+/-- The conjugating family for `×`, indexed by `Fp(U) × Fp(U)`. -/
+def prodFamily (q : ↥(Fp U) × ↥(Fp U)) : ScottHom (U × U) (U × U) :=
+  prodMap q.1.val q.2.val
+
+theorem isProjection_prodFamily (q : ↥(Fp U) × ↥(Fp U)) : IsProjection (prodFamily q) :=
+  isProjection_prodMap (mem_Fp.mp q.1.2).isProjection (mem_Fp.mp q.2.2).isProjection
+
+theorem prodFamily_mono {q q' : ↥(Fp U) × ↥(Fp U)} (h : q ≤ q') :
+    prodFamily q ≤ prodFamily q' := prodMap_mono h.1 h.2
+
+/-- The `Fp` counterpart of `isLUB_prodMap_of_isLUB`. `isLUB_prod` splits the
+goal into two independent coordinates; each is then
+`isLUB_val_image_of_isLUB_fp'` followed by `ScottHom.isLUB_eval_image_of_isLUB`. -/
+theorem isLUB_prodFamily [Domain U] {d : Set (↥(Fp U) × ↥(Fp U))}
+    (hne : d.Nonempty) (hd : DirectedOn (· ≤ ·) d) {a : ↥(Fp U) × ↥(Fp U)}
+    (ha : IsLUB d a) (y : U × U) :
+    IsLUB ((fun q => prodFamily q y) '' d) (prodFamily a y) := by
+  have hdfst : DirectedOn (· ≤ ·) (Prod.fst '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.1, ⟨c, hc, rfl⟩, hpc.1, hqc.1⟩
+  have hdsnd : DirectedOn (· ≤ ·) (Prod.snd '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.2, ⟨c, hc, rfl⟩, hpc.2, hqc.2⟩
+  have h₁ : IsLUB ((fun q : ↥(Fp U) × ↥(Fp U) => q.1.val) '' d) a.1.val := by
+    have := isLUB_val_image_of_isLUB_fp' (hne.image _) hdfst (isLUB_prod.mp ha).1
+    rwa [Set.image_image] at this
+  have h₂ : IsLUB ((fun q : ↥(Fp U) × ↥(Fp U) => q.2.val) '' d) a.2.val := by
+    have := isLUB_val_image_of_isLUB_fp' (hne.image _) hdsnd (isLUB_prod.mp ha).2
+    rwa [Set.image_image] at this
+  have hd₁ : DirectedOn (· ≤ ·) ((fun q : ↥(Fp U) × ↥(Fp U) => q.1.val) '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.1.val, ⟨c, hc, rfl⟩, hpc.1, hqc.1⟩
+  have hd₂ : DirectedOn (· ≤ ·) ((fun q : ↥(Fp U) × ↥(Fp U) => q.2.val) '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.2.val, ⟨c, hc, rfl⟩, hpc.2, hqc.2⟩
+  refine isLUB_prod.mpr ⟨?_, ?_⟩
+  · have := ScottHom.isLUB_eval_image_of_isLUB hd₁ h₁ y.1
+    rw [Set.image_image] at this
+    simpa [prodFamily, Set.image_image] using this
+  · have := ScottHom.isLUB_eval_image_of_isLUB hd₂ h₂ y.2
+    rw [Set.image_image] at this
+    simpa [prodFamily, Set.image_image] using this
+
+/-- **`×` is p-representable over any domain that retracts onto its own square** —
+conjunct 3 of Lemma 28, at the notion §7.3 uses.
+
+`Combinator.rep_prod` is the same statement at the closure notion, under
+`Retracts U (U × U)`; the pair hypothesis here points the other way, and
+`gr_fn_eq_of_both` shows the two are simultaneously satisfiable only when
+`U ≅ U × U`. -/
+theorem rep_prod [Domain U] {fn : ScottHom U (U × U)} {gr : ScottHom (U × U) U}
+    (hfg : ∀ y, fn (gr y) = y) (hgf : ∀ x, gr (fn x) ≤ x) :
+    IsPRepresentable₂ U prodOp :=
+  isPRepresentable₂_of_repFamily hfg
+    (fun q => isFinitaryProjection_repOf hfg hgf (isProjection_prodFamily q)
+      (domain_range_prodMap _ _ (mem_Fp.mp q.1.2).domain (mem_Fp.mp q.2.2).domain))
+    prodFamily_mono isLUB_prodFamily
+    fun q => ⟨prodRangeOrderIso q.1.val q.2.val⟩
+
+end ProdConjunct
 
 end ScottDomains.PRep
