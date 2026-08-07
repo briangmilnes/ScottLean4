@@ -39,9 +39,16 @@ proof with the notion changed — and is what this file measures.
 | - | -------- | --------- | ------ |
 | 1 | `→` | `IsPRepresentable₂ U funOp` | **proved** — `rep_arrow`, under `[Domain U] [BoundedComplete U]` and the paper's pair |
 | 2 | `⇸` | `IsPRepresentable₂ U strictFunOp` | **proved** — `rep_strictArrow`, same hypotheses |
-| 4 | `⊗` | `IsPRepresentable₂ U smashOp` | open; the obstruction is located below |
+| 4 | `⊗` | `IsPRepresentable₂ U smashOp` | **proved** — `rep_smash`, under `[Domain U]` alone |
 
-Nothing is stubbed with `sorry`.
+Nothing is stubbed with `sorry`, and no conjunct carries a hypothesis beyond
+`[Domain U]`, `[BoundedComplete U]` and the paper's own retraction pair.
+
+Two closure properties the development did not have are proved here, because
+`Fp`'s second conjunct needs them at the images and nothing else supplied them:
+`strictHomDomain : Domain (D →⊥ E)` and `smashDomain : Domain (D ⊗ E)`. Both are
+new; the second rests on `smashIsAlgebraic`, and no round before this one had
+proved the smash product algebraic.
 
 ## The one obligation that is not Lemma 23's
 
@@ -76,36 +83,48 @@ is a different hypothesis. The paper's "almost identical" is accurate about the
 *construction* and inaccurate about the *obligations*: five of the seven rows
 change.
 
-## Why `⊗` is open, and where exactly
+## What `⊗` cost, and what it did not
 
-`⊗`'s conjugating family is `r ⊗ s` on `Smash U U`, whose image is
-`Smash (im r) (im s)`, so obligation 4 for `⊗` is
+The r0037 plan's claim that `⊗` is "no longer refuted" is **confirmed by the
+kernel**. r0034 refuted `⊗` at the closure notion with a three-chain
+counterexample, and the counterexample turns on `r ⊥` being allowed to sit
+strictly above `⊥`. `isProjection_smashMap` below is where the difference is
+spent: a projection has `r ⊥ = ⊥`, the collapse to the adjoined bottom is
+therefore idempotent, and the conjunct goes through. The change of notion was the
+whole obstruction.
 
-    Domain (Smash D E)   for `D`, `E` domains.
+What `⊗` did cost is two constructions the development did not have:
 
-**That closure property is not in this development.** Measured: the file
-`ClosureProperties.lean` states Lemma 10 (`BoundedComplete (Smash α β)`,
-`lem10_smash`) and Lemma 17 (`IsBifinite (Smash α β)`, `lem17_smash`), and
-`grep` over every module finds `IsAlgebraic` instances only for `Set X`,
-`ScottHom α β`, `α × β`, `WithBot α` and `IdealCompletion A` — none for `Smash`.
-Algebraicity of the smash product is a prerequisite the development skipped
-because §4.5 and §6.2 never needed it: bounded completeness and bifiniteness were
-each proved directly. So `⊗` is not refuted here and not blocked by the notion —
-it is blocked by one missing closure property, and `smashObstruction` below names
-it as a `Prop` so that the gap is a checkable statement rather than prose.
+1. **`r ⊗ s` did not exist.** `grep` over every module finds no functorial action
+   on the smash — `Isomorphism/Smash.lean` supplies only `smashComm` and
+   `smashAssoc`. `smashMap` below is it, built as `π ∘ (r × s) ∘ ι` for a
+   Scott-continuous pair `ι : D ⊗ E → D × E`, `π : D × E → D ⊗ E`, so that
+   continuity is a composite rather than a case analysis over `Smash`'s branching
+   `sSup`.
+2. **`Domain (D ⊗ E)` did not exist.** `ClosureProperties.lean` states Lemma 10
+   (`lem10_smash : BoundedComplete (Smash α β)`) and Lemma 17
+   (`lem17_smash : IsBifinite (Smash α β)`), and the `IsAlgebraic` instances in
+   the development are `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
+   `IdealCompletion A` — the smash is not among them. `smashIsAlgebraic` and
+   `smashDomain` close that.
 
-The r0037 plan's claim that `⊗` is "no longer refuted" is confirmed: nothing in
-this file's development of `⊗` reproduces r0034's three-chain counterexample, and
-the projection law `p ⊥ = ⊥` is indeed what removes it. The obstruction that
-remains is unrelated to the counterexample.
+`⇸` hit the same kind of gap and a cheaper one: `Domain (D →⊥ E)` was also
+absent, but it follows in twenty lines from `Domain (D → E)` because the strict
+functions are a **downward-closed** sub-cpo — anything below a strict function is
+strict — so the compacts of the subtype are literally the compacts of `D → E`
+lying below, with no strictification needed. The smash has no such embedding into
+a space already known to be algebraic, which is why its algebraicity is a
+hundred-line proof and the strict function space's is a twenty-line one.
 
-`⇸` did **not** hit the same wall, and that difference is the round's other
-measurement: `Domain (StrictHom D E)` is not in the development either, but it is
-*derivable in twenty lines* from what is (`domain_strictHom` below), because the
-strict functions are a **downward-closed** sub-cpo of `D → E` — anything below a
-strict function is strict — so the compacts of the subtype are literally the
-compacts of `D → E` lying below, with no strictification needed. The smash has no
-such embedding into a space already known to be algebraic.
+## Lifting these three conjuncts to §7.3's `U`
+
+Theorem 27 supplies the retraction pair for an operator whose *result* is a
+bounded complete domain, so each conjunct lifts from the abstract `U` to
+`Dyadic.U` exactly when Lemma 10 and a `Domain` cover its result type. All three
+are covered: `→` by `ScottHom`'s `BoundedComplete` instance and
+`FunctionSpaceCountable.lean`'s `Domain`; `⇸` by `lem10_strict` and
+`strictHomDomain`; `⊗` by `lem10_smash` and `smashDomain`. The two `Domain`
+halves are new in this file, so before it no conjunct here could have lifted.
 -/
 
 namespace ScottDomains.PRepFun
@@ -986,5 +1005,263 @@ theorem smashDomain [Domain α] [Domain β] : Domain (Smash α β) := by
     (Set.Countable.insert _ ((Domain.countable_compacts (α := α × β)).image _))
 
 end SmashDomain
+
+/-! ## `r ⊗ s`, the conjugating family for `⊗`
+
+Built as `π ∘ (r × s) ∘ ι`, so its Scott continuity is a composite of three
+continuous maps and no case analysis over `Smash`'s branching `sSup` is needed.
+The projection laws still need the two cases, but each is one line: at the
+adjoined bottom `r ⊥ = ⊥` and `s ⊥ = ⊥` send it to itself, and on a coercion the
+laws are `r`'s and `s`'s pushed through `π`'s monotonicity.
+
+The collapse to `⊥` when a coordinate lands on `⊥` is the step that has no
+analogue in `×`. It is also the step r0034's counterexample turned on at the
+closure notion: there `r ⊥ ⊒ ⊥` could be strictly above `⊥`, so the collapse was
+not idempotent. A projection has `r ⊥ = ⊥`, and `isProjection_smashMap` below is
+the kernel-checked confirmation. -/
+
+section SmashMap
+
+variable {U : Type u} [CompletePartialOrder U]
+
+/-- **`r ⊗ s`**, as `π ∘ (r × s) ∘ ι`. -/
+noncomputable def smashMap (r s : ScottHom U U) : ScottHom (Smash U U) (Smash U U) :=
+  ⟨(smashCollapse : U × U → Smash U U) ∘ ⇑(prodMap r s) ∘ (smashEmbed : Smash U U → U × U),
+    ScottContinuous.comp
+      (ScottContinuous.comp scottContinuous_smashEmbed (prodMap r s).scottContinuous)
+      scottContinuous_smashCollapse⟩
+
+@[simp] theorem smashMap_apply (r s : ScottHom U U) (x : Smash U U) :
+    smashMap r s x = smashCollapse (r (smashEmbed x).1, s (smashEmbed x).2) := rfl
+
+/-- `r ⊗ s` fixes the adjoined bottom. Only `r ⊥ = ⊥` is used — the collapse
+already discards the pair as soon as one coordinate is `⊥` — but the hypothesis
+on `s` is kept so the lemma reads as a statement about the pair. -/
+theorem smashMap_bot {r s : ScottHom U U} (hr : IsProjection r) (_hs : IsProjection s) :
+    smashMap r s (⊥ : Smash U U) = ⊥ := by
+  refine smashCollapse_of_not fun h => h.1 ?_
+  show r ⊥ = ⊥
+  exact hr.map_bot
+
+/-- **`r ⊗ s` is a projection when `r` and `s` are.** `⊑ id` is `π`'s
+monotonicity applied to `(r x, s y) ⊑ (x, y)`; idempotence splits on whether the
+image coordinates are `⊥`, and on the branch where they are not it is the two
+idempotences composed. -/
+theorem isProjection_smashMap {r s : ScottHom U U} (hr : IsProjection r) (hs : IsProjection s) :
+    IsProjection (smashMap r s) := by
+  have hle : ∀ x : Smash U U, smashMap r s x ≤ x := by
+    intro x
+    induction x using WithBot.recBotCoe with
+    | bot => exact le_of_eq (smashMap_bot hr hs)
+    | coe q =>
+      have h : (r q.val.1, s q.val.2) ≤ q.val := ⟨hr.le _, hs.le _⟩
+      have := monotone_smashCollapse h
+      rwa [smashCollapse_of q.2] at this
+  refine ⟨fun x => ?_, hle⟩
+  induction x using WithBot.recBotCoe with
+  | bot => rw [smashMap_bot hr hs, smashMap_bot hr hs]
+  | coe q =>
+    by_cases hb : (r q.val.1) ≠ ⊥ ∧ (s q.val.2) ≠ ⊥
+    · show smashCollapse (r (smashEmbed (smashMap r s ↑q)).1,
+        s (smashEmbed (smashMap r s ↑q)).2) = smashMap r s ↑q
+      have hq : smashMap r s (↑q : Smash U U) =
+          ↑(⟨(r q.val.1, s q.val.2), hb⟩ : NonBotPair U U) := smashCollapse_of hb
+      rw [hq]
+      show smashCollapse (r (r q.val.1), s (s q.val.2)) = _
+      rw [hr.idem, hs.idem]
+      exact smashCollapse_of hb
+    · have hq : smashMap r s (↑q : Smash U U) = ⊥ := smashCollapse_of_not hb
+      rw [hq, smashMap_bot hr hs]
+
+theorem smashMap_mono {r r' s s' : ScottHom U U} (hr : r ≤ r') (hs : s ≤ s') :
+    smashMap r s ≤ smashMap r' s' :=
+  fun _ => monotone_smashCollapse ⟨hr _, hs _⟩
+
+/-! ### The family, indexed by `Fp(U) × Fp(U)` -/
+
+/-- The conjugating family for `⊗`, indexed by `Fp(U) × Fp(U)`. -/
+noncomputable def smashFamily (c : ↥(Fp U) × ↥(Fp U)) :
+    ScottHom (Smash U U) (Smash U U) :=
+  smashMap c.1.val c.2.val
+
+theorem isProjection_smashFamily (c : ↥(Fp U) × ↥(Fp U)) :
+    IsProjection (smashFamily c) :=
+  isProjection_smashMap (mem_Fp.mp c.1.2).isProjection (mem_Fp.mp c.2.2).isProjection
+
+theorem smashFamily_mono {c c' : ↥(Fp U) × ↥(Fp U)} (h : c ≤ c') :
+    smashFamily c ≤ smashFamily c' := smashMap_mono h.1 h.2
+
+/-- The `Fp`-indexed least upper bound for `⊗`. `PRep.isLUB_prodFamily` supplies
+it for `r × s` at the argument `ι y`, and `scottContinuous_smashCollapse` carries
+it across `π` — which is legitimate because the family is directed there, by
+`prodMap_mono`. This is the only place `[Domain U]` is spent in the conjunct, and
+it is spent through `PRep.isFinitaryProjection_sSup` exactly as for `→`. -/
+theorem isLUB_smashFamily [Domain U] {d : Set (↥(Fp U) × ↥(Fp U))}
+    (hne : d.Nonempty) (hd : DirectedOn (· ≤ ·) d) {a : ↥(Fp U) × ↥(Fp U)}
+    (ha : IsLUB d a) (y : Smash U U) :
+    IsLUB ((fun c => smashFamily c y) '' d) (smashFamily a y) := by
+  have hP := isLUB_prodFamily hne hd ha (smashEmbed y)
+  have hPdir : DirectedOn (· ≤ ·)
+      ((fun c : ↥(Fp U) × ↥(Fp U) => prodFamily c (smashEmbed y)) '' d) := by
+    rintro _ ⟨c, hc, rfl⟩ _ ⟨c', hc', rfl⟩
+    obtain ⟨e, he, hce, hc'e⟩ := hd c hc c' hc'
+    exact ⟨_, ⟨e, he, rfl⟩, prodMap_mono hce.1 hce.2 _, prodMap_mono hc'e.1 hc'e.2 _⟩
+  have h := scottContinuous_smashCollapse (hne.image _) hPdir hP
+  rwa [Set.image_image] at h
+
+/-! ### `im(r ⊗ s) ≅ (im r) ⊗ (im s)`
+
+Built in the direction that carries no proof obligation in its data — a map
+*into* the range, order-reflecting and surjective — and then inverted, which is
+`PRep.liftRangeOrderIso`'s pattern. Going the other way would require eliminating
+`WithBot` while carrying the range-membership proof, which is dependent
+elimination for no gain.
+
+The one fact that has to be checked in both directions is that `⊥` of `im(p)` is
+`⊥` of `D`: an element of `im(p)` is non-`⊥` there exactly when its value is
+non-`⊥` in `D`. That is `p ⊥ = ⊥` again, and it is what makes the non-bottom
+pairs of `im(p) × im(q)` correspond to the non-bottom pairs of `D × E` lying in
+the two images. -/
+
+section SmashRange
+
+variable (c : ↥(Fp U) × ↥(Fp U))
+
+theorem val_ne_bot_of_ne_bot {a : ↥(Fp U)} {x : (FpImage a).carrier} (h : x ≠ ⊥) :
+    x.val ≠ ⊥ := by
+  intro hb
+  refine h (Subtype.ext ?_)
+  show x.val = (⊥ : U)
+  exact hb
+
+theorem ne_bot_of_val_ne_bot {a : ↥(Fp U)} {x : (FpImage a).carrier} (h : x.val ≠ ⊥) :
+    x ≠ ⊥ := by
+  intro hb
+  exact h (by rw [hb]; rfl)
+
+theorem bot_mem_range_smashFamily : (⊥ : Smash U U) ∈ Set.range ⇑(smashFamily c) :=
+  ⟨⊥, smashMap_bot (mem_Fp.mp c.1.2).isProjection (mem_Fp.mp c.2.2).isProjection⟩
+
+/-- A non-bottom pair lies in `im(r ⊗ s)` as soon as each coordinate lies in the
+corresponding image, because `r` and `s` then fix it. -/
+theorem coe_mem_range_smashFamily {k : NonBotPair U U}
+    (h₁ : k.val.1 ∈ Set.range ⇑c.1.val) (h₂ : k.val.2 ∈ Set.range ⇑c.2.val) :
+    (↑k : Smash U U) ∈ Set.range ⇑(smashFamily c) := by
+  refine ⟨(↑k : Smash U U), ?_⟩
+  show smashCollapse (c.1.val k.val.1, c.2.val k.val.2) = ↑k
+  rw [(mem_Fp.mp c.1.2).isProjection.apply_of_mem_range h₁,
+    (mem_Fp.mp c.2.2).isProjection.apply_of_mem_range h₂]
+  exact smashCollapse_of k.2
+
+/-- Conversely, a member of `im(r ⊗ s)` is the adjoined bottom or a pair whose
+coordinates lie in the two images. -/
+theorem range_smashFamily_cases {x : Smash U U} (hx : x ∈ Set.range ⇑(smashFamily c)) :
+    x = ⊥ ∨ ∃ k : NonBotPair U U, x = ↑k ∧
+      k.val.1 ∈ Set.range ⇑c.1.val ∧ k.val.2 ∈ Set.range ⇑c.2.val := by
+  obtain ⟨w, rfl⟩ := hx
+  by_cases hb : (c.1.val (smashEmbed w).1) ≠ ⊥ ∧ (c.2.val (smashEmbed w).2) ≠ ⊥
+  · exact Or.inr ⟨⟨_, hb⟩, smashCollapse_of hb,
+      ⟨(smashEmbed w).1, rfl⟩, ⟨(smashEmbed w).2, rfl⟩⟩
+  · exact Or.inl (smashCollapse_of_not hb)
+
+/-- A non-bottom pair of `im(p) × im(q)`, read as a non-bottom pair of `D × E`.
+Isolated so that the order comparison below is `Iff.rfl`: both sides unfold to
+the same conjunction of two inequalities in `D` and `E`. -/
+def nonBotPairDown (P : NonBotPair (FpImage c.1).carrier (FpImage c.2).carrier) :
+    NonBotPair U U :=
+  ⟨(P.val.1.val, P.val.2.val),
+    ⟨val_ne_bot_of_ne_bot P.2.1, val_ne_bot_of_ne_bot P.2.2⟩⟩
+
+theorem nonBotPairDown_le_iff
+    (P Q : NonBotPair (FpImage c.1).carrier (FpImage c.2).carrier) :
+    nonBotPairDown c P ≤ nonBotPairDown c Q ↔ P ≤ Q := Iff.rfl
+
+/-- The direction of `im(r ⊗ s) ≅ (im r) ⊗ (im s)` carrying no proof obligation
+in its data. -/
+noncomputable def smashRangeMap (z : (smashOp (FpImage c.1) (FpImage c.2)).carrier) :
+    ↥(Set.range ⇑(smashFamily c)) :=
+  WithBot.recBotCoe ⟨⊥, bot_mem_range_smashFamily c⟩
+    (fun P => ⟨(↑(nonBotPairDown c P) : Smash U U),
+      coe_mem_range_smashFamily c P.val.1.2 P.val.2.2⟩) z
+
+theorem smashRangeMap_le_iff (z w : (smashOp (FpImage c.1) (FpImage c.2)).carrier) :
+    smashRangeMap c z ≤ smashRangeMap c w ↔ z ≤ w := by
+  induction z using WithBot.recBotCoe with
+  | bot =>
+    refine ⟨fun _ => bot_le, fun _ => ?_⟩
+    show (⊥ : Smash U U) ≤ (smashRangeMap c w).val
+    exact bot_le
+  | coe P =>
+    induction w using WithBot.recBotCoe with
+    | bot =>
+      constructor
+      · intro h
+        exact absurd (show (↑(nonBotPairDown c P) : Smash U U) ≤ ⊥ from h)
+          (WithBot.not_coe_le_bot _)
+      · intro h
+        exact absurd h (WithBot.not_coe_le_bot P)
+    | coe Q =>
+      show (↑(nonBotPairDown c P) : Smash U U) ≤ ↑(nonBotPairDown c Q) ↔
+        (↑P : Smash (FpImage c.1).carrier (FpImage c.2).carrier) ≤ ↑Q
+      rw [WithBot.coe_le_coe, WithBot.coe_le_coe]
+      exact nonBotPairDown_le_iff c P Q
+
+theorem smashRangeMap_surjective : Function.Surjective (smashRangeMap c) := by
+  rintro ⟨x, hx⟩
+  rcases range_smashFamily_cases c hx with hb | ⟨k, hk, h₁, h₂⟩
+  · exact ⟨⊥, Subtype.ext hb.symm⟩
+  · refine ⟨(↑(⟨(⟨k.val.1, h₁⟩, ⟨k.val.2, h₂⟩),
+      ⟨ne_bot_of_val_ne_bot k.2.1, ne_bot_of_val_ne_bot k.2.2⟩⟩ :
+        NonBotPair (FpImage c.1).carrier (FpImage c.2).carrier) :
+      Smash (FpImage c.1).carrier (FpImage c.2).carrier), ?_⟩
+    exact Subtype.ext hk.symm
+
+/-- **`im(r ⊗ s) ≅ (im r) ⊗ (im s)`.** -/
+noncomputable def smashRangeOrderIso :
+    ↥(Set.range ⇑(smashFamily c)) ≃o (smashOp (FpImage c.1) (FpImage c.2)).carrier :=
+  (RelIso.ofSurjective (OrderEmbedding.ofMapLEIff (smashRangeMap c) (smashRangeMap_le_iff c))
+    (smashRangeMap_surjective c)).symm
+
+end SmashRange
+
+/-- **`im(R⊗(r,s))` is a domain**, the obligation `Fp` adds. Through
+`smashRangeOrderIso` it reduces to `Domain (im r ⊗ im s)`, which is `smashDomain`
+— the closure property proved above precisely for this step. Note that unlike
+`→` and `⇸` this does **not** spend `[BoundedComplete U]`: the smash needs only
+that both factors are domains. -/
+theorem domain_range_smashFamily [Domain U] (c : ↥(Fp U) × ↥(Fp U)) :
+    @Domain _ (IsProjection.rangeCompletePartialOrder (isProjection_smashFamily c)) := by
+  haveI : Domain (FpImage c.1).carrier := (mem_Fp.mp c.1.2).domain
+  haveI : Domain (FpImage c.2).carrier := (mem_Fp.mp c.2.2).domain
+  haveI : Domain (smashOp (FpImage c.1) (FpImage c.2)).carrier := smashDomain
+  letI : CompletePartialOrder ↥(Set.range ⇑(smashFamily c)) :=
+    IsProjection.rangeCompletePartialOrder (isProjection_smashFamily c)
+  exact domain_orderIso (smashRangeOrderIso c).symm
+
+/-- **`⊗` is p-representable over any domain that retracts onto its own smash
+square** — conjunct 4 of Lemma 28.
+
+r0034 refuted this conjunct at the closure notion with a three-chain
+counterexample. The refutation turned on `r ⊥` being allowed to sit strictly
+above `⊥`, which is exactly what a closure permits and a projection forbids;
+`isProjection_smashMap` is where the difference is spent. So the change of notion
+was the whole obstruction, and this theorem is the confirmation.
+
+Measured against `→` and `⇸`, this conjunct carries **one hypothesis fewer**:
+`[Domain U]` alone, with no `[BoundedComplete U]`. The reason is that the
+function-space conjuncts route their `Domain` obligation through
+`Domain (D → E)`, which the development proves only for bounded complete `E`
+(Theorem 7), while `Domain (D ⊗ E)` needs nothing beyond the two factors. -/
+theorem rep_smash [Domain U]
+    {fn : ScottHom U (Smash U U)} {gr : ScottHom (Smash U U) U}
+    (hfg : ∀ y, fn (gr y) = y) (hgf : ∀ x, gr (fn x) ≤ x) :
+    IsPRepresentable₂ U smashOp :=
+  isPRepresentable₂_of_repFamily hfg
+    (fun c => isFinitaryProjection_repOf hfg hgf (isProjection_smashFamily c)
+      (domain_range_smashFamily c))
+    smashFamily_mono isLUB_smashFamily
+    fun c => ⟨smashRangeOrderIso c⟩
+
+end SmashMap
 
 end ScottDomains.PRepFun

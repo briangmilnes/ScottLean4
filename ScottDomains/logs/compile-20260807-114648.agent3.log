@@ -1,0 +1,80 @@
+# r0037
+# agent3 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T11:46:48-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [960/1108] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1112/1218] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1217/1218] Building ScottDomains.PRepFun (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/PRepFun.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/PRepFun.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/PRepFun.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/PRepFun.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/PRepFun.setup.json --json
+error: ScottDomains/PRepFun.lean:1121:11: unsolved goals
+U : Type u
+inst✝ : CompletePartialOrder U
+a : ↑(Fp U)
+x : (FpImage a).carrier
+h : ↑x ≠ ⊥
+hb : x = ⊥
+⊢ ↑⊥ = ⊥
+error: ScottDomains/PRepFun.lean:1161:8: unsolved goals
+case bot
+U : Type u
+inst✝ : CompletePartialOrder U
+c : ↑(Fp U) × ↑(Fp U)
+w : (smashOp (FpImage c.1) (FpImage c.2)).carrier
+⊢ WithBot.recBotCoe ⟨⊥, ⋯⟩ (fun P => ⟨↑⟨(↑(↑P).1, ↑(↑P).2), ⋯⟩, ⋯⟩) ⊥ ≤
+      WithBot.recBotCoe ⟨⊥, ⋯⟩ (fun P => ⟨↑⟨(↑(↑P).1, ↑(↑P).2), ⋯⟩, ⋯⟩) w ↔
+    ⊥ ≤ w
+error: ScottDomains/PRepFun.lean:1173:60: Application type mismatch: The argument
+  h
+has type
+  smashRangeMap c ↑P ≤ smashRangeMap c ↑Q
+but is expected to have type
+  ↑P ≤ ↑Q
+in the application
+  WithBot.coe_le_coe.mp h
+error: ScottDomains/PRepFun.lean:1175:60: Application type mismatch: The argument
+  h
+has type
+  ↑P ≤ ↑Q
+but is expected to have type
+  ↑⟨(↑(↑P).1, ↑(↑P).2), ⋯⟩ ≤ ↑⟨(↑(↑Q).1, ↑(↑Q).2), ⋯⟩
+in the application
+  WithBot.coe_le_coe.mp h
+error: ScottDomains/PRepFun.lean:1181:13: Type mismatch
+  ⟨(⟨(↑k).1, h₁⟩, ⟨(↑k).2, h₂⟩), ⋯⟩
+has type
+  { p // p.1 ≠ ⊥ ∧ p.2 ≠ ⊥ }
+but is expected to have type
+  (smashOp (FpImage c.1) (FpImage c.2)).carrier
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.PRepFun
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:02.23
+Maximum resident set size (kbytes): 1807236
+--- build ---
+finished:         2026-08-07T11:46:52-07:00
+exit status:      1
+user cpu:         3.48s
+system cpu:       0.68s
+cpu use:          186%
+peak rss single:  1764 MiB (largest one process, GNU time)
+peak pss tree:    1896 MiB (process group, shared pages apportioned)
+peak rss tree:    2566 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 5
+lake errors:      2
+sorry decls:      1
+other warnings:   0
