@@ -1,0 +1,61 @@
+# r0036
+# agent4 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-07T08:59:57-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [962/1138] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+⚠ [1105/1138] Replayed ScottDomains.Skeleton.Recovered
+warning: ScottDomains/Skeleton/Recovered.lean:257:8: declaration uses `sorry`
+ℹ [1108/1138] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1137/1138] Building ScottDomains.PRep (874ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/PRep.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/PRep.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/PRep.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/PRep.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/PRep.setup.json --json
+error: ScottDomains/PRep.lean:436:11: Tactic `assumption` failed
+
+α : Type u
+inst✝¹ : CompletePartialOrder α
+inst✝ : Domain α
+d : Set (ScottHom α α)
+hne : d.Nonempty
+hd : DirectedOn (fun x1 x2 => x1 ≤ x2) d
+hfp : ∀ p ∈ d, p.IsFinitaryProjection
+hp : ∀ p ∈ d, p.IsProjection
+hP : (sSup d).IsProjection
+hsup : ∀ (x : α), IsLUB ((fun f => f x) '' d) ((sSup d) x)
+hle : ∀ p ∈ d, p ≤ sSup d
+hrange : ∀ p ∈ d, Set.range ⇑p ⊆ Set.range ⇑(sSup d)
+this : CompletePartialOrder ↑(Set.range ⇑(sSup d)) := hP.rangeCompletePartialOrder
+x : ↑(Set.range ⇑(sSup d))
+c : α
+⊢ c ∈ Set.range ⇑(sSup d)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.PRep
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.65
+Maximum resident set size (kbytes): 1785124
+--- build ---
+finished:         2026-08-07T09:00:00-07:00
+exit status:      1
+user cpu:         1.94s
+system cpu:       0.55s
+cpu use:          150%
+peak rss single:  1743 MiB (largest one process, GNU time)
+peak pss tree:    1880 MiB (process group, shared pages apportioned)
+peak rss tree:    2550 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      2
+other warnings:   0
