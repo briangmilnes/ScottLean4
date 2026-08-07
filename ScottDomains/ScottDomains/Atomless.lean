@@ -650,4 +650,30 @@ theorem thm27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComplete 
 
 end Thm27
 
+/-! ### The hypotheses are satisfiable, and the conclusion is not vacuous
+
+A class with no instance and a theorem quantified over it are unfalsifiable: an
+error in `CountableBC` or in `psi` would go undetected if nothing ever satisfied
+the one or was ever fed to the other. Two witnesses, both cost-free.
+
+`U₀` is itself a countable poset with a least element whose bounded pairs have
+least upper bounds — that is `U₀.exists_isLUB_pair`, the same fact `U`'s bounded
+completeness consumes — and it is `Nontrivial` (`Dyadic.bot_lt_lowerHalf`). So
+`psi` is applied to a poset with at least two elements, and `psi_injective` then
+says its image has at least two. `U` is a bounded complete domain, so Theorem 27
+applies to it. -/
+
+instance : CountableBC U₀ where
+  countable := inferInstance
+  exists_isLUB_pair := U₀.exists_isLUB_pair
+
+example : Dyadic.IsNormallyRepresented U₀ := isNormallyRepresented U₀
+
+example : Nontrivial U₀ := inferInstance
+
+/-- Theorem 27 at `D = U`, which exercises `Domain`, `BoundedComplete`,
+`CountableBC ↥(compacts U)` and `thm27` together. -/
+example : ∃ (e : ScottHom Dyadic.U Dyadic.U) (p : ScottHom Dyadic.U Dyadic.U),
+    ScottHom.IsEmbeddingProjectionPair e p := thm27 Dyadic.U
+
 end ScottDomains.Atomless

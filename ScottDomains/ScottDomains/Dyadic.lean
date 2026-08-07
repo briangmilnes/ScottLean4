@@ -410,17 +410,25 @@ there, and the split is made a definition: `IsNormallyRepresented A` below is th
 paragraph's conclusion, and `thm27_of_isNormallyRepresented` is everything after
 it, proved.
 
-**What is proved and what is assumed.** `thm27_of_isNormallyRepresented` is a
-Lean-checked theorem: from a normal subposet `N ◁ U₀` order-isomorphic to `K(D)`
-it constructs the embedding–projection pair `(e, p)` with `p ∘ e = id` and
-`e ∘ p ⊑ id`, which is the paper's `p : U → D`. What is *not* proved is
-`IsNormallyRepresented ↥(compacts D)` itself. Its proof needs the uniqueness up
-to isomorphism of the countable atomless Boolean algebra — Vaught's theorem, by
-back-and-forth — and Mathlib v4.32.2 has no atomless Boolean algebras at all:
-`IsAtomless` has zero occurrences in `Mathlib/`, and `Mathlib/ModelTheory/` has
-zero occurrences of "atomless". Nothing weaker will do, because the paper's `j`
-is exactly the embedding that theorem supplies. That single missing input is the
-whole gap, and it is stated here as one `Prop` rather than as prose.
+**What is proved here and where the rest is.** `thm27_of_isNormallyRepresented`
+is a Lean-checked theorem: from a normal subposet `N ◁ U₀` order-isomorphic to
+`K(D)` it constructs the embedding–projection pair `(e, p)` with `p ∘ e = id` and
+`e ∘ p ⊑ id`, which is the paper's `p : U → D`. `IsNormallyRepresented` names the
+paragraph's conclusion so that this half can be stated and checked on its own.
+
+`IsNormallyRepresented ↥(compacts D)` is **proved**, in `ScottDomains.Atomless`
+(r0036), and `Atomless.thm27` is Theorem 27 with no hypothesis at all. Two
+earlier claims made in this docstring were wrong and are corrected here. The
+first was that the proof needs the uniqueness up to isomorphism of the countable
+atomless Boolean algebra — Vaught's theorem, by back-and-forth. It does not: that
+is how the *paper* reaches the embedding `j`, but what Theorem 27 consumes is
+only that `K(D)` is order-isomorphic to a normal subposet of `U₀`, and
+`Atomless.psi` builds one directly. The second was that "nothing weaker will do";
+`Atomless` uses no Boolean algebra, no atomlessness, and no categoricity. What is
+still true is the measurement that motivated the split: Mathlib v4.32.2 has zero
+occurrences of `IsAtomless` in `Mathlib/` and zero occurrences of "atomless" in
+`Mathlib/ModelTheory/`, so the paper's own route would have had to be built from
+nothing.
 
 **Where bounded completeness is spent.** Not here. The construction below needs
 only `Domain D`; `BoundedComplete D` is what the paper spends in the *assumed*
@@ -441,9 +449,10 @@ universe u
 
 variable {D : Type u} [CompletePartialOrder D] [Domain D] {N : Set U₀}
 
-/-- **The paper's Boolean-algebra step, as a hypothesis.** `A` is isomorphic to a
-normal subposet of the basis `U₀`. For `A = K(D)` this is the last sentence of
-§7.3's proof paragraph, and it is the only part of Theorem 27 not proved here. -/
+/-- **The paper's Boolean-algebra step, as a named `Prop`.** `A` is isomorphic to
+a normal subposet of the basis `U₀`. For `A = K(D)` this is the last sentence of
+§7.3's proof paragraph; it is the only part of Theorem 27 not proved in this
+module, and `Atomless.isNormallyRepresented` proves it. -/
 def IsNormallyRepresented (A : Type*) [PartialOrder A] : Prop :=
   ∃ N : Set U₀, IsNormalIn N (Set.univ : Set U₀) ∧ Nonempty (A ≃o ↥N)
 
@@ -635,10 +644,11 @@ theorem thm27_of_isNormallyRepresented (D : Type u) [CompletePartialOrder D] [Do
   exact ⟨embHom φ, projHom φ hN,
     projElem_embIdeal φ hN, embIdeal_projElem_le φ hN⟩
 
-/-- **Theorem 27** as the paper states it, with its unformalized step named as a
-hypothesis: *for any bounded complete domain `D` there is a projection
-`p : U → D`*. See the section docstring for what `IsNormallyRepresented` is and
-why it is assumed. -/
+/-- **Theorem 27** as the paper states it, with the Boolean-algebra step carried
+as a named hypothesis: *for any bounded complete domain `D` there is a projection
+`p : U → D`*. `Atomless.thm27` is the same statement with the hypothesis
+discharged; this form is kept because it is the one whose proof lives here, and
+because it records exactly where the paragraph was cut. -/
 theorem thm27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComplete D]
     (h : IsNormallyRepresented ↥(compacts D)) :
     ∃ (e : ScottHom D U) (p : ScottHom U D), ScottHom.IsEmbeddingProjectionPair e p :=
