@@ -64,18 +64,39 @@ pair, and `PRep`'s scheme turns the pair into a representation.
 | # | Result | Statement |
 | - | ------ | --------- |
 | 1 | `pairAtU` | Theorem 27 transposed into `PRep`'s `(fn, gr)` shape |
-| 2 | `repProdAtU` | `IsPRepresentable₂ Dyadic.U prodOp` — **no hypothesis** |
-| 3 | `repLiftAtU` | `IsPRepresentable Dyadic.U liftOp` — **no hypothesis** |
-| 4 | `lemma28AtU_of` | `Lemma28AtU` from the seven conjuncts still open |
+| 2 | `repProdAtU` | conjunct 3, `×` — **no hypothesis** |
+| 3 | `repSepSumAtU` | conjunct 5, `+` — **no hypothesis** |
+| 4 | `repCoalSumAtU` | conjunct 6, `⊕` — **no hypothesis** |
+| 5 | `repLiftAtU` | conjunct 7, `(·)⊥` — **no hypothesis** |
+| 6 | `lemma28AtU_of` | `Lemma28AtU` from the five conjuncts still open |
+
+Conjuncts 5 and 6 are proved here for the first time, at any carrier:
+`rep_coalSum` and `rep_sepSum` are the abstract forms, `domain_coalescedSum` is
+the closure property they need, and the two `AtU` theorems are their
+instantiations.
 
 `lemma28AtU_of` is the deliverable the conjunct work feeds: its arity is the
-count of what remains, and it drops by one each time a conjunct is proved.
+count of what remains — `→`, `⇸`, `⊗`, `(·)♯`, `(·)♭`, five of nine — and it
+drops by one each time a conjunct is proved.
+
+## The closure property the library was missing
+
+`IsPRepresentable` routes through a `Domain` on the operator's image, and
+`Domain` is `IsAlgebraic` together with a countable basis. The coalesced sum
+carries **Lemma 10** (bounded completeness, `lem10_sum`) and **Lemma 17**
+(bifiniteness, `lem17_sum`) and nothing else: `IsAlgebraic (CoalescedSum A B)` is
+proved nowhere in the development, because §4.5 and §6.2 are the only closure
+properties the paper states for it and neither is algebraicity. That is the one
+real gap the `⊕` conjunct hits, and it is a gap in the library rather than in the
+notion. `isAlgebraic_coalescedSum` and `domain_coalescedSum` below close it, from
+`Skeleton/Sum.lean`'s compactness criterion. `+` inherits the result rather than
+routing around it, since `SeparatedSum A B` *is* `CoalescedSum A⊥ B⊥`.
 
 ## No conjunct is stubbed
 
 There is no `sorry` in this file. A conjunct not proved is a hypothesis of
 `lemma28AtU_of` and is named in the table above; it is never a hole in a claimed
-proof.
+proof, and no algebraicity obligation is carried as an unproved assumption.
 -/
 
 namespace ScottDomains.PRepSum
@@ -801,6 +822,217 @@ theorem rep_coalSum [Domain U] {fn : ScottHom U (CoalescedSum U U)}
 
 end CoalSumConjunct
 
+/-! ## The coalesced sum respects `≅`
+
+Lemma 28's `+` conjunct *is* its `⊕` conjunct at the lifted maps, because §4.4
+defines `D + E = D⊥ ⊕ E⊥` — an equation between cpos, which is why
+`ClosureProperties.SeparatedSum` is an `abbrev`. Composing the two range
+isomorphisms needs the coalesced sum to carry an isomorphism of its summands,
+which it does: an order isomorphism preserves the least element, so it carries
+the punctured copy to the punctured copy and the adjoined bottom to the adjoined
+bottom.
+
+The four cpos are **explicit** arguments. `A.carrier` is a projection applied to
+its argument, so Lean cannot recover `A` from the type of `e : A.carrier ≃o
+A'.carrier`; passing the cpos by hand is what keeps the instances on the
+subtypes — which are never found by instance search — pinned to the ones the
+statement means. -/
+
+section CoalSumCongr
+
+/-- An order isomorphism preserves `⊥`: `⊥` is the least element on both sides
+and an order isomorphism is a surjection preserving `≤` both ways. -/
+theorem orderIso_apply_bot (A A' : Cpo.{u}) (e : A.carrier ≃o A'.carrier) :
+    e ⊥ = (⊥ : A'.carrier) :=
+  le_antisymm
+    (by
+      have h : e ⊥ ≤ e (e.symm ⊥) := e.le_iff_le.mpr (bot_le : (⊥ : A.carrier) ≤ e.symm ⊥)
+      rwa [e.apply_symm_apply] at h)
+    bot_le
+
+theorem orderIso_apply_ne_bot (A A' : Cpo.{u}) (e : A.carrier ≃o A'.carrier)
+    {x : A.carrier} (hx : x ≠ ⊥) : e x ≠ ⊥ :=
+  fun h => hx (e.injective (h.trans (orderIso_apply_bot A A' e).symm))
+
+/-- `e ⊕ f`, on the underlying function. -/
+noncomputable def coalSumCongrFun (A A' B B' : Cpo.{u})
+    (e : A.carrier ≃o A'.carrier) (f : B.carrier ≃o B'.carrier)
+    (w : CoalescedSum A.carrier B.carrier) : CoalescedSum A'.carrier B'.carrier :=
+  WithBot.recBotCoe (C := fun _ => CoalescedSum A'.carrier B'.carrier) ⊥
+    (fun t => Sum.elim (fun a : A.carrier => sumInl B'.carrier (e a))
+      (fun b : B.carrier => sumInr A'.carrier (f b)) t.val) w
+
+@[simp] theorem coalSumCongrFun_bot (A A' B B' : Cpo.{u})
+    (e : A.carrier ≃o A'.carrier) (f : B.carrier ≃o B'.carrier) :
+    coalSumCongrFun A A' B B' e f ⊥ = ⊥ := rfl
+
+@[simp] theorem coalSumCongrFun_sumInl (A A' B B' : Cpo.{u})
+    (e : A.carrier ≃o A'.carrier) (f : B.carrier ≃o B'.carrier) (x : A.carrier) :
+    coalSumCongrFun A A' B B' e f (sumInl B.carrier x) = sumInl B'.carrier (e x) := by
+  by_cases hx : x = ⊥
+  · rw [hx, sumInl_bot, coalSumCongrFun_bot, orderIso_apply_bot, sumInl_bot]
+  · rw [sumInl_of_ne_bot hx]; rfl
+
+@[simp] theorem coalSumCongrFun_sumInr (A A' B B' : Cpo.{u})
+    (e : A.carrier ≃o A'.carrier) (f : B.carrier ≃o B'.carrier) (y : B.carrier) :
+    coalSumCongrFun A A' B B' e f (sumInr A.carrier y) = sumInr A'.carrier (f y) := by
+  by_cases hy : y = ⊥
+  · rw [hy, sumInr_bot, coalSumCongrFun_bot, orderIso_apply_bot, sumInr_bot]
+  · rw [sumInr_of_ne_bot hy]; rfl
+
+theorem coalSumCongrFun_le_iff (A A' B B' : Cpo.{u})
+    (e : A.carrier ≃o A'.carrier) (f : B.carrier ≃o B'.carrier)
+    (w w' : CoalescedSum A.carrier B.carrier) :
+    coalSumCongrFun A A' B B' e f w ≤ coalSumCongrFun A A' B B' e f w' ↔ w ≤ w' := by
+  rcases coalescedSum_cases w with rfl | ⟨x, hx, rfl⟩ | ⟨y, hy, rfl⟩
+  · simp
+  · have hex : e x ≠ ⊥ := orderIso_apply_ne_bot A A' e hx
+    rcases coalescedSum_cases w' with rfl | ⟨x', _, rfl⟩ | ⟨y', _, rfl⟩
+    · rw [coalSumCongrFun_sumInl, coalSumCongrFun_bot]
+      exact iff_of_false (not_sumInl_le_bot hex) (not_sumInl_le_bot hx)
+    · rw [coalSumCongrFun_sumInl, coalSumCongrFun_sumInl, sumInl_le_sumInl_iff hex,
+        sumInl_le_sumInl_iff hx]
+      exact e.le_iff_le
+    · rw [coalSumCongrFun_sumInl, coalSumCongrFun_sumInr]
+      exact iff_of_false (not_sumInl_le_sumInr hex _) (not_sumInl_le_sumInr hx _)
+  · have hfy : f y ≠ ⊥ := orderIso_apply_ne_bot B B' f hy
+    rcases coalescedSum_cases w' with rfl | ⟨x', _, rfl⟩ | ⟨y', _, rfl⟩
+    · rw [coalSumCongrFun_sumInr, coalSumCongrFun_bot]
+      exact iff_of_false (not_sumInr_le_bot hfy) (not_sumInr_le_bot hy)
+    · rw [coalSumCongrFun_sumInr, coalSumCongrFun_sumInl]
+      exact iff_of_false (not_sumInr_le_sumInl hfy _) (not_sumInr_le_sumInl hy _)
+    · rw [coalSumCongrFun_sumInr, coalSumCongrFun_sumInr, sumInr_le_sumInr_iff hfy,
+        sumInr_le_sumInr_iff hy]
+      exact f.le_iff_le
+
+/-- **`A ≅ A'` and `B ≅ B'` give `A ⊕ B ≅ A' ⊕ B'`.** The inverse is the
+congruence of the inverses; both round trips are the three cases of
+`coalescedSum_cases` with `OrderIso.symm_apply_apply`. -/
+noncomputable def coalSumCongr (A A' B B' : Cpo.{u})
+    (e : A.carrier ≃o A'.carrier) (f : B.carrier ≃o B'.carrier) :
+    CoalescedSum A.carrier B.carrier ≃o CoalescedSum A'.carrier B'.carrier where
+  toFun := coalSumCongrFun A A' B B' e f
+  invFun := coalSumCongrFun A' A B' B e.symm f.symm
+  left_inv w := by
+    rcases coalescedSum_cases w with rfl | ⟨x, _, rfl⟩ | ⟨y, _, rfl⟩ <;> simp
+  right_inv w := by
+    rcases coalescedSum_cases w with rfl | ⟨x, _, rfl⟩ | ⟨y, _, rfl⟩ <;> simp
+  map_rel_iff' := coalSumCongrFun_le_iff A A' B B' e f _ _
+
+end CoalSumCongr
+
+/-! ## Conjunct 5: `+` is p-representable
+
+Nothing here is a new construction. §4.4's `D + E = D⊥ ⊕ E⊥` makes the
+conjugating family for `+` the conjugating family for `⊕` at the lifted maps —
+`r + s = r⊥ ⊕ s⊥` — and each of the four obligations is then a composition of a
+`⊕` fact with a `(·)⊥` fact already proved:
+
+| # | Obligation | `⊕` half | `(·)⊥` half |
+| - | ---------- | -------- | ----------- |
+| 1 | projection | `isProjection_coalSumMap` | `PRep.isProjection_liftMap` |
+| 2 | monotone in `(r, s)` | `coalSumMap_mono` | `PRep.liftFamily_mono` |
+| 3 | `im` a domain | `domain_range_coalSumMap` | `PRep.domain_range_liftMap` |
+| 4 | the range isomorphism | `coalSumRangeOrderIso` then `coalSumCongr` | `PRep.liftRangeOrderIso` |
+| 5 | index continuity | `scottContinuous_sumInl` | `PRep.isLUB_liftFamily` |
+
+This is the measurement the plan predicted: `+` is the cheapest of the four
+because the paper's definition of it *is* a composition, and
+`ClosureProperties.lem10_separated` obtained `+` for Lemma 10 the same way. -/
+
+section SepSumConjunct
+
+open ScottHom ClosureProperties
+
+variable {U : Type u} [CompletePartialOrder U]
+
+/-- **`r + s = r⊥ ⊕ s⊥`**, the conjugating family for `+`. -/
+noncomputable def sepSumFamily (q : ↥(Fp U) × ↥(Fp U)) :
+    ScottHom (SeparatedSum U U) (SeparatedSum U U) :=
+  coalSumMap (liftFamily q.1) (liftFamily q.2)
+    (isProjection_liftFamily q.1).map_bot (isProjection_liftFamily q.2).map_bot
+
+theorem isProjection_sepSumFamily (q : ↥(Fp U) × ↥(Fp U)) : IsProjection (sepSumFamily q) :=
+  isProjection_coalSumMap (isProjection_liftFamily q.1) (isProjection_liftFamily q.2)
+
+theorem sepSumFamily_mono {q q' : ↥(Fp U) × ↥(Fp U)} (h : q ≤ q') :
+    sepSumFamily q ≤ sepSumFamily q' :=
+  coalSumMap_mono (liftFamily_mono h.1) (liftFamily_mono h.2)
+
+/-- **`im(r + s) ≅ im(r) + im(s)`**: the coalesced-sum range isomorphism at the
+lifted maps, followed by the congruence along `im(r⊥) ≅ (im r)⊥`. -/
+noncomputable def sepSumRangeOrderIso (q : ↥(Fp U) × ↥(Fp U)) :
+    ↥(Set.range ⇑(sepSumFamily q)) ≃o (sepSumOp (FpImage q.1) (FpImage q.2)).carrier :=
+  (coalSumRangeOrderIso (isProjection_liftFamily q.1) (isProjection_liftFamily q.2)).trans
+    (coalSumCongr (projCpo (isProjection_liftFamily q.1)) (liftOp (FpImage q.1))
+      (projCpo (isProjection_liftFamily q.2)) (liftOp (FpImage q.2))
+      (liftRangeOrderIso q.1.val) (liftRangeOrderIso q.2.val))
+
+/-- **`im(r + s)` is a domain**: `domain_range_coalSumMap` at the lifted maps,
+whose two hypotheses are `PRep.domain_range_liftMap`. -/
+theorem domain_range_sepSumFamily (q : ↥(Fp U) × ↥(Fp U)) :
+    @Domain _ (IsProjection.rangeCompletePartialOrder (isProjection_sepSumFamily q)) :=
+  domain_range_coalSumMap (isProjection_liftFamily q.1) (isProjection_liftFamily q.2)
+    (domain_range_liftMap (mem_Fp.mp q.1.2).isProjection (mem_Fp.mp q.1.2).domain)
+    (domain_range_liftMap (mem_Fp.mp q.2.2).isProjection (mem_Fp.mp q.2.2).domain)
+
+/-- Pointwise Scott continuity of `r + s` in its `Fp(U) × Fp(U)` index. The
+adjoined bottom is constant; each summand is `PRep.isLUB_liftFamily` — which is
+where `isFinitaryProjection_sSup` is spent — followed by Scott continuity of the
+injection. -/
+theorem isLUB_sepSumFamily [Domain U] {d : Set (↥(Fp U) × ↥(Fp U))}
+    (hne : d.Nonempty) (hd : DirectedOn (· ≤ ·) d) {a : ↥(Fp U) × ↥(Fp U)}
+    (ha : IsLUB d a) (z : SeparatedSum U U) :
+    IsLUB ((fun q => sepSumFamily q z) '' d) (sepSumFamily a z) := by
+  have hdfst : DirectedOn (· ≤ ·) (Prod.fst '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.1, ⟨c, hc, rfl⟩, hpc.1, hqc.1⟩
+  have hdsnd : DirectedOn (· ≤ ·) (Prod.snd '' d) := by
+    rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+    obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+    exact ⟨c.2, ⟨c, hc, rfl⟩, hpc.2, hqc.2⟩
+  rcases coalescedSum_cases z with rfl | ⟨x, _, rfl⟩ | ⟨y, _, rfl⟩
+  · refine ⟨?_, fun u _ => ?_⟩
+    · rintro _ ⟨q, _, rfl⟩; exact le_rfl
+    · exact bot_le
+  · have h₁ := isLUB_liftFamily (hne.image _) hdfst (isLUB_prod.mp ha).1 x
+    rw [Set.image_image] at h₁
+    have hdx : DirectedOn (· ≤ ·)
+        ((fun q : ↥(Fp U) × ↥(Fp U) => liftFamily q.1 x) '' d) := by
+      rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+      obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+      exact ⟨liftFamily c.1 x, ⟨c, hc, rfl⟩, liftFamily_mono hpc.1 x, liftFamily_mono hqc.1 x⟩
+    have hcont := scottContinuous_sumInl (A := WithBot U) (B := WithBot U)
+      (hne.image _) hdx h₁
+    rw [Set.image_image] at hcont
+    simpa [sepSumFamily] using hcont
+  · have h₂ := isLUB_liftFamily (hne.image _) hdsnd (isLUB_prod.mp ha).2 y
+    rw [Set.image_image] at h₂
+    have hdy : DirectedOn (· ≤ ·)
+        ((fun q : ↥(Fp U) × ↥(Fp U) => liftFamily q.2 y) '' d) := by
+      rintro _ ⟨p, hp, rfl⟩ _ ⟨q, hq, rfl⟩
+      obtain ⟨c, hc, hpc, hqc⟩ := hd p hp q hq
+      exact ⟨liftFamily c.2 y, ⟨c, hc, rfl⟩, liftFamily_mono hpc.2 y, liftFamily_mono hqc.2 y⟩
+    have hcont := scottContinuous_sumInr (A := WithBot U) (B := WithBot U)
+      (hne.image _) hdy h₂
+    rw [Set.image_image] at hcont
+    simpa [sepSumFamily] using hcont
+
+/-- **`+` is p-representable over any domain that retracts onto its own separated
+square** — conjunct 5 of Lemma 28, at the notion §7.3 uses. -/
+theorem rep_sepSum [Domain U] {fn : ScottHom U (SeparatedSum U U)}
+    {gr : ScottHom (SeparatedSum U U) U}
+    (hfg : ∀ y, fn (gr y) = y) (hgf : ∀ x, gr (fn x) ≤ x) :
+    IsPRepresentable₂ U sepSumOp :=
+  isPRepresentable₂_of_repFamily hfg
+    (fun q => isFinitaryProjection_repOf hfg hgf (isProjection_sepSumFamily q)
+      (domain_range_sepSumFamily q))
+    sepSumFamily_mono isLUB_sepSumFamily
+    fun q => ⟨sepSumRangeOrderIso q⟩
+
+end SepSumConjunct
+
 /-! ## Lemma 28 at `U`, from what remains -/
 
 /-- **`⊕` is p-representable over `U`** — conjunct 6 of Lemma 28, at the paper's
@@ -813,6 +1045,17 @@ theorem repCoalSumAtU : IsPRepresentable₂ Dyadic.U coalSumOp := by
   obtain ⟨_fn, _gr, hfg, hgf⟩ := pairAtU (CoalescedSum Dyadic.U Dyadic.U)
   exact rep_coalSum hfg hgf
 
+/-- **`+` is p-representable over `U`** — conjunct 5 of Lemma 28, at the paper's
+own carrier and with no hypothesis. `U + U = U⊥ ⊕ U⊥` is a bounded complete
+domain: `ClosureProperties.liftDomain` and `domain_coalescedSum` for the domain
+half, Lemma 10's fifth conjunct (`lem10_separated`) for bounded completeness. -/
+theorem repSepSumAtU : IsPRepresentable₂ Dyadic.U sepSumOp := by
+  haveI : Domain (ClosureProperties.SeparatedSum Dyadic.U Dyadic.U) := domain_coalescedSum
+  haveI : BoundedComplete (ClosureProperties.SeparatedSum Dyadic.U Dyadic.U) :=
+    ClosureProperties.lem10_separated
+  obtain ⟨_fn, _gr, hfg, hgf⟩ := pairAtU (ClosureProperties.SeparatedSum Dyadic.U Dyadic.U)
+  exact rep_sepSum hfg hgf
+
 /-- **`Lemma28AtU` from the conjuncts still open.** `PRep.lemma28_of` with the
 proved conjuncts substituted at `U`. The arity is the measurement: one hypothesis
 per conjunct not yet proved, and the kernel checks that the nine slots of
@@ -824,11 +1067,10 @@ theorem lemma28AtU_of
     (h_arrow : IsPRepresentable₂ Dyadic.U funOp)
     (h_strictArrow : IsPRepresentable₂ Dyadic.U strictFunOp)
     (h_smash : IsPRepresentable₂ Dyadic.U smashOp)
-    (h_sepSum : IsPRepresentable₂ Dyadic.U sepSumOp)
     (h_smyth : IsPRepresentable Dyadic.U smythOp)
     (h_hoare : IsPRepresentable Dyadic.U hoareOp) :
     Lemma28AtU :=
-  lemma28_of h_arrow h_strictArrow repProdAtU h_smash h_sepSum repCoalSumAtU
+  lemma28_of h_arrow h_strictArrow repProdAtU h_smash repSepSumAtU repCoalSumAtU
     repLiftAtU h_smyth h_hoare
 
 end ScottDomains.PRepSum
