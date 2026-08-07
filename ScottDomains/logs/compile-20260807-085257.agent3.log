@@ -1,0 +1,65 @@
+# r0036
+# agent3 — lake build ScottDomains.Atomless
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-07T08:52:57-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Atomless ===
+✖ [1036/1036] Building ScottDomains.Atomless (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Atomless.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Atomless.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Atomless.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Atomless.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Atomless.setup.json --json
+error: ScottDomains/Atomless.lean:128:2: No goals to be solved
+error: ScottDomains/Atomless.lean:187:4: linarith failed to find a contradiction
+s : ℚ
+hs : s ∈ S
+n : ℕ
+hx : 0 ≤ s * 2 ^ n
+hx' : 0 ≤ s * 2 ^ (n + 1)
+hmul : s * 2 ^ (n + 1) = 2 * (s * 2 ^ n)
+h1 : ↑(addr n s) ≤ s * 2 ^ n
+h2 : s * 2 ^ n < ↑(addr n s) + 1
+a✝ : 2 * (s * 2 ^ n) < 2 * ↑⌊s * 2 ^ n⌋₊
+⊢ False
+failed
+error: ScottDomains/Atomless.lean:522:70: Type mismatch
+  ih (n + 1)
+has type
+  n + 1 ≤ n + 1 + d → addr (n + 1) (pt b (n + 1 + d)) = digits b (n + 1)
+but is expected to have type
+  addr (n + 1) (pt b (n + 1 + d)) = digits b (n + 1)
+warning: ScottDomains/Atomless.lean:563:65: Variable name `a` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ScottDomains/Atomless.lean:563:67: Variable name `b` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+error: ScottDomains/Atomless.lean:576:10: typeclass instance problem is stuck
+  OrderBot ?m.47
+
+Note: Lean will not try to resolve this typeclass instance problem because the first and second type arguments to `OrderBot` are metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Atomless
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.90
+Maximum resident set size (kbytes): 1850080
+--- build ---
+finished:         2026-08-07T08:53:00-07:00
+exit status:      1
+user cpu:         2.56s
+system cpu:       0.54s
+cpu use:          163%
+peak rss single:  1806 MiB (largest one process, GNU time)
+peak pss tree:    1931 MiB (process group, shared pages apportioned)
+peak rss tree:    2601 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   2
