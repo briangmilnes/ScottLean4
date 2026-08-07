@@ -13,11 +13,12 @@ order, matched to its Lean equivalent.
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
 | 1 | Definitions to define | **all ≈13** — the computable function landed in r0031; see the note below on `D∞` | 0 | ≈13 |
-| 2 | **Numbered** results complete | **19** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Lem 10, Thm 11, Lem 13, Prop 15, Lem 17, Lem 19, Lem 20, Thm 21, Thm 22, Lem 23, **Lem 24**, **Thm 25**) | 9 | **29** |
+| 2 | **Numbered** results complete | **20** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Thm 11, **Thm 12**, Lem 13, Prop 15, Lem 19, Lem 20, Thm 21, Thm 22, Lem 23, Lem 24, Thm 25) — plus Lem 10 and Lem 17, **partially**, see row 2b | 9 | **29** |
 | 2a | — **resolved by refutation** | **Thm 16** — the algebraic-lattice conjunct is proved; the `Fp(D) ↪ (D → D)` embedding conjunct is **false**, kernel-checked (r0032). The result is settled, but it is not a proof of the paper's sentence, so it is counted in neither column | — | — |
+| 2b | — **conjunct counts corrected (r0032)** | **Lem 10 is 6 of 7**; **Lem 17 is 5 of 10**. Earlier drafts called both complete. See the note below on the dropped glyphs | — | — |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **590** live (+6 commented out as unused) | — | — |
+| 5 | Theorems in the development | **659** live (+6 commented out as unused) | — | — |
 | 6 | `sorry` in the development | — | **1**: `thm18` in `Skeleton/Section6.lean` | — |
 
 **Round r0032.** Five agents; three landed, two were still running when this was
@@ -28,6 +29,32 @@ written.
 | 1 | `Universality.lean` | **Lemma 24** and **Theorem 25**, with `thm25_powerset`: `P N` is universal. Proved at *cpo* strength — no step spends algebraicity or countability, so it is stronger than the paper's statement |
 | 2 | `IdealCompletion.lean`, `Powerdomain/BoundedComplete.lean` | the **`idealSup` repair**, and bounded completeness reinstated for `D♭` and `D♯` |
 | 3 | `FinitaryProjectionEmbedding.lean` | **Theorem 16's embedding conjunct refuted** |
+| 4 | `ContinuousAlgebra.lean` | **Theorem 12** for all three powerdomains, existence *and* uniqueness, 1254 lines, 0 `sorry` |
+| 5 | `Skeleton/Recovered.lean`, `docs/StatementRecovery.md` | **Lemma 9 and Theorem 14 recovered** from the PDF — both were recorded as "not statable" |
+
+**`pdftotext` drops glyphs, and four inventory rows undercounted because of it.**
+The paper's 18 embedded Type 3 fonts carry `Custom` encoding with no `ToUnicode`
+map: codes ≥ `0x20` leak through as ASCII, and **codes below `0x20` vanish
+silently**. Those are standard TeX positions, pinned by the leaked ASCII
+(`0x21`→`→`, `0x3F`→`⊥`, `0x76`→`⊑`, all `cmsy10`), so decoding the content stream
+against `cmsy10`/`cmr10`/`cmmi10` recovers the text character for character; a
+`pdftocairo` rendering confirms it independently. Consequences:
+
+* **`+` and `⊕` are different operators, and what this development has is `⊕`.**
+  `lem10_sum` and `lem17_sum` range over `CoalescedSum`, so they discharge the
+  `⊕` conjuncts, not the `+` ones earlier drafts credited them with. `+` should be
+  cheap: `D + E = D⊥ ⊕ E⊥`.
+* **The strict arrow is two glyphs**, `openbullet` + `arrowright`; both `→` and
+  `◦→` extract as `!`, so every earlier extraction conflated two function spaces.
+* **Lemma 17's three powerdomain conjuncts `D♮, D♯, D♭` were never stated**,
+  though all three powerdomains have existed since r0029.
+* **Theorem 12's base theory is `T♮`** (natural), not an undecorated `T`:
+  `pdftotext` renders `♮`/`♯`/`♭` as `\`/`]`/`[`, losing the accidental.
+* **Two of Lemma 9's conjuncts are misprints** — items 3 and 5 are *false as
+  printed*, refuted on `D = E = Prop`, `F = Prop × Prop` by cardinality (10 vs 8,
+  and 5 vs 3). The corrections are forced, and item 3's is the universal property
+  of `⊕` that the paper states three pages earlier. Recorded in
+  `docs/StatementRecovery.md`; not yet put under the kernel.
 
 **Theorem 16's second conjunct is false.** The paper asserts the inclusion
 `i : Fp(D) ↪ (D → D)` is an embedding. Against a five-element bifinite domain
@@ -242,8 +269,10 @@ it exists and what is instructive about it, and the build is unchanged — which
 also confirms that the three `@[simp]` ones among them were never firing
 implicitly.
 
-The development is **43 modules, 12575 lines, 1 `sorry`, 0 other warnings**
-(measured by `scripts/counts.sh`). Counts of
+The development is **45 modules, 14048 lines, 8 `sorry`, 0 other warnings**
+(measured by `scripts/counts.sh`). Seven of the eight `sorry`s are the newly
+*statable* Lemma 9 and Theorem 14 in `Skeleton/Recovered.lean`; the eighth is
+`thm18`. Counts of
 definitions, results and theorems are in the Progress table above — they are not
 repeated here, so that this section cannot drift out of step with it. What each
 round delivered:
@@ -370,12 +399,12 @@ Mathlib v4.32.2, confirmed by grep).
 | 4.3 | Def | — | **smash product** `D ⊗ E` | ✓ `ScottDomains.Smash` + `smashCpo` (r0025) |
 | 4.4 | Def | — | **sum** `D + E`; **lift** `D⊥` | both ✓ — lift `ScottDomains.liftCpo` on `WithBot` (r0023); the coalesced sum `CoalescedSum` with `sumSup` and `sumCpo` (r0028), its `sSup` guarded on landing in `NonBotSum` |
 | 4.x | Lem | 8 | `D×E ≅ E×D`; `(D×E)×F ≅ D×(E×F)`; `D→(E×F) ≅ (D→E)×(D→F)`; `D→(E→F) ≅ (D×E)→F` | ✓ **proved** — `prodComm`, `prodAssoc`, `scottHomProd` (r0019); `scottHomCurry` (r0021) |
-| 4.x | Lem | 9 | Product/function-space iso laws over `D,E,F` | ✗ **not statable** — the PDF drops every `⊗` and `⊥`, so which operators the laws range over is unreadable. Statement recovery is r0030 agent5's assignment |
-| 4.5 | Lem | 10 | `D,E` bounded complete ⟹ `→,×,⊗,+,()⊥` bounded complete | ✓ **proved, 6 of 6 conjuncts** — `→` r0007; `×`, `⊗`, `()⊥`, `→⊥` r0027 (`Skeleton/Lemma10.lean`); `+` r0028 (`Skeleton/Sum.lean`) |
+| 4.x | Lem | 9 | Iso laws over `D,E,F`: `D⊗E ≅ E⊗D`; `(D⊗E)⊗F ≅ D⊗(E⊗F)`; `(E⊕F) ◦→ D ≅ (E ◦→ D) × (F ◦→ D)`; `D ◦→ (E ◦→ F) ≅ (D⊗E) ◦→ F`; `D⊗(E⊕F) ≅ (D⊗E)⊕(D⊗F)`; `D⊥ ◦→ E ≅ D → E` | ✗ prove — **statements recovered** (r0032, `Skeleton/Recovered.lean`, 6 `sorry`). Four are certain, two are inferred **corrections of misprints**: items 3 and 5 are false as printed, refuted by cardinality on `D = E = Prop`, `F = Prop × Prop`. `◦→` is the strict function space; it and `→` both extract as `!` |
+| 4.5 | Lem | 10 | `D,E` bounded complete ⟹ `→, ◦→, ×, ⊗, ⊕, +, ()⊥` bounded complete | ~ **6 of 7 conjuncts** — `→` r0007; `×`, `⊗`, `()⊥`, `◦→` r0027 (`Skeleton/Lemma10.lean`); `⊕` r0028 (`Skeleton/Sum.lean`, over `CoalescedSum`). **`+` is not proved**: it is a different operator from `⊕`, and should be cheap via `D + E = D⊥ ⊕ E⊥` |
 | 4.5 | Thm | 11 | **Ideal completion** of a countable pre-order is a domain (all domains so arise) | ✓ **proved** (r0028) — `IdealCompletion.thm11` and `thm11_converse`, on Mathlib's `Order.Ideal` |
-| 4.5 | Thm | 12 | Initiality of a continuous algebra satisfying axioms `T` | ✗ prove — **statable after all** (r0031): the `T` axioms extract cleanly as a continuous `⊕` with associativity, commutativity, idempotence, plus `s ⊕ t ⊑ s` for `T♯` and `s ⊑ s ⊕ t` for `T♭`. It sits in §5.3 with Lemma 13 |
+| 4.5 | Thm | 12 | Initiality of a continuous algebra satisfying the axioms **`T♮`** (natural — not an undecorated `T`; `pdftotext` renders `♮`/`♯`/`♭` as `\`/`]`/`[`) | ✓ **proved** (r0032) — `ContinuousAlgebra.thm12_plotkin`, `thm12_smyth`, `thm12_hoare`: `T♮` → `D♮`, `T♯` → `D♯`, `T♭` → `D♭`, each `∃! h`, existence *and* uniqueness, factoring through `{|·|}` rather than the weaker principal ideals. `[IsAlgebraic D]` is the whole hypothesis — countability of `K(D)` is never used, and bounded completeness is never needed. Each free algebra is also proved a model of its own theory, a gap the plan had not named |
 | 4.5 | Lem | 13 | `D` bounded complete ⟹ powerdomains `D]`,`D[` bounded complete | ✓ **proved** (r0031) — `PowerdomainBC.lem13_hoare`, `lem13_smyth`, in the paper's wording. `D♭` needs no bounded-completeness hypothesis at all; there is no convex conjunct to prove |
-| 4.5 | Thm | 14 | Equivalent characterizations of an (algebraic/BC) domain | ✗ **not statable** — the list of characterizations is garbled. Statement recovery is r0030 agent5's assignment |
+| 4.5 | Thm | 14 | Equivalent characterizations of an (algebraic/BC) domain | ✗ prove — **statement recovered** (r0032, `Skeleton/Recovered.lean`, 1 `sorry`). The text was never garbled; only the `fi` ligature drops. The real blocker was that `Bifinite.lean` *defines* `IsBifinite` as condition 2, making the theorem `P ↔ P`; `IsBifiniteViaProjections` supplies condition 1 from the paper's own definition, and `thm14` is the equivalence — the result that licenses §6's use of the Plotkin-order condition as the definition |
 
 ## §5 Powerdomains
 
@@ -392,7 +421,7 @@ Mathlib v4.32.2, confirmed by grep).
 | 6.1 | Def | — | **Plotkin order** / **bifinite (SFP) domain** | ✓ `ScottDomains.IsPlotkinOrder`, `IsBifinite` (r0025) |
 | 6.1 | Prop | 15 | Every bounded-complete domain is bifinite | ✓ **proved** (r0027) — `ScottDomains.prop15`, the paper's own proof over `lubClosure u` |
 | 6.1 | Thm | 16 | `D` bifinite ⟹ `Fp(D)` is an algebraic lattice | **settled, half each way**: the algebraic-lattice conjunct ✓ **proved** (r0028) as `ScottDomains.thm16`; the `Fp(D) ↪ (D → D)` embedding conjunct ✗ **refuted** (r0032) in `FinitaryProjectionEmbedding.lean`, kernel-checked, with the sketch's exact error identified — see the note under Progress |
-| 6.2 | Lem | 17 | `D,E` bifinite ⟹ `→,×,⊗,+,()⊥` bifinite (incl. function space) | ✓ **proved, 5 of 5 conjuncts** — `×`, `()⊥`, `→` r0027 (`Skeleton/Lemma17.lean`); `⊗`, `+` r0028 (`Skeleton/Sum.lean`) |
+| 6.2 | Lem | 17 | `D,E` bifinite ⟹ `→, ◦→, ×, ⊗, ⊕, +, ()⊥, D♮, D♯, D♭` bifinite | ~ **5 of 10 conjuncts** — `×`, `()⊥`, `→` r0027 (`Skeleton/Lemma17.lean`); `⊗`, `⊕` r0028 (`Skeleton/Sum.lean`). **Not proved:** `◦→`, `+`, and the three powerdomains `D♮`, `D♯`, `D♭` — the last three were dropped from the extraction with their glyphs, though all three powerdomains have existed since r0029 |
 | 6.2 | Thm | 18 | If `D` and `D → D` are domains, then `D` is bifinite | ✗ prove — **the development's only `sorry`**. Reduced by `isBifinite_iff_mubClosure` (r0028) to two obligations; blocked on a constructor for continuous functions on a domain that is not bounded complete |
 | 6.2 | Lem | 19 | closure `r:D→D` (`r∘r=r⊒id`) ⟹ `im(r)` is a domain | ✓ **proved** — `lem19` (r0027) gives the cpo structure; `IsClosure.domain_range` (r0028) gives the paper's full strength, `im(r)` a domain with basis `{r(k) | k ∈ K(D)}` |
 | 6.2 | Lem | 20 | `D` domain ⟹ `Fc(D)` (finitary closures) is a cpo | ✓ **proved** (r0028) — `ScottDomains.lem20`, over `Fc α` with the pointwise order |
