@@ -106,6 +106,52 @@ symlinks the *same* `.lake/packages`, so the `.olean` pages are shared across
 agents as well as within one build. Memory is not the binding constraint at five
 agents, and neither is disk.
 
+## How parallel can we go?
+
+Measured directly: N checkouts building the whole library at once, each with its
+own `.lake/build` and all sharing `.lake/packages` by symlink — the r0028 agent
+layout exactly.
+
+| # | Concurrent builds | Span | Throughput (builds/s) | Speedup vs. serial | Load average |
+| -- | ----------------- | ---- | --------------------- | ------------------ | ------------ |
+| 1 | 1 | 10.53 s | 0.095 | 1.00× | 4.7 |
+| 2 | 2 | 13.71 s | 0.146 | 1.54× | 5.6 |
+| 3 | 3 | 17.43 s | 0.172 | 1.81× | 8.9 |
+| 4 | 6 | 30.16 s | 0.199 | 2.10× | 18.2 |
+
+Throughput saturates fast. Going from 3 to 6 concurrent builds buys **10% more
+throughput** while inflating each build's latency from 17 s to 30 s. The reason
+is in the work/span figures above: one build already draws ~2.8 cores, so six of
+them demand ~17 — and the load average of 18.2 confirms the machine was
+saturated.
+
+**Under a 12-core budget, the ceiling is 4 concurrent builds** (4 × 2.8 ≈ 11.2).
+
+But concurrent *builds* is not the same as concurrent *agents*, and that is the
+number that matters. An agent spends most of its wall time reasoning and reading,
+not building. During r0028's five-agent round the load average sampled 0.56,
+0.68, 0.81, 0.94 and 1.44 against 20 cores — five agents together drew about
+**1.2 cores**, roughly 0.25 each, a duty cycle near 9%. Extrapolating, a 12-core
+budget is not reached until far more agents than the collision and review limits
+below allow.
+
+| # | Constraint | Binds at | Why |
+| -- | ---------- | -------- | --- |
+| 1 | CPU, average | ~48 agents | 0.25 cores per agent against a 12-core budget |
+| 2 | CPU, bursts | ~8 agents | at a 9% duty cycle, ~4 build simultaneously, which is the 12-core ceiling |
+| 3 | Memory | ~5 concurrent builds | 2.3 GiB PSS each against 12 GiB of a 31 GiB machine |
+| 4 | **Declaration collisions** | **~6 agents** | r0028 produced 2 name clashes among 5 agents (10 pairs). Pairs grow as N(N−1)/2, so 8 agents would be ~5 clashes |
+| 5 | Review bandwidth | ~5 agents | r0028 was ~3,800 lines of Lean to read, merge and audit in one round |
+
+**Recommendation: 4 to 6 agents.** Constraint 4 is the real limit, not the
+hardware — and unlike the hardware it is fixable: give each agent its own
+namespace (`ScottDomains.Hoare`, `ScottDomains.Smyth`, …) so two agents cannot
+mint the same fully-qualified name. That was adopted in r0029.
+
+`LEAN_NUM_THREADS` is the throttle if bursts need capping: at N=3 it cut load
+average from 8.9 to 6.9 with the span unchanged (17.4 s → 17.1 s). Lake has no
+`-j` flag — `lake build -j 3` fails with `unknown short option '-j'`.
+
 ## Method, and how to repeat it
 
     scripts/compile.sh [-r rNNNN] [lake target ...]
