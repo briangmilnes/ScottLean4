@@ -28,9 +28,9 @@ prove, and says how many agents each part admits.
 | 4 | Thm 14 | equivalent characterizations of an (algebraic / BC) domain | **statement recovery** — the characterizations are garbled |
 | 5 | Thm 16 | second conjunct: `Fp(D) ↪ (D → D)` is an embedding | a documented mathematical obstacle, below |
 | 6 | Thm 18 | `D`, `D → D` domains ⟹ `D` bifinite | a missing construction, below |
-| 7 | Thm 21 | `F` representable over `U` ⟹ a domain `D` with `D ≅ F(D)` | possibly landing in r0029 |
-| 8 | Lem 24 | `U` cpo, `×` and `→` representable ⟹ setup for universality | Thm 21 |
-| 9 | Thm 25 | `U` non-trivial domain representing `×`, `→` ⟹ `U` universal | Thm 21, Lem 24 |
+| 7 | ~~Thm 21~~ | `F` representable over `U` ⟹ a domain `D` with `D ≅ F(D)` | **proved in r0029** — `ScottDomains.Recursive.thm21`, kernel-clean, together with `recursiveDomain_funSpace : IsSolvable (fun X => Cpo.funSpace X X)`, the reflexive domain |
+| 8 | Lem 24 | `U` cpo, `×` and `→` representable ⟹ setup for universality | **Lem 28's `×` conjunct** (wave A, agent2) — `→` is Lem 23, already proved |
+| 9 | Thm 25 | `U` non-trivial domain representing `×`, `→` ⟹ `U` universal | Lem 24 |
 | 10 | Thm 26 | any signature: combinators solving the equations | Thm 25 |
 | 11 | Thm 27 | any bounded-complete `D`: a projection of the universal domain onto `D` | Thm 25 |
 | 12 | Lem 28 | operators `→, ×, ⊗, +, ()⊥, ()], ()[` representable over `U` | r0029 powerdomains, Lem 23 |
@@ -77,19 +77,34 @@ table is the coordination view — who owns what, so no two agents collide.
 Wave A needs no ordering between streams. Agents 1 and 2 depend on r0029 landing
 first; agents 3, 4 and 5 do not depend on anything in flight.
 
-## Wave B — four agents, after Theorem 21
+## Wave B — two agents, not four
 
-Theorem 21 may land in r0029 with the `D∞` definition. If it does not, it is
-wave B's first stream and the rest of wave B waits on it.
+An earlier draft of this plan put Lemmas 24 and Theorems 25, 26, 27, 29 in one
+four-agent wave. That was wrong: they are **not** independent. Theorem 25 consumes
+Lemma 24; Theorems 26 and 27 both consume Theorem 25. Assigning them to four
+concurrent agents would have had three of them blocked on a sibling's unfinished
+work — the failure mode this project avoids by partitioning on the dependency
+graph, not on the section number.
+
+The genuine partition:
+
+| # | Agent | Work | Depends on |
+| -- | ----- | ---- | ---------- |
+| 1 | agent1 | **Lemma 24** then **Theorem 25** — one chain, one agent | Lem 28's `×` conjunct from wave A |
+| 2 | agent2 | **Theorem 29** — `D` bifinite ⟹ `D+` bifinite, and `D ≅ D+` | Thm 21 only, which is proved |
+
+Theorem 29 can in fact start immediately — Theorem 21 landed in r0029 — so it may
+be pulled into wave A as a sixth stream if the collision and review limits below
+allow. Everything else in §7 waits for Theorem 25.
+
+## Wave B2 — two agents, after Theorem 25
 
 | # | Agent | Work |
 | -- | ----- | ---- |
-| 1 | agent1 | **Lemma 24** and **Theorem 25** — universality of `U` |
-| 2 | agent2 | **Theorem 26** — combinators solving a signature's equations |
-| 3 | agent3 | **Theorem 27** — every bounded-complete `D` a projection of `U` |
-| 4 | agent4 | **Theorem 29** — `D` bifinite ⟹ `D+` bifinite, and `D ≅ D+` |
+| 1 | agent1 | **Theorem 26** — combinators solving a signature's equations |
+| 2 | agent2 | **Theorem 27** — every bounded-complete `D` a projection of `U` |
 
-## Wave C — three agents, after wave A's recovery
+## Wave D — three agents, after wave A's recovery
 
 Whatever agent5 recovers in wave A becomes one stream each for **Lemma 9**,
 **Theorem 12** and **Theorem 14**. If a statement cannot be recovered with
@@ -133,8 +148,8 @@ pairing with its own plan by round and recipient per GRASE rule 7.6.
 | # | Criterion | Measurement |
 | -- | --------- | ----------- |
 | 1 | Build | `Build completed successfully`, 0 errors, 0 warnings beyond declared `sorry`s |
-| 2 | Numbered results | 15 → 20 after wave A (Lem 13, Lem 28, Lem 30, Thm 16, Thm 18, less any that report an obstacle) |
-| 3 | — after wave B | → 24 (Lem 24, Thm 25, Thm 26, Thm 27, Thm 29) |
-| 4 | — after wave C | → 27 of 29, leaving only what cannot be recovered from the PDF |
+| 2 | Numbered results | **16 after r0029 merges** (Thm 21) → 21 after wave A (Lem 13, Lem 28, Lem 30, Thm 16, Thm 18, less any that report an obstacle) |
+| 3 | — after waves B and B2 | → 25 (Lem 24, Thm 25, Thm 26, Thm 27, Thm 29) |
+| 4 | — after wave D | → 28 of 29, leaving only what cannot be recovered from the PDF |
 | 5 | Axioms | every new result depends only on `propext`, `Classical.choice`, `Quot.sound` |
 | 6 | **Composition** | every new module imports together in one file — the check that would have caught r0028's clash, and which a green `lake build` does not perform |
