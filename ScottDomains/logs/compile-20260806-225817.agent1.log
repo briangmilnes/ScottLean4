@@ -1,0 +1,108 @@
+# r0034
+# agent1 — lake build ScottDomains.Isomorphism.Distribute
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-06T22:58:17-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Isomorphism.Distribute ===
+✖ [834/834] Building ScottDomains.Isomorphism.Distribute (998ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/Isomorphism/Distribute.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Isomorphism/Distribute.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Isomorphism/Distribute.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Isomorphism/Distribute.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Isomorphism/Distribute.setup.json --json
+error: ScottDomains/Isomorphism/Distribute.lean:109:30: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+xa xb : α
+ya : β
+hsa : IsNonBotSum (Sum.inl ya)
+hxa : (xa, ↑⟨Sum.inl ya, hsa⟩).1 ≠ ⊥
+hwa : (xa, ↑⟨Sum.inl ya, hsa⟩).2 ≠ ⊥
+zb : γ
+hsb : IsNonBotSum (Sum.inr zb)
+hxb : (xb, ↑⟨Sum.inr zb, hsb⟩).1 ≠ ⊥
+hwb : (xb, ↑⟨Sum.inr zb, hsb⟩).2 ≠ ⊥
+h :
+  { toFun := fun p => splitNonBotPair (↑p).1 ⋯ ↑(WithBot.unbot (↑p).2 ⋯) ⋯, invFun := joinNonBotPair, left_inv := ⋯,
+        right_inv := ⋯ }
+      ⟨(xa, ↑⟨Sum.inl ya, hsa⟩), ⋯⟩ ≤
+    { toFun := fun p => splitNonBotPair (↑p).1 ⋯ ↑(WithBot.unbot (↑p).2 ⋯) ⋯, invFun := joinNonBotPair, left_inv := ⋯,
+        right_inv := ⋯ }
+      ⟨(xb, ↑⟨Sum.inr zb, hsb⟩), ⋯⟩
+⊢ ¬splitNonBotPair xa ⋯ (Sum.inl ya) ⋯ ≤ splitNonBotPair xb ⋯ (Sum.inr zb) ⋯
+error: ScottDomains/Isomorphism/Distribute.lean:118:30: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+xa xb : α
+za : γ
+hsa : IsNonBotSum (Sum.inr za)
+hxa : (xa, ↑⟨Sum.inr za, hsa⟩).1 ≠ ⊥
+hwa : (xa, ↑⟨Sum.inr za, hsa⟩).2 ≠ ⊥
+yb : β
+hsb : IsNonBotSum (Sum.inl yb)
+hxb : (xb, ↑⟨Sum.inl yb, hsb⟩).1 ≠ ⊥
+hwb : (xb, ↑⟨Sum.inl yb, hsb⟩).2 ≠ ⊥
+h :
+  { toFun := fun p => splitNonBotPair (↑p).1 ⋯ ↑(WithBot.unbot (↑p).2 ⋯) ⋯, invFun := joinNonBotPair, left_inv := ⋯,
+        right_inv := ⋯ }
+      ⟨(xa, ↑⟨Sum.inr za, hsa⟩), ⋯⟩ ≤
+    { toFun := fun p => splitNonBotPair (↑p).1 ⋯ ↑(WithBot.unbot (↑p).2 ⋯) ⋯, invFun := joinNonBotPair, left_inv := ⋯,
+        right_inv := ⋯ }
+      ⟨(xb, ↑⟨Sum.inl yb, hsb⟩), ⋯⟩
+⊢ ¬splitNonBotPair xa ⋯ (Sum.inr za) ⋯ ≤ splitNonBotPair xb ⋯ (Sum.inl yb) ⋯
+error: ScottDomains/Isomorphism/Distribute.lean:184:26: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+za : Smash α β
+hsa : IsNonBotSum (Sum.inl za)
+zb : Smash α γ
+hsb : IsNonBotSum (Sum.inr zb)
+h :
+  { toFun := fun p => unsmashSum ↑p ⋯, invFun := resmashSum, left_inv := ⋯, right_inv := ⋯ } ⟨Sum.inl za, hsa⟩ ≤
+    { toFun := fun p => unsmashSum ↑p ⋯, invFun := resmashSum, left_inv := ⋯, right_inv := ⋯ } ⟨Sum.inr zb, hsb⟩
+⊢ ¬unsmashSum (Sum.inl za) ⋯ ≤ unsmashSum (Sum.inr zb) ⋯
+error: ScottDomains/Isomorphism/Distribute.lean:193:26: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+za : Smash α γ
+hsa : IsNonBotSum (Sum.inr za)
+zb : Smash α β
+hsb : IsNonBotSum (Sum.inl zb)
+h :
+  { toFun := fun p => unsmashSum ↑p ⋯, invFun := resmashSum, left_inv := ⋯, right_inv := ⋯ } ⟨Sum.inr za, hsa⟩ ≤
+    { toFun := fun p => unsmashSum ↑p ⋯, invFun := resmashSum, left_inv := ⋯, right_inv := ⋯ } ⟨Sum.inl zb, hsb⟩
+⊢ ¬unsmashSum (Sum.inr za) ⋯ ≤ unsmashSum (Sum.inl zb) ⋯
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Isomorphism.Distribute
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.73
+Maximum resident set size (kbytes): 1689524
+--- build ---
+finished:         2026-08-06T22:58:19-07:00
+exit status:      1
+user cpu:         1.59s
+system cpu:       0.47s
+cpu use:          119%
+peak rss single:  1649 MiB (largest one process, GNU time)
+peak pss tree:    1784 MiB (process group, shared pages apportioned)
+peak rss tree:    2443 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   0

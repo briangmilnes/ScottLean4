@@ -1,0 +1,198 @@
+# r0034
+# agent1 — lake build ScottDomains.Isomorphism.Copair
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-06T23:03:08-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Isomorphism.Copair ===
+✖ [833/833] Building ScottDomains.Isomorphism.Copair (801ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/Isomorphism/Copair.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Isomorphism/Copair.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Isomorphism/Copair.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Isomorphism/Copair.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Isomorphism/Copair.setup.json --json
+error: ScottDomains/Isomorphism/Copair.lean:73:79: unsolved goals
+β : Type u_2
+γ : Type u_3
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+⊢ (if h : True then ⊥ else ↑⟨Sum.inl ⊥, ⋯⟩) = ⊥
+warning: ScottDomains/Isomorphism/Copair.lean:74:34: This simp argument is unused:
+  dif_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only [sumInlFun,̵ ̵d̵i̵f̵_̵p̵o̵s̵ ̵r̵f̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ScottDomains/Isomorphism/Copair.lean:76:79: unsolved goals
+β : Type u_2
+γ : Type u_3
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+⊢ (if h : True then ⊥ else ↑⟨Sum.inr ⊥, ⋯⟩) = ⊥
+warning: ScottDomains/Isomorphism/Copair.lean:77:34: This simp argument is unused:
+  dif_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only [sumInrFun,̵ ̵d̵i̵f̵_̵p̵o̵s̵ ̵r̵f̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ScottDomains/Isomorphism/Copair.lean:123:8: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ScottDomains/Isomorphism/Copair.lean:173:8: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ScottDomains/Isomorphism/Copair.lean:250:66: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+g : StrictHom β α
+h : StrictHom γ α
+s : Set (CoalescedSum β γ)
+hs : DirectedOn (fun x1 x2 => x1 ≤ x2) s
+q : NonBotSum β γ
+hw : IsLUB s ↑q
+c : β
+hc : ↑q = Sum.inl c
+⊢ Sum.elim (fun y => ↑g y) (fun z => ↑h z) (Sum.inl c) = ↑g c
+error: ScottDomains/Isomorphism/Copair.lean:303:64: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+g : StrictHom β α
+h : StrictHom γ α
+s : Set (CoalescedSum β γ)
+hs : DirectedOn (fun x1 x2 => x1 ≤ x2) s
+q : NonBotSum β γ
+hw : IsLUB s ↑q
+c : β
+hc : ↑q = Sum.inl c
+hqval : copairFun g h ↑q = ↑g c
+hbase : ∀ p ∈ sumBase s, ↑p ≤ ↑q
+hleft : ∀ p ∈ sumBase s, ∃ y, ↑p = Sum.inl y
+p₀ : NonBotSum β γ
+hp₀ : p₀ ∈ sumBase s
+y₀ : β
+hy₀ : ↑p₀ = Sum.inl y₀
+hy₀b : y₀ ≠ ⊥
+hLne : (leftParts (sumBase s)).Nonempty
+hLdir : DirectedOn (fun x1 x2 => x1 ≤ x2) (leftParts (sumBase s))
+hLlub : IsLUB (leftParts (sumBase s)) c
+hg : IsLUB (⇑↑g '' leftParts (sumBase s)) (↑g c)
+p : NonBotSum β γ
+hz : ↑p ∈ s
+y : β
+hy : ↑p = Sum.inl y
+⊢ Sum.elim (fun y => ↑g y) (fun z => ↑h z) (Sum.inl y) = ↑g y
+error: ScottDomains/Isomorphism/Copair.lean:323:66: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+g : StrictHom β α
+h : StrictHom γ α
+s : Set (CoalescedSum β γ)
+hs : DirectedOn (fun x1 x2 => x1 ≤ x2) s
+q : NonBotSum β γ
+hw : IsLUB s ↑q
+c : γ
+hc : ↑q = Sum.inr c
+⊢ Sum.elim (fun y => ↑g y) (fun z => ↑h z) (Sum.inr c) = ↑h c
+error: ScottDomains/Isomorphism/Copair.lean:376:64: unsolved goals
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+g : StrictHom β α
+h : StrictHom γ α
+s : Set (CoalescedSum β γ)
+hs : DirectedOn (fun x1 x2 => x1 ≤ x2) s
+q : NonBotSum β γ
+hw : IsLUB s ↑q
+c : γ
+hc : ↑q = Sum.inr c
+hqval : copairFun g h ↑q = ↑h c
+hbase : ∀ p ∈ sumBase s, ↑p ≤ ↑q
+hright : ∀ p ∈ sumBase s, ∃ z, ↑p = Sum.inr z
+p₀ : NonBotSum β γ
+hp₀ : p₀ ∈ sumBase s
+z₀ : γ
+hz₀ : ↑p₀ = Sum.inr z₀
+hz₀b : z₀ ≠ ⊥
+hRne : (rightParts (sumBase s)).Nonempty
+hRdir : DirectedOn (fun x1 x2 => x1 ≤ x2) (rightParts (sumBase s))
+hRlub : IsLUB (rightParts (sumBase s)) c
+hh : IsLUB (⇑↑h '' rightParts (sumBase s)) (↑h c)
+p : NonBotSum β γ
+hw' : ↑p ∈ s
+z : γ
+hz : ↑p = Sum.inr z
+⊢ Sum.elim (fun y => ↑g y) (fun z => ↑h z) (Sum.inr z) = ↑h z
+error: ScottDomains/Isomorphism/Copair.lean:437:8: 'show' tactic failed, pattern
+  Sum.elim ?m.117 ?m.118 (Sum.inl y) = ↑f ?m.124
+is not definitionally equal to target
+  ↑((fun p => copair p.1 p.2) ((fun f => (restrictLeft f, restrictRight f)) f)) ↑⟨Sum.inl y, hs⟩ = ↑f ↑⟨Sum.inl y, hs⟩
+error: ScottDomains/Isomorphism/Copair.lean:441:8: 'show' tactic failed, pattern
+  Sum.elim ?m.141 ?m.142 (Sum.inr z) = ↑f ?m.148
+is not definitionally equal to target
+  ↑((fun p => copair p.1 p.2) ((fun f => (restrictLeft f, restrictRight f)) f)) ↑⟨Sum.inr z, hs⟩ = ↑f ↑⟨Sum.inr z, hs⟩
+error: ScottDomains/Isomorphism/Copair.lean:452:6: unsolved goals
+case neg
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+p : StrictHom β α × StrictHom γ α
+y : β
+hy : ¬y = ⊥
+⊢ Sum.elim (fun y => ↑p.1 y) (fun z => ↑p.2 z) ↑⟨Sum.inl y, hy⟩ = ↑p.1 y
+error: ScottDomains/Isomorphism/Copair.lean:460:6: unsolved goals
+case neg
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+p : StrictHom β α × StrictHom γ α
+z : γ
+hz : ¬z = ⊥
+⊢ Sum.elim (fun y => ↑p.1 y) (fun z => ↑p.2 z) ↑⟨Sum.inr z, hz⟩ = ↑p.2 z
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Isomorphism.Copair
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.51
+Maximum resident set size (kbytes): 1709640
+--- build ---
+finished:         2026-08-06T23:03:10-07:00
+exit status:      1
+user cpu:         1.71s
+system cpu:       0.46s
+cpu use:          143%
+peak rss single:  1669 MiB (largest one process, GNU time)
+peak pss tree:    1774 MiB (process group, shared pages apportioned)
+peak rss tree:    2433 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 10
+lake errors:      2
+sorry decls:      0
+other warnings:   4
