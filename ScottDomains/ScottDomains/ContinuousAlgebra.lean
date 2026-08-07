@@ -129,6 +129,28 @@ theorem op_mono_left {a b c : E} (h : a ≤ b) : a ⋓ c ≤ b ⋓ c := op_mono 
 
 theorem op_mono_right {a b c : E} (h : b ≤ c) : a ⋓ b ≤ a ⋓ c := op_mono le_rfl h
 
+/-- Joint continuity of `⋓` in the form the homomorphism proof needs: the
+operation carries a pair of least upper bounds to the least upper bound of the
+pairwise operation. -/
+theorem isLUB_op_image {X Y : Set E} (hX : X.Nonempty) (hY : Y.Nonempty)
+    (hdX : DirectedOn (· ≤ ·) X) (hdY : DirectedOn (· ≤ ·) Y) {a b : E}
+    (ha : IsLUB X a) (hb : IsLUB Y b) :
+    IsLUB ((fun p : E × E => p.1 ⋓ p.2) '' (X ×ˢ Y)) (a ⋓ b) := by
+  have hne : (X ×ˢ Y).Nonempty :=
+    ⟨(hX.choose, hY.choose), hX.choose_spec, hY.choose_spec⟩
+  have hd : DirectedOn (· ≤ ·) (X ×ˢ Y) := by
+    rintro ⟨x₁, y₁⟩ ⟨hx₁, hy₁⟩ ⟨x₂, y₂⟩ ⟨hx₂, hy₂⟩
+    obtain ⟨x₃, hx₃, h₁, h₂⟩ := hdX x₁ hx₁ x₂ hx₂
+    obtain ⟨y₃, hy₃, k₁, k₂⟩ := hdY y₁ hy₁ y₂ hy₂
+    exact ⟨(x₃, y₃), ⟨hx₃, hy₃⟩, ⟨h₁, k₁⟩, ⟨h₂, k₂⟩⟩
+  have hlub : IsLUB (X ×ˢ Y) (a, b) := by
+    refine ⟨fun p hp => ⟨ha.1 hp.1, hb.1 hp.2⟩, fun q hq => ⟨?_, ?_⟩⟩
+    · refine ha.2 fun x hx => ?_
+      exact (hq (show (x, hY.choose) ∈ X ×ˢ Y from ⟨hx, hY.choose_spec⟩)).1
+    · refine hb.2 fun y hy => ?_
+      exact (hq (show (hX.choose, y) ∈ X ×ˢ Y from ⟨hX.choose_spec, hy⟩)).2
+  exact scottContinuous_op (E := E) hne hd hlub
+
 end Binop
 
 /-- Theory **`T♮`**: the semi-lattice axioms 1–3 of the paper's definition. -/
@@ -578,5 +600,391 @@ theorem eq_idealExtend (hg : Monotone g) {h : IdealCompletion A → E}
   exact this.unique (isLUB_idealExtend hg I)
 
 end IdealExtension
+
+/-! ## 5. The operation `⋓` on a powerdomain
+
+§5.3 opens by defining, for `s, t ∈ D♮`,
+
+    s ⋓ t = {w | u ∪ v ⊢♮ w for some u ∈ s and v ∈ t}
+
+and by saying "*Similar facts apply when `⋓` is defined in this way for `D♯` and
+`D♭`*". The definition mentions the pre-order only through `⊢` and the union of
+finite sets, so it is given here once, over any carrier `A` that presents its
+elements as finite non-empty sets of compacts and is closed under union.
+
+`FinSets` is that presentation. Its three instances — `Hoare.Pf ↥(compacts D)`,
+`Smyth.Basis D` and `Plotkin.FinCompacts D` — differ in their carriers (a
+`Finset` subtype, a `structure`, a `Set` subtype) and in their orderings, and
+agree on everything below. -/
+
+section Operation
+
+open IdealCompletion
+
+/-- A pre-order `A` whose elements **are** the finite non-empty subsets of a
+pre-order `K`, closed under union and containing the singletons. This is the
+common shape of the three pre-orders `⟨Pf(K(D)), ⊢♭⟩`, `⟨Pf(K(D)), ⊢♯⟩` and
+`⟨Pf(K(D)), ⊢♮⟩` of §5.2.
+
+`union_mono` and `singleton_mono` are the only fields that mention the order, and
+they are exactly what the three orderings have in common; everything else is
+about the finite sets. Union is stated membership-wise rather than as an equation
+of `Finset`s so that the class does not have to carry a `DecidableEq K`. -/
+class FinSets (K : outParam (Type u)) (A : Type u) [Preorder K] [Preorder A] where
+  /-- The finite set of compacts that an element of `A` denotes. -/
+  toFinset : A → Finset K
+  /-- An element of `A` is determined by the finite set it denotes. -/
+  toFinset_injective : Function.Injective toFinset
+  /-- The paper's `Pf` excludes the empty set. -/
+  toFinset_nonempty : ∀ u : A, (toFinset u).Nonempty
+  /-- Every finite non-empty set of compacts is denoted. -/
+  ofFinset : ∀ w : Finset K, w.Nonempty → A
+  /-- `ofFinset` is a section of `toFinset`. -/
+  toFinset_ofFinset : ∀ (w : Finset K) (hw : w.Nonempty), toFinset (ofFinset w hw) = w
+  /-- Union of finite sets, transported to `A`. -/
+  union : A → A → A
+  /-- `union` denotes the union. -/
+  mem_toFinset_union : ∀ (u v : A) (a : K),
+    a ∈ toFinset (union u v) ↔ a ∈ toFinset u ∨ a ∈ toFinset v
+  /-- Union is monotone for the pre-order of `A` — true for each of the three
+  orderings, and the only order-theoretic fact the construction needs. -/
+  union_mono : ∀ {u u' v v' : A}, u ≤ u' → v ≤ v' → union u v ≤ union u' v'
+  /-- The singleton `{k}`. -/
+  singleton : K → A
+  /-- `singleton` denotes the singleton. -/
+  toFinset_singleton : ∀ k : K, toFinset (singleton k) = {k}
+  /-- `singleton` is monotone. -/
+  singleton_mono : Monotone singleton
+
+export FinSets (toFinset toFinset_injective toFinset_nonempty ofFinset toFinset_ofFinset
+  union mem_toFinset_union union_mono singleton toFinset_singleton singleton_mono)
+
+variable {K A : Type u} [Preorder K] [Preorder A] [FinSets K A]
+
+@[simp] theorem toFinset_union [DecidableEq K] (u v : A) :
+    toFinset (union u v) = toFinset u ∪ toFinset v := by
+  ext a; rw [mem_toFinset_union, Finset.mem_union]
+
+/-- `union` is idempotent, commutative and associative **on the nose**, because
+`toFinset` is injective and `∪` is. -/
+theorem union_self (u : A) : union u u = u := by
+  classical
+  exact toFinset_injective (by simp)
+
+theorem union_comm' (u v : A) : union u v = union v u := by
+  classical
+  exact toFinset_injective (by simp [Finset.union_comm])
+
+theorem union_assoc' (u v w : A) : union (union u v) w = union u (union v w) := by
+  classical
+  exact toFinset_injective (by simp [Finset.union_assoc])
+
+theorem ofFinset_toFinset (u : A) : ofFinset (toFinset u) (toFinset_nonempty u) = u :=
+  toFinset_injective (toFinset_ofFinset _ _)
+
+section Bot
+
+variable [OrderBot A]
+
+/-- The paper's `s ⋓ t = {w | u ∪ v ⊢ w for some u ∈ s and v ∈ t}`, as a set. -/
+def opSet (s t : IdealCompletion A) : Set A :=
+  {w | ∃ u ∈ s, ∃ v ∈ t, w ≤ union u v}
+
+omit [OrderBot A] in
+/-- `s ⋓ t` is an ideal. Downward closure is transitivity; non-emptiness is
+non-emptiness of `s` and `t`; directedness spends directedness of `s` and of `t`
+together with `union_mono`. -/
+theorem isIdeal_opSet (s t : IdealCompletion A) : Order.IsIdeal (opSet s t) := by
+  refine ⟨fun a b hba ⟨u, hu, v, hv, hab⟩ => ⟨u, hu, v, hv, le_trans hba hab⟩, ?_, ?_⟩
+  · obtain ⟨u, hu⟩ := s.nonempty
+    obtain ⟨v, hv⟩ := t.nonempty
+    exact ⟨union u v, u, hu, v, hv, le_rfl⟩
+  · rintro a ⟨u₁, hu₁, v₁, hv₁, ha⟩ b ⟨u₂, hu₂, v₂, hv₂, hb⟩
+    obtain ⟨u₃, hu₃, h₁₃, h₂₃⟩ := s.directed u₁ hu₁ u₂ hu₂
+    obtain ⟨v₃, hv₃, k₁₃, k₂₃⟩ := t.directed v₁ hv₁ v₂ hv₂
+    exact ⟨union u₃ v₃, ⟨u₃, hu₃, v₃, hv₃, le_rfl⟩,
+      le_trans ha (union_mono h₁₃ k₁₃), le_trans hb (union_mono h₂₃ k₂₃)⟩
+
+/-- **The powerdomain is a continuous algebra.** The operation is the paper's;
+joint continuity is the second field, proved from `mem_sSup_iff` in each
+coordinate. -/
+noncomputable instance instBinopIdealCompletion : Binop (IdealCompletion A) where
+  op s t := ofIdeal (isIdeal_opSet s t).toIdeal
+  scottContinuous_op := by
+    intro S hne hd p hp
+    obtain ⟨hS₁, hS₂⟩ := isLUB_prod.mp hp
+    have hd₁ : DirectedOn (· ≤ ·) (Prod.fst '' S) := directedOn_fst_image hd
+    have hd₂ : DirectedOn (· ≤ ·) (Prod.snd '' S) := directedOn_snd_image hd
+    have hmono : ∀ q ∈ S, (fun r : IdealCompletion A × IdealCompletion A =>
+        ofIdeal (isIdeal_opSet r.1 r.2).toIdeal) q ≤
+          ofIdeal (isIdeal_opSet p.1 p.2).toIdeal := by
+      rintro q hq w ⟨u, hu, v, hv, hw⟩
+      exact ⟨u, hp.1 hq |>.1 hu, v, hp.1 hq |>.2 hv, hw⟩
+    refine ⟨?_, fun J hJ w hw => ?_⟩
+    · rintro _ ⟨q, hq, rfl⟩
+      exact hmono q hq
+    · obtain ⟨u, hu, v, hv, hle⟩ := hw
+      have hu' : u ∈ sSup (Prod.fst '' S) := (hS₁.unique hd₁.isLUB_sSup) ▸ hu
+      have hv' : v ∈ sSup (Prod.snd '' S) := (hS₂.unique hd₂.isLUB_sSup) ▸ hv
+      obtain ⟨_, ⟨q₁, hq₁, rfl⟩, huq⟩ := (mem_sSup_iff (hne.image _) hd₁).mp hu'
+      obtain ⟨_, ⟨q₂, hq₂, rfl⟩, hvq⟩ := (mem_sSup_iff (hne.image _) hd₂).mp hv'
+      obtain ⟨q₃, hq₃, h₁₃, h₂₃⟩ := hd q₁ hq₁ q₂ hq₂
+      exact hJ ⟨q₃, hq₃, rfl⟩ ⟨u, h₁₃.1 huq, v, h₂₃.2 hvq, hle⟩
+
+@[simp] theorem mem_op {w : A} {s t : IdealCompletion A} :
+    w ∈ (s ⋓ t) ↔ ∃ u ∈ s, ∃ v ∈ t, w ≤ union u v := Iff.rfl
+
+/-- `↓u ⋓ ↓v = ↓(u ∪ v)`: the operation on principal ideals **is** union. -/
+theorem principal_op_principal (u v : A) :
+    (principal u ⋓ principal v : IdealCompletion A) = principal (union u v) := by
+  ext w
+  refine ⟨?_, fun hw => ⟨u, mem_principal_self u, v, mem_principal_self v, hw⟩⟩
+  rintro ⟨u', hu', v', hv', hw⟩
+  exact le_trans hw (union_mono hu' hv')
+
+/-- **`D♭`, `D♯` and `D♮` each satisfy `T♮`** — the paper's "*It is easy to check
+that, for any domain `D`, each of the algebras `D♮`, `D♯` and `D♭` satisfies
+`T♮`*". Each axiom reduces to the corresponding fact about `union`, with
+directedness of an ideal supplying the collapse in the idempotence case. -/
+instance instIsSemilatticeIdealCompletion : IsSemilattice (IdealCompletion A) where
+  op_comm s t := by
+    ext w
+    constructor
+    · rintro ⟨u, hu, v, hv, hw⟩
+      exact ⟨v, hv, u, hu, by rwa [union_comm']⟩
+    · rintro ⟨u, hu, v, hv, hw⟩
+      exact ⟨v, hv, u, hu, by rwa [union_comm']⟩
+  op_assoc r s t := by
+    ext w
+    constructor
+    · rintro ⟨x, ⟨u, hu, v, hv, hx⟩, y, hy, hw⟩
+      refine ⟨u, hu, union v y, ⟨v, hv, y, hy, le_rfl⟩, ?_⟩
+      exact le_trans hw (le_trans (union_mono hx le_rfl) (le_of_eq (union_assoc' u v y)))
+    · rintro ⟨u, hu, x, ⟨v, hv, y, hy, hx⟩, hw⟩
+      refine ⟨union u v, ⟨u, hu, v, hv, le_rfl⟩, y, hy, ?_⟩
+      exact le_trans hw (le_trans (union_mono le_rfl hx)
+        (le_of_eq (union_assoc' u v y).symm))
+  op_idem s := by
+    ext w
+    constructor
+    · rintro ⟨u, hu, v, hv, hw⟩
+      obtain ⟨z, hz, huz, hvz⟩ := s.directed u hu v hv
+      refine s.lower (le_trans hw ?_) hz
+      exact le_trans (union_mono huz hvz) (le_of_eq (union_self z))
+    · intro hw
+      exact ⟨w, hw, w, hw, le_of_eq (union_self w).symm⟩
+
+end Bot
+
+end Operation
+
+/-! ## 6. Theorem 12
+
+The free algebra, generically in the carrier. The one hypothesis that is *not*
+generic is `hmono` — that the fold `u ↦ f(x₁) ⋓ ⋯ ⋓ f(xₙ)` is monotone for the
+pre-order of `A`. That is where the theory is spent, and it is exactly what
+§3's three theorems supply: `fold_le_fold_of_hoare` under `T♭`,
+`fold_le_fold_of_smyth` under `T♯`, `fold_le_fold_of_convex` under `T♮`. -/
+
+section Theorem12
+
+open IdealCompletion
+
+variable {D : Type u} [CompletePartialOrder D] [IsAlgebraic D]
+variable {A : Type u} [Preorder A] [OrderBot A] [FinSets ↥(compacts D) A]
+variable {E : Type u} [CompletePartialOrder E] [Binop E] [IsSemilattice E]
+
+/-! ### The unit `{|·|} : D → D♮` -/
+
+/-- The paper's `{|x|} = {u ∈ Pf(K(D)) | {x'} ⊢ u for some compact x' ⊑ x}`, as a
+set. -/
+def unitSet (x : D) : Set A :=
+  {u : A | ∃ k : ↥(compacts D), (k : D) ≤ x ∧ u ≤ singleton k}
+
+/-- `{|x|}` is an ideal. Directedness is where algebraicity of `D` is spent: two
+compact approximants of `x` have a common compact approximant above them. -/
+theorem isIdeal_unitSet (x : D) : Order.IsIdeal (unitSet (A := A) x) := by
+  refine ⟨fun a b hba ⟨k, hk, hb⟩ => ⟨k, hk, le_trans hba hb⟩,
+    ⟨⊥, ⊥, bot_le, bot_le⟩, ?_⟩
+  rintro a ⟨k₁, hk₁, ha⟩ b ⟨k₂, hk₂, hb⟩
+  obtain ⟨k₃, ⟨hk₃c, hk₃x⟩, h₁₃, h₂₃⟩ :=
+    IsAlgebraic.directedOn_compactsBelow x (k₁ : D) ⟨k₁.2, hk₁⟩ (k₂ : D) ⟨k₂.2, hk₂⟩
+  refine ⟨singleton ⟨k₃, hk₃c⟩, ⟨⟨k₃, hk₃c⟩, hk₃x, le_rfl⟩, ?_, ?_⟩
+  · exact le_trans ha (singleton_mono (show k₁ ≤ (⟨k₃, hk₃c⟩ : ↥(compacts D)) from h₁₃))
+  · exact le_trans hb (singleton_mono (show k₂ ≤ (⟨k₃, hk₃c⟩ : ↥(compacts D)) from h₂₃))
+
+/-- **`{|·|} : D → D♮`**, the left leg of the paper's diagram. -/
+def unit (x : D) : IdealCompletion A := ofIdeal (isIdeal_unitSet x).toIdeal
+
+@[simp] theorem mem_unit {x : D} {u : A} :
+    u ∈ (unit x : IdealCompletion A) ↔ ∃ k : ↥(compacts D), (k : D) ≤ x ∧ u ≤ singleton k :=
+  Iff.rfl
+
+/-- On a **compact** `k`, the unit is the principal ideal of `{k}`. This is what
+makes uniqueness through `{|·|}` as strong as uniqueness through the principal
+ideals. -/
+theorem unit_coe_compact (k : ↥(compacts D)) :
+    (unit (k : D) : IdealCompletion A) = principal (singleton k) := by
+  ext u
+  refine ⟨?_, fun hu => ⟨k, le_rfl, hu⟩⟩
+  rintro ⟨k', hk', hu⟩
+  exact le_trans hu (singleton_mono (show k' ≤ k from hk'))
+
+theorem monotone_unit : Monotone (unit : D → IdealCompletion A) := by
+  rintro x y hxy u ⟨k, hk, hu⟩
+  exact ⟨k, le_trans hk hxy, hu⟩
+
+/-- **The unit is continuous.** Leastness is where compactness of the `k` in the
+definition is spent: a compact below `⨆ s` is below some member of `s`. -/
+theorem scottContinuous_unit : ScottContinuous (unit : D → IdealCompletion A) := by
+  intro s hne hd x hx
+  refine ⟨?_, fun J hJ u hu => ?_⟩
+  · rintro _ ⟨y, hy, rfl⟩
+    exact monotone_unit (hx.1 hy)
+  · obtain ⟨k, hk, hule⟩ := hu
+    obtain ⟨y, hy, hky⟩ := k.2 s x hne hd hx hk
+    exact hJ ⟨y, hy, rfl⟩ ⟨k, hky, hule⟩
+
+/-! ### `ext(f)` -/
+
+/-- The paper's `ext(f)(û) = f(x₁) ⋓ ⋯ ⋓ f(xₙ)`, on the generator `u` of the
+principal ideal `û`. -/
+def foldGen (f : D → E) (u : A) : E :=
+  fold (toFinset u) (toFinset_nonempty u) fun k : ↥(compacts D) => f (k : D)
+
+omit [IsAlgebraic D] [OrderBot A] in
+/-- `foldGen` turns `union` into `⋓` — `fold_union` transported along
+`toFinset_union`. -/
+theorem foldGen_union (f : D → E) (u v : A) :
+    foldGen f (union u v) = foldGen (A := A) f u ⋓ foldGen (A := A) f v := by
+  classical
+  simp only [foldGen]
+  rw [← fold_union (toFinset_nonempty u) (toFinset_nonempty v)]
+  exact fold_congr (toFinset_union u v) _ _ _
+
+omit [IsAlgebraic D] [OrderBot A] in
+@[simp] theorem foldGen_singleton (f : D → E) (k : ↥(compacts D)) :
+    foldGen (A := A) f (singleton k) = f (k : D) := by
+  refine (fold_congr (toFinset_singleton k) _ (Finset.singleton_nonempty k) _).trans ?_
+  exact fold_singleton k _
+
+/-- **`ext(f)`**, the paper's `ext(f)(s) = ⨆{ext(f)(û) | u ∈ s}`. -/
+noncomputable def ext (f : D → E) : IdealCompletion A → E := idealExtend (foldGen f)
+
+variable {f : D → E}
+
+omit [IsAlgebraic D] [OrderBot A] in
+theorem ext_principal (hmono : Monotone (foldGen (A := A) f)) (u : A) :
+    ext (A := A) f (principal u) = foldGen (A := A) f u :=
+  idealExtend_principal hmono u
+
+omit [IsAlgebraic D] in
+theorem scottContinuous_ext (hmono : Monotone (foldGen (A := A) f)) :
+    ScottContinuous (ext (A := A) f) :=
+  scottContinuous_idealExtend hmono
+
+omit [IsAlgebraic D] in
+/-- **`ext(f)` is a homomorphism.** Both directions run on
+`foldGen f (union u v) = foldGen f u ⋓ foldGen f v` and on the fact that
+`union u v` is itself a member of `s ⋓ t`. -/
+theorem isHom_ext (hmono : Monotone (foldGen (A := A) f)) :
+    IsHom (ext (A := A) f) := by
+  refine ⟨scottContinuous_ext hmono, fun s t => ?_⟩
+  have hs := isLUB_idealExtend hmono s
+  have ht := isLUB_idealExtend hmono t
+  have hst := isLUB_idealExtend hmono (s ⋓ t)
+  refine hst.unique ⟨?_, fun e he => ?_⟩
+  · rintro _ ⟨w, ⟨u, hu, v, hv, hw⟩, rfl⟩
+    refine le_trans (hmono hw) ?_
+    rw [foldGen_union]
+    exact op_mono (hs.1 ⟨u, hu, rfl⟩) (ht.1 ⟨v, hv, rfl⟩)
+  · refine (isLUB_op_image (s.nonempty.image _) (t.nonempty.image _)
+      (directedOn_image_of_monotone hmono s) (directedOn_image_of_monotone hmono t)
+      hs ht).2 ?_
+    rintro _ ⟨⟨_, _⟩, ⟨⟨u, hu, rfl⟩, ⟨v, hv, rfl⟩⟩, rfl⟩
+    show foldGen (A := A) f u ⋓ foldGen (A := A) f v ≤ e
+    rw [← foldGen_union]
+    exact he ⟨union u v, ⟨u, hu, v, hv, le_rfl⟩, rfl⟩
+
+/-- **`ext(f)` completes the diagram**: `ext(f) ∘ {|·|} = f`. Algebraicity of `D`
+enters here as well — `f x` is the least upper bound of `f '' K(D)↓x`, and the
+generators of `{|x|}` are exactly the singletons of those compacts. -/
+theorem ext_unit (hmono : Monotone (foldGen (A := A) f)) (hf : ScottContinuous f) (x : D) :
+    ext (A := A) f (unit x) = f x := by
+  refine (isLUB_idealExtend hmono (unit x)).unique ⟨?_, fun e he => ?_⟩
+  · rintro _ ⟨u, ⟨k, hk, hu⟩, rfl⟩
+    exact le_trans (hmono hu) (by rw [foldGen_singleton]; exact hf.monotone hk)
+  · refine (hf (compactsBelow_nonempty x) (IsAlgebraic.directedOn_compactsBelow x)
+      (IsAlgebraic.isLUB_compactsBelow x)).2 ?_
+    rintro _ ⟨c, ⟨hc, hcx⟩, rfl⟩
+    have : foldGen (A := A) f (singleton ⟨c, hc⟩) = f c := foldGen_singleton f ⟨c, hc⟩
+    rw [← this]
+    exact he ⟨singleton ⟨c, hc⟩, ⟨⟨c, hc⟩, hcx, le_rfl⟩, rfl⟩
+
+/-! ### Uniqueness -/
+
+/-- A homomorphism commutes with the fold. Induction over the finite non-empty
+set, with `IsHom.map_op` at the step. -/
+theorem IsHom.map_fold {F : Type u} [CompletePartialOrder F] [Binop F] [IsSemilattice F]
+    {h : F → E} (hh : IsHom h) {w : Finset K} (hw : w.Nonempty) (v : K → F) :
+    h (fold w hw v) = fold w hw (h ∘ v) := by
+  induction hw using Finset.Nonempty.cons_induction with
+  | singleton a => simp
+  | cons a s has hs ih =>
+      rw [fold_cons has hs, fold_cons has hs, hh.map_op, ih]
+      rfl
+
+/-- Every principal ideal is the fold of the units of its generators:
+`↓u = {|x₁|} ⋓ ⋯ ⋓ {|xₙ|}`. This is the statement that `D` **generates** the
+powerdomain, and it is what turns uniqueness through `{|·|}` into uniqueness
+through the principal ideals. -/
+theorem principal_eq_fold_unit (u : A) :
+    (principal u : IdealCompletion A)
+      = fold (toFinset u) (toFinset_nonempty u)
+          fun k : ↥(compacts D) => (unit (k : D) : IdealCompletion A) := by
+  have key : ∀ (w : Finset ↥(compacts D)) (hw : w.Nonempty),
+      (principal (ofFinset w hw) : IdealCompletion A)
+        = fold w hw fun k => (unit (k : D) : IdealCompletion A) := by
+    intro w hw
+    induction hw using Finset.Nonempty.cons_induction with
+    | singleton a =>
+        have : ofFinset (A := A) {a} (Finset.singleton_nonempty a) = singleton a :=
+          toFinset_injective (by rw [toFinset_ofFinset, toFinset_singleton])
+        rw [this, fold_singleton, unit_coe_compact]
+    | cons a s has hs ih =>
+        classical
+        have hcons : ofFinset (A := A) (Finset.cons a s has) (Finset.cons_nonempty has)
+            = union (singleton a) (ofFinset s hs) := by
+          refine toFinset_injective ?_
+          rw [toFinset_ofFinset, toFinset_union, toFinset_singleton, toFinset_ofFinset,
+            Finset.cons_eq_insert, Finset.singleton_union]
+        rw [hcons, ← principal_op_principal, ih, fold_cons has hs, unit_coe_compact]
+  refine (congrArg principal (ofFinset_toFinset u)).symm.trans ?_
+  exact key (toFinset u) (toFinset_nonempty u)
+
+/-- **Theorem 12** (Gunter & Scott §5.3), for whichever of the three
+powerdomains the hypothesis `hmono` is discharged at.
+
+*Let `D` be a domain. Suppose `⟨E, ⋓⟩` is a continuous algebra which satisfies
+`T`. For any continuous `f : D → E`, there is a unique homomorphism
+`ext(f) : Dᴾ → E` which completes the diagram* — that is, a unique
+`h : Dᴾ → E` that is a homomorphism of continuous algebras and satisfies
+`h ∘ {|·|} = f`.
+
+Both halves are stated: `∃!` carries existence *and* uniqueness, and the
+predicate carries *both* that `h` is a homomorphism (hence continuous) and that
+it factors `f`. Countability of `K(D)` — the last clause of "domain" — is not
+used; `[IsAlgebraic D]` is the whole hypothesis on `D`. -/
+theorem thm12 (hf : ScottContinuous f) (hmono : Monotone (foldGen (A := A) f)) :
+    ∃! h : IdealCompletion A → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
+  refine ⟨ext f, ⟨isHom_ext hmono, ext_unit hmono hf⟩, ?_⟩
+  rintro h ⟨hhom, hdiag⟩
+  refine eq_idealExtend hmono hhom.scottContinuous fun u => ?_
+  have hcomp : (h ∘ fun k : ↥(compacts D) => (unit (k : D) : IdealCompletion A))
+      = fun k : ↥(compacts D) => f (k : D) := funext fun k => hdiag (k : D)
+  rw [principal_eq_fold_unit, hhom.map_fold, hcomp]
+  rfl
+
+end Theorem12
 
 end ScottDomains.ContinuousAlgebra

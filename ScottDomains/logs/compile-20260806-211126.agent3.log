@@ -1,0 +1,170 @@
+# agent3 — lake build ScottDomains.ContinuousAlgebra
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-06T21:11:26-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ContinuousAlgebra ===
+✖ [843/843] Building ScottDomains.ContinuousAlgebra (1.0s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/ContinuousAlgebra.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousAlgebra.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/ContinuousAlgebra.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousAlgebra.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/ContinuousAlgebra.setup.json --json
+warning: ScottDomains/ContinuousAlgebra.lean:674:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousAlgebra.isIdeal_opSet`:
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/ContinuousAlgebra.lean:837:6: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  fold (toFinset u) ⋯ ?f ⋓ fold (toFinset v) ⋯ ?f
+in the target expression
+  foldGen f (union u v) = foldGen f u ⋓ foldGen f v
+
+D : Type u
+inst✝⁷ : CompletePartialOrder D
+inst✝⁶ : IsAlgebraic D
+A : Type u
+inst✝⁵ : Preorder A
+inst✝⁴ : OrderBot A
+inst✝³ : FinSets (↑(compacts D)) A
+E : Type u
+inst✝² : CompletePartialOrder E
+inst✝¹ : Binop E
+inst✝ : IsSemilattice E
+f : D → E
+u v : A
+⊢ foldGen f (union u v) = foldGen f u ⋓ foldGen f v
+warning: ScottDomains/ContinuousAlgebra.lean:840:8: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousAlgebra.foldGen_singleton`:
+  [IsAlgebraic D]
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/ContinuousAlgebra.lean:850:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousAlgebra.ext_principal`:
+  [IsAlgebraic D]
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/ContinuousAlgebra.lean:854:0: automatically included section variable(s) unused in theorem `ScottDomains.ContinuousAlgebra.scottContinuous_ext`:
+  [IsAlgebraic D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/ContinuousAlgebra.lean:865:37: Invalid `⟨...⟩` notation: The expected type of this term could not be determined
+error: ScottDomains/ContinuousAlgebra.lean:893:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  foldGen ?f ?u ⋓ foldGen ?f ?v
+in the target expression
+  (fun p => p.1 ⋓ p.2) (foldGen f u, foldGen f v) ≤ e
+
+case refine_2
+D : Type u
+inst✝⁷ : CompletePartialOrder D
+inst✝⁶ : IsAlgebraic D
+A : Type u
+inst✝⁵ : Preorder A
+inst✝⁴ : OrderBot A
+inst✝³ : FinSets (↑(compacts D)) A
+E : Type u
+inst✝² : CompletePartialOrder E
+inst✝¹ : Binop E
+inst✝ : IsSemilattice E
+f : D → E
+hmono : Monotone (foldGen f)
+s t : IdealCompletion A
+hs : IsLUB (foldGen f '' ↑s) (idealExtend (foldGen f) s)
+ht : IsLUB (foldGen f '' ↑t) (idealExtend (foldGen f) t)
+hst : IsLUB (foldGen f '' ↑(s ⋓ t)) (idealExtend (foldGen f) (s ⋓ t))
+e : E
+he : e ∈ upperBounds (foldGen f '' ↑(s ⋓ t))
+u : A
+hu : u ∈ ↑s
+v : A
+hv : v ∈ ↑t
+⊢ (fun p => p.1 ⋓ p.2) (foldGen f u, foldGen f v) ≤ e
+error: ScottDomains/ContinuousAlgebra.lean:971:9: don't know how to synthesize implicit argument `b`
+  @Eq.trans E (fold (toFinset u) (toFinset_nonempty u) (h ∘ fun k => unit ↑k))
+    (fold (toFinset u) ?m.143 (h ∘ fun k => unit ↑k)) (foldGen f u)
+    (fold_congr rfl (toFinset_nonempty u) ?m.143 (h ∘ fun k => unit ↑k)) ?m.149
+context:
+D : Type u
+inst✝⁷ : CompletePartialOrder D
+inst✝⁶ : IsAlgebraic D
+A : Type u
+inst✝⁵ : Preorder A
+inst✝⁴ : OrderBot A
+inst✝³ : FinSets (↑(compacts D)) A
+E : Type u
+inst✝² : CompletePartialOrder E
+inst✝¹ : Binop E
+inst✝ : IsSemilattice E
+f : D → E
+hf : ScottContinuous f
+hmono : Monotone (foldGen f)
+h : IdealCompletion A → E
+hhom : IsHom h
+hdiag : ∀ (x : D), h (unit x) = f x
+u : A
+⊢ E
+error: ScottDomains/ContinuousAlgebra.lean:971:27: don't know how to synthesize placeholder for argument `hv`
+context:
+D : Type u
+inst✝⁷ : CompletePartialOrder D
+inst✝⁶ : IsAlgebraic D
+A : Type u
+inst✝⁵ : Preorder A
+inst✝⁴ : OrderBot A
+inst✝³ : FinSets (↑(compacts D)) A
+E : Type u
+inst✝² : CompletePartialOrder E
+inst✝¹ : Binop E
+inst✝ : IsSemilattice E
+f : D → E
+hf : ScottContinuous f
+hmono : Monotone (foldGen f)
+h : IdealCompletion A → E
+hhom : IsHom h
+hdiag : ∀ (x : D), h (unit x) = f x
+u : A
+⊢ (toFinset u).Nonempty
+error: ScottDomains/ContinuousAlgebra.lean:966:73: unsolved goals
+D : Type u
+inst✝⁷ : CompletePartialOrder D
+inst✝⁶ : IsAlgebraic D
+A : Type u
+inst✝⁵ : Preorder A
+inst✝⁴ : OrderBot A
+inst✝³ : FinSets (↑(compacts D)) A
+E : Type u
+inst✝² : CompletePartialOrder E
+inst✝¹ : Binop E
+inst✝ : IsSemilattice E
+f : D → E
+hf : ScottContinuous f
+hmono : Monotone (foldGen f)
+h : IdealCompletion A → E
+hhom : IsHom h
+hdiag : ∀ (x : D), h (unit x) = f x
+u : A
+⊢ fold (toFinset u) ⋯ (h ∘ fun k => unit ↑k) = foldGen f u
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ContinuousAlgebra
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1723356
+--- build ---
+finished:         2026-08-06T21:11:29-07:00
+exit status:      1
+user cpu:         2.27s
+system cpu:       0.55s
+cpu use:          163%
+peak rss single:  1682 MiB (largest one process, GNU time)
+peak pss tree:    1807 MiB (process group, shared pages apportioned)
+peak rss tree:    2467 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 6
+lake errors:      2
+sorry decls:      0
+other warnings:   4
