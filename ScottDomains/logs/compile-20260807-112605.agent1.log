@@ -1,0 +1,65 @@
+# r0037
+# agent1 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-07T11:26:05-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [962/1218] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1113/1218] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1212/1218] Built ScottDomains.Dyadic (1.2s)
+✔ [1213/1218] Built ScottDomains.JungSFP (1.3s)
+✔ [1214/1218] Built ScottDomains.Colimit (1.4s)
+✖ [1215/1218] Building ScottDomains.JungFinite (759ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/JungFinite.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/JungFinite.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/JungFinite.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/JungFinite.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/JungFinite.setup.json --json
+error: ScottDomains/JungFinite.lean:184:37: Unknown identifier `a`
+error: ScottDomains/JungFinite.lean:222:32: Type mismatch: After simplification, term
+  isCompactElement_bot
+ has type
+  IsCompactElement ⊥
+but is expected to have type
+  ⊥ ∈ compacts α
+error: ScottDomains/JungFinite.lean:225:14: Type mismatch: After simplification, term
+  isCompactElement_bot
+ has type
+  IsCompactElement ⊥
+but is expected to have type
+  ⊥ ∈ compacts α
+error: ScottDomains/JungFinite.lean:225:88: Type mismatch
+  bot_le
+has type
+  ⊥ ≤ ?m.67
+but is expected to have type
+  x✝¹ ≤ ⊥ → ⊥ ≤ x✝¹
+error: Lean exited with code 1
+✔ [1216/1218] Built ScottDomains.PRep (1.2s)
+✔ [1217/1218] Built ScottDomains.Atomless (1.3s)
+Some required targets logged failures:
+- ScottDomains.JungFinite
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.22
+Maximum resident set size (kbytes): 1832296
+--- build ---
+finished:         2026-08-07T11:26:09-07:00
+exit status:      1
+user cpu:         12.56s
+system cpu:       1.80s
+cpu use:          445%
+peak rss single:  1789 MiB (largest one process, GNU time)
+peak pss tree:    2180 MiB (process group, shared pages apportioned)
+peak rss tree:    5906 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      1
+other warnings:   0

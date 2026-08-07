@@ -1,0 +1,103 @@
+# r0037
+# agent1 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-07T11:30:45-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [961/1159] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1116/1159] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1217/1218] Building ScottDomains.JungFinite (725ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/JungFinite.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/JungFinite.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/JungFinite.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/JungFinite.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/JungFinite.setup.json --json
+error: ScottDomains/JungFinite.lean:281:26: Type mismatch: After simplification, term
+  hx
+ has type
+  @Membership.mem α (Set α) Set.instMembership (B n) x
+but is expected to have type
+  @Membership.mem α (Set α) Set.instMembership (B n) (climbDown p 0 n x)
+error: ScottDomains/JungFinite.lean:355:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  dite (∃ y ∈ B n, y ≤ x) ?m.107 ?m.108
+in the target expression
+  (fun x => if h : ∃ y ∈ B n, y ≤ x then h.choose else b) x ∈ B n ∧
+    (fun x => if h : ∃ y ∈ B n, y ≤ x then h.choose else b) x ≤ x
+
+α : Type u_1
+B : ℕ → Set α
+inst✝ : Preorder α
+hfin : ∀ (n : ℕ), (B n).Finite
+hne : ∀ (n : ℕ), (B n).Nonempty
+hinf : (⋃ n, B n).Infinite
+hpar : ∀ (n : ℕ), ∀ x ∈ B (n + 1), ∃ y ∈ B n, y ≤ x
+n : ℕ
+b : α
+hb : b ∈ B n
+x : α
+hx : x ∈ B (n + 1)
+h : ∃ y ∈ B n, y ≤ x
+⊢ (fun x => if h : ∃ y ∈ B n, y ≤ x then h.choose else b) x ∈ B n ∧
+    (fun x => if h : ∃ y ∈ B n, y ≤ x then h.choose else b) x ≤ x
+warning: ScottDomains/JungFinite.lean:382:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ScottDomains/JungFinite.lean:394:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  dite (∃ y ∈ Good (n + 1), x ≤ y) ?m.461 ?m.462
+in the target expression
+  (fun x => if h : ∃ y ∈ Good (n + 1), x ≤ y then h.choose else b) x ∈ Good (n + 1) ∧
+    x ≤ (fun x => if h : ∃ y ∈ Good (n + 1), x ≤ y then h.choose else b) x
+
+α : Type u_1
+B : ℕ → Set α
+inst✝ : Preorder α
+hfin : ∀ (n : ℕ), (B n).Finite
+hne : ∀ (n : ℕ), (B n).Nonempty
+hinf : (⋃ n, B n).Infinite
+hpar : ∀ (n : ℕ), ∀ x ∈ B (n + 1), ∃ y ∈ B n, y ≤ x
+q : ℕ → α → α
+hq : ∀ (n : ℕ), ∀ x ∈ B (n + 1), q n x ∈ B n ∧ q n x ≤ x
+htail : ∀ (n : ℕ), (⋃ k, B (n + k)).Infinite
+Good : ℕ → Set α := fun n => {x | x ∈ B n ∧ (desc q B n x).Infinite}
+hGoodDef : Good = fun n => {x | x ∈ B n ∧ (desc q B n x).Infinite}
+hGoodne : ∀ (n : ℕ), (Good n).Nonempty
+hstep : ∀ (n : ℕ), ∀ x ∈ Good n, ∃ y ∈ Good (n + 1), x ≤ y
+n : ℕ
+b : α
+hb : b ∈ Good (n + 1)
+x : α
+hx : x ∈ Good n
+h : ∃ y ∈ Good (n + 1), x ≤ y
+⊢ (fun x => if h : ∃ y ∈ Good (n + 1), x ≤ y then h.choose else b) x ∈ Good (n + 1) ∧
+    x ≤ (fun x => if h : ∃ y ∈ Good (n + 1), x ≤ y then h.choose else b) x
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.JungFinite
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1718364
+--- build ---
+finished:         2026-08-07T11:30:48-07:00
+exit status:      1
+user cpu:         1.59s
+system cpu:       0.62s
+cpu use:          128%
+peak rss single:  1678 MiB (largest one process, GNU time)
+peak pss tree:    1785 MiB (process group, shared pages apportioned)
+peak rss tree:    2455 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      1
+other warnings:   1
