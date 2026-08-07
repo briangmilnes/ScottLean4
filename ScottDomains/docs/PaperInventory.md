@@ -8,17 +8,42 @@ The work list for the Lean formalization: every definition and every one of the
 paper's **30 numbered results** (Theorems / Lemmas / Proposition 1–30), in paper
 order, matched to its Lean equivalent.
 
-## Progress (as of r0027, 2026-0806)
+## Progress (as of r0028, 2026-0806)
 
 | # | Quantity | Done | Remaining | Of |
 | -- | -------- | ---- | --------- | -- |
-| 1 | Definitions to define | **10** | 3 | ≈13 |
-| 2 | **Numbered** results complete | **9** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Prop 15, Lem 19) | 20 | **29** |
-| 2a | — of which **partially** proved | Lem 10 (5 of 6 conjuncts — `+` unstated), Lem 17 (3 of 5 — `⊗` and `+` unstated) | — | — |
+| 1 | Definitions to define | **11** | 2 (the three powerdomains, `D∞`) | ≈13 |
+| 2 | **Numbered** results complete | **15** (Thm 1, Thm 3, Lem 4, Lem 5, Thm 6, Thm 7, Lem 8, Lem 10, Thm 11, Prop 15, Lem 17, Lem 19, Lem 20, Thm 22, Lem 23) | 14 | **29** |
+| 2a | — of which **partially** proved | Thm 16 (the algebraic-lattice conjunct proved; the `Fp(D) ↪ (D → D)` embedding conjunct not stated) | — | — |
 | 3 | **Unnumbered prose claims** proved | **12** | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Theorems in the development | **199** live (+6 commented out as unused) | — | — |
+| 5 | Theorems in the development | **384** live (+6 commented out as unused) | — | — |
 | 6 | `sorry` in the development | — | **1**: `thm18` in `Skeleton/Section6.lean` | — |
+
+**Round r0028** ran five agents in parallel and roughly doubled the development:
+27 → 33 modules, 4440 → 8212 lines, 199 → 384 theorems, 9 → 15 numbered results.
+Every new result was kernel-audited with `#print axioms`: all depend only on
+`propext`, `Classical.choice`, `Quot.sound`, and none on `sorryAx`.
+
+| # | r0028 stream | Landed |
+| -- | ------------ | ------ |
+| 1 | `CoalescedSum.lean`, `Skeleton/Sum.lean` | `D + E` as a cpo (`sumSup`, `sumCpo`), then `lem10_sum`, `lem17_sum`, `lem17_smash` — **Lemma 10 at 6 of 6 conjuncts, Lemma 17 at 5 of 5** |
+| 2 | `IdealCompletion.lean` | **Theorem 11**, both halves, on Mathlib's `Order.Ideal`; §5 unblocked |
+| 3 | `FinitaryProjectionPoset.lean`, `Skeleton/Section6b.lean` | `Fp(D)` and `Fc(D)` as posets, **Theorem 16** (algebraic-lattice conjunct), **Lemma 20**, and `IsClosure.domain_range` — Lemma 19 at the paper's strength |
+| 4 | `MinimalUpperBounds.lean` | minimal upper bounds, `U`, `U^∞`, and `isPlotkinOrder_iff_mubClosure` — a characterization the paper does not state. **Theorem 18 still open** |
+| 5 | `UniversalDomain.lean` | **Theorem 22** and **Lemma 23**, with *representable* defined from §7; opens the route to `D∞` |
+
+**A name clash `lake build` could not catch.** Streams 3 and 5 each defined
+`IsClosure.apply_sSup_of_directed` and `isClosure_sSup`. The build passed at 971
+jobs because no module imported both; the clash appeared the moment anything did
+— here, an axiom audit importing the pair. `isClosure_sSup` was the *same*
+statement proved twice; the single copy now lives in `Skeleton/Section6.lean`
+beside `IsClosure`, which both modules already import, so no call site changed.
+The two `apply_sSup_of_directed`s were *different* statements sharing a name —
+one indexed by a set of the subtype `↥(im r)`, one by an ambient `D : Set α` with
+`D ⊆ im r` — so the subtype form was renamed
+`IsClosure.apply_sSup_val_image_of_directed`. **A green build is not evidence
+that parallel work composes**; importing every new module together is.
 
 Row 5 counts lines matching `^(@[…] )?(theorem|lemma) ` across the 27 modules.
 
@@ -37,14 +62,14 @@ remains `sorry`-free, and the count above is the burn-down metric — it goes
 | 4–7 | `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict` | Lem 10 — bounded completeness closed under `×`, `⊗`, `()⊥`, `→⊥`. The `→` conjunct is **already proved** (Thm 7's bounded-complete half, r0007) | **all four proved**; Lem 10 is then **5 of 6** conjuncts — `D + E` is not stated |
 | 8–10 | `lem17_prod`, `lem17_lift`, `lem17_fun` | Lem 17 — bifiniteness closed under `×`, `()⊥`, `→` | **all three proved**; Lem 17 is then **3 of 5** conjuncts — `D ⊗ E` and `D + E` are not stated |
 
-**Why `+` is unstated in both.** `ScottDomains/CoalescedSum.lean` is 181 lines of
-ingredients — `NonBotSum`, `sumBase`, the same-side lemmas, `sSup_leftParts_ne_bot`
-— but it defines **no `sSup` and no `CompletePartialOrder` instance**, and it is not
-imported by `ScottDomains.lean`. There is no cpo `D + E` to state a conjunct over.
-Finishing it is the prerequisite for `lem10_sum` and `lem17_sum`, and its `sSup`
-must branch on landing in `NonBotSum`, not on directedness — the defect fixed in
-`ScottHom` and then in `Smash` would otherwise recur a third time. `lem17_smash`
-is unstated for no such reason: it was simply left out of the r0026 skeleton.
+**The `+` conjuncts, closed in r0028.** `CoalescedSum.lean` was 181 lines of
+ingredients with no `sSup` and no cpo instance, so there was no `D + E` to state a
+conjunct over. It now has both, and the guard is the membership condition
+`IsNonBotSum (sumCandidate (sumBase s))` — the defining predicate of the subtype
+— not directedness, so the defect fixed in `ScottHom` and then in `Smash` did not
+recur a third time. One wrinkle the smash did not have: `α ⊕ β` carries no
+`SupSet`, so a summand must be selected first; that selection is not a second
+guard, because a set with an upper bound at all lies in one summand.
 
 **The `smashSup` defect (r0027).** `lem10_smash` was not merely open: as `smashSup`
 stood, it was **false**, and the kernel confirmed a refutation. `smashSup` branched
@@ -109,7 +134,7 @@ it exists and what is instructive about it, and the build is unchanged — which
 also confirms that the three `@[simp]` ones among them were never firing
 implicitly.
 
-The development is **27 modules, 4440 lines, 1 `sorry`, 0 other warnings**. Counts of
+The development is **33 modules, 8212 lines, 1 `sorry`, 0 other warnings**. Counts of
 definitions, results and theorems are in the Progress table above — they are not
 repeated here, so that this section cannot drift out of step with it. What each
 round delivered:

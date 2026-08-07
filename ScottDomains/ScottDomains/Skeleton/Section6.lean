@@ -256,4 +256,67 @@ theorem lem19 (r : ScottHom α α) (_hr : IsClosure r) :
 
 end Statements
 
+/-! ### Shared closure API
+
+Two lemmas that `FinitaryProjectionPoset.lean` (Theorem 16, Lemma 20) and
+`UniversalDomain.lean` (Theorem 22, Lemma 23) both need. They were written twice
+in round r0028, once in each of those modules, under the same names — a clash
+invisible to `lake build`, because no module imported both, and one that surfaced
+the moment anything did. `IsClosure` is defined here, so this is their home; both
+modules import this file and reach them unqualified. -/
+
+section SharedClosureApi
+
+variable {α : Type*} [CompletePartialOrder α] {r : ScottHom α α}
+
+/-- A continuous closure fixes the ambient supremum of a nonempty directed subset
+of its image. Contrast `IsProjection.apply_sSup_of_directed`, which needs no
+nonemptiness because `p ⊥ = ⊥` while `r ⊥` in general is not `⊥`. -/
+theorem IsClosure.apply_sSup_of_directed (hr : IsClosure r) {D : Set α}
+    (hne : D.Nonempty) (hD : DirectedOn (· ≤ ·) D) (hsub : D ⊆ Set.range ⇑r) :
+    r (sSup D) = sSup D := by
+  have hlub : IsLUB (⇑r '' D) (r (sSup D)) := r.scottContinuous hne hD hD.isLUB_sSup
+  have himg : ⇑r '' D = D := by
+    ext y
+    constructor
+    · rintro ⟨x, hx, rfl⟩
+      rw [hr.apply_of_mem_range (hsub hx)]
+      exact hx
+    · exact fun hy => ⟨y, hy, hr.apply_of_mem_range (hsub hy)⟩
+  rw [himg] at hlub
+  exact hlub.unique hD.isLUB_sSup
+
+/-- The pointwise supremum of a nonempty directed set of closures is a closure.
+
+Only idempotence needs an argument. Continuity of `r` turns `r ((⨆d) x)` into
+`⨆_{r' ∈ d} r (r' x)`, and directedness collapses each term: choosing `r'' ∈ d`
+above both `r` and `r'` gives `r (r' x) ⊑ r'' (r'' x) = r'' x ⊑ (⨆d) x`. -/
+theorem isClosure_sSup {d : Set (ScottHom α α)} (hne : d.Nonempty)
+    (hd : DirectedOn (· ≤ ·) d) (hcl : ∀ r ∈ d, IsClosure r) : IsClosure (sSup d) := by
+  have hev : ∀ x : α, DirectedOn (· ≤ ·) ((fun f : ScottHom α α => f x) '' d) :=
+    fun x => ScottHom.directedOn_eval_image hd x
+  have hle : ∀ x : α, x ≤ (sSup d) x := by
+    intro x
+    obtain ⟨r, hr⟩ := hne
+    rw [ScottHom.coe_sSup_of_directed hd x]
+    exact ((hcl r hr).le_apply x).trans ((hev x).le_sSup ⟨r, hr, rfl⟩)
+  refine ⟨fun x => le_antisymm ?_ (hle _), hle⟩
+  rw [ScottHom.coe_sSup_of_directed hd ((sSup d) x)]
+  refine (hev _).sSup_le ?_
+  rintro _ ⟨r, hr, rfl⟩
+  have hcont : IsLUB (⇑r '' ((fun f : ScottHom α α => f x) '' d)) (r ((sSup d) x)) := by
+    have h := r.scottContinuous (hne.image _) (hev x) (hev x).isLUB_sSup
+    rwa [← ScottHom.coe_sSup_of_directed hd x] at h
+  refine hcont.2 ?_
+  rintro _ ⟨_, ⟨r', hr', rfl⟩, rfl⟩
+  obtain ⟨r'', hr'', hrr, hr'r⟩ := hd r hr r' hr'
+  calc r (r' x) ≤ r'' (r' x) := hrr (r' x)
+    _ ≤ r'' (r'' x) := r''.monotone (hr'r x)
+    _ = r'' x := (hcl r'' hr'').idem x
+    _ ≤ (sSup d) x := by
+        rw [ScottHom.coe_sSup_of_directed hd x]
+        exact (hev x).le_sSup ⟨r'', hr'', rfl⟩
+
+end SharedClosureApi
+
 end ScottDomains

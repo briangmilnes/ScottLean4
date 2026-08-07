@@ -125,8 +125,14 @@ variable [CompletePartialOrder α] {r : ScottHom α α}
 /-- For a **nonempty** directed set in `im(r)`, the ambient least upper bound
 already lies in `im(r)`: continuity moves `r` inside, and `r` fixes its own
 image. Nonemptiness is essential — `r ⊥` is in general not `⊥`, so `sSup ∅` need
-not be a fixed point of `r`. -/
-theorem IsClosure.apply_sSup_of_directed (hr : IsClosure r) {s : Set ↥(Set.range ⇑r)}
+not be a fixed point of `r`.
+
+This is the form indexed by a set of the **subtype** `↥(im r)`.
+`IsClosure.apply_sSup_of_directed` in `Skeleton/Section6.lean` is the ambient
+form, taking `D : Set α` with `D ⊆ im r`; the two carried one name until r0028's
+merge, which is why this one is spelled out. -/
+theorem IsClosure.apply_sSup_val_image_of_directed (hr : IsClosure r)
+    {s : Set ↥(Set.range ⇑r)}
     (hne : s.Nonempty) (hs : DirectedOn (· ≤ ·) s) :
     r (sSup (Subtype.val '' s)) = sSup (Subtype.val '' s) := by
   have hdir := ScottHom.directedOn_val_image (p := r) hs
@@ -151,7 +157,7 @@ theorem IsClosure.isLUB_val_image (hr : IsClosure r) {s : Set ↥(Set.range ⇑r
   have heq : u = ⟨r (sSup (Subtype.val '' s)), Set.mem_range_self _⟩ :=
     hu.unique (hr.isLUB_range hs)
   have hval : u.val = sSup (Subtype.val '' s) := by
-    rw [heq]; exact hr.apply_sSup_of_directed hne hs
+    rw [heq]; exact hr.apply_sSup_val_image_of_directed hne hs
   rw [hval]
   exact (ScottHom.directedOn_val_image (p := r) hs).isLUB_sSup
 
@@ -299,32 +305,9 @@ theorem id_mem_Fc : (ScottHom.id : ScottHom α α) ∈ Fc α := mem_Fc_iff.mpr i
 theorem id_le_of_mem_Fc {r : ScottHom α α} (hr : r ∈ Fc α) : ScottHom.id ≤ r :=
   fun x => (mem_Fc_iff.mp hr).le_apply x
 
-omit [Domain α] in
-/-- **The pointwise supremum of a nonempty directed family of closures is a
-closure.** Inflationarity is immediate from any single member. Idempotence is the
-step with content: `f(⨆d)` is the least upper bound of `{f(g x) | g ∈ d}` by
-continuity of `f`, and for `f, g ⊑ h ∈ d` one has
-`f(g x) ⊑ h(h x) = h x ⊑ (⨆d)(x)`, so every `f(⨆d)(x)` is below `(⨆d)(x)`. -/
-theorem isClosure_sSup {d : Set (ScottHom α α)} (hne : d.Nonempty)
-    (hd : DirectedOn (· ≤ ·) d) (hcl : ∀ f ∈ d, IsClosure f) : IsClosure (sSup d) := by
-  have hinfl : ∀ x, x ≤ (sSup d) x := by
-    intro x
-    obtain ⟨f, hf⟩ := hne
-    exact ((hcl f hf).le_apply x).trans (hd.le_sSup hf x)
-  refine ⟨fun x => le_antisymm ?_ (hinfl _), hinfl⟩
-  rw [ScottHom.coe_sSup_of_directed hd]
-  refine (ScottHom.directedOn_eval_image hd _).sSup_le ?_
-  rintro _ ⟨f, hf, rfl⟩
-  have hlubx : IsLUB ((fun g : ScottHom α α => g x) '' d) ((sSup d) x) := by
-    rw [ScottHom.coe_sSup_of_directed hd]
-    exact (ScottHom.directedOn_eval_image hd x).isLUB_sSup
-  refine (f.scottContinuous (hne.image _) (ScottHom.directedOn_eval_image hd x) hlubx).2 ?_
-  rintro _ ⟨_, ⟨g, hg, rfl⟩, rfl⟩
-  obtain ⟨h, hh, hfh, hgh⟩ := hd f hf g hg
-  calc f (g x) ≤ h (g x) := hfh (g x)
-    _ ≤ h (h x) := h.monotone (hgh x)
-    _ = h x := (hcl h hh).idem x
-    _ ≤ (sSup d) x := hd.le_sSup hh x
+-- `isClosure_sSup` was proved here and, independently and identically, in
+-- `UniversalDomain.lean`. The single copy now lives in `Skeleton/Section6.lean`
+-- beside `IsClosure`, and this file reaches it through that import.
 
 /-- `insert id (val '' S)` is nonempty and directed whenever `S` is directed, and
 all of its members are closures. Adjoining `id` is what lets one argument cover

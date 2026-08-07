@@ -239,22 +239,9 @@ section ClosureRange
 
 variable {U : Type*} [CompletePartialOrder U] {r : ScottHom U U}
 
-/-- A continuous closure fixes the ambient supremum of a nonempty directed subset
-of its image. Contrast `IsProjection.apply_sSup_of_directed`, which needs no
-nonemptiness because `p ⊥ = ⊥`. -/
-theorem IsClosure.apply_sSup_of_directed (hr : IsClosure r) {D : Set U}
-    (hne : D.Nonempty) (hD : DirectedOn (· ≤ ·) D) (hsub : D ⊆ Set.range ⇑r) :
-    r (sSup D) = sSup D := by
-  have hlub : IsLUB (⇑r '' D) (r (sSup D)) := r.scottContinuous hne hD hD.isLUB_sSup
-  have himg : ⇑r '' D = D := by
-    ext y
-    constructor
-    · rintro ⟨x, hx, rfl⟩
-      rw [hr.apply_of_mem_range (hsub hx)]
-      exact hx
-    · exact fun hy => ⟨y, hy, hr.apply_of_mem_range (hsub hy)⟩
-  rw [himg] at hlub
-  exact hlub.unique hD.isLUB_sSup
+-- `IsClosure.apply_sSup_of_directed` moved to `Skeleton/Section6.lean`, where
+-- `IsClosure` is defined: `FinitaryProjectionPoset.lean` needs it too, and both
+-- files defining it under one name clashed on any import of the pair.
 
 /-- The inclusion `im(r) ↪ D` is Scott continuous: a least upper bound taken in
 the subtype is already the ambient one, because the ambient supremum of a
@@ -374,36 +361,8 @@ section ClosureSup
 
 variable {U : Type*} [CompletePartialOrder U]
 
-/-- The pointwise supremum of a nonempty directed set of closures is a closure.
-
-Only idempotence needs an argument. Continuity of `r` turns `r ((⨆d) x)` into
-`⨆_{r' ∈ d} r (r' x)`, and directedness collapses each term: choosing `r'' ∈ d`
-above both `r` and `r'` gives `r (r' x) ⊑ r'' (r'' x) = r'' x ⊑ (⨆d) x`. -/
-theorem isClosure_sSup {d : Set (ScottHom U U)} (hne : d.Nonempty)
-    (hd : DirectedOn (· ≤ ·) d) (hcl : ∀ r ∈ d, IsClosure r) : IsClosure (sSup d) := by
-  have hev : ∀ x : U, DirectedOn (· ≤ ·) ((fun f : ScottHom U U => f x) '' d) :=
-    fun x => ScottHom.directedOn_eval_image hd x
-  have hle : ∀ x : U, x ≤ (sSup d) x := by
-    intro x
-    obtain ⟨r, hr⟩ := hne
-    rw [ScottHom.coe_sSup_of_directed hd x]
-    exact ((hcl r hr).le_apply x).trans ((hev x).le_sSup ⟨r, hr, rfl⟩)
-  refine ⟨fun x => le_antisymm ?_ (hle _), hle⟩
-  rw [ScottHom.coe_sSup_of_directed hd ((sSup d) x)]
-  refine (hev _).sSup_le ?_
-  rintro _ ⟨r, hr, rfl⟩
-  have hcont : IsLUB (⇑r '' ((fun f : ScottHom U U => f x) '' d)) (r ((sSup d) x)) := by
-    have h := r.scottContinuous (hne.image _) (hev x) (hev x).isLUB_sSup
-    rwa [← ScottHom.coe_sSup_of_directed hd x] at h
-  refine hcont.2 ?_
-  rintro _ ⟨_, ⟨r', hr', rfl⟩, rfl⟩
-  obtain ⟨r'', hr'', hrr, hr'r⟩ := hd r hr r' hr'
-  calc r (r' x) ≤ r'' (r' x) := hrr (r' x)
-    _ ≤ r'' (r'' x) := r''.monotone (hr'r x)
-    _ = r'' x := (hcl r'' hr'').idem x
-    _ ≤ (sSup d) x := by
-        rw [ScottHom.coe_sSup_of_directed hd x]
-        exact (hev x).le_sSup ⟨r'', hr'', rfl⟩
+-- `isClosure_sSup` moved to `Skeleton/Section6.lean` for the same reason;
+-- `FinitaryProjectionPoset.lean` had proved the identical statement separately.
 
 /-- A least upper bound taken in `Fc(U)` is already one in `U → U`. Both
 inequalities go through `isClosure_sSup`: the ambient supremum is a closure, so

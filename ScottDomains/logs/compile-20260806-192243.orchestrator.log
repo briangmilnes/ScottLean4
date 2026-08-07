@@ -1,0 +1,39 @@
+# r0028
+# orchestrator — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4
+# started: 2026-08-06T19:22:43-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [960/971] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+⚠ [967/971] Built ScottDomains.Skeleton.Section6 (703ms)
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✔ [968/971] Built ScottDomains.FinitaryProjectionPoset (974ms)
+✔ [969/971] Built ScottDomains.UniversalDomain (1.0s)
+✔ [970/971] Built ScottDomains.Skeleton.Section6b (619ms)
+Build completed successfully (971 jobs).
+--- times ---
+Elapsed (wall clock): 0:03.02
+Maximum resident set size (kbytes): 1718360
+--- build ---
+finished:         2026-08-06T19:22:47-07:00
+exit status:      0
+user cpu:         5.06s
+system cpu:       1.11s
+cpu use:          204%
+peak rss single:  1678 MiB (largest one process, GNU time)
+peak pss tree:    1949 MiB (process group, shared pages apportioned)
+peak rss tree:    4133 MiB (process group, shared pages counted per process)
+jobs:             971
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   0
