@@ -1,0 +1,53 @@
+# r0032
+# agent4 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-06T20:57:38-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [957/1069] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [962/1069] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1064/1069] Built ScottDomains.EffectivePresentation (754ms)
+✔ [1065/1069] Built ScottDomains.Powerdomain.BoundedComplete (972ms)
+✔ [1066/1069] Built ScottDomains.ContinuousConstruction (1.0s)
+⚠ [1067/1069] Built ScottDomains.FinitaryProjectionEmbedding (1.0s)
+warning: ScottDomains/FinitaryProjectionEmbedding.lean:218:0: automatically included section variable(s) unused in theorem `ScottDomains.FpEmbedding.fpBasis_subset_stableCompacts`:
+  [Domain α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/FinitaryProjectionEmbedding.lean:248:0: automatically included section variable(s) unused in theorem `ScottDomains.FpEmbedding.stableCompacts_val`:
+  [Domain α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [1068/1069] Built ScottDomains.ComputableFunction (720ms)
+Build completed successfully (1069 jobs).
+--- times ---
+Elapsed (wall clock): 0:02.23
+Maximum resident set size (kbytes): 1717576
+--- build ---
+finished:         2026-08-06T20:57:42-07:00
+exit status:      0
+user cpu:         5.99s
+system cpu:       1.40s
+cpu use:          330%
+peak rss single:  1677 MiB (largest one process, GNU time)
+peak pss tree:    2137 MiB (process group, shared pages apportioned)
+peak rss tree:    7283 MiB (process group, shared pages counted per process)
+jobs:             1069
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   2
