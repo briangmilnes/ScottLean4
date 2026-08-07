@@ -1,4 +1,7 @@
 import ScottDomains.UniversalDomain
+-- `thm21`, `IsRepresentable₂.diag` and `IsSolvable`, for the corollary `D ≅ D × D`
+-- at the end of the file. Not reachable from `UniversalDomain`.
+import ScottDomains.RecursiveDomain
 
 /-!
 # §7.1: the product operator is representable over `P N`
@@ -397,10 +400,21 @@ theorem isRepresentable_prod : IsRepresentable₂ (Set ℕ) prodCpo := by
     fun p => ⟨?_⟩⟩
   exact (repRangeOrderIso hfg _).trans (prodRangeOrderIso p.1.val p.2.val)
 
+/-- **`D ≅ D × D` has a solution**, the companion of `recursiveDomain_funSpace`
+(`RecursiveDomain.lean`) and the first step of Lemma 24's proof — "we can
+represent `F(X) = U × X × X` over `U`, so there is a closure `A` of `U` such that
+`A ≅ U × A × A`".
+
+One line, and it is the end-to-end check that `isRepresentable_prod` has the shape
+the §7 pipeline consumes: `IsRepresentable₂.diag` turns it into a unary
+representable operator and **Theorem 21** turns that into a domain. -/
+theorem recursiveDomain_prod : Recursive.IsSolvable.{0} fun X => prodCpo X X :=
+  Recursive.thm21 (Recursive.IsRepresentable₂.diag isRepresentable_prod)
+
 end ScottDomains.PowerdomainRep
 
 /- Axiom audit, by `#print axioms` (run, then removed so the build emits no
-`info` lines). All 19 declarations depend only on the three standard axioms; none
+`info` lines). All 20 declarations depend only on the three standard axioms; none
 depends on `sorryAx`.
 
   repOf                                 [propext, Classical.choice, Quot.sound]
@@ -422,6 +436,7 @@ depends on `sorryAx`.
   prodRangeOrderIso                     [propext, Classical.choice, Quot.sound]
   prodCpo                               [propext, Quot.sound]
   isRepresentable_prod                  [propext, Classical.choice, Quot.sound]
+  recursiveDomain_prod                  [propext, Classical.choice, Quot.sound]
 
 `compacts_prod`, `compactsBelow_prod` and `prodCpo` are choice-free; the two set
 identities are `Set.ext` over `isCompactElement_prod_iff`, and `prodCpo` only
