@@ -198,18 +198,24 @@ noncomputable def extendHomP (_hp : IsProjection p) (hq : IsProjection q)
       (ScottContinuous.comp (scottContinuous_corestrict p) F.scottContinuous)
       (scottContinuous_val hq)⟩
 
-/-- `ι ∘ F ∘ (x ↦ p x)` is fixed by `(q, p)`, hence lies in `im((q, p))`:
+/-- **`ι ∘ F ∘ (x ↦ p x)` is fixed by `(q, p)`**:
 `q (F (p (p x))) = q (F (p x)) = F (p x)`, the first equation by idempotence of
 `p` and the second because `F` already takes values in `im(q)`. -/
-theorem extendHomP_mem_range (hp : IsProjection p) (hq : IsProjection q)
+theorem compHom_extendHomP (hp : IsProjection p) (hq : IsProjection q)
     (F : ScottHom ↥(Set.range ⇑p) ↥(Set.range ⇑q)) :
-    extendHomP hp hq F ∈ Set.range ⇑(compHom p q) := by
-  refine Set.mem_range.mpr ⟨extendHomP hp hq F, ScottHom.ext fun x => ?_⟩
+    compHom p q (extendHomP hp hq F) = extendHomP hp hq F := by
+  refine ScottHom.ext fun x => ?_
   show q ((F ⟨p (p x), _⟩).val) = (F ⟨p x, _⟩).val
   have hidem : (⟨p (p x), Set.mem_range_self (p x)⟩ : ↥(Set.range ⇑p)) =
       ⟨p x, Set.mem_range_self x⟩ := Subtype.ext (hp.idem x)
   rw [hidem]
   exact hq.apply_of_mem_range (F ⟨p x, Set.mem_range_self x⟩).2
+
+/-- `ι ∘ F ∘ (x ↦ p x)` therefore lies in `im((q, p))`. -/
+theorem extendHomP_mem_range (hp : IsProjection p) (hq : IsProjection q)
+    (F : ScottHom ↥(Set.range ⇑p) ↥(Set.range ⇑q)) :
+    extendHomP hp hq F ∈ Set.range ⇑(compHom p q) :=
+  ⟨extendHomP hp hq F, compHom_extendHomP hp hq F⟩
 
 /-- **`im((q, p)) ≅ (im p → im q)`**, the paper's "evident isomorphism", at a
 projection pair. -/
@@ -352,5 +358,85 @@ theorem rep_arrow [Domain U] [BoundedComplete U]
       (mem_Fp.mp q.2.2).isProjection⟩
 
 end ArrowConjunct
+
+/-! ## `Domain (D →⊥ E)` — the closure property `⇸` needs, which was not present
+
+`ClosureProperties.lean` states Lemma 10 and Lemma 17 for the strict function
+space — `lem10_strict : BoundedComplete (StrictHom α β)` and
+`lem17_strictFun : IsBifinite (StrictHom α β)` — but the development has no
+`Domain (StrictHom α β)`, and `Fp`'s second conjunct asks for exactly that at the
+images. Measured over every module, the `IsAlgebraic` instances present are
+`Set X`, `ScottHom α β`, `α × β`, `WithBot α` and `IdealCompletion A`; the strict
+function space is not among them.
+
+It is nonetheless cheap, because `D →⊥ E` is a **downward-closed** sub-cpo of
+`D → E`: anything below a strict function is strict (`isStrict_of_le`). So the
+compact approximants of `f` in the subtype are, on the nose, the compact
+approximants of `f.val` in `D → E` (`val_image_compactsBelow`) — no
+strictification is needed here, unlike in
+`ClosureProperties/StrictFunction.lean`, where the two *compactness* transfers do
+need it because an arbitrary directed family of `D → E` need not be strict. -/
+
+section StrictDomain
+
+variable {α β : Type*} [CompletePartialOrder α] [CompletePartialOrder β]
+
+/-- **Anything below a strict function is strict**: `g ⊑ f` and `f ⊥ = ⊥` give
+`g ⊥ ⊑ ⊥`. This is the whole reason the section is short. -/
+theorem isStrict_of_le {f g : ScottHom α β} (hf : IsStrict f) (hg : g ≤ f) : IsStrict g :=
+  le_antisymm ((hg ⊥).trans (le_of_eq hf)) bot_le
+
+/-- **The compact approximants of `f` in `D →⊥ E` are those of `f.val` in
+`D → E`.** Left to right is `isCompactElement_val_of_isCompactElement`; right to
+left is `isCompactElement_of_isCompactElement_val` together with
+`isStrict_of_le`, which is what makes the right-hand side land in the subtype at
+all. -/
+theorem val_image_compactsBelow (f : StrictHom α β) :
+    Subtype.val '' compactsBelow f = compactsBelow (f.val : ScottHom α β) := by
+  ext g
+  constructor
+  · rintro ⟨k, hk, rfl⟩
+    exact ⟨ClosureProperties.isCompactElement_val_of_isCompactElement hk.1, hk.2⟩
+  · rintro ⟨hgc, hgf⟩
+    exact ⟨⟨g, isStrict_of_le f.2 hgf⟩,
+      ⟨ClosureProperties.isCompactElement_of_isCompactElement_val hgc, hgf⟩, rfl⟩
+
+/-- **`D →⊥ E` is algebraic when `D → E` is.** Both fields transport across
+`val_image_compactsBelow`; the only step with content is that the ambient
+approximant produced by directedness is automatically strict. -/
+theorem strictHomIsAlgebraic [Domain α] [Domain β] [BoundedComplete β] :
+    IsAlgebraic (StrictHom α β) where
+  directedOn_compactsBelow f := by
+    intro k₁ hk₁ k₂ hk₂
+    have h₁ : (k₁.val : ScottHom α β) ∈ compactsBelow (f.val : ScottHom α β) := by
+      rw [← val_image_compactsBelow]; exact ⟨k₁, hk₁, rfl⟩
+    have h₂ : (k₂.val : ScottHom α β) ∈ compactsBelow (f.val : ScottHom α β) := by
+      rw [← val_image_compactsBelow]; exact ⟨k₂, hk₂, rfl⟩
+    obtain ⟨K, hK, hK₁, hK₂⟩ :=
+      IsAlgebraic.directedOn_compactsBelow (f.val : ScottHom α β) _ h₁ _ h₂
+    exact ⟨⟨K, isStrict_of_le f.2 hK.2⟩,
+      ⟨ClosureProperties.isCompactElement_of_isCompactElement_val hK.1, hK.2⟩, hK₁, hK₂⟩
+  isLUB_compactsBelow f := by
+    refine ⟨fun k hk => hk.2, fun v hv => ?_⟩
+    show (f.val : ScottHom α β) ≤ v.val
+    refine (IsAlgebraic.isLUB_compactsBelow (f.val : ScottHom α β)).2 ?_
+    rw [← val_image_compactsBelow]
+    rintro _ ⟨k, hk, rfl⟩
+    exact hv hk
+
+/-- **`D →⊥ E` is a domain when `D` and `E` are and `E` is bounded complete.**
+Countability is `Subtype.val` injecting `K(D →⊥ E)` into `K(D → E)`, which is
+countable by `FunctionSpaceCountable.lean`'s instance (Theorem 7). Stated as a
+theorem rather than an `instance`, so that it fires only where it is named. -/
+theorem strictHomDomain [Domain α] [Domain β] [BoundedComplete β] :
+    Domain (StrictHom α β) where
+  __ := strictHomIsAlgebraic
+  countable_compacts := by
+    have hsub : compacts (StrictHom α β) ⊆ Subtype.val ⁻¹' compacts (ScottHom α β) :=
+      fun _ hc => ClosureProperties.isCompactElement_val_of_isCompactElement hc
+    exact Set.Countable.mono hsub
+      ((Domain.countable_compacts (α := ScottHom α β)).preimage Subtype.val_injective)
+
+end StrictDomain
 
 end ScottDomains.PRepFun
