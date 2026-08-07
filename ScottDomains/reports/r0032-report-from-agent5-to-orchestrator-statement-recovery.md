@@ -170,6 +170,7 @@ StrictHom β α × StrictHom γ α)`, not something that unified away.
 | # | SHA | Subject |
 | -- | --- | ------- |
 | 1 | `594f660` | r0032 agent5: recover Lemma 9 and Theorem 14 from the PDF — `Skeleton/Recovered.lean`, `docs/StatementRecovery.md`, build logs |
-| 2 | `e9ffe72` | r0032 agent5: report |
+| 2 | `652d067` | r0032 agent5: report |
+| 3 | (this commit) | r0032 agent5: correct the report's own SHA for row 2 — it was written before the commit existed |
 
 Branch `agent5`, not pushed and no upstream set, per plan rule 5.
