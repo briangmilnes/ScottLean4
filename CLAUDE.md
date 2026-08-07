@@ -66,6 +66,36 @@ here — not the full GRASE process.
 - The `from-…` slot is the author's own role; `<subject>` is short kebab-case.
   Any timestamps use `YYYY-MMDD-HH:MM` in the project timezone (America/Los_Angeles).
 
+## Logs (GRASE convention)
+
+Builds go through `scripts/compile.sh`, never a bare `lake build` when the run is
+worth recording. It wraps `lake build` in GNU `/usr/bin/time -v` and writes an
+execution log with timing and peak memory.
+
+    scripts/compile.sh [-r rNNNN] [lake target ...]
+
+Naming follows `~/projects/GRASE/standards/LoggingStandard.md`, which is
+authoritative and supersedes GRASE rule 4.1's minute-resolution form:
+
+    ScottDomains/logs/<script-stem>-YYYYMMDD-HHMMSS.{orchestrator,agentN}.log
+
+- `<script-stem>` is the script's own name (`compile`), `YYYYMMDD-HHMMSS` is the
+  local-time start of the run, second resolution, zero-padded.
+- The trailing role slot is retained from rule 4.1 because these logs must be
+  attributed to an agent; it is `agentN` when the checkout path ends in `-agentN`,
+  otherwise `orchestrator`. The script detects it from the path — never a flag.
+- `logs/` holds **execution telemetry** — the transcript of a run. `analyses/`
+  holds **analytical output** — a data-product about the codebase. Never write
+  the same content to both.
+- Logs are committed to git; they are the raw material for analyses. ANSI escapes
+  are stripped. Each run writes a fresh file; nothing is appended or rotated.
+- Pick the latest log by sorting the timestamp **in the filename**, never by
+  mtime — git restores mtimes out of commit order.
+- A heavy step records wall clock and peak resident set size in a `--- times ---`
+  footer, with the field names spelled exactly as the standard gives them.
+
+Measured build costs live in `ScottDomains/docs/Performance.md`.
+
 ## Repository workflow and file index
 
 **Commit and push through `scripts/gitcp.sh`, never raw git.** Compound git
