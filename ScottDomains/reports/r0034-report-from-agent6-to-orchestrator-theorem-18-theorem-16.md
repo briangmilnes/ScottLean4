@@ -42,20 +42,25 @@ than conjectural, and the failing step has a name.
 | 10 | Papers added | 2, in `ScottDomains/papers/` |
 | 11 | Commits (branch `agent6`) | `7d158b8`, `bb52f31` — not pushed, as instructed |
 
-### Correction to the inventory: the development has 8 `sorry`, not 1
+### Two stale statements of the `sorry` count, and a measurement trap
 
-The round's premise — "`thm18` proved takes the development to 0 `sorry`" — is
-wrong, and the error is in how the count was taken, not in anyone's arithmetic.
-`ScottDomains/Skeleton/Recovered.lean` carries **7 live `sorry`s** (Lemma 9.1–9.6
-and Theorem 14) which a *targeted* `lake build` never reports, because that file
-is not in the import closure of most targets. A full `scripts/compile.sh -r
-r0034` with no target argument builds 1073 jobs and reports all 8; a targeted
-build reports 846–847 jobs and only `thm18`. Any future "N `sorry` remaining"
-claim should come from an untargeted build or from `scripts/counts.sh`, which
-also reports 8.
+`docs/PaperInventory.md` row 6 already reads **8** and is correct, as does the
+round-plan commit `9fc4522`. Two places contradict it and should be corrected:
 
-`thm18` is therefore the last `sorry` in the §6 line, not the last in the
-development.
+* this round's plan, whose acceptance criterion reads "**either** `thm18` proved
+  — taking the development to **0 `sorry`**"; proving `thm18` takes it to 7;
+* `docs/PaperInventory.md` §6.2 row (line 425), which still calls `thm18` "**the
+  development's only `sorry`**".
+
+The measurement trap behind it is worth recording. `Skeleton/Recovered.lean`
+carries 7 live `sorry`s (Lemma 9.1–9.6, Theorem 14) that a **targeted** build
+never reports, because that file is outside the import closure of most targets:
+`scripts/compile.sh -r r0034 ScottDomains.Section62` builds 847 jobs and reports
+1 `sorry`, while `scripts/compile.sh -r r0034` with no target builds **1073 jobs
+and reports all 8**. Any "N `sorry` remaining" claim must come from an untargeted
+build or from `scripts/counts.sh`; both report 8.
+
+`thm18` is the last `sorry` in the §6 line, not the last in the development.
 
 ## Part 2 — Theorem 16's positive form: proved
 
@@ -238,5 +243,7 @@ independent of whether the next round pursues it: the module docstring carries t
 recovered proof architecture with citations, so a future agent starts from
 Smyth's argument rather than re-deriving one.
 
-Also worth acting on independently of §6: the inventory's `sorry` count should be
-corrected from 1 to 8.
+Also worth acting on independently of §6: `docs/PaperInventory.md`'s §6.2 row
+still calls `thm18` "the development's only `sorry`", contradicting its own row 6.
+I did not edit that file — it is shared, and five other agents are writing this
+round.
