@@ -12,7 +12,7 @@ related:
   - reports/r0032-report-from-agent3-to-orchestrator-theorem-16
 ---
 
-# r0034 agent6 — Theorem 16's positive form proved; Smyth's Theorem 18 proof recovered
+# r0034 agent6 — Theorem 16's positive form proved; Theorem 18's obstruction written, with a complete proof recovered from Jung
 
 ## Headline
 
@@ -20,11 +20,22 @@ related:
 `thm16_positive_isEmbeddingProjectionPair`, which is the literal negation of
 r0032's refutation.
 
-**Theorem 18 did not fall, but it is no longer an obstruction — it is a
-recovered proof with a costed work plan.** The instruction to read the source
-rather than re-derive it was the right call and it worked: Smyth's argument is
-now available in full, the reason all three prior rounds failed is exact rather
-than conjectural, and the failing step has a name.
+**Theorem 18 did not fall. `thm18` is untouched and still `sorry`; I added
+none.** The plan's alternative deliverable — a written obstruction with the
+failing step named — is delivered, in the module docstring and below. Two
+outcomes that must not be conflated:
+
+* **[Smy83a] was not obtained and is not machine-retrievable.** Smyth's own case
+  analysis is *not* recovered. The evidence is below; the recommendation is to
+  stop hunting it.
+* **A complete, checkable proof of the same statement was recovered — Jung's,
+  not Smyth's.** It uses machinery that did not exist in 1983, so it is a
+  different proof of the same theorem and nothing in it may be cited to
+  [Smy83a].
+
+Either way the round's real question is answered: the reason all three prior
+rounds failed is now exact rather than conjectural, and the missing step has a
+name.
 
 ## Measurement
 
@@ -99,27 +110,47 @@ above both. It is also not bounded complete, so result 2 is consistent with it.
 
 ## Part 1 — Theorem 18: which of [Smy83a]'s steps I could and could not recover
 
-### Sources, and what happened with the primary one
+### [Smy83a] is not machine-retrievable — stop hunting it
 
-[Smy83a] is *The largest cartesian closed category of domains*, TCS **27** (1983)
-109–119, DOI `10.1016/0304-3975(83)90095-6`. Crossref was needed to get the DOI
-right; the suffix is `-6`, not `-2`. Unpaywall reports it as Elsevier "bronze"
-open access with the publisher PDF as the only location, and ScienceDirect
-answered the automated fetch with **HTTP 403**. **Smyth's own paper is not in
-`papers/`.** I did not work around the block.
+*The largest cartesian closed category of domains*, TCS **27** (1983) 109–119,
+DOI `10.1016/0304-3975(83)90095-6`, PII `0304397583900956`. Crossref was needed
+to get the DOI right — the suffix is `-6`, not `-2`. Unpaywall and OpenAlex both
+report it open access ("bronze") with ScienceDirect as the *only* location on
+record, and Elsevier's content API confirms `openaccess=1`. Retrieval fails
+anyway: ScienceDirect returns **HTTP 403** behind a Cloudflare challenge on the
+landing page, `/pdf` and `/pdfft`, with and without browser headers; the content
+API returns 401 without a key; CORE's three records all carry empty download
+URLs; and every Wayback capture of the `/pdf` URL is the interstitial challenge
+page. The archived landing page's own metadata reads `displayViewFullText:
+false` — a legacy scan that never had HTML full text to archive. It needs a
+browser session or an institutional proxy.
 
-Two sources that reproduce the proof in full were obtained and are committed:
+**Smyth's paper is not in `papers/` and I did not work around the block.** My own
+attempt was one `curl` that returned 403; the fuller enumeration above comes from
+the round's literature search, which tried ten routes.
+
+Gunter & Scott give **no** proof: §6.2 was re-read from the project PDF, Theorem
+18's proof box is empty, and Figure 3 is a line diagram carrying no argument. The
+UPenn preprint (Gunter, Mosses & Scott, MS-CIS-89-16, 1989) is the same — it is
+committed on the orchestrator's checkout at `ScottDomains/papers/Gunter Mosses
+Scott 1989 Semantic Domains and Denotational Semantics MS-CIS-89-16.pdf` and will
+reach this branch on merge. There is no point mining Gunter–Scott further.
+
+Three sources that *were* obtained and are committed on this branch:
 
 * `ScottDomains/papers/Jung 1989 Cartesian Closed Categories of Domains.pdf` —
   A. Jung, CWI Tract 66 (1989). §2.1 is titled **"The theorem of Smyth"** and
-  gives the proof as Theorem 2.3 with all three of Smyth's lemmas. This is the
-  authoritative recovery.
+  proves the statement as Theorem 2.3. **This is the complete proof, and it is
+  Jung's own** — see the attribution warning below.
 * `ScottDomains/papers/Abramsky Jung Domain Theory 1994.pdf` — Abramsky & Jung,
-  *Domain Theory*, Handbook of Logic in Computer Science Vol. 3. §4.3 gives the
-  same content as the classification theorems 4.3.3–4.3.5.
-
-Gunter & Scott's own §6.2 was re-read from the project PDF and confirms the plan:
-they give **no** proof, and Figure 3 is a line diagram that carries no argument.
+  *Domain Theory*, Handbook of Logic in Computer Science Vol. 3, §4.3.
+* `ScottDomains/papers/Plotkin 1981 Post-graduate lectures in advanced domain
+  theory (Pisa notes).pdf` — the origin of the problem. Plotkin states the
+  conjecture Smyth settled, and proves cases (a) and (b) together by König's
+  Lemma as his "2/3 SFP Theorem" — 2/3 because it settles Figures 3a and 3b and
+  not 3c. **I verified both quotations against the retrieved file rather than
+  taking them from a secondary source**; the `fi`/`ffi` ligatures drop in
+  extraction, so "i" reads "iff" and "nite" reads "finite".
 
 ### The proof, recovered in full
 
@@ -143,11 +174,26 @@ Figure 3c is `U ^∞` infinite. Five steps:
 | 4 | property M ⟹ `U ^∞(A)` finite (Figure 3c) | Lemma 2.2 | yes | ingredients present; **two steps proved this round** |
 | 5 | property m + `U ^∞` finite ⟹ bifinite | Theorem 1.32 (Plotkin) | yes | **`isBifinite_iff_mubClosure`, r0028** |
 
-Every step was recovered. What I could **not** recover is Smyth's own wording and
-his numbering — everything above is Jung's reconstruction of Smyth, which Jung
-presents as such ("Smyth's proof of the first part utilizes three lemmas").
-Jung also states that Smyth's second lemma is the one he re-proves rather than
-reproduces, so Lemma 2.17 is Jung's proof of Smyth's statement, not Smyth's.
+Every step of *a* proof was recovered. What I could **not** recover is Smyth's
+own argument: everything above is Jung's, which Jung presents as a
+reconstruction ("Smyth's proof of the first part utilizes three lemmas"), and
+step 3 in particular is Jung *supplying* a proof of Smyth's second lemma rather
+than transcribing one.
+
+**This matters for attribution and I initially got it too weak.** Jung's `f_S`
+family **cannot** be Smyth's: it is monotone only because Lemma 2.13 has forced
+`D` to be an algebraic L-domain, and L-domains are Jung's own 1988–89
+contribution. What is attested of Smyth's own case-(b) lemma — from Jung's §2.1
+summary and independently from Spreen, *The largest Cartesian closed category of
+domains, considered constructively*, MSCS **15** (2005) 299–321, DOI
+`10.1017/s0960129504004591` — is only the **conclusion**, that infinitely many
+minimal upper bounds force uncountably many compact elements in the function
+space. The cardinality mechanism is Smyth's; the particular uncountable family is
+not. Spreen gives a third variant indexed by `ω^ω` rather than by `2^{mub}`.
+
+For a formalization that is good news: **no family is canonical, so a future
+round may pick whichever is cheapest to verify** rather than trying to reproduce
+a specific one.
 
 ### Why three rounds failed, exactly — the answer the plan asked for
 
@@ -161,15 +207,17 @@ and shows each is a *minimal* upper bound of the compact step functions
 `a₁ ↘ a₁` and `a₂ ↘ a₂`, hence compact, with `f_S ≠ f_{S'}` for `S ≠ S'`. That is
 `2^ℵ⁰` compact elements of `D → D`, contradicting countability of `K(D → D)`.
 
-**`f_S` is well defined only because step 2 has already forced `D` to be an
-L-domain**, so that any element above both `a₁` and `a₂` is above *exactly one*
-element of `mub{a₁, a₂}` (Jung's own justification, in the proof of Lemma 2.17).
+**`f_S` is monotone only because step 2 has already forced `D` to be an
+algebraic L-domain**, so that any element above both `a₁` and `a₂` is above
+*exactly one* element of `mub{a₁, a₂}` (Jung's own justification, in the proof of
+Lemma 2.17). This is the point at which the construction is Jung's rather than
+Smyth's, per the attribution warning above.
 
 That uniqueness is **precisely the side condition r0031 reported as
 unavailable.** r0031 recorded the failing case as needing `g k₁ ⊑ g (x_{m₀+1})`,
 with "a domain that is not bounded complete has no join to compare them at". The
 development was trying to discharge that condition *directly*. It is not
-directly dischargeable — it is false in general. Smyth's proof reaches it only
+directly dischargeable — it is false in general. Jung's proof reaches it only
 after the bifurcation of step 2 has restricted `D` to the L-domains, where it
 holds. **The missing prerequisite is Lemma 2.13, which the development does not
 have in any form.** Three variants failed at the same point because they were all
@@ -188,7 +236,7 @@ Two further measurements, both from the recovered proof:
   is correct as written and its second `Domain` instance is load-bearing —
   specifically its `countable_compacts` field, which no attempt has yet touched.
 * r0031's (★) is confirmed equivalent to Theorem 18 rather than below it, as that
-  round's audit said. Smyth's proof never passes through it. Grinding on (★) was
+  round's audit said. Jung's proof never passes through it. Grinding on (★) was
   correctly diagnosed as circular.
 
 ### What I proved toward it
@@ -223,7 +271,15 @@ development does not define. My recommendation is to take step 4 to completion
 first — it is self-contained, it makes r0031's module pay off, and it converts
 the §6 `sorry` from "no known route" to "three named lemmas remaining".
 
-I did **not** generate a fourth variant of the perturbation argument.
+**If that route is completed it should be stated and cited as Jung's theorem,
+under Jung's hypotheses, not as a proof of [Smy83a].** Jung's Theorem 2.3 has a
+*weaker* hypothesis than Gunter & Scott's Theorem 18 — `D` need only be an
+algebraic dcpo with least element — so it implies `thm18` as stated and could
+discharge that `sorry`; but the docstring and any report must say whose proof it
+is.
+
+I did **not** generate a fourth variant of the perturbation argument, and I added
+no `sorry`.
 
 ## Files
 
@@ -232,16 +288,20 @@ I did **not** generate a fourth variant of the perturbation argument.
   collide with the round's other five agents.
 * `ScottDomains/papers/Jung 1989 Cartesian Closed Categories of Domains.pdf`
 * `ScottDomains/papers/Abramsky Jung Domain Theory 1994.pdf`
+* `ScottDomains/papers/Plotkin 1981 Post-graduate lectures in advanced domain
+  theory (Pisa notes).pdf`
 
 ## Recommendation
 
 Merge. The module is self-contained and kernel-accepted, it adds no `sorry`, and
 it touches no other file. `thm16_positive` and
 `thm16_positive_isEmbeddingProjectionPair` close out Theorem 16 as a settled
-pair with r0032's refutation. The Theorem 18 material is a research result
-independent of whether the next round pursues it: the module docstring carries the
-recovered proof architecture with citations, so a future agent starts from
-Smyth's argument rather than re-deriving one.
+pair with r0032's refutation. The Theorem 18 material is the plan's obstruction
+deliverable and stands independently of whether the next round pursues it: the
+module docstring names the failing step, records that [Smy83a] is unobtainable,
+and carries a complete alternative proof architecture with citations — correctly
+attributed to Jung — so a future agent starts from a checkable argument rather
+than re-deriving one.
 
 Also worth acting on independently of §6: `docs/PaperInventory.md`'s §6.2 row
 still calls `thm18` "the development's only `sorry`", contradicting its own row 6.

@@ -78,33 +78,66 @@ precisely because `{⊥, a, m₁}` and `{⊥, b, m₁}` are two *maximal* normal
 subposets inside `S_{λx.m₁}` with no normal subposet above both — and it is not
 bounded complete, which is consistent with the second result above.
 
-# Theorem 18: Smyth's proof, recovered
+# Theorem 18: a complete proof recovered — Jung's, not Smyth's
 
 > **Theorem 18** If `D` and `D → D` are domains, then `D` is bifinite.
 > "The theorem is due to Smyth and its proof may be found in [Smy83a]."
 
 `ScottDomains.thm18` (`Skeleton/Section6.lean`) has been the development's only
 open `sorry` in the §6 line since r0027, and three rounds (r0029–r0031) failed on
-the same monotonicity side condition. r0034 read the source rather than
-re-deriving it. **The proof is fully recovered**, and the reason the perturbation
-route failed is now exact rather than conjectural.
+the same monotonicity side condition. r0034 read the sources rather than
+re-deriving. Two results, which must not be conflated:
+
+* **[Smy83a] itself was not obtained**, and on the evidence below is not
+  machine-retrievable. Smyth's own case analysis is therefore *not* recovered.
+* **A complete, checkable proof of the same theorem was recovered** — Jung's.
+  It uses machinery Smyth did not have, so it is a different proof of the same
+  statement, and nothing below may be attributed to [Smy83a].
+
+Either way the reason the perturbation route failed is now exact rather than
+conjectural, which is the round's deliverable.
 
 ## Sources
 
-Smyth's own paper is [Smy83a], *The largest cartesian closed category of
-domains*, Theoretical Computer Science **27** (1983) 109–119, DOI
-`10.1016/0304-3975(83)90095-6`. It is Elsevier "bronze" open access and
-ScienceDirect answered an automated fetch with HTTP 403, so it is **not** in
-`ScottDomains/papers/`. Two sources that reproduce the proof in full were
-obtained and are committed there:
+[Smy83a] is *The largest cartesian closed category of domains*, Theoretical
+Computer Science **27** (1983) 109–119, DOI `10.1016/0304-3975(83)90095-6`, PII
+`0304397583900956`. Unpaywall and OpenAlex both report it open access ("bronze")
+with ScienceDirect as the *only* location on record, and Elsevier's content API
+confirms `openaccess=1`; but ScienceDirect returns **HTTP 403** behind a
+Cloudflare challenge on the landing page, `/pdf` and `/pdfft`, with and without
+browser headers, the content API returns 401 without a key, CORE's three records
+all carry empty download URLs, and every Wayback capture of the `/pdf` URL is the
+interstitial challenge page. The archived landing page's own metadata says
+`displayViewFullText: false` — this is a legacy scan that never had HTML full
+text to archive. It needs a browser session or an institutional proxy.
+**Do not spend further rounds hunting it.** It is not in `ScottDomains/papers/`.
+
+Three sources that *are* obtained and committed there:
 
 * `papers/Jung 1989 Cartesian Closed Categories of Domains.pdf` — A. Jung,
-  *Cartesian Closed Categories of Domains*, CWI Tract 66 (1989); the thesis's
-  §2.1 is titled "The theorem of Smyth" and gives the proof as Theorem 2.3 with
-  its three lemmas. **This is the authoritative recovery.**
+  *Cartesian Closed Categories of Domains*, CWI Tract 66 (1989). §2.1 is titled
+  "The theorem of Smyth" and proves the statement as Theorem 2.3. **This is the
+  complete proof**, and it is Jung's own; see the attribution warning below.
 * `papers/Abramsky Jung Domain Theory 1994.pdf` — S. Abramsky and A. Jung,
   *Domain Theory*, Handbook of Logic in Computer Science Vol. 3; §4.3 gives the
   same material as the classification theorems 4.3.3–4.3.5.
+* `papers/Plotkin 1981 Post-graduate lectures in advanced domain theory (Pisa
+  notes).pdf` — the origin of the problem, and the source of cases (a) and (b) in
+  their original form. Plotkin states the conjecture Smyth settled verbatim (the
+  `fi`/`ffi` ligatures drop in extraction, so "i" reads "iff" and "nite" reads
+  "finite"):
+
+  > **Conjecture.** If `D` and `(D→D)` are ω-algebraic then `D` is strongly
+  > algebraic. If true this would imply that SFP is the largest subcategory of
+  > the ω-algebraic cpos closed under [exponentiation].
+
+  and proves cases (a) and (b) together, by König's Lemma:
+
+  > **Theorem 6 The 2/3 SFP Theorem.** The Lawson topology on `D` is compact iff
+  > every `U({a,b})` with `a, b` finite is both complete and finite.
+
+  "2/3" because it settles Figures 3a and 3b and not 3c. Both quotations were
+  checked against the retrieved file, not taken from a secondary source.
 
 ## The proof, and the terminology map
 
@@ -142,16 +175,30 @@ and shows each `f_S` is a *minimal* upper bound of the compact step functions
 `a₁ ↘ a₁` and `a₂ ↘ a₂`, hence compact, with `f_S ≠ f_{S'}` for `S ≠ S'`. That is
 `2 ^ℵ⁰` compact elements of `D → D`, contradicting countability of `K(D → D)`.
 
-**`f_S` is well defined only because step 2 has already forced `D` to be an
-L-domain**, so that "any element above both `a₁` and `a₂` is above *exactly one*
-element of `mub{a₁, a₂}`" (Jung, proof of Lemma 2.17). That uniqueness is
-precisely the side condition r0031 reported as unavailable — its report records
-the failing case as needing `g k₁ ⊑ g (x_{m₀+1})` where "a domain that is not
-bounded complete has no join to compare them at". The development was trying to
-discharge that condition directly. It is not dischargeable directly: it is *false*
-in general, and Smyth's proof reaches it only after the bifurcation of step 2 has
-restricted `D` to the L-domains, where it holds. **The missing prerequisite is
-Lemma 2.13, which the development does not have in any form.**
+**Attribution warning — `f_S` is Jung's construction and cannot be Smyth's.** It
+is monotone only because step 2 has already forced `D` to be an algebraic
+L-domain, so that "any element above both `a₁` and `a₂` is above *exactly one*
+element of `mub{a₁, a₂}`" (Jung, proof of Lemma 2.17). L-domains are Jung's own
+1988–89 contribution and did not exist in 1983; Jung's wording is that he
+*supplies* a proof of Smyth's second lemma, not that he transcribes one. Cite this
+family as Jung's, never as [Smy83a]'s. What is attested of Smyth's own lemma —
+from Jung's §2.1 summary and independently from Spreen, *The largest Cartesian
+closed category of domains, considered constructively*, MSCS **15** (2005)
+299–321 — is only the **conclusion**: infinitely many minimal upper bounds imply
+the function space has uncountably many compact elements. The cardinality
+mechanism is Smyth's; the particular uncountable family is not. Spreen gives a
+third variant, indexed by `ω^ω` rather than by `2^{mub}`. For a formalization
+that is good news: **no family is canonical, so pick whichever is cheapest to
+verify.**
+
+The L-domain uniqueness is precisely the side condition r0031 reported as
+unavailable — its report records the failing case as needing `g k₁ ⊑ g
+(x_{m₀+1})` where "a domain that is not bounded complete has no join to compare
+them at". The development was trying to discharge that condition directly. It is
+not dischargeable directly: it is *false* in general, and Jung's proof reaches it
+only after the bifurcation of step 2 has restricted `D` to the L-domains, where
+it holds. **The missing prerequisite is Lemma 2.13, which the development does
+not have in any form.**
 
 Two further measurements on the failed rounds, both from the recovered proof:
 
@@ -164,7 +211,7 @@ Two further measurements on the failed rounds, both from the recovered proof:
   Theorem 18 is **false**, the algebraic L-domains being the counterexamples.
 * r0031's (★) — "a compact deflation `g ⊑ id` has finite image on the upper
   bounds of `u`" — is indeed equivalent to Theorem 18 rather than below it, as
-  that round's audit said. Smyth's proof never passes through it.
+  that round's audit said. Jung's proof never passes through it.
 
 ## What is proved here
 
@@ -389,8 +436,8 @@ end BoundedComplete
 
 Both are stated for a bare `[PartialOrder α]` and a plain function `g`, because
 that is all the arguments use — no cpo structure, no algebraicity, and no
-countability. They are the parts of Smyth's case (c) that the development can
-reach today. -/
+countability. They are the parts of case (c) — Figure 3c — that the development
+can reach today, following Jung's Lemma 2.2. -/
 
 section Theorem18
 
