@@ -80,6 +80,12 @@ written from two machines/agents in parallel, so always rebase — and pushes, a
 single permitted command. Pass explicit paths to avoid sweeping in unrelated
 untracked files.
 
+**Agents commit; only the orchestrator pushes.** An `agentN` commits to its own
+branch with `scripts/gitcp.sh` and stops there — it does not push and does not set
+an upstream for its branch, so the push step reporting "no tracking information"
+is the expected outcome, not an error. The orchestrator reviews the agent's diff,
+merges the branch into `main`, re-runs `lake build`, and pushes.
+
 **Build with a bare `lake build`.** Do not prefix it with the `timeout` command:
 `timeout` is not on the permission allowlist, and one unlisted clause makes the
 whole `cd … && timeout … lake build …` command prompt the user. When a build
