@@ -1,0 +1,34 @@
+# r0036
+# agent2 — lake build ScottDomains.JungSFP
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-07T09:10:30-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.JungSFP ===
+✖ [834/834] Building ScottDomains.JungSFP (1.0s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/JungSFP.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/JungSFP.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/JungSFP.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/JungSFP.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/JungSFP.setup.json --json
+error: ScottDomains/JungSFP.lean:771:37: Invalid field notation: Function `Function.nontrivial` does not have a usable parameter of type `Function` for which to substitute `hMinf`
+
+Note: Such a parameter must be explicit, or implicit with a unique name, to be used by field notation
+error: ScottDomains/JungSFP.lean:771:9: Tactic `rcases` failed: `x✝ : ?m.406` is not an inductive datatype
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.JungSFP
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.71
+Maximum resident set size (kbytes): 1735528
+--- build ---
+finished:         2026-08-07T09:10:33-07:00
+exit status:      1
+user cpu:         2.00s
+system cpu:       0.44s
+cpu use:          142%
+peak rss single:  1694 MiB (largest one process, GNU time)
+peak pss tree:    1832 MiB (process group, shared pages apportioned)
+peak rss tree:    2502 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   0

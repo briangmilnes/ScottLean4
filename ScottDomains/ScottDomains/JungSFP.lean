@@ -148,6 +148,21 @@ theorem mem_minimalUpperBounds_of_minimal (hu : u.Finite) (huc : u ⊆ compacts 
     (hm : Minimal (· ∈ upperBounds u) m) : m ∈ minimalUpperBounds (compacts α) u :=
   ⟨⟨isCompactElement_of_minimal_upperBounds hu huc hm, hm.1⟩, fun _ hy hym => hm.2 hy.2 hym⟩
 
+/-- **Property m extends from compact bounds to all bounds** in an algebraic
+dcpo. `HasCompleteMub A u` quantifies over upper bounds *in `A`*, because that is
+the form §6.1 uses; Jung's property m quantifies over all `x ⊒ u` in `D`. The two
+agree for finite sets of compacts: a general bound `x` dominates a compact bound
+`z` — directedness of `compactsBelow x` collapses the finitely many members of
+`u` — and the minimal upper bound produced below `z` is below `x`. -/
+theorem exists_mem_minimalUpperBounds_le (hu : u.Finite) (huc : u ⊆ compacts α)
+    (hcomp : HasCompleteMub (compacts α) u) {x : α} (hx : x ∈ upperBounds u) :
+    ∃ m ∈ minimalUpperBounds (compacts α) u, m ≤ x := by
+  obtain ⟨z, hz, hzub⟩ :=
+    exists_mem_upperBounds_of_directedOn (IsAlgebraic.directedOn_compactsBelow x)
+      (compactsBelow_nonempty x) hu fun y hy => ⟨y, ⟨huc hy, hx hy⟩, le_rfl⟩
+  obtain ⟨m, hmM, hmz⟩ := hcomp z ⟨hz.1, fun y hy => hzub y hy⟩
+  exact ⟨m, hmM, hmz.trans hz.2⟩
+
 end Algebraic
 
 /-! ## The four-region function
@@ -661,5 +676,185 @@ theorem thm214 (hAlg : IsAlgebraic (ScottHom D D)) :
   · exact Or.inr hL
 
 end Thm214
+
+/-! ## Lemma 2.17 — where countability is spent -/
+
+section SVal
+
+variable {D E : Type*} [Preorder D]
+
+open Classical in
+/-- The top-region value of Jung's uncountable family `f_S`: `b₁` at the elements
+above some member of `S`, and `b₂` at the rest. -/
+noncomputable def sVal (S : Set D) (b₁ b₂ : E) : D → E :=
+  fun d => if ∃ s ∈ S, s ≤ d then b₁ else b₂
+
+theorem sVal_pos {S : Set D} {b₁ b₂ : E} {d : D} (h : ∃ s ∈ S, s ≤ d) :
+    sVal S b₁ b₂ d = b₁ := by
+  classical simp only [sVal, if_pos h]
+
+theorem sVal_neg {S : Set D} {b₁ b₂ : E} {d : D} (h : ¬ ∃ s ∈ S, s ≤ d) :
+    sVal S b₁ b₂ d = b₂ := by
+  classical simp only [sVal, if_neg h]
+
+end SVal
+
+section Lemma217
+
+variable {D : Type*} [CompletePartialOrder D] [IsAlgebraic D]
+
+/-- **Jung 1989, Lemma 2.17.** If the function space `[D → D]` is a domain
+(algebraic with a countable basis) and a pair of compact elements has a complete
+set of minimal upper bounds, then it has only *finitely many* — `K(D)` has
+property M at that pair.
+
+This is the step at which **countability of `K(D → D)` is spent**, and the only
+one: `Section62.lean` records that Theorem 18 is false without it, the algebraic
+L-domains being the counterexamples, so no proof of it can avoid this step.
+
+Jung's proof, run in this order.
+
+1. Assume `mub{a₁, a₂}` is infinite. Then `lemma213` (with `E = D`) forces
+   `HasAtMostOneMubBelow D`: `D` is on the L-domain side of the Theorem 2.14
+   bifurcation. This is the prerequisite three earlier rounds lacked.
+2. Pick two distinct `b₁, b₂ ∈ mub{a₁, a₂}` — an infinite set is nontrivial.
+   For **every** `S ⊆ mub{a₁, a₂}` the function `f_S` takes `b₁` above the
+   members of `S` and `b₂` on the rest of the top region.
+3. `f_S` is monotone exactly because of step 1. Jung: "so any element above both
+   `a₁` and `a₂` is above exactly one element of `mub(A)`". *Exactly one* is
+   uniqueness (step 1) plus existence, and existence is property m — hypothesis
+   `hm` here, Jung's Theorem 1.37, which the development does not have.
+4. Each `f_S` is a minimal upper bound of the compact step functions `a₁ ↘ a₁`
+   and `a₂ ↘ a₂`, hence compact by Proposition 1.9, and `S ↦ f_S` is injective.
+5. So `S ↦ f_S` injects the powerset of an infinite set into `K(D → D)`. Cantor's
+   diagonal argument (`Function.cantor_surjective`) then contradicts
+   `Domain.countable_compacts`.
+
+**Which uncountable family, and why.** `Section62.lean` records three candidates
+— Jung's `2 ^ mub{a₁,a₂}`-indexed `f_S`, Smyth's attested conclusion with no
+family attached, and Spreen's `ω ^ ω`-indexed variant — and observes that none is
+canonical. Jung's is the one formalized here because it costs the least: it
+reuses `jungFun` unchanged, so the whole continuity proof is already paid for by
+`lemma213`, and its injectivity is one evaluation at a point of `S`. Spreen's
+`ω ^ ω` indexing would need a chain construction and a separate continuity
+argument for no gain — the cardinality contradiction is the same either way. -/
+theorem lemma217 (hAlg : IsAlgebraic (ScottHom D D))
+    (hCount : (compacts (ScottHom D D)).Countable)
+    {a₁ a₂ : D} (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂)
+    (hm : HasCompleteMub (compacts D) ({a₁, a₂} : Set D)) :
+    (minimalUpperBounds (compacts D) ({a₁, a₂} : Set D)).Finite := by
+  classical
+  by_contra hMinf
+  haveI := hAlg
+  set M : Set D := minimalUpperBounds (compacts D) ({a₁, a₂} : Set D) with hMdef
+  have hMi : M.Infinite := hMinf
+  have hafin : ({a₁, a₂} : Set D).Finite := Set.toFinite _
+  have hac : ({a₁, a₂} : Set D) ⊆ compacts D := by rintro y (rfl | rfl) <;> assumption
+  -- step 1: the bifurcation puts `D` on the L-domain side
+  have hL : HasAtMostOneMubBelow D := by
+    intro htwo
+    obtain ⟨c₁, c₂, hc₁, hc₂, x, m₁, m₂, hm₁, hm₂, hx1, hx2, hne⟩ := htwo
+    exact lemma213 ha₁ ha₂ hMi hc₁ hc₂ hm₁ hm₂ hne hx1 hx2 hAlg
+  have huniq : ∀ x : D, ∀ m₁ ∈ M, ∀ m₂ ∈ M, m₁ ≤ x → m₂ ≤ x → m₁ = m₂ := by
+    intro x m₁ h₁ m₂ h₂ hx1 hx2
+    by_contra hne
+    exact hL ⟨a₁, a₂, ha₁, ha₂, x, m₁, m₂, h₁, h₂, hx1, hx2, hne⟩
+  -- routine facts about `M`
+  have hMmin : ∀ m ∈ M, Minimal (· ∈ upperBounds ({a₁, a₂} : Set D)) m := fun m hmM =>
+    minimal_upperBounds_of_mem_minimalUpperBounds hafin hac hmM
+  have hMub : ∀ m ∈ M, a₁ ≤ m ∧ a₂ ≤ m := fun m hmM =>
+    ⟨(hMmin m hmM).1 (Set.mem_insert _ _), (hMmin m hmM).1 (Set.mem_insert_of_mem _ rfl)⟩
+  have hMc : ∀ m ∈ M, IsCompactElement m := fun _ hmM => hmM.1.1
+  have hexists : ∀ d : D, a₁ ≤ d → a₂ ≤ d → ∃ m ∈ M, m ≤ d := by
+    intro d h₁ h₂
+    exact exists_mem_minimalUpperBounds_le hafin hac hm (by rintro y (rfl | rfl) <;> assumption)
+  -- step 2: two distinct minimal upper bounds
+  obtain ⟨b₁, hb₁, b₂, hb₂, hb₁₂⟩ := hMi.nontrivial
+  -- step 3: `f_S` is a four-region function for every `S ⊆ M`
+  have hpatchS : ∀ S : Set D, S ⊆ M → IsJungPatch a₁ a₂ a₁ a₂ (sVal S b₁ b₂) := by
+    intro S hSM
+    have hval : ∀ d : D, sVal S b₁ b₂ d = b₁ ∨ sVal S b₁ b₂ d = b₂ := by
+      intro d
+      by_cases hd : ∃ s ∈ S, s ≤ d
+      · exact Or.inl (sVal_pos hd)
+      · exact Or.inr (sVal_neg hd)
+    refine ⟨?_, ?_, ?_, ?_⟩
+    · intro d d' hd₁ hd₂ hdd'
+      by_cases hd : ∃ s ∈ S, s ≤ d
+      · obtain ⟨σ, hσS, hσd⟩ := hd
+        exact le_of_eq ((sVal_pos ⟨σ, hσS, hσd⟩).trans
+          (sVal_pos ⟨σ, hσS, hσd.trans hdd'⟩).symm)
+      · by_cases hd' : ∃ s ∈ S, s ≤ d'
+        · exfalso
+          obtain ⟨σ, hσS, hσd'⟩ := hd'
+          obtain ⟨m, hmM, hmd⟩ := hexists d hd₁ hd₂
+          exact hd ⟨σ, hσS, huniq d' m hmM σ (hSM hσS) (hmd.trans hdd') hσd' ▸ hmd⟩
+        · exact le_of_eq ((sVal_neg hd).trans (sVal_neg hd').symm)
+    · intro d _ _
+      rcases hval d with h | h
+      · rw [h]; exact (hMub b₁ hb₁).1
+      · rw [h]; exact (hMub b₂ hb₂).1
+    · intro d _ _
+      rcases hval d with h | h
+      · rw [h]; exact (hMub b₁ hb₁).2
+      · rw [h]; exact (hMub b₂ hb₂).2
+    · intro s hs hsd b hb h₁ h₂
+      by_cases hSb : ∃ σ ∈ S, σ ≤ b
+      · obtain ⟨σ, hσS, hσb⟩ := hSb
+        obtain ⟨d, hds, hσd⟩ := hMc σ (hSM hσS) s b hs hsd hb hσb
+        obtain ⟨hσ₁, hσ₂⟩ := hMub σ (hSM hσS)
+        exact ⟨d, hds, hσ₁.trans hσd, hσ₂.trans hσd,
+          le_of_eq ((sVal_pos ⟨σ, hσS, hσb⟩).trans (sVal_pos ⟨σ, hσS, hσd⟩).symm)⟩
+      · obtain ⟨d, hds, hd₁, hd₂⟩ := exists_mem_of_isLUB_pair ha₁ ha₂ hs hsd hb h₁ h₂
+        refine ⟨d, hds, hd₁, hd₂, le_of_eq ((sVal_neg hSb).trans (sVal_neg ?_).symm)⟩
+        rintro ⟨σ, hσS, hσd⟩
+        exact hSb ⟨σ, hσS, hσd.trans (hb.1 hds)⟩
+  -- step 4: each `f_S` is compact, and `S ↦ f_S` is injective on subsets of `M`
+  have hstepc : ({ScottHom.step ha₁ a₁, ScottHom.step ha₂ a₂} : Set (ScottHom D D))
+      ⊆ compacts (ScottHom D D) := by
+    rintro f (rfl | rfl)
+    · exact ScottHom.isCompactElement_step ha₁ ha₁
+    · exact ScottHom.isCompactElement_step ha₂ ha₂
+  have hcompact : ∀ (S : Set D) (hSM : S ⊆ M),
+      IsCompactElement (jungHom ha₁ ha₂ a₁ a₂ (sVal S b₁ b₂) (hpatchS S hSM)) := by
+    intro S hSM
+    refine isCompactElement_of_minimal_upperBounds (Set.toFinite _) hstepc ?_
+    refine minimal_upperBounds_jungHom ha₁ ha₂ (hpatchS S hSM) fun d _ _ => ?_
+    by_cases hd : ∃ s ∈ S, s ≤ d
+    · rw [sVal_pos hd]; exact hMmin b₁ hb₁
+    · rw [sVal_neg hd]; exact hMmin b₂ hb₂
+  have hsubinj : ∀ (S S' : Set D), S ⊆ M → S' ⊆ M →
+      (∀ d : D, a₁ ≤ d → a₂ ≤ d → sVal S b₁ b₂ d = sVal S' b₁ b₂ d) → S ⊆ S' := by
+    intro S S' hSM hS'M hEq σ hσS
+    obtain ⟨hσ₁, hσ₂⟩ := hMub σ (hSM hσS)
+    have h1 : sVal S' b₁ b₂ σ = b₁ := (hEq σ hσ₁ hσ₂).symm.trans (sVal_pos ⟨σ, hσS, le_rfl⟩)
+    by_cases hex : ∃ s ∈ S', s ≤ σ
+    · obtain ⟨t, htS', htσ⟩ := hex
+      exact huniq σ t (hS'M htS') σ (hSM hσS) htσ le_rfl ▸ htS'
+    · exact absurd (h1.symm.trans (sVal_neg hex)) hb₁₂
+  -- step 5: the powerset of `M` injects into `K(D → D)`, contradicting countability
+  have himg : ∀ T : Set ↥M, (Subtype.val '' T : Set D) ⊆ M := by
+    rintro T _ ⟨⟨y, hy⟩, _, rfl⟩
+    exact hy
+  set Ψ : Set ↥M → ↥(compacts (ScottHom D D)) := fun T =>
+    ⟨jungHom ha₁ ha₂ a₁ a₂ (sVal (Subtype.val '' T) b₁ b₂) (hpatchS _ (himg T)),
+      hcompact _ (himg T)⟩ with hΨdef
+  have hΨinj : Function.Injective Ψ := by
+    intro T T' hTT'
+    have hval : ∀ d : D, a₁ ≤ d → a₂ ≤ d →
+        sVal (Subtype.val '' T) b₁ b₂ d = sVal (Subtype.val '' T') b₁ b₂ d := by
+      intro d h₁ h₂
+      have := congrArg (fun f : ↥(compacts (ScottHom D D)) => (f : ScottHom D D) d) hTT'
+      simpa only [hΨdef, coe_jungHom, jungFun_of_both h₁ h₂] using this
+    refine Set.image_injective.mpr Subtype.val_injective (Set.Subset.antisymm ?_ ?_)
+    · exact hsubinj _ _ (himg T) (himg T') hval
+    · exact hsubinj _ _ (himg T') (himg T) fun d h₁ h₂ => (hval d h₁ h₂).symm
+  haveI : Countable ↥(compacts (ScottHom D D)) := hCount.to_subtype
+  haveI : Countable (Set ↥M) := hΨinj.countable
+  obtain ⟨f, hf⟩ := exists_surjective_nat (Set ↥M)
+  exact Function.cantor_surjective (f ∘ Function.invFun (Set.Infinite.natEmbedding M hMi))
+    (hf.comp (Function.invFun_surjective (Set.Infinite.natEmbedding M hMi).injective))
+
+end Lemma217
 
 end ScottDomains.JungSFP
