@@ -308,6 +308,19 @@ library. -/
 def Thm137 (D : Type*) [CompletePartialOrder D] : Prop :=
   IsAlgebraic (ScottHom D D) → IsBicomplete D
 
+/-- **The minimal remaining obligation**, weaker than `Thm137`: infima of nonempty
+*chains* rather than of all filtered sets.
+
+Everything below factors through this, because Zorn's lemma quantifies over chains
+— see `exists_minimal_upperBounds_le`. Stating it separately measures how much of
+Theorem 1.37 the route to Theorem 18 actually spends: not the full dual
+directed-completeness, only its restriction to chains. A later round proving
+either one discharges every theorem in this file. -/
+def Thm137Chains (D : Type*) [CompletePartialOrder D] : Prop :=
+  IsAlgebraic (ScottHom D D) → HasChainInfima D
+
+theorem Thm137.toChains (h : Thm137 D) : Thm137Chains D := fun hAlg => (h hAlg).hasChainInfima
+
 variable [IsAlgebraic D]
 
 /-- **The first conjunct of `isBifinite_iff_mubClosure`, reduced to Theorem 1.37.**
@@ -322,7 +335,7 @@ This theorem is the first of the two, modulo `Thm137`. It is the shape the
 Theorem 18 assembly consumes, so nothing downstream has to restate it. -/
 theorem forall_hasCompleteMub_of_thm137 (h : Thm137 D) (hAlg : IsAlgebraic (ScottHom D D)) :
     ∀ v : Set D, v.Finite → v ⊆ compacts D → HasCompleteMub (compacts D) v :=
-  fun _ hv hvc => hasCompleteMub_of_hasChainInfima (h hAlg).hasChainInfima hv hvc
+  fun _ hv hvc => hasCompleteMub_of_hasChainInfima (h.toChains hAlg) hv hvc
 
 /-- **`JungSFP.lemma217` with its property-m hypothesis discharged.**
 
@@ -335,7 +348,7 @@ theorem lemma217_of_thm137 (h : Thm137 D) (hAlg : IsAlgebraic (ScottHom D D))
     {a₁ a₂ : D} (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
     (minimalUpperBounds (compacts D) ({a₁, a₂} : Set D)).Finite :=
   JungSFP.lemma217 hAlg hCount ha₁ ha₂
-    (hasCompleteMub_pair (h hAlg).hasChainInfima ha₁ ha₂)
+    (hasCompleteMub_pair (h.toChains hAlg) ha₁ ha₂)
 
 /-- **Property M at every pair of compact elements**, modulo `Thm137` and
 countability of `K(D → D)` — the first disjunct of `JungSFP.thm214`, proved
