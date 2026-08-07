@@ -313,4 +313,10 @@ theorem lem10_strict [Domain α] [BoundedComplete α] [Domain β] [BoundedComple
 
 end Strict
 
+/- Axiom audit, by `#print axioms` (run, then removed so the build emits no `info`
+lines): `lem10_prod` depends on `[propext, Quot.sound]`; `lem10_lift`,
+`lem10_strict` and `lem10_smash_refuted` on `[propext, Classical.choice,
+Quot.sound]` — `Classical.choice` entering through the `dite` in `liftSup` and in
+`ScottHom`'s `sSup`. None depends on `sorryAx`. -/
+
 end ScottDomains
