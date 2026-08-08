@@ -1,0 +1,53 @@
+# r0041
+# agent5 — lake build ScottDomains.Kleene.FixContinuous
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T13:09:16-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Kleene.FixContinuous ===
+✖ [831/831] Building ScottDomains.Kleene.FixContinuous (632ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/Kleene/FixContinuous.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Kleene/FixContinuous.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Kleene/FixContinuous.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Kleene/FixContinuous.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Kleene/FixContinuous.setup.json --json
+error: ScottDomains/Kleene/FixContinuous.lean:103:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?f^[Nat.succ ?n] ?x
+in the target expression
+  (fun n => (⇑F)^[n] ⊥) (m + 1) ≤ sSup ((fun g => kleeneFix ⇑g) '' d)
+
+case succ
+α : Type u_1
+inst✝ : CompletePartialOrder α
+d : Set (ScottHom α α)
+hne : d.Nonempty
+hd : DirectedOn (fun x1 x2 => x1 ≤ x2) d
+F : ScottHom α α
+hF : IsLUB d F
+m : ℕ
+ih : (fun n => (⇑F)^[n] ⊥) m ≤ sSup ((fun g => kleeneFix ⇑g) '' d)
+⊢ (fun n => (⇑F)^[n] ⊥) (m + 1) ≤ sSup ((fun g => kleeneFix ⇑g) '' d)
+error: ScottDomains/Kleene/FixContinuous.lean:119:8: invalid `▸` notation, expected result type of cast is 
+  IsLUB ((fun f => kleeneFix ⇑f) '' d) ((fun f => kleeneFix ⇑f) F)
+however, the equality 
+  heq
+of type 
+  sSup ((fun g => kleeneFix ⇑g) '' d) = kleeneFix ⇑F
+does not contain the expected result type on either the left or the right hand side
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Kleene.FixContinuous
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.31
+Maximum resident set size (kbytes): 1682880
+--- build ---
+finished:         2026-08-08T13:09:19-07:00
+exit status:      1
+user cpu:         1.13s
+system cpu:       0.47s
+cpu use:          122%
+peak rss single:  1643 MiB (largest one process, GNU time)
+peak pss tree:    989 MiB (process group, shared pages apportioned)
+peak rss tree:    2445 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   0
