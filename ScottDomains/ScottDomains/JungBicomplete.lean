@@ -1,6 +1,9 @@
 import ScottDomains.JungNets
 import ScottDomains.FunctionSpaceDomain
 import ScottDomains.FinitaryProjectionPoset
+-- `WellOrderingRel`, the well-ordering theorem, for the free chain reduction in
+-- `exists_coinitial_isOrdinalCodirected`.
+import Mathlib.SetTheory.Cardinal.Order
 
 /-!
 # Jung's Theorem 1.37: the ingredients that are order theory
@@ -57,9 +60,19 @@ quoted rather than paraphrased.
 | 6 | **Proposition 1.22** | `sandwichHom`, `IsRetractPair.sandwichHom`, `prop122` |
 | 7 | "`αᵒᵖ`" as a property of a *set* | `IsOrdinalCodirected`, `.isChain` |
 | 8 | `D′ = A ∪ αᵒᵖ` is closed under least upper bounds | `isLUB_mem_union` |
-| 9 | the second paragraph of the proof above, entire | `exists_isGLB_of_forall_not_mapsTo` |
+| 9 | **Corollary 1.3, for chains, without Iwamura's lemma** | `exists_coinitial_isOrdinalCodirected`, `hasChainInfima_of_forall_isOrdinalCodirected` |
+| 10 | the infimum transfers back along `r` | `isGLB_image_of_isGLB` |
+| 11 | the second paragraph of the proof above, entire | `exists_isGLB_of_forall_not_mapsTo` |
 
-Item 9 is the whole middle of Jung's proof: from "the infimum of `αᵒᵖ` does not
+Item 9 is the round's largest finding and is set out in its own section below.
+`JungNets.lean` lists Corollary 1.3 as "item 1 alone is a theorem of independent
+difficulty", resting on Iwamura's lemma, which Mathlib does not carry. **For
+chains it is elementary and is now proved.** r0042's stream 5 measured that
+`JungNets.HasChainInfima` — infima of *chains* — is the only strength Theorem 18
+spends, so the chain case is the whole of what is wanted, and Iwamura is not on
+the path to it.
+
+Item 11 is the whole middle of Jung's proof: from "the infimum of `αᵒᵖ` does not
 exist" to "`αᵒᵖ` is mapped into itself under `f`", with `f ≪ id_{D′}`. It is
 stated over an abstract dcpo `D′` covered by `lowerBounds C ∪ C`, so a later
 round instantiates it at `D′ = A ∪ αᵒᵖ` rather than reproving it. Its two
@@ -69,14 +82,10 @@ sub-steps are `exists_isGLB_of_directedOn_wayBelowLower` (Jung's "then the set
 
 ## What is not proved, and why
 
-Two ingredients, both needing the ordinal.
-
-* **Corollary 1.3** — "By Corollary 1.3 we have to find infima only for monotone
-  injective nets `s: αᵒᵖ → D`". Jung's Corollary 1.3 is a corollary of his
-  Theorem 1.2, Iwamura's lemma, which he does not prove and Mathlib does not
-  carry (`JungNets.lean` records the measurement: 0 hits for `Iwamura|Markowsky`
-  in `Mathlib/`). This is agent2's stream; it is a hypothesis of everything here
-  in the sense that nothing here reduces filtered sets to well-ordered chains.
+Two ingredients, both needing the ordinal. **Corollary 1.3 is no longer one of
+them** for the chain case — see item 9 — and it is only the chain case that
+Theorem 18 consumes. Iwamura's lemma is needed for full bicompleteness, which
+Theorem 18 does not ask for.
 
 * **The `g_β` family** — "a function `f` which maps `αᵒᵖ` into itself cannot be
   way-below `id_{D′}`". This is the hypothesis
@@ -90,7 +99,11 @@ Two ingredients, both needing the ordinal.
   `prop122`, its `IsContinuousDcpo (ScottHom D' D')`. Half of it is here:
   `isLUB_mem_union` shows `A ∪ αᵒᵖ` is closed under least upper bounds, so it is
   a sub-dcpo and the phrase "the function space of `D′ = A ∪ αᵒᵖ`" means
-  something. The map `r : D → D′` itself is not built; see defect 1 below.
+  something, and `isGLB_image_of_isGLB` discharges the step Jung never states —
+  transferring the infimum found in `D′` back to `D`, which needs `r` to be a
+  *closure* (`id_D ≤ i ∘ r`) and not merely a retraction. The map `r : D → D′`
+  itself is not built; see defect 1 below. **This is now the only remaining
+  ingredient other than the `g_β` family.**
 
 ## Corrections to `JungNets.lean`'s obstruction list, from the source
 
@@ -324,6 +337,29 @@ theorem IsContinuousDcpo.of_retractPair (h : IsRetractPair r i) (hD : IsContinuo
   · intro u hu
     exact (hlub y).2 fun z hz => hu (hsub y hz)
 
+/-- **Jung's `r` is a closure, not a projection — and that is how the infimum
+found in `D′` becomes an infimum in `D`.**
+
+`JungNets.lean` item 2 calls `r` "the retraction onto `A ∪ αᵒᵖ`" and stops there.
+Reading Jung's formula shows it satisfies more: `r(x) = x` on `A`, and off `A`
+`r(x) = ⋀{γ ∈ αᵒᵖ | γ ≥ x}` is an infimum of a set of upper bounds of `x`, hence
+`≥ x`. So `id_D ≤ i ∘ r` — `r` is an *embedding–closure* pair, the order dual of
+`Projection.lean`'s `IsEmbeddingProjectionPair`. Jung never states it, and it is
+not optional: without it a greatest lower bound computed in `D′` need not be one
+in `D`, and the whole proof would establish nothing about `D`.
+
+Given it, the transfer is three lines. `i j` bounds `i '' C'` below by
+monotonicity. For any lower bound `x` of `i '' C'` in `D`, `r x` is a lower bound
+of `C'` in `D′` — `x ≤ i γ` gives `r x ≤ r (i γ) = γ` — so `r x ≤ j`, and then
+`x ≤ i (r x) ≤ i j`. -/
+theorem isGLB_image_of_isGLB (h : IsRetractPair r i) (hcl : ∀ x : D, x ≤ i (r x))
+    {C' : Set E} {j : E} (hj : IsGLB C' j) : IsGLB (⇑i '' C') (i j) := by
+  refine ⟨?_, fun x hx => ?_⟩
+  · rintro _ ⟨γ, hγ, rfl⟩
+    exact i.monotone (hj.1 hγ)
+  · exact (hcl x).trans
+      (i.monotone (hj.2 fun γ hγ => (h γ) ▸ r.monotone (hx ⟨γ, hγ, rfl⟩)))
+
 /-- `(f : D → D) ↦ r ∘ f ∘ i`, the operator of Jung's Proposition 1.22. One
 definition serves both directions of that proposition: `sandwich i r` is his `R`
 and `sandwich r i` is his `I`, the two differing only by swapping `D` and `E`.
@@ -457,6 +493,93 @@ theorem isLUB_mem_union {C : Set D} (hC : IsOrdinalCodirected C) {S : Set D}
       · exact hmax z ⟨hz, hmem⟩
     exact (le_antisymm (hu.2 hub) (hu.1 hm.1)) ▸ hm.2
 
+/-! ### Corollary 1.3's reduction is free for chains
+
+Jung reduces to ordinal-indexed nets by his Corollary 1.3, which rests on
+Theorem 1.2 — Iwamura's lemma — and that is the largest item on
+`JungNets.lean`'s obstruction list. **For chains the reduction costs nothing**,
+and the three results below prove it: every nonempty chain has a *coinitial*
+subset that is `IsOrdinalCodirected`, coinitial subsets have the same lower
+bounds, and therefore the same infima.
+
+Iwamura is what carries *filtered sets* to chains, and only that. Since
+`JungNets.HasChainInfima` — which `Thm18` is now known to be the only consumer of
+— already starts from a chain, that step is never taken. -/
+
+/-- **Every nonempty chain has a coinitial subset well-ordered by `≥`.**
+
+This is the chain case of Jung's Corollary 1.3, and it needs neither Iwamura's
+lemma nor a transfinite recursion. Well-order `D` by `WellOrderingRel` (call it
+`≺`) and take
+
+    C' = {b ∈ C | b is ≺-minimal in {d ∈ C | d ≤ c}, for some c ∈ C}.
+
+* *Coinitial*: for `c ∈ C` the set `{d ∈ C | d ≤ c}` contains `c`, so it has a
+  `≺`-minimal element, and that element lies in `C'` and is `≤ c`.
+* *`IsOrdinalCodirected`*: let `S ⊆ C'` be nonempty and `s₀` its `≺`-minimal
+  element. `s₀` is the `≤`-greatest member of `S`. For `s ∈ S` with `s ≠ s₀`,
+  suppose `s ≰ s₀`; totality of `C` gives `s₀ ≤ s`, and `s` is `≺`-minimal in
+  `{d ∈ C | d ≤ c}` for some `c ≥ s ≥ s₀`, so `¬ (s₀ ≺ s)`; minimality of `s₀`
+  in `S` gives `¬ (s ≺ s₀)`; trichotomy then forces `s = s₀`, a contradiction.
+
+**Totality of `C` is used exactly once**, in "totality of `C` gives `s₀ ≤ s`", and
+that is the whole reason this argument does not extend to filtered sets. It does
+not extend, and cannot: the finite subsets of `ℝ` ordered by `⊆` form a directed
+set with no cofinal well-ordered subset, since a well-ordered chain of finite
+sets has length at most `ω` and countable union. That is what Iwamura's lemma is
+for, and why it is needed for full bicompleteness and not for the chain case. -/
+theorem exists_coinitial_isOrdinalCodirected {C : Set D} (hC : IsChain (· ≤ ·) C) :
+    ∃ C' ⊆ C, (∀ c ∈ C, ∃ b ∈ C', b ≤ c) ∧ IsOrdinalCodirected C' := by
+  have hwf : WellFounded (WellOrderingRel : D → D → Prop) := IsWellFounded.wf
+  refine ⟨{b | b ∈ C ∧ ∃ c ∈ C, b ≤ c ∧ ∀ d ∈ C, d ≤ c → ¬WellOrderingRel d b},
+    fun _ hb => hb.1, ?_, ?_⟩
+  · intro c hc
+    obtain ⟨b, hb, hmin⟩ := hwf.has_min {d | d ∈ C ∧ d ≤ c} ⟨c, hc, le_rfl⟩
+    exact ⟨b, ⟨hb.1, c, hc, hb.2, fun d hd hdc => hmin d ⟨hd, hdc⟩⟩, hb.2⟩
+  · intro S hS hSne
+    obtain ⟨s₀, hs₀, hmin⟩ := hwf.has_min S hSne
+    refine ⟨s₀, hs₀, fun s hs => ?_⟩
+    by_contra hns
+    obtain ⟨hsC, c, _, hsc, hcmin⟩ := hS hs
+    have hne : s ≠ s₀ := fun heq => hns (heq ▸ le_rfl)
+    have h₀s : s₀ ≤ s := (hC hsC (hS hs₀).1 hne).resolve_left hns
+    rcases trichotomous_of (WellOrderingRel : D → D → Prop) s₀ s with h | h | h
+    · exact hcmin s₀ (hS hs₀).1 (h₀s.trans hsc) h
+    · exact hne h.symm
+    · exact hmin s hs h
+
+/-- Coinitial subsets have the same lower bounds, hence the same infima. -/
+theorem lowerBounds_eq_of_coinitial {C C' : Set D} (hsub : C' ⊆ C)
+    (hco : ∀ c ∈ C, ∃ b ∈ C', b ≤ c) : lowerBounds C = lowerBounds C' := by
+  ext x
+  refine ⟨fun hx _ hb => hx (hsub hb), fun hx c hc => ?_⟩
+  obtain ⟨b, hb, hbc⟩ := hco c hc
+  exact (hx hb).trans hbc
+
+/-- **`JungNets.HasChainInfima` reduces to the ordinal-codirected case, free of
+charge.** `Thm137Chains D` is `IsAlgebraic (ScottHom D D) → HasChainInfima D`, and
+r0042's stream 5 measured that `HasChainInfima` is the *only* strength Theorem 18
+spends — `JungNets.exists_minimal_upperBounds_le` obtains property m by Zorn
+downwards, and Zorn quantifies over chains.
+
+So the route to `Thm137Chains` is: this theorem, then Jung's argument at an
+`IsOrdinalCodirected` set, which is `exists_isGLB_of_forall_not_mapsTo` modulo the
+retraction and the `g_β` family. **Corollary 1.3 and Iwamura's lemma do not
+appear.** They are needed only for the filtered sets that full bicompleteness
+quantifies over, and Theorem 18 never asks for those. -/
+theorem hasChainInfima_of_forall_isOrdinalCodirected
+    (h : ∀ C : Set D, C.Nonempty → IsOrdinalCodirected C → ∃ i, IsGLB C i) :
+    JungNets.HasChainInfima D := by
+  intro c hne hchain
+  obtain ⟨C', hsub, hco, hoc⟩ := exists_coinitial_isOrdinalCodirected hchain
+  obtain ⟨x, hx⟩ := hne
+  obtain ⟨b, hb, _⟩ := hco x hx
+  obtain ⟨i, hi⟩ := h C' ⟨b, hb⟩ hoc
+  refine ⟨i, ?_⟩
+  show IsGreatest (lowerBounds c) i
+  rw [lowerBounds_eq_of_coinitial hsub hco]
+  exact hi
+
 end SubDcpo
 
 /-! ## The second paragraph of Jung's proof -/
@@ -545,11 +668,16 @@ The seven steps, in Jung's order:
    `x′ ≪ x` is caught by some `f₁ ≪ id`; likewise `f₂` at `y`; directedness of
    `↡id` merges them.
 7. `f` maps `C` into `C` (`mapsTo_of_forall_not_upperBound`), contradicting the
-   hypothesis. -/
+   hypothesis.
+
+The `g_β` hypothesis is stated under `¬∃ i, IsGLB C i`, which the contradiction
+has in hand at that point. That weakening is not cosmetic: Jung's successor
+`τ(γ) = γ + 1` is total on `αᵒᵖ` only because `αᵒᵖ` has no least element, and
+"no infimum" is exactly what supplies that. -/
 theorem exists_isGLB_of_forall_not_mapsTo (hD : IsContinuousDcpo D)
     (hFS : IsContinuousDcpo (ScottHom D D)) {C : Set D}
     (hcover : ∀ z : D, z ∈ lowerBounds C ∨ z ∈ C)
-    (hg : ∀ f : ScottHom D D, f ≪ ScottHom.id → ¬∀ γ ∈ C, f γ ∈ C) :
+    (hg : (¬∃ i, IsGLB C i) → ∀ f : ScottHom D D, f ≪ ScottHom.id → ¬∀ γ ∈ C, f γ ∈ C) :
     ∃ i, IsGLB C i := by
   by_contra hno
   -- Steps 1 and 2: `↡(lb C)` is not directed.
@@ -591,7 +719,7 @@ theorem exists_isGLB_of_forall_not_mapsTo (hD : IsContinuousDcpo D)
     hy'y _ y (hevne y) (ScottHom.directedOn_eval_image hdirId y) (hev y) le_rfl
   obtain ⟨f, hf, h₁, h₂⟩ := hdirId f₁ hf₁ f₂ hf₂
   -- Step 7: `f` maps `C` into `C`, which the hypothesis forbids.
-  exact hg f hf
+  exact hg hno f hf
     (mapsTo_of_forall_not_upperBound f.monotone hcover hx hy
       (hxf₁.trans (h₁ x)) (hyf₂.trans (h₂ y)) hno')
 
