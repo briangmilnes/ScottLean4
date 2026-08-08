@@ -1,0 +1,41 @@
+# r0041
+# orchestrator — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4
+# started: 2026-08-08T13:39:58-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [975/1192] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1277/1298] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1293/1298] Built ScottDomains.Flat (773ms)
+✔ [1294/1298] Built ScottDomains.Morphism (1.5s)
+✔ [1295/1298] Built ScottDomains.FlatOmega (767ms)
+✔ [1296/1298] Built ScottDomains.FlatSection6 (924ms)
+✔ [1297/1298] Built ScottDomains.FlatPowerdomain (1.3s)
+Build completed successfully (1298 jobs).
+--- times ---
+Elapsed (wall clock): 0:02.81
+Maximum resident set size (kbytes): 1742268
+--- build ---
+finished:         2026-08-08T13:40:02-07:00
+exit status:      0
+user cpu:         8.04s
+system cpu:       1.57s
+cpu use:          341%
+peak rss single:  1701 MiB (largest one process, GNU time)
+peak pss tree:    1890 MiB (process group, shared pages apportioned)
+peak rss tree:    7437 MiB (process group, shared pages counted per process)
+jobs:             1298
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   0
