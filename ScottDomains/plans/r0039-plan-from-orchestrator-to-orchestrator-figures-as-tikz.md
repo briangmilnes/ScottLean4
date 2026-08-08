@@ -43,6 +43,34 @@ height ≥ 200 leaves eight, and those eight contain all four numbered figures.
 to PNG so it can be read as an image. Coordinates are pixels at the chosen dpi,
 so a candidate row scales directly: at `-r 100` use the numbers as printed.
 
+## Stream 4 — the completeness sweep
+
+Streams 1–3 work the **78 detected candidate regions**. `find-diagrams.py`
+requires a region at least 40 px tall at 100 dpi with at least 25 sparse rows, so
+a small inline picture — two dots and an arrow — is invisible to it. That is a
+false-negative rate nobody has measured, and no amount of care inside streams 1–3
+closes it, because they are reading a list the detector produced.
+
+**agent4 therefore looks at all 44 pages and produces a census by eye.** The
+partition with the other streams is exact and leaves no overlap:
+
+* streams 1–3 own every region **in** the candidate list;
+* **stream 4 owns every picture the detector never flagged.**
+
+So agent4 transcribes only what it finds missing, and its census is the authority
+on how complete the round is.
+
+Method: render each page whole at low resolution — 80–100 dpi is enough to see
+*that* a picture is there — read it, and record for every page what pictures it
+contains. Cross-check each against the candidate list. Work in batches of about
+eight pages and commit the partial census after each, so that running out of
+context loses one batch rather than the round.
+
+Deliverable: `analyses/`-bound material goes to the orchestrator, so agent4
+writes `reports/r0039-report-from-agent4-to-orchestrator-page-census.md` with one
+row per page: pictures present, whether each is in the candidate list, and which
+stream owns it. Plus `.tex`/`.pdf` for any it transcribes.
+
 ## The three streams
 
 Figure 3 is the pilot. It is the figure the development leans on most — its three
