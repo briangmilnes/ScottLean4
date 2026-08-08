@@ -152,10 +152,20 @@ match `^(@\[…\] )?(theorem|lemma) ` and therefore count:
 | 2 | docstring prose lines beginning "theorem"/"lemma" at column 0 | agent3, agent5, agent6 | at least 8 lines, e.g. "lemma graded by ℕ …" |
 | 3 | `protected theorem` missed | agent4 | `IdealCompletion` under-reports by 4 |
 
-Net: **1308 is wrong in both directions**. agent5 puts the package at **1305**;
-with defects 1 and 3 also applied the true figure is near **1297**, which is the
-live-declaration total in §2. Fix the regex and restate
-`docs/PropertiesVsTheorems.md` §2 before quoting the ratio again.
+Net: **1308 was wrong in both directions**.
+
+**Closed.** `scripts/lean-decls.py` replaces the grep rule: it lexes away nested
+`/- … -/` blocks, `--` comments and string literals before matching, and widens
+the modifier set to `private`/`protected`/`nonrec`/`noncomputable`/`scoped`.
+`counts.sh` now calls it. Re-measured excluding `Audit/`: **1298 theorems, 136
+`@[simp]`** — an over-count of exactly 10, and **within one of the agents'
+independent per-declaration total of 1297**. Two methods converging is why the
+figure can now be quoted. `docs/PropertiesVsTheorems.md` §2 is restated; the
+ratio is 13.0 : 1.
+
+The new script's header says what it is not: a lexer, not a parser. The
+authoritative count is the Lean environment after elaboration, so a load-bearing
+number should still come from there rather than from a regex over source.
 
 ## 9. Corrections to the paper-property baseline
 

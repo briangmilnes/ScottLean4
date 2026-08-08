@@ -16,7 +16,13 @@ pkg="ScottDomains/ScottDomains"
 srcfiles=(${(f)"$(find $pkg -name '*.lean' | sort)"})
 n_modules=$#srcfiles
 n_lines=$(cat $srcfiles | wc -l | tr -d ' ')
-n_decls=$(grep -hE '^(@\[[^]]*\] )?(theorem|lemma) ' $srcfiles | wc -l | tr -d ' ')
+# Counted by scripts/lean-decls.py, not by grep. The grep rule this replaced
+# counted declarations inside `/- … -/` block comments and docstring prose lines
+# beginning "theorem"/"lemma", and missed `protected theorem` — three defects
+# found independently by five agents in r0038's audit, netting an over-count of
+# 10. See that script's header; it is a lexer, not a parser, so a load-bearing
+# number should still come from the Lean environment.
+n_decls=$(python3 "${0:A:h}/lean-decls.py" --count $srcfiles)
 n_files_with_sorry=$(grep -lE '^\s*sorry\s*$' $srcfiles 2>/dev/null | wc -l | tr -d ' ')
 n_sorry=$(grep -hE '^\s*sorry\s*$' $srcfiles 2>/dev/null | wc -l | tr -d ' ')
 

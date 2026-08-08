@@ -54,17 +54,31 @@ task of the audit plan.
 
 ## 2. What the development holds
 
-| # | Kind | Count |
-| -- | ---- | ----- |
-| 1 | `theorem` / `lemma` | **1308** |
-| 2 | of which `@[simp]`-tagged | 139 |
-| 3 | `def` / `abbrev` | 398 |
-| 4 | `instance` | 94 |
-| 5 | modules | 72 |
-| 6 | lines | 27892 |
+| # | Kind | Count | Superseded figure |
+| -- | ---- | ----- | ----------------- |
+| 1 | `theorem` / `lemma` | **1298** | 1308 |
+| 2 | of which `@[simp]`-tagged | 136 | 139 |
+| 3 | `def` / `abbrev` | 398 | — |
+| 4 | `instance` | 94 | — |
+| 5 | modules | 72 | — |
+| 6 | lines | 27892 | — |
 
-**Ratios.** 1308 / 99 ≈ **13.2 theorems per paper property**; 1308 / 30 ≈ 43.6
-per numbered result.
+Rows 1 and 2 were re-measured by `scripts/lean-decls.py` after r0038's audit
+found three defects in the grep rule `counts.sh` had used: it counted
+declarations inside `/- … -/` block comments (including all five that r0020
+commented out in place), counted docstring prose lines beginning
+"theorem"/"lemma" at column 0, and missed `protected theorem`. The net was an
+over-count of **10**. The corrected 1298 is within one of the agents' entirely
+independent per-declaration enumeration, which totalled **1297 live
+declarations** — two methods converging, which is the reason to believe either.
+
+Both figures exclude `ScottDomains/Audit/`, the audit's own equivalence proofs,
+so that they compare with the pre-audit baseline. With `Audit/` the package is
+1326 theorems in 78 modules.
+
+**Ratios.** 1298 / 100 ≈ **13.0 theorems per paper property**; 1298 / 30 ≈ 43.3
+per numbered result. (The denominator is 100, not 99 — see §7 of
+`../analyses/theorem-audit.2026-0808-10:04.orchestrator.md`.)
 
 ## 3. Where the mass is
 
