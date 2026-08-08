@@ -437,6 +437,19 @@ def strictComp (g : StrictHom β γ) (f : StrictHom α β) : StrictHom α γ :=
 @[simp] theorem strictComp_apply (g : StrictHom β γ) (f : StrictHom α β) (x : α) :
     (strictComp g f).val x = g.val (f.val x) := rfl
 
+/-- **`[f, g] ∘ inl = f`** — one of §4.4's two triangle equations (printed p. 19).
+Read off `Isomorphism.coalescedSumCopair` rather than re-proved: that isomorphism's
+forward map *is* restriction along the two injections and its inverse *is*
+`copair`, so `apply_symm_apply` at `(f, g)` is exactly the pair of triangles. -/
+theorem copair_comp_sumInl (g : StrictHom β α) (h : StrictHom γ α) :
+    strictComp (Isomorphism.copair g h) Isomorphism.sumInl = g :=
+  congrArg Prod.fst (Isomorphism.coalescedSumCopair.apply_symm_apply (g, h))
+
+/-- **`[f, g] ∘ inr = g`** — the other triangle equation. -/
+theorem copair_comp_sumInr (g : StrictHom β α) (h : StrictHom γ α) :
+    strictComp (Isomorphism.copair g h) Isomorphism.sumInr = h :=
+  congrArg Prod.snd (Isomorphism.coalescedSumCopair.apply_symm_apply (g, h))
+
 end Strict
 
 section Lift
@@ -481,6 +494,18 @@ theorem up_comp_down_ge :
   induction z using WithBot.recBotCoe with
   | bot => exact bot_le
   | coe a => exact le_rfl
+
+/-- **The inequality does not run the other way.** `up ∘ down ⊑ id` is *false*,
+which is what makes the paper's `⊒` a genuine distinction from an
+embedding–projection pair rather than a slip of the pen. At `D = I` the lift has
+two elements and `up (down ⊥) = ↑⊥ ⊐ ⊥`. Without this the previous theorem would
+be compatible with `up ∘ down = id`, and the remark it formalizes would be
+empty. -/
+theorem not_up_comp_down_le :
+    ¬ (comp (up : ScottHom PUnit (WithBot PUnit)) down
+        ≤ (ScottHom.id : ScottHom (WithBot PUnit) (WithBot PUnit))) := by
+  intro h
+  exact WithBot.not_coe_le_bot (⊥ : PUnit) (ScottHom.le_def.mp h ⊥)
 
 /-- **`f⊥ = (up ∘ f)†`** (printed p. 20): the lift on maps, always strict. -/
 noncomputable def liftMap (f : ScottHom α β) : StrictHom (WithBot α) (WithBot β) :=
@@ -591,5 +616,253 @@ theorem exists_ne_continuous_completions :
   exact Isomorphism.true_ne_bot hbot
 
 end Completion
+
+/-! ## §4.1 The multiary product
+
+> It is often useful to have a multiary notation for products. We write
+> `×() = I`, `×(D₁,…,Dₙ) = ×(D₁,…,Dₙ₋₁) × Dₙ` and define projections
+> `onᵢ : ×(D₁,…,Dₙ) → Dᵢ` by `onᵢ = snd ∘ fst^{n-i}`. Similarly, one defines a
+> multiary version of the pairing operation by taking `⟨⟩` to be the identity on
+> the one point domain and defining `⟨f₁,…,fₙ⟩ = ⟨⟨f₁,…,fₙ₋₁⟩, fₙ⟩`. These
+> multiary versions of projection and pairing satisfy a universal property similar
+> to the one for the binary product.
+
+Indices are zero-based: `MultiProd D n` is the paper's `×(D 0, …, D (n-1))`, and
+`I` is `PUnit`. `Fin.lastCases` is the eliminator the paper's recursion asks for —
+it splits an index of `Fin (n+1)` into the last one and an index of `Fin n`,
+which is exactly `snd` versus `· ∘ fst`.
+-/
+
+section MultiProduct
+
+/-- `×() = I` and `×(D₁,…,Dₙ) = ×(D₁,…,Dₙ₋₁) × Dₙ`. -/
+def MultiProd (D : ℕ → Type u) : ℕ → Type u
+  | 0 => PUnit
+  | n + 1 => MultiProd D n × D n
+
+/-- `×(D₁,…,Dₙ)` is a cpo, by the same recursion: `PUnit` is one, and the binary
+product of two cpos is one (`Product.lean`). -/
+instance instMultiProdCpo (D : ℕ → Type u) [∀ i, CompletePartialOrder (D i)] :
+    ∀ n, CompletePartialOrder (MultiProd D n)
+  | 0 => inferInstanceAs (CompletePartialOrder PUnit)
+  | n + 1 =>
+      letI := instMultiProdCpo D n
+      inferInstanceAs (CompletePartialOrder (MultiProd D n × D n))
+
+variable {D : ℕ → Type u} [∀ i, CompletePartialOrder (D i)]
+variable {γ : Type*} [CompletePartialOrder γ]
+
+omit [∀ i, CompletePartialOrder (D i)] in
+/-- The shape of the recursion, made checkable: `×(D₀, D₁)` is `(I × D₀) × D₁`.
+The leading `I` is the paper's own convention (`×() = I`), not an artefact — the
+paper's `×(D₁)` is `I × D₁`, isomorphic to but not equal to `D₁`. -/
+theorem multiProd_two : MultiProd D 2 = ((PUnit × D 0) × D 1) := rfl
+
+/-- **`onᵢ = snd ∘ fst^{n-i}`**, the multiary projection. -/
+def multiProj : (n : ℕ) → (i : Fin n) → ScottHom (MultiProd D n) (D i.val)
+  | 0, i => i.elim0
+  | n + 1, i =>
+      Fin.lastCases
+        (motive := fun j : Fin (n + 1) => ScottHom (MultiProd D (n + 1)) (D j.val))
+        prodSnd (fun j => comp (multiProj n j) prodFst) i
+
+@[simp] theorem multiProj_last (n : ℕ) :
+    (multiProj (D := D) (n + 1) (Fin.last n)) = prodSnd := by
+  simp only [multiProj, Fin.lastCases_last]
+
+@[simp] theorem multiProj_castSucc (n : ℕ) (j : Fin n) :
+    (multiProj (D := D) (n + 1) j.castSucc) = comp (multiProj n j) prodFst := by
+  simp only [multiProj, Fin.lastCases_castSucc]
+  rfl
+
+/-- **`⟨f₁,…,fₙ⟩ = ⟨⟨f₁,…,fₙ₋₁⟩, fₙ⟩`**, with `⟨⟩` the unique map into `I`. -/
+def multiPair : (n : ℕ) → ((i : Fin n) → ScottHom γ (D i.val)) → ScottHom γ (MultiProd D n)
+  | 0, _ => ScottHom.const ⊥
+  | n + 1, f => ScottHom.pair (multiPair n fun j => f j.castSucc) (f (Fin.last n))
+
+/-- **`onᵢ ∘ ⟨f₁,…,fₙ⟩ = fᵢ`** — the existence half of the multiary universal
+property (printed p. 15). -/
+theorem multiProj_comp_multiPair :
+    ∀ (n : ℕ) (f : (i : Fin n) → ScottHom γ (D i.val)) (i : Fin n),
+      comp (multiProj n i) (multiPair n f) = f i := by
+  intro n
+  induction n with
+  | zero => intro _ i; exact i.elim0
+  | succ n ih =>
+    intro f i
+    induction i using Fin.lastCases with
+    | last =>
+      rw [multiProj_last]
+      exact ScottHom.ext fun _ => rfl
+    | cast j =>
+      rw [multiProj_castSucc]
+      exact ScottHom.ext fun x =>
+        congrArg (fun k : ScottHom γ (D j.val) => k x) (ih (fun j => f j.castSucc) j)
+
+/-- **`⟨on₁ ∘ h, …, onₙ ∘ h⟩ = h`** — the uniqueness half, in the form the paper
+writes for the binary product (printed p. 13). Together with
+`multiProj_comp_multiPair` this is "a universal property similar to the one for
+the binary product". -/
+theorem multiPair_unique :
+    ∀ (n : ℕ) (f : (i : Fin n) → ScottHom γ (D i.val)) (k : ScottHom γ (MultiProd D n)),
+      (∀ i : Fin n, comp (multiProj n i) k = f i) → k = multiPair n f := by
+  intro n
+  induction n with
+  | zero =>
+    intro _ k _
+    haveI : Subsingleton (MultiProd D 0) := inferInstanceAs (Subsingleton PUnit)
+    exact ScottHom.ext fun x => Subsingleton.elim _ _
+  | succ n ih =>
+    intro f k h
+    have hsnd : k.sndComp = f (Fin.last n) := by
+      have hlast := h (Fin.last n)
+      rw [multiProj_last] at hlast
+      exact hlast
+    have hfst : k.fstComp = multiPair n (fun j => f j.castSucc) := by
+      refine ih _ _ ?_
+      intro j
+      have hj := h j.castSucc
+      rw [multiProj_castSucc] at hj
+      exact hj
+    refine ScottHom.ext fun x => ?_
+    show k x = (multiPair n (fun j => f j.castSucc) x, f (Fin.last n) x)
+    rw [← hfst, ← hsnd]
+    rfl
+
+end MultiProduct
+
+/-! ## §4.4 The multiary coalesced sum
+
+> As with the product, it is useful to have a multiary notation for the coalesced
+> sum. We define `⊕() = I`, `⊕(D₁,…,Dₙ) = ⊕(D₁,…,Dₙ₋₁) ⊕ Dₙ` and
+> `inᵢ = inr ∘ inl^{n-i}`. One may also define `[f₁,…,fₙ]` and prove a universal
+> property.
+
+The printed `inᵢ = inr ∘ inl^{n-i}` has its composition order transposed — see the
+module docstring. `multiIn` is the well-typed form `inl^{n-i} ∘ inr`.
+
+`CoalescedSum` needs its arguments' orders to state the next type, so the type and
+its cpo instance are built simultaneously by a `Sigma`-valued recursion — the
+idiom `Colimit.lean`'s `stage` already uses for the same reason. The product above
+needs no such thing, because `α × β` is a type before either factor is ordered.
+-/
+
+section MultiSum
+
+/-- The stage tower for `⊕(D₁,…,Dₙ)`, carrying each stage's cpo structure. -/
+noncomputable def multiSumStage (D : ℕ → Type u) [∀ i, CompletePartialOrder (D i)] :
+    ℕ → Σ T : Type u, CompletePartialOrder T
+  | 0 => ⟨PUnit, inferInstance⟩
+  | n + 1 =>
+      ⟨@CoalescedSum (multiSumStage D n).1 (D n) (multiSumStage D n).2 inferInstance,
+        @sumCpo (multiSumStage D n).1 (D n) (multiSumStage D n).2 inferInstance⟩
+
+/-- `⊕() = I` and `⊕(D₁,…,Dₙ) = ⊕(D₁,…,Dₙ₋₁) ⊕ Dₙ`. -/
+def MultiSum (D : ℕ → Type u) [∀ i, CompletePartialOrder (D i)] (n : ℕ) : Type u :=
+  (multiSumStage D n).1
+
+noncomputable instance instMultiSumCpo (D : ℕ → Type u) [∀ i, CompletePartialOrder (D i)]
+    (n : ℕ) : CompletePartialOrder (MultiSum D n) := (multiSumStage D n).2
+
+/-- The same instance keyed on `(multiSumStage D n).1` rather than on
+`MultiSum D n`. Typeclass resolution indexes on the head symbol, so a goal left in
+`Sigma.fst` form after unfolding the recursion does not see the instance above;
+the two are definitionally the same term, so no diamond is created. This is the
+same pairing `Colimit.lean` needs for `Stg`. -/
+noncomputable instance instMultiSumStageCpo (D : ℕ → Type u)
+    [∀ i, CompletePartialOrder (D i)] (n : ℕ) :
+    CompletePartialOrder (multiSumStage D n).1 := (multiSumStage D n).2
+
+theorem multiSum_succ (D : ℕ → Type u) [∀ i, CompletePartialOrder (D i)] (n : ℕ) :
+    MultiSum D (n + 1) = CoalescedSum (MultiSum D n) (D n) := rfl
+
+variable {D : ℕ → Type u} [∀ i, CompletePartialOrder (D i)]
+variable {γ : Type*} [CompletePartialOrder γ]
+
+/-- **`inᵢ = inl^{n-i} ∘ inr`**, the multiary injection. The page prints
+`inr ∘ inl^{n-i}`, which is ill-typed; this is the repaired form. -/
+noncomputable def multiIn :
+    (n : ℕ) → (i : Fin n) → StrictHom (D i.val) (MultiSum D n)
+  | 0, i => i.elim0
+  | n + 1, i =>
+      Fin.lastCases
+        (motive := fun j : Fin (n + 1) => StrictHom (D j.val) (MultiSum D (n + 1)))
+        Isomorphism.sumInr
+        (fun j => strictComp Isomorphism.sumInl (multiIn n j)) i
+
+@[simp] theorem multiIn_last (n : ℕ) :
+    (multiIn (D := D) (n + 1) (Fin.last n)) = Isomorphism.sumInr := by
+  simp only [multiIn, Fin.lastCases_last]
+
+@[simp] theorem multiIn_castSucc (n : ℕ) (j : Fin n) :
+    (multiIn (D := D) (n + 1) j.castSucc)
+      = strictComp Isomorphism.sumInl (multiIn n j) := by
+  simp only [multiIn, Fin.lastCases_castSucc]
+  rfl
+
+/-- **`[f₁,…,fₙ]`**, with `[]` the unique strict map out of `I`. -/
+noncomputable def multiCopair :
+    (n : ℕ) → ((i : Fin n) → StrictHom (D i.val) γ) → StrictHom (MultiSum D n) γ
+  | 0, _ => ⊥
+  | n + 1, f =>
+      Isomorphism.copair (multiCopair n fun j => f j.castSucc) (f (Fin.last n))
+
+/-- **`[f₁,…,fₙ] ∘ inᵢ = fᵢ`** — the existence half of the multiary universal
+property (printed p. 19). -/
+theorem multiCopair_comp_multiIn :
+    ∀ (n : ℕ) (f : (i : Fin n) → StrictHom (D i.val) γ) (i : Fin n),
+      strictComp (multiCopair n f) (multiIn n i) = f i := by
+  intro n
+  induction n with
+  | zero => intro _ i; exact i.elim0
+  | succ n ih =>
+    intro f i
+    induction i using Fin.lastCases with
+    | last =>
+      rw [multiIn_last]
+      exact copair_comp_sumInr _ _
+    | cast j =>
+      rw [multiIn_castSucc]
+      have hleft := copair_comp_sumInl
+        (multiCopair (D := D) (γ := γ) n fun jj => f jj.castSucc) (f (Fin.last n))
+      have hih := ih (fun jj => f jj.castSucc) j
+      refine Subtype.ext (ScottHom.ext fun x => ?_)
+      have h1 := congrArg
+        (fun k : StrictHom (MultiSum D n) γ => k.val ((multiIn (D := D) n j).val x)) hleft
+      have h2 := congrArg (fun k : StrictHom (D j.val) γ => k.val x) hih
+      exact h1.trans h2
+
+/-- **`[f₁,…,fₙ]` is the unique strict continuous map with `h ∘ inᵢ = fᵢ`** — the
+uniqueness half (printed p. 19). -/
+theorem multiCopair_unique :
+    ∀ (n : ℕ) (f : (i : Fin n) → StrictHom (D i.val) γ) (k : StrictHom (MultiSum D n) γ),
+      (∀ i : Fin n, strictComp k (multiIn n i) = f i) → k = multiCopair n f := by
+  intro n
+  induction n with
+  | zero =>
+    intro f k _
+    haveI : Subsingleton (MultiSum D 0) := inferInstanceAs (Subsingleton PUnit)
+    refine Subtype.ext (ScottHom.ext fun x => ?_)
+    rw [Subsingleton.elim x (⊥ : MultiSum D 0)]
+    exact k.2.trans (multiCopair (D := D) (γ := γ) 0 f).2.symm
+  | succ n ih =>
+    intro f k h
+    have hright : Isomorphism.restrictRight k = f (Fin.last n) := by
+      have hlast := h (Fin.last n)
+      rw [multiIn_last] at hlast
+      exact hlast
+    have hleft : Isomorphism.restrictLeft k = multiCopair n (fun j => f j.castSucc) := by
+      refine ih _ _ ?_
+      intro j
+      have hj := h j.castSucc
+      rw [multiIn_castSucc] at hj
+      exact hj
+    have hk := Isomorphism.coalescedSumCopair.symm_apply_apply k
+    rw [show (Isomorphism.coalescedSumCopair k)
+        = (Isomorphism.restrictLeft k, Isomorphism.restrictRight k) from rfl,
+      hleft, hright] at hk
+    exact hk.symm
+
+end MultiSum
 
 end ScottDomains.Morphism
