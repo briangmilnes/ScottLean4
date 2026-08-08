@@ -1,0 +1,354 @@
+# r0042
+# agent4 — lake build ScottDomains.PropertyM
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-08T14:26:18-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.PropertyM ===
+✖ [836/836] Building ScottDomains.PropertyM (909ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/PropertyM.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/PropertyM.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/PropertyM.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/PropertyM.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/PropertyM.setup.json --json
+warning: ScottDomains/PropertyM.lean:531:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ScottDomains/PropertyM.lean:557:8: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ScottDomains/PropertyM.lean:588:85: unsolved goals
+D : Type u_1
+inst✝ : CompletePartialOrder D
+hAlgF : IsAlgebraic (ScottHom D D)
+a₁ a₂ : D
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+y : ℕ → D
+hy : Antitone y
+hub : ∀ (n : ℕ), y n ∈ upperBounds {a₁, a₂}
+hcon : ∀ z ∈ upperBounds {a₁, a₂}, ∃ n, ¬z ≤ y n
+this : IsAlgebraic (ScottHom D D)
+hy₁ : ∀ (n : ℕ), a₁ ≤ y n
+hy₂ : ∀ (n : ℕ), a₂ ≤ y n
+hfail : ∀ (x : D), a₁ ≤ x → a₂ ≤ x → ∃ m, ¬x ≤ y m
+hpatch : ∀ (σ : ℕ → ℕ), Monotone σ → JungSFP.IsJungPatch a₁ a₂ a₁ a₂ fun x => y (σ (lev y x))
+hjmono :
+  ∀ (t t' : D → D),
+    (∀ (d : D), a₁ ≤ d → a₂ ≤ d → t d ≤ t' d) →
+      ∀ (x : D), JungSFP.jungFun a₁ a₂ a₁ a₂ t x ≤ JungSFP.jungFun a₁ a₂ a₁ a₂ t' x
+Iinf : ScottHom D D := JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hIinfdef : Iinf = JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+Ihat : ℕ → ScottHom D D := fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIhatdef : Ihat = fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIinf_app : ∀ (x : D), Iinf x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (id (lev y x))) x
+n : ℕ
+x : D
+⊢ ((fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯) n) x =
+    JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (sig n (lev y x))) x
+error: ScottDomains/PropertyM.lean:593:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (Ihat ?n) ?x
+in the target expression
+  (fun f => ⇑f) (Ihat n) x ≤ (fun f => ⇑f) Iinf x
+
+D : Type u_1
+inst✝ : CompletePartialOrder D
+hAlgF : IsAlgebraic (ScottHom D D)
+a₁ a₂ : D
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+y : ℕ → D
+hy : Antitone y
+hub : ∀ (n : ℕ), y n ∈ upperBounds {a₁, a₂}
+hcon : ∀ z ∈ upperBounds {a₁, a₂}, ∃ n, ¬z ≤ y n
+this : IsAlgebraic (ScottHom D D)
+hy₁ : ∀ (n : ℕ), a₁ ≤ y n
+hy₂ : ∀ (n : ℕ), a₂ ≤ y n
+hfail : ∀ (x : D), a₁ ≤ x → a₂ ≤ x → ∃ m, ¬x ≤ y m
+hpatch : ∀ (σ : ℕ → ℕ), Monotone σ → JungSFP.IsJungPatch a₁ a₂ a₁ a₂ fun x => y (σ (lev y x))
+hjmono :
+  ∀ (t t' : D → D),
+    (∀ (d : D), a₁ ≤ d → a₂ ≤ d → t d ≤ t' d) →
+      ∀ (x : D), JungSFP.jungFun a₁ a₂ a₁ a₂ t x ≤ JungSFP.jungFun a₁ a₂ a₁ a₂ t' x
+Iinf : ScottHom D D := JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hIinfdef : Iinf = JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+Ihat : ℕ → ScottHom D D := fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIhatdef : Ihat = fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIinf_app : ∀ (x : D), Iinf x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (id (lev y x))) x
+hIhat_app : ∀ (n : ℕ) (x : D), (Ihat n) x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (sig n (lev y x))) x
+n : ℕ
+x : D
+⊢ (fun f => ⇑f) (Ihat n) x ≤ (fun f => ⇑f) Iinf x
+error: ScottDomains/PropertyM.lean:597:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (Ihat ?n) ?x
+in the target expression
+  (fun f => ⇑f) (Ihat n) x ≤ (fun f => ⇑f) (Ihat (n + 1)) x
+
+D : Type u_1
+inst✝ : CompletePartialOrder D
+hAlgF : IsAlgebraic (ScottHom D D)
+a₁ a₂ : D
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+y : ℕ → D
+hy : Antitone y
+hub : ∀ (n : ℕ), y n ∈ upperBounds {a₁, a₂}
+hcon : ∀ z ∈ upperBounds {a₁, a₂}, ∃ n, ¬z ≤ y n
+this : IsAlgebraic (ScottHom D D)
+hy₁ : ∀ (n : ℕ), a₁ ≤ y n
+hy₂ : ∀ (n : ℕ), a₂ ≤ y n
+hfail : ∀ (x : D), a₁ ≤ x → a₂ ≤ x → ∃ m, ¬x ≤ y m
+hpatch : ∀ (σ : ℕ → ℕ), Monotone σ → JungSFP.IsJungPatch a₁ a₂ a₁ a₂ fun x => y (σ (lev y x))
+hjmono :
+  ∀ (t t' : D → D),
+    (∀ (d : D), a₁ ≤ d → a₂ ≤ d → t d ≤ t' d) →
+      ∀ (x : D), JungSFP.jungFun a₁ a₂ a₁ a₂ t x ≤ JungSFP.jungFun a₁ a₂ a₁ a₂ t' x
+Iinf : ScottHom D D := JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hIinfdef : Iinf = JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+Ihat : ℕ → ScottHom D D := fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIhatdef : Ihat = fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIinf_app : ∀ (x : D), Iinf x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (id (lev y x))) x
+hIhat_app : ∀ (n : ℕ) (x : D), (Ihat n) x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (sig n (lev y x))) x
+hIhat_le_Iinf : ∀ (n : ℕ), Ihat n ≤ Iinf
+n : ℕ
+x : D
+⊢ (fun f => ⇑f) (Ihat n) x ≤ (fun f => ⇑f) (Ihat (n + 1)) x
+error: ScottDomains/PropertyM.lean:625:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (compHom ?g ?f) ?x
+in the target expression
+  (fun f => ⇑f) F x ≤ (fun f => ⇑f) (compHom Iinf F) x
+
+D : Type u_1
+inst✝ : CompletePartialOrder D
+hAlgF : IsAlgebraic (ScottHom D D)
+a₁ a₂ : D
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+y : ℕ → D
+hy : Antitone y
+hub : ∀ (n : ℕ), y n ∈ upperBounds {a₁, a₂}
+hcon : ∀ z ∈ upperBounds {a₁, a₂}, ∃ n, ¬z ≤ y n
+this : IsAlgebraic (ScottHom D D)
+hy₁ : ∀ (n : ℕ), a₁ ≤ y n
+hy₂ : ∀ (n : ℕ), a₂ ≤ y n
+hfail : ∀ (x : D), a₁ ≤ x → a₂ ≤ x → ∃ m, ¬x ≤ y m
+hpatch : ∀ (σ : ℕ → ℕ), Monotone σ → JungSFP.IsJungPatch a₁ a₂ a₁ a₂ fun x => y (σ (lev y x))
+hjmono :
+  ∀ (t t' : D → D),
+    (∀ (d : D), a₁ ≤ d → a₂ ≤ d → t d ≤ t' d) →
+      ∀ (x : D), JungSFP.jungFun a₁ a₂ a₁ a₂ t x ≤ JungSFP.jungFun a₁ a₂ a₁ a₂ t' x
+Iinf : ScottHom D D := JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hIinfdef : Iinf = JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+Ihat : ℕ → ScottHom D D := fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIhatdef : Ihat = fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIinf_app : ∀ (x : D), Iinf x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (id (lev y x))) x
+hIhat_app : ∀ (n : ℕ) (x : D), (Ihat n) x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (sig n (lev y x))) x
+hIhat_le_Iinf : ∀ (n : ℕ), Ihat n ≤ Iinf
+hIhat_mono : Monotone Ihat
+hstep₁ : ScottHom.step ha₁ a₁ ≤ JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hstep₂ : ScottHom.step ha₂ a₂ ≤ JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+F : ScottHom D D
+hFmem : F ∈ compactsBelow Iinf
+hFub : ∀ y ∈ {ScottHom.step ha₁ a₁, ScottHom.step ha₂ a₂}, y ≤ F
+hFc : IsCompactElement F
+hFle : F ≤ Iinf
+hFa₁ : ∀ (x : D), a₁ ≤ x → a₁ ≤ F x
+hFa₂ : ∀ (x : D), a₂ ≤ x → a₂ ≤ F x
+hkey : ∀ w ≤ y 0, a₁ ≤ w → a₂ ≤ w → w ≤ Iinf w
+x : D
+⊢ (fun f => ⇑f) F x ≤ (fun f => ⇑f) (compHom Iinf F) x
+error: ScottDomains/PropertyM.lean:672:11: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (compHom ?g ?f) ?x
+in the target expression
+  (fun f => ⇑f) (compHom (Ihat (lev y (F x) + 1)) F) x ≤ (fun f => ⇑f) g x
+
+case right
+D : Type u_1
+inst✝ : CompletePartialOrder D
+hAlgF : IsAlgebraic (ScottHom D D)
+a₁ a₂ : D
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+y : ℕ → D
+hy : Antitone y
+hub : ∀ (n : ℕ), y n ∈ upperBounds {a₁, a₂}
+hcon : ∀ z ∈ upperBounds {a₁, a₂}, ∃ n, ¬z ≤ y n
+this : IsAlgebraic (ScottHom D D)
+hy₁ : ∀ (n : ℕ), a₁ ≤ y n
+hy₂ : ∀ (n : ℕ), a₂ ≤ y n
+hfail : ∀ (x : D), a₁ ≤ x → a₂ ≤ x → ∃ m, ¬x ≤ y m
+hpatch : ∀ (σ : ℕ → ℕ), Monotone σ → JungSFP.IsJungPatch a₁ a₂ a₁ a₂ fun x => y (σ (lev y x))
+hjmono :
+  ∀ (t t' : D → D),
+    (∀ (d : D), a₁ ≤ d → a₂ ≤ d → t d ≤ t' d) →
+      ∀ (x : D), JungSFP.jungFun a₁ a₂ a₁ a₂ t x ≤ JungSFP.jungFun a₁ a₂ a₁ a₂ t' x
+Iinf : ScottHom D D := JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hIinfdef : Iinf = JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+Ihat : ℕ → ScottHom D D := fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIhatdef : Ihat = fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIinf_app : ∀ (x : D), Iinf x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (id (lev y x))) x
+hIhat_app : ∀ (n : ℕ) (x : D), (Ihat n) x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (sig n (lev y x))) x
+hIhat_le_Iinf : ∀ (n : ℕ), Ihat n ≤ Iinf
+hIhat_mono : Monotone Ihat
+hstep₁ : ScottHom.step ha₁ a₁ ≤ JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hstep₂ : ScottHom.step ha₂ a₂ ≤ JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+F : ScottHom D D
+hFmem : F ∈ compactsBelow Iinf
+hFub : ∀ y ∈ {ScottHom.step ha₁ a₁, ScottHom.step ha₂ a₂}, y ≤ F
+hFc : IsCompactElement F
+hFle : F ≤ Iinf
+hFa₁ : ∀ (x : D), a₁ ≤ x → a₁ ≤ F x
+hFa₂ : ∀ (x : D), a₂ ≤ x → a₂ ≤ F x
+hkey : ∀ w ≤ y 0, a₁ ≤ w → a₂ ≤ w → w ≤ Iinf w
+hFcomp : F ≤ compHom Iinf F
+hattain : ∀ (w : D), (Ihat (lev y w + 1)) w = Iinf w
+s : Set (ScottHom D D) := Set.range fun n => compHom (Ihat n) F
+hsdef : s = Set.range fun n => compHom (Ihat n) F
+hsne : s.Nonempty
+hsd : DirectedOn (fun x1 x2 => x1 ≤ x2) s
+g : ScottHom D D
+hg : g ∈ upperBounds s
+x : D
+hx : (fun f => ⇑f) (compHom (Ihat (lev y (F x) + 1)) F) x ≤ (fun f => ⇑f) g x
+⊢ (fun f => ⇑f) (compHom Iinf F) x ≤ (fun f => ⇑f) g x
+error: ScottDomains/PropertyM.lean:680:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Iinf ?x
+in the target expression
+  (fun f => ⇑f) F (y n) ≤ (fun f => ⇑f) Iinf (y n)
+
+D : Type u_1
+inst✝ : CompletePartialOrder D
+hAlgF : IsAlgebraic (ScottHom D D)
+a₁ a₂ : D
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+y : ℕ → D
+hy : Antitone y
+hub : ∀ (n : ℕ), y n ∈ upperBounds {a₁, a₂}
+hcon : ∀ z ∈ upperBounds {a₁, a₂}, ∃ n, ¬z ≤ y n
+this : IsAlgebraic (ScottHom D D)
+hy₁ : ∀ (n : ℕ), a₁ ≤ y n
+hy₂ : ∀ (n : ℕ), a₂ ≤ y n
+hfail : ∀ (x : D), a₁ ≤ x → a₂ ≤ x → ∃ m, ¬x ≤ y m
+hpatch : ∀ (σ : ℕ → ℕ), Monotone σ → JungSFP.IsJungPatch a₁ a₂ a₁ a₂ fun x => y (σ (lev y x))
+hjmono :
+  ∀ (t t' : D → D),
+    (∀ (d : D), a₁ ≤ d → a₂ ≤ d → t d ≤ t' d) →
+      ∀ (x : D), JungSFP.jungFun a₁ a₂ a₁ a₂ t x ≤ JungSFP.jungFun a₁ a₂ a₁ a₂ t' x
+Iinf : ScottHom D D := JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hIinfdef : Iinf = JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+Ihat : ℕ → ScottHom D D := fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIhatdef : Ihat = fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIinf_app : ∀ (x : D), Iinf x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (id (lev y x))) x
+hIhat_app : ∀ (n : ℕ) (x : D), (Ihat n) x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (sig n (lev y x))) x
+hIhat_le_Iinf : ∀ (n : ℕ), Ihat n ≤ Iinf
+hIhat_mono : Monotone Ihat
+hstep₁ : ScottHom.step ha₁ a₁ ≤ JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hstep₂ : ScottHom.step ha₂ a₂ ≤ JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+F : ScottHom D D
+hFmem : F ∈ compactsBelow Iinf
+hFub : ∀ y ∈ {ScottHom.step ha₁ a₁, ScottHom.step ha₂ a₂}, y ≤ F
+hFc : IsCompactElement F
+hFle : F ≤ Iinf
+hFa₁ : ∀ (x : D), a₁ ≤ x → a₁ ≤ F x
+hFa₂ : ∀ (x : D), a₂ ≤ x → a₂ ≤ F x
+hkey : ∀ w ≤ y 0, a₁ ≤ w → a₂ ≤ w → w ≤ Iinf w
+hFcomp : F ≤ compHom Iinf F
+hattain : ∀ (w : D), (Ihat (lev y w + 1)) w = Iinf w
+s : Set (ScottHom D D) := Set.range fun n => compHom (Ihat n) F
+hsdef : s = Set.range fun n => compHom (Ihat n) F
+hsne : s.Nonempty
+hsd : DirectedOn (fun x1 x2 => x1 ≤ x2) s
+hlub : IsLUB s (compHom Iinf F)
+n : ℕ
+hFg : F ≤ (fun n => compHom (Ihat n) F) n
+mn : ℕ
+hmn : ¬y n ≤ y mn
+hlevyn : n ≤ lev y (y n)
+hx : (fun f => ⇑f) F (y n) ≤ (fun f => ⇑f) Iinf (y n)
+⊢ F (y n) ≤ y n
+error: ScottDomains/PropertyM.lean:685:6: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (compHom ?g ?f) ?x
+in the target expression
+  (fun f => ⇑f) F (y n) ≤ (fun f => ⇑f) ((fun n => compHom (Ihat n) F) n) (y n)
+
+D : Type u_1
+inst✝ : CompletePartialOrder D
+hAlgF : IsAlgebraic (ScottHom D D)
+a₁ a₂ : D
+ha₁ : IsCompactElement a₁
+ha₂ : IsCompactElement a₂
+y : ℕ → D
+hy : Antitone y
+hub : ∀ (n : ℕ), y n ∈ upperBounds {a₁, a₂}
+hcon : ∀ z ∈ upperBounds {a₁, a₂}, ∃ n, ¬z ≤ y n
+this : IsAlgebraic (ScottHom D D)
+hy₁ : ∀ (n : ℕ), a₁ ≤ y n
+hy₂ : ∀ (n : ℕ), a₂ ≤ y n
+hfail : ∀ (x : D), a₁ ≤ x → a₂ ≤ x → ∃ m, ¬x ≤ y m
+hpatch : ∀ (σ : ℕ → ℕ), Monotone σ → JungSFP.IsJungPatch a₁ a₂ a₁ a₂ fun x => y (σ (lev y x))
+hjmono :
+  ∀ (t t' : D → D),
+    (∀ (d : D), a₁ ≤ d → a₂ ≤ d → t d ≤ t' d) →
+      ∀ (x : D), JungSFP.jungFun a₁ a₂ a₁ a₂ t x ≤ JungSFP.jungFun a₁ a₂ a₁ a₂ t' x
+Iinf : ScottHom D D := JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hIinfdef : Iinf = JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+Ihat : ℕ → ScottHom D D := fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIhatdef : Ihat = fun n => JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (sig n (lev y x))) ⋯
+hIinf_app : ∀ (x : D), Iinf x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (id (lev y x))) x
+hIhat_app : ∀ (n : ℕ) (x : D), (Ihat n) x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x => y (sig n (lev y x))) x
+hIhat_le_Iinf : ∀ (n : ℕ), Ihat n ≤ Iinf
+hIhat_mono : Monotone Ihat
+hstep₁ : ScottHom.step ha₁ a₁ ≤ JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+hstep₂ : ScottHom.step ha₂ a₂ ≤ JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x => y (id (lev y x))) ⋯
+F : ScottHom D D
+hFmem : F ∈ compactsBelow Iinf
+hFub : ∀ y ∈ {ScottHom.step ha₁ a₁, ScottHom.step ha₂ a₂}, y ≤ F
+hFc : IsCompactElement F
+hFle : F ≤ Iinf
+hFa₁ : ∀ (x : D), a₁ ≤ x → a₁ ≤ F x
+hFa₂ : ∀ (x : D), a₂ ≤ x → a₂ ≤ F x
+hkey : ∀ w ≤ y 0, a₁ ≤ w → a₂ ≤ w → w ≤ Iinf w
+hFcomp : F ≤ compHom Iinf F
+hattain : ∀ (w : D), (Ihat (lev y w + 1)) w = Iinf w
+s : Set (ScottHom D D) := Set.range fun n => compHom (Ihat n) F
+hsdef : s = Set.range fun n => compHom (Ihat n) F
+hsne : s.Nonempty
+hsd : DirectedOn (fun x1 x2 => x1 ≤ x2) s
+hlub : IsLUB s (compHom Iinf F)
+n : ℕ
+hFg : F ≤ (fun n => compHom (Ihat n) F) n
+mn : ℕ
+hmn : ¬y n ≤ y mn
+hlevyn : n ≤ lev y (y n)
+hFyn : F (y n) ≤ y n
+mz : ℕ
+hmz : ¬F (y n) ≤ y mz
+hnlev : n ≤ lev y (F (y n))
+hcontra : (fun f => ⇑f) F (y n) ≤ (fun f => ⇑f) ((fun n => compHom (Ihat n) F) n) (y n)
+⊢ False
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.PropertyM
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.64
+Maximum resident set size (kbytes): 1723480
+--- build ---
+finished:         2026-08-08T14:26:21-07:00
+exit status:      1
+user cpu:         1.77s
+system cpu:       0.51s
+cpu use:          139%
+peak rss single:  1683 MiB (largest one process, GNU time)
+peak pss tree:    1032 MiB (process group, shared pages apportioned)
+peak rss tree:    2490 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 7
+lake errors:      2
+sorry decls:      0
+other warnings:   2
