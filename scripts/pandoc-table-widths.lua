@@ -28,6 +28,17 @@
 -- Applied by scripts/md2pdf.sh to every conversion. A table whose columns are
 -- already balanced comes out essentially unchanged, proportional allocation
 -- being the identity on equal inputs.
+--
+-- KNOWN LIMIT, and it bites in practice. The floor is the longest *word*, so one
+-- very long unbreakable token in a cell dominates the whole table. Measured in
+-- `docs/ContinuousLatticeComparison.md`: a cell reading
+-- `ScottHom`+`StepFunction`+`FunctionSpaceDomain`+`CompactFunction`+`FunctionSpaceCountable`
+-- is a single 85-character word, giving that column a floor near 0.93 of the
+-- line, tripping the 0.95 rescale below and squeezing every other column. The
+-- filter cannot fix this — the token genuinely does not fit — so the fix belongs
+-- in the source: separate such runs with commas or spaces so they can break.
+-- Symptom to recognise: one column crushed and the rest of the row unreadable,
+-- in a table that looks fine in the Markdown.
 
 -- Characters that fit across the text block at the body size md2pdf.sh sets.
 -- Only the ratio matters, so this needs to be about right, not exact.

@@ -76,8 +76,8 @@ Three consequences worth stating.
 | # | Layer | Theirs | Ours |
 | -- | ----- | ----: | ----: |
 | 1 | way-below / approximation | 19 thms, 236 lines | 7 thms, 117 lines |
-| 2 | the approximation class | `IsContinuousLattice`, in the same file | `IsAlgebraic`, `Domain`, `BoundedComplete` — 13 thms, 227 lines |
-| 3 | function spaces | **110 thms, 1633 lines** | `ScottHom`+`StepFunction`+`FunctionSpaceDomain`+`CompactFunction`+`FunctionSpaceCountable` — 41 thms, 887 lines |
+| 2 | the approximation class | `IsContinuousLattice`, same file | 13 thms, 227 lines — `IsAlgebraic`, `Domain`, `BoundedComplete` |
+| 3 | function spaces | **110 thms, 1633 lines** | 41 thms, 887 lines — `ScottHom`, `StepFunction`, `FunctionSpaceDomain`, `CompactFunction`, `FunctionSpaceCountable` |
 | 4 | inverse limits / `D∞` | 47 + 33 thms, 1241 lines | **none** |
 | 5 | whole development | **273 theorems** | 1298 theorems |
 
