@@ -1,0 +1,24 @@
+% motto.tex — a one-page sign, for printing and hanging.
+%
+% Landscape letter. Each line is wrapped in \resizebox{\textwidth}{!}{...} so it
+% fills the measure exactly regardless of font metrics — more reliable for a
+% sign than picking a point size and hoping, since the two lines have different
+% character counts and would otherwise set at visibly different widths.
+%
+% Compile:  scripts/a1-tikz2pdf.sh motto/motto.tex
+\documentclass[letterpaper,landscape]{article}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\pagestyle{empty}
+\begin{document}
+\centering
+\vspace*{\fill}
+% \sffamily\bfseries outside the box, and \renewcommand{\familydefault}, were
+% both ignored here — pdffonts showed LMRoman10-**Regular** either way. Selecting
+% the family and series explicitly inside the box does take.
+\resizebox{\textwidth}{!}{\fontfamily{lmss}\fontseries{bx}\selectfont Sit on your ass}\par
+\vspace{0.35in}
+\resizebox{\textwidth}{!}{\fontfamily{lmss}\fontseries{bx}\selectfont and ask your AI!}\par
+\vspace*{\fill}
+\end{document}
