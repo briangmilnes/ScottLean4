@@ -1,8 +1,15 @@
 # Figures from Gunter & Scott 1990
 
-Rendered from [`../ScottDomains/papers/Gunter Scott 1990.pdf`](../ScottDomains/papers/Gunter%20Scott%201990.pdf)
-by [`../scripts/extract-figures.sh`](../scripts/extract-figures.sh) at 300 dpi.
+Rendered from [`../papers/Gunter Scott 1990.pdf`](../papers/Gunter%20Scott%201990.pdf)
+by [`../../scripts/extract-figures.sh`](../../scripts/extract-figures.sh) at 300 dpi.
 Re-run that script with a dpi argument to regenerate at another resolution.
+
+**These full-page renders are superseded work.** They carry the surrounding body
+text, which is not what is wanted: each diagram should be cropped to itself plus
+its caption, emitted as a PDF, and the unnamed diagrams — the paper has many
+inline pictures with no figure number — named from the prose around them.
+`../../scripts/find-diagrams.py` is the detector for that; see its docstring for
+why the problem is geometric rather than a content-stream extraction.
 
 ## Why these are renders, not extractions
 

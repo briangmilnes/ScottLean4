@@ -31,7 +31,7 @@ set -euo pipefail
 
 root=/home/milnes/projects/ScottLean4
 pdf="$root/ScottDomains/papers/Gunter Scott 1990.pdf"
-out="$root/GunterScott90Images"
+out="$root/ScottDomains/GunterScott90Images"
 dpi="${1:-300}"
 
 mkdir -p "$out"
