@@ -38,9 +38,14 @@
 % pixel)/200 vertically, so the three parts keep their relative placement,
 % scale and truncated-edge slopes.
 %
-% Deviation from the r0039 style contract: the contract's line
-% "\usetikzpicture{}" is a typo - no such macro exists - and is dropped here.
-% No extra TikZ library is needed.
+% Deviations from the r0039 style contract, both settled by the orchestrator
+% after this figure was reviewed as the pilot:
+%   1. The contract's line "\usetikzpicture{}" is a typo - no such macro
+%      exists - and is dropped here. No extra TikZ library is needed.
+%   2. "solid" is drawn at minimum size 5pt against "open" at 4pt. In the scan
+%      the filled dots measure about 40 px against the open circles' 28 px at
+%      600 dpi, and the filled/open distinction is the whole content of the
+%      caption, so it must read at a glance.
 
 \documentclass[border=6pt]{standalone}
 \usepackage{tikz}
@@ -49,7 +54,7 @@
   x=1cm, y=1cm,
   every node/.style={inner sep=1pt},
   open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
-  solid/.style={circle, draw, fill=black, minimum size=4pt, inner sep=0pt},
+  solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
   edge/.style={draw, line width=0.4pt}]
 
   %% ---------------- part a ----------------
