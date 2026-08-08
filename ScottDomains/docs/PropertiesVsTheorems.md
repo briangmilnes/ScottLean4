@@ -3,7 +3,7 @@
 Source: **C. A. Gunter and D. S. Scott, "Semantic Domains,"** *Handbook of
 Theoretical Computer Science* Vol. B, 1990, pp. 633–674.
 
-The development holds **1308 theorem-ish declarations** for a paper with **30
+The development holds **1773 theorem-ish declarations** for a paper with **30
 numbered results**. That ratio is the question this file exists to make
 answerable. It is not answerable from the ratio alone, because the paper's 30
 numbered results are not 30 assertions — several are conjunctions over an
@@ -56,12 +56,18 @@ task of the audit plan.
 
 | # | Kind | Count | Superseded figure |
 | -- | ---- | ----- | ----------------- |
-| 1 | `theorem` / `lemma` | **1298** | 1308 |
-| 2 | of which `@[simp]`-tagged | 136 | 139 |
-| 3 | `def` / `abbrev` | 398 | — |
-| 4 | `instance` | 94 | — |
-| 5 | modules | 72 | — |
-| 6 | lines | 27892 | — |
+| 1 | `theorem` / `lemma` | **1773** | 1298 (r0038), 1308 (r0020) |
+| 2 | of which `@[simp]`-tagged | 197 | 136, 139 |
+| 3 | `def` / `abbrev` | 554 | 398 |
+| 4 | `instance` | 119 | 94 |
+| 5 | modules | 100 | 72 |
+| 6 | lines | 37300 | 27892 |
+
+The current column is the r0043 head, measured by `scripts/counts.sh` and, for
+rows 2–4, by a `grep` over declaration openers. Rounds r0039–r0042 added 28
+modules and 475 theorems: the flat cpo family, the morphism algebra, the
+powerdomain functor, the effective presentations, and Theorem 18's four
+supporting modules (`JungCor136`, `PropertyM`, `Iwamura`, `Thm18`).
 
 Rows 1 and 2 were re-measured by `scripts/lean-decls.py` after r0038's audit
 found three defects in the grep rule `counts.sh` had used: it counted
@@ -76,8 +82,18 @@ Both figures exclude `ScottDomains/Audit/`, the audit's own equivalence proofs,
 so that they compare with the pre-audit baseline. With `Audit/` the package is
 1326 theorems in 78 modules.
 
-**Ratios.** 1298 / 239 ≈ **5.4 theorems per paper property**; 1298 / 30 ≈ 43.3
-per numbered result.
+**Ratios.** 1773 / 239 ≈ **7.4 theorems per paper property**; 1773 / 30 ≈ 59.1
+per numbered result. The superseded figures, computed from 1298, were 5.4 and
+43.3.
+
+A caution on reading the first ratio as coverage: the denominator counts the
+paper's properties, but **26 of those 239 have no Lean statement at all** and so
+contribute zero theorems to the numerator (`PaperInventory.md` row 2e, measured
+in r0043). Against the 213 properties actually stated the ratio is 1773 / 213 ≈
+**8.3**. Neither figure is a coverage measurement; both are density measurements,
+and they move in opposite directions as work proceeds — proving more raises the
+numerator, stating a previously-unstated property raises the denominator's
+effective size.
 
 **The denominator was wrong until r0040.** Every earlier version of this file
 quoted ~100 properties and a ratio near 13 : 1. That 100 was 87 numbered

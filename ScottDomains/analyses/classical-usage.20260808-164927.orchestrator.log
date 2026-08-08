@@ -1,0 +1,205 @@
+# classical-reasoning usage — 2026-08-08 16:49:27 -0700
+
+construct                  occurrences    files
+-------------------------- -------- --------
+by_contra                        51       16
+by_cases                        159       27
+push_neg                          0        0
+absurd                          171       44
+Classical.em                      0        0
+Classical.byContradiction         0        0
+Classical.choice                130       16
+Classical.dec                    17        4
+Classical.byCases                 0        0
+Classical.                      148       21
+not_not                           7        3
+of_not_not                        0        0
+em                             2784       97
+Or.elim                           0        0
+exfalso                           3        2
+open Classical                   45       28
+noncomputable                   198       53
+
+## by_contra call sites
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/Copair.lean:122:        by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/Copair.lean:174:        by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/Copair.lean:238:  by_contra hempty
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:107:      by_contra hempty
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:163:        by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:172:        by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:285:        by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:310:          by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/Lift.lean:91:      by_contra hempty
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Audit/Skeleton.lean:49:proved by `by_contra`) differ in bound-variable names — `r` against `q`, `h`
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PRepFun.lean:778:        by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PRepFun.lean:783:        by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PRepFun.lean:847:    by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PRepFun.lean:852:    by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:376:    by_contra hemp
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:380:    by_contra hnf
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:384:    by_contra hno
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:389:    by_contra hnf
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:462:  by_contra hemp
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:465:    by_contra hxn
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:482:  · by_contra hno
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:484:    by_contra hyn
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungFinite.lean:655:  by_contra hinf
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungCor136.lean:139:      by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungCor136.lean:218:      by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/MinimalUpperBounds.lean:416:  by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/MinimalUpperBounds.lean:418:  · by_contra hn
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/MinimalUpperBounds.lean:420:  · by_contra hn
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousConstruction.lean:373:      by_contra hlt
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousConstruction.lean:511:    by_contra hc
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousConstruction.lean:517:    by_contra hc
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/FlatOmega.lean:76:  by_contra hnle
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/FlatPowerdomain.lean:531:      by_contra hc
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/FlatPowerdomain.lean:984:      by_contra hc
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Morphism.lean:310:  by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ClosureProperties/StrictFunction.lean:108:        by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ClosureProperties/StrictFunction.lean:110:        by_contra hxne
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungSFP.lean:557:      · by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungSFP.lean:560:          by_contra hdn
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungSFP.lean:701:    by_contra hinf
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungSFP.lean:775:  by_contra hMinf
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungSFP.lean:788:    by_contra hne
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PropertyM.lean:500:  by_contra hlt
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PropertyM.lean:523:    by_contra hlt
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PropertyM.lean:574:  by_contra hcon
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PropertyM.lean:582:    by_contra hall
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PropertyM.lean:601:        by_contra hall
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PropertyM.lean:603:        by_contra hw'
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungBicomplete.lean:542:    by_contra hns
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungBicomplete.lean:682:  by_contra hno
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/JungBicomplete.lean:690:    by_contra hcon
+
+## Classical.choice / Classical.em written explicitly in source
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ScottHom.lean:51:`Classical.choice` dependency in the instance.
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainCompacts.lean:312:  …Compacts.isFinitaryProjection_pHom              [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainCompacts.lean:313:  …Compacts.finitaryProjection_not_maps_compacts   [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainCompacts.lean:314:  …Compacts.not_forall_isCompactElement_apply      [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Iwamura.lean:57:No `sorry` and no new axioms: the proof uses `Classical.choice` (for the choice
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Skeleton/Sum.lean:985:`[propext, Classical.choice, Quot.sound]` — `Classical.choice` entering through
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Skeleton/Lemma10.lean:237:`lem10_lift` and `lem10_strict` on `[propext, Classical.choice, Quot.sound]` —
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Skeleton/Lemma10.lean:238:`Classical.choice` entering through the `dite` in `smashSup`, in `liftSup` and in
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:525:  ScottDomains.PowerdomainMap.map               [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:526:  ScottDomains.PowerdomainMap.exists_unique_map [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:527:  ScottDomains.PowerdomainMap.map_id            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:528:  ScottDomains.PowerdomainMap.map_comp          [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:529:  ScottDomains.PowerdomainMap.map_le_map        [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:530:  ScottDomains.PowerdomainMap.isProjection_map  [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:531:  ScottDomains.PowerdomainMap.thm_map_hoare     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:532:  ScottDomains.PowerdomainMap.thm_map_smyth     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:533:  ScottDomains.PowerdomainMap.thm_map_plotkin   [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:534:  ScottDomains.PowerdomainMap.isProjection_smyth [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:535:  ScottDomains.PowerdomainMap.isProjection_hoare [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMap.lean:537:`Classical.choice` is inherited entirely from `IdealCompletion`'s `idealSup`, a
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:513:  scottHomOrderIso                      [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:515:  nontrivial_scottHom                   [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:523:  Iso.funSpaceCongr                     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:526:  iso_funSpace_prod                     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:527:  iso_curry                             [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:530:  thm21_image                           [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:531:  isRepresentable_selfProdSquare        [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:532:  isRepresentable_funSpaceConst         [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:533:  lem24                                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:534:  thm25                                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:535:  thm25_powerset                        [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:536:  thm25_isUniversal                     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Universality.lean:540:carrier with an instance. `Classical.choice` enters exactly where it enters
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean:144:`Classical.choice`, unlike `ScottHom`'s. On a directed set the extra `p` is the
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Hoare.lean:277:  ScottDomains.Hoare.Pf.instCountable              [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Hoare.lean:278:  ScottDomains.Hoare.Pf.not_isPartialOrder         [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Hoare.lean:280:  ScottDomains.Hoare.thm11_hoare                   [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Hoare.lean:281:  ScottDomains.Hoare.isCompactElement_iff          [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Hoare.lean:284:`instOrderBot` are choice-free, and `Classical.choice` enters `instCountable`
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:371:  ScottDomains.Plotkin.isDomain                             [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:372:  ScottDomains.Plotkin.compacts_eq_range_principal          [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:373:  ScottDomains.Plotkin.isCompactElement_iff                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:377:  ScottDomains.Plotkin.FinCompacts.instOrderBot             [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:378:  ScottDomains.Plotkin.FinCompacts.instCountable            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:379:  ScottDomains.Plotkin.FinCompacts.exists_le_le_ne_of_lt_lt [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:380:  ScottDomains.Plotkin.FinCompacts.not_single_le_pair       [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:381:  ScottDomains.Plotkin.not_antisymm_natPowerset             [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:382:  ScottDomains.Plotkin.exists_ne_principal_eq               [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:383:  ScottDomains.Plotkin.not_single_le_pair_natPowerset       [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:385:`Classical.choice` is inherited from `IdealCompletion`'s `idealSup` (a `dite` on
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:420:  repOf                                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:421:  isClosure_repOf                       [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:422:  fn_mem_range_of_mem_range_repOf       [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:423:  gr_mem_range_repOf                    [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:424:  gr_fn_of_mem_range_repOf              [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:425:  repRangeOrderIso                      [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:426:  scottContinuous_repOf                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:429:  isAlgebraic_prod                      [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:430:  domain_prod                           [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:431:  isLUB_sSup_prod_set                   [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:432:  prodMap                               [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:433:  isClosure_prodMap                     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:434:  prodMap_mono                          [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:435:  isLUB_prodMap_of_isLUB                [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:436:  prodRangeOrderIso                     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:438:  isRepresentable_prod                  [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:439:  recursiveDomain_prod                  [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Universal.lean:443:pairs two carriers. Everywhere else `Classical.choice` enters through the same
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:490:                                                            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:491:  ScottDomains.PowerdomainBC.hoare_exists_isLUB_pair        [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:492:  ScottDomains.PowerdomainBC.lem13_hoare                    [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:493:  ScottDomains.PowerdomainBC.instBoundedCompleteHoare       [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:494:  ScottDomains.PowerdomainBC.joinCompact                    [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:495:  ScottDomains.PowerdomainBC.mem_smythJoin                  [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:496:  ScottDomains.PowerdomainBC.smyth_exists_isLUB_pair        [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:497:  ScottDomains.PowerdomainBC.lem13_smyth                    [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:498:  ScottDomains.PowerdomainBC.instBoundedCompleteSmyth       [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:500:                                                            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:501:  ScottDomains.PowerdomainBC.isLUB_sSup_hoareWitness        [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:502:  ScottDomains.PowerdomainBC.sSup_hoareWitness_ne_bot       [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/BoundedComplete.lean:506:propositional extensionality. Everywhere else `Classical.choice` arrives through
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Smyth.lean:303:  ScottDomains.Smyth.powerdomain_isDomain            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Smyth.lean:304:  ScottDomains.Smyth.compacts_eq_range_principal     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Smyth.lean:305:  ScottDomains.Smyth.instDomain                      [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Smyth.lean:306:  ScottDomains.Smyth.Basis.instCountable             [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Smyth.lean:307:  ScottDomains.Smyth.Basis.exists_le_le_ne           [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain/Smyth.lean:317:its refl/trans proofs are direct. `Classical.choice` enters only downstream —
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMapRep.lean:250:  …Rep.isProjection_smythFamily [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMapRep.lean:251:  …Rep.smythFamily_mono         [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMapRep.lean:252:  …Rep.rep_smyth_of             [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMapRep.lean:253:  …Rep.rep_hoare_of             [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMapRep.lean:254:  …Rep.repSmythAtU              [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMapRep.lean:255:  …Rep.repHoareAtU              [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/PowerdomainMapRep.lean:256:  …Rep.lemma28AtU_of''          [propext, Classical.choice, Quot.sound] -/
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:631:  ScottDomains.IdealCompletion.idealSup                           [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:632:  ScottDomains.IdealCompletion.coe_idealSup_of_isIdeal_genIdeal   [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:633:  ScottDomains.IdealCompletion.isLUB_idealSup_of_isIdeal_genIdeal [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:634:  ScottDomains.IdealCompletion.coe_idealSup_of_isIdeal            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:635:  ScottDomains.IdealCompletion.idealSup_empty                     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:636:  ScottDomains.IdealCompletion.mem_sSup_iff                       [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:637:  ScottDomains.IdealCompletion.isIdeal_genIdeal                   [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:638:  ScottDomains.IdealCompletion.boundedComplete                    [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:639:  ScottDomains.IdealCompletion.thm11                              [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:640:  ScottDomains.IdealCompletion.thm11_converse                     [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:641:  ScottDomains.IdealCompletion.compacts_eq_range_principal        [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:643:                                                                  [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:644:  ScottDomains.IdealCompletion.instCompletePartialOrder           [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:645:  ScottDomains.IdealCompletion.instIsAlgebraic                    [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:646:  ScottDomains.IdealCompletion.instDomain                         [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/IdealCompletion.lean:650:`Classical.choice` enters only through `idealSup`'s `dite` on
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1225:  ScottDomains.ContinuousAlgebra.thm12                            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1226:  ScottDomains.ContinuousAlgebra.thm12_hoare                      [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1227:  ScottDomains.ContinuousAlgebra.thm12_smyth                      [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1228:  ScottDomains.ContinuousAlgebra.thm12_plotkin                    [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1229:  ScottDomains.ContinuousAlgebra.isHom_ext                        [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1230:  ScottDomains.ContinuousAlgebra.ext_unit                         [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1231:  ScottDomains.ContinuousAlgebra.principal_eq_fold_unit           [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1233:  ScottDomains.ContinuousAlgebra.scottContinuous_idealExtend      [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1235:  ScottDomains.ContinuousAlgebra.fold_le_fold_of_hoare            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1236:  ScottDomains.ContinuousAlgebra.fold_le_fold_of_smyth            [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1237:  ScottDomains.ContinuousAlgebra.fold_le_fold_of_convex           [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1238:  ScottDomains.ContinuousAlgebra.instBinopIdealCompletion         [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1239:  ScottDomains.ContinuousAlgebra.instIsSemilatticeIdealCompletion [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1240:  ScottDomains.ContinuousAlgebra.instFinSetsHoare                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1241:  ScottDomains.ContinuousAlgebra.instFinSetsSmyth                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1242:  ScottDomains.ContinuousAlgebra.instFinSetsPlotkin               [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1243:  ScottDomains.ContinuousAlgebra.instIsUpperSmyth                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1244:  ScottDomains.ContinuousAlgebra.instIsLowerHoare                 [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ContinuousAlgebra.lean:1250:or quotients. Everything downstream inherits `Classical.choice` from
