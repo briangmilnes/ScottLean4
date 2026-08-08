@@ -1,0 +1,129 @@
+# r0041
+# agent3 — lake build ScottDomains.PowerdomainMap
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-08T13:12:38-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.PowerdomainMap ===
+✖ [844/844] Building ScottDomains.PowerdomainMap (882ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/PowerdomainMap.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/PowerdomainMap.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/PowerdomainMap.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/PowerdomainMap.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/PowerdomainMap.setup.json --json
+error: ScottDomains/PowerdomainMap.lean:121:3: Application type mismatch: The argument
+  ScottContinuous.comp H₂.scottContinuous ?m.54
+has type
+  ScottContinuous (?m.46 ∘ h₂)
+but is expected to have type
+  ScottContinuous (h₂ ∘ h₁)
+in the application
+  IsHom.mk (ScottContinuous.comp H₂.scottContinuous ?m.54)
+warning: ScottDomains/PowerdomainMap.lean:148:8: automatically included section variable(s) unused in theorem `ScottDomains.PowerdomainMap.unitComp_apply`:
+  [CompletePartialOrder D]
+  [IsAlgebraic D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder D] [IsAlgebraic D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/PowerdomainMap.lean:154:2: Type mismatch
+  ScottContinuous.comp scottContinuous_unit ?m.49
+has type
+  ScottContinuous (?m.48 ∘ unit)
+but is expected to have type
+  ScottContinuous (unitComp f)
+error: ScottDomains/PowerdomainMap.lean:154:28: Application type mismatch: The argument
+  hf
+has type
+  ScottContinuous f
+but is expected to have type
+  ScottContinuous ?m.48
+in the application
+  ScottContinuous.comp scottContinuous_unit hf
+warning: ScottDomains/PowerdomainMap.lean:162:0: automatically included section variable(s) unused in theorem `ScottDomains.PowerdomainMap.map_apply`:
+  [IsAlgebraic D]
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/PowerdomainMap.lean:174:0: automatically included section variable(s) unused in theorem `ScottDomains.PowerdomainMap.map_principal`:
+  [IsAlgebraic D]
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/PowerdomainMap.lean:180:0: automatically included section variable(s) unused in theorem `ScottDomains.PowerdomainMap.isHom_map`:
+  [IsAlgebraic D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/PowerdomainMap.lean:187:0: automatically included section variable(s) unused in theorem `ScottDomains.PowerdomainMap.scottContinuous_map`:
+  [IsAlgebraic D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/PowerdomainMap.lean:218:9: Unknown identifier `huniq`
+error: ScottDomains/PowerdomainMap.lean:231:53: Application type mismatch: The argument
+  ScottContinuous.comp hg ?m.148
+has type
+  ScottContinuous (?m.147 ∘ g)
+but is expected to have type
+  ScottContinuous (g ∘ f)
+in the application
+  exists_unique_map (ScottContinuous.comp hg ?m.148)
+warning: ScottDomains/PowerdomainMap.lean:244:0: automatically included section variable(s) unused in theorem `ScottDomains.PowerdomainMap.map_le_map`:
+  [IsAlgebraic D]
+  [OrderBot A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] [OrderBot A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/PowerdomainMap.lean:292:4: Unknown constant `ScottDomains.ScottHom.IsProjection`
+error: ScottDomains/PowerdomainMap.lean:348:73: Application type mismatch: The argument
+  ScottContinuous.comp hg ?m.86
+has type
+  ScottContinuous (?m.85 ∘ g)
+but is expected to have type
+  ScottContinuous (g ∘ f)
+in the application
+  foldMono_hoare (ScottContinuous.comp hg ?m.86)
+error: ScottDomains/PowerdomainMap.lean:353:4: Unknown constant `ScottDomains.ScottHom.IsProjection`
+error: ScottDomains/PowerdomainMap.lean:403:73: Application type mismatch: The argument
+  ScottContinuous.comp hg ?m.86
+has type
+  ScottContinuous (?m.85 ∘ g)
+but is expected to have type
+  ScottContinuous (g ∘ f)
+in the application
+  foldMono_smyth (ScottContinuous.comp hg ?m.86)
+error: ScottDomains/PowerdomainMap.lean:409:4: Unknown constant `ScottDomains.ScottHom.IsProjection`
+error: ScottDomains/PowerdomainMap.lean:467:79: Application type mismatch: The argument
+  ScottContinuous.comp hg ?m.86
+has type
+  ScottContinuous (?m.85 ∘ g)
+but is expected to have type
+  ScottContinuous (g ∘ f)
+in the application
+  foldMono_plotkin (ScottContinuous.comp hg ?m.86)
+error: ScottDomains/PowerdomainMap.lean:472:4: Unknown constant `ScottDomains.ScottHom.IsProjection`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.PowerdomainMap
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.63
+Maximum resident set size (kbytes): 1703552
+--- build ---
+finished:         2026-08-08T13:12:41-07:00
+exit status:      1
+user cpu:         2.05s
+system cpu:       0.54s
+cpu use:          159%
+peak rss single:  1663 MiB (largest one process, GNU time)
+peak pss tree:    1016 MiB (process group, shared pages apportioned)
+peak rss tree:    2472 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 12
+lake errors:      2
+sorry decls:      0
+other warnings:   6
