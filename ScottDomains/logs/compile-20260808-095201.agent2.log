@@ -1,0 +1,57 @@
+# r0038
+# agent2 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T09:52:01-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [960/1084] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1116/1224] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1216/1224] Building ScottDomains.Audit.Projections (1.3s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Audit/Projections.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Audit/Projections.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Audit/Projections.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Audit/Projections.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Audit/Projections.setup.json --json
+error: ScottDomains/Audit/Projections.lean:58:46: Application type mismatch: The argument
+  hts
+has type
+  t ⊆ s
+but is expected to have type
+  ∀ y ∈ t, ∃ z ∈ s, y ≤ z
+in the application
+  exists_upperBound_mem_of_finite hdir hne ht hts
+error: ScottDomains/Audit/Projections.lean:70:2: Unknown identifier `exists_mem_upperBounds_of_directedOn`
+error: Lean exited with code 1
+✔ [1217/1224] Built ScottDomains.JungFinite (1.8s)
+✔ [1218/1224] Built ScottDomains.PRep (2.1s)
+✔ [1219/1224] Built ScottDomains.Colimit (2.5s)
+✔ [1220/1224] Built ScottDomains.LemThirty (1.6s)
+✔ [1221/1224] Built ScottDomains.PRepFun (2.7s)
+✔ [1222/1224] Built ScottDomains.PRepSum (2.8s)
+✔ [1223/1224] Built ScottDomains.Lemma28AtU (1.2s)
+Some required targets logged failures:
+- ScottDomains.Audit.Projections
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:08.02
+Maximum resident set size (kbytes): 1881464
+--- build ---
+finished:         2026-08-08T09:52:10-07:00
+exit status:      1
+user cpu:         28.12s
+system cpu:       4.17s
+cpu use:          402%
+peak rss single:  1837 MiB (largest one process, GNU time)
+peak pss tree:    1727 MiB (process group, shared pages apportioned)
+peak rss tree:    7299 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      1
+other warnings:   0
