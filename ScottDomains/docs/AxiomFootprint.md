@@ -20,14 +20,39 @@ Lean 4's kernel implements a dependent type theory with no axioms at all. Mathli
 admits exactly three on top of it, and `#print axioms` reports which of the three
 a declaration's proof term actually reaches:
 
-| # | Axiom | Statement | What it buys |
+| # | Axiom | Statement | What it says |
 | -- | ----- | --------- | ------------ |
-| 1 | `propext` | `(a ↔ b) → a = b` | propositional extensionality: equivalent propositions are equal |
-| 2 | `Classical.choice` | `Nonempty α → α` | **the axiom of choice**, in its global-choice form |
-| 3 | `Quot.sound` | `Quot.mk r a = Quot.mk r b` when `r a b` | quotient types compute |
+| 1 | `propext` | `(a ↔ b) → a = b` | Logically equivalent propositions are **equal terms**, so `↔` rewrites under any context and not only at the top |
+| 2 | `Classical.choice` | `Nonempty α → α` | Extracts **data from a proof** — crosses the `Prop` → `Type` barrier the kernel otherwise seals. This is **the axiom of choice**, in its global form |
+| 3 | `Quot.sound` | `r a b → Quot.mk r a = Quot.mk r b` | Related elements have **equal** quotient classes, which is what makes `Quot` a quotient rather than a tagged wrapper |
 
 A fourth constant, `sorryAx`, is what an incomplete proof reports. It is not an
 axiom anyone adopts; it is the marker of a hole.
+
+Why these three and no others: each is exactly the one piece of its feature that
+cannot be made to compute.
+
+| # | Axiom | Computes? | Without it |
+| -- | ----- | --------- | ---------- |
+| 1 | `propext` | yes — `Prop` is definitionally proof-irrelevant in Lean, so this adds no runtime content | `Set` and `Prop` reasoning needs `Iff.mp` threaded by hand through every context |
+| 2 | `Classical.choice` | **no** | Canonicity holds: a closed term of type `ℕ` reduces to a numeral |
+| 3 | `Quot.sound` | yes — `Quot.mk`, `Quot.lift` and `Quot.ind` all reduce definitionally; only *soundness* must be assumed | Quotient types collapse to their carrier with a relation attached |
+
+Row 2 is the one that costs computation, and the cost is measurable: **198
+declarations across 53 modules are marked `noncomputable`**, which is a direct
+proxy for where choice bites.
+
+The rows are not orthogonal. Two derivations collapse them:
+
+* **`funext` follows from `Quot.sound`** — quotient the function type by pointwise
+  equality and transport. Function extensionality is therefore not a fourth
+  axiom; it is row 3 in disguise.
+* **`Classical.em` follows from rows 1 and 2 together with `funext`** — Diaconescu,
+  developed in the next section.
+
+`Quot.sound` is the row easiest to overlook, and it is not incidental here:
+**every ideal completion in this development is a quotient**, so `IdealCompletion`
+and everything over it reach row 3 structurally.
 
 **`Classical.choice` is the axiom of choice.** There is no separate `Choice`
 axiom to look for and no weaker form in play — Lean's is the strong,
