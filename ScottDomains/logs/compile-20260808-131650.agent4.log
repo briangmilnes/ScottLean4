@@ -1,0 +1,133 @@
+# r0041
+# agent4 — lake build ScottDomains.Effective.FunctionSpace
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-08T13:16:50-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.FunctionSpace ===
+⚠ [929/1019] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [1019/1019] Building ScottDomains.Effective.FunctionSpace (736ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Effective/FunctionSpace.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/FunctionSpace.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/FunctionSpace.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/FunctionSpace.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/FunctionSpace.setup.json --json
+error: ScottDomains/Effective/FunctionSpace.lean:130:48: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  compacts α
+in the target expression
+  IsCompactElement (f n)
+
+α : Type u_1
+inst✝¹ : CompletePartialOrder α
+inst✝ : Domain α
+f : ℕ → α
+hf : compacts α = Set.range f
+n : ℕ
+⊢ IsCompactElement (f n)
+error: ScottDomains/Effective/FunctionSpace.lean:131:49: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  compacts α
+in the target expression
+  IsCompactElement k
+
+α : Type u_1
+inst✝¹ : CompletePartialOrder α
+inst✝ : Domain α
+f : ℕ → α
+hf : compacts α = Set.range f
+k : α
+hk : IsCompactElement k
+⊢ ∃ n, f n = k
+warning: ScottDomains/Effective/FunctionSpace.lean:163:0: automatically included section variable(s) unused in theorem `ScottDomains.Effective.scottHomEnum_isCompactElement`:
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Effective/FunctionSpace.lean:192:10: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (d.enum (φ p').1, e.enum (φ p').2)
+in the target expression
+  (fun q => (d.enum q.1, e.enum q.2)) (φ p') ∈ P
+
+case mp
+α : Type u_1
+β : Type u_2
+inst✝⁴ : CompletePartialOrder α
+inst✝³ : Domain α
+inst✝² : CompletePartialOrder β
+inst✝¹ : Domain β
+inst✝ : BoundedComplete β
+d : EffectivePresentation α
+e : EffectivePresentation β
+g : ScottHom α β
+hg : IsCompactElement g
+P : Set (α × β)
+hfin : P.Finite
+hsub : P ⊆ compacts α ×ˢ compacts β
+hgP : g = ScottHom.ofPairs P
+φ : α × β → ℕ × ℕ
+hφ : ∀ p ∈ P, (d.enum (φ p).1, e.enum (φ p).2) = p
+p' : α × β
+hp' : p' ∈ P
+⊢ (fun q => (d.enum q.1, e.enum q.2)) (φ p') ∈ P
+error: ScottDomains/Effective/FunctionSpace.lean:198:2: Type mismatch
+  if_pos hg
+has type
+  (if IsCompactElement g then ?m.241 else ?m.242) = ?m.241
+but is expected to have type
+  (if
+        IsCompactElement
+          (ScottHom.ofPairs (pairsOf d e (Denumerable.ofNat (Finset (ℕ × ℕ)) (Encodable.encode ⋯.toFinset)))) then
+      ScottHom.ofPairs (pairsOf d e (Denumerable.ofNat (Finset (ℕ × ℕ)) (Encodable.encode ⋯.toFinset)))
+    else ⊥) =
+    g
+warning: ScottDomains/Effective/FunctionSpace.lean:197:27: This simp argument is unused:
+  Denumerable.ofNat_encode
+
+Hint: Omit it from the simp argument list.
+  simp only [scottHomEnum, D̵e̵n̵u̵m̵e̵r̵a̵b̵l̵e̵.̵o̵f̵N̵a̵t̵_̵e̵n̵c̵o̵d̵e̵,̵ ̵hpairs, ← hgP]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ScottDomains/Effective/FunctionSpace.lean:197:53: This simp argument is unused:
+  hpairs
+
+Hint: Omit it from the simp argument list.
+  simp only [scottHomEnum, Denumerable.ofNat_encode, h̵p̵a̵i̵r̵s̵,̵ ̵← hgP]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ScottDomains/Effective/FunctionSpace.lean:197:61: This simp argument is unused:
+  ← hgP
+
+Hint: Omit it from the simp argument list.
+  simp only [scottHomEnum, Denumerable.ofNat_encode, hpairs,̵ ̵←̵ ̵h̵g̵P̵]
+
+Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ScottDomains/Effective/FunctionSpace.lean:238:14: failed to synthesize instance of type class
+  Domain (StrictHom α β)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+warning: ScottDomains/Effective/FunctionSpace.lean:250:0: automatically included section variable(s) unused in theorem `ScottDomains.Effective.operator_preserves_effectivePresentation`:
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.FunctionSpace
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.53
+Maximum resident set size (kbytes): 1771336
+--- build ---
+finished:         2026-08-08T13:16:53-07:00
+exit status:      1
+user cpu:         1.28s
+system cpu:       0.50s
+cpu use:          116%
+peak rss single:  1729 MiB (largest one process, GNU time)
+peak pss tree:    1003 MiB (process group, shared pages apportioned)
+peak rss tree:    2475 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 5
+lake errors:      2
+sorry decls:      1
+other warnings:   5
