@@ -1,13 +1,34 @@
 import ScottDomains.JungNets
 
 /-!
-# Property m at a countable basis: Iwamura's lemma is not on the route
+# Property m at a pair, proved: Theorem 1.37 and Iwamura's lemma are not on the route
 
-`ScottDomains/JungSFP.lean`'s `lemma217` carries one hypothesis the development
-cannot discharge: `HasCompleteMub (compacts D) {a₁, a₂}`, Jung's *property m* at a
-pair of compact elements. `ScottDomains/JungNets.lean` discharges it from Jung's
-**Theorem 1.37** ("a dcpo with continuous function space is bicomplete"), whose
-proof opens with
+**Result.** `hasCompleteMub_pair` proves `HasCompleteMub (compacts D) {a₁, a₂}` —
+the hypothesis `JungSFP.lemma217` carries, Jung's *property m* at a pair of
+compact elements — from `IsAlgebraic (ScottHom D D)` and
+`(compacts (ScottHom D D)).Countable` and nothing else. Neither
+`JungNets.Thm137`, nor its chain-weakening `JungNets.Thm137Chains`, nor Iwamura's
+lemma appears anywhere in its dependency graph. `propertyM_pairs` is then Jung's
+Lemma 2.17 with no remaining hypothesis, and `isBifinite_of_mubClosure_finite`
+reduces Theorem 18 to finiteness of `mubClosure` alone.
+
+The proof is in two halves, and only the first was this file's original plan.
+
+* The **Zorn half** (`hasCompleteMub_of_countable`) is the observation that on a
+  countable basis the Zorn step of property m needs only decreasing `ω`-sequences,
+  never chains of arbitrary order type. This is what removes Iwamura's lemma.
+* The **function-space half** (`hasOmegaOpBoundsAbove_pair`) is **Spreen's
+  Lemma 5.8**, found in `papers/Spreen 2005 …pdf` and transcribed in the
+  `Spreen` section below. It discharges the `ω`-sequence condition outright,
+  which removes Theorem 1.37 as well.
+
+The rest of this docstring records the first half and the measurements taken
+along the way; the second half is documented at the `Spreen` section.
+
+## The dependency that is removed
+
+`ScottDomains/JungNets.lean` obtains property m from Jung's **Theorem 1.37** ("a
+dcpo with continuous function space is bicomplete"), whose proof opens with
 
 > By Corollary 1.3 we have to find infima only for monotone injective nets
 > `s : αᵒᵖ → D` where `α` is an ordinal number.
@@ -41,6 +62,13 @@ is entirely elementary:
 | 1 | `hasCompleteMub_of_countable` — property m at every finite set of compacts | `(compacts D).Countable` and ω-indexed lower bounds |
 | 2 | `countable_compacts_of_scottHom` — `K(D)` is countable when `K([D → D])` is | none beyond `CompletePartialOrder D` |
 | 3 | `lemma217_of_omega`, `propertyM_pairs_of_omega`, `forall_hasCompleteMub_of_omega` | `HasOmegaOpInfima D` in place of `JungNets.Thm137 D` |
+| 4 | `hasOmegaOpBoundsAbove_pair` — Spreen's Lemma 5.8 | `IsAlgebraic (ScottHom D D)` |
+| 5 | `hasCompleteMub_pair`, `propertyM_pairs`, `isBifinite_of_mubClosure_finite` | **none** beyond items 2 and 4 |
+
+Items 1–3 are the `ωᵒᵖ` reduction; items 4–5 discharge it. Items 1–3 are kept
+rather than folded into item 5 because the reduction is the reusable statement:
+it holds of any countably based algebraic dcpo, whatever supplies the `ωᵒᵖ`
+condition, and it is what makes the pair case of item 4 sufficient.
 
 Item 2 makes item 1's countability hypothesis **free** in `lemma217`'s context:
 `a ↦ (a ↘ a)` injects `K(D)` into `K([D → D])`, so Jung's ω-algebraicity of the
@@ -87,13 +115,14 @@ upper bound of the pair, and "no upper bound of `{a₁, a₂}` in `A`" is exactl
 negation of the conclusion wanted. So items 1 and 4 of `JungNets.lean`'s five-item
 dependency list, and the transfinite half of item 2, are all off the route.
 
-What does **not** collapse is Jung's Proposition 1.22 — the function space of a
-retract of a dcpo with continuous function space is again continuous, which is
-what supplies the `f ≪ id_{D'}` mapping the chain into itself. `JungNets.lean`
-records it as absent, and it remains the cost of proving `HasOmegaOpInfima` from
-the function space. This file does not prove it — it is a named hypothesis, and
-**no `sorry` stands in for it**. What the file establishes is that Iwamura's
-lemma **is not on the route to Theorem 18 at all**.
+What does **not** collapse in Jung's proof is his Proposition 1.22 — the function
+space of a retract of a dcpo with continuous function space is again continuous,
+which is what supplies the `f ≪ id_{D'}` mapping the chain into itself.
+`JungNets.lean` records it as absent, and it is the cost of proving
+`HasOmegaOpInfima` **Jung's way**. The `Spreen` section below does not go Jung's
+way: it builds its approximating family on `D` itself rather than on a retract
+`D' = A ∪ αᵒᵖ`, so Proposition 1.22 never arises. That is why the `ωᵒᵖ` condition
+is a theorem here and not a hypothesis.
 
 ## The negative half of the measurement
 
@@ -104,8 +133,12 @@ and every `xₙ` above both `a₁` and `a₂`. Every ascending chain is finite, 
 directed subset has a maximum and `D` is a dcpo in which every element is compact,
 hence algebraic with a countable basis; and `ub{a₁, a₂} = {xₙ}` has no minimal
 element, so property m fails at that pair. `HasOmegaOpInfima D` fails there too —
-the sequence `xₙ` has no greatest lower bound above `a₁` and `a₂` — which is what
-this file's hypothesis is buying, and it is the least it can buy.
+the sequence `xₙ` has no greatest lower bound above `a₁` and `a₂`.
+
+The witness is what forces the shape of the `Spreen` section: **the function space
+must be used**, and by Jung's Theorem 1.37 this `D` is precisely a dcpo whose
+function space is not algebraic. It also fixes the cost of the `ωᵒᵖ` condition
+from below — no weakening of it that ignores `[D → D]` can be a theorem.
 -/
 
 namespace ScottDomains.PropertyM
@@ -377,6 +410,321 @@ theorem countable_compacts_of_scottHom (h : (compacts (ScottHom D D)).Countable)
 
 end StepInjection
 
+/-! ## Spreen's Lemma 5.8: the `ωᵒᵖ` hypothesis discharged from the function space
+
+`HasOmegaOpBoundsAbove {a₁, a₂}` is not a hypothesis after all. It is a theorem of
+`IsAlgebraic (ScottHom D D)`, by an argument of **Spreen** that goes through the
+function space directly and touches neither bicompleteness nor Iwamura's lemma.
+
+> D. Spreen, *The largest Cartesian closed category of domains, considered
+> constructively*, Math. Struct. in Comp. Sci. **15** (2005) 299–321, Lemma 5.8:
+> "`U({x₁, x₂})` is complete for `{x₁, x₂}`, for all `x₁, x₂ ∈ D₀`. *Proof.* The
+> proof is a modification of Smyth's proof of his analogous result."
+
+Spreen's proof is stated for effectively given domains and its first step —
+extracting the decreasing sequence — is recursion-theoretic (he cites Smyth 1983,
+Lemma 1, and builds `g ∈ R⁽¹⁾` enumerating a decreasing cofinal sequence of upper
+bounds). `hasCompleteMub_of_countable` above is the classical form of that step:
+Zorn downwards inside the countable `K(D)`, with `minPrefix` in place of the
+recursive enumeration. **What follows is the rest of Spreen's proof**, which is
+purely order-theoretic, transcribed with his notation mapped as `y n = δ_{g(n)}`,
+`lev x = max {k | x ⊑ δ_{g(k)}}`, `Iinf = ι̃` and `Ihat n = ι̃ₙ`.
+
+The shape of the argument, and why it needs nothing transfinite:
+
+1. Assume a decreasing sequence `y` of upper bounds of `{a₁, a₂}` below which no
+   upper bound of the pair lies. Then for every upper bound `x` of the pair the
+   set `{k | x ⊑ y k}` is a *proper* down-set of `ℕ`, hence bounded: `lev x` is
+   well defined, and `x ⋢ y (lev x + 1)`. This is the whole use of the assumption.
+2. `Iinf`, Jung's four-region function with top-region value `y (lev x)`, is Scott
+   continuous. Its `attained` clause — the one clause of `JungSFP.IsJungPatch`
+   that is not routine — holds because `b ⋢ y (lev b + 1)` and `b = ⨆ s` force
+   some member of `s` to fail `⊑ y (lev b + 1)` too, so the level is attained
+   inside the directed set.
+3. `Iinf` dominates the compact step functions `a₁ ↘ a₁` and `a₂ ↘ a₂`, so
+   directedness of `compactsBelow Iinf` — this is the **only** use of
+   `IsAlgebraic (ScottHom D D)` — produces one compact `F` between them.
+4. `F ⊑ Iinf ∘ F`, checked region by region.
+5. `Ihat n`, the same function with `y (lev x)` replaced by `y (lev x + 1)` once
+   `lev x ≥ n`, is an increasing sequence with `⨆ₙ Ihat n = Iinf`, so
+   `⨆ₙ (Ihat n ∘ F) = Iinf ∘ F ⊒ F`, and compactness of `F` gives one `n̄` with
+   `F ⊑ Ihat n̄ ∘ F`.
+6. Evaluate at `y n̄`. Put `z = F (y n̄)`; then `a₁, a₂ ⊑ z ⊑ y n̄`, so
+   `lev z ≥ n̄`, so `Ihat n̄ z = y (lev z + 1)`, so `z ⊑ y (lev z + 1)` —
+   contradicting step 1.
+
+No ordinal, no retraction, no interpolation, no chain infima, and no countability:
+this section assumes only `IsAlgebraic (ScottHom D D)` and compactness of the
+pair. -/
+
+section Spreen
+
+/-- Composition of bundled Scott-continuous maps.
+
+`ScottDomains.comp` (`Combinator.lean`) is the same two-line definition. It is
+repeated rather than imported because `Combinator.lean` imports
+`Universality.lean`, and this file needs the composite of two endomaps and nothing
+else from that file. -/
+def compHom {D : Type*} [Preorder D] (g f : ScottHom D D) : ScottHom D D :=
+  ⟨⇑g ∘ ⇑f, ScottContinuous.comp f.scottContinuous g.scottContinuous⟩
+
+@[simp] theorem compHom_apply {D : Type*} [Preorder D] (g f : ScottHom D D) (x : D) :
+    compHom g f x = g (f x) := rfl
+
+section Lev
+
+variable {D : Type*} [Preorder D] {y : ℕ → D}
+
+/-- **Spreen's level.** The largest `k` with `x ⊑ y k`, and `0` when there is
+none. The junk value at an unbounded `{k | x ≤ y k}` is never reached: every use
+below supplies an `m` with `x ⋢ y m`, which the hypothesis of
+`hasOmegaOpBoundsAbove_pair` provides for every upper bound of the pair. -/
+noncomputable def lev (y : ℕ → D) (x : D) : ℕ := sSup {k | x ≤ y k}
+
+/-- One failure bounds the whole level set: `{k | x ≤ y k}` is a down-set, so it
+stops before any `m` at which `x ⋢ y m`. -/
+theorem bddAbove_levSet (hy : Antitone y) {x : D} {m : ℕ} (hm : ¬ x ≤ y m) :
+    BddAbove {k | x ≤ y k} := by
+  refine ⟨m, fun k hk => ?_⟩
+  by_contra hlt
+  exact hm (le_trans hk (hy (Nat.le_of_lt (not_le.mp hlt))))
+
+theorem le_lev (hy : Antitone y) {x : D} {m k : ℕ} (hm : ¬ x ≤ y m) (hk : x ≤ y k) :
+    k ≤ lev y x :=
+  le_csSup (bddAbove_levSet hy hm) hk
+
+theorem le_y_lev (hy : Antitone y) {x : D} {m : ℕ} (hm : ¬ x ≤ y m) (h0 : x ≤ y 0) :
+    x ≤ y (lev y x) :=
+  Nat.sSup_mem ⟨0, h0⟩ (bddAbove_levSet hy hm)
+
+/-- **`x` fails one step past its level.** This is the fact the whole argument
+turns on, and it needs no case split on whether the level set is empty: if
+`x ⊑ y (lev x + 1)` then `lev x + 1` is in the level set, so `lev x + 1 ≤ lev x`. -/
+theorem not_le_y_lev_succ (hy : Antitone y) {x : D} {m : ℕ} (hm : ¬ x ≤ y m) :
+    ¬ x ≤ y (lev y x + 1) := fun h => Nat.not_succ_le_self _ (le_lev hy hm h)
+
+theorem lev_le_of_not_le (hy : Antitone y) {x : D} {n : ℕ} (h : ¬ x ≤ y (n + 1)) :
+    lev y x ≤ n := by
+  rcases Set.eq_empty_or_nonempty {k | x ≤ y k} with he | hne
+  · rw [lev, he, csSup_empty]
+    exact Nat.zero_le n
+  · refine csSup_le hne fun k hk => ?_
+    by_contra hlt
+    exact h (le_trans hk (hy (not_le.mp hlt)))
+
+/-- The level is antitone: a larger element fails earlier. -/
+theorem lev_antitone (hy : Antitone y) {x x' : D} {m : ℕ} (hm : ¬ x ≤ y m)
+    (hxx' : x ≤ x') : lev y x' ≤ lev y x :=
+  lev_le_of_not_le hy fun h => not_le_y_lev_succ hy hm (hxx'.trans h)
+
+end Lev
+
+/-! ### Spreen's index shift `σₙ` -/
+
+/-- `σₙ` of Spreen's proof: the identity below `n`, and the successor from `n` on.
+`Ihat n` uses it to push the top-region value one step down the sequence exactly
+at the levels `n` and above. -/
+def sig (n i : ℕ) : ℕ := if i < n then i else i + 1
+
+theorem monotone_sig (n : ℕ) : Monotone (sig n) := by
+  intro i j hij
+  simp only [sig]
+  split_ifs <;> omega
+
+theorem self_le_sig (n i : ℕ) : i ≤ sig n i := by
+  simp only [sig]
+  split_ifs <;> omega
+
+theorem sig_succ_le (n i : ℕ) : sig (n + 1) i ≤ sig n i := by
+  simp only [sig]
+  split_ifs <;> omega
+
+theorem sig_of_lt (n i : ℕ) (h : i < n) : sig n i = i := if_pos h
+
+theorem sig_of_le (n i : ℕ) (h : n ≤ i) : sig n i = i + 1 := if_neg (Nat.not_lt.mpr h)
+
+/-! ### The theorem -/
+
+variable {D : Type*} [CompletePartialOrder D]
+
+/-- **Spreen 2005, Lemma 5.8**, in the form this development consumes: for a pair
+of compact elements, every decreasing sequence of upper bounds has a lower bound
+that is again an upper bound.
+
+Together with `hasCompleteMub_of_countable` this discharges `JungSFP.lemma217`'s
+property-m hypothesis outright. The only hypothesis on `D` beyond compactness of
+the pair is that its function space is algebraic — `JungNets.Thm137` and
+`JungNets.Thm137Chains` are not used, and neither is Iwamura's lemma. -/
+theorem hasOmegaOpBoundsAbove_pair (hAlgF : IsAlgebraic (ScottHom D D)) {a₁ a₂ : D}
+    (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
+    HasOmegaOpBoundsAbove ({a₁, a₂} : Set D) := by
+  classical
+  intro y hy hub
+  by_contra hcon
+  haveI := hAlgF
+  -- the pair sits below every member of the sequence
+  have hy₁ : ∀ n, a₁ ≤ y n := fun n => hub n (Set.mem_insert _ _)
+  have hy₂ : ∀ n, a₂ ≤ y n := fun n => hub n (Set.mem_insert_of_mem _ rfl)
+  -- step 1: every upper bound of the pair fails somewhere along the sequence
+  have hfail : ∀ x : D, a₁ ≤ x → a₂ ≤ x → ∃ m, ¬ x ≤ y m := by
+    intro x h₁ h₂
+    by_contra hall
+    exact hcon ⟨x, by rintro w (rfl | rfl) <;> assumption,
+      fun n => not_not.mp fun h => hall ⟨n, h⟩⟩
+  -- step 2: the four-region function with top-region value `y (σ (lev x))`
+  have hpatch : ∀ σ : ℕ → ℕ, Monotone σ →
+      JungSFP.IsJungPatch a₁ a₂ a₁ a₂ (fun x : D => y (σ (lev y x))) := by
+    intro σ hσ
+    refine ⟨?_, ?_, ?_, ?_⟩
+    · intro d d' hd₁ hd₂ hdd'
+      obtain ⟨m, hm⟩ := hfail d hd₁ hd₂
+      exact hy (hσ (lev_antitone hy hm hdd'))
+    · intro d _ _; exact hy₁ _
+    · intro d _ _; exact hy₂ _
+    · intro s hne hsd b hb hb₁ hb₂
+      obtain ⟨d₀, hd₀s, hd₀₁, hd₀₂⟩ :=
+        JungSFP.exists_mem_of_isLUB_pair ha₁ ha₂ hne hsd hb hb₁ hb₂
+      obtain ⟨m, hm⟩ := hfail b hb₁ hb₂
+      have hbfail : ¬ b ≤ y (lev y b + 1) := not_le_y_lev_succ hy hm
+      have hex : ∃ d₁ ∈ s, ¬ d₁ ≤ y (lev y b + 1) := by
+        by_contra hall
+        refine hbfail (hb.2 fun w hw => ?_)
+        by_contra hw'
+        exact hall ⟨w, hw, hw'⟩
+      obtain ⟨d₁, hd₁s, hd₁f⟩ := hex
+      obtain ⟨d, hds, hd₀d, hd₁d⟩ := hsd d₀ hd₀s d₁ hd₁s
+      refine ⟨d, hds, hd₀₁.trans hd₀d, hd₀₂.trans hd₀d, ?_⟩
+      exact hy (hσ (lev_le_of_not_le hy fun h => hd₁f (hd₁d.trans h)))
+  -- comparing two four-region functions that differ only in the top region
+  have hjmono : ∀ t t' : D → D, (∀ d : D, a₁ ≤ d → a₂ ≤ d → t d ≤ t' d) → ∀ x : D,
+      JungSFP.jungFun a₁ a₂ a₁ a₂ t x ≤ JungSFP.jungFun a₁ a₂ a₁ a₂ t' x := by
+    intro t t' h x
+    by_cases h₁ : a₁ ≤ x
+    · by_cases h₂ : a₂ ≤ x
+      · rw [JungSFP.jungFun_of_both (t := t) h₁ h₂, JungSFP.jungFun_of_both (t := t') h₁ h₂]
+        exact h x h₁ h₂
+      · exact le_of_eq ((JungSFP.jungFun_of_left (t := t) h₁ h₂).trans
+          (JungSFP.jungFun_of_left (t := t') h₁ h₂).symm)
+    · by_cases h₂ : a₂ ≤ x
+      · exact le_of_eq ((JungSFP.jungFun_of_right (t := t) h₁ h₂).trans
+          (JungSFP.jungFun_of_right (t := t') h₁ h₂).symm)
+      · exact le_of_eq ((JungSFP.jungFun_of_neither (t := t) h₁ h₂).trans
+          (JungSFP.jungFun_of_neither (t := t') h₁ h₂).symm)
+  set Iinf : ScottHom D D :=
+    JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x : D => y (id (lev y x))) (hpatch id monotone_id)
+    with hIinfdef
+  set Ihat : ℕ → ScottHom D D := fun n =>
+    JungSFP.jungHom ha₁ ha₂ a₁ a₂ (fun x : D => y (sig n (lev y x)))
+      (hpatch (sig n) (monotone_sig n)) with hIhatdef
+  have hIinf_app : ∀ x : D,
+      Iinf x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x : D => y (id (lev y x))) x := by
+    intro x; rw [hIinfdef]; rfl
+  have hIhat_app : ∀ (n : ℕ) (x : D),
+      Ihat n x = JungSFP.jungFun a₁ a₂ a₁ a₂ (fun x : D => y (sig n (lev y x))) x := by
+    intro n x; rw [hIhatdef]; rfl
+  -- `Ihat n ⊑ Iinf`, and `Ihat` increasing in `n`
+  have hIhat_le_Iinf : ∀ n : ℕ, Ihat n ≤ Iinf := by
+    intro n x
+    show Ihat n x ≤ Iinf x
+    rw [hIhat_app, hIinf_app]
+    exact hjmono _ _ (fun d _ _ => hy (self_le_sig n (lev y d))) x
+  have hIhat_mono : Monotone Ihat := by
+    refine monotone_nat_of_le_succ fun n => ?_
+    intro x
+    show Ihat n x ≤ Ihat (n + 1) x
+    rw [hIhat_app, hIhat_app]
+    exact hjmono _ _ (fun d _ _ => hy (sig_succ_le n (lev y d))) x
+  -- step 3: a compact `F` between the two step functions and `Iinf`
+  obtain ⟨hstep₁, hstep₂⟩ := JungSFP.step_le_jungHom ha₁ ha₂ (hpatch id monotone_id)
+  obtain ⟨F, hFmem, hFub⟩ :=
+    exists_mem_upperBounds_of_directedOn (IsAlgebraic.directedOn_compactsBelow Iinf)
+      (compactsBelow_nonempty Iinf)
+      (Set.toFinite ({ScottHom.step ha₁ a₁, ScottHom.step ha₂ a₂} : Set (ScottHom D D)))
+      (by
+        rintro g (rfl | rfl)
+        · exact ⟨ScottHom.step ha₁ a₁,
+            ⟨ScottHom.isCompactElement_step ha₁ ha₁, hstep₁⟩, le_rfl⟩
+        · exact ⟨ScottHom.step ha₂ a₂,
+            ⟨ScottHom.isCompactElement_step ha₂ ha₂, hstep₂⟩, le_rfl⟩)
+  have hFc : IsCompactElement F := hFmem.1
+  have hFle : F ≤ Iinf := hFmem.2
+  have hFa₁ : ∀ x : D, a₁ ≤ x → a₁ ≤ F x := fun x hx =>
+    ((ScottHom.step_le_iff ha₁).mp (hFub _ (Set.mem_insert _ _))).trans (F.monotone hx)
+  have hFa₂ : ∀ x : D, a₂ ≤ x → a₂ ≤ F x := fun x hx =>
+    ((ScottHom.step_le_iff ha₂).mp (hFub _ (Set.mem_insert_of_mem _ rfl))).trans (F.monotone hx)
+  -- step 4: `F ⊑ Iinf ∘ F`
+  have hkey : ∀ w : D, w ≤ y 0 → a₁ ≤ w → a₂ ≤ w → w ≤ Iinf w := by
+    intro w h0 h₁ h₂
+    obtain ⟨m, hm⟩ := hfail w h₁ h₂
+    rw [hIinf_app, JungSFP.jungFun_of_both h₁ h₂]
+    exact le_y_lev hy hm h0
+  have hFcomp : F ≤ compHom Iinf F := by
+    intro x
+    show F x ≤ Iinf (F x)
+    have hx : F x ≤ Iinf x := hFle x
+    by_cases h₁ : a₁ ≤ x
+    · by_cases h₂ : a₂ ≤ x
+      · have hFxle : F x ≤ y (lev y x) := by
+          rwa [hIinf_app, JungSFP.jungFun_of_both h₁ h₂] at hx
+        exact hkey (F x) (hFxle.trans (hy (Nat.zero_le _))) (hFa₁ x h₁) (hFa₂ x h₂)
+      · have hle : F x ≤ a₁ := by
+          rwa [hIinf_app, JungSFP.jungFun_of_left h₁ h₂] at hx
+        have heq : F x = a₁ := le_antisymm hle (hFa₁ x h₁)
+        have hna₂ : ¬ a₂ ≤ a₁ := fun hc => h₂ (hc.trans h₁)
+        have hval : Iinf (F x) = a₁ := by
+          rw [heq, hIinf_app, JungSFP.jungFun_of_left le_rfl hna₂]
+        exact le_of_eq (heq.trans hval.symm)
+    · by_cases h₂ : a₂ ≤ x
+      · have hle : F x ≤ a₂ := by
+          rwa [hIinf_app, JungSFP.jungFun_of_right h₁ h₂] at hx
+        have heq : F x = a₂ := le_antisymm hle (hFa₂ x h₂)
+        have hna₁ : ¬ a₁ ≤ a₂ := fun hc => h₁ (hc.trans h₂)
+        have hval : Iinf (F x) = a₂ := by
+          rw [heq, hIinf_app, JungSFP.jungFun_of_right hna₁ le_rfl]
+        exact le_of_eq (heq.trans hval.symm)
+      · have hle : F x ≤ ⊥ := by
+          rwa [hIinf_app, JungSFP.jungFun_of_neither h₁ h₂] at hx
+        exact hle.trans bot_le
+  -- step 5: `⨆ₙ (Ihat n ∘ F) = Iinf ∘ F`
+  have hattain : ∀ w : D, Ihat (lev y w + 1) w = Iinf w := by
+    intro w
+    rw [hIhat_app, hIinf_app]
+    exact JungSFP.jungFun_congr fun _ _ =>
+      congrArg y (sig_of_lt _ _ (Nat.lt_succ_self _))
+  set s : Set (ScottHom D D) := Set.range (fun n => compHom (Ihat n) F) with hsdef
+  have hsne : s.Nonempty := ⟨_, ⟨0, rfl⟩⟩
+  have hsd : DirectedOn (· ≤ ·) s := by
+    rintro _ ⟨m, rfl⟩ _ ⟨n, rfl⟩
+    refine ⟨compHom (Ihat (max m n)) F, ⟨max m n, rfl⟩, fun x => ?_, fun x => ?_⟩
+    · exact hIhat_mono (le_max_left m n) (F x)
+    · exact hIhat_mono (le_max_right m n) (F x)
+  have hlub : IsLUB s (compHom Iinf F) := by
+    constructor
+    · rintro _ ⟨n, rfl⟩ x
+      exact hIhat_le_Iinf n (F x)
+    · intro g hg x
+      show Iinf (F x) ≤ g x
+      have hx : Ihat (lev y (F x) + 1) (F x) ≤ g x :=
+        hg (Set.mem_range_self (lev y (F x) + 1)) x
+      rwa [hattain] at hx
+  -- step 6: compactness of `F`, evaluated at `y n̄`
+  obtain ⟨g, hgs, hFg⟩ := hFc s (compHom Iinf F) hsne hsd hlub hFcomp
+  obtain ⟨n, rfl⟩ := hgs
+  obtain ⟨mn, hmn⟩ := hfail (y n) (hy₁ n) (hy₂ n)
+  have hlevyn : n ≤ lev y (y n) := le_lev hy hmn le_rfl
+  have hFyn : F (y n) ≤ y n := by
+    have hx : F (y n) ≤ Iinf (y n) := hFle (y n)
+    rw [hIinf_app, JungSFP.jungFun_of_both (hy₁ n) (hy₂ n)] at hx
+    exact hx.trans (hy hlevyn)
+  obtain ⟨mz, hmz⟩ := hfail (F (y n)) (hFa₁ _ (hy₁ n)) (hFa₂ _ (hy₂ n))
+  have hnlev : n ≤ lev y (F (y n)) := le_lev hy hmz hFyn
+  have hcontra : F (y n) ≤ Ihat n (F (y n)) := hFg (y n)
+  rw [hIhat_app, JungSFP.jungFun_of_both (hFa₁ _ (hy₁ n)) (hFa₂ _ (hy₂ n)),
+    sig_of_le _ _ hnlev] at hcontra
+  exact not_le_y_lev_succ hy hmz hcontra
+
+end Spreen
+
 /-! ## `lemma217` with Iwamura's lemma removed from its dependencies -/
 
 section Omega
@@ -432,5 +780,97 @@ theorem forall_hasCompleteMub_of_omega (h : Thm137Omega D)
       ((h hAlg).hasOmegaOpBoundsAbove _)
 
 end Omega
+
+/-! ## Property m at pairs, unconditionally, and what it discharges
+
+Everything in this section is free of `JungNets.Thm137`, `JungNets.Thm137Chains`,
+`HasOmegaOpInfima` and Iwamura's lemma. The hypotheses are exactly Jung's
+Theorem 2.3: `D` is an algebraic dcpo with least element and `[D → D]` is
+ω-algebraic. -/
+
+section Unconditional
+
+variable {D : Type*} [CompletePartialOrder D] [IsAlgebraic D]
+
+/-- **Property m at a pair of compact elements, with no further hypothesis.**
+`hasCompleteMub_of_countable` (the Zorn step, on the countable basis) composed
+with `hasOmegaOpBoundsAbove_pair` (Spreen's Lemma 5.8, the function-space step).
+
+This is the hypothesis `JungSFP.lemma217` carries, discharged. Compare
+`JungNets.hasCompleteMub_pair`, which spends `JungNets.HasChainInfima` and
+therefore Jung's Theorem 1.37. -/
+theorem hasCompleteMub_pair (hAlgF : IsAlgebraic (ScottHom D D))
+    (hCount : (compacts (ScottHom D D)).Countable) {a₁ a₂ : D}
+    (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
+    HasCompleteMub (compacts D) ({a₁, a₂} : Set D) :=
+  hasCompleteMub_pair_of_countable (countable_compacts_of_scottHom hCount) ha₁ ha₂
+    (hasOmegaOpBoundsAbove_pair hAlgF ha₁ ha₂)
+
+/-- **Jung's Lemma 2.17 with no remaining hypothesis** — property M at every pair
+of compact elements, from an ω-algebraic function space alone. Compare
+`JungNets.lemma217_of_thm137` and `JungNets.propertyM_pairs_of_thm137`. -/
+theorem propertyM_pairs (hAlgF : IsAlgebraic (ScottHom D D))
+    (hCount : (compacts (ScottHom D D)).Countable) :
+    ∀ x₁ x₂ : D, IsCompactElement x₁ → IsCompactElement x₂ →
+      (minimalUpperBounds (compacts D) ({x₁, x₂} : Set D)).Finite :=
+  fun _ _ hx₁ hx₂ =>
+    JungSFP.lemma217 hAlgF hCount hx₁ hx₂ (hasCompleteMub_pair hAlgF hCount hx₁ hx₂)
+
+omit [IsAlgebraic D] in
+/-- Property m at the empty set: `⊥` is compact and below everything, so it is the
+one minimal element of `K(D)`. `upperBoundsIn A ∅ = A`, so this says every compact
+element dominates a minimal compact element. -/
+theorem hasCompleteMub_empty : HasCompleteMub (compacts D) (∅ : Set D) := fun _ _ =>
+  ⟨⊥, ⟨⟨isCompactElement_bot, fun y hy => absurd hy (Set.notMem_empty y)⟩,
+    fun _ _ _ => bot_le⟩, bot_le⟩
+
+/-- **`MinimalUpperBounds.isNormalIn_of_isMubClosed` with its hypothesis cut down
+to what its proof actually uses.**
+
+That theorem asks for `HasCompleteMub A v` at *every* finite `v ⊆ N`, but its
+proof applies the hypothesis exactly twice: at `v = ∅`, to get nonemptiness of
+`N ∩ ↓x`, and at `v = {a, b}`, to get directedness. Nothing else is consumed. The
+restatement matters here because `hasCompleteMub_pair` delivers pairs and the
+empty set and **not** the general finite case: Jung's Lemma 1.29 (pairs to all
+finite sets) is a separate result the development does not have. With this form it
+is not needed. -/
+theorem isNormalIn_of_pairs {α : Type*} [PartialOrder α] {A N : Set α} (hNA : N ⊆ A)
+    (hcl : IsMubClosed A N) (hempty : HasCompleteMub A (∅ : Set α))
+    (hpair : ∀ a b : α, a ∈ N → b ∈ N → HasCompleteMub A ({a, b} : Set α)) : N ◁ A := by
+  refine ⟨hNA, fun x hx => ⟨?_, ?_⟩⟩
+  · obtain ⟨m, hm, hmx⟩ := hempty x (by simpa using hx)
+    exact ⟨m, hcl ∅ (Set.empty_subset N) Set.finite_empty hm, hmx⟩
+  · rintro a ⟨haN, hax⟩ b ⟨hbN, hbx⟩
+    have hsub : ({a, b} : Set α) ⊆ N := by rintro z (rfl | rfl) <;> assumption
+    have hxub : x ∈ upperBoundsIn A ({a, b} : Set α) :=
+      ⟨hx, by rintro z (rfl | rfl) <;> assumption⟩
+    obtain ⟨m, hm, hmx⟩ := hpair a b haN hbN x hxub
+    have hmub := mem_upperBounds_of_mem_minimalUpperBounds hm
+    exact ⟨m, ⟨hcl _ hsub (Set.toFinite _) hm, hmx⟩,
+      hmub (Set.mem_insert a _), hmub (Set.mem_insert_of_mem a rfl)⟩
+
+/-- **Theorem 18 reduced to one obligation: finiteness of `U^∞`.**
+
+`MinimalUpperBounds.isBifinite_iff_mubClosure` splits bifiniteness into property m
+at every finite set of compacts and finiteness of every `mubClosure`. The first
+conjunct is what five rounds have spent on Jung's Theorem 1.37 and Iwamura's
+lemma. It is **not needed in that generality**: `isNormalIn_of_pairs` reduces it
+to pairs and the empty set, and `hasCompleteMub_pair` proves both from the
+function space.
+
+So what remains of Theorem 18 is `hfin` alone — Jung's Lemma 2.2, whose ingredients
+are Rado's Selection Theorem and his Corollary 1.36, both already located in
+`Section62.lean`. -/
+theorem isBifinite_of_mubClosure_finite (hAlgF : IsAlgebraic (ScottHom D D))
+    (hCount : (compacts (ScottHom D D)).Countable)
+    (hfin : ∀ u : Set D, u.Finite → u ⊆ compacts D → (mubClosure (compacts D) u).Finite) :
+    IsBifinite D := by
+  intro u hu huA
+  refine ⟨mubClosure (compacts D) u, hfin u hu huA, ?_, subset_mubClosure⟩
+  refine isNormalIn_of_pairs (mubClosure_subset huA) (isMubClosed_mubClosure _ u)
+    hasCompleteMub_empty fun a b ha hb => ?_
+  exact hasCompleteMub_pair hAlgF hCount (mubClosure_subset huA ha) (mubClosure_subset huA hb)
+
+end Unconditional
 
 end ScottDomains.PropertyM
