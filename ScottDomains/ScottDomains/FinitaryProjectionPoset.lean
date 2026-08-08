@@ -1,5 +1,10 @@
 import ScottDomains.Theorem6
-import ScottDomains.Skeleton.Section6
+-- `IsPlotkinOrder` and `IsBifinite`, previously reached through the skeleton.
+import ScottDomains.Bifinite
+-- `IsClosure` and its API. This was `ScottDomains.Skeleton.Section6` until r0042;
+-- importing the skeleton put it inside `JungFinite`'s import cone, which made
+-- citing Theorem 18's proof from `Skeleton/Section6.lean`'s `thm18` a cycle.
+import ScottDomains.Closure
 
 /-!
 # `Fp(D)` and `Fc(D)` as posets

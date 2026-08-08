@@ -1,5 +1,6 @@
 import ScottDomains.Powerset
-import ScottDomains.Skeleton.Section6
+-- `IsClosure` and its API — see the note in `FinitaryProjectionPoset.lean`.
+import ScottDomains.Closure
 import ScottDomains.Skeleton.Lemma17
 
 /-!
