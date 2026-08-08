@@ -76,9 +76,22 @@ Both figures exclude `ScottDomains/Audit/`, the audit's own equivalence proofs,
 so that they compare with the pre-audit baseline. With `Audit/` the package is
 1326 theorems in 78 modules.
 
-**Ratios.** 1298 / 100 ≈ **13.0 theorems per paper property**; 1298 / 30 ≈ 43.3
-per numbered result. (The denominator is 100, not 99 — see §7 of
-`../analyses/theorem-audit.2026-0808-10:04.orchestrator.md`.)
+**Ratios.** 1298 / 239 ≈ **5.4 theorems per paper property**; 1298 / 30 ≈ 43.3
+per numbered result.
+
+**The denominator was wrong until r0040.** Every earlier version of this file
+quoted ~100 properties and a ratio near 13 : 1. That 100 was 87 numbered
+conjuncts plus a 13-entry prose list — and **the prose list was assembled from
+claims the development proves**, every entry naming a Lean declaration, so it
+could never include a claim the development missed. Measured section by section
+in r0040, the paper states **239 properties: 93 numbered conjuncts and 146 prose
+claims**. See
+[`../analyses/property-coverage.2026-0808-11:59.orchestrator.md`](../analyses/property-coverage.2026-0808-11:59.orchestrator.md).
+
+Four numbered conjunct counts moved with it: Theorem 1 is 2 (its conclusion is a
+conjunction), Lemma 24 is 2, Theorem 25 is 3, and Theorem 7's four are not the
+four listed in §1 — those are components of one conjunct, and the real four
+include two effective-presentation claims that are **not stated anywhere**.
 
 ## 3. Where the mass is
 
