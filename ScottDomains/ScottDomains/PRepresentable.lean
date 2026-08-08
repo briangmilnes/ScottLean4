@@ -36,11 +36,16 @@ finitary closure is `id`. A representing map for one notion is therefore not a
 representing map for the other, and the paper's *"there will be no chance of
 confusion"* holds only inside §7.3, where the older notion is not in play.
 
-This matters for **Lemma 28 versus Lemma 30**. Lemma 28 (`→, ⇸, ×, ⊗, +, ⊕,
-()⊥, ()♯, ()♭` representable over §7.3's `U`) is the `Fc` notion; Lemma 30 (the
-same list plus `()♮`, over §7.4's bifinite `V`) is the `Fp` notion. Stating
-either with the wrong class produces a theorem that compiles and is not the
-paper's.
+This matters for **Lemma 28 versus Lemma 30**. Lemma 28 lists `→, ⇸, ×, ⊗, +, ⊕,
+()⊥, ()♯, ()♭` over §7.3's `U`; Lemma 30 is the same nine plus `()♮` over §7.4's
+bifinite `V`. **Both are the `Fp` notion.** An earlier version of this paragraph
+called Lemma 28 the `Fc` notion; that is wrong, and §7.3's own *"let us just use
+the term 'representable' for 'p-representable' for the remainder of this
+section"* settles it — Lemma 28 stands four paragraphs after that sentence and
+inside the same subsection. `PRep.Lemma28` is accordingly built from
+`IsPRepresentable`. Stating either lemma with the wrong class produces a theorem
+that compiles and is not the paper's, which is why the correction is recorded
+here rather than quietly applied: the wrong reading survived two rounds.
 
 ## What is here and what is not
 
@@ -59,12 +64,17 @@ only one obligation is new: that `R(C)` is a *projection* when `C` is. Note the
 second condition on the pair points the other way here — `gr ∘ fn ⊑ id`, where
 the `Fc` case has `id ⊑ gr ∘ fn`.
 
-**Lemma 30 itself is not proved, for any of its ten operators.** Every conjunct
-is a statement about §7.4's bifinite universal domain `V`, the fixed point of
-`D ↦ D⁺`, and `V` does not exist in this development: `BifiniteUniversal.lean`
-proves `D` bifinite ⟹ `D⁺` bifinite but not the ω-colimit that solves `V ≅ V⁺`,
-which is the part Gunter & Scott defer to the unobtainable [Gun87]. No `sorry`
-stands in for a conjunct.
+**Lemma 30 is stated in full and proved for none of its ten operators.**
+`LemThirty.Lemma30` is a ten-fold conjunction and `lemma30_of` takes ten named
+hypotheses, so the count is kernel-checked; nothing is stubbed with `sorry`.
+
+An earlier version of this paragraph said `V` "does not exist in this
+development". **It does** — `Colimit.V`, built in r0036 as the ω-colimit of the
+stage tower, with `Colimit.domain_V`, `Colimit.isBifinite_V` and
+`Colimit.isoPlus : V ≃o Plus V`. The colimit is taken at the level of countable
+posets and `IdealCompletion.thm11` applied once at the end, so it needed neither
+[Gun87] nor a cpo construction. What remains open is Theorem 29's *second*
+sentence, reduced to the single named proposition `LemThirty.Thm29Normal`.
 -/
 
 namespace ScottDomains.BifiniteUniversal

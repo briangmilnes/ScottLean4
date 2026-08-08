@@ -1,0 +1,50 @@
+# r0041
+# orchestrator — lake build ScottDomains.ClosureProperties.SeparatedSum
+# checkout: /home/milnes/projects/ScottLean4
+# started: 2026-08-08T12:24:29-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.ClosureProperties.SeparatedSum ===
+✖ [853/853] Building ScottDomains.ClosureProperties.SeparatedSum (687ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ClosureProperties/SeparatedSum.lean -o /home/milnes/projects/ScottLean4/ScottDomains/.lake/build/lib/lean/ScottDomains/ClosureProperties/SeparatedSum.olean -i /home/milnes/projects/ScottLean4/ScottDomains/.lake/build/lib/lean/ScottDomains/ClosureProperties/SeparatedSum.ilean -c /home/milnes/projects/ScottLean4/ScottDomains/.lake/build/ir/ScottDomains/ClosureProperties/SeparatedSum.c --setup /home/milnes/projects/ScottLean4/ScottDomains/.lake/build/ir/ScottDomains/ClosureProperties/SeparatedSum.setup.json --json
+error: ScottDomains/ClosureProperties/SeparatedSum.lean:186:4: failed to synthesize instance of type class
+  CompletePartialOrder γ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/ClosureProperties/SeparatedSum.lean:186:38: failed to synthesize instance of type class
+  Preorder γ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/ClosureProperties/SeparatedSum.lean:186:53: failed to synthesize instance of type class
+  Preorder γ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/ClosureProperties/SeparatedSum.lean:188:4: Application type mismatch: The argument
+  Isomorphism.liftStrictHomIso.prodCongr ?m.37
+has type
+  StrictHom (WithBot ?m.25) ?m.26 × ?m.31 ≃ ScottHom ?m.25 ?m.26 × ?m.32
+but is expected to have type
+  StrictHom ?m.14 ?m.13 × StrictHom ?m.15 ?m.13 ≃o ?m.21
+in the application
+  Isomorphism.coalescedSumCopair.trans (Isomorphism.liftStrictHomIso.prodCongr ?m.37)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.ClosureProperties.SeparatedSum
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.43
+Maximum resident set size (kbytes): 1694120
+--- build ---
+finished:         2026-08-08T12:24:31-07:00
+exit status:      1
+user cpu:         1.20s
+system cpu:       0.50s
+cpu use:          119%
+peak rss single:  1654 MiB (largest one process, GNU time)
+peak pss tree:    968 MiB (process group, shared pages apportioned)
+peak rss tree:    2437 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   0

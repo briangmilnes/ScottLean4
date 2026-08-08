@@ -1,6 +1,8 @@
 import ScottDomains.Skeleton.Lemma10
 import ScottDomains.Skeleton.Lemma17
 import ScottDomains.Skeleton.Sum
+import ScottDomains.Isomorphism.Copair
+import ScottDomains.Isomorphism.Lift
 
 /-!
 # The separated sum `D + E`, and its two closure conjuncts
@@ -160,5 +162,48 @@ complete. -/
 theorem lem17_separated [Domain α] [Domain β] (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
     IsBifinite (SeparatedSum α β) :=
   lem17_sum (lem17_lift h₁) (lem17_lift h₂)
+
+/-! ### §4.4's universal property for `+` -/
+
+section Universal
+
+variable {γ : Type*} [CompletePartialOrder γ]
+
+/-- Product congruence for order isomorphisms. Mathlib has `Equiv.prodCongr` but
+**no `OrderIso.prodCongr`** — grepped across `Mathlib/Order/` — and without it
+`e₁.prodCongr e₂` silently resolves through the coercion to `Equiv`, losing the
+order. The product order is componentwise, so the content is `Prod.mk_le_mk`
+plus the two `map_rel_iff`s. -/
+def orderIsoProdCongr {α₁ α₂ β₁ β₂ : Type*} [Preorder α₁] [Preorder α₂]
+    [Preorder β₁] [Preorder β₂] (e₁ : α₁ ≃o β₁) (e₂ : α₂ ≃o β₂) :
+    α₁ × α₂ ≃o β₁ × β₂ where
+  toEquiv := e₁.toEquiv.prodCongr e₂.toEquiv
+  map_rel_iff' := by
+    intro a b
+    simp [Prod.le_def]
+
+/-- **The universal property of the separated sum** (Gunter & Scott §4.4): a
+*strict* continuous map out of `D + E` is exactly a pair of *continuous* maps out
+of `D` and `E`, with `h = [f†, g†]` the unique one.
+
+`+` differs from `⊕` precisely here. For the coalesced sum the correspondence is
+with a pair of **strict** maps (`coalescedSumCopair`); adjoining a fresh bottom
+to each summand first is what relaxes each factor to an arbitrary continuous map,
+by `liftStrictHomIso : StrictHom D⊥ E ≃o ScottHom D E`. So this is the composite
+of two isomorphisms the development already had, and nothing new is proved —
+r0040 recorded it as a paper property with no Lean statement, and the gap was
+that the composite was never declared.
+
+Strictness of `h` is not an extra hypothesis but part of the correspondence: it
+is what makes the map out of the sum determined by its two restrictions, since
+the sum's bottom is not in the image of either injection. The paper also remarks
+that `h` need not be the only *continuous* completion — that claim is separate
+and is not stated here. -/
+noncomputable def separatedSumCopair :
+    StrictHom (SeparatedSum α β) γ ≃o ScottHom α γ × ScottHom β γ :=
+  (Isomorphism.coalescedSumCopair).trans
+    (orderIsoProdCongr Isomorphism.liftStrictHomIso Isomorphism.liftStrictHomIso)
+
+end Universal
 
 end ScottDomains.ClosureProperties
