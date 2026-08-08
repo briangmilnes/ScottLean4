@@ -63,6 +63,14 @@ stream 3 = pages 34–44); stream 4 owns every picture the detector never flagge
 | 30 | 30 | 29 | **one commutative diagram** — the `f♯` square `D --f--> E` over `D♯ --f♯--> E♯` with `{|·|}` down both sides | yes — row `30 106–293` (h=187) contains it | stream 2 |
 | 31 | 31 | 30 | none — Definition of Plotkin order, Theorem 14's two clauses | no rows | — |
 | 32 | 32 | 31 | **Figure 3, "Posets that are not Plotkin orders"** — three Hasse diagrams `a.`, `b.`, `c.`, each with a distinguished pair drawn as filled circles | yes — row `32 106–451` (h=345) contains it | stream 1 (pilot) |
+| 33 | 33 | 32 | none — the `S_f` display, Theorem 16/18, Lemma 17 | row 227–297, the `S_f` display (false positive) | — |
+| 34 | 34 | 33 | none drawn. One borderline item: the single-line labelled arrow chain `T₀ --e₀--> T₁ --e₁--> T₂ ⋯` at about 90 dpi y=405 — typeset display math on one baseline, not a drawn picture; I classify it as a display, not a diagram | the arrow chain is in **no** candidate row (row 854–907 is Lemma 19's statement); classifying it as a display makes this not a miss | — |
+| 35 | 35 | 34 | **one commutative diagram** — representability: `Cpo's --F--> Cpo's` over `Fc(U) --R_F--> Fc(U)` with `im` down both sides | yes — row `35 232–311` (h=79) contains it | stream 3 |
+| 36 | 36 | 35 | none — the `Φ`/`Ψ` displays and the aligned `(Ψ→∘Φ→)(x)` computation | rows 425–488, 674–836, displayed math (false positives) | — |
+| 37 | 37 | 36 | none — more `Φ`/`Ψ` displays, `R_×`, `R_L` | four rows, all displayed math (false positives) | — |
+| 38 | 38 | 37 | none — Lemma 24, Theorem 25, the λ-calculus BNF, a numbered equation list | no rows | — |
+| 39 | 39 | 38 | none — numbered equations 4–6 and the pointwise-pairing display | row 116–263, the numbered list (false positive) | — |
+| 40 | 40 | 39 | none — the `S`, `K` displays and the multi-line `ρ(a)` fixed-point display | row 189–271, the `S`/`K` display (false positive) | — |
 
 ## Measured result
 
