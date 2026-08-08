@@ -1,0 +1,55 @@
+% figure-2-the-lift-of-a-cpo.tex
+%
+% Source:   Carl A. Gunter and Dana S. Scott, "Semantic Domains".
+%           ScottDomains/papers/Gunter Scott 1990.pdf
+% Physical page: 21          Printed page: 20
+% Section:  4.4 Sums and lifts.
+% Caption:  "Figure 2: The lift of a cpo."
+% Introduced by: "In short, D_bot is the poset obtained by adding a new bottom
+%           to D---see Figure 2."
+%
+% Content: two schematic cpo's drawn as downward-pointing triangle outlines.
+% The left one, D, has one open circle at its apex. The right one, D_bot, has
+% that same open circle plus a second open circle below it, joined by one edge:
+% the new bottom. Between them two horizontal arrows, up : D -> D_bot
+% (rightward, upper) and down : D_bot o-> D (leftward, lower). The triangles
+% are outlines, not vertex sets; the three circles are the only elements drawn.
+%
+% Geometry measured from a 300 dpi render of the region and divided by 118.11
+% px/cm, so the drawing is at the size the paper prints it.
+%
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={inner sep=1pt},
+  open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
+  solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
+  edge/.style={draw, line width=0.4pt},
+  % added for this figure: the paper's function arrows
+  arrow/.style={draw, line width=0.4pt, ->}]
+
+  % triangle outlines (drawn before the vertices so the white fill sits on top)
+  \draw[edge] (-0.98,1.90) -- (0.98,1.90) -- (0.00,0.00) -- cycle;
+  \draw[edge] (4.12,1.90) -- (6.08,1.90) -- (5.10,0.00) -- cycle;
+
+  % the edge of D_bot that adds the new bottom
+  \draw[edge] (5.10,0.00) -- (5.10,-1.27);
+
+  % vertices
+  \node[open] at (0.00,0.00) {};
+  \node[open] at (5.10,0.00) {};
+  \node[open] at (5.10,-1.27) {};
+
+  % the two function arrows
+  \draw[arrow] (1.26,1.23) -- (3.85,1.23);
+  \draw[arrow] (3.85,0.58) -- (1.26,0.58);
+
+  % labels printed inside the picture
+  \node at (2.56,1.57) {\textsf{up}};
+  \node at (2.56,0.16) {\textsf{down}};
+  \node at (0.00,-2.27) {$D$};
+  \node at (5.10,-2.27) {$D_{\bot}$};
+\end{tikzpicture}
+\end{document}
