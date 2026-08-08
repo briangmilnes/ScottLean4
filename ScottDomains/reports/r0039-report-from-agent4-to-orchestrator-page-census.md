@@ -55,6 +55,14 @@ stream 3 = pages 34–44); stream 4 owns every picture the detector never flagge
 | 22 | 22 | 21 | **one commutative diagram** — the separated-sum universal property: `D`/`D+E`/`E` with `inl∘up`, `inr∘up`, `F`, `f`, `g`, dashed `h` | yes — row `22 210–435` (h=225) contains it | stream 2 |
 | 23 | 23 | 22 | none — Lemma 10, the powerdomain bullet list, section 5 prose | no rows | — |
 | 24 | 24 | 23 | none — the bag-of-fruit prose, indented sentences only | no rows | — |
+| 25 | 25 | 24 | none — indented assertions, section 5.2 definitions | no rows | — |
+| 26 | 26 | 25 | none — the `↓x` display, Theorem 11 and the `⊢♮`/`⊢♭` pre-order displays | rows 235–305, 858–912, both displayed math (false positives) | — |
+| 27 | 27 | 26 | none — the `⊢♯` display, the `s⊔t` display, a two-item numbered list | row 683–772, the numbered list (false positive) | — |
+| 28 | 28 | 27 | none — the `{|x|}` display and powerdomain prose | no rows | — |
+| 29 | 29 | 28 | **one commutative diagram** — Theorem 12: `D`, `{|·|}` down to `D♯`, dashed `ext(f)` to `E`, `f` across | yes — row `29 462–665` (h=203) contains it | stream 2 |
+| 30 | 30 | 29 | **one commutative diagram** — the `f♯` square `D --f--> E` over `D♯ --f♯--> E♯` with `{|·|}` down both sides | yes — row `30 106–293` (h=187) contains it | stream 2 |
+| 31 | 31 | 30 | none — Definition of Plotkin order, Theorem 14's two clauses | no rows | — |
+| 32 | 32 | 31 | **Figure 3, "Posets that are not Plotkin orders"** — three Hasse diagrams `a.`, `b.`, `c.`, each with a distinguished pair drawn as filled circles | yes — row `32 106–451` (h=345) contains it | stream 1 (pilot) |
 
 ## Measured result
 
