@@ -105,6 +105,27 @@ rounds. It gets the whole §7 representability stack for that reason.
 - Read the paper for `P`. `scripts/pdf-render.sh`, `pdf-section.sh`,
   `pdf-crop.sh`, `pdf-find-page.sh` are on `main`.
 
+## Where each artifact goes
+
+GRASE rule 8.4 reserves `analyses/` for the orchestrator: agents do not write
+there. So the round has two tiers, and they are different documents rather than
+the same document copied.
+
+| # | Tier | Author | Path | Content |
+| -- | ---- | ------ | ---- | ------- |
+| 1 | per-area report | agentN | `reports/r0038-report-from-agentN-to-orchestrator-audit-<area>.md` | the full per-declaration table for that agent's modules — one row per theorem, with label and evidence. Long by design; this is the raw data |
+| 2 | consolidated analysis | orchestrator | `analyses/theorem-audit.YYYY-MMDD-HH:MM.orchestrator.md` | the six tables merged, deduplicated across area boundaries, with the per-label totals, the rate against r0020's 3%, and the recommended action list |
+
+The split matters for more than filing. A `D` (duplicate) or `W` (over-strength)
+pair can straddle two agents' areas, and neither agent will see both halves — the
+same blindness that let r0028's duplicate declaration survive 971 green jobs, and
+that r0037 hit twice with stale cross-stream claims. **Finding those pairs is the
+orchestrator's job at tier 2**, not a gap in the agents' work, and the
+consolidated analysis is where it happens.
+
+Tier 2 also carries the answer to the user's actual question in one line: how many
+of 1308 theorems serve neither a paper property nor a proof of one.
+
 ## Expected outcome
 
 The useful result is a **number with a list behind it**: how many of 1308 serve
@@ -117,3 +138,23 @@ produces the list to act on.
 Either way this round changes no proof and no count. The follow-on round acts on
 the list, and acts the way r0020 did — comment out in place with a note, rebuild,
 confirm the build is unchanged.
+
+## Orchestrator steps
+
+1. Commit this plan to `main` and fast-forward the six worktrees.
+2. Launch six agents, one per area.
+3. On each report: spot-check the labels rather than accept them — pick two `P`
+   rows and confirm the paper says what the row claims, and two `U` rows and
+   confirm nothing cites them. A label is a claim like any other.
+4. **Consolidate into `analyses/theorem-audit.YYYY-MMDD-HH:MM.orchestrator.md`**,
+   merging the six tables and searching across area boundaries for the `D` and
+   `W` pairs no single agent could see.
+5. Re-run `scripts/counts.sh` and `scripts/compile.sh` and confirm both are
+   unchanged from `702def0`. This round must move no number.
+6. Update `docs/PropertiesVsTheorems.md` §4 and §5 from the measured rate.
+
+Six agents is at the top of `docs/Performance.md`'s recommended 4–6. The
+constraint that normally binds at six — declaration collisions — does not apply
+here, because agents write no Lean beyond an optional equivalence theorem in
+their own `Audit.*` namespace. Review bandwidth is the real cost, and it is
+accepted: the tables are the deliverable and reading them is the work.
