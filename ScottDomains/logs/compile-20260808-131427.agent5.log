@@ -1,0 +1,84 @@
+# r0041
+# agent5 — lake build ScottDomains.Kleene.Grammar
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T13:14:27-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Kleene.Grammar ===
+✖ [833/833] Building ScottDomains.Kleene.Grammar (707ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/Kleene/Grammar.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Kleene/Grammar.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Kleene/Grammar.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Kleene/Grammar.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Kleene/Grammar.setup.json --json
+error: ScottDomains/Kleene/Grammar.lean:179:23: Function expected at
+  List.replicate_succ'
+but this term has type
+  List.replicate (?m.140 + 1) ?m.142 = List.replicate ?m.140 ?m.142 ++ [?m.142]
+
+Note: Expected a function because this term is being applied to the argument
+  n
+error: ScottDomains/Kleene/Grammar.lean:200:67: unsolved goals
+σ : Type u_1
+a b : σ
+hfix : gram2 a b (kleeneFix (gram2 a b)) = kleeneFix (gram2 a b)
+n : ℕ
+⊢ List.replicate n b ++ [b] = b :: List.replicate n b
+error: ScottDomains/Kleene/Grammar.lean:212:22: Application type mismatch: The argument
+  Eq.symm (hstep n)
+has type
+  List.replicate (n + 1) b ++ a :: List.replicate (n + 1) b =
+    [b] ++ (List.replicate n b ++ a :: List.replicate n b ++ [b])
+but is expected to have type
+  [b] ++ (List.replicate n b ++ a :: List.replicate n b ++ [b]) =
+    List.replicate (n + 1) b ++ a :: List.replicate (n + 1) b
+in the application
+  Exists.intro (n + 1) (Eq.symm (hstep n))
+warning: ScottDomains/Kleene/Grammar.lean:202:31: This simp argument is unused:
+  List.replicate_succ'
+
+Hint: Omit it from the simp argument list.
+  simp [List.replicate_succ,̵ ̵L̵i̵s̵t̵.̵r̵e̵p̵l̵i̵c̵a̵t̵e̵_̵s̵u̵c̵c̵'̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ScottDomains/Kleene/Grammar.lean:249:50: unknown tactic
+error: ScottDomains/Kleene/Grammar.lean:249:46: unsolved goals
+σ : Type u_1
+a : σ
+hfix : gram3 a (kleeneFix (gram3 a)) = kleeneFix (gram3 a)
+haa : [a, a] = List.replicate (2 * 1) a
+k : ℕ
+⊢ 2 * (k + 1) = 2 * k + 2 * 1
+error: ScottDomains/Kleene/Grammar.lean:247:15: unsolved goals
+case refine_1.mpr.succ
+σ : Type u_1
+a : σ
+hfix : gram3 a (kleeneFix (gram3 a)) = kleeneFix (gram3 a)
+haa : [a, a] = List.replicate (2 * 1) a
+k : ℕ
+this : 2 * (k + 1) = 2 * k + 2 * 1
+⊢ List.replicate (2 * (k + 1)) a ∈ concat (langEven a) (langEven a)
+error: ScottDomains/Kleene/Grammar.lean:230:62: unsolved goals
+case refine_2
+σ : Type u_1
+a : σ
+hfix : gram3 a (kleeneFix (gram3 a)) = kleeneFix (gram3 a)
+haa : [a, a] = List.replicate (2 * 1) a
+⊢ langEven a ⊆ kleeneFix (gram3 a)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Kleene.Grammar
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.43
+Maximum resident set size (kbytes): 1691104
+--- build ---
+finished:         2026-08-08T13:14:30-07:00
+exit status:      1
+user cpu:         1.32s
+system cpu:       0.45s
+cpu use:          124%
+peak rss single:  1651 MiB (largest one process, GNU time)
+peak pss tree:    993 MiB (process group, shared pages apportioned)
+peak rss tree:    2449 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 7
+lake errors:      2
+sorry decls:      0
+other warnings:   1
