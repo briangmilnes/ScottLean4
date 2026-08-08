@@ -1,0 +1,47 @@
+# r0042
+# agent2 — lake build ScottDomains.Iwamura
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T14:15:09-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Iwamura ===
+✖ [985/985] Building ScottDomains.Iwamura (897ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Iwamura.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Iwamura.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Iwamura.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Iwamura.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Iwamura.setup.json --json
+warning: ScottDomains/Iwamura.lean:275:10: `Cardinal.mk_emptyCollection` has been deprecated: Use `Cardinal.mk_eq_zero` instead
+
+Note: The updated constant has a different type:
+  ∀ (α : Type u) [IsEmpty α], #α = 0
+instead of
+  ∀ (α : Type u), #↑∅ = 0
+error: ScottDomains/Iwamura.lean:276:25: unsolved goals
+D : Type u
+inst✝ : Preorder D
+hdir : DirectedOn (fun x1 x2 => x1 ≤ x2) ∅
+hinf : ℵ₀ ≤ 0
+⊢ ¬ℵ₀ = 0
+warning: ScottDomains/Iwamura.lean:312:35: `Set.right_mem_Iic` has been deprecated: Use `Set.self_mem_Iic` instead
+warning: ScottDomains/Iwamura.lean:317:37: `Set.right_mem_Iic` has been deprecated: Use `Set.self_mem_Iic` instead
+warning: ScottDomains/Iwamura.lean:328:41: `Set.right_mem_Iic` has been deprecated: Use `Set.self_mem_Iic` instead
+warning: ScottDomains/Iwamura.lean:342:55: `Set.right_mem_Iic` has been deprecated: Use `Set.self_mem_Iic` instead
+warning: ScottDomains/Iwamura.lean:370:50: `Set.right_mem_Iic` has been deprecated: Use `Set.self_mem_Iic` instead
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Iwamura
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.62
+Maximum resident set size (kbytes): 1787468
+--- build ---
+finished:         2026-08-08T14:15:12-07:00
+exit status:      1
+user cpu:         1.71s
+system cpu:       0.52s
+cpu use:          137%
+peak rss single:  1745 MiB (largest one process, GNU time)
+peak pss tree:    1077 MiB (process group, shared pages apportioned)
+peak rss tree:    2550 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   6
