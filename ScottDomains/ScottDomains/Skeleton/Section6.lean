@@ -2,6 +2,8 @@ import ScottDomains.Bifinite
 import ScottDomains.Closure
 import ScottDomains.FunctionSpaceCountable
 import ScottDomains.Projection
+import ScottDomains.JungCor136
+import ScottDomains.PropertyM
 -- `Set.Finite.finite_subsets`, used to bound the witness set of Proposition 15.
 import Mathlib.Data.Set.Finite.Powerset
 
@@ -194,12 +196,27 @@ instance hypotheses, plus two explicit arguments, neither stubbed with `sorry`:
    actually spent; `Thm18.thm18_of_thm137Chains_and_cor136` is that sharper form.
 2. `JungFinite.FixedPointOfCompactDeflationIsCompact` — Jung's Corollary 1.36.
 
-Prove either pair and the closing edit is two lines: `import ScottDomains.Thm18`
-here, and `:= Thm18.thm18_of_thm137_and_cor136 <1> <2>` in place of `by sorry`.
-That import is acyclic as of r0042 — it was not before, which is why the closure
-API moved to `ScottDomains/Closure.lean`; see that file's docstring. -/
-theorem thm18 [Domain α] [Domain (ScottHom α α)] : IsBifinite α := by
-  sorry
+**Both are discharged as of r0042, and neither by the route above.**
+
+* Corollary 1.36 is `JungCor136.fixedPointOfCompactDeflationIsCompact`, proved
+  without Jung's Proposition 1.22 or his retraction pair: the approximating
+  family is indexed below `cap e` rather than below `id`, so the deflation
+  condition that makes extension monotone is part of the index, and the
+  restriction whose compactness r0037 measured as unavailable is never wanted.
+* Theorem 1.37 is **not needed at all**. `PropertyM.forall_hasCompleteMub`
+  derives property m from `IsAlgebraic (ScottHom D D)` and countability of
+  `K(D → D)` — hypotheses this theorem already carries — following Spreen 2005,
+  Lemma 5.8, whose `σ̃` is `JungSFP.jungFun` with a level-indexed top region.
+  Two theorems had asked for property m at *every* finite set while using it only
+  at `∅` and at pairs; restating them against what they use is what lifted the
+  pair case to the whole.
+
+So the proof below spends five of Jung's steps and replaces the sixth. `Thm137`,
+`Thm137Chains`, `Iwamura` and `JungBicomplete` remain in the development as
+results in their own right — Iwamura's lemma and Markowsky's theorem are not in
+Mathlib — but Theorem 18 does not route through any of them. -/
+theorem thm18 [Domain α] [Domain (ScottHom α α)] : IsBifinite α :=
+  PropertyM.thm18_of_cor136 JungCor136.fixedPointOfCompactDeflationIsCompact
 
 /-- **Lemma 19.** If `r : D → D` is a closure, then `im(r)` is a domain.
 
