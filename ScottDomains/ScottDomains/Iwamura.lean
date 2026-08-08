@@ -11,10 +11,18 @@ Iwamura and does not prove, and which `ScottDomains/JungNets.lean` measured to b
 absent from Mathlib. It is the first and largest of the five dependencies of
 Jung's Theorem 1.37.
 
-The nontrivial direction is *chain-complete ⟹ directed-complete*. It is proved
-here in the form the development consumes, namely the order dual:
-`JungNets.HasChainInfima D → JungNets.IsBicomplete D`, and hence
-`JungNets.Thm137Chains D → JungNets.Thm137 D`.
+The nontrivial direction is *chain-complete ⟹ directed-complete*, and it is
+proved here from a hypothesis weaker still: suprema of **well-ordered** chains.
+Three consequences, in increasing usefulness to this development:
+
+1. `hasDirectedSuprema_of_hasWellOrderedSuprema` — Markowsky's theorem.
+2. `hasChainInfima_of_hasWellOrderedInfima` — its dual, which is **Jung's
+   Corollary 1.3 as he uses it**: finding infima for monotone injective nets
+   indexed by an ordinal suffices to have infima for all chains.
+3. `thm137Chains_of_wellOrderedInfima` — so `JungNets.Thm137Chains D`, the only
+   form of Theorem 1.37 the route to Theorem 18 actually spends, follows from the
+   ordinal-indexed case alone. `thm137Chains_iff_thm137` records that the chain
+   form and the bicompleteness form are now the same proposition.
 
 ## What is proved
 
@@ -31,14 +39,20 @@ here in the form the development consumes, namely the order dual:
   `κ = ℵ₀` the finite sets `f '' Iic n ∪ v '' Iic n`, which are directed because
   `v n` is a greatest element of each; for `κ > ℵ₀` the directed closures
   `close ub (e '' Iic a)` indexed by `κ.ord.ToType`.
-* `hasDirectedSuprema_of_hasChainSuprema` — **Markowsky's theorem**, by strong
-  induction on `#t` over the well-founded order on `Cardinal`: countable sets by
-  the direct construction, uncountable ones by applying the induction hypothesis
-  to each member of the Iwamura cover and taking the supremum of the resulting
-  chain of suprema.
-* `isBicomplete_of_hasChainInfima`, `thm137_of_thm137Chains`,
-  `thm137Chains_iff_thm137` — the dual form, obtained by instantiating the
-  theorem at `Dᵒᵈ`, and the consequence for `JungNets`.
+* `hasDirectedSuprema_of_hasWellOrderedSuprema` — **Markowsky's theorem**, by
+  strong induction on `#t` over the well-founded order on `Cardinal`: countable
+  sets by the direct construction, uncountable ones by applying the induction
+  hypothesis to each member of the Iwamura cover and taking the supremum of the
+  resulting chain of suprema. That chain is well-ordered, which is why the
+  well-ordered hypothesis suffices.
+* `hasChainSuprema_of_hasWellOrderedSuprema` — suprema of well-ordered chains
+  give suprema of *all* chains, obtained free of charge because a chain is a
+  directed set. This replaces the direct argument (every chain has a cofinal
+  well-ordered subset), which is not proved here and is not needed.
+* `hasChainInfima_of_hasWellOrderedInfima`, `isBicomplete_of_hasChainInfima`,
+  `thm137Chains_of_wellOrderedInfima`, `thm137Chains_iff_thm137` — the dual
+  forms, obtained by instantiating the theorems at `Dᵒᵈ`, and the consequences
+  for `JungNets`.
 
 No `sorry` and no new axioms: the proof uses `Classical.choice` (for the choice
 of upper bounds, for the well-ordering of `t` at its own cardinality, and inside
@@ -57,13 +71,18 @@ the named result.
 
 ## Relation to Jung's use of it
 
-Jung uses Corollary 1.3 (the corollary of Theorem 1.2 recorded here) to reduce
-the search for infima to *monotone injective nets indexed by an ordinal*. What is
-proved here is the reduction to **chains**, which is what `JungNets` states its
-remainder over (`Thm137Chains`) and what Zorn's lemma consumes in
-`JungNets.exists_minimal_upperBounds_le`. Passing from a chain to an
-ordinal-indexed net is a further step — every linear order has a coinitial
-well-ordered subset — which this file does not need and does not prove.
+Jung uses Corollary 1.3 to reduce the search for infima to *monotone injective
+nets indexed by an ordinal*, which is what makes his retraction onto `A ∪ αᵒᵖ`
+well defined. `hasChainInfima_of_hasWellOrderedInfima` is that reduction: a
+proof of Theorem 1.37 may assume a well-ordered index throughout and never return
+to arbitrary chains or filtered sets.
+
+The step from a well-ordered chain to an arbitrary one is *not* proved here by
+the direct argument (every linear order has a coinitial well-ordered subset,
+which needs Zorn over initial segments). It comes out of Markowsky's theorem
+instead: an arbitrary chain is in particular a directed set, so the directed
+conclusion already covers it. That is why the whole file costs one transfinite
+induction and no second one.
 -/
 
 namespace ScottDomains.Iwamura
@@ -72,7 +91,21 @@ open Cardinal Ordinal Set
 
 universe u
 
-/-! ## Chain- and directed-completeness as predicates -/
+/-! ## Chain-, well-ordered- and directed-completeness as predicates -/
+
+/-- A subset is **well-ordered** when every nonempty subset of it has a least
+element. For a chain this is the order-theoretic well-ordering condition, so such
+a `c` is order-isomorphic to an ordinal and its inclusion into `D` is a monotone
+injective net indexed by that ordinal — the shape Jung's Corollary 1.3 delivers
+its reduction in. -/
+def IsWellOrderedSet {D : Type*} [Preorder D] (c : Set D) : Prop :=
+  ∀ S ⊆ c, S.Nonempty → ∃ m ∈ S, ∀ x ∈ S, m ≤ x
+
+/-- Every nonempty **well-ordered chain** has a least upper bound. This is the
+weakest of the three hypotheses in this file, and the one Markowsky's theorem is
+proved from. -/
+def HasWellOrderedSuprema (D : Type*) [Preorder D] : Prop :=
+  ∀ c : Set D, c.Nonempty → IsChain (· ≤ ·) c → IsWellOrderedSet c → ∃ u, IsLUB c u
 
 /-- Every nonempty **chain** has a least upper bound. -/
 def HasChainSuprema (D : Type*) [Preorder D] : Prop :=
@@ -81,6 +114,55 @@ def HasChainSuprema (D : Type*) [Preorder D] : Prop :=
 /-- Every nonempty **directed** set has a least upper bound. -/
 def HasDirectedSuprema (D : Type*) [Preorder D] : Prop :=
   ∀ t : Set D, t.Nonempty → DirectedOn (· ≤ ·) t → ∃ u, IsLUB t u
+
+theorem HasChainSuprema.hasWellOrderedSuprema {D : Type*} [Preorder D]
+    (h : HasChainSuprema D) : HasWellOrderedSuprema D :=
+  fun c hne hc _ => h c hne hc
+
+/-- Every nonempty chain is directed, so directed-completeness implies
+chain-completeness. This is `JungNets.IsBicomplete.hasChainInfima` in the sup
+form; both directions of the equivalence therefore hold. -/
+theorem HasDirectedSuprema.hasChainSuprema {D : Type*} [Preorder D]
+    (h : HasDirectedSuprema D) : HasChainSuprema D :=
+  fun c hne hc => h c hne hc.directedOn
+
+/-- **The range of a monotone map out of a well-ordered index is well-ordered.**
+Given `S ⊆ range g` nonempty, the preimage `{a | g a ∈ S}` is nonempty, hence has
+a `<`-minimal element `a₀`; linearity of the index turns minimality into
+`a₀ ≤ b` for every `b` in the preimage, and monotonicity of `g` sends that to
+`g a₀ ≤ g b`. So `g a₀` is a least element of `S`. -/
+theorem isWellOrderedSet_range {D : Type*} [Preorder D] {ι : Type*} [LinearOrder ι]
+    [WellFoundedLT ι] {g : ι → D} (hg : Monotone g) : IsWellOrderedSet (Set.range g) := by
+  intro S hS hne
+  obtain ⟨y, hy⟩ := hne
+  have hT : {a : ι | g a ∈ S}.Nonempty := by
+    obtain ⟨a, ha⟩ := hS hy
+    exact ⟨a, show g a ∈ S by rw [ha]; exact hy⟩
+  obtain ⟨a₀, ha₀, hmin⟩ := wellFounded_lt.has_min _ hT
+  refine ⟨g a₀, ha₀, ?_⟩
+  intro x hx
+  obtain ⟨b, rfl⟩ := hS hx
+  exact hg (not_lt.1 (hmin b hx))
+
+/-- The same, for a family indexed by a **well-ordered set** rather than by a
+well-founded type: if `c` is well-ordered and `g : c → E` is monotone then
+`range g` is well-ordered. Used with `c` the Iwamura chain and `g` the choice of
+supremum on each of its members. -/
+theorem isWellOrderedSet_range_of_set {D E : Type*} [Preorder D] [Preorder E]
+    {c : Set D} (hc : IsWellOrderedSet c) {g : c → E}
+    (hg : ∀ x y : c, (x : D) ≤ (y : D) → g x ≤ g y) : IsWellOrderedSet (Set.range g) := by
+  intro S hS hne
+  obtain ⟨y, hy⟩ := hne
+  obtain ⟨p₀, hp₀⟩ := hS hy
+  obtain ⟨m, ⟨q, hq, hqm⟩, hmin⟩ :=
+    hc (Subtype.val '' {p : c | g p ∈ S}) (by rintro _ ⟨p, -, rfl⟩; exact p.2)
+      ⟨(p₀ : D), p₀, show g p₀ ∈ S by rw [hp₀]; exact hy, rfl⟩
+  refine ⟨g q, hq, ?_⟩
+  intro x hx
+  obtain ⟨p, rfl⟩ := hS hx
+  refine hg q p ?_
+  rw [hqm]
+  exact hmin (p : D) ⟨p, hx, rfl⟩
 
 /-! ## The directed closure
 
@@ -213,7 +295,7 @@ Enumerate `t` as `f : ℕ → D` and build `v : ℕ → t` by `v 0 = f 0`,
 `v (n+1) = ub (v n) (f (n+1))`. Then `v` is monotone, so `range v` is a chain;
 its supremum `w` exists by hypothesis, dominates every `f n ≤ v n`, hence all of
 `t`, and is below every upper bound of `t` because each `v n` lies in `t`. -/
-theorem exists_isLUB_of_countable {D : Type u} [Preorder D] (h : HasChainSuprema D)
+theorem exists_isLUB_of_countable {D : Type u} [Preorder D] (h : HasWellOrderedSuprema D)
     {t : Set D} (hcnt : t.Countable) (hne : t.Nonempty) (hdir : DirectedOn (· ≤ ·) t) :
     ∃ w, IsLUB t w := by
   obtain ⟨f, hf⟩ := hcnt.exists_eq_range hne
@@ -236,7 +318,7 @@ theorem exists_isLUB_of_countable {D : Type u} [Preorder D] (h : HasChainSuprema
     | zero => exact le_of_eq (by rw [hv0, hdc 0])
     | succ k => rw [hvs k, ← hdc (k + 1)]; exact hub₂ _ _
   obtain ⟨w, hw⟩ := h (Set.range fun n => ((v n : D)))
-    ⟨(v 0 : D), ⟨0, rfl⟩⟩ hvmono.isChain_range
+    ⟨(v 0 : D), ⟨0, rfl⟩⟩ hvmono.isChain_range (isWellOrderedSet_range hvmono)
   refine ⟨w, ?_, ?_⟩
   · intro x hx
     rw [hf] at hx
@@ -252,7 +334,10 @@ theorem exists_isLUB_of_countable {D : Type u} [Preorder D] (h : HasChainSuprema
 /-- **Iwamura's lemma** (Jung 1989, the content of his Theorem 1.2).
 
 A directed set `t` of infinite cardinality `κ` is the union of a `⊆`-chain of
-nonempty directed subsets, each of cardinality `< κ`.
+nonempty directed subsets, each of cardinality `< κ`. The chain is moreover
+**well-ordered** by `⊆`, because in both constructions it is the range of a
+monotone map out of a well-founded index; that extra clause is what makes the
+weaker hypothesis `HasWellOrderedSuprema` enough in Markowsky's theorem below.
 
 Two constructions, split on `ℵ₀ < #t`:
 
@@ -268,7 +353,7 @@ The `ω`-iterated closure of a finite set is in general infinite, which is exact
 why the first case cannot be run through `close`. -/
 theorem exists_chain_directed_cover {D : Type u} [Preorder D] {t : Set D}
     (hdir : DirectedOn (· ≤ ·) t) (hinf : ℵ₀ ≤ #t) :
-    ∃ 𝒞 : Set (Set D), IsChain (· ⊆ ·) 𝒞 ∧
+    ∃ 𝒞 : Set (Set D), IsChain (· ⊆ ·) 𝒞 ∧ IsWellOrderedSet 𝒞 ∧
       (∀ A ∈ 𝒞, A ⊆ t ∧ A.Nonempty ∧ DirectedOn (· ≤ ·) A ∧ #A < #t) ∧ ⋃₀ 𝒞 = t := by
   have hne : t.Nonempty := by
     rcases Set.eq_empty_or_nonempty t with rfl | hne
@@ -306,8 +391,7 @@ theorem exists_chain_directed_cover {D : Type u} [Preorder D] {t : Set D}
       rintro n x (⟨k, hk, rfl⟩ | ⟨k, hk, rfl⟩)
       · exact (hdv k).trans (hvmono hk)
       · exact hvmono hk
-    refine ⟨Set.range A, ?_, ?_, ?_⟩
-    · exact hAmono.isChain_range
+    refine ⟨Set.range A, hAmono.isChain_range, isWellOrderedSet_range hAmono, ?_, ?_⟩
     · rintro _ ⟨n, rfl⟩
       refine ⟨?_, ⟨f n, Or.inl ⟨n, Set.self_mem_Iic, rfl⟩⟩, ?_, ?_⟩
       · rintro x (⟨k, _, rfl⟩ | ⟨k, _, rfl⟩)
@@ -359,7 +443,7 @@ theorem exists_chain_directed_cover {D : Type u} [Preorder D] {t : Set D}
       have := (Cardinal.mk_image_eq (f := (Subtype.val : t → D)) Subtype.val_injective
         (s := close ub ((⇑e) '' Set.Iic a))).le.trans hcl
       exact lt_of_le_of_lt this (max_lt hIic hcard)
-    refine ⟨Set.range F, hFmono.isChain_range, ?_, ?_⟩
+    refine ⟨Set.range F, hFmono.isChain_range, isWellOrderedSet_range hFmono, ?_, ?_⟩
     · rintro _ ⟨a, rfl⟩
       exact ⟨hFsub a, hFne a, hFdir a, hFcard a⟩
     · apply Set.Subset.antisymm
@@ -372,17 +456,22 @@ theorem exists_chain_directed_cover {D : Type u} [Preorder D] {t : Set D}
 
 /-! ## Markowsky's theorem -/
 
-/-- **Chain-complete implies directed-complete.** If every nonempty chain of `D`
-has a least upper bound then so does every nonempty directed subset.
+/-- **Well-ordered-chain-complete implies directed-complete.** If every nonempty
+**well-ordered** chain of `D` has a least upper bound then so does every nonempty
+directed subset. This is the strongest form: the hypothesis is Jung's Corollary
+1.3 verbatim — suprema are needed only for monotone injective nets indexed by an
+ordinal — and every stronger completeness hypothesis follows from the conclusion.
 
 The proof is strong induction on `#t` along the well-founded order on `Cardinal`.
 A countable `t` is settled outright by `exists_isLUB_of_countable`. For an
-uncountable `t`, Iwamura's lemma writes `t = ⋃₀ 𝒞` with `𝒞` a `⊆`-chain of
-directed sets of strictly smaller cardinality; the induction hypothesis gives each
-`A ∈ 𝒞` a supremum `g A`; `IsLUB.mono` makes `{g A | A ∈ 𝒞}` a chain, whose
-supremum exists by hypothesis and is the supremum of `t`. -/
-theorem hasDirectedSuprema_of_hasChainSuprema {D : Type u} [Preorder D]
-    (h : HasChainSuprema D) : HasDirectedSuprema D := by
+uncountable `t`, Iwamura's lemma writes `t = ⋃₀ 𝒞` with `𝒞` a well-ordered
+`⊆`-chain of directed sets of strictly smaller cardinality; the induction
+hypothesis gives each `A ∈ 𝒞` a supremum `g A`; `IsLUB.mono` makes
+`{g A | A ∈ 𝒞}` a chain, and `isWellOrderedSet_range_of_set` makes it a
+well-ordered one, so its supremum exists by hypothesis and is the supremum of
+`t`. -/
+theorem hasDirectedSuprema_of_hasWellOrderedSuprema {D : Type u} [Preorder D]
+    (h : HasWellOrderedSuprema D) : HasDirectedSuprema D := by
   have key : ∀ κ : Cardinal.{u}, ∀ t : Set D, #t = κ → t.Nonempty →
       DirectedOn (· ≤ ·) t → ∃ w, IsLUB t w := by
     refine fun κ => Cardinal.lt_wf.induction (C := fun κ => ∀ t : Set D, #t = κ → t.Nonempty →
@@ -392,7 +481,7 @@ theorem hasDirectedSuprema_of_hasChainSuprema {D : Type u} [Preorder D]
     · exact exists_isLUB_of_countable h hcnt hne hdir
     have hcard : ℵ₀ < #t :=
       not_le.1 fun hle => hcnt (Cardinal.le_aleph0_iff_set_countable.1 hle)
-    obtain ⟨𝒞, hchain, hmem, hcover⟩ := exists_chain_directed_cover hdir hcard.le
+    obtain ⟨𝒞, hchain, hwo, hmem, hcover⟩ := exists_chain_directed_cover hdir hcard.le
     have hlub : ∀ A : 𝒞, ∃ w, IsLUB (A : Set D) w := by
       rintro ⟨A, hA⟩
       obtain ⟨-, hAne, hAdir, hAcard⟩ := hmem A hA
@@ -412,7 +501,9 @@ theorem hasDirectedSuprema_of_hasChainSuprema {D : Type u} [Preorder D]
       obtain ⟨A, hA, -⟩ := hx
       exact ⟨⟨A, hA⟩⟩
     obtain ⟨A₀⟩ := h𝒞ne
-    obtain ⟨w, hw⟩ := h (Set.range g) ⟨g A₀, ⟨A₀, rfl⟩⟩ hgchain
+    have hgwo : IsWellOrderedSet (Set.range g) :=
+      isWellOrderedSet_range_of_set hwo fun A B hAB => (hg A).mono (hg B) hAB
+    obtain ⟨w, hw⟩ := h (Set.range g) ⟨g A₀, ⟨A₀, rfl⟩⟩ hgchain hgwo
     refine ⟨w, ?_, ?_⟩
     · intro x hx
       rw [← hcover] at hx
@@ -426,17 +517,74 @@ theorem hasDirectedSuprema_of_hasChainSuprema {D : Type u} [Preorder D]
       exact ⟨A, A.2, hz⟩
   exact fun t hne hdir => key _ t rfl hne hdir
 
-/-! ## The dual form, and what it discharges in `JungNets` -/
+/-- **Chain-complete implies directed-complete** — Markowsky's theorem in the
+form Jung's Theorem 1.2 states it. A weakening of the previous theorem, since a
+chain hypothesis subsumes a well-ordered-chain one. -/
+theorem hasDirectedSuprema_of_hasChainSuprema {D : Type u} [Preorder D]
+    (h : HasChainSuprema D) : HasDirectedSuprema D :=
+  hasDirectedSuprema_of_hasWellOrderedSuprema h.hasWellOrderedSuprema
 
-/-- **The order dual of Markowsky's theorem**, which is the direction Jung's
-Corollary 1.3 is used in: infima of nonempty chains give infima of nonempty
-filtered sets, i.e. `D` is bicomplete.
+/-- **Suprema of well-ordered chains give suprema of all chains.**
 
-Obtained by instantiating `hasDirectedSuprema_of_hasChainSuprema` at `Dᵒᵈ`, the
-way Mathlib's `zorn_superset` obtains the dual of `zorn_le₀`. `IsChain.symm`
+This is the consequence the round actually spends, and it is obtained for free:
+a nonempty chain is a nonempty directed set, so the theorem above already covers
+it. Formalizing the direct argument — every chain has a cofinal well-ordered
+subset — is therefore unnecessary; the detour through directed sets replaces it.
+
+The three completeness hypotheses are consequently all equivalent:
+`HasWellOrderedSuprema ↔ HasChainSuprema ↔ HasDirectedSuprema`. -/
+theorem hasChainSuprema_of_hasWellOrderedSuprema {D : Type u} [Preorder D]
+    (h : HasWellOrderedSuprema D) : HasChainSuprema D :=
+  (hasDirectedSuprema_of_hasWellOrderedSuprema h).hasChainSuprema
+
+theorem hasWellOrderedSuprema_iff_hasChainSuprema {D : Type u} [Preorder D] :
+    HasWellOrderedSuprema D ↔ HasChainSuprema D :=
+  ⟨hasChainSuprema_of_hasWellOrderedSuprema, HasChainSuprema.hasWellOrderedSuprema⟩
+
+theorem hasChainSuprema_iff_hasDirectedSuprema {D : Type u} [Preorder D] :
+    HasChainSuprema D ↔ HasDirectedSuprema D :=
+  ⟨hasDirectedSuprema_of_hasChainSuprema, HasDirectedSuprema.hasChainSuprema⟩
+
+/-! ## The dual form, and what it discharges in `JungNets`
+
+The development spends only `JungNets.Thm137Chains` — infima of nonempty
+**chains** — because `JungNets.exists_minimal_upperBounds_le` obtains property m
+by Zorn's lemma downwards, and Zorn quantifies over chains. The results below are
+therefore stated so that the *weakest* hypothesis, infima of nonempty
+**reverse-well-ordered** chains, already discharges it. That hypothesis is Jung's
+Corollary 1.3 as he uses it: "we have to find infima only for monotone injective
+nets `s : αᵒᵖ → D` where `α` is an ordinal number".
+-/
+
+/-- Every nonempty chain whose every nonempty subset has a **greatest** element
+has a greatest lower bound. Dually to `IsWellOrderedSet`, such a chain is
+order-isomorphic to `αᵒᵖ` for an ordinal `α`, so this predicate is exactly the
+hypothesis Jung's Corollary 1.3 leaves to be discharged. -/
+def HasWellOrderedInfima (D : Type*) [Preorder D] : Prop :=
+  ∀ c : Set D, c.Nonempty → IsChain (· ≤ ·) c →
+    (∀ S ⊆ c, S.Nonempty → ∃ m ∈ S, ∀ x ∈ S, x ≤ m) → ∃ i, IsGLB c i
+
+/-- **Jung's Corollary 1.3, dually and in the form the development consumes.**
+Infima of nonempty reverse-well-ordered chains give infima of *all* nonempty
+chains, which is `JungNets.HasChainInfima`.
+
+Obtained by instantiating `hasChainSuprema_of_hasWellOrderedSuprema` at `Dᵒᵈ`,
+the way Mathlib's `zorn_superset` obtains the dual of `zorn_le₀`. `IsChain.symm`
 converts the dual order's chain condition back to the original order's; the rest
 of the translation (`Set Dᵒᵈ ≡ Set D`, `IsLUB` at `Dᵒᵈ` ≡ `IsGLB`, and
 `DirectedOn (· ≤ ·)` at `Dᵒᵈ` ≡ `DirectedOn (· ≥ ·)`) is definitional. -/
+theorem hasChainInfima_of_hasWellOrderedInfima {D : Type u} [Preorder D]
+    (hwo : HasWellOrderedInfima D) : JungNets.HasChainInfima D := by
+  have hdual : HasWellOrderedSuprema Dᵒᵈ := by
+    intro c hne hchain hwoc
+    obtain ⟨i, hi⟩ := hwo c hne hchain.symm hwoc
+    exact ⟨i, hi⟩
+  intro c hne hchain
+  obtain ⟨i, hi⟩ := hasChainSuprema_of_hasWellOrderedSuprema hdual c hne hchain.symm
+  exact ⟨i, hi⟩
+
+/-- **The order dual of Markowsky's theorem**: infima of nonempty chains give
+infima of nonempty filtered sets, i.e. `D` is bicomplete. -/
 theorem isBicomplete_of_hasChainInfima {D : Type u} [Preorder D]
     (hci : JungNets.HasChainInfima D) : JungNets.IsBicomplete D := by
   have hdual : HasChainSuprema Dᵒᵈ := by
@@ -446,6 +594,11 @@ theorem isBicomplete_of_hasChainInfima {D : Type u} [Preorder D]
   intro s hne hfil
   obtain ⟨w, hw⟩ := hasDirectedSuprema_of_hasChainSuprema hdual s hne hfil
   exact ⟨w, hw⟩
+
+/-- The same from the weakest hypothesis. -/
+theorem isBicomplete_of_hasWellOrderedInfima {D : Type u} [Preorder D]
+    (hwo : HasWellOrderedInfima D) : JungNets.IsBicomplete D :=
+  isBicomplete_of_hasChainInfima (hasChainInfima_of_hasWellOrderedInfima hwo)
 
 /-- Chain-completeness and directed-completeness of the dual coincide: the
 converse is `JungNets.IsBicomplete.hasChainInfima`, a nonempty chain being
@@ -466,5 +619,17 @@ theorem thm137_of_thm137Chains {D : Type u} [CompletePartialOrder D]
 theorem thm137Chains_iff_thm137 {D : Type u} [CompletePartialOrder D] :
     JungNets.Thm137Chains D ↔ JungNets.Thm137 D :=
   ⟨thm137_of_thm137Chains, JungNets.Thm137.toChains⟩
+
+/-- **The obligation this round is left with, in its weakest form.**
+
+`JungNets.Thm137Chains D` — and hence, by `thm137Chains_iff_thm137`,
+`JungNets.Thm137 D` — follows from finding infima for monotone injective nets
+indexed by an ordinal alone. A proof of Jung's Theorem 1.37 may therefore assume
+a well-ordered index throughout, which is exactly what his retraction argument
+onto `A ∪ αᵒᵖ` requires, and need never return to arbitrary chains or filtered
+sets. -/
+theorem thm137Chains_of_wellOrderedInfima {D : Type u} [CompletePartialOrder D]
+    (h : IsAlgebraic (ScottHom D D) → HasWellOrderedInfima D) : JungNets.Thm137Chains D :=
+  fun hAlg => hasChainInfima_of_hasWellOrderedInfima (h hAlg)
 
 end ScottDomains.Iwamura
