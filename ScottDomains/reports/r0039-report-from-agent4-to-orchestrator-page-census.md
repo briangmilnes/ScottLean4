@@ -47,6 +47,14 @@ stream 3 = pages 34–44); stream 4 owns every picture the detector never flagge
 | 14 | 14 | 13 | **one commutative diagram** — the universal property of `×`: `D` above `D×E` above `E` on the left with `fst`/`snd`, `F` on the right, arrows `f`, `g`, and the dashed unique `⟨f,g⟩` | yes — rows `14 681–788` and `14 789–904` together span it | stream 1 |
 | 15 | 15 | 14 | **one commutative diagram** — the `curry`/`apply` triangle: `D×E --f--> F`, dashed `curry(f)×id` down to `(E→F)×E`, `apply` back up to `F` | yes — row `15 588–765` (h=177) contains it | stream 1 |
 | 16 | 16 | 15 | **one commutative diagram** — the same triangle with `h×id` in place of `curry(f)×id`, for `f = apply∘(h×id_E)` | yes — row `16 106–342` (h=236) contains it | stream 1 |
+| 17 | 17 | 16 | none — the λ-notation displays (`g = λy.λx.…`, `λf. f(3)`, `λf. f∘f`) | three rows, all displayed math (false positives) | — |
+| 18 | 18 | 17 | none — the smash-product set display and the `smash(x,y)` case split | row 854–977, displayed math (false positive) | — |
+| 19 | 19 | 18 | **three commutative diagrams**: (a) the `smash` triangle `D×E`, `smash` down to `D⊗E`, dashed `g` to `F`, `f` across; (b) the `smash` square `D×E --f×g--> D×E` over `D⊗E --f⊗g--> D⊗E`; (c) the `strict_apply`/`strict_curry` triangle | yes, one row each — `19 312–480`, `19 547–626`, `19 777–928` | stream 2 |
+| 20 | 20 | 19 | **one commutative diagram** — the coalesced-sum universal property: `D`/`D⊕E`/`E` on the left with `inl`, `inr`, `F` on the right, `f`, `g`, dashed `[f,g]` | yes — row `20 415–641` (h=226) contains it | stream 2 |
+| 21 | 21 | 20 | **two pictures**: **Figure 2, "The lift of a cpo"** — two triangles standing for `D` and `D⊥` with `up`/`down` arrows between them and a new bottom dot hung under the right one; and **one commutative diagram** — the `f†` triangle `D`, `up` down to `D⊥`, dashed `f†` to `E`, `f` across | yes — Figure 2 overlaps row `21 224–437` (the row starts below the triangle apexes, at about 90 dpi y=202 against the apexes' y=152, so the row clips the top); the `f†` triangle sits in row `21 782–959` | stream 2 |
+| 22 | 22 | 21 | **one commutative diagram** — the separated-sum universal property: `D`/`D+E`/`E` with `inl∘up`, `inr∘up`, `F`, `f`, `g`, dashed `h` | yes — row `22 210–435` (h=225) contains it | stream 2 |
+| 23 | 23 | 22 | none — Lemma 10, the powerdomain bullet list, section 5 prose | no rows | — |
+| 24 | 24 | 23 | none — the bag-of-fruit prose, indented sentences only | no rows | — |
 
 ## Measured result
 
