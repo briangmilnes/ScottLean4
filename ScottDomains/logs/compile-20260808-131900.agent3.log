@@ -1,0 +1,67 @@
+# r0041
+# agent3 — lake build ScottDomains.PowerdomainCompacts
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-08T13:19:00-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.PowerdomainCompacts ===
+⚠ [855/1001] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [1001/1001] Building ScottDomains.PowerdomainCompacts (696ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/PowerdomainCompacts.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/PowerdomainCompacts.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/PowerdomainCompacts.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/PowerdomainCompacts.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/PowerdomainCompacts.setup.json --json
+error: ScottDomains/PowerdomainCompacts.lean:134:36: Type mismatch
+  le_top
+has type
+  ?m.13 ≤ ⊤
+but is expected to have type
+  a ∈ topIdeal
+error: ScottDomains/PowerdomainCompacts.lean:189:46: Application type mismatch: The argument
+  le_top
+has type
+  ?m.20 ≤ ⊤
+but is expected to have type
+  x✝ ∈ topIdeal
+in the application
+  And.intro le_top
+error: ScottDomains/PowerdomainCompacts.lean:233:8: invalid `▸` notation, expected result type of cast is 
+  n ∈ K
+however, the equality 
+  WithTop.coe_injective (Eq.symm hm)
+of type 
+  ↑m = ↑n
+does not contain the expected result type on either the left or the right hand side
+error: ScottDomains/PowerdomainCompacts.lean:256:11: invalid `▸` notation, expected result type of cast is 
+  a ∈ p I
+however, the equality 
+  hI
+of type 
+  pHom I = ↑J
+does not contain the expected result type on either the left or the right hand side
+error: ScottDomains/PowerdomainCompacts.lean:261:12: invalid `▸` notation, expected result type of cast is 
+  n ∈ L
+however, the equality 
+  WithTop.coe_injective (Eq.symm hm)
+of type 
+  ↑m = ↑n
+does not contain the expected result type on either the left or the right hand side
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.PowerdomainCompacts
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.43
+Maximum resident set size (kbytes): 1756936
+--- build ---
+finished:         2026-08-08T13:19:02-07:00
+exit status:      1
+user cpu:         1.41s
+system cpu:       0.46s
+cpu use:          131%
+peak rss single:  1715 MiB (largest one process, GNU time)
+peak pss tree:    1029 MiB (process group, shared pages apportioned)
+peak rss tree:    2505 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 5
+lake errors:      2
+sorry decls:      1
+other warnings:   0
