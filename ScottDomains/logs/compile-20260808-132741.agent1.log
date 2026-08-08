@@ -1,0 +1,184 @@
+# r0041
+# agent1 — lake build ScottDomains.FlatPowerdomain
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T13:27:41-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.FlatPowerdomain ===
+✖ [842/842] Building ScottDomains.FlatPowerdomain (999ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/FlatPowerdomain.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatPowerdomain.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatPowerdomain.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatPowerdomain.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatPowerdomain.setup.json --json
+error: ScottDomains/FlatPowerdomain.lean:383:51: Type mismatch
+  S
+has type
+  SmythCarrier
+but is expected to have type
+  Set ℕ
+error: ScottDomains/FlatPowerdomain.lean:384:18: Tactic `cases` failed with a nested error:
+Tactic `induction` failed: recursor `Or.casesOn` can only eliminate into `Prop`
+
+S : SmythCarrier
+x✝ : ↑S = Set.univ ∨ (↑S).Finite ∧ (↑S).Nonempty
+⊢ sorry
+error: ScottDomains/FlatPowerdomain.lean:391:12: Type mismatch
+  T
+has type
+  SmythCarrier
+but is expected to have type
+  Set ℕ
+error: ScottDomains/FlatPowerdomain.lean:391:26: Type mismatch
+  S
+has type
+  SmythCarrier
+but is expected to have type
+  Set ℕ
+warning: ScottDomains/FlatPowerdomain.lean:391:12: Ambiguous use of subset notation: the type is a metavariable.
+Consider adding a type annotation, e.g. `(_ : Set _) ⊆ _`.
+The term will elaborate to a different constant depending on whether the type is tagged with `@[use_set_notation_for_order]`.
+
+Note: This linter can be disabled with `set_option linter.setNotationForOrder false`
+error: ScottDomains/FlatPowerdomain.lean:393:26: Invalid field notation: Type of
+  h₂
+is not known; cannot resolve field `trans`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `_root_.trans`
+  • `AddEquiv.trans`
+  • `AntisymmRel.trans`
+  • `BEq.trans`
+  • `Eq.trans`
+  • `Equiv.trans`
+  • `Equivalence.trans`
+  • `HEq.trans`
+  • `Iff.trans`
+  • `InvImage.trans`
+  • `IsCofinal.trans`
+  • `IsCofinalFor.trans`
+  • `IsCoinitialFor.trans`
+  • `IsTrans.trans`
+  • `MulEquiv.trans`
+  • `OrderIso.trans`
+  • `PartialEquivBEq.trans`
+  • `RelEmbedding.trans`
+  • `RelIso.trans`
+  • `Setoid.trans`
+  • `Subtype.trans`
+  • `Trans.trans`
+  • `Array.Perm.trans`
+  • `Dvd.dvd.trans`
+  • `Finset.Subset.trans`
+  • `Finset.Superset.trans`
+  • `Function.Embedding.trans`
+  • `Function.Semiconj.trans`
+  • `HasSSubset.SSubset.trans`
+  • `HasSubset.Subset.trans`
+  • `LE.le.trans`
+  • `LT.lt.trans`
+  • `List.IsInfix.trans`
+  • `List.IsPrefix.trans`
+  • `List.IsRotated.trans`
+  • `List.IsSuffix.trans`
+  • `List.Perm.trans`
+  • `List.Sublist.trans`
+  • `List.Subperm.trans`
+  • `List.Subset.trans`
+  • `Multiset.Rel.trans`
+  • `Multiset.Subset.trans`
+  • `Prod.Lex.trans`
+  • `Relation.EqvGen.trans`
+  • `Relation.ReflTransGen.trans`
+  • `Relation.TransGen.trans`
+  • `Relator.BiTotal.trans`
+  • `Relator.LeftTotal.trans`
+  • `Relator.RightTotal.trans`
+  • `WayBelow.trans`
+  • `Set.EqOn.trans`
+  • `Set.Subset.trans`
+  • `Vector.Perm.trans`
+  • `Equiv.Perm.subtypeCongr.trans`
+  • `List.Perm.below.trans`
+  • `Relation.EqvGen.below.trans`
+  • `Std.BundledIterM.Equiv.trans`
+  • `Std.DHashMap.Equiv.trans`
+  • `Std.DTreeMap.Equiv.trans`
+  • `Std.Do.PredTrans.trans`
+  • `Std.HashMap.Equiv.trans`
+  • `Std.HashSet.Equiv.trans`
+  • `Std.Iter.Equiv.trans`
+  • `Std.Iter.IsPlausibleIndirectOutput.trans`
+  • `Std.Iter.IsPlausibleIndirectSuccessorOf.trans`
+  • `Std.IterM.Equiv.trans`
+  • `Std.IterM.IsPlausibleIndirectOutput.trans`
+  • `Std.IterM.IsPlausibleIndirectSuccessorOf.trans`
+  • `Std.TreeMap.Equiv.trans`
+  • `Std.TreeSet.Equiv.trans`
+  • `Mathlib.Tactic.TermCongr.CongrResult.trans`
+  • `Std.DHashMap.Raw.Equiv.trans`
+  • `Std.Do.ExceptConds.entails.trans`
+  • `Std.Do.PostCond.entails.trans`
+  • `Std.Do.SPred.bientails.trans`
+  • `Std.Do.SPred.entails.trans`
+  • `Std.HashMap.Raw.Equiv.trans`
+  • `Std.DTreeMap.Internal.Impl.Equiv.trans`
+error: ScottDomains/FlatPowerdomain.lean:394:63: Application type mismatch: The argument
+  h₁
+has type
+  ?m.4
+but is expected to have type
+  ↑x✝ ⊆ ↑x✝¹
+in the application
+  Set.Subset.antisymm ?m.33 h₁
+error: ScottDomains/FlatPowerdomain.lean:396:59: Type mismatch
+  T
+has type
+  SmythCarrier
+but is expected to have type
+  Set ℕ
+error: ScottDomains/FlatPowerdomain.lean:396:73: Type mismatch
+  S
+has type
+  SmythCarrier
+but is expected to have type
+  Set ℕ
+warning: ScottDomains/FlatPowerdomain.lean:396:59: Ambiguous use of subset notation: the type is a metavariable.
+Consider adding a type annotation, e.g. `(_ : Set _) ⊆ _`.
+The term will elaborate to a different constant depending on whether the type is tagged with `@[use_set_notation_for_order]`.
+
+Note: This linter can be disabled with `set_option linter.setNotationForOrder false`
+warning: ScottDomains/FlatPowerdomain.lean:442:4: declaration uses `sorry`
+error: ScottDomains/FlatPowerdomain.lean:446:46: Type mismatch
+  S
+has type
+  SmythCarrier
+but is expected to have type
+  Set ℕ
+error: ScottDomains/FlatPowerdomain.lean:452:10: Unknown identifier `smythCarrier_le_def`
+error: ScottDomains/FlatPowerdomain.lean:462:33: Unknown identifier `smythCarrier_le_def.mp`
+warning: ScottDomains/FlatPowerdomain.lean:517:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ScottDomains/FlatPowerdomain.lean:474:8: declaration uses `sorry`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.FlatPowerdomain
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.73
+Maximum resident set size (kbytes): 1721932
+--- build ---
+finished:         2026-08-08T13:27:44-07:00
+exit status:      1
+user cpu:         2.22s
+system cpu:       0.58s
+cpu use:          162%
+peak rss single:  1681 MiB (largest one process, GNU time)
+peak pss tree:    1014 MiB (process group, shared pages apportioned)
+peak rss tree:    2473 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 11
+lake errors:      2
+sorry decls:      2
+other warnings:   3

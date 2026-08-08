@@ -1,6 +1,8 @@
 import ScottDomains.Domain
 -- `Set.countable_univ`, for `K(X⊥)` countable once `X⊥` is.
 import Mathlib.Data.Set.Countable
+-- `ScottContinuous`, for §2.1's "any monotone `f : N⊥ → E` is continuous".
+import Mathlib.Order.ScottContinuity
 
 /-!
 # The flat cpo `X⊥`
@@ -200,10 +202,21 @@ theorem upperBounds_of_not_exists {s : Set (Flat X)} (h : ¬ ∃ x : X, up x ∈
   | bot => exact le_rfl
   | up x => exact absurd ⟨x, ha⟩ h
 
-/-- **`X⊥` is a cpo.** The positive branch is where directedness is spent: the
-chosen `up c ∈ s` is an *upper* bound of `s`, because any other `up d ∈ s` and it
-have a common bound in `s`, and in a flat order a common bound of two non-`⊥`
-elements forces them equal. -/
+/-- **A non-`⊥` member of a directed set is its greatest element.** Any other
+non-`⊥` member and it have a common bound in the set, and in a flat order a
+common bound of two non-`⊥` elements forces them equal. This is the one place
+directedness is spent, and everything about suprema in `X⊥` follows from it. -/
+theorem mem_upperBounds_of_up_mem {s : Set (Flat X)} (hs : DirectedOn (· ≤ ·) s)
+    {c : X} (hc : (up c : Flat X) ∈ s) : (up c : Flat X) ∈ upperBounds s := by
+  intro a ha
+  cases a with
+  | bot => exact bot_le
+  | up d =>
+    obtain ⟨e, he, hde, hce⟩ := hs _ ha _ hc
+    rw [eq_of_up_le hce] at hde
+    exact hde
+
+/-- **`X⊥` is a cpo.** -/
 noncomputable instance instCompletePartialOrder : CompletePartialOrder (Flat X) :=
   { (inferInstance : PartialOrder (Flat X)),
     (inferInstance : OrderBot (Flat X)) with
@@ -211,16 +224,41 @@ noncomputable instance instCompletePartialOrder : CompletePartialOrder (Flat X) 
     lubOfDirected := fun s hs => by
       by_cases h : ∃ x : X, up x ∈ s
       · rw [flatSup_of_exists h]
-        have hc : (up h.choose : Flat X) ∈ s := h.choose_spec
-        refine ⟨fun a ha => ?_, fun v hv => hv hc⟩
-        cases a with
-        | bot => exact bot_le
-        | up d =>
-          obtain ⟨e, he, hde, hce⟩ := hs _ ha _ hc
-          rw [eq_of_up_le hce] at hde
-          exact hde
+        exact ⟨mem_upperBounds_of_up_mem hs h.choose_spec, fun v hv => hv h.choose_spec⟩
       · rw [flatSup_of_not_exists h]
         exact ⟨upperBounds_of_not_exists h, fun _ _ => bot_le⟩ }
+
+/-- **A directed subset of a flat cpo contains its own least upper bound.** With
+a non-`⊥` member present that member *is* the bound; without one the set is
+`{⊥}`. This is the flat cpo's characteristic property, and §2.1's continuity
+claim is its immediate consequence. -/
+theorem mem_of_isLUB {s : Set (Flat X)} (hne : s.Nonempty) (hs : DirectedOn (· ≤ ·) s)
+    {a : Flat X} (h : IsLUB s a) : a ∈ s := by
+  by_cases hx : ∃ x : X, up x ∈ s
+  · obtain ⟨c, hc⟩ := hx
+    rwa [le_antisymm (h.2 (mem_upperBounds_of_up_mem hs hc)) (h.1 hc)]
+  · obtain ⟨w, hw⟩ := hne
+    have hwbot : w = ⊥ := by
+      cases w with
+      | bot => rfl
+      | up d => exact absurd ⟨d, hw⟩ hx
+    have : a = ⊥ := le_antisymm (h.2 (upperBounds_of_not_exists hx)) bot_le
+    rw [this, ← hwbot]
+    exact hw
+
+/-- **§2.1, printed p. 4: "any monotone function `f : N⊥ → E` is continuous".**
+Proved for every flat cpo and every pre-ordered codomain, which is weaker in
+hypothesis than the paper's `E` a cpo. A directed set contains its least upper
+bound (`mem_of_isLUB`), so the image contains the image of that bound, and
+monotonicity makes it the greatest member of the image — hence its least upper
+bound, with no completeness of `E` required. -/
+theorem scottContinuous_of_monotone {E : Type*} [Preorder E] {f : Flat X → E}
+    (hf : Monotone f) : ScottContinuous f := by
+  intro s hne hs a hlub
+  have hmem : a ∈ s := mem_of_isLUB hne hs hlub
+  refine ⟨?_, fun y hy => hy ⟨a, hmem, rfl⟩⟩
+  rintro _ ⟨x, hx, rfl⟩
+  exact hf (hlub.1 hx)
 
 /-! ### `K(X⊥) = X⊥`
 
