@@ -1,0 +1,38 @@
+# r0041
+# agent4 — lake build ScottDomains.Effective.Powerset
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-08T13:13:05-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.Powerset ===
+✖ [962/962] Building ScottDomains.Effective.Powerset (721ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Effective/Powerset.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/Powerset.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/Powerset.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/Powerset.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/Powerset.setup.json --json
+error: ScottDomains/Effective/Powerset.lean:159:12: Unknown constant `Bool.not_eq_true.mp`
+error: ScottDomains/Effective/Powerset.lean:159:4: unsolved goals
+case neg
+a b : ℕ
+h : powersetEnum a ⊆ powersetEnum b
+i : ℕ
+ha : ¬a.testBit i = true
+⊢ a.testBit i = true → b.testBit i = true
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.Powerset
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.40
+Maximum resident set size (kbytes): 1749024
+--- build ---
+finished:         2026-08-08T13:13:08-07:00
+exit status:      1
+user cpu:         1.26s
+system cpu:       0.47s
+cpu use:          123%
+peak rss single:  1708 MiB (largest one process, GNU time)
+peak pss tree:    1012 MiB (process group, shared pages apportioned)
+peak rss tree:    2493 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   0

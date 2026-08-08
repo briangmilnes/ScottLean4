@@ -1,0 +1,55 @@
+# r0041
+# agent4 — lake build ScottDomains.Effective.FunctionSpace
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-08T13:18:17-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.FunctionSpace ===
+⚠ [929/1019] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [1019/1019] Building ScottDomains.Effective.FunctionSpace (695ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Effective/FunctionSpace.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/FunctionSpace.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/FunctionSpace.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/FunctionSpace.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/FunctionSpace.setup.json --json
+error: ScottDomains/Effective/FunctionSpace.lean:183:2: Type mismatch
+  if_pos h
+has type
+  (if IsCompactElement (ScottHom.ofPairs (pairsOf d e Q)) then ?m.45 else ?m.46) = ?m.45
+but is expected to have type
+  (if IsCompactElement (ScottHom.ofPairs (pairsOf d e (Denumerable.ofNat (Finset (ℕ × ℕ)) (Encodable.encode Q)))) then
+      ScottHom.ofPairs (pairsOf d e (Denumerable.ofNat (Finset (ℕ × ℕ)) (Encodable.encode Q)))
+    else ⊥) =
+    ScottHom.ofPairs (pairsOf d e Q)
+warning: ScottDomains/Effective/FunctionSpace.lean:182:27: This simp argument is unused:
+  Denumerable.ofNat_encode
+
+Hint: Omit it from the simp argument list.
+  simp only [scottHomEnum,̵ ̵D̵e̵n̵u̵m̵e̵r̵a̵b̵l̵e̵.̵o̵f̵N̵a̵t̵_̵e̵n̵c̵o̵d̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ScottDomains/Effective/FunctionSpace.lean:259:0: automatically included section variable(s) unused in theorem `ScottDomains.Effective.theorem7_strict`:
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Effective/FunctionSpace.lean:275:47: unexpected token 'omit'; expected 'lemma'
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.FunctionSpace
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.42
+Maximum resident set size (kbytes): 1774404
+--- build ---
+finished:         2026-08-08T13:18:19-07:00
+exit status:      1
+user cpu:         1.29s
+system cpu:       0.50s
+cpu use:          125%
+peak rss single:  1732 MiB (largest one process, GNU time)
+peak pss tree:    1044 MiB (process group, shared pages apportioned)
+peak rss tree:    2524 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      1
+other warnings:   2

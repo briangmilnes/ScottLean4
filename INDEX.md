@@ -41,6 +41,8 @@ Separate project from Playground; the domain-theory development lives here.
 - [ScottDomains/ScottDomains/Currying.lean](ScottDomains/ScottDomains/Currying.lean) — **Lemma 8.4**: `D → (E → F) ≅ (D × E) → F`, completing Lemma 8
 - [ScottDomains/ScottDomains/EffectivePresentation.lean](ScottDomains/ScottDomains/EffectivePresentation.lean) — §3.2's effective presentation: the basis enumeration with its two decidability conditions
 - [ScottDomains/ScottDomains/ComputableFunction.lean](ScottDomains/ScottDomains/ComputableFunction.lean) — the paper's **computable function**, on Mathlib's `REPred` (r0031)
+- [ScottDomains/ScottDomains/Effective/Powerset.lean](ScottDomains/ScottDomains/Effective/Powerset.lean) — §3.2 instantiated: an effective presentation of `P N` on the binary expansion, with both conditions decided by bitwise-or (r0041)
+- [ScottDomains/ScottDomains/Effective/FunctionSpace.lean](ScottDomains/ScottDomains/Effective/FunctionSpace.lean) — **Theorem 7's second and third sentences**: effective presentations of `D → E` and `D ⊸ E`, plus the measurement that the `DecidablePred` reading gives *every* domain one (r0041)
 - [ScottDomains/ScottDomains/Lift.lean](ScottDomains/ScottDomains/Lift.lean) — the lift `D⊥` as a cpo, on Mathlib's `WithBot`
 - [ScottDomains/ScottDomains/StrictHom.lean](ScottDomains/ScottDomains/StrictHom.lean) — the strict function space `D →⊥ E` as a cpo
 - [ScottDomains/ScottDomains/Smash.lean](ScottDomains/ScottDomains/Smash.lean) — §4.3's smash product `D ⊗ E`; its `sSup` branches on **landing in `NonBotPair`**, not on directedness — see the r0027 defect note in the module docstring
