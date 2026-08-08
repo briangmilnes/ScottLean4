@@ -55,9 +55,11 @@ quoted rather than paraphrased.
 | 4 | §1.3 definition of a retraction–embedding pair | `IsRetractPair` |
 | 5 | a retract of a continuous dcpo is continuous | `IsContinuousDcpo.of_retractPair` |
 | 6 | **Proposition 1.22** | `sandwichHom`, `IsRetractPair.sandwichHom`, `prop122` |
-| 7 | the second paragraph of the proof above, entire | `exists_isGLB_of_forall_not_mapsTo` |
+| 7 | "`αᵒᵖ`" as a property of a *set* | `IsOrdinalCodirected`, `.isChain` |
+| 8 | `D′ = A ∪ αᵒᵖ` is closed under least upper bounds | `isLUB_mem_union` |
+| 9 | the second paragraph of the proof above, entire | `exists_isGLB_of_forall_not_mapsTo` |
 
-Item 7 is the whole middle of Jung's proof: from "the infimum of `αᵒᵖ` does not
+Item 9 is the whole middle of Jung's proof: from "the infimum of `αᵒᵖ` does not
 exist" to "`αᵒᵖ` is mapped into itself under `f`", with `f ≪ id_{D′}`. It is
 stated over an abstract dcpo `D′` covered by `lowerBounds C ∪ C`, so a later
 round instantiates it at `D′ = A ∪ αᵒᵖ` rather than reproving it. Its two
@@ -85,8 +87,10 @@ Two ingredients, both needing the ordinal.
 
 * **The retraction `r` onto `A ∪ αᵒᵖ`** is what supplies
   `exists_isGLB_of_forall_not_mapsTo`'s `hcover` hypothesis and, through
-  `prop122`, its `IsContinuousDcpo (ScottHom D' D')`. It is not built here; see
-  the defect below.
+  `prop122`, its `IsContinuousDcpo (ScottHom D' D')`. Half of it is here:
+  `isLUB_mem_union` shows `A ∪ αᵒᵖ` is closed under least upper bounds, so it is
+  a sub-dcpo and the phrase "the function space of `D′ = A ∪ αᵒᵖ`" means
+  something. The map `r : D → D′` itself is not built; see defect 1 below.
 
 ## Corrections to `JungNets.lean`'s obstruction list, from the source
 
@@ -391,6 +395,69 @@ theorem prop122 (h : IsRetractPair r i) (hFS : IsContinuousDcpo (ScottHom D D)) 
   IsContinuousDcpo.of_retractPair h.sandwichHom hFS
 
 end Retract
+
+/-! ## `D′ = A ∪ αᵒᵖ` is a sub-dcpo -/
+
+section SubDcpo
+
+variable {D : Type*} [CompletePartialOrder D]
+
+/-- **Jung's `αᵒᵖ`, stated intrinsically.** He writes "monotone injective nets
+`s: αᵒᵖ → D` where `α` is an ordinal number" and then "let us identify the
+ordinal with its image in `D`". The image of such a net is exactly a subset every
+nonempty part of which has a greatest element: `s` is an order isomorphism onto
+its image, and a nonempty subset of `αᵒᵖ` has an `αᵒᵖ`-greatest element because
+the corresponding set of ordinals has a least one.
+
+Stating the property of the *set* rather than of the net avoids carrying an
+ordinal index, and it is the only consequence of "`α` is an ordinal" that the
+sub-dcpo argument below uses. Jung's own use of the same fact reads "Since `α` is
+an ordinal there exists no strictly increasing infinite sequence in `αᵒᵖ`". -/
+def IsOrdinalCodirected (C : Set D) : Prop :=
+  ∀ S ⊆ C, S.Nonempty → ∃ m ∈ S, ∀ z ∈ S, z ≤ m
+
+/-- Such a set is a chain: apply the definition to a two-element subset, and the
+greatest of the two orders them. -/
+theorem IsOrdinalCodirected.isChain {C : Set D} (h : IsOrdinalCodirected C) :
+    IsChain (· ≤ ·) C := by
+  intro x hx y hy _
+  obtain ⟨m, hm, hmax⟩ :=
+    h {x, y} (by rintro z (rfl | rfl) <;> assumption) ⟨x, Set.mem_insert _ _⟩
+  rcases hm with rfl | rfl
+  · exact Or.inr (hmax y (Set.mem_insert_of_mem _ rfl))
+  · exact Or.inl (hmax x (Set.mem_insert _ _))
+
+/-- **`D′ = A ∪ αᵒᵖ` is closed under least upper bounds**, so it carries the dcpo
+structure Jung's proof assumes when it speaks of "the function space of
+`D′ = A ∪ αᵒᵖ`". This is the first of the two obligations behind that sentence;
+the second, the retraction `r : D → D′` itself, is not discharged — see the
+module docstring.
+
+Two cases, and neither needs directedness:
+
+* If `S` misses `C` entirely then `S ⊆ lowerBounds C`, and every `γ ∈ C` bounds
+  `S` above, so `u ≤ γ` by leastness and `u ∈ lowerBounds C`.
+* Otherwise `S ∩ C` is nonempty and has a greatest element `m`. Then `m` bounds
+  all of `S`: members of `S ∩ C` by maximality, members of `lowerBounds C`
+  because `m ∈ C`. So `u ≤ m ≤ u` and `u = m ∈ C`. -/
+theorem isLUB_mem_union {C : Set D} (hC : IsOrdinalCodirected C) {S : Set D}
+    (hS : S ⊆ lowerBounds C ∪ C) {u : D} (hu : IsLUB S u) :
+    u ∈ lowerBounds C ∪ C := by
+  rcases Set.eq_empty_or_nonempty (S ∩ C) with hemp | hne
+  · refine Or.inl fun γ hγ => hu.2 fun z hz => ?_
+    rcases hS hz with hlb | hmem
+    · exact hlb hγ
+    · exact absurd (Set.mem_inter hz hmem) (by rw [hemp]; exact Set.notMem_empty z)
+  · obtain ⟨m, hm, hmax⟩ := hC (S ∩ C) Set.inter_subset_right hne
+    refine Or.inr ?_
+    have hub : m ∈ upperBounds S := by
+      intro z hz
+      rcases hS hz with hlb | hmem
+      · exact hlb hm.2
+      · exact hmax z ⟨hz, hmem⟩
+    exact (le_antisymm (hu.2 hub) (hu.1 hm.1)) ▸ hm.2
+
+end SubDcpo
 
 /-! ## The second paragraph of Jung's proof -/
 
