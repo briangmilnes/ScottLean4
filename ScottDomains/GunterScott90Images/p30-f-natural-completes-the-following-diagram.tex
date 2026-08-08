@@ -1,0 +1,57 @@
+% p30-f-natural-completes-the-following-diagram.tex
+%
+% Source:   Carl A. Gunter and Dana S. Scott, "Semantic Domains".
+%           ScottDomains/papers/Gunter Scott 1990.pdf
+% Physical page: 30          Printed page: 29
+% Section:  5.3 Universal and closure properties.
+% Unnamed in the paper (no figure number). Introduced by:
+%   "As was the case with the smash product and lift operators, a diagram like
+%    the one in Theorem 12 gives rise to another important operation on
+%    functions. If f : D -> E is a continuous function, then there is a unique
+%    homomorphism f-natural which completes the following diagram:"
+%
+% Content: a commutative square: the singleton map {|.|} is natural in D, and
+% f-natural is the lifted action of the convex powerdomain on morphisms. The
+% paper adds: "Namely, one defines f-natural = ext({|.|} o f)."
+% Vertices 4, arrows 4 (3 solid, 1 dashed).
+%
+% Geometry measured from a 300 dpi render of the region and divided by
+% 118.11 px/cm.
+%
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+% the paper's singleton bracket {|.|}; the negative kerns must stay small
+% enough that the vertical bars are not swallowed by the braces
+\newcommand{\sglt}{\{\mkern-3.5mu|\mkern1mu\cdot\mkern1mu|\mkern-3.5mu\}}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={inner sep=1pt},
+  open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
+  solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
+  edge/.style={draw, line width=0.4pt},
+  % added for the commutative diagrams: object nodes, and the paper's two
+  % arrow kinds -- solid for a named map, dashed for the unique completing map
+  obj/.style={inner sep=3pt},
+  arrow/.style={draw, line width=0.4pt, ->},
+  darrow/.style={draw, line width=0.4pt, ->, dash pattern=on 4pt off 3pt}]
+
+  % vertices
+  \node[obj] (d)   at (0.00,2.07) {$D$};
+  \node[obj] (e)   at (3.58,2.07) {$E$};
+  \node[obj] (dna) at (0.00,0.00) {$D^{\natural}$};
+  \node[obj] (ena) at (3.58,0.00) {$E^{\natural}$};
+
+  % arrows
+  \draw[arrow]  (d)   -- (e);
+  \draw[arrow]  (d)   -- (dna);
+  \draw[arrow]  (e)   -- (ena);
+  \draw[darrow] (dna) -- (ena);
+
+  % labels printed inside the picture
+  \node[anchor=south] at (1.79,2.19) {$f$};
+  \node[anchor=south] at (1.79,0.19) {$f^{\natural}$};
+  \node[anchor=east]  at (-0.25,1.02) {$\sglt$};
+  \node[anchor=west]  at ( 3.83,1.02) {$\sglt$};
+\end{tikzpicture}
+\end{document}
