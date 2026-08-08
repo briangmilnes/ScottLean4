@@ -579,7 +579,16 @@ At `g = idD` this reads `f ≪ id ⟹ f(d) ≪ d`; a fixed point `f(d) = d` of s
 is the whole use Lemma 2.2 makes of the corollary, and is what this predicate
 states.
 
-**Precisely-located obstruction.** Jung derives 1.36 from Proposition 1.34, whose
+**Proved, r0042.** `ScottDomains.JungCor136.fixedPointOfCompactDeflationIsCompact`
+discharges this predicate outright from `IsAlgebraic (ScottHom α α)`, which every
+caller here already carries. It remains an explicit hypothesis of `lemma22` and
+`thm18_of_propertyM` only because those live upstream of that module in the import
+graph. The two paragraphs below record the obstruction as it stood before r0042
+and the measurement that located it; both are now history, and the second is what
+made the shorter route visible — see `JungCor136`'s module docstring, which
+carries neither Proposition 1.22 nor Proposition 1.5 and never forms `↓e`.
+
+**Obstruction as it stood before r0042.** Jung derives 1.36 from Proposition 1.34, whose
 proof restricts to the principal ideal `↓e`, cites Proposition 1.22 — continuity
 of the function space of a retract — to get `f|↓e ≪ id↓e`, and only then applies
 the constant functions `c_{e_j}`, which are available on `↓e` because `↓e` has a

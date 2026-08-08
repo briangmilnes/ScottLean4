@@ -1,0 +1,189 @@
+# r0042
+# agent1 — lake build ScottDomains.JungCor136
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T14:19:02-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.JungCor136 ===
+⚠ [843/866] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [866/866] Building ScottDomains.JungCor136 (715ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/JungCor136.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/JungCor136.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/JungCor136.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/JungCor136.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/JungCor136.setup.json --json
+warning: ScottDomains/JungCor136.lean:140:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ScottDomains/JungCor136.lean:163:7: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (cap ?e) ?x
+in the target expression
+  (fun f => ⇑f) F x ≤ (fun f => ⇑f) (cap e) x
+
+α : Type u_1
+inst✝ : CompletePartialOrder α
+e : α
+F : ScottHom α α
+hF : F ∈ compactsBelow (cap e)
+x : α
+hx : x ≤ e
+h : (fun f => ⇑f) F x ≤ (fun f => ⇑f) (cap e) x
+⊢ F x ≤ x
+warning: ScottDomains/JungCor136.lean:219:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ScottDomains/JungCor136.lean:280:0: automatically included section variable(s) unused in theorem `ScottDomains.JungCor136.extendOf_mem`:
+  [IsAlgebraic (ScottHom α α)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic (ScottHom α α)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/JungCor136.lean:294:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  G₁ x
+in the target expression
+  (fun f => ⇑f) G₁ x ≤ (fun f => ⇑f) (extendOf hF₃) x
+
+case refine_1
+α : Type u_1
+inst✝¹ : CompletePartialOrder α
+inst✝ : IsAlgebraic (ScottHom α α)
+e : α
+G₁ F₁ : ScottHom α α
+hF₁ : F₁ ∈ compactsBelow (cap e)
+hG₁ : ⇑G₁ = extFun e ⇑F₁
+G₂ F₂ : ScottHom α α
+hF₂ : F₂ ∈ compactsBelow (cap e)
+hG₂ : ⇑G₂ = extFun e ⇑F₂
+F₃ : ScottHom α α
+hF₃ : F₃ ∈ compactsBelow (cap e)
+h₁₃ : F₁ ≤ F₃
+h₂₃ : F₂ ≤ F₃
+x : α
+⊢ (fun f => ⇑f) G₁ x ≤ (fun f => ⇑f) (extendOf hF₃) x
+error: ScottDomains/JungCor136.lean:297:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  G₂ x
+in the target expression
+  (fun f => ⇑f) G₂ x ≤ (fun f => ⇑f) (extendOf hF₃) x
+
+case refine_2
+α : Type u_1
+inst✝¹ : CompletePartialOrder α
+inst✝ : IsAlgebraic (ScottHom α α)
+e : α
+G₁ F₁ : ScottHom α α
+hF₁ : F₁ ∈ compactsBelow (cap e)
+hG₁ : ⇑G₁ = extFun e ⇑F₁
+G₂ F₂ : ScottHom α α
+hF₂ : F₂ ∈ compactsBelow (cap e)
+hG₂ : ⇑G₂ = extFun e ⇑F₂
+F₃ : ScottHom α α
+hF₃ : F₃ ∈ compactsBelow (cap e)
+h₁₃ : F₁ ≤ F₃
+h₂₃ : F₂ ≤ F₃
+x : α
+⊢ (fun f => ⇑f) G₂ x ≤ (fun f => ⇑f) (extendOf hF₃) x
+error: ScottDomains/JungCor136.lean:309:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  G x
+in the target expression
+  (fun f => ⇑f) G x ≤ (fun f => ⇑f) idHom x
+
+case refine_1
+α : Type u_1
+inst✝¹ : CompletePartialOrder α
+inst✝ : IsAlgebraic (ScottHom α α)
+e : α
+G F : ScottHom α α
+hF : F ∈ compactsBelow (cap e)
+hG : ⇑G = extFun e ⇑F
+x : α
+⊢ (fun f => ⇑f) G x ≤ (fun f => ⇑f) idHom x
+error: ScottDomains/JungCor136.lean:323:13: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (extendOf ?hF) ?x
+in the target expression
+  (fun f => ⇑f) (extendOf hF) x ≤ (fun f => ⇑f) U x
+
+α : Type u_1
+inst✝¹ : CompletePartialOrder α
+inst✝ : IsAlgebraic (ScottHom α α)
+e : α
+U : ScottHom α α
+hU : U ∈ upperBounds (extSet e)
+x : α
+hx : x ≤ e
+hlub : IsLUB ((fun f => f x) '' compactsBelow (cap e)) ((cap e) x)
+F : ScottHom α α
+hF : F ∈ compactsBelow (cap e)
+h : (fun f => ⇑f) (extendOf hF) x ≤ (fun f => ⇑f) U x
+⊢ (fun f => f x) F ≤ U x
+error: ScottDomains/JungCor136.lean:327:11: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (extendOf ?hF) ?x
+in the target expression
+  (fun f => ⇑f) (extendOf ⋯) x ≤ (fun f => ⇑f) U x
+
+case neg
+α : Type u_1
+inst✝¹ : CompletePartialOrder α
+inst✝ : IsAlgebraic (ScottHom α α)
+e : α
+U : ScottHom α α
+hU : U ∈ upperBounds (extSet e)
+x : α
+hx : ¬x ≤ e
+h : (fun f => ⇑f) (extendOf ⋯) x ≤ (fun f => ⇑f) U x
+⊢ (fun f => ⇑f) idHom x ≤ (fun f => ⇑f) U x
+error: ScottDomains/JungCor136.lean:363:6: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  G d
+in the target expression
+  (fun f => ⇑f) f d ≤ (fun f => ⇑f) G d
+
+α : Type u_1
+inst✝¹ : CompletePartialOrder α
+inst✝ : IsAlgebraic (ScottHom α α)
+f : ScottHom α α
+hf : f ≪ idHom
+d : α
+s : Set α
+u : α
+hne : s.Nonempty
+hs : DirectedOn (fun x1 x2 => x1 ≤ x2) s
+hlub : IsLUB s u
+hdu : d ≤ u
+G : ScottHom α α
+hfG : f ≤ G
+F : ScottHom α α
+hF : F ∈ compactsBelow (cap u)
+hGF : ⇑G = extFun u ⇑F
+hCdir : DirectedOn (fun x1 x2 => x1 ≤ x2) ((fun z => ScottHom.const z) '' s)
+hClub : IsLUB ((fun z => ScottHom.const z) '' s) (ScottHom.const u)
+hFu : F ≤ ScottHom.const u
+z : α
+hz : z ∈ s
+hFz : F ≤ (fun z => ScottHom.const z) z
+h : (fun f => ⇑f) f d ≤ (fun f => ⇑f) G d
+⊢ f d ≤ z
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.JungCor136
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.42
+Maximum resident set size (kbytes): 1712340
+--- build ---
+finished:         2026-08-08T14:19:05-07:00
+exit status:      1
+user cpu:         1.45s
+system cpu:       0.49s
+cpu use:          136%
+peak rss single:  1672 MiB (largest one process, GNU time)
+peak pss tree:    1008 MiB (process group, shared pages apportioned)
+peak rss tree:    2465 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 7
+lake errors:      2
+sorry decls:      1
+other warnings:   3

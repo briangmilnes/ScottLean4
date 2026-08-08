@@ -1,0 +1,1244 @@
+Introduction                                                                      9
+
+
+
+
+and directed joins) as arrows.
+   Thierry Coquand (cf. [4]) discovered L-domains in a general categorical form
+independently of us and proved cartesian closedness for both Scott-continuous func-
+tions and stable functions. It was Carl Gunter who saw that his definition yields
+L-domains if restricted to the poset case.
+   As we have the two maximal categories of L-domains and bifinite domains inside
+ALG⊥ , it seems reasonable to study their intersection. What we get is a cartesian
+closed category properly containing Scott’s bounded-complete dcpo’s. In [12] it is
+proved that a universal domain exists for this class. We should mention here that
+these posets appear as ‘short domains’ in [9] already.
+   The definition of ‘L-domain’ is ‘local’, that is, we require a property of the
+principal ideals. One wonders whether the ‘global’ requirement that an L-domain is
+a dcpo can’t be dispensed with. So, what about local dcpo’s (each principal ideal is
+a dcpo), local bifinite domains and local L-domains?
+   Finally, I should like to thank all those people who have helped me in the course
+of writing this thesis: Dana Scott, who introduced me to the theory of domains
+through a series of enlightening lectures and who helped with many things during
+my visit to Carnegie-Mellon University in the academic year 1984/85. Carl Gunter,
+who invited me into his own field of studies, who tirelessly explained and helped
+by stating research goals. Paul Taylor, whose deep interest in the theory of L-
+domains encouraged me to tackle the (at first seemingly unsolvable) general case of
+algebraic dcpo’s without least element. But foremost I express my deep feeling of
+gratitude to my doctoral advisor, Prof. Klaus Keimel, whose gentle guidance gave
+me the necessary amount of orientation whilst leaving me considerable freedom in
+conducting my research.
+10   Chapter 0:
+Chapter 1
+
+Basic Concepts
+
+In this chapter we collect some of the standard results about partially ordered sets,
+dcpo’s and continuous functions. Interspersed are several important original con-
+tributions, most notably Proposition 1.6, Corollary 1.7, Proposition 1.10, Corol-
+lary 1.13, Proposition 1.25, and all of Section 1.5. Proposition 1.1, due to M.Krasner
+(cf. [17]), should be better known in the domain theory community. It allows to base
+an induction proof on any directed set.
+   We have also included several new examples and counterexamples, which should
+help the reader to understand the concept of bifiniteness.
+
+
+1.1      Ordered sets, directed sets, and directed-complete
+         partial orders
+Definition. A set D with a binary relation ≤ is called an ordered set if the following
+holds for all x, y, z ∈ D:
+
+  (i) x ≤ x (Reflexivity)
+
+ (ii) x ≤ y ∧ y ≤ z =⇒ x ≤ z (Transitivity)
+
+(iii) x ≤ y ∧ y ≤ x =⇒ x = y (Antisymmetry)
+12                                                    Chapter 1: Basic Concepts
+
+
+
+
+     Ordered sets are also called partially ordered sets or posets in the literature.
+Small finite ordered sets can be drawn as line diagrams (Hasse diagrams). We will
+also allow ourselves to draw infinite posets by showing a finite part which illustrates
+the building principle.
+     The word ‘partially ordered set’ indicates that there are also ‘totally ordered
+sets’. Indeed, if x ≤ y or y ≤ x holds for any pair x, y of elements in a nonempty
+poset D then we call D a chain, or totally ordered.
+     Given an ordered set (D, ≤) we can define the dual order ≤′ on D by setting
+x ≤′ y ⇔ y ≤ x. The set D together with the dual order is denoted by Dop .
+     In the following definition we develop some of the standard notation connected
+with the theory of ordered sets.
+
+Definition. Let (D, ≤) be an ordered set.
+
+  (i) A subset A of D is an upper (lower) set if x ∈ A implies y ∈ A for all y ≥ x
+       (y ≤ x). We denote by ↑A (↓A) the smallest upper (lower) set which contains
+       the subset A of D. The interval ↑x ∩ ↓y we denote by [x, y].
+
+ (ii) An element x ∈ D is called an upper (lower) bound for a subset A ⊆ D, if
+       A ⊆ ↓x (A ⊆ ↑x). We denote by ub(A) (lb(A)) the set of all upper (lower)
+       bounds of A.
+
+(iii) An element x ∈ D is maximal (minimal) if there is no other element of D
+       above (below) it: ↑x ∩ D = {x} (↓x ∩ D = {x}). For a subset A ⊆ D the
+       minimal elements of ub(A) are called minimal upper bounds of A. The set of
+       all minimal upper bounds of A is denoted by mub(A).
+
+(iv) If all elements of D are below (above) one element x ∈ D, then x is said
+       to be the largest (least) element. The least element of a poset is also called
+       bottom and is commonly denoted by ⊥. Posets with a least element we will
+       call pointed.
+1.1     Ordered sets, directed sets, and dcpo’s                                         13
+
+
+
+
+ (v) If for a subset A ⊆ D the set of upper (lower) bounds has a least (largest)
+                                                                                      W
+        element x, then x is called the supremum (infimum) of A. We write x =             A
+               V
+        (x =       A) in this case.
+
+(vi) The ordered set D is a ∨-semilattice (∧-semilattice) if the supremum (infimum)
+        for each pair of elements exists. If D is both a ∨- and a ∧-semilattice then D
+        is called a lattice. A lattice D is complete if suprema and infima exist for all
+        subsets A ⊆ D.
+
+      The first structures used in denotational semantics were lattices. It was soon
+recognized, however, that in the situations, which denotational semantics tries to
+model, suprema of arbitrary subsets do not necessarily exists. On the other hand,
+the constructions and methods developed by Dana Scott for lattices can also be
+carried out for weaker structures. In some sense, Smyth’s work in [24] and also this
+dissertation can be read as a search for the weakest possible definition of ‘semantic
+domain’.
+
+Definition. Let D be a poset.
+
+  (i) A subset A ⊆ D is directed (filtered) if it is nonempty and each pair of elements
+        of A has an upper (lower) bound in A.
+
+ (ii) A lower (upper) subset of D is called an ideal (filter) if it is directed (filtered).
+        Ideals (filters), which contain a largest element, are called principal. They are
+        of the form ↓x (↑x), x ∈ D.
+
+(iii) If all directed sets in D have a supremum, then we say that D is a directed-complete
+        partial order or dcpo for short. If, in addition, Dop is also a dcpo, then we call
+        the poset bicomplete.
+
+      Most posets considered in this work are in fact bicomplete, but this will be a
+theorem and hence needs not to be included in the definition.
+14                                                     Chapter 1: Basic Concepts
+
+
+
+
+                               W↑
+     We use the notation x =        A when we want to express that A is a directed set
+with supremum x.
+     Directed sets are interesting objects in themselves. We reserve the remainder of
+this section to a closer analysis of this concept.
+
+Definition.        (i) A monotone net in a poset D is a monotone function α from a
+       directed set I into D. The set I is called the index set of the net.
+
+ (ii) Let α: I → D be a monotone net. A subnet of α is a monotone net β: J → I
+       such that for all i ∈ I there is j ∈ J with β(j) ≥ i.
+
+ (iii) A monotone net α: I → D has a supremum in D, if the set {α(i) | i ∈ I} has
+       a supremum in D.
+
+     Every directed set can be viewed as a monotone net: let the set itself be the
+index set. On the other hand, the image of a monotone net α: I → D is a directed
+set in D. So what are nets good for? The answer to this question is given in the
+following proposition.
+
+Proposition 1.1 Let D be a poset and let α: I → D be a monotone net. Then α
+has a subnet β: J → I, whose index set J is a lattice in which every principal ideal
+is finite.
+
+Proof. Let J be the set of finite subsets of I. Clearly, J is a lattice in which
+every principal ideal is finite. We define the mapping β: J → I by induction on the
+cardinality of the elements of J:
+
+             β(φ) = any element of I;
+         β(A) = any upper bound of the set A ∪ {β(B) | B ⊂ A}, A 6= φ.
+
+It is obvious that β is monotone and defines a subnet.
+1.2     Algebraic and continuous posets                                             15
+
+
+
+
+      The preceding proposition appears as ‘Théorème 1’ in [17].
+      We will make crucial use of nets with lattice ordered index set in the Character-
+ization Theorem for retracts of bifinite domains in Section 4.1.
+      Not every net has a subnet with a totally ordered index set. An example is the
+set of finite subsets of the real numbers. The following theorem is therefore just the
+more surprising.
+
+Theorem 1.2 A partially ordered set D is a dcpo if and only if each chain in D
+has a supremum.
+
+      The proof, which uses the Axiom of Choice, goes back to a lemma of Iwamura [13]
+and can be found in [18].
+
+Corollary 1.3 A partially ordered set D is a dcpo if and only if each monotone
+injective net α: I → D, with I an ordinal number, has a supremum in D.
+
+
+1.2        Algebraic and continuous posets
+In the last section we have introduced dcpo’s as structures, in which a directed col-
+lection of elements describes a new element: order theoretically the supremum of the
+collection. We will now restrict our attention to such dcpo’s, in which every element
+can be represented as a directed collection of approximating elements. In the fol-
+lowing definition we will make precise what is meant by ‘one element approximating
+another element’.
+
+Definition. Let D be a dcpo.
+
+  (i) For elements x, y ∈ D we say that x is way-below y (x ≪ y), if for all directed
+                      W↑
+        sets A ⊆ D,        A ≥ y implies a ≥ x for some a ∈ A.
+
+ (ii) For an element x ∈ D we define the following subsets:
+                                     ↑x = {y ∈ D | x ≪ y}
+
+                                     ↓x = {y ∈ D | y ≪ x}.
+16                                                        Chapter 1: Basic Concepts
+
+
+
+
+                                               S                     S
+ (iii) For A a subset of D we define ↑A =             ↑
+                                                   a∈A ↑a and ↓A =   a∈A ↓a.
+
+
+ (iv) An element x ∈ D is said to be compact, if it is way-below itself.
+
+ (v) The set of compact elements is denoted by K(D).
+
+Proposition 1.4 Let D be a dcpo. Then the following is true for all x, x′ , y, y ′ ∈ D:
+
+  (i) x ≪ y =⇒ x ≤ y;
+
+ (ii) x′ ≤ x ≪ y ≤ y ′ =⇒ x′ ≪ y ′ .
+
+Proof. (i) Let A be the directed set consisting of the single element y.
+     (ii) It suffices to note that if the supremum of a directed set A is above y ′ then
+it is also above y, and if there is an element a ∈ A above x then also a ≥ x′ .
+
+
+Definition. We say that a dcpo D is continuou, if for all x ∈ D the set ↓x is
+               W↑
+directed and        ↓x = x. It is algebraic, if the set of all compact elements below x is
+directed with x as the supremum of this set.
+
+     It is time for some examples. Algebraic lattices were studied long before the
+advent of electronic computers. They arise as the lattices of substructures or as the
+lattices of congruence relations for general algebraic structures.
+     For finite ordered sets the way-below relation coincides with the order relation
+and therefore every finite ordered set is an algebraic dcpo.
+     Every algebraic dcpo is also a continuous dcpo but the converse does not hold.
+The unit interval, for example, is a continuous lattice but contains only a single
+compact element: 0. Ordered by inclusion, the open subsets of a compact topological
+space form a continuous lattice. Here a set O1 is way-below a set O2 if O1 is contained
+in O2 .
+     It is instructive to give an example of a dcpo which is not continuous. Figure 1.1
+shows such a poset. There the element b is not compact, because the limit of the
+1.2     Algebraic and continuous posets                                                               17
+
+
+
+
+                                                      ⊤                 c
+                                                                        A
+                                                                    `     A
+                                                                `             A
+                                                                               A
+                                                            `
+                                                                                  A
+                                      a3              c                            A
+                                                                                      A
+                                            c                                           A
+                                 a2                                                       A
+                                                                                        A
+                            a1        c                                                   Ac
+                                       HH                                                  b
+                                            HH                                     
+                                                        HH 
+                                                          c
+
+                                                                        ⊥
+
+
+
+
+                           Figure 1.1: A non-continuous dcpo
+
+
+
+
+sequence (an )n∈N is above b although no element of the sequence is greater than b.
+Therefore b is not the supremum of the elements way-below it.
+      The following trivial observation will be of some help in the following sections:
+
+Proposition 1.5        (i) If D is a continuous dcpo and if x, y are elements in D then
+                                                                                                W↑
+        x is way-below y if and only if for all directed subsets A of D with                         A=y
+        there is a ∈ A such that a ≥ x.
+
+ (ii) Let D be an algebraic dcpo. An element x of D is compact if and only if for
+                                                 W↑
+        all directed sets A ⊆ D with                   A = x there is a ∈ A such that a = x.
+
+Proof. In both cases only the ‘if’-part is interesting.
+      (i) We take for A the set ↓y and get an element z ≪ y which is above x. By
+Proposition 1.4, x is also way-below y.
+18                                                      Chapter 1: Basic Concepts
+
+
+
+
+     (ii) Take for A the set of compact elements below x.
+
+
+Proposition 1.6 Let D be a dcpo in which every principal ideal is a continuous
+dcpo. Then the following holds:
+
+  (i) If y ≪ y ′ holds in ↓x then y ≪ y ′ holds in D.
+                S
+ (ii) K(D) =        x∈D K(↓x).
+
+                                                                          W↑
+Proof. Assume y ≪ y ′ in ↓x. Let (zi )i∈I be a directed set with z =                   ′
+                                                                             i∈I zi ≥ y .
+
+Inside the continuous dcpo ↓z we can represent y ′ as the directed supremum of
+elements (aj )j∈J , all of which are way-below y ′ in ↓z. All elements aj belong also to
+↓x and because y is way-below y ′ here, there is some aj0 which is above y. Going
+back to ↓z we see that y is below aj0 which is way-below y ′ and hence y is way-below
+y ′ in ↓z by Proposition 1.4. This implies in particular that some zi0 must be above y.
+     The second part follows directly from (i).
+
+
+Corollary 1.7 Let D be a dcpo.
+
+  (i) D is continuous if and only if ↓x is a continuous dcpo for all x ∈ D.
+
+ (ii) D is algebraic if and only if ↓x is an algebraic dcpo for all x ∈ D.
+
+     For continuous dcpo’s the way-below relation has the following important inter-
+polation property.
+
+Proposition 1.8 Let D be a continuous dcpo and let x, y be elements of D. If x is
+way-below y then there is z ∈ D such that x ≪ z ≪ y holds.
+
+Proof. Given an element x way-below some element y we define the set
+
+                          A = {a ∈ D | ∃a′ ∈ D : a ≪ a′ ≪ y}.
+1.2     Algebraic and continuous posets                                                           19
+
+
+
+
+The set A is directed because if a ≪ a′ ≪ y and b ≪ b′ ≪ y then by the directedness
+of ↓y there is c′ ∈ D such that a′ ≤ c′ ≪ y and b′ ≤ c′ ≪ y and again by the
+directedness of ↓c′ there is c ∈ D with a ≤ c ≪ c′ and b ≤ c ≪ c′ . We calculate
+the supremum of A: let y ′ be any element way-below y. Since ↓y ′ ⊆ A we have that
+W↑        W↑                                                                  W↑          W↑
+     A≥        ↓y ′ = y ′ . This holds for all y ′ ≪ y so by continuity y =        ↓y ≤        A. All
+                                                                  W↑          W↑
+elements of A are less than y, so in fact equality holds:              ↓y =        A. Remember
+that we started out with an element x way-below y. By definition there is a ∈ A
+with a ≥ x and hence x belongs to A. That was to be proved.
+
+
+Proposition 1.9 In a continuous dcpo minimal upper bounds of finite sets of com-
+pact elements are again compact.
+
+Proof. Let x be a minimal upper bound of the finite set A of compact elements.
+We have A ⊆ ↓x and since the latter set is directed there is an upper bound x′ of
+A in ↓x. Because x is a minimal upper bound of A we must have x = x′ which is
+tantamount to saying that x is compact.
+
+
+      In order to represent a continuous dcpo D it is not necessary to give all elements
+explicitely. It is sufficient to know about a dense subset of D. Each element of D
+can then be represented as a directed collection of elements from this dense subset.
+The following definition presents this idea in a precise form.
+
+Definition. A subset B of a continuous dcpo D is called a base of D if for each
+element x ∈ D the set ↓x ∩ B is directed with x as the supremum.
+
+      A continuous dcpo may have many different bases and none of these may be
+minimal: if D is the unit interval we may take for a base all rational numbers
+between 0 and 1. We may also take only those rational numbers which have a
+denominator divisible by 2, or divisible by 6, and so on. If D is algebraic, however,
+each base must contain the compact elements. Conversely, the definition of ‘algebraic
+20                                                    Chapter 1: Basic Concepts
+
+
+
+
+dcpo’ tells us that each element of D can be expressed as the directed supremum of
+compact elements. This explains why we can speak of the base K(D) of an algebraic
+dcpo.
+
+Definition. A dcpo D is called ω-continuous (ω-algebraic) if D is continuous (al-
+gebraic) and contains a countable base.
+
+                                                      S
+Proposition 1.10 If D is algebraic then K(D) =         x∈D K(↓x).
+
+
+Proof. This follows directly from Proposition 1.6 and Corollary 1.7.
+
+
+1.3     Scott-topology and continuous functions
+We have said before that for us the interpretation of the order relation on a dcpo
+is that of one element approximating another. It is therefore not surprising that
+we choose as homomorphisms between dcpo’s those functions, which allow us to
+calculate the value of an element x from the values of the approximations to x.
+
+Definition. Let D and E be dcpo’s. A function f : D → E is continuous if for each
+                                      W          W↑
+directed subset A of D the equality f ( ↑ A) =    a∈A f (a) holds. We denote the set of
+
+all continuous functions from D to E by [D −→ E]. The functions in [D −→ E] are
+ordered pointwise, that is: f ≤ g ⇔ ∀x ∈ D : f (x) ≤ g(x). The identity function on
+a poset D is denoted by idD , the constant function with image x is denoted by cx .
+
+Proposition 1.11 Let D and E be dcpo’s.
+
+  (i) Each continuous function from D to E is monotone.
+
+ (ii) The composition of two continuous functions is continuous.
+
+(iii) The function space [D −→ E] is a dcpo.
+1.3     Scott-topology and continuous functions                                              21
+
+
+
+
+Proof. (i) If x ≤ x′ are elements of D and if f : D → E is a continuous function then
+we consider the directed set {x, x′ }. By definition we have that f (x′ ) = f (x ∨ x′ ) =
+f (x) ∨ f (x′ ). This says that f (x) is below f (x′ ).
+      (ii) This is trivial.
+      (iii) Let F be a directed collection of functions from D to E. Let g: D → E be
+                                                      W↑
+the function, which is defined by g(x) =                f ∈F f (x). Let A ⊆ D be directed.
+                                       _               _               _
+                                           ↑               ↑                   ↑
+                                     g(        A) =                f(              A)
+                                                       f ∈F
+                                                       _ _
+                                                           ↑               ↑
+                                                 =                             f (a)
+                                                       f ∈F a∈A
+                                                       _ _
+                                                           ↑            ↑
+                                                 =                             f (a)
+                                                       a∈A f ∈F
+                                                       _
+                                                           ↑
+                                                 =             g(a).
+                                                       a∈A
+
+This shows that g is continuous.
+
+      Not every monotone function is continuous but for continuous dcpo’s we have
+the following
+
+Proposition 1.12 Let D be a continuous dcpo, E a dcpo, and let f : D → E be a
+monotone function. Then
+                                                       _
+                                           f c (x) =       ↑
+                                                               f (y)
+                                                       y≪x
+
+is the largest continuous function below f .
+
+Proof. Let A ⊆ D be directed. First note that by the interpolation property an
+                              W↑
+element y is way-below             A if and only if it is way-below some element of A. Thus
+we can calculate
+                                          _                _
+                                    f c(   ↑
+                                               A) =                ↑
+                                                                           f (y)
+                                                               W↑
+                                                       y≪              A
+                                                        _ _
+                                                               ↑           ↑
+                                                  =                            f (y)
+                                                       a∈A y≪a
+                                                       _
+                                                         ↑ c
+                                                  =                f (a).
+                                                       a∈A
+22                                                      Chapter 1: Basic Concepts
+
+
+
+
+If g: D → E is any continuous function below f then for all x ∈ D : g(x) =
+W↑               W↑             c
+    y≪x g(y) ≤     y≪x f (y) = f (x).
+
+
+
+Corollary 1.13 The function space [D −→ D] is bicomplete whenever D is a con-
+tinuous and bicomplete partial order.
+
+Proof. Let A be a filtered collection of functions from D into D. We define f (x) =
+V
+    a∈A a(x).   Clearly, f is a monotone function on D. By Proposition 1.12 f c is the
+infimum of A in [D −→ D].
+
+
+     In the light of Proposition 1.12 it is clear that we may define a continuous function
+on a continuous dcpo by assigning values to the elements of a base only. If the domain
+D is even algebraic, then there is a 1-1 correspondence between monotone functions
+on the base and continuous functions on D.
+     The term ‘continuous function’ is justified by the observation that each dcpo
+carries a topology which makes continuous functions into topologically continuous
+ones.
+
+Definition. For a dcpo D we define the Scott-topology σ(D) on D as follows: a
+set O ⊆ D is Scott-open if it is an upper set and if for each directed set A ⊆ D,
+W↑
+     A ∈ O implies the existence of an a ∈ A ∩ O.
+
+     First examples for Scott-open sets in a dcpo D are sets of the form D \ ↓x for
+x an arbitrary element of D. The following propositions illustrate the connection
+between Scott-topology and the order theoretic concepts developed so far.
+
+Proposition 1.14 Let D be a continuous dcpo.
+
+    (i) If x is an element of a Scott-open set O then there is a y ∈ O with y ≪ x.
+
+ (ii) The sets ↑x form a basis of σ(D).
+1.3     Scott-topology and continuous functions                                                23
+
+
+
+
+(iii) The Scott-topology is T0 .
+
+Proof. Let O be a Scott-open subset of D and let x be an element of O. We
+                                                         W↑
+represent x as a directed supremum: x =                   y≪x y and by the definition of σ(D)
+
+there is some y ≪ x which belongs to O.
+      (ii) follows immediately from (i).
+      As for (iii), suppose x and x′ are distinct elements of D. By the antisymmetry
+of the order relation we must either have that x is not below x′ or that x′ is not
+below x. Assume x 6≤ x′ . The set ↓x′ is Scott-closed and hence D \ ↓x′ is an open
+neighborhood of x not containing x′ .
+
+Proposition 1.15 For dcpo’s D and E, a function f from D to E is continuous if
+and only if it is topologically continuous with respect to σ(D) and σ(E).
+
+Proof. Let f be a continuous function from D to E and let O be an open subset
+of E. It is clear that f −1 (O) is an upper set because continuous functions are
+                                                    W↑
+monotone. If f maps the element x =                  i∈I xi ∈ D into O then we have f (x) =
+  W↑                  W↑
+f(    i∈I xi )   =     i∈I f (xi )   ∈ O and by definition there must be some xi which is
+mapped into O. Hence f −1 (O) is open in D. For the converse assume that f : D → E
+is topologically continuous. We first show that f must be monotone: let x ≤ x′ be
+elements of D. If f (x) 6≤ f (x′ ) then O = E \ ↓f (x′ ) is an open neighborhood of f (x)
+not containing f (x′ ). The inverse image of O contains x but not x′ . This contradicts
+our assumption as open sets are always upper sets. Now let A ⊆ D be directed. If
+                                                                  W
+the supremum of the directed set f (A) is not above f ( ↑ A) then arguing as before
+                                               W↑                                         W↑
+we have the Scott-open set O = E \ ↓             a∈A f (a) which is a neighborhood of f (      A)
+                 W↑                                                          W↑
+but not of        a∈A f (a). The inverse image of O is open and contains          A, hence some
+element a ∈ A. Since O is an upper set and since f (a) is in O we also must have
+W↑
+  a∈A f (a) ∈ O. This contradiction finishes our proof.
+
+
+      The image under a continuous mapping is not necessarily a dcpo again. For this
+to hold true we need to impose further restrictions.
+24                                                          Chapter 1: Basic Concepts
+
+
+
+
+Definition. Let D and E be dcpo’s. A continuous function r: D → D is called a
+retraction if r ◦ r = r. It is called a projection if also r ≤ idD holds.
+     Continuous functions r: D → E and e: E → D are said to form a retraction-embedding
+pair, if r◦e equals the identity function on E. The pair (r, e) is a projection-embedding
+pair if e ◦ r is a projection on D and r ◦ e = idE .
+     If there is a retraction-embedding pair between D and E, the retraction mapping
+D onto E, we say that E is a retract of D.
+
+     Typical retracts, which we will use throughout this work, are those of the form
+↓d for d an arbitrary element of a dcpo D. In this case the retraction r: D → D is
+given by                                  
+                                              x, if x ≤ d;
+                                 r(x) =
+                                              d, otherwise.
+By dualizing this definition we have an idempotent function onto the principal fil-
+ter ↑c. In order to get a continuous mapping we have to require that c is a compact
+element.
+
+Proposition 1.16 Let D be a dcpo and let r be a retraction on D. Then im(r) is
+a dcpo and the supremum of a directed subset of im(r) formed in im(r) coincides
+with the supremum formed in D. If D is continuous then so is im(r).
+
+Proof. Let A be a directed subset of im(r). Applying the retraction to the supre-
+                             W            W↑               W↑         W↑           W↑
+mum of A in D we get: r( ↑ A) =               a∈A r(a) =    a∈A a =        A. So        A belongs
+to im(r). This shows the first part of the proposition.
+     For x an element of im(r) and x′ any element of D way-below x we show that
+                                                                             W↑
+r(x′ ) is way-below x in im(r). Let A ⊆ im(r) be directed with                    A ≥ x. Since
+we can calculate directed suprema either in D or in im(r), A must contain some
+element a which is above x′ . For this element we also have a = r(a) ≥ r(x′ ). From
+this it is clear that a retraction preserves continuity of the domain.
+1.3     Scott-topology and continuous functions                                    25
+
+
+
+
+                                                             ⊤1   s
+                                                                  @
+                                                                      @
+                                                                       @s ⊤
+                                                        ``                2
+                                                    `
+                                       a3       s
+                                                @
+                                                           `
+                                                        ``
+                                                  @
+                              a2       s           @c b
+                                                              2
+                                       @
+                                         @
+                        a1    s              @c b
+                                                    1
+                              @
+                                @
+                                    @s
+
+                                    ⊥
+
+
+
+Figure 1.2: A non-continuous dcpo as the image of a monotone idempotent function
+on D.
+
+
+
+
+      We would like to note that the image of a monotone idempotent function on a
+dcpo is again a dcpo, but that continuity is not necessarily preserved. Figure 1.2
+shows an example. The function on D is given by
+                                        
+                                            ⊥, if x = b1 , b2 , . . .;
+                             f (x) =
+                                            x, otherwise.
+
+The image is isomorphic to the non-continuous example shown in Figure 1.1.
+      Retracts of algebraic dcpo’s may not be algebraic again, but any continuous dcpo
+may be gotten as a retract from an algebraic domain. This is the content of the
+following
+
+Proposition 1.17        (i) Let D be a poset. Then the set I(D) of all ideals in D
+        ordered by inclusion, is an algebraic dcpo.
+26                                                                             Chapter 1: Basic Concepts
+
+
+
+
+ (ii) If D is a continuous dcpo then there is a projection from I(D) onto D.
+
+Proof. It is easy to check that the directed union of directed sets is again a directed
+set and that principal ideals are compact elements in I(D). This proves part (i).
+                                                                         W↑
+     The retraction r: I(D) → D is given by A 7→                               A, the embedding by x 7→ ↓x.
+Again, the details are easy to check.
+
+Proposition 1.18 Let D be a dcpo.
+                    r
+  (i) The set [D −→ D] of retractions on D is a dcpo.
+                    p
+ (ii) The set [D −→ D] of projections on D is a dcpo.
+
+(iii) If p is a projection on D then for all x ∈ D : p(x) = max {y ∈ im(p) | y ≤ x}.
+
+(iv) For projections p, p′ : D → D we have the equivalence: p ≤ p′ if and only if
+       im(p) ⊆ im(p′ ).
+
+Proof. (i) Let (ri )i∈I be a directed family of retractions. For any x ∈ D we can
+calculate
+                          _                _                     _         _
+                                ↑                ↑                 ↑            ↑
+                          (         ri ) ◦ (         ri )(x) =          ri ( ri (x))
+                              i∈I              i∈I               i∈I    i∈I
+                                                                 _ _
+                                                                    ↑  ↑
+                                                            =            ri (rj (x))
+                                                                 i∈I j∈I
+                                                                 _
+                                                                   ↑
+                                                            =           ri (ri (x))
+                                                                 i∈I
+                                                                 _
+                                                                    ↑
+                                                            =           ri (x).
+                                                                 i∈I
+
+Hence the supremum of retractions is again an idempotent function. We have proved
+in Proposition 1.11 that it is also continuous.
+     (ii) Projections are retractions below the identity function. The supremum of
+such functions is again below idD .
+                                                                               W↑
+     (iii) Clearly, x ≥ p(x) ∈ im(p) holds, so p(x) ≤                               {y ∈ im(p) | y ≤ x}. On the
+other hand, for each y ∈ im(p) below x we have y = p(y) ≤ p(x).
+1.3     Scott-topology and continuous functions                                     27
+
+
+
+
+      (iv) If p ≤ p′ and x is in im(p) then we have p′ (x) ≤ x = p(x) ≤ p′ (x) and x is
+in im(p′ ). The other implication follows directly from (iii).
+
+
+      As we have now exhibited the morphisms for dcpo’s we may define the following
+categories:
+
+        DCPO: Directed-complete partial orders with continuous functions.
+
+        CONT: Continuous dcpo’s with continuous functions.
+
+        ALG: Algebraic dcpo’s with continuous functions.
+
+We use the subscript ⊥ to denote the respective full subcategory consisting of objects
+with a least element.
+
+Definition. Let C be any category. We say that C is cartesian closed if the follow-
+ing three conditions are satisfied:
+
+  (i) There is a terminal object T in C such that for any object A ∈ C there is
+        exactly one morphism α: A → T .
+
+ (ii) For any two objects A, B ∈ C there exists an object A×B in C and morphisms
+        pr1 : A × B → A, pr2 : A × B → B such that for any object C and morphisms
+        f : C → A, g: C → B there is a unique morphism f × g: C → A × B such that
+        pr1 ◦ (f × g) = f and pr2 ◦ (f × g) = g. The object A × B is called the product
+        of A and B.
+
+(iii) For any two objects A, B ∈ C there exists an object AB in C and a morphism
+        ev: AB × B → A such that for each f : C × B → A there exists a unique mor-
+        phism Λf : C → AB such that ev ◦ (Λf × idB ) = f . The object AB is called the
+        exponential object for A and B.
+28                                                                    Chapter 1: Basic Concepts
+
+
+
+
+Lemma 1.19 Let D, E, and F be dcpo’s and let f : D × E → F be a function of
+two variables. Then f is continuous if and only if f is continuous in each variable
+separately.
+
+Proof. Let f be separately continuous and let A be a directed subset of D × E.
+We calculate
+                          _                     _                 _
+                             ↑                      ↑                 ↑
+                        f(       A) = f (                                 (d, e))
+                                            d∈pr1 (A) e∈pr2 (A)
+                                            _                     _
+                                                ↑                     ↑
+                                      =                 f(                (d, e))
+                                          d∈pr1 (A)         e∈pr2 (A)
+                                            _               _
+                                                ↑                 ↑
+                                      =                               f (d, e)
+                                          d∈pr1 (A) e∈pr2 (A)
+                                            _
+                                              ↑
+                                      =             f (d, e).
+                                          (d,e)∈A
+
+The converse is immediate.
+
+Proposition 1.20 The categories DCPO and DCPO⊥ are cartesian closed.
+
+Proof. The one-point domain serves as the terminal object in both categories. For
+the categorical product we take the set-theoretic product together with the pointwise
+order. It is trivial to check that the projections are continuous and satisfy the
+required equations.
+     We have already proved (Proposition 1.11) that the space [D −→ E] of all Scott-
+continuous functions is again a dcpo. It is the natural choice for the exponential ob-
+ject of dcpo’s D and E. We prove that the evaluation function ev: [D −→ E] × D → E
+is continuous: by Lemma 1.19 we can check continuity for both variables separately,
+so let first F be a directed collection of functions from D to E.
+                                  _                      _
+                                    ↑                        ↑
+                              ev(       F, d) = (                F )(d)
+                                                        _
+                                                           ↑
+                                              =                f (d)
+                                                        f ∈F
+                                                        _
+                                                           ↑
+                                              =                ev(f, d)
+                                                        f ∈F
+1.3     Scott-topology and continuous functions                                   29
+
+
+
+
+Assume now that A is a directed set in D:
+                                        _            _
+                                        ↑                  ↑
+                                ev(f,       A) = f (           A)
+                                                   _
+                                                       ↑
+                                               =           f (a)
+                                                   a∈A
+                                                   _
+                                                     ↑
+                                               =           ev(f, a).
+                                                   a∈A
+
+
+Given a morphism f : F × E → D we define the function Λf : F → DE elementwise:
+x 7→ f (x, ·). It is again trivial to check that this a continuous mapping and that
+ev ◦ (Λf × idE ) = f .
+
+
+      We note that any full subcategory C of DCPO or of DCPO⊥ , which contains
+the one-point domain, the cartesian product, and the space [A −→ B] of Scott-
+continuous functions for any two objects A, B ∈ C, is itself cartesian closed since
+we have defined cartesian closedness in terms of equations.
+      On the other hand, there is not much choice for these constructs in a cartesian
+closed full subcategory of DCPO. This can be seen from the following lemma which
+essentially appears in [24] already.
+
+Lemma 1.21 Let C be a cartesian closed full subcategory of DCPO. Then the
+following holds for any two objects A, B ∈ C.
+
+  (i) The terminal object T of C is isomorphic to the one-point domain.
+
+ (ii) The categorical product of A and B is isomorphic to the cartesian product
+        A × B.
+
+(iii) The exponential object AB is isomorphic to [B −→ A].
+
+Proof. (i) Suppose T has two distinct elements x and x′ . Then there are two
+continuous functions from T into itself: the constant functions with image x and
+with image x′ , respectively.
+30                                                             Chapter 1: Basic Concepts
+
+
+
+
+     (ii) We denote the categorical product of A and B in C by A · B and show
+that it is isomorphic to A × B. For each pair of elements a ∈ A, b ∈ B there are
+functions ā: T → A and b̄: T → B which map the one element of T onto a and b,
+respectively. By the universal property of the categorical product there is a unique
+function ā × b̄: T → A · B whose image is thus the unique element (a, b) of A · B
+which is projected onto a and b, respectively. This proves that there is a bijection
+between the elements of A × B and A · B.
+     We still have to show that A · B carries the right order. Since the projections
+pr1 and pr2 must be monotone, the order on A · B is contained (via the bijection) in
+the order of A × B. For the converse we distinguish two cases: if no two elements
+of any object of C are comparable, then A · B is also totally unordered. If we have
+d < d′ in some object D and if (a, b) ≤ (a′ , b′ ) in A × B then there are continuous
+mappings ā: D → A and b̄: D → B defined by, e.g.,
+                                             
+                                                 a, if x ≤ d;
+                                  ā(x) =
+                                                 a′ , otherwise.
+The map ā × b̄ maps d onto (a, b) and d′ onto (a′ , b′ ) and by continuity of this map
+(a, b) ≤ (a′ , b′ ) holds in A · B.
+   (iii) Given objects A, B ∈ C we show that AB is isomorphic to [B −→ A]. Given
+an object C ∈ C and a morphism f : B → A we have the arrow f ′ : T × B ∼
+                                                                       =B→A
+and by the universal property of AB there is exactly one element f¯ = im(Λf ′ ) of
+AB corresponding to f . Thus there is a bijection between the elements of AB and
+[B −→ A]. As for the product one can easily show that this bijection is an order
+isomorphism.
+
+     Neither the category ALG nor the category CONT are cartesian closed: con-
+sider the set Z− of negative integers with their usual ordering. We show that no
+function g ∈ [Z− −→ Z− ] is way-below a second function f ∈ [Z− −→ Z− ]. For
+each n ∈ N define a function fn : Z− → Z− by setting
+                                         
+                                             f (x),    if x ≥ −n;
+                              fn (x) =
+                                             g(x) − 1, otherwise.
+1.4     Bifinite domains                                                            31
+
+
+
+
+Since we may assume that g ≤ f holds, this is a continuous mapping. The supremum
+of all fn equals f but no fn is above g.
+
+Proposition 1.22 Let D be a dcpo with a continuous function space [D −→ D]
+and let E be a retract of D. Then [E −→ E] is a retract of [D −→ D] and hence a
+continuous dcpo.
+
+Proof. Let r: D → E be the retraction onto E and let i: E → D be the correspond-
+ing embedding. For f an element of [D −→ D], g an element of [E −→ E] we
+define a continuous mapping R: [D −→ D] → [E −→ E] by R(f ) = r ◦ f ◦ i and
+a continuous mapping I: [E −→ E] → [D −→ D] by I(g) = i ◦ g ◦ r. We have
+R ◦ I(g) = r ◦ i ◦ g ◦ r ◦ i = g, so (R, I) is a retraction-embedding pair.
+
+Theorem 1.23 If C is a cartesian closed full subcategory of ALG then cC, the
+category of retracts of objects in C (with Scott-continuous functions as arrows) is
+cartesian closed.
+
+Proof. We still have the terminal object in cC and it is clear that the product of
+two retracts is a retract of the corresponding product. For the function space we
+have proved this in the preceding lemma. All the necessary equations hold since we
+are inside the cartesian closed category DCPO.
+
+      If we are considering dcpo’s with a bottom element then there are good reasons to
+look only at functions which preserve this element. We call such functions strict and
+                                                                                s
+denote the space of all strict functions from a dcpo D to a dcpo E by [D −→ E].
+However, the category DCPOs⊥ of dcpo’s with strict functions as arrows is not
+cartesian closed, although it is closed with respect to a different product, which is
+not the categorical product. This construction, frequently called ‘smash’-product,
+can be described as the cartesian product with all elements of the form (⊥, y) or
+(x, ⊥) identified with the bottom element. It is in accordance with one possible
+philosophy about the least element, namely, that a function of several variables
+should be undefined whenever at least one of the arguments is undefined.
+32                                                        Chapter 1: Basic Concepts
+
+
+
+
+1.4       Bifinite domains
+At several places we have already alluded to the idea of one element approximating
+another. In the last section, in particular, we exhibited the distinction between
+‘ideal elements’ and ‘finite (=compact) elements’ and stipulated that the former
+are always representable as limits of finite elements. We now wish to extend this
+idea to the level of domains themselves, that is, we will define domains which are
+representable as limits (in fact: bilimits) of finite posets. The resulting structures
+we call bifinite domains.
+     It was Gordon Plotkin who first started the study of these structures in 1976
+(see [19]), when he tried to define a ‘powerset’ for domains. He found that his
+construction led him out of the categories of lattices and semilattices but worked
+fine on his class SFP (= Sequences of Finite Posets). Our definition is slightly more
+general, allowing arbitrary directed index sets but all theorems in this section are
+essentially due to Plotkin. We have enriched the subject with a couple of examples
+(Figures 1.6 to 1.11), which illustrate several aspects of bifiniteness and show that
+the hypotheses in some central propositions cannot be weakened.
+     We begin with the following general
+
+Definition. A codirected system over a category C is a family (Di )i∈I , with I a
+directed set, of objects from C together with a set of arrows (dij )i≤j,i,j∈I such that
+the following holds for all i, j, k ∈ I:
+
+  (i) dij : Dj → Di ,
+
+ (ii) dii = idDi ,
+
+(iii) i ≤ j ≤ k =⇒ dik = dij ◦ djk .
+
+     We say that D∗ is a limit of the codirected system ((Di )i∈I , (dij )i≤j ) in C if there
+is a collection (di )i∈I of mappings with di : D∗ → Di and di = dij ◦ dj for all i ≤ j
+in I such that for any object E and mappings ei : E → Di , commuting with the
+1.4     Bifinite domains                                                                33
+
+
+
+
+connecting morphisms dij , there is a unique arrow f : E → D satisfying ei = di ◦ f
+for all i ∈ I.
+
+      From the general theory of limits in categories we know that D∗ is unique up to
+isomorphism.
+      We have already mentioned that we wish to form limits of finite posets but we
+haven’t said what the connecting morphisms should be. We will not use arbitrary
+monotone functions, since we want view the objects Di as approximations to the
+limit object D∗ , Dj being a better approximation than Di whenever i ≤ j. It is
+hard to compare posets Di and Dj when there is nothing else between them than
+a monotone function. If we use the projection part of projection-embedding pairs
+instead then we can indeed speak of Di approximating Dj : Di is embedded in Dj and
+for each element x of Dj there is a largest element x′ of Di below x. This motivates
+our study of codirected systems in categories Cp , where the objects are taken from
+a particular subclass of directed-complete partial orders and the morphisms are
+projections.
+      A projection dij : Dj → Di uniquely determines the corresponding embedding
+eji : Di → Dj . So any codirected system ((Di )i∈I , (dij )i≤j ) in Cp gives rise to a
+directed system ((Di )i∈I , (eji )i≤j ) in the dual category Ce . It is obvious that the
+limit of the former is isomorphic to the colimit of the latter. This limit-colimit
+coincidence is the reason why we speak of the bilimit of the system ((Di )i∈I , (dij )i≤j )
+and why we call the bilimits of finite posets bifinite domains. This terminology is
+due to Paul Taylor (cf. [26]) and we adopt it in this work.
+
+Theorem 1.24 Any codirected system (Di , dij ) in DCPOp has a bilimit D∗ .
+
+Proof. We define the limit object
+                                        Y
+                     D∗ = {(ai )i∈I ∈         Di | ∀i ≤ j : dij (aj ) = ai }
+                                        i∈I
+34                                                            Chapter 1: Basic Concepts
+
+
+
+
+and the limiting morphisms
+
+                                  dj ((ai )i∈I ) = aj , ∀j ∈ I.
+
+It is clear that D∗ is a dcpo since the connecting morphisms dij are continuous. It
+remains to show that the limiting morphisms are projections. This is done most
+easily by giving the corresponding embeddings ei (the embedding eji corresponds to
+the projection dij ):
+
+                ei (a) = (djk ◦ eki (a))j∈I , k any upper bound of {i, j}.
+
+First of all, ei is well-defined: if k, k ′ are upper bounds for {i, j} then there is an
+upper bound l of {k, k ′ } in I. We calculate:
+
+                         djk ◦ eki (a) = djk ◦ dkl ◦ elk ◦ eki (a)
+                                        = djl ◦ eli (a)
+                                        = djk′ ◦ dk′ l ◦ elk′ ◦ ek′ i (a)
+                                        = djk′ ◦ ek′ i (a).
+
+Secondly, ei (a) is an element of D∗ :
+
+                          dlj (djk ◦ eki (a)) = dlj ◦ djk ◦ eki (a)
+                                               = dlk ◦ eki (a).
+
+It remains to show that (ei , di ) is an embedding-projection pair. The proof consists
+again of two simple calculations:
+
+                        ei ◦ di ((aj )j∈I ) = ei (ai )
+                                           = (djk ◦ eki (ai ))j∈I
+                                           = (djk ◦ eki ◦ dik (ak ))j∈I
+                                           ≤ (djk (ak ))j∈I
+                                           = (aj )j∈I
+1.4     Bifinite domains                                                             35
+
+
+
+
+and
+
+                            di ◦ ei (a) = di ((djk ◦ eik (a))j∈I )
+                                        = dik ◦ eki (a)
+                                        = a.
+
+It is obvious that all functions ei are continuous since we have defined them in terms
+of the connecting morphisms.
+
+
+Definition. A dcpo D is a bifinite domain if it is isomorphic to the limit of a
+codirected system of finite posets with least element in DCPOp⊥ . We denote the
+category of bifinite domains with Scott-continuous functions by B.
+
+      Note that we require a least element for bifinite domains, although the definition
+works for arbitrary finite posets as well. The doctoral thesis of Carl Gunter ([9])
+studies bifinite domains defined this way. However, we will exhibit a general method
+of passing from pointed domains to domains without least element in Chapter 3, so
+it seems to us the right way first to restrict our attention to pointed domains.
+      The limiting projection di from a bifinite domain D onto the finite factor Di is,
+composed with the corresponding embedding, a projection on D with finite image.
+Such functions play a prominent rôle throughout this work, so we introduce a name
+for them:
+
+Definition. Let D be a dcpo. A continuous function f : D → D, which is smaller
+than the identity on D and which has a finite image, is called a deflation.
+
+      Note that a deflation is a projection if and only if it is idempotent.
+
+Proposition 1.25 Let D be a dcpo and let f : D → D be a deflation on D. Then
+the following statements are true:
+
+  (i) ∀x ∈ D : f (x) ≪ x.
+36                                                        Chapter 1: Basic Concepts
+
+
+
+
+ (ii) f 2 ≪ idD in [D −→ D].
+
+ (iii) f 3 ≪ f in [D −→ D].
+
+If f is an idempotent deflation then all elements in the image of f are compact and
+f is a compact element of [D −→ D].
+
+                                                                W↑
+Proof. Let A ⊆ D be a directed family such that x ≤                  A. Applying f we get:
+            W↑          W↑
+f (x) ≤ f (      A) =    a∈A f (a).   Since the image of f is finite the latter set has a
+largest element f (a0 ). Hence we have f (x) ≤ f (a0 ) ≤ a0 .
+     For the second part assume that (gi )i∈I is a directed family of functions from
+                        W↑
+D to D such that         i∈I gi   ≥ idD . Then for all elements in the (finite) image of
+f there is some gi such that gi (x) ≥ f (x) holds. From directedness we get an
+index i0 such that gi0 (x) ≥ f (x) holds for all x ∈ im(f ). Thus we have for all
+x ∈ D : gi0 (x) ≥ gi0 (f (x)) ≥ f (f (x)) = f 2 (x).
+     The proof for part (iii) is similar. Let (gi )i∈I be a directed family of functions
+with a supremum above f . By part (i) there is i0 ∈ I such that gi0 (x) ≥ f 2 (x) holds
+for all x ∈ im(f ). This implies gi0 (x) ≥ gi0 (f (x)) ≥ f 2 (f (x)) = f 3 (x) for all x ∈ D.
+     The conclusions for idempotent deflations follow immediately.
+
+
+Theorem 1.26 The following are equivalent for any dcpo D with least element.
+
+  (i) D is a bifinite domain.
+
+ (ii) The set of idempotent deflations on D is directed and has idD as its supremum
+       in [D −→ D].
+
+ (iii) There exists some directed set (di )i∈I of idempotent deflations on D, the supre-
+       mum of which is idD .
+
+Proof. (i) =⇒ (ii) Let D be the limit of finite posets Di . The mappings ei ◦ di
+                                                                            W↑
+are idempotent deflations on D. For any x ∈ D we show that x =                i∈I ei ◦ di (x).
+1.4     Bifinite domains                                                                37
+
+
+
+
+The element x ∈ D can be thought as a sequence (xi )i∈I . For j ≥ i0 we have
+di0 ◦ ej ◦ dj ((xi )i∈I ) = xi0 and hence ej ◦ dj leaves all components xi0 of the sequence
+(xi )i∈I with i0 ∈ ↓j fixed. I is directed and this proves our claim.
+      Now, if f and f ′ are any two idempotent deflations on D then we know by
+Proposition 1.25 that they are compact elements of the function space and therefore
+some ei ◦ di must lie above both of them.
+      (ii) =⇒ (iii) is trivial.
+      (iii) =⇒ (i) We show that D is isomorphic to the limit of the finite posets im(di ).
+The connecting morphism dij for i ≤ j is given by fi im(fj ) . If we denote by D∗
+the limit of this system then we have the map s from D to D∗ which maps each
+element x ∈ D onto the sequence (fi (x))i∈I . The inverse mapping is given by
+              W↑
+(xi )i∈I 7→    i∈I xi . The details are easy to check.
+
+
+Corollary 1.27 A bifinite domain is algebraic.
+
+Proof. This follows directly from Theorem 1.26 and Proposition 1.25.
+
+Theorem 1.28 The category B of bifinite domains is cartesian closed and allows
+the formation of arbitrary products.
+
+Proof. We use the characterization given by Theorem 1.26. If D and E are bifinite
+domains and if fD : D → D and fE : E → E are idempotent deflations then fD × fE
+is a deflation on D × E. This proves that D × E is again bifinite. On the function
+space [D −→ E] we get the idempotent deflation F defined by F (g) = fE ◦ g ◦ fD .
+      For (Di )i∈I an arbitrary collection of bifinite domains we construct idempotent
+deflations as follows: let J be a finite subset of I and fix an idempotent deflation fj
+                           Q
+for each j ∈ J. Then           i∈I gi , where
+                                              
+                                   fi , if i ∈ J;
+                                       gi =
+                                   c⊥ , otherwise,
+                             Q
+is an idempotent deflation on i∈I Di .
+      In all three cases the set of idempotent deflations constructed this way is directed
+and yields the identity function.
+38                                                         Chapter 1: Basic Concepts
+
+
+
+
+     How can we see that a given dcpo D is indeed a bifinite domain? By the preceding
+corollary we know that D must be algebraic. Also, for any finite set A of compact
+elements there must be an idempotent deflation f on D which fixes these elements.
+Any minimal upper bound of A must also be contained in the image of f since f
+is below idD . By induction we find that minimal upper bounds of minimal upper
+bounds of ... of minimal upper bounds of A are kept fixed under f . We will now
+explore this idea in more detail since it will yield an internal characterization of
+bifinite domains.
+
+Definition. Let D be a partially ordered set. We say that D has property m if for
+each finite set A ⊆ D the set mub(A) is complete, that is, for all x ≥ A there is a
+minimal upper bound y of A which lies below x.
+     If D has property m and if for each finite set of elements the set of minimal
+upper bounds is finite then D has property M.
+     Given a poset D with property m we define for any subset A of D
+
+                 U 0 (A) = A,
+               U n+1 (A) = {x ∈ D | x is a minimal upper bound for
+                                              some finite subset of U n (A) },
+                              [
+                U ∞ (A) =          U n (A).
+                             n∈N
+
+     Figure 1.3 shows a dcpo which does not have property m, Figure 1.4 shows a
+dcpo with property m but not property M. The dcpo in Figure 1.5 has property M
+but the set U ∞ ({a, b}) is infinite. These are the standard examples of posets which
+are not bifinite and we will show below that an algebraic dcpo, which does not
+contain copies of these, is indeed bifinite.
+
+Lemma 1.29 A poset D with property m has property M if and only if the empty
+set and each pair of elements have a finite set of minimal upper bounds.
+1.4   Bifinite domains                                                         39
+
+
+
+
+                                               c
+                                               L
+                                                 L
+                                               c L
+                                              A L
+                                              A L
+                                             c A L
+                                               J
+                                                J AL
+                                                  J AL
+                                                   J AL
+                                                    J AL
+                                                      JAL
+                                                       JAL
+                                                         JAL
+                               c                           JAL c
+                                HHH                       
+                                                       
+                                       HH          
+                                             H c
+
+
+
+
+         Figure 1.3: An algebraic dcpo which does not have property m.
+
+
+
+
+                         ca
+                         AA aaa  Q              A         !!
+                                         c         c              c
+                                          Q             !
+                                            Q      A !         
+                           A         a aa Q     !!A        
+                                                Q!
+                             A           a!a
+                                             !a !Q    A      
+                              A      ! !      aaQ A 
+                                                     Q
+                                   !!
+                               A c                 aaQA c
+                                   H
+                                   H                   
+                                                       
+                                     HH            
+                                           HH 
+                                              c
+
+
+
+
+Figure 1.4: An algebraic dcpo with infinitely many minimal upper bounds for a pair
+of compact elements.
+

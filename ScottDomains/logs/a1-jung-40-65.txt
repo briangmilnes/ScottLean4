@@ -1,0 +1,1156 @@
+1.4   Bifinite domains                                                         39
+
+
+
+
+                                               c
+                                               L
+                                                 L
+                                               c L
+                                              A L
+                                              A L
+                                             c A L
+                                               J
+                                                J AL
+                                                  J AL
+                                                   J AL
+                                                    J AL
+                                                      JAL
+                                                       JAL
+                                                         JAL
+                               c                           JAL c
+                                HHH                       
+                                                       
+                                       HH          
+                                             H c
+
+
+
+
+         Figure 1.3: An algebraic dcpo which does not have property m.
+
+
+
+
+                         ca
+                         AA aaa  Q              A         !!
+                                         c         c              c
+                                          Q             !
+                                            Q      A !         
+                           A         a aa Q     !!A        
+                                                Q!
+                             A           a!a
+                                             !a !Q    A      
+                              A      ! !      aaQ A 
+                                                     Q
+                                   !!
+                               A c                 aaQA c
+                                   H
+                                   H                   
+                                                       
+                                     HH            
+                                           HH 
+                                              c
+
+
+
+
+Figure 1.4: An algebraic dcpo with infinitely many minimal upper bounds for a pair
+of compact elements.
+40                                               Chapter 1: Basic Concepts
+
+
+
+
+                                     c
+
+
+
+
+                             HHH          
+                                          
+                             c              c
+                                 H     
+                                  H
+                                    H
+                                    HH
+                            c            Hc
+                             H
+                             HH           
+                                        
+                                 HH
+                                  HH
+                                       HH
+                          a c              c b
+                             @
+                              @
+                                @
+                                  @c
+
+
+
+
+     Figure 1.5: An algebraic dcpo, for which U ∞ ({a, b}) is infinite.
+1.4     Bifinite domains                                                           41
+
+
+
+
+Proof. Suppose D has property M for pairs of elements. Let A = {a1 , a2 , . . . , an }
+be a finite subset of D. We construct the set mub(A) inductively:
+
+                       M2 = mub({a1 , a2 }),
+                                 [
+                     Mi+1 =            mub({x, ai+1 }), 2 ≤ i ≤ n − 1.
+                                x∈Mi
+
+
+The set Mn contains mub(A): if x is any upper bound of A then it is above some
+element of M2 and by induction it is above some element of Mn . All elements of Mn
+are upper bounds for A, so if x is minimal in ub(A) then it must belong to Mn . It
+is clear that the set Mn is finite.
+
+
+      The analogous statement for ‘property m’ is false, see Figure 1.6. Similarly,
+U ∞ (A) may be finite for two element sets, but infinite for a triple of elements, see
+Figure 1.7.
+      It is also not true in general that property m for the base K(D) of an algebraic
+dcpo D implies property m for D itself. In Figure 1.8 we give a counterexample.
+However, the following is true
+
+Proposition 1.30 If D is an algebraic dcpo and if K(D) has property M then D
+is bicomplete.
+
+Proof. Let J be a filtered subset of D and let B be the set of compact lower bounds
+of J. We show that B is directed. If M is any finite subset of B then mub(M ) is
+finite and for each j ∈ J there is some x ∈ mub(M ) which is below j. Hence the
+sets (↓j ∩ mub(M ))j∈J form a filtered collection of finite nonempty sets and so their
+intersection is nonempty. This says that there is a minimal upper bound for M
+which is below all elements of J. Since it is compact by Proposition 1.9, it belongs
+to B.
+      Obviously, the directed supremum of B yields an infimum for J.
+42                                                            Chapter 1: Basic Concepts
+
+
+
+
+                                                           c
+                                                      ,
+                                                 , LL
+                                             ,             c L
+                                           ,
+                                         ,            # S L
+                                       ,        #
+                                             #          SL
+                                    ,      #           c SL
+                                  ,      #            Z L
+                               ,      #           ZS
+                             ,      #                        ZLS
+                          ,       #                               Z
+                                                                    LS
+                        ,     #                                     LZ SZ
+                      ,               
+                            #                                        L SZ
+                    ,     #                    D                      L SZ
+                  ,     #     
+                ,     #                               D                L      S ZZ
+             c,    c#    c                             D                 L     Sc Zc
+              a
+              Q
+              Qaa@  HH Q
+                                       c
+                                        Q
+                                             c
+                                                     
+                                                           c
+                                                                        
+                                                                        
+                                                                             c
+                                                                                  !!
+                Q a HAA Q             Q @    @ A
+                                                                          ! !!
+                  Q  @a   H   Q             Q
+                                                            A         
+                                                                                 
+                    Q @ aa AH Q           Q @ A                    !! 
+                      Q     AaHa  HQ              Q @!!                   
+                        Q@ A aH      Q                Q      !
+                          Q@        a
+                                     HaQ          
+                                                       
+                                                       
+                                                       !    !@A  
+                                                             Q
+                                         H                         
+                                                                AA 
+                             @A c
+                             Q           aQ   !!
+                                           Q c
+                                           H
+                                           a                  Q
+                                                               @
+                                                               Q  c
+
+
+
+
+Figure 1.6: A poset in which every pair of elements has a complete set of minimal
+upper bounds but which does not have property m.
+1.4   Bifinite domains                                                                   43
+
+
+
+
+                                               c
+
+
+
+
+                                    c          c          c
+                                    @          @
+                                      @          @
+                                          @          @
+                                    c         @c         @c
+                                    @
+                                      @
+                                          @
+                                    c         @c          c
+                                    @          @
+                                      @          @
+                                          @          @
+                                    c         @c         @c
+                                    @
+                                      @
+                                        @
+                                a   c   b @c         c    c
+                                    @
+                                      @
+                                        @
+                                          @c
+
+
+
+
+Figure 1.7: A poset in which every pair x, x′ of elements yields a finite set U ∞ ({x, x′ })
+but in which there is a triple ({a, b, c}, for example), which generates an infinite set.
+44                                                                         Chapter 1: Basic Concepts
+
+
+
+
+                                                                                                  c
+                                                                                                 E
+                                                                                                 E
+                                                                                                 cE
+                                                                                                D E
+                                                                                               D E
+                                                                                               cD E
+                                                                                              C D E
+                                                                                             C D E
+                                                                                            c C D E
+                                                                                            B C D E
+                                                                                           `` B C D E
+                                                                                         ` B C D E
+                                                                                                  B CD E
+                                                                                                   BCDE
+                                                                                                     BCDE
+                                                                                                       BCDE
+                            c         c               c       c ` ` `       c                            BCDE c
+                           B         L              A       J
+                               B              L  A            ` J`
+                                                                     `            `
+                                                                              ` `
+                                   B           L       A J               
+                                     B         L c A
+                                                                      J c
+                                                           AA c    
+                                       B c  L
+                                        B
+                                                  L     
+                                                   L c
+                       c B                      
+                                           B c 
+                   c
+                    A                      
+                                           
+                      A                  
+                        A             
+                           A 
+                              AA c
+
+
+
+
+Figure 1.8: An algebraic dcpo, in which the base has property m but the dcpo itself
+doesn’t.
+1.4     Bifinite domains                                                                  45
+
+
+
+
+Proposition 1.31 Let D be a dcpo with property m and let A be a subset of D.
+The function f : D → D defined by
+                                       _
+                                       ↑
+                             f (x) =       {e ∈ U ∞ (A) | e ≤ x}
+
+is monotone, idempotent and below the identity function on D. If U ∞ (A) consists
+of compact elements then f is continuous and therefore a projection.
+
+Proof. Clearly, the set {e ∈ U ∞ (A) | e ≤ x} is directed since we assume property m.
+If x belongs to U ∞ (A) then it is kept fixed by f and hence f is idempotent. The
+two other claims are trivial.
+      If U ∞ (A) consists of compact elements only then let (xi )i∈I be a directed family
+                                                                              W↑
+of elements. By compactness, any element of U ∞ (A) which is below               i∈I xi   is
+already below some xi0 . This proves continuity.
+
+
+      We note that U ∞ (A) consists of compact elements if A ⊆ B(D) and D is a
+continuous dcpo. This is a consequence of Proposition 1.9.
+
+Theorem 1.32 (G.Plotkin [19]) An algebraic dcpo D with least element is bifi-
+nite if and only if B(D) has property m and U ∞ (A) is finite for all finite sets
+A ⊆ B(D).
+
+Proof. For the ‘if’-part let A be a finite subset of B(D). The set U ∞ (A) defines an
+idempotent deflation on D by Proposition 1.31. Given two idempotent deflations
+f, f ′ we construct the finite set U ∞ (im(f ) ∪ im(f ′ )) which contains the images of
+f and f ′ and defines an upper bound for them by Proposition 1.18(iv). Hence the
+set of idempotent deflations on D is directed and since every compact element is
+contained in the image of some idempotent deflation the supremum of all idempotent
+deflations equals the identity function on D. Theorem 1.26 asserts that D must be
+bifinite.
+46                                                    Chapter 1: Basic Concepts
+
+
+
+
+     For the converse we also apply Theorem 1.26 and get that the set of idempotent
+deflations on D is directed with supremum idD . For any finite set A of compact
+elements we can find an idempotent deflation f which contains A in its image. Since
+an idempotent deflation is smaller than the identity the image must contain all of
+U ∞ (A) which is therefore a finite set. As for property m, note that any upper bound
+x of A is mapped onto an upper bound by f . The image of f is finite and so it
+contains a minimal upper bound of A = f (A).
+
+
+Corollary 1.33 A bifinite domain is bicomplete.
+
+Proof. Follows from Theorem 1.32 and Proposition 1.30.
+
+
+     By the preceding corollary we know that a bifinite domain has a complete set
+of minimal upper bounds for arbitrary subsets. In general, the base of an algebraic
+dcpo may have property m for finite subsets but not for infinite subsets. Figure 1.9
+shows an example of this.
+     Theorem 1.32 shows in particular that the base of a bifinite domain has prop-
+erty M. However, even in a bifinite domain the set of minimal upper bounds of a
+finite set of noncompact elements may be infinite. An example of this is given in
+Figure 1.10. The same effect we have for the U ∞ -operator, see Figure 1.11.
+     In Chapter 4 we will study retracts of bifinite domains. These are continuous
+dcpo’s and hence contain no distinguished base. The examples in Figure 1.10 and
+Figure 1.11 illustrate the difficulty in characterizing these domains internally.
+
+
+1.5       Directed-complete partial orders with a con-
+          tinuous function space
+Proposition 1.34 Let D be a dcpo with a continuous function space and let f : D → D
+be way-below idD . Then for all d ∈ D, f (d) is way-below d.
+1.5   Dcpo’s with a continuous function space                                  47
+
+
+
+
+                                c
+                                A
+                                    AA
+                                       c
+                                       A
+                                           AA
+                                              c
+                                              A
+                                                A
+                                                    `
+                                                        `
+                                                            `
+
+
+
+                                                      `
+                                                    `
+                                                  `
+                                         c c c
+                                         J A B
+                                           J          B
+                                     c c cJA B
+                                                A
+                                      S AA CC J A B
+                                        S        JA B
+                                c c cSA C J
+                                            A C         AB
+                                 @ A      SAC          JAB
+                                    @A
+                                     @A     SSAC         J
+                                                          JAB c
+                                                  c 
+                                             
+                                c        c
+                                              
+                                       
+                                       
+                                     
+                                     
+                                c
+                                 
+
+
+
+
+Figure 1.9: An algebraic dcpo with property m in which an infinite subset does not
+have a complete set of minimal upper bounds.
+48                                                               Chapter 1: Basic Concepts
+
+
+
+
+                                     s`` sX   cPP        c c
+                                      @
+                                         ``
+                                          @X`X`X
+                                                 @   P      @
+                                          @     `X
+                                                  @`X  P     @
+                                  @       @     @
+                                                      `X`P
+                                                         X
+                                                         `PX
+                                                           ` P
+                               c
+                                                           X
+                                                             `P@c
+                                                               P
+                                                               X̀
+                          a               @     @     @                  b
+                                            @     @     @
+                                              @     @    @c
+                                                @     @
+                                                  @         @
+                                                        @     @
+                                                    @    @s @c
+                                                      @
+                               c
+                                                        @ @
+                               s                         @ s @@ s
+                                                            @
+                                                              @
+                               s``                             @s
+                                    ```
+                                          ```
+                                                ```
+                                                      ` `` s
+                                                              ⊥
+
+
+
+Figure 1.10: A bifinite domain with an infinite mub-set. (The filled dots indicate
+the image of an idempotent deflation on the domain.)
+
+
+
+
+Proof. Let d be an element of D and let (ej )j∈J be a directed family of elements
+       W↑
+with        ej = e ≥ d. By Proposition 1.22 the function space of ↓e is also continuous.
+We use Proposition 1.5 in order to show that f ′ = f |↓e is way-below id↓e . Let
+                                                                        W↑
+(g ′ i )i∈I be a directed family of functions on ↓e such that                 ′
+                                                                         i∈I g i = id↓e .   We can
+extend each g ′ i to a function gi on D by setting
+                                            
+                                                g ′ i (x), if x ≤ e;
+                                 gi (x) =
+                                                x,         otherwise.
+                    W↑
+Clearly we have        i∈I gi = idD . By assumption there is i0 ∈ I such that gi ≥ f and
+
+therefore also g ′ i ≥ f ′ .
+     The collection (ej )j∈J defines a directed family of constant functions (cej )j∈J on
+↓e, the supremum of which is ce . This is the largest function on ↓e and hence is
+above id↓e . Therefore there is some function cej which is above f ′ and this implies
+1.5   Dcpo’s with a continuous function space                                      49
+
+
+
+
+                                                                       c
+                                                   `   `
+                                              `
+                                      c
+                                    
+                                                                   `
+                               
+                                                               `
+                           c
+                                                           `
+                                             c
+                                              
+                                       
+               c            
+                                  c
+                           
+                     c
+
+                                                               
+                                                                   c
+                                         c          
+                                    B          
+                             c                   
+                                      B 
+                                                c
+               c                       B 
+                            
+                                     c
+                         
+                        c                   B s
+                                            
+                                          
+                                      
+                             s
+                          B
+               s                    s
+                              B
+                          B 
+                        s
+                                B s
+                              
+                            
+                          
+               s
+               B        s
+                B
+                  B 
+                   B s
+
+
+
+
+Figure 1.11: A bifinite domain in which the U ∞ -operator yields an infinite set. (The
+filled dots show the image of an idempotent deflation.)
+50                                                        Chapter 1: Basic Concepts
+
+
+
+
+that ej = cej (d) ≥ f ′ (d) = f (d).
+
+
+Theorem 1.35 A dcpo with continuous function space is itself continuous.
+
+Proof. From Proposition 1.34 it follows directly that each principal ideal in D is
+a continuous dcpo. Proposition 1.6 tells us that this implies that D as a whole is
+continuous.
+
+
+Corollary 1.36 If D is a dcpo with a continuous function space and if for f, g ∈
+[D −→ D], f is way-below g, then f (d) is way-below g(d) for all d ∈ D.
+
+Proof. Let f ≪ g for arbitrary continuous functions f, g: D → D. By the continuity
+                                        W↑
+of the function space we get g =         h≪idD h ◦ g and hence there is a function h ≪ idD
+
+such that h ◦ g ≥ f holds. Together with Proposition 1.34 this gives us: f (d) ≤
+h ◦ g(d) ≪ g(d).
+
+
+Theorem 1.37 A dcpo with continuous function space is bicomplete.
+
+Proof. By Corollary 1.3 we have to find infima only for monotone injective nets
+s: αop → D where α is an ordinal number. To simplify notation let us identify the
+ordinal with its image in D. Denote by A the (possibly empty) set of lower bounds
+for αop in D. We define a retraction onto A ∪ αop :
+                                
+                                    x,                   if x ∈ A;
+                       r(x) =       V
+                                      {γ ∈ αop | γ ≥ x}, otherwise.
+
+Since α is an ordinal there exists no strictly increasing infinite sequence in αop and
+so the retraction is continuous. We apply Proposition 1.22 and get that the function
+space of D′ = A ∪ αop is again continuous.
+     Assume now that the infimum of αop does not exist, that is, the set A does not
+have a largest element. Then the set ↓A cannot be directed. If A is not empty
+then we find x′′ ≪ x ∈ A and y ′′ ≪ y ∈ A such that there is no upper bound for
+1.5      Dcpo’s with a continuous function space                                       51
+
+
+
+
+{x′′ , y ′′ } in ↓A. By interpolating we find elements x′ , y ′ such that x′′ ≪ x′ ≪ x and
+y ′′ ≪ y ′ ≪ y. For {x′ , y ′ } there cannot be an upper bound even in A. By continuity
+of the function space of D′ there is a function f on D′ which is way-below idD′ and
+which maps x above x′ and y above y ′ . All elements of αop are upper bounds for
+{x′ , y ′ } so by construction αop is mapped into itself under f . If A is empty this is
+trivially the case.
+      We proceed by showing that a function f which maps αop into itself cannot be
+way-below idD′ . This contradiction will finish our proof. Consider the successor
+function τ on αop , defined by τ (γ) = γ + 1. The functions
+                                   
+                                       τ ◦ f (x), if x ∈ αop , x ≤ β,
+                        gβ (x) =
+                                       x,         otherwise.
+approximate idD′ but none of them dominates f .
+
+Corollary 1.38 If the function space of a dcpo is continuous then it is also bicom-
+plete.
+
+Proof. This follows directly from the preceding theorem and Corollary 1.13.
+
+Proposition 1.39 Let d be a compact element of a dcpo D and e be a compact
+element of a dcpo E with least element ⊥ . Then the following is a compact element
+of the function space [D −→ E]:
+                                             
+                                                 e, if x ≥ d;
+                            d ց e(x) =
+                                                 ⊥, otherwise.
+Proof. The function d ց e is continuous because ↑d is a Scott-open set in D. Any
+directed family of functions from D to E, whose supremum is above d ց e, must
+contain a member which maps d above e by the compactness of e. This function is
+then already above d ց e.
+
+Proposition 1.40 Let D be an algebraic dcpo with least element and continuous
+function space. Then [D −→ D] is algebraic.
+52                                                      Chapter 1: Basic Concepts
+
+
+
+
+Proof. Given a continuous function f : D → D we have to show that the compact
+functions below f form a directed set with supremum f . If d and e are compact
+elements of D such that e ≤ f (d) then the function d ց e is compact and below f .
+The supremum of all these functions below f is clearly equal to f . It remains to
+show that the set of all compact functions contained in ↓f is directed.
+     The function space [D −→ D] is bicomplete by Corollary 1.38, so given two
+compact functions g, g ′ below f , there is a minimal upper bound h of {g, g ′ } below f .
+The function h must be compact by Proposition 1.9.
+
+
+Proposition 1.41 Let D be a dcpo with an algebraic function space and let f be a
+compact element of [D −→ D]. Then for all d ∈ D the element f (d) is compact.
+
+Proof. This is an immediate consequence of Corollary 1.36.
+
+
+Theorem 1.42 A dcpo with algebraic function space is itself algebraic.
+
+Proof. For d an element of the dcpo D the set (f (d))f ≪f ∈[D→D] is directed, consists
+of compact elements by Proposition 1.41, and has supremum d.
+Chapter 2
+
+Domains with a least element
+
+2.1      The theorem of Smyth
+Gordon Plotkin, who defined bifinite domains (“SFP-objects”) in 1976, conjectured
+that indeed this was the largest cartesian closed category which could be formed of
+ω-algebraic dcpo’s. In 1983 this conjecture was confirmed by M.B.Smyth. The proof
+given by Smyth proceeds in two stages. He first shows that an ω-algebraic dcpo D
+with an ω-algebraic function space [D −→ D] must be bifinite. He then proves that
+in a cartesian closed full subcategory of DCPO⊥ the exponential object must be
+isomorphic to the space of Scott-continuous functions. We have proved this part in
+greater generality in Section 1.3.
+   Smyth’s proof of the first part utilizes three lemmas. In the first he shows that the
+base of an algebraic dcpo with least element and algebraic function space must have
+property m. This follows from Theorem 1.37. In a second lemma Smyth proves
+that if the base of an algebraic dcpo D has property m and if there is a pair of
+compact elements, for which there are infinitely many minimal upper bounds, then
+the function space cannot be countably based. This says that subposets looking
+like the one in Figure 1.4 will not occur. Finally he shows that with the properties
+guaranteed by the first two lemmas each finite subset A of B(D) must yield a finite
+set U ∞ (A). Otherwise the function space cannot be algebraic.
+54                                       Chapter 2: Domains with a least element
+
+
+
+
+                                  c z
+                                 AA
+                                A
+                                    A
+                                      A
+                                       Ac y
+                        x aa                      A             !!
+                                aa  QQ 
+                          c                          c                c
+                          A                               ! !       
+                            A         a aaQ      !! A           
+                             A                  Q !      A
+                                             a!Q
+                                            a!                  
+                               A  !! aaQ A 
+                                A !!   !           a  Q
+                                                       aQ  AA c
+                              a A c
+                                    H
+                                    H
+                                                           Q
+                                                           a
+                                                            b
+                                      HH            
+                                           H H 
+                                               c  ⊥
+
+
+
+     Figure 2.1: An algebraic dcpo, for which the function space is not algebraic.
+
+
+
+
+     Smyth’s second lemma differs from the other two in the sense that it does not say,
+the absence of property M implies that the function space is not algebraic. It may
+be algebraic but its base is of the wrong size. The central result of this work emerged
+from a closer analysis of example 1.4. By actually calculating the function space we
+found that it is indeed an algebraic dcpo. But adding just one more element as in
+Figure 2.1 destroys algebraicity of the function space. We will explore the difference
+between Example 1.4 and Example 2.1 in the following sections and we will give a
+proof of Smyth’s second lemma there (Lemma 2.17) but let us now finish stating
+the theorem.
+     We will need the following selection principle which is known as Rado’s Com-
+pactness Theorem.
+
+Theorem 2.1 Let I be any set and for each i ∈ I let Ai be a finite nonempty set.
+Given a selection function sJ for each finite subset J of I, that is, a function from
+       S
+J to    i∈J Ai such that sJ (i) ∈ Ai for all i ∈ J, there is a selection function sI   on
+2.1     The theorem of Smyth                                                              55
+
+
+
+
+I with the following property: Given a finite set J ⊆ I there is a finite set J ′ ⊇ J
+with s |J = sJ ′ |J .
+
+Proof. Each set Ai is a compact space in the discrete topology. By Tychonoff’s
+                                               Q
+Compactness Theorem the product A =                i∈I Ai is compact in the product topology.
+
+The set PF (I) of all finite subsets of I is directed. We construct a (topological) net
+α: PF (I) → A. Let (xi )i∈I be a fixed element of A. We define α(J) = (yi )i∈I where
+                                       
+                                           sJ (i), if i ∈ J;
+                              yi =
+                                           xi ,    otherwise.
+
+By compactness there exists a convergent subnet β of α with limit (zi )i∈I . The
+                                   S
+global selection function s: I →     i∈I Ai can now be defined as s(i) = zi .      It follows
+directly from the definition of the product topology that s coincides locally with one
+of the given local selection functions.
+
+
+Lemma 2.2 If D is a dcpo with algebraic function space and if B(D) has property M
+then U ∞ (A) is finite for each finite set A of compact elements.
+
+Proof. By contradiction: assume that U ∞ (A) is infinite. Since the base of D has
+property M each set U n (A) is finite and contains elements which are not in U n−1 (A)
+already. So for each n ∈ N we have the finite nonempty set Bn = U n (A) \ U n−1 (A).
+Each element of Bn is above some element of Bn−1 because otherwise it would belong
+to U n−1 (A) already.
+      Given a natural number n we choose a selection function
+                                                      S
+                              sn : {1, . . . , n} →     m≤n Bm
+
+
+by first assigning a value to n out of the set Bn then to n − 1 out of Bn−1 ∩ ↓sn (n)
+and so on. By Rado’s Compactness Theorem we find a global selection function
+          S
+s: N →     m∈N Bn which coincides locally with one of the selection functions sn .        In
+particular, s is injective, monotone, and C = {s(n) | n ∈ N} is a chain in U ∞ (A).
+56                                   Chapter 2: Domains with a least element
+
+
+
+
+     Using the fact that the function space is algebraic we find a continuous mapping
+f : D → D approximating idD which fixes all elements of A. Since f is below the
+identity it must also fix minimal upper bounds of subsets of A and by induction we
+see that in fact it keeps all elements of U ∞ (A) fixed. We apply this to the chain C:
+                                                W↑
+it is fixed by f and hence its supremum c =          C is mapped onto itself. But this
+contradicts Corollary 1.36 where we proved that f should map each element of D
+way-below itself.
+
+
+Theorem 2.3 (M.B.Smyth 1983) If D is an algebraic dcpo with least element
+and if [D −→ D] is ω-algebraic then D is bifinite.
+
+Proof. We have proved in Theorem 1.37 that a dcpo with algebraic function space
+is bicomplete, hence D has property m. In Section 2.3, Lemma 2.17, we will show
+that D must have property M or the function space has uncountably many compact
+elements. The preceding lemma then tells us that the U ∞ operator maps finite
+sets of compact elements onto finite sets. By Theorem 1.32 this implies that D is
+bifinite.
+
+
+Corollary 2.4 The category ω-B of countably based bifinite domain is the largest
+cartesian closed full subcategory of ω-ALG⊥ .
+
+Proof. Let C be any cartesian closed full subcategory of ω-ALG⊥ and let D be any
+object of C. By Lemma 1.21 the exponential object DD is isomorphic to the space
+[D −→ D] of Scott-continuous functions which therefore is itself ω-algebraic. From
+Smyth’s Theorem 2.3 we infer that D must be bifinite, hence the whole category C
+is contained in B.
+
+
+     Theorem 1.42 of Section 1.5 shows that we can weaken the hypothesis in Smyth’s
+Theorem:
+2.2     L-domains                                                                     57
+
+
+
+
+Corollary 2.5 If D is a dcpo with least element and if [D −→ D] is ω-algebraic
+then D is bifinite.
+
+      All proofs concerning the last corollary employed only strict functions or the
+             s
+space [D −→ D] of strict functions so we have the following:
+                                                                  s
+Corollary 2.6 If D is a dcpo with least element and if [D −→ D] is ω-algebraic
+then D is bifinite.
+
+      This gives us the following interesting equivalence:
+
+Corollary 2.7 For a dcpo D the following are equivalent:
+
+  (i) D is bifinite and countably based.
+
+ (ii) [D −→ D] is ω-algebraic.
+             s
+(iii) [D −→ D] is ω-algebraic.
+
+      This is remarkable as — so far — all attempts to prove (ii) from (iii) directly
+have failed. It constitutes the first application of Smyth’s Theorem apart from his
+own maximality result (Corollary 2.4).
+
+
+2.2        L-domains
+Definition. A dcpo D with least element is called an L-domain if for all x ∈ D the
+principal ideal ↓x is a complete lattice. It is called algebraic L-domain (continuous
+L-domain) if it is also an algebraic (continuous) dcpo. (By Proposition 1.6 this is
+the case if and only if each principal ideal is an algebraic (continuous) lattice.)
+      The corresponding categories are denoted Ldom for L-domains, L for algebraic
+L-domains, and cL for continuous L-domains.
+
+      Figure 1.4 shows an L-domain. The posets in Figure 2.1 and 2.2 are not L-
+domains. The following example of L-domains occuring in General Topology was
+pointed out to me by K.Keimel and J.Lawson:
+58                                      Chapter 2: Domains with a least element
+
+
+
+
+                                            ⊤
+                                             c
+                                             @
+                                               @
+                                                   @
+                              a1                  @c
+                                    HHH            a2
+                                                 
+                                    c
+                                         HH
+                                          HH
+                                                HH
+                              a′1   c                 c a′
+                                                          2
+                                     @
+                                      @
+                                        @
+                                            @c
+
+                                            ⊥
+
+       Figure 2.2: X⊤
+                    ⊥ : The smallest pointed poset which is not an L-domain.
+
+
+
+
+Example. Let X be a connected and locally connected compact space and let D
+be the collection of all connected closed subsets of X ordered by superset inclusion.
+We claim that D is a continuous L-domain.
+     First of all, X is an element of D and serves as a least element. If (Ai )i∈I is
+                                                                   T
+a filtered collection of elements of D then the intersection A =    i∈I Ai is again a
+
+closed subset. It is also connected: suppose A = B ∪ B ′ with B ∩ B ′ = φ and both
+B and B ′ are closed. Then B and B ′ are compact and there are open subsets O, O′
+of X such that B ⊆ O, B ′ ⊆ O′ , and O ∩ O′ = φ. Again by the compactness of X
+we get that there is some Ai which is contained in the open neighborhood O ∪ O′
+of B. This contradicts the connectedness of Ai as Ai ∩ O and Ai ∩ O′ is a disjoint
+open covering of Ai . Hence D is a dcpo.
+     Let now (As )s∈S be any collection of elements of D and let B be a compact
+                                    T
+connected set contained in A =      s∈S As . Let AB be the connected component of B
+
+in A. Then AB is the supremum of the As in the principal ideal ↓B. If B ′ is a closed
+2.2     L-domains                                                                          59
+
+
+
+
+connected neighborhood of the connected compact set B then B ′ is way-below B in
+the lattice ↓B. This completes the proof that D is a continuous L-domain.
+
+
+Proposition 2.8 Let D be an L-domain.
+
+  (i) If A is a subset of D and if x and y are comparable elements above A, then
+        the supremum of A formed in ↓x is the same as the supremum formed in ↓y.
+
+ (ii) Every ideal in D is a lattice.
+
+Proof. (i) Let A ≤ x ≤ y and let a be the supremum of A in ↓y. Each element of
+↓x belongs also to ↓y and so an upper bound of A in ↓x must be greater than or
+equal to a. Hence a is also the supremum of A in ↓x.
+      (ii) In an ideal every pair a, b of elements is bounded. So by definition their
+supremum and infimum exist locally. The first part tells us that both supremum
+and infimum (consider lb({a, b})) do not depend on the choice of the upper bound.
+
+
+      For the following recall that a poset D is said to be connected if every two
+elements x and y can be connected by a zigzag in D, i.e. there is n ∈ N and
+there are x0 , . . . , xn , y1 , . . . , yn ∈ D such that x = x0 , y = xn and xi ≤ yj whenever
+0 ≤ j − i ≤ 1.
+
+Theorem 2.9 For a dcpo D with least element the following are equivalent:
+
+  (i) D is an L-domain.
+
+ (ii) For every bounded nonempty subset of D the infimum exists.
+
+ (iii) For every connected nonempty subset of D the infimum exists.
+
+Proof. (i) =⇒ (ii) Let A be bounded by x ∈ D and let a be the infimum of A
+formed in ↓x. Since A is nonempty every lower bound of A belongs to ↓x and is
+thus below a.
+60                                         Chapter 2: Domains with a least element
+
+
+
+
+     (ii) =⇒ (i) Given x ∈ D we can form infima of nonempty sets in ↓x. The infimum
+for the empty set is (locally) given by x itself. Thus ↓x is a complete lattice.
+     (ii) =⇒ (iii) First let A ⊆ D be a zigzag, that is, A = {x0 , . . . , xn , y1 , . . . , yn }
+and xi ≤ yj for 0 ≤ j − i ≤ 1. We define the infimum of A inductively:
+                      ^
+                          A = (. . . ((x0 ∧ x1 ) ∧ x2 ) ∧ . . . ∧ an−1 ) ∧ an .
+
+All pairwise infima in this definition exist by (ii). They are global and therefore
+V
+    A is the global infimum of A. For the general case observe that any connected set
+is the directed union of finite zigzags. This gives us a filtered collection of partial
+meets whose infimum exists by (ii).
+     The implication (iii) =⇒ (ii) is trivial.
+
+
+     We can also recognize an L-domain by studying minimal upper bounds:
+
+Theorem 2.10 For a dcpo D with least element, the following are equivalent:
+
+    (i) D is an L-domain.
+
+ (ii) For each upper bound x of a subset A of D there is a unique minimal upper
+       bound of A below x.
+
+(iii) D has property m and for all subsets A of D, U ∞ (A) = U 1 (A).
+
+If D is algebraic, then the following statements are equivalent:
+
+(iv) D is an algebraic L-domain.
+
+ (v) For each x ∈ D the set ↓x ∩ B(D) is a ∨-semilattice with smallest element.
+
+(vi) For each upper bound x of a finite subset A of B(D) there is a unique minimal
+       upper bound of A below x.
+
+(vii) For each upper bound x of a pair of compact elements there is a unique minimal
+       upper bound below x.
+2.2     L-domains                                                                        61
+
+
+
+
+(viii) The base of D has property m and for all finite subsets A of B(D), U ∞ (A) =
+        U 1 (A).
+
+Proof. (i) =⇒ (ii) For x ≥ A form the supremum of A in the complete lattice ↓x.
+      (ii) =⇒ (iii) Let x be a minimal upper bound of a finite subset B of U 1 (A). Each
+element b of B is a minimal upper bound for some finite subset Ab of A. Since x ≥ b
+the element b is the unique minimal upper bound minAb (x) of Ab below x. Observe
+                                                                                  S
+that minA1 (x) ≥ minA2 (x) whenever A2 is contained in A1 . So for A′ =               b∈B Ab
+
+the element minA′ (x) is above all elements of B. Since x is a minimal upper bound
+of B it equals minA′ (x) and so it is contained in U 1 (A) already.
+      (iii) =⇒ (i) Let x be an element of D and A be a finite subset of ↓x. By
+property m there is a minimal upper bound a of A below x. Suppose there is a
+second minimal upper bound a′ of A below x. Again property m tells us that there
+must be a minimal upper bound b of {a, a′ } below x. This element b cannot belong
+to U 1 (A), so U 2 (A) \ U 1 (A) is nonempty, contradicting (iii). Thus we have shown
+that inside ↓x suprema of finite sets exist. We also have suprema for directed sets,
+so ↓x is a complete lattice.
+      Now assume that D is an algebraic dcpo. The implications (iv) =⇒ (v) =⇒ (vi)
+=⇒ (vii) =⇒ (viii) =⇒ (v) are proved as in the nonalgebraic case. (Recall that
+in an algebraic dcpo a minimal upper bound of a finite set of compact elements is
+again compact by Proposition 1.9.)
+      We prove (v) =⇒ (iv). Let x be an upper bound of an arbitrary subset A of D.
+                   S
+By (v) the set      a∈A B(↓a) generates a ∨-subsemilattice BA      in the ∨-semilattice
+                                                                           W↑
+↓x ∩ B(D). In particular, BA is directed and the supremum a =                   BA is the
+supremum for A in ↓x.
+
+Theorem 2.11 The categories Ldom and L are cartesian closed. In addition,
+infinite products exist in both categories.
+
+Proof. Clearly the one-point domain is an algebraic L-domain and serves as a
+terminal object in both Ldom and L. It is also easy to see that the cartesian product
+62                                        Chapter 2: Domains with a least element
+
+
+
+
+of a set of (algebraic) L-domains is again an (algebraic) L-domain. (Note that
+compact elements in an infinite product are those vectors, for which all components
+are compact and almost all components are equal to the respective bottom element.)
+     As for the proof that [D −→ E] is again an L-domain, let A be any collection of
+functions from D to E bounded by a function f . We define:
+                                                  _
+                                         g(x) =         a(x),
+                                                  a∈A
+
+where the supremum on the right is taken in the complete lattice ↓f (x). It is clear
+that g is the supremum of A inside ↓f provided g is continuous.
+                                _                  _        _
+                                     ↑                          ↑
+                              g(         xi ) =          a(         xi )
+                                   i∈I             a∈A i∈I
+                                                   _ _
+                                                      ↑
+                                             =                a(xi )
+                                                   a∈A i∈I
+                                                   _ _
+                                                     ↑
+                                             =                a(xi )
+                                                   i∈I a∈A
+                                                   _
+                                                      ↑
+                                             =           g(xi ).
+                                                   i∈I
+
+(Note that by Proposition 2.8 all suprema may be taken in the complete lattice
+     W
+↓f ( ↑i∈I xi ).) Now let D and E be algebraic. Using Proposition 1.39 we find that ev-
+ery function f from D to E is the supremum of compact functions of the form a ց b.
+It remains to show that the set of compact functions below f is directed. But this
+is also clear since ↓f is a complete lattice and the supremum of finitely many com-
+pact elements in a lattice is again compact. Proposition 1.10 tells us that compact
+elements of ↓f are also globally compact.
+
+
+     In Section 4.3 we show that continuous L-domains are exactly the retracts of
+algebraic L-domains. By Theorem 1.23, this implies that the class cL is cartesian
+closed, too.
+
+Theorem 2.12 Limits of codirected systems exist in Ldomp and Lp .
+2.3     The two maximal cartesian closed categories in ALG⊥                       63
+
+
+
+
+Proof. Let D∗ be the limit of the system ((Di )i∈I , (dij )i≤j ) in DCPOp⊥ as con-
+structed in Theorem 1.24. Let x = (xi )i∈I be an element of D∗ . The set ↓x ⊆ D∗
+is the limit of the codirected system of (algebraic) lattices ↓xi ⊆ Di . Our theorem
+then follows from the corresponding result about (algebraic) lattices.
+
+
+2.3       The two maximal cartesian closed categories
+          of algebraic directed-complete partial orders
+          with a least element
+Lemma 2.13 Let D and E be algebraic dcpo’s with least element and with prop-
+erty m. If E is not an L-domain and if B(D) does not have property M then
+[D −→ E] is not continuous.
+
+Proof. If E is not an L-domain then by Theorem 2.10 (vii) there exists c in E and
+a pair {a1 , a2 } of compact elements such that there are at least two minimal upper
+bounds b1 , b2 of {a1 , a2 } below c. Furthermore, let {x1 , x2 } ⊆ B(D) be a pair of
+elements such that the set mub{x1 , x2 } is infinite.
+      Assume that [D −→ E] is continuous. Then we can define g: D → E by
+                                  
+                                  
+                                   ⊥,  if d 6≥ x1 , d 6≥ x2 ;
+                                  
+                                  a , if d ≥ x1 , d 6≥ x2 ;
+                          g(d) =  1
+                                  a2 , if d 6≥ x1 , d ≥ x2 ;
+                                 
+                                 
+                                   b1 , if d ≥ x1 , d ≥ x2 .
+Since [D −→ E] is continuous, g — as a minimal upper bound of the compact
+functions x1 ց a1 and x2 ց a2 — should be compact (Proposition 1.9). On the
+other hand, for each finite subset A of mub({x1 , x2 }) we have a function fA : D → E
+defined as follows:
+                               
+                                ⊥,
+                               
+                               
+                                      if d 6≥ x1 , d 6≥ x2 ;
+                                     if d ≥ x1 , d 6≥ x2 ;
+                                a1 ,
+                               
+                      fA (d) =  a2 , if d 6≥ x1 , d ≥ x2 ;
+                               
+                               
+                                b , if d ∈ mub({x1 , x2 }) \ A;
+                                2
+                               
+                                 c, otherwise.
+64                                   Chapter 2: Domains with a least element
+
+
+
+
+The supremum of the directed family (fA ), A a finite subset of mub({x1 , x2 }), maps
+all of mub({x1 , x2 }) onto c and is therefore above g. But no member of this collection
+is above g and this contradicts compactness.
+
+
+Theorem 2.14 If D is a pointed dcpo with an algebraic function space then D is a
+bifinite domain or D is an algebraic L-domain.
+
+Proof. By Theorem 1.42 we know that D is algebraic and Theorem 1.37 tells us
+that D is bicomplete. Hence B(D) has property m. From the preceding lemma we
+infer by contraposition that either D is an L-domain or B(D) has property M. In
+the latter case we can apply Lemma 2.2 and Theorem 1.32 and get that D must be
+a bifinite domain.
+
+
+Corollary 2.15 The category ALG⊥ contains exactly two maximal full subcate-
+gories which are cartesian closed: B and L.
+
+Proof. Let C be a cartesian closed full subcategory of ALG⊥ and let D, E be
+objects in C. We have shown in Lemma 1.21 that the exponential objects DD , E E ,
+DE , and E D are isomorphic to the respective sets of Scott-continuous functions.
+So these function spaces are algebraic and by Theorem 2.14 we know that both D
+and E must belong to B ∪ L. But we cannot have D ∈ B \ L and E ∈ L \ B by
+Lemma 2.13. Therefore C is completely contained either in B or in L. These two
+categories are also not contained in each other: Figure 1.4 shows a dcpo belonging
+to L \ B, Figure 2.2 a dcpo belonging to B \ L.
+
+
+     Figure 2.3 shows the two maximal cartesian closed full subcategories of ALG⊥
+as well as their intersection, the bifinite L-domains. We should mention here that
+bifinite L-domains have been described earlier by C.Gunter ([9]). Gunter used the
+characterization (viii) of Theorem 2.10 and proved cartesian closedness for this class.
+

@@ -1,0 +1,52 @@
+# r0042
+# agent1 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T14:21:38-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [975/1265] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1274/1299] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1283/1299] Built ScottDomains.Lemma28AtU (900ms)
+✔ [1284/1299] Built ScottDomains.Kleene.Extension (897ms)
+✔ [1285/1299] Built ScottDomains.Kleene.Graph (917ms)
+✔ [1286/1299] Built ScottDomains.Kleene.FixContinuous (1.1s)
+✔ [1287/1299] Built ScottDomains.Effective.FunctionSpace (1.1s)
+✔ [1288/1299] Built ScottDomains.Effective.Powerset (1.3s)
+✔ [1289/1299] Built ScottDomains.Kleene.Factorial (1.3s)
+✔ [1290/1299] Built ScottDomains.PowerdomainMap (1.6s)
+✔ [1291/1299] Built ScottDomains.JungFinite (1.6s)
+✔ [1292/1299] Built ScottDomains.Audit.SectionSeven (991ms)
+✔ [1293/1299] Built ScottDomains.Kleene.Uniform (891ms)
+✔ [1294/1299] Built ScottDomains.Kleene.Grammar (1.2s)
+✔ [1295/1299] Built ScottDomains.Morphism (2.3s)
+✔ [1296/1299] Built ScottDomains.PowerdomainCompacts (981ms)
+✔ [1297/1299] Built ScottDomains.JungCor136 (980ms)
+✔ [1298/1299] Built ScottDomains.PowerdomainMapRep (998ms)
+Build completed successfully (1299 jobs).
+--- times ---
+Elapsed (wall clock): 0:03.32
+Maximum resident set size (kbytes): 1820040
+--- build ---
+finished:         2026-08-08T14:21:42-07:00
+exit status:      0
+user cpu:         21.75s
+system cpu:       4.48s
+cpu use:          789%
+peak rss single:  1777 MiB (largest one process, GNU time)
+peak pss tree:    2592 MiB (process group, shared pages apportioned)
+peak rss tree:    15519 MiB (process group, shared pages counted per process)
+jobs:             1299
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   0
