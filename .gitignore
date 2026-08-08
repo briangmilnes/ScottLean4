@@ -13,6 +13,13 @@
 # LeanEuclid — third-party Lean/geometry repo cloned under GeometryPapers/ (its own .git)
 /GeometryPapers/LeanEuclid/
 
+# scott1972 — Ericson's Lean 4 formalization of Scott's *Continuous Lattices* (1972),
+# the artifact for arXiv 2606.30782 (the PDF is tracked in ScottDomains/papers/).
+# Third-party, keeps its own .git, and pins leanprover/lean4:v4.30.0 against this
+# project's v4.32.2 — so it carries a second Mathlib checkout (~7 GB) that cannot
+# share ours. Same treatment as the tutorials: clone, don't vendor.
+/scott1972/
+
 # Lean build output (any depth — Mathlib's checkout lives under a nested .lake/)
 .lake/
 /build/
