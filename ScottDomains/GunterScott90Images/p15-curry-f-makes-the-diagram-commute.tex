@@ -1,0 +1,53 @@
+% p15-curry-f-makes-the-diagram-commute.tex
+%
+% Source:   Carl A. Gunter and Dana S. Scott, "Semantic Domains" (1990).
+%           ScottDomains/papers/Gunter Scott 1990.pdf
+% Physical page: 15          Printed page: 14
+% Section:  4.1 "Products" (subsection 4.2, "Church's lambda-notation",
+%           does not begin until printed page 15).
+% Unnamed in the paper - no figure number, no caption.
+%
+% Introducing sentence (verbatim, printed page 14):
+%   "given by taking curry(f)(x)(y) to be f(x,y). Moreover, curry(f) is the
+%    unique continuous function which makes the following diagram commute:"
+% and the sentence closing it, immediately below the diagram:
+%   "This uniqueness condition is equivalent to the following equation:
+%    curry(apply \circ (h \times id_E)) = h."
+%
+% What the development uses it for: it is the universal property of the
+% function space - currying is the unique mediating map for apply.
+%
+% The vertical arrow curry(f) \times id is the one the paper draws DASHED:
+% it is the arrow asserted to exist and be unique.
+%
+% Geometry measured from a 150 dpi render of physical page 15: D \times E and
+% F are 147 px apart horizontally and (E \to F) \times E sits 150 px below
+% D \times E, i.e. 2.49 cm by 2.54 cm, rounded here to 2.5 by 2.5.
+%
+% Style contract (r0039) with the orchestrator-settled corrections, plus the
+% "obj", "arrow" and "darrow" styles this commutative diagram needs (see
+% p08-uniform-fixed-point-operator.tex for the note).
+
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={inner sep=1pt},
+  open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
+  solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
+  edge/.style={draw, line width=0.4pt},
+  obj/.style={inner sep=3pt},
+  arrow/.style={draw, line width=0.4pt, ->},
+  darrow/.style={draw, line width=0.4pt, ->, dash pattern=on 4pt off 3pt}]
+
+  \node[obj] (DE)  at (0.0, 2.5) {$D \times E$};
+  \node[obj] (F)   at (2.5, 2.5) {$F$};
+  \node[obj] (EFE) at (0.0, 0.0) {$(E \to F) \times E$};
+
+  \draw[arrow]  (DE)  -- node[above] {$f$} (F);
+  \draw[darrow] (DE)  -- node[left=3pt] {$\mathsf{curry}(f) \times \mathsf{id}$} (EFE);
+  \draw[arrow]  (EFE) -- node[below right] {$\mathsf{apply}$} (F);
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,62 @@
+% p08-uniform-fixed-point-operator.tex
+%
+% Source:   Carl A. Gunter and Dana S. Scott, "Semantic Domains" (1990).
+%           ScottDomains/papers/Gunter Scott 1990.pdf
+% Physical page: 8           Printed page: 7
+% Section:  2.3 "Uniformity", between the definition of a fixed point
+%           operator and Theorem 3.
+% Unnamed in the paper - it carries no figure number and no caption.
+%
+% Introducing sentence (verbatim, printed page 7):
+%   "Let us say that a fixed point operator F is uniform if, for any pair of
+%    continuous functions f : D \to D and g : E \to E and strict continuous
+%    function h : D \multimap E which makes the following diagram commute"
+% and the sentence closing it, immediately below the diagram:
+%   "we have h(F_D(f)) = F_E(g)."
+%
+% What the development uses it for: it is the commuting square that defines
+% uniformity of a fixed point operator, the hypothesis of Theorem 3 ("fix is
+% the unique uniform fixed point operator").
+%
+% Geometry measured from a 150 dpi render of physical page 8: the two columns
+% are 212 px apart and the two rows 123 px apart, i.e. 3.59 cm by 2.08 cm,
+% rounded here to 3.6 by 2.1.
+%
+% Style contract (r0039) with the orchestrator-settled corrections - the
+% contract's "\usetikzpicture{}" line is a typo and is dropped, and "solid"
+% is 5pt against "open" at 4pt. Two additions this diagram needs, since the
+% contract was written for Hasse diagrams and this is a commutative diagram:
+% "obj" (inner sep 3pt, so an arrow stops clear of the object's name) and
+% "arrow"/"darrow" (a solid and a dashed arrow, TikZ's default tip, no extra
+% library). The three keys are agent2's, adopted verbatim across the round so
+% every commutative diagram in the set is drawn the same way. In a
+% commutative diagram, solid against dashed carries the content that open
+% against filled carries in Figure 3: a solid arrow is a map the paper gives,
+% a dashed one is the unique map whose existence is being asserted. This
+% particular diagram has no asserted map, so all four arrows are solid.
+
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={inner sep=1pt},
+  open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
+  solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
+  edge/.style={draw, line width=0.4pt},
+  obj/.style={inner sep=3pt},
+  arrow/.style={draw, line width=0.4pt, ->},
+  darrow/.style={draw, line width=0.4pt, ->, dash pattern=on 4pt off 3pt}]
+
+  \node[obj] (Dtl) at (0.0, 2.1) {$D$};
+  \node[obj] (Dtr) at (3.6, 2.1) {$D$};
+  \node[obj] (Ebl) at (0.0, 0.0) {$E$};
+  \node[obj] (Ebr) at (3.6, 0.0) {$E$};
+
+  \draw[arrow] (Dtl) -- node[above] {$f$} (Dtr);
+  \draw[arrow] (Ebl) -- node[above] {$g$} (Ebr);
+  \draw[arrow] (Dtl) -- node[left]  {$h$} (Ebl);
+  \draw[arrow] (Dtr) -- node[right] {$h$} (Ebr);
+
+\end{tikzpicture}
+\end{document}

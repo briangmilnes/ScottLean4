@@ -38,7 +38,11 @@
 %
 % Style contract (r0039) with the two orchestrator-settled corrections:
 % the contract's "\usetikzpicture{}" line is a typo and is dropped, and
-% "solid" is 5pt against "open" at 4pt (no solid vertex occurs in this figure).
+% "solid" is 5pt against "open" at 4pt (no solid vertex occurs in this
+% figure). The option block also carries "obj", "arrow" and "darrow",
+% agent2's three keys for commutative diagrams, so every file in this round's
+% set has an identical preamble; this figure is a Hasse diagram and uses none
+% of the three.
 
 \documentclass[border=6pt]{standalone}
 \usepackage{tikz}
@@ -48,7 +52,10 @@
   every node/.style={inner sep=1pt},
   open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
   solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
-  edge/.style={draw, line width=0.4pt}]
+  edge/.style={draw, line width=0.4pt},
+  obj/.style={inner sep=3pt},
+  arrow/.style={draw, line width=0.4pt, ->},
+  darrow/.style={draw, line width=0.4pt, ->, dash pattern=on 4pt off 3pt}]
 
   %% ---------------- T, the truth value cpo ----------------
   \node[open] (tl) at (0.000, 2.23) {};
