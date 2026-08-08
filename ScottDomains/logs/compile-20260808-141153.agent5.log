@@ -1,0 +1,131 @@
+# r0042
+# agent5 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T14:11:53-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1256/1300] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1270/1300] Built ScottDomains.Closure (673ms)
+⚠ [1271/1300] Built ScottDomains.Skeleton.Section6 (731ms)
+warning: ScottDomains/Skeleton/Section6.lean:186:8: declaration uses `sorry`
+✖ [1272/1300] Building ScottDomains.FinitaryProjectionPoset (972ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/FinitaryProjectionPoset.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/FinitaryProjectionPoset.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/FinitaryProjectionPoset.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/FinitaryProjectionPoset.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/FinitaryProjectionPoset.setup.json --json
+error: ScottDomains/FinitaryProjectionPoset.lean:462:55: Function expected at
+  IsPlotkinOrder
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  A
+
+Hint: The identifier `IsPlotkinOrder` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:465:9: Tactic `rcases` failed: `x✝ : ?m.25` is not an inductive datatype
+error: ScottDomains/FinitaryProjectionPoset.lean:494:31: Function expected at
+  IsPlotkinOrder
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  A
+
+Hint: The identifier `IsPlotkinOrder` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:503:11: Tactic `rcases` failed: `x✝ : ?m.151` is not an inductive datatype
+error: ScottDomains/FinitaryProjectionPoset.lean:522:38: Function expected at
+  IsPlotkinOrder
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  A
+
+Hint: The identifier `IsPlotkinOrder` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:530:34: Function expected at
+  IsPlotkinOrder
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  A
+
+Hint: The identifier `IsPlotkinOrder` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:532:9: Tactic `rcases` failed: `x✝ : ?m.13` is not an inductive datatype
+error: ScottDomains/FinitaryProjectionPoset.lean:606:31: Function expected at
+  IsBifinite
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  α
+
+Hint: The identifier `IsBifinite` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:613:26: Function expected at
+  IsBifinite
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  α
+
+Hint: The identifier `IsBifinite` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:632:55: Function expected at
+  IsBifinite
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  α
+
+Hint: The identifier `IsBifinite` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:635:45: Unknown identifier `isGLB_fpMeet`
+error: ScottDomains/FinitaryProjectionPoset.lean:688:36: Function expected at
+  IsBifinite
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  α
+
+Hint: The identifier `IsBifinite` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:711:37: Function expected at
+  IsBifinite
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  α
+
+Hint: The identifier `IsBifinite` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/FinitaryProjectionPoset.lean:713:30: Unknown identifier `α`
+error: ScottDomains/FinitaryProjectionPoset.lean:714:30: Unknown identifier `α`
+error: ScottDomains/FinitaryProjectionPoset.lean:715:2: No goals to be solved
+error: Lean exited with code 1
+✔ [1281/1300] Built ScottDomains.UniversalDomain (1.1s)
+Some required targets logged failures:
+- ScottDomains.FinitaryProjectionPoset
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:02.43
+Maximum resident set size (kbytes): 1732684
+--- build ---
+finished:         2026-08-08T14:11:56-07:00
+exit status:      1
+user cpu:         5.04s
+system cpu:       1.09s
+cpu use:          251%
+peak rss single:  1692 MiB (largest one process, GNU time)
+peak pss tree:    1343 MiB (process group, shared pages apportioned)
+peak rss tree:    5278 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 16
+lake errors:      2
+sorry decls:      1
+other warnings:   0

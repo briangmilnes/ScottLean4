@@ -1,4 +1,5 @@
 import ScottDomains.Bifinite
+import ScottDomains.Closure
 import ScottDomains.FunctionSpaceCountable
 import ScottDomains.Projection
 -- `Set.Finite.finite_subsets`, used to bound the witness set of Proposition 15.
@@ -37,33 +38,22 @@ the projection analogue `IsProjection.rangeCompletePartialOrder` (r0013): for a
 closure the inflationary law `x ⊑ r(x)` gives the upper-bound half of
 `lubOfDirected` outright, and idempotence gives the least half, so neither the
 continuity of `r` nor a case split on emptiness of the directed set is needed.
+
+## Where the closure API lives
+
+`IsClosure` and everything about it — `IsClosure.isLUB_range`,
+`IsClosure.rangeCompletePartialOrder`, `IsClosure.apply_sSup_of_directed`,
+`isClosure_sSup` — are in [`ScottDomains/Closure.lean`](../Closure.lean), which
+this file imports. They were here until r0042; that put this module inside
+`ScottDomains.JungFinite`'s import cone, because `FinitaryProjectionPoset.lean`
+imports the skeleton only for `IsClosure`, and the cone made citing Theorem 18's
+proof from `thm18` below an import cycle. `Closure.lean`'s docstring gives the
+chain and the measurement.
 -/
 
 namespace ScottDomains
 
 variable {α : Type*}
-
-section Closure
-
-variable [Preorder α] {r : ScottHom α α}
-
-/-- A **closure**: idempotent and *above* the identity — the order dual of
-`IsProjection`. Lemma 19 is about these. -/
-def IsClosure (r : ScottHom α α) : Prop :=
-  (∀ x, r (r x) = r x) ∧ ∀ x, x ≤ r x
-
-theorem IsClosure.idem (h : IsClosure r) (x : α) : r (r x) = r x := h.1 x
-
-theorem IsClosure.le_apply (h : IsClosure r) (x : α) : x ≤ r x := h.2 x
-
-/-- A closure fixes its own image — the dual of `IsProjection.apply_of_mem_range`,
-and the half of idempotence that the cpo structure on `im(r)` consumes. -/
-theorem IsClosure.apply_of_mem_range (h : IsClosure r) {y : α}
-    (hy : y ∈ Set.range ⇑r) : r y = y := by
-  obtain ⟨x, rfl⟩ := hy
-  exact h.idem x
-
-end Closure
 
 section FiniteUpperBound
 
@@ -187,62 +177,29 @@ bounds is infinite, and (c) one whose iterated minimal-upper-bound closure
 not the least upper bound of the compact elements below it, contradicting
 algebraicity of the function space.
 
-Nothing that argument quantifies over exists in this development: minimal upper
-bounds, completeness of a set of minimal upper bounds, and the operator `U` with
-its iterate `U^∞` are undefined throughout `ScottDomains/` (0 occurrences), and
-case (c) additionally needs König's lemma against the countability of `K(D)`
-carried by `Domain.countable_compacts`. Proving `thm18` is therefore a separate
-development, not a proof script over the present API. -/
+**The route actually taken is Jung's, not Smyth's.** When this docstring was
+written, nothing Smyth's argument quantifies over existed here — minimal upper
+bounds, complete sets of them, and the operator `U` with its iterate `U^∞` had 0
+occurrences in `ScottDomains/`. All three exist now
+(`ScottDomains/MinimalUpperBounds.lean`), and `ScottDomains/Section62.lean`
+decomposes Theorem 18 into the five steps of A. Jung, *Cartesian Closed
+Categories of Domains* (1989). Four of the five are proved.
+
+**What discharges this `sorry`.** `ScottDomains.Thm18.thm18_of_thm137_and_cor136`
+(`ScottDomains/Thm18.lean`) has exactly this conclusion under exactly these
+instance hypotheses, plus two explicit arguments, neither stubbed with `sorry`:
+
+1. `JungNets.Thm137` — Jung's Theorem 1.37, a dcpo with algebraic function space
+   is bicomplete. Only `JungNets.Thm137Chains`, infima of nonempty *chains*, is
+   actually spent; `Thm18.thm18_of_thm137Chains_and_cor136` is that sharper form.
+2. `JungFinite.FixedPointOfCompactDeflationIsCompact` — Jung's Corollary 1.36.
+
+Prove either pair and the closing edit is two lines: `import ScottDomains.Thm18`
+here, and `:= Thm18.thm18_of_thm137_and_cor136 <1> <2>` in place of `by sorry`.
+That import is acyclic as of r0042 — it was not before, which is why the closure
+API moved to `ScottDomains/Closure.lean`; see that file's docstring. -/
 theorem thm18 [Domain α] [Domain (ScottHom α α)] : IsBifinite α := by
   sorry
-
-section RangeCpo
-
-variable {r : ScottHom α α}
-
-/-- The defining property of the cpo structure on `im(r)`: for a directed `s` in
-the image, `r (⨆ s)` is the least upper bound of `s` *in the image*.
-
-Both halves are cheap, and neither uses continuity of `r`:
-
-* upper bound — `a ⊑ ⨆ s` in the ambient order, and `⨆ s ⊑ r(⨆ s)` because a
-  closure is inflationary;
-* least — if `b` bounds `s` then `⨆ s ⊑ b`, so `r(⨆ s) ⊑ r(b) = b`, the last
-  equation because `b` lies in the image and `r` is idempotent.
-
-The empty directed set needs no separate treatment: both halves are vacuous or
-go through `DirectedOn.sSup_le` on `∅`. This is where the closure case is
-cheaper than `IsProjection.apply_sSup_of_directed`, which must handle `s = ∅` by
-hand because `p ⊥ = ⊥` while `r ⊥` is in general *not* `⊥`. -/
-theorem IsClosure.isLUB_range (hr : IsClosure r) {s : Set ↥(Set.range ⇑r)}
-    (hs : DirectedOn (· ≤ ·) s) :
-    IsLUB s (⟨r (sSup (Subtype.val '' s)), Set.mem_range_self _⟩ : ↥(Set.range ⇑r)) := by
-  have hdir := ScottHom.directedOn_val_image (p := r) hs
-  constructor
-  · intro a ha
-    show a.val ≤ r (sSup (Subtype.val '' s))
-    exact (hdir.le_sSup ⟨a, ha, rfl⟩).trans (hr.le_apply _)
-  · intro b hb
-    show r (sSup (Subtype.val '' s)) ≤ b.val
-    calc r (sSup (Subtype.val '' s))
-        ≤ r b.val := r.monotone (hdir.sSup_le (by rintro _ ⟨a, ha, rfl⟩; exact hb ha))
-      _ = b.val := hr.apply_of_mem_range b.2
-
-/-- **The image of a closure is a cpo.** Suprema are computed in the ambient order
-and pushed through `r`, which lands in the range by construction; the least
-element is `r ⊥`, not `⊥`. -/
-@[reducible] def IsClosure.rangeCompletePartialOrder (hr : IsClosure r) :
-    CompletePartialOrder ↥(Set.range ⇑r) :=
-  { (inferInstance : PartialOrder ↥(Set.range ⇑r)) with
-    sSup := fun s => ⟨r (sSup (Subtype.val '' s)), Set.mem_range_self _⟩
-    bot := ⟨r ⊥, Set.mem_range_self ⊥⟩
-    bot_le := fun b => by
-      show r ⊥ ≤ b.val
-      calc r ⊥ ≤ r b.val := r.monotone bot_le
-        _ = b.val := hr.apply_of_mem_range b.2
-    lubOfDirected := fun _ hs => hr.isLUB_range hs }
-
-end RangeCpo
 
 /-- **Lemma 19.** If `r : D → D` is a closure, then `im(r)` is a domain.
 
@@ -255,68 +212,5 @@ theorem lem19 (r : ScottHom α α) (_hr : IsClosure r) :
   ⟨_hr.rangeCompletePartialOrder, trivial⟩
 
 end Statements
-
-/-! ### Shared closure API
-
-Two lemmas that `FinitaryProjectionPoset.lean` (Theorem 16, Lemma 20) and
-`UniversalDomain.lean` (Theorem 22, Lemma 23) both need. They were written twice
-in round r0028, once in each of those modules, under the same names — a clash
-invisible to `lake build`, because no module imported both, and one that surfaced
-the moment anything did. `IsClosure` is defined here, so this is their home; both
-modules import this file and reach them unqualified. -/
-
-section SharedClosureApi
-
-variable {α : Type*} [CompletePartialOrder α] {r : ScottHom α α}
-
-/-- A continuous closure fixes the ambient supremum of a nonempty directed subset
-of its image. Contrast `IsProjection.apply_sSup_of_directed`, which needs no
-nonemptiness because `p ⊥ = ⊥` while `r ⊥` in general is not `⊥`. -/
-theorem IsClosure.apply_sSup_of_directed (hr : IsClosure r) {D : Set α}
-    (hne : D.Nonempty) (hD : DirectedOn (· ≤ ·) D) (hsub : D ⊆ Set.range ⇑r) :
-    r (sSup D) = sSup D := by
-  have hlub : IsLUB (⇑r '' D) (r (sSup D)) := r.scottContinuous hne hD hD.isLUB_sSup
-  have himg : ⇑r '' D = D := by
-    ext y
-    constructor
-    · rintro ⟨x, hx, rfl⟩
-      rw [hr.apply_of_mem_range (hsub hx)]
-      exact hx
-    · exact fun hy => ⟨y, hy, hr.apply_of_mem_range (hsub hy)⟩
-  rw [himg] at hlub
-  exact hlub.unique hD.isLUB_sSup
-
-/-- The pointwise supremum of a nonempty directed set of closures is a closure.
-
-Only idempotence needs an argument. Continuity of `r` turns `r ((⨆d) x)` into
-`⨆_{r' ∈ d} r (r' x)`, and directedness collapses each term: choosing `r'' ∈ d`
-above both `r` and `r'` gives `r (r' x) ⊑ r'' (r'' x) = r'' x ⊑ (⨆d) x`. -/
-theorem isClosure_sSup {d : Set (ScottHom α α)} (hne : d.Nonempty)
-    (hd : DirectedOn (· ≤ ·) d) (hcl : ∀ r ∈ d, IsClosure r) : IsClosure (sSup d) := by
-  have hev : ∀ x : α, DirectedOn (· ≤ ·) ((fun f : ScottHom α α => f x) '' d) :=
-    fun x => ScottHom.directedOn_eval_image hd x
-  have hle : ∀ x : α, x ≤ (sSup d) x := by
-    intro x
-    obtain ⟨r, hr⟩ := hne
-    rw [ScottHom.coe_sSup_of_directed hd x]
-    exact ((hcl r hr).le_apply x).trans ((hev x).le_sSup ⟨r, hr, rfl⟩)
-  refine ⟨fun x => le_antisymm ?_ (hle _), hle⟩
-  rw [ScottHom.coe_sSup_of_directed hd ((sSup d) x)]
-  refine (hev _).sSup_le ?_
-  rintro _ ⟨r, hr, rfl⟩
-  have hcont : IsLUB (⇑r '' ((fun f : ScottHom α α => f x) '' d)) (r ((sSup d) x)) := by
-    have h := r.scottContinuous (hne.image _) (hev x) (hev x).isLUB_sSup
-    rwa [← ScottHom.coe_sSup_of_directed hd x] at h
-  refine hcont.2 ?_
-  rintro _ ⟨_, ⟨r', hr', rfl⟩, rfl⟩
-  obtain ⟨r'', hr'', hrr, hr'r⟩ := hd r hr r' hr'
-  calc r (r' x) ≤ r'' (r' x) := hrr (r' x)
-    _ ≤ r'' (r'' x) := r''.monotone (hr'r x)
-    _ = r'' x := (hcl r'' hr'').idem x
-    _ ≤ (sSup d) x := by
-        rw [ScottHom.coe_sSup_of_directed hd x]
-        exact (hev x).le_sSup ⟨r'', hr'', rfl⟩
-
-end SharedClosureApi
 
 end ScottDomains

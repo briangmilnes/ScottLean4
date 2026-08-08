@@ -1,5 +1,9 @@
 import ScottDomains.Section62
 import ScottDomains.SFP
+-- `exists_upperBound_mem_of_finite`, one of the two theorems this audit compares.
+-- It was reached transitively until r0042 moved the closure API out of the
+-- skeleton; the skeleton is no longer in `Section62`'s import cone.
+import ScottDomains.Skeleton.Section6
 
 /-!
 # r0038 audit: the duplicate pairs in the projection stack, kernel-checked
