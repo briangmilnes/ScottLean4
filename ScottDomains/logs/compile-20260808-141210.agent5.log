@@ -1,0 +1,68 @@
+# r0042
+# agent5 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T14:12:10-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [1256/1300] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:186:8: declaration uses `sorry`
+ℹ [1259/1300] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1273/1300] Built ScottDomains.FinitaryProjectionPoset (981ms)
+✔ [1274/1300] Built ScottDomains.Skeleton.Section6b (775ms)
+✔ [1275/1300] Built ScottDomains.RecursiveDomain (863ms)
+✔ [1276/1300] Built ScottDomains.SFP (931ms)
+✔ [1277/1300] Built ScottDomains.Skeleton.Recovered (724ms)
+✔ [1278/1300] Built ScottDomains.FinitaryProjectionEmbedding (961ms)
+✔ [1279/1300] Built ScottDomains.Powerdomain.Universal (931ms)
+✔ [1280/1300] Built ScottDomains.Section62 (877ms)
+✔ [1281/1300] Built ScottDomains.PRepresentable (842ms)
+✔ [1282/1300] Built ScottDomains.FlatSection6 (969ms)
+✔ [1283/1300] Built ScottDomains.CombinatorRep (1.1s)
+✔ [1284/1300] Built ScottDomains.Universality (1.1s)
+✖ [1285/1300] Building ScottDomains.Audit.Projections (772ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/Audit/Projections.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Audit/Projections.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/Audit/Projections.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Audit/Projections.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/Audit/Projections.setup.json --json
+error: ScottDomains/Audit/Projections.lean:65:2: Unknown identifier `ScottDomains.exists_upperBound_mem_of_finite`
+error: Lean exited with code 1
+✔ [1286/1300] Built ScottDomains.JungFinite (1.2s)
+✔ [1287/1300] Built ScottDomains.PRep (1.4s)
+✔ [1288/1300] Built ScottDomains.Colimit (1.6s)
+✔ [1289/1300] Built ScottDomains.Combinator (1.6s)
+✔ [1290/1300] Built ScottDomains.Thm18 (906ms)
+✔ [1291/1300] Built ScottDomains.PowerdomainCompacts (1.0s)
+✔ [1292/1300] Built ScottDomains.LemThirty (1.2s)
+✔ [1293/1300] Built ScottDomains.PRepFun (1.8s)
+✔ [1294/1300] Built ScottDomains.PRepSum (1.9s)
+✔ [1295/1300] Built ScottDomains.Morphism (1.8s)
+✔ [1296/1300] Built ScottDomains.Lemma28AtU (717ms)
+✔ [1297/1300] Built ScottDomains.Effective.FunctionSpace (793ms)
+✔ [1298/1300] Built ScottDomains.Audit.SectionSeven (722ms)
+✔ [1299/1300] Built ScottDomains.PowerdomainMapRep (818ms)
+Some required targets logged failures:
+- ScottDomains.Audit.Projections
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:09.46
+Maximum resident set size (kbytes): 1877276
+--- build ---
+finished:         2026-08-08T14:12:20-07:00
+exit status:      1
+user cpu:         41.43s
+system cpu:       6.85s
+cpu use:          510%
+peak rss single:  1833 MiB (largest one process, GNU time)
+peak pss tree:    2069 MiB (process group, shared pages apportioned)
+peak rss tree:    9273 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      1
+other warnings:   0
