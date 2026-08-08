@@ -44,11 +44,28 @@ remainder: its arity is 2, against `PRep.lemma28_of`'s 9 and
 
 `()♯` and `()♭` are what is left, and their obstruction is *not* the definability
 one earlier rounds recorded — `smythOp` and `hoareOp` are definable on `Cpo`
-(r0036). Measured by grep in r0037: the development defines **no action of a map
-on either powerdomain**, so there is no `r ↦ r♯` from which to build the
-conjugating family. The natural construction acts on finite sets of compacts and
-so wants `p(K(D)) ⊆ K(D)` for a finitary projection `p`; whether that holds is
-the step to settle first, and no round has settled it.
+(r0036). Measured by grep in r0037: the development defined **no action of a map
+on either powerdomain**, so there was no `r ↦ r♯` from which to build the
+conjugating family.
+
+**Superseded (r0041).** Both halves of that paragraph are now settled and neither
+came out the way it was written.
+
+1. The action exists: `ScottDomains.PowerdomainMap` builds `f♮`, `f♯` and `f♭`
+   the paper's own way, `f♮ = ext({|·|} ∘ f)` — Theorem 12 with the target
+   powerdomain as its algebra — with the naturality square, uniqueness, both
+   functor laws, and `isProjection_smyth`/`isProjection_hoare`: a projection acts
+   as a projection.
+2. `p(K(D)) ⊆ K(D)` is **false**, already for a finitary projection —
+   `PowerdomainCompacts.finitaryProjection_not_maps_compacts`. It was never the
+   step to settle first: `ext` quantifies over ideals and never over a
+   transported basis, so the paper's construction does not ask for it.
+
+`ScottDomains.PowerdomainMapRep.lemma28AtU_of''` replaces `lemma28AtU_of'`'s two
+hypotheses with four, and the four are of a different kind: two per powerdomain,
+each an ordinary statement about the functor — `im(p♯) ≅ (im p)♯` and pointwise
+continuity of `p ↦ p♯` — with the retraction pair at `U` discharged by
+`PRepSum.pairAtU`, since Lemma 13 makes `U♯` and `U♭` bounded complete.
 -/
 
 namespace ScottDomains.Lemma28AtU
