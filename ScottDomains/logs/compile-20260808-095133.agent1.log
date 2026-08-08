@@ -1,0 +1,44 @@
+# r0038
+# agent1 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T09:51:33-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [962/1007] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1116/1151] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1216/1224] Built ScottDomains.Audit.Foundations (1.8s)
+✔ [1217/1224] Built ScottDomains.JungNets (2.0s)
+✔ [1218/1224] Built ScottDomains.PRep (2.8s)
+✔ [1219/1224] Built ScottDomains.Colimit (3.0s)
+✔ [1220/1224] Built ScottDomains.LemThirty (2.3s)
+✔ [1221/1224] Built ScottDomains.PRepSum (3.2s)
+✔ [1222/1224] Built ScottDomains.PRepFun (3.4s)
+✔ [1223/1224] Built ScottDomains.Lemma28AtU (1.5s)
+Build completed successfully (1224 jobs).
+--- times ---
+Elapsed (wall clock): 0:10.47
+Maximum resident set size (kbytes): 1883600
+--- build ---
+finished:         2026-08-08T09:51:44-07:00
+exit status:      0
+user cpu:         31.00s
+system cpu:       4.59s
+cpu use:          339%
+peak rss single:  1839 MiB (largest one process, GNU time)
+peak pss tree:    1636 MiB (process group, shared pages apportioned)
+peak rss tree:    7390 MiB (process group, shared pages counted per process)
+jobs:             1224
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      1
+other warnings:   0
