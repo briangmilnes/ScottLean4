@@ -14,8 +14,17 @@ related:
 
 # r0041, stream 1 — the flat cpo, §5's `N⊥` powerdomain calculations, and `(T × T)♮`
 
-**Eleven properties targeted, eleven stated, eleven proved. No `sorry` added; the
-development still holds exactly one, `Skeleton/Section6.lean:197`.**
+**Fourteen properties stated, fourteen proved, none left as a `Prop` obstruction.
+No `sorry` added; the development still holds exactly one,
+`Skeleton/Section6.lean:197`.**
+
+Against the plan's arithmetic: the flat cpo was credited with **16** of r0040's
+62 unstated properties (agent3's rows 16–19 and 25–27, and agent1's `N3`, `N4`,
+`N5`, `N7` (three rows), `N8`, `N15` (two rows)). **Ten of those 16 are now stated
+and proved**; the other six are enumerated with reasons in §1. The remaining four
+of the fourteen are the plan's "also unblocks, beyond the 62" item — `(T × T)♮`
+is not bounded complete and its minimality claim — together with the construction
+itself and `K(N⊥) = N⊥`, which are objects and not assertions.
 
 Four new modules, 1843 lines, 114 new theorems. Every headline declaration
 depends only on `propext`, `Classical.choice` and `Quot.sound`; none depends on
@@ -60,7 +69,10 @@ construction unblocks them:
 | 2 | "the unit interval `[0,1]` … does form a cpo" | 2.1 / 3 | same; and row 38's cpo-continuity-vs-topological-continuity claim sits on it |
 | 3 | "The compact elements of the domain `N⊥ → N⊥` are the functions with finite domain of definition" | 3 / 9 | now *statable* — `N⊥` exists — but it is a characterization of `K(N⊥ → N⊥)`, a function-space theorem, not a flat-cpo one |
 | 4 | "the bounded complete domain `N⊥ ⊸ N⊥` lacks a top element and therefore fails to be an algebraic lattice" | 3.2 / 11 | same: statable now, and cheap next round |
-| 5 | "all of the cpo's we have mentioned so far are domains" / "all the domains so far are bounded complete" | 3 / 9, 3.2 / 11 | meta-claims quantified over the whole example list, which still lacks `Q` and `[0,1]` |
+| 5 | "all of the cpo's we have mentioned so far are domains" / "all the domains so far are bounded complete" — **two rows** | 3 / 9, 3.2 / 11 | meta-claims quantified over the whole example list, which still lacks `Q` and `[0,1]` |
+
+That is **six** rows (row 5 covers two), which with the ten closed above accounts
+for the plan's 16 exactly.
 
 Rows 3 and 4 are the cheapest work the flat cpo leaves for r0042: both are now
 type-correct and neither needs a new carrier.
