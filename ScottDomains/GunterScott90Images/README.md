@@ -1,60 +1,117 @@
-# Figures from Gunter & Scott 1990
+# The diagrams of Gunter & Scott 1990, redrawn as TikZ
 
-Rendered from [`../papers/Gunter Scott 1990.pdf`](../papers/Gunter%20Scott%201990.pdf)
-by [`../../scripts/extract-figures.sh`](../../scripts/extract-figures.sh) at 300 dpi.
-Re-run that script with a dpi argument to regenerate at another resolution.
+Every picture in [`../papers/Gunter Scott 1990.pdf`](../papers/Gunter%20Scott%201990.pdf),
+transcribed to a standalone `.tex` and compiled to a `.pdf` beside it. Round
+r0039, four agents.
 
-**These full-page renders are superseded work.** They carry the surrounding body
-text, which is not what is wanted: each diagram should be cropped to itself plus
-its caption, emitted as a PDF, and the unnamed diagrams — the paper has many
-inline pictures with no figure number — named from the prose around them.
-`../../scripts/find-diagrams.py` is the detector for that; see its docstring for
-why the problem is geometric rather than a content-stream extraction.
+Rebuild any one with [`../../scripts/a1-tikz2pdf.sh <file.tex>`](../../scripts/a1-tikz2pdf.sh),
+or the whole set with [`../../scripts/a1-build-figs.sh`](../../scripts/a1-build-figs.sh).
 
-## Why these are renders, not extractions
+## Why redrawn rather than extracted
 
-`pdfimages -list` on the source reports one embedded image per page, and every
-one is a 2550×3298 JBIG2 grayscale mask of **30–486 bytes** — near-empty
-full-page scan layers. There are no embedded figures to extract. The paper's
-figures are drawn with the same Type 3 bitmap fonts and vector line art that
-carry its mathematics, which is also why `pdftotext` mangles its operator glyphs
-(`♮`/`♯`/`♭` extract as `\`/`]`/`[`, `→` and `⇸` both as `!`). Rendering the page
-is the only way to get the picture, and the same reason `../scripts/pdf-render.sh`
-exists for reading the glyphs.
+Three measurements, all recorded in
+[`../../scripts/find-diagrams.py`](../../scripts/find-diagrams.py):
 
-## Contents
+1. `pdfimages -list` reports one embedded image per page, each a near-empty JBIG2
+   mask of 30–486 bytes. **There are no embedded figures to extract.**
+2. `mutool draw -F trace` reports glyphs and spans and **zero path operators** —
+   the pictures are TeX line- and circle-font glyphs, not vector art.
+3. `pdffonts` names every Type 3 font `T8`–`T20` with Custom encoding, so the
+   font cannot separate picture glyphs from text glyphs either.
 
-| # | File | Figure | Physical page | Printed page |
-| -- | ---- | ------ | ------------- | ------------ |
-| 1 | `figure-1-examples-of-cpos-05.png` | 1 — Examples of cpo's | 5 | 4 |
-| 2 | `figure-2-lift-of-a-cpo-21.png` | 2 — The lift of a cpo | 21 | 20 |
-| 3 | `figure-3-posets-not-plotkin-orders-32.png` | 3 — Posets that are not Plotkin orders | 32 | 31 |
-| 4 | `figure-3-crop-32.png` | 3, the drawing alone without surrounding text | 32 | 31 |
-| 5 | `figure-4-domain-for-operators-on-bifinites-44.png` | 4 — A domain for representing operators on bifinites | 44 | 43 |
+Cropping the scan would give bitmap fragments at one resolution carrying whatever
+text fell inside the rectangle. Redrawing gives vector PDFs at any size, no
+surrounding text by construction, and figures that can be `\input` into this
+project's own documents.
 
-Each page was confirmed by locating the figure's **caption** on it, not a
-reference to it. That distinction cost one wrong pass: grepping for "Figure 3"
-returns physical pages 31 and 33, which merely mention it, while all three parts
-sit together on page 32.
+## Completeness
 
-## What each figure is used for in the development
+**20 pictures, and the count is measured rather than assumed.** agent4 rendered
+all 44 pages and read each as an image: 20 pictures on 16 pages, **28 pages carry
+no picture at all**. The detector `find-diagrams.py` proposed 78 candidate
+regions, of which 20 are pictures — **precision 25.6%**, the rest displayed
+equations, itemized formula lists, grammars and the title page. It missed
+exactly one, the one-glyph-tall interval picture on page 41: **recall 95%**.
 
-**Figure 3 is the one that matters most.** Its three parts are the three cases of
-Theorem 18, and they are why `MinimalUpperBounds.lean` exists:
+One borderline call is recorded rather than hidden: page 34's arrow chain
+`T₀ →e₀ T₁ →e₁ T₂ ⋯` is classified as display math, not a drawn picture. Call it
+the other way and the set is 21.
 
-| # | Part | Condition | Where it appears |
-| -- | ---- | --------- | ---------------- |
-| 1 | 3a | a pair with **no complete** set of minimal upper bounds — the failure of Jung's *property m* | `JungNets.HasCompleteMub`; Jung's Theorem 1.37 supplies property m |
-| 2 | 3b | a pair with a complete but **infinite** set — the failure of *property M* | `JungSFP.lemma217`, the cardinality argument |
-| 3 | 3c | `U^∞(u)` **infinite** for `u` the two closed circles | `JungFinite.lemma22`, Jung's Lemma 2.2 |
+| # | Kind | Count |
+| -- | ---- | ----: |
+| 1 | numbered figures | 4 |
+| 2 | commutative diagrams | 15 |
+| 3 | interval-line picture | 1 |
 
-Section62.lean calls Plotkin's result "the 2/3 SFP Theorem" precisely because it
-settles 3a and 3b and not 3c.
+## The set
 
-**Figure 4** pictures `I⁺⁺`, the second stage of §7.4's tower. Its element count
-is load-bearing: the paper's own stage sizes 1, 2, 5, **20** are what select the
-adopted reading of §7.4's pre-order over the rival Smyth reading, which gives
-1, 2, 5, **21**. See `Colimit.lean` and `scripts/mpair-stages.py`.
+| # | File | Picture | Physical / printed page | Used by |
+| -- | ---- | ------- | ----------------------- | ------- |
+| 1 | `figure-1-examples-of-cpos` | **Figure 1** — Examples of cpo's: `T`, `N⊥`, `ω⊤` | 5 / 4 | `Powerset.lean`, `Lift.lean` |
+| 2 | `figure-2-the-lift-of-a-cpo` | **Figure 2** — The lift of a cpo | 21 / 20 | `Lift.lean` |
+| 3 | `figure-3-posets-that-are-not-plotkin-orders` | **Figure 3** — parts a, b, c | 32 / 31 | the three cases of **Theorem 18**; `MinimalUpperBounds.lean`, `JungSFP`, `JungFinite` |
+| 4 | `figure-4-a-domain-for-representing-operators-on-bifinites` | **Figure 4** — `I⁺`, `I⁺⁺`, `I⁺⁺⁺` | 44 / 43 | §7.4's stage tower; `Colimit.lean` |
+| 5 | `p08-uniform-fixed-point-operator` | the uniform fixed-point operator | 8 / 7 | **Theorem 3**, `UniformFixedPoint.lean` |
+| 6 | `p09-inclusion-map-d-prime-into-d` | the inclusion `D′ ↪ D` | 9 / 8 | §3.1 |
+| 7 | `p14-universal-property-of-the-product` | universal property of `D × E` | 14 / 13 | **Lemma 8**, `Product.lean` |
+| 8 | `p15-curry-f-makes-the-diagram-commute` | `curry(f)` commutes | 15 / 14 | **Lemma 8.4**, `Currying.lean` |
+| 9 | `p16-commutativity-for-f-equals-apply-h-times-id` | `f = apply ∘ (h × id)` | 16 / 15 | `Currying.lean` |
+| 10 | `p19-f-smash-g-completes-the-following-diagram` | `f ⊗ g` | 19 / 18 | §4.3, `Smash.lean` |
+| 11 | `p19-f-circ-unsmash-completes-the-following-diagram` | `f ∘ unsmash` | 19 / 18 | §4.3 |
+| 12 | `p19-strict-curry-and-strict-apply-commute` | strict curry / strict apply | 19 / 18 | `StrictHom.lean`, **Lemma 9.4** |
+| 13 | `p20-f-g-completes-the-following-diagram` | `[f,g]` on the coalesced sum | 20 / 19 | §4.4, `CoalescedSum.lean` |
+| 14 | `p21-f-dagger-completes-the-following-diagram` | `f†` on the lift | 21 / 20 | §4.4, `Lift.lean` |
+| 15 | `p22-h-completes-the-following-diagram` | `h` on the separated sum | 22 / 21 | `ClosureProperties/SeparatedSum.lean` |
+| 16 | `p29-ext-f-completes-the-following-diagram` | `ext(f)` | 29 / 28 | §5.3, `ContinuousAlgebra.lean` |
+| 17 | `p30-f-natural-completes-the-following-diagram` | `f♮`, the free continuous algebra | 30 / 29 | **Theorem 12**, `ContinuousAlgebra.lean` |
+| 18 | `p35-operator-representable-over-a-cpo` | *representable* over a cpo | 35 / 34 | §7.1, `UniversalDomain.lean` |
+| 19 | `p41-a-typical-element-of-the-basis-u0` | a typical element of the basis `U₀` | 41 / 40 | §7.3, `Dyadic.lean` |
+| 20 | `p41-operator-p-representable-over-a-cpo` | *p-representable* over a cpo | 41 / 40 | §7.3, `PRepresentable.lean`, **Lemma 28** |
 
-**Figures 1 and 2** are the introductory examples — `N⊥`, the flat cpos, and the
-lift — corresponding to `Powerset.lean` and `Lift.lean`.
+Each `.tex` header records the physical page, the printed page, the section, and
+the paper's own sentence introducing the picture. Rows 5–20 are named from that
+sentence rather than from an invented description.
+
+## Two findings from the transcription
+
+**Figure 4's edges do not exist in the 1990 file.** Page 44 renders as 27
+unconnected dots in both poppler and mupdf; the trace shows zero path operators
+and the page's raster layer is a **30-byte** JBIG2 stub. The file is an Adobe
+Paper Capture rebuild: the 27 circles repeat, so they became Type 3 glyphs and
+survived, while the lines are all different lengths and angles, so they went to a
+residual layer that is empty. **The lines were destroyed when the file was made.**
+They were recovered from the 1989 tech report
+[`../papers/Gunter Mosses Scott 1989 …MS-CIS-89-16.pdf`](../papers/), a clean scan
+of the same figure — vertices from the 1990 trace, edges by measuring all 27
+circle centres and testing every vertex pair for ink along the whole segment.
+
+Two independent checks then confirmed the result: the 1990 grid makes the three
+long pairs that the segment test rejected exactly collinear, and the paper's own
+remark that the closed circles "give a hint of how this embedding looks" holds —
+the five filled vertices of `I⁺⁺⁺` induce a 4-chain with one extra atom, which is
+`I⁺⁺` on the nose. Element counts: **`I⁺` 2, `I⁺⁺` 5, `I⁺⁺⁺` 20**, matching the
+paper's own 1, 2, 5, 20 and so selecting the adopted reading of §7.4's pre-order
+over the Smyth reading's 21.
+
+**The damage is confined to page 44.** Figures 1 and 3 were checked against the
+1990 file directly and their rules are intact, so their transcriptions stand.
+
+## Verification
+
+Every figure was checked by reading its compiled PDF against a 300 dpi crop of
+the original and comparing vertex, edge, arrow, dashed-arrow and open/filled
+counts. Two agents independently transcribed row 19 without knowing it — the only
+accidental replication in the set — and **their drawings agree**: 7 intervals, 3
+thickened at positions 2, 4 and 6, 14 delimiters. The duplicate was removed and
+the agreement is the round's strongest single quality signal.
+
+## Style
+
+One `standalone` + `tikz` document per picture. `open` circles at 4 pt, `solid`
+at 5 pt — the filled/open distinction is the entire content of Figure 3's
+caption. `obj`, `arrow` and `darrow` for the commutative diagrams, where solid
+versus dashed carries the same weight: a solid arrow is a map the paper gives, a
+dashed one the unique map being asserted to exist. Geometry is **measured from
+the page, not idealized**, so relative placement, scale and the paper's `\line`
+ratio slopes survive; and Figure 3 is transcribed as *drawn*, edges and all,
+rather than reduced to the covering relation a Hasse diagram would show.
