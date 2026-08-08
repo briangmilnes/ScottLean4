@@ -1,0 +1,51 @@
+# r0041
+# agent1 — lake build ScottDomains.FlatOmega
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T13:34:50-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.FlatOmega ===
+✖ [912/912] Building ScottDomains.FlatOmega (635ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/FlatOmega.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatOmega.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatOmega.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatOmega.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatOmega.setup.json --json
+error: ScottDomains/FlatOmega.lean:57:43: failed to synthesize instance of type class
+  CompletePartialOrder OmegaTop
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/FlatOmega.lean:75:50: Application type mismatch: The argument
+  hne
+has type
+  ¬⊤ ≤ u
+but is expected to have type
+  ?m.24 ≠ ⊤
+in the application
+  WithTop.ne_top_iff_exists.mp hne
+error: ScottDomains/FlatOmega.lean:75:13: Tactic `subst` failed: invalid equality proof, it is not of the form (x = t) or (t = x)
+  ↑m = ?m.24
+
+u : OmegaTop
+hu : u ∈ upperBounds natRange
+hne : ¬⊤ ≤ u
+m : ?m.23
+h✝ : ↑m = ?m.24
+⊢ False
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.FlatOmega
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.33
+Maximum resident set size (kbytes): 1714772
+--- build ---
+finished:         2026-08-08T13:34:53-07:00
+exit status:      1
+user cpu:         1.04s
+system cpu:       0.49s
+cpu use:          115%
+peak rss single:  1674 MiB (largest one process, GNU time)
+peak pss tree:    1006 MiB (process group, shared pages apportioned)
+peak rss tree:    2473 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      0
+other warnings:   0

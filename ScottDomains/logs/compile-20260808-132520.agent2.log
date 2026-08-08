@@ -1,0 +1,71 @@
+# r0041
+# agent2 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T13:25:20-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [975/1215] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1206/1215] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1229/1230] Building ScottDomains.Morphism (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Morphism.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Morphism.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Morphism.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Morphism.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Morphism.setup.json --json
+error: ScottDomains/Morphism.lean:812:10: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  strictComp (multiCopair (n + 1) f) (strictComp Isomorphism.sumInl (multiIn n j))
+in the target expression
+  strictComp (multiCopair (n + 1) f) (strictComp Isomorphism.sumInl (multiIn n j)) = f j.castSucc
+
+case succ.cast
+D : ℕ → Type u
+inst✝¹ : (i : ℕ) → CompletePartialOrder (D i)
+γ : Type u_1
+inst✝ : CompletePartialOrder γ
+n : ℕ
+ih : ∀ (f : (i : Fin n) → StrictHom (D ↑i) γ) (i : Fin n), strictComp (multiCopair n f) (multiIn n i) = f i
+f : (i : Fin (n + 1)) → StrictHom (D ↑i) γ
+j : Fin n
+hassoc :
+  strictComp (multiCopair (n + 1) f) (strictComp Isomorphism.sumInl (multiIn n j)) =
+    strictComp (strictComp (multiCopair (n + 1) f) Isomorphism.sumInl) (multiIn n j)
+⊢ strictComp (multiCopair (n + 1) f) (strictComp Isomorphism.sumInl (multiIn n j)) = f j.castSucc
+
+Note: The target expression is not type-correct under the `instances` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    strictComp Isomorphism.sumInl (multiIn n j)
+  has type
+    @StrictHom (D ↑j) (CoalescedSum (MultiSum D n) (D n)) (inst✝¹ ↑j).toPreorder (inst✝¹ ↑j).toOrderBot sumCpo
+  but is expected to have type
+    @StrictHom (D ↑j.castSucc) (MultiSum D (n + 1)) (inst✝¹ ↑j.castSucc).toPreorder (inst✝¹ ↑j.castSucc).toOrderBot
+      (instMultiSumCpo D (n + 1))
+  in the application
+    strictComp (multiCopair (n + 1) f) (strictComp Isomorphism.sumInl (multiIn n j))
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Morphism
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:02.03
+Maximum resident set size (kbytes): 1732972
+--- build ---
+finished:         2026-08-08T13:25:23-07:00
+exit status:      1
+user cpu:         2.61s
+system cpu:       0.56s
+cpu use:          156%
+peak rss single:  1692 MiB (largest one process, GNU time)
+peak pss tree:    1040 MiB (process group, shared pages apportioned)
+peak rss tree:    2498 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      1
+other warnings:   0

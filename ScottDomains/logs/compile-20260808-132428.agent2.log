@@ -1,0 +1,77 @@
+# r0041
+# agent2 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T13:24:28-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [976/1230] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1207/1230] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1229/1230] Building ScottDomains.Morphism (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Morphism.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Morphism.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Morphism.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Morphism.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Morphism.setup.json --json
+error: ScottDomains/Morphism.lean:656:78: unsolved goals
+D : ℕ → Type u
+inst✝ : (i : ℕ) → CompletePartialOrder (D i)
+n : ℕ
+j : Fin n
+⊢ comp (multiProj n j) prodFst = comp (multiProj n j) prodFst
+error: ScottDomains/Morphism.lean:696:14: unsolved goals
+case succ
+D : ℕ → Type u
+inst✝¹ : (i : ℕ) → CompletePartialOrder (D i)
+γ : Type u_1
+inst✝ : CompletePartialOrder γ
+n : ℕ
+ih :
+  ∀ (f : (i : Fin n) → ScottHom γ (D ↑i)) (k : ScottHom γ (MultiProd D n)),
+    (∀ (i : Fin n), comp (multiProj n i) k = f i) → k = multiPair n f
+f : (i : Fin (n + 1)) → ScottHom γ (D ↑i)
+k : ScottHom γ (MultiProd D (n + 1))
+h : ∀ (i : Fin (n + 1)), comp (multiProj (n + 1) i) k = f i
+hsnd : k.sndComp = f (Fin.last n)
+hfst : k.fstComp = multiPair n fun j => f j.castSucc
+x : γ
+⊢ k x = (k.fstComp x, k.sndComp x)
+error: ScottDomains/Morphism.lean:779:55: unsolved goals
+D : ℕ → Type u
+inst✝ : (i : ℕ) → CompletePartialOrder (D i)
+n : ℕ
+j : Fin n
+⊢ strictComp Isomorphism.sumInl (multiIn n j) = strictComp Isomorphism.sumInl (multiIn n j)
+error: ScottDomains/Morphism.lean:808:72: Function expected at
+  multiIn n j
+but this term has type
+  StrictHom (?m.108 ↑j) (MultiSum ?m.108 n)
+
+Note: Expected a function because this term is being applied to the argument
+  x
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Morphism
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.92
+Maximum resident set size (kbytes): 1731124
+--- build ---
+finished:         2026-08-08T13:24:31-07:00
+exit status:      1
+user cpu:         2.52s
+system cpu:       0.52s
+cpu use:          158%
+peak rss single:  1690 MiB (largest one process, GNU time)
+peak pss tree:    1038 MiB (process group, shared pages apportioned)
+peak rss tree:    2496 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      1
+other warnings:   0

@@ -1,0 +1,33 @@
+# r0041
+# agent1 — lake build ScottDomains.FlatPowerdomain
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T13:28:25-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.FlatPowerdomain ===
+⚠ [842/842] Built ScottDomains.FlatPowerdomain (949ms)
+warning: ScottDomains/FlatPowerdomain.lean:529:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Build completed successfully (842 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.69
+Maximum resident set size (kbytes): 1733528
+--- build ---
+finished:         2026-08-08T13:28:28-07:00
+exit status:      0
+user cpu:         2.22s
+system cpu:       0.51s
+cpu use:          162%
+peak rss single:  1692 MiB (largest one process, GNU time)
+peak pss tree:    1019 MiB (process group, shared pages apportioned)
+peak rss tree:    2478 MiB (process group, shared pages counted per process)
+jobs:             842
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   1

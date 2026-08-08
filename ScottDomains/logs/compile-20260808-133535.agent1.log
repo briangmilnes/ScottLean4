@@ -1,0 +1,32 @@
+# r0041
+# agent1 — lake build ScottDomains.FlatOmega
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T13:35:35-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.FlatOmega ===
+✖ [914/914] Building ScottDomains.FlatOmega (599ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/FlatOmega.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatOmega.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatOmega.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatOmega.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatOmega.setup.json --json
+error: ScottDomains/FlatOmega.lean:59:0: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'instCompleteLinearOrderENat', which is 'noncomputable'
+error: ScottDomains/FlatOmega.lean:97:24: `simp` made no progress
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.FlatOmega
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.32
+Maximum resident set size (kbytes): 1716780
+--- build ---
+finished:         2026-08-08T13:35:38-07:00
+exit status:      1
+user cpu:         1.04s
+system cpu:       0.44s
+cpu use:          112%
+peak rss single:  1676 MiB (largest one process, GNU time)
+peak pss tree:    1015 MiB (process group, shared pages apportioned)
+peak rss tree:    2485 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   0

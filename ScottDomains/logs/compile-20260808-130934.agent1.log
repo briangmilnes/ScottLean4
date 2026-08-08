@@ -1,0 +1,38 @@
+# r0041
+# agent1 — lake build ScottDomains.Flat
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T13:09:34-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Flat ===
+✖ [829/829] Building ScottDomains.Flat (695ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/Flat.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Flat.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Flat.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Flat.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Flat.setup.json --json
+error: ScottDomains/Flat.lean:132:34: Application type mismatch: The argument
+  h
+has type
+  Eq.{u + 1} (up a) ⊥
+but is expected to have type
+  Eq.{?u.9 + 2} ?m.9 ?m.11
+in the application
+  Flat.noConfusion h
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Flat
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.44
+Maximum resident set size (kbytes): 1693544
+--- build ---
+finished:         2026-08-08T13:09:37-07:00
+exit status:      1
+user cpu:         1.30s
+system cpu:       0.50s
+cpu use:          125%
+peak rss single:  1653 MiB (largest one process, GNU time)
+peak pss tree:    984 MiB (process group, shared pages apportioned)
+peak rss tree:    2434 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   0

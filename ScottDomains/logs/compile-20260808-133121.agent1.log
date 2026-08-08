@@ -1,0 +1,42 @@
+# r0041
+# agent1 — lake build ScottDomains.FlatPowerdomain
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T13:31:21-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.FlatPowerdomain ===
+✖ [842/842] Building ScottDomains.FlatPowerdomain (1.0s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/FlatPowerdomain.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatPowerdomain.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatPowerdomain.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatPowerdomain.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatPowerdomain.setup.json --json
+error: ScottDomains/FlatPowerdomain.lean:905:21: Invalid `⟨...⟩` notation: The expected type of this term could not be determined
+error: ScottDomains/FlatPowerdomain.lean:906:21: Invalid `⟨...⟩` notation: The expected type of this term could not be determined
+error: ScottDomains/FlatPowerdomain.lean:907:32: Tactic `subst` failed: invalid equality proof, it is not of the form (x = t) or (t = x)
+  pset u = S.carrier
+
+case neg.inr
+S : PlotkinCarrier
+u v : Plotkin.FinCompacts NatBot
+hv : v ∈ plotkinIdealSet S.carrier
+hbS : ⊥ ∉ S.carrier
+h✝ : pset u = S.carrier
+⊢ ∃ z ∈ plotkinIdealSet S.carrier, (fun x1 x2 => x1 ≤ x2) u z ∧ (fun x1 x2 => x1 ≤ x2) v z
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.FlatPowerdomain
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.85
+Maximum resident set size (kbytes): 1730536
+--- build ---
+finished:         2026-08-08T13:31:24-07:00
+exit status:      1
+user cpu:         2.65s
+system cpu:       0.55s
+cpu use:          173%
+peak rss single:  1689 MiB (largest one process, GNU time)
+peak pss tree:    1042 MiB (process group, shared pages apportioned)
+peak rss tree:    2500 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      0
+other warnings:   0

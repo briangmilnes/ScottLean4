@@ -1,0 +1,81 @@
+# r0041
+# agent1 — lake build ScottDomains.FlatPowerdomain
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T13:14:56-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.FlatPowerdomain ===
+✖ [842/842] Building ScottDomains.FlatPowerdomain (718ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/FlatPowerdomain.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatPowerdomain.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/FlatPowerdomain.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatPowerdomain.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/FlatPowerdomain.setup.json --json
+error: ScottDomains/FlatPowerdomain.lean:144:68: Application type mismatch: The argument
+  eq_of_up_le h
+has type
+  ↑⊥ = up 1
+but is expected to have type
+  up ?m.7 = ⊥
+in the application
+  up_ne_bot (eq_of_up_le h)
+error: ScottDomains/FlatPowerdomain.lean:198:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'instCompletePartialOrder', which is 'noncomputable'
+error: ScottDomains/FlatPowerdomain.lean:213:36: invalid `▸` notation, the equality
+  up_le_up_iff.mp (le_of_eq (congrArg Subtype.val (Finset.mem_singleton.mp hm)))
+has type 
+  m = n
+but neither side of the equality is mentioned in the type
+  ?m.85 = ?m.85
+error: ScottDomains/FlatPowerdomain.lean:263:88: Invalid field `trans`: The environment does not contain `Function.trans`, so it is not possible to project the field `trans` from an expression
+  fun n hn => Exists.intro u ⟨hu, hn⟩
+of type
+  ∀ n ∈ hoareSet u, ∃ u ∈ x, (up n).cpt ∈ u
+error: ScottDomains/FlatPowerdomain.lean:269:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'hoareOfSet', which is 'noncomputable'
+error: ScottDomains/FlatPowerdomain.lean:310:45: Application type mismatch: The argument
+  eq_of_up_le hle
+has type
+  ↑⊥ = up n
+but is expected to have type
+  up ?m.76 = ⊥
+in the application
+  up_ne_bot (eq_of_up_le hle)
+error: ScottDomains/FlatPowerdomain.lean:323:20: Application type mismatch: The argument
+  eq_of_up_le hab
+has type
+  ↑⊥ = up n
+but is expected to have type
+  up ?m.66 = ⊥
+in the application
+  up_ne_bot (eq_of_up_le hab)
+error: ScottDomains/FlatPowerdomain.lean:334:10: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (up n).cpt
+in the target expression
+  b ∈ u.toFinset
+
+case mp.inr
+u v : Smyth.Basis NatBot
+hu : ¬SmythTrivial u
+h : u ≤ v
+b : ↑(compacts NatBot)
+hb : b ∈ v.toFinset
+n : ℕ
+ha : (up n).cpt ∈ u.toFinset
+hab : (up n).cpt ≤ b
+⊢ b ∈ u.toFinset
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.FlatPowerdomain
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.42
+Maximum resident set size (kbytes): 1700024
+--- build ---
+finished:         2026-08-08T13:14:58-07:00
+exit status:      1
+user cpu:         1.41s
+system cpu:       0.46s
+cpu use:          131%
+peak rss single:  1660 MiB (largest one process, GNU time)
+peak pss tree:    995 MiB (process group, shared pages apportioned)
+peak rss tree:    2452 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 8
+lake errors:      2
+sorry decls:      0
+other warnings:   0

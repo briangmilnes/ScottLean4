@@ -1,0 +1,150 @@
+# r0041
+# agent2 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T13:16:46-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [975/1176] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+ℹ [1207/1230] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1229/1230] Building ScottDomains.Morphism (873ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Morphism.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Morphism.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Morphism.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Morphism.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Morphism.setup.json --json
+error: ScottDomains/Morphism.lean:276:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Isomorphism.smashPair p
+in the target expression
+  smashVal (smashPair p) ≤ p
+
+case pos
+α : Type u_1
+β : Type u_2
+inst✝¹ : CompletePartialOrder α
+inst✝ : CompletePartialOrder β
+p : α × β
+h : p.1 ≠ ⊥ ∧ p.2 ≠ ⊥
+⊢ smashVal (smashPair p) ≤ p
+error: ScottDomains/Morphism.lean:317:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Isomorphism.smashPair p
+in the target expression
+  ↑(bistrictFactor f hf) (smashPair p) = f p
+
+case pos
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+f : ScottHom (α × β) γ
+hf : IsBistrict ⇑f
+p : α × β
+h : p.1 ≠ ⊥ ∧ p.2 ≠ ⊥
+⊢ ↑(bistrictFactor f hf) (smashPair p) = f p
+error: ScottDomains/Morphism.lean:336:8: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Isomorphism.smashPair ↑p
+in the target expression
+  ↑g (smashPair ↑p) = f ↑p
+
+case coe
+α : Type u_1
+β : Type u_2
+γ : Type u_3
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : CompletePartialOrder γ
+f : ScottHom (α × β) γ
+hf : IsBistrict ⇑f
+g : StrictHom (Smash α β) γ
+hg : ∀ (p : α × β), ↑g (smashPair p) = f p
+p : NonBotPair α β
+hp : ↑g (smashPair ↑p) = f ↑p
+⊢ ↑g ↑p = ↑(bistrictFactor f hf) ↑p
+error: ScottDomains/Morphism.lean:349:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'smashPair', which is 'noncomputable'
+error: ScottDomains/Morphism.lean:365:21: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  p.1
+in the target expression
+  ((prodMap ↑f ↑g) p).1 = ⊥
+
+α₁ : Type u_1
+α₂ : Type u_2
+β₁ : Type u_3
+β₂ : Type u_4
+inst✝³ : CompletePartialOrder α₁
+inst✝² : CompletePartialOrder α₂
+inst✝¹ : CompletePartialOrder β₁
+inst✝ : CompletePartialOrder β₂
+f : StrictHom α₁ β₁
+g : StrictHom α₂ β₂
+p : α₁ × α₂
+h : p.1 = ⊥
+h1 : ((prodMap ↑f ↑g) p).1 ≠ ⊥
+⊢ ((prodMap ↑f ↑g) p).1 = ⊥
+error: ScottDomains/Morphism.lean:368:21: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  p.2
+in the target expression
+  ((prodMap ↑f ↑g) p).2 = ⊥
+
+α₁ : Type u_1
+α₂ : Type u_2
+β₁ : Type u_3
+β₂ : Type u_4
+inst✝³ : CompletePartialOrder α₁
+inst✝² : CompletePartialOrder α₂
+inst✝¹ : CompletePartialOrder β₁
+inst✝ : CompletePartialOrder β₂
+f : StrictHom α₁ β₁
+g : StrictHom α₂ β₂
+p : α₁ × α₂
+h : p.2 = ⊥
+h2 : ((prodMap ↑f ↑g) p).2 ≠ ⊥
+⊢ ((prodMap ↑f ↑g) p).2 = ⊥
+error: ScottDomains/Morphism.lean:374:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'smashCpo', which is 'noncomputable'
+error: ScottDomains/Morphism.lean:459:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'liftCpo', which is 'noncomputable'
+error: ScottDomains/Morphism.lean:482:21: Application type mismatch: The argument
+  sumInl
+has type
+  (β : Type ?u.32) → [inst : CompletePartialOrder β] → ?m.26 → CoalescedSum ?m.26 β
+but is expected to have type
+  StrictHom ?m.21 (CoalescedSum β₁ β₂)
+in the application
+  strictComp sumInl
+error: ScottDomains/Morphism.lean:482:43: Application type mismatch: The argument
+  sumInr
+has type
+  (α : Type ?u.37) → [inst : CompletePartialOrder α] → ?m.34 → CoalescedSum α ?m.34
+but is expected to have type
+  StrictHom ?m.29 (CoalescedSum β₁ β₂)
+in the application
+  strictComp sumInr
+error: ScottDomains/Morphism.lean:480:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'sumCpo', which is 'noncomputable'
+error: ScottDomains/Morphism.lean:488:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'coalSumMap', which is 'noncomputable'
+error: ScottDomains/Morphism.lean:550:8: Unknown identifier `true_ne_bot`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Morphism
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.63
+Maximum resident set size (kbytes): 1713884
+--- build ---
+finished:         2026-08-08T13:16:48-07:00
+exit status:      1
+user cpu:         1.91s
+system cpu:       0.52s
+cpu use:          149%
+peak rss single:  1673 MiB (largest one process, GNU time)
+peak pss tree:    1027 MiB (process group, shared pages apportioned)
+peak rss tree:    2485 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 13
+lake errors:      2
+sorry decls:      1
+other warnings:   0
