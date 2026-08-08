@@ -1,0 +1,55 @@
+% p09-inclusion-map-d-prime-into-d.tex
+%
+% Source:   Carl A. Gunter and Dana S. Scott, "Semantic Domains" (1990).
+%           ScottDomains/papers/Gunter Scott 1990.pdf
+% Physical page: 9           Printed page: 8
+% Section:  2.3 "Uniformity", inside the proof of Theorem 3.
+% Unnamed in the paper - no figure number, no caption.
+%
+% Introducing sentence (verbatim, printed page 8):
+%   "Now, if i : D' \to D is the inclusion map then the following diagram
+%    commutes"
+% and the sentence closing it, immediately below the diagram:
+%   "Thus, if F is a uniform fixed point operator, we must have
+%    F_D(f) = F_{D'}(f')."
+%
+% What the development uses it for: it is the instance of the uniformity
+% square (physical page 8) with h taken to be the inclusion of the sub-cpo
+% D' = { x \in D | x \sqsubseteq fix(f) }, which is the step that forces any
+% uniform fixed point operator to agree with fix.
+%
+% Geometry measured from a 150 dpi render of physical page 9: the two columns
+% are 212 px apart and the two rows 120 px apart, i.e. 3.59 cm by 2.03 cm -
+% the same square the paper prints on physical page 8, so the same 3.6 by 2.1
+% is used here.
+%
+% Style contract (r0039) with the orchestrator-settled corrections, plus the
+% "obj", "arrow" and "darrow" styles this commutative diagram needs (see
+% p08-uniform-fixed-point-operator.tex for the note). All four arrows here
+% are solid: the paper asserts no unique mediating map in this square.
+
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={inner sep=1pt},
+  open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
+  solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
+  edge/.style={draw, line width=0.4pt},
+  obj/.style={inner sep=3pt},
+  arrow/.style={draw, line width=0.4pt, ->},
+  darrow/.style={draw, line width=0.4pt, ->, dash pattern=on 4pt off 3pt}]
+
+  \node[obj] (Ptl) at (0.0, 2.1) {$D'$};
+  \node[obj] (Ptr) at (3.6, 2.1) {$D'$};
+  \node[obj] (Dbl) at (0.0, 0.0) {$D$};
+  \node[obj] (Dbr) at (3.6, 0.0) {$D$};
+
+  \draw[arrow] (Ptl) -- node[above] {$f'$} (Ptr);
+  \draw[arrow] (Dbl) -- node[above] {$f$}  (Dbr);
+  \draw[arrow] (Ptl) -- node[left]  {$i$}  (Dbl);
+  \draw[arrow] (Ptr) -- node[right] {$i$}  (Dbr);
+
+\end{tikzpicture}
+\end{document}

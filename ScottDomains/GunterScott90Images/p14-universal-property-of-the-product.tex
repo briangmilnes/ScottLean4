@@ -1,0 +1,62 @@
+% p14-universal-property-of-the-product.tex
+%
+% Source:   Carl A. Gunter and Dana S. Scott, "Semantic Domains" (1990).
+%           ScottDomains/papers/Gunter Scott 1990.pdf
+% Physical page: 14          Printed page: 13
+% Section:  4.1 "Products".
+% Unnamed in the paper - no figure number, no caption.
+%
+% Introducing sentence (verbatim, printed page 13):
+%   "There is another, more pictorial, way of stating these equational
+%    properties of the operator \langle\cdot,\cdot\rangle using a commutative
+%    diagram. The desired property can be stated in the following manner:
+%    given any cpo F and continuous functions f : F \to D and g : F \to E,
+%    there is a unique continuous function \langle f,g\rangle which completes
+%    the following diagram:"
+% and the sentence closing it, immediately below the diagram:
+%   "This is referred to as the universal property of the operator \times."
+%
+% What the development uses it for: it is the universal property of the
+% binary product, the equational content of fst \circ \langle f,g\rangle = f,
+% snd \circ \langle f,g\rangle = g and \langle fst \circ h, snd \circ h\rangle
+% = h, stated as one diagram.
+%
+% The mediating arrow \langle f,g\rangle is the one the paper draws DASHED -
+% it is the arrow asserted to exist and be unique - and that must not be
+% flattened to a solid arrow.
+%
+% Geometry measured from a 600 dpi crop of physical page 14 and mapped to
+% centimetres by dividing page pixels by 200: D, D \times E and E sit on one
+% vertical 2.4 cm apart, with F 4.2 cm to the right at the height of
+% D \times E.
+%
+% Style contract (r0039) with the orchestrator-settled corrections, plus the
+% "obj", "arrow" and "darrow" styles this commutative diagram needs (see
+% p08-uniform-fixed-point-operator.tex for the note).
+
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={inner sep=1pt},
+  open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
+  solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
+  edge/.style={draw, line width=0.4pt},
+  obj/.style={inner sep=3pt},
+  arrow/.style={draw, line width=0.4pt, ->},
+  darrow/.style={draw, line width=0.4pt, ->, dash pattern=on 4pt off 3pt}]
+
+  \node[obj] (D)  at (0.0, 4.8) {$D$};
+  \node[obj] (DE) at (0.0, 2.4) {$D \times E$};
+  \node[obj] (E)  at (0.0, 0.0) {$E$};
+  \node[obj] (F)  at (4.2, 2.4) {$F$};
+
+  \draw[arrow]  (DE) -- node[left]  {$\mathsf{fst}$} (D);
+  \draw[arrow]  (DE) -- node[left]  {$\mathsf{snd}$} (E);
+  \draw[arrow]  (F)  -- node[below right] {$f$} (D);
+  \draw[arrow]  (F)  -- node[above right] {$g$} (E);
+  \draw[darrow] (F)  -- node[above] {$\langle f,g \rangle$} (DE);
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,94 @@
+% figure-1-examples-of-cpos.tex
+%
+% Source:   Carl A. Gunter and Dana S. Scott, "Semantic Domains" (1990).
+%           ScottDomains/papers/Gunter Scott 1990.pdf
+% Physical page: 5           Printed page: 4
+% Section:  2.1 "Cpo's and the Fixed Point Theorem" (the figure sits at the
+%           top of printed page 4; the prose introducing it is on printed
+%           page 3 / physical page 4).
+% Caption (verbatim):  "Figure 1: Examples of cpo's."
+%
+% Introducing sentences (printed page 3 / physical page 4):
+%   "The truth value cpo T is the poset which has three distinct points,
+%    \bot, true, false, where \bot \sqsubseteq true and \bot \sqsubseteq false
+%    (see Figure 1)."
+%   "To get a cpo, we need to add a \"bottom\" element to N. The result is a
+%    cpo N_\bot which is pictured in Figure 1."
+%   "To get a cpo, one needs to add a top element to get the cpo \omega^\top
+%    pictured in Figure 1."
+%
+% Reading of the three parts:
+%   T          the truth value cpo: \bot below the two incomparable points
+%              true and false.
+%   N_\bot     the natural numbers with the discrete ordering, with a bottom
+%              element adjoined; the row of maximal points continues to the
+%              right, so one edge is drawn truncated and followed by \cdots.
+%   \omega^\top  the ordinal \omega, an ascending chain with no least upper
+%              bound, with a top element adjoined above the whole chain; the
+%              chain's continuation is a truncated vertical followed by \vdots.
+%
+% Every point in this figure is drawn hollow in the paper - there is no
+% distinguished pair here, unlike Figure 3 - so every vertex uses the "open"
+% style.
+%
+% Geometry was measured from 600 dpi crops of physical page 5 and mapped to
+% centimetres by x = (page pixel - 715)/200 and y = (2503 - page pixel)/200,
+% so the three parts keep the paper's relative placement and scale, including
+% the omega^\top column sitting slightly higher than the other two.
+%
+% Style contract (r0039) with the two orchestrator-settled corrections:
+% the contract's "\usetikzpicture{}" line is a typo and is dropped, and
+% "solid" is 5pt against "open" at 4pt (no solid vertex occurs in this
+% figure). The option block also carries "obj", "arrow" and "darrow",
+% agent2's three keys for commutative diagrams, so every file in this round's
+% set has an identical preamble; this figure is a Hasse diagram and uses none
+% of the three.
+
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={inner sep=1pt},
+  open/.style={circle, draw, fill=white, minimum size=4pt, inner sep=0pt},
+  solid/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt},
+  edge/.style={draw, line width=0.4pt},
+  obj/.style={inner sep=3pt},
+  arrow/.style={draw, line width=0.4pt, ->},
+  darrow/.style={draw, line width=0.4pt, ->, dash pattern=on 4pt off 3pt}]
+
+  %% ---------------- T, the truth value cpo ----------------
+  \node[open] (tl) at (0.000, 2.23) {};
+  \node[open] (tr) at (4.485, 2.23) {};
+  \node[open] (tb) at (2.215, 0.00) {};
+  \draw[edge] (tb) -- (tl);
+  \draw[edge] (tb) -- (tr);
+  \node at (2.20, -1.35) {$\mathsf{T}$};
+
+  %% ---------------- N_\bot, the flat natural numbers ----------------
+  \node[open] (n1) at (7.475, 2.23) {};
+  \node[open] (n2) at (8.985, 2.23) {};
+  \node[open] (n3) at (10.495, 2.23) {};
+  \node[open] (nb) at (9.745, -0.03) {};
+  \draw[edge] (nb) -- (n1);
+  \draw[edge] (nb) -- (n2);
+  \draw[edge] (nb) -- (n3);
+  % the row of maximal points continues to the right
+  \draw[edge] (nb) -- (11.825, 2.085);
+  \node at (12.235, 2.23) {$\cdots$};
+  \node at (9.745, -1.35) {$\mathsf{N}_{\bot}$};
+
+  %% ---------------- \omega^\top, the ordinal \omega with a top ----------------
+  \node[open] (w0) at (16.85, 0.250) {};
+  \node[open] (w1) at (16.85, 1.615) {};
+  \node[open] (w2) at (16.85, 2.975) {};
+  \draw[edge] (w0) -- (w1);
+  \draw[edge] (w1) -- (w2);
+  % the chain continues upward, then the adjoined top element
+  \draw[edge] (w2) -- (16.85, 4.315);
+  \node at (16.85, 5.055) {$\vdots$};
+  \node[open] (wt) at (16.85, 5.975) {};
+  \node at (16.85, -1.35) {$\omega^{\top}$};
+
+\end{tikzpicture}
+\end{document}
