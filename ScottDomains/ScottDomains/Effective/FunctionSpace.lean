@@ -317,6 +317,52 @@ def IsRecursive {γ : Type*} [CompletePartialOrder γ] [Domain γ]
     (d : EffectivePresentation γ) : Prop :=
   RecursiveLE d ∧ RecursiveNormal d
 
+/-- **§3.2's notion, as a structure**: an enumeration of the basis whose two
+conditions are decided by *total recursive* functions rather than by arbitrary
+`Decidable` instances.
+
+This exists because `EffectivePresentation` alone is vacuous.
+`nonempty_effectivePresentation` shows **every** domain has one — `Domain`
+already supplies a countable nonempty `K(D)`, and `Classical.dec` supplies both
+`Decidable` fields — so the structure as written adds nothing to `Domain`, and a
+theorem taking an `EffectivePresentation` hypothesis is not asking for what the
+paper asks for. A term of `RecursivePresentation` is.
+
+**Why this extends rather than replaces.** Promoting `recursiveLE` to a field of
+`EffectivePresentation` itself was the obvious move and it does not work: it
+would leave `Effective.powersetPresentation` unconstructible. That instance's
+`RecursiveLE` reduces to `Computable fun p : ℕ × ℕ => p.1 ||| p.2`, and
+**Mathlib has no bitwise computability at all** — `Mathlib/Computability/`
+mentions no `Nat.bitwise`, and there is no `Primrec` route through `binaryRec`.
+Replacing the structure would therefore delete the development's only instance,
+along with the six `decide`-closed examples in `Effective/Powerset.lean` that
+demonstrate its conditions are genuinely computed rather than classical.
+Extending keeps both and still makes the distinction a type.
+
+**Deliberately uninstantiated.** No `RecursivePresentation` exists yet, and that
+is the honest state: constructing one at `P N` is exactly the missing
+computability fact above. Recording it as an empty type rather than pretending
+otherwise is the point — the whole reason this structure exists is that an
+unfalsifiable class had been standing in for a substantive one. -/
+structure RecursivePresentation (γ : Type*) [CompletePartialOrder γ] [Domain γ]
+    extends EffectivePresentation γ where
+  /-- Condition 1 decided by a total recursive function. -/
+  recursiveLE : RecursiveLE toEffectivePresentation
+  /-- Condition 2 decided by a total recursive function. -/
+  recursiveNormal : RecursiveNormal toEffectivePresentation
+
+/-- The structure delivers the predicate. -/
+theorem RecursivePresentation.isRecursive {γ : Type*} [CompletePartialOrder γ]
+    [Domain γ] (d : RecursivePresentation γ) : IsRecursive d.toEffectivePresentation :=
+  ⟨d.recursiveLE, d.recursiveNormal⟩
+
+/-- …and the predicate builds the structure, so the two readings are
+interchangeable and no result has to be stated twice. -/
+def RecursivePresentation.ofIsRecursive {γ : Type*} [CompletePartialOrder γ]
+    [Domain γ] (d : EffectivePresentation γ) (h : IsRecursive d) :
+    RecursivePresentation γ :=
+  { d with recursiveLE := h.1, recursiveNormal := h.2 }
+
 /-- **Theorem 7's proof sentence**, printed p. 12: "The proof that the poset of
 step functions has decidable ordering and finite normal subposets is tedious, but
 not difficult, using the effective presentations of `D` and `E`."
