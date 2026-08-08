@@ -17,10 +17,25 @@ order, matched to its Lean equivalent.
 | 2a | — **resolved by refutation** | **Thm 16** — fully characterized as of r0034. The algebraic-lattice conjunct is proved (r0028); the `Fp(D) ↪ (D → D)` embedding conjunct is **false**, kernel-checked (r0032); and the conjunct **does** hold under a named hypothesis, proved as `Section62.thm16_positive` with `thm16_positive_isEmbeddingProjectionPair` (r0034). The result is settled in all three directions, but it is still not a proof of the paper's sentence, so it is counted in neither column. The row-2 arithmetic is therefore 24 + 4 + 1 = 29 | — | — |
 | 2c | — **qualifications on three of the 24** | **Lem 9**: four conjuncts hold as printed; items 3 and 5 are **false as printed** and are kernel-checked negations (`lem9_3_printed_false`, `lem9_5_printed_false`), with the corrected laws proved. **Lem 17**: 10 of 10, but the `→` and `◦→` conjuncts carry `[BoundedComplete β]` from the step-function decomposition — stronger than the paper states, and §6 exists precisely to avoid bounded completeness. **Thm 26**: proved with `hs : ∀ i, 0 < s i`; the theorem is **false** for a signature admitting arity 0, which the paper explicitly allows — that argument is prose in the docstring, *not* kernel-checked. **Lem 10** carries no qualification | — | — |
 | 2d | — **status of the four remaining**, after r0037 | **Thm 18** is the development's only remaining `sorry`, and now rests on **exactly two named propositions**: Jung's Theorem 1.37 (`JungNets.Thm137`) and his Corollary 1.36 (`JungFinite.FixedPointOfCompactDeflationIsCompact`). Every other step of the five-step route is proved, and the join is checked — `scripts/check-thm18-composition.sh` elaborates agent1's assembly against agent2's property-m result in one environment, on the three standard axioms. **Lem 28** is **7 of 9 over the paper's own `Dyadic.U` with no hypothesis** (`→, ⇸, ×, ⊗, +, ⊕, ()⊥`), up from 0 before r0037; `()♯` and `()♭` remain. **Thm 29**'s second sentence is reduced to the single proposition `LemThirty.Thm29Normal`, kernel-checked in ~60 lines. **Lem 30** is stated at ten conjuncts over `V` and remains 0 of 10, but the §7.3 schemes are measured to be generic in the carrier, so it is ten instantiations plus ten retraction pairs, not ten fresh proofs | — | — |
-| 3 | **Unnumbered prose claims** proved | **12** | — | — |
+| 3 | **Unnumbered prose claims** proved | **13** — corrected in r0038 by an agent reading the PDF rather than this file: the claim listed as 8 (finiteness of the step-function join) is **not a claim the paper makes**, and §4.1 states two the list omitted (`fst(L)` and `snd(L)` directedness, `Product.directedOn_fst_image`/`snd_image`). Net 12 − 1 + 2 = 13, and the paper-property total moves 99 → 100 | — | — |
 | 4 | Mathlib foundations reused | 12 | — | 12 |
-| 5 | Modules / lines / theorems | **72 / 27866 / 1308** — measured by `scripts/counts.sh` with r0037 merged | — | — |
+| 5 | Modules / lines / theorems | **72 / 27892 / 1298** — the development proper, with r0037 merged. Re-measured after r0038 by `scripts/lean-decls.py`, which `counts.sh` now calls: the grep rule it replaced counted declarations inside `/- … -/` block comments and docstring prose lines beginning "theorem"/"lemma", and missed `protected theorem`, so the previously reported **1308 was an over-count by 10**. The corrected figure is within one of r0038's entirely independent per-declaration enumeration, which totalled 1297 | — | — |
+| 5a | — plus the r0038 audit modules | `ScottDomains/Audit/` adds **6 / 670 / 28** — the kernel-checked equivalences proving the duplicate pairs the audit found. Package totals with them: 78 / 28562 / 1326. They are audit artifacts, not development, so row 5 excludes them | — | — |
 | 6 | `sorry` in the development | — | **1**, in 1 file: `thm18` in `Skeleton/Section6.lean`. r0034 took this from 8 to 2 and r0036 from 2 to 1 by proving Theorem 14. Every other statement in the development is kernel-checked, and nothing in the development depends on `thm18` — the only mention outside its own file and `Section62.lean`'s obstruction write-up is a docstring reference, so no completed result routes through `sorryAx` | — |
+
+**Rounds r0038 and r0039 changed no paper coverage**, and are recorded here only
+because they corrected numbers this file reports. r0038 was an audit — six agents
+classifying every theorem against the paper, deleting nothing; its consolidated
+result is
+[`../analyses/theorem-audit.2026-0808-10:04.orchestrator.md`](../analyses/theorem-audit.2026-0808-10:04.orchestrator.md),
+and the headline is that speculative API sits at **≈3.5%** of 1297 live
+declarations against r0020's 3%, so the ~13 : 1 theorems-per-property ratio is the
+cost of formalizing a paper that elides its own foundations rather than
+accumulated bloat. What it did find is **31 declarations in ~21 duplicate pairs
+spanning module boundaries**, none of them visible to `lake build` because nothing
+imports both sides. It also corrected rows 3 and 5 above. r0039 is redrawing the
+paper's diagrams as TikZ, one PDF each, in
+[`../GunterScott90Images/`](../GunterScott90Images/).
 
 **Round r0037.** Five agents at the last four open numbered results; all five
 landed and merged. **No numbered result was completed** — the count stays at 24
