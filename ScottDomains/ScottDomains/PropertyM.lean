@@ -1,4 +1,5 @@
 import ScottDomains.JungNets
+import ScottDomains.JungFinite
 
 /-!
 # Property m at a pair, proved: Theorem 1.37 and Iwamura's lemma are not on the route
@@ -9,8 +10,10 @@ compact elements — from `IsAlgebraic (ScottHom D D)` and
 `(compacts (ScottHom D D)).Countable` and nothing else. Neither
 `JungNets.Thm137`, nor its chain-weakening `JungNets.Thm137Chains`, nor Iwamura's
 lemma appears anywhere in its dependency graph. `propertyM_pairs` is then Jung's
-Lemma 2.17 with no remaining hypothesis, and `isBifinite_of_mubClosure_finite`
-reduces Theorem 18 to finiteness of `mubClosure` alone.
+Lemma 2.17 with no remaining hypothesis, `forall_hasCompleteMub` lifts property m
+from pairs to every finite set of compacts, and **`thm18_of_cor136` is Theorem 18
+with Jung's Corollary 1.36 as its only remaining hypothesis** — one of the two
+open propositions instead of both.
 
 The proof is in two halves, and only the first was this file's original plan.
 
@@ -63,7 +66,15 @@ is entirely elementary:
 | 2 | `countable_compacts_of_scottHom` — `K(D)` is countable when `K([D → D])` is | none beyond `CompletePartialOrder D` |
 | 3 | `lemma217_of_omega`, `propertyM_pairs_of_omega`, `forall_hasCompleteMub_of_omega` | `HasOmegaOpInfima D` in place of `JungNets.Thm137 D` |
 | 4 | `hasOmegaOpBoundsAbove_pair` — Spreen's Lemma 5.8 | `IsAlgebraic (ScottHom D D)` |
-| 5 | `hasCompleteMub_pair`, `propertyM_pairs`, `isBifinite_of_mubClosure_finite` | **none** beyond items 2 and 4 |
+| 5 | `hasCompleteMub_pair`, `propertyM_pairs`, `forall_hasCompleteMub` | **none** beyond items 2 and 4 |
+| 6 | `thm18_of_cor136` — **Theorem 18** | Jung's Corollary 1.36 only |
+
+Items 5 and 6 need two hypothesis-weakenings of results the development already
+had, each proved by re-running the original proof against what it actually uses:
+`isNormalIn_of_pairs` (for `MinimalUpperBounds.isNormalIn_of_isMubClosed`) and
+`exists_finite_complete_of_pairs` (for
+`JungFinite.exists_finite_complete_upperBoundsIn`). Both stated property m at
+*every* finite set and both used it only at `∅` and at pairs.
 
 Items 1–3 are the `ωᵒᵖ` reduction; items 4–5 discharge it. Items 1–3 are kept
 rather than folded into item 5 because the reduction is the reusable statement:
@@ -849,6 +860,100 @@ theorem isNormalIn_of_pairs {α : Type*} [PartialOrder α] {A N : Set α} (hNA :
     exact ⟨m, ⟨hcl _ hsub (Set.toFinite _) hm, hmx⟩,
       hmub (Set.mem_insert a _), hmub (Set.mem_insert_of_mem a rfl)⟩
 
+/-- **From a finite complete set of upper bounds to property m.**
+
+`MinimalUpperBounds.hasCompleteMub_of_isNormalIn` is this argument with
+`N ∩ ↓x` supplying the finite complete set; here the finite complete set is given
+directly, which is the form `JungFinite.exists_finite_complete_upperBoundsIn`
+produces. Take `m` minimal in the finite set `M ∩ ↓x`; any upper bound `w ⊑ m` is
+itself `⊑ x`, so `M` puts some `z' ⊑ w` in that set, and minimality of `m` gives
+`m ⊑ z' ⊑ w`. -/
+theorem hasCompleteMub_of_finite_complete {α : Type*} [PartialOrder α] {A u M : Set α}
+    (hMfin : M.Finite) (hMsub : M ⊆ upperBoundsIn A u)
+    (hMcomp : ∀ x ∈ upperBoundsIn A u, ∃ z ∈ M, z ≤ x) : HasCompleteMub A u := by
+  intro x hx
+  obtain ⟨z, hzM, hzx⟩ := hMcomp x hx
+  set S : Set α := {w | w ∈ M ∧ w ≤ x} with hS
+  have hSfin : S.Finite := hMfin.subset fun _ hw => hw.1
+  obtain ⟨m, _, hmS, hmmin⟩ := hSfin.exists_le_minimal (a := z) ⟨hzM, hzx⟩
+  refine ⟨m, ⟨hMsub hmS.1, ?_⟩, hmS.2⟩
+  intro w hw hwm
+  obtain ⟨z', hz'M, hz'w⟩ := hMcomp w hw
+  exact (hmmin ⟨hz'M, hz'w.trans (hwm.trans hmS.2)⟩ (hz'w.trans hwm)).trans hz'w
+
+/-- **`JungFinite.exists_finite_complete_upperBoundsIn` with its property-m
+hypothesis cut down to what its proof uses.**
+
+That theorem asks for `HasCompleteMub A v` at every finite `v ⊆ A`; its induction
+applies the hypothesis exactly twice — once at `v = ∅` (the base case) and once at
+a **pair** `{y, a}` in the insertion step. Nothing else is consumed. This is the
+same restatement as `isNormalIn_of_pairs`, and it is what turns
+`hasCompleteMub_pair` into property m at *every* finite set: the finite complete
+set of upper bounds it produces feeds `hasCompleteMub_of_finite_complete`.
+
+The proof is `JungFinite.exists_finite_complete_upperBoundsIn`'s, with `hm` split
+into `hmEmpty` and `hmPair`. -/
+theorem exists_finite_complete_of_pairs {α : Type*} [PartialOrder α] {A u : Set α}
+    (hmEmpty : HasCompleteMub A (∅ : Set α))
+    (hmPair : ∀ a ∈ A, ∀ b ∈ A, HasCompleteMub A ({a, b} : Set α))
+    (hpair : ∀ a ∈ A, ∀ b ∈ A, (minimalUpperBounds A ({a, b} : Set α)).Finite)
+    (hempty : (minimalUpperBounds A (∅ : Set α)).Finite) (hu : u.Finite) :
+    u ⊆ A → ∃ M : Set α, M.Finite ∧ M ⊆ upperBoundsIn A u ∧
+      ∀ x ∈ upperBoundsIn A u, ∃ z ∈ M, z ≤ x := by
+  induction u, hu using Set.Finite.induction_on with
+  | empty =>
+    intro _
+    exact ⟨minimalUpperBounds A ∅, hempty, minimalUpperBounds_subset,
+      fun x hx => hmEmpty x hx⟩
+  | @insert a v _ _ ih =>
+    intro hsub
+    have haA : a ∈ A := hsub (Set.mem_insert a v)
+    obtain ⟨M, hMfin, hMsub, hMcomp⟩ := ih fun z hz => hsub (Set.mem_insert_of_mem a hz)
+    refine ⟨⋃ z ∈ M, minimalUpperBounds A ({z, a} : Set α), ?_, ?_, ?_⟩
+    · exact hMfin.biUnion fun z hz => hpair z (upperBoundsIn_subset (hMsub hz)) a haA
+    · rintro w hw
+      obtain ⟨z, hzM, hwz⟩ := Set.mem_iUnion₂.mp hw
+      have hwub := minimalUpperBounds_subset hwz
+      refine ⟨hwub.1, ?_⟩
+      rintro c (rfl | hc)
+      · exact hwub.2 (Set.mem_insert_of_mem _ rfl)
+      · exact ((hMsub hzM).2 hc).trans (hwub.2 (Set.mem_insert _ _))
+    · intro x hx
+      obtain ⟨z, hzM, hzx⟩ :=
+        hMcomp x ⟨hx.1, fun c hc => hx.2 (Set.mem_insert_of_mem a hc)⟩
+      have hxpair : x ∈ upperBoundsIn A ({z, a} : Set α) := by
+        refine ⟨hx.1, ?_⟩
+        rintro c (rfl | rfl)
+        · exact hzx
+        · exact hx.2 (Set.mem_insert _ _)
+      obtain ⟨m, hmM, hmx⟩ :=
+        hmPair z (upperBoundsIn_subset (hMsub hzM)) a haA x hxpair
+      exact ⟨m, Set.mem_iUnion₂.mpr ⟨z, hzM, hmM⟩, hmx⟩
+
+/-- **Property m at every finite set of compact elements, unconditionally.**
+
+This is `JungNets.forall_hasCompleteMub_of_thm137` with `JungNets.Thm137` — and
+hence Iwamura's lemma — removed. The route is: `hasCompleteMub_pair` and
+`hasCompleteMub_empty` supply property m at pairs and at `∅`; `propertyM_pairs`
+supplies property M at pairs; `exists_finite_complete_of_pairs` lifts them to a
+finite complete set of upper bounds for any finite set of compacts; and
+`hasCompleteMub_of_finite_complete` turns that back into property m there.
+
+The lift is Jung's Lemma 1.29 argument, which the development already carries as
+`JungFinite.exists_finite_complete_upperBoundsIn`; only its hypothesis had to be
+weakened. -/
+theorem forall_hasCompleteMub (hAlgF : IsAlgebraic (ScottHom D D))
+    (hCount : (compacts (ScottHom D D)).Countable) :
+    ∀ v : Set D, v.Finite → v ⊆ compacts D → HasCompleteMub (compacts D) v := by
+  intro v hv hvc
+  obtain ⟨M, hMfin, hMsub, hMcomp⟩ :=
+    exists_finite_complete_of_pairs hasCompleteMub_empty
+      (fun a ha b hb => hasCompleteMub_pair hAlgF hCount ha hb)
+      (fun a ha b hb => propertyM_pairs hAlgF hCount a b ha hb)
+      (by rw [JungFinite.minimalUpperBounds_compacts_empty]; exact Set.finite_singleton _)
+      hv hvc
+  exact hasCompleteMub_of_finite_complete hMfin hMsub hMcomp
+
 /-- **Theorem 18 reduced to one obligation: finiteness of `U^∞`.**
 
 `MinimalUpperBounds.isBifinite_iff_mubClosure` splits bifiniteness into property m
@@ -872,5 +977,32 @@ theorem isBifinite_of_mubClosure_finite (hAlgF : IsAlgebraic (ScottHom D D))
   exact hasCompleteMub_pair hAlgF hCount (mubClosure_subset huA ha) (mubClosure_subset huA hb)
 
 end Unconditional
+
+/-! ## Theorem 18 with Jung's Theorem 1.37 removed from its hypotheses -/
+
+section Thm18
+
+variable {D : Type*} [CompletePartialOrder D] [Domain D] [Domain (ScottHom D D)]
+
+/-- **Theorem 18, conditional on Corollary 1.36 alone.**
+
+> **Theorem 18** If `D` and `D → D` are domains, then `D` is bifinite.
+
+`JungFinite.thm18_of_propertyM` takes two hypotheses: property m at every finite
+set of compacts (Jung's **Theorem 1.37**, five rounds of work, blocked on
+Iwamura's lemma) and his **Corollary 1.36**. `forall_hasCompleteMub` proves the
+first outright, so only Corollary 1.36 remains.
+
+This is the round's deliverable stated against the assembly the development
+already has: `ScottDomains.Thm18.thm18_of_thm137Chains_and_cor136` takes
+`JungNets.Thm137Chains α` and `FixedPointOfCompactDeflationIsCompact α`; this
+takes the second and nothing else. -/
+theorem thm18_of_cor136 (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact D) :
+    IsBifinite D :=
+  JungFinite.thm18_of_propertyM hcor fun v hvc hvfin =>
+    forall_hasCompleteMub (inferInstance : IsAlgebraic (ScottHom D D))
+      (Domain.countable_compacts (α := ScottHom D D)) v hvfin hvc
+
+end Thm18
 
 end ScottDomains.PropertyM
