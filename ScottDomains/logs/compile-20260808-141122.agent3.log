@@ -1,0 +1,57 @@
+# r0042
+# agent3 — lake build ScottDomains.JungBicomplete
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-08T14:11:22-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.JungBicomplete ===
+⚠ [843/845] Replayed ScottDomains.Skeleton.Section6
+warning: ScottDomains/Skeleton/Section6.lean:196:8: declaration uses `sorry`
+✖ [845/845] Building ScottDomains.JungBicomplete (708ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/JungBicomplete.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/JungBicomplete.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/JungBicomplete.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/JungBicomplete.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/JungBicomplete.setup.json --json
+error: ScottDomains/JungBicomplete.lean:350:87: unsolved goals
+D : Type u_1
+E : Type u_2
+inst✝¹ : CompletePartialOrder D
+inst✝ : CompletePartialOrder E
+r : ScottHom D E
+i : ScottHom E D
+h : IsRetractPair r i
+g : ScottHom E E
+y : E
+⊢ r (i (g (r (i y)))) = g y
+warning: ScottDomains/JungBicomplete.lean:353:8: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵h̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ScottDomains/JungBicomplete.lean:472:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.JungBicomplete
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.42
+Maximum resident set size (kbytes): 1702560
+--- build ---
+finished:         2026-08-08T14:11:25-07:00
+exit status:      1
+user cpu:         1.32s
+system cpu:       0.47s
+cpu use:          125%
+peak rss single:  1662 MiB (largest one process, GNU time)
+peak pss tree:    995 MiB (process group, shared pages apportioned)
+peak rss tree:    2452 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      1
+other warnings:   2
