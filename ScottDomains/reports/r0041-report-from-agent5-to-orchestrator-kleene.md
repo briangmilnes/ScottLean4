@@ -182,6 +182,6 @@ No `sorryAx` anywhere. `sSup_recoverAt` does not even use `Classical.choice`.
 | 1 | `2755e0b` | `Kleene/FixContinuous.lean`, `Kleene/Uniform.lean` — rows 41 and 42 |
 | 2 | `3d845a7` | `Kleene/Extension.lean`, `Kleene/Grammar.lean` — rows 36, 37, 40 |
 | 3 | `29566e1` | `Kleene/Factorial.lean` — rows 39 and 9 |
-| 4 | this report | `Kleene/Graph.lean` — rows 46 and 45 — plus `INDEX.md` and this file |
+| 4 | `bc7ea59` | `Kleene/Graph.lean` — rows 46 and 45 — plus `INDEX.md` and this report |
 
 Not pushed, per the agent rule.
