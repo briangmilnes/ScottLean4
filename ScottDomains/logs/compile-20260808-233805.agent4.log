@@ -1,0 +1,45 @@
+# r0046
+# agent4 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-08T23:38:05-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1317/1344] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1333/1344] Built ScottDomains.PowerdomainMap (1.2s)
+✔ [1334/1344] Built ScottDomains.PRepFun (1.4s)
+✔ [1335/1344] Built ScottDomains.Lemma28AtU (702ms)
+✔ [1336/1344] Built ScottDomains.PowerdomainCompacts (847ms)
+✔ [1337/1344] Built ScottDomains.Effective.FunctionSpace (863ms)
+✔ [1338/1344] Built ScottDomains.A3Thm29 (841ms)
+✔ [1339/1344] Built ScottDomains.Audit.SectionSeven (748ms)
+✔ [1340/1344] Built ScottDomains.PowerdomainMapRep (855ms)
+✔ [1341/1344] Built ScottDomains.Effective.A1FlatRecursive (787ms)
+✔ [1342/1344] Built ScottDomains.A2Lemma28 (822ms)
+✔ [1343/1344] Built ScottDomains.A4PowerdomainRep (842ms)
+Build completed successfully (1344 jobs).
+--- times ---
+Elapsed (wall clock): 0:04.61
+Maximum resident set size (kbytes): 1836852
+--- build ---
+finished:         2026-08-08T23:38:10-07:00
+exit status:      0
+user cpu:         12.96s
+system cpu:       2.72s
+cpu use:          339%
+peak rss single:  1793 MiB (largest one process, GNU time)
+peak pss tree:    2391 MiB (process group, shared pages apportioned)
+peak rss tree:    7107 MiB (process group, shared pages counted per process)
+jobs:             1344
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   0

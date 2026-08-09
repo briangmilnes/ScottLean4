@@ -382,11 +382,12 @@ end ArrowConjunct
 
 `ClosureProperties.lean` states Lemma 10 and Lemma 17 for the strict function
 space — `lem10_strict : BoundedComplete (StrictHom α β)` and
-`lem17_strictFun : IsBifinite (StrictHom α β)` — but the development has no
+`lem17_strictFun : IsBifinite (StrictHom α β)` — but the development **had** no
 `Domain (StrictHom α β)`, and `Fp`'s second conjunct asks for exactly that at the
-images. Measured over every module, the `IsAlgebraic` instances present are
-`Set X`, `ScottHom α β`, `α × β`, `WithBot α` and `IdealCompletion A`; the strict
-function space is not among them.
+images. Measured over every module before this section, the `IsAlgebraic`
+instances present were `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
+`IdealCompletion A`; the strict function space was not among them.
+`strictHomDomain`, below in this file, closes that.
 
 It is nonetheless cheap, because `D →⊥ E` is a **downward-closed** sub-cpo of
 `D → E`: anything below a strict function is strict (`isStrict_of_le`). So the
@@ -649,19 +650,21 @@ exactly the hypothesis the counterexample violated. Measured, nothing in this
 section reproduces it — the smash's `⊥` is the adjoined one and every map below
 sends it to itself.
 
-What blocks `⊗` is different, and it is two missing constructions rather than an
-obstruction:
+What blocked `⊗` was different, and it was two missing constructions rather than
+an obstruction. Both are now present in this file; the past tense is the point,
+and it matches the corrected wording of this module's own header above.
 
-1. **`r ⊗ s` does not exist.** `grep` over every module finds no functorial
-   action on the smash; `Isomorphism/Smash.lean` supplies only `smashComm` and
-   `smashAssoc`. This section builds it.
-2. **`Domain (D ⊗ E)` does not exist.** `ClosureProperties.lean` has
+1. **`r ⊗ s` did not exist.** `grep` over every module found no functorial action
+   on the smash; `Isomorphism/Smash.lean` supplies only `smashComm` and
+   `smashAssoc`. This section builds it — `smashMap`, below in this file.
+2. **`Domain (D ⊗ E)` did not exist.** `ClosureProperties.lean` has
    `lem10_smash : BoundedComplete (Smash α β)` and
    `lem17_smash : IsBifinite (Smash α β)`, and the `IsAlgebraic` instances in the
-   development are `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
-   `IdealCompletion A` — the smash is not among them. `SmashObstruction` below
+   development were `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
+   `IdealCompletion A` — the smash was not among them. `SmashObstruction` below
    names this as a `Prop`, so the gap is a statement the kernel elaborates rather
-   than a sentence of prose.
+   than a sentence of prose, and `smashIsAlgebraic` and `smashDomain` — also
+   below in this file — close it.
 
 The decomposition this section is built on is worth stating separately, because
 it is what makes `r ⊗ s` cheap: `D ⊗ E` sits between `D × E` and itself by a

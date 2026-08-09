@@ -316,9 +316,19 @@ theorem rep_sepSum_V (h : LemThirty.Thm29SecondAtDomains) :
 (`LemThirty.rep_lift_V_of_thm29Normal`, `rep_prod_V_of_thm29Normal`); the other
 three were routed through the now-refuted `Colimit.Thm29Second` and were
 therefore vacuous. The three that remain open are the powerdomain conjuncts
-`(·)♯`, `(·)♭`, `(·)♮`, whose `PRep` schemes do not exist, and the two
-function-space conjuncts `→`, `⇸`, which `not_boundedComplete_V` below shows are
-blocked by a structural obstruction rather than by missing work. -/
+`(·)♯`, `(·)♭`, `(·)♮`, and the two function-space conjuncts `→`, `⇸`, which
+`not_boundedComplete_V` below shows are blocked by a structural obstruction
+rather than by missing work.
+
+*Corrected in r0046 (agent5).* This sentence used to say the powerdomain
+conjuncts are open "whose `PRep` schemes do not exist". Two of the three schemes
+do exist: `PRep.smythOp` (`PRep.lean:214`) and `PRep.hoareOp` (`PRep.lean:225`),
+both `Cpo → Cpo`, and `PRep.Lemma28AtU` is stated over them
+(`PRep.lean:260-261`). Checked against the built `.olean` by
+`scripts/a5-r46-exists.lean`, where both `#check`s resolve. Only `(·)♮`
+(Plotkin) has no `PRep` scheme. What is actually open for `♯` and `♭` at `V` is
+the representability, not the scheme — and at `U` even that is discharged
+(`R45.Agent4.repSmythAtU`, `repHoareAtU`). -/
 theorem five_conjuncts_of_thm29Normal (h : LemThirty.Thm29Normal) :
     BifiniteUniversal.IsPRepresentable₂ V PRep.prodOp ∧
     BifiniteUniversal.IsPRepresentable₂ V PRep.smashOp ∧

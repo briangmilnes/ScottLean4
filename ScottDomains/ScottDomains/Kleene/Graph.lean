@@ -35,14 +35,27 @@ sentence, because only the paper's has both coordinates in a countable set.
 
 ## The hypotheses the recovery equation actually needs
 
-Algebraicity of `D` (to write `x` as a directed supremum of compacts),
-algebraicity of `E` (to write `f(x₀)` as a directed supremum of compacts), and
-**bounded completeness of `E`** — which the paper does not mention here but which
-the argument cannot do without. `sSup` in a cpo is pinned down only on directed
-sets, and `{y₀ | (x₀,y₀) ∈ G_f, x₀ ⊑ x}` is directed only because two of its
-members are bounded by `f(x₃)` for a common compact `x₃ ⊑ x`, so their join
-exists and is compact by `isCompactElement_of_isLUB_pair`. `P N` is bounded
-complete, so the paper's example is covered.
+Algebraicity of `D` (to write `x` as a directed supremum of compacts) and
+algebraicity of `E` (to write `f(x₀)` as a directed supremum of compacts).
+`sSup` in a cpo is pinned down only on directed sets, and
+`{y₀ | (x₀,y₀) ∈ G_f, x₀ ⊑ x}` must be shown directed; `sSup_recoverAt` below
+carries `[BoundedComplete β]` and gets the upper bound as a join, compact by
+`isCompactElement_of_isLUB_pair`.
+
+**That hypothesis is not necessary, and this file used to claim it was.** The
+sentence here read "**bounded completeness of `E`** — which the paper does not
+mention here but which the argument cannot do without." It is false, and the
+paper is right to omit it: `IsAlgebraic β` already carries
+`directedOn_compactsBelow`, so an upper bound for two members can be *drawn from*
+`compactsBelow (f x₃)` instead of *built* as a join. `scripts/a1-probe45.lean`
+(r0044, agent1; re-run in r0046 by agent5) proves both `directedOn_recoverAt` and
+the recovery equation itself with `[BoundedComplete β]` deleted, on axioms
+`[propext, Quot.sound]` — no `sorryAx`, no `Classical.choice`.
+
+`sSup_recoverAt` below is left with the hypothesis rather than restated: only
+agent1 may change a claim's statement this round, and `P N` — the paper's example
+— is bounded complete, so nothing downstream is weakened by keeping it. What is
+corrected is the prose: the hypothesis is *convenient*, not *forced*.
 -/
 
 namespace ScottDomains.Kleene

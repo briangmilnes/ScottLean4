@@ -41,11 +41,31 @@ propositions*, which is the unit of value r0040's finding calls for.
 
 `SmythImageIso` — **`im(p♯) ≅ (im p)♯`**. This is the statement that the upper
 powerdomain commutes with the image of a finitary projection, and it is a real
-theorem about the functor, not a bookkeeping step: `K(im p)` is *not* `p(K(U))`.
-`PowerdomainCompacts` proves that `p(K(D)) ⊆ K(D)` fails outright, so the
-identification of the two sides cannot be made by transporting a basis; it has to
-go through `IsProjection.isCompactElement_iff` (Lemma 5), which characterises
-`K(im p)` intrinsically.
+theorem about the functor, not a bookkeeping step: `K(im p)` is *not* `p(K(U))`,
+and `PowerdomainCompacts` proves that `p(K(D)) ⊆ K(D)` fails outright, so the
+identification of the two sides cannot be made by transporting a basis.
+
+**Both obligations are now discharged, and the route this paragraph predicted was
+not the one taken.** The sentence continued "…it has to go through
+`IsProjection.isCompactElement_iff` (Lemma 5), which characterises `K(im p)`
+intrinsically." That necessity claim is false. `R45.Agent4.smythImageIso` and
+`R45.Agent4.hoareImageIso` (`A4PowerdomainRep.lean:256,283`) conclude the two
+image isomorphisms and neither proof mentions `K(im p)` at all: factor
+`p = ι ∘ π` through its image, apply the functor laws `map_id` / `map_comp`, and
+`map ι` is a section whose range is `im(map p)` — a statement about two monotone
+maps between two preorders, with no domain theory in it.
+
+Measured in r0046 by `scripts/a5-r46-deps.lean`, which computes the transitive
+constant closure of each proof term in the built `.olean`:
+`ScottHom.IsProjection.isCompactElement_iff` is **absent** from
+`deps(smythImageIso)` (2777 constants) and from `deps(hoareImageIso)` (2772). The
+same probe reports `USES` for `nonempty_orderIso_range_of_section`, the route the
+proofs do take, so the negative answers are not an artifact of the instrument.
+
+Two r0045 agents (agent2 and agent4) reached the same conclusion independently
+before it was measured. The sentence is kept above rather than deleted because it
+records what the development believed when `PowerdomainMap` was written, and that
+belief is what made the conjunct look harder than it was.
 
 `SmythFamilyLUB` — **local continuity of the action**: `p ↦ p♯` preserves
 directed suprema pointwise. `map f I = ⨆ {fold ({|f k|})ₖ∈u | u ∈ I}`, so this is

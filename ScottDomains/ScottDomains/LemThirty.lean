@@ -147,7 +147,10 @@ recorded in signatures rather than in prose:
    `countable_compacts_of_reflects` shows the word is load-bearing: `A∞` is
    countable, so no order-reflecting map into it has an uncountable source, and
    the version of `Thm29Normal` without `[Domain E]` is refutable rather than
-   open. Inside the reduction proper, only the algebraicity half is spent.
+   open. That was an assertion when written and is now kernel-checked:
+   `R45.Agent3.not_thm29NormalWithoutDomain` refutes it (r0045), at the `def`
+   `R45.Agent3.Thm29NormalWithoutDomain`, which is this statement with the binder
+   deleted. Inside the reduction proper, only the algebraicity half is spent.
 2. **`⊗`, `+` and `⊕` are not known to be algebraic here.** Their retraction
    pairs therefore take `Colimit.Thm29Second` rather than
    `Thm29SecondAtDomains`. This is a gap next to Lemma 17, not next to
@@ -386,11 +389,24 @@ end Retracts
 
 /-! ## The two conjuncts that are complete today
 
-`PRep.rep_lift` and `PRep.rep_prod` are the only two of Lemma 28's nine schemes
-already proved; streams 3 and 4 of this round are proving the rest. Both are
-generic in the carrier, so instantiating them at `V` costs one `obtain` and one
+`PRep.rep_lift` and `PRep.rep_prod` are the two instantiated at `V` below. Both
+are generic in the carrier, so instantiating them costs one `obtain` and one
 `exact` each. That is the transfer measurement the round asked for, in the form
-the kernel checks. -/
+the kernel checks.
+
+The sentence that stood here said these two were "the only two of Lemma 28's nine
+schemes already proved". That was true when written; it is false now, and by a
+wide margin. Measured against the built environment in r0046, **all nine schemes
+exist**, one per conjunct of `PRep.Lemma28` — `PRepFun.rep_arrow` (`funOp`),
+`PRepFun.rep_strictArrow` (`strictFunOp`), `PRep.rep_prod` (`prodOp`),
+`PRepFun.rep_smash` (`smashOp`), `PRepSum.rep_sepSum` (`sepSumOp`),
+`PRepSum.rep_coalSum` (`coalSumOp`), `PRep.rep_lift` (`liftOp`),
+`R45.Agent4.rep_smyth` (`smythOp`) and `R45.Agent4.rep_hoare` (`hoareOp`). The
+count is not read off the names: each one's conclusion is
+`IsPRepresentable(₂) U <op>` for the operator named, and
+`R45.Agent4.lemma28AtU : PRep.Lemma28AtU` discharges the conjunction with no
+proof hypothesis at all. What is still open at `V` is the transfer of those
+schemes to this carrier, which is a different claim from the schemes existing. -/
 
 /-- **Conjunct 7 of Lemma 30: `(·)⊥` is p-representable over `V`**, given
 Theorem 29's second sentence.
@@ -448,10 +464,19 @@ theorem exists_stage_ge_of_finite {S : Set Ainf} (hS : S.Finite) (n : ℕ) :
 /-- **The step Theorem 29's second sentence is missing.** For every bifinite `E`
 there is an order-reflecting map of `K(E)` into `A∞` whose image is normal in
 `A∞` — equivalently, `A∞` is universal among the bases of bifinite domains under
-normal embedding. `Thm29Second` follows from this by Theorem 11 and transport
-along the ideal completion; the chain-by-chain construction of the map, over the
-tower of finite normal subposets of `K(E)`, is what [Gun87] carries and §7.4 does
-not.
+normal embedding. `Thm29SecondAtDomains` follows from this by Theorem 11 and
+transport along the ideal completion (`thm29SecondAtDomains_of_thm29Normal`); the
+chain-by-chain construction of the map, over the tower of finite normal subposets
+of `K(E)`, is what [Gun87] carries and §7.4 does not.
+
+This sentence named `Colimit.Thm29Second` rather than `Thm29SecondAtDomains`
+until r0046. That was wrong, and r0045 is what made it checkable:
+`R45.Agent3.not_thm29Second : ¬ Colimit.Thm29Second` refutes the unqualified
+form outright, so nothing consistent implies it and the old sentence claimed an
+implication that cannot hold. The two `def`s differ by the single instance binder
+`[Domain E]` (`Colimit.lean:1028` against `LemThirty.lean:277`), which is exactly
+the discharged-versus-discharged-at distinction: what this statement yields is
+the version carrying the paper's word "domain", not the one without it.
 
 Order-reflection rather than monotonicity plus injectivity, because
 `OrderEmbedding.ofMapLEIff` is the form the rest of `Colimit.lean` consumes
@@ -508,8 +533,12 @@ theorem injective_of_reflects (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) : Function
 has a countable source. So an `E` that is bifinite but has an uncountable basis
 — an uncountable flat cpo is one — admits no such `f` at all, and the version of
 `Thm29Normal` without `[Domain E]` is refutable rather than open. `IsBifinite`
-alone is the Plotkin condition on `K(E)` and says nothing about its
-cardinality. -/
+alone is the Plotkin condition on `K(E)` and says nothing about its cardinality.
+
+This paragraph asserted the refutation without giving one until r0045, which
+supplied it: `R45.Agent3.not_thm29NormalWithoutDomain` refutes
+`R45.Agent3.Thm29NormalWithoutDomain`, this statement with the binder deleted,
+using this very theorem and `Flat (Set ℕ)` as the witness. -/
 theorem countable_compacts_of_reflects (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) :
     Countable ↥(compacts E) :=
   (injective_of_reflects hf).countable

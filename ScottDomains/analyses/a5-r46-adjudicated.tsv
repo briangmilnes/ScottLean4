@@ -1,0 +1,42 @@
+# r0046 / agent5 — ADJUDICATION LEDGER for necessity / impossibility / absence claims.
+#
+# Every row is a claim decided against the built `.olean` or against Mathlib by a
+# named probe. A later round re-running `scripts/a5-r46-sweep.sh` should subtract
+# these sites before counting: the raw candidate count is NOT a progress metric,
+# because the correction protocol requires quoting the sentence being corrected,
+# so fixing a false claim leaves the site matching (measured: 230 candidates
+# before four corrections, 231 after).
+#
+# verdict  FALSE     refuted by a probe; prose corrected unless the file belongs
+#                    to another agent this round
+#          TRUE      confirmed by a probe
+#          TRUE-A    confirmed at grade A: the hypothesis-free form is REFUTED,
+#                    not merely un-reprovable
+#          OPEN      the instrument cannot decide it; reason given
+#
+# columns: site <TAB> verdict <TAB> probe <TAB> note
+
+ScottDomains/ScottDomains/Effective/FunctionSpace.lean:300	FALSE	a5-r46-mathlib.lean; a5-r46-exists.lean	Primcodable (Finset N) synthesizes; ComputablePred inhabited there; corrected r0046/agent5
+ScottDomains/ScottDomains/Kleene/Graph.lean:41	FALSE	a1-probe45.lean (re-run)	recovery equation proved with [BoundedComplete b] deleted, axioms [propext, Quot.sound]; corrected r0046/agent5
+ScottDomains/ScottDomains/PowerdomainMapRep.lean:47	FALSE	a5-r46-deps.lean	isCompactElement_iff absent from deps(smythImageIso)=2777 and deps(hoareImageIso)=2772; corrected r0046/agent5
+ScottDomains/ScottDomains/A3Thm29.lean:319	FALSE	a5-r46-exists.lean	PRep.smythOp and PRep.hoareOp both resolve; only Plotkin lacks a scheme; corrected r0046/agent5
+ScottDomains/ScottDomains/PRepFun.lean:662	FALSE	a5-r46-exists.lean	SmashObstruction resolves nowhere; found r0044/agent7 row 10, still unrepaired; PRepFun is agent4's file this round
+ScottDomains/ScottDomains/Kleene/Uniform.lean:40	TRUE-A	a5-r46-delete.lean	strictness-free map_kleeneFix_of_commutes REFUTED at f=g=id, h=const True on Prop; upgrades r0044/agent8 grade C
+ScottDomains/ScottDomains/WayBelow.lean:34	TRUE-A	a5-r46-delete.lean	bot_wayBelow REFUTED once s.Nonempty is deleted, at a=N, s=empty; axioms [propext, Quot.sound]
+ScottDomains/ScottDomains/Smash.lean:29	TRUE-A	a5-r46-delete.lean	sSup_ne_bot_of_nonempty REFUTED at t=empty over any a,b
+ScottDomains/ScottDomains/Smash.lean:97	TRUE-A	a5-r46-delete.lean	same claim, same refutation
+ScottDomains/ScottDomains/Universality.lean:88	TRUE	a5-r46-mathlib.lean	exact? fails on the STATEMENT of OrderIso.prodCongr, not merely the name; re-confirms r0044/agent8
+ScottDomains/ScottDomains/ClosureProperties/SeparatedSum.lean:173	TRUE	a5-r46-mathlib.lean; a5-r46-deps.lean	same Mathlib gap; the local orderIsoProdCongr has exactly 1 user
+ScottDomains/ScottDomains/Effective/FunctionSpace.lean:335	TRUE	a5-r46-mathlib.lean; grep Mathlib/Computability	exact? fails on Computable (p.1 ||| p.2); 0 hits for "bitwise" in Mathlib/Computability
+ScottDomains/ScottDomains/Effective/FunctionSpace.lean:336	TRUE	a5-r46-mathlib.lean	same
+ScottDomains/ScottDomains/ComputableFunction.lean:70	TRUE	a5-r46-mathlib.lean; grep Mathlib	all five named REPred lemmas resolve; conjunction and projection both fail exact?. Nit: Halting.lean has 2 further REPred RESULTS, not API lemmas
+ScottDomains/ScottDomains/ComputableFunction.lean:87	TRUE	a5-r46-mathlib.lean	exact? fails on the rePred_comp statement
+ScottDomains/ScottDomains/JungNets.lean:102	TRUE	a5-r46-mathlib.lean; grep Mathlib	0 hits for Iwamura|Markowsky; no ChainCompletePartialOrder -> CompletePartialOrder instance
+ScottDomains/ScottDomains/JungBicomplete.lean:69	TRUE	a5-r46-mathlib.lean	same
+ScottDomains/ScottDomains/PropertyM.lean:40	TRUE	a5-r46-mathlib.lean	same
+ScottDomains/ScottDomains/ScottHom.lean:17	TRUE	a5-r46-mathlib.lean	OmegaCompletePartialOrder.ContinuousHom, ScottContinuous and ScottContinuous.comp all resolve with the asserted shapes
+ScottDomains/ScottDomains/ClosureProperties/SeparatedSum.lean:159	TRUE	a5-r46-exists.lean	lem17_separated takes [Domain a] [Domain b] only; lem10_separated takes both BoundedCompletes
+ScottDomains/ScottDomains/MinimalUpperBounds.lean:179	TRUE	a5-r46-exists.lean	isNormalIn_of_isMubClosed takes [Preorder a] only; no OrderBot
+ScottDomains/ScottDomains/LemThirty.lean:147	TRUE	a5-r46-deps.lean	countable_compacts_of_reflects has exactly 1 user, R45.Agent3.not_thm29NormalWithoutDomain, a refutation theorem. TRUE NOW: it was a prediction when written and r0045 made it good
+ScottDomains/ScottDomains/PRepFun.lean:655	TRUE	reading	states a gap the same section then closes ("This section builds it"); not a standing claim
+ScottDomains/ScottDomains/JungBicomplete.lean:506	OPEN	a5-r46-deps.lean	"Thm18 ... the only consumer of HasChainInfima": measured 11 direct users, none named thm18. The sentence is scoped and the scope is not stated, so a global reverse-dependency count is the wrong denominator. NOT convicted

@@ -1,0 +1,52 @@
+# r0046
+# agent3 — lake build ScottDomains.A3Lemma30Schemes ScottDomains.Effective.A3StrictRecursive
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-08T23:24:08-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A3Lemma30Schemes ScottDomains.Effective.A3StrictRecursive ===
+✔ [1126/1128] Built ScottDomains.A4PowerdomainRep (868ms)
+✖ [1127/1128] Building ScottDomains.Effective.A3StrictRecursive (834ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Effective/A3StrictRecursive.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A3StrictRecursive.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A3StrictRecursive.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Effective/A3StrictRecursive.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Effective/A3StrictRecursive.setup.json --json
+error: ScottDomains/Effective/A3StrictRecursive.lean:90:66: unexpected token 'omit'; expected 'lemma'
+warning: ScottDomains/Effective/A3StrictRecursive.lean:115:0: automatically included section variable(s) unused in theorem `ScottDomains.R46.Agent3.isStrict_ofPairs`:
+  [Domain α]
+  [Domain β]
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain α] [Domain β] [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: Lean exited with code 1
+✖ [1128/1128] Building ScottDomains.A3Lemma30Schemes (727ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/A3Lemma30Schemes.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/A3Lemma30Schemes.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/A3Lemma30Schemes.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/A3Lemma30Schemes.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/A3Lemma30Schemes.setup.json --json
+error: ScottDomains/A3Lemma30Schemes.lean:196:67: Application type mismatch: The argument
+  ha
+has type
+  ↑(Fp U)
+of sort `Type u` but is expected to have type
+  IsLUB d✝ ?m.53
+of sort `Prop` in the application
+  plotkinFamilyLUB hne hd ha
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A3StrictRecursive
+- ScottDomains.A3Lemma30Schemes
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:02.42
+Maximum resident set size (kbytes): 1835740
+--- build ---
+finished:         2026-08-08T23:24:11-07:00
+exit status:      1
+user cpu:         3.31s
+system cpu:       0.96s
+cpu use:          176%
+peak rss single:  1792 MiB (largest one process, GNU time)
+peak pss tree:    2063 MiB (process group, shared pages apportioned)
+peak rss tree:    4322 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      3
+sorry decls:      0
+other warnings:   1
