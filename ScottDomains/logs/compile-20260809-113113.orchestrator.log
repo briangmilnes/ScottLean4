@@ -1,0 +1,50 @@
+# r0046
+# orchestrator — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4
+# started: 2026-08-09T11:31:13-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1325/1355] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1339/1355] Built ScottDomains.Kleene.Graph (1.3s)
+✔ [1340/1355] Built ScottDomains.LemThirty (1.6s)
+✔ [1341/1355] Built ScottDomains.PowerdomainMap (2.2s)
+✔ [1342/1355] Built ScottDomains.PRepFun (2.8s)
+✔ [1343/1355] Built ScottDomains.A2Thm29Universal (2.1s)
+✔ [1344/1355] Built ScottDomains.PowerdomainCompacts (1.5s)
+✔ [1345/1355] Built ScottDomains.Lemma28AtU (1.4s)
+✔ [1346/1355] Built ScottDomains.A3Thm29 (1.5s)
+✔ [1347/1355] Built ScottDomains.Effective.FunctionSpace (1.6s)
+✔ [1348/1355] Built ScottDomains.Audit.SectionSeven (1.3s)
+✔ [1349/1355] Built ScottDomains.PowerdomainMapRep (1.6s)
+✔ [1350/1355] Built ScottDomains.Effective.A1FlatRecursive (1.4s)
+✔ [1351/1355] Built ScottDomains.Effective.A3StrictRecursive (1.5s)
+✔ [1352/1355] Built ScottDomains.A2Lemma28 (1.5s)
+✔ [1353/1355] Built ScottDomains.A4PowerdomainRep (1.6s)
+✔ [1354/1355] Built ScottDomains.A3Lemma30Schemes (1.5s)
+Build completed successfully (1355 jobs).
+--- times ---
+Elapsed (wall clock): 0:10.59
+Maximum resident set size (kbytes): 1840460
+--- build ---
+finished:         2026-08-09T11:31:25-07:00
+exit status:      0
+user cpu:         34.19s
+system cpu:       7.21s
+cpu use:          390%
+peak rss single:  1797 MiB (largest one process, GNU time)
+peak pss tree:    2347 MiB (process group, shared pages apportioned)
+peak rss tree:    9029 MiB (process group, shared pages counted per process)
+jobs:             1355
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   0
