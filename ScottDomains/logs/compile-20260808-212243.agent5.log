@@ -1,0 +1,51 @@
+# r0045
+# agent5 — lake build ScottDomains.A5Thm137
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T21:22:43-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A5Thm137 ===
+✖ [1001/1001] Building ScottDomains.A5Thm137 (689ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent5/ScottDomains/ScottDomains/A5Thm137.lean -o /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/A5Thm137.olean -i /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/lib/lean/ScottDomains/A5Thm137.ilean -c /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/A5Thm137.c --setup /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake/build/ir/ScottDomains/A5Thm137.setup.json --json
+warning: ScottDomains/A5Thm137.lean:95:0: automatically included section variable(s) unused in theorem `ScottDomains.R45.Agent5.compactLowerBounds_nonempty`:
+  [IsAlgebraic D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/A5Thm137.lean:112:19: Unknown identifier `k₁`
+error: ScottDomains/A5Thm137.lean:113:19: Unknown identifier `k₂`
+warning: ScottDomains/A5Thm137.lean:203:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ScottDomains/A5Thm137.lean:194:0: automatically included section variable(s) unused in theorem `ScottDomains.R45.Agent5.exists_countable_subset_compactLowerBounds`:
+  [IsAlgebraic D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsAlgebraic D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A5Thm137
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.64
+Maximum resident set size (kbytes): 1778868
+--- build ---
+finished:         2026-08-08T21:22:46-07:00
+exit status:      1
+user cpu:         1.40s
+system cpu:       0.57s
+cpu use:          120%
+peak rss single:  1737 MiB (largest one process, GNU time)
+peak pss tree:    1873 MiB (process group, shared pages apportioned)
+peak rss tree:    2546 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   3
