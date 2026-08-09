@@ -296,11 +296,28 @@ theorem operator_preserves_effectivePresentation {γ : Type*} [CompletePartialOr
 of the basis are recognized by a total recursive function of the *index* of the
 finite index set.
 
-The index is needed because the condition quantifies over `u : Finset ℕ` and
-Mathlib v4.32.2 has no `Primcodable (Finset ℕ)` instance, so `ComputablePred`
-cannot be asked of a predicate on `Finset ℕ` at all. `Denumerable (Finset ℕ)`
-names each `u` by a natural, which is what §3.2's "for any finite set `u ⊆ ℕ`"
-means operationally.
+The condition quantifies over `u : Finset ℕ`, and `Denumerable (Finset ℕ)` names
+each `u` by a natural, which is what §3.2's "for any finite set `u ⊆ ℕ`" means
+operationally. The `ℕ` index is therefore a **convenience, not a necessity**.
+
+*Corrected in r0046 (agent5); the original reason given here was false.* This
+paragraph used to read "The index is needed because … Mathlib v4.32.2 has no
+`Primcodable (Finset ℕ)` instance, so `ComputablePred` cannot be asked of a
+predicate on `Finset ℕ` at all." Both halves fail, measured against Mathlib in
+`scripts/a5-r46-mathlib.lean`:
+
+* `Primcodable (Finset ℕ)` **is** synthesizable — `Primcodable.ofDenumerable`
+  (priority 10) turns any `Denumerable α` into a `Primcodable α`, and
+  `Denumerable (Finset ℕ)` is `Mathlib/Logic/Equiv/Finset.lean`. The probe closes
+  `example : Primcodable (Finset ℕ) := by infer_instance`.
+* `ComputablePred` therefore **can** be asked of a predicate on `Finset ℕ`, and
+  the class is inhabited there, not merely well-formed. `scripts/a5-r46-exists.lean`
+  additionally elaborates this very condition stated directly on `Finset ℕ` with
+  no index.
+
+The claim was first refuted by r0045's agent1 (`Effective/A1FlatRecursive.lean`,
+row 1 of its table). The `def` below is left as it stands: the indexed form is a
+faithful rendering of §3.2 and is what the rest of the development consumes.
 
 The companion for condition 1 is `ScottDomains.Computable.RecursiveLE`, defined in
 `ComputableFunction.lean` (r0031); it is reused rather than restated. -/

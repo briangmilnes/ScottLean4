@@ -1,0 +1,40 @@
+# r0046 / agent5 — hand-classified FALSE POSITIVES of scripts/a5-r46-sweep.sh.
+#
+# One `file:line` per line. A candidate is a false positive when the regex fired
+# on English that makes no necessity / impossibility / absence assertion. Two
+# kinds dominate:
+#
+#   Q — the matched text is a BLOCKQUOTE of Gunter & Scott or of Jung. The paper
+#       asserting "there is no representation for F(X) = X + X" is the paper's
+#       claim, not the development's, and is checked against the PDF, not the
+#       kernel.
+#   D — the match is DESCRIPTIVE, not modal: "the single relation
+#       `{(n,m) | eₘ ⊑ f(dₙ)}`" names a thing, it does not claim uniqueness.
+#
+# Everything else counts as a true positive, INCLUDING negative-necessity
+# sentences ("no bounded completeness is needed") and sentences that report a
+# claim in order to refute it — both are decidable assertions with a truth value.
+#
+# Used by scripts/a5-r46-precision.sh. Sorted by file.
+
+ScottDomains/ScottDomains/A3Thm29.lean:179          # D — "nothing else changed" describes a diff
+ScottDomains/ScottDomains/Atomless.lean:15          # Q — quoted classification of atomless BAs
+ScottDomains/ScottDomains/BifiniteUniversal.lean:27 # Q — quoted from the paper's stage-0 construction
+ScottDomains/ScottDomains/BifiniteUniversal.lean:184 # D — "no instance of `⊢` is lost" is about a symbol, not a typeclass instance
+ScottDomains/ScottDomains/CombinatorRep.lean:46     # Q — the paper's §7.1 sentence
+ScottDomains/ScottDomains/CombinatorRep.lean:263    # D — "the only thing that changes is where the pair comes from"
+ScottDomains/ScottDomains/ComputableFunction.lean:44 # D — names the uniform relation
+ScottDomains/ScottDomains/ComputableFunction.lean:100 # D — names the uniform relation
+ScottDomains/ScottDomains/ContinuousAlgebra.lean:104 # D — names the map `E x E -> E`
+ScottDomains/ScottDomains/FixedPoint.lean:71        # D — "the chain without its first element"
+ScottDomains/ScottDomains/JungBicomplete.lean:34    # Q — Jung's Theorem 1.37 proof text
+ScottDomains/ScottDomains/JungBicomplete.lean:36    # Q — Jung's Theorem 1.37 proof text
+ScottDomains/ScottDomains/LemThirty.lean:50         # D — "removes the only doubt", rhetorical
+ScottDomains/ScottDomains/LemThirty.lean:701        # D — names a statement
+ScottDomains/ScottDomains/Morphism.lean:549         # Q — the paper's §4.4 caveat
+ScottDomains/ScottDomains/PRepresentable.lean:77    # D — names a proposition
+ScottDomains/ScottDomains/PRepresentable.lean:127   # D — "outside the single point `id`"
+ScottDomains/ScottDomains/Powerdomain/Universal.lean:82 # Q — the paper's §7.1 sentence
+ScottDomains/ScottDomains/RecursiveDomain.lean:381  # Q — the paper's universality caveat
+ScottDomains/ScottDomains/SFP.lean:86               # Q — the paper's phrase, in quotation marks
+ScottDomains/ScottDomains/Universality.lean:14      # Q — the paper's universality caveat

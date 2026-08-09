@@ -1,0 +1,157 @@
+/-!
+r0046 / agent5, Goal B — **the deletion probe** (body; the 105-module import
+block is prepended by `scripts/a5-r46-gen.sh`).
+
+NOT part of the package: generated into `scripts/`, outside
+`ScottDomains/ScottDomains/`, so `lake build` never sees it and the job count
+stays at 1344.
+
+## What it decides, and the grade of evidence it produces
+
+A sentence "hypothesis `H` is indispensable to `T`" is decided by deleting `H`
+and asking the kernel about `T`. There are three possible outcomes and they are
+**not** of equal strength, which is why this file labels each one:
+
+| Grade | Outcome | Verdict |
+| ----- | ------- | ------- |
+| **A** | `T` *without* `H` is **refuted** — `¬ T'` is proved | necessity claim **CONFIRMED**, decisively |
+| **B** | `T` *without* `H` is **proved** | necessity claim **REFUTED**, decisively |
+| **C** | the original tactic script fails without `H` | **no verdict** — a script can fail for transcription reasons |
+
+r0044's agent8 and r0045's agent1/agent4 worked at grade C and grade B. This file
+upgrades the confirmations to **grade A** where a counterexample is available,
+because grade C is not evidence: "my re-proof did not go through" is a statement
+about the prover, not about the theorem.
+
+Work: O(1) per claim — each is a closed example over a two-element order.
+-/
+
+namespace A5R46Delete
+
+open ScottDomains
+
+/-! ## N2 — `WayBelow.lean:33-34`
+
+> "Carrying it explicitly matches both conventions, and `bot_wayBelow` is false
+> without it."
+
+`ScottDomains.WayBelow` carries `s.Nonempty` as a hypothesis of the definition.
+The claim is that dropping it makes `ScottDomains.bot_wayBelow` false. Grade A:
+the nonemptiness-free relation is defined and `bot_wayBelow` is refuted at
+`α := ℕ`, `s := ∅`. -/
+
+/-- `WayBelow` with the `s.Nonempty` hypothesis of the definition **deleted**.
+Everything else is `ScottDomains.WayBelow` verbatim (`WayBelow.lean:51-53`). -/
+def WayBelowNE {α : Type*} [Preorder α] (x y : α) : Prop :=
+  ∀ (s : Set α) (u : α), DirectedOn (· ≤ ·) s → IsLUB s u → y ≤ u →
+    ∃ z ∈ s, x ≤ z
+
+/-- `IsLUB (∅ : Set ℕ) 0` — the empty set's upper bounds are everything, and `0`
+is least among them. This is the witness the deleted hypothesis excluded. -/
+theorem isLUB_empty_nat : IsLUB (∅ : Set ℕ) 0 :=
+  ⟨fun _ h => absurd h (Set.notMem_empty _), fun _ _ => Nat.zero_le _⟩
+
+/-- **Grade A: `bot_wayBelow` is refuted once `s.Nonempty` is deleted.**
+So `WayBelow.lean:34`'s "`bot_wayBelow` is false without it" is **TRUE**. -/
+theorem not_bot_wayBelowNE : ¬ WayBelowNE (⊥ : ℕ) 0 := by
+  intro h
+  obtain ⟨z, hz, -⟩ := h ∅ 0 (by simp [DirectedOn]) isLUB_empty_nat le_rfl
+  exact absurd hz (Set.notMem_empty _)
+
+/-- Control: with the hypothesis restored, the package's own `bot_wayBelow`
+proves the same statement. The probe must be able to answer both ways. -/
+example : (⊥ : ℕ) ≪ 0 := bot_wayBelow 0
+
+/-! ## N3 — `Kleene/Uniform.lean:39-41`
+
+> "Note which hypotheses do the work: strictness is used exactly once, at
+> `n = 0`, and it is indispensable — without it `h(⊥)` need not be `⊥` and the
+> two chains need not start together."
+
+r0044's agent8 confirmed this at grade C: deleting `hbot` from
+`map_iterate_bot` left `case zero ⊢ h ⊥ = ⊥` unsolved. Grade C is a statement
+about the tactic script. Upgraded to grade A below by refuting the
+strictness-free form of `map_kleeneFix_of_commutes` (`Uniform.lean:83-90`) with
+a counterexample: `f = g = id` and `h` a non-bottom constant on `Prop`.
+
+`f = g = id` makes the square commute for *any* `h`, so the counterexample
+isolates strictness exactly — no other hypothesis of the theorem is touched. -/
+
+/-- The constant map at `True`, on the two-element complete lattice `Prop`. -/
+private def hTrue : Prop → Prop := fun _ => True
+
+theorem scottContinuous_hTrue : ScottContinuous hTrue := by
+  intro s hne _ a ha
+  constructor
+  · rintro _ ⟨x, hx, rfl⟩; exact fun _ => trivial
+  · intro b hb
+    obtain ⟨x, hx⟩ := hne
+    exact hb ⟨x, hx, rfl⟩
+
+/-- **Grade A: the strictness-free form of `map_kleeneFix_of_commutes` is
+refuted.** Every other hypothesis of `Uniform.lean:83` is supplied — `Monotone
+f`, `Monotone g`, `ScottContinuous h`, and the commuting square — and only
+`hbot : h ⊥ = ⊥` is deleted. The conclusion fails.
+
+So `Kleene/Uniform.lean:40`'s "it is indispensable" is **TRUE**. -/
+theorem not_map_kleeneFix_of_commutes_without_strictness :
+    ¬ (∀ {α β : Type} [CompletePartialOrder α] [CompletePartialOrder β]
+        {f : α → α} {g : β → β} {h : α → β},
+        Monotone f → Monotone g → ScottContinuous h →
+        (∀ x, h (f x) = g (h x)) → h (kleeneFix f) = kleeneFix g) := by
+  intro H
+  have hbad : hTrue (kleeneFix (id : Prop → Prop))
+      = kleeneFix (id : Prop → Prop) :=
+    H monotone_id monotone_id scottContinuous_hTrue (fun _ => rfl)
+  -- `hbad` says `True = kleeneFix id`; the next two steps compute the right side.
+  -- `kleeneFix id = ⊥ = False` on `Prop`, while `hTrue _ = True`.
+  have hfix : kleeneFix (id : Prop → Prop) = (⊥ : Prop) := by
+    have : kleeneChain (id : Prop → Prop) = {⊥} := by
+      simp [kleeneChain, Function.iterate_id]
+    rw [kleeneFix, this, sSup_singleton]
+  rw [hfix] at hbad
+  simp [hTrue] at hbad
+
+/-! ## N4 — `Smash.lean:29-30` and `Smash.lean:97`
+
+> "The nonemptiness is essential — the empty set's coordinatewise supremum *is*
+> `(⊥, ⊥)`, which is why the empty case is sent to the adjoined bottom instead."
+
+The claim is about `sSup_ne_bot_of_nonempty` (`Smash.lean:98`), whose conclusion
+is `(sSup (Subtype.val '' t)).1 ≠ ⊥ ∧ …`. At `t = ∅` the image is `∅`, so the
+claim reduces to `(sSup (∅ : Set (WithBot α × WithBot β))).1 = ⊥`. Grade A. -/
+
+/-- `sSup ∅ = ⊥` in a cpo with a bottom. Not `sSup_empty`, which needs
+`CompleteLattice`: a `CompletePartialOrder`'s `SupSet` is only pinned down on
+directed sets. `∅` *is* directed (`DirectedOn` holds vacuously), so
+`lubOfDirected` applies and makes `sSup ∅` the least element. -/
+theorem sSup_empty_eq_bot {γ : Type} [CompletePartialOrder γ] :
+    (sSup (∅ : Set γ)) = ⊥ :=
+  le_antisymm
+    ((show DirectedOn (· ≤ ·) (∅ : Set γ) by simp [DirectedOn]).isLUB_sSup.2
+      (fun _ hx => absurd hx (Set.notMem_empty _)))
+    bot_le
+
+theorem sSup_empty_prod_fst_eq_bot {α β : Type} [CompletePartialOrder α]
+    [CompletePartialOrder β] :
+    (sSup (∅ : Set (α × β))).1 = ⊥ := by
+  rw [sSup_empty_eq_bot]
+  rfl
+
+/-- **Grade A: the nonemptiness-free form of `sSup_ne_bot_of_nonempty` is
+refuted**, at `t = ∅` over any `α`, `β`. So `Smash.lean:29` and `Smash.lean:97`
+are **TRUE**. -/
+theorem not_sSup_ne_bot_without_nonempty {α β : Type} [CompletePartialOrder α]
+    [CompletePartialOrder β] :
+    ¬ (∀ t : Set (NonBotPair α β), DirectedOn (· ≤ ·) t →
+        (sSup (Subtype.val '' t)).1 ≠ ⊥ ∧ (sSup (Subtype.val '' t)).2 ≠ ⊥) := by
+  intro H
+  have h := (H ∅ (by simp [DirectedOn])).1
+  rw [Set.image_empty] at h
+  exact h sSup_empty_prod_fst_eq_bot
+
+end A5R46Delete
+
+#print axioms A5R46Delete.not_bot_wayBelowNE
+#print axioms A5R46Delete.not_map_kleeneFix_of_commutes_without_strictness
+#print axioms A5R46Delete.not_sSup_ne_bot_without_nonempty
