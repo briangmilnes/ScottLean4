@@ -17,12 +17,19 @@ two axiom paragraphs, read off the rendered page (printed p. 28–29):
 
 r0040 measured this sentence as `N` — **no Lean statement at all**. Nine name
 variants (`fSharp`, `powerdomainMap`, `Powerdomain.map`, `hoareMap`, `smythMap`,
-`plotkinMap`, `mapPowerdomain`, `fFlat`, `fNatural`) returned zero hits, and the
-only `ext(` in the development is Theorem 12's `ext(f) : D♮ → E`, which is a map
-**out of** a powerdomain into an algebra, not a map `D♮ → E♮`. Two other modules
-had recorded the same absence for their own purposes: `PRepFun.lean:98` and
-`docs/PaperInventory.md` row 554, the latter naming it as the obstruction to
-Lemma 28's `()♯` and `()♭` conjuncts.
+`plotkinMap`, `mapPowerdomain`, `fFlat`, `fNatural`) returned zero hits, and at
+that time the only `ext(` in the development was Theorem 12's
+`ext(f) : D♮ → E`, a map **out of** a powerdomain into an algebra rather than a
+map `D♮ → E♮`. Two other modules had recorded the same absence for their own
+purposes: `PRepFun.lean:98` and `docs/PaperInventory.md` row 554, the latter
+naming it as the obstruction to Lemma 28's `()♯` and `()♭` conjuncts.
+
+**That survey is superseded by this module and is kept only as the record of what
+r0040 found.** `map` below is `ext ({|·|} ∘ f) : D♮ → E♮` — the tenth spelling,
+which the survey did not try — and `exists_unique_map` is the paper's sentence in
+full. Read as a statement about the tree today, the paragraph above is false:
+both the "no Lean statement" measurement and the "only `ext(`" clause are
+answered further down in this same file.
 
 ## The construction needs nothing new
 
