@@ -1,0 +1,77 @@
+# agent5 — lake env lean /home/milnes/projects/ScottLean4-agent5/scripts/a5-lint-unused.lean
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T17:12:46-07:00
+# lean: leanprover/lean4:v4.32.2
+### === lint ===
+/home/milnes/projects/ScottLean4-agent5/scripts/a5-lint-unused.lean:124:0: error: -- Found 18 errors in 2609 declarations (plus 1082 automatically generated ones) in ScottDomains with 1 linters
+
+/- The `unusedArguments` linter reports:
+UNUSED ARGUMENTS.
+This linter can be disabled with `@[nolint unusedArguments]`. -/
+-- ScottDomains.Audit.Powerdomains
+#check @ScottDomains.Audit.Powerdomains.ext_principal_eq /- 2 unused arguments:
+  argument 3: [ScottDomains.IsAlgebraic D]
+  argument 6: [OrderBot A] -/
+
+-- ScottDomains.ClosureProperties.Powerdomain
+#check @ScottDomains.ClosureProperties.isBifinite_idealCompletion /- 1 unused argument:
+  argument 4: [Countable P] -/
+
+-- ScottDomains.Dyadic
+#check ScottDomains.Dyadic.thm27 /- 1 unused argument:
+  argument 4: [ScottDomains.BoundedComplete D] -/
+
+-- ScottDomains.PRep
+#check ScottDomains.PRep.hoareOp_eq /- 1 unused argument:
+  argument 2: [ScottDomains.Domain D.carrier] -/
+
+-- ScottDomains.PRepFun
+#check @ScottDomains.PRepFun.domain_range_strictArrowFamily /- 1 unused argument:
+  argument 3: [ScottDomains.Domain U] -/
+#check @ScottDomains.PRepFun.domain_range_smashFamily /- 1 unused argument:
+  argument 3: [ScottDomains.Domain U] -/
+
+-- ScottDomains.Powerdomain.BoundedComplete
+#check ScottDomains.PowerdomainBC.lem13_hoare /- 2 unused arguments:
+  argument 3: [ScottDomains.Domain α]
+  argument 4: [ScottDomains.BoundedComplete α] -/
+#check ScottDomains.PowerdomainBC.instBoundedCompleteHoare /- 1 unused argument:
+  argument 3: [ScottDomains.Domain α] -/
+#check ScottDomains.PowerdomainBC.lem13_smyth /- 1 unused argument:
+  argument 3: [ScottDomains.Domain α] -/
+
+-- ScottDomains.Section62
+#check ScottDomains.Section62.HasGreatestStableNormal /- 1 unused argument:
+  argument 3: [ScottDomains.Domain α] -/
+
+-- ScottDomains.Skeleton.Lemma10
+#check @ScottDomains.lem10_prod /- 2 unused arguments:
+  argument 5: [ScottDomains.Domain α]
+  argument 7: [ScottDomains.Domain β] -/
+#check @ScottDomains.lem10_lift /- 1 unused argument:
+  argument 3: [ScottDomains.Domain α] -/
+#check @ScottDomains.lem10_strict /- 3 unused arguments:
+  argument 5: [ScottDomains.Domain α]
+  argument 6: [ScottDomains.BoundedComplete α]
+  argument 7: [ScottDomains.Domain β] -/
+
+-- ScottDomains.Skeleton.Lemma17
+#check @ScottDomains.lem17_prod /- 2 unused arguments:
+  argument 5: [ScottDomains.Domain α]
+  argument 6: [ScottDomains.Domain β] -/
+#check @ScottDomains.lem17_lift /- 1 unused argument:
+  argument 3: [ScottDomains.Domain α] -/
+
+-- ScottDomains.Skeleton.Sum
+#check @ScottDomains.lem10_sum /- 2 unused arguments:
+  argument 5: [ScottDomains.Domain α]
+  argument 7: [ScottDomains.Domain β] -/
+#check @ScottDomains.lem17_sum /- 2 unused arguments:
+  argument 5: [ScottDomains.Domain α]
+  argument 6: [ScottDomains.Domain β] -/
+#check @ScottDomains.lem17_smash /- 2 unused arguments:
+  argument 5: [ScottDomains.Domain α]
+  argument 6: [ScottDomains.Domain β] -/
+--- times ---
+finished: 2026-08-08T17:12:50-07:00
+exit status: 1

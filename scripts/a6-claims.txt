@@ -1,0 +1,44 @@
+# a6-claims.txt — round r0044, agent6, Class 3.
+#
+# The Prop-valued definitions in ScottDomains that are CLAIMS: a result the
+# paper (or Jung) states, written down as a `def … : Prop` and left unproved.
+# Every other Prop-valued definition with no unconditional proof is a CONCEPT —
+# a predicate the development defines so that theorems can quantify over it, and
+# for which "nobody proved it outright" is the normal and correct state.
+#
+# The separation is a reading of each declaration's own docstring, printed by
+# `scripts/a6-context.py`; it is kept here as data so `scripts/a6-summarize.py`
+# reproduces the report's counts, and so a later round can dispute one line
+# rather than the whole number. Each entry's docstring says in its own words
+# that the statement is open: "This is not proved", "Unproved", "Open",
+# "Obligation", "the remaining obligation", "none is discharged", "Recorded as a
+# `Prop` rather than a `sorry`".
+
+# §3.2 — effective presentations (Effective/FunctionSpace.lean)
+ScottDomains.Effective.StepFunctionsDecidable
+ScottDomains.Effective.Theorem7ArrowRecursive
+ScottDomains.Effective.Theorem7StrictRecursive
+ScottDomains.Effective.PreservesRecursivePresentation
+
+# §7.3 — Lemma 28 and its instantiation at U
+ScottDomains.PRep.Lemma28
+ScottDomains.PRep.Lemma28AtU
+
+# §7.4 — Theorem 29's second sentence, Lemma 30 and its conjunct
+ScottDomains.Colimit.Thm29Second
+ScottDomains.LemThirty.Thm29SecondAtDomains
+ScottDomains.LemThirty.Thm29Normal
+ScottDomains.LemThirty.Lemma30
+ScottDomains.LemThirty.Lemma30AtV
+ScottDomains.Colimit.Lem30Arrow
+
+# powerdomain-map representability: the four named obligations
+ScottDomains.PowerdomainMap.Rep.SmythImageIso
+ScottDomains.PowerdomainMap.Rep.SmythFamilyLUB
+ScottDomains.PowerdomainMap.Rep.HoareImageIso
+ScottDomains.PowerdomainMap.Rep.HoareFamilyLUB
+
+# Jung's Theorem 1.37 and the two weakenings the route to Theorem 18 spends
+ScottDomains.JungNets.Thm137
+ScottDomains.JungNets.Thm137Chains
+ScottDomains.PropertyM.Thm137Omega

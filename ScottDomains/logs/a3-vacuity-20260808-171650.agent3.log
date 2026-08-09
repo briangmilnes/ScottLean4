@@ -1,0 +1,195 @@
+# r0044 agent3: lake env lean scripts/a3-vacuity.lean
+# A3_ARGS=ScottDomains.Effective,ScottDomains.Kleene,ScottDomains.Isomorphism,ScottDomains.Skeleton
+# started 2026-08-08T17:16:50-07:00
+### a3-vacuity
+filter: [ScottDomains.Effective, ScottDomains.Kleene, ScottDomains.Isomorphism, ScottDomains.Skeleton]
+constants in filtered modules: 466
+declarations analysed (auto-generated excluded): 309
+--- SECTION 1: DEAD binders (in neither statement nor proof): 19
+ScottDomains.Effective.FunctionSpace:280  ScottDomains.Effective.operator_preserves_effectivePresentation  argument 10: (_d : ScottDomains.EffectivePresentation
+  α)  (underscored)
+ScottDomains.Effective.FunctionSpace:280  ScottDomains.Effective.operator_preserves_effectivePresentation  argument 11: (_e : ScottDomains.EffectivePresentation
+  β)  (underscored)
+ScottDomains.Effective.FunctionSpace:256  ScottDomains.Effective.theorem7_strict  argument 8: (_d : ScottDomains.EffectivePresentation
+  α)  (underscored)
+ScottDomains.Effective.FunctionSpace:256  ScottDomains.Effective.theorem7_strict  argument 9: (_e : ScottDomains.EffectivePresentation
+  β)  (underscored)
+ScottDomains.Skeleton.Lemma10:174  ScottDomains.lem10_lift  argument 3: [inst._@.ScottDomains.Skeleton.Lemma10.654279971._hygCtx._hyg.10 : ScottDomains.Domain
+  α]
+ScottDomains.Skeleton.Lemma10:69  ScottDomains.lem10_prod  argument 5: [inst._@.ScottDomains.Skeleton.Lemma10.474783754._hygCtx._hyg.10 : ScottDomains.Domain
+  α]
+ScottDomains.Skeleton.Lemma10:69  ScottDomains.lem10_prod  argument 7: [inst._@.ScottDomains.Skeleton.Lemma10.474783754._hygCtx._hyg.16 : ScottDomains.Domain
+  β]
+ScottDomains.Skeleton.Lemma10:211  ScottDomains.lem10_strict  argument 5: [inst._@.ScottDomains.Skeleton.Lemma10.2878948398._hygCtx._hyg.10 : ScottDomains.Domain
+  α]
+ScottDomains.Skeleton.Lemma10:211  ScottDomains.lem10_strict  argument 6: [inst._@.ScottDomains.Skeleton.Lemma10.2878948398._hygCtx._hyg.13 : ScottDomains.BoundedComplete
+  α]
+ScottDomains.Skeleton.Lemma10:211  ScottDomains.lem10_strict  argument 7: [inst._@.ScottDomains.Skeleton.Lemma10.2878948398._hygCtx._hyg.16 : ScottDomains.Domain
+  β]
+ScottDomains.Skeleton.Sum:120  ScottDomains.lem10_sum  argument 5: [inst._@.ScottDomains.Skeleton.Sum.1728813412._hygCtx._hyg.10 : ScottDomains.Domain
+  α]
+ScottDomains.Skeleton.Sum:120  ScottDomains.lem10_sum  argument 7: [inst._@.ScottDomains.Skeleton.Sum.1728813412._hygCtx._hyg.16 : ScottDomains.Domain
+  β]
+ScottDomains.Skeleton.Lemma17:200  ScottDomains.lem17_lift  argument 3: [inst._@.ScottDomains.Skeleton.Lemma17.1381797815._hygCtx._hyg.10 : ScottDomains.Domain
+  α]
+ScottDomains.Skeleton.Lemma17:98  ScottDomains.lem17_prod  argument 5: [inst._@.ScottDomains.Skeleton.Lemma17.1824186355._hygCtx._hyg.10 : ScottDomains.Domain
+  α]
+ScottDomains.Skeleton.Lemma17:98  ScottDomains.lem17_prod  argument 6: [inst._@.ScottDomains.Skeleton.Lemma17.1824186355._hygCtx._hyg.13 : ScottDomains.Domain
+  β]
+ScottDomains.Skeleton.Sum:911  ScottDomains.lem17_smash  argument 5: [inst._@.ScottDomains.Skeleton.Sum.1031918007._hygCtx._hyg.10 : ScottDomains.Domain
+  α]
+ScottDomains.Skeleton.Sum:911  ScottDomains.lem17_smash  argument 6: [inst._@.ScottDomains.Skeleton.Sum.1031918007._hygCtx._hyg.13 : ScottDomains.Domain
+  β]
+ScottDomains.Skeleton.Sum:553  ScottDomains.lem17_sum  argument 5: [inst._@.ScottDomains.Skeleton.Sum.2001508753._hygCtx._hyg.10 : ScottDomains.Domain
+  α]
+ScottDomains.Skeleton.Sum:553  ScottDomains.lem17_sum  argument 6: [inst._@.ScottDomains.Skeleton.Sum.2001508753._hygCtx._hyg.13 : ScottDomains.Domain
+  β]
+--- SECTION 2: statement-invisible DATA binders (used in proof only): 90
+histogram of binder-type head constants (15 distinct):
+  19	[anonymous]
+  14	ScottDomains.EffectivePresentation
+  13	ScottDomains.StrictHom
+  12	Set
+  8	CompletePartialOrder
+  7	ScottDomains.ScottHom
+  5	ScottDomains.Kleene.NatBot
+  3	Nat
+  2	Sum
+  2	Prod
+  1	ScottDomains.Smash
+  1	Finset
+  1	WithBot
+  1	Preorder
+  1	ScottDomains.CoalescedSum
+per-declaration:
+ScottDomains.Effective.FunctionSpace:312  ScottDomains.Effective.IsRecursive  argument 4: (d : ScottDomains.EffectivePresentation
+  γ)
+ScottDomains.Effective.FunctionSpace:412  ScottDomains.Effective.PreservesRecursivePresentation  argument 10: (d : ScottDomains.EffectivePresentation
+  α)
+ScottDomains.Effective.FunctionSpace:412  ScottDomains.Effective.PreservesRecursivePresentation  argument 11: (e : ScottDomains.EffectivePresentation
+  β)
+ScottDomains.Effective.FunctionSpace:295  ScottDomains.Effective.RecursiveNormal  argument 4: (d : ScottDomains.EffectivePresentation
+  γ)
+ScottDomains.Effective.FunctionSpace:366  ScottDomains.Effective.StepFunctionsDecidable  argument 8: (d : ScottDomains.EffectivePresentation
+  α)
+ScottDomains.Effective.FunctionSpace:366  ScottDomains.Effective.StepFunctionsDecidable  argument 9: (e : ScottDomains.EffectivePresentation
+  β)
+ScottDomains.Effective.FunctionSpace:142  ScottDomains.Effective.pairsOf  argument 7: (d : ScottDomains.EffectivePresentation
+  α)
+ScottDomains.Effective.FunctionSpace:142  ScottDomains.Effective.pairsOf  argument 8: (e : ScottDomains.EffectivePresentation
+  β)
+ScottDomains.Effective.FunctionSpace:142  ScottDomains.Effective.pairsOf  argument 9: (Q : Finset (ℕ × ℕ))
+ScottDomains.Effective.Powerset:119  ScottDomains.Effective.powersetEnum  argument 1: (n : ℕ)
+ScottDomains.Effective.FunctionSpace:228  ScottDomains.Effective.scottHom  argument 8: (d : ScottDomains.EffectivePresentation
+  α)
+ScottDomains.Effective.FunctionSpace:228  ScottDomains.Effective.scottHom  argument 9: (e : ScottDomains.EffectivePresentation
+  β)
+ScottDomains.Effective.FunctionSpace:149  ScottDomains.Effective.scottHomEnum  argument 7: (d : ScottDomains.EffectivePresentation
+  α)
+ScottDomains.Effective.FunctionSpace:149  ScottDomains.Effective.scottHomEnum  argument 8: (e : ScottDomains.EffectivePresentation
+  β)
+ScottDomains.Effective.FunctionSpace:149  ScottDomains.Effective.scottHomEnum  argument 9: (n : ℕ)
+ScottDomains.Effective.FunctionSpace:243  ScottDomains.Effective.theorem7_arrow  argument 8: (d : ScottDomains.EffectivePresentation
+  α)
+ScottDomains.Effective.FunctionSpace:243  ScottDomains.Effective.theorem7_arrow  argument 9: (e : ScottDomains.EffectivePresentation
+  β)
+ScottDomains.Isomorphism.Smash:58  ScottDomains.Isomorphism.NonBotTriple  argument 4: [inst._@.ScottDomains.Isomorphism.Smash.1000726418._hygCtx._hyg.17 : CompletePartialOrder
+  α]
+ScottDomains.Isomorphism.Smash:58  ScottDomains.Isomorphism.NonBotTriple  argument 5: [inst._@.ScottDomains.Isomorphism.Smash.1000726418._hygCtx._hyg.20 : CompletePartialOrder
+  β]
+ScottDomains.Isomorphism.Smash:58  ScottDomains.Isomorphism.NonBotTriple  argument 6: [inst._@.ScottDomains.Isomorphism.Smash.1000726418._hygCtx._hyg.23 : CompletePartialOrder
+  γ]
+ScottDomains.Isomorphism.Copair:409  ScottDomains.Isomorphism.copair  argument 7: (g : ScottDomains.StrictHom β α)
+ScottDomains.Isomorphism.Copair:409  ScottDomains.Isomorphism.copair  argument 8: (h : ScottDomains.StrictHom γ α)
+ScottDomains.Isomorphism.Copair:219  ScottDomains.Isomorphism.copairFun  argument 7: (g : ScottDomains.StrictHom β α)
+ScottDomains.Isomorphism.Copair:219  ScottDomains.Isomorphism.copairFun  argument 8: (h : ScottDomains.StrictHom γ α)
+ScottDomains.Isomorphism.Copair:219  ScottDomains.Isomorphism.copairFun  argument 9: (a._@._internal._hyg.0 : ScottDomains.CoalescedSum
+  β γ)
+ScottDomains.Isomorphism.StrictCurry:251  ScottDomains.Isomorphism.curryStrict  argument 7: (f : ScottDomains.StrictHom
+  (ScottDomains.Smash α β) γ)
+ScottDomains.Isomorphism.StrictCurry:244  ScottDomains.Isomorphism.curryStrictApply  argument 7: (f : ScottDomains.StrictHom
+  (ScottDomains.Smash α β) γ)
+ScottDomains.Isomorphism.StrictCurry:244  ScottDomains.Isomorphism.curryStrictApply  argument 8: (x : α)
+ScottDomains.Isomorphism.StrictCurry:240  ScottDomains.Isomorphism.curryStrictInner  argument 7: (f : ScottDomains.StrictHom
+  (ScottDomains.Smash α β) γ)
+ScottDomains.Isomorphism.Distribute:53  ScottDomains.Isomorphism.joinNonBotPair  argument 7: (a._@._internal._hyg.0 : ScottDomains.NonBotPair
+    α β ⊕
+  ScottDomains.NonBotPair α γ)
+ScottDomains.Isomorphism.Lift:119  ScottDomains.Isomorphism.liftExtend  argument 5: (g : ScottDomains.ScottHom α β)
+ScottDomains.Isomorphism.Lift:62  ScottDomains.Isomorphism.liftExtendFun  argument 5: (g : ScottDomains.ScottHom α β)
+ScottDomains.Isomorphism.Lift:62  ScottDomains.Isomorphism.liftExtendFun  argument 6: (a._@._internal._hyg.0 : WithBot
+  α)
+ScottDomains.Isomorphism.Lift:123  ScottDomains.Isomorphism.liftRestrict  argument 5: (f : ScottDomains.StrictHom
+  (WithBot α) β)
+ScottDomains.Isomorphism.Distribute:140  ScottDomains.Isomorphism.resmashSum  argument 7: (a._@._internal._hyg.0 : ScottDomains.NonBotPair
+    α β ⊕
+  ScottDomains.NonBotPair α γ)
+ScottDomains.Isomorphism.Copair:413  ScottDomains.Isomorphism.restrictLeft  argument 7: (f : ScottDomains.StrictHom
+  (ScottDomains.CoalescedSum β γ) α)
+ScottDomains.Isomorphism.Copair:420  ScottDomains.Isomorphism.restrictRight  argument 7: (f : ScottDomains.StrictHom
+  (ScottDomains.CoalescedSum β γ) α)
+ScottDomains.Isomorphism.StrictCurry:132  ScottDomains.Isomorphism.smashPair  argument 5: (p : α × β)
+ScottDomains.Isomorphism.StrictCurry:84  ScottDomains.Isomorphism.smashVal  argument 5: (a._@._internal._hyg.0 : ScottDomains.Smash
+  α β)
+ScottDomains.Isomorphism.StrictCurry:218  ScottDomains.Isomorphism.strictToScottHom  argument 7: (g : ScottDomains.StrictHom
+  α (ScottDomains.StrictHom β γ))
+ScottDomains.Isomorphism.Copair:63  ScottDomains.Isomorphism.sumInlFun  argument 5: (y : β)
+ScottDomains.Isomorphism.Copair:69  ScottDomains.Isomorphism.sumInrFun  argument 5: (z : γ)
+ScottDomains.Isomorphism.StrictCurry:229  ScottDomains.Isomorphism.uncurryStrict  argument 7: (g : ScottDomains.StrictHom
+  α (ScottDomains.StrictHom β γ))
+ScottDomains.Kleene.Factorial:85  ScottDomains.Kleene.NatBot.HasVal  argument 1: (s : Set ScottDomains.Kleene.NatBot)
+ScottDomains.Kleene.Factorial:64  ScottDomains.Kleene.NatBot.le  argument 1: (x : ScottDomains.Kleene.NatBot)
+ScottDomains.Kleene.Factorial:64  ScottDomains.Kleene.NatBot.le  argument 2: (y : ScottDomains.Kleene.NatBot)
+ScottDomains.Kleene.Factorial:159  ScottDomains.Kleene.NatBot.mulNat  argument 1: (n : ℕ)
+ScottDomains.Kleene.Factorial:159  ScottDomains.Kleene.NatBot.mulNat  argument 2: (a._@._internal._hyg.0 : ScottDomains.Kleene.NatBot)
+ScottDomains.Kleene.Grammar:55  ScottDomains.Kleene.concat  argument 2: (A : Set (List σ))
+ScottDomains.Kleene.Grammar:55  ScottDomains.Kleene.concat  argument 3: (B : Set (List σ))
+ScottDomains.Kleene.Extension:76  ScottDomains.Kleene.extension  argument 3: (f : S → T)
+ScottDomains.Kleene.Extension:76  ScottDomains.Kleene.extension  argument 4: (X : Set S)
+ScottDomains.Kleene.Extension:107  ScottDomains.Kleene.extensionHom  argument 3: (f : S → T)
+ScottDomains.Kleene.Factorial:191  ScottDomains.Kleene.factFun  argument 1: (f : ScottDomains.StrictHom
+  ScottDomains.Kleene.NatBot ScottDomains.Kleene.NatBot)
+ScottDomains.Kleene.Factorial:179  ScottDomains.Kleene.factStep  argument 1: (f : ScottDomains.Kleene.NatBot →
+  ScottDomains.Kleene.NatBot)
+ScottDomains.Kleene.Factorial:179  ScottDomains.Kleene.factStep  argument 2: (a._@._internal._hyg.0 : ScottDomains.Kleene.NatBot)
+ScottDomains.Kleene.Factorial:299  ScottDomains.Kleene.factVal  argument 1: (a._@._internal._hyg.0 : ScottDomains.Kleene.NatBot)
+ScottDomains.Kleene.Grammar:116  ScottDomains.Kleene.gram1  argument 2: (a : σ)
+ScottDomains.Kleene.Grammar:116  ScottDomains.Kleene.gram1  argument 3: (X : Set (List σ))
+ScottDomains.Kleene.Grammar:119  ScottDomains.Kleene.gram2  argument 2: (a : σ)
+ScottDomains.Kleene.Grammar:119  ScottDomains.Kleene.gram2  argument 3: (b : σ)
+ScottDomains.Kleene.Grammar:119  ScottDomains.Kleene.gram2  argument 4: (X : Set (List σ))
+ScottDomains.Kleene.Grammar:122  ScottDomains.Kleene.gram3  argument 2: (a : σ)
+ScottDomains.Kleene.Grammar:122  ScottDomains.Kleene.gram3  argument 3: (X : Set (List σ))
+ScottDomains.Kleene.Graph:52  ScottDomains.Kleene.graphPairs  argument 3: [inst._@.ScottDomains.Kleene.Graph.974552983._hygCtx._hyg.4 : CompletePartialOrder
+  α]
+ScottDomains.Kleene.Graph:52  ScottDomains.Kleene.graphPairs  argument 4: [inst._@.ScottDomains.Kleene.Graph.974552983._hygCtx._hyg.7 : CompletePartialOrder
+  β]
+ScottDomains.Kleene.Graph:52  ScottDomains.Kleene.graphPairs  argument 5: (f : α → β)
+ScottDomains.Kleene.Grammar:164  ScottDomains.Kleene.langEven  argument 2: (a : σ)
+ScottDomains.Kleene.Grammar:160  ScottDomains.Kleene.langNest  argument 2: (a : σ)
+ScottDomains.Kleene.Grammar:160  ScottDomains.Kleene.langNest  argument 3: (b : σ)
+ScottDomains.Kleene.Grammar:157  ScottDomains.Kleene.langStar  argument 2: (a : σ)
+ScottDomains.Kleene.Graph:56  ScottDomains.Kleene.recoverAt  argument 3: [inst._@.ScottDomains.Kleene.Graph.3612119832._hygCtx._hyg.4 : CompletePartialOrder
+  α]
+ScottDomains.Kleene.Graph:56  ScottDomains.Kleene.recoverAt  argument 4: [inst._@.ScottDomains.Kleene.Graph.3612119832._hygCtx._hyg.7 : CompletePartialOrder
+  β]
+ScottDomains.Kleene.Graph:56  ScottDomains.Kleene.recoverAt  argument 5: (f : α → β)
+ScottDomains.Kleene.Graph:56  ScottDomains.Kleene.recoverAt  argument 6: (x : α)
+ScottDomains.Skeleton.Recovered:202  ScottDomains.Recovered.IsBifiniteViaProjections  argument 2: [inst._@.ScottDomains.Skeleton.Recovered.3184993988._hygCtx._hyg.9 : CompletePartialOrder
+  α]
+ScottDomains.Skeleton.Lemma17:316  ScottDomains.compFun  argument 5: (p : ScottDomains.ScottHom α α)
+ScottDomains.Skeleton.Lemma17:316  ScottDomains.compFun  argument 6: (q : ScottDomains.ScottHom β β)
+ScottDomains.Skeleton.Lemma17:316  ScottDomains.compFun  argument 7: (f : ScottDomains.ScottHom α β)
+ScottDomains.Skeleton.Lemma17:343  ScottDomains.compHom  argument 5: (p : ScottDomains.ScottHom α α)
+ScottDomains.Skeleton.Lemma17:343  ScottDomains.compHom  argument 6: (q : ScottDomains.ScottHom β β)
+ScottDomains.Skeleton.Section6:89  ScottDomains.lubClosure  argument 2: [inst._@.ScottDomains.Skeleton.Section6.3167909881._hygCtx._hyg.3 : Preorder
+  α]
+ScottDomains.Skeleton.Section6:89  ScottDomains.lubClosure  argument 3: (u : Set α)
+ScottDomains.Skeleton.Sum:898  ScottDomains.smashNormal  argument 5: (N₁ : Set α)
+ScottDomains.Skeleton.Sum:898  ScottDomains.smashNormal  argument 6: (N₂ : Set β)
+ScottDomains.Skeleton.Sum:687  ScottDomains.smashPair  argument 5: (p : α × β)
+ScottDomains.Skeleton.Sum:200  ScottDomains.sumInl  argument 5: (x : α)
+ScottDomains.Skeleton.Sum:205  ScottDomains.sumInr  argument 5: (y : β)
+ScottDomains.Skeleton.Sum:529  ScottDomains.sumNormal  argument 5: (N₁ : Set α)
+ScottDomains.Skeleton.Sum:529  ScottDomains.sumNormal  argument 6: (N₂ : Set β)
+# lean exit 0

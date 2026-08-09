@@ -1,0 +1,59 @@
+# a7-stoplist.txt — identifier-shaped backtick spans that are not declaration
+# citations. Every entry was OBSERVED in a7-resolve.py's output and classified by
+# reading its site; none is guessed. The r0044 report states the measured
+# precision this list produces and lists the sites each entry covers.
+#
+# Rule for adding an entry: the token must be shown, at its cited site, to be
+# something other than a claim that a declaration exists. Where a structural
+# filter could do the job instead, the filter was written (see plausible()).
+
+# --- PDF-extraction vocabulary, from module docstrings explaining why the
+# --- paper's glyphs had to be read off a rendering rather than pdftotext.
+ToUnicode        # PDF font-dictionary key (LemThirty:26, PRep:32, PRepFun:8, PRepSum:16, Skeleton/Recovered:37)
+
+# --- Author surnames, and the `section` names taken from them. A section name
+# --- is not a constant.
+Spreen           # D. Spreen; also `section Spreen` (PropertyM:25,29,133,149)
+Vaught
+Iwamura
+
+# --- Locals bound inside a proof by `set …`, quoted in the docstring that
+# --- narrates that proof. Not top-level declarations.
+Iinf             # `set Iinf : ScottHom D D := …` (PropertyM:450,455,636,648)
+Ihat             # `set Ihat : ℕ → ScottHom D D := …` (PropertyM:459-464)
+
+# --- Agent-harness and tooling names quoted in plans and reports.
+Bash
+Edit
+Write
+WebFetch
+WebSearch
+PreToolUse
+PermissionRequest
+Xsession
+MemTotal
+LeanSearchClient
+LakefileWithoutToolchain
+PaperInventory   # a docs/ file, cited without its .md extension
+
+# --- Font names from the PDF-pipeline reports.
+Menlo
+STIXGeneral
+STIXTwoText
+STIXVariants
+STIXSizeOneSym
+STIXNonUnicode
+RawFeature
+Custom
+
+# --- Python function names from scripts/, quoted in the pdf-pipeline report.
+add_fallback
+scott_add_fallback
+resolve_name
+lookup_font_name
+
+# --- English words used as code spans in prose.
+Definition
+Converse
+Multiary
+Bistrict
