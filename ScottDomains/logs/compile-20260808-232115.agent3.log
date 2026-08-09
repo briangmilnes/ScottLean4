@@ -1,0 +1,34 @@
+# r0046
+# agent3 — lake build ScottDomains.Effective.A3StrictRecursive
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-08T23:21:15-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A3StrictRecursive ===
+⚠ [1020/1020] Built ScottDomains.Effective.A3StrictRecursive (761ms)
+warning: ScottDomains/Effective/A3StrictRecursive.lean:91:0: automatically included section variable(s) unused in theorem `ScottDomains.R46.Agent3.isStrict_iff_of_isStepPair`:
+  [Domain α]
+  [Domain β]
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain α] [Domain β] [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (1020 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.63
+Maximum resident set size (kbytes): 1790764
+--- build ---
+finished:         2026-08-08T23:21:18-07:00
+exit status:      0
+user cpu:         1.44s
+system cpu:       0.55s
+cpu use:          122%
+peak rss single:  1748 MiB (largest one process, GNU time)
+peak pss tree:    1868 MiB (process group, shared pages apportioned)
+peak rss tree:    2541 MiB (process group, shared pages counted per process)
+jobs:             1020
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   1
