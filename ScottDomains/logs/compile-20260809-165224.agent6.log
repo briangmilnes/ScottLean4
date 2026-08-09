@@ -1,0 +1,35 @@
+# r0049
+# agent6 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent6
+# started: 2026-08-09T16:52:24-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1346/1366] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1365/1366] Built ScottDomains.A6ProjectionBifinite (798ms)
+Build completed successfully (1366 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.54
+Maximum resident set size (kbytes): 1845708
+--- build ---
+finished:         2026-08-09T16:52:26-07:00
+exit status:      0
+user cpu:         1.38s
+system cpu:       0.52s
+cpu use:          123%
+peak rss single:  1802 MiB (largest one process, GNU time)
+peak pss tree:    1939 MiB (process group, shared pages apportioned)
+peak rss tree:    2611 MiB (process group, shared pages counted per process)
+jobs:             1366
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   0
