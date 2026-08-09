@@ -29,12 +29,25 @@ find "$pkg/ScottDomains" -name '*.lean' -print0 \
 {
   printf 'number\tcount\tdeclarations\n'
   for n in $(seq 1 30); do
-    # A declaration belongs to numbered result n when its name contains
-    # thm<n>, theorem<n>, lem<n> or lemma<n> with <n> not extended by another
+    # A declaration belongs to numbered result n when its name carries one of the
+    # paper's heading words followed by <n>, with <n> not extended by another
     # digit -- so `thm1` does not swallow `thm11`, `thm12`, `thm137`.
-    hits=$(grep -iE "(thm|theorem|lem|lemma)_?${n}([^0-9]|\$)" "$work/decls.txt" \
-             | paste -sd, -)
-    c=$(grep -icE "(thm|theorem|lem|lemma)_?${n}([^0-9]|\$)" "$work/decls.txt")
+    #
+    # `prop|proposition|cor|corollary` were added in r0048. The first version of
+    # this script matched only thm/theorem/lem/lemma, and so reported result 15
+    # as carried by no declaration -- when it is `Skeleton/Section6.lean`'s
+    # `prop15`, present and proved since that file was written. Gunter & Scott
+    # number Propositions in the same sequence as Theorems and Lemmas, so a
+    # heading-word alternation that omits them under-reports.
+    #
+    # False positives were measured before widening, not assumed: the complete
+    # set of prop/cor-numbered identifiers in the package is prop15, prop122,
+    # cor136, Prop134, thm137, and over n in 1..30 the widened pattern adds
+    # exactly one hit (prop15 at n=15) and no false positive -- prop122 and
+    # cor136 are Jung's numbering and fail on the trailing-digit guard.
+    pat="(thm|theorem|lem|lemma|prop|proposition|cor|corollary)_?${n}([^0-9]|\$)"
+    hits=$(grep -iE "$pat" "$work/decls.txt" | paste -sd, -)
+    c=$(grep -icE "$pat" "$work/decls.txt")
     printf '%s\t%s\t%s\n' "$n" "$c" "${hits:-—}"
   done
 } > "$out"

@@ -36,10 +36,10 @@ Two consequences worth stating once:
 | # | | Count |
 | -- | --- | ----: |
 | 1 | Numbered results in Gunter & Scott | 30 |
-| 2 | — **fully proved** | **24** |
+| 2 | — **fully proved** | **25** |
 | 3 | — partly proved, some part open | 3 |
 | 4 | — **refuted as stated** (our transcription or the paper) | 2 |
-| 5 | — never transcribed into the tree | 2 |
+| 5 | — status not yet established | 1 (result 2; r0048 in flight) |
 | 6 | Paper properties (numbered conjuncts + prose claims) | 239 |
 | 7 | — `S+P` stated and proved | 169 |
 | 8 | — **`S+H` stated, proof open** | **12** |
@@ -72,7 +72,7 @@ counted here and neither shows up in a build.
 | 12 | Theorem 12 | `P` | `thm12` and the three powerdomains |
 | 13 | Lemma 13 | `P` | `lem13_smyth`, `lem13_hoare` |
 | 14 | Theorem 14 | `P` | `thm14`, both directions |
-| 15 | — | `—` | **not quoted anywhere in the tree or the docs** |
+| 15 | **Proposition 15** | `P` | *"A bounded complete domain is bifinite"* — printed folio 31. `prop15` at `Skeleton/Section6.lean:134`, proved since that file was written. **It is a Proposition, not a Theorem or Lemma**, which is the whole reason it read as missing: both instruments that produced the gap searched only for `thm|theorem|lem|lemma` |
 | 16 | Theorem 16 | `P` | `thm16`, `thm16_positive` |
 | 17 | Lemma 17 | `P` | 10 conjuncts. r0047 **removed `[BoundedComplete β]`** from `lem17_fun` and `lem17_strictFun` |
 | 18 | Theorem 18 | `P` | `thm18` — closed r0042, `[propext, Classical.choice, Quot.sound]` |
@@ -89,9 +89,22 @@ counted here and neither shows up in a build.
 | 29 | Theorem 29 | `p` | sentence 1 proved (`thm29`). Sentence 2: `Thm29Second` **refuted** — our transcription dropped the paper's word "domain". `Thm29SecondAtDomains`, the true reading, is **open** |
 | 30 | Lemma 30 | `R` | universal closure **refuted** (`not_forall_lemma30`). `Lemma30AtV` is **open**, now at arity 3 |
 
-**Rows 2 and 15 are a gap in our record, not a measurement of the paper.**
-Nothing in the tree or the docs quotes them. Whether Gunter & Scott number a
-result 2 and a result 15 has not been checked against the printed text.
+**Result 15 was never missing — the instruments were.** Both the declaration scan
+and the docstring grep searched only for `thm|theorem|lem|lemma`, and Gunter &
+Scott number **Propositions in the same sequence**. `scripts/numbered-status.sh`
+now matches `prop|proposition|cor|corollary` as well; the widening was measured
+before it was made, and over results 1–30 it adds exactly one hit and no false
+positive.
+
+**Result 2's status is not yet established** and is being checked against the
+printed text. Results 4, 5 and 8 carry no numbered declaration either, but are
+each quoted in a module docstring — `NormalSubposet.lean`,
+`FinitaryProjection.lean`, `Product.lean` — so **a result stated under a
+descriptive name is the normal case here**, and a missing number is not evidence
+of a missing proof.
+
+**The figure "30 numbered results" is still unverified** against the printed
+text. It comes from `PropertiesVsTheorems.md` and no round has checked it.
 
 ## What is open, in one table
 
