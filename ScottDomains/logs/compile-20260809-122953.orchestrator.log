@@ -1,0 +1,46 @@
+# r0047
+# orchestrator — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4
+# started: 2026-08-09T12:29:53-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1334/1364] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1352/1364] Built ScottDomains.Effective.A3Operator (666ms)
+✔ [1353/1364] Built ScottDomains.A4Lemma17Fun (885ms)
+✔ [1354/1364] Built ScottDomains.A5Unfinished (862ms)
+✔ [1355/1364] Built ScottDomains.A1Lemma24 (1000ms)
+✔ [1356/1364] Built ScottDomains.Effective.FunctionSpace (835ms)
+✔ [1357/1364] Built ScottDomains.A4FunctionSpaceBifinite (767ms)
+✔ [1358/1364] Built ScottDomains.Effective.A3FreeCarrier (780ms)
+✔ [1359/1364] Built ScottDomains.A1R46 (795ms)
+✔ [1360/1364] Built ScottDomains.Effective.A3StrictRecursive (920ms)
+✔ [1361/1364] Built ScottDomains.A4RepArrow (810ms)
+✔ [1362/1364] Built ScottDomains.Effective.A1FlatRecursive (756ms)
+✔ [1363/1364] Built ScottDomains.Effective.A2Compactness (1.0s)
+Build completed successfully (1364 jobs).
+--- times ---
+Elapsed (wall clock): 0:04.81
+Maximum resident set size (kbytes): 1830216
+--- build ---
+finished:         2026-08-09T12:29:59-07:00
+exit status:      0
+user cpu:         11.65s
+system cpu:       2.87s
+cpu use:          301%
+peak rss single:  1787 MiB (largest one process, GNU time)
+peak pss tree:    2511 MiB (process group, shared pages apportioned)
+peak rss tree:    7628 MiB (process group, shared pages counted per process)
+jobs:             1364
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   0
