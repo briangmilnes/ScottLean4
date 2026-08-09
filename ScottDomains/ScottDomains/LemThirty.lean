@@ -207,7 +207,22 @@ over `W`, at `Fp(W)`.
 The six binary conjuncts come first in the paper's own printed order — `→`, `⇸`,
 `×`, `⊗`, `+`, `⊕` — then the four unary ones, `(·)⊥`, `(·)♯`, `(·)♭`, `(·)♮`.
 The carrier is a parameter so that the proposition and its instantiation at §7.4's
-`V` are separate declarations, as `PRep.Lemma28` and `PRep.Lemma28AtU` are. -/
+`V` are separate declarations, as `PRep.Lemma28` and `PRep.Lemma28AtU` are.
+
+**Its universal closure is REFUTED (r0046).**
+`ScottDomains.R46.Agent1.not_forall_lemma30 : ¬ ∀ (W : Type) (inst :
+CompletePartialOrder W), @Lemma30 W inst`, one line from
+`lemma30_iff_lemma28_and_plotkin` and `R45.Agent2.not_forall_lemma28` — Lemma 30
+contains Lemma 28's nine conjuncts, and those are already false at `Flat Empty`.
+This is not a defect in the paper and not news about `(·)♮`: the paper's Lemma 30
+is a statement about §7.4's own `V`, and quantifying its carrier is this
+development's device for separating the proposition from its instantiation, as
+the paragraph above says. `Lemma30AtV` is the claim that is not refuted; at
+`W := V` this `def` simply *is* `Lemma30AtV`, so nothing is lost by counting the
+family as resolved and the instance as open.
+
+The r0046 detector reads the refutation out of the environment and no longer
+counts this as an open claim. -/
 def Lemma30 (W : Type u) [CompletePartialOrder W] : Prop :=
   IsPRepresentable₂ W PRep.funOp ∧
   IsPRepresentable₂ W PRep.strictFunOp ∧

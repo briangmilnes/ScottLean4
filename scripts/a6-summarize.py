@@ -16,10 +16,23 @@ as data, not buried in prose.
 Sections printed:
     1  axiom census
     2  sorryAx census
-    3  Prop-valued defs: total, undischarged, claims vs concepts
+    3  Prop-valued defs: total, undischarged, claims split into open vs refuted
     4  Prop-valued defs with no consumer at all
     5  structures never instantiated
     6  simp lemmas no proof term names
+
+Section 3's split is r0046's correction (agent1). The undischarged test is
+`uncond == 0` — "no package theorem concludes this with no proof hypothesis" —
+and a *refutation* concludes `¬ D`, whose head is `Not`, so it never increments
+`uncond`. Under the old reading a claim stayed on the open list forever once
+somebody proved it false, which is the opposite of the truth. `a6-query.lean`
+now emits REFUTEDBY records for closed refutations (its docstring states the
+criterion and why it is sound), and this script reports
+
+    claims: N named, R refuted (resolved), N-R open
+
+with the refuting theorem named for each. **Goal A is the open count**, not the
+named count.
 """
 
 import sys
@@ -27,7 +40,7 @@ import sys
 
 def load(path):
     rows = {"PROPDEF": [], "AXIOM": [], "SORRYUSER": [], "STRUCT": [],
-            "SIMP": [], "PROVEDBY": [], "TOTALS": []}
+            "SIMP": [], "PROVEDBY": [], "REFUTEDBY": [], "TOTALS": []}
     with open(path, encoding="utf-8") as fh:
         for line in fh:
             parts = line.rstrip("\n").split("\t")
@@ -53,22 +66,51 @@ def main():
     print("2  package constants naming sorryAx:      %d" % len(r["SORRYUSER"]))
 
     pd = [dict(zip(("module", "line", "name", "binders", "refs", "proofs",
-                    "uncond", "hyps"), p)) for p in r["PROPDEF"]]
+                    "uncond", "hyps", "refuted"), p)) for p in r["PROPDEF"]]
+    for d in pd:
+        d.setdefault("refuted", "0")
+    refby = {}
+    for c, t in r["REFUTEDBY"]:
+        refby.setdefault(c, []).append(t)
     undis = [d for d in pd if d["uncond"] == "0"]
     print("3  Prop-valued defs: %d total, %d with no unconditional proof"
           % (len(pd), len(undis)))
     if claims:
         cl = [d for d in undis if d["name"] in claims]
         co = [d for d in undis if d["name"] not in claims]
-        print("     claims:   %d" % len(cl))
+        ref = [d for d in cl if d["refuted"] != "0"]
+        opn = [d for d in cl if d["refuted"] == "0"]
+        print("     claims:   %d named, %d refuted (resolved), %d OPEN  <- Goal A"
+              % (len(cl), len(ref), len(opn)))
         print("     concepts: %d" % len(co))
         stray = claims - {d["name"] for d in undis}
         if stray:
             print("     !! named as claims but NOT undischarged: %s" % sorted(stray))
-        for d in sorted(cl, key=lambda d: (d["module"], int(d["line"]))):
-            print("     %s:%s\t%s\tbinders=%s refs=%s proofs=%s hyps=%s"
+        for d in sorted(opn, key=lambda d: (d["module"], int(d["line"]))):
+            print("     open     %s:%s\t%s\tbinders=%s refs=%s proofs=%s hyps=%s"
                   % (d["module"], d["line"], d["name"], d["binders"], d["refs"],
                      d["proofs"], d["hyps"]))
+        for d in sorted(ref, key=lambda d: (d["module"], int(d["line"]))):
+            print("     refuted  %s:%s\t%s\tby %s"
+                  % (d["module"], d["line"], d["name"],
+                     ", ".join(sorted(refby.get(d["name"], [])))))
+        # The count above can also be too LOW. `uncond` scores any zero-
+        # proof-hypothesis theorem headed by the claim as a discharge, including
+        # one that fills a parameter slot with a particular value or with
+        # another binder — r0044's dominant defect mode. PROVEDBY's `generic`
+        # field measures it; a claim counted resolved whose every unconditional
+        # proof is non-generic is discharged AT an instance, not discharged.
+        undis_names = {d["name"] for d in undis}
+        atinst = []
+        for name in sorted(claims - undis_names):
+            rows = [p for p in r["PROVEDBY"] if p[0] == name]
+            unc = [p for p in rows if len(p) > 2 and p[2] == "0"]
+            if unc and all(len(p) > 3 and p[3] == "false" for p in unc):
+                atinst.append((name, [p[1] for p in unc]))
+        print("     !! counted resolved but every unconditional proof is at a "
+              "parameter instance: %d" % len(atinst))
+        for name, ts in atinst:
+            print("        %s\tby %s" % (name, ", ".join(sorted(ts))))
 
     noref = [d for d in pd if d["refs"] == "0"]
     nouse = [d for d in pd if d["proofs"] == "0" and d["hyps"] == "0"]

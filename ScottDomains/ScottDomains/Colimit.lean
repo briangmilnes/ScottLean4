@@ -1024,7 +1024,22 @@ bounded completeness"). All ten are available in this development as functions
 `LemThirty.plotkinOp`. `LemThirty.Lemma30` states the lemma in full; `Lem30Arrow`
 below is its first conjunct, kept under its own name because r0036 cited it. -/
 
-/-- **Theorem 29's second sentence**, at the `D = V` built above. Unproved. -/
+/-- **Theorem 29's second sentence**, at the `D = V` built above.
+
+**REFUTED (r0045).** `ScottDomains.R45.Agent3.not_thm29Second : ¬ Thm29Second` is
+the kernel-checked refutation: this statement drops the word "domain" from the
+paper's "`E` is any bifinite **domain**", and at `E := Flat (Set ℕ)` — bifinite,
+uncountable basis, no `Domain` instance — an embedding into the countable
+`↥(compacts V)` cannot exist. `LemThirty.Thm29SecondAtDomains` is the
+transcription that keeps the word; it is the open one, and
+`R45.Agent3.not_thm29Second` is what shows its `[Domain E]` binder is necessary
+rather than decorative.
+
+The `def` is kept rather than deleted so the refuted proposition stays citable —
+seven declarations take it as a hypothesis and are vacuous in consequence, which
+is a fact about them that only survives if this statement survives. The r0046
+detector reads the refutation out of the environment (`REFUTEDBY` in
+`scripts/a6-query.lean`) and no longer counts this as an open claim. -/
 def Thm29Second : Prop :=
   ∀ (E : Type) [CompletePartialOrder E], IsBifinite E →
     ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p

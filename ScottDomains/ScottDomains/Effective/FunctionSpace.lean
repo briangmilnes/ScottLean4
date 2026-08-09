@@ -79,7 +79,7 @@ they are standing in for is stated, not assumed away:
 | # | Name | What it says | Status |
 | -- | ---- | ------------ | ------ |
 | 1 | `RecursiveNormal`, `IsRecursive` | conditions 1 and 2 decided by a total recursive function, not a Lean `Decidable` | definitions |
-| 2 | `StepFunctionsDecidable` | Theorem 7's proof sentence: `IsRecursive (scottHom d e)` | named `Prop`, open |
+| 2 | `StepFunctionsDecidable` | Theorem 7's proof sentence: `IsRecursive d → IsRecursive e → IsRecursive (scottHom d e)` | named `Prop`, open |
 | 3 | `Theorem7ArrowRecursive` | Theorem 7's second sentence at that strength | named `Prop`, open |
 | 4 | `PreservesRecursivePresentation` | §3.2's closing claim, one instance per operator | named `Prop` schema, open |
 
@@ -87,18 +87,48 @@ they are standing in for is stated, not assumed away:
 `d`, `e`, which is the paper's own proof structure: the theorem *is* the
 decidability of the step-function poset.
 
-Two obstructions block discharging rows 2–4 here, and both are recursion theory
-rather than domain theory:
+Row 2 was restated in r0046 (agent1) to carry the printed sentence's own
+antecedent, "using the effective presentations of `D` and `E`". Its docstring
+quotes the sentence and its page, records the previous statement, and names the
+theorem checking the direction of the change.
 
-* `RecursiveLE` for `P N` — the one presentation this development has
-  (`Effective/Powerset.lean`) — reduces to `Computable fun p : ℕ × ℕ => p.1 ||| p.2`,
-  and Mathlib v4.32.2 states no `Primrec`/`Computable` fact about `Nat.lor`,
-  `Nat.bitwise` or `Nat.testBit`.
-* `ComputableFunction.lean` already records the second: `REPred`'s API in this
-  Mathlib is five lemmas and supplies closure under neither `∧` nor `∃`, so even
-  composition of computable functions is unavailable.
+## What actually blocks rows 2 and 3
 
-Neither is rediscovered here; both are cited.
+Two obstructions were recorded here before r0046, and **neither one blocks rows 2
+or 3**; both were measured again in r0046 against the installed Mathlib and
+against these statements:
+
+* `RecursiveLE` for `P N` — the one presentation `Effective/Powerset.lean` has —
+  reduces to `Computable fun p : ℕ × ℕ => p.1 ||| p.2`, and Mathlib v4.32.2
+  states no `Primrec`/`Computable` fact about `Nat.lor`, `Nat.bitwise` or
+  `Nat.testBit`. Re-measured r0046: `Nat.bitwise`, `Nat.lor`, `Nat.land` and
+  `testBit` occur in **0** files under `Mathlib/Computability/`, so the
+  obstruction is real. It obstructs *constructing* a recursive presentation of
+  `P N`; rows 2 and 3 take `IsRecursive d` and `IsRecursive e` as hypotheses and
+  construct none, so it does not reach them.
+* `ComputableFunction.lean` records the second: `REPred`'s API in this Mathlib is
+  five lemmas and supplies closure under neither `∧` nor `∃`. Re-measured r0046:
+  `REPred` occurs in exactly two Mathlib files (`Computability/RE.lean`,
+  `Computability/Halting.lean`) and no closure lemma is among them, so this too
+  is real. But rows 2 and 3 are about `IsRecursive`, which is `ComputablePred` on
+  both conjuncts and mentions `REPred` nowhere; the missing closure obstructs
+  `IsComputable`/`IsUniformlyComputable`, not these rows.
+
+What does block row 2 is four lemmas, and **one of them is the whole of it**:
+
+| # | Needed | State |
+| -- | ------ | ----- |
+| 1 | `ofPairs P ≤ g` reduced to a finite condition | **half available**: `ScottHom.step_le_iff` with `sSup_le` gives `ofPairs P ≤ g ↔ ∀ (a,b) ∈ P, b ≤ g a`, unstated but immediate |
+| 2 | `ofPairs Q` evaluated pointwise, so that row 1 can be applied at `g := ofPairs Q` | **missing, and it is item 3 in disguise**: `sSup` on `ScottHom` is pointwise only on directed sets, and `stepsOf Q` is not directed |
+| 3 | a decision procedure for `IsCompactElement (ofPairs Q)` — the boundedness test `scottHomEnum` performs classically | **missing**; this is the paper's own "tedious" step, and condition 2 of `e` is exactly what it is for |
+| 4 | a characterization of `IsNormalIn` for a finite set of compact functions in terms of `d` and `e` — this is `RecursiveNormal`, the second conjunct of `IsRecursive`, and it needs mub-closure in `K(D → E)` | **missing**; `ScottDomains.R45.Agent1.isNormalIn_compacts_flat_iff` is the flat-cpo case only. It reduces to item 3 as well: a mub of step functions is a bounded join |
+| 5 | `Primrec` facts for the `Denumerable (Finset (ℕ × ℕ))` coding: membership in, and bounded quantification over, the decoded finset | **missing but known feasible** — r0045 proved the `Finset ℕ` analogue (`primrecPred_zero_mem_ofNat_finset`) after this file's claim that `Primcodable (Finset ℕ)` does not exist was refuted by `Primcodable.ofDenumerable` |
+
+Rows 2 and 3 are therefore blocked on **domain theory**, not on recursion theory,
+and the single blocking fact is item 3: whether a finite set of step functions
+named by index pairs is bounded above. Everything else on the list either exists
+or is an assembly of things that exist. The recursion theory these rows need is
+the one piece already shown to be available.
 -/
 
 namespace ScottDomains.Effective
@@ -363,26 +393,70 @@ def RecursivePresentation.ofIsRecursive {γ : Type*} [CompletePartialOrder γ]
     RecursivePresentation γ :=
   { d with recursiveLE := h.1, recursiveNormal := h.2 }
 
-/-- **Theorem 7's proof sentence**, printed p. 12: "The proof that the poset of
-step functions has decidable ordering and finite normal subposets is tedious, but
-not difficult, using the effective presentations of `D` and `E`."
+/-- **Theorem 7's proof sentence**, printed p. 12, quoted exactly:
 
-Against `scottHom`'s enumeration — which *is* the step-function enumeration — that
-sentence says exactly that the constructed presentation is recursive. Open: the
-`decidableLE` and `decidableNormal` fields of `scottHom` are `Classical.dec`, and
-promoting them needs the two obstructions named in the module docstring. -/
+> The proof that the poset of step functions has decidable ordering and finite
+> normal subposets is tedious, but not difficult, **using the effective
+> presentations of `D` and `E`**.
+
+read with §3.2's Definition, printed p. 11, which fixes what "effective
+presentation" means:
+
+> Let `D` be a domain and suppose `d : N → K(D)` is a surjection. Then `d` is an
+> effective presentation of `D` if (1) the set `{(m,n) | dₘ ⊑ dₙ}` is effectively
+> decidable, and (2) for any finite set `u ⊆ N`, it is decidable whether
+> `{dₙ | n ∈ u} ◁ K(D)`.
+
+"Effectively decidable" in a section about computability is *recursive*, which in
+this development is `IsRecursive` — the conjunction `RecursiveLE ∧
+RecursiveNormal` — and **not** the `EffectivePresentation` structure, whose two
+`Decidable` fields may be `Classical.dec` (`nonempty_effectivePresentation` shows
+that reading is satisfied by every domain). So the paper's "`D` and `E` have
+effective presentations" is `IsRecursive d` and `IsRecursive e`.
+
+## r0046 restatement (agent1), and the transcription defect it corrects
+
+Recorded through r0045 as
+
+    def StepFunctionsDecidable (d) (e) : Prop := IsRecursive (scottHom d e)
+
+with **no antecedent**. That dropped the printed sentence's own qualification
+"using the effective presentations of `D` and `E`": as written it asserted that
+the step-function presentation of `D → E` is recursive for *arbitrary* `d` and
+`e`, including presentations whose own ordering is not computable — a claim the
+paper does not make anywhere and which r0045's agent1 argued is false. The
+defect is a dropped hypothesis, not a missing proof.
+
+The old form is kept, verbatim and citable, as
+`ScottDomains.R46.Agent1.StepFunctionsDecidableUnconditional`, and the direction
+of the change is kernel-checked by
+`ScottDomains.R46.Agent1.stepFunctionsDecidable_of_unconditional : old → new`.
+The change is therefore a strict weakening *as a proposition* and an exact
+transcription *of the printed sentence*: the two `IsRecursive` hypotheses are the
+sentence's own antecedent, so nothing the paper asserts has been given up. The
+check that no bar was lowered is `Theorem7ArrowRecursive`, which was already
+transcribed with those same two hypotheses and is unchanged: this `def` now
+carries exactly the hypotheses its consumer always had.
+
+Still open. What blocks it is stated in the module docstring under "What
+actually blocks rows 2 and 3". -/
 def StepFunctionsDecidable (d : EffectivePresentation α)
     (e : EffectivePresentation β) : Prop :=
-  IsRecursive (scottHom d e)
+  IsRecursive d → IsRecursive e → IsRecursive (scottHom d e)
 
 /-- Theorem 7's proof sentence implies its second sentence at recursion-theoretic
 strength, at fixed `d` and `e`. This is the paper's own proof structure: once the
 step-function poset is shown to have decidable ordering and recognizable finite
-normal subposets, the theorem is that presentation. -/
+normal subposets, the theorem is that presentation.
+
+`hd` and `he` are the printed sentence's antecedent, discharged here rather than
+assumed away; before r0046 they were absent from `StepFunctionsDecidable` and so
+absent here too. -/
 theorem exists_isRecursive_of_stepFunctionsDecidable {d : EffectivePresentation α}
-    {e : EffectivePresentation β} (h : StepFunctionsDecidable d e) :
+    {e : EffectivePresentation β} (h : StepFunctionsDecidable d e)
+    (hd : IsRecursive d) (he : IsRecursive e) :
     ∃ f : EffectivePresentation (ScottHom α β), IsRecursive f :=
-  ⟨scottHom d e, h⟩
+  ⟨scottHom d e, h hd he⟩
 
 /-- **Theorem 7's second sentence at the paper's intended strength**, quantified as
 the paper states it. Open; `exists_isRecursive_of_stepFunctionsDecidable` reduces
