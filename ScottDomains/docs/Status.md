@@ -35,11 +35,11 @@ Two consequences worth stating once:
 
 | # | | Count |
 | -- | --- | ----: |
-| 1 | Numbered results in Gunter & Scott | 30 |
+| 1 | Numbered results in Gunter & Scott | **30, verified** — 16 Theorems, 13 Lemmas, 1 Proposition, 0 Corollaries; numbers 1–30 contiguous, no gap, no repeat |
 | 2 | — **fully proved** | **25** |
-| 3 | — partly proved, some part open | 3 |
-| 4 | — **refuted as stated** (our transcription or the paper) | 2 |
-| 5 | — status not yet established | 1 (result 2; r0048 in flight) |
+| 3 | — partly proved, some part open | 3 (results 7, 26, 29) |
+| 4 | — **refuted as stated** (our transcription or the paper) | 2 (results 28, 30) |
+| 5 | — **all 30 are now stated in the tree** | 0 missing |
 | 6 | Paper properties (numbered conjuncts + prose claims) | 239 |
 | 7 | — `S+P` stated and proved | 169 |
 | 8 | — **`S+H` stated, proof open** | **12** |
@@ -59,7 +59,7 @@ counted here and neither shows up in a build.
 | # | Result | | Status |
 | -- | ----- | -- | ------ |
 | 1 | Theorem 1 | `P` | least fixed point, and below every fixed point |
-| 2 | Theorem 2 | `—` | **not quoted anywhere in the tree or the docs** |
+| 2 | **Theorem 2 (Schroder-Bernstein)** | `P` | *"Let S and T be sets. If `f : S → T` and `g : T → S` are injections, then there is a bijection `h : S → T`"* — printed folio 6. **Genuinely absent until r0048**; now `R48.Agent1.theorem2`. The inventory had mapped it to Mathlib's `Function.Embedding.schroeder_bernstein`, but **that is Zermelo's proof from Knaster–Tarski**, where Gunter & Scott derive it from **Theorem 1** — and `FixedPoint.lean` records that neither implies the other. The new proof follows the paper step for step, via the operator `Y ↦ (T − f*(S)) ∪ f*(g*(Y))` |
 | 3 | Theorem 3 | `P` | `theorem3`, `theorem3_existsUnique` |
 | 4 | Lemma 4 | `P` | `NormalSubposet.lean` |
 | 5 | Lemma 5 | `P` | `FinitaryProjection.lean` |
@@ -96,15 +96,20 @@ now matches `prop|proposition|cor|corollary` as well; the widening was measured
 before it was made, and over results 1–30 it adds exactly one hit and no false
 positive.
 
-**Result 2's status is not yet established** and is being checked against the
-printed text. Results 4, 5 and 8 carry no numbered declaration either, but are
-each quoted in a module docstring — `NormalSubposet.lean`,
-`FinitaryProjection.lean`, `Product.lean` — so **a result stated under a
-descriptive name is the normal case here**, and a missing number is not evidence
-of a missing proof.
+**Result 2 was genuinely absent**, and the two gaps had independent causes: 15
+was a grep blind spot, 2 was a real hole. Widening the heading-word set fixes the
+15-class defect but **would still have missed 2**.
 
-**The figure "30 numbered results" is still unverified** against the printed
-text. It comes from `PropertiesVsTheorems.md` and no round has checked it.
+Results 4, 5 and 8 carry no numbered declaration either, but are each quoted in a
+module docstring — `NormalSubposet.lean`, `FinitaryProjection.lean`,
+`Product.lean` — so **a result stated under a descriptive name is the normal case
+here**, and a missing number is not evidence of a missing proof.
+
+**The figure "30 numbered results" is now verified**, by extracting every
+`(Theorem|Lemma|Proposition|Corollary) N` heading from the full text — ASCII
+headings are unaffected by the Type 3 font defect. Exactly 30, contiguous, no gap
+and no repeat. The single Proposition among 29 is the entire cause of this
+round's measurement defect.
 
 ## What is open, in one table
 
