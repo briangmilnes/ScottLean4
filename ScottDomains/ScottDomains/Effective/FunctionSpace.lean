@@ -129,6 +129,34 @@ and the single blocking fact is item 3: whether a finite set of step functions
 named by index pairs is bounded above. Everything else on the list either exists
 or is an assembly of things that exist. The recursion theory these rows need is
 the one piece already shown to be available.
+
+## r0047 (agent2): items 1, 2 and 4 are supplied, and item 3 splits in two
+
+`Effective/A2Compactness.lean` proves the domain theory. Item 1 is
+`R47.Agent2.ofPairs_le_iff`, item 2 is `R47.Agent2.ofPairs_apply`, item 4 is
+`R47.Agent2.isNormalIn_compacts_iff` (over any bounded complete cpo: `N ◁ K(D)`
+iff `⊥ ∈ N` and `N` is closed under the binary joins that exist).
+
+Item 3 was two questions written as one, and they have different answers.
+
+* **Is the join of the step functions named by `Q` there?** Yes iff `Q` is
+  *consistent* — `R47.Agent2.bddAbove_stepsOf_iff`. Consistency is decidable from
+  `d` and `e`: `R47.Agent2.bddAbove_iff_exists_normal` turns boundedness of a
+  finite set of compacts into a search over finite normal subposets, which
+  terminates because `R47.Agent2.isNormalIn_joinClosure` puts every finite set of
+  compacts inside one.
+* **Is `IsCompactElement (ofPairs Q)` — the test `scottHomEnum` actually runs?**
+  Not the same question, and **not** determined by `d` and `e`.
+  `R47.Agent2.not_forall_isCompactElement_ofPairs_imp_bddAbove` refutes the
+  implication, with the witness at `N⊥` and
+  `R45.Agent1.natBotPresentation`. `sSup` on `ScottHom` is total and unconstrained
+  off the bounded sets, so on an inconsistent `Q` this test reads a junk value.
+
+`Theorem7ArrowRecursive` and `Theorem7StrictRecursive` do not name `scottHom`, so
+the second point does not reach them; `R47.Agent2.theorem7ArrowRecursive_of_scottHomC`
+and `R47.Agent2.theorem7StrictRecursive_of_strictHomC` reduce them over the
+consistency-guarded enumeration instead. `StepFunctionsDecidable` does name
+`scottHom d e`, and that is where the second point lands.
 -/
 
 namespace ScottDomains.Effective

@@ -1,0 +1,51 @@
+# r0047
+# agent2 — lake build ScottDomains.Effective.A2Compactness
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-09T12:17:16-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A2Compactness ===
+✖ [1022/1022] Building ScottDomains.Effective.A2Compactness (787ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Effective/A2Compactness.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A2Compactness.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A2Compactness.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/A2Compactness.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/A2Compactness.setup.json --json
+warning: ScottDomains/Effective/A2Compactness.lean:287:0: automatically included section variable(s) unused in theorem `ScottDomains.R47.Agent2.mem_belowSet`:
+  [CompletePartialOrder β]
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder β] [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Effective/A2Compactness.lean:290:0: automatically included section variable(s) unused in theorem `ScottDomains.R47.Agent2.belowSet_subset`:
+  [CompletePartialOrder β]
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder β] [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Effective/A2Compactness.lean:320:21: failed to synthesize instance of type class
+  BoundedComplete β
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Effective/A2Compactness.lean:347:61: Invalid projection: Type of
+  hp
+is not known; cannot resolve projection `1`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A2Compactness
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.53
+Maximum resident set size (kbytes): 1790200
+--- build ---
+finished:         2026-08-09T12:17:19-07:00
+exit status:      1
+user cpu:         1.70s
+system cpu:       0.47s
+cpu use:          142%
+peak rss single:  1748 MiB (largest one process, GNU time)
+peak pss tree:    1201 MiB (process group, shared pages apportioned)
+peak rss tree:    2563 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   2

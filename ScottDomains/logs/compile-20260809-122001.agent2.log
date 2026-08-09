@@ -1,0 +1,35 @@
+# r0047
+# agent2 — lake build ScottDomains.Effective.A2Compactness
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-09T12:20:01-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A2Compactness ===
+✖ [1022/1022] Building ScottDomains.Effective.A2Compactness (819ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Effective/A2Compactness.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A2Compactness.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A2Compactness.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/A2Compactness.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/A2Compactness.setup.json --json
+error: ScottDomains/Effective/A2Compactness.lean:187:9: Unknown identifier `x`
+error: ScottDomains/Effective/A2Compactness.lean:528:45: failed to synthesize instance of type class
+  Finite ↑badPairs
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A2Compactness
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.63
+Maximum resident set size (kbytes): 1795460
+--- build ---
+finished:         2026-08-09T12:20:04-07:00
+exit status:      1
+user cpu:         1.95s
+system cpu:       0.55s
+cpu use:          153%
+peak rss single:  1753 MiB (largest one process, GNU time)
+peak pss tree:    1897 MiB (process group, shared pages apportioned)
+peak rss tree:    2570 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   0
