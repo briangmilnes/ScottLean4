@@ -7,6 +7,30 @@ Measured on `main` after r0047: build **1364 jobs, 0 errors, 0 warnings**,
 `sorry` **0**, `axiom` **0**, `sorryAx` **0**. Package: 117 modules, 43,481
 lines, 2,019 theorems.
 
+## Labels
+
+Every paper property carries one of five labels. They answer two questions —
+**is it stated in Lean, and is it proved** — and the pair matters because
+**`sorry` can only see the second.**
+
+| # | Label | Stated? | Proved? | Meaning |
+| -- | ---- | ------- | ------- | ------- |
+| 1 | `S+P` | yes, as the paper states it | yes | done |
+| 2 | **`S+H`** | yes, as the paper states it | **no — the proof is open** | a real Lean statement with a hole. `H` is for *hypothesis*: the result is available only conditionally, as a theorem taking the open claim as an argument |
+| 3 | `S≠` | yes, but **not the paper's statement** | yes | a weakening, an added hypothesis, or a deliberate repair of a printed defect |
+| 4 | `P` | no — prose only | — | asserted in a docstring, never under the kernel |
+| 5 | `N` | **no statement at all** | — | nothing in Lean mentions it |
+
+Two consequences worth stating once:
+
+* **`sorry` 0 does not mean "everything is proved."** A `sorry` is a hole in a
+  proof someone *started*. Rows 4 and 5 were never started, and row 2's holes are
+  carried as explicit hypotheses rather than as `sorry`, so none of the three
+  appears in a `sorry` count. That is why this file reports rows 8–11 of the
+  counts separately.
+* **`S≠` is not automatically a defect.** Five of the 18 are repairs of the
+  paper's own printed errors, which is correct work; 13 are ours.
+
 ## Counts
 
 | # | | Count |
@@ -17,15 +41,16 @@ lines, 2,019 theorems.
 | 4 | — **refuted as stated** (our transcription or the paper) | 2 |
 | 5 | — never transcribed into the tree | 2 |
 | 6 | Paper properties (numbered conjuncts + prose claims) | 239 |
-| 7 | — stated and proved | 169 |
-| 8 | — stated, proof open (`S+H`) | **12** |
-| 9 | — stated, but not as the paper states it | 18 |
-| 10 | — no Lean statement at all | 36 |
+| 7 | — `S+P` stated and proved | 169 |
+| 8 | — **`S+H` stated, proof open** | **12** |
+| 9 | — `S≠` stated, but not as the paper states it | 18 (13 ours, 5 repairs) |
+| 10 | — `P` + `N` no Lean statement at all | 36 |
 | 11 | `Prop`-valued claims nothing proves | **7** (8 strict) |
 
 Rows 8 and 11 are the two kinds of unfinished work, and they are different:
-row 8 is a real Lean statement with an open proof; row 11 is a `def` naming a
-claim nobody attempted. **`sorry` 0 sees neither.**
+row 8 is a real Lean statement whose proof is open; row 11 is a `def` naming a
+claim **nobody attempted**. **`sorry` 0 sees neither** — which is why both are
+counted here and neither shows up in a build.
 
 ## The 30 numbered results
 
@@ -58,7 +83,7 @@ claim nobody attempted. **`sorry` 0 sees neither.**
 | 23 | Lemma 23 | `P` | `lem23` |
 | 24 | Lemma 24 | `P` | `lem24` (Gunter & Scott's; **not** Gunter 1987's Lemma 24, below) |
 | 25 | Theorem 25 | `P` | `thm25`, `thm25_isUniversal` |
-| 26 | Theorem 26 | `p` | `thm26` carries an added `hs : ∀ i, 0 < s i`. The justification — that the theorem is false at arity 0 — **is not established**; the argument refutes the paper's *proof*, not its statement |
+| 26 | Theorem 26 | `p` | `thm26` carries an added `hs : ∀ i, 0 < s i` — no nullary operations — which the paper does not assume. The recorded justification, that Theorem 26 is **false** for a signature admitting arity 0, **is not established**: the contradiction is derived from `fst(ψ(x)) = x`, a property of the paper's *construction* and of our own conclusion, whereas the printed statement asks only that `A` "be made isomorphic to a subalgebra" — and two one-point algebras are isomorphic to the same one-point subalgebra `{Fᵢ}`. **The argument refutes the paper's proof at arity 0, not its theorem.** So `hs` is a defect of ours, not a repair. To settle it: exhibit a genuine arity-0 counterexample to the *printed* conclusion, or drop `hs` and prove `thm26` without it |
 | 27 | Theorem 27 | `P` | `thm27` |
 | 28 | Lemma 28 | `R` | **refuted at generic `U`** (`not_forall_lemma28`, witness `Flat Empty`), and stays false after adding `[Domain U]` and `[BoundedComplete U]`. **Proved at `U`**: `lemma28AtU`, all nine conjuncts. The blocker is `UniversalForBCD U` |
 | 29 | Theorem 29 | `p` | sentence 1 proved (`thm29`). Sentence 2: `Thm29Second` **refuted** — our transcription dropped the paper's word "domain". `Thm29SecondAtDomains`, the true reading, is **open** |
