@@ -248,7 +248,22 @@ over `U`, at `Fp(U)`.
 
 The six binary conjuncts come first in the paper's own order — `→`, `⇸`, `×`,
 `⊗`, `+`, `⊕` — then the three unary ones, `(·)⊥`, `(·)♯`, `(·)♭`. `(·)♮` is
-absent because the paper's §7.4 says it cannot be representable over `U`. -/
+absent because the paper's §7.4 says it cannot be representable over `U`.
+
+**Its universal closure is REFUTED (r0045).**
+`ScottDomains.R45.Agent2.not_forall_lemma28 : ¬ ∀ (U : Type) (inst :
+CompletePartialOrder U), @Lemma28 U inst` is the kernel-checked refutation, and
+`R45.Agent2.not_forall_lemma28_bcd` shows it stays false after adding `[Domain
+U]` and `[BoundedComplete U]`, so no instance binder from `Domain.lean` closes
+it. `Flat Empty` is the counterexample. The missing content is universality of
+`U` (`R45.Agent2.UniversalForBCD`), which is a property of §7.3's carrier and not
+a typeclass; `Lemma28AtU`, the instantiation at `Dyadic.U`, is the statement that
+is not refuted.
+
+The `def` is kept because eight declarations cite it and because the paper's
+sentence — read over §7.3's own `U` — is not the refuted one. The r0046 detector
+reads the refutation out of the environment and no longer counts this as an open
+claim. -/
 def Lemma28 (U : Type u) [CompletePartialOrder U] : Prop :=
   IsPRepresentable₂ U funOp ∧
   IsPRepresentable₂ U strictFunOp ∧

@@ -14,6 +14,18 @@
 # "Obligation", "the remaining obligation", "none is discharged", "Recorded as a
 # `Prop` rather than a `sorry`".
 
+# r0046 (agent1): three of these are REFUTED, not open, and the detector now says
+# so on its own. `scripts/a6-query.lean` emits REFUTEDBY records for closed
+# refutations and `a6-summarize.py` splits the claim count into refuted and open;
+# Goal A is the OPEN count. Nothing was removed from this file — a refuted claim
+# is still a claim, and deleting the line would lose the fact that it was made.
+#
+# r0046 (agent1) also restated `StepFunctionsDecidable` to the sentence printed on
+# p. 12, which carries the antecedent "using the effective presentations of D and
+# E". The statement it replaced is kept as
+# `ScottDomains.R46.Agent1.StepFunctionsDecidableUnconditional`. That is a
+# rejected transcription, NOT a claim of the paper: do not add it here.
+
 # §3.2 — effective presentations (Effective/FunctionSpace.lean)
 ScottDomains.Effective.StepFunctionsDecidable
 ScottDomains.Effective.Theorem7ArrowRecursive

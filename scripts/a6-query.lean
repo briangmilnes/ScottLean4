@@ -32,15 +32,42 @@ structure look instantiated and every definition look consumed.
 Output is one tab-separated record per line, tagged so the shell can split the
 streams:
 
-  PROPDEF <module> <line> <name> <binders> <refs> <proofs> <uncond> <hyps>
+  PROPDEF <module> <line> <name> <binders> <refs> <proofs> <uncond> <hyps> <refuted>
       a `def`/`abbrev` whose type ends in `Prop`. `refs` counts source-level
       package constants whose type or value mentions it; `proofs` counts package
       theorems whose conclusion is headed by it, `uncond` the subset of those
       carrying no proof hypothesis — `uncond 0` is undischarged; `hyps` counts
-      package constants taking something headed by it as a hypothesis.
-  PROVEDBY <propdef> <theorem> <propHypotheses>
+      package constants taking something headed by it as a hypothesis; `refuted`
+      counts closed refutations (see REFUTEDBY).
+  PROVEDBY <propdef> <theorem> <propHypotheses> <generic>
       one line per theorem concluding a Prop-valued package definition, so every
-      discharge claim in the report can be checked by name.
+      discharge claim in the report can be checked by name. `generic` is true
+      when the conclusion applies the definition to pairwise-distinct binders of
+      the theorem itself — the universal closure — and false when some argument
+      is a particular value or repeats another. Added in r0046 (agent1): the
+      `uncond` test above scores `preservesRecursivePresentation_id :
+      PreservesRecursivePresentation α d e` as an unconditional discharge, and it
+      is the schema at `γ := α`, which is r0044's dominant defect mode. This
+      field measures that rather than leaving it to a reader.
+  REFUTEDBY <propdef> <theorem>
+      one line per *closed refutation* of a Prop-valued package definition: a
+      theorem with no binders at all whose type is `¬ e`, where `e` after
+      stripping binders is headed by that definition. Added in r0046 (agent1)
+      because the `uncond 0` test above scores a refuted claim as undischarged: a
+      refutation produces `¬ D`, whose conclusion is headed by `Not`, so it never
+      increments `proofs`. Three of the ten claims r0045 left on the list —
+      `Colimit.Thm29Second`, `PRep.Lemma28`, `LemThirty.Lemma30` — are refuted,
+      not open, and without this record they inflate the count forever.
+
+      Why the criterion is exactly "no binders, conclusion `¬ e`". Soundness:
+      if `¬ e` holds and `e` is `∀ xs, hyps → D args`, then the universal closure
+      of `D` fails, because that closure would give `D args` for every `args` and
+      hence `e`. Both a refutation of an *instance* (`¬ D c`) and a refutation of
+      a *weakened* form (`¬ ∀ U, Domain U → D U`) are therefore sound witnesses,
+      and both occur in this package. Requiring zero binders is what rules out
+      the unsound reading: `[Subsingleton U] → ¬ D U` refutes nothing about `D`
+      until some `U` is exhibited, and `ScottDomains.R45.Agent2` contains exactly
+      that theorem alongside the closed one.
   AXIOM <module> <line> <name>
       an `axiom` declaration in a package module.
   STRUCT <module> <line> <name> <ctorRefs> <fields> <propFields>
@@ -132,6 +159,33 @@ def hypHeads (t : Expr) : MetaM (Array Name) :=
       if let some h ← conclHead ty then acc := acc.push h
     return acc
 
+/-- Does this theorem conclude its claim at the *generic* instance — the claim
+applied to pairwise-distinct binders of the theorem — rather than at particular
+values? A theorem `D α d e` where the `γ` slot is filled by `α`, or by a closed
+term such as `Flat ℕ`, proves an instance of the claim and not the claim; the
+`uncond` test cannot see the difference because both conclusions are headed by
+`D`. A definition with no arguments is generic vacuously, which is correct: a
+closed `Prop` has only one instance. -/
+def conclIsGeneric (t : Expr) : MetaM Bool :=
+  forallTelescope t fun xs body => do
+    let mut seen : Array FVarId := #[]
+    for a in body.getAppArgs do
+      let .fvar id := a | return false
+      if seen.contains id then return false
+      unless xs.any (fun x => x.fvarId! == id) do return false
+      seen := seen.push id
+    return true
+
+/-- The claim a *closed refutation* refutes, if this type is one. `t` must be
+literally `¬ e` with no leading binder; the answer is the head constant of `e`'s
+conclusion. `forallTelescope` does not unfold `Not`, so a theorem of type `¬ D`
+contributes `Not` — not `D` — to `conclHead` and therefore to `proofs`; that is
+why a refuted claim reads as undischarged and why this record exists. -/
+def refutedClaim (t : Expr) : MetaM (Option Name) := do
+  match t.getAppFn, t.getAppArgs with
+  | .const ``Not _, #[arg] => conclHead arg
+  | _, _ => return none
+
 /-- How many of `t`'s binders are proof hypotheses — binders whose own type is a
 proposition, excluding instance-implicit binders, which carry structure rather
 than an assumption. A theorem concluding `D` with a proof hypothesis has not
@@ -180,7 +234,9 @@ run_cmd Command.liftTermElabM do
   let mut proofs : Std.HashMap Name Nat := {}
   let mut uncond : Std.HashMap Name Nat := {}
   let mut hyps   : Std.HashMap Name Nat := {}
-  let mut conclusions : Array (Name × Name × Nat) := #[]
+  let mut refuted : Std.HashMap Name Nat := {}
+  let mut conclusions : Array (Name × Name × Nat × Bool) := #[]
+  let mut refutations : Array (Name × Name) := #[]
   let mut nDefs := 0
   let mut nThms := 0
   let mut propDefs : Array (Name × Name × ConstantInfo) := #[]
@@ -215,8 +271,13 @@ run_cmd Command.liftTermElabM do
           if c != n then
             proofs := proofs.insert c ((proofs.getD c 0) + 1)
             let k ← propHypCount ci.type
+            let g ← conclIsGeneric ci.type
             if k == 0 then uncond := uncond.insert c ((uncond.getD c 0) + 1)
-            conclusions := conclusions.push (c, n, k)
+            conclusions := conclusions.push (c, n, k, g)
+        if let some c ← refutedClaim ci.type then
+          if c != n then
+            refuted := refuted.insert c ((refuted.getD c 0) + 1)
+            refutations := refutations.push (c, n)
     | .defnInfo di =>
         nDefs := nDefs + 1
         if ← resultIsProp di.type then propDefs := propDefs.push (n, m, ci)
@@ -225,9 +286,11 @@ run_cmd Command.liftTermElabM do
   for (n, _, _) in propDefs do propNames := propNames.insert n
   for (n, m, ci) in propDefs do
     let nb ← forallTelescope ci.type fun xs _ => pure xs.size
-    IO.println s!"PROPDEF\t{m}\t{← lineOf n}\t{n}\t{nb}\t{refs.getD n 0}\t{proofs.getD n 0}\t{uncond.getD n 0}\t{hyps.getD n 0}"
-  for (c, t, k) in conclusions do
-    if propNames.contains c then IO.println s!"PROVEDBY\t{c}\t{t}\t{k}"
+    IO.println s!"PROPDEF\t{m}\t{← lineOf n}\t{n}\t{nb}\t{refs.getD n 0}\t{proofs.getD n 0}\t{uncond.getD n 0}\t{hyps.getD n 0}\t{refuted.getD n 0}"
+  for (c, t, k, g) in conclusions do
+    if propNames.contains c then IO.println s!"PROVEDBY\t{c}\t{t}\t{k}\t{g}"
+  for (c, t) in refutations do
+    if propNames.contains c then IO.println s!"REFUTEDBY\t{c}\t{t}"
   for (n, m, _) in src do
     if isStructure env n then
       let ctor := (getStructureCtor env n).name

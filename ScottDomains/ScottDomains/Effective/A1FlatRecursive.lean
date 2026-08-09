@@ -67,8 +67,11 @@ open when it is trivially satisfiable — is the defect r0044 measured.
 
 `Theorem7ArrowRecursive` gets a **reduction**, not a discharge:
 `theorem7ArrowRecursive_of_stepFunctionsDecidable` derives it from the
-hypothesis-strengthened step-function claim. `StepFunctionsDecidable` and
-`Theorem7StrictRecursive` are untouched and open; the report states why.
+step-function claim. That hypothesis was written here in its
+hypothesis-strengthened form because r0045's `StepFunctionsDecidable` dropped the
+printed sentence's antecedent; r0046 restated the `def`, and the hypothesis is
+now the claim's own universal closure. `StepFunctionsDecidable` and
+`Theorem7StrictRecursive` remain open; the r0045 and r0046 reports state why.
 -/
 
 namespace ScottDomains.R45.Agent1
@@ -355,19 +358,27 @@ it, to its proof sentence.** `Effective.exists_isRecursive_of_stepFunctionsDecid
 does this at fixed `d` and `e`; this lifts it to the quantified claim, so
 `Theorem7ArrowRecursive` now has a theorem concluding it with **one** hypothesis.
 
-The hypothesis is not `StepFunctionsDecidable` itself but its
-hypothesis-strengthened form `IsRecursive d → IsRecursive e →
-StepFunctionsDecidable d e`. That is deliberate: `StepFunctionsDecidable d e` as
-defined quantifies over *arbitrary* presentations `d` and `e`, while Theorem 7's
-proof sentence says "using the effective presentations of `D` and `E`" — see the
-r0045 report for why the unstrengthened form cannot be provable. -/
+**The hypothesis is now the universal closure of the claim itself.** When this
+theorem was written in r0045 it could not be: `StepFunctionsDecidable d e` then
+quantified over *arbitrary* presentations `d` and `e`, so the hypothesis had to
+be written in the strengthened form `IsRecursive d → IsRecursive e →
+StepFunctionsDecidable d e` to say what Theorem 7's proof sentence says ("using
+the effective presentations of `D` and `E`"). r0046 restated the `def` to carry
+that antecedent, so the two extra arrows are now part of the claim and the
+hypothesis is exactly `∀ … (d) (e), StepFunctionsDecidable d e`. The theorem's
+content is unchanged — the hypothesis is the same proposition, spelled once
+instead of twice.
+
+The explicit universe binders `.{u, v}` remain load-bearing:
+`Theorem7ArrowRecursive` is universe-polymorphic and a hypothesis cannot
+quantify over universes, so the theorem's universes must be pinned to the
+claim's. -/
 theorem theorem7ArrowRecursive_of_stepFunctionsDecidable.{u, v}
     (h : ∀ {α : Type u} {β : Type v} [CompletePartialOrder α] [Domain α]
       [CompletePartialOrder β] [Domain β] [BoundedComplete β] (d : EffectivePresentation α)
-      (e : EffectivePresentation β), IsRecursive d → IsRecursive e →
-      StepFunctionsDecidable d e) :
+      (e : EffectivePresentation β), StepFunctionsDecidable d e) :
     Theorem7ArrowRecursive.{u, v} := by
   intro α β _ _ _ _ _ d e hd he
-  exact exists_isRecursive_of_stepFunctionsDecidable (h d e hd he)
+  exact exists_isRecursive_of_stepFunctionsDecidable (h d e) hd he
 
 end ScottDomains.R45.Agent1
