@@ -1,0 +1,34 @@
+# r0046
+# agent2 — lake build ScottDomains.A2Thm29Universal
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T23:51:51-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A2Thm29Universal ===
+✖ [1063/1063] Building ScottDomains.A2Thm29Universal (830ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/A2Thm29Universal.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.setup.json --json
+error: ScottDomains/A2Thm29Universal.lean:487:45: failed to synthesize instance of type class
+  UsesSetNotationForOrder { S // S.Finite ∧ S ◁ Set.univ }
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A2Thm29Universal
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.73
+Maximum resident set size (kbytes): 1824472
+--- build ---
+finished:         2026-08-08T23:51:53-07:00
+exit status:      1
+user cpu:         1.76s
+system cpu:       0.56s
+cpu use:          134%
+peak rss single:  1781 MiB (largest one process, GNU time)
+peak pss tree:    1906 MiB (process group, shared pages apportioned)
+peak rss tree:    2579 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   0

@@ -1,0 +1,41 @@
+# r0046
+# agent2 — lake build ScottDomains.A2Thm29Universal
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T23:56:21-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A2Thm29Universal ===
+✖ [1063/1063] Building ScottDomains.A2Thm29Universal (887ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/A2Thm29Universal.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.setup.json --json
+error: ScottDomains/A2Thm29Universal.lean:669:41: Application type mismatch: The argument
+  Nat.find_spec ?m.41
+has type
+  ?m.39 (Nat.find ?m.41)
+but is expected to have type
+  c ∈ ↑(cover hP e (Nat.find ⋯))
+in the application
+  stage_stable H (Nat.find (exists_mem_cover he c)) k (Nat.find_le hc) c (Nat.find_spec ?m.41)
+error: ScottDomains/A2Thm29Universal.lean:760:0: Invalid `end`: There is no current scope to end
+
+Note: Scopes are introduced using `namespace` and `section`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A2Thm29Universal
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1826556
+--- build ---
+finished:         2026-08-08T23:56:24-07:00
+exit status:      1
+user cpu:         1.84s
+system cpu:       0.57s
+cpu use:          139%
+peak rss single:  1783 MiB (largest one process, GNU time)
+peak pss tree:    1918 MiB (process group, shared pages apportioned)
+peak rss tree:    2591 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   0

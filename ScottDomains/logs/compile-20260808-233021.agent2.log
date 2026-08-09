@@ -1,0 +1,32 @@
+# r0046
+# agent2 — lake build ScottDomains.A2Thm29Universal
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T23:30:21-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A2Thm29Universal ===
+⚠ [1004/1004] Built ScottDomains.A2Thm29Universal (667ms)
+warning: ScottDomains/A2Thm29Universal.lean:129:0: automatically included section variable(s) unused in theorem `ScottDomains.R46.Agent2.IsRoot.unique`:
+  [OrderBot α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [OrderBot α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (1004 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.62
+Maximum resident set size (kbytes): 1765516
+--- build ---
+finished:         2026-08-08T23:30:24-07:00
+exit status:      0
+user cpu:         1.25s
+system cpu:       0.58s
+cpu use:          113%
+peak rss single:  1724 MiB (largest one process, GNU time)
+peak pss tree:    1856 MiB (process group, shared pages apportioned)
+peak rss tree:    2529 MiB (process group, shared pages counted per process)
+jobs:             1004
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   1

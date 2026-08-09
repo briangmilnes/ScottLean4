@@ -238,21 +238,26 @@ witness is quantified over directly — `β` is that poset, `g` the normal
 embedding of `A` into it, `z` the point realizing the type — rather than encoded
 as syntax.
 
+The witnessing poset appears as a **finite subset `T` of a poset `β`** rather
+than as a finite type, because that is the shape every application has: `T` is a
+finite normal subposet of the basis `K(E)`, sitting inside `β = K(E)`. Nothing
+turns on the choice — `T = Set.univ` recovers the type reading — but it removes
+every subtype transport from the reduction below.
+
 Three hypotheses beyond Gunter's are carried, each of which makes this property
-**weaker**, so that what is asked for is no more than Lemma 24 delivers:
-`Finite β`; `g '' A ◁ Set.univ`, which is Gunter's `A ◁ β` in the image; and
-`insert z (g '' A) ◁ Set.univ`, which is the shape the reduction always presents
-(there the extension is a one-point normal extension of `A` inside `β`).
+**weaker**, so that what is asked for is no more than Lemma 24 delivers: `T` is
+finite; `g '' A ◁ T`, which is Gunter's `A ◁ β` in the image; and
+`insert z (g '' A) ◁ T`, which is the shape the reduction always presents (there
+the extension is a one-point normal extension of `A` inside `T`).
 
 **Nothing in this file proves this property of `A∞`.** It is recorded as a `Prop`
 exactly as `LemThirty.Thm29Normal` is, per this development's convention: the
 statement is fixed and citable, and nothing asserts it. -/
 def HasNormalRealizations (α : Type) [PartialOrder α] : Prop :=
   ∀ A : Set α, A.Finite → A ◁ (Set.univ : Set α) →
-    ∀ (β : Type) [PartialOrder β] [Finite β] (g : α → β) (z : β),
+    ∀ (β : Type) [PartialOrder β] (T : Set β), T.Finite → ∀ (g : α → β) (z : β),
       (∀ a ∈ A, ∀ b ∈ A, (g a ≤ g b ↔ a ≤ b)) →
-      g '' A ◁ (Set.univ : Set β) →
-      insert z (g '' A) ◁ (Set.univ : Set β) →
+      g '' A ◁ T → insert z (g '' A) ◁ T →
       ∃ y : α, SameTypeOver A g z y ∧ insert y A ◁ (Set.univ : Set α)
 
 /-- **The finite extension property**: the same statement with a whole finite
@@ -266,11 +271,47 @@ chunks, not by single points.
 assumption. -/
 def HasFiniteExtensions (α : Type) [PartialOrder α] : Prop :=
   ∀ A : Set α, A.Finite → A ◁ (Set.univ : Set α) →
-    ∀ (β : Type) [PartialOrder β] [Finite β] [Nonempty β] (g : α → β),
+    ∀ (β : Type) [PartialOrder β] (T : Set β), T.Finite → T.Nonempty → ∀ g : α → β,
       (∀ a ∈ A, ∀ b ∈ A, (g a ≤ g b ↔ a ≤ b)) →
-      g '' A ◁ (Set.univ : Set β) →
-      ∃ h : β → α, (∀ b b' : β, h b ≤ h b' ↔ b ≤ b') ∧
-        (∀ a ∈ A, h (g a) = a) ∧ Set.range h ◁ (Set.univ : Set α)
+      g '' A ◁ T →
+      ∃ h : β → α, (∀ b ∈ T, ∀ b' ∈ T, (h b ≤ h b' ↔ b ≤ b')) ∧
+        (∀ a ∈ A, h (g a) = a) ∧ h '' T ◁ (Set.univ : Set α)
+
+/-- **The realization property is a real constraint.** It fails for the one-point
+poset: the type of `true` over `{false}` in `Bool` is normal — `{false}` is normal
+in `{false, true}` and so is `{false, true}` — and demands a point strictly above
+its argument, which a one-point poset does not have.
+
+Recorded because a reduction is worth nothing if the thing reduced to is
+satisfied by everything. `thm29Normal_of_hasNormalRealizations` is a reduction to
+a property that at least one poset lacks. -/
+theorem not_hasNormalRealizations_unit : ¬ HasNormalRealizations Unit := by
+  have hA : ({()} : Set Unit) ◁ (Set.univ : Set Unit) := by
+    refine ⟨Set.subset_univ _, fun _ _ => ⟨⟨(), rfl, by simp⟩, ?_⟩⟩
+    rintro a ⟨rfl, -⟩ b ⟨rfl, -⟩
+    exact ⟨(), ⟨rfl, by simp⟩, le_rfl, le_rfl⟩
+  have hT : ((fun _ : Unit => false) '' {()} : Set Bool) = {false} := by simp
+  intro H
+  obtain ⟨y, hy, -⟩ :=
+    H {()} (Set.finite_singleton _) hA Bool {false, true} (Set.toFinite _)
+      (fun _ => false) true
+      (by rintro a rfl b rfl; simp)
+      (by
+        rw [hT]
+        refine ⟨by intro z hz; simp at hz; simp [hz], ?_⟩
+        rintro x (rfl | rfl)
+        · exact ⟨⟨false, rfl, Set.mem_Iic.mpr le_rfl⟩,
+            by rintro a ⟨rfl, -⟩ b ⟨rfl, -⟩
+               exact ⟨false, ⟨rfl, Set.mem_Iic.mpr le_rfl⟩, le_rfl, le_rfl⟩⟩
+        · exact ⟨⟨false, rfl, Set.mem_Iic.mpr (by decide)⟩,
+            by rintro a ⟨rfl, -⟩ b ⟨rfl, -⟩
+               exact ⟨false, ⟨rfl, Set.mem_Iic.mpr (by decide)⟩, le_rfl, le_rfl⟩⟩)
+      (by
+        rw [hT, Set.pair_comm true false]
+        exact IsNormalIn.refl _)
+  have h := (hy () rfl).2
+  simp only [le_refl, true_iff] at h
+  exact absurd h (by decide)
 
 end Properties
 
@@ -293,18 +334,20 @@ extends `k` by one point of `β`, keeping both invariants.
 `Function.invFunOn k S` is the partial inverse of `k` that presents `S` as
 `g '' (k '' S)`, which is the shape `HasNormalRealizations` asks for. -/
 theorem exists_step (H : HasNormalRealizations α) {β : Type} [PartialOrder β]
-    [Finite β] [Nonempty β] {S : Set β} (hSnorm : S ◁ (Set.univ : Set β))
-    (hSfin : S.Finite) (hne : (Set.univ \ S : Set β).Nonempty)
+    {T S : Set β} (hTfin : T.Finite) (hSnorm : S ◁ T) (hne : (T \ S).Nonempty)
     (k : β → α) (hk : ∀ b ∈ S, ∀ b' ∈ S, (k b ≤ k b' ↔ b ≤ b'))
     (hkn : k '' S ◁ (Set.univ : Set α)) :
-    ∃ (X : β) (k' : β → α), X ∈ Set.univ \ S ∧ (∀ b ∈ S, k' b = k b) ∧
-      insert X S ◁ (Set.univ : Set β) ∧
+    ∃ (X : β) (k' : β → α), X ∈ T \ S ∧ (∀ b ∈ S, k' b = k b) ∧
+      insert X S ◁ T ∧
       (∀ b ∈ insert X S, ∀ b' ∈ insert X S, (k' b ≤ k' b' ↔ b ≤ b')) ∧
       k' '' insert X S ◁ (Set.univ : Set α) := by
   classical
+  have hSfin : S.Finite := hTfin.subset hSnorm.subset
+  obtain ⟨x₀, hx₀⟩ := hne
+  haveI : Nonempty β := ⟨x₀⟩
   -- Proposition 21 picks the point to adjoin.
   obtain ⟨X, hXmem, _hSX, hXnorm⟩ :=
-    exists_singleton_step hSnorm (Set.toFinite _) hne
+    exists_singleton_step hSnorm (hTfin.subset fun z hz => hz.1) ⟨x₀, hx₀⟩
   have hXS : X ∉ S := hXmem.2
   have hbne : ∀ b ∈ S, b ≠ X := by rintro b hb rfl; exact hXS hb
   -- `k` is injective on `S`, so `Function.invFunOn k S` inverts it there.
@@ -321,7 +364,7 @@ theorem exists_step (H : HasNormalRealizations α) {β : Type} [PartialOrder β]
     · exact fun hb => ⟨k b, ⟨b, hb, rfl⟩, hgk b hb⟩
   -- The realization property, at `A := k '' S` and the witness `(β, g, X)`.
   obtain ⟨y, hy, hyn⟩ :=
-    H (k '' S) (hSfin.image k) hkn β g X
+    H (k '' S) (hSfin.image k) hkn β T hTfin g X
       (by
         rintro _ ⟨b, hb, rfl⟩ _ ⟨b', hb', rfl⟩
         rw [hgk b hb, hgk b' hb']
@@ -353,61 +396,55 @@ theorem exists_step (H : HasNormalRealizations α) {β : Type} [PartialOrder β]
 /-- **`HasNormalRealizations` implies `HasFiniteExtensions`.** Gunter's
 Proposition 21, applied `|β ∖ g '' A|` times.
 
-The induction is on a bound for `(Set.univ ∖ S).ncard`, decreasing by one at each
-appeal to `exists_step`; the invariants carried are exactly the hypotheses that
-step needs, so nothing else has to be re-established along the way. -/
+The induction is on a bound for `(T ∖ S).ncard`, decreasing by one at each appeal
+to `exists_step`; the invariants carried are exactly the hypotheses that step
+needs, so nothing else has to be re-established along the way. -/
 theorem hasFiniteExtensions_of_hasNormalRealizations (H : HasNormalRealizations α) :
     HasFiniteExtensions α := by
   classical
-  intro A hAfin hAnorm β _ _ _ g hg hgA
-  -- `α` is non-empty because `β` is and `g '' A` is normal in it.
-  have hAne : (g '' A).Nonempty := by
-    obtain ⟨b⟩ := ‹Nonempty β›
-    obtain ⟨c, hc, _⟩ := hgA.nonempty (Set.mem_univ b)
-    exact ⟨c, hc⟩
-  obtain ⟨_, a₀, ha₀, _⟩ := hAne
+  intro A hAfin hAnorm β _ T hTfin hTne g hg hgA
+  -- `T` non-empty makes `g '' A`, hence `A`, hence `α` non-empty; that is what
+  -- `Function.invFunOn` needs, and it is the only use of the hypothesis.
+  obtain ⟨t₀, ht₀⟩ := hTne
+  obtain ⟨_, ⟨a₀, ha₀, rfl⟩, _⟩ := hgA.nonempty ht₀
   haveI : Nonempty α := ⟨a₀⟩
-  -- The induction, on a bound for the number of points still to be realized.
-  -- Nothing left to realize: `S` is everything and the current `k` is the answer.
-  have finish : ∀ S : Set β, (Set.univ \ S : Set β) = ∅ → ∀ k : β → α,
+  -- Nothing left to realize: `S` is all of `T` and the current `k` is the answer.
+  have finish : ∀ S : Set β, S ◁ T → (T \ S) = ∅ → ∀ k : β → α,
       (∀ b ∈ S, ∀ b' ∈ S, (k b ≤ k b' ↔ b ≤ b')) → k '' S ◁ (Set.univ : Set α) →
-      ∃ h : β → α, (∀ b ∈ S, h b = k b) ∧ (∀ b b' : β, h b ≤ h b' ↔ b ≤ b') ∧
-        Set.range h ◁ (Set.univ : Set α) := by
-    intro S hempty k hk hkn
-    have huniv : S = Set.univ := Set.univ_subset_iff.mp (Set.sdiff_eq_empty.mp hempty)
-    subst huniv
-    refine ⟨k, fun _ _ => rfl, fun b b' => hk b (Set.mem_univ b) b' (Set.mem_univ b'), ?_⟩
-    rwa [← Set.image_univ]
-  have key : ∀ n : ℕ, ∀ S : Set β, Set.ncard (Set.univ \ S : Set β) ≤ n →
-      S ◁ (Set.univ : Set β) → ∀ k : β → α,
+      ∃ h : β → α, (∀ b ∈ S, h b = k b) ∧
+        (∀ b ∈ T, ∀ b' ∈ T, (h b ≤ h b' ↔ b ≤ b')) ∧ h '' T ◁ (Set.univ : Set α) := by
+    intro S hSnorm hempty k hk hkn
+    have hST : S = T := Set.Subset.antisymm hSnorm.subset (Set.sdiff_eq_empty.mp hempty)
+    subst hST
+    exact ⟨k, fun _ _ => rfl, hk, hkn⟩
+  have key : ∀ n : ℕ, ∀ S : Set β, Set.ncard (T \ S) ≤ n → S ◁ T → ∀ k : β → α,
       (∀ b ∈ S, ∀ b' ∈ S, (k b ≤ k b' ↔ b ≤ b')) → k '' S ◁ (Set.univ : Set α) →
-      ∃ h : β → α, (∀ b ∈ S, h b = k b) ∧ (∀ b b' : β, h b ≤ h b' ↔ b ≤ b') ∧
-        Set.range h ◁ (Set.univ : Set α) := by
+      ∃ h : β → α, (∀ b ∈ S, h b = k b) ∧
+        (∀ b ∈ T, ∀ b' ∈ T, (h b ≤ h b' ↔ b ≤ b')) ∧ h '' T ◁ (Set.univ : Set α) := by
     intro n
     induction n with
     | zero =>
-      intro S hcard _ k hk hkn
-      refine finish S ?_ k hk hkn
+      intro S hcard hSnorm k hk hkn
+      refine finish S hSnorm ?_ k hk hkn
       by_contra hcon
-      have hpos : 0 < Set.ncard (Set.univ \ S : Set β) :=
-        (Set.ncard_pos (Set.toFinite _)).mpr (Set.nonempty_iff_ne_empty.mpr hcon)
+      have hpos : 0 < Set.ncard (T \ S) :=
+        (Set.ncard_pos (hTfin.subset fun z hz => hz.1)).mpr
+          (Set.nonempty_iff_ne_empty.mpr hcon)
       omega
     | succ n ih =>
       intro S hcard hSnorm k hk hkn
-      rcases Set.eq_empty_or_nonempty (Set.univ \ S : Set β) with hempty | hne
-      · exact finish S hempty k hk hkn
+      rcases Set.eq_empty_or_nonempty (T \ S) with hempty | hne
+      · exact finish S hSnorm hempty k hk hkn
       · obtain ⟨X, k', hXmem, hagree, hXnorm, hk', hk'n⟩ :=
-          exists_step H hSnorm (Set.toFinite S) hne k hk hkn
-        have hsub : (Set.univ \ insert X S : Set β) ⊆ (Set.univ \ S : Set β) :=
+          exists_step H hTfin hSnorm hne k hk hkn
+        have hsub : (T \ insert X S) ⊆ (T \ S) :=
           fun z hz => ⟨hz.1, fun hzS => hz.2 (Set.mem_insert_of_mem _ hzS)⟩
-        have hlt : Set.ncard (Set.univ \ insert X S : Set β) <
-            Set.ncard (Set.univ \ S : Set β) :=
+        have hlt : Set.ncard (T \ insert X S) < Set.ncard (T \ S) :=
           Set.ncard_lt_ncard
             ((Set.ssubset_iff_of_subset hsub).mpr
               ⟨X, hXmem, fun hz => hz.2 (Set.mem_insert _ _)⟩)
-            (Set.toFinite _)
-        obtain ⟨h, hh, hhrefl, hhn⟩ :=
-          ih (insert X S) (by omega) hXnorm k' hk' hk'n
+            (hTfin.subset fun z hz => hz.1)
+        obtain ⟨h, hh, hhrefl, hhn⟩ := ih (insert X S) (by omega) hXnorm k' hk' hk'n
         exact ⟨h, fun b hb => (hh b (Set.mem_insert_of_mem _ hb)).trans (hagree b hb),
           hhrefl, hhn⟩
   -- Start the induction from `S := g '' A`, with `k` the partial inverse of `g`.
@@ -422,7 +459,7 @@ theorem hasFiniteExtensions_of_hasNormalRealizations (H : HasNormalRealizations 
       exact ha'
     · exact fun ha => ⟨g a, ⟨a, ha, rfl⟩, hgg a ha⟩
   obtain ⟨h, hh, hhrefl, hhn⟩ :=
-    key (Set.ncard (Set.univ \ g '' A : Set β)) (g '' A) le_rfl hgA (Function.invFunOn g A)
+    key (Set.ncard (T \ g '' A)) (g '' A) le_rfl hgA (Function.invFunOn g A)
       (by
         rintro _ ⟨a, ha, rfl⟩ _ ⟨a', ha', rfl⟩
         rw [hgg a ha, hgg a' ha']
@@ -431,5 +468,356 @@ theorem hasFiniteExtensions_of_hasNormalRealizations (H : HasNormalRealizations 
   exact ⟨h, hhrefl, fun a ha => (hh (g a) ⟨a, ha, rfl⟩).trans (hgg a ha), hhn⟩
 
 end Extension
+
+/-! ## Theorem 22's chain: a countable Plotkin order is exhausted by finite normal
+subposets
+
+Gunter's Enumeration Theorem (p. 19) produces a chain whose steps are singletons,
+because his Theorem 25 realizes one point at a time. `HasFiniteExtensions`
+realizes a whole finite normal extension at once, so the chain below is the crude
+one — a finite normal subposet containing the previous stage and the next point
+of an enumeration — and Proposition 21 has already been spent, inside
+`hasFiniteExtensions_of_hasNormalRealizations`. -/
+
+section Chain
+
+variable {γ : Type} [PartialOrder γ]
+
+/-- A finite normal subposet, packaged with its two properties so that the
+recursion below can be defined by structural recursion on `ℕ`. -/
+abbrev FinNormal (γ : Type) [PartialOrder γ] : Type :=
+  { S : Set γ // S.Finite ∧ S ◁ (Set.univ : Set γ) }
+
+/-- One step of the chain: a finite normal subposet containing `insert x S`,
+which is what `IsPlotkinOrder` supplies. -/
+noncomputable def coverStep (hP : IsPlotkinOrder (Set.univ : Set γ)) (x : γ)
+    (S : FinNormal γ) : FinNormal γ :=
+  ⟨(hP (insert x S.1) (S.2.1.insert x) (Set.subset_univ _)).choose,
+    (hP (insert x S.1) (S.2.1.insert x) (Set.subset_univ _)).choose_spec.1,
+    (hP (insert x S.1) (S.2.1.insert x) (Set.subset_univ _)).choose_spec.2.1⟩
+
+theorem subset_coverStep (hP : IsPlotkinOrder (Set.univ : Set γ)) (x : γ) (S : FinNormal γ) :
+    insert x S.1 ⊆ (coverStep hP x S).1 :=
+  (hP (insert x S.1) (S.2.1.insert x) (Set.subset_univ _)).choose_spec.2.2
+
+/-- **The chain.** `cover hP e k` is a finite normal subposet containing
+`cover hP e (k-1)` and the `(k-1)`-st point of the enumeration `e`, so the chain
+is increasing and — when `e` is surjective — exhausts the poset. -/
+noncomputable def cover (hP : IsPlotkinOrder (Set.univ : Set γ)) (e : ℕ → γ) :
+    ℕ → FinNormal γ
+  | 0 => ⟨(hP ∅ Set.finite_empty (Set.empty_subset _)).choose,
+      (hP ∅ Set.finite_empty (Set.empty_subset _)).choose_spec.1,
+      (hP ∅ Set.finite_empty (Set.empty_subset _)).choose_spec.2.1⟩
+  | (k + 1) => coverStep hP (e k) (cover hP e k)
+
+variable {hP : IsPlotkinOrder (Set.univ : Set γ)} {e : ℕ → γ}
+
+theorem cover_subset_succ (k : ℕ) : (cover hP e k).1 ⊆ (cover hP e (k + 1)).1 :=
+  fun _ hz => subset_coverStep hP (e k) (cover hP e k) (Set.mem_insert_of_mem _ hz)
+
+theorem mem_cover_succ (k : ℕ) : e k ∈ (cover hP e (k + 1)).1 :=
+  subset_coverStep hP (e k) (cover hP e k) (Set.mem_insert _ _)
+
+theorem cover_mono {j k : ℕ} (h : j ≤ k) : (cover hP e j).1 ⊆ (cover hP e k).1 := by
+  induction k with
+  | zero =>
+    obtain rfl : j = 0 := Nat.le_zero.mp h
+    exact subset_rfl
+  | succ k ih =>
+    rcases Nat.lt_or_ge j (k + 1) with hlt | hge
+    · exact (ih (Nat.lt_succ_iff.mp hlt)).trans (cover_subset_succ k)
+    · obtain rfl : j = k + 1 := Nat.le_antisymm h hge
+      exact subset_rfl
+
+/-- Every point of the poset lies in some stage of the chain, provided the
+enumeration is surjective. -/
+theorem exists_mem_cover (he : Function.Surjective e) (c : γ) :
+    ∃ k, c ∈ (cover hP e k).1 := by
+  obtain ⟨n, rfl⟩ := he c
+  exact ⟨n + 1, mem_cover_succ n⟩
+
+/-- Each stage is normal in the next, which is what the extension step consumes. -/
+theorem cover_isNormalIn_succ (k : ℕ) : (cover hP e k).1 ◁ (cover hP e (k + 1)).1 :=
+  IsNormalIn.mono_right (cover_subset_succ k) (Set.subset_univ _) (cover hP e k).2.2
+
+theorem cover_nonempty [Nonempty γ] (k : ℕ) : (cover hP e k).1.Nonempty := by
+  obtain ⟨c⟩ := ‹Nonempty γ›
+  obtain ⟨x, hx, _⟩ := (cover hP e k).2.2.nonempty (Set.mem_univ c)
+  exact ⟨x, hx⟩
+
+theorem bot_mem_cover [OrderBot γ] (k : ℕ) : (⊥ : γ) ∈ (cover hP e k).1 :=
+  (cover hP e k).2.2.bot_mem (Set.mem_univ _)
+
+end Chain
+
+/-! ## The reduction: `HasFiniteExtensions A∞` yields `Thm29Normal`
+
+This is Gunter's Theorem 25 (p. 21) in the form this development needs. His
+recursion builds an ω-sequence of isomorphisms `fₙ : Aₙ ≅ Vₙ` between finite
+normal subposets of `B` and of `V`; here each `fₙ` is carried as a *total* map
+`K(E) → A∞` that is order-reflecting on the `n`-th stage, so the union at the end
+is an ordinary function rather than a colimit of partial ones.
+
+Theorem 25's other hypothesis, `rt(B) ≅ rt(V)`, is discharged by
+`isRoot_singleton_bot`: `K(E)` and `A∞` both have least elements, so both roots
+are single points, and the base case of the recursion is the map that carries
+`⊥` to `⊥`. -/
+
+section Reduction
+
+open Colimit
+
+/-- The data the recursion carries at each stage: a total map, order-reflecting
+on the stage, with normal image. -/
+structure Stage (γ : Type) [PartialOrder γ] (S : Set γ) where
+  /-- The map, total on the carrier and constrained only on `S`. -/
+  toFun : γ → Ainf
+  /-- Order reflection on `S`, which is Gunter's `fₙ : Aₙ ≅ Vₙ`. -/
+  reflects : ∀ a ∈ S, ∀ b ∈ S, (toFun a ≤ toFun b ↔ a ≤ b)
+  /-- Normality of the image, which is Gunter's `Vₙ ◁ V`. -/
+  normal : toFun '' S ◁ (Set.univ : Set Ainf)
+
+variable {γ : Type} [PartialOrder γ]
+
+/-- **The base of the recursion.** `{⊥}` is the root on both sides
+(`isRoot_singleton_bot`), so the finite extension property applied at
+`A := {⊥ : A∞}` embeds the whole first stage. -/
+theorem exists_base (H : HasFiniteExtensions Ainf) [OrderBot γ] {T : Set γ}
+    (hTfin : T.Finite) (hTbot : (⊥ : γ) ∈ T) :
+    ∃ f : γ → Ainf, (∀ a ∈ T, ∀ b ∈ T, (f a ≤ f b ↔ a ≤ b)) ∧
+      f '' T ◁ (Set.univ : Set Ainf) := by
+  obtain ⟨h, hrefl, _, hn⟩ :=
+    H {(⊥ : Ainf)} (Set.finite_singleton _) (singleton_bot_isNormalIn (Set.mem_univ _))
+      γ T hTfin ⟨⊥, hTbot⟩ (fun _ => (⊥ : γ))
+      (by rintro a rfl b rfl; simp)
+      (by
+        have himg : (fun _ : Ainf => (⊥ : γ)) '' {(⊥ : Ainf)} = {(⊥ : γ)} := by simp
+        rw [himg]
+        exact singleton_bot_isNormalIn hTbot)
+  exact ⟨h, hrefl, hn⟩
+
+/-- **One step of the recursion.** The previous stage's map is inverted on its
+own stage to present it as `g '' A`, and the finite extension property carries
+the next stage across. -/
+theorem exists_extend (H : HasFiniteExtensions Ainf) [Nonempty γ] {S T : Set γ}
+    (hSfin : S.Finite) (hTfin : T.Finite) (hTne : T.Nonempty) (hST : S ◁ T)
+    (F : Stage γ S) :
+    ∃ f : γ → Ainf, (∀ b ∈ S, f b = F.toFun b) ∧
+      (∀ a ∈ T, ∀ b ∈ T, (f a ≤ f b ↔ a ≤ b)) ∧ f '' T ◁ (Set.univ : Set Ainf) := by
+  classical
+  have hinj : Set.InjOn F.toFun S := fun b hb b' hb' hkk =>
+    le_antisymm ((F.reflects b hb b' hb').mp hkk.le) ((F.reflects b' hb' b hb).mp hkk.ge)
+  have hfg : ∀ b ∈ S, Function.invFunOn F.toFun S (F.toFun b) = b := hinj.leftInvOn_invFunOn
+  have himg : Function.invFunOn F.toFun S '' (F.toFun '' S) = S := by
+    ext b
+    constructor
+    · rintro ⟨_, ⟨b', hb', rfl⟩, rfl⟩
+      rw [hfg b' hb']
+      exact hb'
+    · exact fun hb => ⟨F.toFun b, ⟨b, hb, rfl⟩, hfg b hb⟩
+  obtain ⟨h, hrefl, hagree, hn⟩ :=
+    H (F.toFun '' S) (hSfin.image _) F.normal γ T hTfin hTne
+      (Function.invFunOn F.toFun S)
+      (by
+        rintro _ ⟨b, hb, rfl⟩ _ ⟨b', hb', rfl⟩
+        rw [hfg b hb, hfg b' hb']
+        exact (F.reflects b hb b' hb').symm)
+      (by rw [himg]; exact hST)
+  refine ⟨h, fun b hb => ?_, hrefl, hn⟩
+  have hb' := hagree (F.toFun b) ⟨b, hb, rfl⟩
+  rwa [hfg b hb] at hb'
+
+/-- The base stage, as data. -/
+noncomputable def baseStage (H : HasFiniteExtensions Ainf) [OrderBot γ] {T : Set γ}
+    (hTfin : T.Finite) (hTbot : (⊥ : γ) ∈ T) : Stage γ T :=
+  ⟨(exists_base H hTfin hTbot).choose, (exists_base H hTfin hTbot).choose_spec.1,
+    (exists_base H hTfin hTbot).choose_spec.2⟩
+
+/-- The successor stage, as data. -/
+noncomputable def extendStage (H : HasFiniteExtensions Ainf) [Nonempty γ] {S T : Set γ}
+    (hSfin : S.Finite) (hTfin : T.Finite) (hTne : T.Nonempty) (hST : S ◁ T)
+    (F : Stage γ S) : Stage γ T :=
+  ⟨(exists_extend H hSfin hTfin hTne hST F).choose,
+    (exists_extend H hSfin hTfin hTne hST F).choose_spec.2.1,
+    (exists_extend H hSfin hTfin hTne hST F).choose_spec.2.2⟩
+
+theorem extendStage_agree (H : HasFiniteExtensions Ainf) [Nonempty γ] {S T : Set γ}
+    (hSfin : S.Finite) (hTfin : T.Finite) (hTne : T.Nonempty) (hST : S ◁ T)
+    (F : Stage γ S) :
+    ∀ b ∈ S, (extendStage H hSfin hTfin hTne hST F).toFun b = F.toFun b :=
+  (exists_extend H hSfin hTfin hTne hST F).choose_spec.1
+
+/-- **The ω-sequence of stages.** Gunter's `fₙ`, with `V₀ = rt(V) = {⊥}` as the
+base and the finite extension property as the step. -/
+noncomputable def stage (H : HasFiniteExtensions Ainf) [OrderBot γ] [Nonempty γ]
+    (hP : IsPlotkinOrder (Set.univ : Set γ)) (e : ℕ → γ) :
+    (k : ℕ) → Stage γ (cover hP e k).1
+  | 0 => baseStage H (cover hP e 0).2.1 (bot_mem_cover 0)
+  | (k + 1) =>
+      extendStage H (cover hP e k).2.1 (cover hP e (k + 1)).2.1 (cover_nonempty (k + 1))
+        (cover_isNormalIn_succ k) (stage H hP e k)
+
+variable [OrderBot γ] [Nonempty γ] {hP : IsPlotkinOrder (Set.univ : Set γ)} {e : ℕ → γ}
+
+theorem stage_agree (H : HasFiniteExtensions Ainf) (k : ℕ) :
+    ∀ b ∈ (cover hP e k).1, (stage H hP e (k + 1)).toFun b = (stage H hP e k).toFun b :=
+  extendStage_agree H _ _ _ _ (stage H hP e k)
+
+/-- **The sequence is stable**: once a point has entered a stage, no later stage
+moves it. This is what makes the union a function. -/
+theorem stage_stable (H : HasFiniteExtensions Ainf) (j : ℕ) :
+    ∀ (k : ℕ), j ≤ k → ∀ b ∈ (cover hP e j).1,
+      (stage H hP e k).toFun b = (stage H hP e j).toFun b := by
+  intro k
+  induction k with
+  | zero =>
+    intro hjk _ _
+    obtain rfl : j = 0 := Nat.le_zero.mp hjk
+    rfl
+  | succ k ih =>
+    intro hjk b hb
+    rcases Nat.lt_or_ge j (k + 1) with hlt | hge
+    · have hjk' := Nat.lt_succ_iff.mp hlt
+      rw [stage_agree H k b (cover_mono hjk' hb), ih hjk' b hb]
+    · obtain rfl : j = k + 1 := Nat.le_antisymm hjk hge
+      rfl
+
+/-- The stage images increase, which makes the family `◁`-directed and its union
+normal by Lemma 4.4 (`isNormalIn_sUnion`). -/
+theorem stageImage_subset (H : HasFiniteExtensions Ainf) {m l : ℕ} (h : m ≤ l) :
+    (stage H hP e m).toFun '' (cover hP e m).1 ⊆
+      (stage H hP e l).toFun '' (cover hP e l).1 := by
+  rintro _ ⟨c, hc, rfl⟩
+  exact ⟨c, cover_mono h hc, stage_stable H m l h c hc⟩
+
+open scoped Classical in
+/-- **The union of the stages**, as a total map. `c` is sent by the earliest
+stage that contains it; `limitMap_eq` says every later stage agrees. -/
+noncomputable def limitMap (H : HasFiniteExtensions Ainf)
+    (hP : IsPlotkinOrder (Set.univ : Set γ)) (e : ℕ → γ) (he : Function.Surjective e)
+    (c : γ) : Ainf :=
+  (stage H hP e (Nat.find (exists_mem_cover (hP := hP) he c))).toFun c
+
+open scoped Classical in
+theorem limitMap_eq (H : HasFiniteExtensions Ainf) (he : Function.Surjective e)
+    {k : ℕ} {c : γ} (hc : c ∈ (cover hP e k).1) :
+    limitMap H hP e he c = (stage H hP e k).toFun c :=
+  (stage_stable H _ k (Nat.find_le hc) c
+    (Nat.find_spec (exists_mem_cover (hP := hP) he c))).symm
+
+end Reduction
+
+/-! ## `Thm29Normal`, reduced
+
+`LemThirty.Thm29Normal` is used exactly as `LemThirty.lean:464` states it: the
+same `E`, the same instance binders `[CompletePartialOrder E] [Domain E]`, the
+same conclusion. No binder is added, and no hypothesis is weakened. -/
+
+section Main
+
+open Colimit
+
+/-- **Gunter 1987, Theorem 25, in this development's terms:
+`HasFiniteExtensions A∞` implies `LemThirty.Thm29Normal`.**
+
+Both halves of "bifinite **domain**" are spent, and in different places:
+
+* `IsBifinite E` makes `K(E)` a Plotkin order
+  (`BifiniteUniversal.isPlotkinOrder_univ_subtype`), which is what supplies the
+  chain of finite normal subposets;
+* `[Domain E]` makes `K(E)` countable, which is what supplies the enumeration
+  `e` the chain runs along. `LemThirty.countable_compacts_of_reflects` and
+  `A3Thm29.not_thm29NormalWithoutDomain` already show this half is not optional
+  — without it the conclusion is refutable.
+
+The root hypothesis of Gunter's Theorem 25, `rt(B) ≅ rt(V)`, is discharged by
+`isRoot_singleton_bot` on both sides and appears here only as `exists_base`,
+which starts the recursion at `⊥ ↦ ⊥`. -/
+theorem thm29Normal_of_hasFiniteExtensions (H : HasFiniteExtensions Ainf) :
+    LemThirty.Thm29Normal := by
+  intro E _ _ hE
+  haveI : Countable ↥(compacts E) := (Domain.countable_compacts (α := E)).to_subtype
+  have hP : IsPlotkinOrder (Set.univ : Set ↥(compacts E)) :=
+    BifiniteUniversal.isPlotkinOrder_univ_subtype hE
+  obtain ⟨e, he⟩ := exists_surjective_nat ↥(compacts E)
+  refine ⟨limitMap H hP e he, fun a b => ?_, ?_⟩
+  · -- Order reflection: put both points in one stage and use that stage's.
+    obtain ⟨ka, hka⟩ := exists_mem_cover (hP := hP) he a
+    obtain ⟨kb, hkb⟩ := exists_mem_cover (hP := hP) he b
+    have ha : a ∈ (cover hP e (max ka kb)).1 := cover_mono (le_max_left _ _) hka
+    have hb : b ∈ (cover hP e (max ka kb)).1 := cover_mono (le_max_right _ _) hkb
+    rw [limitMap_eq H he ha, limitMap_eq H he hb]
+    exact (stage H hP e (max ka kb)).reflects a ha b hb
+  · -- Normality: the range is the union of the stage images, which is `◁`-directed.
+    have hrange : Set.range (limitMap H hP e he) =
+        ⋃₀ {N | ∃ k : ℕ, N = (stage H hP e k).toFun '' (cover hP e k).1} := by
+      ext x
+      constructor
+      · rintro ⟨c, rfl⟩
+        obtain ⟨k, hk⟩ := exists_mem_cover (hP := hP) he c
+        exact ⟨_, ⟨k, rfl⟩, c, hk, (limitMap_eq H he hk).symm⟩
+      · rintro ⟨_, ⟨k, rfl⟩, c, hc, rfl⟩
+        exact ⟨c, limitMap_eq H he hc⟩
+    rw [hrange]
+    refine isNormalIn_sUnion ⟨_, 0, rfl⟩ ?_ ?_
+    · rintro _ ⟨k, rfl⟩
+      exact (stage H hP e k).normal
+    · rintro _ ⟨m, rfl⟩ _ ⟨n, rfl⟩
+      refine ⟨(stage H hP e (max m n)).toFun '' (cover hP e (max m n)).1,
+        ⟨max m n, rfl⟩, ?_, ?_⟩
+      · exact IsNormalIn.mono_right (stageImage_subset H (le_max_left m n))
+          (Set.subset_univ _) (stage H hP e m).normal
+      · exact IsNormalIn.mono_right (stageImage_subset H (le_max_right m n))
+          (Set.subset_univ _) (stage H hP e n).normal
+
+/-- **The reduction, from the missing input itself.**
+`HasNormalRealizations A∞ → LemThirty.Thm29Normal`, by
+`hasFiniteExtensions_of_hasNormalRealizations` (Gunter's Proposition 21) followed
+by `thm29Normal_of_hasFiniteExtensions` (his Theorem 25).
+
+This is the round's result: `Thm29Normal` is no longer open, it is *reduced* — to
+one precisely stated property of `A∞`, which Gunter 1987 proves of `M(A)` in
+Lemma 24 and p. 23. -/
+theorem thm29Normal_of_hasNormalRealizations (H : HasNormalRealizations Ainf) :
+    LemThirty.Thm29Normal :=
+  thm29Normal_of_hasFiniteExtensions (hasFiniteExtensions_of_hasNormalRealizations H)
+
+/-- **The residue, localized to one stage.** `HasNormalRealizations A∞` follows
+from the same property asked of the stages alone: realize the type inside *some*
+stage, and `A∞` inherits it.
+
+This is Gunter's Corollary 26 (p. 21) — "Suppose `C ◁ V_A` is finite. Then
+`C ◁ Aₙ` for some `n`" — with `exists_stage_ge_of_finite` supplying the stage and
+`isNormalIn_range_incl` carrying the conclusion back. Its hypothesis is
+`LemThirty.lean:426`'s sentence exactly: the extension of a normal embedding of a
+finite normal subposet from one stage to the next, i.e. **the universal property
+of `M` among finite posets under normal embedding**, which is Gunter's Lemma 24
+(p. 20) at the explicit `A⁺ = M(A)` of his p. 23.
+
+Stated as a hypothesis rather than a named `Prop` so that it adds nothing to the
+count of propositions this development asserts without proof. -/
+theorem hasNormalRealizations_of_stages
+    (h : ∀ (n : ℕ) (A : Set Ainf), A.Finite → A ◁ Set.range (incl n) →
+      ∀ (β : Type) [PartialOrder β] (T : Set β), T.Finite → ∀ (g : Ainf → β) (z : β),
+        (∀ a ∈ A, ∀ b ∈ A, (g a ≤ g b ↔ a ≤ b)) →
+        g '' A ◁ T → insert z (g '' A) ◁ T →
+        ∃ y : Ainf, SameTypeOver A g z y ∧ ∃ m : ℕ, insert y A ◁ Set.range (incl m)) :
+    HasNormalRealizations Ainf := by
+  intro A hAfin hAnorm β _ T hTfin g z hg hgA hzA
+  obtain ⟨n, -, hAn⟩ := LemThirty.exists_stage_ge_of_finite hAfin 0
+  obtain ⟨y, hy, m, hm⟩ :=
+    h n A hAfin (IsNormalIn.mono_right hAn (Set.subset_univ _) hAnorm)
+      β T hTfin g z hg hgA hzA
+  exact ⟨y, hy, hm.trans (isNormalIn_range_incl m)⟩
+
+/-- **What the reduction buys downstream**: Theorem 29's second sentence at the
+paper's own hypothesis, by `LemThirty.thm29SecondAtDomains_of_thm29Normal`. With
+`A3Thm29.five_conjuncts_of_thm29Normal` this makes five of Lemma 30's ten
+conjuncts consequences of the realization property of `A∞` alone. -/
+theorem thm29SecondAtDomains_of_hasNormalRealizations (H : HasNormalRealizations Ainf) :
+    LemThirty.Thm29SecondAtDomains :=
+  LemThirty.thm29SecondAtDomains_of_thm29Normal (thm29Normal_of_hasNormalRealizations H)
+
+end Main
 
 end ScottDomains.R46.Agent2

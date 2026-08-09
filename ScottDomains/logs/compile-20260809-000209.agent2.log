@@ -1,0 +1,62 @@
+# r0046
+# agent2 — lake build ScottDomains.A2Thm29Universal
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-09T00:02:09-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A2Thm29Universal ===
+✖ [1063/1063] Building ScottDomains.A2Thm29Universal (896ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/A2Thm29Universal.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.setup.json --json
+error: ScottDomains/A2Thm29Universal.lean:290:53: Application type mismatch: The argument
+  le_rfl
+has type
+  ?m.28 ≤ ?m.28
+but is expected to have type
+  () ∈ Set.Iic x✝¹
+in the application
+  ⟨rfl, le_rfl⟩
+error: ScottDomains/A2Thm29Universal.lean:304:65: Application type mismatch: The argument
+  le_rfl
+has type
+  ?m.194 ≤ ?m.194
+but is expected to have type
+  false ∈ Set.Iic false
+in the application
+  ⟨rfl, le_rfl⟩
+error: ScottDomains/A2Thm29Universal.lean:303:30: Application type mismatch: The argument
+  le_rfl
+has type
+  ?m.141 ≤ ?m.141
+but is expected to have type
+  false ∈ Set.Iic false
+in the application
+  ⟨rfl, le_rfl⟩
+error: ScottDomains/A2Thm29Universal.lean:288:73: unsolved goals
+hA : {()} ◁ Set.univ
+hT : (fun x => false) '' {()} = {false}
+H : HasNormalRealizations Unit
+y : Unit
+hy : SameTypeOver {()} (fun x => false) true y
+h : true ≤ false
+⊢ False
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A2Thm29Universal
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1828528
+--- build ---
+finished:         2026-08-09T00:02:12-07:00
+exit status:      1
+user cpu:         1.91s
+system cpu:       0.57s
+cpu use:          143%
+peak rss single:  1785 MiB (largest one process, GNU time)
+peak pss tree:    1910 MiB (process group, shared pages apportioned)
+peak rss tree:    2583 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 4
+lake errors:      2
+sorry decls:      0
+other warnings:   0

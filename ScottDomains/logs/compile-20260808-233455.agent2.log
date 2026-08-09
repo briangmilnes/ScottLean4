@@ -1,0 +1,81 @@
+# r0046
+# agent2 — lake build ScottDomains.A2Thm29Universal
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-08T23:34:55-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A2Thm29Universal ===
+✖ [1004/1004] Building ScottDomains.A2Thm29Universal (767ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/A2Thm29Universal.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.setup.json --json
+error: ScottDomains/A2Thm29Universal.lean:128:55: unexpected token 'omit'; expected 'lemma'
+warning: ScottDomains/A2Thm29Universal.lean:304:74: `Set.Finite.diff` has been deprecated: Use `Set.Finite.sdiff` instead
+error: ScottDomains/A2Thm29Universal.lean:328:59: invalid `▸` notation, expected result type of cast is 
+  X ∈ S
+however, the equality 
+  h
+of type 
+  ?m.346 = ?m.347
+does not contain the expected result type on either the left or the right hand side
+error: ScottDomains/A2Thm29Universal.lean:332:55: invalid `▸` notation, expected result type of cast is 
+  X ∈ S
+however, the equality 
+  h
+of type 
+  ?m.364 = ?m.365
+does not contain the expected result type on either the left or the right hand side
+error: ScottDomains/A2Thm29Universal.lean:345:56: Application type mismatch: The argument
+  hgk b hb
+has type
+  g (k b) = b
+but is expected to have type
+  b' = ?m.511
+in the application
+  LE.le.trans_eq ((hy (k b) (Exists.intro b ⟨hb, rfl⟩)).left.mp h) (hgk b hb)
+error: ScottDomains/A2Thm29Universal.lean:354:61: invalid `▸` notation, expected result type of cast is 
+  X ∈ S
+however, the equality 
+  h
+of type 
+  ?m.586 = ?m.587
+does not contain the expected result type on either the left or the right hand side
+warning: ScottDomains/A2Thm29Universal.lean:335:12: This simp argument is unused:
+  hupdX
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵h̵u̵p̵d̵X̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ScottDomains/A2Thm29Universal.lean:376:58: Invalid field `ncard`: The environment does not contain `Function.ncard`, so it is not possible to project the field `ncard` from an expression
+  Set.univ \ S
+of type `β → Prop`
+error: ScottDomains/A2Thm29Universal.lean:387:11: Unknown constant `Set.ncard_eq_zero`
+warning: ScottDomains/A2Thm29Universal.lean:389:14: `Set.compl_eq_univ_diff` has been deprecated: Use `Set.compl_eq_univ_sdiff` instead
+warning: ScottDomains/A2Thm29Universal.lean:399:16: `Set.compl_eq_univ_diff` has been deprecated: Use `Set.compl_eq_univ_sdiff` instead
+error: ScottDomains/A2Thm29Universal.lean:407:54: Invalid field `ncard`: The environment does not contain `Function.ncard`, so it is not possible to project the field `ncard` from an expression
+  Set.univ \ insert X S
+of type `β → Prop`
+error: ScottDomains/A2Thm29Universal.lean:409:16: Unknown constant `Set.diff_insert`
+error: ScottDomains/A2Thm29Universal.lean:428:36: Invalid field `ncard`: The environment does not contain `Function.ncard`, so it is not possible to project the field `ncard` from an expression
+  Set.univ \ g '' A
+of type `β → Prop`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A2Thm29Universal
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1773608
+--- build ---
+finished:         2026-08-08T23:34:57-07:00
+exit status:      1
+user cpu:         1.44s
+system cpu:       0.62s
+cpu use:          119%
+peak rss single:  1732 MiB (largest one process, GNU time)
+peak pss tree:    1841 MiB (process group, shared pages apportioned)
+peak rss tree:    2514 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 10
+lake errors:      2
+sorry decls:      0
+other warnings:   4
