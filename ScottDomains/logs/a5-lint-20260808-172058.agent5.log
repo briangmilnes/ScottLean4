@@ -1,0 +1,141 @@
+# agent5 — lake env lean /home/milnes/projects/ScottLean4-agent5/scripts/a5-freehyp.lean
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T17:20:58-07:00
+# lean: leanprover/lean4:v4.32.2
+### === lint ===
+-- package declarations: 2962
+-- constants with a candidate hypothesis-free provider: 41
+-- HIT <theorem> (<binder> : <head>) <= <provider that discharges it>
+PROP ScottDomains.PRepSum.lemma28AtU_of  (h_arrow : ScottDomains.BifiniteUniversal.IsPRepresentable₂)  <=  ScottDomains.Lemma28AtU.repArrowAtU
+PROP ScottDomains.PRepSum.lemma28AtU_of  (h_strictArrow : ScottDomains.BifiniteUniversal.IsPRepresentable₂)  <=  ScottDomains.Lemma28AtU.repStrictArrowAtU
+PROP ScottDomains.PRepSum.lemma28AtU_of  (h_smash : ScottDomains.BifiniteUniversal.IsPRepresentable₂)  <=  ScottDomains.Lemma28AtU.repSmashAtU
+
+-- DATA rows (Type-valued binders; usually ordinary quantifiers)
+DATA ScottDomains.BifiniteUniversal.mpair_punit_eq  (m : ScottDomains.BifiniteUniversal.MPair)  <=  ScottDomains.BifiniteUniversal.pointA
+DATA ScottDomains.Colimit.stg_one_eq  (x : ScottDomains.Colimit.Stg)  <=  ScottDomains.Colimit.pointB1
+DATA ScottDomains.Combinator.Construction.WHom_succ  (ψ : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.Construction.WHom_zero  (ψ : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.Construction.bigTheta_apply  (ψ : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.Construction.pairHomH_apply  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.Construction.pairHomH_apply  (g : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.Construction.slotHom_apply  (ψ : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.Construction.sndIter_tailHom  (ψ : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.Construction.tailHom_succ  (ψ : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.LambdaModel.app_lam  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.LambdaModel.combEval_ap  (c₁ : ScottDomains.Combinator.Comb)  <=  ScottDomains.Combinator.Comb.K
+DATA ScottDomains.Combinator.LambdaModel.combEval_ap  (c₂ : ScottDomains.Combinator.Comb)  <=  ScottDomains.Combinator.Comb.K
+DATA ScottDomains.Combinator.LambdaModel.elem_of_hom₁  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.LambdaModel.elem_of_hom₂  (f : ScottDomains.ScottHom)  <=  ScottDomains.Morphism.prodFst
+DATA ScottDomains.Combinator.arrowFamily_mono  (i : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.directedOn_fst_val  (x : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.directedOn_fst_val  (y : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.directedOn_snd_val  (x : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.directedOn_snd_val  (y : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.isLUB_arrowFamily  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.liftMap_bot  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.liftMap_coe  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Combinator.scottContinuous_liftFun  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.ContinuousConstruction.isCompactElement_diagStep  (u : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Dyadic.U₀.exists_isLUB_pair  (X : ScottDomains.Dyadic.U₀)  <=  ScottDomains.Dyadic.lowerHalf
+DATA ScottDomains.Dyadic.U₀.exists_isLUB_pair  (Y : ScottDomains.Dyadic.U₀)  <=  ScottDomains.Dyadic.lowerHalf
+DATA ScottDomains.Dyadic.U₀.isBasic  (X : ScottDomains.Dyadic.U₀)  <=  ScottDomains.Dyadic.lowerHalf
+DATA ScottDomains.Dyadic.U₀.toSet_nonempty  (X : ScottDomains.Dyadic.U₀)  <=  ScottDomains.Dyadic.lowerHalf
+DATA ScottDomains.Dyadic.U₀.toSet_subset_S  (X : ScottDomains.Dyadic.U₀)  <=  ScottDomains.Dyadic.lowerHalf
+DATA ScottDomains.FixedPointOperator.isFixedPt  (self : ScottDomains.FixedPointOperator)  <=  ScottDomains.kleeneOperator
+DATA ScottDomains.FixedPointOperator.isFixedPt  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Flat.bot_le'  (y : ScottDomains.Flat)  <=  ScottDomains.Flat.bot
+DATA ScottDomains.Flat.cpt_val  (a : ScottDomains.Flat)  <=  ScottDomains.Flat.bot
+DATA ScottDomains.Flat.flat_cases  (a : ScottDomains.Flat)  <=  ScottDomains.Flat.bot
+DATA ScottDomains.Flat.isCompactElement  (a : ScottDomains.Flat)  <=  ScottDomains.Flat.bot
+DATA ScottDomains.Flat.isCompactElement  (u : ScottDomains.Flat)  <=  ScottDomains.Flat.bot
+DATA ScottDomains.Flat.kp_fst  (a : ScottDomains.Flat.Truth)  <=  ScottDomains.Flat.fls
+DATA ScottDomains.Flat.kp_fst  (b : ScottDomains.Flat.Truth)  <=  ScottDomains.Flat.fls
+DATA ScottDomains.Flat.kp_snd  (a : ScottDomains.Flat.Truth)  <=  ScottDomains.Flat.fls
+DATA ScottDomains.Flat.kp_snd  (b : ScottDomains.Flat.Truth)  <=  ScottDomains.Flat.fls
+DATA ScottDomains.Flat.not_univ_subset_smythSet  (u : ScottDomains.Smyth.Basis)  <=  ScottDomains.Flat.bOne
+DATA ScottDomains.Flat.pset_fcBotPair  (a : ScottDomains.Flat)  <=  ScottDomains.Flat.bot
+DATA ScottDomains.Flat.pset_finite  (u : ScottDomains.Plotkin.FinCompacts)  <=  ScottDomains.Flat.fcBot
+DATA ScottDomains.Flat.pset_nonempty  (u : ScottDomains.Plotkin.FinCompacts)  <=  ScottDomains.Flat.fcBot
+DATA ScottDomains.Flat.smythSet_finite  (u : ScottDomains.Smyth.Basis)  <=  ScottDomains.Flat.bOne
+DATA ScottDomains.Flat.truth_forall_eq  (a : ScottDomains.Flat.Truth)  <=  ScottDomains.Flat.fls
+DATA ScottDomains.FpEmbedding.TwoMub.bot_le'  (x : ScottDomains.FpEmbedding.TwoMub)  <=  ScottDomains.FpEmbedding.TwoMub.a
+DATA ScottDomains.FpEmbedding.TwoMub.enumList_getElem?_ctorIdx_eq  (x._@.ScottDomains.FinitaryProjectionEmbedding.1402872615._hygCtx._hyg.1 : ScottDomains.FpEmbedding.TwoMub)  <=  ScottDomains.FpEmbedding.TwoMub.a
+DATA ScottDomains.FpEmbedding.TwoMub.ofNat_ctorIdx  (x : ScottDomains.FpEmbedding.TwoMub)  <=  ScottDomains.FpEmbedding.TwoMub.a
+DATA ScottDomains.FpEmbedding.TwoMub.p₁_le_fConst  (i : ScottDomains.FpEmbedding.TwoMub)  <=  ScottDomains.FpEmbedding.TwoMub.a
+DATA ScottDomains.FpEmbedding.TwoMub.p₂_le_fConst  (i : ScottDomains.FpEmbedding.TwoMub)  <=  ScottDomains.FpEmbedding.TwoMub.a
+DATA ScottDomains.FpEmbedding.isGreatest_of_section  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.JungBicomplete.IsRetractPair.sandwichHom  (y : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.JungBicomplete.isContinuousDcpo_scottHom_of_isAlgebraic  (x : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.JungBicomplete.prop122  (x : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.JungBicomplete.sandwichHom_apply  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.JungBicomplete.sandwich_apply  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.JungCor136.directedOn_extSet  (x : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.JungCor136.directedOn_extSet  (y : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.JungCor136.fixedPointOfCompactDeflationIsCompact  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Kleene.NatBot.bot_le'  (x : ScottDomains.Kleene.NatBot)  <=  ScottDomains.Kleene.NatBot.bot
+DATA ScottDomains.Kleene.NatBot.le_of_directed  (x : ScottDomains.Kleene.NatBot)  <=  ScottDomains.Kleene.NatBot.bot
+DATA ScottDomains.Kleene.factFun_apply  (f : ScottDomains.StrictHom)  <=  ScottDomains.Kleene.factHom
+DATA ScottDomains.Kleene.factFun_apply  (x : ScottDomains.Kleene.NatBot)  <=  ScottDomains.Kleene.NatBot.bot
+DATA ScottDomains.Kleene.fixHom_apply  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Kleene.isLeast_fixHom  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Kleene.kleeneOperator_isUniform  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Kleene.kleeneOperator_isUniform  (g : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Kleene.monotone_factFun  (i : ScottDomains.Kleene.NatBot)  <=  ScottDomains.Kleene.NatBot.bot
+DATA ScottDomains.PRep.liftRangeMap_le_iff  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PRep.liftRangeMap_surjective  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PRep.liftRange_mem  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PRepFun.arrowFamily_mono  (i : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PRepFun.isLUB_arrowFamily  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PRepFun.scottContinuous_corestrict  (p : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PRepFun.smashMap_apply  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PRepFun.smashMap_apply  (s : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PowerdomainMap.Compacts.downIdeal_upIdeal  (K : ScottDomains.IdealCompletion)  <=  ScottDomains.IdealCompletion.univIdealNat
+DATA ScottDomains.PowerdomainMap.Compacts.isCompactElement_topIdeal  (u : ScottDomains.PowerdomainMap.Compacts.Dom)  <=  ScottDomains.PowerdomainMap.Compacts.natIdeal
+DATA ScottDomains.PowerdomainMap.Compacts.isIdeal_downSet  (J : ScottDomains.PowerdomainMap.Compacts.Dom)  <=  ScottDomains.PowerdomainMap.Compacts.natIdeal
+DATA ScottDomains.PowerdomainMap.Compacts.isIdeal_pSet  (I : ScottDomains.PowerdomainMap.Compacts.Dom)  <=  ScottDomains.PowerdomainMap.Compacts.natIdeal
+DATA ScottDomains.PowerdomainMap.Compacts.isIdeal_upSet  (K : ScottDomains.IdealCompletion)  <=  ScottDomains.IdealCompletion.univIdealNat
+DATA ScottDomains.PowerdomainMap.Compacts.pHom_apply  (I : ScottDomains.PowerdomainMap.Compacts.Dom)  <=  ScottDomains.PowerdomainMap.Compacts.natIdeal
+DATA ScottDomains.PowerdomainMap.Compacts.p_idem  (I : ScottDomains.PowerdomainMap.Compacts.Dom)  <=  ScottDomains.PowerdomainMap.Compacts.natIdeal
+DATA ScottDomains.PowerdomainMap.Compacts.p_le  (I : ScottDomains.PowerdomainMap.Compacts.Dom)  <=  ScottDomains.PowerdomainMap.Compacts.natIdeal
+DATA ScottDomains.PowerdomainMap.Compacts.upIdeal_mem_range  (K : ScottDomains.IdealCompletion)  <=  ScottDomains.IdealCompletion.univIdealNat
+DATA ScottDomains.PowerdomainRep.prodMap_apply  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PowerdomainRep.prodMap_apply  (s : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PowerdomainRep.repOf_apply  (C : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.PropertyM.compHom_apply  (g : ScottDomains.ScottHom)  <=  ScottDomains.ScottHom.id
+DATA ScottDomains.PropertyM.compHom_apply  (f : ScottDomains.ScottHom)  <=  ScottDomains.ScottHom.id
+DATA ScottDomains.Recursive.directedOn_insert_id  (x : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Recursive.directedOn_insert_id  (y : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Recursive.powersetCpo_isUniversal  (D : ScottDomains.Cpo)  <=  ScottDomains.Recursive.powersetCpo
+DATA ScottDomains.Recursive.powersetCpo_isUniversalRetract  (D : ScottDomains.Cpo)  <=  ScottDomains.Recursive.powersetCpo
+DATA ScottDomains.SFP.directedOn_of_normalHom_mem  (x : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.SFP.directedOn_of_normalHom_mem  (y : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Section62.fpBasis_fpOfStable  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Section62.fpOfStable_le  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Section62.hasGreatestStableNormal_of_boundedComplete  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Section62.isGreatest_fp_le_of_hasGreatestStableNormal  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.Section62.stableCompacts_isNormalIn  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.closureApprox_nonempty  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.compFun_apply  (p : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.compFun_apply  (q : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.compHom_apply  (p : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.compHom_apply  (q : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.compHom_mono  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.directedOn_closureApprox  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.directedOn_insert_id_val_image  (x : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.directedOn_insert_id_val_image  (y : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.eq_kleeneOperator_op  (F : ScottDomains.FixedPointOperator)  <=  ScottDomains.kleeneOperator
+DATA ScottDomains.eq_kleeneOperator_op  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.isLUB_compHom_of_isLUB  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.lem19  (r : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.scottContinuous_compFun  (p : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.scottContinuous_compFun  (q : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+DATA ScottDomains.theorem3  (F : ScottDomains.FixedPointOperator)  <=  ScottDomains.kleeneOperator
+DATA ScottDomains.theorem3  (f : ScottDomains.ScottHom)  <=  ScottDomains.ContinuousConstruction.idHom
+
+-- theorems scanned (auto-generated excluded): 1870
+-- explicit binders with a candidate provider: 592
+-- free PROP hypotheses: 3
+-- free DATA binders:    120
+--- times ---
+finished: 2026-08-08T17:21:05-07:00
+exit status: 0

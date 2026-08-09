@@ -1,0 +1,225 @@
+# agent5 — lake env lean /home/milnes/projects/ScottLean4-agent5/scripts/a5-structures.lean
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T20:36:20-07:00
+# lean: leanprover/lean4:v4.32.2
+### === lint ===
+-- structures/classes in package ScottDomains: 22
+
+### class ScottDomains.Atomless.CountableBC
+    type: (A : Type u_1) → [inst : PartialOrder A] → [OrderBot A] → Prop
+    field countable : ∀ {A : Type u_1} {inst : PartialOrder A} {inst_1 : OrderBot A} [self : ScottDomains.Atomless.CountableBC A], Countable A
+    field exists_isLUB_pair : ∀ {A : Type u_1} {inst : PartialOrder A} {inst_1 : OrderBot A} [self : ScottDomains.Atomless.CountableBC A] (a b : A),
+  BddAbove {a, b} → ∃ c, IsLUB {a, b} c
+
+### structure ScottDomains.BifiniteUniversal.MPair
+    type: (A : Type u) → [PartialOrder A] → Type u
+    field base : {A : Type u} → [inst : PartialOrder A] → ScottDomains.BifiniteUniversal.MPair A → A
+    field cover : {A : Type u} → [inst : PartialOrder A] → ScottDomains.BifiniteUniversal.MPair A → Finset A
+    field base_le : ∀ {A : Type u} [inst : PartialOrder A] (self : ScottDomains.BifiniteUniversal.MPair A), ∀ z ∈ self.cover, self.base ≤ z
+
+### class ScottDomains.BoundedComplete
+    type: (α : Type u_2) → [CompletePartialOrder α] → Prop
+    field isLUB_sSup_of_bddAbove : ∀ {α : Type u_2} {inst : CompletePartialOrder α} [self : ScottDomains.BoundedComplete α] (s : Set α),
+  BddAbove s → IsLUB s (sSup s)
+
+### structure ScottDomains.Combinator.LambdaModel
+    type: (D : Type u) → [CompletePartialOrder D] → Type u
+    field app : {D : Type u} →
+  [inst : CompletePartialOrder D] →
+    ScottDomains.Combinator.LambdaModel D → ScottDomains.ScottHom D (ScottDomains.ScottHom D D)
+    field lam : {D : Type u} →
+  [inst : CompletePartialOrder D] →
+    ScottDomains.Combinator.LambdaModel D → ScottDomains.ScottHom (ScottDomains.ScottHom D D) D
+    field app_lam : ∀ {D : Type u} [inst : CompletePartialOrder D] (self : ScottDomains.Combinator.LambdaModel D)
+  (f : ScottDomains.ScottHom D D), self.app (self.lam f) = f
+    field pairH : {D : Type u} → [inst : CompletePartialOrder D] → ScottDomains.Combinator.LambdaModel D → ScottDomains.ScottHom (D × D) D
+    field fstH : {D : Type u} → [inst : CompletePartialOrder D] → ScottDomains.Combinator.LambdaModel D → ScottDomains.ScottHom D D
+    field sndH : {D : Type u} → [inst : CompletePartialOrder D] → ScottDomains.Combinator.LambdaModel D → ScottDomains.ScottHom D D
+    field fst_pair : ∀ {D : Type u} [inst : CompletePartialOrder D] (self : ScottDomains.Combinator.LambdaModel D) (x y : D),
+  self.fstH (self.pairH (x, y)) = x
+    field snd_pair : ∀ {D : Type u} [inst : CompletePartialOrder D] (self : ScottDomains.Combinator.LambdaModel D) (x y : D),
+  self.sndH (self.pairH (x, y)) = y
+
+### class ScottDomains.ContinuousAlgebra.Binop
+    type: (E : Type u) → [CompletePartialOrder E] → Type u
+    field op : {E : Type u} → {inst : CompletePartialOrder E} → [self : ScottDomains.ContinuousAlgebra.Binop E] → E → E → E
+    field scottContinuous_op : ∀ {E : Type u} {inst : CompletePartialOrder E} [self : ScottDomains.ContinuousAlgebra.Binop E],
+  ScottContinuous fun p => ScottDomains.ContinuousAlgebra.Binop.op p.1 p.2
+
+### class ScottDomains.ContinuousAlgebra.FinSets
+    type: (K : outParam (Type u)) → (A : Type u) → [Preorder K] → [Preorder A] → Type u
+    field toFinset : {K : outParam (Type u)} →
+  {A : Type u} →
+    {inst : Preorder K} → {inst_1 : Preorder A} → [self : ScottDomains.ContinuousAlgebra.FinSets K A] → A → Finset K
+    field toFinset_injective : ∀ {K : outParam (Type u)} {A : Type u} {inst : Preorder K} {inst_1 : Preorder A}
+  [self : ScottDomains.ContinuousAlgebra.FinSets K A], Function.Injective ScottDomains.ContinuousAlgebra.toFinset
+    field toFinset_nonempty : ∀ {K : outParam (Type u)} {A : Type u} {inst : Preorder K} {inst_1 : Preorder A}
+  [self : ScottDomains.ContinuousAlgebra.FinSets K A] (u : A), (ScottDomains.ContinuousAlgebra.toFinset u).Nonempty
+    field ofFinset : {K : outParam (Type u)} →
+  {A : Type u} →
+    {inst : Preorder K} →
+      {inst_1 : Preorder A} → [self : ScottDomains.ContinuousAlgebra.FinSets K A] → (w : Finset K) → w.Nonempty → A
+    field toFinset_ofFinset : ∀ {K : outParam (Type u)} {A : Type u} {inst : Preorder K} {inst_1 : Preorder A}
+  [self : ScottDomains.ContinuousAlgebra.FinSets K A] (w : Finset K) (hw : w.Nonempty),
+  ScottDomains.ContinuousAlgebra.toFinset (ScottDomains.ContinuousAlgebra.ofFinset w hw) = w
+    field union : {K : outParam (Type u)} →
+  {A : Type u} →
+    {inst : Preorder K} → {inst_1 : Preorder A} → [self : ScottDomains.ContinuousAlgebra.FinSets K A] → A → A → A
+    field mem_toFinset_union : ∀ {K : outParam (Type u)} {A : Type u} {inst : Preorder K} {inst_1 : Preorder A}
+  [self : ScottDomains.ContinuousAlgebra.FinSets K A] (u v : A) (a : K),
+  a ∈ ScottDomains.ContinuousAlgebra.toFinset (ScottDomains.ContinuousAlgebra.union u v) ↔
+    a ∈ ScottDomains.ContinuousAlgebra.toFinset u ∨ a ∈ ScottDomains.ContinuousAlgebra.toFinset v
+    field union_mono : ∀ {K : outParam (Type u)} {A : Type u} {inst : Preorder K} {inst_1 : Preorder A}
+  [self : ScottDomains.ContinuousAlgebra.FinSets K A] {u u' v v' : A},
+  u ≤ u' → v ≤ v' → ScottDomains.ContinuousAlgebra.union u v ≤ ScottDomains.ContinuousAlgebra.union u' v'
+    field singleton : {K : outParam (Type u)} →
+  {A : Type u} →
+    {inst : Preorder K} → {inst_1 : Preorder A} → [self : ScottDomains.ContinuousAlgebra.FinSets K A] → K → A
+    field toFinset_singleton : ∀ {K : outParam (Type u)} {A : Type u} {inst : Preorder K} {inst_1 : Preorder A}
+  [self : ScottDomains.ContinuousAlgebra.FinSets K A] (k : K),
+  ScottDomains.ContinuousAlgebra.toFinset (ScottDomains.ContinuousAlgebra.singleton k) = {k}
+    field singleton_mono : ∀ {K : outParam (Type u)} {A : Type u} {inst : Preorder K} {inst_1 : Preorder A}
+  [self : ScottDomains.ContinuousAlgebra.FinSets K A], Monotone ScottDomains.ContinuousAlgebra.singleton
+
+### structure ScottDomains.ContinuousAlgebra.IsHom
+    type: {F E : Type u} →
+  [inst : CompletePartialOrder F] →
+    [inst_1 : CompletePartialOrder E] →
+      [ScottDomains.ContinuousAlgebra.Binop F] → [ScottDomains.ContinuousAlgebra.Binop E] → (F → E) → Prop
+    field scottContinuous : ∀ {F E : Type u} [inst : CompletePartialOrder F] [inst_1 : CompletePartialOrder E]
+  [inst_2 : ScottDomains.ContinuousAlgebra.Binop F] [inst_3 : ScottDomains.ContinuousAlgebra.Binop E] {f : F → E},
+  ScottDomains.ContinuousAlgebra.IsHom f → ScottContinuous f
+    field map_op : ∀ {F E : Type u} [inst : CompletePartialOrder F] [inst_1 : CompletePartialOrder E]
+  [inst_2 : ScottDomains.ContinuousAlgebra.Binop F] [inst_3 : ScottDomains.ContinuousAlgebra.Binop E] {f : F → E},
+  ScottDomains.ContinuousAlgebra.IsHom f →
+    ∀ (s t : F), f (ScottDomains.ContinuousAlgebra.Binop.op s t) = ScottDomains.ContinuousAlgebra.Binop.op (f s) (f t)
+
+### class ScottDomains.ContinuousAlgebra.IsLower
+    type: (E : Type u) → [inst : CompletePartialOrder E] → [ScottDomains.ContinuousAlgebra.Binop E] → Prop
+    field toIsSemilattice : ∀ {E : Type u} {inst : CompletePartialOrder E} {inst_1 : ScottDomains.ContinuousAlgebra.Binop E}
+  [self : ScottDomains.ContinuousAlgebra.IsLower E], ScottDomains.ContinuousAlgebra.IsSemilattice E
+    field left_le_op : ∀ {E : Type u} {inst : CompletePartialOrder E} {inst_1 : ScottDomains.ContinuousAlgebra.Binop E}
+  [self : ScottDomains.ContinuousAlgebra.IsLower E] (s t : E), s ≤ ScottDomains.ContinuousAlgebra.Binop.op s t
+
+### class ScottDomains.ContinuousAlgebra.IsSemilattice
+    type: (E : Type u) → [inst : CompletePartialOrder E] → [ScottDomains.ContinuousAlgebra.Binop E] → Prop
+    field op_assoc : ∀ {E : Type u} {inst : CompletePartialOrder E} {inst_1 : ScottDomains.ContinuousAlgebra.Binop E}
+  [self : ScottDomains.ContinuousAlgebra.IsSemilattice E] (r s t : E),
+  ScottDomains.ContinuousAlgebra.Binop.op (ScottDomains.ContinuousAlgebra.Binop.op r s) t =
+    ScottDomains.ContinuousAlgebra.Binop.op r (ScottDomains.ContinuousAlgebra.Binop.op s t)
+    field op_comm : ∀ {E : Type u} {inst : CompletePartialOrder E} {inst_1 : ScottDomains.ContinuousAlgebra.Binop E}
+  [self : ScottDomains.ContinuousAlgebra.IsSemilattice E] (s t : E),
+  ScottDomains.ContinuousAlgebra.Binop.op s t = ScottDomains.ContinuousAlgebra.Binop.op t s
+    field op_idem : ∀ {E : Type u} {inst : CompletePartialOrder E} {inst_1 : ScottDomains.ContinuousAlgebra.Binop E}
+  [self : ScottDomains.ContinuousAlgebra.IsSemilattice E] (s : E), ScottDomains.ContinuousAlgebra.Binop.op s s = s
+
+### class ScottDomains.ContinuousAlgebra.IsUpper
+    type: (E : Type u) → [inst : CompletePartialOrder E] → [ScottDomains.ContinuousAlgebra.Binop E] → Prop
+    field toIsSemilattice : ∀ {E : Type u} {inst : CompletePartialOrder E} {inst_1 : ScottDomains.ContinuousAlgebra.Binop E}
+  [self : ScottDomains.ContinuousAlgebra.IsUpper E], ScottDomains.ContinuousAlgebra.IsSemilattice E
+    field op_le_left : ∀ {E : Type u} {inst : CompletePartialOrder E} {inst_1 : ScottDomains.ContinuousAlgebra.Binop E}
+  [self : ScottDomains.ContinuousAlgebra.IsUpper E] (s t : E), ScottDomains.ContinuousAlgebra.Binop.op s t ≤ s
+
+### structure ScottDomains.Cpo
+    type: Type (u + 1)
+    field carrier : ScottDomains.Cpo → Type u
+    field str : (self : ScottDomains.Cpo) → CompletePartialOrder self.carrier
+
+### class ScottDomains.Domain
+    type: (α : Type u_2) → [CompletePartialOrder α] → Prop
+    field toIsAlgebraic : ∀ {α : Type u_2} {inst : CompletePartialOrder α} [self : ScottDomains.Domain α], ScottDomains.IsAlgebraic α
+    field countable_compacts : ∀ {α : Type u_2} {inst : CompletePartialOrder α} [self : ScottDomains.Domain α], (ScottDomains.compacts α).Countable
+
+### structure ScottDomains.Effective.RecursivePresentation
+    type: (γ : Type u_3) → [inst : CompletePartialOrder γ] → [ScottDomains.Domain γ] → Type u_3
+    field toEffectivePresentation : {γ : Type u_3} →
+  [inst : CompletePartialOrder γ] →
+    [inst_1 : ScottDomains.Domain γ] →
+      ScottDomains.Effective.RecursivePresentation γ → ScottDomains.EffectivePresentation γ
+    field recursiveLE : ∀ {γ : Type u_3} [inst : CompletePartialOrder γ] [inst_1 : ScottDomains.Domain γ]
+  (self : ScottDomains.Effective.RecursivePresentation γ),
+  ScottDomains.Computable.RecursiveLE self.toEffectivePresentation
+    field recursiveNormal : ∀ {γ : Type u_3} [inst : CompletePartialOrder γ] [inst_1 : ScottDomains.Domain γ]
+  (self : ScottDomains.Effective.RecursivePresentation γ),
+  ScottDomains.Effective.RecursiveNormal self.toEffectivePresentation
+
+### structure ScottDomains.EffectivePresentation
+    type: (α : Type u_2) → [inst : CompletePartialOrder α] → [ScottDomains.Domain α] → Type u_2
+    field enum : {α : Type u_2} →
+  [inst : CompletePartialOrder α] → [inst_1 : ScottDomains.Domain α] → ScottDomains.EffectivePresentation α → ℕ → α
+    field enum_mem_compacts : ∀ {α : Type u_2} [inst : CompletePartialOrder α] [inst_1 : ScottDomains.Domain α]
+  (self : ScottDomains.EffectivePresentation α) (n : ℕ), IsCompactElement (self.enum n)
+    field enum_surjective : ∀ {α : Type u_2} [inst : CompletePartialOrder α] [inst_1 : ScottDomains.Domain α]
+  (self : ScottDomains.EffectivePresentation α) (k : α), IsCompactElement k → ∃ n, self.enum n = k
+    field decidableLE : {α : Type u_2} →
+  [inst : CompletePartialOrder α] →
+    [inst_1 : ScottDomains.Domain α] →
+      (self : ScottDomains.EffectivePresentation α) → DecidablePred fun p => self.enum p.1 ≤ self.enum p.2
+    field decidableNormal : {α : Type u_2} →
+  [inst : CompletePartialOrder α] →
+    [inst_1 : ScottDomains.Domain α] →
+      (self : ScottDomains.EffectivePresentation α) →
+        DecidablePred fun u => ScottDomains.IsNormalIn (self.enum '' ↑u) (ScottDomains.compacts α)
+
+### structure ScottDomains.FixedPointOperator
+    type: Type (u + 1)
+    field op : ScottDomains.FixedPointOperator → (D : Type u) → [inst : CompletePartialOrder D] → ScottDomains.ScottHom D D → D
+    field isFixedPt : ∀ (self : ScottDomains.FixedPointOperator) (D : Type u) [inst : CompletePartialOrder D] (f : ScottDomains.ScottHom D D),
+  f (self.op D f) = self.op D f
+
+### structure ScottDomains.Flat.PlotkinCarrier
+    type: Type
+    field carrier : ScottDomains.Flat.PlotkinCarrier → Set (ScottDomains.Flat ℕ)
+    field mem' : ∀ (self : ScottDomains.Flat.PlotkinCarrier),
+  ⊥ ∈ self.carrier ∨ ⊥ ∉ self.carrier ∧ self.carrier.Finite ∧ self.carrier.Nonempty
+
+### structure ScottDomains.Flat.SmythCarrier
+    type: Type
+    field carrier : ScottDomains.Flat.SmythCarrier → Set ℕ
+    field mem' : ∀ (self : ScottDomains.Flat.SmythCarrier), self.carrier = Set.univ ∨ self.carrier.Finite ∧ self.carrier.Nonempty
+
+### class ScottDomains.IsAlgebraic
+    type: (α : Type u_2) → [CompletePartialOrder α] → Prop
+    field directedOn_compactsBelow : ∀ {α : Type u_2} {inst : CompletePartialOrder α} [self : ScottDomains.IsAlgebraic α] (x : α),
+  DirectedOn (fun x1 x2 => x1 ≤ x2) (ScottDomains.compactsBelow x)
+    field isLUB_compactsBelow : ∀ {α : Type u_2} {inst : CompletePartialOrder α} [self : ScottDomains.IsAlgebraic α] (x : α),
+  IsLUB (ScottDomains.compactsBelow x) x
+
+### structure ScottDomains.IsMinimalUpperBound
+    type: {α : Type u_1} → [Preorder α] → Set α → α → α → α → Prop
+    field mem : ∀ {α : Type u_1} [inst : Preorder α] {A : Set α} {a b m : α}, ScottDomains.IsMinimalUpperBound A a b m → m ∈ A
+    field left_le : ∀ {α : Type u_1} [inst : Preorder α] {A : Set α} {a b m : α}, ScottDomains.IsMinimalUpperBound A a b m → a ≤ m
+    field right_le : ∀ {α : Type u_1} [inst : Preorder α] {A : Set α} {a b m : α}, ScottDomains.IsMinimalUpperBound A a b m → b ≤ m
+    field min : ∀ {α : Type u_1} [inst : Preorder α] {A : Set α} {a b m : α},
+  ScottDomains.IsMinimalUpperBound A a b m → ∀ z ∈ A, a ≤ z → b ≤ z → z ≤ m → m ≤ z
+
+### structure ScottDomains.JungSFP.IsJungPatch
+    type: {D : Type u_1} → {E : Type u_2} → [CompletePartialOrder D] → [CompletePartialOrder E] → D → D → E → E → (D → E) → Prop
+    field monotone_top : ∀ {D : Type u_1} {E : Type u_2} [inst : CompletePartialOrder D] [inst_1 : CompletePartialOrder E] {x₁ x₂ : D}
+  {a₁ a₂ : E} {t : D → E},
+  ScottDomains.JungSFP.IsJungPatch x₁ x₂ a₁ a₂ t → ∀ (d d' : D), x₁ ≤ d → x₂ ≤ d → d ≤ d' → t d ≤ t d'
+    field left_le : ∀ {D : Type u_1} {E : Type u_2} [inst : CompletePartialOrder D] [inst_1 : CompletePartialOrder E] {x₁ x₂ : D}
+  {a₁ a₂ : E} {t : D → E}, ScottDomains.JungSFP.IsJungPatch x₁ x₂ a₁ a₂ t → ∀ (d : D), x₁ ≤ d → x₂ ≤ d → a₁ ≤ t d
+    field right_le : ∀ {D : Type u_1} {E : Type u_2} [inst : CompletePartialOrder D] [inst_1 : CompletePartialOrder E] {x₁ x₂ : D}
+  {a₁ a₂ : E} {t : D → E}, ScottDomains.JungSFP.IsJungPatch x₁ x₂ a₁ a₂ t → ∀ (d : D), x₁ ≤ d → x₂ ≤ d → a₂ ≤ t d
+    field attained : ∀ {D : Type u_1} {E : Type u_2} [inst : CompletePartialOrder D] [inst_1 : CompletePartialOrder E] {x₁ x₂ : D}
+  {a₁ a₂ : E} {t : D → E},
+  ScottDomains.JungSFP.IsJungPatch x₁ x₂ a₁ a₂ t →
+    ∀ (s : Set D),
+      s.Nonempty →
+        DirectedOn (fun x1 x2 => x1 ≤ x2) s →
+          ∀ (b : D), IsLUB s b → x₁ ≤ b → x₂ ≤ b → ∃ d ∈ s, x₁ ≤ d ∧ x₂ ≤ d ∧ t b ≤ t d
+
+### structure ScottDomains.ScottHom
+    type: (α : Type u_3) → (β : Type u_4) → [Preorder α] → [Preorder β] → Type (max u_3 u_4)
+    field toFun : {α : Type u_3} → {β : Type u_4} → [inst : Preorder α] → [inst_1 : Preorder β] → ScottDomains.ScottHom α β → α → β
+    field scottContinuous' : ∀ {α : Type u_3} {β : Type u_4} [inst : Preorder α] [inst_1 : Preorder β] (self : ScottDomains.ScottHom α β),
+  ScottContinuous self.toFun
+
+### structure ScottDomains.Smyth.Basis
+    type: (D : Type u) → [CompletePartialOrder D] → Type u
+    field toFinset : {D : Type u} → [inst : CompletePartialOrder D] → ScottDomains.Smyth.Basis D → Finset ↑(ScottDomains.compacts D)
+    field nonempty' : ∀ {D : Type u} [inst : CompletePartialOrder D] (self : ScottDomains.Smyth.Basis D), self.toFinset.Nonempty
+--- times ---
+finished: 2026-08-08T20:36:21-07:00
+exit status: 0

@@ -1,0 +1,100 @@
+# agent5 — lake env lean /home/milnes/projects/ScottLean4-agent5/scripts/a5-verify.lean
+# checkout: /home/milnes/projects/ScottLean4-agent5
+# started: 2026-08-08T17:23:46-07:00
+# lean: leanprover/lean4:v4.32.2
+### === lint ===
+@ClosureProperties.isBifinite_idealCompletion : ∀ {P : Type u_1} [inst : Preorder P] [inst_1 : OrderBot P]
+  [Countable P],
+  (∀ (v : Set P), v.Finite → ∃ M, M.Finite ∧ ClosureProperties.SelectsGreatest M ∧ v ⊆ M) →
+    IsBifinite (IdealCompletion P)
+Dyadic.thm27 : ∀ (D : Type u_1) [inst : CompletePartialOrder D] [Domain D] [BoundedComplete D],
+  Dyadic.IsNormallyRepresented ↑(compacts D) → ∃ e p, e.IsEmbeddingProjectionPair p
+PRep.hoareOp_eq : ∀ (D : Cpo) [Domain D.carrier], (PRep.hoareOp D).carrier = Hoare.Powerdomain D.carrier
+@PRepFun.domain_range_strictArrowFamily : ∀ {U : Type u_1} [inst : CompletePartialOrder U] [Domain U]
+  [BoundedComplete U] (c : ↑(Fp U) × ↑(Fp U)), Domain ↑(Set.range ⇑(PRepFun.strictArrowFamily c))
+@PRepFun.domain_range_smashFamily : ∀ {U : Type u_1} [inst : CompletePartialOrder U] [Domain U] (c : ↑(Fp U) × ↑(Fp U)),
+  Domain ↑(Set.range ⇑(PRepFun.smashFamily c))
+Section62.HasGreatestStableNormal : (α : Type u_1) → [inst : CompletePartialOrder α] → [Domain α] → Prop
+Dyadic.thm27 : ∀ (D : Type u_1) [inst : CompletePartialOrder D] [Domain D] [BoundedComplete D],
+  Dyadic.IsNormallyRepresented ↑(compacts D) → ∃ e p, e.IsEmbeddingProjectionPair p
+PRepSum.lemma28AtU_of : BifiniteUniversal.IsPRepresentable₂ Dyadic.U PRep.funOp →
+  BifiniteUniversal.IsPRepresentable₂ Dyadic.U PRep.strictFunOp →
+    BifiniteUniversal.IsPRepresentable₂ Dyadic.U PRep.smashOp →
+      BifiniteUniversal.IsPRepresentable Dyadic.U PRep.smythOp →
+        BifiniteUniversal.IsPRepresentable Dyadic.U PRep.hoareOp → PRep.Lemma28AtU
+@PropertyM.thm18_of_cor136 : ∀ {D : Type u_1} [inst : CompletePartialOrder D] [Domain D] [Domain (ScottHom D D)],
+  JungFinite.FixedPointOfCompactDeflationIsCompact D → IsBifinite D
+@Thm18.thm18_of_thm137Chains_and_cor136 : ∀ {α : Type u_1} [inst : CompletePartialOrder α] [Domain α]
+  [Domain (ScottHom α α)], JungNets.Thm137Chains α → JungFinite.FixedPointOfCompactDeflationIsCompact α → IsBifinite α
+@Thm18.thm18_of_thm137_and_cor136 : ∀ {α : Type u_1} [inst : CompletePartialOrder α] [Domain α] [Domain (ScottHom α α)],
+  JungNets.Thm137 α → JungFinite.FixedPointOfCompactDeflationIsCompact α → IsBifinite α
+@Thm18.thm18_viaProjections_of_thm137_and_cor136 : ∀ {α : Type u_1} [inst : CompletePartialOrder α] [Domain α]
+  [Domain (ScottHom α α)],
+  JungNets.Thm137 α → JungFinite.FixedPointOfCompactDeflationIsCompact α → Recovered.IsBifiniteViaProjections α
+@JungFinite.lemma22 : ∀ {α : Type u_1} [inst : CompletePartialOrder α] [IsAlgebraic α] [IsAlgebraic (ScottHom α α)],
+  JungFinite.FixedPointOfCompactDeflationIsCompact α →
+    (∀ v ⊆ compacts α, v.Finite → (minimalUpperBounds (compacts α) v).Finite) →
+      ∀ {u : Set α}, u.Finite → u ⊆ compacts α → (mubClosure (compacts α) u).Finite
+@JungFinite.thm18_of_propertyM : ∀ {α : Type u_1} [inst : CompletePartialOrder α] [Domain α] [Domain (ScottHom α α)],
+  JungFinite.FixedPointOfCompactDeflationIsCompact α →
+    (∀ v ⊆ compacts α, v.Finite → HasCompleteMub (compacts α) v) → IsBifinite α
+@ClosureProperties.lemma17 : ∀ {α β : Type u_1} [inst : CompletePartialOrder α] [inst_1 : CompletePartialOrder β]
+  [Domain α] [Domain β] [BoundedComplete β],
+  IsBifinite α →
+    IsBifinite β →
+      IsBifinite (ScottHom α β) ∧
+        IsBifinite (StrictHom α β) ∧
+          IsBifinite (α × β) ∧
+            IsBifinite (Smash α β) ∧
+              IsBifinite (ClosureProperties.SeparatedSum α β) ∧
+                IsBifinite (CoalescedSum α β) ∧
+                  IsBifinite (WithBot α) ∧
+                    IsBifinite (Plotkin.Powerdomain α) ∧
+                      IsBifinite (Smyth.Powerdomain α) ∧ IsBifinite (Hoare.Powerdomain α)
+@ClosureProperties.lem17_strictFun : ∀ {α : Type u_1} {β : Type u_2} [inst : CompletePartialOrder α]
+  [inst_1 : CompletePartialOrder β] [Domain α] [Domain β] [BoundedComplete β],
+  IsBifinite α → IsBifinite β → IsBifinite (StrictHom α β)
+@ClosureProperties.exists_finite_projection_fixing : ∀ {α : Type u_1} {β : Type u_2} [inst : CompletePartialOrder α]
+  [inst_1 : CompletePartialOrder β] [Domain α] [Domain β] [BoundedComplete β],
+  IsBifinite α →
+    IsBifinite β →
+      ∀ {u : Set (ScottHom α β)},
+        u.Finite →
+          u ⊆ compacts (ScottHom α β) →
+            ∃ p q,
+              p.IsProjection ∧
+                q.IsProjection ∧ p ⊥ = ⊥ ∧ q ⊥ = ⊥ ∧ (Set.range ⇑(compHom p q)).Finite ∧ ∀ f ∈ u, (compHom p q) f = f
+@lem17_fun : ∀ {α : Type u_1} {β : Type u_2} [inst : CompletePartialOrder α] [inst_1 : CompletePartialOrder β]
+  [Domain α] [Domain β] [BoundedComplete β], IsBifinite α → IsBifinite β → IsBifinite (ScottHom α β)
+Atomless.isNormallyRepresented : ∀ (A : Type u_1) [inst : PartialOrder A] [inst_1 : OrderBot A]
+  [Atomless.CountableBC A], Dyadic.IsNormallyRepresented A
+Lemma28AtU.repArrowAtU : BifiniteUniversal.IsPRepresentable₂ Dyadic.U PRep.funOp
+Lemma28AtU.repStrictArrowAtU : BifiniteUniversal.IsPRepresentable₂ Dyadic.U PRep.strictFunOp
+Lemma28AtU.repSmashAtU : BifiniteUniversal.IsPRepresentable₂ Dyadic.U PRep.smashOp
+@JungCor136.fixedPointOfCompactDeflationIsCompact : ∀ {α : Type u_1} [inst : CompletePartialOrder α]
+  [IsAlgebraic (ScottHom α α)], JungFinite.FixedPointOfCompactDeflationIsCompact α
+@prop15 : ∀ {α : Type u_1} [inst : CompletePartialOrder α] [Domain α] [BoundedComplete α], IsBifinite α
+Atomless.thm27 : ∀ (D : Type u_1) [inst : CompletePartialOrder D] [Domain D] [BoundedComplete D],
+  ∃ e p, e.IsEmbeddingProjectionPair p
+@thm18 : ∀ {α : Type u_1} [inst : CompletePartialOrder α] [Domain α] [Domain (ScottHom α α)], IsBifinite α
+/home/milnes/projects/ScottLean4-agent5/scripts/a5-verify.lean:153:8: error(lean.unknownIdentifier): Unknown identifier `ScottDomains.PRepSum.lemma28AtU`
+'ScottDomains.thm18' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ScottDomains.PropertyM.thm18_of_cor136' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ScottDomains.JungCor136.fixedPointOfCompactDeflationIsCompact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ScottDomains.Atomless.thm27' depends on axioms: [propext, Classical.choice, Quot.sound]
+/home/milnes/projects/ScottLean4-agent5/scripts/a5-verify.lean:159:14: error(lean.unknownIdentifier): Unknown constant `ScottDomains.PRepSum.lemma28AtU`
+/home/milnes/projects/ScottLean4-agent5/scripts/a5-verify.lean:170:17: error: Application type mismatch: The argument
+  Atomless.isNormallyRepresented
+has type
+  ∀ (A : Type ?u.20) [inst : PartialOrder A] [inst_1 : OrderBot A] [Atomless.CountableBC A],
+    Dyadic.IsNormallyRepresented A
+but is expected to have type
+  Dyadic.IsNormallyRepresented ↑(compacts D)
+in the application
+  Dyadic.thm27 D Atomless.isNormallyRepresented
+/home/milnes/projects/ScottLean4-agent5/scripts/a5-verify.lean:194:10: error(lean.unknownIdentifier): Unknown identifier `BifiniteUniversal.Lemma28`
+--- times ---
+finished: 2026-08-08T17:23:47-07:00
+exit status: 1
