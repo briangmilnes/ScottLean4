@@ -57,14 +57,22 @@ task of the audit plan.
 | # | Kind | Count | Superseded figure |
 | -- | ---- | ----- | ----------------- |
 | 1 | `theorem` / `lemma` | **1773** | 1298 (r0038), 1308 (r0020) |
-| 2 | of which `@[simp]`-tagged | 197 | 136, 139 |
+| 2 | of which `@[simp]`-tagged | **194** | 197 (grep, wrong), 136, 139 |
 | 3 | `def` / `abbrev` | 554 | 398 |
 | 4 | `instance` | 119 | 94 |
 | 5 | modules | 100 | 72 |
 | 6 | lines | 37300 | 27892 |
 
 The current column is the r0043 head, measured by `scripts/counts.sh` and, for
-rows 2–4, by a `grep` over declaration openers. Rounds r0039–r0042 added 28
+rows 3–4, by a `grep` over declaration openers. **Row 2 is r0044's figure, not a
+`grep`**: three of agent6's instruments agree on 194, and the 197 previously here
+came from counting openers, which over-counts.
+
+Three counts in this project must never be reconciled, because they measure
+different sets: **1,773** source `theorem`/`lemma` openers (row 1, the size
+metric), **1,869** environment theorems (adds `Prop`-valued class instances), and
+**3,691** package constants (adds defs, structures, projections, equation
+lemmas). A document asserting any of them equals another is itself a defect. Rounds r0039–r0042 added 28
 modules and 475 theorems: the flat cpo family, the morphism algebra, the
 powerdomain functor, the effective presentations, and Theorem 18's four
 supporting modules (`JungCor136`, `PropertyM`, `Iwamura`, `Thm18`).
