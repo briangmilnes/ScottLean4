@@ -13,12 +13,17 @@
 # LeanEuclid — third-party Lean/geometry repo cloned under GeometryPapers/ (its own .git)
 /GeometryPapers/LeanEuclid/
 
-# scott1972 — Ericson's Lean 4 formalization of Scott's *Continuous Lattices* (1972),
-# the artifact for arXiv 2606.30782 (the PDF is tracked in ScottDomains/papers/).
-# Third-party, keeps its own .git, and pins leanprover/lean4:v4.30.0 against this
-# project's v4.32.2 — so it carries a second Mathlib checkout (~7 GB) that cannot
-# share ours. Same treatment as the tutorials: clone, don't vendor.
-/scott1972/
+# Ericson/ — Lars Ericson's four Lean 4 formalizations of Dana Scott's papers:
+# scott1972 (the artifact for arXiv 2606.30782, PDF tracked in
+# ScottDomains/papers/), scott1980, scott1982, and scott_models. Each is
+# third-party and keeps its own .git. All four pin leanprover/lean4:v4.30.0
+# against this project's v4.32.2, so they carry a second Mathlib checkout
+# (~7.1 GB) that cannot share ours — but they pin the SAME Mathlib revision as
+# each other, so scripts/ericson-build.sh symlinks one copy across all four
+# rather than four copies. Clone, don't vendor: scripts/ericson-clone.sh.
+# Ericson/README.md and Ericson/logs/ ARE tracked; the checkouts are not.
+/Ericson/*/
+!/Ericson/logs/
 
 # Lean build output (any depth — Mathlib's checkout lives under a nested .lake/)
 .lake/
