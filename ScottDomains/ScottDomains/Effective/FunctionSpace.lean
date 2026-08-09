@@ -286,12 +286,20 @@ omit [BoundedComplete β] in
 /-- **Theorem 7, third sentence, for `⊸`.** "Similar facts hold for `D ⊸ E`."
 
 The paper's reason is that "the strict step functions form a basis" for `D ⊸ E`.
-This development has no strict-step-function basis; what it has is
-`PRepFun.strictHomDomain`, which makes `D ⊸ E` a domain by injecting
-`K(D ⊸ E)` into `K(D → E)`. So the presentation here comes from
-`nonempty_effectivePresentation` and the arguments `d` and `e` are **unused** —
-recorded as a hypothesis-strength gap rather than hidden by dropping them from the
-statement. The statement is the paper's; the proof is weaker than the paper's.
+
+**This paragraph formerly said the development had no such basis, and that the
+presentation here therefore came from `nonempty_effectivePresentation` with `d`
+and `e` unused. That was true when written and was made false by r0046**, which
+built the basis and the enumeration: `R46.Agent3.exists_strictSteps_isLUB` is the
+paper's sentence, and `R46.Agent3.strictHomEnum` enumerates `K(D ⊸ E)` with
+`exists_strictHomEnum_eq` proving it exhausts them, giving
+`R46.Agent3.strictHom d e : EffectivePresentation (StrictHom α β)` built from the
+presentations of `D` and `E` rather than from the vacuity.
+
+The basis was four lines away the whole time: `PRepFun.isStrict_of_le` composed
+with `ScottHom.exists_finite_isLUB_of_isCompactElement`, both already present,
+because that theorem returns step functions *below* the compact and anything
+below a strict function is strict. See `Effective/A3StrictRecursive.lean`.
 
 The `[Domain (StrictHom α β)]` binder is not an extra hypothesis: it is what
 `PRepFun.strictHomDomain` supplies, and the `example` below discharges it. It has

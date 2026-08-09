@@ -661,10 +661,15 @@ and it matches the corrected wording of this module's own header above.
    `lem10_smash : BoundedComplete (Smash α β)` and
    `lem17_smash : IsBifinite (Smash α β)`, and the `IsAlgebraic` instances in the
    development were `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
-   `IdealCompletion A` — the smash was not among them. `SmashObstruction` below
-   names this as a `Prop`, so the gap is a statement the kernel elaborates rather
-   than a sentence of prose, and `smashIsAlgebraic` and `smashDomain` — also
-   below in this file — close it.
+   `IdealCompletion A` — the smash was not among them. `smashIsAlgebraic` and
+   `smashDomain` — both below in this file — close it.
+
+   **This sentence formerly said "`SmashObstruction` below names this as a `Prop`".
+   No such declaration has ever existed** — the name resolves nowhere in the
+   environment, and r0044 found it twice and r0046's necessity sweep a third time
+   before it was removed here. The `Prop` recording the gap was never written; the
+   gap was closed directly by the two theorems named above, which is why nothing
+   ever missed it.
 
 The decomposition this section is built on is worth stating separately, because
 it is what makes `r ⊗ s` cheap: `D ⊗ E` sits between `D × E` and itself by a
