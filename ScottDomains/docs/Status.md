@@ -1,0 +1,141 @@
+# Status — one line per numbered result
+
+The short answer. `PaperInventory.md` is the long one and stays as the audit
+trail; this file is the thing to read first.
+
+Measured on `main` after r0047: build **1364 jobs, 0 errors, 0 warnings**,
+`sorry` **0**, `axiom` **0**, `sorryAx` **0**. Package: 117 modules, 43,481
+lines, 2,019 theorems.
+
+## Counts
+
+| # | | Count |
+| -- | --- | ----: |
+| 1 | Numbered results in Gunter & Scott | 30 |
+| 2 | — **fully proved** | **24** |
+| 3 | — partly proved, some part open | 3 |
+| 4 | — **refuted as stated** (our transcription or the paper) | 2 |
+| 5 | — never transcribed into the tree | 2 |
+| 6 | Paper properties (numbered conjuncts + prose claims) | 239 |
+| 7 | — stated and proved | 169 |
+| 8 | — stated, proof open (`S+H`) | **12** |
+| 9 | — stated, but not as the paper states it | 18 |
+| 10 | — no Lean statement at all | 36 |
+| 11 | `Prop`-valued claims nothing proves | **7** (8 strict) |
+
+Rows 8 and 11 are the two kinds of unfinished work, and they are different:
+row 8 is a real Lean statement with an open proof; row 11 is a `def` naming a
+claim nobody attempted. **`sorry` 0 sees neither.**
+
+## The 30 numbered results
+
+`P` proved · `p` partly proved · `R` refuted as stated · `—` not in the tree
+
+| # | Result | | Status |
+| -- | ----- | -- | ------ |
+| 1 | Theorem 1 | `P` | least fixed point, and below every fixed point |
+| 2 | Theorem 2 | `—` | **not quoted anywhere in the tree or the docs** |
+| 3 | Theorem 3 | `P` | `theorem3`, `theorem3_existsUnique` |
+| 4 | Lemma 4 | `P` | `NormalSubposet.lean` |
+| 5 | Lemma 5 | `P` | `FinitaryProjection.lean` |
+| 6 | Theorem 6 | `P` | `theorem6` |
+| 7 | Theorem 7 | `p` | sentence 1 proved; sentences 2–3 proved only at the degenerate strength — **every domain has an `EffectivePresentation`** because `Classical.dec` fills its fields. The recursive forms are open: `Theorem7ArrowRecursive`, `Theorem7StrictRecursive` |
+| 8 | Lemma 8 | `P` | `Product.lean` |
+| 9 | Lemma 9 | `P` | `lem9_*` — **two printed misprints repaired** (items 3 and 5) |
+| 10 | Lemma 10 | `P` | 7 conjuncts, `lem10_{prod,smash,sum,separated,lift,strict}` |
+| 11 | Theorem 11 | `P` | `thm11`, with `thm11_converse` |
+| 12 | Theorem 12 | `P` | `thm12` and the three powerdomains |
+| 13 | Lemma 13 | `P` | `lem13_smyth`, `lem13_hoare` |
+| 14 | Theorem 14 | `P` | `thm14`, both directions |
+| 15 | — | `—` | **not quoted anywhere in the tree or the docs** |
+| 16 | Theorem 16 | `P` | `thm16`, `thm16_positive` |
+| 17 | Lemma 17 | `P` | 10 conjuncts. r0047 **removed `[BoundedComplete β]`** from `lem17_fun` and `lem17_strictFun` |
+| 18 | Theorem 18 | `P` | `thm18` — closed r0042, `[propext, Classical.choice, Quot.sound]` |
+| 19 | Lemma 19 | `P` | `lem19` |
+| 20 | Lemma 20 | `P` | `lem20` |
+| 21 | Theorem 21 | `P` | `thm21` |
+| 22 | Theorem 22 | `P` | `thm22` |
+| 23 | Lemma 23 | `P` | `lem23` |
+| 24 | Lemma 24 | `P` | `lem24` (Gunter & Scott's; **not** Gunter 1987's Lemma 24, below) |
+| 25 | Theorem 25 | `P` | `thm25`, `thm25_isUniversal` |
+| 26 | Theorem 26 | `p` | `thm26` carries an added `hs : ∀ i, 0 < s i`. The justification — that the theorem is false at arity 0 — **is not established**; the argument refutes the paper's *proof*, not its statement |
+| 27 | Theorem 27 | `P` | `thm27` |
+| 28 | Lemma 28 | `R` | **refuted at generic `U`** (`not_forall_lemma28`, witness `Flat Empty`), and stays false after adding `[Domain U]` and `[BoundedComplete U]`. **Proved at `U`**: `lemma28AtU`, all nine conjuncts. The blocker is `UniversalForBCD U` |
+| 29 | Theorem 29 | `p` | sentence 1 proved (`thm29`). Sentence 2: `Thm29Second` **refuted** — our transcription dropped the paper's word "domain". `Thm29SecondAtDomains`, the true reading, is **open** |
+| 30 | Lemma 30 | `R` | universal closure **refuted** (`not_forall_lemma30`). `Lemma30AtV` is **open**, now at arity 3 |
+
+**Rows 2 and 15 are a gap in our record, not a measurement of the paper.**
+Nothing in the tree or the docs quotes them. Whether Gunter & Scott number a
+result 2 and a result 15 has not been checked against the printed text.
+
+## What is open, in one table
+
+| # | Item | What it needs |
+| -- | ---- | ------------- |
+| 1 | `StepFunctionsDecidable` | **restate over `consistentEnum`** — the guard `IsCompactElement (ofPairs Q)` is *not* the boundedness test, kernel-checked. Machinery built. Closes 4 claims |
+| 2 | `Theorem7ArrowRecursive` | item 1, then `Primrec` facts for the `Finset (ℕ × ℕ)` coding |
+| 3 | `Theorem7StrictRecursive` | item 1, likewise |
+| 4 | `Thm29Normal` | the `M(f)` tower refutes Theorem 25's hypothesis; the `η` tower is not a fixed point. Three routes named, one is refuting it outright |
+| 5 | `Thm29SecondAtDomains` | item 4 |
+| 6 | `Lemma30AtV` | item 4, plus `FpImagesBifinite V` |
+| 7 | `Lem30Arrow` | item 6 |
+| 8 | `PreservesRecursivePresentation` | proved at `fstOp`/`sndOp`; open at the arrow, where it is equivalent to item 2 |
+
+**Items 2–3 and 5–7 are downstream of 1 and 4.** Only items 1 and 4 are real
+work, and item 1 is mechanical.
+
+## Additional theories
+
+Results from other authors, formalized here because the paper's proofs need
+them. None is part of Gunter & Scott's 30.
+
+### Jung, *Cartesian Closed Categories of Domains*
+
+| # | Result | Status |
+| -- | ----- | ------ |
+| 1 | Corollary 1.36 | **proved** — `JungCor136`, not by Jung's route (which goes through Prop. 1.22 and a retraction pair) but by indexing below `cap e` |
+| 2 | Theorem 1.37 | **proved at `[Domain D]`** — `R45.Agent5.thm137`. Full generality open |
+| 3 | Theorem 1.37 for chains | **proved at `[Domain D]`** — `thm137Chains` |
+| 4 | Proposition 1.22 | not needed — the route around it is item 1 |
+| 5 | Theorem 2.1, 2.3 | quoted; five printed defects in Jung's write-up recorded |
+
+### Iwamura and Markowsky
+
+| # | Result | Status |
+| -- | ----- | ------ |
+| 1 | Iwamura's lemma | **proved** — `exists_chain_directed_cover`. **Never in Mathlib** |
+| 2 | Markowsky's theorem | **proved** — `hasChainSuprema_iff_hasDirectedSuprema`. **Never in Mathlib** |
+| 3 | `HasWellOrderedInfima` | **no producer exists** — five occurrences, all consumers. A complete reduction chain with an empty left end |
+
+### Spreen 2005
+
+| # | Result | Status |
+| -- | ----- | ------ |
+| 1 | Lemma 5.8 | **proved** — `PropertyM.hasOmegaOpBoundsAbove_pair`. This, not Iwamura, is what closed Jung's 1.37 here |
+
+### Gunter 1987, *Universal Profinite Domains*
+
+| # | Result | Status |
+| -- | ----- | ------ |
+| 1 | Lemma 24 at `M(A)` | **proved** — `R47.Agent1.lemma24_MPair`. **The first proof anywhere**: Gunter's printed Lemma 24 produces *some* `A⁺` and is not about `M(A)`; the `M(A)` form is a remark with no theorem and no proof |
+| 2 | `HasNormalRealizations` at `Ainf` | **refuted** — `not_hasNormalRealizations_Ainf`. The route to `Thm29Normal` is sound but its hypothesis is unsatisfiable at this tower |
+| 3 | Proposition 21, Theorems 22 and 25 | used, via the implication `thm29Normal_of_hasNormalRealizations` |
+
+## Defects in the printed paper
+
+**Nine**, recorded in `StatementRecovery.md`. Three suspected tenths were checked
+and turned out to be **our** transcription errors, not the paper's:
+
+| # | Suspected | Actually |
+| -- | -------- | -------- |
+| 1 | Theorem 26 false at arity 0 | refutes the paper's *proof*, not its statement |
+| 2 | Theorem 29's second sentence false | our transcription dropped "domain" from "any bifinite domain" |
+| 3 | the step-function enumeration | our guard tests compactness where the paper tests boundedness |
+
+## Reproducing
+
+    scripts/counts.sh                     # modules, lines, theorems, sorry
+    scripts/numbered-status.sh            # declarations per numbered result
+    scripts/a6-env-scan.sh <out>          # then a6-summarize.py for row 11
+    scripts/a5-r47-conditional.sh         # row 8, the S+H conditional surface
+    scripts/compile.sh -r <round>         # build
