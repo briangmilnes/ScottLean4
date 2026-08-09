@@ -173,6 +173,51 @@ theorem not_thm29Second : ¬ Colimit.Thm29Second := by
   intro a b hab
   exact hgp.injective_embedding (congrArg Subtype.val hab)
 
+/-! ## The added `[Domain E]` is load-bearing in `Thm29Normal` too
+
+`LemThirty.Thm29SecondAtDomains` is `Colimit.Thm29Second` with one instance
+binder added, `[Domain E]`, and nothing else changed — compare the two `def`
+lines, `Colimit.lean:1028` and `LemThirty.lean:277`. `not_thm29Second` therefore
+does more than refute one claim: it shows that binder is **necessary**, so
+`Thm29SecondAtDomains` is not a restatement that could have been skipped.
+
+`LemThirty.Thm29Normal` carries the same binder inside its own statement, and
+`LemThirty.lean:506–512` asserts in a docstring that the version without it "is
+refutable rather than open". **Nothing proved that.** It is proved here, by the
+same witness, so that the necessity of the binder is kernel-checked at both
+places rather than asserted at one and argued at the other. -/
+
+/-- `LemThirty.Thm29Normal` with the `[Domain E]` binder deleted. Defined in
+agent3's namespace purely so the next theorem can refute it; `Thm29Normal` itself
+is untouched, and this is **not** a restatement of it — it is the strictly
+stronger proposition the docstring claims is refutable. -/
+def Thm29NormalWithoutDomain : Prop :=
+  ∀ (E : Type) [CompletePartialOrder E], IsBifinite E →
+    ∃ f : ↥(compacts E) → Ainf,
+      (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf)
+
+/-- **`Thm29Normal` without `[Domain E]` is false**, as `LemThirty.lean:506–512`
+says but does not prove. `A∞` is countable and an order-reflecting map has a
+countable source (`LemThirty.countable_compacts_of_reflects`), while
+`Flat (Set ℕ)` is bifinite with an uncountable basis.
+
+Read together with `not_thm29Second`, this fixes the status of the whole cluster
+precisely: both §7.4 claims are false at the binders the paper does not assume
+and open at the binders it does. Adding `[Domain E]` and proving the result would
+be a discharge **at** `[Domain E]`, not a discharge of the general statement —
+and here the general statement is not merely unproved, it is refuted. -/
+theorem not_thm29NormalWithoutDomain : ¬ Thm29NormalWithoutDomain := by
+  intro h
+  obtain ⟨f, hf, _⟩ := h (Flat (Set ℕ)) (isBifinite_flat (Set ℕ))
+  haveI : Countable ↥(compacts (Flat (Set ℕ))) :=
+    LemThirty.countable_compacts_of_reflects hf
+  haveI := uncountable_flat_setNat
+  refine not_injective_uncountable_countable
+    (fun x : Flat (Set ℕ) =>
+      (⟨x, Flat.isCompactElement x⟩ : ↥(compacts (Flat (Set ℕ))))) ?_
+  intro a b hab
+  exact congrArg Subtype.val hab
+
 /-! ## The dependency order, kernel-checked -/
 
 /-- `LemThirty.Lemma30AtV` is `LemThirty.Lemma30 Colimit.V` — the `abbrev`

@@ -14,14 +14,21 @@ related:
 
 # r0045 agent3 — §7.4: Theorem 29's second sentence and Lemma 30
 
-One new file, `ScottDomains/A3Thm29.lean`, 14 theorems, all in namespace
-`ScottDomains.R45.Agent3`. Full package build: **1340 jobs, 0 errors, 0 warnings,
-`sorry` 0**. Every theorem's axiom footprint is
+One new file, `ScottDomains/A3Thm29.lean`, 15 theorems and one auxiliary `def`,
+all in namespace `ScottDomains.R45.Agent3`. Full package build: **1340 jobs,
+0 errors, 0 warnings, `sorry` 0**. Every theorem's axiom footprint is
 `[propext, Classical.choice, Quot.sound]` or smaller; no `sorryAx`.
 
 **Headline: `ScottDomains.Colimit.Thm29Second` is false, and the refutation is
 kernel-checked** (`not_thm29Second`). It convicts this development's
 transcription, not the paper.
+
+This report uses the orchestrator's corrected acceptance criterion: *discharged*
+means the binders are exactly those the claim's own `def` line carries;
+*discharged at `<binder>`* means an instance binder was added and the general
+claim remains open. **Nothing in this round is a discharge at an added binder**,
+and §2b is the binder audit that establishes it declaration by declaration.
+Outcome 1 of the orchestrator's three — refutation — is what happened, twice.
 
 ## 1. The dependency order among the six claims
 
@@ -108,6 +115,65 @@ take `Colimit.Thm29Second` as a hypothesis. All seven are still theorems and all
 seven now carry no information. Three of them are repaired below; the other four
 are subsumed.
 
+## 2b. Binder audit — the three outcomes kept apart
+
+The orchestrator's warning is acute here because
+`LemThirty.Thm29SecondAtDomains` **is** `Colimit.Thm29Second` with one instance
+binder added. The two `def` lines, `Colimit.lean:1028` and `LemThirty.lean:277`,
+are character-for-character identical except for `[Domain E]`. So the three
+outcomes are not hypothetical in this cluster — they are three different rows
+that already exist in the tree, and conflating them is exactly the failure mode.
+
+| # | Outcome | What it would be here | Actual |
+| -- | ------- | --------------------- | ------ |
+| 1 | refuted | `¬ Thm29Second` | **done**, `not_thm29Second` |
+| 2 | discharged at `[Domain E]` | a proof of `Thm29SecondAtDomains` | **not done** — it is `Thm29Normal`'s content and open |
+| 3 | open | — | applies to rows 3, 4, 6 of §7 |
+
+Outcome 2 did not happen and is not claimed anywhere in this round. I did not add
+`[Domain E]` to `Thm29Second` and call it proved; `Thm29SecondAtDomains` is a
+pre-existing separate `def` that I left open.
+
+Every declaration added this round, with its binders compared against the binders
+of the claim it addresses:
+
+| # | Declaration | Binders in signature | Verdict |
+| -- | ----------- | -------------------- | ------- |
+| 1 | `not_thm29Second` | none | refutation of a claim whose `def` has no binders — clean |
+| 2 | `not_thm29NormalWithoutDomain` | none | refutation, clean |
+| 3 | `isBifinite_flat (X : Type)` | `(X : Type)` only — **no `[Countable X]`** | general lemma; the absent binder is the point |
+| 4 | `isCompactElement_embedding` | the two `[CompletePartialOrder]` the statement needs to typecheck | general lemma, not a claim |
+| 5 | `exists_isLUB_of_embeddingProjectionPair` | `[BoundedComplete β]`, genuinely used | general lemma, not a claim |
+| 6 | `retracts_{smash,coalSum,sepSum}_V` | none; hypothesis `Thm29SecondAtDomains` | reduction — `Domain (Smash V V)` etc. are **proved** (`domain_smash_V`), not assumed as binders |
+| 7 | `rep_{smash,coalSum,sepSum}_V` | none; hypothesis `Thm29SecondAtDomains` | reduction |
+| 8 | `five_conjuncts_of_thm29Normal` | none; hypothesis `Thm29Normal` | reduction |
+| 9 | `not_boundedComplete_V` | none; hypothesis `Thm29SecondAtDomains` | reduction |
+| 10 | `lem30Arrow_of_lemma30AtV`, `lem30Arrow_iff`, `lemma30AtV_iff` | none | dependency edges |
+
+Row 6 is the one worth checking twice, because it is where an added binder would
+most naturally have crept in: `LemThirty.retracts_smash` could have been repaired
+by writing `[Domain (Smash V V)]` into the signature. It is not — the instance is
+discharged inside the proof from `PRepFun.smashDomain`, so the theorem's binder
+list is empty.
+
+### The added binder is necessary, and that is now kernel-checked twice
+
+`not_thm29Second` shows `[Domain E]` cannot be dropped from
+`Thm29SecondAtDomains`. `LemThirty.lean:506–512` asserts the same about
+`Thm29Normal` — "the version without `[Domain E]` is refutable rather than open"
+— and **nothing proved it**. It is proved now:
+
+    theorem not_thm29NormalWithoutDomain : ¬ Thm29NormalWithoutDomain
+
+where `Thm29NormalWithoutDomain` is `Thm29Normal` with the binder deleted,
+defined in agent3's namespace so `LemThirty.Thm29Normal` is untouched. Footprint
+`[propext, Classical.choice, Quot.sound]`. So for both §7.4 claims the position
+is now exact: **false at the binders the paper does not assume, open at the
+binders it does.** That is the strongest form of "the added binder is
+load-bearing", and it means neither `Thm29SecondAtDomains` nor `Thm29Normal` is a
+weakening that could be criticised as restating the claim — they are the only
+true readings.
+
 ## 3. Two false measurements in `LemThirty.lean`, corrected
 
 Both were the stated justification for routing conjuncts through the refuted
@@ -160,6 +226,20 @@ about the bifinite `V`. `ClosureProperties.lean` already calls the
 `[BoundedComplete β]` in `lem17_fun` "a real open item, not a formality"; this
 measures how much it costs: two of Lemma 30's ten conjuncts, unconditionally.
 
+**Under the corrected criterion this also reclassifies two pre-existing
+theorems.** `LemThirty.retracts_fun_of_boundedComplete` and
+`retracts_strictFun_of_boundedComplete` carry both a hypothesis and an added
+instance binder:
+
+    theorem retracts_fun_of_boundedComplete (h : Colimit.Thm29Second)
+        [BoundedComplete V] : Retracts (ScottHom V V)
+
+That is "reduced at `[BoundedComplete V]`", never a discharge — and it is now
+**doubly vacuous**: the hypothesis is refuted (§2), and `not_boundedComplete_V`
+shows the added binder is incompatible with the weaker hypothesis that would have
+replaced it. Neither theorem can ever be applied. They belong in the same
+bookkeeping row as the other five vacuous consequences.
+
 ## 5. `LemThirty.Lemma30` is not a claim — reclassify the row
 
 `scripts/a6-claims.txt` lists both `LemThirty.Lemma30` and
@@ -167,9 +247,14 @@ measures how much it costs: two of Lemma 30's ten conjuncts, unconditionally.
 
     def Lemma30 (W : Type u) [CompletePartialOrder W] : Prop
 
-— a **parameterized family**, not a proposition. Discharging it in agent6's sense
-means proving `∀ W [CompletePartialOrder W], Lemma30 W`, which is not Lemma 30
-and is false. Counterexample by counting (argued, **not** kernel-checked): at
+— a **parameterized family**, not a proposition. Under the corrected criterion,
+discharging it means a theorem whose binders are exactly `(W : Type u)` and
+`[CompletePartialOrder W]` — nothing added. Any proof would have to add
+`[Domain W]`, `[BoundedComplete W]`, `IsBifinite W`, or fix `W := V`; every one
+of those is an added binder, so the best attainable is "discharged at …", and at
+`W := V` that is just `Lemma30AtV`, the row already on the list. The unadorned
+claim `∀ W [CompletePartialOrder W], Lemma30 W` is not Lemma 30 and is false.
+Counterexample by counting (argued, **not** kernel-checked): at
 `W := Flat Bool`, every finitary projection `p ⊑ id` fixes `⊥` and maps each of
 `T`, `F` to itself or `⊥`, so the four `FpImage`s have 1, 2, 2 and 3 elements;
 `funOp (Flat Bool) (Flat Bool)` has 11 elements (9 with `f ⊥ = ⊥`, plus the two
@@ -206,14 +291,17 @@ round closes it. What is missing, measured against `BifiniteUniversal.lean`:
 | -- | ----- | ------ | -------- |
 | 1 | `Colimit.Thm29Second` | **REFUTED** | `not_thm29Second`, `[propext, Classical.choice, Quot.sound]` |
 | 2 | `Colimit.Lem30Arrow` | open, **and blocked** | `lem30Arrow_of_lemma30AtV`; blocked by `not_boundedComplete_V` — no route while Theorem 29's second sentence is assumed |
-| 3 | `LemThirty.Thm29SecondAtDomains` | open | implied by `Thm29Normal` (already proved); not refutable by this round's argument, which needs an uncountable basis and so cannot meet `[Domain E]` |
-| 4 | `LemThirty.Thm29Normal` | open | §6 above: missing input is `M`'s universal property among finite posets under normal embedding |
+| 3 | `LemThirty.Thm29SecondAtDomains` | open — this **is** row 1 at `[Domain E]` | implied by `Thm29Normal` (already proved); not refutable by this round's argument, which needs an uncountable basis and so cannot meet `[Domain E]`. Proving it would be "discharged at `[Domain E]`" relative to row 1, and row 1 is false, so the binder is necessary |
+| 4 | `LemThirty.Thm29Normal` | open; its binder-free version **refuted** | §6: missing input is `M`'s universal property among finite posets under normal embedding. `not_thm29NormalWithoutDomain` proves the `[Domain E]` in its own statement is load-bearing — the docstring claim at `:506–512` that nothing had proved |
 | 5 | `LemThirty.Lemma30` | **not a claim** | parameterized family; universal closure false (§5). Reclassify, do not count |
 | 6 | `LemThirty.Lemma30AtV` | open, **reduced** | conjuncts following from `Thm29Normal` went 2 → 5 (`five_conjuncts_of_thm29Normal`); 2 shown blocked; 3 waiting on agent4's powerdomain schemes |
 
 Movement: **1 refuted, 1 reduced, 1 reclassified, 3 open with sharpened
-obstructions.** Nothing was discharged, and nothing could honestly be — the
-cluster's content is `Thm29Normal`, which is [Gun87]'s theorem.
+obstructions**, plus a second refutation (`not_thm29NormalWithoutDomain`) of a
+proposition that was not on the list but whose status the list depended on.
+**Nothing was discharged and nothing was discharged at an added binder** —
+neither could honestly be, because the cluster's content is `Thm29Normal`, which
+is [Gun87]'s theorem.
 
 ## 8. Declarations added
 
@@ -227,6 +315,7 @@ All in `ScottDomains/A3Thm29.lean`, namespace `ScottDomains.R45.Agent3`.
 | 4 | `up_injective` | none |
 | 5 | `uncountable_flat_setNat` | `[propext, Classical.choice, Quot.sound]` |
 | 6 | `not_thm29Second` | `[propext, Classical.choice, Quot.sound]` |
+| 6b | `Thm29NormalWithoutDomain` (`def`), `not_thm29NormalWithoutDomain` | `[propext, Classical.choice, Quot.sound]` |
 | 7 | `lemma30AtV_iff` | `[propext, Classical.choice, Quot.sound]` |
 | 8 | `lem30Arrow_iff` | `[propext, Classical.choice, Quot.sound]` |
 | 9 | `lem30Arrow_of_lemma30AtV` | `[propext, Classical.choice, Quot.sound]` |
@@ -250,3 +339,10 @@ All in `ScottDomains/A3Thm29.lean`, namespace `ScottDomains.R45.Agent3`.
    re-derived total is one lower for a classification reason.
 4. Nothing here collides with another stream: agent2 and agent4 work at `U` and
    on the powerdomain schemes, which this file only cites.
+5. On the corrected criterion: `LemThirty.retracts_fun_of_boundedComplete` and
+   `retracts_strictFun_of_boundedComplete` are "reduced at `[BoundedComplete V]`"
+   and now doubly vacuous (§4). If the detector scores added instance binders,
+   these two are the shape it should catch in this cluster — and
+   `LemThirty.Thm29SecondAtDomains` is `Colimit.Thm29Second` at `[Domain E]`, so
+   the two rows should be linked in `PaperInventory.md` rather than counted as
+   unrelated claims.
