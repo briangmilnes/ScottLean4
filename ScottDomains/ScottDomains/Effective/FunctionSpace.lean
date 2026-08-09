@@ -83,7 +83,7 @@ they are standing in for is stated, not assumed away:
 | # | Name | What it says | Status |
 | -- | ---- | ------------ | ------ |
 | 1 | `RecursiveNormal`, `IsRecursive` | conditions 1 and 2 decided by a total recursive function, not a Lean `Decidable` | definitions |
-| 2 | `StepFunctionsDecidable` | Theorem 7's proof sentence: `IsRecursive d → IsRecursive e → IsRecursive (scottHom d e)` | named `Prop`, open |
+| 2 | `StepFunctionsDecidable` | Theorem 7's proof sentence: `IsRecursive d → IsRecursive e → ∃ f, IsStepEnumeration d e f ∧ IsRecursive f` (r0049; it named `IsRecursive (scottHom d e)` through r0048) | named `Prop`, open |
 | 3 | `Theorem7ArrowRecursive` | Theorem 7's second sentence at that strength | named `Prop`, open |
 | 4 | `PreservesRecursivePresentation` | §3.2's closing claim, one instance per operator | named `Prop` schema, open |
 
@@ -159,8 +159,20 @@ Item 3 was two questions written as one, and they have different answers.
 `Theorem7ArrowRecursive` and `Theorem7StrictRecursive` do not name `scottHom`, so
 the second point does not reach them; `R47.Agent2.theorem7ArrowRecursive_of_scottHomC`
 and `R47.Agent2.theorem7StrictRecursive_of_strictHomC` reduce them over the
-consistency-guarded enumeration instead. `StepFunctionsDecidable` does name
-`scottHom d e`, and that is where the second point lands.
+consistency-guarded enumeration instead. `StepFunctionsDecidable` **did** name
+`scottHom d e`, and that is where the second point landed.
+
+## r0049 (agent3): the claim no longer names a guard
+
+`StepFunctionsDecidable` is restated below over `IsStepEnumeration` — the
+predicate "every value enumerated is the join of the step functions named by some
+finite set of index pairs of `d` and `e`" — quantified existentially over the
+enumeration. The printed sentence fixes no tie-break for an unbounded index set,
+and that is the only thing the two enumerations disagree about, so the
+existential is the exact transcription and both `scottHom d e` and
+`R47.Agent2.scottHomC d e` witness it. `Effective/A3StepDecidable.lean` carries
+the pre-r0049 statement verbatim, the direction of the change, the reduction to
+the consistency-guarded enumeration, and the residue.
 -/
 
 namespace ScottDomains.Effective
@@ -450,6 +462,26 @@ def RecursivePresentation.ofIsRecursive {γ : Type*} [CompletePartialOrder γ]
     RecursivePresentation γ :=
   { d with recursiveLE := h.1, recursiveNormal := h.2 }
 
+/-- **`f` is a step-function enumeration of `K(D → E)` in `d` and `e`**: every
+value `f` enumerates is the join of the step functions named by *some* finite set
+of index pairs of `d` and `e`.
+
+This is what makes `StepFunctionsDecidable` a statement about "the poset of step
+functions" rather than about an arbitrary re-indexing of `K(D → E)`. It does not
+fix the enumeration, and deliberately so: the printed sentence names no tie-break
+for an index set whose step functions are *unbounded*, and that is the only place
+`scottHomEnum` and `R47.Agent2.consistentEnum` differ. Both satisfy this
+predicate — `R49.Agent3.isStepEnumeration_scottHom`,
+`R49.Agent3.isStepEnumeration_scottHomC`.
+
+Exhausting `K(D → E)` is not restated here: it is `EffectivePresentation`'s
+`enum_surjective` field, which every `f` in scope already carries. Together the
+two conditions say that `f` enumerates the basis of `D → E` and enumerates
+nothing but joins of step functions over `d`'s and `e`'s bases. -/
+def IsStepEnumeration (d : EffectivePresentation α) (e : EffectivePresentation β)
+    (f : EffectivePresentation (ScottHom α β)) : Prop :=
+  ∀ n : ℕ, ∃ Q : Finset (ℕ × ℕ), f.enum n = ScottHom.ofPairs (pairsOf d e Q)
+
 /-- **Theorem 7's proof sentence**, printed p. 12, quoted exactly:
 
 > The proof that the poset of step functions has decidable ordering and finite
@@ -495,11 +527,61 @@ check that no bar was lowered is `Theorem7ArrowRecursive`, which was already
 transcribed with those same two hypotheses and is unchanged: this `def` now
 carries exactly the hypotheses its consumer always had.
 
-Still open. What blocks it is stated in the module docstring under "What
-actually blocks rows 2 and 3". -/
+## r0049 restatement (agent3), and the transcription defect it corrects
+
+Recorded through r0048 as
+
+    def StepFunctionsDecidable (d) (e) : Prop :=
+      IsRecursive d → IsRecursive e → IsRecursive (scottHom d e)
+
+naming **one** enumeration, `scottHom d e`, whose guard is `IsCompactElement
+(ofPairs Q)`. r0047 kernel-checked that this guard is *not* the boundedness test
+the printed sentence is about and is not determined by `d` and `e`:
+`R47.Agent2.not_forall_isCompactElement_ofPairs_imp_bddAbove` refutes the
+implication at `α = β = N⊥` with `R45.Agent1.natBotPresentation`, which is
+`IsRecursive`, and `R47.Agent2.natBot_guard_true_but_unbounded` exhibits an index
+whose guard reads `true` on a set of step functions that has no join at all. The
+mechanism is that `sSup` on `ScottHom` is total: off the bounded sets it returns
+an unconstrained value, and that value can be compact. **The defect is ours, not
+the paper's** — Gunter & Scott's proof sketch tests whether the join exists,
+which is `R47.Agent2.Consistent`, and §3.2's condition 2 is exactly what decides
+it (`R47.Agent2.bddAbove_stepsOf_iff`, `R47.Agent2.bddAbove_iff_exists_normal`).
+
+The repair does not replace one guard by another. Naming
+`R47.Agent2.scottHomC d e` in the `def` would bake in *our* second choice of
+tie-break where the printed sentence makes none, which is the same class of error
+one step further on. The `def` now says what the sentence says: **some**
+enumeration of `K(D → E)` that is a step-function enumeration in `d` and `e`
+(`IsStepEnumeration`, above) has recursive ordering and recursive finite normal
+subposets. `EffectivePresentation`'s own `enum_surjective` field keeps the
+existential from being satisfiable by a degenerate enumeration — the witness must
+still exhaust the basis.
+
+The pre-r0049 form is kept, verbatim and citable, as
+`ScottDomains.R49.Agent3.StepFunctionsDecidableCompactGuard`, and the direction
+of the change is kernel-checked by
+`ScottDomains.R49.Agent3.stepFunctionsDecidable_of_compactGuard : old → new`.
+This change therefore **runs the same direction as r0046's**
+(`R46.Agent1.stepFunctionsDecidable_of_unconditional`) and the opposite direction
+from r0047's (`R47.Agent3.freeCarrier_of_preservesRecursivePresentation`): it is
+a weakening *as a proposition*, because the old subject `scottHom d e` is one of
+the enumerations the new existential ranges over
+(`R49.Agent3.isStepEnumeration_scottHom`). The check that no bar was lowered is
+`Theorem7ArrowRecursive`, unchanged and still reached from this `def` by
+`exists_isRecursive_of_stepFunctionsDecidable` below and
+`R45.Agent1.theorem7ArrowRecursive_of_stepFunctionsDecidable`.
+
+What the restatement buys: the claim is no longer blocked on a guard its own
+hypotheses do not determine. `R49.Agent3.stepFunctionsDecidable_of_scottHomC`
+discharges it from `IsRecursive (R47.Agent2.scottHomC d e)`, whose guard is
+`Consistent`, a condition on `d`, `e` and the index set alone.
+
+Still open, and the residue is recursion theory over a determinate guard —
+`R49.Agent3.ScottHomCRecursive`. -/
 def StepFunctionsDecidable (d : EffectivePresentation α)
     (e : EffectivePresentation β) : Prop :=
-  IsRecursive d → IsRecursive e → IsRecursive (scottHom d e)
+  IsRecursive d → IsRecursive e →
+    ∃ f : EffectivePresentation (ScottHom α β), IsStepEnumeration d e f ∧ IsRecursive f
 
 /-- Theorem 7's proof sentence implies its second sentence at recursion-theoretic
 strength, at fixed `d` and `e`. This is the paper's own proof structure: once the
@@ -508,12 +590,20 @@ normal subposets, the theorem is that presentation.
 
 `hd` and `he` are the printed sentence's antecedent, discharged here rather than
 assumed away; before r0046 they were absent from `StepFunctionsDecidable` and so
-absent here too. -/
+absent here too.
+
+r0049 changed the proof and not the statement: the witness used to be
+`scottHom d e`, fixed by the `def`, and is now whichever step-function
+enumeration the `def`'s existential supplies. Its `IsStepEnumeration` conjunct is
+discarded here — `Theorem7ArrowRecursive` asks only for *some* recursive
+presentation — which is precisely why the r0047 defect never reached that
+claim. -/
 theorem exists_isRecursive_of_stepFunctionsDecidable {d : EffectivePresentation α}
     {e : EffectivePresentation β} (h : StepFunctionsDecidable d e)
     (hd : IsRecursive d) (he : IsRecursive e) :
     ∃ f : EffectivePresentation (ScottHom α β), IsRecursive f :=
-  ⟨scottHom d e, h hd he⟩
+  let ⟨f, _, hf⟩ := h hd he
+  ⟨f, hf⟩
 
 /-- **Theorem 7's second sentence at the paper's intended strength**, quantified as
 the paper states it. Open; `exists_isRecursive_of_stepFunctionsDecidable` reduces

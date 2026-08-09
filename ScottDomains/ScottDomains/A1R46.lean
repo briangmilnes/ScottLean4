@@ -1,6 +1,9 @@
 import ScottDomains.A2Lemma28
 import ScottDomains.LemThirty
 import ScottDomains.Effective.FunctionSpace
+-- `R49.Agent3.isStepEnumeration_scottHom`, which r0049's restatement of
+-- `Effective.StepFunctionsDecidable` makes this file's `_of_unconditional` need.
+import ScottDomains.Effective.A3StepDecidable
 
 /-!
 # r0046, agent1: two refuted universal closures and the record of one restatement
@@ -108,11 +111,19 @@ serves, already carried `IsRecursive d → IsRecursive e →` and is untouched. 
 claim now has exactly the hypotheses its consumer always had, which is why
 `ScottDomains.R45.Agent1.theorem7ArrowRecursive_of_stepFunctionsDecidable` can
 now take the claim's own universal closure as its hypothesis instead of a
-hand-strengthened variant of it. -/
+hand-strengthened variant of it.
+
+**The statement is unchanged by r0049; the proof is not.**
+`Effective.StepFunctionsDecidable` no longer names `Effective.scottHom d e`, so
+the witness has to be supplied: `R49.Agent3.isStepEnumeration_scottHom` says the
+enumeration this file's statement is about is one of those the restated claim
+ranges over. The r0049 change therefore reaches this theorem as one extra
+component of a pair and nothing else, which is the evidence that it was a
+weakening — had it been a strengthening this proof would not exist. -/
 theorem stepFunctionsDecidable_of_unconditional {d : EffectivePresentation α}
     {e : EffectivePresentation β} (h : StepFunctionsDecidableUnconditional d e) :
     StepFunctionsDecidable d e :=
-  fun _ _ => h
+  fun _ _ => ⟨scottHom d e, R49.Agent3.isStepEnumeration_scottHom d e, h⟩
 
 end StepFunctions
 
