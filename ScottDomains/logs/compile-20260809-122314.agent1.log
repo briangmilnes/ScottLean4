@@ -1,0 +1,32 @@
+# r0047
+# agent1 — lake build ScottDomains.A1Lemma24
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-09T12:23:14-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A1Lemma24 ===
+⚠ [1065/1065] Built ScottDomains.A1Lemma24 (810ms)
+warning: ScottDomains/A1Lemma24.lean:356:8: automatically included section variable(s) unused in theorem `_private.ScottDomains.A1Lemma24.0.ScottDomains.R47.Agent1.wit_self`:
+  [OrderBot α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [OrderBot α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (1065 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.53
+Maximum resident set size (kbytes): 1831452
+--- build ---
+finished:         2026-08-09T12:23:16-07:00
+exit status:      0
+user cpu:         1.71s
+system cpu:       0.50s
+cpu use:          144%
+peak rss single:  1788 MiB (largest one process, GNU time)
+peak pss tree:    1873 MiB (process group, shared pages apportioned)
+peak rss tree:    2545 MiB (process group, shared pages counted per process)
+jobs:             1065
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   1

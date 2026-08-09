@@ -1,0 +1,57 @@
+# r0047
+# agent1 — lake build ScottDomains.A1Lemma24
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-09T12:19:44-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A1Lemma24 ===
+✔ [1063/1065] Built ScottDomains.LemThirty (854ms)
+✔ [1064/1065] Built ScottDomains.A2Thm29Universal (991ms)
+✖ [1065/1065] Building ScottDomains.A1Lemma24 (774ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/A1Lemma24.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/A1Lemma24.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/A1Lemma24.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/A1Lemma24.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/A1Lemma24.setup.json --json
+error: ScottDomains/A1Lemma24.lean:177:15: Unknown identifier `a`
+error: ScottDomains/A1Lemma24.lean:279:51: Application type mismatch: The argument
+  mk_surjective
+has type
+  Function.Surjective mk
+but is expected to have type
+  Function.Surjective fun x => x
+in the application
+  @isNormalIn_image_univ (MPair α) (MPair α) instPreorder instPreorder (fun x => x) (fun x x_1 => Iff.rfl) mk_surjective
+error: ScottDomains/A1Lemma24.lean:350:38: failed to synthesize instance of type class
+  Decidable (incl 1 pointB1 ≤ a)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/A1Lemma24.lean:352:58: Type mismatch
+  if_pos le_rfl
+has type
+  (if ?m.10 ≤ ?m.10 then ?m.12 else ?m.13) = ?m.12
+but is expected to have type
+  wit (incl 1 pointB1) = 1
+error: ScottDomains/A1Lemma24.lean:355:2: Type mismatch
+  if_neg fun h => incl_pointB1_ne_bot (le_bot_iff.mp h)
+has type
+  (if incl 1 pointB1 ≤ ⊥ then ?m.16 else ?m.17) = ?m.17
+but is expected to have type
+  wit ⊥ = 0
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A1Lemma24
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.35
+Maximum resident set size (kbytes): 1843252
+--- build ---
+finished:         2026-08-09T12:19:49-07:00
+exit status:      1
+user cpu:         4.19s
+system cpu:       0.97s
+cpu use:          154%
+peak rss single:  1800 MiB (largest one process, GNU time)
+peak pss tree:    1941 MiB (process group, shared pages apportioned)
+peak rss tree:    2614 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 5
+lake errors:      2
+sorry decls:      0
+other warnings:   0
