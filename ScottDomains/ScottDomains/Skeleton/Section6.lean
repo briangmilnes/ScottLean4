@@ -12,7 +12,13 @@ import Mathlib.Data.Set.Finite.Powerset
 
 Gunter & Scott, *Semantic Domains*, §6:
 
-> **Proposition 15** Every bounded-complete domain is bifinite.
+> **Proposition 15** *A bounded complete domain is bifinite.*
+
+(§6.2 "Closure properties.", printed folio 31 = physical PDF page 32 of
+`papers/Gunter Scott 1990.pdf`. Read from a 600 dpi render; r0048 corrected the
+earlier paraphrase "Every bounded-complete domain is bifinite" to the printed
+sentence. The statement is unchanged — `prop15` already had exactly the paper's
+two hypotheses.)
 
 > **Theorem 18** If `D` and `D → D` are domains, then `D` is bifinite.
 
@@ -118,7 +124,12 @@ theorem isCompactElement_of_isLUB_finite [IsAlgebraic α] {v : Set α} (hv : v.F
       hvc y hy (compactsBelow x) x hne hdir hMlub (hx.1 hy)
   exact le_antisymm (hx.2 hzub) hz.2 ▸ hz.1
 
-/-- **Proposition 15.** Every bounded complete domain is bifinite.
+/-- **Proposition 15.** *A bounded complete domain is bifinite.* (Printed folio 31,
+physical PDF page 32, §6.2.)
+
+The two printed hypotheses are "bounded complete" and "domain"; the two instance
+binders are `[BoundedComplete α]` and `[Domain α]`, so nothing is added and
+nothing is dropped.
 
 Gunter & Scott's proof, verbatim in structure. For a finite `u ⊆ K(D)` the
 witness is `N = lubClosure u`:
