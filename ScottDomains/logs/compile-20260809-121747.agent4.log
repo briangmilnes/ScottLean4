@@ -1,0 +1,33 @@
+# r0047
+# agent4 — lake build ScottDomains.A4FunctionSpaceBifinite
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T12:17:47-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A4FunctionSpaceBifinite ===
+✔ [999/1001] Built ScottDomains.PRep (995ms)
+✔ [1000/1001] Built ScottDomains.PRepFun (1.4s)
+✖ [1001/1001] Building ScottDomains.A4FunctionSpaceBifinite (737ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/A4FunctionSpaceBifinite.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/A4FunctionSpaceBifinite.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/A4FunctionSpaceBifinite.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/A4FunctionSpaceBifinite.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/A4FunctionSpaceBifinite.setup.json --json
+error: ScottDomains/A4FunctionSpaceBifinite.lean:90:16: Unknown identifier `hfix`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A4FunctionSpaceBifinite
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:03.81
+Maximum resident set size (kbytes): 1823964
+--- build ---
+finished:         2026-08-09T12:17:52-07:00
+exit status:      1
+user cpu:         6.16s
+system cpu:       0.95s
+cpu use:          186%
+peak rss single:  1781 MiB (largest one process, GNU time)
+peak pss tree:    1895 MiB (process group, shared pages apportioned)
+peak rss tree:    2593 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   0

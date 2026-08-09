@@ -1,0 +1,90 @@
+# r0047
+# agent2 — lake build ScottDomains.Effective.A2Compactness
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-09T12:16:02-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A2Compactness ===
+✖ [1022/1022] Building ScottDomains.Effective.A2Compactness (739ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Effective/A2Compactness.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A2Compactness.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A2Compactness.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/A2Compactness.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/A2Compactness.setup.json --json
+warning: ScottDomains/Effective/A2Compactness.lean:299:0: automatically included section variable(s) unused in theorem `ScottDomains.R47.Agent2.finite_stepsOf`:
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Effective/A2Compactness.lean:311:0: automatically included section variable(s) unused in theorem `ScottDomains.R47.Agent2.bddAbove_snd_belowSet`:
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Effective/A2Compactness.lean:340:61: Invalid projection: Type of
+  hp
+is not known; cannot resolve projection `1`
+warning: ScottDomains/Effective/A2Compactness.lean:363:51: Variable name `p` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+error: ScottDomains/Effective/A2Compactness.lean:475:76: Tactic `rewrite` failed: motive is not type correct:
+  fun _a => _a = ⇑(ScottHom.step ⋯ p.2)
+Error: Application type mismatch: The argument
+  hstep
+has type
+  g.IsStepPair p
+but is expected to have type
+  IsCompactElement p.1 ∧ IsCompactElement p.2 ∧ _a = ScottHom.stepFun p.1 p.2
+in the application
+  hstep.left
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+α : Type u_1
+β : Type u_2
+inst✝² : CompletePartialOrder α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+g : ScottHom α β
+p : α × β
+hp : p ∈ P
+hstep : g.IsStepPair p
+⊢ ⇑g = ⇑(ScottHom.step ⋯ p.2)
+
+Note: The target expression is not type-correct under the `instances` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    hstep
+  has type
+    g.IsStepPair p
+  but is expected to have type
+    IsCompactElement p.1 ∧ IsCompactElement p.2 ∧ ⇑g = ScottHom.stepFun p.1 p.2
+  in the application
+    hstep.left
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A2Compactness
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.43
+Maximum resident set size (kbytes): 1790120
+--- build ---
+finished:         2026-08-09T12:16:05-07:00
+exit status:      1
+user cpu:         1.52s
+system cpu:       0.48s
+cpu use:          139%
+peak rss single:  1748 MiB (largest one process, GNU time)
+peak pss tree:    1862 MiB (process group, shared pages apportioned)
+peak rss tree:    2535 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   3

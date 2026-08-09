@@ -1,0 +1,76 @@
+# r0047
+# agent4 — lake build ScottDomains.A4FunctionSpaceBifinite
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T12:16:16-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A4FunctionSpaceBifinite ===
+✔ [847/848] Built ScottDomains.A4Lemma17Fun (761ms)
+✖ [848/848] Building ScottDomains.A4FunctionSpaceBifinite (637ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/A4FunctionSpaceBifinite.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/A4FunctionSpaceBifinite.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/A4FunctionSpaceBifinite.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/A4FunctionSpaceBifinite.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/A4FunctionSpaceBifinite.setup.json --json
+warning: ScottDomains/A4FunctionSpaceBifinite.lean:72:18: Overlapping instance parameters in `rangeOf`:
+
+⚠️ There are 2 `[Domain α]` instances; one is sufficient.
+⚠️ There are 2 `[Domain β]` instances; one is sufficient.
+
+Note: This linter can be disabled with `set_option linter.overlappingInstances false`
+error: ScottDomains/A4FunctionSpaceBifinite.lean:81:19: Unknown constant `Set.iUnion_pos`
+error: ScottDomains/A4FunctionSpaceBifinite.lean:84:19: Unknown constant `Set.iUnion_pos`
+error: ScottDomains/A4FunctionSpaceBifinite.lean:86:17: Unknown constant `Set.iUnion_neg`
+error: ScottDomains/A4FunctionSpaceBifinite.lean:98:58: Type mismatch
+  rangeOf ?m.53 ?m.54
+has type
+  Set (ScottHom ?m.47 ?m.48)
+but is expected to have type
+  P ∈ ?m.45 → Set ?m.44
+error: ScottDomains/A4FunctionSpaceBifinite.lean:101:43: Invalid `⟨...⟩` notation: The expected type of this term could not be determined
+error: ScottDomains/A4FunctionSpaceBifinite.lean:101:27: Invalid argument name `a` for function `Set.mem_biUnion`
+
+Hint: Perhaps you meant one of the following parameter names:
+  • `α`: a̵α̲
+  • `β`: a̵β̲
+  • `s`: a̵s̲
+  • `t`: a̵t̲
+  • `x`: a̵x̲
+  • `y`: a̵y̲
+  • `xs`: a̵x̲s̲
+  • `ytx`: a̵y̲t̲x̲
+error: ScottDomains/A4FunctionSpaceBifinite.lean:102:4: No goals to be solved
+error: ScottDomains/A4FunctionSpaceBifinite.lean:126:16: Unknown identifier `PRepFun.val_image_compactsBelow`
+error: ScottDomains/A4FunctionSpaceBifinite.lean:128:16: Unknown identifier `PRepFun.val_image_compactsBelow`
+error: ScottDomains/A4FunctionSpaceBifinite.lean:131:19: Unknown identifier `PRepFun.isStrict_of_le`
+error: ScottDomains/A4FunctionSpaceBifinite.lean:138:14: Unknown identifier `PRepFun.val_image_compactsBelow`
+error: ScottDomains/A4FunctionSpaceBifinite.lean:133:29: unsolved goals
+α : Type u_1
+β : Type u_2
+inst✝³ : CompletePartialOrder α
+inst✝² : CompletePartialOrder β
+inst✝¹ : Domain α
+inst✝ : Domain β
+h₁ : IsBifinite α
+h₂ : IsBifinite β
+this : Domain (ScottHom α β)
+f v : StrictHom α β
+hv : v ∈ upperBounds (compactsBelow f)
+⊢ ↑v ∈ upperBounds (compactsBelow ↑f)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A4FunctionSpaceBifinite
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:02.12
+Maximum resident set size (kbytes): 1717768
+--- build ---
+finished:         2026-08-09T12:16:19-07:00
+exit status:      1
+user cpu:         2.01s
+system cpu:       0.67s
+cpu use:          126%
+peak rss single:  1677 MiB (largest one process, GNU time)
+peak pss tree:    1785 MiB (process group, shared pages apportioned)
+peak rss tree:    2458 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 12
+lake errors:      2
+sorry decls:      0
+other warnings:   1

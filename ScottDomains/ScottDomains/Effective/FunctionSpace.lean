@@ -1,6 +1,10 @@
 import ScottDomains.ComputableFunction
 import ScottDomains.FunctionSpaceCountable
 import ScottDomains.PRepFun
+-- `R47.Agent3.DomainOperator`, the vehicle for §3.2's closing sentence: that
+-- sentence quantifies over operators, and `PreservesRecursivePresentation` below
+-- states it about one.
+import ScottDomains.Effective.A3Operator
 -- `Denumerable (Finset (ℕ × ℕ))`, which names the finite sets of index pairs the
 -- enumeration of `K(D → E)` runs over.
 import Mathlib.Logic.Equiv.Finset
@@ -129,6 +133,34 @@ and the single blocking fact is item 3: whether a finite set of step functions
 named by index pairs is bounded above. Everything else on the list either exists
 or is an assembly of things that exist. The recursion theory these rows need is
 the one piece already shown to be available.
+
+## r0047 (agent2): items 1, 2 and 4 are supplied, and item 3 splits in two
+
+`Effective/A2Compactness.lean` proves the domain theory. Item 1 is
+`R47.Agent2.ofPairs_le_iff`, item 2 is `R47.Agent2.ofPairs_apply`, item 4 is
+`R47.Agent2.isNormalIn_compacts_iff` (over any bounded complete cpo: `N ◁ K(D)`
+iff `⊥ ∈ N` and `N` is closed under the binary joins that exist).
+
+Item 3 was two questions written as one, and they have different answers.
+
+* **Is the join of the step functions named by `Q` there?** Yes iff `Q` is
+  *consistent* — `R47.Agent2.bddAbove_stepsOf_iff`. Consistency is decidable from
+  `d` and `e`: `R47.Agent2.bddAbove_iff_exists_normal` turns boundedness of a
+  finite set of compacts into a search over finite normal subposets, which
+  terminates because `R47.Agent2.isNormalIn_joinClosure` puts every finite set of
+  compacts inside one.
+* **Is `IsCompactElement (ofPairs Q)` — the test `scottHomEnum` actually runs?**
+  Not the same question, and **not** determined by `d` and `e`.
+  `R47.Agent2.not_forall_isCompactElement_ofPairs_imp_bddAbove` refutes the
+  implication, with the witness at `N⊥` and
+  `R45.Agent1.natBotPresentation`. `sSup` on `ScottHom` is total and unconstrained
+  off the bounded sets, so on an inconsistent `Q` this test reads a junk value.
+
+`Theorem7ArrowRecursive` and `Theorem7StrictRecursive` do not name `scottHom`, so
+the second point does not reach them; `R47.Agent2.theorem7ArrowRecursive_of_scottHomC`
+and `R47.Agent2.theorem7StrictRecursive_of_strictHomC` reduce them over the
+consistency-guarded enumeration instead. `StepFunctionsDecidable` does name
+`scottHom d e`, and that is where the second point lands.
 -/
 
 namespace ScottDomains.Effective
@@ -508,16 +540,65 @@ def Theorem7StrictRecursive : Prop :=
     IsRecursive d → IsRecursive e →
       ∃ f : EffectivePresentation (StrictHom α β), IsRecursive f
 
-/-- **§3.2's closing claim at recursion-theoretic strength**, as a schema with one
-instance per operator: the operator's value `γ` at `α` and `β` carries a recursive
-presentation whenever `α` and `β` do.
+/-- **§3.2's closing claim at recursion-theoretic strength**, printed p. 12,
+quoted exactly:
 
-`Theorem7ArrowRecursive` is this schema's instance at `γ = D → E`, universally
-quantified. Every operator of §§4–7 supplies another instance; none is discharged.
-This is the widest of the §3.2 gaps — it is the claim that carries effective
-presentability across the rest of the chapter. -/
-def PreservesRecursivePresentation (γ : Type*) [CompletePartialOrder γ] [Domain γ]
-    (d : EffectivePresentation α) (e : EffectivePresentation β) : Prop :=
-  IsRecursive d → IsRecursive e → ∃ f : EffectivePresentation γ, IsRecursive f
+> In the remaining sections of the chapter we will discuss a great many operators
+> like `· → ·` and `· ⊸ ·`. We will leave it to the reader to convince himself
+> that all of these operators preserve the property of having an effective
+> presentation.
+
+read with §3.2's Definition, printed p. 11, which fixes what "effective
+presentation" means, and with the reading of "effectively decidable" as
+*recursive* that `StepFunctionsDecidable` states above: so "preserves the
+property of having an effective presentation" is `IsRecursive`-preservation, not
+`EffectivePresentation`-preservation — the latter is
+`operator_preserves_effectivePresentation`, and it is true of everything.
+
+`F` is one of the sentence's operators, as a value (`R47.Agent3.DomainOperator`).
+The claim is a schema with one instance per operator, and the sentence is its
+conjunction over the operators of §§4–7.
+
+## r0047 restatement (agent3), and the transcription defect it corrects
+
+Recorded through r0046 as
+
+    def PreservesRecursivePresentation (γ : Type*) [CompletePartialOrder γ]
+        [Domain γ] (d : EffectivePresentation α) (e : EffectivePresentation β) :
+        Prop :=
+      IsRecursive d → IsRecursive e → ∃ f : EffectivePresentation γ, IsRecursive f
+
+with the carrier `γ` a **free parameter, unrelated to `α` and `β`**. The printed
+sentence is about operators `(D, E) ↦ F D E`; that rendering dropped the
+dependence of the value on the arguments, which is the whole content of
+"preserve". The consequence is not a weak statement but a discharged one:
+`ScottDomains.R45.Agent1.preservesRecursivePresentation_id` closed it at
+`γ := α` by returning its own hypothesis, in one line and with no appeal to
+`Classical.dec`. Its closure over `γ` is false whenever some `d`, `e` are
+recursive, and since r0045 some are.
+
+The old form is kept, verbatim and citable, as
+`ScottDomains.R47.Agent3.PreservesRecursivePresentationFreeCarrier`, and the
+direction of the change is kernel-checked by
+`ScottDomains.R47.Agent3.freeCarrier_of_preservesRecursivePresentation :
+new → old at every carrier the operator actually produces`. The change is
+therefore a **strengthening**: the new claim entails every instance of the old
+one that is about an operator, and the old one does not entail the new (it is
+provable at `γ := α`, while the new form at the arrow operator is open).
+
+The check that no bar was lowered is `Theorem7ArrowRecursive`, which was already
+transcribed with the operator's value in its conclusion and is unchanged:
+`ScottDomains.R47.Agent3.preservesRecursivePresentation_arrowOp_iff` proves the
+two equivalent at a single universe, which is the sentence this docstring used to
+assert without proof.
+
+Open at the operators the sentence is about. Discharged at `fstOp`, `sndOp` and
+at any constant operator whose value carries a recursive presentation — see
+`Effective/A3FreeCarrier.lean`. -/
+def PreservesRecursivePresentation (F : R47.Agent3.DomainOperator) : Prop :=
+  ∀ (D E : R47.Agent3.Dom) (h : F.Defined D E)
+    (d : EffectivePresentation D.carrier) (e : EffectivePresentation E.carrier),
+    IsRecursive d → IsRecursive e →
+      ∃ f : EffectivePresentation (F.obj D E h).carrier, IsRecursive f
 
 end ScottDomains.Effective

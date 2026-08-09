@@ -1,0 +1,43 @@
+# r0044 agent3: lake env lean scripts/a3-r47-qvac.lean
+# A3_ARGS=
+# started 2026-08-09T12:24:20-07:00
+-- a6-claims.txt entries read: 19
+-- tag  name  module:line  free-params  hypothesis-params  #hyps
+CLAIM-CONCEPT	ScottDomains.R47.Agent3.PreservesRecursivePresentationFreeCarrier	ScottDomains.Effective.A3FreeCarrier:70	γ,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.17,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.20	α,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.4,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.7,d,β,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.10,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.13,e	2
+
+-- loose criterion (recall envelope; superset of the rows above)
+LOOSE-THM	ScottDomains.JungBicomplete.prop122	ScottDomains.JungBicomplete:429	x
+LOOSE-THM	ScottDomains.Section62.isGreatest_fp_le_of_hasGreatestStableNormal	ScottDomains.Section62:262	f
+LOOSE-CLAIM	ScottDomains.R47.Agent3.PreservesRecursivePresentationFreeCarrier	ScottDomains.Effective.A3FreeCarrier:70	γ,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.17,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.20
+LOOSE-THM	ScottDomains.ScottHom.IsEmbeddingProjectionPair.surjective_projection	ScottDomains.Projection:74	b
+LOOSE-THM	ScottDomains.Universality.nontrivial_of_orderIso	ScottDomains.Universality:183	α
+LOOSE-CLAIM	ScottDomains.Morphism.IsBistrict	ScottDomains.Morphism:305	γ,inst._@.ScottDomains.Morphism.3477461435._hygCtx._hyg.11,f
+LOOSE-THM	ScottDomains.Isomorphism.isLUB_copairFun_right	ScottDomains.Isomorphism.Copair:322	α,inst._@.ScottDomains.Isomorphism.Copair.570750813._hygCtx._hyg.5,g,h
+LOOSE-THM	ScottDomains.PowerdomainMap.scottContinuous_unitComp	ScottDomains.PowerdomainMap:167	inst._@.ScottDomains.PowerdomainMap.376250201._hygCtx._hyg.14,B,inst._@.ScottDomains.PowerdomainMap.376250201._hygCtx._hyg.39,inst._@.ScottDomains.PowerdomainMap.376250201._hygCtx._hyg.42,inst._@.ScottDomains.PowerdomainMap.376250201._hygCtx._hyg.45
+LOOSE-THM	ScottDomains.JungBicomplete.IsContinuousDcpo.of_retractPair	ScottDomains.JungBicomplete:311	x
+LOOSE-THM	ScottDomains.Isomorphism.isLUB_copairFun_left	ScottDomains.Isomorphism.Copair:249	α,inst._@.ScottDomains.Isomorphism.Copair.757299760._hygCtx._hyg.5,g,h
+LOOSE-CLAIM	ScottDomains.WayBelow	ScottDomains.WayBelow:51	x
+LOOSE-CLAIM	ScottDomains.Recursive.IsUniversal	ScottDomains.RecursiveDomain:116	U
+LOOSE-CLAIM	ScottDomains.Smyth.finsetLE	ScottDomains.Powerdomain.Smyth:104	inst._@.ScottDomains.Powerdomain.Smyth.2533306424._hygCtx._hyg.3,u
+LOOSE-CLAIM	ScottDomains.R46.Agent2.SameTypeOver	ScottDomains.A2Thm29Universal:224	β,inst._@.ScottDomains.A2Thm29Universal.2825422953._hygCtx._hyg.4,inst._@.ScottDomains.A2Thm29Universal.2825422953._hygCtx._hyg.7,g,z,y
+LOOSE-CLAIM	ScottDomains.Recursive.IsUniversalRetract	ScottDomains.RecursiveDomain:122	U
+
+-- controls
+CONTROL	A3Control.SynthVacuous	FLAGGED	β,q	loose:β,q	1
+CONTROL	A3Control.SynthVacuousUnderscored	FLAGGED	_β,_q	loose:_β,_q	1
+CONTROL	A3Control.SynthLinked	not-flagged	-	loose:β,q	1
+CONTROL	A3Control.SynthHealthy	not-flagged	-	loose:-	1
+CONTROL	ScottDomains.R47.Agent3.PreservesRecursivePresentationFreeCarrier	FLAGGED	γ,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.17,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.20	loose:γ,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.17,inst._@.ScottDomains.Effective.A3FreeCarrier.4088592331._hygCtx._hyg.20	2
+CONTROL	ScottDomains.Effective.PreservesRecursivePresentation	not-flagged	-	loose:-	3
+CONTROL	ScottDomains.Effective.Theorem7ArrowRecursive	not-flagged	-	loose:inst._@.ScottDomains.Effective.FunctionSpace.3113130979._hygCtx._hyg.36	2
+CONTROL	ScottDomains.Effective.StepFunctionsDecidable	not-flagged	-	loose:inst._@.ScottDomains.Effective.FunctionSpace.3714389251._hygCtx._hyg.16	2
+
+-- Prop-valued defs scanned: 96  (of which paper claims: 19)
+-- theorems scanned:         2015
+-- CLAIM-PAPER hits:   0
+-- CLAIM-CONCEPT hits: 1
+-- THM hits:           0
+-- INST rows:          0
+-- loose CLAIM rows:   7
+-- loose THM rows:     8
+# lean exit 0

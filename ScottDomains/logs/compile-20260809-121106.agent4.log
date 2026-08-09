@@ -1,0 +1,59 @@
+# r0047
+# agent4 — lake build ScottDomains.A4Lemma17Fun
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T12:11:06-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A4Lemma17Fun ===
+✖ [847/847] Building ScottDomains.A4Lemma17Fun (708ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/A4Lemma17Fun.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/A4Lemma17Fun.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/A4Lemma17Fun.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/A4Lemma17Fun.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/A4Lemma17Fun.setup.json --json
+error: ScottDomains/A4Lemma17Fun.lean:102:10: Application type mismatch: The argument
+  compHom (normalHom hP₁) (normalHom hP₂)
+has type
+  ScottHom.{max u_2 u_1, max u_2 u_1} (ScottHom α β) (ScottHom α β)
+but is expected to have type
+  ScottHom.{u_1, u_2} α β
+in the application
+  Exists.intro (compHom (normalHom hP₁) (normalHom hP₂))
+warning: ScottDomains/A4Lemma17Fun.lean:206:0: automatically included section variable(s) unused in theorem `ScottDomains.R47.Agent4.lem17_fun`:
+  [Domain α]
+  [Domain β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain α] [Domain β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/A4Lemma17Fun.lean:206:8: Overlapping instance parameters in `lem17_fun`:
+
+⚠️ There are 2 `[Domain α]` instances; one is sufficient.
+⚠️ There are 2 `[Domain β]` instances; one is sufficient.
+
+Note: This linter can be disabled with `set_option linter.overlappingInstances false`
+error: ScottDomains/A4Lemma17Fun.lean:224:10: Unknown identifier `isCompactElement_val_of_isCompactElement`
+error: ScottDomains/A4Lemma17Fun.lean:231:10: Unknown identifier `isCompactElement_of_isCompactElement_val`
+warning: ScottDomains/A4Lemma17Fun.lean:218:8: Overlapping instance parameters in `lem17_strictFun`:
+
+⚠️ There are 2 `[Domain α]` instances; one is sufficient.
+⚠️ There are 2 `[Domain β]` instances; one is sufficient.
+
+Note: This linter can be disabled with `set_option linter.overlappingInstances false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A4Lemma17Fun
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.41
+Maximum resident set size (kbytes): 1706624
+--- build ---
+finished:         2026-08-09T12:11:08-07:00
+exit status:      1
+user cpu:         1.30s
+system cpu:       0.49s
+cpu use:          127%
+peak rss single:  1666 MiB (largest one process, GNU time)
+peak pss tree:    1789 MiB (process group, shared pages apportioned)
+peak rss tree:    2462 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      0
+other warnings:   3
