@@ -203,6 +203,31 @@ things that should not inhabit it."** A specification everything satisfies is no
 a specification. Neither the type checker nor `#print axioms` will tell you —
 both report success.
 
+### A second mechanism, which has nothing to do with `Classical.dec`
+
+r0045 found a vacuity that a reviewer following only the advice above would pass.
+`Effective.PreservesRecursivePresentation` quantifies over a type `γ` that is
+**unrelated to the `α` and `β` the claim is about**, so
+
+    preservesRecursivePresentation_id : PreservesRecursivePresentation α d e
+
+closes it in one line by returning its own hypothesis. Its closure over `γ` is
+false by a counting argument, so the row is not merely weak — it is stated wrong.
+
+The vacuity here lives in the **quantifier structure, not in a field type**. No
+field is `Decidable`; nothing is filled by `Classical.dec`. Checking for the
+first mechanism finds nothing.
+
+So the check is two questions, not one:
+
+| # | Ask | Catches |
+| -- | --- | ------- |
+| 1 | is any field freely inhabitable (`Decidable`, or anything `Classical.*` yields)? | the `EffectivePresentation` mechanism |
+| 2 | is every bound variable actually *constrained* by the claim, or can one be instantiated to make the statement trivial? | the `PreservesRecursivePresentation` mechanism |
+
+Question 2 generalizes: a hypothesis that is also the conclusion, at parameters
+the claim never relates, is an identity function wearing a theorem's name.
+
 ## Cost
 
 | # | Construct | Elaboration cost | Runtime cost |
