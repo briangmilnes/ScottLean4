@@ -1,0 +1,39 @@
+# r0045
+# agent3 — lake build ScottDomains.A3Thm29
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-08T21:22:15-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A3Thm29 ===
+✖ [1005/1005] Building ScottDomains.A3Thm29 (703ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/A3Thm29.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/A3Thm29.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/A3Thm29.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/A3Thm29.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/A3Thm29.setup.json --json
+error: ScottDomains/A3Thm29.lean:183:46: Function expected at
+  IsPRepresentable₂
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  Colimit.V
+
+Hint: The identifier `IsPRepresentable₂` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A3Thm29
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1755256
+--- build ---
+finished:         2026-08-08T21:22:17-07:00
+exit status:      1
+user cpu:         1.41s
+system cpu:       0.60s
+cpu use:          117%
+peak rss single:  1714 MiB (largest one process, GNU time)
+peak pss tree:    1808 MiB (process group, shared pages apportioned)
+peak rss tree:    2480 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   0
