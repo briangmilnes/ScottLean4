@@ -1,0 +1,89 @@
+# r0045
+# agent1 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-08T21:31:06-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1280/1341] Replayed ScottDomains.Effective.A1Probe
+info: ScottDomains/Effective/A1Probe.lean:8:0: @PreservesRecursivePresentation : {α : Type u_1} →
+  {β : Type u_2} →
+    [inst : CompletePartialOrder α] →
+      [inst_1 : Domain α] →
+        [inst_2 : CompletePartialOrder β] →
+          [inst_3 : Domain β] →
+            (γ : Type u_3) →
+              [inst_4 : CompletePartialOrder γ] → [Domain γ] → EffectivePresentation α → EffectivePresentation β → Prop
+info: ScottDomains/Effective/A1Probe.lean:9:0: @StepFunctionsDecidable : {α : Type u_1} →
+  {β : Type u_2} →
+    [inst : CompletePartialOrder α] →
+      [inst_1 : Domain α] →
+        [inst_2 : CompletePartialOrder β] →
+          [inst_3 : Domain β] → [BoundedComplete β] → EffectivePresentation α → EffectivePresentation β → Prop
+info: ScottDomains/Effective/A1Probe.lean:10:0: @RecursiveNormal : {γ : Type u_1} →
+  [inst : CompletePartialOrder γ] → [inst_1 : Domain γ] → EffectivePresentation γ → Prop
+info: ScottDomains/Effective/A1Probe.lean:11:0: Theorem7ArrowRecursive : Prop
+info: ScottDomains/Effective/A1Probe.lean:12:0: Denumerable.raise' : List ℕ → ℕ → List ℕ
+info: ScottDomains/Effective/A1Probe.lean:13:0: Denumerable.raise'Finset : List ℕ → ℕ → Finset ℕ
+ℹ [1324/1341] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1340/1341] Building ScottDomains.Effective.A1FlatRecursive (860ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/Effective/A1FlatRecursive.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A1FlatRecursive.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A1FlatRecursive.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Effective/A1FlatRecursive.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Effective/A1FlatRecursive.setup.json --json
+error: ScottDomains/Effective/A1FlatRecursive.lean:167:28: Application type mismatch: The argument
+  bot_le
+has type
+  ⊥ ≤ ?m.45
+but is expected to have type
+  ⊥ ∈ Set.Iic x
+in the application
+  ⟨hbot, bot_le⟩
+error: ScottDomains/Effective/A1FlatRecursive.lean:259:44: failed to synthesize
+  Decidable (natBotEnum 0 ≤ natBotEnum 3)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: ScottDomains/Effective/A1FlatRecursive.lean:262:48: failed to synthesize
+  Decidable ¬natBotEnum 2 ≤ natBotEnum 3
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+warning: ScottDomains/Effective/A1FlatRecursive.lean:285:61: Variable name `n` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+error: ScottDomains/Effective/A1FlatRecursive.lean:294:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'Flat.instCompletePartialOrder', which is 'noncomputable'
+error: ScottDomains/Effective/A1FlatRecursive.lean:352:53: Application type mismatch: The argument
+  h ?m.60 ?m.61 ?m.62 ?m.63
+has type
+  StepFunctionsDecidable.{u_1, u_2} ?m.60 ?m.61
+but is expected to have type
+  StepFunctionsDecidable.{u_3, u_4} ?m.51 ?m.52
+in the application
+  exists_isRecursive_of_stepFunctionsDecidable (h ?m.60 ?m.61 ?m.62 ?m.63)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A1FlatRecursive
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.72
+Maximum resident set size (kbytes): 1780088
+--- build ---
+finished:         2026-08-08T21:31:09-07:00
+exit status:      1
+user cpu:         1.65s
+system cpu:       0.56s
+cpu use:          129%
+peak rss single:  1738 MiB (largest one process, GNU time)
+peak pss tree:    1879 MiB (process group, shared pages apportioned)
+peak rss tree:    2551 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 5
+lake errors:      2
+sorry decls:      0
+other warnings:   1
