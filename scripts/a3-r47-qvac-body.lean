@@ -1,0 +1,434 @@
+/-
+r0047 / agent3 — the **quantifier-vacuity** detector, and its five controls.
+
+This is a body fragment. `scripts/a3-r47-qvac.sh` prepends one `import` line per
+package module (via `scripts/a5-gen-driver.sh`) and runs the result under
+`lake env lean`. The import block is not optional: `ScottDomains.lean` re-exports
+Mathlib only and imports none of the development's own modules, so a driver that
+says `import ScottDomains` presents an environment with zero package
+declarations and every sweep over it reports a false zero. Five agents have hit
+that wall.
+
+# The mechanism this measures, and why the existing instruments miss it
+
+r0044's sweeps (`a3-vacuity.lean`, `a4-freeclass.lean`) and r0045's
+`a5-freehyp.lean` all ask **question 1** of
+`docs/StructuresVsTypeClassesVsPropsInLean4.md`: is a hypothesis freely
+inhabitable — `Decidable`, or anything `Classical.*` yields? That catches the
+`EffectivePresentation` mechanism, where the vacuity lives in a **field type**.
+
+This instrument asks **question 2**: is every bound variable actually
+*constrained* by the claim, or can one be instantiated to make the statement
+trivial? The generalization the doc states is
+
+> a hypothesis that is also the conclusion, at parameters the claim never
+> relates, is an identity function wearing a theorem's name.
+
+Exactly one instance was known — `Effective.PreservesRecursivePresentation`,
+whose carrier `γ` was a parameter unrelated to the `α` and `β` its hypotheses
+were about — and nobody had swept for it. Nothing about it is visible to
+question 1: no field is `Decidable`, and no `Classical.*` term appears in the
+one-line proof that closes it.
+
+# The criterion: a disconnected parameter graph
+
+Split a declaration's binders into **hypotheses** (`Prop`, not instance-implicit)
+and **parameters** (types, data, instances). Let `C` be the conclusion — the
+proposition with its own leading `∀`/`→` peeled off — and `H` the hypothesis
+types.
+
+Build an undirected graph on the parameters: two parameters are adjacent when
+they **co-occur** in one expression — a parameter's own type, a hypothesis type,
+or the conclusion. Co-occurrence is the relation "the claim relates these two";
+a parameter's type counts because `d : EffectivePresentation α` is what ties `d`
+to `α`, and `e : α ≃o β` is what ties `α` to `β`.
+
+    HIT  ⟺  some parameter occurs in `C` and its connected component contains
+            no parameter occurring in any hypothesis
+       ∧   at least one hypothesis, mentioning at least one parameter
+
+Then that parameter is **free**: no hypothesis constrains it, directly or through
+any chain of relations the statement draws. A claim with a free parameter in its
+conclusion is satisfied by choosing that parameter, which is what
+`ScottDomains.R45.Agent1.preservesRecursivePresentation_id` does in one line.
+
+## Why connectivity and not "occurs in the conclusion and in no hypothesis"
+
+The simpler test was written first and measured: it produced 7 CLAIM and 8 THM
+hits, of which **1 was the mechanism**. Every other hit was a parameter related
+to the hypotheses by a chain the test could not see:
+
+| # | Shape | Example | Why the simple test fires |
+| -- | ---- | ------- | ------------------------- |
+| 1 | transport along an isomorphism | `nontrivial_of_orderIso (e : α ≃o β) (h : Nontrivial β) : Nontrivial α` | `α` is in no hypothesis; `e : α ≃o β` is what relates it, and `e` occurs in neither hypothesis nor conclusion |
+| 2 | a relation whose two arguments sit on opposite sides of an implication | `WayBelow x y`, `Smyth.finsetLE u v` | `x` and `y` are related through the `∀`-bound `s`, `u` of the body |
+| 3 | a predicate about a function | `Morphism.IsBistrict (f : α × β → γ)` | `γ` is related to the hypothesis's `α`, `β` through `f`'s type |
+
+All three are healthy, and connectivity clears all three: rows 1 and 3 through a
+parameter's type, row 2 through the shared `∀`-bound variable. The known vacuity
+survives, because no expression in it mentions both `γ` and `α`.
+
+`Effective.Theorem7ArrowRecursive` is the discriminating negative among the
+paper's own claims: its hypotheses are `IsRecursive d`, `IsRecursive e` and its
+conclusion is about `ScottHom α β`, so `d` and `e` are hypothesis-side and
+`α`, `β` conclusion-side — but the two are one component, because `d`'s type is
+`EffectivePresentation α`. That is the difference between a claim about an
+operator and a claim about a free carrier, and it is the whole content of
+r0047's restatement.
+
+# Populations, reported separately
+
+* **CLAIM-PAPER** — a `Prop`-valued `def` listed in `scripts/a6-claims.txt`: a
+  result the paper states, transcribed and left unproved. This is where the
+  mechanism does damage, because such a claim is *discharged* by instantiating
+  its free parameter and `a6-query.lean` scores the discharge. The known
+  instance is of this kind.
+* **CLAIM-CONCEPT** — every other `Prop`-valued `def`. A free parameter here is
+  a weaker signal: the parameters of a defined relation are supplied by its
+  consumers, not chosen by a prover.
+* **THM** — theorems. The same shape in a theorem is a decorative hypothesis
+  rather than a false discharge: the theorem is true and strictly weaker than
+  its hypothesis-free form.
+
+A fourth tag, **INST**, marks rows whose free parameters are *all*
+instance-implicit. That is r0044's added-binder defect, not this one; it is
+printed so the two are not confused and so this mechanism's count is not
+inflated by it.
+
+# Controls
+
+Five, following r0044 agent4's standard, all in this file so that they run in the
+same environment as the sweep:
+
+1. **Positive recovery** — `R47.Agent3.PreservesRecursivePresentationFreeCarrier`
+   is the pre-r0047 statement, kept verbatim precisely so the one known instance
+   of the mechanism is still in the tree. The instrument must flag it.
+2. **Negative control on the fix** — `Effective.PreservesRecursivePresentation`,
+   restated in r0047 to quantify over an operator, must **not** be flagged. Same
+   claim, same file, one structural change.
+3. **Synthetic pair** — `A3Control.SynthVacuous` must be flagged and
+   `A3Control.SynthHealthy` must not; they differ only in whether the
+   conclusion's carrier is the hypothesis's.
+4. **Underscore control** — `A3Control.SynthVacuousUnderscored` is
+   `SynthVacuous` with every binder renamed `_x`. `#lint unusedArguments` exempts
+   `_`-prefixed binders, which is why it reports zero on the two
+   originally-known vacuities (`_d`, `_e`); this instrument works on `FVarId`
+   occurrence and must flag it exactly as it flags `SynthVacuous`.
+5. **Connectivity control** — `A3Control.SynthLinked` is `SynthVacuous` with one
+   parameter added, `f : α → β`, which relates the two components and nothing
+   else. It must not be flagged: it is the transport shape of row 1 above, and
+   it is what separates this criterion from the one it replaced.
+
+Every named control is printed with its verdict, so a reader checks the
+instrument rather than trusting it.
+-/
+
+open Lean Elab Command Meta
+
+namespace A3Control
+
+/-- Synthetic positive control: the conclusion's parameters `β`, `q` are related
+to the hypothesis's `α`, `p` by nothing. Instantiating `β := α`, `q := p` closes
+it by returning the hypothesis. -/
+def SynthVacuous (α β : Type) (p : α → Prop) (q : β → Prop) : Prop :=
+  (∃ a, p a) → ∃ b, q b
+
+/-- Synthetic negative control: same hypothesis, same existential conclusion, but
+stated about the hypothesis's own parameters. No parameter is free. -/
+def SynthHealthy (α : Type) (p : α → Prop) : Prop :=
+  (∃ a, p a) → ∃ a, p a ∧ p a
+
+/-- Underscore control: `SynthVacuous` with `_`-prefixed binder names, which is
+what makes `#lint unusedArguments` silent on the two originally-known vacuities
+(`_d`, `_e`). This instrument must not care. -/
+def SynthVacuousUnderscored (_α _β : Type) (_p : _α → Prop) (_q : _β → Prop) : Prop :=
+  (∃ _a, _p _a) → ∃ _b, _q _b
+
+/-- Connectivity control: `SynthVacuous` plus a map `f : α → β` relating the two
+otherwise-disjoint components. Occurring in neither the hypothesis nor the
+conclusion, `f` is invisible to a criterion that looks only at those two, and it
+is exactly what makes a transport theorem healthy. Must not be flagged. -/
+def SynthLinked (α β : Type) (_f : α → β) (p : α → Prop) (q : β → Prop) : Prop :=
+  (∃ a, p a) → ∃ b, q b
+
+end A3Control
+
+namespace A3R47
+
+/-- The package's own modules. -/
+def isPkgModule (m : Name) : Bool :=
+  m == `ScottDomains || (`ScottDomains).isPrefixOf m
+
+def genSuffix : Array String :=
+  #["mk", "rec", "recOn", "casesOn", "below", "brecOn", "binductionOn", "ndrec",
+    "noConfusion", "noConfusionType", "injEq", "inj", "sizeOf_spec", "toCtorIdx",
+    "eq_def", "ofNat", "ext", "ext_iff", "sizeOf_inst"]
+
+partial def hasUnderscoreComponent : Name → Bool
+  | .str p s => s.startsWith "_" || hasUnderscoreComponent p
+  | .num p _ => hasUnderscoreComponent p
+  | .anonymous => false
+
+def isEqLemma (s : String) : Bool :=
+  s.startsWith "eq_" && !(s.drop 3).isEmpty && (s.drop 3).all Char.isDigit
+
+/-- Lean-generated declarations are not statements anyone wrote. -/
+def isGenerated (n : Name) : Bool :=
+  if n.isInternal || hasUnderscoreComponent n then true
+  else match n with
+  | .str _ s => genSuffix.contains s || isEqLemma s
+  | _ => false
+
+/-- Does this type, after stripping every leading binder, end in `Prop`? -/
+def resultIsProp (t : Expr) : MetaM Bool :=
+  forallTelescope t fun _ body => do
+    match body with
+    | .sort .zero => return true
+    | _           => return false
+
+/-! ### Union-find over a declaration's parameters -/
+
+partial def findRoot (par : Array Nat) (i : Nat) : Nat :=
+  if par[i]! == i then i else findRoot par par[i]!
+
+def unite (par : Array Nat) (a b : Nat) : Array Nat :=
+  let ra := findRoot par a
+  let rb := findRoot par b
+  if ra == rb then par else par.set! ra rb
+
+/-- The indices of the parameters occurring in `e`. -/
+def occIdx (params : Array Expr) (e : Expr) : Array Nat := Id.run do
+  let mut acc : Array Nat := #[]
+  for i in [0:params.size] do
+    if e.hasAnyFVar (· == params[i]!.fvarId!) then acc := acc.push i
+  return acc
+
+/-- Make every parameter occurring in `e` adjacent to every other, and to `extra`
+if given. One expression is one relation the statement draws. -/
+def linkAll (par : Array Nat) (idxs : Array Nat) (extra : Option Nat) : Array Nat := Id.run do
+  let mut p := par
+  let all := match extra with | some k => idxs.push k | none => idxs
+  if all.size ≤ 1 then return p
+  for j in [1:all.size] do
+    p := unite p all[0]! all[j]!
+  return p
+
+/-- Close an occurrence vector under parameter types: a parameter occurring in
+`e` drags in the parameters of its own type. This is the **loose** criterion's
+notion of relatedness — it follows a chain only downwards, from a parameter to
+the parameters of its type, so `e : α ≃o β` does not relate `α` to `β` unless `e`
+itself occurs. Kept because the loose criterion's hit set is this instrument's
+recall envelope: every declaration the connectivity criterion clears is one the
+loose criterion had already offered for adjudication. -/
+def closeOcc (params : Array Expr) (occ0 : Array Bool) : MetaM (Array Bool) := do
+  let mut occ := occ0
+  let mut changed := true
+  while changed do
+    changed := false
+    for i in [0:params.size] do
+      if occ[i]! then
+        let ty ← inferType params[i]!
+        for j in [0:params.size] do
+          if !occ[j]! && ty.hasAnyFVar (· == params[j]!.fvarId!) then
+            occ := occ.set! j true
+            changed := true
+  return occ
+
+/-- The verdict for one split declaration under the **loose** criterion: the
+parameters occurring in the conclusion and in no hypothesis, and whether some of
+them is not instance-implicit. -/
+def looseVerdict (params : Array Expr) (isInst : Array Bool) (hypTys : Array Expr)
+    (concl : Expr) : MetaM (Array Name × Bool × Bool) := do
+  let mut d0 : Array Bool := params.map fun _ => false
+  for i in occIdx params concl do d0 := d0.set! i true
+  let inConcl ← closeOcc params d0
+  let mut h0 : Array Bool := params.map fun _ => false
+  for h in hypTys do
+    for i in occIdx params h do h0 := h0.set! i true
+  let inHyp ← closeOcc params h0
+  let mut conclOnly : Array Name := #[]
+  let mut sharp := false
+  let mut hypOnly := false
+  for i in [0:params.size] do
+    if inConcl[i]! && !inHyp[i]! then
+      conclOnly := conclOnly.push (← params[i]!.fvarId!.getDecl).userName
+      unless isInst[i]! do sharp := true
+    if inHyp[i]! && !inConcl[i]! then hypOnly := true
+  return (conclOnly, sharp, hypOnly)
+
+/-- The verdict for one split declaration: the free parameters, the parameters a
+hypothesis mentions, the hypothesis count, whether some free parameter is not
+instance-implicit, and the same two under the loose criterion. -/
+def verdict (binders : Array Expr) (concl : Expr) :
+    MetaM (Array Name × Array Name × Nat × Bool × Array Name × Bool × Bool) := do
+  let mut params : Array Expr := #[]
+  let mut isInst : Array Bool := #[]
+  let mut hypTys : Array Expr := #[]
+  for x in binders do
+    let ld ← x.fvarId!.getDecl
+    let inst := ld.binderInfo == .instImplicit
+    if (← Meta.isProp ld.type) && !inst then
+      hypTys := hypTys.push ld.type
+    else
+      params := params.push x
+      isInst := isInst.push inst
+  let n := params.size
+  let mut par : Array Nat := (Array.range n)
+  -- A parameter's own type relates it to the parameters that type mentions.
+  for i in [0:n] do
+    let ty ← inferType params[i]!
+    par := linkAll par (occIdx params ty) (some i)
+  -- Each hypothesis, and the conclusion, relate the parameters they mention.
+  for h in hypTys do
+    par := linkAll par (occIdx params h) none
+  par := linkAll par (occIdx params concl) none
+  -- The components a hypothesis reaches.
+  let mut hypIdx : Array Nat := #[]
+  for h in hypTys do
+    for i in occIdx params h do
+      unless hypIdx.contains i do hypIdx := hypIdx.push i
+  let hypRoots := hypIdx.map (findRoot par)
+  let mut free : Array Name := #[]
+  let mut sharp := false
+  for i in occIdx params concl do
+    unless hypRoots.contains (findRoot par i) do
+      free := free.push (← params[i]!.fvarId!.getDecl).userName
+      unless isInst[i]! do sharp := true
+  let mut hypNames : Array Name := #[]
+  for i in hypIdx do hypNames := hypNames.push (← params[i]!.fvarId!.getDecl).userName
+  let (lFree, lSharp, lHypOnly) ← looseVerdict params isInst hypTys concl
+  return (free, hypNames, hypTys.size, sharp, lFree, lSharp, lHypOnly)
+
+/-- The binders and conclusion of a `Prop`-valued `def`: the lambda binders of
+its value, then the `∀`/`→` binders of the proposition itself. -/
+def splitPropDef (ci : ConstantInfo) :
+    MetaM (Option (Array Name × Array Name × Nat × Bool × Array Name × Bool × Bool)) := do
+  unless ← resultIsProp ci.type do return none
+  let some v := ci.value? (allowOpaque := true) | return none
+  lambdaTelescope v fun xs body => do
+    match (← inferType body) with
+    | .sort .zero =>
+        forallTelescopeReducing body fun ys concl => do
+          return some (← verdict (xs ++ ys) concl)
+    | _ => return none
+
+/-- The binders and conclusion of a theorem. -/
+def splitThm (ci : ConstantInfo) :
+    MetaM (Array Name × Array Name × Nat × Bool × Array Name × Bool × Bool) :=
+  forallTelescopeReducing ci.type fun xs concl => verdict xs concl
+
+def lineOf (n : Name) : CoreM Nat := do
+  match ← findDeclarationRanges? n with
+  | some r => return r.selectionRange.pos.line
+  | none   => return 0
+
+def fmt (a : Array Name) : String :=
+  if a.isEmpty then "-" else String.intercalate "," (a.toList.map toString)
+
+/-- The declarations `scripts/a6-claims.txt` records as transcriptions of a
+result the paper states. Read rather than duplicated so the two instruments
+cannot drift apart. -/
+def readClaims : IO (Array Name) := do
+  let paths := #["../scripts/a6-claims.txt", "scripts/a6-claims.txt"]
+  for p in paths do
+    if ← System.FilePath.pathExists p then
+      let txt ← IO.FS.readFile p
+      let mut acc : Array Name := #[]
+      for s in txt.splitOn "\n" do
+        unless s.isEmpty || s.startsWith "#" do
+          acc := acc.push s.toName
+      return acc
+  return #[]
+
+end A3R47
+
+open A3R47 in
+run_cmd Command.liftTermElabM do
+  let env ← getEnv
+  let mods := env.header.moduleNames
+  let claims ← readClaims
+  IO.println s!"-- a6-claims.txt entries read: {claims.size}"
+  -- Package declarations, plus this driver's own controls (which have no module
+  -- index because they belong to the module being elaborated).
+  let mut pkg : Array (Name × Name × ConstantInfo) := #[]
+  let mut ctrl : Array (Name × ConstantInfo) := #[]
+  for (n, ci) in env.constants.toList do
+    if isGenerated n then continue
+    match env.getModuleIdxFor? n with
+    | some idx =>
+        let m := mods[idx]!
+        if isPkgModule m then pkg := pkg.push (n, m, ci)
+    | none =>
+        if (`A3Control).isPrefixOf n then ctrl := ctrl.push (n, ci)
+  IO.println "-- tag  name  module:line  free-params  hypothesis-params  #hyps"
+
+  let mut nClaims := 0
+  let mut nPaperClaims := 0
+  let mut nThms := 0
+  let mut hitPaper := 0
+  let mut hitConcept := 0
+  let mut hitThm := 0
+  let mut instRows := 0
+  let mut looseClaim := 0
+  let mut looseThm := 0
+  let mut looseRows : Array String := #[]
+  for (n, m, ci) in pkg do
+    match ci with
+    | .defnInfo _ =>
+        if let some (free, hyp, nh, sharp, lFree, lSharp, lHypOnly) ← splitPropDef ci then
+          nClaims := nClaims + 1
+          let isPaper := claims.contains n
+          if isPaper then nPaperClaims := nPaperClaims + 1
+          if nh > 0 && lSharp && lHypOnly && !lFree.isEmpty then
+            looseClaim := looseClaim + 1
+            looseRows := looseRows.push s!"LOOSE-CLAIM\t{n}\t{m}:{← lineOf n}\t{fmt lFree}"
+          if nh > 0 && !free.isEmpty && !hyp.isEmpty then
+            let tag := if !sharp then "INST-CLAIM"
+                       else if isPaper then "CLAIM-PAPER" else "CLAIM-CONCEPT"
+            if !sharp then instRows := instRows + 1
+            else if isPaper then hitPaper := hitPaper + 1
+            else hitConcept := hitConcept + 1
+            IO.println s!"{tag}\t{n}\t{m}:{← lineOf n}\t{fmt free}\t{fmt hyp}\t{nh}"
+    | .thmInfo _ =>
+        nThms := nThms + 1
+        let (free, hyp, nh, sharp, lFree, lSharp, lHypOnly) ← splitThm ci
+        if nh > 0 && lSharp && lHypOnly && !lFree.isEmpty then
+          looseThm := looseThm + 1
+          looseRows := looseRows.push s!"LOOSE-THM\t{n}\t{m}:{← lineOf n}\t{fmt lFree}"
+        if nh > 0 && !free.isEmpty && !hyp.isEmpty then
+          if sharp then
+            hitThm := hitThm + 1
+            IO.println s!"THM\t{n}\t{m}:{← lineOf n}\t{fmt free}\t{fmt hyp}\t{nh}"
+          else
+            instRows := instRows + 1
+            IO.println s!"INST-THM\t{n}\t{m}:{← lineOf n}\t{fmt free}\t{fmt hyp}\t{nh}"
+    | _ => pure ()
+
+  -- The recall envelope: everything the pre-connectivity criterion offered.
+  IO.println "\n-- loose criterion (recall envelope; superset of the rows above)"
+  for r in looseRows do IO.println r
+
+  -- Named controls, printed with their verdicts.
+  IO.println "\n-- controls"
+  let named : Array Name :=
+    #[`ScottDomains.R47.Agent3.PreservesRecursivePresentationFreeCarrier,
+      `ScottDomains.Effective.PreservesRecursivePresentation,
+      `ScottDomains.Effective.Theorem7ArrowRecursive,
+      `ScottDomains.Effective.StepFunctionsDecidable]
+  let mut rows : Array (Name × ConstantInfo) := #[]
+  for c in named do
+    if let some ci := env.find? c then rows := rows.push (c, ci)
+  for (n, ci) in ctrl ++ rows do
+    if let some (free, hyp, nh, sharp, lFree, _, _) ← splitPropDef ci then
+      let v := if nh > 0 && !free.isEmpty && !hyp.isEmpty then
+                 (if sharp then "FLAGGED" else "FLAGGED-INST-ONLY") else "not-flagged"
+      IO.println s!"CONTROL\t{n}\t{v}\t{fmt free}\tloose:{fmt lFree}\t{nh}"
+
+  IO.println s!"\n-- Prop-valued defs scanned: {nClaims}  (of which paper claims: {nPaperClaims})"
+  IO.println s!"-- theorems scanned:         {nThms}"
+  IO.println s!"-- CLAIM-PAPER hits:   {hitPaper}"
+  IO.println s!"-- CLAIM-CONCEPT hits: {hitConcept}"
+  IO.println s!"-- THM hits:           {hitThm}"
+  IO.println s!"-- INST rows:          {instRows}"
+  IO.println s!"-- loose CLAIM rows:   {looseClaim}"
+  IO.println s!"-- loose THM rows:     {looseThm}"

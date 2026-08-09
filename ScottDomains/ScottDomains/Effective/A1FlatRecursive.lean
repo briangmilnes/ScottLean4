@@ -1,4 +1,8 @@
 import ScottDomains.Effective.FunctionSpace
+-- `R47.Agent3.PreservesRecursivePresentationFreeCarrier`: the statement the three
+-- theorems below are about, kept verbatim when r0047 restated
+-- `Effective.PreservesRecursivePresentation`.
+import ScottDomains.Effective.A3FreeCarrier
 import ScottDomains.Flat
 
 /-!
@@ -318,39 +322,56 @@ noncomputable def natBotRecursivePresentation : RecursivePresentation (Flat ℕ)
 
 /-! ## What the §3.2 claims say once a recursive presentation exists -/
 
-/-- Any domain carrying a recursive presentation discharges
+/-- Any domain carrying a recursive presentation discharges the **pre-r0047**
 `PreservesRecursivePresentation` at that domain, for **every** `α`, `β`, `d`, `e`.
 
 The reason is the shape of the definition, not a theorem about operators: `γ` is a
 parameter unrelated to `α` and `β`, and the conclusion `∃ f : EffectivePresentation
 γ, IsRecursive f` does not mention `d` or `e`. §3.2's sentence is about operators
 `(D, E) ↦ F D E`; rendering it with a free `γ` loses the dependence, and this
-theorem measures how much is lost. -/
+theorem measures how much is lost.
+
+**r0047 acted on that measurement**: `Effective.PreservesRecursivePresentation`
+now quantifies over an operator, and the statement this theorem is about is kept
+verbatim as `ScottDomains.R47.Agent3.PreservesRecursivePresentationFreeCarrier`,
+which is what the conclusion below names. Only the name changed; the proposition,
+the proof and the finding are the r0045 ones. -/
 theorem preservesRecursivePresentation_of_isRecursive
     {α β γ : Type*} [CompletePartialOrder α] [Domain α] [CompletePartialOrder β]
     [Domain β] [CompletePartialOrder γ] [Domain γ] {f : EffectivePresentation γ}
     (hf : IsRecursive f) (d : EffectivePresentation α) (e : EffectivePresentation β) :
-    PreservesRecursivePresentation γ d e :=
+    R47.Agent3.PreservesRecursivePresentationFreeCarrier γ d e :=
   fun _ _ => ⟨f, hf⟩
 
-/-- The schema at `γ := N⊥`: the constant operator `(D, E) ↦ N⊥` preserves
-recursive presentability. True, and true for the uninteresting reason that `N⊥`
-has one outright. -/
+/-- The pre-r0047 schema at `γ := N⊥`: the constant operator `(D, E) ↦ N⊥`
+preserves recursive presentability. True, and true for the uninteresting reason
+that `N⊥` has one outright.
+
+Under the r0047 statement this instance is
+`ScottDomains.R47.Agent3.preservesRecursivePresentation_constOp` applied to
+`isRecursive_natBot`, where it is a fact about the constant operator rather than
+a discharge of the schema. -/
 theorem preservesRecursivePresentation_natBot
     {α β : Type*} [CompletePartialOrder α] [Domain α] [CompletePartialOrder β]
     [Domain β] (d : EffectivePresentation α) (e : EffectivePresentation β) :
-    PreservesRecursivePresentation (Flat ℕ) d e :=
+    R47.Agent3.PreservesRecursivePresentationFreeCarrier (Flat ℕ) d e :=
   preservesRecursivePresentation_of_isRecursive isRecursive_natBot d e
 
-/-- The schema at `γ := α`: the **identity** operator preserves recursive
-presentability, by returning the hypothesis. One line, no content, and no appeal
-to `Classical.dec` — so this is not the `EffectivePresentation` vacuity but a
-second, independent one, living in the quantifier structure of the statement
-rather than in a field type. -/
+/-- **The finding.** The pre-r0047 schema at `γ := α`: the **identity** operator
+preserves recursive presentability, by returning the hypothesis. One line, no
+content, and no appeal to `Classical.dec` — so this is not the
+`EffectivePresentation` vacuity but a second, independent one, living in the
+quantifier structure of the statement rather than in a field type.
+
+This theorem is why `Effective.PreservesRecursivePresentation` was restated in
+r0047, and it is the **positive control** for that round's sweep for the same
+mechanism: a detector that does not flag the claim this closes is not measuring
+anything. It is stated at the kept verbatim copy so that both survive the
+restatement. -/
 theorem preservesRecursivePresentation_id
     {α β : Type*} [CompletePartialOrder α] [Domain α] [CompletePartialOrder β]
     [Domain β] (d : EffectivePresentation α) (e : EffectivePresentation β) :
-    PreservesRecursivePresentation α d e :=
+    R47.Agent3.PreservesRecursivePresentationFreeCarrier α d e :=
   fun hd _ => ⟨d, hd⟩
 
 /-- **A reduction of Theorem 7's second sentence, quantified as the paper states
