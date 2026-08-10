@@ -3,13 +3,19 @@
 The short answer. `PaperInventory.md` is the long one and stays as the audit
 trail; this file is the thing to read first.
 
-Measured on `main` after merging r0049's agents 3–7: build **1372 jobs, 0 errors,
-0 warnings**, `sorry` **0**, `axiom` **0**, `sorryAx` **0**. Package: 124 modules,
-46,049 lines, 2,119 theorems.
+Measured on `main` after r0049, all six streams merged: build **1372 jobs, 0
+errors, 0 warnings**, `sorry` **0**, `axiom` **0**, `sorryAx` **0**. Package: 124
+modules, 46,097 lines, 2,119 theorems.
 
-**r0049 is not finished.** agent8's stream — the necessity-site adjudication, the
-scoped-claims convention, and the standing staleness check — is still running and
-is not merged here. Every count below is `main` as of that partial merge.
+**A standing check now watches this file's class of defect.**
+`scripts/a8-claim-check.sh` asks three questions of the elaborated environment —
+dangling citation, proof-claim against the environment, absence-claim locus — and
+prints only `NEW`/`RESOLVED` against a committed baseline of **74 accepted
+obligations**, exiting 1 when `NEW` is non-empty. Cost: **12.3 s wall, 1974 MiB
+peak RSS**, about 5% of a cold build. It exists because r0046 measured that
+**seven of eight false proof-claims were true when written**: staleness produces
+no `sorry` and no build failure, so nothing else signals it. The convention for
+the scope-qualified sentences it checks is `docs/ScopedClaims.md`.
 
 ## Labels
 
@@ -194,10 +200,40 @@ An **eleventh candidate is not yet recorded**: r0049's agent3 reports that the
 same folio-12 sentence writes `⨆{f(y) | y ∈ N ∩ ↓x}` where `f` is bound nowhere
 and `s` is meant. It is not counted above and not yet in `StatementRecovery.md`.
 
+## Prose defects, and what r0049 measured about them
+
+The sweep of documentation claims reached 264 sites. The useful result is a
+**negative** one: 183 was the wrong denominator. 85 are statements about the
+proof script directly below them, already checked by the fact that it elaborates;
+7 are Gunter & Scott's own sentences; 114 are scope-qualified (`ScopedClaims.md`);
+**only 43 are decidable against the environment**, and those are now decided in
+bulk every round rather than by hand.
+
+Of the 18 adjudicated, **9 came out false**. Among the absence claims — sentences
+asserting the package lacks something — the enrichment is sharp: **7 of the 8
+package-scoped rows are false, 87.5% against r0046's 20.8% base rate**. The best
+specimen is `PropertyM.lean:845`, refuted by a declaration 100 lines below it *in
+its own file*, missed by r0046's intra-file detector for one reason — its subject
+is a noun phrase rather than a backticked name. **0 of 55 absence claims named a
+scope before r0049.**
+
+Two open defects in the instruments themselves, both measured rather than
+suspected:
+
+| # | Instrument | Defect |
+| -- | --------- | ------ |
+| 1 | `a8-claim-check.sh` | the baseline keys obligations on `file:line`, so an insertion above a standing obligation reports it as `NEW` + `RESOLVED`. First post-merge run: 1 of each, and they are the **same** claim, moved from `FunctionSpace.lean:527` to `:617` by a docstring edit. Key on normalized claim text instead |
+| 2 | `a5-r47-conditional.sh` | hardcoded `ROOT` to the `agent5` worktree, so every run after r0047 measured that checkout rather than the caller's. Fixed in r0049 to resolve from the script's own location; **row 8 has still not been re-derived since r0047** |
+
 ## Reproducing
 
     scripts/counts.sh                     # modules, lines, theorems, sorry
     scripts/numbered-status.sh            # declarations per numbered result
     scripts/a6-env-scan.sh <out>          # then a6-summarize.py for row 11
     scripts/a5-r47-conditional.sh         # row 8, the S+H conditional surface
+    scripts/a8-claim-check.sh             # standing prose-staleness check
     scripts/compile.sh -r <round>         # build
+
+`counts.sh`, `numbered-status.sh` and `a5-r47-conditional.sh` are bash;
+`axioms.sh`, `a6-env-scan.sh` and `md2pdf.sh` are **zsh** and fail under bash —
+`${0:A:h}` and unquoted-array word-splitting are zsh-only.
