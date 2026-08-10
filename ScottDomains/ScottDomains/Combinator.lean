@@ -36,13 +36,13 @@ Gunter & Scott, *Semantic Domains*, §7.2, quoted from the source PDF:
 >
 > > `Fᵢ(ψ(a₁))(ψ(a₂))⋯(ψ(a_{sᵢ})) = ψ(oᵢ(a₁, a₂, …, a_{sᵢ}))`.
 
-This file is that proof. `thm26` is the displayed calculation and
-`thm26_subalgebra` its reading as "`A` is isomorphic to a subalgebra".
+This file is that proof. `theorem_26` is the displayed calculation and
+`theorem_26_subalgebra` its reading as "`A` is isomorphic to a subalgebra".
 
 ## Where `D` comes from
 
 `D` is the λ-calculus model of §7.2: a cpo with `D ≅ D → D` and `D ≅ D × D`.
-`Universality.thm25` produces exactly that, so `LambdaModel` — the applicative
+`Universality.theorem_25` produces exactly that, so `LambdaModel` — the applicative
 structure the proof consumes — is derived from a pair of order isomorphisms and
 nothing else (`LambdaModel.ofOrderIso`), and `exists_thm26_of_thm25` is Theorem 25
 feeding it.
@@ -67,7 +67,7 @@ Suppose `sᵢ = 0`. `Fᵢ` is one fixed element of `D`; a subalgebra of
 isomorphism of `A` onto a subalgebra must send `A`'s constant `oᵢ` to `Fᵢ`. Take
 two one-point algebras `A = {a}` and `B = {b}` with `a ≠ b`, both retracts of `D`.
 Both embeddings must hit that same `Fᵢ`, and the paper's own `ψ` satisfies
-`fst(ψ(x)) = x` (`thm26`'s first conjunct), so `a = fst(Fᵢ) = b` — a contradiction.
+`fst(ψ(x)) = x` (`theorem_26`'s first conjunct), so `a = fst(Fᵢ) = b` — a contradiction.
 The paper's construction breaks down before that: `Fᵢ` reads a slot *out of an
 argument*, and a 0-ary operation supplies no argument to read it out of.
 
@@ -567,8 +567,6 @@ theorem theorem_26 {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i) :
       fst_sndIter_psi, slotHom_apply, iterApp_cons]
     exact iterApp_WHom M (fst_psi M s o) (s i - 1) (M.app (o i) a) l hlen
 
-alias thm26 := theorem_26
-
 /-- **Theorem 26, subalgebra form.** If a subset `A ⊆ D` is closed under the
 operations `o₁, …, o_n`, then `ψ` is injective on `A` and `ψ '' A` is closed under
 the fixed operations `F₁, …, F_n` — i.e. `A` is isomorphic to a subalgebra of
@@ -580,12 +578,10 @@ theorem theorem_26_subalgebra {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i
       ∃ ψ : ScottHom D D, Set.InjOn ⇑ψ A ∧
         ∀ (i : Fin n) (l : List D), l.length = s i → (∀ b ∈ l, b ∈ A) →
           M.iterApp (M.combEval (F i)) (l.map ⇑ψ) ∈ ⇑ψ '' A := by
-  obtain ⟨F, hF⟩ := thm26 M s hs
+  obtain ⟨F, hF⟩ := theorem_26 M s hs
   refine ⟨F, fun A o hA => ?_⟩
   obtain ⟨ψ, hinj, _, heq⟩ := hF o
   exact ⟨ψ, hinj.injOn, fun i l hl hlA => ⟨M.iterApp (o i) l, hA i l hl hlA, (heq i l hl).symm⟩⟩
-
-alias thm26_subalgebra := theorem_26_subalgebra
 
 /-- **Theorem 26 at a retract.** `A` a retract of `D` — the paper's hypothesis —
 with operations induced from `D`'s. `φ = ψ ∘ e` is injective and carries the
@@ -599,7 +595,7 @@ theorem theorem_26_retract {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i)
     ∃ (F : Fin n → Comb) (φ : A → D), Function.Injective φ ∧
       ∀ (i : Fin n) (l : List A), l.length = s i →
         M.iterApp (M.combEval (F i)) (l.map φ) = φ (p (M.iterApp (o i) (l.map ⇑e))) := by
-  obtain ⟨F, hF⟩ := thm26 M s hs
+  obtain ⟨F, hF⟩ := theorem_26 M s hs
   obtain ⟨ψ, hinj, _, heq⟩ := hF o
   have hein : Function.Injective ⇑e := fun x y h => by rw [← hpe x, ← hpe y, h]
   refine ⟨F, fun a => ψ (e a), hinj.comp hein, fun i l hl => ?_⟩
@@ -615,8 +611,6 @@ theorem theorem_26_retract {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i)
   show ψ (M.iterApp (o i) (List.map ⇑e l)) = ψ (e (p (M.iterApp (o i) (List.map ⇑e l))))
   rw [← hc, hpe c]
 
-alias thm26_retract := theorem_26_retract
-
 end Theorem26
 
 /-! ## Theorem 26 over the domain Theorem 25 produces -/
@@ -631,9 +625,7 @@ constructs. -/
 theorem exists_lambdaModel_of_theorem_25 :
     ∃ (D : Cpo.{0}) (_ : LambdaModel D.carrier), Nontrivial D.carrier ∧
       Recursive.IsClosureOf D Recursive.powersetCpo := by
-  obtain ⟨D, hnt, hcl, ⟨q⟩, ⟨e⟩⟩ := thm25_powerset
+  obtain ⟨D, hnt, hcl, ⟨q⟩, ⟨e⟩⟩ := theorem_25_powerset
   exact ⟨D, LambdaModel.ofOrderIso e q, hnt, hcl⟩
-
-alias exists_lambdaModel_of_thm25 := exists_lambdaModel_of_theorem_25
 
 end ScottDomains.Combinator

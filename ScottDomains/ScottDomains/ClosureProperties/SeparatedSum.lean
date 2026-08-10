@@ -145,27 +145,23 @@ abbrev SeparatedSum (α β : Type*) [CompletePartialOrder α] [CompletePartialOr
   CoalescedSum (WithBot α) (WithBot β)
 
 /-- **Lemma 10, `D + E`.** The seventh and last conjunct: bounded completeness of
-`D⊥` and of `E⊥` is the lift conjunct `lem10_lift`, and the coalesced sum of two
-bounded complete domains is bounded complete by `lem10_sum`. `liftDomain` is what
-lets `lem10_sum` be applied at `D⊥` and `E⊥` — it demands *domains*, not merely
+`D⊥` and of `E⊥` is the lift conjunct `lemma_10_lift`, and the coalesced sum of two
+bounded complete domains is bounded complete by `lemma_10_sum`. `liftDomain` is what
+lets `lemma_10_sum` be applied at `D⊥` and `E⊥` — it demands *domains*, not merely
 cpo's. -/
 theorem lemma_10_separated [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (SeparatedSum α β) := by
-  haveI : BoundedComplete (WithBot α) := lem10_lift
-  haveI : BoundedComplete (WithBot β) := lem10_lift
-  exact lem10_sum
-
-alias lem10_separated := lemma_10_separated
+  haveI : BoundedComplete (WithBot α) := lemma_10_lift
+  haveI : BoundedComplete (WithBot β) := lemma_10_lift
+  exact lemma_10_sum
 
 /-- **Lemma 17, `D + E`.** The same composition at the bifinite conjuncts:
-`lem17_lift` then `lem17_sum`. No bounded completeness is needed anywhere — this
+`lemma_17_lift` then `lemma_17_sum`. No bounded completeness is needed anywhere — this
 is the operator's whole point in §6, where `E` is not assumed bounded
 complete. -/
 theorem lemma_17_separated [Domain α] [Domain β] (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
     IsBifinite (SeparatedSum α β) :=
-  lem17_sum (lem17_lift h₁) (lem17_lift h₂)
-
-alias lem17_separated := lemma_17_separated
+  lemma_17_sum (lemma_17_lift h₁) (lemma_17_lift h₂)
 
 /-! ### §4.4's universal property for `+` -/
 

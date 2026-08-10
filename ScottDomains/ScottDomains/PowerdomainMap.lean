@@ -41,7 +41,7 @@ continuous as a composite of two continuous maps. So Theorem 12 applies **with
 
     map f  :=  ext ({|·|} ∘ f)  :  D♮ → E♮.
 
-The `∃!` of `thm12` then delivers, in one step, the paper's whole sentence: `f♮`
+The `∃!` of `theorem_12` then delivers, in one step, the paper's whole sentence: `f♮`
 exists, it is a homomorphism, it satisfies the naturality equation
 `f♮ ∘ {|·|} = {|·|} ∘ f`, and it is the **only** map with those two properties.
 `exists_unique_map` below is that statement; the three named corollaries
@@ -91,11 +91,11 @@ functor laws — `map (p ∘ p) = map p ∘ map p` gives idempotence and
 Rows 1–8 are generic in the pre-order `A` presenting `Pf(K(D))`, so each holds at
 all three powerdomains at once; the three `hoare`/`smyth`/`plotkin` sections
 discharge the single ordering-specific obligation `hmono`, exactly as
-`thm12_hoare`, `thm12_smyth` and `thm12_plotkin` do for Theorem 12.
+`theorem_12_hoare`, `theorem_12_smyth` and `theorem_12_plotkin` do for Theorem 12.
 
 ## The one obligation that is not generic
 
-`thm12` leaves open `Monotone (foldGen ({|·|} ∘ f))` — that the fold
+`theorem_12` leaves open `Monotone (foldGen ({|·|} ∘ f))` — that the fold
 `{|f x₁|} ⋓ ⋯ ⋓ {|f xₙ|}` is monotone for the pre-order `A`. It is discharged by
 `fold_le_fold_of_hoare` under `T♭`, `fold_le_fold_of_smyth` under `T♯`, and
 `fold_le_fold_of_convex` under `T♮`, and the model conditions
@@ -213,12 +213,12 @@ there is a unique homomorphism `f♮ : D♮ → E♮` which makes the diagram co
 
 Existence and uniqueness both, and the predicate carries both conjuncts: `h` is a
 homomorphism of continuous algebras, and `h ∘ {|·|} = {|·|} ∘ f`. This is
-`thm12` with the free algebra `E♮` as target. -/
+`theorem_12` with the free algebra `E♮` as target. -/
 theorem exists_unique_map {f : D → E} (hf : ScottContinuous f)
     (hmono : Monotone (foldGen (A := A) (unitComp (B := B) f))) :
     ∃! h : IdealCompletion A → IdealCompletion B,
       IsHom h ∧ ∀ x : D, h (unit x) = unit (f x) :=
-  thm12 (scottContinuous_unitComp hf) hmono
+  theorem_12 (scottContinuous_unitComp hf) hmono
 
 /-! ### The functor laws
 

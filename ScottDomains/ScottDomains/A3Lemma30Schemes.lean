@@ -4,15 +4,15 @@ import ScottDomains.A4PowerdomainRep
 /-!
 # r0046, agent3: Lemma 30's missing representation schemes
 
-r0045's agent3 measured `LemThirty.Lemma30AtV` as short **three `PRep` schemes** —
+r0045's agent3 measured `Lemma30.Lemma30AtV` as short **three `PRep` schemes** —
 `(·)♯`, `(·)♭` and `(·)♮` — and routed them to another stream. Measured again on
 this branch, after r0045 merged:
 
 | # | Conjunct | Retraction pair over `V` | `PRep` scheme | Where the scheme is |
 | -- | -------- | ------------------------ | ------------- | ------------------- |
-| 8 | `(·)♯` | `LemThirty.retracts_smyth` | **exists** | `R45.Agent4.rep_smyth` |
-| 9 | `(·)♭` | `LemThirty.retracts_hoare` | **exists** | `R45.Agent4.rep_hoare` |
-| 10 | `(·)♮` | `LemThirty.retracts_plotkin` | **absent** | built here |
+| 8 | `(·)♯` | `Lemma30.retracts_smyth` | **exists** | `R45.Agent4.rep_smyth` |
+| 9 | `(·)♭` | `Lemma30.retracts_hoare` | **exists** | `R45.Agent4.rep_hoare` |
+| 10 | `(·)♮` | `Lemma30.retracts_plotkin` | **absent** | built here |
 
 So **the count was three when the r0045 report was written and one when this round
 opened**: r0045's agent4 discharged `SmythImageIso`, `SmythFamilyLUB`,
@@ -47,7 +47,7 @@ appears below**; it was all spent inside `foldMono_plotkin`, which is r0041's.
 
 ## `(·)♮` over `V`, not over `U` — the paper says so
 
-§7.4's opening sentence, quoted at `LemThirty.lean:166`: "The convex powerdomain
+§7.4's opening sentence, quoted at `Lemma30.lean:166`: "The convex powerdomain
 `(·)♮` cannot be representable over `U` because it does not preserve bounded
 completeness." That is why `(·)♮` is Lemma 30's tenth conjunct and not one of
 Lemma 28's nine, and it is why there is no `repPlotkinAtU` here to match
@@ -56,19 +56,19 @@ kernel-checked witness for the paper's sentence, and
 `Powerdomain/BoundedComplete.lean` correspondingly proves Lemma 13 for `(·)♯` and
 `(·)♭` and not for `(·)♮`.
 
-Over `V` the retraction pair is `LemThirty.retracts_plotkin`, which takes
-`Thm29SecondAtDomains` — open, and implied by `Thm29Normal`.
+Over `V` the retraction pair is `Lemma30.retracts_plotkin`, which takes
+`Theorem29SecondAtDomains` — open, and implied by `Theorem29Normal`.
 
 ## What this leaves
 
-`lemma30AtV_of_thm29Normal_of_arrows` proves `Lemma30AtV` from `Thm29Normal`
-together with conjuncts 1 and 2 — arity 3, against `LemThirty.lemma30_of`'s arity
-10. Eight of the ten conjuncts now follow from `Thm29Normal` alone
+`lemma_30_atV_of_thm29Normal_of_arrows` proves `Lemma30AtV` from `Theorem29Normal`
+together with conjuncts 1 and 2 — arity 3, against `Lemma30.lemma_30_of`'s arity
+10. Eight of the ten conjuncts now follow from `Theorem29Normal` alone
 (`eight_conjuncts_of_thm29Normal`); r0045 had five.
 
 The two that do not are `→` and `⇸`, and they are blocked for a reason this
 development has already measured rather than for a missing scheme:
-`R45.Agent3.not_boundedComplete_V` proves `Thm29SecondAtDomains → ¬ BoundedComplete
+`R45.Agent3.not_boundedComplete_V` proves `Theorem29SecondAtDomains → ¬ BoundedComplete
 V`, while `PRepFun.rep_arrow` and `PRepFun.rep_strictArrow` — the only routes to
 those two conjuncts here — both carry `[BoundedComplete U]`. So conjuncts 1 and 2
 are unreachable *in this development* for as long as Theorem 29's second sentence
@@ -80,7 +80,7 @@ namespace ScottDomains.R46.Agent3
 
 open ScottDomains ScottDomains.BifiniteUniversal ScottDomains.PRep
 open ScottDomains.PowerdomainMap ScottDomains.PowerdomainMap.Rep
-open ScottDomains.Colimit ScottDomains.LemThirty
+open ScottDomains.Colimit ScottDomains.Lemma30
 open ScottHom
 
 universe u
@@ -89,7 +89,7 @@ universe u
 
 Token-for-token `PowerdomainMap.Rep.smythFamily` and its three companions, with
 `plotkin` for `smyth`. Stated here rather than in `PowerdomainMapRep.lean` because
-the operator `plotkinOp` lives in `LemThirty`, which that file does not import. -/
+the operator `plotkinOp` lives in `Lemma30`, which that file does not import. -/
 
 section Family
 
@@ -172,11 +172,11 @@ theorem plotkinFamilyLUB {d : Set ↥(Fp U)} (hne : d.Nonempty)
     (fun p => PowerdomainMap.foldMono_plotkin p.val.scottContinuous) hne hd ha y
 
 /-- `im(p♮)` is a domain: `Domain ((im p)♮)` is Theorem 11 at the domain `im p`
-(`LemThirty.domain_plotkinOp`), transported along `plotkinImageIso`. -/
+(`Lemma30.domain_plotkinOp`), transported along `plotkinImageIso`. -/
 theorem domain_range_plotkinFamily (p : ↥(Fp U)) :
     @Domain _ (IsProjection.rangeCompletePartialOrder (isProjection_plotkinFamily p)) := by
   haveI : Domain (FpImage p).carrier := (mem_Fp.mp p.2).domain
-  haveI : Domain (plotkinOp (FpImage p)).carrier := LemThirty.domain_plotkinOp (FpImage p)
+  haveI : Domain (plotkinOp (FpImage p)).carrier := Lemma30.domain_plotkinOp (FpImage p)
   letI : CompletePartialOrder ↥(Set.range ⇑(plotkinFamily p)) :=
     IsProjection.rangeCompletePartialOrder (isProjection_plotkinFamily p)
   exact domain_orderIso (plotkinImageIso p).some.symm
@@ -200,34 +200,34 @@ end Family
 /-! ## 3. The three powerdomain conjuncts at `V` -/
 
 /-- **Conjunct 8 of Lemma 30: `(·)♯` is p-representable over `V`.**
-`R45.Agent4.rep_smyth` at `U := V`, with `LemThirty.retracts_smyth`'s pair. -/
-theorem repSmythAtV (h : Thm29SecondAtDomains) : IsPRepresentable V PRep.smythOp := by
-  obtain ⟨_gr, _fn, hfg, hgf⟩ := LemThirty.retracts_smyth h
+`R45.Agent4.rep_smyth` at `U := V`, with `Lemma30.retracts_smyth`'s pair. -/
+theorem repSmythAtV (h : Theorem29SecondAtDomains) : IsPRepresentable V PRep.smythOp := by
+  obtain ⟨_gr, _fn, hfg, hgf⟩ := Lemma30.retracts_smyth h
   exact R45.Agent4.rep_smyth hfg hgf
 
 /-- **Conjunct 9 of Lemma 30: `(·)♭` is p-representable over `V`.** -/
-theorem repHoareAtV (h : Thm29SecondAtDomains) : IsPRepresentable V PRep.hoareOp := by
-  obtain ⟨_gr, _fn, hfg, hgf⟩ := LemThirty.retracts_hoare h
+theorem repHoareAtV (h : Theorem29SecondAtDomains) : IsPRepresentable V PRep.hoareOp := by
+  obtain ⟨_gr, _fn, hfg, hgf⟩ := Lemma30.retracts_hoare h
   exact R45.Agent4.rep_hoare hfg hgf
 
 /-- **Conjunct 10 of Lemma 30: `(·)♮` is p-representable over `V`** — the conjunct
 §7.4 exists for, and the one no scheme reached before this module. -/
-theorem repPlotkinAtV (h : Thm29SecondAtDomains) : IsPRepresentable V plotkinOp := by
-  obtain ⟨_gr, _fn, hfg, hgf⟩ := LemThirty.retracts_plotkin h
+theorem repPlotkinAtV (h : Theorem29SecondAtDomains) : IsPRepresentable V plotkinOp := by
+  obtain ⟨_gr, _fn, hfg, hgf⟩ := Lemma30.retracts_plotkin h
   exact rep_plotkin hfg hgf
 
-/-! ## 4. Eight of Lemma 30's ten conjuncts from `Thm29Normal` alone -/
+/-! ## 4. Eight of Lemma 30's ten conjuncts from `Theorem29Normal` alone -/
 
-/-- **Eight conjuncts of Lemma 30 follow from `Thm29Normal`.**
+/-- **Eight conjuncts of Lemma 30 follow from `Theorem29Normal`.**
 
 `R45.Agent3.five_conjuncts_of_thm29Normal` had five — `×`, `⊗`, `+`, `⊕`, `(·)⊥`.
 The three powerdomain conjuncts join them: two because r0045's agent4 discharged
 the Smyth and Hoare obligations, one because `rep_plotkin` above is new.
 
-The hypothesis is `Thm29Normal` itself, with no instance binder added; the
-retraction pairs come through `thm29SecondAtDomains_of_thm29Normal`, which is
+The hypothesis is `Theorem29Normal` itself, with no instance binder added; the
+retraction pairs come through `theorem_29_secondAtDomains_of_thm29Normal`, which is
 proved. -/
-theorem eight_conjuncts_of_thm29Normal (h : Thm29Normal) :
+theorem eight_conjuncts_of_thm29Normal (h : Theorem29Normal) :
     IsPRepresentable₂ V PRep.prodOp ∧
     IsPRepresentable₂ V PRep.smashOp ∧
     IsPRepresentable₂ V PRep.sepSumOp ∧
@@ -236,31 +236,29 @@ theorem eight_conjuncts_of_thm29Normal (h : Thm29Normal) :
     IsPRepresentable V PRep.smythOp ∧
     IsPRepresentable V PRep.hoareOp ∧
     IsPRepresentable V plotkinOp :=
-  let h' := LemThirty.thm29SecondAtDomains_of_thm29Normal h
-  ⟨LemThirty.rep_prod_V h', R45.Agent3.rep_smash_V h', R45.Agent3.rep_sepSum_V h',
-    R45.Agent3.rep_coalSum_V h', LemThirty.rep_lift_V h', repSmythAtV h', repHoareAtV h',
+  let h' := Lemma30.theorem_29_secondAtDomains_of_thm29Normal h
+  ⟨Lemma30.rep_prod_V h', R45.Agent3.rep_smash_V h', R45.Agent3.rep_sepSum_V h',
+    R45.Agent3.rep_coalSum_V h', Lemma30.rep_lift_V h', repSmythAtV h', repHoareAtV h',
     repPlotkinAtV h'⟩
 
-/-- **`Lemma30AtV` from `Thm29Normal` and its two arrow conjuncts.**
+/-- **`Lemma30AtV` from `Theorem29Normal` and its two arrow conjuncts.**
 
-Arity 3, against `LemThirty.lemma30_of`'s arity 10 and r0045's implicit arity 6.
+Arity 3, against `Lemma30.lemma_30_of`'s arity 10 and r0045's implicit arity 6.
 The two remaining hypotheses are conjuncts 1 and 2, `→` and `⇸`, and
 `R45.Agent3.not_boundedComplete_V` is why they cannot be supplied here: it proves
-`Thm29SecondAtDomains → ¬ BoundedComplete V`, and `PRepFun.rep_arrow` and
+`Theorem29SecondAtDomains → ¬ BoundedComplete V`, and `PRepFun.rep_arrow` and
 `PRepFun.rep_strictArrow` are this development's only routes to those conjuncts,
 both under `[BoundedComplete U]`.
 
 So `Lemma30AtV` is now **open at exactly two named obstructions** — [Gun87]'s
-`Thm29Normal`, and the development's own bounded-completeness route to
+`Theorem29Normal`, and the development's own bounded-completeness route to
 `Domain (D → E)`. Neither is a missing representation scheme; that gap is closed. -/
-theorem lemma_30_atV_of_thm29Normal_of_arrows (h : Thm29Normal)
+theorem lemma_30_atV_of_thm29Normal_of_arrows (h : Theorem29Normal)
     (h_arrow : IsPRepresentable₂ V PRep.funOp)
     (h_strictArrow : IsPRepresentable₂ V PRep.strictFunOp) :
-    LemThirty.Lemma30AtV :=
+    Lemma30.Lemma30AtV :=
   let hs := eight_conjuncts_of_thm29Normal h
   ⟨h_arrow, h_strictArrow, hs.1, hs.2.1, hs.2.2.1, hs.2.2.2.1, hs.2.2.2.2.1,
     hs.2.2.2.2.2.1, hs.2.2.2.2.2.2.1, hs.2.2.2.2.2.2.2⟩
-
-alias lemma30AtV_of_thm29Normal_of_arrows := lemma_30_atV_of_thm29Normal_of_arrows
 
 end ScottDomains.R46.Agent3

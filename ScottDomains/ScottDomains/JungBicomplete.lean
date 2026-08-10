@@ -9,7 +9,7 @@ import Mathlib.SetTheory.Cardinal.Order
 # Jung's Theorem 1.37: the ingredients that are order theory
 
 `ScottDomains/JungNets.lean` states Jung's **Theorem 1.37** — *a dcpo with
-continuous function space is bicomplete* — as the unproved `Prop` `Thm137`, and
+continuous function space is bicomplete* — as the unproved `Prop` `Theorem137`, and
 lists five ingredients its proof needs. This file proves the three of them that
 are order theory over what the development already has, and states the two that
 are not.
@@ -57,7 +57,7 @@ quoted rather than paraphrased.
 | 3 | **Proposition 1.8**, interpolation | `IsContinuousDcpo.exists_wayBelow_wayBelow` |
 | 4 | §1.3 definition of a retraction–embedding pair | `IsRetractPair` |
 | 5 | a retract of a continuous dcpo is continuous | `IsContinuousDcpo.of_retractPair` |
-| 6 | **Proposition 1.22** | `sandwichHom`, `IsRetractPair.sandwichHom`, `prop122` |
+| 6 | **Proposition 1.22** | `sandwichHom`, `IsRetractPair.sandwichHom`, `jung_proposition_1_22` |
 | 7 | "`αᵒᵖ`" as a property of a *set* | `IsOrdinalCodirected`, `.isChain` |
 | 8 | `D′ = A ∪ αᵒᵖ` is closed under least upper bounds | `isLUB_mem_union` |
 | 9 | **Corollary 1.3, for chains, without Iwamura's lemma** | `exists_coinitial_isOrdinalCodirected`, `hasChainInfima_of_forall_isOrdinalCodirected` |
@@ -96,7 +96,7 @@ Theorem 18 does not ask for.
 
 * **The retraction `r` onto `A ∪ αᵒᵖ`** is what supplies
   `exists_isGLB_of_forall_not_mapsTo`'s `hcover` hypothesis and, through
-  `prop122`, its `IsContinuousDcpo (ScottHom D' D')`. Half of it is here:
+  `jung_proposition_1_22`, its `IsContinuousDcpo (ScottHom D' D')`. Half of it is here:
   `isLUB_mem_union` shows `A ∪ αᵒᵖ` is closed under least upper bounds, so it is
   a sub-dcpo and the phrase "the function space of `D′ = A ∪ αᵒᵖ`" means
   something, and `isGLB_image_of_isGLB` discharges the step Jung never states —
@@ -142,7 +142,7 @@ itself from it (Theorem 1.35, via Proposition 1.34 — agent1's stream). This fi
 takes continuity of `D′` as a hypothesis (`IsContinuousDcpo D'`) alongside
 continuity of `[D′ → D′]` rather than deriving it, because Proposition 1.34 is
 not on disk. `isContinuousDcpo_of_isAlgebraic` discharges it whenever the domain
-at hand is algebraic, which is the case `Thm137` is consumed in.
+at hand is algebraic, which is the case `Theorem137` is consumed in.
 -/
 
 namespace ScottDomains.JungBicomplete
@@ -173,7 +173,7 @@ theorem wayBelowSet_nonempty (x : D) : (wayBelowSet x).Nonempty :=
 > directed and `⋁↑↡x = x`.
 
 The development has `IsAlgebraic` but no predicate for a *continuous* dcpo, which
-is what `JungNets.lean` records as the reason `Thm137` is stated with the
+is what `JungNets.lean` records as the reason `Theorem137` is stated with the
 stronger `IsAlgebraic (ScottHom D D)` in place of Jung's hypothesis. This is that
 predicate. -/
 def IsContinuousDcpo (D : Type*) [CompletePartialOrder D] : Prop :=
@@ -247,15 +247,15 @@ theorem IsContinuousDcpo.exists_wayBelow_wayBelow (hD : IsContinuousDcpo D) {x y
   obtain ⟨a, ⟨a', haa', ha'y⟩, hxa⟩ := h A y hAne hAdir hAlub le_rfl
   exact ⟨a', hxa.trans_wayBelow haa', ha'y⟩
 
-/-- **The bridge to `JungNets.Thm137`'s hypothesis.** `Thm137 D` reads
+/-- **The bridge to `JungNets.Theorem137`'s hypothesis.** `Theorem137 D` reads
 `IsAlgebraic (ScottHom D D) → IsBicomplete D`, the antecedent standing in for
 Jung's "continuous function space" because the development had no predicate for a
 continuous dcpo. It now has one, and the antecedent implies it — so the `hFS`
-hypothesis of `exists_isGLB_of_forall_not_mapsTo` and of `prop122` is exactly
-what `Thm137` hands over, with no gap and no further deviation.
+hypothesis of `exists_isGLB_of_forall_not_mapsTo` and of `jung_proposition_1_22` is exactly
+what `Theorem137` hands over, with no gap and no further deviation.
 
 Stated with the algebraicity as an explicit argument rather than an instance,
-because that is how `Thm137` carries it. -/
+because that is how `Theorem137` carries it. -/
 theorem isContinuousDcpo_scottHom_of_isAlgebraic (h : IsAlgebraic (ScottHom D D)) :
     IsContinuousDcpo (ScottHom D D) :=
   @isContinuousDcpo_of_isAlgebraic _ _ h
@@ -430,8 +430,6 @@ theorem jung_proposition_1_22 (h : IsRetractPair r i) (hFS : IsContinuousDcpo (S
     IsContinuousDcpo (ScottHom E E) :=
   IsContinuousDcpo.of_retractPair h.sandwichHom hFS
 
-alias prop122 := jung_proposition_1_22
-
 end Retract
 
 /-! ## `D′ = A ∪ αᵒᵖ` is a sub-dcpo -/
@@ -505,7 +503,7 @@ subset that is `IsOrdinalCodirected`, coinitial subsets have the same lower
 bounds, and therefore the same infima.
 
 Iwamura is what carries *filtered sets* to chains, and only that. Since
-`JungNets.HasChainInfima` — which `Thm18` is now known to be the only consumer of
+`JungNets.HasChainInfima` — which `Theorem18` is now known to be the only consumer of
 — already starts from a chain, that step is never taken. -/
 
 /-- **Every nonempty chain has a coinitial subset well-ordered by `≥`.**
@@ -559,12 +557,12 @@ theorem lowerBounds_eq_of_coinitial {C C' : Set D} (hsub : C' ⊆ C)
   exact (hx hb).trans hbc
 
 /-- **`JungNets.HasChainInfima` reduces to the ordinal-codirected case, free of
-charge.** `Thm137Chains D` is `IsAlgebraic (ScottHom D D) → HasChainInfima D`, and
+charge.** `Theorem137Chains D` is `IsAlgebraic (ScottHom D D) → HasChainInfima D`, and
 r0042's stream 5 measured that `HasChainInfima` is the *only* strength Theorem 18
 spends — `JungNets.exists_minimal_upperBounds_le` obtains property m by Zorn
 downwards, and Zorn quantifies over chains.
 
-So the route to `Thm137Chains` is: this theorem, then Jung's argument at an
+So the route to `Theorem137Chains` is: this theorem, then Jung's argument at an
 `IsOrdinalCodirected` set, which is `exists_isGLB_of_forall_not_mapsTo` modulo the
 retraction and the `g_β` family. **Corollary 1.3 and Iwamura's lemma do not
 appear.** They are needed only for the filtered sets that full bicompleteness

@@ -14,17 +14,17 @@ Gunter & Scott, *Semantic Domains*, §2.3 (printed p. 7):
 
 ## Why this file exists
 
-`UniformFixedPoint.lean` proves `theorem3`: *every* uniform fixed point operator
+`UniformFixedPoint.lean` proves `theorem_3`: *every* uniform fixed point operator
 equals `fix`. That is the uniqueness half. The existence half — that `fix` is
 itself uniform — the paper leaves to the reader, and the development left it
 undone: the r0040 property audit found that the docstring at
 `UniformFixedPoint.lean:168` *declines to assert* the claim rather than asserting
-it, so `theorem3` was a uniqueness theorem with its existence half missing. A
+it, so `theorem_3` was a uniqueness theorem with its existence half missing. A
 uniqueness statement about a class that has not been shown nonempty is
 vacuous-safe but says strictly less than the paper's theorem, which asserts that
 `fix` *is* the unique uniform operator.
 
-`kleeneOperator_isUniform` supplies existence, and `theorem3_existsUnique` is
+`kleeneOperator_isUniform` supplies existence, and `theorem_3_existsUnique` is
 then the paper's sentence in one statement: `∃! F, F.IsUniform`.
 
 ## The proof of uniformity
@@ -44,7 +44,7 @@ need not start together.
 
 The paper's definition asks a fixed point operator to be a class of *continuous*
 functions `F_D : (D → D) → D`. `FixedPointOperator` deliberately omits that
-hypothesis, because `theorem3`'s uniqueness proof does not use it and dropping it
+hypothesis, because `theorem_3`'s uniqueness proof does not use it and dropping it
 strengthens the theorem. `scottContinuous_kleeneOperator_op` records that `fix`
 satisfies it anyway, by `Kleene.scottContinuous_kleeneFix` — so the existence
 witness meets the paper's definition in full, not only the weakened one.
@@ -93,7 +93,7 @@ end Commuting
 
 /-- Each `fix_D` is continuous, so `fix` satisfies the paper's own definition of
 a fixed point operator in full — `FixedPointOperator` omits the continuity
-requirement because `theorem3` does not need it. -/
+requirement because `theorem_3` does not need it. -/
 theorem scottContinuous_kleeneOperator_op (D : Type u) [CompletePartialOrder D] :
     ScottContinuous (kleeneOperator.op D) :=
   scottContinuous_kleeneFix
@@ -104,7 +104,7 @@ theorem kleeneOperator_isUniform : (kleeneOperator.{u}).IsUniform := by
   intro D E _ _ f g h hbot hsq
   exact map_kleeneFix_of_commutes f.monotone g.monotone h.scottContinuous hbot hsq
 
-/-- Two uniform fixed point operators are equal. `theorem3` sends each to `fix`
+/-- Two uniform fixed point operators are equal. `theorem_3` sends each to `fix`
 pointwise, and a `FixedPointOperator` is determined by its `op` field. -/
 theorem eq_of_isUniform {F G : FixedPointOperator.{u}} (hF : F.IsUniform)
     (hG : G.IsUniform) : F = G := by
@@ -113,7 +113,7 @@ theorem eq_of_isUniform {F G : FixedPointOperator.{u}} (hF : F.IsUniform)
   have h : opF = opG := by
     funext D inst f
     letI := inst
-    exact (theorem3 ⟨opF, hopF⟩ hF D f).trans (theorem3 ⟨opG, hopG⟩ hG D f).symm
+    exact (theorem_3 ⟨opF, hopF⟩ hF D f).trans (theorem_3 ⟨opG, hopG⟩ hG D f).symm
   subst h
   rfl
 
@@ -121,11 +121,9 @@ theorem eq_of_isUniform {F G : FixedPointOperator.{u}} (hF : F.IsUniform)
 operator: the class of uniform fixed point operators has exactly one member, and
 `kleeneOperator` is it.
 
-`UniformFixedPoint.theorem3` alone gives only the uniqueness half; the existence
+`UniformFixedPoint.theorem_3` alone gives only the uniqueness half; the existence
 half is `kleeneOperator_isUniform`. -/
 theorem theorem_3_existsUnique : ∃! F : FixedPointOperator.{u}, F.IsUniform :=
   ⟨kleeneOperator, kleeneOperator_isUniform, fun _ hG => eq_of_isUniform hG kleeneOperator_isUniform⟩
-
-alias theorem3_existsUnique := theorem_3_existsUnique
 
 end ScottDomains.Kleene

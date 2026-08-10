@@ -16,7 +16,7 @@ Four of the sixteen are stale:
 
 | # | Row | r0040/r0043 label | Now | Evidence in this tree |
 | -- | --- | ----------------- | --- | --------------------- |
-| 1 | Thm 18 (§6) | `S+H` | `S+P` | `Skeleton.Section6.thm18`, no `Prop` hypothesis |
+| 1 | Thm 18 (§6) | `S+H` | `S+P` | `Skeleton.Section6.theorem_18`, no `Prop` hypothesis |
 | 2 | Lem 28, `(·)♯` | `S+H` | `S+P` | `R45.Agent4.repSmythAtU`, arity 0 |
 | 3 | Lem 28, `(·)♭` | `S+H` | `S+P` | `R45.Agent4.repHoareAtU`, arity 0 |
 | 4 | `StepFunctionsDecidable` | `S+H` | not an `S+H` row | a `Prop`-valued `def` nobody attempted; r0043 recorded it as "the nearest fit" and flagged that the taxonomy conflates the two |
@@ -24,13 +24,13 @@ Four of the sixteen are stale:
 The remaining **12 are §7 alone**, and `scripts/a5-r47-conditional.sh` measures
 that this is the *whole* conditional surface of the package: every declaration in
 the library that takes an open or refuted claim as a hypothesis lives in
-`Colimit.lean`, `LemThirty.lean`, `A3Thm29.lean`, `A3Lemma30Schemes.lean` or
+`Colimit.lean`, `Lemma30.lean`, `A3Thm29.lean`, `A3Lemma30Schemes.lean` or
 `Effective/FunctionSpace.lean`. **No `S+H` row has appeared in §§2–6 since
 r0040** — the six rounds of edits since that measurement added none.
 
 ## The 12 rows have exactly two missing inputs
 
-Ten of the twelve follow from `Thm29Normal` alone, and `nine_props_ten_rows` below
+Ten of the twelve follow from `Theorem29Normal` alone, and `nine_props_ten_rows` below
 is the kernel's record of it — nine propositions covering ten inventory rows,
 because the prose row "`R♮(p) = Ψ♮ ∘ (p♮) ∘ Φ♮` represents the convex powerdomain"
 and Lemma 30's tenth conjunct are the same Lean proposition.
@@ -39,19 +39,19 @@ The other two are Lemma 30's conjuncts 1 (`→`) and 2 (`⇸`).
 
 ## What this module adds: the conjunct-1/2 obstruction, sharpened
 
-`LemThirty.retracts_fun_of_boundedComplete` and
+`Lemma30.retracts_fun_of_boundedComplete` and
 `retracts_strictFun_of_boundedComplete` are the development's only route to those
-two conjuncts. They take **two** hypotheses, `Colimit.Thm29Second` and
+two conjuncts. They take **two** hypotheses, `Colimit.Theorem29Second` and
 `[BoundedComplete V]`, and both are dead:
 
-1. `Colimit.Thm29Second` is **refuted** (`R45.Agent3.not_thm29Second`), so those
+1. `Colimit.Theorem29Second` is **refuted** (`R45.Agent3.not_thm29Second`), so those
    two declarations are vacuous as they stand. Five further declarations in
-   `LemThirty.lean` are vacuous for the same reason; three of the five
+   `Lemma30.lean` are vacuous for the same reason; three of the five
    (`retracts_smash`, `retracts_sepSum`, `retracts_coalSum`) already have
    non-vacuous successors in `A3Thm29.lean`, and these two do not.
 2. Repairing them to the live hypothesis does not help, and
    `not_thm29SecondAtDomains_and_boundedComplete_V` is the kernel's record of
-   why: `{Thm29SecondAtDomains, BoundedComplete V}` is a **contradictory**
+   why: `{Theorem29SecondAtDomains, BoundedComplete V}` is a **contradictory**
    hypothesis set, by `R45.Agent3.not_boundedComplete_V`. `A3Thm29.lean:356-363`
    states this consequence in prose; here it is a theorem.
 
@@ -60,7 +60,7 @@ only replaced.
 
 ## Locating the remaining step: `¬ BoundedComplete V`, unconditionally
 
-`not_boundedComplete_V` is conditional on `Thm29SecondAtDomains`, which is itself
+`not_boundedComplete_V` is conditional on `Theorem29SecondAtDomains`, which is itself
 open. An **unconditional** `¬ BoundedComplete Colimit.V` would settle conjuncts 1
 and 2's route dead regardless of how Theorem 29 turns out. This module reduces
 that to a finite, purely order-theoretic fact.
@@ -102,13 +102,13 @@ on a finite poset rather than domain theory.
 namespace ScottDomains.R47.Agent5
 
 open ScottDomains ScottDomains.BifiniteUniversal ScottDomains.PRep
-open ScottDomains.Colimit ScottDomains.LemThirty
+open ScottDomains.Colimit ScottDomains.Lemma30
 
 universe u
 
 /-! ## 1. Ten of the twelve rows, from one missing input -/
 
-/-- **Ten `S+H` rows from `Thm29Normal` alone**, as one proposition the kernel
+/-- **Ten `S+H` rows from `Theorem29Normal` alone**, as one proposition the kernel
 checks.
 
 Nine conjuncts covering ten rows of the property inventory: row 23 is Theorem
@@ -116,12 +116,12 @@ Nine conjuncts covering ten rows of the property inventory: row 23 is Theorem
 conjuncts 3–10, and the prose row "`R♮(p)` represents the convex powerdomain" is
 Lemma 30's tenth conjunct restated, so it is carried by the same conjunct.
 
-The hypothesis is `Thm29Normal` **exactly as stated, with no added instance
-binder** — the composition is `LemThirty.thm29SecondAtDomains_of_thm29Normal`
+The hypothesis is `Theorem29Normal` **exactly as stated, with no added instance
+binder** — the composition is `Lemma30.theorem_29_secondAtDomains_of_thm29Normal`
 with `R46.Agent3.eight_conjuncts_of_thm29Normal`. Rows 24 and 25, Lemma 30's
 conjuncts 1 and 2, are the two this does not reach; §2 below is why. -/
-theorem nine_props_ten_rows (h : LemThirty.Thm29Normal) :
-    LemThirty.Thm29SecondAtDomains ∧
+theorem nine_props_ten_rows (h : Lemma30.Theorem29Normal) :
+    Lemma30.Theorem29SecondAtDomains ∧
     IsPRepresentable₂ V PRep.prodOp ∧
     IsPRepresentable₂ V PRep.smashOp ∧
     IsPRepresentable₂ V PRep.sepSumOp ∧
@@ -129,25 +129,25 @@ theorem nine_props_ten_rows (h : LemThirty.Thm29Normal) :
     IsPRepresentable V PRep.liftOp ∧
     IsPRepresentable V PRep.smythOp ∧
     IsPRepresentable V PRep.hoareOp ∧
-    IsPRepresentable V LemThirty.plotkinOp :=
-  ⟨LemThirty.thm29SecondAtDomains_of_thm29Normal h,
+    IsPRepresentable V Lemma30.plotkinOp :=
+  ⟨Lemma30.theorem_29_secondAtDomains_of_thm29Normal h,
     R46.Agent3.eight_conjuncts_of_thm29Normal h⟩
 
 /-! ## 2. Conjuncts 1 and 2: the route is contradictory, not merely open -/
 
-/-- **`Thm29SecondAtDomains` and `BoundedComplete V` cannot both hold.**
+/-- **`Theorem29SecondAtDomains` and `BoundedComplete V` cannot both hold.**
 
 `A3Thm29.lean:356-363` draws this consequence in prose — "those two conjuncts are
 unreachable here for as long as Theorem 29's second sentence is assumed" — from
 `R45.Agent3.not_boundedComplete_V`. This is that sentence as a theorem.
 
-Its force: repairing `LemThirty.retracts_fun_of_boundedComplete` from the refuted
-`Colimit.Thm29Second` to the live `Thm29SecondAtDomains`, which is what
+Its force: repairing `Lemma30.retracts_fun_of_boundedComplete` from the refuted
+`Colimit.Theorem29Second` to the live `Theorem29SecondAtDomains`, which is what
 `A3Thm29.lean` did for `⊗`, `+` and `⊕`, **would not help** — the repaired
 statement would still have an uninhabitable hypothesis set. Lemma 30's conjuncts
 1 and 2 need a different route to `Domain (ScottHom V V)`, not a repaired one. -/
 theorem not_thm29SecondAtDomains_and_boundedComplete_V :
-    ¬ (LemThirty.Thm29SecondAtDomains ∧ BoundedComplete Colimit.V) :=
+    ¬ (Lemma30.Theorem29SecondAtDomains ∧ BoundedComplete Colimit.V) :=
   fun h => R45.Agent3.not_boundedComplete_V h.1 h.2
 
 /-! ## 3. Reducing `¬ BoundedComplete V` to a finite check in `Ainf`
@@ -219,7 +219,7 @@ the previous theorem at that base. Discharging its hypothesis would make Lemma
 30's conjuncts 1 and 2 unreachable by `PRepFun.rep_arrow` and
 `rep_strictArrow` **unconditionally**, where
 `R45.Agent3.not_boundedComplete_V` reaches the same conclusion only under the
-open `Thm29SecondAtDomains`.
+open `Theorem29SecondAtDomains`.
 
 **This is the missing input, named exactly**: two elements of `Ainf` with two
 distinct minimal upper bounds. `Ainf` is the antisymmetrization of the colimit of

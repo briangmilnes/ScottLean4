@@ -99,7 +99,7 @@ noncomputable def sbFix (f : S → T) (g : T → S) : Set T := kleeneFix (sbOp f
 
 theorem isLeast_sbFix (f : S → T) (g : T → S) :
     IsLeast {Y | sbOp f g Y = Y} (sbFix f g) :=
-  theorem1 (scottContinuous_sbOp f g)
+  theorem_1 (scottContinuous_sbOp f g)
 
 theorem sbOp_sbFix (f : S → T) (g : T → S) : sbOp f g (sbFix f g) = sbFix f g :=
   (isLeast_sbFix f g).1
@@ -214,7 +214,5 @@ theorem theorem_2 (f : S → T) (g : T → S) (hf : Function.Injective f)
       rw [sbFix_sdiff hf hY] at hmem
       obtain ⟨x, hx, rfl⟩ := hmem
       exact ⟨x, sbBij_neg f fun hc => hx.2 ((mem_extension_iff g (sbFix f g) x).mpr hc)⟩
-
-alias theorem2 := theorem_2
 
 end ScottDomains.R48.Agent1

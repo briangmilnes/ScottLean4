@@ -5,7 +5,7 @@ import ScottDomains.A3Lemma30Schemes
 /-!
 # `FpImagesBifinite`: bifinite domains are closed under projections
 
-r0047's agent4 reduced conjuncts 1 and 2 of `LemThirty.Lemma30AtV` to exactly one
+r0047's agent4 reduced conjuncts 1 and 2 of `Lemma30.Lemma30AtV` to exactly one
 proposition,
 
 > `R47.Agent4.FpImagesBifinite U` — every finitary-projection image of `U` is
@@ -60,7 +60,7 @@ algebraic bifinite `U`, `fpImagesBifinite_V` instantiates it at `Colimit.V`
 through `Colimit.isBifinite_V`, and `rep_fun_V_of_thm29Second` /
 `rep_strictFun_V_of_thm29Second` drop the hypothesis from r0047's `rep_fun_V` and
 `rep_strictFun_V`. Conjuncts 1 and 2 of `Lemma30AtV` now follow from
-`LemThirty.Thm29SecondAtDomains` alone, with no bounded-completeness binder and
+`Lemma30.Theorem29SecondAtDomains` alone, with no bounded-completeness binder and
 no added instance binder.
 -/
 
@@ -225,7 +225,7 @@ end Projection
 
 /-! ### At `V` -/
 
-open Colimit LemThirty
+open Colimit Lemma30
 
 /-- **`FpImagesBifinite V`**, unconditionally: `Colimit.isBifinite_V` supplies the
 hypothesis and `Colimit.domain_V` the algebraicity. -/
@@ -235,32 +235,30 @@ theorem fpImagesBifinite_V : R47.Agent4.FpImagesBifinite V :=
 /-- **Conjunct 1 of Lemma 30 at `V`, from Theorem 29's second sentence alone.**
 r0047's `R47.Agent4.rep_fun_V` with its second hypothesis discharged. No instance
 binder is added and no bounded-completeness binder appears. -/
-theorem rep_fun_V_of_thm29Second (h : Thm29SecondAtDomains) :
+theorem rep_fun_V_of_thm29Second (h : Theorem29SecondAtDomains) :
     IsPRepresentable₂ V PRep.funOp :=
   R47.Agent4.rep_fun_V h fpImagesBifinite_V
 
 /-- **Conjunct 2 of Lemma 30 at `V`, from the same single hypothesis.** -/
-theorem rep_strictFun_V_of_thm29Second (h : Thm29SecondAtDomains) :
+theorem rep_strictFun_V_of_thm29Second (h : Theorem29SecondAtDomains) :
     IsPRepresentable₂ V PRep.strictFunOp :=
   R47.Agent4.rep_strictFun_V h fpImagesBifinite_V
 
-/-- **`Lemma30AtV` from `Thm29Normal` alone — arity 3 down to arity 1.**
+/-- **`Lemma30AtV` from `Theorem29Normal` alone — arity 3 down to arity 1.**
 
-r0046's `R46.Agent3.lemma30AtV_of_thm29Normal_of_arrows` still had to be handed
+r0046's `R46.Agent3.lemma_30_atV_of_thm29Normal_of_arrows` still had to be handed
 conjuncts 1 and 2 because `PRepFun.rep_arrow` was this development's only route to
 them and it ran through `[BoundedComplete U]`, which
 `R45.Agent3.not_boundedComplete_V` refutes under the very hypothesis in play.
 r0047 replaced that route at the cost of `FpImagesBifinite V`; the two theorems
 above pay that cost, so both conjuncts are now supplied here.
 
-`LemThirty.Lemma30AtV` is therefore open at **exactly one** named proposition,
-`LemThirty.Thm29Normal`. The development's own bounded-completeness obstruction,
+`Lemma30.Lemma30AtV` is therefore open at **exactly one** named proposition,
+`Lemma30.Theorem29Normal`. The development's own bounded-completeness obstruction,
 the second of the two r0046 recorded, is gone. -/
-theorem lemma_30_atV_of_thm29Normal (h : Thm29Normal) : LemThirty.Lemma30AtV :=
-  let h' := thm29SecondAtDomains_of_thm29Normal h
-  R46.Agent3.lemma30AtV_of_thm29Normal_of_arrows h
+theorem lemma_30_atV_of_thm29Normal (h : Theorem29Normal) : Lemma30.Lemma30AtV :=
+  let h' := theorem_29_secondAtDomains_of_thm29Normal h
+  R46.Agent3.lemma_30_atV_of_thm29Normal_of_arrows h
     (rep_fun_V_of_thm29Second h') (rep_strictFun_V_of_thm29Second h')
-
-alias lemma30AtV_of_thm29Normal := lemma_30_atV_of_thm29Normal
 
 end ScottDomains.R49.Agent6

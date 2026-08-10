@@ -23,7 +23,7 @@ put `Skeleton.Section6` inside the import cone of `ScottDomains.JungFinite` —
 
 — because `FinitaryProjectionPoset.lean` imports the skeleton file solely for
 `IsClosure`. `Skeleton/Section6.lean` states Theorem 18, whose proof is
-`ScottDomains.Thm18.thm18_of_thm137_and_cor136` in `ScottDomains/Thm18.lean`,
+`ScottDomains.Theorem18.theorem_18_of_jung_theorem_1_37_and_jung_corollary_1_36` in `ScottDomains/Theorem18.lean`,
 which imports `JungFinite`; so as long as the skeleton file owned this API,
 citing that proof from Theorem 18 was an import cycle and `lake` rejected it.
 Measured by `scripts/a5-import-cone.sh`: before the move, `Skeleton.Section6` was

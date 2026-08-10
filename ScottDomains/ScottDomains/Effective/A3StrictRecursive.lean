@@ -8,7 +8,7 @@ hold for `D ⊸ E`" — and the reason the paper gives for it: **the strict step
 functions form a basis of `D ⊸ E`.**
 
 `Effective/FunctionSpace.lean` records that this development had no such basis.
-Its `theorem7_strict` proves Theorem 7's third sentence from
+Its `theorem_7_strict` proves Theorem 7's third sentence from
 `nonempty_effectivePresentation`, with the arguments `d` and `e` **unused**, and
 `Theorem7StrictRecursive`'s docstring names the gap:
 
@@ -48,12 +48,12 @@ cut. Every join of a set of pairs satisfying it is strict outright
 | -- | --------- | ------ | ----- |
 | 1 | `K(D ⊸ E)` has an enumeration built from `d`, `e` | absent | `strictHomEnum`, `exists_strictHomEnum_eq` |
 | 2 | the strict step functions are a basis of `D ⊸ E` | absent | `exists_strictSteps_isLUB` |
-| 3 | `Effective.theorem7_strict` with `d`, `e` used | `d`, `e` unused | `theorem7_strict_ofEnum` |
+| 3 | `Effective.theorem_7_strict` with `d`, `e` used | `d`, `e` unused | `theorem_7_strict_ofEnum` |
 | 4 | `Effective.Theorem7StrictRecursive` | open, needing 1 **and** recursion theory | open, needing recursion theory **only** |
 
 Row 4 is the measurement this module exists for.
-`theorem7StrictRecursive_of_strictStepFunctionsDecidable` reduces the claim to one
-hypothesis of exactly the shape `R45.Agent1.theorem7ArrowRecursive_of_stepFunctionsDecidable`
+`theorem_7_strictRecursive_of_strictStepFunctionsDecidable` reduces the claim to one
+hypothesis of exactly the shape `R45.Agent1.theorem_7_arrowRecursive_of_stepFunctionsDecidable`
 reduces the arrow claim to — `IsRecursive d → IsRecursive e → IsRecursive
 (strictHom d e)`. So `⊸` is no longer harder than `→`; the two are now blocked on
 the *same* two recursion-theoretic obstructions named in
@@ -243,7 +243,7 @@ open Classical in
 /-- **An effective presentation of `D ⊸ E`, built from those of `D` and `E`** —
 the enumeration Theorem 7's third sentence asks for.
 
-Contrast `Effective.theorem7_strict`, which proves the same existential from
+Contrast `Effective.theorem_7_strict`, which proves the same existential from
 `nonempty_effectivePresentation` with `d` and `e` unused. Here `d` and `e` supply
 the indices the enumeration runs over and the surjectivity that makes it exhaust
 `K(D ⊸ E)`. The two `Decidable` fields are `Classical.dec`, exactly as
@@ -257,13 +257,11 @@ noncomputable def strictHom [Domain (StrictHom α β)] (d : EffectivePresentatio
   decidableNormal _ := Classical.dec _
 
 /-- **Theorem 7's third sentence with its hypotheses used.** The same statement as
-`Effective.theorem7_strict`, but the witness is `strictHom d e` rather than
+`Effective.theorem_7_strict`, but the witness is `strictHom d e` rather than
 `nonempty_effectivePresentation _`, so `d` and `e` are consumed. -/
 theorem theorem_7_strict_ofEnum [Domain (StrictHom α β)] (d : EffectivePresentation α)
     (e : EffectivePresentation β) : Nonempty (EffectivePresentation (StrictHom α β)) :=
   ⟨strictHom d e⟩
-
-alias theorem7_strict_ofEnum := theorem_7_strict_ofEnum
 
 /-! ## 4. What `Theorem7StrictRecursive` still needs, and what it no longer needs -/
 
@@ -281,7 +279,7 @@ theorem exists_isRecursive_of_strictStepFunctionsDecidable [Domain (StrictHom α
   ⟨strictHom d e, h⟩
 
 /-- **`Effective.Theorem7StrictRecursive` reduced to one hypothesis**, of exactly
-the shape `R45.Agent1.theorem7ArrowRecursive_of_stepFunctionsDecidable` reduces the
+the shape `R45.Agent1.theorem_7_arrowRecursive_of_stepFunctionsDecidable` reduces the
 arrow claim to.
 
 Nothing here is an added instance binder: the binder list is the one
@@ -304,12 +302,9 @@ theorem theorem_7_strictRecursive_of_strictStepFunctionsDecidable.{u, v}
   intro α β _ _ _ _ _ _ d e hd he
   exact ⟨strictHom d e, h d e hd he⟩
 
-alias theorem7StrictRecursive_of_strictStepFunctionsDecidable :=
-  theorem_7_strictRecursive_of_strictStepFunctionsDecidable
-
 /-- The `[Domain (StrictHom α β)]` binder used above is discharged from the
 hypotheses Theorem 7 actually states — the same check `Effective.lean`'s
-`theorem7_strict` records for its own binder. -/
+`theorem_7_strict` records for its own binder. -/
 example : Domain (StrictHom α β) := PRepFun.strictHomDomain
 
 end ScottDomains.R46.Agent3

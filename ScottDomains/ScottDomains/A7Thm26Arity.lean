@@ -3,10 +3,10 @@ import ScottDomains.Combinator
 /-!
 # r0049, agent7 — Theorem 26 at arity 0: the printed statement is false
 
-`Combinator.thm26`, `thm26_subalgebra` and `thm26_retract` all carry
+`Combinator.theorem_26`, `theorem_26_subalgebra` and `theorem_26_retract` all carry
 `hs : ∀ i, 0 < s i`. The paper does not assume it. Printed p. 38, verbatim from
 `pdftotext -layout -f 39 -l 40` of `papers/Gunter Scott 1990.pdf`
-(`scripts/a7-thm26-page.sh` reproduces the extraction):
+(`scripts/a7-theorem_26-page.sh` reproduces the extraction):
 
 > By a continuous algebra we mean a domain with various continuous operations
 > singled out. In particular, our λ-calculus model can be considered as a
@@ -59,13 +59,13 @@ operations, including the paper's own `(2,0,0,0,0,0)`.** `hs` is therefore a
 repair of a printed defect, not a defect of ours.
 
 `not_thm26_statement_of_zero_arity` records the weaker, separate fact that
-`Combinator.thm26`'s own statement already fails with a **single** 0-ary slot,
+`Combinator.theorem_26`'s own statement already fails with a **single** 0-ary slot,
 because that statement exposes `fst ∘ ψ = id`. The two are different results: one
 is about the printed theorem, the other about our transcription of its proof.
 
 ## The encoding, and why it is the generous one
 
-A refutation is only as strong as the hypotheses it grants. `Thm26Printed` grants
+A refutation is only as strong as the hypotheses it grants. `Theorem26Printed` grants
 every hypothesis the printed sentence carries — `A` is a **domain**, `A` is a
 **retract** of `D`, and the operations are **continuous** — and asks for the
 weakest reading of the conclusion, an injective homomorphism. `isSubalgebraOf_range`
@@ -76,7 +76,7 @@ strengthening of "isomorphic" only strengthens what is being refuted.
 
 Arities are carried on `List` arguments, matching `Combinator`'s own `iterApp`
 convention; only lists of length `sᵢ` are constrained, exactly as in
-`thm26_subalgebra`.
+`theorem_26_subalgebra`.
 -/
 
 namespace ScottDomains.R49.Agent7
@@ -149,8 +149,6 @@ def Theorem26Printed {n : ℕ} (s : Fin n → ℕ) : Prop :=
       ∀ o : Fin n → List A → A, ArgwiseContinuous s o →
         ∃ h : A → D, IsAlgEmbedding M s F o h
 
-alias Thm26Printed := Theorem26Printed
-
 /-- **The one-point argument on record proves nothing on its own.** With every
 arity `0` and every combination interpreting to the same `c`, the constant map
 out of a one-element carrier is an isomorphism onto the subalgebra `{c}`. Two
@@ -188,7 +186,7 @@ the two instances speak about the same `Fᵢ`, `Fⱼ`. The paper's own worked
 signature `(2,0,0,0,0,0)` has five 0-ary slots and is covered. -/
 theorem not_thm26Printed_of_two_zero_arities [Domain D] {n : ℕ} (s : Fin n → ℕ)
     {i j : Fin n} (hij : i ≠ j) (hi : s i = 0) (hj : s j = 0)
-    {x y : D} (hxy : x ≠ y) : ¬ Thm26Printed M s := by
+    {x y : D} (hxy : x ≠ y) : ¬ Theorem26Printed M s := by
   rintro ⟨F, hF⟩
   -- Instance 1: both constants are `x`.
   obtain ⟨h₁, hinj₁, heq₁⟩ :=
@@ -210,7 +208,7 @@ theorem not_thm26Printed_of_two_zero_arities [Domain D] {n : ℕ} (s : Fin n →
     simpa [Ne.symm hij] using this
   exact hxy (hinj₂ (e₃ ▸ e₁ ▸ e₂ ▸ e₄ : h₂ x = h₂ y))
 
-/-- **`Combinator.thm26`'s own statement fails at a single 0-ary slot.** That
+/-- **`Combinator.theorem_26`'s own statement fails at a single 0-ary slot.** That
 statement carries the conjunct `fst(ψ a) = a`, which the printed theorem does
 not, and one 0-ary slot is then already enough: `Fᵢ` is fixed before the
 operations are chosen, so `fst(Fᵢ)` would have to equal every constant at once.

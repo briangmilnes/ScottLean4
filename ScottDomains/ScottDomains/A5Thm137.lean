@@ -1,6 +1,6 @@
 import ScottDomains.PropertyM
 import ScottDomains.Iwamura
-import ScottDomains.Thm18
+import ScottDomains.Theorem18
 
 /-!
 # Jung's Theorem 1.37 for algebraic dcpos, without Iwamura's lemma
@@ -10,9 +10,9 @@ space is bicomplete* — as three unproved `Prop`-valued definitions:
 
 | # | claim | statement |
 | -- | ----- | --------- |
-| 1 | `JungNets.Thm137 D` | `IsAlgebraic (ScottHom D D) → JungNets.IsBicomplete D` |
-| 2 | `JungNets.Thm137Chains D` | `IsAlgebraic (ScottHom D D) → JungNets.HasChainInfima D` |
-| 3 | `PropertyM.Thm137Omega D` | `IsAlgebraic (ScottHom D D) → PropertyM.HasOmegaOpInfima D` |
+| 1 | `JungNets.Theorem137 D` | `IsAlgebraic (ScottHom D D) → JungNets.IsBicomplete D` |
+| 2 | `JungNets.Theorem137Chains D` | `IsAlgebraic (ScottHom D D) → JungNets.HasChainInfima D` |
+| 3 | `PropertyM.Theorem137Omega D` | `IsAlgebraic (ScottHom D D) → PropertyM.HasOmegaOpInfima D` |
 
 Five rounds attacked them through Jung's own route — Iwamura's lemma, a
 transfinite retraction onto `A ∪ αᵒᵖ`, and his Proposition 1.22 — and
@@ -62,15 +62,15 @@ already does inside `K(D)`.
 
 ## What is proved, and what is not
 
-* `thm137Omega` discharges claim 3 for every `[CompletePartialOrder D]
+* `jung_theorem_1_37_omega` discharges claim 3 for every `[CompletePartialOrder D]
   [IsAlgebraic D]`.
-* `thm137Chains` and `thm137` discharge claims 2 and 1 for every
+* `jung_theorem_1_37_chains` and `jung_theorem_1_37` discharge claims 2 and 1 for every
   `[CompletePartialOrder D] [Domain D]` — an `ω`-algebraic cpo, i.e. `IsAlgebraic`
   plus a countable basis, which is the setting Gunter & Scott's paper works in and
-  the setting `Thm18` consumes them in.
+  the setting `Theorem18` consumes them in.
 * **Jung's theorem in full generality is still open**: an algebraic dcpo with an
   uncountable basis, and a fortiori a merely continuous dcpo, is not covered.
-  `Iwamura.thm137Chains_of_wellOrderedInfima` remains the statement of what a
+  `Iwamura.jung_theorem_1_37_chains_of_wellOrderedInfima` remains the statement of what a
   general proof still owes.
 
 Nothing here uses Iwamura's lemma, `Iwamura.HasWellOrderedInfima`, or Jung's
@@ -171,14 +171,12 @@ theorem hasOmegaOpInfima (hAlgF : IsAlgebraic (ScottHom D D)) :
 
 end Omega
 
-/-- **Claim 3 discharged** for every algebraic dcpo: `PropertyM.Thm137Omega D` is
+/-- **Claim 3 discharged** for every algebraic dcpo: `PropertyM.Theorem137Omega D` is
 `IsAlgebraic (ScottHom D D) → PropertyM.HasOmegaOpInfima D`, and that is
 `hasOmegaOpInfima`. -/
 theorem jung_theorem_1_37_omega (D : Type*) [CompletePartialOrder D] [IsAlgebraic D] :
     PropertyM.Theorem137Omega D :=
   fun hAlgF => hasOmegaOpInfima hAlgF
-
-alias thm137Omega := jung_theorem_1_37_omega
 
 /-! ## Claims 1 and 2: infima of chains, over a countable basis -/
 
@@ -261,7 +259,7 @@ theorem directedOn_compactLowerBounds_of_isChain (hK : (compacts D).Countable)
   exact (hqz.trans (hzle n)).trans (PropertyM.minPrefix_le hchain n)
 
 /-- **Infima of nonempty chains**, from an algebraic function space and a countable
-basis. This is `JungNets.HasChainInfima D`, the conclusion `JungNets.Thm137Chains`
+basis. This is `JungNets.HasChainInfima D`, the conclusion `JungNets.Theorem137Chains`
 asks for. -/
 theorem hasChainInfima (hK : (compacts D).Countable) (hAlgF : IsAlgebraic (ScottHom D D)) :
     JungNets.HasChainInfima D :=
@@ -277,38 +275,32 @@ theorem jung_theorem_1_37_chains (D : Type*) [CompletePartialOrder D] [Domain D]
     JungNets.Theorem137Chains D :=
   fun hAlgF => hasChainInfima Domain.countable_compacts hAlgF
 
-alias thm137Chains := jung_theorem_1_37_chains
-
-/-- **Claim 1 discharged** for every `ω`-algebraic cpo: `Iwamura.thm137_of_thm137Chains`
+/-- **Claim 1 discharged** for every `ω`-algebraic cpo: `Iwamura.jung_theorem_1_37_of_jung_theorem_1_37_chains`
 is the order dual of Markowsky's theorem, which upgrades infima of chains to
 infima of filtered sets. -/
 theorem jung_theorem_1_37 (D : Type*) [CompletePartialOrder D] [Domain D] :
     JungNets.Theorem137 D :=
-  Iwamura.thm137_of_thm137Chains (thm137Chains D)
-
-alias thm137 := jung_theorem_1_37
+  Iwamura.jung_theorem_1_37_of_jung_theorem_1_37_chains (jung_theorem_1_37_chains D)
 
 /-- Bicompleteness of an `ω`-algebraic cpo whose function space is algebraic,
-stated directly — `thm137` with its hypothesis supplied. -/
+stated directly — `jung_theorem_1_37` with its hypothesis supplied. -/
 theorem isBicomplete (D : Type*) [CompletePartialOrder D] [Domain D]
     [IsAlgebraic (ScottHom D D)] : JungNets.IsBicomplete D :=
-  thm137 D inferInstance
+  jung_theorem_1_37 D inferInstance
 
-/-- **Cross-check, not a new result.** `Thm18.thm18_of_thm137Chains_and_cor136`
-was written against `JungNets.Thm137Chains α` as an open hypothesis; feeding it
-`thm137Chains` leaves Corollary 1.36 as the only remaining hypothesis, which is
-what `PropertyM.thm18_of_cor136` already proves by the route that bypasses
+/-- **Cross-check, not a new result.** `Theorem18.theorem_18_of_jung_theorem_1_37_chains`
+was written against `JungNets.Theorem137Chains α` as an open hypothesis; feeding it
+`jung_theorem_1_37_chains` leaves Corollary 1.36 as the only remaining hypothesis, which is
+what `PropertyM.theorem_18_of_jung_corollary_1_36` already proves by the route that bypasses
 Theorem 1.37 entirely.
 
 This declaration exists so the kernel checks that the two routes agree: the
-`Thm137Chains` discharged here is strong enough to drive the Theorem 18 assembly
+`Theorem137Chains` discharged here is strong enough to drive the Theorem 18 assembly
 that five rounds built around it, and not merely strong enough for its own
 statement. -/
 theorem theorem_18_of_jung_corollary_1_36_via_chains {α : Type*} [CompletePartialOrder α]
     [Domain α] [Domain (ScottHom α α)]
     (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact α) : IsBifinite α :=
-  Thm18.thm18_of_thm137Chains_and_cor136 (thm137Chains α) hcor
-
-alias thm18_of_cor136_via_thm137Chains := theorem_18_of_jung_corollary_1_36_via_chains
+  Theorem18.theorem_18_of_jung_theorem_1_37_chains (jung_theorem_1_37_chains α) hcor
 
 end ScottDomains.R45.Agent5

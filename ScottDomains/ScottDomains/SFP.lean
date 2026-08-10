@@ -28,7 +28,7 @@ the theorem, and this file follows it line for line:
 are stated against a *characterization* of `M` (`hM : ∀ p, p ∈ M ↔ …`) rather
 than against the definition, which keeps the dependency one-way.
 
-## What the four gaps of `thm14`'s r0034 docstring cost
+## What the four gaps of `theorem_14`'s r0034 docstring cost
 
 | # | Gap | Outcome |
 | -- | --- | ------- |
@@ -325,8 +325,6 @@ theorem theorem_14_forward
   refine ⟨Set.range ⇑p ∩ compacts α, hfin.subset Set.inter_subset_left,
     hfp.isNormalIn_compacts, fun k hk => ⟨hup hk, husub hk⟩⟩
 
-alias thm14_forward := theorem_14_forward
-
 end Forward
 
 /-! ## Gap 2: the image of a finite normal subposet's projection -/
@@ -481,8 +479,6 @@ theorem theorem_14_converse (h : IsBifinite α)
     fun hN hfin => (hM _).mpr (isFinitaryProjection_and_finite_normalHom hN hfin)
   exact ⟨countable_of_subset_finiteImage hsub, directedOn_of_normalHom_mem h hsub hmem,
     isLUB_id_of_normalHom_mem h hsub hmem⟩
-
-alias thm14_converse := theorem_14_converse
 
 end Converse
 

@@ -32,7 +32,7 @@ and p. 23, the identification of `A⁺` with `M(A)` this development formalizes:
 over an enumeration `Γ₁, …, Γₙ` of the normal types and produces *some* finite
 `A⁺`; the explicit pair form is then introduced by the sentence above, as a way
 of *picturing* the construction, with no theorem, no proof, and no claim that the
-two agree. `lemma24_MPair` below is therefore not a transcription — it is the
+two agree. `gunter87_lemma_24_MPair` below is therefore not a transcription — it is the
 first proof that Scott's pair construction satisfies Gunter's Lemma 24.
 
 The proof is short once the two order characterizations are separated:
@@ -46,7 +46,7 @@ all.
 ## 2. The same lemma does **not** discharge `HasNormalRealizations A∞`
 
 `R46.Agent2.HasNormalRealizations` is Gunter's Theorem 25 hypothesis at `A∞`, and
-r0046 proved `HasNormalRealizations A∞ → LemThirty.Thm29Normal`. That reduction
+r0046 proved `HasNormalRealizations A∞ → Lemma30.Theorem29Normal`. That reduction
 is sound; its target is **false**.
 
 `not_hasNormalRealizations_Ainf` refutes it, and the mechanism is exactly the
@@ -74,8 +74,8 @@ above `β`. So `HasNormalRealizations A∞` fails, and with it the hypothesis of
 `hasNormalRealizations_of_stages` (`not_stagewise_realizations`).
 
 **What this does and does not settle.** It refutes r0046's *sufficient condition*,
-not `LemThirty.Thm29Normal` itself: nothing here forces a normal embedding
-`K(E) → A∞` to have `β` in its range. `Thm29Normal` stays open, and the route to
+not `Lemma30.Theorem29Normal` itself: nothing here forces a normal embedding
+`K(E) → A∞` to have `β` in its range. `Theorem29Normal` stays open, and the route to
 it through Theorem 25 is now closed at this tower. What Lemma 24 at `M(A)` buys
 is a proof for the `η`-tower, which this development does not build.
 -/
@@ -255,8 +255,6 @@ theorem gunter87_lemma_24_MPair {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set
     intro w hw
     exact (hUfin.mem_toFinset.mp (Finset.mem_coe.mp hw)).1
 
-alias lemma24_MPair := gunter87_lemma_24_MPair
-
 /-- **Lemma 24 after §7.4's identification.** `Step α = M(α)/≈` is the type the
 tower actually uses, and `mk` is a monotone order-reflecting surjection, so the
 realization and the normality both transport verbatim.
@@ -272,7 +270,7 @@ theorem gunter87_lemma_24_Step {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set.
     ∃ q : Step α,
       (∀ b ∈ B, ((mk (eta b) : Step α) ≤ q ↔ g b ≤ z) ∧ (q ≤ mk (eta b) ↔ z ≤ g b)) ∧
       insert q ((fun b => (mk (eta b) : Step α)) '' B) ◁ (Set.univ : Set (Step α)) := by
-  obtain ⟨m, hreal, hnorm⟩ := lemma24_MPair hBfin hB γ T g z hg hgB hzB
+  obtain ⟨m, hreal, hnorm⟩ := gunter87_lemma_24_MPair hBfin hB γ T g z hg hgB hzB
   refine ⟨mk m, hreal, ?_⟩
   have himg : (mk : MPair α → Step α) '' insert m (eta '' B)
       = insert (mk m) ((fun b => (mk (eta b) : Step α)) '' B) := by
@@ -280,8 +278,6 @@ theorem gunter87_lemma_24_Step {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set.
   rw [← himg]
   exact isNormalIn_image_univ (f := (mk : MPair α → Step α)) (fun _ _ => Iff.rfl)
     mk_surjective hnorm
-
-alias lemma24_Step := gunter87_lemma_24_Step
 
 end Lemma24
 
@@ -443,8 +439,8 @@ is `im(incl 1)`, normal in `A∞` (`isNormalIn_range_incl`). So
 `not_hasNormalRealizations_of_maximal` applies.
 
 This refutes the target of r0046's reduction
-`thm29Normal_of_hasNormalRealizations`. The implication stands; its hypothesis
-cannot be met at this `A∞`. It does **not** refute `LemThirty.Thm29Normal`, which
+`theorem_29_normal_of_hasNormalRealizations`. The implication stands; its hypothesis
+cannot be met at this `A∞`. It does **not** refute `Lemma30.Theorem29Normal`, which
 does not require `β` to lie in the range of the embedding it asks for. -/
 theorem not_hasNormalRealizations_Ainf : ¬ R46.Agent2.HasNormalRealizations Ainf :=
   not_hasNormalRealizations_of_maximal incl_pointB1_ne_bot
@@ -453,7 +449,7 @@ theorem not_hasNormalRealizations_Ainf : ¬ R46.Agent2.HasNormalRealizations Ain
 
 /-- **The stagewise residue is false too.** `hasNormalRealizations_of_stages`
 derives `HasNormalRealizations A∞` from the property asked of a single step of the
-tower — the sentence `LemThirty.lean:426` names as missing — so that sentence is
+tower — the sentence `Lemma30.lean:426` names as missing — so that sentence is
 refuted along with it. What r0046 identified as "the whole of what remains" is
 not provable at this tower. -/
 theorem not_stagewise_realizations :

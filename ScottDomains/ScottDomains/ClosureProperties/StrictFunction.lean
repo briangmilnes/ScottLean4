@@ -40,7 +40,7 @@ With that, `(q, p)` transfers verbatim: `p_{N₁}` and `p_{N₂}` are strict, he
 `(q, p) f` is strict whenever `f` is, hence `(q, p)` restricts to a projection of
 `D →⊥ E` with finite image, and `im((q,p)) ∩ (D →⊥ E)` is the finite normal
 subposet the Plotkin condition asks for. `(q, p) f = f` for each compact `f` of
-`u` is the step-function argument of `lem17_fun`, factored out here as
+`u` is the step-function argument of `lemma_17_fun`, factored out here as
 `exists_finite_projection_fixing` so that neither proof restates it.
 -/
 
@@ -239,10 +239,10 @@ theorem isStrict_compHom {p : ScottHom α α} {q : ScottHom β β} (hp : p (⊥ 
   rw [hp, hf, hq]
 
 open ScottHom in
-/-- **The projection `(q, p)` of `lem17_fun`, with its two ingredients exposed.**
-`lem17_fun` needs only that the image of `(q, p)` is a finite normal subposet
+/-- **The projection `(q, p)` of `lemma_17_fun`, with its two ingredients exposed.**
+`lemma_17_fun` needs only that the image of `(q, p)` is a finite normal subposet
 containing `u`; the strict function space needs the two projections themselves,
-because it must know they are strict. The proof is `lem17_fun`'s, up to the final
+because it must know they are strict. The proof is `lemma_17_fun`'s, up to the final
 packaging: every `f ∈ u` is a finite join of step functions, the compacts those
 step functions mention are expanded to finite normal `N₁ ◁ K(D)` and
 `N₂ ◁ K(E)`, and `(p_{N₂}, p_{N₁})` fixes each `f ∈ u`. -/
@@ -313,7 +313,7 @@ subposet of `K(D →⊥ E)` containing `u`:
   (`isCompactElement_val_of_isCompactElement`) and `(q, p)` fixes it.
 
 `[BoundedComplete β]` is inherited from the step-function decomposition, exactly
-as in `lem17_fun`. -/
+as in `lemma_17_fun`. -/
 theorem lemma_17_strictFun [Domain α] [Domain β] [BoundedComplete β]
     (h₁ : IsBifinite α) (h₂ : IsBifinite β) : IsBifinite (StrictHom α β) := by
   intro u hu husub
@@ -339,7 +339,5 @@ theorem lemma_17_strictFun [Domain α] [Domain β] [BoundedComplete β]
     · exact (hP.apply_of_mem_range hb).symm.trans_le ((compHom p q).monotone hbx)
   · intro f hf
     exact ⟨f.val, hfix f.val ⟨f, hf, rfl⟩⟩
-
-alias lem17_strictFun := lemma_17_strictFun
 
 end ScottDomains.ClosureProperties

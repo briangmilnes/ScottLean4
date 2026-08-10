@@ -65,7 +65,7 @@ sides — the sets on which the selection is arbitrary — have no upper bound, 
 no least upper bound, so nothing is required of `sumSup` there.
 
 The strongest correctness statement available is exactly Lemma 10's sum conjunct,
-`lem10_sum` in `Skeleton/Sum.lean`: when `D` and `E` are bounded complete domains,
+`lemma_10_sum` in `Skeleton/Sum.lean`: when `D` and `E` are bounded complete domains,
 `sumSup` returns the least upper bound of **every** set that has an upper bound —
 not only of the directed ones. `sumCpo`'s `lubOfDirected` is the directed-set
 statement, which needs no such hypothesis on `D` and `E`. Both are discharged by
@@ -296,7 +296,7 @@ theorem isLUB_sumSup_of_empty_base {s : Set (CoalescedSum α β)}
 upper bound of its left parts. The hypothesis is `IsLUB` of the `sSup` of
 `leftParts`, so a caller may supply it either from directedness
 (`DirectedOn.isLUB_sSup`, as `sumCpo` does) or from bounded completeness
-(`isLUB_sSup_of_bddAbove`, as `lem10_sum` does). -/
+(`isLUB_sSup_of_bddAbove`, as `lemma_10_sum` does). -/
 theorem isLUB_sumSup_left {s : Set (CoalescedSum α β)} {q₀ : NonBotSum α β}
     (hq₀ : q₀ ∈ sumBase s) (hleft : ∀ q ∈ sumBase s, ∃ x : α, q.val = Sum.inl x)
     (hlub : IsLUB (leftParts (sumBase s)) (sSup (leftParts (sumBase s)))) :

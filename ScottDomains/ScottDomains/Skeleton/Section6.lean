@@ -2,7 +2,7 @@ import ScottDomains.Bifinite
 import ScottDomains.Closure
 import ScottDomains.FunctionSpaceCountable
 import ScottDomains.Projection
-import ScottDomains.JungCor136
+import ScottDomains.JungCorollary136
 import ScottDomains.PropertyM
 -- `Set.Finite.finite_subsets`, used to bound the witness set of Proposition 15.
 import Mathlib.Data.Set.Finite.Powerset
@@ -17,7 +17,7 @@ Gunter & Scott, *Semantic Domains*, §6:
 (§6.2 "Closure properties.", printed folio 31 = physical PDF page 32 of
 `papers/Gunter Scott 1990.pdf`. Read from a 600 dpi render; r0048 corrected the
 earlier paraphrase "Every bounded-complete domain is bifinite" to the printed
-sentence. The statement is unchanged — `prop15` already had exactly the paper's
+sentence. The statement is unchanged — `proposition_15` already had exactly the paper's
 two hypotheses.)
 
 > **Theorem 18** If `D` and `D → D` are domains, then `D` is bifinite.
@@ -29,18 +29,18 @@ proved.
 
 ## What is proved here
 
-`prop15` and `lem19` are proved. `thm18` is not: the paper states it without
+`proposition_15` and `lemma_19` are proved. `theorem_18` is not: the paper states it without
 proof — "The theorem is due to Smyth and its proof may be found in [Smy83a]" —
 and the argument it points at is a case analysis of the three configurations of
-Figure 3, several pages long. See the comment on `thm18`.
+Figure 3, several pages long. See the comment on `theorem_18`.
 
-`prop15` follows the paper's own proof. The witness set is `lubClosure u`, the
+`proposition_15` follows the paper's own proof. The witness set is `lubClosure u`, the
 paper's `N = {x | x is the least upper bound of a finite subset of u}`, and the
 three steps are `isCompactElement_of_isLUB_finite` (`N ⊆ K(D)`), the closure of
 `N` under bounded least upper bounds, and the observation that `N ∩ ↓x` has a
 greatest element and is therefore directed.
 
-`lem19` is stated as the *existence* of a cpo structure on `im(r)`, and the
+`lemma_19` is stated as the *existence* of a cpo structure on `im(r)`, and the
 structure exhibited is `IsClosure.rangeCompletePartialOrder`. It costs less than
 the projection analogue `IsProjection.rangeCompletePartialOrder` (r0013): for a
 closure the inflationary law `x ⊑ r(x)` gives the upper-bound half of
@@ -55,7 +55,7 @@ continuity of `r` nor a case split on emptiness of the directed set is needed.
 this file imports. They were here until r0042; that put this module inside
 `ScottDomains.JungFinite`'s import cone, because `FinitaryProjectionPoset.lean`
 imports the skeleton only for `IsClosure`, and the cone made citing Theorem 18's
-proof from `thm18` below an import cycle. `Closure.lean`'s docstring gives the
+proof from `theorem_18` below an import cycle. `Closure.lean`'s docstring gives the
 chain and the measurement.
 -/
 
@@ -169,8 +169,6 @@ theorem proposition_15 [Domain α] [BoundedComplete α] : IsBifinite α := by
   have hmemS : sSup S ∈ S := ⟨hmemN, hlub.2 fun _ hy => hy.2⟩
   exact ⟨⟨sSup S, hmemS⟩, fun a ha b hb => ⟨sSup S, hmemS, hlub.1 ha, hlub.1 hb⟩⟩
 
-alias prop15 := proposition_15
-
 /-- **Theorem 18.** If `D` and `D → D` are domains, then `D` is bifinite.
 
 The hypothesis is on the *function space* being a domain, which is what
@@ -200,18 +198,18 @@ occurrences in `ScottDomains/`. All three exist now
 decomposes Theorem 18 into the five steps of A. Jung, *Cartesian Closed
 Categories of Domains* (1989). Four of the five are proved.
 
-**What discharges this `sorry`.** `ScottDomains.Thm18.thm18_of_thm137_and_cor136`
-(`ScottDomains/Thm18.lean`) has exactly this conclusion under exactly these
+**What discharges this `sorry`.** `ScottDomains.Theorem18.theorem_18_of_jung_theorem_1_37_and_jung_corollary_1_36`
+(`ScottDomains/Theorem18.lean`) has exactly this conclusion under exactly these
 instance hypotheses, plus two explicit arguments, neither stubbed with `sorry`:
 
-1. `JungNets.Thm137` — Jung's Theorem 1.37, a dcpo with algebraic function space
-   is bicomplete. Only `JungNets.Thm137Chains`, infima of nonempty *chains*, is
-   actually spent; `Thm18.thm18_of_thm137Chains_and_cor136` is that sharper form.
+1. `JungNets.Theorem137` — Jung's Theorem 1.37, a dcpo with algebraic function space
+   is bicomplete. Only `JungNets.Theorem137Chains`, infima of nonempty *chains*, is
+   actually spent; `Theorem18.theorem_18_of_jung_theorem_1_37_chains` is that sharper form.
 2. `JungFinite.FixedPointOfCompactDeflationIsCompact` — Jung's Corollary 1.36.
 
 **Both are discharged as of r0042, and neither by the route above.**
 
-* Corollary 1.36 is `JungCor136.fixedPointOfCompactDeflationIsCompact`, proved
+* Corollary 1.36 is `JungCorollary136.fixedPointOfCompactDeflationIsCompact`, proved
   without Jung's Proposition 1.22 or his retraction pair: the approximating
   family is indexed below `cap e` rather than below `id`, so the deflation
   condition that makes extension monotone is part of the index, and the
@@ -224,14 +222,12 @@ instance hypotheses, plus two explicit arguments, neither stubbed with `sorry`:
   at `∅` and at pairs; restating them against what they use is what lifted the
   pair case to the whole.
 
-So the proof below spends five of Jung's steps and replaces the sixth. `Thm137`,
-`Thm137Chains`, `Iwamura` and `JungBicomplete` remain in the development as
+So the proof below spends five of Jung's steps and replaces the sixth. `Theorem137`,
+`Theorem137Chains`, `Iwamura` and `JungBicomplete` remain in the development as
 results in their own right — Iwamura's lemma and Markowsky's theorem are not in
 Mathlib — but Theorem 18 does not route through any of them. -/
 theorem theorem_18 [Domain α] [Domain (ScottHom α α)] : IsBifinite α :=
-  PropertyM.thm18_of_cor136 JungCor136.fixedPointOfCompactDeflationIsCompact
-
-alias thm18 := theorem_18
+  PropertyM.theorem_18_of_jung_corollary_1_36 JungCorollary136.fixedPointOfCompactDeflationIsCompact
 
 /-- **Lemma 19.** If `r : D → D` is a closure, then `im(r)` is a domain.
 
@@ -242,8 +238,6 @@ prejudge how it is done. Compare `IsProjection.rangeCompletePartialOrder`
 theorem lemma_19 (r : ScottHom α α) (_hr : IsClosure r) :
     ∃ _ : CompletePartialOrder ↥(Set.range ⇑r), True :=
   ⟨_hr.rangeCompletePartialOrder, trivial⟩
-
-alias lem19 := lemma_19
 
 end Statements
 

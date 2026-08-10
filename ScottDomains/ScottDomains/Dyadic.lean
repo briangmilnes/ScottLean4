@@ -38,7 +38,7 @@ Vol. B, 1990), §7.3, quoted from the source PDF rather than paraphrased:
 This file supplies **only the pre-order** `U₀` and its two finiteness facts, and
 then applies Theorem 11. Nothing about ideals, cpos, algebraicity or compactness
 is re-proved: `IdealCompletion.instDomain` already turns a countable pre-order
-with a least element into a `Domain`, and `IdealCompletion.thm11` records that
+with a least element into a `Domain`, and `IdealCompletion.theorem_11` records that
 `K(D)` is the set of principal ideals. So the content of Part 1 is three
 declarations —
 
@@ -89,7 +89,7 @@ finite unions of half-open intervals are closed under intersection.
 * `U` — `IdealCompletion U₀`, the paper's universal domain; `Domain U` and
   `BoundedComplete U` are instances.
 * `compacts_U` — `K(U)` is the set of principal ideals `↓X = {Y | X ⊆ Y}`,
-  `X` ranging over `U₀`; `thm11_at_U` is the pair.
+  `X` ranging over `U₀`; `theorem_11_at_U` is the pair.
 -/
 
 namespace ScottDomains.Dyadic
@@ -383,9 +383,7 @@ theorem isCompactElement_iff {I : U} :
 of principal ideals. -/
 theorem theorem_11_at_U :
     Domain U ∧ compacts U = Set.range (IdealCompletion.principal : U₀ → U) :=
-  IdealCompletion.thm11 U₀
-
-alias thm11_at_U := theorem_11_at_U
+  IdealCompletion.theorem_11 U₀
 
 /-! ## Theorem 27
 
@@ -409,17 +407,17 @@ The paper's proof runs through the Boolean algebra `B = U₀ ∪ {∅}`:
 That paragraph ends at "an isomorphism between `A` and a normal subposet
 `A' ◁ U₀`" and everything after it is order theory. So the proof splits exactly
 there, and the split is made a definition: `IsNormallyRepresented A` below is the
-paragraph's conclusion, and `thm27_of_isNormallyRepresented` is everything after
+paragraph's conclusion, and `theorem_27_of_isNormallyRepresented` is everything after
 it, proved.
 
-**What is proved here and where the rest is.** `thm27_of_isNormallyRepresented`
+**What is proved here and where the rest is.** `theorem_27_of_isNormallyRepresented`
 is a Lean-checked theorem: from a normal subposet `N ◁ U₀` order-isomorphic to
 `K(D)` it constructs the embedding–projection pair `(e, p)` with `p ∘ e = id` and
 `e ∘ p ⊑ id`, which is the paper's `p : U → D`. `IsNormallyRepresented` names the
 paragraph's conclusion so that this half can be stated and checked on its own.
 
 `IsNormallyRepresented ↥(compacts D)` is **proved**, in `ScottDomains.Atomless`
-(r0036), and `Atomless.thm27` is Theorem 27 with no hypothesis at all. Two
+(r0036), and `Atomless.theorem_27` is Theorem 27 with no hypothesis at all. Two
 earlier claims made in this docstring were wrong and are corrected here. The
 first was that the proof needs the uniqueness up to isomorphism of the countable
 atomless Boolean algebra — Vaught's theorem, by back-and-forth. It does not: that
@@ -435,7 +433,7 @@ nothing.
 **Where bounded completeness is spent.** Not here. The construction below needs
 only `Domain D`; `BoundedComplete D` is what the paper spends in the *assumed*
 half, to know that the subsets `↑x` generate a Boolean algebra in which a
-bounded family has non-empty intersection. `thm27` records the paper's own
+bounded family has non-empty intersection. `theorem_27` records the paper's own
 statement with the hypothesis in place.
 
 **Why the construction avoids `im(p)`.** The obvious route — take
@@ -445,7 +443,7 @@ which is not an instance (it depends on the projection *proof*), and identifying
 it with `D` needs the ideal completion to be functorial on order isomorphisms.
 Building `e` and `p` directly between `D` and `U` needs neither. -/
 
-section Thm27
+section Theorem27
 
 universe u
 
@@ -646,20 +644,16 @@ theorem theorem_27_of_isNormallyRepresented (D : Type u) [CompletePartialOrder D
   exact ⟨embHom φ, projHom φ hN,
     projElem_embIdeal φ hN, embIdeal_projElem_le φ hN⟩
 
-alias thm27_of_isNormallyRepresented := theorem_27_of_isNormallyRepresented
-
 /-- **Theorem 27** as the paper states it, with the Boolean-algebra step carried
 as a named hypothesis: *for any bounded complete domain `D` there is a projection
-`p : U → D`*. `Atomless.thm27` is the same statement with the hypothesis
+`p : U → D`*. `Atomless.theorem_27` is the same statement with the hypothesis
 discharged; this form is kept because it is the one whose proof lives here, and
 because it records exactly where the paragraph was cut. -/
 theorem theorem_27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComplete D]
     (h : IsNormallyRepresented ↥(compacts D)) :
     ∃ (e : ScottHom D U) (p : ScottHom U D), ScottHom.IsEmbeddingProjectionPair e p :=
-  thm27_of_isNormallyRepresented D h
+  theorem_27_of_isNormallyRepresented D h
 
-alias thm27 := theorem_27
-
-end Thm27
+end Theorem27
 
 end ScottDomains.Dyadic

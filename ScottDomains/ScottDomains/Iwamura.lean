@@ -19,9 +19,9 @@ Three consequences, in increasing usefulness to this development:
 2. `hasChainInfima_of_hasWellOrderedInfima` — its dual, which is **Jung's
    Corollary 1.3 as he uses it**: finding infima for monotone injective nets
    indexed by an ordinal suffices to have infima for all chains.
-3. `thm137Chains_of_wellOrderedInfima` — so `JungNets.Thm137Chains D`, the only
+3. `jung_theorem_1_37_chains_of_wellOrderedInfima` — so `JungNets.Theorem137Chains D`, the only
    form of Theorem 1.37 the route to Theorem 18 actually spends, follows from the
-   ordinal-indexed case alone. `thm137Chains_iff_thm137` records that the chain
+   ordinal-indexed case alone. `jung_theorem_1_37_chains_iff_jung_theorem_1_37` records that the chain
    form and the bicompleteness form are now the same proposition.
 
 ## What is proved
@@ -50,7 +50,7 @@ Three consequences, in increasing usefulness to this development:
   directed set. This replaces the direct argument (every chain has a cofinal
   well-ordered subset), which is not proved here and is not needed.
 * `hasChainInfima_of_hasWellOrderedInfima`, `isBicomplete_of_hasChainInfima`,
-  `thm137Chains_of_wellOrderedInfima`, `thm137Chains_iff_thm137` — the dual
+  `jung_theorem_1_37_chains_of_wellOrderedInfima`, `jung_theorem_1_37_chains_iff_jung_theorem_1_37` — the dual
   forms, obtained by instantiating the theorems at `Dᵒᵈ`, and the consequences
   for `JungNets`.
 
@@ -547,7 +547,7 @@ theorem hasChainSuprema_iff_hasDirectedSuprema {D : Type u} [Preorder D] :
 
 /-! ## The dual form, and what it discharges in `JungNets`
 
-The development spends only `JungNets.Thm137Chains` — infima of nonempty
+The development spends only `JungNets.Theorem137Chains` — infima of nonempty
 **chains** — because `JungNets.exists_minimal_upperBounds_le` obtains property m
 by Zorn's lemma downwards, and Zorn quantifies over chains. The results below are
 therefore stated so that the *weakest* hypothesis, infima of nonempty
@@ -607,7 +607,7 @@ theorem hasChainInfima_iff_isBicomplete {D : Type u} [Preorder D] :
     JungNets.HasChainInfima D ↔ JungNets.IsBicomplete D :=
   ⟨isBicomplete_of_hasChainInfima, JungNets.IsBicomplete.hasChainInfima⟩
 
-/-- **`Thm137Chains` now implies `Thm137`.** `JungNets` stated the minimal
+/-- **`Theorem137Chains` now implies `Theorem137`.** `JungNets` stated the minimal
 remaining obligation as infima of nonempty chains, noting that the passage from
 chains to filtered sets was Jung's Theorem 1.2 and was unavailable. It is
 available now, so the two remainders are the same proposition. -/
@@ -615,19 +615,15 @@ theorem jung_theorem_1_37_of_jung_theorem_1_37_chains {D : Type u} [CompletePart
     (h : JungNets.Theorem137Chains D) : JungNets.Theorem137 D :=
   fun hAlg => isBicomplete_of_hasChainInfima (h hAlg)
 
-alias thm137_of_thm137Chains := jung_theorem_1_37_of_jung_theorem_1_37_chains
-
 /-- The two forms of Jung's Theorem 1.37 recorded in `JungNets` are equivalent. -/
 theorem jung_theorem_1_37_chains_iff_jung_theorem_1_37 {D : Type u} [CompletePartialOrder D] :
     JungNets.Theorem137Chains D ↔ JungNets.Theorem137 D :=
-  ⟨thm137_of_thm137Chains, JungNets.Theorem137.toChains⟩
-
-alias thm137Chains_iff_thm137 := jung_theorem_1_37_chains_iff_jung_theorem_1_37
+  ⟨jung_theorem_1_37_of_jung_theorem_1_37_chains, JungNets.Theorem137.toChains⟩
 
 /-- **The obligation this round is left with, in its weakest form.**
 
-`JungNets.Thm137Chains D` — and hence, by `thm137Chains_iff_thm137`,
-`JungNets.Thm137 D` — follows from finding infima for monotone injective nets
+`JungNets.Theorem137Chains D` — and hence, by `jung_theorem_1_37_chains_iff_jung_theorem_1_37`,
+`JungNets.Theorem137 D` — follows from finding infima for monotone injective nets
 indexed by an ordinal alone. A proof of Jung's Theorem 1.37 may therefore assume
 a well-ordered index throughout, which is exactly what his retraction argument
 onto `A ∪ αᵒᵖ` requires, and need never return to arbitrary chains or filtered
@@ -635,7 +631,5 @@ sets. -/
 theorem jung_theorem_1_37_chains_of_wellOrderedInfima {D : Type u} [CompletePartialOrder D]
     (h : IsAlgebraic (ScottHom D D) → HasWellOrderedInfima D) : JungNets.Theorem137Chains D :=
   fun hAlg => hasChainInfima_of_hasWellOrderedInfima (h hAlg)
-
-alias thm137Chains_of_wellOrderedInfima := jung_theorem_1_37_chains_of_wellOrderedInfima
 
 end ScottDomains.Iwamura

@@ -31,8 +31,8 @@ keeping:
 Rows 1–3 and 5 have no citer at all, so the general lemma serves every call site
 that exists. Row 4 has exactly one citer, and it is the only one of the three
 powerdomains that routes Theorem 11's second conjunct through a named
-intermediate: `Hoare.thm11_hoare` and `Plotkin.isDomain` are each
-`IdealCompletion.thm11` applied directly, while `Smyth.powerdomain_isDomain` is
+intermediate: `Hoare.theorem_11_hoare` and `Plotkin.isDomain` are each
+`IdealCompletion.theorem_11` applied directly, while `Smyth.powerdomain_isDomain` is
 `⟨inferInstance, compacts_eq_range_principal⟩`. Making the Smyth case match the
 other two removes the intermediate.
 
@@ -104,14 +104,14 @@ gives that as the reason the hypothesis is there. -/
 example (α : Type u) [CompletePartialOrder α] : BoundedComplete (Hoare.Powerdomain α) :=
   IdealCompletion.boundedComplete fun u v _ => PowerdomainBC.hoare_exists_isLUB_pair u v
 
-/-- `lem13_hoare` needs neither `[Domain α]` nor `[BoundedComplete α]`. The second
+/-- `lemma_13_hoare` needs neither `[Domain α]` nor `[BoundedComplete α]`. The second
 is recorded in its own docstring; the first is not. -/
 example (α : Type u) [CompletePartialOrder α] (S : Set (Hoare.Powerdomain α))
     (hS : BddAbove S) : ∃ I, IsLUB S I :=
   PowerdomainBC.exists_isLUB_of_bddAbove_idealCompletion
     (fun u v _ => PowerdomainBC.hoare_exists_isLUB_pair u v) hS
 
-/-- `lem13_smyth` needs no `[Domain α]`. `[BoundedComplete α]` it genuinely
+/-- `lemma_13_smyth` needs no `[Domain α]`. `[BoundedComplete α]` it genuinely
 consumes, through `smyth_exists_isLUB_pair`. -/
 example (α : Type u) [CompletePartialOrder α] [BoundedComplete α]
     (S : Set (Smyth.Powerdomain α)) (hS : BddAbove S) : ∃ I, IsLUB S I :=

@@ -41,7 +41,7 @@ as `!`, `×`, `⊗` and `⊕` extract as nothing, and `♯`, `♭`, `♮` extrac
 | 10 | `(·)♮` | `plotkinOp`, defined below |
 
 Lemma 30's list is Lemma 28's nine in the paper's own order with `(·)♮` appended,
-and `lemma30_iff_lemma28_and_plotkin` records that as a kernel-checked
+and `lemma_30_iff_lemma28_and_plotkin` records that as a kernel-checked
 equivalence rather than as prose. Two further differences from Lemma 28 are
 visible in the printed line: the carrier is §7.4's bifinite `V`, not §7.3's
 bounded-complete `U`; and Lemma 30 spells out "**p**-representable", where
@@ -52,7 +52,7 @@ removes the only doubt about Lemma 28 the earlier rounds recorded.
 ## `Colimit.lean`'s blocking note was stale, and is corrected
 
 `Colimit.lean`'s docstring said the paper's other nine operators "are not present
-in this development as functions `Cpo → Cpo` at all", so that `Lem30Arrow` was
+in this development as functions `Cpo → Cpo` at all", so that `Lemma30Arrow` was
 the only type-correct conjunct. That was true when it was written and is false
 now: `PRep.lean:147–190` defines all nine. Lemma 30 is statable in full, which is
 what this file does first.
@@ -84,30 +84,30 @@ where Theorem 29's second sentence is spent.
 The paper's recipe needs, for each operator `F`, a pair `Φ_F : V → F(V)`,
 `Ψ_F : F(V) → V` with `Φ_F ∘ Ψ_F = id` and `Ψ_F ∘ Φ_F ⊑ id` — precisely
 `ScottHom.IsEmbeddingProjectionPair Ψ_F Φ_F`, which is precisely the conclusion
-of `Colimit.Thm29Second` at `E := F(V)`. Its one hypothesis is `IsBifinite F(V)`,
-and that is **Lemma 17**, whose ten conjuncts (`ClosureProperties.lemma17`) are
+of `Colimit.Theorem29Second` at `E := F(V)`. Its one hypothesis is `IsBifinite F(V)`,
+and that is **Lemma 17**, whose ten conjuncts (`ClosureProperties.lemma_17`) are
 the same ten operators as Lemma 30's. So
 
-    Thm29Second + Lemma 17 ⟹ all ten retraction pairs over V,
+    Theorem29Second + Lemma 17 ⟹ all ten retraction pairs over V,
 
 except that two of Lemma 17's ten conjuncts carry an instance the others do not:
 
 | # | Lemma 17 conjunct | Instances | At `V` |
 | - | ----------------- | --------- | ------ |
-| 1 | `lem17_fun` | `[Domain α] [Domain β] [BoundedComplete β]` | **blocked** |
-| 2 | `lem17_strictFun` | `[Domain α] [Domain β] [BoundedComplete β]` | **blocked** |
-| 3 | `lem17_prod`, `lem17_smash`, `lem17_sum`, `lem17_separated` | `[Domain α] [Domain β]` | available |
-| 4 | `lem17_lift`, `lem17_plotkin`, `lem17_smyth`, `lem17_hoare` | `[Domain α]` | available |
+| 1 | `lemma_17_fun` | `[Domain α] [Domain β] [BoundedComplete β]` | **blocked** |
+| 2 | `lemma_17_strictFun` | `[Domain α] [Domain β] [BoundedComplete β]` | **blocked** |
+| 3 | `lemma_17_prod`, `lemma_17_smash`, `lemma_17_sum`, `lemma_17_separated` | `[Domain α] [Domain β]` | available |
+| 4 | `lemma_17_lift`, `lemma_17_plotkin`, `lemma_17_smyth`, `lemma_17_hoare` | `[Domain α]` | available |
 
 Five of the eight available conjuncts land at a result this development proves to
-be a domain, so they go through `Thm29SecondAtDomains`, which `Thm29Normal`
+be a domain, so they go through `Theorem29SecondAtDomains`, which `Theorem29Normal`
 implies; `⊗`, `+` and `⊕` land at a type never proved algebraic here and so still
-take the stronger `Colimit.Thm29Second`.
+take the stronger `Colimit.Theorem29Second`.
 
 `BoundedComplete V` is not available and is not expected to be: `V` is universal
 for bifinite domains, `PRep.boundedComplete_range` says a projection of a
 bounded-complete domain is bounded complete, and not every bifinite domain is
-bounded complete — so `Thm29Second` and `BoundedComplete V` cannot both hold.
+bounded complete — so `Theorem29Second` and `BoundedComplete V` cannot both hold.
 `retracts_fun_of_boundedComplete` and `retracts_strictFun_of_boundedComplete`
 state the two conjuncts with that instance made explicit rather than hidden, so
 the obstruction is in the signature and not in a comment. It is not a defect of
@@ -120,16 +120,16 @@ through Theorem 7's step functions, "a real open item, not a formality".
 | # | Result | Status |
 | - | ------ | ------ |
 | 1 | `plotkinOp` — `(·)♮` as a function `Cpo → Cpo` | defined |
-| 2 | `Lemma30` — the ten-fold conjunction, and `lemma30_of` | stated, arity checked by the kernel |
-| 3 | `lemma30_iff_lemma28_and_plotkin` | proved |
-| 4 | five retraction pairs over `V` from `Thm29SecondAtDomains` | proved |
-| 5 | three more from the stronger `Colimit.Thm29Second` | proved |
-| 6 | `rep_lift_V`, `rep_prod_V` — conjuncts 7 and 3 | proved from `Thm29SecondAtDomains` |
-| 7 | `Thm29Normal ⟹ Thm29SecondAtDomains` | **proved** |
-| 8 | `Thm29Normal` itself | not proved — this is [Gun87]'s content |
+| 2 | `Lemma30` — the ten-fold conjunction, and `lemma_30_of` | stated, arity checked by the kernel |
+| 3 | `lemma_30_iff_lemma28_and_plotkin` | proved |
+| 4 | five retraction pairs over `V` from `Theorem29SecondAtDomains` | proved |
+| 5 | three more from the stronger `Colimit.Theorem29Second` | proved |
+| 6 | `rep_lift_V`, `rep_prod_V` — conjuncts 7 and 3 | proved from `Theorem29SecondAtDomains` |
+| 7 | `Theorem29Normal ⟹ Theorem29SecondAtDomains` | **proved** |
+| 8 | `Theorem29Normal` itself | not proved — this is [Gun87]'s content |
 
 Theorem 29's second sentence is therefore no longer a paragraph away. What
-remains is one proposition: `Thm29Normal`, that `A∞` is universal among the bases
+remains is one proposition: `Theorem29Normal`, that `A∞` is universal among the bases
 of bifinite domains under normal embedding.
 `exists_embeddingProjectionPair_of_thm29Normal` derives the whole sentence from
 it in about sixty lines of ideal manipulation, and
@@ -140,24 +140,24 @@ cofinal among finite subsets of `A∞`. No `sorry` appears in this file.
 Two hypotheses turned out to be worth separating, and both separations are
 recorded in signatures rather than in prose:
 
-1. **`Colimit.Thm29Second` is stronger than the printed sentence, and the
+1. **`Colimit.Theorem29Second` is stronger than the printed sentence, and the
    difference is real.** The paper says "`E` is any bifinite *domain*";
    `IsBifinite` alone is the Plotkin condition on `K(E)` and implies neither
-   algebraicity nor a countable basis. `Thm29SecondAtDomains` restores the word.
+   algebraicity nor a countable basis. `Theorem29SecondAtDomains` restores the word.
    `countable_compacts_of_reflects` shows the word is load-bearing: `A∞` is
    countable, so no order-reflecting map into it has an uncountable source, and
-   the version of `Thm29Normal` without `[Domain E]` is refutable rather than
+   the version of `Theorem29Normal` without `[Domain E]` is refutable rather than
    open. That was an assertion when written and is now kernel-checked:
    `R45.Agent3.not_thm29NormalWithoutDomain` refutes it (r0045), at the `def`
-   `R45.Agent3.Thm29NormalWithoutDomain`, which is this statement with the binder
+   `R45.Agent3.Theorem29NormalWithoutDomain`, which is this statement with the binder
    deleted. Inside the reduction proper, only the algebraicity half is spent.
 2. **`⊗`, `+` and `⊕` are not known to be algebraic here.** Their retraction
-   pairs therefore take `Colimit.Thm29Second` rather than
-   `Thm29SecondAtDomains`. This is a gap next to Lemma 17, not next to
+   pairs therefore take `Colimit.Theorem29Second` rather than
+   `Theorem29SecondAtDomains`. This is a gap next to Lemma 17, not next to
    Theorem 29.
 -/
 
-namespace ScottDomains.LemThirty
+namespace ScottDomains.Lemma30
 
 open ScottDomains ScottDomains.BifiniteUniversal ScottDomains.Colimit
 
@@ -204,6 +204,14 @@ components the kernel counts, rather than a list in prose. This row of the
 project's inventory has been recorded as nine and as ten in different rounds; a
 conjunction cannot drift. -/
 
+-- r0050 renamed the enclosing namespace `LemThirty` to `Lemma30`, so this claim's
+-- full name became `ScottDomains.Lemma30.Lemma30` and `linter.dupNamespace` fires
+-- on it. Removing the duplication means renaming either the namespace, which
+-- r0050 fixed as `Lemma30`, or this `def`, whose name is what the naming standard
+-- prescribes for a `Prop`-valued claim of Lemma 30. That choice is the
+-- orchestrator's, so the linter is silenced for this one declaration and nothing
+-- else, and the build stays at zero warnings beyond the three `sorry`s.
+set_option linter.dupNamespace false in
 /-- **Lemma 30** (Gunter & Scott, §7.4): all ten operators are p-representable
 over `W`, at `Fp(W)`.
 
@@ -215,7 +223,7 @@ The carrier is a parameter so that the proposition and its instantiation at §7.
 **Its universal closure is REFUTED (r0046).**
 `ScottDomains.R46.Agent1.not_forall_lemma30 : ¬ ∀ (W : Type) (inst :
 CompletePartialOrder W), @Lemma30 W inst`, one line from
-`lemma30_iff_lemma28_and_plotkin` and `R45.Agent2.not_forall_lemma28` — Lemma 30
+`lemma_30_iff_lemma28_and_plotkin` and `R45.Agent2.not_forall_lemma28` — Lemma 30
 contains Lemma 28's nine conjuncts, and those are already false at `Flat Empty`.
 This is not a defect in the paper and not news about `(·)♮`: the paper's Lemma 30
 is a statement about §7.4's own `V`, and quantifying its carrier is this
@@ -242,7 +250,7 @@ def Lemma30 (W : Type u) [CompletePartialOrder W] : Prop :=
 the anonymous constructor forces the count to be exactly ten, so the arity of
 this theorem *is* the kernel's check on the printed operator list. As a conjunct
 is proved, its hypothesis is deleted and its proof substituted — which is what
-`rep_lift_V` and `rep_prod_V` below are candidates for, once `Thm29Second`
+`rep_lift_V` and `rep_prod_V` below are candidates for, once `Theorem29Second`
 is discharged. -/
 theorem lemma_30_of {W : Type u} [CompletePartialOrder W]
     (h_arrow : IsPRepresentable₂ W PRep.funOp)
@@ -259,8 +267,6 @@ theorem lemma_30_of {W : Type u} [CompletePartialOrder W]
   ⟨h_arrow, h_strictArrow, h_prod, h_smash, h_sepSum, h_coalSum, h_lift, h_smyth, h_hoare,
     h_plotkin⟩
 
-alias lemma30_of := lemma_30_of
-
 /-- **Lemma 30 is Lemma 28's list plus one conjunct**, at whatever carrier both
 are read over. This is the sentence "the same nine plus `(·)♮`" turned into a
 proposition the kernel checks; the two are not definitionally equal only because
@@ -273,8 +279,6 @@ theorem lemma_30_iff_lemma28_and_plotkin (W : Type u) [CompletePartialOrder W] :
   · rintro ⟨⟨h₁, h₂, h₃, h₄, h₅, h₆, h₇, h₈, h₉⟩, h₁₀⟩
     exact ⟨h₁, h₂, h₃, h₄, h₅, h₆, h₇, h₈, h₉, h₁₀⟩
 
-alias lemma30_iff_lemma28_and_plotkin := lemma_30_iff_lemma28_and_plotkin
-
 /-- Lemma 30 is a statement about §7.4's `V`, the bifinite universal domain
 `Colimit.V` — not about §7.3's bounded-complete `U`, over which §7.4's opening
 sentence says `(·)♮` *cannot* be representable. This abbreviation fixes the
@@ -283,10 +287,10 @@ abbrev Lemma30AtV : Prop := Lemma30 Colimit.V
 
 /-! ## Theorem 29's second sentence at the paper's own hypothesis
 
-`Colimit.Thm29Second` quantifies over every cpo `E` with `IsBifinite E`. The
+`Colimit.Theorem29Second` quantifies over every cpo `E` with `IsBifinite E`. The
 paper's sentence says "`E` is any bifinite **domain**", and `IsBifinite` is only
 the Plotkin condition on `K(E)` (`Bifinite.lean:62`) — it does not imply
-algebraicity or a countable basis. So `Colimit.Thm29Second` as recorded in r0036
+algebraicity or a countable basis. So `Colimit.Theorem29Second` as recorded in r0036
 is *stronger* than the printed sentence, and the difference is not cosmetic:
 `countable_compacts_of_reflects` below shows that `V`'s own basis is countable,
 so a bifinite cpo with an uncountable basis cannot be a retract of `V` by any
@@ -294,20 +298,16 @@ embedding built from `A∞` at all. The word "domain" in the printed sentence is
 load-bearing. -/
 
 /-- **Theorem 29's second sentence**, at the paper's own "bifinite domain".
-Implied by `Colimit.Thm29Second` (`thm29SecondAtDomains_of_thm29Second`) and
-implied by `Thm29Normal` (`thm29SecondAtDomains_of_thm29Normal`, proved below). -/
+Implied by `Colimit.Theorem29Second` (`theorem_29_secondAtDomains_of_thm29Second`) and
+implied by `Theorem29Normal` (`theorem_29_secondAtDomains_of_thm29Normal`, proved below). -/
 def Theorem29SecondAtDomains : Prop :=
   ∀ (E : Type) [CompletePartialOrder E] [Domain E], IsBifinite E →
     ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p
 
-alias Thm29SecondAtDomains := Theorem29SecondAtDomains
-
 /-- Dropping the `Domain` hypothesis strengthens the statement, so the r0036
 form implies this one. -/
-theorem theorem_29_secondAtDomains_of_thm29Second (h : Colimit.Thm29Second) :
-    Thm29SecondAtDomains := fun E _ _ hE => h E hE
-
-alias thm29SecondAtDomains_of_thm29Second := theorem_29_secondAtDomains_of_thm29Second
+theorem theorem_29_secondAtDomains_of_thm29Second (h : Colimit.Theorem29Second) :
+    Theorem29SecondAtDomains := fun E _ _ hE => h E hE
 
 /-! ## The retraction pairs over `V`
 
@@ -327,51 +327,51 @@ def Retracts (E : Type) [CompletePartialOrder E] : Prop :=
   ∃ (gr : ScottHom E V) (fn : ScottHom V E), (∀ y, fn (gr y) = y) ∧ ∀ x, gr (fn x) ≤ x
 
 /-- **Theorem 29's second sentence gives a retraction pair for every bifinite
-`E`.** The whole of the reduction: `Thm29Second`'s conclusion *is* the pair, with
+`E`.** The whole of the reduction: `Theorem29Second`'s conclusion *is* the pair, with
 the conjunction of `IsEmbeddingProjectionPair` split. -/
-theorem retracts_of_isBifinite (h : Colimit.Thm29Second) (E : Type) [CompletePartialOrder E]
+theorem retracts_of_isBifinite (h : Colimit.Theorem29Second) (E : Type) [CompletePartialOrder E]
     (hE : IsBifinite E) : Retracts E := by
   obtain ⟨g, p, hgp⟩ := h E hE
   exact ⟨g, p, hgp.1, hgp.2⟩
 
 /-- The same reduction from the weaker hypothesis, for an `E` that is a domain.
 Five of the ten operator results are domains in this development, so five of the
-ten pairs go through this route and therefore follow from `Thm29Normal`
-(`thm29SecondAtDomains_of_thm29Normal`). -/
-theorem retracts_of_isDomain (h : Thm29SecondAtDomains) (E : Type)
+ten pairs go through this route and therefore follow from `Theorem29Normal`
+(`theorem_29_secondAtDomains_of_thm29Normal`). -/
+theorem retracts_of_isDomain (h : Theorem29SecondAtDomains) (E : Type)
     [CompletePartialOrder E] [Domain E] (hE : IsBifinite E) : Retracts E := by
   obtain ⟨g, p, hgp⟩ := h E hE
   exact ⟨g, p, hgp.1, hgp.2⟩
 
 /-- Conjunct 7's pair, `(·)⊥`. `Domain (WithBot V)` is
 `ClosureProperties.liftDomain`, an instance. -/
-theorem retracts_lift (h : Thm29SecondAtDomains) : Retracts (WithBot V) :=
-  retracts_of_isDomain h _ (lem17_lift isBifinite_V)
+theorem retracts_lift (h : Theorem29SecondAtDomains) : Retracts (WithBot V) :=
+  retracts_of_isDomain h _ (lemma_17_lift isBifinite_V)
 
 /-- Conjunct 3's pair, `×`. `Domain (V × V)` comes from
 `PowerdomainRep.domain_prod`, which is a theorem rather than an instance. -/
-theorem retracts_prod (h : Thm29SecondAtDomains) : Retracts (V × V) := by
+theorem retracts_prod (h : Theorem29SecondAtDomains) : Retracts (V × V) := by
   haveI : Domain (V × V) := PowerdomainRep.domain_prod
-  exact retracts_of_isDomain h _ (lem17_prod isBifinite_V isBifinite_V)
+  exact retracts_of_isDomain h _ (lemma_17_prod isBifinite_V isBifinite_V)
 
 /-- Conjunct 8's pair, `(·)♯`. The three powerdomains are ideal completions of a
 countable pre-order, so `IdealCompletion.instDomain` applies. -/
-theorem retracts_smyth (h : Thm29SecondAtDomains) : Retracts (Smyth.Powerdomain V) :=
-  retracts_of_isDomain h _ (ClosureProperties.lem17_smyth isBifinite_V)
+theorem retracts_smyth (h : Theorem29SecondAtDomains) : Retracts (Smyth.Powerdomain V) :=
+  retracts_of_isDomain h _ (ClosureProperties.lemma_17_smyth isBifinite_V)
 
 /-- Conjunct 9's pair, `(·)♭`. -/
-theorem retracts_hoare (h : Thm29SecondAtDomains) : Retracts (Hoare.Powerdomain V) :=
-  retracts_of_isDomain h _ (ClosureProperties.lem17_hoare isBifinite_V)
+theorem retracts_hoare (h : Theorem29SecondAtDomains) : Retracts (Hoare.Powerdomain V) :=
+  retracts_of_isDomain h _ (ClosureProperties.lemma_17_hoare isBifinite_V)
 
 /-- Conjunct 10's pair, `(·)♮` — the pair the paper displays in full on page 43,
 `Φ♮ : V → V♮` and `Ψ♮ : V♮ → V`. This is the conjunct §7.4 exists for, and
-nothing beyond `Thm29Normal` stands in its way. -/
-theorem retracts_plotkin (h : Thm29SecondAtDomains) : Retracts (Plotkin.Powerdomain V) :=
-  retracts_of_isDomain h _ (ClosureProperties.lem17_plotkin isBifinite_V)
+nothing beyond `Theorem29Normal` stands in its way. -/
+theorem retracts_plotkin (h : Theorem29SecondAtDomains) : Retracts (Plotkin.Powerdomain V) :=
+  retracts_of_isDomain h _ (ClosureProperties.lemma_17_plotkin isBifinite_V)
 
 /-! ### The three pairs that need the stronger hypothesis, and why
 
-`⊗`, `+` and `⊕` take `Colimit.Thm29Second` rather than `Thm29SecondAtDomains`,
+`⊗`, `+` and `⊕` take `Colimit.Theorem29Second` rather than `Theorem29SecondAtDomains`,
 because **this development never proves those three constructions algebraic.**
 Measured over the whole library, `IsAlgebraic` instances exist for `ScottHom`,
 `Set X`, `IdealCompletion` and `WithBot`, and `PowerdomainRep.domain_prod`
@@ -381,32 +381,32 @@ bounded completeness and Lemma 17's bifiniteness but no algebraicity and no
 recorded, and it is independent of Theorem 29. -/
 
 /-- Conjunct 4's pair, `⊗`. -/
-theorem retracts_smash (h : Colimit.Thm29Second) : Retracts (Smash V V) :=
-  retracts_of_isBifinite h _ (lem17_smash isBifinite_V isBifinite_V)
+theorem retracts_smash (h : Colimit.Theorem29Second) : Retracts (Smash V V) :=
+  retracts_of_isBifinite h _ (lemma_17_smash isBifinite_V isBifinite_V)
 
 /-- Conjunct 5's pair, `+`. -/
-theorem retracts_sepSum (h : Colimit.Thm29Second) :
+theorem retracts_sepSum (h : Colimit.Theorem29Second) :
     Retracts (ClosureProperties.SeparatedSum V V) :=
-  retracts_of_isBifinite h _ (ClosureProperties.lem17_separated isBifinite_V isBifinite_V)
+  retracts_of_isBifinite h _ (ClosureProperties.lemma_17_separated isBifinite_V isBifinite_V)
 
 /-- Conjunct 6's pair, `⊕`. -/
-theorem retracts_coalSum (h : Colimit.Thm29Second) : Retracts (CoalescedSum V V) :=
-  retracts_of_isBifinite h _ (lem17_sum isBifinite_V isBifinite_V)
+theorem retracts_coalSum (h : Colimit.Theorem29Second) : Retracts (CoalescedSum V V) :=
+  retracts_of_isBifinite h _ (lemma_17_sum isBifinite_V isBifinite_V)
 
 /-- Conjunct 1's pair, `→`, **with the extra instance the development's Lemma 17
-needs made explicit.** `lem17_fun` carries `[BoundedComplete β]`, which `V` does
-not have and — if `Thm29Second` holds — cannot have, since
+needs made explicit.** `lemma_17_fun` carries `[BoundedComplete β]`, which `V` does
+not have and — if `Theorem29Second` holds — cannot have, since
 `PRep.boundedComplete_range` would then force every bifinite domain to be
 bounded complete. Stating it as an instance argument keeps the obstruction in the
 signature. -/
-theorem retracts_fun_of_boundedComplete (h : Colimit.Thm29Second) [BoundedComplete V] :
+theorem retracts_fun_of_boundedComplete (h : Colimit.Theorem29Second) [BoundedComplete V] :
     Retracts (ScottHom V V) :=
-  retracts_of_isBifinite h _ (lem17_fun isBifinite_V isBifinite_V)
+  retracts_of_isBifinite h _ (lemma_17_fun isBifinite_V isBifinite_V)
 
 /-- Conjunct 2's pair, `⇸`, with the same extra instance as conjunct 1's. -/
-theorem retracts_strictFun_of_boundedComplete (h : Colimit.Thm29Second) [BoundedComplete V] :
+theorem retracts_strictFun_of_boundedComplete (h : Colimit.Theorem29Second) [BoundedComplete V] :
     Retracts (StrictHom V V) :=
-  retracts_of_isBifinite h _ (ClosureProperties.lem17_strictFun isBifinite_V isBifinite_V)
+  retracts_of_isBifinite h _ (ClosureProperties.lemma_17_strictFun isBifinite_V isBifinite_V)
 
 end Retracts
 
@@ -427,7 +427,7 @@ exist**, one per conjunct of `PRep.Lemma28` — `PRepFun.rep_arrow` (`funOp`),
 `R45.Agent4.rep_smyth` (`smythOp`) and `R45.Agent4.rep_hoare` (`hoareOp`). The
 count is not read off the names: each one's conclusion is
 `IsPRepresentable(₂) U <op>` for the operator named, and
-`R45.Agent4.lemma28AtU : PRep.Lemma28AtU` discharges the conjunction with no
+`R45.Agent4.lemma_28_atU : PRep.Lemma28AtU` discharges the conjunction with no
 proof hypothesis at all. What is still open at `V` is the transfer of those
 schemes to this carrier, which is a different claim from the schemes existing. -/
 
@@ -438,19 +438,19 @@ Theorem 29's second sentence.
 instance resolution; its two equations are `retracts_lift`'s. Nothing else about
 `V` enters — which is the sense in which §7.3's proof transfers to §7.4's
 carrier unchanged. -/
-theorem rep_lift_V (h : Thm29SecondAtDomains) : IsPRepresentable V PRep.liftOp := by
+theorem rep_lift_V (h : Theorem29SecondAtDomains) : IsPRepresentable V PRep.liftOp := by
   obtain ⟨_gr, _fn, hfg, hgf⟩ := retracts_lift h
   exact PRep.rep_lift hfg hgf
 
 /-- **Conjunct 3 of Lemma 30: `×` is p-representable over `V`**, given
 Theorem 29's second sentence. `PRep.rep_prod` at `U := V`. -/
-theorem rep_prod_V (h : Thm29SecondAtDomains) : IsPRepresentable₂ V PRep.prodOp := by
+theorem rep_prod_V (h : Theorem29SecondAtDomains) : IsPRepresentable₂ V PRep.prodOp := by
   obtain ⟨_gr, _fn, hfg, hgf⟩ := retracts_prod h
   exact PRep.rep_prod hfg hgf
 
 /-! ## What Theorem 29's second sentence still needs
 
-`Colimit.Thm29Second` is unproved, and every result above that takes it as a
+`Colimit.Theorem29Second` is unproved, and every result above that takes it as a
 hypothesis is therefore conditional. The missing step is not the whole sentence:
 `Colimit.lean` already supplies `isNormalIn_range_incl` (each stage `Stg n` is
 normal in `A∞`), `exists_stage_of_finite` (a finite subset of `A∞` lies in one
@@ -476,7 +476,7 @@ gap at "extending a normal embedding of a finite normal subposet of `K(E)` into
 statement about subsets of `A∞` — is not a gap: the stages are already cofinal
 among finite subsets, with no hypothesis on `N` or `N'` beyond finiteness, and
 each stage is already normal in `A∞` (`isNormalIn_range_incl`). The gap is one
-level earlier, at getting `K(E)` into `A∞` at all; `Thm29Normal` states it. -/
+level earlier, at getting `K(E)` into `A∞` at all; `Theorem29Normal` states it. -/
 theorem exists_stage_ge_of_finite {S : Set Ainf} (hS : S.Finite) (n : ℕ) :
     ∃ m : ℕ, n ≤ m ∧ S ⊆ Set.range (incl m) := by
   obtain ⟨k, hk⟩ := exists_stage_of_finite hS
@@ -487,17 +487,17 @@ theorem exists_stage_ge_of_finite {S : Set Ainf} (hS : S.Finite) (n : ℕ) :
 /-- **The step Theorem 29's second sentence is missing.** For every bifinite `E`
 there is an order-reflecting map of `K(E)` into `A∞` whose image is normal in
 `A∞` — equivalently, `A∞` is universal among the bases of bifinite domains under
-normal embedding. `Thm29SecondAtDomains` follows from this by Theorem 11 and
-transport along the ideal completion (`thm29SecondAtDomains_of_thm29Normal`); the
+normal embedding. `Theorem29SecondAtDomains` follows from this by Theorem 11 and
+transport along the ideal completion (`theorem_29_secondAtDomains_of_thm29Normal`); the
 chain-by-chain construction of the map, over the tower of finite normal subposets
 of `K(E)`, is what [Gun87] carries and §7.4 does not.
 
-This sentence named `Colimit.Thm29Second` rather than `Thm29SecondAtDomains`
+This sentence named `Colimit.Theorem29Second` rather than `Theorem29SecondAtDomains`
 until r0046. That was wrong, and r0045 is what made it checkable:
-`R45.Agent3.not_thm29Second : ¬ Colimit.Thm29Second` refutes the unqualified
+`R45.Agent3.not_thm29Second : ¬ Colimit.Theorem29Second` refutes the unqualified
 form outright, so nothing consistent implies it and the old sentence claimed an
 implication that cannot hold. The two `def`s differ by the single instance binder
-`[Domain E]` (`Colimit.lean:1028` against `LemThirty.lean:277`), which is exactly
+`[Domain E]` (`Colimit.lean:1028` against `Lemma30.lean:277`), which is exactly
 the discharged-versus-discharged-at distinction: what this statement yields is
 the version carrying the paper's word "domain", not the one without it.
 
@@ -515,8 +515,6 @@ def Theorem29Normal : Prop :=
   ∀ (E : Type) [CompletePartialOrder E] [Domain E], IsBifinite E →
     ∃ f : ↥(compacts E) → Ainf,
       (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf)
-
-alias Thm29Normal := Theorem29Normal
 
 /-- **Unproved — one of the development's two root holes (r0052).** To remove the
 `sorry`: for every bifinite domain `E`, build an order-reflecting map of `K(E)`
@@ -537,7 +535,7 @@ the token would match the word in this docstring. -/
 theorem theorem29Normal_unproven : Theorem29Normal :=
   sorry
 
-/-! ## `Thm29Normal` suffices: the reduction, proved
+/-! ## `Theorem29Normal` suffices: the reduction, proved
 
 Everything between a normal embedding `f : K(E) → A∞` and the embedding–projection
 pair `E ⇄ V` is elementary manipulation of ideals, and it is carried out below.
@@ -548,7 +546,7 @@ The two maps are
 | 1 | `E → V` | `x ↦ ↓(f '' {k ∈ K(E) | k ⊑ x})` — `embIdeal ∘ idealOfElem` |
 | 2 | `V → E` | `J ↦ ⨆ f⁻¹(J)` — `elemOfIdeal ∘ projIdeal` |
 
-Each of the two hypotheses of `Thm29Normal` is spent exactly once and in a
+Each of the two hypotheses of `Theorem29Normal` is spent exactly once and in a
 different place:
 
 * **order-reflection** gives `p ∘ g = id`, since `f k ⊑ f k'` collapses to
@@ -574,16 +572,16 @@ theorem monotone_of_reflects (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) : Monotone 
 theorem injective_of_reflects (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) : Function.Injective f :=
   fun _ _ hab => le_antisymm ((hf _ _).mp hab.le) ((hf _ _).mp hab.ge)
 
-/-- **Why `Thm29Normal` carries the paper's word "domain".** `A∞` is countable
+/-- **Why `Theorem29Normal` carries the paper's word "domain".** `A∞` is countable
 (`Colimit.instCountableAinf`), and an order-reflecting map into a countable type
 has a countable source. So an `E` that is bifinite but has an uncountable basis
 — an uncountable flat cpo is one — admits no such `f` at all, and the version of
-`Thm29Normal` without `[Domain E]` is refutable rather than open. `IsBifinite`
+`Theorem29Normal` without `[Domain E]` is refutable rather than open. `IsBifinite`
 alone is the Plotkin condition on `K(E)` and says nothing about its cardinality.
 
 This paragraph asserted the refutation without giving one until r0045, which
 supplied it: `R45.Agent3.not_thm29NormalWithoutDomain` refutes
-`R45.Agent3.Thm29NormalWithoutDomain`, this statement with the binder deleted,
+`R45.Agent3.Theorem29NormalWithoutDomain`, this statement with the binder deleted,
 using this very theorem and `Flat (Set ℕ)` as the witness. -/
 theorem countable_compacts_of_reflects (hf : ∀ a b, f a ≤ f b ↔ a ≤ b) :
     Countable ↥(compacts E) :=
@@ -724,7 +722,7 @@ theorem scottContinuous_projIdeal (hf : ∀ a b, f a ≤ f b ↔ a ≤ b)
 
 /-! ### The embedding–projection pair -/
 
-/-- **Theorem 29's second sentence follows from `Thm29Normal`.**
+/-- **Theorem 29's second sentence follows from `Theorem29Normal`.**
 
 The one missing input is the normal embedding of `K(E)` into `A∞`; everything
 after it is the composite of that embedding with Theorem 11's converse
@@ -733,9 +731,9 @@ isomorphism `E ≃o IdealCompletion K(E)`
 
 Of the two halves of "bifinite **domain**", **only algebraicity is spent below
 this line**, on `elemOfIdeal_idealOfElem` and `idealOfElem_elemOfIdeal`. The
-countable-basis half is spent one level up, inside `Thm29Normal` itself, where
+countable-basis half is spent one level up, inside `Theorem29Normal` itself, where
 `countable_compacts_of_reflects` shows it is not optional. -/
-theorem exists_embeddingProjectionPair_of_thm29Normal (h : Thm29Normal)
+theorem exists_embeddingProjectionPair_of_thm29Normal (h : Theorem29Normal)
     (E : Type) [CompletePartialOrder E] [Domain E] (hE : IsBifinite E) :
     ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p := by
   obtain ⟨f, hf, hn⟩ := h E hE
@@ -771,7 +769,7 @@ theorem exists_embeddingProjectionPair_of_thm29Normal (h : Thm29Normal)
     rw [IdealCompletion.idealOfElem_elemOfIdeal]
     exact embIdeal_projIdeal_le hf hn J
 
-/-- **`Thm29Normal ⟹ Thm29SecondAtDomains`.** The whole of Theorem 29's second
+/-- **`Theorem29Normal ⟹ Theorem29SecondAtDomains`.** The whole of Theorem 29's second
 sentence, at the paper's own hypothesis that `E` is a bifinite *domain*, reduces
 to the single statement that `A∞` is universal among the bases of bifinite
 domains under normal embedding. That reduction is what this file proves; the
@@ -779,21 +777,19 @@ universality itself is what §7.4 defers to [Gun87].
 
 Composing with `retracts_of_isDomain`, this makes five of Lemma 30's ten
 retraction pairs — `×`, `(·)⊥`, `(·)♯`, `(·)♭`, `(·)♮` — consequences of
-`Thm29Normal` alone. -/
-theorem theorem_29_secondAtDomains_of_thm29Normal (h : Thm29Normal) : Thm29SecondAtDomains :=
+`Theorem29Normal` alone. -/
+theorem theorem_29_secondAtDomains_of_thm29Normal (h : Theorem29Normal) : Theorem29SecondAtDomains :=
   fun E _ _ hE => exists_embeddingProjectionPair_of_thm29Normal h E hE
 
-alias thm29SecondAtDomains_of_thm29Normal := theorem_29_secondAtDomains_of_thm29Normal
+/-- **Conjunct 7 of Lemma 30 from `Theorem29Normal`.** The composite of
+`theorem_29_secondAtDomains_of_thm29Normal`, `retracts_lift` and `PRep.rep_lift`. -/
+theorem rep_lift_V_of_thm29Normal (h : Theorem29Normal) : IsPRepresentable V PRep.liftOp :=
+  rep_lift_V (theorem_29_secondAtDomains_of_thm29Normal h)
 
-/-- **Conjunct 7 of Lemma 30 from `Thm29Normal`.** The composite of
-`thm29SecondAtDomains_of_thm29Normal`, `retracts_lift` and `PRep.rep_lift`. -/
-theorem rep_lift_V_of_thm29Normal (h : Thm29Normal) : IsPRepresentable V PRep.liftOp :=
-  rep_lift_V (thm29SecondAtDomains_of_thm29Normal h)
-
-/-- **Conjunct 3 of Lemma 30 from `Thm29Normal`.** -/
-theorem rep_prod_V_of_thm29Normal (h : Thm29Normal) : IsPRepresentable₂ V PRep.prodOp :=
-  rep_prod_V (thm29SecondAtDomains_of_thm29Normal h)
+/-- **Conjunct 3 of Lemma 30 from `Theorem29Normal`.** -/
+theorem rep_prod_V_of_thm29Normal (h : Theorem29Normal) : IsPRepresentable₂ V PRep.prodOp :=
+  rep_prod_V (theorem_29_secondAtDomains_of_thm29Normal h)
 
 end Universality
 
-end ScottDomains.LemThirty
+end ScottDomains.Lemma30

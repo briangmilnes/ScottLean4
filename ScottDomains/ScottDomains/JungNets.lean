@@ -7,7 +7,7 @@ import Mathlib.Order.Zorn
 This file formalizes the part of **Jung 1989, Theorem 1.37** that the development
 can reach, and locates the part it cannot. It is step 1 of the five into which
 `ScottDomains/Section62.lean` decomposes Theorem 18, and it is the hypothesis
-`ScottDomains/JungSFP.lean`'s `lemma217` carries explicitly.
+`ScottDomains/JungSFP.lean`'s `jung_lemma_2_17` carries explicitly.
 
 Everything below is read off the PDF in `ScottDomains/papers/Jung 1989 Cartesian
 Closed Categories of Domains.pdf`, quoted rather than paraphrased.
@@ -61,26 +61,26 @@ Three groups, in dependency order.
 
 3. **The bridge to the development's relative form** —
    `hasCompleteMub_of_hasChainInfima`, `hasCompleteMub_pair`,
-   `forall_hasCompleteMub_of_thm137`, `lemma217_of_thm137`. `HasCompleteMub A u`
+   `forall_hasCompleteMub_of_jung_theorem_1_37`, `jung_lemma_2_17_of_jung_theorem_1_37`. `HasCompleteMub A u`
    quantifies over upper bounds *in `A`*; Jung's property m quantifies over all of
    `D`. `JungSFP.mem_minimalUpperBounds_of_minimal` converts one to the other for a
    finite set of compacts in an algebraic dcpo, so item 2 lands in exactly the
-   shape `lemma217`'s hypothesis and `isBifinite_iff_mubClosure`'s first conjunct
+   shape `jung_lemma_2_17`'s hypothesis and `isBifinite_iff_mubClosure`'s first conjunct
    are stated in. Nothing in `JungSFP.lean` or `MinimalUpperBounds.lean` had to
    change; the discharge is by application.
 
-## The named remainder: `Thm137`
+## The named remainder: `Theorem137`
 
-`Thm137 D` is Theorem 1.37 stated as a `Prop` — `IsAlgebraic (ScottHom D D) →
+`Theorem137 D` is Theorem 1.37 stated as a `Prop` — `IsAlgebraic (ScottHom D D) →
 IsBicomplete D`. It is **not proved** and **no `sorry` stands in for it**: every
 theorem below that needs it takes it as an explicit hypothesis. Two deviations
 from Jung's statement, both weakenings of what is assumed to be proved:
 
-* Jung's hypothesis is "continuous function space"; `Thm137` assumes the stronger
+* Jung's hypothesis is "continuous function space"; `Theorem137` assumes the stronger
   `IsAlgebraic (ScottHom D D)`, because **at this point in the import order** no
   predicate for a continuous dcpo is available. Algebraic implies continuous, so
-  `Thm137` is the weaker proposition, and it is the one Theorem 18 consumes —
-  `JungSFP.lean` records the identical deviation for `lemma213`.
+  `Theorem137` is the weaker proposition, and it is the one Theorem 18 consumes —
+  `JungSFP.lean` records the identical deviation for `jung_lemma_2_13`.
 
   *Correction, r0049/agent8.* The clause read "because the development has no
   predicate for a continuous dcpo", which was a claim about the whole package and
@@ -205,7 +205,7 @@ stronger and removes the dependency.
 package-wide by every later round. It is false package-wide: `Iwamura.lean`
 proves Theorem 1.2 — `exists_chain_directed_cover` is Iwamura's lemma itself and
 `hasDirectedSuprema_of_hasWellOrderedSuprema` is Markowsky's theorem — and
-`Iwamura.thm137Chains_iff_thm137` makes the chain and filtered forms the same
+`Iwamura.jung_theorem_1_37_chains_iff_jung_theorem_1_37` makes the chain and filtered forms the same
 proposition. `Iwamura.lean` imports this module, so the results are unavailable
 *here* and only here. -/
 def HasChainInfima (D : Type*) [Preorder D] : Prop :=
@@ -286,7 +286,7 @@ quantifies over upper bounds *inside* `compacts D` and asks for a minimal upper
 bound *inside* `compacts D`; the previous theorem quantifies over all of `D`. For
 a finite set of compact elements in an algebraic dcpo the two agree, by
 `JungSFP.mem_minimalUpperBounds_of_minimal` (Jung's Proposition 1.9 and its
-converse). So this is exactly `lemma217`'s hypothesis, discharged. -/
+converse). So this is exactly `jung_lemma_2_17`'s hypothesis, discharged. -/
 theorem hasCompleteMub_of_hasChainInfima (h : HasChainInfima D) {u : Set D}
     (hu : u.Finite) (huc : u ⊆ compacts D) : HasCompleteMub (compacts D) u := by
   intro z hz
@@ -294,7 +294,7 @@ theorem hasCompleteMub_of_hasChainInfima (h : HasChainInfima D) {u : Set D}
   exact ⟨m, JungSFP.mem_minimalUpperBounds_of_minimal hu huc hmin, hmz⟩
 
 /-- The instance at a pair of compact elements — the exact hypothesis
-`JungSFP.lemma217` carries. -/
+`JungSFP.jung_lemma_2_17` carries. -/
 theorem hasCompleteMub_pair (h : HasChainInfima D) {a₁ a₂ : D}
     (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
     HasCompleteMub (compacts D) ({a₁, a₂} : Set D) :=
@@ -305,7 +305,7 @@ end Algebraic
 
 /-! ## Theorem 1.37 as a named remainder, and what it discharges -/
 
-section Thm137
+section Theorem137
 
 variable {D : Type*} [CompletePartialOrder D]
 
@@ -328,11 +328,11 @@ stated a fact about this module as a fact about the development.
 1. "the development has no predicate for a continuous dcpo" —
    `JungBicomplete.IsContinuousDcpo` is one, with
    `isContinuousDcpo_of_isAlgebraic`.
-2. "**This is not proved.**" — `R45.Agent5.thm137` proves `Thm137 D` for every
+2. "**This is not proved.**" — `R45.Agent5.jung_theorem_1_37` proves `Theorem137 D` for every
    `D` with `[CompletePartialOrder D] [Domain D]`. That is a discharge **at** an
    added instance binder and not of the `def` as written, which quantifies over
    `[CompletePartialOrder D]` alone; the open case is the non-algebraic one.
-   `PropertyM.forall_hasCompleteMub` additionally removes `Thm137` from the route
+   `PropertyM.forall_hasCompleteMub` additionally removes `Theorem137` from the route
    to Theorem 18 entirely.
 3. "absent from the library" — the library meant is Mathlib, and there the survey
    stands (r0046 confirmed `JungNets.lean:102` TRUE). It is not absent from this
@@ -340,9 +340,7 @@ stated a fact about this module as a fact about the development.
 def Theorem137 (D : Type*) [CompletePartialOrder D] : Prop :=
   IsAlgebraic (ScottHom D D) → IsBicomplete D
 
-alias Thm137 := Theorem137
-
-/-- **The minimal remaining obligation**, weaker than `Thm137`: infima of nonempty
+/-- **The minimal remaining obligation**, weaker than `Theorem137`: infima of nonempty
 *chains* rather than of all filtered sets.
 
 Everything below factors through this, because Zorn's lemma quantifies over chains
@@ -353,12 +351,8 @@ either one discharges every theorem in this file. -/
 def Theorem137Chains (D : Type*) [CompletePartialOrder D] : Prop :=
   IsAlgebraic (ScottHom D D) → HasChainInfima D
 
-alias Thm137Chains := Theorem137Chains
-
 theorem Theorem137.toChains (h : Theorem137 D) : Theorem137Chains D :=
   fun hAlg => (h hAlg).hasChainInfima
-
-alias Thm137.toChains := Theorem137.toChains
 
 variable [IsAlgebraic D]
 
@@ -370,33 +364,29 @@ variable [IsAlgebraic D]
 * `∀ u, u.Finite → u ⊆ compacts D → (mubClosure (compacts D) u).Finite` — Jung's
   Lemma 2.2, which is step 4.
 
-This theorem is the first of the two, modulo `Thm137`. It is the shape the
+This theorem is the first of the two, modulo `Theorem137`. It is the shape the
 Theorem 18 assembly consumes, so nothing downstream has to restate it. -/
 theorem forall_hasCompleteMub_of_jung_theorem_1_37 (h : Theorem137 D)
     (hAlg : IsAlgebraic (ScottHom D D)) :
     ∀ v : Set D, v.Finite → v ⊆ compacts D → HasCompleteMub (compacts D) v :=
   fun _ hv hvc => hasCompleteMub_of_hasChainInfima (h.toChains hAlg) hv hvc
 
-alias forall_hasCompleteMub_of_thm137 := forall_hasCompleteMub_of_jung_theorem_1_37
+/-- **`JungSFP.jung_lemma_2_17` with its property-m hypothesis discharged.**
 
-/-- **`JungSFP.lemma217` with its property-m hypothesis discharged.**
-
-`lemma217` was left carrying `HasCompleteMub (compacts D) {a₁, a₂}` as an explicit
+`jung_lemma_2_17` was left carrying `HasCompleteMub (compacts D) {a₁, a₂}` as an explicit
 hypothesis because Jung's Theorem 1.37 was absent. This is the same statement with
-that hypothesis replaced by `Thm137 D`, and the proof is one application — the
+that hypothesis replaced by `Theorem137 D`, and the proof is one application — the
 shapes agree, so `JungSFP.lean` needed no edit. -/
 theorem jung_lemma_2_17_of_jung_theorem_1_37 (h : Theorem137 D)
     (hAlg : IsAlgebraic (ScottHom D D))
     (hCount : (compacts (ScottHom D D)).Countable)
     {a₁ a₂ : D} (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
     (minimalUpperBounds (compacts D) ({a₁, a₂} : Set D)).Finite :=
-  JungSFP.lemma217 hAlg hCount ha₁ ha₂
+  JungSFP.jung_lemma_2_17 hAlg hCount ha₁ ha₂
     (hasCompleteMub_pair (h.toChains hAlg) ha₁ ha₂)
 
-alias lemma217_of_thm137 := jung_lemma_2_17_of_jung_theorem_1_37
-
-/-- **Property M at every pair of compact elements**, modulo `Thm137` and
-countability of `K(D → D)` — the first disjunct of `JungSFP.thm214`, proved
+/-- **Property M at every pair of compact elements**, modulo `Theorem137` and
+countability of `K(D → D)` — the first disjunct of `JungSFP.jung_theorem_2_14`, proved
 outright rather than as a disjunct.
 
 Jung's Lemma 1.29 ("a poset with property m has property M if and only if the
@@ -408,10 +398,8 @@ theorem propertyM_pairs_of_jung_theorem_1_37 (h : Theorem137 D)
     (hCount : (compacts (ScottHom D D)).Countable) :
     ∀ x₁ x₂ : D, IsCompactElement x₁ → IsCompactElement x₂ →
       (minimalUpperBounds (compacts D) ({x₁, x₂} : Set D)).Finite :=
-  fun _ _ hx₁ hx₂ => lemma217_of_thm137 h hAlg hCount hx₁ hx₂
+  fun _ _ hx₁ hx₂ => jung_lemma_2_17_of_jung_theorem_1_37 h hAlg hCount hx₁ hx₂
 
-alias propertyM_pairs_of_thm137 := propertyM_pairs_of_jung_theorem_1_37
-
-end Thm137
+end Theorem137
 
 end ScottDomains.JungNets

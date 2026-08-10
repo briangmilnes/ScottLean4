@@ -163,15 +163,13 @@ theorem theorem_3 (F : FixedPointOperator.{u}) (hF : F.IsUniform)
   have hyval : ⇑f (F.op _ f₀).val = (F.op _ f₀).val :=
     congrArg Subtype.val (F.isFixedPt _ f₀)
   rw [← huniform]
-  exact le_antisymm (F.op _ f₀).2 ((theorem1 f.scottContinuous).2 hyval)
-
-alias theorem3 := theorem_3
+  exact le_antisymm (F.op _ f₀).2 ((theorem_1 f.scottContinuous).2 hyval)
 
 /-- `fix` is itself uniform is left to the reader by the paper; what Theorem 3
 establishes is that **no other** uniform operator exists. Combined with
 `kleeneOperator`, the uniform fixed point operator is unique if it exists. -/
 theorem eq_kleeneOperator_op (F : FixedPointOperator.{u}) (hF : F.IsUniform)
     (D : Type u) [CompletePartialOrder D] (f : ScottHom D D) :
-    F.op D f = kleeneOperator.op D f := theorem3 F hF D f
+    F.op D f = kleeneOperator.op D f := theorem_3 F hF D f
 
 end ScottDomains

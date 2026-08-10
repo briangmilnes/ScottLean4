@@ -108,8 +108,6 @@ theorem kleeneFix_le (hf : Monotone f) {b : α} (hb : f b ≤ b) : kleeneFix f �
 theorem theorem_1 (hf : ScottContinuous f) : IsLeast {a | f a = a} (kleeneFix f) :=
   ⟨map_kleeneFix hf, fun _ hb => kleeneFix_le hf.monotone (le_of_eq hb)⟩
 
-alias theorem1 := theorem_1
-
 /-- The same statement for pre-fixed points, which is what recursion arguments
 usually need. -/
 theorem isLeast_kleeneFix_le (hf : ScottContinuous f) :

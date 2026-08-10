@@ -1,5 +1,5 @@
 import ScottDomains.UniversalDomain
--- `thm21`, `IsRepresentable₂.diag` and `IsSolvable`, for the corollary `D ≅ D × D`
+-- `theorem_21`, `IsRepresentable₂.diag` and `IsSolvable`, for the corollary `D ≅ D × D`
 -- at the end of the file. Not reachable from `UniversalDomain`.
 import ScottDomains.RecursiveDomain
 
@@ -24,7 +24,7 @@ Gunter & Scott, *Semantic Domains*, §7.1, quoted from the source PDF:
 hypotheses of **Lemma 24** — "Let `U` be a non-trivial cpo. If the product and
 function space operators can be represented over `U`, then there are non-trivial
 domains `D` and `E` such that `E ≅ E × E` and `D ≅ D → E`" — whose first
-hypothesis is `ScottDomains.lem23`.
+hypothesis is `ScottDomains.lemma_23`.
 
 ## The generic representation scheme
 
@@ -34,7 +34,7 @@ construction with two parameters changed: the cpo `V` that the closure pair
 pair. `repOf`, `isClosure_repOf`, `scottContinuous_repOf` and `repRangeOrderIso`
 below are that construction stated once, for an arbitrary `V` and an arbitrary
 continuous family `C : Fc(U) × Fc(U) → (V → V)` of closures. `UniversalDomain.lean`
-is not edited: `lem23` keeps its own specialized copies, and the generic versions
+is not edited: `lemma_23` keeps its own specialized copies, and the generic versions
 are used only from here.
 
 ## What Lemma 28 and Lemma 30 actually say
@@ -247,7 +247,7 @@ end ProductDomain
 
 /-- `P N × P N` is a complete lattice: `sSup` in the product cpo is coordinatewise
 (`Prod.supSet`), and in `P X` every set has a least upper bound. This is the
-`hsup` hypothesis of `thm22`. -/
+`hsup` hypothesis of `theorem_22`. -/
 theorem isLUB_sSup_prod_set {X Y : Type*} (t : Set (Set X × Set Y)) : IsLUB t (sSup t) :=
   isLUB_prod.mpr ⟨isLUB_sSup _, isLUB_sSup _⟩
 
@@ -386,13 +386,13 @@ against `isClosure_prodMap` (`R×(r,s) ∈ Fc(P N)`), `scottContinuous_repOf` ag
 composite `repRangeOrderIso ≫ prodRangeOrderIso` (the isomorphism
 `im(R×(r,s)) ≅ im(r) × im(s)`).
 
-Together with `ScottDomains.lem23` this supplies both hypotheses of **Lemma 24**.
+Together with `ScottDomains.lemma_23` this supplies both hypotheses of **Lemma 24**.
 
 This is *not* a conjunct of Lemma 28; see the module docstring for what Lemma 28
 actually states and over which domain. -/
 theorem isRepresentable_prod : IsRepresentable₂ (Set ℕ) prodCpo := by
   haveI : Domain (Set ℕ × Set ℕ) := domain_prod
-  obtain ⟨fn, gr, hfg, hgf⟩ := thm22 (Set ℕ × Set ℕ) isLUB_sSup_prod_set
+  obtain ⟨fn, gr, hfg, hgf⟩ := theorem_22 (Set ℕ × Set ℕ) isLUB_sSup_prod_set
   refine ⟨fun p => ⟨repOf fn gr (prodMap p.1.val p.2.val),
       isClosure_repOf hfg hgf (isClosure_prodMap p.1.2 p.2.2)⟩,
     scottContinuous_repOf hfg hgf (fun p => isClosure_prodMap p.1.2 p.2.2)
@@ -409,7 +409,7 @@ One line, and it is the end-to-end check that `isRepresentable_prod` has the sha
 the §7 pipeline consumes: `IsRepresentable₂.diag` turns it into a unary
 representable operator and **Theorem 21** turns that into a domain. -/
 theorem recursiveDomain_prod : Recursive.IsSolvable.{0} fun X => prodCpo X X :=
-  Recursive.thm21 (Recursive.IsRepresentable₂.diag isRepresentable_prod)
+  Recursive.theorem_21 (Recursive.IsRepresentable₂.diag isRepresentable_prod)
 
 end ScottDomains.PowerdomainRep
 
@@ -441,7 +441,7 @@ depends on `sorryAx`.
 `compacts_prod`, `compactsBelow_prod` and `prodCpo` are choice-free; the two set
 identities are `Set.ext` over `isCompactElement_prod_iff`, and `prodCpo` only
 pairs two carriers. Everywhere else `Classical.choice` enters through the same
-door it enters `ScottDomains.lem23` by — `ScottHom`'s `SupSet` instance is a
+door it enters `ScottDomains.lemma_23` by — `ScottHom`'s `SupSet` instance is a
 `dite` on an undecidable continuity predicate — plus, in `isRepresentable_prod`
-itself, `Set.Countable.exists_eq_range` inside `thm22`, which chooses the
+itself, `Set.Countable.exists_eq_range` inside `theorem_22`, which chooses the
 enumeration `l₀, l₁, l₂, …` of the basis of `P N × P N`. -/

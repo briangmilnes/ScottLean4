@@ -7,23 +7,23 @@ import ScottDomains.Section62
 
 `ScottDomains/Section62.lean` decomposes Gunter & Scott's Theorem 18 into the five
 steps of A. Jung, *Cartesian Closed Categories of Domains*, CWI Tract 66 (1989).
-Steps 2, 3 and 5 are proved (`JungSFP.lemma213`, `JungSFP.thm214`,
-`JungSFP.lemma217`, `isBifinite_iff_mubClosure`). This file supplies
+Steps 2, 3 and 5 are proved (`JungSFP.jung_lemma_2_13`, `JungSFP.jung_theorem_2_14`,
+`JungSFP.jung_lemma_2_17`, `isBifinite_iff_mubClosure`). This file supplies
 
 * **Lemma 1.29** — property M at the empty set and at pairs implies property M at
-  every finite set. This is the join between step 3 and step 5: `lemma217`
+  every finite set. This is the join between step 3 and step 5: `jung_lemma_2_17`
   concludes finiteness of `mub{a₁, a₂}` for a *pair*, and
   `isBifinite_iff_mubClosure` consumes a statement about *every* finite subset of
   `K(D)`;
-* **step 4, Jung's Lemma 2.2** (`lemma22`), including the first of the two
+* **step 4, Jung's Lemma 2.2** (`jung_lemma_2_2`), including the first of the two
   prerequisites `Section62.lean` records as missing: the selection principle that
   extracts an infinite chain from an infinite `U ^∞(A)`. The second, **Jung's
   Corollary 1.36**, is *not* discharged; it is the explicit hypothesis
   `FixedPointOfCompactDeflationIsCompact`, whose docstring locates the obstruction
   and records what was measured about two failed direct routes;
-* **the assembly**, `thm18_of_propertyM`, which is Theorem 18 with Jung's
+* **the assembly**, `theorem_18_of_propertyM`, which is Theorem 18 with Jung's
   Theorem 1.37 — step 1 — and Corollary 1.36 as its two explicit hypotheses, in
-  the shape `JungSFP.lemma217` already uses.
+  the shape `JungSFP.jung_lemma_2_17` already uses.
 
 Everything is read off the PDF in `ScottDomains/papers/Jung 1989 Cartesian Closed
 Categories of Domains.pdf`, quoted rather than paraphrased.
@@ -38,7 +38,7 @@ antichain has property m (every upper bound of a finite subset is above a minima
 one, vacuously for a pair with no upper bound at all) and every pair has a finite
 — indeed empty — set of minimal upper bounds, yet `mub(∅)`, the set of minimal
 elements, is infinite. Over `K(D)` in a cpo the clause is free:
-`minimalUpperBounds_compacts_empty` computes `mub(∅) = {⊥}`, so `lemma129` below
+`minimalUpperBounds_compacts_empty` computes `mub(∅) = {⊥}`, so `jung_lemma_1_29` below
 carries only the pair hypothesis.
 
 Jung's proof builds `M₂ = mub{a₁, a₂}` and `M_{i+1} = ⋃_{x ∈ Mᵢ} mub{x, a_{i+1}}`
@@ -93,7 +93,7 @@ category theory, and no cardinality hypothesis. In particular **countability of
 `K(D)` is not what makes this step work**, contrary to the note in
 `Skeleton/Section6.lean`: the grading by `ℕ` is supplied by the `U`-iteration
 itself. Countability of `K(D → D)` is still indispensable to Theorem 18, and is
-still spent exactly once, in `JungSFP.lemma217`.
+still spent exactly once, in `JungSFP.jung_lemma_2_17`.
 
 ### Corollary 1.36 is the one step not discharged
 
@@ -106,21 +106,21 @@ a retract — neither of which this development has. That docstring also records
 what was measured about the two direct routes tried here, both of which fail on a
 single identified condition, so the next attempt need not repeat them.
 
-Nothing else in the step-4 chain depends on it: `lemma22` takes it as an argument
+Nothing else in the step-4 chain depends on it: `jung_lemma_2_2` takes it as an argument
 and everything else in the file is kernel-checked without it.
 
-## What is still open between this file and `thm18`
+## What is still open between this file and `theorem_18`
 
-Two hypotheses, both explicit arguments of `thm18_of_propertyM`, neither stubbed
+Two hypotheses, both explicit arguments of `theorem_18_of_propertyM`, neither stubbed
 with `sorry`:
 
 1. Jung's **Theorem 1.37**, "a dcpo with continuous function space is bicomplete",
    which for `K(D)` is property m — the argument `hm`. This is step 1 of the five
-   and is `JungSFP.lemma217`'s own outstanding hypothesis, promoted here to a
+   and is `JungSFP.jung_lemma_2_17`'s own outstanding hypothesis, promoted here to a
    statement about every finite subset of `K(D)` rather than about one pair.
 2. Jung's **Corollary 1.36** — the argument `hcor`, as above.
 
-Discharge both and `thm18` is `thm18_of_propertyM` applied to them; the assembly
+Discharge both and `theorem_18` is `theorem_18_of_propertyM` applied to them; the assembly
 itself is proved.
 -/
 
@@ -223,7 +223,7 @@ theorem minimalUpperBounds_compacts_empty :
     exact ⟨hbot, fun _ _ _ => bot_le⟩
 
 /-- **Lemma 1.29 over `K(D)`.** Property m together with property M *at pairs* —
-which is exactly what `JungSFP.lemma217` delivers — gives property M at every
+which is exactly what `JungSFP.jung_lemma_2_17` delivers — gives property M at every
 finite set of compact elements, which is what `isBifinite_iff_mubClosure`
 consumes. The empty-set clause is discharged by
 `minimalUpperBounds_compacts_empty`. -/
@@ -235,8 +235,6 @@ theorem jung_lemma_1_29
     (minimalUpperBounds (compacts α) u).Finite :=
   minimalUpperBounds_finite_of_pairs hm (fun a ha b hb => hpair a b ha hb)
     (by rw [minimalUpperBounds_compacts_empty]; exact Set.finite_singleton _) hu huc
-
-alias lemma129 := jung_lemma_1_29
 
 end Lemma129Compacts
 
@@ -581,13 +579,13 @@ At `g = idD` this reads `f ≪ id ⟹ f(d) ≪ d`; a fixed point `f(d) = d` of s
 is the whole use Lemma 2.2 makes of the corollary, and is what this predicate
 states.
 
-**Proved, r0042.** `ScottDomains.JungCor136.fixedPointOfCompactDeflationIsCompact`
+**Proved, r0042.** `ScottDomains.JungCorollary136.fixedPointOfCompactDeflationIsCompact`
 discharges this predicate outright from `IsAlgebraic (ScottHom α α)`, which every
-caller here already carries. It remains an explicit hypothesis of `lemma22` and
-`thm18_of_propertyM` only because those live upstream of that module in the import
+caller here already carries. It remains an explicit hypothesis of `jung_lemma_2_2` and
+`theorem_18_of_propertyM` only because those live upstream of that module in the import
 graph. The two paragraphs below record the obstruction as it stood before r0042
 and the measurement that located it; both are now history, and the second is what
-made the shorter route visible — see `JungCor136`'s module docstring, which
+made the shorter route visible — see `JungCorollary136`'s module docstring, which
 carries neither Proposition 1.22 nor Proposition 1.5 and never forms `↓e`.
 
 **Obstruction as it stood before r0042.** Jung derives 1.36 from Proposition 1.34, whose
@@ -617,8 +615,8 @@ fails off `↓c`, where `f(x) ⊑ x` gives nothing below `c`. Both variants were
 each fails on exactly one of the two conditions, which is why Jung's proof needs
 the retraction and not merely a restriction.
 
-No `sorry` stands in for this: it is an explicit hypothesis of `lemma22` and of
-`thm18_of_propertyM`. -/
+No `sorry` stands in for this: it is an explicit hypothesis of `jung_lemma_2_2` and of
+`theorem_18_of_propertyM`. -/
 def FixedPointOfCompactDeflationIsCompact (α : Type*) [CompletePartialOrder α] : Prop :=
   ∀ f : ScottHom α α, IsCompactElement f → (∀ z : α, f z ≤ z) →
     ∀ d : α, f d = d → IsCompactElement d
@@ -675,8 +673,6 @@ theorem jung_lemma_2_2 (hcor : FixedPointOfCompactDeflationIsCompact α)
   exact not_isCompactElement_of_isLUB_strictMono hxmono hlub
     (hcor g hgcomp hgle _ (hcont.unique hlub))
 
-alias lemma22 := jung_lemma_2_2
-
 end Lemma22Main
 
 /-! ## The assembly: Theorem 18 with step 1 as a hypothesis -/
@@ -697,13 +693,13 @@ bicomplete", which for `K(D)` is property m — and `hcor` is his **Corollary
 | # | Step | Jung | Here |
 | -- | ---- | ---- | ---- |
 | 1 | property m | Theorem 1.37 | hypothesis `hm` |
-| 2 | the bifurcation | Lemma 2.13, Theorem 2.14 | `JungSFP.lemma213`, `JungSFP.thm214` |
-| 3 | property M at pairs | Lemma 2.17 | `JungSFP.lemma217` |
-| — | pairs to all finite sets | Lemma 1.29 | `lemma129` |
-| 4 | `U ^∞(A)` finite | Lemma 2.2 | `lemma22`, given `hcor` |
+| 2 | the bifurcation | Lemma 2.13, Theorem 2.14 | `JungSFP.jung_lemma_2_13`, `JungSFP.jung_theorem_2_14` |
+| 3 | property M at pairs | Lemma 2.17 | `JungSFP.jung_lemma_2_17` |
+| — | pairs to all finite sets | Lemma 1.29 | `jung_lemma_1_29` |
+| 4 | `U ^∞(A)` finite | Lemma 2.2 | `jung_lemma_2_2`, given `hcor` |
 | 5 | bifiniteness | Theorem 1.32 | `isBifinite_iff_mubClosure` |
 
-Countability of `K(D → D)` enters exactly once, through `lemma217`, via
+Countability of `K(D → D)` enters exactly once, through `jung_lemma_2_17`, via
 `Domain.countable_compacts` on the function space. Without it the statement is
 false — the algebraic L-domains are the counterexamples — so its appearance here
 is not incidental. -/
@@ -713,16 +709,14 @@ theorem theorem_18_of_propertyM (hcor : FixedPointOfCompactDeflationIsCompact α
   have hpair : ∀ a₁ a₂ : α, IsCompactElement a₁ → IsCompactElement a₂ →
       (minimalUpperBounds (compacts α) ({a₁, a₂} : Set α)).Finite := by
     intro a₁ a₂ ha₁ ha₂
-    refine JungSFP.lemma217 (inferInstance : IsAlgebraic (ScottHom α α))
+    refine JungSFP.jung_lemma_2_17 (inferInstance : IsAlgebraic (ScottHom α α))
       (Domain.countable_compacts (α := ScottHom α α)) ha₁ ha₂ (hm _ ?_ (Set.toFinite _))
     rintro y (rfl | rfl) <;> assumption
   have hM : ∀ v : Set α, v ⊆ compacts α → v.Finite →
       (minimalUpperBounds (compacts α) v).Finite :=
-    fun v hvc hvfin => lemma129 hm hpair hvfin hvc
+    fun v hvc hvfin => jung_lemma_1_29 hm hpair hvfin hvc
   exact isBifinite_iff_mubClosure.mpr
-    ⟨fun v hvfin hvc => hm v hvc hvfin, fun u hufin huc => lemma22 hcor hM hufin huc⟩
-
-alias thm18_of_propertyM := theorem_18_of_propertyM
+    ⟨fun v hvfin hvc => hm v hvc hvfin, fun u hufin huc => jung_lemma_2_2 hcor hM hufin huc⟩
 
 end Assembly
 

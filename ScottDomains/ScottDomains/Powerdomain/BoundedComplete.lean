@@ -22,8 +22,8 @@ The plan for this round writes the two powerdomains `D]` and `D[`; those are an
 ASCII rendering of the paper's `D♯` and `D♭`, the **upper (Smyth)** and **lower
 (Hoare)** powerdomains of §5.2, quoted verbatim in `Powerdomain/Smyth.lean`. So
 
-* `lem13_hoare` is the paper's `D♭` — `ScottDomains.Hoare.Powerdomain`;
-* `lem13_smyth` is the paper's `D♯` — `ScottDomains.Smyth.Powerdomain`.
+* `lemma_13_hoare` is the paper's `D♭` — `ScottDomains.Hoare.Powerdomain`;
+* `lemma_13_smyth` is the paper's `D♯` — `ScottDomains.Smyth.Powerdomain`.
 
 There is no `lem13_plotkin`. The paper's third powerdomain is `D♮`, the convex
 (Plotkin) one, and Lemma 13 does not name it: the convex powerdomain does not
@@ -67,7 +67,7 @@ returns its genuine least upper bound.
 The paper's Lemma 13 was true throughout and is proved here in the paper's own
 words — `BddAbove S → ∃ I, IsLUB S I`. Together with the `OrderBot` instance
 that `IdealCompletion` carries, that pair is exactly the quoted definition of
-*bounded complete*, so `lem13_hoare` and `lem13_smyth` say what §4.5 says; after
+*bounded complete*, so `lemma_13_hoare` and `lemma_13_smyth` say what §4.5 says; after
 the repair the class-valued form says it too.
 
 ## How the two conjuncts are proved
@@ -100,7 +100,7 @@ only two of the three powerdomains.
 ## Statements
 
 * `exists_isLUB_of_bddAbove_idealCompletion` — the general construction.
-* `lem13_hoare`, `lem13_smyth` — Lemma 13, in the paper's wording.
+* `lemma_13_hoare`, `lemma_13_smyth` — Lemma 13, in the paper's wording.
 * `instBoundedCompleteHoare`, `instBoundedCompleteSmyth` — the class-valued form,
   reinstated by the r0032 repair. There is no Plotkin instance: the Egli–Milner
   order supplies no join of a bounded pair, so `IdealCompletion.boundedComplete`
@@ -195,8 +195,6 @@ statement. -/
 theorem lemma_13_hoare (α : Type u) [CompletePartialOrder α] [Domain α] [BoundedComplete α]
     (S : Set (Hoare.Powerdomain α)) (hS : BddAbove S) : ∃ I, IsLUB S I :=
   exists_isLUB_of_bddAbove_idealCompletion (fun u v _ => hoare_exists_isLUB_pair u v) hS
-
-alias lem13_hoare := lemma_13_hoare
 
 /-- **Lemma 13's `D♭` conjunct in the class-valued form**, reinstated by the
 r0032 repair of `idealSup`: not only does every bounded subset of `D♭` have a
@@ -326,8 +324,6 @@ countable pre-order in the first place. -/
 theorem lemma_13_smyth (α : Type u) [CompletePartialOrder α] [Domain α] [BoundedComplete α]
     (S : Set (Smyth.Powerdomain α)) (hS : BddAbove S) : ∃ I, IsLUB S I :=
   exists_isLUB_of_bddAbove_idealCompletion (fun _ _ h => smyth_exists_isLUB_pair h) hS
-
-alias lem13_smyth := lemma_13_smyth
 
 /-- **Lemma 13's `D♯` conjunct in the class-valued form**, reinstated by the
 r0032 repair of `idealSup`. `[BoundedComplete α]` is genuinely consumed here, by
@@ -493,12 +489,12 @@ no `info` lines). No declaration depends on `sorryAx`.
   ScottDomains.PowerdomainBC.exists_isLUB_of_bddAbove_idealCompletion
                                                             [propext, Classical.choice, Quot.sound]
   ScottDomains.PowerdomainBC.hoare_exists_isLUB_pair        [propext, Classical.choice, Quot.sound]
-  ScottDomains.PowerdomainBC.lem13_hoare                    [propext, Classical.choice, Quot.sound]
+  ScottDomains.PowerdomainBC.lemma_13_hoare                    [propext, Classical.choice, Quot.sound]
   ScottDomains.PowerdomainBC.instBoundedCompleteHoare       [propext, Classical.choice, Quot.sound]
   ScottDomains.PowerdomainBC.joinCompact                    [propext, Classical.choice, Quot.sound]
   ScottDomains.PowerdomainBC.mem_smythJoin                  [propext, Classical.choice, Quot.sound]
   ScottDomains.PowerdomainBC.smyth_exists_isLUB_pair        [propext, Classical.choice, Quot.sound]
-  ScottDomains.PowerdomainBC.lem13_smyth                    [propext, Classical.choice, Quot.sound]
+  ScottDomains.PowerdomainBC.lemma_13_smyth                    [propext, Classical.choice, Quot.sound]
   ScottDomains.PowerdomainBC.instBoundedCompleteSmyth       [propext, Classical.choice, Quot.sound]
   ScottDomains.PowerdomainBC.not_isIdeal_sUnion_hoareWitness
                                                             [propext, Classical.choice, Quot.sound]

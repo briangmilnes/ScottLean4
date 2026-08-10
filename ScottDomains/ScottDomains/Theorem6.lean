@@ -188,8 +188,6 @@ theorem theorem_6 :
     fun hN hN' h => normalHom_mono hN hN' h,
     fun hp hq hpq => IsProjection.range_mono hp hq hpq⟩
 
-alias theorem6 := theorem_6
-
 end Theorem6Section
 
 end ScottDomains

@@ -1,5 +1,5 @@
 import ScottDomains.A2Lemma28
-import ScottDomains.LemThirty
+import ScottDomains.Lemma30
 import ScottDomains.Effective.FunctionSpace
 -- `R49.Agent3.isStepEnumeration_scottHom`, which r0049's restatement of
 -- `Effective.StepFunctionsDecidable` makes this file's `_of_unconditional` need.
@@ -12,7 +12,7 @@ This file holds the two Lean-level obligations of r0046's agent1 stream. Both
 exist so that a *bookkeeping* judgement is a kernel-checked fact rather than a
 line in a report.
 
-## 1. `LemThirty.Lemma30`'s universal closure is false
+## 1. `Lemma30.Lemma30`'s universal closure is false
 
 `scripts/a6-query.lean` scores a `def … : Prop` as undischarged when no package
 theorem concludes it with no proof hypothesis. A refutation concludes `¬ D`,
@@ -30,7 +30,7 @@ and r0045's agent2 already refuted those.
 Scott's Lemma 30 is a statement about §7.4's own `V`; the carrier is a parameter
 here only so that the proposition and its instantiation are separate
 declarations, exactly as `PRep.Lemma28` and `PRep.Lemma28AtU` are. The claim that
-survives is `LemThirty.Lemma30AtV`, and it is `Lemma30` at `W := V`
+survives is `Lemma30.Lemma30AtV`, and it is `Lemma30` at `W := V`
 definitionally.
 
 ## 2. The statement `Effective.StepFunctionsDecidable` used to have
@@ -53,23 +53,23 @@ open ScottDomains.Effective
 
 /-! ## `Lemma30`'s universal closure -/
 
-/-- **The universal reading of `LemThirty.Lemma30` is false.** A theorem
+/-- **The universal reading of `Lemma30.Lemma30` is false.** A theorem
 discharging the `Lemma30` row in `a6-query.lean`'s sense would have this type.
 
-The proof is projection: `LemThirty.lemma30_iff_lemma28_and_plotkin` says
-`Lemma30 W ↔ PRep.Lemma28 W ∧ IsPRepresentable W LemThirty.plotkinOp`, so a
+The proof is projection: `Lemma30.lemma_30_iff_lemma28_and_plotkin` says
+`Lemma30 W ↔ PRep.Lemma28 W ∧ IsPRepresentable W Lemma30.plotkinOp`, so a
 universal `Lemma30` would give a universal `PRep.Lemma28`, which
 `ScottDomains.R45.Agent2.not_forall_lemma28` refutes at `Flat Empty`. The tenth
 conjunct `(·)♮` is not used and is not the reason the closure fails.
 
-What this does **not** say: it says nothing against `LemThirty.Lemma30AtV`, which
+What this does **not** say: it says nothing against `Lemma30.Lemma30AtV`, which
 is this proposition at `W := Colimit.V` and is open, nor against the paper, which
 states Lemma 30 over `V` and not over an arbitrary carrier. -/
 theorem not_forall_lemma30 :
-    ¬ ∀ (W : Type) (inst : CompletePartialOrder W), @LemThirty.Lemma30 W inst :=
+    ¬ ∀ (W : Type) (inst : CompletePartialOrder W), @Lemma30.Lemma30 W inst :=
   fun h =>
     ScottDomains.R45.Agent2.not_forall_lemma28 fun W inst =>
-      ((@LemThirty.lemma30_iff_lemma28_and_plotkin W inst).mp (h W inst)).1
+      ((@Lemma30.lemma_30_iff_lemma28_and_plotkin W inst).mp (h W inst)).1
 
 /-! ## The pre-r0046 statement of `StepFunctionsDecidable` -/
 
@@ -109,7 +109,7 @@ nothing else. The complementary check — that no bar was lowered — is that
 `Effective.Theorem7ArrowRecursive`, the transcription of the sentence this one
 serves, already carried `IsRecursive d → IsRecursive e →` and is untouched. The
 claim now has exactly the hypotheses its consumer always had, which is why
-`ScottDomains.R45.Agent1.theorem7ArrowRecursive_of_stepFunctionsDecidable` can
+`ScottDomains.R45.Agent1.theorem_7_arrowRecursive_of_stepFunctionsDecidable` can
 now take the claim's own universal closure as its hypothesis instead of a
 hand-strengthened variant of it.
 

@@ -13,7 +13,7 @@ is the standard one. What is formalized here is:
   the **Egli–Milner** ordering — the conjunction of the Hoare (lower) and Smyth
   (upper) orderings;
 * `Powerdomain D`, the **ideal completion** of that pre-order, which is a
-  `Domain` by Theorem 11 (`ScottDomains.IdealCompletion.thm11`);
+  `Domain` by Theorem 11 (`ScottDomains.IdealCompletion.theorem_11`);
 * the identification of `K(Powerdomain D)` with the principal ideals.
 
 ## Which ordering, exactly
@@ -300,7 +300,7 @@ three hypotheses it consumes are `Preorder`, `OrderBot` (the singleton `{⊥}`) 
 theorem isDomain (D : Type u) [CompletePartialOrder D] [Domain D] :
     Domain (Powerdomain D) ∧
       compacts (Powerdomain D) = Set.range (principal : FinCompacts D → Powerdomain D) :=
-  IdealCompletion.thm11 (FinCompacts D)
+  IdealCompletion.theorem_11 (FinCompacts D)
 
 /-- The `Domain` instance is found by resolution, with no bespoke instance in
 this file. -/

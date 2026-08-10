@@ -55,9 +55,9 @@ Four groups of results, in dependency order.
    monotone and Scott continuous. All three families are instances, so the case
    analysis is paid for once.
 
-3. **Step 2 — Lemma 2.13 and Theorem 2.14** — `lemma213`, `thm214`.
+3. **Step 2 — Lemma 2.13 and Theorem 2.14** — `jung_lemma_2_13`, `jung_theorem_2_14`.
 
-4. **Step 3 — Lemma 2.17** — `lemma217`. It consumes step 2 (the L-domain
+4. **Step 3 — Lemma 2.17** — `jung_lemma_2_17`. It consumes step 2 (the L-domain
    uniqueness is what makes `f_S` monotone), the countability of `K(D → D)`, and
    one hypothesis the development cannot yet discharge: property m at the pair,
    which is Jung's Theorem 1.37 — step 1. See the second obstruction note.
@@ -90,15 +90,15 @@ bounded and is worth stating exactly:
   by `HasAtMostOneMubBelow` together with property m. So the route to Theorem 18
   passes through this file's predicate and never through the lattice definition.
 * **What is therefore missing is a name, not a step.** To call the second
-  disjunct of `thm214` "`D` is an algebraic L-domain" in the literature's sense
+  disjunct of `jung_theorem_2_14` "`D` is an algebraic L-domain" in the literature's sense
   one must add the existence clause (Jung's property m for pairs, his
   Theorem 1.37, absent from the development) and then Theorem 2.10 (v) ⟹ (iv).
-  Until that is done `thm214`'s second disjunct is the strictly weaker,
+  Until that is done `jung_theorem_2_14`'s second disjunct is the strictly weaker,
   formally-checked statement it says it is.
 
-## Precisely-located obstruction: `lemma217` assumes property m
+## Precisely-located obstruction: `jung_lemma_2_17` assumes property m
 
-`lemma217` carries the hypothesis `HasCompleteMub (compacts D) {a₁, a₂}` — Jung's
+`jung_lemma_2_17` carries the hypothesis `HasCompleteMub (compacts D) {a₁, a₂}` — Jung's
 property m at the pair. Jung does not assume it; he cites his **Theorem 1.37**,
 "a dcpo with continuous function space is bicomplete", which is step 1 of the
 five and is absent from the development. Its proof is not a proof script over the
@@ -106,7 +106,7 @@ present API: it runs over ordinal-indexed codirected nets (his Corollary 1.3),
 uses interpolation in a continuous dcpo, and builds a retraction onto
 `A ∪ αᵒᵖ` (his Proposition 1.22). Nothing in `ScottDomains/` quantifies over any
 of that. Discharging it is a separate development, and no `sorry` stands in for
-it: the hypothesis is explicit in `lemma217`'s statement.
+it: the hypothesis is explicit in `jung_lemma_2_17`'s statement.
 
 The two remaining steps of the five are step 1 as just described and step 4,
 Jung's Lemma 2.2 — property M implies `U ^∞(A)` finite — whose middle and last
@@ -116,12 +116,12 @@ Theorem (his Theorem 2.1) and his Corollary 1.36. Step 5 is
 
 ## Where countability is spent
 
-Not in `lemma213` or `thm214`: Jung's Theorem 2.14 is the purely algebraic
+Not in `jung_lemma_2_13` or `jung_theorem_2_14`: Jung's Theorem 2.14 is the purely algebraic
 bifurcation and is true with no cardinality hypothesis. It is spent in
-`lemma217`, and it must be spent somewhere — `Section62.lean` records that
+`jung_lemma_2_17`, and it must be spent somewhere — `Section62.lean` records that
 Theorem 18 is **false** without countability, the algebraic L-domains being the
-counterexamples (Abramsky & Jung Theorem 4.3.4 against 4.3.5). `lemma217` is
-where the L-domain disjunct of `thm214` is killed, by injecting the powerset of
+counterexamples (Abramsky & Jung Theorem 4.3.4 against 4.3.5). `jung_lemma_2_17` is
+where the L-domain disjunct of `jung_theorem_2_14` is killed, by injecting the powerset of
 an infinite `mub(A)` into `K(D → D)`.
 -/
 
@@ -639,20 +639,18 @@ theorem jung_lemma_2_13 {x₁ x₂ : D} (hx₁ : IsCompactElement x₁) (hx₂ :
     exact hgd
   exact hne (le_antisymm hb₁b₂ (hb₂.2 hb₁.1 hb₁b₂))
 
-alias lemma213 := jung_lemma_2_13
-
 end Lemma213
 
 /-! ## Theorem 2.14 -/
 
-section Thm214
+section Theorem214
 
 variable {D : Type*} [CompletePartialOrder D] [IsAlgebraic D]
 
 /-- The failure of Jung's condition (vii) of Theorem 2.10: some pair of compact
 elements has **two distinct** minimal upper bounds under one common bound. This
 is what Jung's proof of Lemma 2.13 extracts from "`E` is not an L-domain", and it
-is the exact shape `lemma213` consumes. -/
+is the exact shape `jung_lemma_2_13` consumes. -/
 def HasTwoMubBelow (D : Type*) [CompletePartialOrder D] : Prop :=
   ∃ a₁ a₂ : D, IsCompactElement a₁ ∧ IsCompactElement a₂ ∧ ∃ x m₁ m₂ : D,
     m₁ ∈ minimalUpperBounds (compacts D) ({a₁, a₂} : Set D) ∧
@@ -702,12 +700,10 @@ theorem jung_theorem_2_14 (hAlg : IsAlgebraic (ScottHom D D)) :
   · refine Or.inl fun x₁ x₂ hx₁ hx₂ => ?_
     by_contra hinf
     obtain ⟨a₁, a₂, ha₁, ha₂, x, m₁, m₂, hm₁, hm₂, hx1, hx2, hne⟩ := hL
-    exact lemma213 hx₁ hx₂ hinf ha₁ ha₂ hm₁ hm₂ hne hx1 hx2 hAlg
+    exact jung_lemma_2_13 hx₁ hx₂ hinf ha₁ ha₂ hm₁ hm₂ hne hx1 hx2 hAlg
   · exact Or.inr hL
 
-alias thm214 := jung_theorem_2_14
-
-end Thm214
+end Theorem214
 
 /-! ## Lemma 2.17 — where countability is spent -/
 
@@ -746,7 +742,7 @@ L-domains being the counterexamples, so no proof of it can avoid this step.
 
 Jung's proof, run in this order.
 
-1. Assume `mub{a₁, a₂}` is infinite. Then `lemma213` (with `E = D`) forces
+1. Assume `mub{a₁, a₂}` is infinite. Then `jung_lemma_2_13` (with `E = D`) forces
    `HasAtMostOneMubBelow D`: `D` is on the L-domain side of the Theorem 2.14
    bifurcation. This is the prerequisite three earlier rounds lacked.
 2. Pick two distinct `b₁, b₂ ∈ mub{a₁, a₂}` — an infinite set is nontrivial.
@@ -767,7 +763,7 @@ Jung's proof, run in this order.
 family attached, and Spreen's `ω ^ ω`-indexed variant — and observes that none is
 canonical. Jung's is the one formalized here because it costs the least: it
 reuses `jungFun` unchanged, so the whole continuity proof is already paid for by
-`lemma213`, and its injectivity is one evaluation at a point of `S`. Spreen's
+`jung_lemma_2_13`, and its injectivity is one evaluation at a point of `S`. Spreen's
 `ω ^ ω` indexing would need a chain construction and a separate continuity
 argument for no gain — the cardinality contradiction is the same either way. -/
 theorem jung_lemma_2_17 (hAlg : IsAlgebraic (ScottHom D D))
@@ -786,7 +782,7 @@ theorem jung_lemma_2_17 (hAlg : IsAlgebraic (ScottHom D D))
   have hL : HasAtMostOneMubBelow D := by
     intro htwo
     obtain ⟨c₁, c₂, hc₁, hc₂, x, m₁, m₂, hm₁, hm₂, hx1, hx2, hne⟩ := htwo
-    exact lemma213 ha₁ ha₂ hMi hc₁ hc₂ hm₁ hm₂ hne hx1 hx2 hAlg
+    exact jung_lemma_2_13 ha₁ ha₂ hMi hc₁ hc₂ hm₁ hm₂ hne hx1 hx2 hAlg
   have huniq : ∀ x : D, ∀ m₁ ∈ M, ∀ m₂ ∈ M, m₁ ≤ x → m₂ ≤ x → m₁ = m₂ := by
     intro x m₁ h₁ m₂ h₂ hx1 hx2
     by_contra hne
@@ -886,8 +882,6 @@ theorem jung_lemma_2_17 (hAlg : IsAlgebraic (ScottHom D D))
   obtain ⟨f, hf⟩ := exists_surjective_nat (Set ↥M)
   exact Function.cantor_surjective (f ∘ Function.invFun (Set.Infinite.natEmbedding M hMi))
     (hf.comp (Function.invFun_surjective (Set.Infinite.natEmbedding M hMi).injective))
-
-alias lemma217 := jung_lemma_2_17
 
 end Lemma217
 

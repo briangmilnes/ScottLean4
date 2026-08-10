@@ -131,6 +131,6 @@ noncomputable def fixHom (α : Type*) [CompletePartialOrder α] : ScottHom (Scot
 /-- Theorem 1 restated for the bundled operator: `fix(f)` is the least fixed
 point of `f`. -/
 theorem isLeast_fixHom (f : ScottHom α α) : IsLeast {a | ⇑f a = a} (fixHom α f) :=
-  theorem1 f.scottContinuous
+  theorem_1 f.scottContinuous
 
 end ScottDomains.Kleene
