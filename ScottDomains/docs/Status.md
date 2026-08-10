@@ -108,6 +108,39 @@ constants depend on `sorryAx` — those three theorems — and no other declarat
 does, because none applies them: every consumer still takes its claim as an
 explicit hypothesis.
 
+## 6. Size
+
+| # | Quantity | Count |
+| -- | ------- | ----: |
+| 1 | Files | 124 |
+| 2 | Modules | 124 |
+| 3 | Lines | 46,442 |
+| 4 | Theorems | 2,122 |
+| 5 | `def`s | 829 |
+| 6 | — of those, `Prop`-valued | 120 |
+| 7 | Structures and classes | 25 |
+| 8 | Constants in the environment | 4,393 |
+| 9 | Build jobs | 1,372 |
+
+## 7. Mathlib theories referenced
+
+34 distinct Mathlib modules, across 8 top-level theories.
+
+| # | Theory | Modules |
+| -- | ----- | ------: |
+| 1 | `Mathlib.Data` | 12 |
+| 2 | `Mathlib.Order` | 11 |
+| 3 | `Mathlib.SetTheory` | 3 |
+| 4 | `Mathlib.Algebra` | 3 |
+| 5 | `Mathlib.Logic` | 2 |
+| 6 | `Mathlib.Computability` | 1 |
+| 7 | `Mathlib.Combinatorics` | 1 |
+| 8 | `Mathlib.Tactic` | 1 |
+
+`Mathlib.Order.CompletePartialOrder` and `Mathlib.Order.ScottContinuity` are the
+two the development is built on; `Mathlib.Computability.RE` is the only one §3.2
+needs.
+
 ## Reproducing
 
     scripts/counts.sh                     # modules, lines, theorems, sorry
@@ -115,6 +148,7 @@ explicit hypothesis.
     scripts/a6-env-scan.sh <out>          # then a6-summarize.py
     scripts/a8-claim-check.sh             # prose staleness against the environment
     scripts/compile.sh -r <round>         # build
+    scripts/mathlib-imports.sh            # tables 6 and 7
 
 Tables 1 and 9 come from `pdftotext -layout` on the paper. The text layer drops
 the `fi` ligature — `Definition` reads `De nition`, `bifinite` reads `bi nite` —
