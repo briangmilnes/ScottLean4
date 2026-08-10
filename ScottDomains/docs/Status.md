@@ -98,21 +98,15 @@ page produced both.
 
 | # | Kind | Proven | Unproven | Of |
 | -- | ---- | -----: | -------: | -: |
-| 1 | Definitions | n/a | n/a | — |
-| 2 | Theorems | 14 | 2 | 16 |
-| 3 | Lemmas | 12 | 1 | 13 |
-| 4 | Propositions | 1 | 0 | 1 |
-| 5 | — numbered results | **27** | **3** | 30 |
-| 6 | Prose statements | 70 | 16 | 86 stated |
-| 7 | Examples | 1 | 0 | 1 |
+| 1 | Theorems | 14 | 2 | 16 |
+| 2 | Lemmas | 12 | 1 | 13 |
+| 3 | Propositions | 1 | 0 | 1 |
+| 4 | — numbered results | **27** | **3** | 30 |
+| 5 | Prose statements | 70 | 16 | 86 stated |
+| 6 | Examples | 1 | 0 | 1 |
 
-A definition is not proven or unproven; the thing that can go wrong is that it is
-**empty** — a definition nothing satisfies makes every theorem over it vacuous.
-The measurement is instantiation: **25 structures and classes, 0 never
-instantiated.** Two mechanisms of vacuity have been found and are now checked
-for: fields inhabited free by `Classical.dec`, and a conclusion parameter with no
-hypothesis parameter in its component. The second sweep returned 1 hit in 2,111
-declarations, the already-known one.
+Definitions are not in this table: a definition is not proven or unproven.
+**25 structures and classes, 0 never instantiated.**
 
 The three unproven numbered results, and what each still needs:
 
