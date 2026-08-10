@@ -297,7 +297,7 @@ end Arrow
 /-! ## 6. The same for `⊸`
 
 `Effective` carries no `Prop`-valued claim for the strict half — r0046 stated the
-reduction `R46.Agent3.theorem7StrictRecursive_of_strictStepFunctionsDecidable`
+reduction `R46.Agent3.theorem_7_strictRecursive_of_strictStepFunctionsDecidable`
 with the hypothesis written out rather than named. The strict counterpart of the
 r0049 restatement is therefore *added* here, not restated: no existing `def`
 changes. -/
@@ -435,7 +435,7 @@ theorem three_claims_of_residue.{u}
       Effective.Theorem7ArrowRecursive.{u, u} ∧
       Effective.PreservesRecursivePresentation R47.Agent3.arrowOp.{u} := by
   have harrow : Effective.Theorem7ArrowRecursive.{u, u} :=
-    theorem7ArrowRecursive_of_scottHomC fun d e hd he => h d e hd he
+    theorem_7_arrowRecursive_of_scottHomC fun d e hd he => h d e hd he
   exact ⟨fun d e => stepFunctionsDecidable_of_scottHomC (h d e), harrow,
     R47.Agent3.preservesRecursivePresentation_arrowOp_iff.mpr harrow⟩
 
@@ -445,9 +445,7 @@ theorem theorem_7_strictRecursive_of_residue.{u}
       [CompletePartialOrder β] [Domain β] [BoundedComplete β] [Domain (StrictHom α β)]
       (d : EffectivePresentation α) (e : EffectivePresentation β), StrictHomCRecursive d e) :
     Effective.Theorem7StrictRecursive.{u, u} :=
-  theorem7StrictRecursive_of_strictHomC fun d e hd he => h d e hd he
-
-alias theorem7StrictRecursive_of_residue := theorem_7_strictRecursive_of_residue
+  theorem_7_strictRecursive_of_strictHomC fun d e hd he => h d e hd he
 
 /-! ## 8. The paper's own index set carries no guard at all
 

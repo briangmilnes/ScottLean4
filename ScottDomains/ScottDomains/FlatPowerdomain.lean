@@ -280,7 +280,7 @@ def hoareOrderIso : Hoare.Powerdomain NatBot ≃o Set ℕ where
   map_rel_iff' := hoareToSet_subset_iff
 
 /-- **`(N⊥)♭` is isomorphic to the domain `P N`.** "Isomorphic" is spelled out as
-in `IdealCompletion.thm11_converse`: an order isomorphism that also preserves
+in `IdealCompletion.theorem_11_converse`: an order isomorphism that also preserves
 every directed supremum, so it is an isomorphism of cpos, with `P N` a domain on
 the other side. -/
 theorem hoare_natBot_orderIso_powerset :

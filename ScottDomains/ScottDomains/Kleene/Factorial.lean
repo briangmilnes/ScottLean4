@@ -274,7 +274,7 @@ theorem factFun_ne_bot : factFun ⊥ ≠ (⊥ : StrictHom NatBot NatBot) := by
 /-- The Fixed Point Theorem applied to `F`: the recursion has a least solution. -/
 theorem isLeast_kleeneFix_factFun :
     IsLeast {f : StrictHom NatBot NatBot | factFun f = f} (kleeneFix factFun) :=
-  theorem1 scottContinuous_factFun
+  theorem_1 scottContinuous_factFun
 
 /-- **`fix(F)` satisfies the equation for `fact`** — and its value at `n` is
 `n!`, which is more than the paper asserts. -/

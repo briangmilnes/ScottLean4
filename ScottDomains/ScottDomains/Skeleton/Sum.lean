@@ -125,7 +125,7 @@ makes the parts' supremum their least upper bound, which is what
 `isLUB_sumSup_left` / `isLUB_sumSup_right` ask for. On an empty base the set is
 contained in `{⊥}` and the value is `⊥`.
 
-Unlike `lem10_smash`, this conjunct was not merely unproved before r0028: it was
+Unlike `lemma_10_smash`, this conjunct was not merely unproved before r0028: it was
 unstatable, because `CoalescedSum α β` had no `CompletePartialOrder` instance. -/
 theorem lemma_10_sum [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (CoalescedSum α β) where
@@ -164,8 +164,6 @@ theorem lemma_10_sum [Domain α] [BoundedComplete α] [Domain β] [BoundedComple
         exact isLUB_sumSup_right hq₀ hright (isLUB_sSup_of_bddAbove hbdd)
     · exact isLUB_sumSup_of_empty_base hne
 
-alias lem10_sum := lemma_10_sum
-
 /-! ### Directed sets with the bottom element removed
 
 A directed set of `D` does not transport into `D ⊕ E` or `D ⊗ E` as it stands,
@@ -196,7 +194,7 @@ theorem isLUB_diff_bot {s : Set α} {u : α} (hdir : DirectedOn (· ≤ ·) s)
 `Sum.inl` does not land in `D ⊕ E`: `⊥_D` has been removed. `sumInl` sends it to
 the adjoined bottom instead, which is the coalescing the paper describes, and
 keeps the map injective — that is what makes the preimage of a finite set finite,
-the step `lem17_sum` starts from. -/
+the step `lemma_17_sum` starts from. -/
 
 open Classical in
 /-- The left injection `D → D ⊕ E`, with `⊥_D` sent to `⊥_{D⊕E}`. -/
@@ -680,8 +678,6 @@ theorem lemma_17_sum [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : Is
         rw [hqe]
         exact hz
 
-alias lem17_sum := lemma_17_sum
-
 /-! ### The pairing of `D ⊗ E`, made total
 
 `Prod.mk` does not land in `D ⊗ E` either: a pair with a `⊥` coordinate was
@@ -916,7 +912,7 @@ theorem finite_smashNormal {N₁ : Set α} {N₂ : Set β} (h₁ : N₁.Finite) 
 so both coordinate images are finite sets of compacts. Expand each to a finite
 normal subposet of its factor's basis and take the rectangle of non-`⊥` pairs,
 with `⊥` adjoined. Directedness of `N ∩ ↓z` at a coercion `↑r` is coordinatewise,
-exactly as in `lem17_prod`, once `r`'s coordinates are known compact — which is the
+exactly as in `lemma_17_prod`, once `r`'s coordinates are known compact — which is the
 forward direction of `isCompactElement_coe_smash_iff`.
 
 This conjunct was omitted from the r0026 skeleton by oversight; nothing about it
@@ -981,10 +977,8 @@ theorem lemma_17_smash [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : 
     | coe q =>
       exact Or.inr ⟨q, rfl, hN₁sub ⟨q, hz, rfl⟩, hN₂sub ⟨q, hz, rfl⟩⟩
 
-alias lem17_smash := lemma_17_smash
-
 /- Axiom audit, by `#print axioms` (run, then removed so the build emits no `info`
-lines): `lem10_sum`, `lem17_sum`, `lem17_smash`, the three basis characterizations
+lines): `lemma_10_sum`, `lemma_17_sum`, `lemma_17_smash`, the three basis characterizations
 `isCompactElement_coe_inl_iff` / `isCompactElement_coe_inr_iff` /
 `isCompactElement_coe_smash_iff`, and `CoalescedSum`'s `sumSup`, `sumCpo`,
 `isLUB_sumSup_left` and `isLUB_sumSup_right` each depend on

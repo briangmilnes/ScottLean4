@@ -56,7 +56,7 @@ open ScottDomains.Effective
 /-- **The universal reading of `LemThirty.Lemma30` is false.** A theorem
 discharging the `Lemma30` row in `a6-query.lean`'s sense would have this type.
 
-The proof is projection: `LemThirty.lemma30_iff_lemma28_and_plotkin` says
+The proof is projection: `LemThirty.lemma_30_iff_lemma28_and_plotkin` says
 `Lemma30 W ↔ PRep.Lemma28 W ∧ IsPRepresentable W LemThirty.plotkinOp`, so a
 universal `Lemma30` would give a universal `PRep.Lemma28`, which
 `ScottDomains.R45.Agent2.not_forall_lemma28` refutes at `Flat Empty`. The tenth
@@ -69,7 +69,7 @@ theorem not_forall_lemma30 :
     ¬ ∀ (W : Type) (inst : CompletePartialOrder W), @LemThirty.Lemma30 W inst :=
   fun h =>
     ScottDomains.R45.Agent2.not_forall_lemma28 fun W inst =>
-      ((@LemThirty.lemma30_iff_lemma28_and_plotkin W inst).mp (h W inst)).1
+      ((@LemThirty.lemma_30_iff_lemma28_and_plotkin W inst).mp (h W inst)).1
 
 /-! ## The pre-r0046 statement of `StepFunctionsDecidable` -/
 
@@ -109,7 +109,7 @@ nothing else. The complementary check — that no bar was lowered — is that
 `Effective.Theorem7ArrowRecursive`, the transcription of the sentence this one
 serves, already carried `IsRecursive d → IsRecursive e →` and is untouched. The
 claim now has exactly the hypotheses its consumer always had, which is why
-`ScottDomains.R45.Agent1.theorem7ArrowRecursive_of_stepFunctionsDecidable` can
+`ScottDomains.R45.Agent1.theorem_7_arrowRecursive_of_stepFunctionsDecidable` can
 now take the claim's own universal closure as its hypothesis instead of a
 hand-strengthened variant of it.
 

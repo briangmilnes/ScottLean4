@@ -38,21 +38,21 @@ the counterexample fails at exactly that hypothesis.
 
 ## 2. The residue of `Lemma28AtU` is exactly two conjuncts
 
-`lemma28AtU_iff` proves
+`lemma_28_atU_iff` proves
 
     Lemma28AtU ↔ IsPRepresentable U (·)♯ ∧ IsPRepresentable U (·)♭
 
-so `Lemma28AtU.lemma28AtU_of'`'s two hypotheses are not merely sufficient, they
+so `Lemma28AtU.lemma_28_atU_of'`'s two hypotheses are not merely sufficient, they
 are **necessary**: seven of the nine conjuncts hold outright and the remaining
 two are the whole of what is left. The reduction from arity 9 to arity 2 is
 therefore tight — no further reduction of that shape exists.
 
-## 3. What `lemma28AtU_of''` did, measured
+## 3. What `lemma_28_atU_of''` did, measured
 
-`PowerdomainMapRep.lemma28AtU_of''` has arity 4 where `lemma28AtU_of'` has 2, and
-its proof *calls* `lemma28AtU_of'`. So the four hypotheses **imply** the two
+`PowerdomainMapRep.lemma_28_atU_of''` has arity 4 where `lemma_28_atU_of'` has 2, and
+its proof *calls* `lemma_28_atU_of'`. So the four hypotheses **imply** the two
 (`residue_of_powerdomainMap_obligations` records this as a theorem), while the
-two are equivalent to the goal by `lemma28AtU_iff`. Composing:
+two are equivalent to the goal by `lemma_28_atU_iff`. Composing:
 
     SmythImageIso ∧ SmythFamilyLUB ∧ HoareImageIso ∧ HoareFamilyLUB
       → IsPRepresentable U (·)♯ ∧ IsPRepresentable U (·)♭
@@ -67,10 +67,10 @@ comparison of the same propositions and the count is not the measurement here.
 discharged all four obligations outright, so the family it named was the right
 one and the decomposition was correct. The four were not "still open hypotheses"
 in any adverse sense — they were the right four to isolate, and isolating them is
-what made them provable. `lemma28AtU_of''` is therefore a correct decomposition,
+what made them provable. `lemma_28_atU_of''` is therefore a correct decomposition,
 not a lateral move, and `PRep.Lemma28AtU` — Lemma 28 of §7.3 over the paper's own
 `U` — is kernel-verified. This module no longer carries any open work on it;
-`lemma28AtU_iff` remains as the measurement that the residue was tight.
+`lemma_28_atU_iff` remains as the measurement that the residue was tight.
 -/
 
 namespace ScottDomains.R45.Agent2
@@ -204,20 +204,18 @@ theorem not_forall_lemma28_bcd :
 
 /-- **The arity-2 reduction is tight.** Seven of the nine conjuncts hold over
 `Dyadic.U` with no hypothesis, so `Lemma28AtU` is *equivalent* to the remaining
-two — `Lemma28AtU.lemma28AtU_of'`'s hypotheses are necessary as well as
+two — `Lemma28AtU.lemma_28_atU_of'`'s hypotheses are necessary as well as
 sufficient. The forward direction is projection out of the nine-fold
-conjunction; the backward direction is `lemma28AtU_of'` itself. -/
+conjunction; the backward direction is `lemma_28_atU_of'` itself. -/
 theorem lemma_28_atU_iff :
     PRep.Lemma28AtU ↔
       IsPRepresentable Dyadic.U PRep.smythOp ∧ IsPRepresentable Dyadic.U PRep.hoareOp :=
   ⟨fun h => ⟨h.2.2.2.2.2.2.2.1, h.2.2.2.2.2.2.2.2⟩,
-    fun h => Lemma28AtU.lemma28AtU_of' h.1 h.2⟩
-
-alias lemma28AtU_iff := lemma_28_atU_iff
+    fun h => Lemma28AtU.lemma_28_atU_of' h.1 h.2⟩
 
 /-- **The four `PowerdomainMap.Rep` obligations imply the two-conjunct residue.**
 Recorded as a theorem so the dependency of this stream on that cluster is
-kernel-checked rather than asserted in prose. With `lemma28AtU_iff` this says the
+kernel-checked rather than asserted in prose. With `lemma_28_atU_iff` this says the
 arity-4 hypothesis set is *sufficient* for `Lemma28AtU`; nothing here says it is
 necessary, and it is not implied by `Lemma28AtU`, because it names a particular
 representing family while `IsPRepresentable` quantifies existentially over
@@ -247,7 +245,7 @@ domain is a projection-retract of `U`, in `PRep`'s coordinates —
 `fn ∘ gr = id` and `gr ∘ fn ⊑ id`.
 
 This is the exact content `PRepSum.pairAtU` supplies at `Dyadic.U` and a generic
-`U` does not. `pairAtU` gets it from `Atomless.thm27`, Theorem 27 at the atomless
+`U` does not. `pairAtU` gets it from `Atomless.theorem_27`, Theorem 27 at the atomless
 dyadic-interval domain. It is a **hypothesis**, not an instance binder: no class
 in `Domain.lean` states it, and `not_universalForBCD_of_subsingleton` below shows
 it is a genuine restriction. -/
@@ -301,31 +299,31 @@ theorem lemma_28_of_universal (U : Type) [CompletePartialOrder U] [Domain U] [Bo
     (hlubHoare : PowerdomainMap.Rep.HoareFamilyLUB U)
     (huniv : UniversalForBCD U) :
     PRep.Lemma28 U := by
-  refine PRep.lemma28_of ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_
+  refine PRep.lemma_28_of ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_ ?_
   · obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (ScottHom U U)
     exact PRepFun.rep_arrow hfg hgf
   · haveI : Domain (StrictHom U U) := PRepFun.strictHomDomain
-    haveI : BoundedComplete (StrictHom U U) := lem10_strict
+    haveI : BoundedComplete (StrictHom U U) := lemma_10_strict
     obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (StrictHom U U)
     exact PRepFun.rep_strictArrow hfg hgf
   · haveI : Domain (U × U) := PowerdomainRep.domain_prod
-    haveI : BoundedComplete (U × U) := lem10_prod
+    haveI : BoundedComplete (U × U) := lemma_10_prod
     obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (U × U)
     exact PRep.rep_prod hfg hgf
   · haveI : Domain (Smash U U) := PRepFun.smashDomain
-    haveI : BoundedComplete (Smash U U) := lem10_smash
+    haveI : BoundedComplete (Smash U U) := lemma_10_smash
     obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (Smash U U)
     exact PRepFun.rep_smash hfg hgf
   · haveI : Domain (ClosureProperties.SeparatedSum U U) := PRepSum.domain_coalescedSum
     haveI : BoundedComplete (ClosureProperties.SeparatedSum U U) :=
-      ClosureProperties.lem10_separated
+      ClosureProperties.lemma_10_separated
     obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (ClosureProperties.SeparatedSum U U)
     exact PRepSum.rep_sepSum hfg hgf
   · haveI : Domain (CoalescedSum U U) := PRepSum.domain_coalescedSum
-    haveI : BoundedComplete (CoalescedSum U U) := lem10_sum
+    haveI : BoundedComplete (CoalescedSum U U) := lemma_10_sum
     obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (CoalescedSum U U)
     exact PRepSum.rep_coalSum hfg hgf
-  · haveI : BoundedComplete (WithBot U) := lem10_lift
+  · haveI : BoundedComplete (WithBot U) := lemma_10_lift
     obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (WithBot U)
     exact PRep.rep_lift hfg hgf
   · haveI : Domain (Smyth.Powerdomain U) := Smyth.instDomain
@@ -338,12 +336,10 @@ theorem lemma_28_of_universal (U : Type) [CompletePartialOrder U] [Domain U] [Bo
     obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (IdealCompletion (Hoare.Pf ↥(compacts U)))
     exact PowerdomainMap.Rep.rep_hoare_of hisoHoare hlubHoare hfg hgf
 
-alias lemma28_of_universal := lemma_28_of_universal
-
 /-- **The generic theorem specialises back to the paper's carrier.** A
-consistency check on `lemma28_of_universal`: at `Dyadic.U` the universality
+consistency check on `lemma_28_of_universal`: at `Dyadic.U` the universality
 hypothesis is `universalForBCD_dyadicU`, so this has exactly the four hypotheses
-of `PowerdomainMapRep.lemma28AtU_of''` and re-derives it by the generic route
+of `PowerdomainMapRep.lemma_28_atU_of''` and re-derives it by the generic route
 instead of the `U`-specific one. Nothing in the seven non-powerdomain conjuncts
 needed `Dyadic.U` beyond the retraction pair. -/
 theorem lemma_28_atU_of_universal
@@ -352,8 +348,6 @@ theorem lemma_28_atU_of_universal
     (hisoHoare : PowerdomainMap.Rep.HoareImageIso Dyadic.U)
     (hlubHoare : PowerdomainMap.Rep.HoareFamilyLUB Dyadic.U) :
     PRep.Lemma28AtU :=
-  lemma28_of_universal Dyadic.U hisoSmyth hlubSmyth hisoHoare hlubHoare universalForBCD_dyadicU
-
-alias lemma28AtU_of_universal := lemma_28_atU_of_universal
+  lemma_28_of_universal Dyadic.U hisoSmyth hlubSmyth hisoHoare hlubHoare universalForBCD_dyadicU
 
 end ScottDomains.R45.Agent2

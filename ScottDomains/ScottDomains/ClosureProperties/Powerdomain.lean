@@ -219,8 +219,6 @@ theorem lemma_17_hoare [Domain D] (h : IsBifinite D) : IsBifinite (Hoare.Powerdo
   intro w hw x hx
   exact hNsub ⟨x, Set.mem_biUnion hw (Hoare.Pf.mem_def.mp hx), rfl⟩
 
-alias lem17_hoare := lemma_17_hoare
-
 end Hoare
 
 /-! ### `D♯`, the Smyth (upper) powerdomain -/
@@ -263,7 +261,7 @@ theorem selectsGreatest_smythBasisOf (hN : N ◁ compacts D) (hfin : N.Finite) :
     obtain ⟨a, ha, hay⟩ := hmw y hy
     exact ⟨a, ha, le_normalGreatest hN hfin (hm a ha) hay⟩
 
-/-- **Lemma 17, the `D♯` conjunct.** The same reduction as `lem17_hoare`, at the
+/-- **Lemma 17, the `D♯` conjunct.** The same reduction as `lemma_17_hoare`, at the
 upper pre-order. -/
 theorem lemma_17_smyth [Domain D] (h : IsBifinite D) : IsBifinite (Smyth.Powerdomain D) := by
   refine isBifinite_idealCompletion fun v hv => ?_
@@ -278,8 +276,6 @@ theorem lemma_17_smyth [Domain D] (h : IsBifinite D) : IsBifinite (Smyth.Powerdo
   refine ⟨smythBasisOf N, finite_smythBasisOf hNfin, selectsGreatest_smythBasisOf hN hNfin, ?_⟩
   intro w hw x hx
   exact hNsub ⟨x, Set.mem_biUnion hw hx, rfl⟩
-
-alias lem17_smyth := lemma_17_smyth
 
 end Smyth
 
@@ -341,8 +337,6 @@ theorem lemma_17_plotkin [Domain D] (h : IsBifinite D) : IsBifinite (Plotkin.Pow
     selectsGreatest_plotkinBasisOf hN hNfin, ?_⟩
   intro w hw x hx
   exact hNsub ⟨x, Set.mem_biUnion hw hx, rfl⟩
-
-alias lem17_plotkin := lemma_17_plotkin
 
 end Plotkin
 

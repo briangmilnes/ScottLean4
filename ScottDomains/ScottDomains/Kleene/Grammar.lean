@@ -142,15 +142,15 @@ inference. -/
 
 /-- `X = {ε} ∪ X{a}` has a least solution. -/
 theorem isLeast_gram1 : IsLeast {X | gram1 a X = X} (kleeneFix (gram1 a)) :=
-  theorem1 (scottContinuous_gram1 a)
+  theorem_1 (scottContinuous_gram1 a)
 
 /-- `X = {a} ∪ {b}X{b}` has a least solution. -/
 theorem isLeast_gram2 : IsLeast {X | gram2 a b X = X} (kleeneFix (gram2 a b)) :=
-  theorem1 (scottContinuous_gram2 a b)
+  theorem_1 (scottContinuous_gram2 a b)
 
 /-- `X = {ε} ∪ {a}{a} ∪ XX` has a least solution. -/
 theorem isLeast_gram3 : IsLeast {X | gram3 a X = X} (kleeneFix (gram3 a)) :=
-  theorem1 (scottContinuous_gram3 a)
+  theorem_1 (scottContinuous_gram3 a)
 
 /-! ### The solutions are the languages defined by the grammars -/
 

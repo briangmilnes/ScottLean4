@@ -127,8 +127,6 @@ theorem lemma_17_prod [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : I
   · intro p hp
     exact ⟨hsub₁ ⟨p, hp, rfl⟩, hsub₂ ⟨p, hp, rfl⟩⟩
 
-alias lem17_prod := lemma_17_prod
-
 /-! ### The basis of a lift
 
 `K(D⊥) = {⊥} ∪ ↑K(D)`. The adjoined bottom is compact for free; a coercion `↑a` is
@@ -238,8 +236,6 @@ theorem lemma_17_lift [Domain α] (_h : IsBifinite α) : IsBifinite (WithBot α)
     induction y using WithBot.recBotCoe with
     | bot => exact Or.inl rfl
     | coe a => exact Or.inr ⟨a, hNsub hy, rfl⟩
-
-alias lem17_lift := lemma_17_lift
 
 /-! ### Projections with a finite image
 
@@ -452,7 +448,5 @@ theorem lemma_17_fun [Domain α] [Domain β] [BoundedComplete β]
       _ ≤ normalFun N₂ (f (normalFun N₁ x)) := monotone_normalFun hN₂ hle
   · rw [hgfun, stepFun_of_not_le hkx]
     exact bot_le
-
-alias lem17_fun := lemma_17_fun
 
 end ScottDomains

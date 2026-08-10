@@ -9,7 +9,7 @@ Round r0037 split Lemma 28's seven open conjuncts across two agents:
 * `ScottDomains.PRepFun` (agent3) proved `→`, `⇸` and `⊗`, each **conditional on
   the paper's retraction pair** for the operator;
 * `ScottDomains.PRepSum` (agent4) derived that pair at §7.3's `U` — as `pairAtU`,
-  four lines from the now-unconditional `Atomless.thm27` — and used it to land
+  four lines from the now-unconditional `Atomless.theorem_27` — and used it to land
   `×`, `+`, `⊕` and `()⊥` at `U` with no hypothesis.
 
 Neither could take the last step. They ran in separate worktrees and could not
@@ -26,8 +26,8 @@ off `pairAtU`:
 | # | Operator | `Domain` of the result | `BoundedComplete` of the result |
 | - | -------- | ---------------------- | ------------------------------- |
 | 1 | `→`  | Theorem 7, by `inferInstance`      | Theorem 7, by `inferInstance` |
-| 2 | `⇸`  | `PRepFun.strictHomDomain` (r0037)  | `lem10_strict` (r0027) |
-| 3 | `⊗`  | `PRepFun.smashDomain` (r0037)      | `lem10_smash` (r0027) |
+| 2 | `⇸`  | `PRepFun.strictHomDomain` (r0037)  | `lemma_10_strict` (r0027) |
+| 3 | `⊗`  | `PRepFun.smashDomain` (r0037)      | `lemma_10_smash` (r0027) |
 
 The right-hand column is **Lemma 10**. That is the sense in which Lemma 10 and
 Lemma 28 compose, and it is why the two `Domain` instances agent3 had to prove
@@ -38,9 +38,9 @@ conjuncts could have lifted no matter how they were proved.
 ## Position
 
 **7 of Lemma 28's 9 conjuncts now hold over `Dyadic.U` with no hypothesis**, up
-from 0 before r0037 and 4 after agent4's stream. `lemma28AtU_of'` records the
-remainder: its arity is 2, against `PRep.lemma28_of`'s 9 and
-`PRepSum.lemma28AtU_of`'s 5.
+from 0 before r0037 and 4 after agent4's stream. `lemma_28_atU_of'` records the
+remainder: its arity is 2, against `PRep.lemma_28_of`'s 9 and
+`PRepSum.lemma_28_atU_of`'s 5.
 
 `()♯` and `()♭` are what is left, and their obstruction is *not* the definability
 one earlier rounds recorded — `smythOp` and `hoareOp` are definable on `Cpo`
@@ -61,7 +61,7 @@ came out the way it was written.
    step to settle first: `ext` quantifies over ideals and never over a
    transported basis, so the paper's construction does not ask for it.
 
-`ScottDomains.PowerdomainMapRep.lemma28AtU_of''` replaces `lemma28AtU_of'`'s two
+`ScottDomains.PowerdomainMapRep.lemma_28_atU_of''` replaces `lemma_28_atU_of'`'s two
 hypotheses with four, and the four are of a different kind: two per powerdomain,
 each an ordinary statement about the functor — `im(p♯) ≅ (im p)♯` and pointwise
 continuity of `p ↦ p♯` — with the retraction pair at `U` discharged by
@@ -84,7 +84,7 @@ strict function space is a domain by `PRepFun.strictHomDomain`, which r0037 had
 to prove — it existed nowhere before. -/
 theorem repStrictArrowAtU : IsPRepresentable₂ Dyadic.U strictFunOp := by
   haveI : Domain (StrictHom Dyadic.U Dyadic.U) := PRepFun.strictHomDomain
-  haveI : BoundedComplete (StrictHom Dyadic.U Dyadic.U) := lem10_strict
+  haveI : BoundedComplete (StrictHom Dyadic.U Dyadic.U) := lemma_10_strict
   obtain ⟨_fn, _gr, hfg, hgf⟩ := PRepSum.pairAtU (StrictHom Dyadic.U Dyadic.U)
   exact PRepFun.rep_strictArrow hfg hgf
 
@@ -95,17 +95,15 @@ reading only: it turns on `r ⊥` sitting strictly above `⊥`, which a projecti
 forbids. -/
 theorem repSmashAtU : IsPRepresentable₂ Dyadic.U smashOp := by
   haveI : Domain (Smash Dyadic.U Dyadic.U) := PRepFun.smashDomain
-  haveI : BoundedComplete (Smash Dyadic.U Dyadic.U) := lem10_smash
+  haveI : BoundedComplete (Smash Dyadic.U Dyadic.U) := lemma_10_smash
   obtain ⟨_fn, _gr, hfg, hgf⟩ := PRepSum.pairAtU (Smash Dyadic.U Dyadic.U)
   exact PRepFun.rep_smash hfg hgf
 
 /-- **Lemma 28 at `U` from the two conjuncts still open.** The arity is the
-measurement: 9 for `PRep.lemma28_of`, 5 for `PRepSum.lemma28AtU_of`, 2 here. -/
+measurement: 9 for `PRep.lemma_28_of`, 5 for `PRepSum.lemma_28_atU_of`, 2 here. -/
 theorem lemma_28_atU_of' (h_smyth : IsPRepresentable Dyadic.U smythOp)
     (h_hoare : IsPRepresentable Dyadic.U hoareOp) :
     PRep.Lemma28AtU :=
-  PRepSum.lemma28AtU_of repArrowAtU repStrictArrowAtU repSmashAtU h_smyth h_hoare
-
-alias lemma28AtU_of' := lemma_28_atU_of'
+  PRepSum.lemma_28_atU_of repArrowAtU repStrictArrowAtU repSmashAtU h_smyth h_hoare
 
 end ScottDomains.Lemma28AtU

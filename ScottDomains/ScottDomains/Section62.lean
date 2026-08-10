@@ -13,7 +13,7 @@ Gunter & Scott, *Semantic Domains*, §6.2, quoted from the source PDF:
 The sentence has two conjuncts and this development has settled both, in
 opposite directions:
 
-* the first, "`Fp(D)` is an algebraic lattice", is `ScottDomains.thm16`
+* the first, "`Fp(D)` is an algebraic lattice", is `ScottDomains.theorem_16`
   (`Skeleton/Section6b.lean`, r0028) — proved;
 * the second, "`i : Fp(D) ↪ (D → D)` is an embedding", is **false**, refuted by
   the kernel in `ScottDomains/FinitaryProjectionEmbedding.lean` (r0032) at the
@@ -42,7 +42,7 @@ the two agree only when `S_f` is itself normal.
 `HasGreatestStableNormal` below is that condition, stated in the paper's own
 vocabulary. Two facts about it are proved here:
 
-1. `thm16_positive` — the condition is **sufficient**. It produces a map
+1. `theorem_16_positive` — the condition is **sufficient**. It produces a map
    `s : (D → D) → Fp(D)` with `s ∘ i = id` and `i ∘ s ⊑ id`, monotone. This is
    the literal negation of `TwoMub.not_exists_monotone_projection`, so the two
    statements together are a dichotomy and not a pair of unrelated facts.
@@ -58,7 +58,7 @@ failure — so the hypothesis is not an artifact chosen to make a proof go throu
 
 Under bounded completeness the section is moreover **Scott continuous**
 (`scottContinuous_fpOfStable`), so the paper's conjunct holds in full, as an
-embedding–projection pair: `thm16_positive_isEmbeddingProjectionPair`. Its
+embedding–projection pair: `theorem_16_positive_isEmbeddingProjectionPair`. Its
 statement is the exact negation of `TwoMub.not_isEmbeddingProjectionPair`,
 including the way the inclusion `i` is passed in as a hypothesis with its
 defining equation `hi : ∀ p, i p = p.val` — that is how the refutation avoids
@@ -83,7 +83,7 @@ bounded complete, which is consistent with the second result above.
 > **Theorem 18** If `D` and `D → D` are domains, then `D` is bifinite.
 > "The theorem is due to Smyth and its proof may be found in [Smy83a]."
 
-`ScottDomains.thm18` (`Skeleton/Section6.lean`) has been the development's only
+`ScottDomains.theorem_18` (`Skeleton/Section6.lean`) has been the development's only
 open `sorry` in the §6 line since r0027, and three rounds (r0029–r0031) failed on
 the same monotonicity side condition. r0034 read the sources rather than
 re-deriving. Two results, which must not be conflated:
@@ -294,8 +294,6 @@ theorem theorem_16_positive (h : HasGreatestStableNormal α) :
   · exact (hs g).2 (le_trans (hs f).1 hfg)
   · exact le_antisymm (hs p.val).1 ((hs p.val).2 (le_refl p.val))
 
-alias thm16_positive := theorem_16_positive
-
 end Sufficient
 
 section BoundedComplete
@@ -345,7 +343,7 @@ the greatest normal subposet inside `S_f` — a set is trivially the greatest su
 of itself once it is known to be normal.
 
 Note that this is not a vacuous instance of the hypothesis: bounded complete
-domains are bifinite (`ScottDomains.prop15`), so Theorem 16's own hypothesis holds
+domains are bifinite (`ScottDomains.proposition_15`), so Theorem 16's own hypothesis holds
 at them and its second conjunct is a real statement there. -/
 theorem hasGreatestStableNormal_of_boundedComplete : HasGreatestStableNormal α :=
   fun f => ⟨stableCompacts f, stableCompacts_isNormalIn f, subset_rfl, fun _ _ hN' => hN'⟩
@@ -431,9 +429,6 @@ theorem theorem_16_positive_isEmbeddingProjectionPair
   · show i (fpOfStable g) ≤ g
     rw [hi (fpOfStable g)]
     exact fpOfStable_le g
-
-alias thm16_positive_isEmbeddingProjectionPair :=
-  theorem_16_positive_isEmbeddingProjectionPair
 
 end BoundedComplete
 

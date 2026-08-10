@@ -102,8 +102,8 @@ What `⊗` did cost is two constructions the development did not have:
    continuity is a composite rather than a case analysis over `Smash`'s branching
    `sSup`.
 2. **`Domain (D ⊗ E)` did not exist.** `ClosureProperties.lean` states Lemma 10
-   (`lem10_smash : BoundedComplete (Smash α β)`) and Lemma 17
-   (`lem17_smash : IsBifinite (Smash α β)`), and the `IsAlgebraic` instances in
+   (`lemma_10_smash : BoundedComplete (Smash α β)`) and Lemma 17
+   (`lemma_17_smash : IsBifinite (Smash α β)`), and the `IsAlgebraic` instances in
    the development are `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
    `IdealCompletion A` — the smash is not among them. `smashIsAlgebraic` and
    `smashDomain` close that.
@@ -122,8 +122,8 @@ Theorem 27 supplies the retraction pair for an operator whose *result* is a
 bounded complete domain, so each conjunct lifts from the abstract `U` to
 `Dyadic.U` exactly when Lemma 10 and a `Domain` cover its result type. All three
 are covered: `→` by `ScottHom`'s `BoundedComplete` instance and
-`FunctionSpaceCountable.lean`'s `Domain`; `⇸` by `lem10_strict` and
-`strictHomDomain`; `⊗` by `lem10_smash` and `smashDomain`. The two `Domain`
+`FunctionSpaceCountable.lean`'s `Domain`; `⇸` by `lemma_10_strict` and
+`strictHomDomain`; `⊗` by `lemma_10_smash` and `smashDomain`. The two `Domain`
 halves are new in this file, so before it no conjunct here could have lifted.
 -/
 
@@ -381,8 +381,8 @@ end ArrowConjunct
 /-! ## `Domain (D →⊥ E)` — the closure property `⇸` needs, which was not present
 
 `ClosureProperties.lean` states Lemma 10 and Lemma 17 for the strict function
-space — `lem10_strict : BoundedComplete (StrictHom α β)` and
-`lem17_strictFun : IsBifinite (StrictHom α β)` — but the development **had** no
+space — `lemma_10_strict : BoundedComplete (StrictHom α β)` and
+`lemma_17_strictFun : IsBifinite (StrictHom α β)` — but the development **had** no
 `Domain (StrictHom α β)`, and `Fp`'s second conjunct asks for exactly that at the
 images. Measured over every module before this section, the `IsAlgebraic`
 instances present were `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
@@ -658,8 +658,8 @@ and it matches the corrected wording of this module's own header above.
    on the smash; `Isomorphism/Smash.lean` supplies only `smashComm` and
    `smashAssoc`. This section builds it — `smashMap`, below in this file.
 2. **`Domain (D ⊗ E)` did not exist.** `ClosureProperties.lean` has
-   `lem10_smash : BoundedComplete (Smash α β)` and
-   `lem17_smash : IsBifinite (Smash α β)`, and the `IsAlgebraic` instances in the
+   `lemma_10_smash : BoundedComplete (Smash α β)` and
+   `lemma_17_smash : IsBifinite (Smash α β)`, and the `IsAlgebraic` instances in the
    development were `Set X`, `ScottHom α β`, `α × β`, `WithBot α` and
    `IdealCompletion A` — the smash was not among them. `smashIsAlgebraic` and
    `smashDomain` — both below in this file — close it.

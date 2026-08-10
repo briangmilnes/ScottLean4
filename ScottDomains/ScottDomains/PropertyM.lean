@@ -5,13 +5,13 @@ import ScottDomains.JungFinite
 # Property m at a pair, proved: Theorem 1.37 and Iwamura's lemma are not on the route
 
 **Result.** `hasCompleteMub_pair` proves `HasCompleteMub (compacts D) {a₁, a₂}` —
-the hypothesis `JungSFP.lemma217` carries, Jung's *property m* at a pair of
+the hypothesis `JungSFP.jung_lemma_2_17` carries, Jung's *property m* at a pair of
 compact elements — from `IsAlgebraic (ScottHom D D)` and
 `(compacts (ScottHom D D)).Countable` and nothing else. Neither
-`JungNets.Thm137`, nor its chain-weakening `JungNets.Thm137Chains`, nor Iwamura's
+`JungNets.Theorem137`, nor its chain-weakening `JungNets.Theorem137Chains`, nor Iwamura's
 lemma appears anywhere in its dependency graph. `propertyM_pairs` is then Jung's
 Lemma 2.17 with no remaining hypothesis, `forall_hasCompleteMub` lifts property m
-from pairs to every finite set of compacts, and **`thm18_of_cor136` is Theorem 18
+from pairs to every finite set of compacts, and **`theorem_18_of_jung_corollary_1_36` is Theorem 18
 with Jung's Corollary 1.36 as its only remaining hypothesis** — one of the two
 open propositions instead of both.
 
@@ -64,10 +64,10 @@ is entirely elementary:
 | -- | ------ | ---------- |
 | 1 | `hasCompleteMub_of_countable` — property m at every finite set of compacts | `(compacts D).Countable` and ω-indexed lower bounds |
 | 2 | `countable_compacts_of_scottHom` — `K(D)` is countable when `K([D → D])` is | none beyond `CompletePartialOrder D` |
-| 3 | `lemma217_of_omega`, `propertyM_pairs_of_omega`, `forall_hasCompleteMub_of_omega` | `HasOmegaOpInfima D` in place of `JungNets.Thm137 D` |
+| 3 | `jung_lemma_2_17_of_omega`, `propertyM_pairs_of_omega`, `forall_hasCompleteMub_of_omega` | `HasOmegaOpInfima D` in place of `JungNets.Theorem137 D` |
 | 4 | `hasOmegaOpBoundsAbove_pair` — Spreen's Lemma 5.8 | `IsAlgebraic (ScottHom D D)` |
 | 5 | `hasCompleteMub_pair`, `propertyM_pairs`, `forall_hasCompleteMub` | **none** beyond items 2 and 4 |
-| 6 | `thm18_of_cor136` — **Theorem 18** | Jung's Corollary 1.36 only |
+| 6 | `theorem_18_of_jung_corollary_1_36` — **Theorem 18** | Jung's Corollary 1.36 only |
 
 Items 5 and 6 need two hypothesis-weakenings of results the development already
 had, each proved by re-running the original proof against what it actually uses:
@@ -81,9 +81,9 @@ rather than folded into item 5 because the reduction is the reusable statement:
 it holds of any countably based algebraic dcpo, whatever supplies the `ωᵒᵖ`
 condition, and it is what makes the pair case of item 4 sufficient.
 
-Item 2 makes item 1's countability hypothesis **free** in `lemma217`'s context:
+Item 2 makes item 1's countability hypothesis **free** in `jung_lemma_2_17`'s context:
 `a ↦ (a ↘ a)` injects `K(D)` into `K([D → D])`, so Jung's ω-algebraicity of the
-function space already supplies it. So the hypothesis `lemma217` now needs is
+function space already supplies it. So the hypothesis `jung_lemma_2_17` now needs is
 exactly
 
     HasOmegaOpInfima D : ∀ y : ℕ → D, Antitone y → ∃ i, IsGLB (Set.range y) i
@@ -119,7 +119,7 @@ collapse:
 **Interpolation drops out too, and for a separate reason.** Jung's Proposition 1.8
 is applied to lift `x'' ≪ x ∈ A` and `y'' ≪ y ∈ A` to `x'' ≪ x' ≪ x` and
 `y'' ≪ y' ≪ y`, so that `{x', y'}` has no upper bound even in `A` and not merely
-in `↓A`. In the application that reaches `lemma217` the two elements are `a₁` and
+in `↓A`. In the application that reaches `jung_lemma_2_17` the two elements are `a₁` and
 `a₂`, which are **compact**, so `a₁ ≪ a₁` and `a₂ ≪ a₂` and one may take
 `x' = x'' = a₁`, `y' = y'' = a₂` outright. `a₁, a₂ ∈ A` because every `yₙ` is an
 upper bound of the pair, and "no upper bound of `{a₁, a₂}` in `A`" is exactly the
@@ -310,7 +310,7 @@ variable {D : Type*} [CompletePartialOrder D] [IsAlgebraic D]
 and `ωᵒᵖ` lower bounds.** This is `JungNets.hasCompleteMub_of_hasChainInfima` with
 `HasChainInfima` — infima of chains of arbitrary order type — replaced by the
 `ωᵒᵖ` fragment, at the cost of `(compacts D).Countable`, which
-`countable_compacts_of_scottHom` shows is free wherever `lemma217` applies.
+`countable_compacts_of_scottHom` shows is free wherever `jung_lemma_2_17` applies.
 
 The proof is Zorn downwards, as Jung's is, but run **inside `K(D)`** rather than
 inside `D`. That is the whole trick:
@@ -362,7 +362,7 @@ theorem hasCompleteMub_of_countable (hK : (compacts D).Countable) {u : Set D}
   exact hm.2 ⟨hy.1, hy.2, hym.trans hm.1.2.2⟩ hym
 
 /-- The instance at a pair of compact elements — the exact shape
-`JungSFP.lemma217`'s hypothesis is stated in. -/
+`JungSFP.jung_lemma_2_17`'s hypothesis is stated in. -/
 theorem hasCompleteMub_pair_of_countable (hK : (compacts D).Countable) {a₁ a₂ : D}
     (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂)
     (hΩ : HasOmegaOpBoundsAbove ({a₁, a₂} : Set D)) :
@@ -401,7 +401,7 @@ theorem step_self_injective {a₁ a₂ : D} (ha₁ : IsCompactElement a₁)
     exact absurd (e₂ ▸ le_rfl : a₂ ≤ a₁) hle
 
 /-- **`K(D)` is countable whenever `K([D → D])` is.** So the countability
-hypothesis of `hasCompleteMub_of_countable` costs nothing in `lemma217`'s context,
+hypothesis of `hasCompleteMub_of_countable` costs nothing in `jung_lemma_2_17`'s context,
 where `(compacts (ScottHom D D)).Countable` is already assumed — that is Jung's
 ω-algebraicity of the function space.
 
@@ -562,10 +562,10 @@ variable {D : Type*} [CompletePartialOrder D]
 of compact elements, every decreasing sequence of upper bounds has a lower bound
 that is again an upper bound.
 
-Together with `hasCompleteMub_of_countable` this discharges `JungSFP.lemma217`'s
+Together with `hasCompleteMub_of_countable` this discharges `JungSFP.jung_lemma_2_17`'s
 property-m hypothesis outright. The only hypothesis on `D` beyond compactness of
-the pair is that its function space is algebraic — `JungNets.Thm137` and
-`JungNets.Thm137Chains` are not used, and neither is Iwamura's lemma. -/
+the pair is that its function space is algebraic — `JungNets.Theorem137` and
+`JungNets.Theorem137Chains` are not used, and neither is Iwamura's lemma. -/
 theorem hasOmegaOpBoundsAbove_pair (hAlgF : IsAlgebraic (ScottHom D D)) {a₁ a₂ : D}
     (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
     HasOmegaOpBoundsAbove ({a₁, a₂} : Set D) := by
@@ -736,62 +736,54 @@ theorem hasOmegaOpBoundsAbove_pair (hAlgF : IsAlgebraic (ScottHom D D)) {a₁ a�
 
 end Spreen
 
-/-! ## `lemma217` with Iwamura's lemma removed from its dependencies -/
+/-! ## `jung_lemma_2_17` with Iwamura's lemma removed from its dependencies -/
 
 section Omega
 
 variable {D : Type*} [CompletePartialOrder D] [IsAlgebraic D]
 
-/-- **The remaining obligation, in its weakest named form.** `JungNets.Thm137` is
-`IsAlgebraic (ScottHom D D) → IsBicomplete D`; `JungNets.Thm137Chains` weakens the
+/-- **The remaining obligation, in its weakest named form.** `JungNets.Theorem137` is
+`IsAlgebraic (ScottHom D D) → IsBicomplete D`; `JungNets.Theorem137Chains` weakens the
 conclusion to infima of chains; this weakens it again to infima of decreasing
 sequences, which is all the route to Theorem 18 spends once the basis is known to
 be countable. -/
 def Theorem137Omega (D : Type*) [CompletePartialOrder D] : Prop :=
   IsAlgebraic (ScottHom D D) → HasOmegaOpInfima D
 
-alias Thm137Omega := Theorem137Omega
-
 theorem Theorem137Chains.toOmega {D : Type*} [CompletePartialOrder D]
     (h : JungNets.Theorem137Chains D) : Theorem137Omega D :=
   fun hAlg => HasChainInfima.hasOmegaOpInfima (h hAlg)
-
-alias Thm137Chains.toOmega := Theorem137Chains.toOmega
 
 theorem Theorem137.toOmega {D : Type*} [CompletePartialOrder D] (h : JungNets.Theorem137 D) :
     Theorem137Omega D :=
   Theorem137Chains.toOmega h.toChains
 
-alias Thm137.toOmega := Theorem137.toOmega
-
-/-- **`JungSFP.lemma217` with its property-m hypothesis discharged from
+/-- **`JungSFP.jung_lemma_2_17` with its property-m hypothesis discharged from
 `HasOmegaOpInfima` instead of from Jung's Theorem 1.37.**
 
-Compare `JungNets.lemma217_of_thm137`, which spends `Thm137 D`. The countability
-hypothesis is the same one `lemma217` already carries; `K(D)`'s countability is
+Compare `JungNets.jung_lemma_2_17_of_jung_theorem_1_37`, which spends `Theorem137 D`. The countability
+hypothesis is the same one `jung_lemma_2_17` already carries; `K(D)`'s countability is
 derived from it, so nothing new is assumed beyond decreasing-sequence infima. -/
 theorem jung_lemma_2_17_of_omega (hAlg : IsAlgebraic (ScottHom D D))
     (hCount : (compacts (ScottHom D D)).Countable) (hΩ : HasOmegaOpInfima D)
     {a₁ a₂ : D} (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
     (minimalUpperBounds (compacts D) ({a₁, a₂} : Set D)).Finite :=
-  JungSFP.lemma217 hAlg hCount ha₁ ha₂
+  JungSFP.jung_lemma_2_17 hAlg hCount ha₁ ha₂
     (hasCompleteMub_pair_of_countable (countable_compacts_of_scottHom hCount) ha₁ ha₂
       (hΩ.hasOmegaOpBoundsAbove _))
 
-alias lemma217_of_omega := jung_lemma_2_17_of_omega
-
-/-- **Property M at every pair of compact elements**, modulo `Thm137Omega` —
-`JungNets.propertyM_pairs_of_thm137` with the same weakening. -/
-theorem propertyM_pairs_of_omega (h : Thm137Omega D) (hAlg : IsAlgebraic (ScottHom D D))
+/-- **Property M at every pair of compact elements**, modulo `Theorem137Omega` —
+`JungNets.propertyM_pairs_of_jung_theorem_1_37` with the same weakening. -/
+theorem propertyM_pairs_of_omega (h : Theorem137Omega D) (hAlg : IsAlgebraic (ScottHom D D))
     (hCount : (compacts (ScottHom D D)).Countable) :
     ∀ x₁ x₂ : D, IsCompactElement x₁ → IsCompactElement x₂ →
       (minimalUpperBounds (compacts D) ({x₁, x₂} : Set D)).Finite :=
-  fun _ _ hx₁ hx₂ => lemma217_of_omega hAlg hCount (h hAlg) hx₁ hx₂
+  fun _ _ hx₁ hx₂ => jung_lemma_2_17_of_omega hAlg hCount (h hAlg) hx₁ hx₂
 
 /-- **The first conjunct of `MinimalUpperBounds.isBifinite_iff_mubClosure`, reduced
-to `Thm137Omega`** — `JungNets.forall_hasCompleteMub_of_thm137` with the same
+to `Theorem137Omega`** — `JungNets.forall_hasCompleteMub_of_jung_theorem_1_37` with the same
 weakening. -/
-theorem forall_hasCompleteMub_of_omega (h : Thm137Omega D)
+theorem forall_hasCompleteMub_of_omega (h : Theorem137Omega D)
     (hAlg : IsAlgebraic (ScottHom D D)) (hCount : (compacts (ScottHom D D)).Countable) :
     ∀ v : Set D, v.Finite → v ⊆ compacts D → HasCompleteMub (compacts D) v :=
   fun _ hv hvc =>
@@ -802,7 +794,7 @@ end Omega
 
 /-! ## Property m at pairs, unconditionally, and what it discharges
 
-Everything in this section is free of `JungNets.Thm137`, `JungNets.Thm137Chains`,
+Everything in this section is free of `JungNets.Theorem137`, `JungNets.Theorem137Chains`,
 `HasOmegaOpInfima` and Iwamura's lemma. The hypotheses are exactly Jung's
 Theorem 2.3: `D` is an algebraic dcpo with least element and `[D → D]` is
 ω-algebraic. -/
@@ -815,7 +807,7 @@ variable {D : Type*} [CompletePartialOrder D] [IsAlgebraic D]
 `hasCompleteMub_of_countable` (the Zorn step, on the countable basis) composed
 with `hasOmegaOpBoundsAbove_pair` (Spreen's Lemma 5.8, the function-space step).
 
-This is the hypothesis `JungSFP.lemma217` carries, discharged. Compare
+This is the hypothesis `JungSFP.jung_lemma_2_17` carries, discharged. Compare
 `JungNets.hasCompleteMub_pair`, which spends `JungNets.HasChainInfima` and
 therefore Jung's Theorem 1.37. -/
 theorem hasCompleteMub_pair (hAlgF : IsAlgebraic (ScottHom D D))
@@ -827,13 +819,13 @@ theorem hasCompleteMub_pair (hAlgF : IsAlgebraic (ScottHom D D))
 
 /-- **Jung's Lemma 2.17 with no remaining hypothesis** — property M at every pair
 of compact elements, from an ω-algebraic function space alone. Compare
-`JungNets.lemma217_of_thm137` and `JungNets.propertyM_pairs_of_thm137`. -/
+`JungNets.jung_lemma_2_17_of_jung_theorem_1_37` and `JungNets.propertyM_pairs_of_jung_theorem_1_37`. -/
 theorem propertyM_pairs (hAlgF : IsAlgebraic (ScottHom D D))
     (hCount : (compacts (ScottHom D D)).Countable) :
     ∀ x₁ x₂ : D, IsCompactElement x₁ → IsCompactElement x₂ →
       (minimalUpperBounds (compacts D) ({x₁, x₂} : Set D)).Finite :=
   fun _ _ hx₁ hx₂ =>
-    JungSFP.lemma217 hAlgF hCount hx₁ hx₂ (hasCompleteMub_pair hAlgF hCount hx₁ hx₂)
+    JungSFP.jung_lemma_2_17 hAlgF hCount hx₁ hx₂ (hasCompleteMub_pair hAlgF hCount hx₁ hx₂)
 
 omit [IsAlgebraic D] in
 /-- Property m at the empty set: `⊥` is compact and below everything, so it is the
@@ -859,7 +851,7 @@ same file: `forall_hasCompleteMub` (`:945`) proves property m at *every* finite
 set of compacts from the pair and empty cases, and its own docstring names the
 step — "The lift is Jung's Lemma 1.29 argument, which the development already
 carries as `JungFinite.exists_finite_complete_upperBoundsIn`".
-`JungFinite.lemma129` carries the property-M analogue. The claim was true when
+`JungFinite.jung_lemma_1_29` carries the property-M analogue. The claim was true when
 written and went stale inside this file. -/
 theorem isNormalIn_of_pairs {α : Type*} [PartialOrder α] {A N : Set α} (hNA : N ⊆ A)
     (hcl : IsMubClosed A N) (hempty : HasCompleteMub A (∅ : Set α))
@@ -948,7 +940,7 @@ theorem exists_finite_complete_of_pairs {α : Type*} [PartialOrder α] {A u : Se
 
 /-- **Property m at every finite set of compact elements, unconditionally.**
 
-This is `JungNets.forall_hasCompleteMub_of_thm137` with `JungNets.Thm137` — and
+This is `JungNets.forall_hasCompleteMub_of_jung_theorem_1_37` with `JungNets.Theorem137` — and
 hence Iwamura's lemma — removed. The route is: `hasCompleteMub_pair` and
 `hasCompleteMub_empty` supply property m at pairs and at `∅`; `propertyM_pairs`
 supplies property M at pairs; `exists_finite_complete_of_pairs` lifts them to a
@@ -1004,23 +996,21 @@ variable {D : Type*} [CompletePartialOrder D] [Domain D] [Domain (ScottHom D D)]
 
 > **Theorem 18** If `D` and `D → D` are domains, then `D` is bifinite.
 
-`JungFinite.thm18_of_propertyM` takes two hypotheses: property m at every finite
+`JungFinite.theorem_18_of_propertyM` takes two hypotheses: property m at every finite
 set of compacts (Jung's **Theorem 1.37**, five rounds of work, blocked on
 Iwamura's lemma) and his **Corollary 1.36**. `forall_hasCompleteMub` proves the
 first outright, so only Corollary 1.36 remains.
 
 This is the round's deliverable stated against the assembly the development
-already has: `ScottDomains.Thm18.thm18_of_thm137Chains_and_cor136` takes
-`JungNets.Thm137Chains α` and `FixedPointOfCompactDeflationIsCompact α`; this
+already has: `ScottDomains.Thm18.theorem_18_of_jung_theorem_1_37_chains` takes
+`JungNets.Theorem137Chains α` and `FixedPointOfCompactDeflationIsCompact α`; this
 takes the second and nothing else. -/
 theorem theorem_18_of_jung_corollary_1_36
     (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact D) :
     IsBifinite D :=
-  JungFinite.thm18_of_propertyM hcor fun v hvc hvfin =>
+  JungFinite.theorem_18_of_propertyM hcor fun v hvc hvfin =>
     forall_hasCompleteMub (inferInstance : IsAlgebraic (ScottHom D D))
       (Domain.countable_compacts (α := ScottHom D D)) v hvfin hvc
-
-alias thm18_of_cor136 := theorem_18_of_jung_corollary_1_36
 
 end Thm18
 

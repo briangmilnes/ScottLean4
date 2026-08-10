@@ -9,7 +9,7 @@ import ScottDomains.Powerdomain.BoundedComplete
 Gunter & Scott, *Semantic Domains*, §7.3, Lemma 28, conjuncts 8 and 9:
 `(·)♯` and `(·)♭` are p-representable over `U`.
 
-`Lemma28AtU.lemma28AtU_of'` has arity 2 — `h_smyth` and `h_hoare` — and its
+`Lemma28AtU.lemma_28_atU_of'` has arity 2 — `h_smyth` and `h_hoare` — and its
 docstring records why:
 
 > `smythOp` and `hoareOp` are definable on `Cpo` (r0036). Measured by grep in
@@ -216,7 +216,7 @@ powerdomains of `Dyadic.U` are one:
 | # | carrier | `Domain` | `BoundedComplete` |
 | - | ------- | -------- | ----------------- |
 | 1 | `U♯` | Theorem 11, `Smyth.instDomain` | **Lemma 13**, `instBoundedCompleteSmyth`, spending `BoundedComplete Dyadic.U` |
-| 2 | `U♭` | Theorem 11, `Hoare.thm11_hoare` | **Lemma 13**, `instBoundedCompleteHoare`, which needs only `[Domain α]` |
+| 2 | `U♭` | Theorem 11, `Hoare.theorem_11_hoare` | **Lemma 13**, `instBoundedCompleteHoare`, which needs only `[Domain α]` |
 
 So the hypothesis count at `U` is **two, not three** — the same reduction
 `PRepSum.pairAtU` performs for `×` and `(·)⊥`. This is the second place Lemma 13
@@ -247,8 +247,8 @@ theorem repHoareAtU (hiso : HoareImageIso Dyadic.U) (hlub : HoareFamilyLUB Dyadi
 /-- **Lemma 28 over `U` from four propositions about the powerdomain action.**
 
 The arity is the measurement, as everywhere in this development: 9 for
-`PRep.lemma28_of`, 5 for `PRepSum.lemma28AtU_of`, 2 for
-`Lemma28AtU.lemma28AtU_of'`, and 4 here — but the four are no longer about
+`PRep.lemma_28_of`, 5 for `PRepSum.lemma_28_atU_of`, 2 for
+`Lemma28AtU.lemma_28_atU_of'`, and 4 here — but the four are no longer about
 p-representability at all. They are two facts about `(·)♯` and two about `(·)♭`,
 each an ordinary statement about a functor, and neither mentions `Fp(U)`'s
 retraction pair, which is now discharged. -/
@@ -256,10 +256,8 @@ theorem lemma_28_atU_of'' (hisoSmyth : SmythImageIso Dyadic.U)
     (hlubSmyth : SmythFamilyLUB Dyadic.U) (hisoHoare : HoareImageIso Dyadic.U)
     (hlubHoare : HoareFamilyLUB Dyadic.U) :
     PRep.Lemma28AtU :=
-  Lemma28AtU.lemma28AtU_of' (repSmythAtU hisoSmyth hlubSmyth)
+  Lemma28AtU.lemma_28_atU_of' (repSmythAtU hisoSmyth hlubSmyth)
     (repHoareAtU hisoHoare hlubHoare)
-
-alias lemma28AtU_of'' := lemma_28_atU_of''
 
 end AtU
 
@@ -275,4 +273,4 @@ not holes.
   …Rep.rep_hoare_of             [propext, Classical.choice, Quot.sound]
   …Rep.repSmythAtU              [propext, Classical.choice, Quot.sound]
   …Rep.repHoareAtU              [propext, Classical.choice, Quot.sound]
-  …Rep.lemma28AtU_of''          [propext, Classical.choice, Quot.sound] -/
+  …Rep.lemma_28_atU_of''          [propext, Classical.choice, Quot.sound] -/

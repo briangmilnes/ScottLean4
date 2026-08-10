@@ -275,7 +275,7 @@ theorem not_setU'_le_setV' : ¬ setU' ≤ setV' := by
 
 instance instDomainTT : Domain TT := PowerdomainRep.domain_prod
 
-instance instBoundedCompleteTT : BoundedComplete TT := lem10_prod
+instance instBoundedCompleteTT : BoundedComplete TT := lemma_10_prod
 
 /-- `{↓u, ↓v}` is bounded above in `(T × T)♮` — by `↓u′`. -/
 theorem bddAbove_pair :

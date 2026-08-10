@@ -77,9 +77,9 @@ therefore needed no change at all.
 
 ## Statements
 
-* `thm11` — for a countable pre-order with a least element, `IdealCompletion A` is
+* `theorem_11` — for a countable pre-order with a least element, `IdealCompletion A` is
   a `Domain` and `compacts (IdealCompletion A) = Set.range principal`.
-* `thm11_converse` — every domain `D` is order-isomorphic to the ideal completion
+* `theorem_11_converse` — every domain `D` is order-isomorphic to the ideal completion
   of its own basis `K(D)`, by an isomorphism that also preserves directed suprema
   (so it is an isomorphism of cpos, not merely of posets).
 * `boundedComplete` — if bounded pairs of `A` have least upper bounds then
@@ -459,8 +459,6 @@ theorem theorem_11 (A : Type u) [Preorder A] [OrderBot A] [Countable A] :
       compacts (IdealCompletion A) = Set.range (principal : A → IdealCompletion A) :=
   ⟨inferInstance, compacts_eq_range_principal⟩
 
-alias thm11 := theorem_11
-
 /-! ### The converse: every domain is an ideal completion
 
 The pre-order to complete is `K(D)` itself, as a subtype of `D`. It is a poset,
@@ -595,8 +593,6 @@ theorem theorem_11_converse (D : Type u) [CompletePartialOrder D] [Domain D] :
   ⟨orderIsoIdealCompletionCompacts, fun _ hs =>
     orderIsoIdealCompletionCompacts.map_sSup_of_directedOn hs, inferInstance⟩
 
-alias thm11_converse := theorem_11_converse
-
 /-! ### The construction is nondegenerate
 
 `IdealCompletion ℕ` is the cheapest witness that the basis is a *proper* part of
@@ -640,8 +636,8 @@ none depends on `sorryAx`.
   ScottDomains.IdealCompletion.mem_sSup_iff                       [propext, Classical.choice, Quot.sound]
   ScottDomains.IdealCompletion.isIdeal_genIdeal                   [propext, Classical.choice, Quot.sound]
   ScottDomains.IdealCompletion.boundedComplete                    [propext, Classical.choice, Quot.sound]
-  ScottDomains.IdealCompletion.thm11                              [propext, Classical.choice, Quot.sound]
-  ScottDomains.IdealCompletion.thm11_converse                     [propext, Classical.choice, Quot.sound]
+  ScottDomains.IdealCompletion.theorem_11                              [propext, Classical.choice, Quot.sound]
+  ScottDomains.IdealCompletion.theorem_11_converse                     [propext, Classical.choice, Quot.sound]
   ScottDomains.IdealCompletion.compacts_eq_range_principal        [propext, Classical.choice, Quot.sound]
   ScottDomains.IdealCompletion.isCompactElement_iff_exists_eq_principal
                                                                   [propext, Classical.choice, Quot.sound]

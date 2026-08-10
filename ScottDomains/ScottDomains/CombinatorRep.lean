@@ -261,7 +261,7 @@ theorem isLUB_arrowFamily {d : Set (ClosurePoset U × ClosurePoset U)} (hne : d.
 space.** The paper: "the proof that `→` is representable over `U` is almost
 identical to the proof we gave above that it is representable over `P N`" — and
 the only thing that changes is where the pair `(→⁻, →⁺)` comes from, which is
-exactly what `Retracts U (ScottHom U U)` abstracts. `ScottDomains.lem23` is this
+exactly what `Retracts U (ScottHom U U)` abstracts. `ScottDomains.lemma_23` is this
 theorem at `U = P N`, with the pair supplied by Theorem 22. -/
 theorem rep_arrow (h : Retracts U (ScottHom U U)) : IsRepresentable₂ U Cpo.funSpace :=
   isRepresentable₂_of_retracts h arrowFamily isClosure_arrowFamily arrowFamily_mono
@@ -555,7 +555,7 @@ These are blocked one level earlier than the proof. `Powerdomain/Smyth.lean` and
 non-empty subsets of `K(D)` — which requires `[Domain D]`, algebraicity with a
 countable basis. `IsRepresentable` quantifies over `r : Fc(U)` and needs
 `F (im r)`, and `im r` for a closure on a bare cpo carries no `Domain` instance
-(`Skeleton/Section6.lean`'s `lem19` gives it a `CompletePartialOrder` and nothing
+(`Skeleton/Section6.lean`'s `lemma_19` gives it a `CompletePartialOrder` and nothing
 more). So `()♯` and `()♭` are not functions `Cpo → Cpo` in this development and
 `IsRepresentable U ()♯` does not typecheck.
 

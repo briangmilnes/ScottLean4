@@ -312,7 +312,7 @@ end ImageIso
 `PowerdomainMapRep.lean` states five consumers of the four obligations. With the
 four now theorems, each loses those hypotheses; the versions below are the
 consumers with the obligations substituted, so the arity drop is kernel-checked
-rather than asserted. `lemma28AtU_of''` had arity 4 and reaches arity 0. -/
+rather than asserted. `lemma_28_atU_of''` had arity 4 and reaches arity 0. -/
 
 section Consumers
 
@@ -343,11 +343,9 @@ theorem repHoareAtU : IsPRepresentable Dyadic.U hoareOp :=
   Rep.repHoareAtU hoareImageIso hoareFamilyLUB
 
 /-- **The `(·)♯` and `(·)♭` conjuncts of Lemma 28 over `U`, with no hypotheses.**
-`lemma28AtU_of''` had arity 4; the four are now theorems. -/
+`lemma_28_atU_of''` had arity 4; the four are now theorems. -/
 theorem lemma_28_atU : PRep.Lemma28AtU :=
-  Rep.lemma28AtU_of'' smythImageIso smythFamilyLUB hoareImageIso hoareFamilyLUB
-
-alias lemma28AtU := lemma_28_atU
+  Rep.lemma_28_atU_of'' smythImageIso smythFamilyLUB hoareImageIso hoareFamilyLUB
 
 end Consumers
 

@@ -40,11 +40,11 @@ verbatim except that the ambient type is a variable.
 at the predicate `fun p : α × β => p.1 ≠ ⊥ ∧ p.2 ≠ ⊥`. The two modules are in
 disjoint import cones, which is why neither cites the other.
 
-## Claim 3 — `eq_kleeneOperator_op` and `theorem3` are the same proposition
+## Claim 3 — `eq_kleeneOperator_op` and `theorem_3` are the same proposition
 
-`UniformFixedPoint.eq_kleeneOperator_op` restates `theorem3` with
+`UniformFixedPoint.eq_kleeneOperator_op` restates `theorem_3` with
 `kleeneOperator.op D f` in place of `kleeneFix ⇑f`, and its proof is the single
-term `theorem3 F hF D f`. Since `kleeneOperator.op` reduces to `kleeneFix ⇑·`,
+term `theorem_3 F hF D f`. Since `kleeneOperator.op` reduces to `kleeneFix ⇑·`,
 the two statements are not merely equivalent but definitionally equal, which
 `Iff.rfl` below records.
 -/
@@ -124,7 +124,7 @@ end Instances
 
 universe u
 
-/-- `theorem3` and `eq_kleeneOperator_op` are **the same proposition**, not two
+/-- `theorem_3` and `eq_kleeneOperator_op` are **the same proposition**, not two
 equivalent ones: `Iff.rfl` discharges the equivalence, so the kernel identifies
 them up to definitional unfolding of `kleeneOperator.op`. -/
 theorem theorem_3_statement_eq_eq_kleeneOperator_op_statement :
@@ -136,8 +136,5 @@ theorem theorem_3_statement_eq_eq_kleeneOperator_op_statement :
         ∀ (D : Type u) [CompletePartialOrder D] (f : ScottHom D D),
           F.op D f = kleeneOperator.op D f) :=
   Iff.rfl
-
-alias theorem3_statement_eq_eq_kleeneOperator_op_statement :=
-  theorem_3_statement_eq_eq_kleeneOperator_op_statement
 
 end ScottDomains.Audit.Foundations

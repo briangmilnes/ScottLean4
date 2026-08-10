@@ -17,7 +17,7 @@ the file and confirmed against the rendered page — but two of the six laws are
 
 Both printed forms drop the third variable from the right-hand side, so each is
 refuted by a witness in which the variable it drops carries the only content.
-This file puts both refutations under the kernel, following the `lem10_smash`
+This file puts both refutations under the kernel, following the `lemma_10_smash`
 precedent: a claim the development believes false is stated as a negation and
 proved, not left as prose.
 
@@ -37,9 +37,9 @@ must preserve — **whether the type has one element or more than one** — whic
 | 2 | 9.5 | `D = Prop`, `E = PUnit`, `F = Prop` | at least two | one element |
 
 Each witness is chosen so that the **corrected** law is *not* refuted by it —
-`lem9_3`'s corrected right side `(E ◦→ D) × (F ◦→ D)` is `StrictHom Prop PUnit ×
+`lemma_9_3`'s corrected right side `(E ◦→ D) × (F ◦→ D)` is `StrictHom Prop PUnit ×
 StrictHom Prop PUnit`, a one-element type matching its left side, and
-`lem9_5`'s corrected right side `(D ⊗ E) ⊕ (D ⊗ F)` has two elements matching
+`lemma_9_5`'s corrected right side `(D ⊗ E) ⊕ (D ⊗ F)` has two elements matching
 its left side. So the separation is specific to the misprint and not an artifact
 of a degenerate choice of domains.
 
@@ -94,7 +94,7 @@ second factor `Prop ◦→ Prop` contains both the constant-`⊥` map and the
 identity. An order isomorphism is in particular a bijection, so no such
 isomorphism exists.
 
-The corrected law `lem9_3` is not touched by this witness: its right side is
+The corrected law `lemma_9_3` is not touched by this witness: its right side is
 `StrictHom Prop PUnit × StrictHom Prop PUnit`, which has one element, as the
 left side does. -/
 theorem lemma_9_3_printed_false :
@@ -111,8 +111,6 @@ theorem lemma_9_3_printed_false :
         ((⊥ : StrictHom Prop PUnit), propId))
   have h3 : (⊥ : StrictHom Prop Prop).val True = propId.val True := by rw [h2]
   exact (iff_of_eq h3).mpr trivial
-
-alias lem9_3_printed_false := lemma_9_3_printed_false
 
 /-! ### Item 5: `D ⊗ (E ⊕ F) ≅ (D ⊗ E) ⊕ (D ⊗ E)` is false -/
 
@@ -147,7 +145,7 @@ to the coalesced sum's deletion of bottoms and the whole right side has exactly
 one element. The left side `Prop ⊗ (PUnit ⊕ Prop)` has two: the adjoined bottom
 and the pair `(True, ↑(Sum.inr True))`.
 
-The corrected law `lem9_5` is not touched by this witness: its right side is
+The corrected law `lemma_9_5` is not touched by this witness: its right side is
 `(Prop ⊗ PUnit) ⊕ (Prop ⊗ Prop)`, whose second summand supplies the second
 element. `F` is precisely the variable the printed form drops. -/
 theorem lemma_9_5_printed_false :
@@ -160,7 +158,5 @@ theorem lemma_9_5_printed_false :
   refine WithBot.coe_ne_bot (a := ?_) (hsub.allEq _ ⊥)
   exact ⟨(True, ((⟨Sum.inr True, true_ne_bot⟩ : NonBotSum PUnit Prop) : CoalescedSum PUnit Prop)),
     true_ne_bot, WithBot.coe_ne_bot⟩
-
-alias lem9_5_printed_false := lemma_9_5_printed_false
 
 end ScottDomains.Isomorphism

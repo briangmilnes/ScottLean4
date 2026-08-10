@@ -10,7 +10,7 @@ Gunter & Scott, *Semantic Domains*, Lemma 9.5, in its corrected form:
 > `D ⊗ (E ⊕ F) ≅ (D ⊗ E) ⊕ (D ⊗ F)`.
 
 (The page prints `(D ⊗ E) ⊕ (D ⊗ E)`, which is false; the refutation is
-`Skeleton/Recovered.lean`'s `lem9_5_printed_false`, and the recovery evidence is
+`Skeleton/Recovered.lean`'s `lemma_9_5_printed_false`, and the recovery evidence is
 `docs/StatementRecovery.md`.)
 
 ## Both sides are `WithBot` of the same base

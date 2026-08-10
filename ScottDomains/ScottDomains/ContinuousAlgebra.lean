@@ -1005,8 +1005,6 @@ theorem theorem_12 (hf : ScottContinuous f) (hmono : Monotone (foldGen (A := A) 
   rw [principal_eq_fold_unit, hhom.map_fold, hcomp]
   rfl
 
-alias thm12 := theorem_12
-
 end Theorem12
 
 /-! ## 7. The three powerdomains
@@ -1016,9 +1014,9 @@ rather than assumed:
 
 | # | theory | axiom added to `T♮` | free algebra | this file |
 | - | ------ | ------------------- | ------------ | --------- |
-| 1 | `T♮` | — | `D♮`, the **convex** (Plotkin) powerdomain | `thm12_plotkin` |
-| 2 | `T♯` | `4♯`, `s ⋓ t ⊑ s` | `D♯`, the **upper** (Smyth) powerdomain | `thm12_smyth` |
-| 3 | `T♭` | `4♭`, `s ⊑ s ⋓ t` | `D♭`, the **lower** (Hoare) powerdomain | `thm12_hoare` |
+| 1 | `T♮` | — | `D♮`, the **convex** (Plotkin) powerdomain | `theorem_12_plotkin` |
+| 2 | `T♯` | `4♯`, `s ⋓ t ⊑ s` | `D♯`, the **upper** (Smyth) powerdomain | `theorem_12_smyth` |
+| 3 | `T♭` | `4♭`, `s ⊑ s ⋓ t` | `D♭`, the **lower** (Hoare) powerdomain | `theorem_12_hoare` |
 
 The correspondence is *not* inverted: §5.2 defines `⊢♯` by
 `u ⊢♯ v ↔ (∀ x ∈ u)(∃ y ∈ v). x ⊒ y` and calls `D♯` the **upper** powerdomain,
@@ -1066,7 +1064,7 @@ noncomputable instance instFinSetsHoare :
 
 open Classical in
 /-- **`D♭` satisfies `T♭`.** The free algebra for a theory must itself be a model
-of that theory, or `thm12_hoare` would be initiality in the wrong category. Here
+of that theory, or `theorem_12_hoare` would be initiality in the wrong category. Here
 it is `u ⊑♭ u ∪ v`, which holds because each `x ∈ u` witnesses itself. -/
 instance instIsLowerHoare : IsLower (Hoare.Powerdomain D) :=
   isLower_of_le_union fun _ _ x hx => ⟨x, Finset.mem_union_left _ hx, le_rfl⟩
@@ -1081,11 +1079,9 @@ consumes precisely the Hoare conjunct `∀ x ∈ u, ∃ y ∈ v, x ⊑ y` that
 theorem theorem_12_hoare [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
     [IsLower E] {f : D → E} (hf : ScottContinuous f) :
     ∃! h : Hoare.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
-  refine thm12 hf fun u v huv => ?_
+  refine theorem_12 hf fun u v huv => ?_
   exact fold_le_fold_of_hoare _ _ (fun _ _ h => hf.monotone h) fun a ha =>
     Hoare.Pf.le_def.mp huv a ha
-
-alias thm12_hoare := theorem_12_hoare
 
 /-! ### `D♯`, the Smyth (upper) powerdomain -/
 
@@ -1124,11 +1120,9 @@ continuous algebra over `D`. `fold_le_fold_of_smyth` consumes the Smyth conjunct
 theorem theorem_12_smyth [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
     [IsUpper E] {f : D → E} (hf : ScottContinuous f) :
     ∃! h : Smyth.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
-  refine thm12 hf fun u v huv => ?_
+  refine theorem_12 hf fun u v huv => ?_
   exact fold_le_fold_of_smyth _ _ (fun _ _ h => hf.monotone h) fun b hb =>
     Smyth.Basis.le_def.mp huv b hb
-
-alias thm12_smyth := theorem_12_smyth
 
 /-! ### `D♮`, the Plotkin (convex) powerdomain -/
 
@@ -1183,14 +1177,14 @@ noncomputable instance instFinSetsPlotkin :
 three semi-lattice axioms and nothing more — the Plotkin (convex) powerdomain is
 the free continuous algebra over `D`.
 
-This is the case the paper states as Theorem 12 proper; `thm12_hoare` and
-`thm12_smyth` are the two it adds in the paragraph after the proof. It is also
+This is the case the paper states as Theorem 12 proper; `theorem_12_hoare` and
+`theorem_12_smyth` are the two it adds in the paragraph after the proof. It is also
 the case where `fold_le_fold_of_convex` must do real work, since under `T♮` the
 operation `⋓` is unrelated to the domain order. -/
 theorem theorem_12_plotkin [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
     [IsSemilattice E] {f : D → E} (hf : ScottContinuous f) :
     ∃! h : Plotkin.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
-  refine thm12 hf fun u v huv => ?_
+  refine theorem_12 hf fun u v huv => ?_
   refine fold_le_fold_of_convex _ _ (fun _ _ h => hf.monotone h) ?_ ?_
   · intro a ha
     obtain ⟨b, hb, hab⟩ := huv.1 a ((Set.Finite.mem_toFinset _).mp ha)
@@ -1198,8 +1192,6 @@ theorem theorem_12_plotkin [IsAlgebraic D] {E : Type u} [CompletePartialOrder E]
   · intro b hb
     obtain ⟨a, ha, hab⟩ := huv.2 b ((Set.Finite.mem_toFinset _).mp hb)
     exact ⟨a, (Set.Finite.mem_toFinset _).mpr ha, hab⟩
-
-alias thm12_plotkin := theorem_12_plotkin
 
 end Instances
 
@@ -1210,7 +1202,7 @@ resolution to run the whole chain — the `FinSets` presentation, the `Binop`, a
 the axioms — at each of the three carriers, over `Prop`, the cheapest domain in
 the development. The first three lines are the paper's "*each of the algebras
 `D♮`, `D♯` and `D♭` satisfies `T♮`*"; the last two are the model conditions that
-make `thm12_smyth` and `thm12_hoare` initiality statements inside their own
+make `theorem_12_smyth` and `theorem_12_hoare` initiality statements inside their own
 varieties. -/
 
 section Witnesses
@@ -1230,10 +1222,10 @@ end ScottDomains.ContinuousAlgebra
 `info` lines). Every declaration depends only on the three standard axioms; none
 depends on `sorryAx`.
 
-  ScottDomains.ContinuousAlgebra.thm12                            [propext, Classical.choice, Quot.sound]
-  ScottDomains.ContinuousAlgebra.thm12_hoare                      [propext, Classical.choice, Quot.sound]
-  ScottDomains.ContinuousAlgebra.thm12_smyth                      [propext, Classical.choice, Quot.sound]
-  ScottDomains.ContinuousAlgebra.thm12_plotkin                    [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.theorem_12                       [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.theorem_12_hoare                 [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.theorem_12_smyth                 [propext, Classical.choice, Quot.sound]
+  ScottDomains.ContinuousAlgebra.theorem_12_plotkin               [propext, Classical.choice, Quot.sound]
   ScottDomains.ContinuousAlgebra.isHom_ext                        [propext, Classical.choice, Quot.sound]
   ScottDomains.ContinuousAlgebra.ext_unit                         [propext, Classical.choice, Quot.sound]
   ScottDomains.ContinuousAlgebra.principal_eq_fold_unit           [propext, Classical.choice, Quot.sound]

@@ -36,12 +36,12 @@ construction with the pair supplied rather than assumed.
 ## The headline: where the pair comes from, and why it is now free
 
 `PRep.lean`'s conjuncts are all conditional on that pair. Until r0036 there was
-no way to produce it at `U`: `Dyadic.thm27` carried the hypothesis
+no way to produce it at `U`: `Dyadic.theorem_27` carried the hypothesis
 `IsNormallyRepresented ↥(compacts D)`, so the instantiation was recorded in
 `PRep.lean` as "blocked one level below this file". **That note was retired in
 the same round it was written.** `Atomless.isNormallyRepresented_compacts`
 discharges the hypothesis for every bounded complete domain, and
-`Atomless.thm27` is therefore Theorem 27 with no hypothesis at all:
+`Atomless.theorem_27` is therefore Theorem 27 with no hypothesis at all:
 
     ∀ D, [CompletePartialOrder D] [Domain D] [BoundedComplete D] →
       ∃ e p, ScottHom.IsEmbeddingProjectionPair e p
@@ -54,7 +54,7 @@ every conditional conjunct of `PRep` into an unconditional statement about `U`.
 
 The condition to be met is that the operator's *result* be a bounded complete
 domain — which is exactly **Lemma 10**, already proved here as
-`ClosureProperties.lemma10`. So each conjunct at `U` costs one `Domain` instance
+`ClosureProperties.lemma_10`. So each conjunct at `U` costs one `Domain` instance
 plus one `lem10_*`, and Lemma 10 and Lemma 28 compose: Lemma 10 says the operator
 lands in the class Theorem 27 quantifies over, Theorem 27 supplies the retraction
 pair, and `PRep`'s scheme turns the pair into a representation.
@@ -68,14 +68,14 @@ pair, and `PRep`'s scheme turns the pair into a representation.
 | 3 | `repSepSumAtU` | conjunct 5, `+` — **no hypothesis** |
 | 4 | `repCoalSumAtU` | conjunct 6, `⊕` — **no hypothesis** |
 | 5 | `repLiftAtU` | conjunct 7, `(·)⊥` — **no hypothesis** |
-| 6 | `lemma28AtU_of` | `Lemma28AtU` from the five conjuncts still open |
+| 6 | `lemma_28_atU_of` | `Lemma28AtU` from the five conjuncts still open |
 
 Conjuncts 5 and 6 are proved here for the first time, at any carrier:
 `rep_coalSum` and `rep_sepSum` are the abstract forms, `domain_coalescedSum` is
 the closure property they need, and the two `AtU` theorems are their
 instantiations.
 
-`lemma28AtU_of` is the deliverable the conjunct work feeds: its arity is the
+`lemma_28_atU_of` is the deliverable the conjunct work feeds: its arity is the
 count of what remains — `→`, `⇸`, `⊗`, `(·)♯`, `(·)♭`, five of nine — and it
 drops by one each time a conjunct is proved.
 
@@ -83,8 +83,8 @@ drops by one each time a conjunct is proved.
 
 `IsPRepresentable` routes through a `Domain` on the operator's image, and
 `Domain` is `IsAlgebraic` together with a countable basis. The coalesced sum
-carries **Lemma 10** (bounded completeness, `lem10_sum`) and **Lemma 17**
-(bifiniteness, `lem17_sum`) and nothing else: `IsAlgebraic (CoalescedSum A B)` is
+carries **Lemma 10** (bounded completeness, `lemma_10_sum`) and **Lemma 17**
+(bifiniteness, `lemma_17_sum`) and nothing else: `IsAlgebraic (CoalescedSum A B)` is
 proved nowhere in the development, because §4.5 and §6.2 are the only closure
 properties the paper states for it and neither is algebraicity. That is the one
 real gap the `⊕` conjunct hits, and it is a gap in the library rather than in the
@@ -95,7 +95,7 @@ routing around it, since `SeparatedSum A B` *is* `CoalescedSum A⊥ B⊥`.
 ## No conjunct is stubbed
 
 There is no `sorry` in this file. A conjunct not proved is a hypothesis of
-`lemma28AtU_of` and is named in the table above; it is never a hole in a claimed
+`lemma_28_atU_of` and is named in the table above; it is never a hole in a claimed
 proof, and no algebraicity obligation is carried as an unproved assumption.
 -/
 
@@ -124,13 +124,13 @@ projection onto the copy of `V` inside `U`, which is what makes
 there is a pair `fn : U → V`, `gr : V → U` with `fn ∘ gr = id` and
 `gr ∘ fn ⊑ id` — the hypotheses of every conjunct in `ScottDomains.PRep`.
 
-The proof is `Atomless.thm27` with the two components of
+The proof is `Atomless.theorem_27` with the two components of
 `ScottHom.IsEmbeddingProjectionPair` handed over in place. What was blocked
-before r0036 is `Atomless.thm27` itself, not this transposition. -/
+before r0036 is `Atomless.theorem_27` itself, not this transposition. -/
 theorem pairAtU (V : Type) [CompletePartialOrder V] [Domain V] [BoundedComplete V] :
     ∃ (fn : ScottHom Dyadic.U V) (gr : ScottHom V Dyadic.U),
       (∀ y, fn (gr y) = y) ∧ ∀ x, gr (fn x) ≤ x := by
-  obtain ⟨e, p, hpe, hep⟩ := Atomless.thm27 V
+  obtain ⟨e, p, hpe, hep⟩ := Atomless.theorem_27 V
   exact ⟨p, e, hpe, hep⟩
 
 /-! ## Conjuncts 3 and 7 at `U`
@@ -144,8 +144,8 @@ where Lemma 10 is spent, one conjunct each:
 
 | # | Operator | `Domain` of the result | `BoundedComplete` of the result |
 | - | -------- | ---------------------- | ------------------------------- |
-| 1 | `×`      | `PowerdomainRep.domain_prod` | `lem10_prod` (Lemma 10, conjunct 3) |
-| 2 | `(·)⊥`   | `ClosureProperties.liftDomain` (an instance) | `lem10_lift` (Lemma 10, conjunct 7) |
+| 1 | `×`      | `PowerdomainRep.domain_prod` | `lemma_10_prod` (Lemma 10, conjunct 3) |
+| 2 | `(·)⊥`   | `ClosureProperties.liftDomain` (an instance) | `lemma_10_lift` (Lemma 10, conjunct 7) |
 -/
 
 /-- **`×` is p-representable over `U`** — conjunct 3 of Lemma 28, at the paper's
@@ -156,7 +156,7 @@ conjunct), so Theorem 27 gives the pair `(×⁻, ×⁺)` the paper's `R×(r, s) 
 ×⁺ ∘ (r × s) ∘ ×⁻` needs, and `PRep.rep_prod` consumes it. -/
 theorem repProdAtU : IsPRepresentable₂ Dyadic.U prodOp := by
   haveI : Domain (Dyadic.U × Dyadic.U) := PowerdomainRep.domain_prod
-  haveI : BoundedComplete (Dyadic.U × Dyadic.U) := lem10_prod
+  haveI : BoundedComplete (Dyadic.U × Dyadic.U) := lemma_10_prod
   obtain ⟨_fn, _gr, hfg, hgf⟩ := pairAtU (Dyadic.U × Dyadic.U)
   exact rep_prod hfg hgf
 
@@ -164,14 +164,14 @@ theorem repProdAtU : IsPRepresentable₂ Dyadic.U prodOp := by
 paper's own carrier and with no hypothesis. Same route as `repProdAtU`, with
 `liftDomain` and Lemma 10's seventh conjunct in place of the product's. -/
 theorem repLiftAtU : IsPRepresentable Dyadic.U liftOp := by
-  haveI : BoundedComplete (WithBot Dyadic.U) := lem10_lift
+  haveI : BoundedComplete (WithBot Dyadic.U) := lemma_10_lift
   obtain ⟨_fn, _gr, hfg, hgf⟩ := pairAtU (WithBot Dyadic.U)
   exact rep_lift hfg hgf
 
 /-! ## `A ⊕ B` is a domain when `A` and `B` are
 
-Lemma 10 gives *bounded completeness* of `A ⊕ B` (`lem10_sum`) and Lemma 17 gives
-*bifiniteness* (`lem17_sum`), but nothing in the development gives the coalesced
+Lemma 10 gives *bounded completeness* of `A ⊕ B` (`lemma_10_sum`) and Lemma 17 gives
+*bifiniteness* (`lemma_17_sum`), but nothing in the development gives the coalesced
 sum a `Domain` — the paper never needs it, since §4.5 and §6.2 each state their
 own closure property and neither is algebraicity. `Fp` needs it: the second
 component of `IsFinitaryProjection (R (r ⊕ s))` is a `Domain` on the image, and
@@ -938,7 +938,7 @@ conjugating family for `+` the conjugating family for `⊕` at the lifted maps �
 
 This is the measurement the plan predicted: `+` is the cheapest of the four
 because the paper's definition of it *is* a composition, and
-`ClosureProperties.lem10_separated` obtained `+` for Lemma 10 the same way. -/
+`ClosureProperties.lemma_10_separated` obtained `+` for Lemma 10 the same way. -/
 
 section SepSumConjunct
 
@@ -1041,22 +1041,22 @@ own carrier and with no hypothesis. `U ⊕ U` is a bounded complete domain by
 pair `(Φ⊕, Ψ⊕)`. -/
 theorem repCoalSumAtU : IsPRepresentable₂ Dyadic.U coalSumOp := by
   haveI : Domain (CoalescedSum Dyadic.U Dyadic.U) := domain_coalescedSum
-  haveI : BoundedComplete (CoalescedSum Dyadic.U Dyadic.U) := lem10_sum
+  haveI : BoundedComplete (CoalescedSum Dyadic.U Dyadic.U) := lemma_10_sum
   obtain ⟨_fn, _gr, hfg, hgf⟩ := pairAtU (CoalescedSum Dyadic.U Dyadic.U)
   exact rep_coalSum hfg hgf
 
 /-- **`+` is p-representable over `U`** — conjunct 5 of Lemma 28, at the paper's
 own carrier and with no hypothesis. `U + U = U⊥ ⊕ U⊥` is a bounded complete
 domain: `ClosureProperties.liftDomain` and `domain_coalescedSum` for the domain
-half, Lemma 10's fifth conjunct (`lem10_separated`) for bounded completeness. -/
+half, Lemma 10's fifth conjunct (`lemma_10_separated`) for bounded completeness. -/
 theorem repSepSumAtU : IsPRepresentable₂ Dyadic.U sepSumOp := by
   haveI : Domain (ClosureProperties.SeparatedSum Dyadic.U Dyadic.U) := domain_coalescedSum
   haveI : BoundedComplete (ClosureProperties.SeparatedSum Dyadic.U Dyadic.U) :=
-    ClosureProperties.lem10_separated
+    ClosureProperties.lemma_10_separated
   obtain ⟨_fn, _gr, hfg, hgf⟩ := pairAtU (ClosureProperties.SeparatedSum Dyadic.U Dyadic.U)
   exact rep_sepSum hfg hgf
 
-/-- **`Lemma28AtU` from the conjuncts still open.** `PRep.lemma28_of` with the
+/-- **`Lemma28AtU` from the conjuncts still open.** `PRep.lemma_28_of` with the
 proved conjuncts substituted at `U`. The arity is the measurement: one hypothesis
 per conjunct not yet proved, and the kernel checks that the nine slots of
 `PRep.Lemma28` are all filled.
@@ -1070,9 +1070,7 @@ theorem lemma_28_atU_of
     (h_smyth : IsPRepresentable Dyadic.U smythOp)
     (h_hoare : IsPRepresentable Dyadic.U hoareOp) :
     Lemma28AtU :=
-  lemma28_of h_arrow h_strictArrow repProdAtU h_smash repSepSumAtU repCoalSumAtU
+  lemma_28_of h_arrow h_strictArrow repProdAtU h_smash repSepSumAtU repCoalSumAtU
     repLiftAtU h_smyth h_hoare
-
-alias lemma28AtU_of := lemma_28_atU_of
 
 end ScottDomains.PRepSum

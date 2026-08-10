@@ -18,7 +18,7 @@ Gunter & Scott, *Semantic Domains*, §6.2, quoted from the source PDF:
 > `N_f = im(f) ∩ K(D)` and `f = p_{N_f}`. The remaining steps required to verify
 > that `f ↦ N_f` is a projection are straight-forward.
 
-The first conjunct is `ScottDomains.thm16` (r0028). **This file refutes the
+The first conjunct is `ScottDomains.theorem_16` (r0028). **This file refutes the
 second conjunct**: there is a bifinite domain `D` — a five-element poset — and a
 continuous `f : D → D` for which no finitary projection below `f` is greatest, so
 no map `s : (D → D) → Fp(D)` whatever, not even a merely monotone one, can
@@ -95,7 +95,7 @@ contradicting `q(m₂) ⊑ f(m₂) = m₁`.
 
 ## Scope of the refutation
 
-`thm16_first_conjunct` below instantiates `thm16` at `TwoMub`, so the same `D`
+`theorem_16_first_conjunct` below instantiates `theorem_16` at `TwoMub`, so the same `D`
 satisfies Theorem 16's hypothesis and its first conjunct. The refutation is
 therefore of the second conjunct alone, at a `D` where the rest of the theorem
 holds — it is not a complaint about the hypothesis.
@@ -202,7 +202,7 @@ identity, then for every continuous `f` the finitary projections below `f` have 
 
 Only monotonicity of `s` is used, so this rules out continuous `s` a fortiori.
 The order on `↥(Fp α)` is the pointwise order (`Fp.le_def`), which is the order
-`thm16`'s middle conjunct pins the lattice to, so the statement does not depend
+`theorem_16`'s middle conjunct pins the lattice to, so the statement does not depend
 on which cpo structure `Fp(D)` is given. -/
 theorem isGreatest_of_section (s : ScottHom α α → ↥(Fp α)) (hmono : Monotone s)
     (hsec : ∀ p : ↥(Fp α), s p.val = p) (hproj : ∀ g : ScottHom α α, (s g).val ≤ g)
@@ -361,9 +361,7 @@ theorem theorem_16_first_conjunct :
     ∃ L : CompleteLattice ↥(Fp TwoMub),
       (∀ p q : ↥(Fp TwoMub), (letI := L; p ≤ q) ↔ ∀ x, p.val x ≤ q.val x) ∧
       @IsCompactlyGenerated _ L :=
-  thm16 isBifinite
-
-alias thm16_first_conjunct := theorem_16_first_conjunct
+  theorem_16 isBifinite
 
 /-! ### The continuous function and the two projections below it -/
 

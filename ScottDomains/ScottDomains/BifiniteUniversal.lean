@@ -102,7 +102,7 @@ and this one denies.
 
 ## What is proved of Theorem 29, and what is not
 
-`thm29` is the first sentence — `D` bifinite implies `D⁺` bifinite. It is a
+`theorem_29` is the first sentence — `D` bifinite implies `D⁺` bifinite. It is a
 Plotkin-order argument on the basis, transported twice:
 
 1. `isPlotkinOrder_univ_subtype` — `K(D)` a Plotkin order as a subset of `D`
@@ -479,8 +479,6 @@ theorem theorem_29 (h : IsBifinite D) : IsBifinite (Plus D) := by
   rw [Set.image_univ] at h₃
   rw [IsBifinite, compacts_eq_range_principal]
   exact h₃
-
-alias thm29 := theorem_29
 
 end Plus
 

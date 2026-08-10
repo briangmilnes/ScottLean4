@@ -1,0 +1,95 @@
+# r0050
+# agent2 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-10T16:22:14-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1321/1372] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1332/1372] Built ScottDomains.JungNets (1.2s)
+✔ [1333/1372] Built ScottDomains.PRepresentable (1.2s)
+✔ [1334/1372] Built ScottDomains.A7Thm26Arity (1.3s)
+✔ [1335/1372] Built ScottDomains.A4Lemma17Fun (1.5s)
+✔ [1336/1372] Built ScottDomains.Audit.Bifinite (1.3s)
+✔ [1337/1372] Built ScottDomains.Thm18 (1.4s)
+✔ [1338/1372] Built ScottDomains.PRep (2.3s)
+✔ [1339/1372] Built ScottDomains.Iwamura (2.3s)
+✔ [1340/1372] Built ScottDomains.JungBicomplete (2.3s)
+✔ [1341/1372] Built ScottDomains.PropertyM (2.4s)
+✔ [1342/1372] Built ScottDomains.Colimit (2.6s)
+✖ [1343/1372] Building ScottDomains.Skeleton.Section6 (1.3s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Skeleton/Section6.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Skeleton/Section6.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Skeleton/Section6.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Skeleton/Section6.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Skeleton/Section6.setup.json --json
+error: ScottDomains/Skeleton/Section6.lean:230:2: Unknown identifier `PropertyM.thm18_of_cor136`
+error: Lean exited with code 1
+✔ [1345/1372] Built ScottDomains.PowerdomainCompacts (1.6s)
+✖ [1346/1372] Building ScottDomains.A5Thm137 (1.5s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/A5Thm137.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A5Thm137.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A5Thm137.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A5Thm137.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A5Thm137.setup.json --json
+error: ScottDomains/A5Thm137.lean:283:2: Unknown identifier `Iwamura.thm137_of_thm137Chains`
+error: ScottDomains/A5Thm137.lean:289:2: Unknown identifier `thm137`
+error: ScottDomains/A5Thm137.lean:304:2: Unknown identifier `Thm18.thm18_of_thm137Chains_and_cor136`
+error: Lean exited with code 1
+⚠ [1347/1372] Built ScottDomains.LemThirty (1.0s)
+warning: ScottDomains/LemThirty.lean:527:8: declaration uses `sorry`
+✔ [1348/1372] Built ScottDomains.PRepFun (2.6s)
+✔ [1349/1372] Built ScottDomains.PRepSum (2.8s)
+✖ [1351/1372] Building ScottDomains.A2Thm29Universal (1.8s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/A2Thm29Universal.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A2Thm29Universal.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A2Thm29Universal.setup.json --json
+error: ScottDomains/A2Thm29Universal.lean:783:2: Unknown identifier `thm29Normal_of_hasFiniteExtensions`
+error: ScottDomains/A2Thm29Universal.lean:819:2: Unknown identifier `LemThirty.thm29SecondAtDomains_of_thm29Normal`
+error: Lean exited with code 1
+✔ [1353/1372] Built ScottDomains.A4FunctionSpaceBifinite (1.4s)
+✔ [1355/1372] Built ScottDomains.Lemma28AtU (1.3s)
+✔ [1356/1372] Built ScottDomains.Effective.FunctionSpace (1.5s)
+✖ [1357/1372] Building ScottDomains.A4RepArrow (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/A4RepArrow.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A4RepArrow.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A4RepArrow.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A4RepArrow.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A4RepArrow.setup.json --json
+error: ScottDomains/A4RepArrow.lean:155:34: Unknown identifier `lem17_fun`
+error: ScottDomains/A4RepArrow.lean:162:34: Unknown identifier `lem17_strictFun`
+error: Lean exited with code 1
+✔ [1358/1372] Built ScottDomains.Effective.A3FreeCarrier (1.2s)
+✔ [1359/1372] Built ScottDomains.Audit.SectionSeven (1.3s)
+✔ [1360/1372] Built ScottDomains.PowerdomainMapRep (1.4s)
+✔ [1361/1372] Built ScottDomains.Effective.A3StrictRecursive (1.5s)
+✔ [1362/1372] Built ScottDomains.Effective.A1FlatRecursive (1.4s)
+✔ [1363/1372] Built ScottDomains.A2Lemma28 (1.4s)
+✔ [1364/1372] Built ScottDomains.A4PowerdomainRep (1.5s)
+✔ [1368/1372] Built ScottDomains.Effective.A2Compactness (2.0s)
+⚠ [1369/1372] Built ScottDomains.Effective.A3StepDecidable (1.6s)
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✖ [1370/1372] Building ScottDomains.A1R46 (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/A1R46.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A1R46.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/A1R46.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A1R46.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/A1R46.setup.json --json
+error: ScottDomains/A1R46.lean:72:9: Unknown identifier `LemThirty.lemma30_iff_lemma28_and_plotkin`
+error: Lean exited with code 1
+✔ [1371/1372] Built ScottDomains.Effective.A4Recursion (8.3s)
+Some required targets logged failures:
+- ScottDomains.Skeleton.Section6
+- ScottDomains.A5Thm137
+- ScottDomains.A2Thm29Universal
+- ScottDomains.A4RepArrow
+- ScottDomains.A1R46
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:22.38
+Maximum resident set size (kbytes): 1884088
+--- build ---
+finished:         2026-08-10T16:22:37-07:00
+exit status:      1
+user cpu:         80.71s
+system cpu:       13.59s
+cpu use:          421%
+peak rss single:  1839 MiB (largest one process, GNU time)
+peak pss tree:    2546 MiB (process group, shared pages apportioned)
+peak rss tree:    10835 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 9
+lake errors:      6
+sorry decls:      3
+other warnings:   0

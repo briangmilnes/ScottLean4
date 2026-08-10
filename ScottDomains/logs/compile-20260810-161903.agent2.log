@@ -1,0 +1,151 @@
+# r0050
+# agent2 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-10T16:19:03-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1330/1372] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1342/1372] Building ScottDomains.Audit.Bifinite (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Audit/Bifinite.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Audit/Bifinite.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Audit/Bifinite.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Audit/Bifinite.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Audit/Bifinite.setup.json --json
+error: ScottDomains/Audit/Bifinite.lean:54:43: Function expected at
+  Thm137
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  D
+
+Hint: The identifier `Thm137` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/Audit/Bifinite.lean:63:43: Function expected at
+  Thm137
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  D
+
+Hint: The identifier `Thm137` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: Lean exited with code 1
+✖ [1343/1372] Building ScottDomains.Thm18 (1.3s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Thm18.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Thm18.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Thm18.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Thm18.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Thm18.setup.json --json
+error: ScottDomains/Thm18.lean:123:2: Unknown identifier `Recovered.thm14.mpr`
+error: Lean exited with code 1
+✖ [1344/1372] Building ScottDomains.Universality (1.7s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Universality.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Universality.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Universality.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Universality.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Universality.setup.json --json
+error: ScottDomains/Universality.lean:420:22: Unknown identifier `thm21_image`
+error: ScottDomains/Universality.lean:420:9: Tactic `rcases` failed: `x✝ : ?m.190` is not an inductive datatype
+error: ScottDomains/Universality.lean:480:42: Unknown identifier `lem23`
+error: Lean exited with code 1
+✔ [1348/1372] Built ScottDomains.FlatSection6 (1.5s)
+✖ [1350/1372] Building ScottDomains.PropertyM (2.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/PropertyM.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/PropertyM.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/PropertyM.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/PropertyM.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/PropertyM.setup.json --json
+error: ScottDomains/PropertyM.lean:777:38: Function expected at
+  Thm137Omega
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  D
+
+Hint: The identifier `Thm137Omega` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: ScottDomains/PropertyM.lean:786:44: Function expected at
+  Thm137Omega
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  D
+
+Hint: The identifier `Thm137Omega` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+error: Lean exited with code 1
+⚠ [1354/1372] Built ScottDomains.Effective.A3StepDecidable (2.2s)
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✔ [1355/1372] Built ScottDomains.Colimit (2.7s)
+✔ [1356/1372] Built ScottDomains.PRepSum (3.1s)
+✖ [1357/1372] Building ScottDomains.LemThirty (1.4s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/LemThirty.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/LemThirty.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/LemThirty.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/LemThirty.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/LemThirty.setup.json --json
+error: ScottDomains/LemThirty.lean:301:55: Unknown identifier `Colimit.Thm29Second`
+error: ScottDomains/LemThirty.lean:324:36: Unknown identifier `Colimit.Thm29Second`
+error: ScottDomains/LemThirty.lean:326:9: Tactic `rcases` failed: `x✝ : ?m.5` is not an inductive datatype
+error: ScottDomains/LemThirty.lean:335:24: Function expected at
+  h
+but this term has type
+  Thm29SecondAtDomains
+
+Note: Expected a function because this term is being applied to the argument
+  E
+error: ScottDomains/LemThirty.lean:335:9: Tactic `rcases` failed: `x✝ : ?m.7` is not an inductive datatype
+error: ScottDomains/LemThirty.lean:341:28: Unknown identifier `lem17_lift`
+error: ScottDomains/LemThirty.lean:347:34: Unknown identifier `lem17_prod`
+error: ScottDomains/LemThirty.lean:352:28: Unknown identifier `ClosureProperties.lem17_smyth`
+error: ScottDomains/LemThirty.lean:356:28: Unknown identifier `ClosureProperties.lem17_hoare`
+error: ScottDomains/LemThirty.lean:362:28: Unknown identifier `ClosureProperties.lem17_plotkin`
+error: ScottDomains/LemThirty.lean:376:28: Unknown identifier `Colimit.Thm29Second`
+error: ScottDomains/LemThirty.lean:377:30: Unknown identifier `lem17_smash`
+error: ScottDomains/LemThirty.lean:380:29: Unknown identifier `Colimit.Thm29Second`
+error: ScottDomains/LemThirty.lean:382:30: Unknown identifier `ClosureProperties.lem17_separated`
+error: ScottDomains/LemThirty.lean:385:30: Unknown identifier `Colimit.Thm29Second`
+error: ScottDomains/LemThirty.lean:386:30: Unknown identifier `lem17_sum`
+error: ScottDomains/LemThirty.lean:394:45: Unknown identifier `Colimit.Thm29Second`
+error: ScottDomains/LemThirty.lean:396:30: Unknown identifier `lem17_fun`
+error: ScottDomains/LemThirty.lean:399:51: Unknown identifier `Colimit.Thm29Second`
+error: ScottDomains/LemThirty.lean:401:30: Unknown identifier `ClosureProperties.lem17_strictFun`
+warning: ScottDomains/LemThirty.lean:527:8: declaration uses `sorry`
+error: ScottDomains/LemThirty.lean:731:24: Function expected at
+  h
+but this term has type
+  Thm29Normal
+
+Note: Expected a function because this term is being applied to the argument
+  E
+error: ScottDomains/LemThirty.lean:731:9: Tactic `rcases` failed: `x✝ : ?m.18` is not an inductive datatype
+error: ScottDomains/LemThirty.lean:774:18: failed to synthesize instance of type class
+  CompletePartialOrder E
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/LemThirty.lean:764:0: type of theorem `ScottDomains.LemThirty.theorem_29_secondAtDomains_of_thm29Normal` is not a proposition
+  {Thm29Normal : Sort u_1} → {Thm29SecondAtDomains : Sort u_2} → Thm29Normal → Thm29SecondAtDomains
+error: ScottDomains/LemThirty.lean:779:14: Unknown identifier `thm29SecondAtDomains_of_thm29Normal`
+error: ScottDomains/LemThirty.lean:783:14: Unknown identifier `thm29SecondAtDomains_of_thm29Normal`
+error: Lean exited with code 1
+✖ [1363/1372] Building ScottDomains.Lemma28AtU (1.2s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Lemma28AtU.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Lemma28AtU.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Lemma28AtU.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Lemma28AtU.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Lemma28AtU.setup.json --json
+error: ScottDomains/Lemma28AtU.lean:87:59: Unknown identifier `lem10_strict`
+error: ScottDomains/Lemma28AtU.lean:98:55: Unknown identifier `lem10_smash`
+error: ScottDomains/Lemma28AtU.lean:107:2: Unknown identifier `PRepSum.lemma28AtU_of`
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Audit.Bifinite
+- ScottDomains.Thm18
+- ScottDomains.Universality
+- ScottDomains.PropertyM
+- ScottDomains.LemThirty
+- ScottDomains.Lemma28AtU
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:06.24
+Maximum resident set size (kbytes): 1880776
+--- build ---
+finished:         2026-08-10T16:19:11-07:00
+exit status:      1
+user cpu:         26.95s
+system cpu:       4.94s
+cpu use:          510%
+peak rss single:  1836 MiB (largest one process, GNU time)
+peak pss tree:    2509 MiB (process group, shared pages apportioned)
+peak rss tree:    13414 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 37
+lake errors:      7
+sorry decls:      3
+other warnings:   0

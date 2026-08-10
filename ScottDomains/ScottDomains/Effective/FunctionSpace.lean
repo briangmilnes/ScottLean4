@@ -157,8 +157,8 @@ Item 3 was two questions written as one, and they have different answers.
   off the bounded sets, so on an inconsistent `Q` this test reads a junk value.
 
 `Theorem7ArrowRecursive` and `Theorem7StrictRecursive` do not name `scottHom`, so
-the second point does not reach them; `R47.Agent2.theorem7ArrowRecursive_of_scottHomC`
-and `R47.Agent2.theorem7StrictRecursive_of_strictHomC` reduce them over the
+the second point does not reach them; `R47.Agent2.theorem_7_arrowRecursive_of_scottHomC`
+and `R47.Agent2.theorem_7_strictRecursive_of_strictHomC` reduce them over the
 consistency-guarded enumeration instead. `StepFunctionsDecidable` **did** name
 `scottHom d e`, and that is where the second point landed.
 
@@ -326,8 +326,6 @@ theorem theorem_7_arrow (d : EffectivePresentation α) (e : EffectivePresentatio
     Nonempty (EffectivePresentation (ScottHom α β)) :=
   ⟨scottHom d e⟩
 
-alias theorem7_arrow := theorem_7_arrow
-
 omit [BoundedComplete β] in
 /-- **Theorem 7, third sentence, for `⊸`.** "Similar facts hold for `D ⊸ E`."
 
@@ -356,9 +354,7 @@ theorem theorem_7_strict [Domain (StrictHom α β)] (_d : EffectivePresentation 
     Nonempty (EffectivePresentation (StrictHom α β)) :=
   nonempty_effectivePresentation _
 
-alias theorem7_strict := theorem_7_strict
-
-/-- `theorem7_strict`'s instance binder is dischargeable from the hypotheses
+/-- `theorem_7_strict`'s instance binder is dischargeable from the hypotheses
 Theorem 7 actually states. -/
 example : Domain (StrictHom α β) := PRepFun.strictHomDomain
 
@@ -573,7 +569,7 @@ the enumerations the new existential ranges over
 (`R49.Agent3.isStepEnumeration_scottHom`). The check that no bar was lowered is
 `Theorem7ArrowRecursive`, unchanged and still reached from this `def` by
 `exists_isRecursive_of_stepFunctionsDecidable` below and
-`R45.Agent1.theorem7ArrowRecursive_of_stepFunctionsDecidable`.
+`R45.Agent1.theorem_7_arrowRecursive_of_stepFunctionsDecidable`.
 
 What the restatement buys: the claim is no longer blocked on a guard its own
 hypotheses do not determine. `R49.Agent3.stepFunctionsDecidable_of_scottHomC`

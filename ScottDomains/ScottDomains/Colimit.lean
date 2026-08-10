@@ -26,7 +26,7 @@ Gunter & Scott, *Semantic Domains*, §7.4, quoted from the source PDF
 > **Lemma 30** The following operators are p-representable over `V`: `→`, `⇸`,
 > `×`, `⊗`, `+`, `⊕`, `()⊥`, `()♯`, `()♭`, `()♮`.
 
-`BifiniteUniversal.thm29` proves the first sentence. This file builds the chain
+`BifiniteUniversal.theorem_29` proves the first sentence. This file builds the chain
 whose colimit is §7.4's `V`, at the level of **posets** rather than domains:
 `Plus D = IdealCompletion (MPair ↥(compacts D))`, so the iteration is an
 iteration of `M` on countable posets and Theorem 11 (`IdealCompletion.instDomain`)
@@ -112,18 +112,18 @@ this file with the missing step named.
 
 | # | statement | what is missing |
 | - | --------- | --------------- |
-| 1 | `Thm29Second` — Theorem 29's second sentence at `D = V` | the universality argument: a normal embedding of `K(E)` into `A∞` for every bifinite `E` (`LemThirty.Thm29Normal`) |
-| 2 | `Lem30Arrow` — Lemma 30's `→` conjunct | a representation of the function space over `V` |
+| 1 | `Theorem29Second` — Theorem 29's second sentence at `D = V` | the universality argument: a normal embedding of `K(E)` into `A∞` for every bifinite `E` (`LemThirty.Theorem29Normal`) |
+| 2 | `Lemma30Arrow` — Lemma 30's `→` conjunct | a representation of the function space over `V` |
 
 No `sorry` stands in for either.
 
 **Row 2's blocking note was corrected in r0037 and the whole of Lemma 30 now
 lives in `LemThirty.lean`.** This file previously recorded that the paper's other
 nine operators "are not present in this development as functions `Cpo → Cpo` at
-all", so that `Lem30Arrow` was the only type-correct conjunct. `PRep.lean:147–190`
+all", so that `Lemma30Arrow` was the only type-correct conjunct. `PRep.lean:147–190`
 defines all nine, and `LemThirty.plotkinOp` supplies the tenth, so
 `LemThirty.Lemma30` states the lemma in full as a ten-fold conjunction.
-`Lem30Arrow` below is kept because it is cited elsewhere; it is
+`Lemma30Arrow` below is kept because it is cited elsewhere; it is
 `LemThirty.Lemma30`'s first conjunct.
 
 Row 1's description of the missing step was also too specific.
@@ -783,7 +783,7 @@ theorem domain_V : Domain V := inferInstance
 
 /-- **`V` is bifinite.** `A∞` is a Plotkin order and `principal` reflects the
 order, so `isPlotkinOrder_image` carries it onto `K(V) = im(principal)` — the
-same two steps `thm29` takes for `D⁺`. -/
+same two steps `theorem_29` takes for `D⁺`. -/
 theorem isBifinite_V : IsBifinite V := by
   have h := isPlotkinOrder_image
     (f := (IdealCompletion.principal : Ainf → V))
@@ -952,7 +952,7 @@ noncomputable def isoPlus : V ≃o Plus V :=
 
 /-- Consistency check against Theorem 29's **first** sentence: `V⁺` is bifinite
 because `V` is, and `isoPlus` says `V` is order-isomorphic to it. -/
-theorem isBifinite_plus_V : IsBifinite (Plus V) := thm29 V isBifinite_V
+theorem isBifinite_plus_V : IsBifinite (Plus V) := theorem_29 V isBifinite_V
 
 /-- **`V ≅ V⁺` as cpos, not merely as posets.** An `OrderIso` between cpos
 preserves directed suprema (`OrderIso.map_sSup_of_directedOn`), so no separate
@@ -1009,7 +1009,7 @@ Neither statement below was type-correct before `V` existed, and neither is
 proved here. They are recorded as `Prop`-valued definitions so that the exact
 proposition is fixed and can be cited, rather than paraphrased.
 
-**Theorem 29's second sentence.** `Thm29Second` is the paper's "if `D ≅ D⁺` and
+**Theorem 29's second sentence.** `Theorem29Second` is the paper's "if `D ≅ D⁺` and
 `E` is any bifinite domain, then there is a projection `p : D → E`", instantiated
 at the `D = V` this file constructs — `iso_plus_V` discharges the hypothesis
 `D ≅ D⁺` and `isBifinite_V` the standing assumption on `D`. What is missing is
@@ -1020,7 +1020,7 @@ supplies for it are `isNormalIn_range_incl` (each stage is normal in `A∞`) and
 `exists_stage_of_finite` (a finite set of `A∞` lies in one stage); what is not
 supplied is a normal embedding of `K(E)` into `A∞` for an arbitrary bifinite `E`,
 which is where `M`'s universal property among finite Plotkin orders is used.
-`LemThirty.Thm29Normal` is that statement, and
+`LemThirty.Theorem29Normal` is that statement, and
 `LemThirty.exists_stage_ge_of_finite` records that the stage-by-stage extension
 is *not* the missing part.
 
@@ -1029,16 +1029,16 @@ convex powerdomain `()♮`, which is the whole reason §7.4 exists ("The convex
 powerdomain `()♮` cannot be representable over `U` because it does not preserve
 bounded completeness"). All ten are available in this development as functions
 `Cpo → Cpo`: nine as `PRep.funOp … PRep.hoareOp`, and `()♮` as
-`LemThirty.plotkinOp`. `LemThirty.Lemma30` states the lemma in full; `Lem30Arrow`
+`LemThirty.plotkinOp`. `LemThirty.Lemma30` states the lemma in full; `Lemma30Arrow`
 below is its first conjunct, kept under its own name because r0036 cited it. -/
 
 /-- **Theorem 29's second sentence**, at the `D = V` built above.
 
-**REFUTED (r0045).** `ScottDomains.R45.Agent3.not_thm29Second : ¬ Thm29Second` is
+**REFUTED (r0045).** `ScottDomains.R45.Agent3.not_thm29Second : ¬ Theorem29Second` is
 the kernel-checked refutation: this statement drops the word "domain" from the
 paper's "`E` is any bifinite **domain**", and at `E := Flat (Set ℕ)` — bifinite,
 uncountable basis, no `Domain` instance — an embedding into the countable
-`↥(compacts V)` cannot exist. `LemThirty.Thm29SecondAtDomains` is the
+`↥(compacts V)` cannot exist. `LemThirty.Theorem29SecondAtDomains` is the
 transcription that keeps the word; it is the open one, and
 `R45.Agent3.not_thm29Second` is what shows its `[Domain E]` binder is necessary
 rather than decorative.
@@ -1052,16 +1052,12 @@ def Theorem29Second : Prop :=
   ∀ (E : Type) [CompletePartialOrder E], IsBifinite E →
     ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p
 
-alias Thm29Second := Theorem29Second
-
 /-- **Lemma 30's `→` conjunct**, the first conjunct of the lemma to become
 type-correct. Unproved, and blocked twice over: it needs the retraction pair
-`V ⇄ (V → V)`, which comes from `Thm29Second` at `E := ScottHom V V`, and it
+`V ⇄ (V → V)`, which comes from `Theorem29Second` at `E := ScottHom V V`, and it
 needs `IsBifinite (ScottHom V V)`, whose only route here is
-`ClosureProperties.lem17_fun` with its `[BoundedComplete β]`. See
+`ClosureProperties.lemma_17_fun` with its `[BoundedComplete β]`. See
 `LemThirty.retracts_fun_of_boundedComplete`. -/
 def Lemma30Arrow : Prop := IsPRepresentable₂ V Cpo.funSpace
-
-alias Lem30Arrow := Lemma30Arrow
 
 end ScottDomains.Colimit

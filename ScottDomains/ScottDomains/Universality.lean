@@ -39,10 +39,10 @@ quoted verbatim from the source PDF:
 > `U`. Hence, to get a non-trivial solution for `D ≅ D → D ≅ D × D`, take `U` in
 > the theorem to be `P N`.
 
-Both hypotheses are already available at `U = P N`: `ScottDomains.lem23`
+Both hypotheses are already available at `U = P N`: `ScottDomains.lemma_23`
 (`UniversalDomain.lean`, r0028) and
 `ScottDomains.PowerdomainRep.isRepresentable_prod` (`Powerdomain/Universal.lean`,
-r0031). `thm25_powerset` is the paper's last sentence.
+r0031). `theorem_25_powerset` is the paper's last sentence.
 
 ## What "non-trivial" is
 
@@ -64,7 +64,7 @@ invented:
    conclusion "`D` is the image of a closure on `U`" is nothing else.
 2. Theorem 25's `D` is delivered together with `IsClosureOf D U`, which is
    precisely the relation `Recursive.IsUniversal` quantifies over. No third
-   formalization of universality is introduced: `thm25_isUniversal` states the
+   formalization of universality is introduced: `theorem_25_isUniversal` states the
    corollary with `Recursive.IsUniversal` itself.
 
 ## Where the statements here are weaker than the paper's prose
@@ -73,11 +73,11 @@ The paper says "non-trivial **domains** `D` and `E`", but its own proof produces
 cpos: "Hence there is a **cpo** `D ≅ D → E`". Lemma 24's hypothesis is a
 non-trivial *cpo* `U`, and Theorem 21 — which the proof invokes — is stated over
 a cpo and returns `im(r)` for a closure `r`, which `Skeleton/Section6.lean`'s
-`lem19` shows carries a `CompletePartialOrder` and **not** that it is algebraic
+`lemma_19` shows carries a `CompletePartialOrder` and **not** that it is algebraic
 with a countable basis (the note `UniversalDomain.lean` records against
 `ClosurePoset`). So `D` and `E` are `Cpo`, not `Domain`, and that is what the
 proof supports. Theorem 25's hypothesis is `U` a *domain*, but no step of its
-proof spends algebraicity or countability of `K(U)`, so `thm25` is stated over a
+proof spends algebraicity or countability of `K(U)`, so `theorem_25` is stated over a
 cpo — a strictly stronger theorem, and the one the proof establishes.
 
 ## What had to be built
@@ -301,10 +301,10 @@ def idClosureImageIso (U : Type u) [CompletePartialOrder U] :
 
 /-! ## Theorem 21, retaining the closure it fixes
 
-`Recursive.thm21` returns `IsSolvable F` — a cpo and an isomorphism, with the
+`Recursive.theorem_21` returns `IsSolvable F` — a cpo and an isomorphism, with the
 closure discarded. Lemma 24 needs the closure back: its `A` is "a **closure** of
 `U` such that `A ≅ U × A × A`", and Theorem 25's conclusion is that `D` is the
-image of a closure on `U`. The proof is `thm21`'s, unchanged; only the
+image of a closure on `U`. The proof is `theorem_21`'s, unchanged; only the
 existential is wider. -/
 
 /-- **Theorem 21, with the fixed closure retained.** The Fixed Point Theorem
@@ -318,8 +318,6 @@ theorem theorem_21_image {U : Type u} [CompletePartialOrder U] {F : Cpo.{u} → 
   refine ⟨r, ?_⟩
   have h := hiso r
   rwa [hr] at h
-
-alias thm21_image := theorem_21_image
 
 /-! ## The two derived operators Lemma 24 represents -/
 
@@ -381,10 +379,10 @@ The proof is the paper's, in its four steps.
 
 | # | Step | Instrument |
 | -- | ---- | ---------- |
-| 1 | a closure `A` of `U` with `A ≅ U × (A × A)` | `isRepresentable_selfProdSquare`, `thm21_image` |
+| 1 | a closure `A` of `U` with `A ≅ U × (A × A)` | `isRepresentable_selfProdSquare`, `theorem_21_image` |
 | 2 | `E := U × A` satisfies `E ≅ E × E` | `prodOrderIso` then `prodShuffle` |
 | 3 | `E` is a closure of `U` | `R×(id, A)`, whose image is `im(id) × im(A) ≅ U × A` |
-| 4 | a closure `D` of `U` with `D ≅ D → E` | `isRepresentable_funSpaceConst`, `thm21_image` |
+| 4 | a closure `D` of `U` with `D ≅ D → E` | `isRepresentable_funSpaceConst`, `theorem_21_image` |
 
 Non-triviality of `E` is `Nontrivial U` plus `im(A) ∋ A(⊥)`; non-triviality of
 `D` is `nontrivial_scottHom` transported back along `D ≅ D → E`, which is the
@@ -399,7 +397,7 @@ theorem lemma_24 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
       IsClosureOf D (cpoOf U) ∧ IsClosureOf E (cpoOf U) ∧
       Iso E (prodCpo E E) ∧ Iso D (Cpo.funSpace D E) := by
   -- Step 1: `A` is a closure of `U` with `A ≅ U × (A × A)`.
-  obtain ⟨A, hA⟩ := thm21_image (isRepresentable_selfProdSquare hprod)
+  obtain ⟨A, hA⟩ := theorem_21_image (isRepresentable_selfProdSquare hprod)
   obtain ⟨eA⟩ := hA
   set E : Cpo.{u} := prodCpo (cpoOf U) A.image with hE
   -- `im(A)` is nonempty, which is all `E`'s non-triviality needs beyond `U`'s.
@@ -419,11 +417,9 @@ theorem lemma_24 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
   have hcE : Iso (Rp (idClosure U, A)).image E :=
     ⟨ep.trans (prodOrderIso (idClosureImageIso U) (OrderIso.refl A.image.carrier))⟩
   -- Step 4: `D` is a closure of `U` with `D ≅ D → E`.
-  obtain ⟨Dcl, hD⟩ := thm21_image (isRepresentable_funSpaceConst hfun hcE)
+  obtain ⟨Dcl, hD⟩ := theorem_21_image (isRepresentable_funSpaceConst hfun hcE)
   refine ⟨Dcl.image, E, hD.nontrivial (nontrivial_scottHom hEnt), hEnt,
     ⟨Dcl, Iso.refl _⟩, hEcl, hEiso, hD⟩
-
-alias lem24 := lemma_24
 
 /-! ## Theorem 25 -/
 
@@ -451,7 +447,7 @@ theorem theorem_25 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
     (hprod : IsRepresentable₂ U prodCpo) (hfun : IsRepresentable₂ U Cpo.funSpace) :
     ∃ D : Cpo.{u}, Nontrivial D.carrier ∧ IsClosureOf D (cpoOf U) ∧
       Iso D (prodCpo D D) ∧ Iso D (Cpo.funSpace D D) := by
-  obtain ⟨D, E, hDnt, _, hDcl, _, hEiso, hDiso⟩ := lem24 U hprod hfun
+  obtain ⟨D, E, hDnt, _, hDcl, _, hEiso, hDiso⟩ := lemma_24 U hprod hfun
   -- `D × D ≅ (D → E) × (D → E) ≅ D → (E × E) ≅ D → E ≅ D`.
   have hprodD : Iso (prodCpo D D) D :=
     ((((Iso.prodCongr hDiso hDiso).trans (iso_funSpace_prod D E E).symm).trans
@@ -461,8 +457,6 @@ theorem theorem_25 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
     ((((Iso.funSpaceCongr (Iso.refl D) hDiso).trans (iso_curry D D E)).trans
       (Iso.funSpaceCongr hprodD (Iso.refl E))).trans hDiso.symm)
   exact ⟨D, hDnt, hDcl, hprodD.symm, hfunD.symm⟩
-
-alias thm25 := theorem_25
 
 /-! ## The instance at `U = P N`
 
@@ -478,14 +472,12 @@ closure on `P N`, with `D ≅ D × D` and `D ≅ D → D`.
 
 `Recursive.powersetCpo` is `cpoOf (Set ℕ)`; the hypotheses are
 `ScottDomains.PowerdomainRep.isRepresentable_prod` (r0031) and
-`ScottDomains.lem23` (r0028), and `Nontrivial (Set ℕ)` is
+`ScottDomains.lemma_23` (r0028), and `Nontrivial (Set ℕ)` is
 `Set.nontrivial_of_nonempty`. -/
 theorem theorem_25_powerset :
     ∃ D : Cpo.{0}, Nontrivial D.carrier ∧ IsClosureOf D powersetCpo ∧
       Iso D (prodCpo D D) ∧ Iso D (Cpo.funSpace D D) :=
-  thm25 (Set ℕ) isRepresentable_prod lem23
-
-alias thm25_powerset := theorem_25_powerset
+  theorem_25 (Set ℕ) isRepresentable_prod lemma_23
 
 /-- **`P N` is universal for the isomorphism class of the domain Theorem 25
 produces.**
@@ -505,10 +497,8 @@ uses the same predicate. -/
 theorem theorem_25_isUniversal :
     ∃ D : Cpo.{0}, Nontrivial D.carrier ∧ Iso D (prodCpo D D) ∧
       Iso D (Cpo.funSpace D D) ∧ IsUniversal powersetCpo (fun X => Iso X D) := by
-  obtain ⟨D, hnt, hcl, hp, hf⟩ := thm25_powerset
+  obtain ⟨D, hnt, hcl, hp, hf⟩ := theorem_25_powerset
   exact ⟨D, hnt, hp, hf, fun X hX => IsClosureOf.of_iso hX hcl⟩
-
-alias thm25_isUniversal := theorem_25_isUniversal
 
 end ScottDomains.Universality
 
@@ -537,20 +527,20 @@ depends on `sorryAx`.
   iso_curry                             [propext, Classical.choice, Quot.sound]
   cpoOf                                 []
   idClosureImageIso                     [propext, Quot.sound]
-  thm21_image                           [propext, Classical.choice, Quot.sound]
+  theorem_21_image                      [propext, Classical.choice, Quot.sound]
   isRepresentable_selfProdSquare        [propext, Classical.choice, Quot.sound]
   isRepresentable_funSpaceConst         [propext, Classical.choice, Quot.sound]
-  lem24                                 [propext, Classical.choice, Quot.sound]
-  thm25                                 [propext, Classical.choice, Quot.sound]
-  thm25_powerset                        [propext, Classical.choice, Quot.sound]
-  thm25_isUniversal                     [propext, Classical.choice, Quot.sound]
+  lemma_24                              [propext, Classical.choice, Quot.sound]
+  theorem_25                            [propext, Classical.choice, Quot.sound]
+  theorem_25_powerset                   [propext, Classical.choice, Quot.sound]
+  theorem_25_isUniversal                [propext, Classical.choice, Quot.sound]
 
 Three declarations are axiom-free: the two pairing-continuity lemmas, whose
 proofs are `IsLUB` bookkeeping in `Prod`, and `cpoOf`, which only bundles a
 carrier with an instance. `Classical.choice` enters exactly where it enters
-`ScottDomains.lem23` and `PowerdomainRep.isRepresentable_prod` — through
+`ScottDomains.lemma_23` and `PowerdomainRep.isRepresentable_prod` — through
 `ScottHom`'s `SupSet` instance, a `dite` on an undecidable continuity predicate —
 which is why every declaration mentioning `ScottHom`'s cpo structure carries it
-and none of the pure-`Prod` ones do. `lem24` and `thm25` add no new door: their
-choice comes from `thm22`'s enumeration of the basis, inherited through the two
-representability hypotheses. -/
+and none of the pure-`Prod` ones do. `lemma_24` and `theorem_25` add no new
+door: their choice comes from `theorem_22`'s enumeration of the basis, inherited
+through the two representability hypotheses. -/

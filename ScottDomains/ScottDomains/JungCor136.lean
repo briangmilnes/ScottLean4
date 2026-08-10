@@ -18,7 +18,7 @@ pages 46–50. Both statements are quoted from the source PDF in
 
 Corollary 1.36 at `f = g` compact says a compact function has compact values; at
 `g = id` it says a compact deflation's fixed points are compact, which is what
-`JungFinite.lemma22` consumes and what `fixedPointOfCompactDeflationIsCompact`
+`JungFinite.jung_lemma_2_2` consumes and what `fixedPointOfCompactDeflationIsCompact`
 discharges here.
 
 ## The proof given here is not Jung's, and is shorter
@@ -419,7 +419,7 @@ theorem isCompactElement_apply {g : ScottHom α α} (hg : IsCompactElement g) (d
   (wayBelow_self_iff_isCompactElement (g d)).mp
     (apply_wayBelow_apply ((wayBelow_self_iff_isCompactElement g).mpr hg) d)
 
-/-- **The remaining hypothesis of `JungFinite.lemma22`, discharged.**
+/-- **The remaining hypothesis of `JungFinite.jung_lemma_2_2`, discharged.**
 
 `JungFinite.FixedPointOfCompactDeflationIsCompact α` asks that a fixed point of a
 compact deflation be compact. A compact `f` is way below itself, hence way below
@@ -427,8 +427,8 @@ compact deflation be compact. A compact `f` is way below itself, hence way below
 turns that into `d ≪ d`, which is `IsCompactElement d`.
 
 The predicate is stated at `[CompletePartialOrder α]`; this proof adds
-`[IsAlgebraic (ScottHom α α)]`, which both `JungFinite.lemma22` and
-`JungFinite.thm18_of_propertyM` already carry. -/
+`[IsAlgebraic (ScottHom α α)]`, which both `JungFinite.jung_lemma_2_2` and
+`JungFinite.theorem_18_of_propertyM` already carry. -/
 theorem fixedPointOfCompactDeflationIsCompact :
     JungFinite.FixedPointOfCompactDeflationIsCompact α := by
   intro f hf hfle d hfd

@@ -3,8 +3,8 @@ import ScottDomains.ClosureProperties.StrictFunction
 /-!
 # Lemma 17's function-space conjuncts without `[BoundedComplete β]`
 
-`ClosureProperties.lean:54` records `[BoundedComplete β]` on `lem17_fun` and
-`lem17_strictFun` as **"a real open item, not a formality"**. This file removes
+`ClosureProperties.lean:54` records `[BoundedComplete β]` on `lemma_17_fun` and
+`lemma_17_strictFun` as **"a real open item, not a formality"**. This file removes
 it. The binder is not an artifact of Lemma 17; it is an artifact of the *route*
 the development took to the conjunct — through Theorem 7's step-function
 decomposition of a compact function (`CompactFunction.lean`,
@@ -39,12 +39,12 @@ Nothing below mentions `stepFun`, `IsStepPair` or `stepsBelow`.
 `IsAlgebraic (ScottHom α β)` (`FunctionSpaceDomain.lean:121`) and hence
 `Domain (ScottHom α β)` (`FunctionSpaceCountable.lean:122`) also carry
 `[BoundedComplete β]`. `isLUB_approx` and the merge argument discharge both of
-those for **bifinite** operands as well, which is what `Thm29SecondAtDomains`
+those for **bifinite** operands as well, which is what `Theorem29SecondAtDomains`
 needs at `E := ScottHom V V`. Those are proved in `A4FunctionSpaceBifinite.lean`.
 
 Every theorem here is stated with `IsBifinite α` and `IsBifinite β` as explicit
 hypotheses and **no instance binder beyond `[Domain α] [Domain β]`**, which
-`lem17_fun` already carries.
+`lemma_17_fun` already carries.
 -/
 
 namespace ScottDomains.R47.Agent4
@@ -226,7 +226,7 @@ theorem exists_finite_projection_fixing (h₁ : IsBifinite α) (h₂ : IsBifinit
     (fun b hb => hM₂sup (Set.mem_biUnion hf hb))
 
 /-- **Lemma 17, function-space conjunct, with `[BoundedComplete β]` removed.**
-Compare `ClosureProperties.lem17_fun`, whose binders are
+Compare `ClosureProperties.lemma_17_fun`, whose binders are
 `[Domain α] [Domain β] [BoundedComplete β]`; this statement's are
 `[Domain α] [Domain β]`. -/
 theorem lemma_17_fun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
@@ -238,10 +238,8 @@ theorem lemma_17_fun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
   exact ⟨Set.range ⇑(compHom p q), hPfin, isNormalIn_range_of_finite hP hPfin,
     fun f hf => ⟨f, hfix f hf⟩⟩
 
-alias lem17_fun := lemma_17_fun
-
 /-- **Lemma 17, strict-function-space conjunct, with `[BoundedComplete β]`
-removed.** The packaging is `ClosureProperties.lem17_strictFun`'s verbatim; only
+removed.** The packaging is `ClosureProperties.lemma_17_strictFun`'s verbatim; only
 the engine underneath it changed. -/
 theorem lemma_17_strictFun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
     IsBifinite (StrictHom α β) := by
@@ -269,8 +267,6 @@ theorem lemma_17_strictFun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
   · intro f hf
     exact ⟨f.val, hfix f.val ⟨f, hf, rfl⟩⟩
 
-alias lem17_strictFun := lemma_17_strictFun
-
 end Approx
 
 /-! ### The bar was not lowered
@@ -279,19 +275,15 @@ The two theorems below are the kernel's record that the binder-free statements
 **imply** the ones the development already has. They are one-line instantiations;
 their content is that no hypothesis was traded for the one removed. -/
 
-/-- `lem17_fun` above implies `ClosureProperties.lem17_fun`'s statement. -/
+/-- `lemma_17_fun` above implies `ClosureProperties.lemma_17_fun`'s statement. -/
 theorem lemma_17_fun_imp_old [Domain α] [Domain β] [BoundedComplete β]
     (h₁ : IsBifinite α) (h₂ : IsBifinite β) : IsBifinite (ScottHom α β) :=
-  lem17_fun h₁ h₂
+  lemma_17_fun h₁ h₂
 
-alias lem17_fun_imp_old := lemma_17_fun_imp_old
-
-/-- `lem17_strictFun` above implies `ClosureProperties.lem17_strictFun`'s
+/-- `lemma_17_strictFun` above implies `ClosureProperties.lemma_17_strictFun`'s
 statement. -/
 theorem lemma_17_strictFun_imp_old [Domain α] [Domain β] [BoundedComplete β]
     (h₁ : IsBifinite α) (h₂ : IsBifinite β) : IsBifinite (StrictHom α β) :=
-  lem17_strictFun h₁ h₂
-
-alias lem17_strictFun_imp_old := lemma_17_strictFun_imp_old
+  lemma_17_strictFun h₁ h₂
 
 end ScottDomains.R47.Agent4

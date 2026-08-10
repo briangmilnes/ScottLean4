@@ -78,7 +78,7 @@ that cpo, that `OrderBot` and that `Domain` unchanged.
   hypotheses of Theorem 11.
 * `Pf.not_isPartialOrder` — `⊑♭` really is only a pre-order, which is why
   Theorem 11 is stated for pre-orders and not posets.
-* `Powerdomain` — `D♭`, and `thm11_hoare`: it is a domain whose compact elements
+* `Powerdomain` — `D♭`, and `theorem_11_hoare`: it is a domain whose compact elements
   are exactly the principal ideals over `⟨Pf(K(D)), ⊑♭⟩`.
 -/
 
@@ -226,19 +226,17 @@ basis `K(D♭)` is the set of principal ideals over `⟨Pf(K(D)), ⊑♭⟩` —
 the sets `↓u = {v ∈ Pf(K(D)) | v ⊑♭ u}` for `u` a finite non-empty set of compact
 elements of `D`.
 
-The proof is `IdealCompletion.thm11` applied to `Pf ↥(compacts D)`; the three
+The proof is `IdealCompletion.theorem_11` applied to `Pf ↥(compacts D)`; the three
 instances above are its whole cost. -/
 theorem theorem_11_hoare :
     Domain (Powerdomain D) ∧
       compacts (Powerdomain D) =
         Set.range (IdealCompletion.principal : Pf ↥(compacts D) → Powerdomain D) :=
-  IdealCompletion.thm11 (Pf ↥(compacts D))
-
-alias thm11_hoare := theorem_11_hoare
+  IdealCompletion.theorem_11 (Pf ↥(compacts D))
 
 omit [Domain D] in
 /-- An element of `D♭` is compact exactly when it is a principal ideal
-`↓u` for some finite non-empty `u ⊆ K(D)`. The second conjunct of `thm11_hoare`
+`↓u` for some finite non-empty `u ⊆ K(D)`. The second conjunct of `theorem_11_hoare`
 in membership form. Countability of `K(D)` is not needed for this half — the
 characterization of the compact ideals holds over any pre-order with a least
 element — so `[Domain D]` is omitted. -/
@@ -279,12 +277,12 @@ depends on `sorryAx`.
   ScottDomains.Hoare.Pf.instCountable              [propext, Classical.choice, Quot.sound]
   ScottDomains.Hoare.Pf.not_isPartialOrder         [propext, Classical.choice, Quot.sound]
   ScottDomains.Hoare.Powerdomain                   [propext, Quot.sound]
-  ScottDomains.Hoare.thm11_hoare                   [propext, Classical.choice, Quot.sound]
+  ScottDomains.Hoare.theorem_11_hoare                   [propext, Classical.choice, Quot.sound]
   ScottDomains.Hoare.isCompactElement_iff          [propext, Classical.choice, Quot.sound]
 
 The three instances that Theorem 11 consumes split cleanly: `instPreorder` and
 `instOrderBot` are choice-free, and `Classical.choice` enters `instCountable`
 only through `Denumerable`/`Encodable` machinery behind `Finset.countable`.
-`thm11_hoare` inherits choice from `IdealCompletion`'s `sSup`, whose `dite`
+`theorem_11_hoare` inherits choice from `IdealCompletion`'s `sSup`, whose `dite`
 branches on the undecidable `Order.IsIdeal`. `not_isPartialOrder`'s use is the
 `Finset` decidability instances discharged by `decide`. -/

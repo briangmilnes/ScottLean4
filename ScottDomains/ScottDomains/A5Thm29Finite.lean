@@ -1,12 +1,12 @@
 import ScottDomains.A1Lemma24
 
 /-!
-# `Thm29Normal` at finite bases: `A∞` is universal for the finite bifinite domains
+# `Theorem29Normal` at finite bases: `A∞` is universal for the finite bifinite domains
 
-Round r0047 left `LemThirty.Thm29Normal` open with three named routes and none
-attempted. This file takes route 1 — *prove `Thm29Normal` by a route that does
+Round r0047 left `LemThirty.Theorem29Normal` open with three named routes and none
+attempted. This file takes route 1 — *prove `Theorem29Normal` by a route that does
 not pass through Theorem 25* — and carries it as far as it goes: **every finite
-poset with a least element sits normally inside `A∞`**, hence `Thm29Normal`'s
+poset with a least element sits normally inside `A∞`**, hence `Theorem29Normal`'s
 conclusion holds for every bifinite domain with a finite basis.
 
 ## Why route 1, and why it was not closed by the r0047 refutation
@@ -16,20 +16,20 @@ kernel-checked facts are
 
 | # | fact | declaration |
 | - | ---- | ----------- |
-| 1 | Gunter's Lemma 24 holds at `A⁺ = M(A)`, against the connecting map `η` | `R47.Agent1.lemma24_MPair`, `lemma24_Step` |
+| 1 | Gunter's Lemma 24 holds at `A⁺ = M(A)`, against the connecting map `η` | `R47.Agent1.gunter87_lemma_24_MPair`, `gunter87_lemma_24_Step` |
 | 2 | the tower's connecting map is `M(f)`, not `η` | `Colimit.stgEmb_ne_mk_eta` |
 | 3 | Theorem 25's hypothesis is **false** at `A∞` | `R47.Agent1.not_hasNormalRealizations_Ainf` |
 | 4 | so is its stagewise residue | `R47.Agent1.not_stagewise_realizations` |
 
 Row 3 refutes `R46.Agent2.HasNormalRealizations A∞`, whose one use is as the
-hypothesis of `R46.Agent2.thm29Normal_of_hasNormalRealizations`. That closes one
-*sufficient condition*. It does not close `Thm29Normal`, and the reason is worth
+hypothesis of `R46.Agent2.theorem_29_normal_of_hasNormalRealizations`. That closes one
+*sufficient condition*. It does not close `Theorem29Normal`, and the reason is worth
 stating precisely, because the recorded blocker — "the route to it through
 Theorem 25 is now closed at this tower" — is **narrower than it reads**.
 
 `HasNormalRealizations A∞` quantifies over **every** finite normal `A ◁ A∞`,
 including `A = im(incl 1) = {⊥, β}`, and asks `A∞` to realize every normal type
-over each. `Thm29Normal` asks only that **some** normal embedding
+over each. `Theorem29Normal` asks only that **some** normal embedding
 `K(E) → A∞` exist. A construction is free to choose where its copies sit, and
 row 1 already supplies realizations over the `η`-copy of a stage inside the next
 stage. The `η`-copy is not the tower's inclusion, so it is useless for
@@ -46,14 +46,14 @@ construction never produces.
 
 | # | step | declaration | what it costs |
 | - | ---- | ----------- | ------------- |
-| 1 | one point more, one stage later | `exists_stage_succ` | `R47.Agent1.lemma24_Step` at `α := Stg k` |
+| 1 | one point more, one stage later | `exists_stage_succ` | `R47.Agent1.gunter87_lemma_24_Step` at `α := Stg k` |
 | 2 | Gunter's Proposition 21, iterated | `exists_stage_embedding` | `R46.Agent2.exists_singleton_step`, on `Set.ncard` |
 | 3 | one stage into the colimit | `exists_normal_embedding_Ainf` | `Colimit.isNormalIn_range_incl`, `IsNormalIn.trans` |
 
 Step 1 is the only new mathematics. Given a copy `h '' S ◁ Stg k` of a normal
 subposet `S` of the finite poset `P`, and a point `X ∉ S` with
 `insert X S ◁ P`, the pair `(P, X)` presents a **normal type over `h '' S`** in
-exactly the shape `lemma24_Step` consumes: the witnessing poset is `P` itself,
+exactly the shape `gunter87_lemma_24_Step` consumes: the witnessing poset is `P` itself,
 the order-reflecting map is the partial inverse `Function.invFunOn h S`, and the
 two normality hypotheses are `S ◁ P` and `insert X S ◁ P`. Lemma 24 returns a
 point `q` of `Step (Stg k) = Stg (k+1)` realizing that type over `mk '' η '' (h '' S)`,
@@ -72,16 +72,16 @@ exactly the finite pointed posets.
 
 ## What this settles, and what it does not
 
-`thm29Normal_finiteBasis` is `LemThirty.Thm29Normal` **with one hypothesis
+`theorem_29_normal_finiteBasis` is `LemThirty.Theorem29Normal` **with one hypothesis
 added**: `Finite ↥(compacts E)`. By this development's own accounting that is a
 *discharged-at*, not a discharge, and it is reported as such. `IsBifinite E` is
-carried in the statement to match `Thm29Normal` and is **never used** — see the
+carried in the statement to match `Theorem29Normal` and is **never used** — see the
 paragraph above.
 
 The residue is exactly the infinite case, and the obstruction in it is precisely
 located: for `K(E)` infinite the construction must produce a *nested* chain of
 copies inside `A∞`, so step `i+1` has to realize a normal type over
-`incl kᵢ '' Aᵢ` — the **tower's** image — whereas `lemma24_Step` realizes it over
+`incl kᵢ '' Aᵢ` — the **tower's** image — whereas `gunter87_lemma_24_Step` realizes it over
 the `η`-image, and `Colimit.stgEmb_ne_mk_eta` says those differ. This is the
 universal property `LemThirty.lean:479–485` names as deferred to [Gun87], and
 `R47.Agent1.not_stagewise_realizations` refutes its unrestricted form. What is
@@ -104,7 +104,7 @@ variable {P : Type} [PartialOrder P]
 /-- **One point more, one stage later.** A normal copy of `S ⊆ P` inside `Stg k`
 extends to a normal copy of `insert X S` inside `Stg (k+1)`.
 
-The normal type of `X` over `S` is presented to `R47.Agent1.lemma24_Step` with
+The normal type of `X` over `S` is presented to `R47.Agent1.gunter87_lemma_24_Step` with
 `P` itself as the witnessing poset and `Function.invFunOn h S` as the
 order-reflecting map back; its two normality hypotheses become `S ◁ P` and
 `insert X S ◁ P`. Nothing is asked of `X` beyond `X ∉ S` and that hypothesis.
@@ -133,7 +133,7 @@ theorem exists_stage_succ {S : Set P} (hSfin : S.Finite) {X : P} (hXS : X ∉ S)
       exact ha'
     · exact fun ha => ⟨h a, ⟨a, ha, rfl⟩, hgh a ha⟩
   obtain ⟨q, hreal, hqnorm⟩ :=
-    R47.Agent1.lemma24_Step (α := Stg k) (hSfin.image h) hnorm P (Set.univ : Set P)
+    R47.Agent1.gunter87_lemma_24_Step (α := Stg k) (hSfin.image h) hnorm P (Set.univ : Set P)
       (Function.invFunOn h S) X
       (by
         rintro _ ⟨a, ha, rfl⟩ _ ⟨b, hb, rfl⟩
@@ -227,7 +227,7 @@ end Iterate
 
 /-- **`A∞` is universal for the finite pointed posets.** Every finite poset with a
 least element admits an order-reflecting map into `A∞` whose range is normal in
-`A∞` — `LemThirty.Thm29Normal`'s conclusion, at a finite basis.
+`A∞` — `LemThirty.Theorem29Normal`'s conclusion, at a finite basis.
 
 The chain starts at `S := {⊥}` inside `Stg 0`, which is `PUnit`, and
 `singleton_bot_isNormalIn` discharges normality at both ends of the base case.
@@ -255,10 +255,10 @@ theorem exists_normal_embedding_Ainf (P : Type) [PartialOrder P] [Finite P] [Ord
   exact (isNormalIn_image_range (fun a b => incl_le_incl a b) hnorm).trans
     (isNormalIn_range_incl k)
 
-/-- **`LemThirty.Thm29Normal` at finite bases.** Word for word `Thm29Normal`,
+/-- **`LemThirty.Theorem29Normal` at finite bases.** Word for word `Theorem29Normal`,
 with `Finite ↥(compacts E)` added — a *discharged-at*, not a discharge.
 
-`IsBifinite E` is carried so the statement lines up with `Thm29Normal` and is
+`IsBifinite E` is carried so the statement lines up with `Theorem29Normal` and is
 **not used**: a finite basis is a Plotkin order whatever `E` is. `[Domain E]` is
 likewise not used here; it is load-bearing only in the infinite case, where
 `LemThirty.countable_compacts_of_reflects` and
@@ -271,10 +271,8 @@ theorem theorem_29_normal_finiteBasis :
   intro E _ _ hfin _
   exact exists_normal_embedding_Ainf _
 
-alias thm29Normal_finiteBasis := theorem_29_normal_finiteBasis
-
-/-- **The direction of the change, recorded.** `LemThirty.Thm29Normal` implies the
-statement `thm29Normal_finiteBasis` proves, so the added `Finite ↥(compacts E)`
+/-- **The direction of the change, recorded.** `LemThirty.Theorem29Normal` implies the
+statement `theorem_29_normal_finiteBasis` proves, so the added `Finite ↥(compacts E)`
 binder only ever *weakens*: what is discharged above is a consequence of the open
 claim and not a different sentence.
 
@@ -283,13 +281,11 @@ same way round as that one — from the claim to the restriction — unlike r004
 `freeCarrier_of_preservesRecursivePresentation`, which runs the other way. It is
 the artifact that makes "discharged-at, not discharged" checkable rather than
 asserted. -/
-theorem theorem_29_normal_finiteBasis_of_thm29Normal (H : LemThirty.Thm29Normal) :
+theorem theorem_29_normal_finiteBasis_of_thm29Normal (H : LemThirty.Theorem29Normal) :
     ∀ (E : Type) [CompletePartialOrder E] [Domain E], Finite ↥(compacts E) → IsBifinite E →
       ∃ f : ↥(compacts E) → Ainf,
         (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf) :=
   fun E _ _ _ hE => H E hE
-
-alias thm29Normal_finiteBasis_of_thm29Normal := theorem_29_normal_finiteBasis_of_thm29Normal
 
 /-- **A four-element chain sits normally in `A∞`.** A closed instance, so the
 statement above is on record as inhabited rather than only quantified.

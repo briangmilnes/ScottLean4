@@ -19,17 +19,17 @@ independently.
 
 ## Status
 
-All four are proved: `lem10_prod`, `lem10_smash`, `lem10_lift`, `lem10_strict`.
+All four are proved: `lemma_10_prod`, `lemma_10_smash`, `lemma_10_lift`, `lemma_10_strict`.
 Zero `sorry`.
 
-## The defect `lem10_smash` exposed, and the repair (r0027)
+## The defect `lemma_10_smash` exposed, and the repair (r0027)
 
-`lem10_smash` was first refutable, not merely open. `smashSup` in `Smash.lean`
+`lemma_10_smash` was first refutable, not merely open. `smashSup` in `Smash.lean`
 branched its `dite` on the base being nonempty **and directed**, so on a bounded
 but non-directed set `sSup` returned the adjoined bottom, which is not even an
 upper bound of the set. The kernel-checked refutation used the bounded complete
 domains `D = Prop × Prop` (all four elements compact, hence a domain; bounded
-complete by `lem10_prod`) and `E = Prop`, with
+complete by `lemma_10_prod`) and `E = Prop`, with
 
     s = {↑((True, False), True), ↑((False, True), True)} ⊆ D ⊗ E,
 
@@ -80,8 +80,6 @@ theorem lemma_10_prod [Domain α] [BoundedComplete α] [Domain β] [BoundedCompl
     exact ⟨isLUB_sSup_of_bddAbove (bddAbove_fst_image hs),
       isLUB_sSup_of_bddAbove (bddAbove_snd_image hs)⟩
 
-alias lem10_prod := lemma_10_prod
-
 end Prod
 
 section Smash
@@ -98,7 +96,7 @@ theorem exists_coe_of_mem_upperBounds_smash {s : Set (Smash α β)}
 
 /-- **Lemma 10, `D ⊗ E`.** The base of a bounded set is bounded in `D × E` —
 an upper bound of a set with nonempty base is a coerced pair, and coercion
-reflects `≤`. `lem10_prod` makes the coordinatewise supremum of the base's image
+reflects `≤`. `lemma_10_prod` makes the coordinatewise supremum of the base's image
 its least upper bound, and a member of a nonempty base sits below it with both
 coordinates non-`⊥`, so `smashSup`'s guard holds and the value is that supremum
 coerced. On an empty base the set is contained in `{⊥}` and the value is `⊥`.
@@ -114,7 +112,7 @@ account. -/
 theorem lemma_10_smash [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (Smash α β) where
   isLUB_sSup_of_bddAbove s hs := by
-    haveI : BoundedComplete (α × β) := lem10_prod
+    haveI : BoundedComplete (α × β) := lemma_10_prod
     show IsLUB s (smashSup s)
     by_cases hne : (smashBase s).Nonempty
     · obtain ⟨q₀, hq₀⟩ := hne
@@ -152,8 +150,6 @@ theorem lemma_10_smash [Domain α] [BoundedComplete α] [Domain β] [BoundedComp
         | coe q => exact absurd ⟨q, hx⟩ hne
       · intro _ _
         exact bot_le
-
-alias lem10_smash := lemma_10_smash
 
 end Smash
 
@@ -208,8 +204,6 @@ theorem lemma_10_lift [Domain α] [BoundedComplete α] : BoundedComplete (WithBo
       · intro _ _
         exact bot_le
 
-alias lem10_lift := lemma_10_lift
-
 end Lift
 
 section Strict
@@ -236,13 +230,11 @@ theorem lemma_10_strict [Domain α] [BoundedComplete α] [Domain β] [BoundedCom
       show sSup (Subtype.val '' s) ≤ v.val
       exact hlub.2 (by rintro _ ⟨f, hf, rfl⟩; exact hv hf)
 
-alias lem10_strict := lemma_10_strict
-
 end Strict
 
 /- Axiom audit, by `#print axioms` (run, then removed so the build emits no `info`
-lines): `lem10_prod` depends on `[propext, Quot.sound]`; `lem10_smash`,
-`lem10_lift` and `lem10_strict` on `[propext, Classical.choice, Quot.sound]` —
+lines): `lemma_10_prod` depends on `[propext, Quot.sound]`; `lemma_10_smash`,
+`lemma_10_lift` and `lemma_10_strict` on `[propext, Classical.choice, Quot.sound]` —
 `Classical.choice` entering through the `dite` in `smashSup`, in `liftSup` and in
 `ScottHom`'s `sSup`. None depends on `sorryAx`. -/
 

@@ -65,16 +65,16 @@ second condition on the pair points the other way here — `gr ∘ fn ⊑ id`, w
 the `Fc` case has `id ⊑ gr ∘ fn`.
 
 **Lemma 30 is stated in full and proved for none of its ten operators.**
-`LemThirty.Lemma30` is a ten-fold conjunction and `lemma30_of` takes ten named
+`LemThirty.Lemma30` is a ten-fold conjunction and `lemma_30_of` takes ten named
 hypotheses, so the count is kernel-checked; nothing is stubbed with `sorry`.
 
 An earlier version of this paragraph said `V` "does not exist in this
 development". **It does** — `Colimit.V`, built in r0036 as the ω-colimit of the
 stage tower, with `Colimit.domain_V`, `Colimit.isBifinite_V` and
 `Colimit.isoPlus : V ≃o Plus V`. The colimit is taken at the level of countable
-posets and `IdealCompletion.thm11` applied once at the end, so it needed neither
+posets and `IdealCompletion.theorem_11` applied once at the end, so it needed neither
 [Gun87] nor a cpo construction. What remains open is Theorem 29's *second*
-sentence, reduced to the single named proposition `LemThirty.Thm29Normal`.
+sentence, reduced to the single named proposition `LemThirty.Theorem29Normal`.
 -/
 
 namespace ScottDomains.BifiniteUniversal

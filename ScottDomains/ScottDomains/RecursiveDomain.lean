@@ -47,7 +47,7 @@ reflexive domain.
 | # | Statement | Hypotheses |
 | -- | --------- | ---------- |
 | 1 | `closureCpo` — `Fc(U)` is a cpo with `⊥ = id` | `U` a cpo (**not** a domain) |
-| 2 | `thm21` — representable ⟹ solvable | `U` a cpo |
+| 2 | `theorem_21` — representable ⟹ solvable | `U` a cpo |
 | 3 | `recursiveDomain_funSpace` — `∃ D, D ≅ (D → D)` | Lemma 23, i.e. `U = P N` |
 | 4 | `powersetCpo_isUniversal` — `P N` is universal | Theorem 22 |
 
@@ -218,7 +218,7 @@ theorem powersetCpo_isUniversalRetract :
     IsUniversalRetract powersetCpo IsCountablyBasedAlgebraicLattice := by
   rintro D ⟨hdom, hsup⟩
   letI := hdom
-  exact thm22 D.carrier hsup
+  exact theorem_22 D.carrier hsup
 
 /-- **`P N` is a universal domain, image-of-a-closure phrasing.** Every countably
 based algebraic lattice is `im(r)` for some `r ∈ Fc(P N)`. -/
@@ -341,8 +341,6 @@ theorem theorem_21 {U : Type u} [CompletePartialOrder U] {F : Cpo.{u} → Cpo.{u
   have h := hiso r
   rwa [hr] at h
 
-alias thm21 := theorem_21
-
 /-! ### Diagonalizing a binary representable operator
 
 Lemma 23 is stated for the **binary** function-space operator
@@ -384,6 +382,6 @@ statement alone does not give an interesting model — "the equation `I ≅ I �
 and nontriviality is Lemma 24 and Theorem 25, which additionally need the product
 operator represented over `U`. Those are not stated here. -/
 theorem recursiveDomain_funSpace : IsSolvable.{0} fun X => Cpo.funSpace X X :=
-  thm21 (IsRepresentable₂.diag lem23)
+  theorem_21 (IsRepresentable₂.diag lemma_23)
 
 end ScottDomains.Recursive

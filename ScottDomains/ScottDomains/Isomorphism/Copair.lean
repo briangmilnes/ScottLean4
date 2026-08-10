@@ -9,7 +9,7 @@ Gunter & Scott, *Semantic Domains*, Lemma 9.3, in its corrected form:
 > `(E ⊕ F) ◦→ D ≅ (E ◦→ D) × (F ◦→ D)`.
 
 (The page prints `(E ◦→ D) × (E ◦→ F)`; that form is refuted under the kernel by
-`Skeleton/Recovered.lean`'s `lem9_3_printed_false`, and the recovery evidence is
+`Skeleton/Recovered.lean`'s `lemma_9_3_printed_false`, and the recovery evidence is
 in `docs/StatementRecovery.md`.)
 
 The corrected law is the universal property the paper itself states three pages

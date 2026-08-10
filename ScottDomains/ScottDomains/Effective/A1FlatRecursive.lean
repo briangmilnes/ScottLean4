@@ -70,7 +70,7 @@ here rather than suppressed because the alternative — leaving the schema looki
 open when it is trivially satisfiable — is the defect r0044 measured.
 
 `Theorem7ArrowRecursive` gets a **reduction**, not a discharge:
-`theorem7ArrowRecursive_of_stepFunctionsDecidable` derives it from the
+`theorem_7_arrowRecursive_of_stepFunctionsDecidable` derives it from the
 step-function claim. That hypothesis was written here in its
 hypothesis-strengthened form because r0045's `StepFunctionsDecidable` dropped the
 printed sentence's antecedent; r0046 restated the `def`, and the hypothesis is
@@ -401,8 +401,5 @@ theorem theorem_7_arrowRecursive_of_stepFunctionsDecidable.{u, v}
     Theorem7ArrowRecursive.{u, v} := by
   intro α β _ _ _ _ _ d e hd he
   exact exists_isRecursive_of_stepFunctionsDecidable (h d e) hd he
-
-alias theorem7ArrowRecursive_of_stepFunctionsDecidable :=
-  theorem_7_arrowRecursive_of_stepFunctionsDecidable
 
 end ScottDomains.R45.Agent1

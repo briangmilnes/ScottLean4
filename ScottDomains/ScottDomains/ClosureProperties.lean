@@ -30,16 +30,16 @@ elsewhere, listed here in the paper's order.
 
 | # | operator | Lemma 10 | Lemma 17 |
 | - | -------- | -------- | -------- |
-| 1 | `D → E`  | `ScottHom`'s `BoundedComplete` instance (Theorem 7, r0007) | `lem17_fun` (r0027) |
-| 2 | `D →⊥ E` | `lem10_strict` (r0027) | `lem17_strictFun` (r0034) |
-| 3 | `D × E`  | `lem10_prod` (r0027) | `lem17_prod` (r0027) |
-| 4 | `D ⊗ E`  | `lem10_smash` (r0027) | `lem17_smash` (r0028) |
-| 5 | `D + E`  | `lem10_separated` (r0034) | `lem17_separated` (r0034) |
-| 6 | `D ⊕ E`  | `lem10_sum` (r0028) | `lem17_sum` (r0028) |
-| 7 | `D⊥`     | `lem10_lift` (r0027) | `lem17_lift` (r0027) |
-| 8 | `D♮`     | — | `lem17_plotkin` (r0034) |
-| 9 | `D♯`     | — | `lem17_smyth` (r0034) |
-| 10 | `D♭`    | — | `lem17_hoare` (r0034) |
+| 1 | `D → E`  | `ScottHom`'s `BoundedComplete` instance (Theorem 7, r0007) | `lemma_17_fun` (r0027) |
+| 2 | `D →⊥ E` | `lemma_10_strict` (r0027) | `lemma_17_strictFun` (r0034) |
+| 3 | `D × E`  | `lemma_10_prod` (r0027) | `lemma_17_prod` (r0027) |
+| 4 | `D ⊗ E`  | `lemma_10_smash` (r0027) | `lemma_17_smash` (r0028) |
+| 5 | `D + E`  | `lemma_10_separated` (r0034) | `lemma_17_separated` (r0034) |
+| 6 | `D ⊕ E`  | `lemma_10_sum` (r0028) | `lemma_17_sum` (r0028) |
+| 7 | `D⊥`     | `lemma_10_lift` (r0027) | `lemma_17_lift` (r0027) |
+| 8 | `D♮`     | — | `lemma_17_plotkin` (r0034) |
+| 9 | `D♯`     | — | `lemma_17_smyth` (r0034) |
+| 10 | `D♭`    | — | `lemma_17_hoare` (r0034) |
 
 ## The hypotheses are the paper's, and no more
 
@@ -83,9 +83,7 @@ theorem lemma_10 [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete �
     BoundedComplete (SeparatedSum α β) ∧
     BoundedComplete (CoalescedSum α β) ∧
     BoundedComplete (WithBot α) :=
-  ⟨inferInstance, lem10_strict, lem10_prod, lem10_smash, lem10_separated, lem10_sum, lem10_lift⟩
-
-alias lemma10 := lemma_10
+  ⟨inferInstance, lemma_10_strict, lemma_10_prod, lemma_10_smash, lemma_10_separated, lemma_10_sum, lemma_10_lift⟩
 
 /-- **Lemma 17, all ten conjuncts.** If `D` and `E` are bifinite domains then so
 are `D → E`, `D →⊥ E`, `D × E`, `D ⊗ E`, `D + E`, `D ⊕ E`, `D⊥`, `D♮`, `D♯` and
@@ -102,10 +100,8 @@ theorem lemma_17 [Domain α] [Domain β] [BoundedComplete β]
     IsBifinite (Plotkin.Powerdomain α) ∧
     IsBifinite (Smyth.Powerdomain α) ∧
     IsBifinite (Hoare.Powerdomain α) :=
-  ⟨lem17_fun h₁ h₂, lem17_strictFun h₁ h₂, lem17_prod h₁ h₂, lem17_smash h₁ h₂,
-    lem17_separated h₁ h₂, lem17_sum h₁ h₂, lem17_lift h₁,
-    lem17_plotkin h₁, lem17_smyth h₁, lem17_hoare h₁⟩
-
-alias lemma17 := lemma_17
+  ⟨lemma_17_fun h₁ h₂, lemma_17_strictFun h₁ h₂, lemma_17_prod h₁ h₂, lemma_17_smash h₁ h₂,
+    lemma_17_separated h₁ h₂, lemma_17_sum h₁ h₂, lemma_17_lift h₁,
+    lemma_17_plotkin h₁, lemma_17_smyth h₁, lemma_17_hoare h₁⟩
 
 end ScottDomains.ClosureProperties

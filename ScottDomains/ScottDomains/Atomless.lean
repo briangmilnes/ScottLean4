@@ -24,9 +24,9 @@ Gunter & Scott, *Semantic Domains*, §7.3, quoted from the source PDF:
 > isomorphically onto a subalgebra of `B`, then the composition `j ∘ i` cuts down
 > to an isomorphism between `A` and a normal subposet `A' ◁ U₀`.
 
-`Dyadic.thm27_of_isNormallyRepresented` is everything after that paragraph,
+`Dyadic.theorem_27_of_isNormallyRepresented` is everything after that paragraph,
 already Lean-checked. This module supplies the paragraph itself, as
-`Atomless.isNormallyRepresented`, and hence `Atomless.thm27` with no hypothesis.
+`Atomless.isNormallyRepresented`, and hence `Atomless.theorem_27` with no hypothesis.
 
 ## The route taken here is not the paper's
 
@@ -93,7 +93,7 @@ recorded permanently. Here the refusal is the `else` branch of `step`.
   element in which bounded pairs have least upper bounds (`CountableBC`).
 * `Atomless.isNormalIn_range_psi` — `range ψ ◁ U₀`.
 * `Atomless.isNormallyRepresented` — `Dyadic.IsNormallyRepresented A`.
-* `Atomless.thm27` — **Theorem 27, unconditionally**: for every bounded complete
+* `Atomless.theorem_27` — **Theorem 27, unconditionally**: for every bounded complete
   domain `D` there is an embedding–projection pair `D ⇄ U`, hence a projection
   `p : U → D`.
 -/
@@ -636,7 +636,7 @@ instance instCountableBCCompacts [Domain D] [BoundedComplete D] :
       · exact hc (Set.mem_insert_of_mem _ rfl)
 
 /-- **`IsNormallyRepresented ↥(compacts D)`** — the hypothesis of
-`Dyadic.thm27_of_isNormallyRepresented`, discharged. -/
+`Dyadic.theorem_27_of_isNormallyRepresented`, discharged. -/
 theorem isNormallyRepresented_compacts (D : Type u) [CompletePartialOrder D] [Domain D]
     [BoundedComplete D] : Dyadic.IsNormallyRepresented ↥(compacts D) :=
   isNormallyRepresented ↥(compacts D)
@@ -646,9 +646,7 @@ there is a projection `p : U → D`.* -/
 theorem theorem_27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComplete D] :
     ∃ (e : ScottHom D Dyadic.U) (p : ScottHom Dyadic.U D),
       ScottHom.IsEmbeddingProjectionPair e p :=
-  Dyadic.thm27_of_isNormallyRepresented D (isNormallyRepresented_compacts D)
-
-alias thm27 := theorem_27
+  Dyadic.theorem_27_of_isNormallyRepresented D (isNormallyRepresented_compacts D)
 
 end Thm27
 
@@ -674,8 +672,8 @@ example : Dyadic.IsNormallyRepresented U₀ := isNormallyRepresented U₀
 example : Nontrivial U₀ := inferInstance
 
 /-- Theorem 27 at `D = U`, which exercises `Domain`, `BoundedComplete`,
-`CountableBC ↥(compacts U)` and `thm27` together. -/
+`CountableBC ↥(compacts U)` and `theorem_27` together. -/
 example : ∃ (e : ScottHom Dyadic.U Dyadic.U) (p : ScottHom Dyadic.U Dyadic.U),
-    ScottHom.IsEmbeddingProjectionPair e p := thm27 Dyadic.U
+    ScottHom.IsEmbeddingProjectionPair e p := theorem_27 Dyadic.U
 
 end ScottDomains.Atomless

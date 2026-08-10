@@ -45,10 +45,10 @@ The paper's "countably based algebraic lattice" is, in this development's
 vocabulary, `[Domain L]` (algebraic with `K(L)` countable) together with
 completeness of the lattice. Mathlib packages the same notion as
 `CompleteLattice` + `IsCompactlyGenerated` + countability of the compacts, and
-`thm22_of_isCompactlyGenerated` is that entry point, derived from
+`theorem_22_of_isCompactlyGenerated` is that entry point, derived from
 `isAlgebraic_of_isCompactlyGenerated`.
 
-`thm22` itself is **not** stated over `CompleteLattice`, and the reason is
+`theorem_22` itself is **not** stated over `CompleteLattice`, and the reason is
 Lemma 23. Lemma 23 applies Theorem 22 at `L = P N → P N`, and
 `ScottHom (Set ℕ) (Set ℕ)` already carries a `CompletePartialOrder` instance
 (`ScottHom.lean`) whose `sSup` is a `dite`. Adding a `CompleteLattice` instance
@@ -182,8 +182,6 @@ theorem theorem_22 (L : Type*) [CompletePartialOrder L] [Domain L]
     exact (hsup _).unique (IsAlgebraic.isLUB_compactsBelow x)
   · exact (hsup _).1 ⟨n, hn, rfl⟩
 
-alias thm22 := theorem_22
-
 end Theorem22
 
 /-! ### Mathlib's `IsCompactlyGenerated` as an entry point
@@ -216,7 +214,7 @@ theorem isAlgebraic_of_isCompactlyGenerated [IsCompactlyGenerated L] : IsAlgebra
     exact sSup_le fun k hk => hu ⟨hsc k hk, hsx ▸ le_sSup hk⟩
 
 /-- **Theorem 22, stated with Mathlib's vocabulary for "countably based algebraic
-lattice".** `isLUB_sSup` supplies the completeness hypothesis of `thm22` for
+lattice".** `isLUB_sSup` supplies the completeness hypothesis of `theorem_22` for
 free, since in a `CompleteLattice` every subset has a least upper bound. -/
 theorem theorem_22_of_isCompactlyGenerated (L : Type*) [CompleteLattice L]
     [IsCompactlyGenerated L] (hcount : (compacts L).Countable) :
@@ -224,9 +222,7 @@ theorem theorem_22_of_isCompactlyGenerated (L : Type*) [CompleteLattice L]
   haveI : Domain L :=
     { __ := isAlgebraic_of_isCompactlyGenerated
       countable_compacts := hcount }
-  exact thm22 L fun t => isLUB_sSup t
-
-alias thm22_of_isCompactlyGenerated := theorem_22_of_isCompactlyGenerated
+  exact theorem_22 L fun t => isLUB_sSup t
 
 end CompactlyGenerated
 
@@ -309,7 +305,7 @@ unnecessary because we have the following: **Lemma 19**." `U` is `P N` at every
 use here, which is a domain (`Powerset.lean`), so this subtype is `Fc(U)`.
 
 Recorded precisely, because it is an appeal to a result the development has not
-finished: `Skeleton/Section6.lean`'s `lem19` establishes only that `im(r)` carries
+finished: `Skeleton/Section6.lean`'s `lemma_19` establishes only that `im(r)` carries
 a `CompletePartialOrder`, not that it is algebraic with a countable basis. -/
 def ClosurePoset (U : Type*) [CompletePartialOrder U] : Type _ :=
   {r : ScottHom U U // IsClosure r}
@@ -413,7 +409,7 @@ theorem scottContinuous_pointwiseSup_set (t : Set (ScottHom α (Set X))) :
 
 /-- `α → P X` is a complete lattice: `sSup` is the least upper bound of *every*
 set of continuous functions, not only the directed and the bounded ones. This is
-the `hsup` hypothesis of `thm22`. -/
+the `hsup` hypothesis of `theorem_22`. -/
 theorem isLUB_sSup_scottHom_set (t : Set (ScottHom α (Set X))) : IsLUB t (sSup t) := by
   constructor
   · intro f hf x
@@ -715,11 +711,9 @@ The three obligations of `IsRepresentable₂` are discharged by
 `im(R→(r,s)) ≅ im(r) → im(s)`), which is the paper's proof in its two stated
 steps. -/
 theorem lemma_23 : IsRepresentable₂ (Set ℕ) Cpo.funSpace := by
-  obtain ⟨fn, gr, hfg, hgf⟩ := thm22 (ScottHom (Set ℕ) (Set ℕ)) isLUB_sSup_scottHom_set
+  obtain ⟨fn, gr, hfg, hgf⟩ := theorem_22 (ScottHom (Set ℕ) (Set ℕ)) isLUB_sSup_scottHom_set
   refine ⟨fun p => ⟨repFun fn gr p.1.val p.2.val, isClosure_repFun hfg hgf p.1.2 p.2.2⟩,
     scottContinuous_repClosure hfg hgf, fun p => ⟨?_⟩⟩
   exact (repRangeOrderIso hfg p.1.val p.2.val).trans (evidentOrderIso p.1.2 p.2.2)
-
-alias lem23 := lemma_23
 
 end ScottDomains

@@ -3,7 +3,7 @@ import ScottDomains.Theorem6
 import ScottDomains.Bifinite
 -- `IsClosure` and its API. This was `ScottDomains.Skeleton.Section6` until r0042;
 -- importing the skeleton put it inside `JungFinite`'s import cone, which made
--- citing Theorem 18's proof from `Skeleton/Section6.lean`'s `thm18` a cycle.
+-- citing Theorem 18's proof from `Skeleton/Section6.lean`'s `theorem_18` a cycle.
 import ScottDomains.Closure
 
 /-!
@@ -48,7 +48,7 @@ order they carry is the one `D → D` already has — the pointwise order
 * `Fp α`, `Fc α`, and the pointwise order on each.
 * **Lemma 19 in the paper's strength**: for a domain `D` and a closure
   `r : D → D`, `im(r)` is a *domain*, not merely a cpo. `Skeleton/Section6.lean`
-  proves only the cpo half (`lem19` there asserts the existence of a
+  proves only the cpo half (`lemma_19` there asserts the existence of a
   `CompletePartialOrder`); the basis is what the paper's one-line proof sketch
   ("by showing that `{r(x) | x ∈ K(D)}` forms a basis for `im(r)`") supplies, and
   Lemma 20 cannot be stated without it — `Fc(D)` is defined by "`im(r)` is a
@@ -281,7 +281,7 @@ omit [IsAlgebraic α] in
 /-- **Lemma 19, at the paper's strength.** If `D` is a domain and `r : D → D` is
 a closure, then `im(r)` is a *domain*.
 
-`Skeleton/Section6.lean`'s `lem19` records only the cpo half. The basis is
+`Skeleton/Section6.lean`'s `lemma_19` records only the cpo half. The basis is
 `{r(k) | k ∈ K(D)}`, exactly as the paper's proof sketch says, and it is
 countable because `K(D)` is. -/
 theorem IsClosure.domain_range [Domain α] (hr : IsClosure r) :
