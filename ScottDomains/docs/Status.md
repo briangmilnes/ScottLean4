@@ -63,7 +63,7 @@ Two consequences worth stating once:
 | 5 | — **all 30 are now stated in the tree** | 0 missing |
 | 6 | Paper properties (numbered conjuncts + prose claims) | 239 |
 | 7 | — `S+P` stated and proved | 169 |
-| 8 | — **`S+H` stated, unproven** | **12** — *not re-derived after r0049; carried from r0047* |
+| 8 | — **`S+H` stated, unproven** | **12** |
 | 9 | — `S≠` stated, but not as the paper states it | 14 (**8 ours**, **6 repairs**) |
 | 10 | — `P` + `N` no Lean statement at all | 36 |
 | 11 | `Prop`-valued claims nothing proves | **7** (8 strict) |
