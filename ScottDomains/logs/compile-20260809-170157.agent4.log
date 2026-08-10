@@ -1,0 +1,33 @@
+# r0049
+# agent4 — lake build ScottDomains.Effective.A4Recursion
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T17:01:57-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A4Recursion ===
+⚠ [1027/1027] Built ScottDomains.Effective.A4Recursion (4.4s)
+warning: ScottDomains/Effective/A4Recursion.lean:476:0: automatically included section variable(s) unused in theorem `ScottDomains.R49.Agent4.mem_of_isLUB_of_isNormalIn`:
+  [Domain γ]
+  [BoundedComplete γ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Domain γ] [BoundedComplete γ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (1027 jobs).
+--- times ---
+Elapsed (wall clock): 0:05.13
+Maximum resident set size (kbytes): 1817952
+--- build ---
+finished:         2026-08-09T17:02:03-07:00
+exit status:      0
+user cpu:         5.73s
+system cpu:       0.55s
+cpu use:          122%
+peak rss single:  1775 MiB (largest one process, GNU time)
+peak pss tree:    1908 MiB (process group, shared pages apportioned)
+peak rss tree:    2581 MiB (process group, shared pages counted per process)
+jobs:             1027
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   1

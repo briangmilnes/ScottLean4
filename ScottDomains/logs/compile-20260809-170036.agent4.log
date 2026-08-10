@@ -1,0 +1,84 @@
+# r0049
+# agent4 — lake build ScottDomains.Effective.A4Recursion
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T17:00:36-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A4Recursion ===
+✖ [1027/1027] Building ScottDomains.Effective.A4Recursion (4.7s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Effective/A4Recursion.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.setup.json --json
+error: ScottDomains/Effective/A4Recursion.lean:484:2: Tactic `assumption` failed
+
+γ : Type u_1
+inst✝² : CompletePartialOrder γ
+inst✝¹ : Domain γ
+inst✝ : BoundedComplete γ
+u v : Set γ
+hu : u ◁ compacts γ
+hv : v ⊆ u
+hvfin : v.Finite
+c : γ
+hc : IsLUB v c
+hcpt : IsCompactElement c
+z : γ
+hzmem : c ∈ u ∩ Set.Iic c
+hz : ∀ y ∈ v, y ≤ z
+hcz : c ≤ z
+⊢ c ∈ u
+error: ScottDomains/Effective/A4Recursion.lean:512:2: failed to synthesize instance of type class
+  DecidablePred (JoinIdxAt d n)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Effective/A4Recursion.lean:528:4: Type mismatch
+  hmin k (Finset.mem_coe.mp hk) hkub
+has type
+  d.enum (Nat.find ⋯) ≤ d.enum k
+but is expected to have type
+  d.enum (joinIdx d n) ≤ d.enum k
+error: ScottDomains/Effective/A4Recursion.lean:530:36: Type mismatch
+  hub j (Finset.mem_coe.mp hj)
+has type
+  d.enum j ≤ d.enum (Nat.find ⋯)
+but is expected to have type
+  d.enum j ≤ d.enum (joinIdx d n)
+error: ScottDomains/Effective/A4Recursion.lean:568:45: Application type mismatch: The argument
+  hle
+has type
+  ComputablePred fun (r : (ℕ × ℕ) × ℕ) => d.enum r.2 ≤ d.enum r.1.2
+but is expected to have type
+  ComputablePred fun (p : ((ℕ × ℕ) × ℕ) × ℕ) => d.enum p.2 ≤ d.enum p.1.2
+in the application
+  computablePred_forall_mem (Computable.comp Computable.fst Computable.fst) hle
+error: ScottDomains/Effective/A4Recursion.lean:593:44: Application type mismatch: The argument
+  computablePred_bddAbove hd
+has type
+  ComputablePred.{0} fun n => BddAbove (basisSet d n)
+but is expected to have type
+  ComputablePred.{u_1} BddAbove
+in the application
+  computablePred_comp (computablePred_bddAbove hd)
+error: ScottDomains/Effective/A4Recursion.lean:593:24: failed to synthesize instance of type class
+  Primcodable (Set γ)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A4Recursion
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:05.43
+Maximum resident set size (kbytes): 1808696
+--- build ---
+finished:         2026-08-09T17:00:43-07:00
+exit status:      1
+user cpu:         5.88s
+system cpu:       0.55s
+cpu use:          118%
+peak rss single:  1766 MiB (largest one process, GNU time)
+peak pss tree:    1905 MiB (process group, shared pages apportioned)
+peak rss tree:    2578 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 7
+lake errors:      2
+sorry decls:      0
+other warnings:   0

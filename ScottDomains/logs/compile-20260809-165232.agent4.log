@@ -1,0 +1,76 @@
+# r0049
+# agent4 — lake build ScottDomains.Effective.A4Recursion
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T16:52:32-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A4Recursion ===
+✖ [1026/1026] Building ScottDomains.Effective.A4Recursion (748ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Effective/A4Recursion.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.setup.json --json
+error: ScottDomains/Effective/A4Recursion.lean:136:31: Tactic `decide` failed for proposition
+  Nat.sqrt 5 = 2
+because its `Decidable` instance
+  instDecidableEqNat (Nat.sqrt 5) 2
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqBool`, `instDecidableEqNat`, `Bool.decEq`, `Nat.decEq`, and `Nat.decLe`, reduction got stuck at the `Decidable` instance
+  match h : (Nat.sqrt 5).beq 2 with
+  | true => isTrue ⋯
+  | false => isFalse ⋯
+error: ScottDomains/Effective/A4Recursion.lean:138:38: Tactic `decide` failed for proposition
+  Nat.unpair 5 = (1, 1)
+because its `Decidable` instance
+  instDecidableEqProd (Nat.unpair 5) (1, 1)
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `decEq`, `instDecidableEqBool`, `instDecidableEqNat`, `instDecidableEqProd`, `Bool.decEq`, `Nat.decEq`, `Nat.decLe`, and `Nat.decLt`, reduction got stuck at the `Decidable` instance
+  match h :
+    (Decidable.rec (fun h => (fun x => (Nat.sqrt 5, 5 - Nat.sqrt 5 * Nat.sqrt 5 - Nat.sqrt 5)) h)
+            (fun h => (fun x => (5 - Nat.sqrt 5 * Nat.sqrt 5, Nat.sqrt 5)) h)
+            ((5 - Nat.sqrt 5 * Nat.sqrt 5).decLt (Nat.sqrt 5))).1.beq
+      1 with
+  | true => isTrue ⋯
+  | false => isFalse ⋯
+error: ScottDomains/Effective/A4Recursion.lean:140:57: Tactic `decide` failed for proposition
+  Denumerable.ofNat (List ℕ) 5 = [0, 0, 0]
+because its `Decidable` instance
+  instDecidableEqList (Denumerable.ofNat (List ℕ) 5) [0, 0, 0]
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instance `instDecidableEqList`, reduction got stuck at the `Decidable` instance
+  match Denumerable.ofNat (List ℕ) 5 with
+  | [] =>
+    match [0, 0, 0] with
+    | [] => isTrue ⋯
+    | head :: tail => isFalse ⋯
+  | a :: as =>
+    match [0, 0, 0] with
+    | [] => isFalse ⋯
+    | b :: bs =>
+      match decEq a b with
+      | isTrue hab =>
+        match as.hasDecEq bs with
+        | isTrue habs => isTrue ⋯
+        | isFalse nabs => isFalse ⋯
+      | isFalse nab => isFalse ⋯
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A4Recursion
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.46
+Maximum resident set size (kbytes): 1774732
+--- build ---
+finished:         2026-08-09T16:52:34-07:00
+exit status:      1
+user cpu:         1.29s
+system cpu:       0.51s
+cpu use:          123%
+peak rss single:  1733 MiB (largest one process, GNU time)
+peak pss tree:    1818 MiB (process group, shared pages apportioned)
+peak rss tree:    2490 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      0
+other warnings:   0

@@ -1,0 +1,44 @@
+# r0049
+# agent7 — lake build ScottDomains.A7Thm26Arity
+# checkout: /home/milnes/projects/ScottLean4-agent7
+# started: 2026-08-09T16:52:42-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A7Thm26Arity ===
+✖ [857/857] Building ScottDomains.A7Thm26Arity (774ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent7/ScottDomains/ScottDomains/A7Thm26Arity.lean -o /home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/lib/lean/ScottDomains/A7Thm26Arity.olean -i /home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/lib/lean/ScottDomains/A7Thm26Arity.ilean -c /home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/ir/ScottDomains/A7Thm26Arity.c --setup /home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/ir/ScottDomains/A7Thm26Arity.setup.json --json
+warning: ScottDomains/A7Thm26Arity.lean:111:0: automatically included section variable(s) unused in theorem `ScottDomains.R49.Agent7.exists_map_eq`:
+  [CompletePartialOrder D]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompletePartialOrder D] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/A7Thm26Arity.lean:126:17: Application type mismatch: The argument
+  hh.right i l' ?m.46
+has type
+  M.iterApp (M.combEval (F i)) (List.map h l') = h (o i l')
+but is expected to have type
+  h (o i l') = M.iterApp (M.combEval (F i)) (List.map h l')
+in the application
+  Exists.intro (o i l') (hh.right i l' ?m.46)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A7Thm26Arity
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.73
+Maximum resident set size (kbytes): 1695552
+--- build ---
+finished:         2026-08-09T16:52:45-07:00
+exit status:      1
+user cpu:         1.42s
+system cpu:       0.60s
+cpu use:          117%
+peak rss single:  1655 MiB (largest one process, GNU time)
+peak pss tree:    1325 MiB (process group, shared pages apportioned)
+peak rss tree:    2403 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   1

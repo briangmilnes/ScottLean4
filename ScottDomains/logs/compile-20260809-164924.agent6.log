@@ -1,0 +1,50 @@
+# r0049
+# agent6 — lake build ScottDomains.A6ProjectionBifinite
+# checkout: /home/milnes/projects/ScottLean4-agent6
+# started: 2026-08-09T16:49:24-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A6ProjectionBifinite ===
+✔ [1002/1009] Built ScottDomains.A4Lemma17Fun (914ms)
+✔ [1003/1009] Built ScottDomains.PRep (1.2s)
+✔ [1004/1009] Built ScottDomains.Colimit (1.4s)
+✔ [1005/1009] Built ScottDomains.LemThirty (906ms)
+✔ [1006/1009] Built ScottDomains.PRepFun (1.5s)
+✔ [1007/1009] Built ScottDomains.A4FunctionSpaceBifinite (736ms)
+✔ [1008/1009] Built ScottDomains.A4RepArrow (691ms)
+✖ [1009/1009] Building ScottDomains.A6ProjectionBifinite (717ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent6/ScottDomains/ScottDomains/A6ProjectionBifinite.lean -o /home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/lib/lean/ScottDomains/A6ProjectionBifinite.olean -i /home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/lib/lean/ScottDomains/A6ProjectionBifinite.ilean -c /home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/ir/ScottDomains/A6ProjectionBifinite.c --setup /home/milnes/projects/ScottLean4-agent6/ScottDomains/.lake/build/ir/ScottDomains/A6ProjectionBifinite.setup.json --json
+warning: ScottDomains/A6ProjectionBifinite.lean:101:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ScottDomains/A6ProjectionBifinite.lean:163:45: Type mismatch
+  Set.mem_range_self x
+has type
+  ?m.265 x ∈ Set.range ?m.265
+but is expected to have type
+  normalFun (Set.range (normalFun N)) x ∈ Set.range (normalFun N)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A6ProjectionBifinite
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:05.64
+Maximum resident set size (kbytes): 1822288
+--- build ---
+finished:         2026-08-09T16:49:31-07:00
+exit status:      1
+user cpu:         13.16s
+system cpu:       2.13s
+cpu use:          270%
+peak rss single:  1779 MiB (largest one process, GNU time)
+peak pss tree:    2139 MiB (process group, shared pages apportioned)
+peak rss tree:    5891 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      0
+other warnings:   1
