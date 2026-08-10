@@ -43,42 +43,51 @@ prose statements are concentrated rather than spread: 13 of the 26 unstated
 
 ## 3. Corrected — a statement that could not be transcribed as printed
 
-| # | Kind | Printing error | Reading error | Semantic error | Total |
-| -- | ---- | -------------: | ------------: | -------------: | ----: |
-| 1 | Definitions | 1 | 0 | 1 | 2 |
-| 2 | Theorems | 1 | 1 | 2 | 4 |
-| 3 | Lemmas | 1 | 2 | 0 | 3 |
-| 4 | Propositions | 0 | 0 | 0 | 0 |
-| 5 | Prose statements | — | — | — | not classified |
-| 6 | Examples | — | — | — | not measured |
+Cause on the left, **what we did about it on the right**. Every one has a
+corrected statement in Lean; the last two columns say whether that corrected
+statement is proven.
+
+| # | Kind | Printing | Reading | Semantic | Corrected | — proven | — unproven |
+| -- | ---- | -------: | ------: | -------: | --------: | -------: | ---------: |
+| 1 | Definitions | 1 | 0 | 1 | 2 | 2 | 0 |
+| 2 | Theorems | 1 | 1 | 2 | 4 | 2 | 2 |
+| 3 | Lemmas | 1 | 2 | 0 | 3 | 2 | 1 |
+| 4 | Propositions | 0 | 0 | 0 | 0 | 0 | 0 |
+| 5 | — total | 3 | 3 | 3 | **9** | **6** | **3** |
+| 6 | Prose statements | — | — | — | — | — | not classified |
+| 7 | Examples | — | — | — | — | — | not measured |
+
+**Nothing is left uncorrected.** All 9 have a corrected statement in Lean, and 6
+of the 9 are proven in that form. The 3 unproven ones are exactly the 3 unproven
+results in table 4 — no correction is waiting on a decision, only on a proof.
 
 Column meanings, and every row behind the counts:
 
 **Printing error** — the printed page is unreadable or garbled; the mathematics
 is right.
 
-| # | Where | What |
-| -- | ---- | ---- |
-| 1 | Lemma 9 | the PDF drops every `⊗` and every `⊥`, so which operators the laws range over is unreadable |
-| 2 | Theorem 14 | the list of characterizations is garbled |
-| 3 | §7.4's worked example | reverses the paper's own definition — printed `b ⊢ a` where both papers give `a ⊢ b` |
+| # | Where | What | Corrected to | Proven |
+| -- | ---- | ---- | ------------ | :----: |
+| 1 | Lemma 9 | the PDF drops every `⊗` and every `⊥`, so which operators the laws range over is unreadable | six laws recovered, `lem9_1`…`lem9_6`; items 3 and 5 also carry kernel-checked negations of the printed forms | **yes** |
+| 2 | Theorem 14 | the list of characterizations is garbled | `thm14`, both directions | **yes** |
+| 3 | §7.4's worked example | reverses the paper's own definition — printed `b ⊢ a` where both papers give `a ⊢ b` | read in the paper's own direction; the paper's element counts 1, 2, 5, 20 select this reading over the rival | **yes** |
 
 **Reading error** — *ours*. The paper is right; we transcribed something it does
 not say.
 
-| # | Where | What |
-| -- | ---- | ---- |
-| 1 | Theorem 29, sentence 2 | we dropped the word "domain" from "any bifinite domain", which makes the sentence false |
-| 2 | Lemma 28 | we quantified over all `U`; the paper states it over its own `U` |
-| 3 | Lemma 30 | same shape — we wrote a universal closure the paper does not claim |
+| # | Where | What | Corrected to | Proven |
+| -- | ---- | ---- | ------------ | :----: |
+| 1 | Theorem 29, sentence 2 | we dropped the word "domain" from "any bifinite domain", which makes the sentence false | `Thm29SecondAtDomains` | no |
+| 2 | Lemma 28 | we quantified over all `U`; the paper states it over its own `U` | `PRep.Lemma28AtU`, all nine conjuncts, no hypotheses | **yes** |
+| 3 | Lemma 30 | same shape — we wrote a universal closure the paper does not claim | `Lemma30AtV`, now at arity 1 | no |
 
 **Semantic error** — the mathematics is wrong as stated.
 
-| # | Where | Whose | What |
-| -- | ---- | ----- | ---- |
-| 1 | Theorem 26 | **the paper's** | false for any signature with two or more 0-ary slots, including the paper's own worked `(2,0,0,0,0,0)` |
-| 2 | Theorem 7 | ours | our guard tested compactness where the sentence is about boundedness; on the paper's own index the join always exists, so it tests neither |
-| 3 | §7.4's order relation | **the paper's** | the printed relation is not reflexive — `b = (⊥,∅)` fails `b ⊢ b`. It is the strict part, and the order is its reflexive closure, which is the identification §7.4 then performs by hand |
+| # | Where | Whose | What | Corrected to | Proven |
+| -- | ---- | ----- | ---- | ------------ | :----: |
+| 1 | Theorem 26 | **the paper's** | false for any signature with two or more 0-ary slots, including the paper's own worked `(2,0,0,0,0,0)` | `thm26` with `hs : ∀ i, 0 < s i` — the added binder is the repair | **yes** |
+| 2 | Theorem 7 | ours | our guard tested compactness where the sentence is about boundedness; on the paper's own index the join always exists, so it tests neither | `StepFunctionsDecidable` restated over `IsStepEnumeration`, existentially quantified, naming no guard | no |
+| 3 | §7.4's order relation | **the paper's** | the printed relation is not reflexive — `b = (⊥,∅)` fails `b ⊢ b`. It is the strict part, and the order is its reflexive closure, which is the identification §7.4 then performs by hand | reflexive closure taken; `Colimit.V` built on it, with `isoPlus : V ≃o Plus V` | **yes** |
 
 Lemma 9's two misprinted items (3 and 5) are also individually false as printed;
 they are counted once under Lemma 9's printing error, since a single unreadable
