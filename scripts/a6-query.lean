@@ -77,7 +77,17 @@ streams:
       undischarged.
   SORRYUSER <name>
       a package constant mentioning `sorryAx` directly, cross-checking
-      `counts.sh`'s lexical `sorry` count of 0.
+      `counts.sh`'s lexical `sorry` count.
+
+  A theorem whose axiom footprint contains `sorryAx` is EXCLUDED from `proofs`,
+  `uncond`, `PROVEDBY`, `refuted` and `REFUTEDBY` (r0052, agent1). It proves
+  nothing, so counting it as a discharge is the same defect class the `uncond`
+  and `REFUTEDBY` notes above describe. Before r0052 the package held no `sorry`
+  and the case never arose; r0052 states each unproved result as a `theorem …
+  := sorry`, and without this exclusion each such theorem removes its own claim
+  from the undischarged list. The test is the TRANSITIVE footprint, not
+  `SORRYUSER`'s direct one: a theorem applying a sorried root names the root and
+  not `sorryAx`.
   SIMP <module> <line> <name> <valueRefs> <isRflTheorem>
       a package declaration carrying the `simp` attribute, with the number of
       OTHER package constants whose *proof term* mentions it. A `simp` call that
@@ -209,6 +219,14 @@ def lineOf (n : Name) : CoreM Nat := do
   | some r => return r.selectionRange.pos.line
   | none   => return 0
 
+/-- Every constant name occurring in `ci`'s type or value, unnormalized —
+auxiliaries stay distinct, which is what the `sorryAx` closure below needs: a
+parent references its own auxiliary, so the closure reaches it either way. -/
+def usedNames (ci : ConstantInfo) : Array Name :=
+  match ci.value? (allowOpaque := true) with
+  | some v => ci.type.getUsedConstants ++ v.getUsedConstants
+  | none   => ci.type.getUsedConstants
+
 end A6
 
 open A6 in
@@ -218,12 +236,34 @@ run_cmd Command.liftTermElabM do
   -- Every package constant, and the subset a human actually wrote.
   let mut nPkg := 0
   let mut src : Array (Name × Name × ConstantInfo) := #[]
+  let mut pkgUses : Array (Name × Array Name) := #[]
   for (n, ci) in env.constants.toList do
     let some idx := env.getModuleIdxFor? n | continue
     let m := mods[idx]!
     unless isPkgModule m do continue
     nPkg := nPkg + 1
+    pkgUses := pkgUses.push (n, usedNames ci)
     unless isGenerated n do src := src.push (n, m, ci)
+  -- The transitive `sorryAx` cone (r0052, agent1). A theorem ending in `sorry`
+  -- does not discharge a claim, and until r0052 nothing in this scan said so —
+  -- there were no `sorry`s to catch. `theorem29Normal_unproven : Theorem29Normal
+  -- := sorry` is an unconditional theorem concluding a claim, so it incremented
+  -- `uncond` and the claim left the undischarged list. The test has to be the
+  -- transitive footprint and not `used.contains sorryAx`: a theorem applying a
+  -- sorried root names the root, not `sorryAx`.
+  --
+  -- Reverse reachability to a fixpoint, over package constants only. Mathlib is
+  -- elaborated before the package and cannot name a package constant, so nothing
+  -- outside `ScottDomains` can enter the cone; one pass per level of the cone.
+  let mut sorryCone : Std.HashSet Name := ({} : Std.HashSet Name).insert ``sorryAx
+  let mut growing := true
+  while growing do
+    growing := false
+    for (n, us) in pkgUses do
+      unless sorryCone.contains n do
+        if us.any sorryCone.contains then
+          sorryCone := sorryCone.insert n
+          growing := true
   -- One pass over source constants: references, conclusions, hypotheses.
   let mut refs   : Std.HashMap Name Nat := {}
   -- References from proof/definition BODIES only. A `simp` lemma that fires is
@@ -267,17 +307,21 @@ run_cmd Command.liftTermElabM do
     | .axiomInfo _ => IO.println s!"AXIOM\t{m}\t{← lineOf n}\t{n}"
     | .thmInfo _   =>
         nThms := nThms + 1
-        if let some c ← conclHead ci.type then
-          if c != n then
-            proofs := proofs.insert c ((proofs.getD c 0) + 1)
-            let k ← propHypCount ci.type
-            let g ← conclIsGeneric ci.type
-            if k == 0 then uncond := uncond.insert c ((uncond.getD c 0) + 1)
-            conclusions := conclusions.push (c, n, k, g)
-        if let some c ← refutedClaim ci.type then
-          if c != n then
-            refuted := refuted.insert c ((refuted.getD c 0) + 1)
-            refutations := refutations.push (c, n)
+        -- A theorem in the `sorryAx` cone proves nothing; it neither discharges a
+        -- claim nor refutes one. Skipping it here keeps `proofs`, `uncond`,
+        -- `PROVEDBY`, `refuted` and `REFUTEDBY` all measuring kernel-checked work.
+        unless sorryCone.contains n do
+          if let some c ← conclHead ci.type then
+            if c != n then
+              proofs := proofs.insert c ((proofs.getD c 0) + 1)
+              let k ← propHypCount ci.type
+              let g ← conclIsGeneric ci.type
+              if k == 0 then uncond := uncond.insert c ((uncond.getD c 0) + 1)
+              conclusions := conclusions.push (c, n, k, g)
+          if let some c ← refutedClaim ci.type then
+            if c != n then
+              refuted := refuted.insert c ((refuted.getD c 0) + 1)
+              refutations := refutations.push (c, n)
     | .defnInfo di =>
         nDefs := nDefs + 1
         if ← resultIsProp di.type then propDefs := propDefs.push (n, m, ci)

@@ -1,7 +1,7 @@
 # Status of the Gunter & Scott 1990 Development in Lean
 
-`main` at `5a1d8bc`. Build 1372 jobs, 0 errors, 0 warnings. 124 modules, 46,097
-lines, 2,119 theorems.
+`main` at `5a1d8bc`. Build 1372 jobs, 0 errors, 3 `sorry` warnings, 0 other
+warnings. 124 modules, 46,442 lines, 2,122 theorems.
 
 ## 1. Extractions — what the paper contains
 
@@ -81,27 +81,32 @@ lines, 2,119 theorems.
 | 2 | Theorem 29 | sentence 1 proven; sentence 2 is not |
 | 3 | Lemma 30 | stated at `V`, arity 1 — one named input left |
 
-All three reduce to two statements, both proven by Gunter & Scott in 1990:
+All three reduce to **three** statements, each carried by Gunter & Scott in 1990.
+Each is a Lean `theorem` ending in `sorry`, so the build reports it (r0052):
 
-| # | The unproven statement | Blocks |
-| -- | --------------------- | ------ |
-| 1 | `RecursiveNormal` for `K(D → E)` — decide whether two basis elements are bounded, and compute their join's index | Theorem 7 |
-| 2 | `Thm29Normal` at infinite `K(E)` — realize the type over the tower's image, not the η-image; finite bases are proven | Theorem 29, Lemma 30 |
+| # | The unproven statement | Lean theorem | Blocks |
+| -- | --------------------- | ------------ | ------ |
+| 1 | `RecursiveNormal` for `K(D → E)` — decide whether two basis elements are bounded, and compute their join's index | `R49.Agent3.scottHomCRecursive_unproven` | Theorem 7, arrow |
+| 2 | the same over `K(D ⊸ E)` — no proved reduction carries recursiveness across `K(D ⊸ E) ↪ K(D → E)` | `R49.Agent3.strictHomCRecursive_unproven` | Theorem 7, strict |
+| 3 | `Theorem29Normal` at infinite `K(E)` — realize the type over the tower's image, not the η-image; finite bases are proven | `LemThirty.theorem29Normal_unproven` | Theorem 29, Lemma 30 |
 
 ## 5. Proof work state
 
-| # | Kind | Started, left with a `sorry` |
-| -- | ---- | ---------------------------: |
+| # | Kind | Left with a `sorry` |
+| -- | ---- | ------------------: |
 | 1 | Definitions | 0 |
-| 2 | Theorems | 0 |
+| 2 | Theorems | **3** |
 | 3 | Lemmas | 0 |
 | 4 | Propositions | 0 |
 | 5 | Prose statements | 0 |
 | 6 | Examples | 0 |
 
-`sorry` 0, `axiom` 0, `sorryAx` 0, since r0042. A `sorry` counts holes in proofs
-that were started; the three unproven results are carried as explicit
-hypotheses, so no `sorry` count sees them.
+`sorry` **3**, `axiom` 0, since r0052; `sorry` was 0 from r0042 to r0051. Every
+unproved result is a `theorem … := sorry`, so the unproven count **is** the
+`sorry` count: the three of table 4's second table above. Exactly three package
+constants depend on `sorryAx` — those three theorems — and no other declaration
+does, because none applies them: every consumer still takes its claim as an
+explicit hypothesis.
 
 ## Reproducing
 

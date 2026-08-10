@@ -198,7 +198,8 @@ conditional — nothing in the development references this theorem, so no proved
 declaration acquires `sorryAx`. `three_claims_of_residue` in section 7 records
 what a proof would close. -/
 theorem scottHomCRecursive_unproven (d : EffectivePresentation α)
-    (e : EffectivePresentation β) : ScottHomCRecursive d e := sorry
+    (e : EffectivePresentation β) : ScottHomCRecursive d e :=
+  sorry
 
 /-- **The restated claim, discharged from the residue.** This is what the
 restatement was for: the claim is now reachable through an enumeration whose
@@ -370,6 +371,22 @@ theorem isStrictStepEnumeration_strictHomC [Domain (StrictHom α β)]
 def StrictHomCRecursive [Domain (StrictHom α β)] (d : EffectivePresentation α)
     (e : EffectivePresentation β) : Prop :=
   IsRecursive d → IsRecursive e → IsRecursive (strictHomC d e)
+
+/-- **Unproved — one of the development's three root holes (r0052).** To remove
+the `sorry`: show `strictHomC d e` has recursive ordering and recursive finite
+normal subposets whenever `d` and `e` do — the same three obligations
+`scottHomCRecursive_unproven` lists, over `K(D ⊸ E)`.
+
+This is a root **separate from** `scottHomCRecursive_unproven`, and not a
+consequence of it: the development's only route to countability of `K(D ⊸ E)`,
+`PRepFun.strictHomDomain`, is an injection into `K(D → E)` that names no
+enumeration, so no proved reduction carries recursiveness across it. It is what
+`theorem_7_strictRecursive_of_residue` below takes as its hypothesis. The `def`
+above is kept and every consumer stays conditional. -/
+theorem strictHomCRecursive_unproven [Domain (StrictHom α β)]
+    (d : EffectivePresentation α) (e : EffectivePresentation β) :
+    StrictHomCRecursive d e :=
+  sorry
 
 theorem strictStepFunctionsDecidable_of_strictHomC [Domain (StrictHom α β)]
     {d : EffectivePresentation α} {e : EffectivePresentation β}

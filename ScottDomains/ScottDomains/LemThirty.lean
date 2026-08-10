@@ -529,8 +529,13 @@ This is the root of the Theorem 29 / Lemma 30 cluster:
 and `R45.Agent3.lemma_30_arrow_of_lemma30AtV` derive the other three claims from
 it. Those reductions are **not** applied to this theorem: every consumer stays
 conditional, so no proved declaration acquires `sorryAx`, and the hypothesis in
-each consumer's type keeps saying what that consumer rests on. -/
-theorem theorem29Normal_unproven : Theorem29Normal := sorry
+each consumer's type keeps saying what that consumer rests on.
+
+`sorry` is on its own line so `scripts/counts.sh` sees it: that script's rule is
+`^\s*sorry\s*$`, deliberately lexical and deliberately narrow, because a grep for
+the token would match the word in this docstring. -/
+theorem theorem29Normal_unproven : Theorem29Normal :=
+  sorry
 
 /-! ## `Thm29Normal` suffices: the reduction, proved
 

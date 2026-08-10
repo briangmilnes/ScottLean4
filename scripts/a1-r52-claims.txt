@@ -1,0 +1,45 @@
+# a1-r52-claims.txt — round r0052, agent1. The claims file `a6-summarize.py`
+# takes with `--claims`, rebuilt from this round's census of all 72 undischarged
+# Prop-valued definitions (`analyses/claim-census.20260810-155203.agent1.tsv`).
+#
+# It supersedes `scripts/a6-claims.txt`, r0044's list, in three ways the census
+# measured rather than asserted:
+#
+#   1. The r0050 `alias Thm… := Theorem…` defs are NOT claims. `JungNets.Thm137`,
+#      `JungNets.Thm137Chains` and `PropertyM.Thm137Omega` were on r0044's list
+#      and their aliased originals were PROVED in r0045 (`R45.Agent5.*`, uncond 2
+#      each). Naming the alias reports three resolved results as open.
+#   2. Five of r0044's claims are proved and gone from the undischarged
+#      population: `PRep.Lemma28AtU` and the four `PowerdomainMap.Rep.*`
+#      obligations, all by `R45.Agent4.*`.
+#   3. `Effective.PreservesRecursivePresentation` is a schema over operators
+#      whose universal closure is not §3.2's sentence; its one open instance, at
+#      `R47.Agent3.arrowOp`, is proved equivalent to `Theorem7ArrowRecursive` by
+#      `preservesRecursivePresentation_arrowOp_iff`. Not an independent claim.
+#
+# 13 entries: 8 open, 5 refuted. Every name here is a Prop-valued `def` the paper
+# — or a paper it cites — asserts. A refuted claim stays on the list: it was
+# still made, and `a6-summarize.py` splits the count by the `REFUTEDBY` records.
+
+# §3.2 and Theorem 7 — the arrow half
+ScottDomains.Effective.StepFunctionsDecidable
+ScottDomains.Effective.Theorem7ArrowRecursive
+
+# Theorem 7 — the strict half
+ScottDomains.Effective.Theorem7StrictRecursive
+ScottDomains.R49.Agent3.StrictStepFunctionsDecidable
+
+# §7.3 — Lemma 28 (refuted with the carrier quantified; Lemma28AtU is proved)
+ScottDomains.PRep.Lemma28
+
+# §7.4 — Theorem 29's second sentence, Lemma 30 and its conjunct
+ScottDomains.Colimit.Theorem29Second
+ScottDomains.LemThirty.Theorem29SecondAtDomains
+ScottDomains.LemThirty.Theorem29Normal
+ScottDomains.LemThirty.Lemma30
+ScottDomains.LemThirty.Lemma30AtV
+ScottDomains.Colimit.Lemma30Arrow
+
+# Stated to be refuted, and refuted
+ScottDomains.R45.Agent3.Theorem29NormalWithoutDomain
+ScottDomains.R49.Agent7.Theorem26Printed
