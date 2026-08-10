@@ -1,4 +1,4 @@
-import ScottDomains.LemThirty
+import ScottDomains.Lemma30
 import ScottDomains.Flat
 import ScottDomains.FlatSection6
 import ScottDomains.PRepFun
@@ -9,8 +9,8 @@ import ScottDomains.Skeleton.Section6
 # r0045, agent3: `Colimit.Theorem29Second` is false
 
 Round r0045 asked whether the six `Prop`-valued claims of the §7.4 cluster
-(`Colimit.Theorem29Second`, `Colimit.Lemma30Arrow`, `LemThirty.Theorem29SecondAtDomains`,
-`LemThirty.Theorem29Normal`, `LemThirty.Lemma30`, `LemThirty.Lemma30AtV`) can be
+(`Colimit.Theorem29Second`, `Colimit.Lemma30Arrow`, `Lemma30.Theorem29SecondAtDomains`,
+`Lemma30.Theorem29Normal`, `Lemma30.Lemma30`, `Lemma30.Lemma30AtV`) can be
 discharged. One of them cannot: **`Colimit.Theorem29Second` is refutable**, and
 `not_thm29Second` below is the kernel-checked refutation.
 
@@ -24,7 +24,7 @@ discharged. One of them cannot: **`Colimit.Theorem29Second` is refutable**, and
 with `IsBifinite E` alone — the Plotkin condition on `K(E)` — and **no `[Domain E]`**.
 Gunter & Scott's printed sentence says "`E` is any bifinite *domain*", so the
 refutation convicts this development's transcription of Theorem 29's second
-sentence and **not the paper**. `LemThirty.Theorem29SecondAtDomains`, which restores
+sentence and **not the paper**. `Lemma30.Theorem29SecondAtDomains`, which restores
 the missing word, is untouched by the argument below and remains open.
 
 ## The argument, in three steps
@@ -49,7 +49,7 @@ theorem makes `Set ℕ` — hence `Flat (Set ℕ)` — uncountable. `Set ℕ` is
 rather than `ℝ` only to avoid pulling `Mathlib.Analysis` into this library;
 any uncountable type does.
 
-## Consequence for the rest of `LemThirty.lean`
+## Consequence for the rest of `Lemma30.lean`
 
 Seven declarations take `Colimit.Theorem29Second` as a hypothesis:
 `retracts_of_isBifinite`, `theorem_29_secondAtDomains_of_thm29Second`,
@@ -58,7 +58,7 @@ Seven declarations take `Colimit.Theorem29Second` as a hypothesis:
 All seven are still theorems and all seven are now **vacuous**: their hypothesis
 is refuted, so they carry no information about `V`. In particular Lemma 30's
 conjuncts `⊗`, `+` and `⊕` have *no* route to a retraction pair over `V` in this
-development — the route recorded in `LemThirty.lean`'s header table, row 5, is
+development — the route recorded in `Lemma30.lean`'s header table, row 5, is
 through a false proposition. Repairing it needs `Domain (Smash V V)`,
 `Domain (SeparatedSum V V)` and `Domain (CoalescedSum V V)`, none of which this
 development proves, after which those three go through
@@ -67,7 +67,7 @@ development proves, after which those three go through
 ## The dependency order among the six claims
 
 Kernel-checked here (`lemma_30_arrow_of_lemma30AtV`, `lemma_30_atV_iff`) or already in
-`LemThirty.lean` (`theorem_29_secondAtDomains_of_thm29Normal`,
+`Lemma30.lean` (`theorem_29_secondAtDomains_of_thm29Normal`,
 `theorem_29_secondAtDomains_of_thm29Second`):
 
     Theorem29Normal ⟹ Theorem29SecondAtDomains ⟹ 5 of Lemma 30's 10 retraction pairs
@@ -81,7 +81,7 @@ unproved, so no implication runs from `Theorem29Normal` to `Lemma30AtV` today.
 
 namespace ScottDomains.R45.Agent3
 
-open ScottDomains ScottDomains.Colimit ScottDomains.LemThirty
+open ScottDomains ScottDomains.Colimit ScottDomains.Lemma30
 
 /-! ## Step 1: every flat cpo is bifinite -/
 
@@ -160,7 +160,7 @@ compact, and `isCompactElement_embedding` therefore makes the embedding an
 injection of the uncountable `Flat (Set ℕ)` into the countable `↥(compacts V)`.
 
 This does **not** refute Gunter & Scott's printed sentence, which says "`E` is
-any bifinite *domain*"; `LemThirty.Theorem29SecondAtDomains` is the transcription
+any bifinite *domain*"; `Lemma30.Theorem29SecondAtDomains` is the transcription
 that keeps the word, and it survives. -/
 theorem not_thm29Second : ¬ Colimit.Theorem29Second := by
   intro h
@@ -175,19 +175,19 @@ theorem not_thm29Second : ¬ Colimit.Theorem29Second := by
 
 /-! ## The added `[Domain E]` is load-bearing in `Theorem29Normal` too
 
-`LemThirty.Theorem29SecondAtDomains` is `Colimit.Theorem29Second` with one instance
+`Lemma30.Theorem29SecondAtDomains` is `Colimit.Theorem29Second` with one instance
 binder added, `[Domain E]`, and nothing else changed — compare the two `def`
-lines, `Colimit.lean:1028` and `LemThirty.lean:277`. `not_thm29Second` therefore
+lines, `Colimit.lean:1028` and `Lemma30.lean:277`. `not_thm29Second` therefore
 does more than refute one claim: it shows that binder is **necessary**, so
 `Theorem29SecondAtDomains` is not a restatement that could have been skipped.
 
-`LemThirty.Theorem29Normal` carries the same binder inside its own statement, and
-`LemThirty.lean:506–512` asserts in a docstring that the version without it "is
+`Lemma30.Theorem29Normal` carries the same binder inside its own statement, and
+`Lemma30.lean:506–512` asserts in a docstring that the version without it "is
 refutable rather than open". **Nothing proved that.** It is proved here, by the
 same witness, so that the necessity of the binder is kernel-checked at both
 places rather than asserted at one and argued at the other. -/
 
-/-- `LemThirty.Theorem29Normal` with the `[Domain E]` binder deleted. Defined in
+/-- `Lemma30.Theorem29Normal` with the `[Domain E]` binder deleted. Defined in
 agent3's namespace purely so the next theorem can refute it; `Theorem29Normal` itself
 is untouched, and this is **not** a restatement of it — it is the strictly
 stronger proposition the docstring claims is refutable. -/
@@ -196,9 +196,9 @@ def Theorem29NormalWithoutDomain : Prop :=
     ∃ f : ↥(compacts E) → Ainf,
       (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf)
 
-/-- **`Theorem29Normal` without `[Domain E]` is false**, as `LemThirty.lean:506–512`
+/-- **`Theorem29Normal` without `[Domain E]` is false**, as `Lemma30.lean:506–512`
 says but does not prove. `A∞` is countable and an order-reflecting map has a
-countable source (`LemThirty.countable_compacts_of_reflects`), while
+countable source (`Lemma30.countable_compacts_of_reflects`), while
 `Flat (Set ℕ)` is bifinite with an uncountable basis.
 
 Read together with `not_thm29Second`, this fixes the status of the whole cluster
@@ -210,7 +210,7 @@ theorem not_thm29NormalWithoutDomain : ¬ Theorem29NormalWithoutDomain := by
   intro h
   obtain ⟨f, hf, _⟩ := h (Flat (Set ℕ)) (isBifinite_flat (Set ℕ))
   haveI : Countable ↥(compacts (Flat (Set ℕ))) :=
-    LemThirty.countable_compacts_of_reflects hf
+    Lemma30.countable_compacts_of_reflects hf
   haveI := uncountable_flat_setNat
   refine not_injective_uncountable_countable
     (fun x : Flat (Set ℕ) =>
@@ -220,9 +220,9 @@ theorem not_thm29NormalWithoutDomain : ¬ Theorem29NormalWithoutDomain := by
 
 /-! ## The dependency order, kernel-checked -/
 
-/-- `LemThirty.Lemma30AtV` is `LemThirty.Lemma30 Colimit.V` — the `abbrev`
+/-- `Lemma30.Lemma30AtV` is `Lemma30.Lemma30 Colimit.V` — the `abbrev`
 unfolds, and the kernel confirms it. -/
-theorem lemma_30_atV_iff : LemThirty.Lemma30AtV ↔ LemThirty.Lemma30 Colimit.V := Iff.rfl
+theorem lemma_30_atV_iff : Lemma30.Lemma30AtV ↔ Lemma30.Lemma30 Colimit.V := Iff.rfl
 
 /-- **`Colimit.Lemma30Arrow` is Lemma 30's first conjunct at `V`.**
 `Colimit.lean:1024` asserts this in a docstring; `PRep.funOp` is
@@ -233,11 +233,11 @@ theorem lemma_30_arrow_iff :
     Colimit.Lemma30Arrow ↔ BifiniteUniversal.IsPRepresentable₂ Colimit.V PRep.funOp := Iff.rfl
 
 /-- `Lemma30AtV ⟹ Lemma30Arrow`: the dependency the round asked for, as a term. -/
-theorem lemma_30_arrow_of_lemma30AtV (h : LemThirty.Lemma30AtV) : Colimit.Lemma30Arrow := h.1
+theorem lemma_30_arrow_of_lemma30AtV (h : Lemma30.Lemma30AtV) : Colimit.Lemma30Arrow := h.1
 
 /-! ## Repairing `⊗`, `+` and `⊕`: they never needed `Theorem29Second`
 
-`LemThirty.lean:346–355` gives a measurement to justify routing the `⊗`, `+` and
+`Lemma30.lean:346–355` gives a measurement to justify routing the `⊗`, `+` and
 `⊕` retraction pairs through `Colimit.Theorem29Second` rather than through
 `Theorem29SecondAtDomains`:
 
@@ -253,11 +253,11 @@ and are proved, and `ClosureProperties.SeparatedSum A B` is by definition
 (`PRepSum.lean:1053` already uses it that way at `Dyadic.U`).
 
 So all three pairs go through `retracts_of_isDomain`, and the three results below
-replace `LemThirty.retracts_smash`, `retracts_sepSum` and `retracts_coalSum` —
+replace `Lemma30.retracts_smash`, `retracts_sepSum` and `retracts_coalSum` —
 each **one refuted hypothesis lighter**, since `Colimit.Theorem29Second` is false and
 `Theorem29SecondAtDomains` is open.
 
-The same correction applies to `LemThirty.lean:388–393` ("`PRep.rep_lift` and
+The same correction applies to `Lemma30.lean:388–393` ("`PRep.rep_lift` and
 `PRep.rep_prod` are the only two of Lemma 28's nine schemes already proved"):
 measured on this branch, **seven** of the nine exist — `PRep.rep_lift`,
 `PRep.rep_prod`, `PRepFun.rep_arrow`, `PRepFun.rep_strictArrow`,
@@ -272,48 +272,48 @@ theorem domain_sepSum_V : Domain (ClosureProperties.SeparatedSum V V) :=
   PRepSum.domain_coalescedSum
 
 /-- Conjunct 4's pair, `⊗`, from `Theorem29SecondAtDomains` — the hypothesis
-`LemThirty.retracts_smash` should have taken. -/
-theorem retracts_smash_V (h : LemThirty.Theorem29SecondAtDomains) :
-    LemThirty.Retracts (Smash V V) := by
+`Lemma30.retracts_smash` should have taken. -/
+theorem retracts_smash_V (h : Lemma30.Theorem29SecondAtDomains) :
+    Lemma30.Retracts (Smash V V) := by
   haveI := domain_smash_V
-  exact LemThirty.retracts_of_isDomain h _ (lemma_17_smash isBifinite_V isBifinite_V)
+  exact Lemma30.retracts_of_isDomain h _ (lemma_17_smash isBifinite_V isBifinite_V)
 
 /-- Conjunct 6's pair, `⊕`, from `Theorem29SecondAtDomains`. -/
-theorem retracts_coalSum_V (h : LemThirty.Theorem29SecondAtDomains) :
-    LemThirty.Retracts (CoalescedSum V V) := by
+theorem retracts_coalSum_V (h : Lemma30.Theorem29SecondAtDomains) :
+    Lemma30.Retracts (CoalescedSum V V) := by
   haveI := domain_coalSum_V
-  exact LemThirty.retracts_of_isDomain h _ (lemma_17_sum isBifinite_V isBifinite_V)
+  exact Lemma30.retracts_of_isDomain h _ (lemma_17_sum isBifinite_V isBifinite_V)
 
 /-- Conjunct 5's pair, `+`, from `Theorem29SecondAtDomains`. -/
-theorem retracts_sepSum_V (h : LemThirty.Theorem29SecondAtDomains) :
-    LemThirty.Retracts (ClosureProperties.SeparatedSum V V) := by
+theorem retracts_sepSum_V (h : Lemma30.Theorem29SecondAtDomains) :
+    Lemma30.Retracts (ClosureProperties.SeparatedSum V V) := by
   haveI := domain_sepSum_V
-  exact LemThirty.retracts_of_isDomain h _
+  exact Lemma30.retracts_of_isDomain h _
     (ClosureProperties.lemma_17_separated isBifinite_V isBifinite_V)
 
 /-- **Conjunct 4 of Lemma 30: `⊗` is p-representable over `V`**, given Theorem
 29's second sentence at the paper's own hypothesis. `PRepFun.rep_smash` at
-`U := V`, exactly as `LemThirty.rep_lift_V` is `PRep.rep_lift` at `U := V`. -/
-theorem rep_smash_V (h : LemThirty.Theorem29SecondAtDomains) :
+`U := V`, exactly as `Lemma30.rep_lift_V` is `PRep.rep_lift` at `U := V`. -/
+theorem rep_smash_V (h : Lemma30.Theorem29SecondAtDomains) :
     BifiniteUniversal.IsPRepresentable₂ V PRep.smashOp := by
   obtain ⟨_gr, _fn, hfg, hgf⟩ := retracts_smash_V h
   exact PRepFun.rep_smash hfg hgf
 
 /-- **Conjunct 6 of Lemma 30: `⊕` is p-representable over `V`.** -/
-theorem rep_coalSum_V (h : LemThirty.Theorem29SecondAtDomains) :
+theorem rep_coalSum_V (h : Lemma30.Theorem29SecondAtDomains) :
     BifiniteUniversal.IsPRepresentable₂ V PRep.coalSumOp := by
   obtain ⟨_gr, _fn, hfg, hgf⟩ := retracts_coalSum_V h
   exact PRepSum.rep_coalSum hfg hgf
 
 /-- **Conjunct 5 of Lemma 30: `+` is p-representable over `V`.** -/
-theorem rep_sepSum_V (h : LemThirty.Theorem29SecondAtDomains) :
+theorem rep_sepSum_V (h : Lemma30.Theorem29SecondAtDomains) :
     BifiniteUniversal.IsPRepresentable₂ V PRep.sepSumOp := by
   obtain ⟨_gr, _fn, hfg, hgf⟩ := retracts_sepSum_V h
   exact PRepSum.rep_sepSum hfg hgf
 
 /-- **Five of Lemma 30's ten conjuncts, from `Theorem29Normal` alone.** Conjuncts 3,
 4, 5, 6 and 7 — `×`, `⊗`, `+`, `⊕`, `(·)⊥`. Before this round the figure was two
-(`LemThirty.rep_lift_V_of_thm29Normal`, `rep_prod_V_of_thm29Normal`); the other
+(`Lemma30.rep_lift_V_of_thm29Normal`, `rep_prod_V_of_thm29Normal`); the other
 three were routed through the now-refuted `Colimit.Theorem29Second` and were
 therefore vacuous. The three that remain open are the powerdomain conjuncts
 `(·)♯`, `(·)♭`, `(·)♮`, and the two function-space conjuncts `→`, `⇸`, which
@@ -329,19 +329,19 @@ both `Cpo → Cpo`, and `PRep.Lemma28AtU` is stated over them
 (Plotkin) has no `PRep` scheme. What is actually open for `♯` and `♭` at `V` is
 the representability, not the scheme — and at `U` even that is discharged
 (`R45.Agent4.repSmythAtU`, `repHoareAtU`). -/
-theorem five_conjuncts_of_thm29Normal (h : LemThirty.Theorem29Normal) :
+theorem five_conjuncts_of_thm29Normal (h : Lemma30.Theorem29Normal) :
     BifiniteUniversal.IsPRepresentable₂ V PRep.prodOp ∧
     BifiniteUniversal.IsPRepresentable₂ V PRep.smashOp ∧
     BifiniteUniversal.IsPRepresentable₂ V PRep.sepSumOp ∧
     BifiniteUniversal.IsPRepresentable₂ V PRep.coalSumOp ∧
     BifiniteUniversal.IsPRepresentable V PRep.liftOp :=
-  let h' := LemThirty.theorem_29_secondAtDomains_of_thm29Normal h
-  ⟨LemThirty.rep_prod_V h', rep_smash_V h', rep_sepSum_V h', rep_coalSum_V h',
-    LemThirty.rep_lift_V h'⟩
+  let h' := Lemma30.theorem_29_secondAtDomains_of_thm29Normal h
+  ⟨Lemma30.rep_prod_V h', rep_smash_V h', rep_sepSum_V h', rep_coalSum_V h',
+    Lemma30.rep_lift_V h'⟩
 
 /-! ## `→` and `⇸` are blocked, and the obstruction survives the refutation
 
-`LemThirty.lean:107–110` argues that `Colimit.Theorem29Second` and
+`Lemma30.lean:107–110` argues that `Colimit.Theorem29Second` and
 `BoundedComplete V` cannot both hold. With `Theorem29Second` refuted that argument
 proves nothing, so it is redone here from the *live* hypothesis: even
 `Theorem29SecondAtDomains` is incompatible with `BoundedComplete V`.
@@ -387,9 +387,9 @@ theorem isBifinite_plotkin_TT : IsBifinite (Plotkin.Powerdomain Flat.TT) :=
 /-- **`Theorem29SecondAtDomains` forces `V` not to be bounded complete.**
 Consequently Lemma 30's conjuncts 1 (`→`) and 2 (`⇸`) have no route in this
 development: `PRepFun.rep_arrow` and `PRepFun.rep_strictArrow` both require
-`[BoundedComplete U]`, and `LemThirty.retracts_fun_of_boundedComplete` and
+`[BoundedComplete U]`, and `Lemma30.retracts_fun_of_boundedComplete` and
 `retracts_strictFun_of_boundedComplete` take it as an instance argument. -/
-theorem not_boundedComplete_V (h : LemThirty.Theorem29SecondAtDomains) : ¬ BoundedComplete V := by
+theorem not_boundedComplete_V (h : Lemma30.Theorem29SecondAtDomains) : ¬ BoundedComplete V := by
   intro hbc
   haveI := hbc
   obtain ⟨g, p, hgp⟩ := h (Plotkin.Powerdomain Flat.TT) isBifinite_plotkin_TT

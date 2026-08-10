@@ -27,7 +27,7 @@ of finitary projections:
   subsets of the countable `K(D)` and `K(E)`, so the cover is a countable union
   of finite sets.
 
-Why this matters beyond tidiness: `LemThirty.Theorem29SecondAtDomains` quantifies over
+Why this matters beyond tidiness: `Lemma30.Theorem29SecondAtDomains` quantifies over
 `[Domain E]`, and `Theorem29Second` — the form without that binder — is refuted
 (`R45.Agent3.not_thm29Second`). So `Retracts (ScottHom V V)` is reachable only
 through the `Domain` form, and `Domain (ScottHom V V)` was itself unavailable

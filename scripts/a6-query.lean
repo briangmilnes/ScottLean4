@@ -56,7 +56,7 @@ streams:
       because the `uncond 0` test above scores a refuted claim as undischarged: a
       refutation produces `¬ D`, whose conclusion is headed by `Not`, so it never
       increments `proofs`. Three of the ten claims r0045 left on the list —
-      `Colimit.Thm29Second`, `PRep.Lemma28`, `LemThirty.Lemma30` — are refuted,
+      `Colimit.Theorem29Second`, `PRep.Lemma28`, `Lemma30.Lemma30` — are refuted,
       not open, and without this record they inflate the count forever.
 
       Why the criterion is exactly "no binders, conclusion `¬ e`". Soundness:

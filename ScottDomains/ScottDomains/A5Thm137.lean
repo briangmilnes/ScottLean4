@@ -1,6 +1,6 @@
 import ScottDomains.PropertyM
 import ScottDomains.Iwamura
-import ScottDomains.Thm18
+import ScottDomains.Theorem18
 
 /-!
 # Jung's Theorem 1.37 for algebraic dcpos, without Iwamura's lemma
@@ -67,7 +67,7 @@ already does inside `K(D)`.
 * `jung_theorem_1_37_chains` and `jung_theorem_1_37` discharge claims 2 and 1 for every
   `[CompletePartialOrder D] [Domain D]` — an `ω`-algebraic cpo, i.e. `IsAlgebraic`
   plus a countable basis, which is the setting Gunter & Scott's paper works in and
-  the setting `Thm18` consumes them in.
+  the setting `Theorem18` consumes them in.
 * **Jung's theorem in full generality is still open**: an algebraic dcpo with an
   uncountable basis, and a fortiori a merely continuous dcpo, is not covered.
   `Iwamura.jung_theorem_1_37_chains_of_wellOrderedInfima` remains the statement of what a
@@ -288,7 +288,7 @@ theorem isBicomplete (D : Type*) [CompletePartialOrder D] [Domain D]
     [IsAlgebraic (ScottHom D D)] : JungNets.IsBicomplete D :=
   jung_theorem_1_37 D inferInstance
 
-/-- **Cross-check, not a new result.** `Thm18.theorem_18_of_jung_theorem_1_37_chains`
+/-- **Cross-check, not a new result.** `Theorem18.theorem_18_of_jung_theorem_1_37_chains`
 was written against `JungNets.Theorem137Chains α` as an open hypothesis; feeding it
 `jung_theorem_1_37_chains` leaves Corollary 1.36 as the only remaining hypothesis, which is
 what `PropertyM.theorem_18_of_jung_corollary_1_36` already proves by the route that bypasses
@@ -301,6 +301,6 @@ statement. -/
 theorem theorem_18_of_jung_corollary_1_36_via_chains {α : Type*} [CompletePartialOrder α]
     [Domain α] [Domain (ScottHom α α)]
     (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact α) : IsBifinite α :=
-  Thm18.theorem_18_of_jung_theorem_1_37_chains (jung_theorem_1_37_chains α) hcor
+  Theorem18.theorem_18_of_jung_theorem_1_37_chains (jung_theorem_1_37_chains α) hcor
 
 end ScottDomains.R45.Agent5

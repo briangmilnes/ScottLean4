@@ -1,4 +1,4 @@
-import ScottDomains.LemThirty
+import ScottDomains.Lemma30
 -- `Set.Finite.exists_maximal`, the maximal point of `B ∖ A` that Proposition 21
 -- adjoins; not reachable from the ScottDomains imports above.
 import Mathlib.Order.Preorder.Finite
@@ -9,11 +9,11 @@ import Mathlib.Data.Set.Card
 /-!
 # `Theorem29Normal`: the missing input, named and located
 
-`LemThirty.Theorem29Normal` is the statement that `A∞` is universal among the bases
-of bifinite domains under normal embedding, and `LemThirty.lean` already proves
+`Lemma30.Theorem29Normal` is the statement that `A∞` is universal among the bases
+of bifinite domains under normal embedding, and `Lemma30.lean` already proves
 that it yields Theorem 29's second sentence
 (`theorem_29_secondAtDomains_of_thm29Normal`). What it does not do is say *what*
-would yield `Theorem29Normal`. `LemThirty.lean:426` locates the gap —
+would yield `Theorem29Normal`. `Lemma30.lean:426` locates the gap —
 
 > Producing `Nᵢ₊₁ → Stg nᵢ₊₁` from `Nᵢ → Stg nᵢ` is the step §7.4 defers in full
 > to [Gun87], and it is exactly the universal property of `M` among finite posets
@@ -45,7 +45,7 @@ construction:
 Row 7 is the sentence `BifiniteUniversal.lean` already quotes. Read with rows
 4–6, it says that `M(A)` is Gunter's `A⁺` — so the property row 4 asserts of
 `A⁺` is exactly "the universal property of `M` among finite posets under normal
-embedding" that `LemThirty.lean:426` names as missing, and row 5 is exactly the
+embedding" that `Lemma30.lean:426` names as missing, and row 5 is exactly the
 implication from it to `Theorem29Normal`.
 
 So the input is *not* an unobtainable manuscript. It is a published proof this
@@ -61,14 +61,14 @@ repository holds. What is missing is a formalization, not a source.
    the reduction consumes.
 3. `theorem_29_normal_of_hasFiniteExtensions` and
    `theorem_29_normal_of_hasNormalRealizations` prove **row 5's implication**:
-   `HasNormalRealizations Ainf → LemThirty.Theorem29Normal`. `Theorem29Normal` is used
-   exactly as `LemThirty.lean` states it — no added binder, no weakening.
+   `HasNormalRealizations Ainf → Lemma30.Theorem29Normal`. `Theorem29Normal` is used
+   exactly as `Lemma30.lean` states it — no added binder, no weakening.
 4. `isRoot_singleton_bot` discharges row 5's other hypothesis, `rt(B) ≅ rt(V)`,
    in this setting: both roots are `{⊥}` because both posets have a least
    element, so the root condition costs nothing here and the realization
    property is the *only* remaining input.
 
-Composing 3 with `LemThirty.theorem_29_secondAtDomains_of_thm29Normal` reduces
+Composing 3 with `Lemma30.theorem_29_secondAtDomains_of_thm29Normal` reduces
 `Theorem29SecondAtDomains`, `Lemma30AtV`'s retraction conjuncts and `Lemma30Arrow` to
 one statement about `A∞` alone.
 
@@ -209,7 +209,7 @@ end Refine
 
 `HasNormalRealizations α` is Theorem 25's hypothesis on `V`, and by rows 4 and 7
 of the table above it is exactly what Gunter's `A⁺ = M(A)` supplies. It is the
-statement `LemThirty.lean:426` calls "the universal property of `M` among finite
+statement `Lemma30.lean:426` calls "the universal property of `M` among finite
 posets and normal embeddings", written out. -/
 
 section Properties
@@ -251,7 +251,7 @@ finite; `g '' A ◁ T`, which is Gunter's `A ◁ β` in the image; and
 the extension is a one-point normal extension of `A` inside `T`).
 
 **Nothing in this file proves this property of `A∞`.** It is recorded as a `Prop`
-exactly as `LemThirty.Theorem29Normal` is, per this development's convention: the
+exactly as `Lemma30.Theorem29Normal` is, per this development's convention: the
 statement is fixed and citable, and nothing asserts it. -/
 def HasNormalRealizations (α : Type) [PartialOrder α] : Prop :=
   ∀ A : Set α, A.Finite → A ◁ (Set.univ : Set α) →
@@ -709,7 +709,7 @@ end Reduction
 
 /-! ## `Theorem29Normal`, reduced
 
-`LemThirty.Theorem29Normal` is used exactly as `LemThirty.lean:464` states it: the
+`Lemma30.Theorem29Normal` is used exactly as `Lemma30.lean:464` states it: the
 same `E`, the same instance binders `[CompletePartialOrder E] [Domain E]`, the
 same conclusion. No binder is added, and no hypothesis is weakened. -/
 
@@ -718,7 +718,7 @@ section Main
 open Colimit
 
 /-- **Gunter 1987, Theorem 25, in this development's terms:
-`HasFiniteExtensions A∞` implies `LemThirty.Theorem29Normal`.**
+`HasFiniteExtensions A∞` implies `Lemma30.Theorem29Normal`.**
 
 Both halves of "bifinite **domain**" are spent, and in different places:
 
@@ -726,7 +726,7 @@ Both halves of "bifinite **domain**" are spent, and in different places:
   (`BifiniteUniversal.isPlotkinOrder_univ_subtype`), which is what supplies the
   chain of finite normal subposets;
 * `[Domain E]` makes `K(E)` countable, which is what supplies the enumeration
-  `e` the chain runs along. `LemThirty.countable_compacts_of_reflects` and
+  `e` the chain runs along. `Lemma30.countable_compacts_of_reflects` and
   `A3Thm29.not_thm29NormalWithoutDomain` already show this half is not optional
   — without it the conclusion is refutable.
 
@@ -734,7 +734,7 @@ The root hypothesis of Gunter's Theorem 25, `rt(B) ≅ rt(V)`, is discharged by
 `isRoot_singleton_bot` on both sides and appears here only as `exists_base`,
 which starts the recursion at `⊥ ↦ ⊥`. -/
 theorem theorem_29_normal_of_hasFiniteExtensions (H : HasFiniteExtensions Ainf) :
-    LemThirty.Theorem29Normal := by
+    Lemma30.Theorem29Normal := by
   intro E _ _ hE
   haveI : Countable ↥(compacts E) := (Domain.countable_compacts (α := E)).to_subtype
   have hP : IsPlotkinOrder (Set.univ : Set ↥(compacts E)) :=
@@ -771,7 +771,7 @@ theorem theorem_29_normal_of_hasFiniteExtensions (H : HasFiniteExtensions Ainf) 
           (Set.subset_univ _) (stage H hP e n).normal
 
 /-- **The reduction, from the missing input itself.**
-`HasNormalRealizations A∞ → LemThirty.Theorem29Normal`, by
+`HasNormalRealizations A∞ → Lemma30.Theorem29Normal`, by
 `hasFiniteExtensions_of_hasNormalRealizations` (Gunter's Proposition 21) followed
 by `theorem_29_normal_of_hasFiniteExtensions` (his Theorem 25).
 
@@ -779,7 +779,7 @@ This is the round's result: `Theorem29Normal` is no longer open, it is *reduced*
 one precisely stated property of `A∞`, which Gunter 1987 proves of `M(A)` in
 Lemma 24 and p. 23. -/
 theorem theorem_29_normal_of_hasNormalRealizations (H : HasNormalRealizations Ainf) :
-    LemThirty.Theorem29Normal :=
+    Lemma30.Theorem29Normal :=
   theorem_29_normal_of_hasFiniteExtensions (hasFiniteExtensions_of_hasNormalRealizations H)
 
 /-- **The residue, localized to one stage.** `HasNormalRealizations A∞` follows
@@ -789,7 +789,7 @@ stage, and `A∞` inherits it.
 This is Gunter's Corollary 26 (p. 21) — "Suppose `C ◁ V_A` is finite. Then
 `C ◁ Aₙ` for some `n`" — with `exists_stage_ge_of_finite` supplying the stage and
 `isNormalIn_range_incl` carrying the conclusion back. Its hypothesis is
-`LemThirty.lean:426`'s sentence exactly: the extension of a normal embedding of a
+`Lemma30.lean:426`'s sentence exactly: the extension of a normal embedding of a
 finite normal subposet from one stage to the next, i.e. **the universal property
 of `M` among finite posets under normal embedding**, which is Gunter's Lemma 24
 (p. 20) at the explicit `A⁺ = M(A)` of his p. 23.
@@ -804,19 +804,19 @@ theorem hasNormalRealizations_of_stages
         ∃ y : Ainf, SameTypeOver A g z y ∧ ∃ m : ℕ, insert y A ◁ Set.range (incl m)) :
     HasNormalRealizations Ainf := by
   intro A hAfin hAnorm β _ T hTfin g z hg hgA hzA
-  obtain ⟨n, -, hAn⟩ := LemThirty.exists_stage_ge_of_finite hAfin 0
+  obtain ⟨n, -, hAn⟩ := Lemma30.exists_stage_ge_of_finite hAfin 0
   obtain ⟨y, hy, m, hm⟩ :=
     h n A hAfin (IsNormalIn.mono_right hAn (Set.subset_univ _) hAnorm)
       β T hTfin g z hg hgA hzA
   exact ⟨y, hy, hm.trans (isNormalIn_range_incl m)⟩
 
 /-- **What the reduction buys downstream**: Theorem 29's second sentence at the
-paper's own hypothesis, by `LemThirty.theorem_29_secondAtDomains_of_thm29Normal`. With
+paper's own hypothesis, by `Lemma30.theorem_29_secondAtDomains_of_thm29Normal`. With
 `A3Thm29.five_conjuncts_of_thm29Normal` this makes five of Lemma 30's ten
 conjuncts consequences of the realization property of `A∞` alone. -/
 theorem theorem_29_secondAtDomains_of_hasNormalRealizations (H : HasNormalRealizations Ainf) :
-    LemThirty.Theorem29SecondAtDomains :=
-  LemThirty.theorem_29_secondAtDomains_of_thm29Normal (theorem_29_normal_of_hasNormalRealizations H)
+    Lemma30.Theorem29SecondAtDomains :=
+  Lemma30.theorem_29_secondAtDomains_of_thm29Normal (theorem_29_normal_of_hasNormalRealizations H)
 
 end Main
 

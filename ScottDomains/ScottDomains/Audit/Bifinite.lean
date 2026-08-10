@@ -4,7 +4,7 @@ import ScottDomains.JungNets
 # r0038 audit evidence: the `JungNets` duplicate pair
 
 Round r0038 classifies every theorem of `BifiniteUniversal`, `Colimit`,
-`LemThirty`, `JungSFP`, `JungFinite`, `JungNets` and `ContinuousConstruction`.
+`Lemma30`, `JungSFP`, `JungFinite`, `JungNets` and `ContinuousConstruction`.
 This file carries the one piece of evidence that round produces which the kernel
 checks rather than a table row: it converts "these two look the same" into a
 checked claim.

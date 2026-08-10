@@ -503,7 +503,7 @@ subset that is `IsOrdinalCodirected`, coinitial subsets have the same lower
 bounds, and therefore the same infima.
 
 Iwamura is what carries *filtered sets* to chains, and only that. Since
-`JungNets.HasChainInfima` — which `Thm18` is now known to be the only consumer of
+`JungNets.HasChainInfima` — which `Theorem18` is now known to be the only consumer of
 — already starts from a chain, that step is never taken. -/
 
 /-- **Every nonempty chain has a coinitial subset well-ordered by `≥`.**

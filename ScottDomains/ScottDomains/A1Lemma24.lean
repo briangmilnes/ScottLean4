@@ -46,7 +46,7 @@ all.
 ## 2. The same lemma does **not** discharge `HasNormalRealizations A∞`
 
 `R46.Agent2.HasNormalRealizations` is Gunter's Theorem 25 hypothesis at `A∞`, and
-r0046 proved `HasNormalRealizations A∞ → LemThirty.Theorem29Normal`. That reduction
+r0046 proved `HasNormalRealizations A∞ → Lemma30.Theorem29Normal`. That reduction
 is sound; its target is **false**.
 
 `not_hasNormalRealizations_Ainf` refutes it, and the mechanism is exactly the
@@ -74,7 +74,7 @@ above `β`. So `HasNormalRealizations A∞` fails, and with it the hypothesis of
 `hasNormalRealizations_of_stages` (`not_stagewise_realizations`).
 
 **What this does and does not settle.** It refutes r0046's *sufficient condition*,
-not `LemThirty.Theorem29Normal` itself: nothing here forces a normal embedding
+not `Lemma30.Theorem29Normal` itself: nothing here forces a normal embedding
 `K(E) → A∞` to have `β` in its range. `Theorem29Normal` stays open, and the route to
 it through Theorem 25 is now closed at this tower. What Lemma 24 at `M(A)` buys
 is a proof for the `η`-tower, which this development does not build.
@@ -440,7 +440,7 @@ is `im(incl 1)`, normal in `A∞` (`isNormalIn_range_incl`). So
 
 This refutes the target of r0046's reduction
 `theorem_29_normal_of_hasNormalRealizations`. The implication stands; its hypothesis
-cannot be met at this `A∞`. It does **not** refute `LemThirty.Theorem29Normal`, which
+cannot be met at this `A∞`. It does **not** refute `Lemma30.Theorem29Normal`, which
 does not require `β` to lie in the range of the embedding it asks for. -/
 theorem not_hasNormalRealizations_Ainf : ¬ R46.Agent2.HasNormalRealizations Ainf :=
   not_hasNormalRealizations_of_maximal incl_pointB1_ne_bot
@@ -449,7 +449,7 @@ theorem not_hasNormalRealizations_Ainf : ¬ R46.Agent2.HasNormalRealizations Ain
 
 /-- **The stagewise residue is false too.** `hasNormalRealizations_of_stages`
 derives `HasNormalRealizations A∞` from the property asked of a single step of the
-tower — the sentence `LemThirty.lean:426` names as missing — so that sentence is
+tower — the sentence `Lemma30.lean:426` names as missing — so that sentence is
 refuted along with it. What r0046 identified as "the whole of what remains" is
 not provable at this tower. -/
 theorem not_stagewise_realizations :

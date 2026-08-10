@@ -988,7 +988,7 @@ end Unconditional
 
 /-! ## Theorem 18 with Jung's Theorem 1.37 removed from its hypotheses -/
 
-section Thm18
+section Theorem18
 
 variable {D : Type*} [CompletePartialOrder D] [Domain D] [Domain (ScottHom D D)]
 
@@ -1002,7 +1002,7 @@ Iwamura's lemma) and his **Corollary 1.36**. `forall_hasCompleteMub` proves the
 first outright, so only Corollary 1.36 remains.
 
 This is the round's deliverable stated against the assembly the development
-already has: `ScottDomains.Thm18.theorem_18_of_jung_theorem_1_37_chains` takes
+already has: `ScottDomains.Theorem18.theorem_18_of_jung_theorem_1_37_chains` takes
 `JungNets.Theorem137Chains α` and `FixedPointOfCompactDeflationIsCompact α`; this
 takes the second and nothing else. -/
 theorem theorem_18_of_jung_corollary_1_36
@@ -1012,6 +1012,6 @@ theorem theorem_18_of_jung_corollary_1_36
     forall_hasCompleteMub (inferInstance : IsAlgebraic (ScottHom D D))
       (Domain.countable_compacts (α := ScottHom D D)) v hvfin hvc
 
-end Thm18
+end Theorem18
 
 end ScottDomains.PropertyM

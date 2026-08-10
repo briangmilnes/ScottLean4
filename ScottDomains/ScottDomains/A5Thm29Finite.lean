@@ -3,7 +3,7 @@ import ScottDomains.A1Lemma24
 /-!
 # `Theorem29Normal` at finite bases: `A∞` is universal for the finite bifinite domains
 
-Round r0047 left `LemThirty.Theorem29Normal` open with three named routes and none
+Round r0047 left `Lemma30.Theorem29Normal` open with three named routes and none
 attempted. This file takes route 1 — *prove `Theorem29Normal` by a route that does
 not pass through Theorem 25* — and carries it as far as it goes: **every finite
 poset with a least element sits normally inside `A∞`**, hence `Theorem29Normal`'s
@@ -72,7 +72,7 @@ exactly the finite pointed posets.
 
 ## What this settles, and what it does not
 
-`theorem_29_normal_finiteBasis` is `LemThirty.Theorem29Normal` **with one hypothesis
+`theorem_29_normal_finiteBasis` is `Lemma30.Theorem29Normal` **with one hypothesis
 added**: `Finite ↥(compacts E)`. By this development's own accounting that is a
 *discharged-at*, not a discharge, and it is reported as such. `IsBifinite E` is
 carried in the statement to match `Theorem29Normal` and is **never used** — see the
@@ -83,7 +83,7 @@ located: for `K(E)` infinite the construction must produce a *nested* chain of
 copies inside `A∞`, so step `i+1` has to realize a normal type over
 `incl kᵢ '' Aᵢ` — the **tower's** image — whereas `gunter87_lemma_24_Step` realizes it over
 the `η`-image, and `Colimit.stgEmb_ne_mk_eta` says those differ. This is the
-universal property `LemThirty.lean:479–485` names as deferred to [Gun87], and
+universal property `Lemma30.lean:479–485` names as deferred to [Gun87], and
 `R47.Agent1.not_stagewise_realizations` refutes its unrestricted form. What is
 *not* known, and is not asserted anywhere in this development, is whether it
 holds when the subposet is required to contain no maximal point of `A∞` — the
@@ -227,7 +227,7 @@ end Iterate
 
 /-- **`A∞` is universal for the finite pointed posets.** Every finite poset with a
 least element admits an order-reflecting map into `A∞` whose range is normal in
-`A∞` — `LemThirty.Theorem29Normal`'s conclusion, at a finite basis.
+`A∞` — `Lemma30.Theorem29Normal`'s conclusion, at a finite basis.
 
 The chain starts at `S := {⊥}` inside `Stg 0`, which is `PUnit`, and
 `singleton_bot_isNormalIn` discharges normality at both ends of the base case.
@@ -255,13 +255,13 @@ theorem exists_normal_embedding_Ainf (P : Type) [PartialOrder P] [Finite P] [Ord
   exact (isNormalIn_image_range (fun a b => incl_le_incl a b) hnorm).trans
     (isNormalIn_range_incl k)
 
-/-- **`LemThirty.Theorem29Normal` at finite bases.** Word for word `Theorem29Normal`,
+/-- **`Lemma30.Theorem29Normal` at finite bases.** Word for word `Theorem29Normal`,
 with `Finite ↥(compacts E)` added — a *discharged-at*, not a discharge.
 
 `IsBifinite E` is carried so the statement lines up with `Theorem29Normal` and is
 **not used**: a finite basis is a Plotkin order whatever `E` is. `[Domain E]` is
 likewise not used here; it is load-bearing only in the infinite case, where
-`LemThirty.countable_compacts_of_reflects` and
+`Lemma30.countable_compacts_of_reflects` and
 `R45.Agent3.not_thm29NormalWithoutDomain` show its removal makes the statement
 false. -/
 theorem theorem_29_normal_finiteBasis :
@@ -271,7 +271,7 @@ theorem theorem_29_normal_finiteBasis :
   intro E _ _ hfin _
   exact exists_normal_embedding_Ainf _
 
-/-- **The direction of the change, recorded.** `LemThirty.Theorem29Normal` implies the
+/-- **The direction of the change, recorded.** `Lemma30.Theorem29Normal` implies the
 statement `theorem_29_normal_finiteBasis` proves, so the added `Finite ↥(compacts E)`
 binder only ever *weakens*: what is discharged above is a consequence of the open
 claim and not a different sentence.
@@ -281,7 +281,7 @@ same way round as that one — from the claim to the restriction — unlike r004
 `freeCarrier_of_preservesRecursivePresentation`, which runs the other way. It is
 the artifact that makes "discharged-at, not discharged" checkable rather than
 asserted. -/
-theorem theorem_29_normal_finiteBasis_of_thm29Normal (H : LemThirty.Theorem29Normal) :
+theorem theorem_29_normal_finiteBasis_of_thm29Normal (H : Lemma30.Theorem29Normal) :
     ∀ (E : Type) [CompletePartialOrder E] [Domain E], Finite ↥(compacts E) → IsBifinite E →
       ∃ f : ↥(compacts E) → Ainf,
         (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf) :=

@@ -643,7 +643,7 @@ end Lemma213
 
 /-! ## Theorem 2.14 -/
 
-section Thm214
+section Theorem214
 
 variable {D : Type*} [CompletePartialOrder D] [IsAlgebraic D]
 
@@ -703,7 +703,7 @@ theorem jung_theorem_2_14 (hAlg : IsAlgebraic (ScottHom D D)) :
     exact jung_lemma_2_13 hx₁ hx₂ hinf ha₁ ha₂ hm₁ hm₂ hne hx1 hx2 hAlg
   · exact Or.inr hL
 
-end Thm214
+end Theorem214
 
 /-! ## Lemma 2.17 — where countability is spent -/
 

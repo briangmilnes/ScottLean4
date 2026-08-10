@@ -24,7 +24,7 @@ Four of the sixteen are stale:
 The remaining **12 are §7 alone**, and `scripts/a5-r47-conditional.sh` measures
 that this is the *whole* conditional surface of the package: every declaration in
 the library that takes an open or refuted claim as a hypothesis lives in
-`Colimit.lean`, `LemThirty.lean`, `A3Thm29.lean`, `A3Lemma30Schemes.lean` or
+`Colimit.lean`, `Lemma30.lean`, `A3Thm29.lean`, `A3Lemma30Schemes.lean` or
 `Effective/FunctionSpace.lean`. **No `S+H` row has appeared in §§2–6 since
 r0040** — the six rounds of edits since that measurement added none.
 
@@ -39,14 +39,14 @@ The other two are Lemma 30's conjuncts 1 (`→`) and 2 (`⇸`).
 
 ## What this module adds: the conjunct-1/2 obstruction, sharpened
 
-`LemThirty.retracts_fun_of_boundedComplete` and
+`Lemma30.retracts_fun_of_boundedComplete` and
 `retracts_strictFun_of_boundedComplete` are the development's only route to those
 two conjuncts. They take **two** hypotheses, `Colimit.Theorem29Second` and
 `[BoundedComplete V]`, and both are dead:
 
 1. `Colimit.Theorem29Second` is **refuted** (`R45.Agent3.not_thm29Second`), so those
    two declarations are vacuous as they stand. Five further declarations in
-   `LemThirty.lean` are vacuous for the same reason; three of the five
+   `Lemma30.lean` are vacuous for the same reason; three of the five
    (`retracts_smash`, `retracts_sepSum`, `retracts_coalSum`) already have
    non-vacuous successors in `A3Thm29.lean`, and these two do not.
 2. Repairing them to the live hypothesis does not help, and
@@ -102,7 +102,7 @@ on a finite poset rather than domain theory.
 namespace ScottDomains.R47.Agent5
 
 open ScottDomains ScottDomains.BifiniteUniversal ScottDomains.PRep
-open ScottDomains.Colimit ScottDomains.LemThirty
+open ScottDomains.Colimit ScottDomains.Lemma30
 
 universe u
 
@@ -117,11 +117,11 @@ conjuncts 3–10, and the prose row "`R♮(p)` represents the convex powerdomain
 Lemma 30's tenth conjunct restated, so it is carried by the same conjunct.
 
 The hypothesis is `Theorem29Normal` **exactly as stated, with no added instance
-binder** — the composition is `LemThirty.theorem_29_secondAtDomains_of_thm29Normal`
+binder** — the composition is `Lemma30.theorem_29_secondAtDomains_of_thm29Normal`
 with `R46.Agent3.eight_conjuncts_of_thm29Normal`. Rows 24 and 25, Lemma 30's
 conjuncts 1 and 2, are the two this does not reach; §2 below is why. -/
-theorem nine_props_ten_rows (h : LemThirty.Theorem29Normal) :
-    LemThirty.Theorem29SecondAtDomains ∧
+theorem nine_props_ten_rows (h : Lemma30.Theorem29Normal) :
+    Lemma30.Theorem29SecondAtDomains ∧
     IsPRepresentable₂ V PRep.prodOp ∧
     IsPRepresentable₂ V PRep.smashOp ∧
     IsPRepresentable₂ V PRep.sepSumOp ∧
@@ -129,8 +129,8 @@ theorem nine_props_ten_rows (h : LemThirty.Theorem29Normal) :
     IsPRepresentable V PRep.liftOp ∧
     IsPRepresentable V PRep.smythOp ∧
     IsPRepresentable V PRep.hoareOp ∧
-    IsPRepresentable V LemThirty.plotkinOp :=
-  ⟨LemThirty.theorem_29_secondAtDomains_of_thm29Normal h,
+    IsPRepresentable V Lemma30.plotkinOp :=
+  ⟨Lemma30.theorem_29_secondAtDomains_of_thm29Normal h,
     R46.Agent3.eight_conjuncts_of_thm29Normal h⟩
 
 /-! ## 2. Conjuncts 1 and 2: the route is contradictory, not merely open -/
@@ -141,13 +141,13 @@ theorem nine_props_ten_rows (h : LemThirty.Theorem29Normal) :
 unreachable here for as long as Theorem 29's second sentence is assumed" — from
 `R45.Agent3.not_boundedComplete_V`. This is that sentence as a theorem.
 
-Its force: repairing `LemThirty.retracts_fun_of_boundedComplete` from the refuted
+Its force: repairing `Lemma30.retracts_fun_of_boundedComplete` from the refuted
 `Colimit.Theorem29Second` to the live `Theorem29SecondAtDomains`, which is what
 `A3Thm29.lean` did for `⊗`, `+` and `⊕`, **would not help** — the repaired
 statement would still have an uninhabitable hypothesis set. Lemma 30's conjuncts
 1 and 2 need a different route to `Domain (ScottHom V V)`, not a repaired one. -/
 theorem not_thm29SecondAtDomains_and_boundedComplete_V :
-    ¬ (LemThirty.Theorem29SecondAtDomains ∧ BoundedComplete Colimit.V) :=
+    ¬ (Lemma30.Theorem29SecondAtDomains ∧ BoundedComplete Colimit.V) :=
   fun h => R45.Agent3.not_boundedComplete_V h.1 h.2
 
 /-! ## 3. Reducing `¬ BoundedComplete V` to a finite check in `Ainf`

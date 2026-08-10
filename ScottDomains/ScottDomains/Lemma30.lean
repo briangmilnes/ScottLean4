@@ -157,7 +157,7 @@ recorded in signatures rather than in prose:
    Theorem 29.
 -/
 
-namespace ScottDomains.LemThirty
+namespace ScottDomains.Lemma30
 
 open ScottDomains ScottDomains.BifiniteUniversal ScottDomains.Colimit
 
@@ -204,6 +204,14 @@ components the kernel counts, rather than a list in prose. This row of the
 project's inventory has been recorded as nine and as ten in different rounds; a
 conjunction cannot drift. -/
 
+-- r0050 renamed the enclosing namespace `LemThirty` to `Lemma30`, so this claim's
+-- full name became `ScottDomains.Lemma30.Lemma30` and `linter.dupNamespace` fires
+-- on it. Removing the duplication means renaming either the namespace, which
+-- r0050 fixed as `Lemma30`, or this `def`, whose name is what the naming standard
+-- prescribes for a `Prop`-valued claim of Lemma 30. That choice is the
+-- orchestrator's, so the linter is silenced for this one declaration and nothing
+-- else, and the build stays at zero warnings beyond the three `sorry`s.
+set_option linter.dupNamespace false in
 /-- **Lemma 30** (Gunter & Scott, §7.4): all ten operators are p-representable
 over `W`, at `Fp(W)`.
 
@@ -489,7 +497,7 @@ until r0046. That was wrong, and r0045 is what made it checkable:
 `R45.Agent3.not_thm29Second : ¬ Colimit.Theorem29Second` refutes the unqualified
 form outright, so nothing consistent implies it and the old sentence claimed an
 implication that cannot hold. The two `def`s differ by the single instance binder
-`[Domain E]` (`Colimit.lean:1028` against `LemThirty.lean:277`), which is exactly
+`[Domain E]` (`Colimit.lean:1028` against `Lemma30.lean:277`), which is exactly
 the discharged-versus-discharged-at distinction: what this statement yields is
 the version carrying the paper's word "domain", not the one without it.
 
@@ -784,4 +792,4 @@ theorem rep_prod_V_of_thm29Normal (h : Theorem29Normal) : IsPRepresentable₂ V 
 
 end Universality
 
-end ScottDomains.LemThirty
+end ScottDomains.Lemma30

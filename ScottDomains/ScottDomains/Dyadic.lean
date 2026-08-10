@@ -443,7 +443,7 @@ which is not an instance (it depends on the projection *proof*), and identifying
 it with `D` needs the ideal completion to be functorial on order isomorphisms.
 Building `e` and `p` directly between `D` and `U` needs neither. -/
 
-section Thm27
+section Theorem27
 
 universe u
 
@@ -654,6 +654,6 @@ theorem theorem_27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComp
     ∃ (e : ScottHom D U) (p : ScottHom U D), ScottHom.IsEmbeddingProjectionPair e p :=
   theorem_27_of_isNormallyRepresented D h
 
-end Thm27
+end Theorem27
 
 end ScottDomains.Dyadic

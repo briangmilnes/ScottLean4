@@ -602,7 +602,7 @@ end Poset
 
 /-! ### Theorem 27 -/
 
-section Thm27
+section Theorem27
 
 universe u
 
@@ -648,7 +648,7 @@ theorem theorem_27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComp
       ScottHom.IsEmbeddingProjectionPair e p :=
   Dyadic.theorem_27_of_isNormallyRepresented D (isNormallyRepresented_compacts D)
 
-end Thm27
+end Theorem27
 
 /-! ### The hypotheses are satisfiable, and the conclusion is not vacuous
 

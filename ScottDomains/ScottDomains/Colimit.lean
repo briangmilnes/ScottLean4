@@ -112,22 +112,22 @@ this file with the missing step named.
 
 | # | statement | what is missing |
 | - | --------- | --------------- |
-| 1 | `Theorem29Second` — Theorem 29's second sentence at `D = V` | the universality argument: a normal embedding of `K(E)` into `A∞` for every bifinite `E` (`LemThirty.Theorem29Normal`) |
+| 1 | `Theorem29Second` — Theorem 29's second sentence at `D = V` | the universality argument: a normal embedding of `K(E)` into `A∞` for every bifinite `E` (`Lemma30.Theorem29Normal`) |
 | 2 | `Lemma30Arrow` — Lemma 30's `→` conjunct | a representation of the function space over `V` |
 
 No `sorry` stands in for either.
 
 **Row 2's blocking note was corrected in r0037 and the whole of Lemma 30 now
-lives in `LemThirty.lean`.** This file previously recorded that the paper's other
+lives in `Lemma30.lean`.** This file previously recorded that the paper's other
 nine operators "are not present in this development as functions `Cpo → Cpo` at
 all", so that `Lemma30Arrow` was the only type-correct conjunct. `PRep.lean:147–190`
-defines all nine, and `LemThirty.plotkinOp` supplies the tenth, so
-`LemThirty.Lemma30` states the lemma in full as a ten-fold conjunction.
+defines all nine, and `Lemma30.plotkinOp` supplies the tenth, so
+`Lemma30.Lemma30` states the lemma in full as a ten-fold conjunction.
 `Lemma30Arrow` below is kept because it is cited elsewhere; it is
-`LemThirty.Lemma30`'s first conjunct.
+`Lemma30.Lemma30`'s first conjunct.
 
 Row 1's description of the missing step was also too specific.
-`LemThirty.exists_stage_ge_of_finite` shows the stages are already cofinal among
+`Lemma30.exists_stage_ge_of_finite` shows the stages are already cofinal among
 finite subsets of `A∞`, so extending from `Stg n` to `Stg (n+1)` is not where the
 gap is; the gap is at getting `K(E)` into `A∞` at all.
 -/
@@ -1020,8 +1020,8 @@ supplies for it are `isNormalIn_range_incl` (each stage is normal in `A∞`) and
 `exists_stage_of_finite` (a finite set of `A∞` lies in one stage); what is not
 supplied is a normal embedding of `K(E)` into `A∞` for an arbitrary bifinite `E`,
 which is where `M`'s universal property among finite Plotkin orders is used.
-`LemThirty.Theorem29Normal` is that statement, and
-`LemThirty.exists_stage_ge_of_finite` records that the stage-by-stage extension
+`Lemma30.Theorem29Normal` is that statement, and
+`Lemma30.exists_stage_ge_of_finite` records that the stage-by-stage extension
 is *not* the missing part.
 
 **Lemma 30.** The paper lists ten operators, not nine: Lemma 28's nine plus the
@@ -1029,7 +1029,7 @@ convex powerdomain `()♮`, which is the whole reason §7.4 exists ("The convex
 powerdomain `()♮` cannot be representable over `U` because it does not preserve
 bounded completeness"). All ten are available in this development as functions
 `Cpo → Cpo`: nine as `PRep.funOp … PRep.hoareOp`, and `()♮` as
-`LemThirty.plotkinOp`. `LemThirty.Lemma30` states the lemma in full; `Lemma30Arrow`
+`Lemma30.plotkinOp`. `Lemma30.Lemma30` states the lemma in full; `Lemma30Arrow`
 below is its first conjunct, kept under its own name because r0036 cited it. -/
 
 /-- **Theorem 29's second sentence**, at the `D = V` built above.
@@ -1038,7 +1038,7 @@ below is its first conjunct, kept under its own name because r0036 cited it. -/
 the kernel-checked refutation: this statement drops the word "domain" from the
 paper's "`E` is any bifinite **domain**", and at `E := Flat (Set ℕ)` — bifinite,
 uncountable basis, no `Domain` instance — an embedding into the countable
-`↥(compacts V)` cannot exist. `LemThirty.Theorem29SecondAtDomains` is the
+`↥(compacts V)` cannot exist. `Lemma30.Theorem29SecondAtDomains` is the
 transcription that keeps the word; it is the open one, and
 `R45.Agent3.not_thm29Second` is what shows its `[Domain E]` binder is necessary
 rather than decorative.
@@ -1057,7 +1057,7 @@ type-correct. Unproved, and blocked twice over: it needs the retraction pair
 `V ⇄ (V → V)`, which comes from `Theorem29Second` at `E := ScottHom V V`, and it
 needs `IsBifinite (ScottHom V V)`, whose only route here is
 `ClosureProperties.lemma_17_fun` with its `[BoundedComplete β]`. See
-`LemThirty.retracts_fun_of_boundedComplete`. -/
+`Lemma30.retracts_fun_of_boundedComplete`. -/
 def Lemma30Arrow : Prop := IsPRepresentable₂ V Cpo.funSpace
 
 end ScottDomains.Colimit

@@ -1,0 +1,42 @@
+# r0050
+# agent2 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-10T16:34:47-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1320/1372] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1331/1372] Built ScottDomains.Dyadic (2.8s)
+⚠ [1334/1372] Replayed ScottDomains.Lemma30
+warning: ScottDomains/Lemma30.lean:535:8: declaration uses `sorry`
+⚠ [1343/1372] Replayed ScottDomains.Effective.A3StepDecidable
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✔ [1348/1372] Built ScottDomains.JungSFP (3.5s)
+✔ [1360/1372] Built ScottDomains.Atomless (3.1s)
+Build completed successfully (1372 jobs).
+--- times ---
+Elapsed (wall clock): 0:07.99
+Maximum resident set size (kbytes): 1865184
+--- build ---
+finished:         2026-08-10T16:34:56-07:00
+exit status:      0
+user cpu:         18.06s
+system cpu:       2.97s
+cpu use:          263%
+peak rss single:  1821 MiB (largest one process, GNU time)
+peak pss tree:    2030 MiB (process group, shared pages apportioned)
+peak rss tree:    4238 MiB (process group, shared pages counted per process)
+jobs:             1372
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      3
+other warnings:   0

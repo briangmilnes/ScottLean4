@@ -75,7 +75,7 @@ produces a compact `p ⊑ id` with `f ⊑ p ∘ g`, and Proposition 1.34 applied
 gives `f(d) ≤ p(g(d)) ≪ g(d)`.
 -/
 
-namespace ScottDomains.JungCor136
+namespace ScottDomains.JungCorollary136
 
 open ScottDomains ScottDomains.ContinuousConstruction ScottDomains.Combinator
 
@@ -440,4 +440,4 @@ theorem fixedPointOfCompactDeflationIsCompact :
 
 end Cor136
 
-end ScottDomains.JungCor136
+end ScottDomains.JungCorollary136

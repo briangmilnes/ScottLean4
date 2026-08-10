@@ -1,0 +1,70 @@
+# r0050
+# agent2 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-10T16:31:58-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1328/1372] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1342/1372] Built ScottDomains.Audit.Bifinite (1.2s)
+✔ [1343/1372] Built ScottDomains.PRepresentable (1.2s)
+✔ [1344/1372] Built ScottDomains.PRep (1.9s)
+✔ [1345/1372] Built ScottDomains.Colimit (2.3s)
+✔ [1346/1372] Built ScottDomains.PowerdomainCompacts (1.5s)
+⚠ [1347/1372] Built ScottDomains.Lemma30 (1.8s)
+warning: ScottDomains/Lemma30.lean:229:4: The namespace `Lemma30` is duplicated in the declaration `ScottDomains.Lemma30.Lemma30`.
+
+Note: This linter can be disabled with `set_option linter.dupNamespace false`
+warning: ScottDomains/Lemma30.lean:527:8: declaration uses `sorry`
+✔ [1348/1372] Built ScottDomains.PRepFun (2.8s)
+✔ [1349/1372] Built ScottDomains.PRepSum (2.8s)
+✔ [1350/1372] Built ScottDomains.A2Thm29Universal (1.0s)
+✔ [1351/1372] Built ScottDomains.Lemma28AtU (1.4s)
+✔ [1352/1372] Built ScottDomains.A3Thm29 (1.5s)
+✔ [1353/1372] Built ScottDomains.Effective.FunctionSpace (1.6s)
+✔ [1354/1372] Built ScottDomains.A4FunctionSpaceBifinite (1.6s)
+✔ [1355/1372] Built ScottDomains.Audit.SectionSeven (1.5s)
+✔ [1356/1372] Built ScottDomains.PowerdomainMapRep (1.6s)
+✔ [1357/1372] Built ScottDomains.Effective.A3FreeCarrier (1.3s)
+✔ [1358/1372] Built ScottDomains.A1Lemma24 (1.7s)
+✔ [1359/1372] Built ScottDomains.A4RepArrow (1.6s)
+✔ [1360/1372] Built ScottDomains.Effective.A3StrictRecursive (1.7s)
+✔ [1361/1372] Built ScottDomains.A2Lemma28 (1.5s)
+✔ [1362/1372] Built ScottDomains.Effective.A1FlatRecursive (1.5s)
+✔ [1363/1372] Built ScottDomains.A5Thm29Finite (1.5s)
+✔ [1364/1372] Built ScottDomains.A4PowerdomainRep (1.6s)
+✔ [1365/1372] Built ScottDomains.A3Lemma30Schemes (1.4s)
+✔ [1366/1372] Built ScottDomains.Effective.A2Compactness (2.1s)
+✔ [1367/1372] Built ScottDomains.A5Unfinished (1.3s)
+✔ [1368/1372] Built ScottDomains.A6ProjectionBifinite (1.5s)
+⚠ [1369/1372] Built ScottDomains.Effective.A3StepDecidable (1.6s)
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✔ [1370/1372] Built ScottDomains.A1R46 (1.2s)
+✔ [1371/1372] Built ScottDomains.Effective.A4Recursion (10s)
+Build completed successfully (1372 jobs).
+--- times ---
+Elapsed (wall clock): 0:24.72
+Maximum resident set size (kbytes): 1881084
+--- build ---
+finished:         2026-08-10T16:32:24-07:00
+exit status:      0
+user cpu:         74.85s
+system cpu:       12.81s
+cpu use:          354%
+peak rss single:  1836 MiB (largest one process, GNU time)
+peak pss tree:    2616 MiB (process group, shared pages apportioned)
+peak rss tree:    11255 MiB (process group, shared pages counted per process)
+jobs:             1372
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      3
+other warnings:   1

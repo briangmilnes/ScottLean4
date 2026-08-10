@@ -1,5 +1,5 @@
 import ScottDomains.A4FunctionSpaceBifinite
-import ScottDomains.LemThirty
+import ScottDomains.Lemma30
 
 /-!
 # Where the `[BoundedComplete]` obstruction on Lemma 30's conjuncts 1–2 actually is
@@ -12,7 +12,7 @@ of them:
 
 | # | obligation | where | removed by |
 | - | ---------- | ----- | ---------- |
-| 1 | `Retracts (ScottHom V V)` | `LemThirty.retracts_fun_of_boundedComplete` | `A4Lemma17Fun.lemma_17_fun` + `A4FunctionSpaceBifinite.domain_scottHom` |
+| 1 | `Retracts (ScottHom V V)` | `Lemma30.retracts_fun_of_boundedComplete` | `A4Lemma17Fun.lemma_17_fun` + `A4FunctionSpaceBifinite.domain_scottHom` |
 | 2 | `IsPRepresentable₂ V funOp` from that pair | `PRepFun.rep_arrow`'s `[BoundedComplete U]` | **not removed** — see below |
 
 Obligation 2 is not Lemma 17's. `PRepFun.lean:269` records it exactly: the
@@ -40,7 +40,7 @@ is a new open item that r0047's plan did not name.
 
 r0047's agent5 proved `not_thm29SecondAtDomains_and_boundedComplete_V`: the
 hypothesis set `{Theorem29SecondAtDomains, BoundedComplete V}` is **contradictory**.
-`LemThirty.retracts_fun_of_boundedComplete` and
+`Lemma30.retracts_fun_of_boundedComplete` and
 `retracts_strictFun_of_boundedComplete` take `[BoundedComplete V]` on top of the
 already-refuted `Colimit.Theorem29Second`, so the repair r0045 applied to `⊗`, `+`
 and `⊕` — swapping the refuted claim for the live one — cannot work here: it
@@ -142,9 +142,9 @@ end Arrow
 
 /-! ### At `V`: the retraction pairs, now with no bounded-completeness binder -/
 
-open Colimit LemThirty in
+open Colimit Lemma30 in
 /-- **`V` retracts onto `V → V`, from Theorem 29's second sentence at the
-paper's own hypothesis.** Compare `LemThirty.retracts_fun_of_boundedComplete`,
+paper's own hypothesis.** Compare `Lemma30.retracts_fun_of_boundedComplete`,
 which carries `[BoundedComplete V]` — refuted by
 `R45.Agent3.not_boundedComplete_V` — and takes the stronger `Colimit.Theorem29Second`
 — refuted by `R45.Agent3.not_thm29Second`. This version has neither: the
@@ -154,14 +154,14 @@ theorem retracts_fun_V (h : Theorem29SecondAtDomains) : Retracts (ScottHom V V) 
   haveI : Domain (ScottHom V V) := domain_scottHom isBifinite_V isBifinite_V
   exact retracts_of_isDomain h _ (lemma_17_fun isBifinite_V isBifinite_V)
 
-open Colimit LemThirty in
+open Colimit Lemma30 in
 /-- **`V` retracts onto `V ⇸ V`.** Compare
-`LemThirty.retracts_strictFun_of_boundedComplete`. -/
+`Lemma30.retracts_strictFun_of_boundedComplete`. -/
 theorem retracts_strictFun_V (h : Theorem29SecondAtDomains) : Retracts (StrictHom V V) := by
   haveI : Domain (StrictHom V V) := domain_strictHom isBifinite_V isBifinite_V
   exact retracts_of_isDomain h _ (lemma_17_strictFun isBifinite_V isBifinite_V)
 
-open Colimit LemThirty in
+open Colimit Lemma30 in
 /-- **Conjunct 1 of Lemma 30: `→` is p-representable over `V`**, from Theorem
 29's second sentence and `FpImagesBifinite V`. No instance binder is added: the
 `[Domain V]` is `Colimit.domain_V`, found by resolution. -/
@@ -170,7 +170,7 @@ theorem rep_fun_V (h : Theorem29SecondAtDomains) (hb : FpImagesBifinite V) :
   obtain ⟨gr, fn, hfg, hgf⟩ := retracts_fun_V h
   exact rep_arrow_of_fpImagesBifinite hb hfg hgf
 
-open Colimit LemThirty in
+open Colimit Lemma30 in
 /-- **Conjunct 2 of Lemma 30: `⇸` is p-representable over `V`**, from the same
 two hypotheses. -/
 theorem rep_strictFun_V (h : Theorem29SecondAtDomains) (hb : FpImagesBifinite V) :

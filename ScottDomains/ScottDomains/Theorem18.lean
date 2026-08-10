@@ -66,7 +66,7 @@ hypothesis `[Domain α]` the two conclusions coincide.
 literal conclusion, so the identification is kernel-checked rather than asserted.
 -/
 
-namespace ScottDomains.Thm18
+namespace ScottDomains.Theorem18
 
 open ScottDomains
 
@@ -122,4 +122,4 @@ theorem theorem_18_viaProjections_of_jung_theorem_1_37
     Recovered.IsBifiniteViaProjections α :=
   Recovered.theorem_14.mpr ⟨inferInstance, theorem_18_of_jung_theorem_1_37_and_jung_corollary_1_36 h137 hcor⟩
 
-end ScottDomains.Thm18
+end ScottDomains.Theorem18
