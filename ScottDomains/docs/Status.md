@@ -3,9 +3,13 @@
 The short answer. `PaperInventory.md` is the long one and stays as the audit
 trail; this file is the thing to read first.
 
-Measured on `main` after r0047: build **1364 jobs, 0 errors, 0 warnings**,
-`sorry` **0**, `axiom` **0**, `sorryAx` **0**. Package: 117 modules, 43,481
-lines, 2,019 theorems.
+Measured on `main` after merging r0049's agents 3–7: build **1372 jobs, 0 errors,
+0 warnings**, `sorry` **0**, `axiom` **0**, `sorryAx` **0**. Package: 124 modules,
+46,049 lines, 2,119 theorems.
+
+**r0049 is not finished.** agent8's stream — the necessity-site adjudication, the
+scoped-claims convention, and the standing staleness check — is still running and
+is not merged here. Every count below is `main` as of that partial merge.
 
 ## Labels
 
@@ -28,8 +32,12 @@ Two consequences worth stating once:
   carried as explicit hypotheses rather than as `sorry`, so none of the three
   appears in a `sorry` count. That is why this file reports rows 8–11 of the
   counts separately.
-* **`S≠` is not automatically a defect.** Five of the 18 are repairs of the
-  paper's own printed errors, which is correct work; 13 are ours.
+* **`S≠` is not automatically a defect.** Six of the 14 are repairs of the
+  paper's own printed errors, which is correct work; 8 are ours. r0049 re-derived
+  the row population against the built environment rather than inheriting r0044's
+  table, and it moved on both counts: four rows left the census (two closed in
+  r0049, two closed in r0047 and never re-counted), and Theorem 26 moved from
+  *ours* to *repair* once the printed statement was refuted.
 
 ## Counts
 
@@ -37,13 +45,13 @@ Two consequences worth stating once:
 | -- | --- | ----: |
 | 1 | Numbered results in Gunter & Scott | **30, verified** — 16 Theorems, 13 Lemmas, 1 Proposition, 0 Corollaries; numbers 1–30 contiguous, no gap, no repeat |
 | 2 | — **fully proved** | **25** |
-| 3 | — partly proved, some part open | 3 (results 7, 26, 29) |
-| 4 | — **refuted as stated** (our transcription or the paper) | 2 (results 28, 30) |
+| 3 | — partly proved, some part open | 2 (results 7, 29) |
+| 4 | — **refuted as stated** (our transcription or the paper) | 3 (results 26, 28, 30) |
 | 5 | — **all 30 are now stated in the tree** | 0 missing |
 | 6 | Paper properties (numbered conjuncts + prose claims) | 239 |
 | 7 | — `S+P` stated and proved | 169 |
-| 8 | — **`S+H` stated, proof open** | **12** |
-| 9 | — `S≠` stated, but not as the paper states it | 18 (13 ours, 5 repairs) |
+| 8 | — **`S+H` stated, proof open** | **12** — *not re-derived after r0049; carried from r0047* |
+| 9 | — `S≠` stated, but not as the paper states it | 14 (**8 ours**, **6 repairs**) |
 | 10 | — `P` + `N` no Lean statement at all | 36 |
 | 11 | `Prop`-valued claims nothing proves | **7** (8 strict) |
 
@@ -64,7 +72,7 @@ counted here and neither shows up in a build.
 | 4 | Lemma 4 | `P` | `NormalSubposet.lean` |
 | 5 | Lemma 5 | `P` | `FinitaryProjection.lean` |
 | 6 | Theorem 6 | `P` | `theorem6` |
-| 7 | Theorem 7 | `p` | sentence 1 proved; sentences 2–3 proved only at the degenerate strength — **every domain has an `EffectivePresentation`** because `Classical.dec` fills its fields. The recursive forms are open: `Theorem7ArrowRecursive`, `Theorem7StrictRecursive` |
+| 7 | Theorem 7 | `p` | sentence 1 proved; sentences 2–3 proved only at the degenerate strength — **every domain has an `EffectivePresentation`** because `Classical.dec` fills its fields. The recursive forms are open: `Theorem7ArrowRecursive`, `Theorem7StrictRecursive`. r0049 restated `StepFunctionsDecidable` over `IsStepEnumeration`, quantified existentially, so the claim no longer names a guard its own hypotheses do not determine — `R49.Agent3.stepFunctionsDecidable_of_compactGuard` proves old → new, a **weakening**. r0049 also supplied the recursion theory the residue needed: the `Finset (ℕ × ℕ)` coding is `Primrec`, the normal-subposet search is total, and §3.2's two conditions **decide boundedness and compute the join's index** (`R49.Agent4.computablePred_bddAbove`, `computable_joinIdx`). One item remains: `RecursiveNormal` for `K(D → E)` |
 | 8 | Lemma 8 | `P` | `Product.lean` |
 | 9 | Lemma 9 | `P` | `lem9_*` — **two printed misprints repaired** (items 3 and 5) |
 | 10 | Lemma 10 | `P` | 7 conjuncts, `lem10_{prod,smash,sum,separated,lift,strict}` |
@@ -83,11 +91,11 @@ counted here and neither shows up in a build.
 | 23 | Lemma 23 | `P` | `lem23` |
 | 24 | Lemma 24 | `P` | `lem24` (Gunter & Scott's; **not** Gunter 1987's Lemma 24, below) |
 | 25 | Theorem 25 | `P` | `thm25`, `thm25_isUniversal` |
-| 26 | Theorem 26 | `p` | `thm26` carries an added `hs : ∀ i, 0 < s i` — no nullary operations — which the paper does not assume. The recorded justification, that Theorem 26 is **false** for a signature admitting arity 0, **is not established**: the contradiction is derived from `fst(ψ(x)) = x`, a property of the paper's *construction* and of our own conclusion, whereas the printed statement asks only that `A` "be made isomorphic to a subalgebra" — and two one-point algebras are isomorphic to the same one-point subalgebra `{Fᵢ}`. **The argument refutes the paper's proof at arity 0, not its theorem.** So `hs` is a defect of ours, not a repair. To settle it: exhibit a genuine arity-0 counterexample to the *printed* conclusion, or drop `hs` and prove `thm26` without it |
+| 26 | Theorem 26 | `R` | **refuted as printed** (`R49.Agent7.not_thm26Printed_of_two_zero_arities`), and **proved as repaired** — `thm26`, whose added `hs : ∀ i, 0 < s i` is therefore a **repair of a printed defect, not a defect of ours**. Theorem 26 as printed is false for any signature with **two or more 0-ary slots**, including the paper's own worked `(2,0,0,0,0,0)`. The proof does not use `fst(ψ(x)) = x`: the combinations `F₁ … F_n` are quantified *before* the algebra, so one instance with `oᵢ = oⱼ` forces `Fᵢ = Fⱼ` and another with `oᵢ ≠ oⱼ` forces `Fᵢ ≠ Fⱼ`. It grants every printed hypothesis and asks the *weakest* conclusion — an injective homomorphism, with `isSubalgebraOf_range` proving the image is a subalgebra — so stronger readings of "isomorphic" are refuted a fortiori. The argument previously on record at `Combinator.lean:60–72` **is** invalid, as r0044 said: `isAlgEmbedding_const_of_subsingleton` shows two one-point algebras do land on the same subalgebra. The conclusion was right for a reason nobody had given |
 | 27 | Theorem 27 | `P` | `thm27` |
 | 28 | Lemma 28 | `R` | **refuted at generic `U`** (`not_forall_lemma28`, witness `Flat Empty`), and stays false after adding `[Domain U]` and `[BoundedComplete U]`. **Proved at `U`**: `lemma28AtU`, all nine conjuncts. The blocker is `UniversalForBCD U` |
-| 29 | Theorem 29 | `p` | sentence 1 proved (`thm29`). Sentence 2: `Thm29Second` **refuted** — our transcription dropped the paper's word "domain". `Thm29SecondAtDomains`, the true reading, is **open** |
-| 30 | Lemma 30 | `R` | universal closure **refuted** (`not_forall_lemma30`). `Lemma30AtV` is **open**, now at arity 3 |
+| 29 | Theorem 29 | `p` | sentence 1 proved (`thm29`). Sentence 2: `Thm29Second` **refuted** — our transcription dropped the paper's word "domain". `Thm29SecondAtDomains`, the true reading, is **open**. r0049 closed the finite half of what it reduces to: **`A∞` is universal for the finite pointed posets** (`R49.Agent5.exists_normal_embedding_Ainf`, new and unconditional), giving `thm29Normal_finiteBasis`. `Thm29Normal` is now open **only for infinite `K(E)`** |
+| 30 | Lemma 30 | `R` | universal closure **refuted** (`not_forall_lemma30`). `Lemma30AtV` is **open, now at arity 1** — r0049 discharged `FpImagesBifinite V` outright (`R49.Agent6.fpImagesBifinite_V`, no hypotheses, no binders), and conjuncts 1–2 now follow from `Thm29SecondAtDomains` alone. `Thm29Normal` is the single remaining named obstruction |
 
 **Result 15 was never missing — the instruments were.** Both the declaration scan
 and the docstring grep searched only for `thm|theorem|lem|lemma`, and Gunter &
@@ -115,17 +123,19 @@ round's measurement defect.
 
 | # | Item | What it needs |
 | -- | ---- | ------------- |
-| 1 | `StepFunctionsDecidable` | **restate over `consistentEnum`** — the guard `IsCompactElement (ofPairs Q)` is *not* the boundedness test, kernel-checked. Machinery built. Closes 4 claims |
-| 2 | `Theorem7ArrowRecursive` | item 1, then `Primrec` facts for the `Finset (ℕ × ℕ)` coding |
-| 3 | `Theorem7StrictRecursive` | item 1, likewise |
-| 4 | `Thm29Normal` | the `M(f)` tower refutes Theorem 25's hypothesis; the `η` tower is not a fixed point. Three routes named, one is refuting it outright |
+| 1 | `ScottHomCRecursive` | **`RecursiveNormal` for `K(D → E)`** — the one item r0049 did not close. Deciding whether two basis elements of `D → E` are bounded, and where their join is. `StepFunctionsDecidable` is restated and discharged from it (`R49.Agent3.stepFunctionsDecidable_of_scottHomC`); the order test needs no search at all (`R49.Agent4.computablePred_le_stepValues`) |
+| 2 | `Theorem7ArrowRecursive` | item 1 |
+| 3 | `Theorem7StrictRecursive` | item 1 |
+| 4 | `Thm29Normal` at **infinite `K(E)`** | the copies must nest under `incl`, so the type must be realized over the *tower's* image, not the `η`-image. Finite bases are **closed** |
 | 5 | `Thm29SecondAtDomains` | item 4 |
-| 6 | `Lemma30AtV` | item 4, plus `FpImagesBifinite V` |
+| 6 | `Lemma30AtV` | item 4, and nothing else — `FpImagesBifinite V` is discharged |
 | 7 | `Lem30Arrow` | item 6 |
 | 8 | `PreservesRecursivePresentation` | proved at `fstOp`/`sndOp`; open at the arrow, where it is equivalent to item 2 |
+| 9 | the eight open `S≠` rows | five of them (`Universality.lem24`, `Universality.thm25`) are **one** obstruction, not five: whether the closure image is algebraic — a closure image on an algebraic lattice is continuous, not algebraic |
 
-**Items 2–3 and 5–7 are downstream of 1 and 4.** Only items 1 and 4 are real
-work, and item 1 is mechanical.
+**Items 2–3 and 5–7 are downstream of 1 and 4.** Only items 1, 4 and 9 are real
+work. Item 1 is no longer mechanical and item 4 is no longer the whole of
+`Thm29Normal`.
 
 ## Additional theories
 
@@ -161,19 +171,28 @@ them. None is part of Gunter & Scott's 30.
 | # | Result | Status |
 | -- | ----- | ------ |
 | 1 | Lemma 24 at `M(A)` | **proved** — `R47.Agent1.lemma24_MPair`. **The first proof anywhere**: Gunter's printed Lemma 24 produces *some* `A⁺` and is not about `M(A)`; the `M(A)` form is a remark with no theorem and no proof |
-| 2 | `HasNormalRealizations` at `Ainf` | **refuted** — `not_hasNormalRealizations_Ainf`. The route to `Thm29Normal` is sound but its hypothesis is unsatisfiable at this tower |
+| 2 | `HasNormalRealizations` at `Ainf` | **refuted** — `not_hasNormalRealizations_Ainf`. The route to `Thm29Normal` is sound but its hypothesis is unsatisfiable at this tower. **r0049 narrowed what this closes**: the refutation quantifies *universally* over finite normal `A ◁ A∞`, while `Thm29Normal` quantifies *existentially* over embeddings, so it closes **extension** of an embedding already fixed in `A∞` and not **construction** of one. That is what let `lemma24_Step` be run inside the stages |
 | 3 | Proposition 21, Theorems 22 and 25 | used, via the implication `thm29Normal_of_hasNormalRealizations` |
 
 ## Defects in the printed paper
 
-**Nine**, recorded in `StatementRecovery.md`. Three suspected tenths were checked
-and turned out to be **our** transcription errors, not the paper's:
+**Ten**, nine recorded in `StatementRecovery.md`. The tenth is r0049's:
+**Theorem 26 is false as printed** for any signature with two or more 0-ary
+slots, kernel-checked by `R49.Agent7.not_thm26Printed_of_two_zero_arities`. That
+row sat in the suspected-and-refuted table below until r0049 because **the reason
+on record for it was wrong**, which is a separate defect from the claim being
+wrong.
+
+Two suspected defects remain **our** transcription errors, not the paper's:
 
 | # | Suspected | Actually |
 | -- | -------- | -------- |
-| 1 | Theorem 26 false at arity 0 | refutes the paper's *proof*, not its statement |
-| 2 | Theorem 29's second sentence false | our transcription dropped "domain" from "any bifinite domain" |
-| 3 | the step-function enumeration | our guard tests compactness where the paper tests boundedness |
+| 1 | Theorem 29's second sentence false | our transcription dropped "domain" from "any bifinite domain" |
+| 2 | the step-function enumeration | our guard tests compactness where the paper tests boundedness — and r0049 sharpened this: on the paper's own index the join always exists, so **the paper tests neither** |
+
+An **eleventh candidate is not yet recorded**: r0049's agent3 reports that the
+same folio-12 sentence writes `⨆{f(y) | y ∈ N ∩ ↓x}` where `f` is bound nowhere
+and `s` is meant. It is not counted above and not yet in `StatementRecovery.md`.
 
 ## Reproducing
 

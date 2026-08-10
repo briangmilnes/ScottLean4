@@ -23,7 +23,9 @@
 
 set -u
 
-ROOT=/home/milnes/projects/ScottLean4-agent5/ScottDomains
+# r0049: was hardcoded to the agent5 worktree, so every later run measured that
+# checkout rather than the caller's. Resolve from this script's own location.
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/ScottDomains"
 SRC="$ROOT/ScottDomains"
 OUT="$ROOT/analyses/a5-r47-conditional.txt"
 
