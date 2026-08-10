@@ -7,35 +7,36 @@ Measured on `main` at `5a1d8bc`. Build 1372 jobs, 0 errors, 0 warnings.
 
 | # | Kind | Count |
 | -- | ---- | ----: |
-| 1 | Definitions | ≈13 |
+| 1 | Definitions | 11 |
 | 2 | Numbered theorems | 16 |
 | 3 | Numbered lemmas | 13 |
 | 4 | Numbered propositions | 1 |
 | 5 | — numbered results, total | **30** |
 | 6 | — the conjuncts those 30 decompose into | 93 |
 | 7 | Prose statements | 146 |
-| 8 | Examples | **not measured** |
+| 8 | Examples | 1 |
+| 9 | Figures | 4 |
 
-Numbers 1–30 are contiguous, no gap and no repeat, verified by extracting every
-`(Theorem\|Lemma\|Proposition\|Corollary) N` heading from the full text.
+Every count is an extraction from the PDF's text layer, not an estimate. Results
+1–30 are contiguous, no gap and no repeat. Definitions are written `Definition:`
+with **no number** — 11 of them, at §2.3, 3.1, 3.2 (×2), 5.2 (×2), 5.3, 6.1
+(×2), 7.1, 7.3. The paper labels exactly one `Example:` (§3.1, strictification);
+Figure 1 is captioned "Examples of cpo's" and is counted as a figure.
 
-Two rows are soft. Row 1 has stood at "≈13" since r0031 and has never been
-enumerated to an exact figure. Row 8 is a real hole: no round has counted the
-paper's examples at all. Figure 4's element counts (1, 2, 5, 20) were used to
-adjudicate a §7.4 reading, so at least some examples have been read — but never
-enumerated. Both should be counted the same way the 30 were: extract the
-headings from the full text.
+The extraction must be ligature-aware: the text layer drops `fi`, so
+`Definition` reads `De nition` and `bifinite` reads `bi nite`. A grep for
+`Definition` returns 0 and is wrong.
 
 ## 2. Represented in Lean
 
 | # | Kind | Represented | Of | Not stated |
 | -- | ---- | ----------: | -: | ---------: |
-| 1 | Definitions | ≈13 | ≈13 | 0 |
+| 1 | Definitions | 11 | 11 | 0 |
 | 2 | Theorems | 16 | 16 | 0 |
 | 3 | Lemmas | 13 | 13 | 0 |
 | 4 | Propositions | 1 | 1 | 0 |
 | 5 | Prose statements | 86 | 146 | 60 |
-| 6 | Examples | — | — | not measured |
+| 6 | Examples | 1 | 1 | 0 |
 
 All 30 numbered results have been stated in Lean since r0048. The 60 unstated
 prose statements are concentrated rather than spread: 13 of the 26 unstated
@@ -55,7 +56,7 @@ statement is proven.
 | 4 | Propositions | 0 | 0 | 0 | 0 | 0 | 0 |
 | 5 | — total | 3 | 3 | 3 | **9** | **6** | **3** |
 | 6 | Prose statements | — | — | — | — | — | not classified |
-| 7 | Examples | — | — | — | — | — | not measured |
+| 7 | Examples | 0 | 0 | 0 | 0 | 0 | 0 |
 
 **Nothing is left uncorrected.** All 9 have a corrected statement in Lean, and 6
 of the 9 are proven in that form. The 3 unproven ones are exactly the 3 unproven
@@ -103,7 +104,7 @@ page produced both.
 | 4 | Propositions | 1 | 0 | 1 |
 | 5 | — numbered results | **27** | **3** | 30 |
 | 6 | Prose statements | 70 | 16 | 86 stated |
-| 7 | Examples | — | — | not measured |
+| 7 | Examples | 1 | 0 | 1 |
 
 A definition is not proven or unproven; the thing that can go wrong is that it is
 **empty** — a definition nothing satisfies makes every theorem over it vacuous.
