@@ -1,0 +1,84 @@
+# r0049
+# agent4 — lake build ScottDomains.Effective.A4Recursion
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T16:51:49-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A4Recursion ===
+✖ [1026/1026] Building ScottDomains.Effective.A4Recursion (745ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Effective/A4Recursion.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.setup.json --json
+info: ScottDomains/Effective/A4Recursion.lean:136:0: [(0, []), (1, [(0, 0)]), (2, [(0, 0), (0, 1)]), (3, [(0, 1)]), (4, [(0, 1), (1, 0)]), (5, [(0, 0), (0, 1), (1, 0)]),
+  (6, [(0, 1), (1, 0), (1, 1)]), (7, [(1, 0)]), (8, [(1, 0), (1, 1)]), (9, [(1, 0), (1, 1), (0, 2)]),
+  (10, [(0, 0), (1, 0)]), (11, [(0, 1), (1, 1)]), (12, [(1, 0), (0, 2)]), (13, [(1, 1)]), (14, [(1, 1), (0, 2)]),
+  (15, [(1, 1), (0, 2), (1, 2)]), (16, [(1, 1), (1, 2)]), (17, [(0, 0), (1, 0), (1, 1)]),
+  (18, [(0, 1), (1, 1), (0, 2)]), (19, [(1, 0), (0, 2), (1, 2)]), (20, [(1, 1), (1, 2), (2, 0)]), (21, [(0, 2)]),
+  (22, [(0, 2), (1, 2)]), (23, [(0, 2), (1, 2), (2, 0)]), (24, [(0, 2), (2, 0)]), (25, [(0, 2), (2, 0), (2, 1)]),
+  (26, [(0, 0), (0, 1), (1, 0), (1, 1)]), (27, [(0, 1), (1, 0), (1, 1), (0, 2)]),
+  (28, [(1, 0), (1, 1), (0, 2), (1, 2)]), (29, [(1, 1), (0, 2), (1, 2), (2, 0)])]
+error: ScottDomains/Effective/A4Recursion.lean:138:38: Tactic `decide` failed for proposition
+  idxList 5 = [0, 1, 2]
+because its `Decidable` instance
+  instDecidableEqList (idxList 5) [0, 1, 2]
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instance `instDecidableEqList`, reduction got stuck at the `Decidable` instance
+  match idxList 5 with
+  | [] =>
+    match [0, 1, 2] with
+    | [] => isTrue ⋯
+    | head :: tail => isFalse ⋯
+  | a :: as =>
+    match [0, 1, 2] with
+    | [] => isFalse ⋯
+    | b :: bs =>
+      match decEq a b with
+      | isTrue hab =>
+        match as.hasDecEq bs with
+        | isTrue habs => isTrue ⋯
+        | isFalse nabs => isFalse ⋯
+      | isFalse nab => isFalse ⋯
+error: ScottDomains/Effective/A4Recursion.lean:140:36: Tactic `decide` failed for proposition
+  1 ∈ idxList 5
+because its `Decidable` instance
+  List.instDecidableMemOfLawfulBEq 1 (idxList 5)
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `decidable_of_decidable_of_iff`, `instDecidableEqBool`, `Bool.decEq`, and `List.instDecidableMemOfLawfulBEq`, reduction got stuck at the `Decidable` instance
+  match List.elem 1 (idxList 5), true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+error: ScottDomains/Effective/A4Recursion.lean:142:36: Tactic `decide` failed for proposition
+  3 ∉ idxList 5
+because its `Decidable` instance
+  instDecidableNot
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `decidable_of_decidable_of_iff`, `instDecidableEqBool`, `instDecidableNot`, `Bool.decEq`, and `List.instDecidableMemOfLawfulBEq`, reduction got stuck at the `Decidable` instance
+  match List.elem 3 (idxList 5), true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A4Recursion
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.55
+Maximum resident set size (kbytes): 1777484
+--- build ---
+finished:         2026-08-09T16:51:51-07:00
+exit status:      1
+user cpu:         1.36s
+system cpu:       0.52s
+cpu use:          120%
+peak rss single:  1735 MiB (largest one process, GNU time)
+peak pss tree:    1832 MiB (process group, shared pages apportioned)
+peak rss tree:    2504 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 3
+lake errors:      2
+sorry decls:      0
+other warnings:   0

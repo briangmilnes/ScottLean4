@@ -1,0 +1,42 @@
+# r0049
+# agent4 — lake build ScottDomains.Effective.A4Recursion
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T16:52:16-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A4Recursion ===
+✖ [1026/1026] Building ScottDomains.Effective.A4Recursion (748ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Effective/A4Recursion.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.setup.json --json
+error: ScottDomains/Effective/A4Recursion.lean:136:38: Tactic `rfl` failed: The left-hand side
+  idxList 5
+is not definitionally equal to the right-hand side
+  [0, 1, 2]
+
+⊢ idxList 5 = [0, 1, 2]
+error: ScottDomains/Effective/A4Recursion.lean:138:64: Tactic `rfl` failed: The left-hand side
+  decodeList (ℕ × ℕ) 5
+is not definitionally equal to the right-hand side
+  [(0, 0), (0, 1), (1, 0)]
+
+⊢ decodeList (ℕ × ℕ) 5 = [(0, 0), (0, 1), (1, 0)]
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A4Recursion
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.55
+Maximum resident set size (kbytes): 1773772
+--- build ---
+finished:         2026-08-09T16:52:18-07:00
+exit status:      1
+user cpu:         1.32s
+system cpu:       0.49s
+cpu use:          116%
+peak rss single:  1732 MiB (largest one process, GNU time)
+peak pss tree:    1838 MiB (process group, shared pages apportioned)
+peak rss tree:    2511 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      0
+other warnings:   0

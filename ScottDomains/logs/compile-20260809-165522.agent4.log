@@ -1,0 +1,62 @@
+# r0049
+# agent4 — lake build ScottDomains.Effective.A4Recursion
+# checkout: /home/milnes/projects/ScottLean4-agent4
+# started: 2026-08-09T16:55:22-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.A4Recursion ===
+✖ [1026/1026] Building ScottDomains.Effective.A4Recursion (763ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent4/ScottDomains/ScottDomains/Effective/A4Recursion.lean -o /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.olean -i /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/A4Recursion.ilean -c /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.c --setup /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake/build/ir/ScottDomains/Effective/A4Recursion.setup.json --json
+error: ScottDomains/Effective/A4Recursion.lean:184:15: unsolved goals
+q : ℕ → Bool
+b : ℕ
+h : (∀ k < b + 1, q k = true) ↔ (∀ k < b, q k = true) ∧ q b = true
+⊢ Decidable ((∀ k < b, q k = true) ∧ q b = true)
+error: ScottDomains/Effective/A4Recursion.lean:200:6: 'show' tactic failed, pattern
+  (Nat.rec true (fun y IH => IH && q y) b && decide (q b = ?m.34)) = true
+is not definitionally equal to target
+  Nat.rec true (fun y IH => IH && q y) (b + 1) = allLt q (b + 1)
+error: ScottDomains/Effective/A4Recursion.lean:245:8: Unknown constant `List.getI_eq_getElem`
+error: ScottDomains/Effective/A4Recursion.lean:249:10: Unknown constant `List.getI_eq_getElem`
+error: ScottDomains/Effective/A4Recursion.lean:258:28: Unknown constant `List.getI_eq_getElem`
+error: ScottDomains/Effective/A4Recursion.lean:258:18: unsolved goals
+n : ℕ
+R : ℕ → Prop
+k : ℕ
+hk : k < (idxList n).length
+hx : (idxList n)[k] ∈ Denumerable.ofNat (Finset ℕ) n
+hR : R (idxList n)[k]
+⊢ R ((idxList n).getI k)
+error: ScottDomains/Effective/A4Recursion.lean:261:8: Unknown constant `List.getI_eq_getElem`
+error: ScottDomains/Effective/A4Recursion.lean:281:29: Application type mismatch: The argument
+  Iff.symm (forall_mem_ofNat_finset_iff ?m.209 (R a))
+has type
+  (∀ k < (idxList ?m.209).length, R a ((idxList ?m.209).getI k)) ↔ ∀ x ∈ Denumerable.ofNat (Finset ℕ) ?m.209, R a x
+but is expected to have type
+  (∀ k < (id a, (idxList (code a)).length).2,
+      decide (R (id a, (idxList (code a)).length).1 ((idxList (code (id a, (idxList (code a)).length).1)).getI k)) =
+        true) ↔
+    ∀ x ∈ Denumerable.ofNat (Finset ℕ) (code a), R a x
+in the application
+  decide_eq_decide.mpr (Iff.symm (forall_mem_ofNat_finset_iff ?m.209 (R a)))
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.A4Recursion
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.53
+Maximum resident set size (kbytes): 1785568
+--- build ---
+finished:         2026-08-09T16:55:25-07:00
+exit status:      1
+user cpu:         1.56s
+system cpu:       0.49s
+cpu use:          134%
+peak rss single:  1743 MiB (largest one process, GNU time)
+peak pss tree:    1844 MiB (process group, shared pages apportioned)
+peak rss tree:    2517 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 8
+lake errors:      2
+sorry decls:      0
+other warnings:   0
