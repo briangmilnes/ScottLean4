@@ -130,13 +130,13 @@ repeats the abbreviation.
 | # | Module | Becomes | Note |
 | -- | ----- | ------- | ---- |
 | 1 | `Thm18.lean` | `Theorem18.lean` | |
-| 2 | `LemThirty.lean` | `Lemma30.lean` | **also a namespace** — `LemThirty.Thm29Normal`, `LemThirty.Lemma30AtV`. Renaming the namespace touches every qualified reference in the package |
-| 3 | `A3Thm29.lean` | `A3Theorem29.lean` | |
-| 4 | `A2Thm29Universal.lean` | `A2Theorem29Universal.lean` | |
-| 5 | `A5Thm29Finite.lean` | `A5Theorem29Finite.lean` | |
-| 6 | `A7Thm26Arity.lean` | `A7Theorem26Arity.lean` | |
-| 7 | `A5Thm137.lean` | `A5JungTheorem137.lean` | rule 2 — it is **Jung's** 1.37, not a Theorem 137 |
-| 8 | `JungCor136.lean` | `JungCorollary136.lean` | already author-qualified; only the abbreviation changes |
+| 2 | `JungCor136.lean` | `JungCorollary136.lean` | already author-qualified; only the abbreviation changes |
+| 3 | `LemThirty.lean` | `Lemma30.lean` | **also a namespace** — `LemThirty.Theorem29Normal`, `LemThirty.Lemma30AtV`. Renaming the namespace touches every qualified reference in the package. **Last, alone.** |
+
+The five `A<n>Thm*.lean` modules are **not** in this round. `A<n>` is the agent
+number of whoever wrote the file, and stripping that from all 24 such modules is
+r0051's subject; renaming five of them here would leave the other nineteen and
+do the work twice.
 
 Run phase 3 **after** phase 2, single-agent, one module at a time: `git mv`, fix
 that module's own `import` line in every file the build then names, rebuild to
