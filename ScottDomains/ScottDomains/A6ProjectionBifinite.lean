@@ -256,9 +256,11 @@ above pay that cost, so both conjuncts are now supplied here.
 `LemThirty.Lemma30AtV` is therefore open at **exactly one** named proposition,
 `LemThirty.Thm29Normal`. The development's own bounded-completeness obstruction,
 the second of the two r0046 recorded, is gone. -/
-theorem lemma30AtV_of_thm29Normal (h : Thm29Normal) : LemThirty.Lemma30AtV :=
+theorem lemma_30_atV_of_thm29Normal (h : Thm29Normal) : LemThirty.Lemma30AtV :=
   let h' := thm29SecondAtDomains_of_thm29Normal h
   R46.Agent3.lemma30AtV_of_thm29Normal_of_arrows h
     (rep_fun_V_of_thm29Second h') (rep_strictFun_V_of_thm29Second h')
+
+alias lemma30AtV_of_thm29Normal := lemma_30_atV_of_thm29Normal
 
 end ScottDomains.R49.Agent6

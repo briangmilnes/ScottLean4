@@ -127,7 +127,7 @@ universe u
 /-- `theorem3` and `eq_kleeneOperator_op` are **the same proposition**, not two
 equivalent ones: `Iff.rfl` discharges the equivalence, so the kernel identifies
 them up to definitional unfolding of `kleeneOperator.op`. -/
-theorem theorem3_statement_eq_eq_kleeneOperator_op_statement :
+theorem theorem_3_statement_eq_eq_kleeneOperator_op_statement :
     (∀ (F : FixedPointOperator.{u}), F.IsUniform →
         ∀ (D : Type u) [CompletePartialOrder D] (f : ScottHom D D),
           F.op D f = kleeneFix ⇑f)
@@ -136,5 +136,8 @@ theorem theorem3_statement_eq_eq_kleeneOperator_op_statement :
         ∀ (D : Type u) [CompletePartialOrder D] (f : ScottHom D D),
           F.op D f = kleeneOperator.op D f) :=
   Iff.rfl
+
+alias theorem3_statement_eq_eq_kleeneOperator_op_statement :=
+  theorem_3_statement_eq_eq_kleeneOperator_op_statement
 
 end ScottDomains.Audit.Foundations

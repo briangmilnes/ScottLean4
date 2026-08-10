@@ -252,12 +252,14 @@ The arity is the measurement, as everywhere in this development: 9 for
 p-representability at all. They are two facts about `(·)♯` and two about `(·)♭`,
 each an ordinary statement about a functor, and neither mentions `Fp(U)`'s
 retraction pair, which is now discharged. -/
-theorem lemma28AtU_of'' (hisoSmyth : SmythImageIso Dyadic.U)
+theorem lemma_28_atU_of'' (hisoSmyth : SmythImageIso Dyadic.U)
     (hlubSmyth : SmythFamilyLUB Dyadic.U) (hisoHoare : HoareImageIso Dyadic.U)
     (hlubHoare : HoareFamilyLUB Dyadic.U) :
     PRep.Lemma28AtU :=
   Lemma28AtU.lemma28AtU_of' (repSmythAtU hisoSmyth hlubSmyth)
     (repHoareAtU hisoHoare hlubHoare)
+
+alias lemma28AtU_of'' := lemma_28_atU_of''
 
 end AtU
 

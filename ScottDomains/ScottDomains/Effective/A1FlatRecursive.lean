@@ -394,12 +394,15 @@ The explicit universe binders `.{u, v}` remain load-bearing:
 `Theorem7ArrowRecursive` is universe-polymorphic and a hypothesis cannot
 quantify over universes, so the theorem's universes must be pinned to the
 claim's. -/
-theorem theorem7ArrowRecursive_of_stepFunctionsDecidable.{u, v}
+theorem theorem_7_arrowRecursive_of_stepFunctionsDecidable.{u, v}
     (h : ∀ {α : Type u} {β : Type v} [CompletePartialOrder α] [Domain α]
       [CompletePartialOrder β] [Domain β] [BoundedComplete β] (d : EffectivePresentation α)
       (e : EffectivePresentation β), StepFunctionsDecidable d e) :
     Theorem7ArrowRecursive.{u, v} := by
   intro α β _ _ _ _ _ d e hd he
   exact exists_isRecursive_of_stepFunctionsDecidable (h d e) hd he
+
+alias theorem7ArrowRecursive_of_stepFunctionsDecidable :=
+  theorem_7_arrowRecursive_of_stepFunctionsDecidable
 
 end ScottDomains.R45.Agent1

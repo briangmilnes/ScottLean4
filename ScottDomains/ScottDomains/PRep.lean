@@ -279,7 +279,7 @@ def Lemma28 (U : Type u) [CompletePartialOrder U] : Prop :=
 hypothesis here; the anonymous constructor forces the count to be exactly nine,
 so the arity of this theorem *is* the kernel's check on the operator list. As a
 conjunct is proved, its hypothesis is deleted and its proof substituted. -/
-theorem lemma28_of {U : Type u} [CompletePartialOrder U]
+theorem lemma_28_of {U : Type u} [CompletePartialOrder U]
     (h_arrow : IsPRepresentable₂ U funOp)
     (h_strictArrow : IsPRepresentable₂ U strictFunOp)
     (h_prod : IsPRepresentable₂ U prodOp)
@@ -291,6 +291,8 @@ theorem lemma28_of {U : Type u} [CompletePartialOrder U]
     (h_hoare : IsPRepresentable U hoareOp) :
     Lemma28 U :=
   ⟨h_arrow, h_strictArrow, h_prod, h_smash, h_sepSum, h_coalSum, h_lift, h_smyth, h_hoare⟩
+
+alias lemma28_of := lemma_28_of
 
 /-- Lemma 28 is a statement about §7.3's `U`, the ideal completion of the finite
 non-empty unions of half-open dyadic intervals of `[0, 1)` ordered by superset —

@@ -264,12 +264,14 @@ likewise not used here; it is load-bearing only in the infinite case, where
 `LemThirty.countable_compacts_of_reflects` and
 `R45.Agent3.not_thm29NormalWithoutDomain` show its removal makes the statement
 false. -/
-theorem thm29Normal_finiteBasis :
+theorem theorem_29_normal_finiteBasis :
     ∀ (E : Type) [CompletePartialOrder E] [Domain E], Finite ↥(compacts E) → IsBifinite E →
       ∃ f : ↥(compacts E) → Ainf,
         (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf) := by
   intro E _ _ hfin _
   exact exists_normal_embedding_Ainf _
+
+alias thm29Normal_finiteBasis := theorem_29_normal_finiteBasis
 
 /-- **The direction of the change, recorded.** `LemThirty.Thm29Normal` implies the
 statement `thm29Normal_finiteBasis` proves, so the added `Finite ↥(compacts E)`
@@ -281,11 +283,13 @@ same way round as that one — from the claim to the restriction — unlike r004
 `freeCarrier_of_preservesRecursivePresentation`, which runs the other way. It is
 the artifact that makes "discharged-at, not discharged" checkable rather than
 asserted. -/
-theorem thm29Normal_finiteBasis_of_thm29Normal (H : LemThirty.Thm29Normal) :
+theorem theorem_29_normal_finiteBasis_of_thm29Normal (H : LemThirty.Thm29Normal) :
     ∀ (E : Type) [CompletePartialOrder E] [Domain E], Finite ↥(compacts E) → IsBifinite E →
       ∃ f : ↥(compacts E) → Ainf,
         (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf) :=
   fun E _ _ _ hE => H E hE
+
+alias thm29Normal_finiteBasis_of_thm29Normal := theorem_29_normal_finiteBasis_of_thm29Normal
 
 /-- **A four-element chain sits normally in `A∞`.** A closed instance, so the
 statement above is on record as inhabited rather than only quantified.

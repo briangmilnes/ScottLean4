@@ -1063,7 +1063,7 @@ per conjunct not yet proved, and the kernel checks that the nine slots of
 
 This is the statement the paper asserts — representability over `U`, not over an
 abstract carrier assumed to satisfy an interface. -/
-theorem lemma28AtU_of
+theorem lemma_28_atU_of
     (h_arrow : IsPRepresentable₂ Dyadic.U funOp)
     (h_strictArrow : IsPRepresentable₂ Dyadic.U strictFunOp)
     (h_smash : IsPRepresentable₂ Dyadic.U smashOp)
@@ -1072,5 +1072,7 @@ theorem lemma28AtU_of
     Lemma28AtU :=
   lemma28_of h_arrow h_strictArrow repProdAtU h_smash repSepSumAtU repCoalSumAtU
     repLiftAtU h_smyth h_hoare
+
+alias lemma28AtU_of := lemma_28_atU_of
 
 end ScottDomains.PRepSum

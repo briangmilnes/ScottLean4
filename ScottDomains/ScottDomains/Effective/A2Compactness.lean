@@ -803,7 +803,7 @@ No added binder: the binder list is `Theorem7ArrowRecursive`'s own, and the
 universe annotation is load-bearing for the same reason r0045 records for
 `R45.Agent1.theorem7ArrowRecursive_of_stepFunctionsDecidable` — a hypothesis
 cannot quantify over universes. -/
-theorem theorem7ArrowRecursive_of_scottHomC.{u, v}
+theorem theorem_7_arrowRecursive_of_scottHomC.{u, v}
     (h : ∀ {α : Type u} {β : Type v} [CompletePartialOrder α] [Domain α]
       [CompletePartialOrder β] [Domain β] [BoundedComplete β] (d : EffectivePresentation α)
       (e : EffectivePresentation β), IsRecursive d → IsRecursive e →
@@ -811,6 +811,8 @@ theorem theorem7ArrowRecursive_of_scottHomC.{u, v}
     Effective.Theorem7ArrowRecursive.{u, v} := by
   intro α β _ _ _ _ _ d e hd he
   exact ⟨scottHomC d e, h d e hd he⟩
+
+alias theorem7ArrowRecursive_of_scottHomC := theorem_7_arrowRecursive_of_scottHomC
 
 /-! ### The same repair for `⊸`
 
@@ -926,7 +928,7 @@ noncomputable def strictHomC [Domain (StrictHom α β)] (d : EffectivePresentati
 /-- **`Effective.Theorem7StrictRecursive` reduced to recursion theory over a
 determinate enumeration**, the `⊸` counterpart of
 `theorem7ArrowRecursive_of_scottHomC`. -/
-theorem theorem7StrictRecursive_of_strictHomC.{u, v}
+theorem theorem_7_strictRecursive_of_strictHomC.{u, v}
     (h : ∀ {α : Type u} {β : Type v} [CompletePartialOrder α] [Domain α]
       [CompletePartialOrder β] [Domain β] [BoundedComplete β] [Domain (StrictHom α β)]
       (d : EffectivePresentation α) (e : EffectivePresentation β),
@@ -934,6 +936,8 @@ theorem theorem7StrictRecursive_of_strictHomC.{u, v}
     Effective.Theorem7StrictRecursive.{u, v} := by
   intro α β _ _ _ _ _ _ d e hd he
   exact ⟨strictHomC d e, h d e hd he⟩
+
+alias theorem7StrictRecursive_of_strictHomC := theorem_7_strictRecursive_of_strictHomC
 
 end Enumeration
 
