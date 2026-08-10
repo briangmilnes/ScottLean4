@@ -185,6 +185,21 @@ def ScottHomCRecursive (d : EffectivePresentation α) (e : EffectivePresentation
     Prop :=
   IsRecursive d → IsRecursive e → IsRecursive (scottHomC d e)
 
+/-- **Unproved — one of the development's two root holes (r0052).** To remove the
+`sorry`: show `scottHomC d e` has recursive ordering and recursive finite normal
+subposets whenever `d` and `e` do — `Primrec` facts for the
+`Denumerable (Finset (ℕ × ℕ))` coding, a decision procedure for
+`Consistent (pairsOf d e Q)`, and one for `b ⊑ ⨆{values below a}` in `E`.
+
+This is the root and `Effective.StepFunctionsDecidable` is not:
+`stepFunctionsDecidable_of_scottHomC` below derives the latter from this, so this
+is the lower statement. The `def` above is kept and every consumer stays
+conditional — nothing in the development references this theorem, so no proved
+declaration acquires `sorryAx`. `three_claims_of_residue` in section 7 records
+what a proof would close. -/
+theorem scottHomCRecursive_unproven (d : EffectivePresentation α)
+    (e : EffectivePresentation β) : ScottHomCRecursive d e := sorry
+
 /-- **The restated claim, discharged from the residue.** This is what the
 restatement was for: the claim is now reachable through an enumeration whose
 guard is determined by its own hypotheses. -/

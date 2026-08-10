@@ -508,13 +508,29 @@ because `A∞` is countable (`Colimit.instCountableAinf`) and
 `countable_compacts_of_reflects` turns that into countability of `K(E)`: without
 the paper's word "domain" the statement is refutable, not merely unproved.
 Recorded as a `Prop` rather than a `sorry`, per this development's convention:
-the statement is fixed and citable, and nothing asserts it. -/
+the statement is fixed and citable, and every consumer takes it as a hypothesis.
+Through r0051 nothing asserted it at all; `theorem29Normal_unproven` below now
+does, so the build reports the hole (r0052). -/
 def Theorem29Normal : Prop :=
   ∀ (E : Type) [CompletePartialOrder E] [Domain E], IsBifinite E →
     ∃ f : ↥(compacts E) → Ainf,
       (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf)
 
 alias Thm29Normal := Theorem29Normal
+
+/-- **Unproved — one of the development's two root holes (r0052).** To remove the
+`sorry`: for every bifinite domain `E`, build an order-reflecting map of `K(E)`
+into `A∞` whose image is normal in `A∞`, over the tower of finite normal
+subposets of `K(E)`. `A5Thm29Finite.theorem_29_normal_finiteBasis` proves the
+finite-basis case; the infinite case is what [Gun87] carries and §7.4 does not.
+
+This is the root of the Theorem 29 / Lemma 30 cluster:
+`theorem_29_secondAtDomains_of_thm29Normal` below, `R49.Agent6.lemma_30_atV_of_thm29Normal`
+and `R45.Agent3.lemma_30_arrow_of_lemma30AtV` derive the other three claims from
+it. Those reductions are **not** applied to this theorem: every consumer stays
+conditional, so no proved declaration acquires `sorryAx`, and the hypothesis in
+each consumer's type keeps saying what that consumer rests on. -/
+theorem theorem29Normal_unproven : Theorem29Normal := sorry
 
 /-! ## `Thm29Normal` suffices: the reduction, proved
 

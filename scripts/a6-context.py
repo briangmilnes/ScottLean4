@@ -70,7 +70,9 @@ def main():
             parts = row.rstrip("\n").split("\t")
             if not parts or parts[0] != "PROPDEF":
                 continue
-            _, module, line, name, binders, refs, proofs, uncond, hyps = parts
+            # r0046 added a tenth `refuted` column to PROPDEF; unpack only the
+            # nine this script reads so the extra column does not break it.
+            _, module, line, name, binders, refs, proofs, uncond, hyps = parts[:9]
             if only_undischarged and uncond != "0":
                 continue
             path = source_of(root, module)

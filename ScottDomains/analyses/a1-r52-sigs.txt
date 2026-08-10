@@ -1,0 +1,73 @@
+ScottDomains.LemThirty.Theorem29Normal : Prop
+ScottDomains.LemThirty.Theorem29SecondAtDomains : Prop
+ScottDomains.LemThirty.Lemma30AtV : Prop
+ScottDomains.Colimit.Lemma30Arrow : Prop
+@ScottDomains.Effective.StepFunctionsDecidable : {α : Type u_1} →
+  {β : Type u_2} →
+    [inst : CompletePartialOrder α] →
+      [inst_1 : ScottDomains.Domain α] →
+        [inst_2 : CompletePartialOrder β] →
+          [inst_3 : ScottDomains.Domain β] →
+            [ScottDomains.BoundedComplete β] →
+              ScottDomains.EffectivePresentation α → ScottDomains.EffectivePresentation β → Prop
+ScottDomains.Effective.Theorem7ArrowRecursive : Prop
+ScottDomains.Effective.Theorem7StrictRecursive : Prop
+@ScottDomains.R49.Agent3.ScottHomCRecursive : {α : Type u_1} →
+  {β : Type u_2} →
+    [inst : CompletePartialOrder α] →
+      [inst_1 : ScottDomains.Domain α] →
+        [inst_2 : CompletePartialOrder β] →
+          [inst_3 : ScottDomains.Domain β] →
+            [ScottDomains.BoundedComplete β] →
+              ScottDomains.EffectivePresentation α → ScottDomains.EffectivePresentation β → Prop
+@ScottDomains.R49.Agent3.StrictHomCRecursive : {α : Type u_1} →
+  {β : Type u_2} →
+    [inst : CompletePartialOrder α] →
+      [inst_1 : ScottDomains.Domain α] →
+        [inst_2 : CompletePartialOrder β] →
+          [inst_3 : ScottDomains.Domain β] →
+            [ScottDomains.BoundedComplete β] →
+              [ScottDomains.Domain (ScottDomains.StrictHom α β)] →
+                ScottDomains.EffectivePresentation α → ScottDomains.EffectivePresentation β → Prop
+@ScottDomains.R49.Agent3.StrictStepFunctionsDecidable : {α : Type u_1} →
+  {β : Type u_2} →
+    [inst : CompletePartialOrder α] →
+      [inst_1 : ScottDomains.Domain α] →
+        [inst_2 : CompletePartialOrder β] →
+          [inst_3 : ScottDomains.Domain β] →
+            [ScottDomains.Domain (ScottDomains.StrictHom α β)] →
+              ScottDomains.EffectivePresentation α → ScottDomains.EffectivePresentation β → Prop
+ScottDomains.LemThirty.theorem_29_secondAtDomains_of_thm29Normal : ScottDomains.LemThirty.Thm29Normal →
+  ScottDomains.LemThirty.Thm29SecondAtDomains
+ScottDomains.R49.Agent6.lemma_30_atV_of_thm29Normal : ScottDomains.LemThirty.Thm29Normal →
+  ScottDomains.LemThirty.Lemma30AtV
+ScottDomains.R45.Agent3.lemma_30_arrow_of_lemma30AtV : ScottDomains.LemThirty.Lemma30AtV →
+  ScottDomains.Colimit.Lem30Arrow
+@ScottDomains.R49.Agent3.stepFunctionsDecidable_of_scottHomC : ∀ {α : Type u_1} {β : Type u_2}
+  [inst : CompletePartialOrder α] [inst_1 : ScottDomains.Domain α] [inst_2 : CompletePartialOrder β]
+  [inst_3 : ScottDomains.Domain β] [inst_4 : ScottDomains.BoundedComplete β] {d : ScottDomains.EffectivePresentation α}
+  {e : ScottDomains.EffectivePresentation β},
+  ScottDomains.R49.Agent3.ScottHomCRecursive d e → ScottDomains.Effective.StepFunctionsDecidable d e
+ScottDomains.R47.Agent2.theorem_7_arrowRecursive_of_scottHomC : (∀ {α : Type u_1} {β : Type u_2}
+    [inst : CompletePartialOrder α] [inst_1 : ScottDomains.Domain α] [inst_2 : CompletePartialOrder β]
+    [inst_3 : ScottDomains.Domain β] [inst_4 : ScottDomains.BoundedComplete β]
+    (d : ScottDomains.EffectivePresentation α) (e : ScottDomains.EffectivePresentation β),
+    ScottDomains.Effective.IsRecursive d →
+      ScottDomains.Effective.IsRecursive e →
+        ScottDomains.Effective.IsRecursive (ScottDomains.R47.Agent2.scottHomC d e)) →
+  ScottDomains.Effective.Theorem7ArrowRecursive
+@ScottDomains.R49.Agent3.strictStepFunctionsDecidable_of_strictHomC : ∀ {α : Type u_1} {β : Type u_2}
+  [inst : CompletePartialOrder α] [inst_1 : ScottDomains.Domain α] [inst_2 : CompletePartialOrder β]
+  [inst_3 : ScottDomains.Domain β] [inst_4 : ScottDomains.BoundedComplete β]
+  [inst_5 : ScottDomains.Domain (ScottDomains.StrictHom α β)] {d : ScottDomains.EffectivePresentation α}
+  {e : ScottDomains.EffectivePresentation β},
+  ScottDomains.R49.Agent3.StrictHomCRecursive d e → ScottDomains.R49.Agent3.StrictStepFunctionsDecidable d e
+ScottDomains.R49.Agent3.theorem_7_strictRecursive_of_residue : (∀ {α β : Type u_1} [inst : CompletePartialOrder α]
+    [inst_1 : ScottDomains.Domain α] [inst_2 : CompletePartialOrder β] [inst_3 : ScottDomains.Domain β]
+    [inst_4 : ScottDomains.BoundedComplete β] [inst_5 : ScottDomains.Domain (ScottDomains.StrictHom α β)]
+    (d : ScottDomains.EffectivePresentation α) (e : ScottDomains.EffectivePresentation β),
+    ScottDomains.R49.Agent3.StrictHomCRecursive d e) →
+  ScottDomains.Effective.Theorem7StrictRecursive
+ScottDomains.R47.Agent3.preservesRecursivePresentation_arrowOp_iff : ScottDomains.Effective.PreservesRecursivePresentation
+    ScottDomains.R47.Agent3.arrowOp ↔
+  ScottDomains.Effective.Theorem7ArrowRecursive

@@ -1,0 +1,98 @@
+# claim-census.20260810-155203.agent1.tsv — round r0052, agent1.
+#
+# The 72 Prop-valued `def`s that no package theorem concludes unconditionally,
+# adjudicated one row each. Source: analyses/a6-env-r52.txt, the r0052 baseline
+# run of scripts/a6-env-scan.sh (120 Prop-valued defs, 72 undischarged), listed
+# by scripts/a1-r52-undischarged.py and read against the docstrings printed by
+# scripts/a6-context.py. Line numbers are that scan's; LemThirty.lean and
+# Effective/A3StepDecidable.lean shifted afterwards when r0052 inserted the two
+# `_unproven` theorems.
+#
+# verdict  alias    an r0050 `alias Thm… := Theorem…` scaffolding def, deleted in
+#                   r0050 phase 2; excluded from the census (9 of the 72).
+#          claim    a result the paper — or a cited paper — asserts, written as a
+#                   `def` because nobody proved it.
+#          concept  a predicate the development defines so theorems can quantify
+#                   over it. "Nobody proved it outright" is its correct state.
+# state    open | refuted | -   (claims only; refuted = a kernel-checked ¬)
+#
+# Totals: 9 aliases excluded, 13 claims (8 open, 5 refuted), 50 concepts.
+#
+# The alias rows matter to the count and not only to hygiene: `Theorem137`,
+# `Theorem137Chains` and `Theorem137Omega` were PROVED in r0045 and are not in
+# this population, but their aliases are, because the proofs conclude the new
+# name. Counting the aliases would report three resolved claims as open.
+#
+#	name	module	line	verdict	state	reason
+1	ScottDomains.R46.Agent1.StepFunctionsDecidableUnconditional	ScottDomains.A1R46	100	concept	-	rejected transcription kept verbatim for audit; its own docstring says "Not a claim of the paper" and forbids counting it as an open result
+2	ScottDomains.R46.Agent2.IsRoot	ScottDomains.A2Thm29Universal	117	concept	-	Gunter 1987 Proposition 19's definition of the root of a poset, as a predicate theorems are stated about
+3	ScottDomains.R46.Agent2.SameTypeOver	ScottDomains.A2Thm29Universal	224	concept	-	names "y realizes over A the type z realizes over g''A"; a relation the realization argument quantifies over
+4	ScottDomains.R46.Agent2.HasNormalRealizations	ScottDomains.A2Thm29Universal	256	concept	-	Gunter 1987 Theorem 25's HYPOTHESIS on V, as a property of a poset; the paper asserts no instance of it, and the instance that was wanted is refuted (R47.Agent1.not_hasNormalRealizations_Ainf)
+5	ScottDomains.R46.Agent2.HasFiniteExtensions	ScottDomains.A2Thm29Universal	272	concept	-	the finite-chunk form of the same hypothesis, derived from row 4 by Gunter's Proposition 21; a property, not an assertion
+6	ScottDomains.R45.Agent3.Theorem29NormalWithoutDomain	ScottDomains.A3Thm29	194	claim	refuted	Thm29Normal with [Domain E] deleted; R45.Agent3.not_thm29NormalWithoutDomain refutes it (A∞ is countable, Flat (Set ℕ) is bifinite with uncountable basis)
+7	ScottDomains.R45.Agent3.Thm29NormalWithoutDomain	ScottDomains.A3Thm29	199	alias	-	r0050 alias of row 6
+8	ScottDomains.R49.Agent7.IsSubalgebraOf	ScottDomains.A7Thm26Arity	96	concept	-	"S is a subalgebra of the fixed algebra", closed under each operation; a predicate
+9	ScottDomains.R49.Agent7.IsAlgEmbedding	ScottDomains.A7Thm26Arity	104	concept	-	"h is an isomorphism onto a subalgebra"; a predicate the printed conclusion is phrased with
+10	ScottDomains.R49.Agent7.ArgwiseContinuous	ScottDomains.A7Thm26Arity	133	concept	-	continuity of the operations argumentwise; a hypothesis shape, not an assertion
+11	ScottDomains.R49.Agent7.Theorem26Printed	ScottDomains.A7Thm26Arity	145	claim	refuted	Theorem 26 exactly as printed; not_thm26Printed_of_two_zero_arities refutes it for any signature with two 0-ary slots, including the paper's own (2,0,0,0,0,0)
+12	ScottDomains.R49.Agent7.Thm26Printed	ScottDomains.A7Thm26Arity	152	alias	-	r0050 alias of row 11
+13	ScottDomains.Atomless.Legal	ScottDomains.Atomless	288	concept	-	the side condition on a construction step (bounded pair, no late acquisition); a predicate the construction is stated over
+14	ScottDomains.ClosureProperties.SelectsGreatest	ScottDomains.ClosureProperties.Powerdomain	68	concept	-	"M selects greatest approximants", the pre-order form of normal-subposet-with-projection; a predicate
+15	ScottDomains.IsNonBotSum	ScottDomains.CoalescedSum	82	concept	-	names the non-bottom injections of a coalesced sum; 153 references, all as a predicate
+16	ScottDomains.Colimit.Theorem29Second	ScottDomains.Colimit	1051	claim	refuted	Theorem 29's second sentence without the paper's word "domain"; R45.Agent3.not_thm29Second refutes it at E := Flat (Set ℕ)
+17	ScottDomains.Colimit.Thm29Second	ScottDomains.Colimit	1055	alias	-	r0050 alias of row 16
+18	ScottDomains.Colimit.Lemma30Arrow	ScottDomains.Colimit	1063	claim	open	Lemma 30's → conjunct at V; implied by Lemma30AtV (R45.Agent3.lemma_30_arrow_of_lemma30AtV)
+19	ScottDomains.Colimit.Lem30Arrow	ScottDomains.Colimit	1065	alias	-	r0050 alias of row 18
+20	ScottDomains.Combinator.Retracts	ScottDomains.CombinatorRep	94	concept	-	"V is a retract of U in §7's sense", the paper's (F⁻,F⁺) existentially quantified; a property of a pair of carriers
+21	ScottDomains.ScottHom.IsStepPair	ScottDomains.CompactFunction	51	concept	-	"the pair (k,e) names the step function g"; a naming relation
+22	ScottDomains.Computable.IsComputable	ScottDomains.ComputableFunction	96	concept	-	the paper's DEFINITION of a computable function, verbatim; a definition, not a result
+23	ScottDomains.Computable.IsUniformlyComputable	ScottDomains.ComputableFunction	103	concept	-	the uniform strengthening of row 22; explicitly not the paper's wording
+24	ScottDomains.R47.Agent2.Consistent	ScottDomains.Effective.A2Compactness	331	concept	-	the consistency condition on a set of compact pairs; bddAbove_stepsOf_iff proves it is exactly boundedness of the step functions
+25	ScottDomains.R47.Agent3.DomainOperator.Defined	ScottDomains.Effective.A3Operator	76	concept	-	a structure field: the pairs of domains at which an operator is defined
+26	ScottDomains.R49.Agent3.StepFunctionsDecidableCompactGuard	ScottDomains.Effective.A3StepDecidable	147	concept	-	superseded transcription kept verbatim for audit; its own docstring says "not a claim of the paper and must not be counted as an open result"
+27	ScottDomains.R49.Agent3.ScottHomCRecursive	ScottDomains.Effective.A3StepDecidable	184	concept	-	the recursion-theoretic residue over OUR consistency-guarded enumeration; the paper names no tie-break, so this is not a printed sentence. It is the ROOT of the Theorem 7 arrow cluster and carries r0052's first `sorry`
+28	ScottDomains.R49.Agent3.StrictStepFunctionsDecidable	ScottDomains.Effective.A3StepDecidable	304	claim	open	Theorem 7's third sentence at proof-sentence strength, "similar facts hold for D ⊸ E"; a printed sentence
+29	ScottDomains.R49.Agent3.StrictHomCRecursive	ScottDomains.Effective.A3StepDecidable	355	concept	-	the strict residue, the ⊸ counterpart of row 27; our enumeration, not a printed sentence
+30	ScottDomains.R49.Agent4.NormAt	ScottDomains.Effective.A4Recursion	333	concept	-	the relation a search runs on: the m-th finite basis set is normal and contains the n-th
+31	ScottDomains.R49.Agent4.JoinIdxAt	ScottDomains.Effective.A4Recursion	490	concept	-	the predicate the join search runs on, total by construction on unbounded index sets
+32	ScottDomains.Effective.StepFunctionsDecidable	ScottDomains.Effective.FunctionSpace	585	claim	open	Theorem 7's proof sentence, printed p. 12, quoted exactly; derived from row 27 by stepFunctionsDecidable_of_scottHomC
+33	ScottDomains.Effective.Theorem7ArrowRecursive	ScottDomains.Effective.FunctionSpace	615	claim	open	Theorem 7's second sentence at the paper's intended strength; derived from row 27 by theorem_7_arrowRecursive_of_scottHomC
+34	ScottDomains.Effective.Theorem7StrictRecursive	ScottDomains.Effective.FunctionSpace	630	claim	open	Theorem 7's third sentence at recursion-theoretic strength; derived from row 29 by theorem_7_strictRecursive_of_strictHomC
+35	ScottDomains.FpEmbedding.TwoMub.le	ScottDomains.FinitaryProjectionEmbedding	295	concept	-	the order relation on a finite counterexample poset
+36	ScottDomains.IsFinitaryClosure	ScottDomains.FinitaryProjectionPoset	109	concept	-	"r ∘ r = r ⊒ id with im(r) a domain", the dual of IsFinitaryProjection
+37	ScottDomains.Flat.le	ScottDomains.Flat	79	concept	-	the flat order, as a match; the LE instance is built from it
+38	ScottDomains.Flat.omegaTest	ScottDomains.FlatOmega	82	concept	-	the paper's example map f : ω⊤ → O; a definition, the counterexample theorem is stated about it
+39	ScottDomains.Flat.SmythTrivial	ScottDomains.FlatPowerdomain	308	concept	-	"a point of the Smyth basis is trivial", the paper's word; smyth_le_bot_iff is stated about it
+40	ScottDomains.Iwamura.IsWellOrderedSet	ScottDomains.Iwamura	101	concept	-	every nonempty subset has a least element; the order-theoretic well-ordering condition
+41	ScottDomains.Iwamura.HasWellOrderedSuprema	ScottDomains.Iwamura	107	concept	-	suprema of well-ordered chains; the weakest of this file's three completeness hypotheses
+42	ScottDomains.Iwamura.HasChainSuprema	ScottDomains.Iwamura	111	concept	-	suprema of nonempty chains; a completeness hypothesis
+43	ScottDomains.Iwamura.HasDirectedSuprema	ScottDomains.Iwamura	115	concept	-	suprema of nonempty directed sets; a completeness hypothesis
+44	ScottDomains.Iwamura.HasWellOrderedInfima	ScottDomains.Iwamura	563	concept	-	the dual hypothesis Jung's Corollary 1.3 leaves to be discharged
+45	ScottDomains.JungBicomplete.IsOrdinalCodirected	ScottDomains.JungBicomplete	454	concept	-	Jung's αᵒᵖ stated intrinsically as a property of a set; avoids carrying an ordinal index
+46	ScottDomains.JungNets.HasChainInfima	ScottDomains.JungNets	211	concept	-	infima of nonempty chains; the weaker hypothesis property m consumes
+47	ScottDomains.JungNets.Thm137	ScottDomains.JungNets	343	alias	-	r0050 alias of JungNets.Theorem137, which is PROVED (R45.Agent5.jung_theorem_1_37, uncond=2) and therefore absent from this population
+48	ScottDomains.JungNets.Thm137Chains	ScottDomains.JungNets	356	alias	-	r0050 alias of JungNets.Theorem137Chains, likewise proved (R45.Agent5.jung_theorem_1_37_chains)
+49	ScottDomains.JungSFP.HasTwoMubBelow	ScottDomains.JungSFP	656	concept	-	the failure of Jung's condition (vii); the shape jung_lemma_2_13 consumes
+50	ScottDomains.JungSFP.HasAtMostOneMubBelow	ScottDomains.JungSFP	670	concept	-	the uniqueness half of Jung's condition (vii); a property
+51	ScottDomains.Kleene.NatBot.le	ScottDomains.Kleene.Factorial	65	concept	-	the flat order on N⊥; the PartialOrder instance is built from it
+52	ScottDomains.Kleene.NatBot.HasVal	ScottDomains.Kleene.Factorial	86	concept	-	"s contains a defined value", the condition sSup splits on
+53	ScottDomains.LemThirty.Lemma30	ScottDomains.LemThirty	229	claim	refuted	Lemma 30 with the carrier quantified; R46.Agent1.not_forall_lemma30 refutes the universal closure via Lemma 28's conjuncts at Flat Empty. The instance at V (row 54) is the unrefuted claim
+54	ScottDomains.LemThirty.Lemma30AtV	ScottDomains.LemThirty	282	claim	open	Lemma 30 at §7.4's own V; derived from row 58 by R49.Agent6.lemma_30_atV_of_thm29Normal
+55	ScottDomains.LemThirty.Theorem29SecondAtDomains	ScottDomains.LemThirty	299	claim	open	Theorem 29's second sentence at the paper's "bifinite domain"; derived from row 58 by theorem_29_secondAtDomains_of_thm29Normal
+56	ScottDomains.LemThirty.Thm29SecondAtDomains	ScottDomains.LemThirty	303	alias	-	r0050 alias of row 55
+57	ScottDomains.LemThirty.Retracts	ScottDomains.LemThirty	326	concept	-	"V retracts onto E", IsEmbeddingProjectionPair with the conjunction unfolded; a predicate
+58	ScottDomains.LemThirty.Theorem29Normal	ScottDomains.LemThirty	512	claim	open	the step Theorem 29's second sentence is missing, carried by [Gun87]; the ROOT of the Theorem 29 / Lemma 30 cluster and carrier of r0052's second `sorry`
+59	ScottDomains.LemThirty.Thm29Normal	ScottDomains.LemThirty	517	alias	-	r0050 alias of row 58
+60	ScottDomains.Morphism.SeparatelyScottContinuous	ScottDomains.Morphism	191	concept	-	§4.1's two numbered conditions: continuity in each argument separately
+61	ScottDomains.PRep.Lemma28	ScottDomains.PRep	267	claim	refuted	Lemma 28 with the carrier quantified; R45.Agent2.not_forall_lemma28 refutes it at Flat Empty and not_forall_lemma28_bcd shows no instance binder closes it. PRep.Lemma28AtU is PROVED (R45.Agent4.lemma28AtU) and absent from this population
+62	ScottDomains.Plotkin.FinCompacts.le	ScottDomains.Powerdomain.Plotkin	140	concept	-	the Egli–Milner ordering; the order instance is built from it
+63	ScottDomains.ScottHom.IsEmbeddingProjectionPair	ScottDomains.Projection	44	concept	-	"(g,f) is an embedding–projection pair", stated pointwise; a predicate with 21 references
+64	ScottDomains.PropertyM.HasOmegaOpInfima	ScottDomains.PropertyM	228	concept	-	infima of decreasing sequences, the ωᵒᵖ fragment of bicompleteness
+65	ScottDomains.PropertyM.HasOmegaOpBoundsAbove	ScottDomains.PropertyM	235	concept	-	the hypothesis the mub proof actually consumes, relative to the set whose mubs are wanted
+66	ScottDomains.PropertyM.Thm137Omega	ScottDomains.PropertyM	753	alias	-	r0050 alias of PropertyM.Theorem137Omega, which is PROVED (R45.Agent5.jung_theorem_1_37_omega)
+67	ScottDomains.Recursive.Solves	ScottDomains.RecursiveDomain	79	concept	-	"D solves the equation X ≅ F(X)"; a predicate on a cpo and an operator
+68	ScottDomains.Recursive.IsClosureOf	ScottDomains.RecursiveDomain	111	concept	-	"E is a closure of D", E ≅ im(r) for some r in Fc(D); a relation
+69	ScottDomains.Recursive.IsCountablyBasedAlgebraicLattice	ScottDomains.RecursiveDomain	213	concept	-	the paper's "(countably based) algebraic lattice" as a predicate on Cpo
+70	ScottDomains.Recovered.IsBifiniteViaProjections	ScottDomains.Skeleton.Recovered	220	concept	-	"bifinite" in Gunter & Scott's own §6 words; a definition theorems are stated about
+71	ScottDomains.IsClosurePair	ScottDomains.UniversalDomain	82	concept	-	"r is a closure with section s" (§7), stated pointwise; a predicate with 16 references
+72	ScottDomains.IsRepresentable	ScottDomains.UniversalDomain	335	concept	-	the paper's §7 definition of a representable operator, the displayed diagram equation; a definition
