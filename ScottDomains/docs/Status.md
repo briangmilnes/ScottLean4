@@ -90,27 +90,7 @@ Each is a Lean `theorem` ending in `sorry`, so the build reports it (r0052):
 | 2 | the same over `K(D ⊸ E)` — no proved reduction carries recursiveness across `K(D ⊸ E) ↪ K(D → E)` | `R49.Agent3.strictHomCRecursive_unproven` | Theorem 7, strict |
 | 3 | `Theorem29Normal` at infinite `K(E)` — realize the type over the tower's image, not the η-image; finite bases are proven | `LemThirty.theorem29Normal_unproven` | Theorem 29, Lemma 30 |
 
-## 5. Refuted — a statement proved false, with a kernel-checked `¬`
-
-| # | Kind | Count |
-| -- | ---- | ----: |
-| 1 | the paper's own statement | 1 |
-| 2 | our transcription of it | 4 |
-| 3 | — total | **5** |
-
-| # | Statement refuted | Whose | Refutation | Witness |
-| -- | ---------------- | ----- | ---------- | ------- |
-| 1 | Theorem 26 as printed | **paper** | `not_thm26Printed_of_two_zero_arities` | any signature with two 0-ary slots, including the paper's own `(2,0,0,0,0,0)` |
-| 2 | Theorem 29 sentence 2, without the word "domain" | ours | `not_thm29Second` | `E := Flat (Set ℕ)` |
-| 3 | `Theorem29Normal` with `[Domain E]` deleted | ours | `not_thm29NormalWithoutDomain` | `A∞` is countable, `Flat (Set ℕ)` is bifinite with uncountable basis |
-| 4 | Lemma 28 with the carrier quantified | ours | `not_forall_lemma28`, and `not_forall_lemma28_bcd` shows no instance binder rescues it | `Flat Empty` |
-| 5 | Lemma 30 with the carrier quantified | ours | `not_forall_lemma30` | `Flat Empty`, via Lemma 28's conjuncts |
-
-Rows 2–5 are our own over-general transcriptions, and each has a corrected
-statement that is not refuted: `Thm29SecondAtDomains`, `Theorem29Normal`,
-`PRep.Lemma28AtU` (**proved**), `Lemma30AtV`. Only row 1 convicts the paper.
-
-## 6. Proof work state
+## 5. Proof work state
 
 | # | Kind | Left with a `sorry` |
 | -- | ---- | ------------------: |
