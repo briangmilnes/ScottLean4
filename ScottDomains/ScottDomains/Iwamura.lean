@@ -611,14 +611,18 @@ theorem hasChainInfima_iff_isBicomplete {D : Type u} [Preorder D] :
 remaining obligation as infima of nonempty chains, noting that the passage from
 chains to filtered sets was Jung's Theorem 1.2 and was unavailable. It is
 available now, so the two remainders are the same proposition. -/
-theorem thm137_of_thm137Chains {D : Type u} [CompletePartialOrder D]
-    (h : JungNets.Thm137Chains D) : JungNets.Thm137 D :=
+theorem jung_theorem_1_37_of_jung_theorem_1_37_chains {D : Type u} [CompletePartialOrder D]
+    (h : JungNets.Theorem137Chains D) : JungNets.Theorem137 D :=
   fun hAlg => isBicomplete_of_hasChainInfima (h hAlg)
 
+alias thm137_of_thm137Chains := jung_theorem_1_37_of_jung_theorem_1_37_chains
+
 /-- The two forms of Jung's Theorem 1.37 recorded in `JungNets` are equivalent. -/
-theorem thm137Chains_iff_thm137 {D : Type u} [CompletePartialOrder D] :
-    JungNets.Thm137Chains D ↔ JungNets.Thm137 D :=
-  ⟨thm137_of_thm137Chains, JungNets.Thm137.toChains⟩
+theorem jung_theorem_1_37_chains_iff_jung_theorem_1_37 {D : Type u} [CompletePartialOrder D] :
+    JungNets.Theorem137Chains D ↔ JungNets.Theorem137 D :=
+  ⟨thm137_of_thm137Chains, JungNets.Theorem137.toChains⟩
+
+alias thm137Chains_iff_thm137 := jung_theorem_1_37_chains_iff_jung_theorem_1_37
 
 /-- **The obligation this round is left with, in its weakest form.**
 
@@ -628,8 +632,10 @@ indexed by an ordinal alone. A proof of Jung's Theorem 1.37 may therefore assume
 a well-ordered index throughout, which is exactly what his retraction argument
 onto `A ∪ αᵒᵖ` requires, and need never return to arbitrary chains or filtered
 sets. -/
-theorem thm137Chains_of_wellOrderedInfima {D : Type u} [CompletePartialOrder D]
-    (h : IsAlgebraic (ScottHom D D) → HasWellOrderedInfima D) : JungNets.Thm137Chains D :=
+theorem jung_theorem_1_37_chains_of_wellOrderedInfima {D : Type u} [CompletePartialOrder D]
+    (h : IsAlgebraic (ScottHom D D) → HasWellOrderedInfima D) : JungNets.Theorem137Chains D :=
   fun hAlg => hasChainInfima_of_hasWellOrderedInfima (h hAlg)
+
+alias thm137Chains_of_wellOrderedInfima := jung_theorem_1_37_chains_of_wellOrderedInfima
 
 end ScottDomains.Iwamura

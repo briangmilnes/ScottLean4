@@ -472,7 +472,7 @@ spent: the top region splits on membership in `M`, and the split is monotone onl
 because a member of `M` is minimal among **all** upper bounds of `{x₁, x₂}`, not
 merely among the compact ones. `minimal_upperBounds_of_mem_minimalUpperBounds`
 supplies that. -/
-theorem lemma213 {x₁ x₂ : D} (hx₁ : IsCompactElement x₁) (hx₂ : IsCompactElement x₂)
+theorem jung_lemma_2_13 {x₁ x₂ : D} (hx₁ : IsCompactElement x₁) (hx₂ : IsCompactElement x₂)
     (hMinf : (minimalUpperBounds (compacts D) ({x₁, x₂} : Set D)).Infinite)
     [IsAlgebraic E] {a₁ a₂ b₁ b₂ c : E} (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂)
     (hb₁ : b₁ ∈ minimalUpperBounds (compacts E) ({a₁, a₂} : Set E))
@@ -639,6 +639,8 @@ theorem lemma213 {x₁ x₂ : D} (hx₁ : IsCompactElement x₁) (hx₂ : IsComp
     exact hgd
   exact hne (le_antisymm hb₁b₂ (hb₂.2 hb₁.1 hb₁b₂))
 
+alias lemma213 := jung_lemma_2_13
+
 end Lemma213
 
 /-! ## Theorem 2.14 -/
@@ -692,7 +694,7 @@ proved here, and both live outside step 2:
 
 No `sorry` stands in for either: the statement below is what the kernel checks,
 and it is weaker than Jung's in exactly the two named ways. -/
-theorem thm214 (hAlg : IsAlgebraic (ScottHom D D)) :
+theorem jung_theorem_2_14 (hAlg : IsAlgebraic (ScottHom D D)) :
     (∀ x₁ x₂ : D, IsCompactElement x₁ → IsCompactElement x₂ →
         (minimalUpperBounds (compacts D) ({x₁, x₂} : Set D)).Finite) ∨
       HasAtMostOneMubBelow D := by
@@ -702,6 +704,8 @@ theorem thm214 (hAlg : IsAlgebraic (ScottHom D D)) :
     obtain ⟨a₁, a₂, ha₁, ha₂, x, m₁, m₂, hm₁, hm₂, hx1, hx2, hne⟩ := hL
     exact lemma213 hx₁ hx₂ hinf ha₁ ha₂ hm₁ hm₂ hne hx1 hx2 hAlg
   · exact Or.inr hL
+
+alias thm214 := jung_theorem_2_14
 
 end Thm214
 
@@ -766,7 +770,7 @@ reuses `jungFun` unchanged, so the whole continuity proof is already paid for by
 `lemma213`, and its injectivity is one evaluation at a point of `S`. Spreen's
 `ω ^ ω` indexing would need a chain construction and a separate continuity
 argument for no gain — the cardinality contradiction is the same either way. -/
-theorem lemma217 (hAlg : IsAlgebraic (ScottHom D D))
+theorem jung_lemma_2_17 (hAlg : IsAlgebraic (ScottHom D D))
     (hCount : (compacts (ScottHom D D)).Countable)
     {a₁ a₂ : D} (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂)
     (hm : HasCompleteMub (compacts D) ({a₁, a₂} : Set D)) :
@@ -882,6 +886,8 @@ theorem lemma217 (hAlg : IsAlgebraic (ScottHom D D))
   obtain ⟨f, hf⟩ := exists_surjective_nat (Set ↥M)
   exact Function.cantor_surjective (f ∘ Function.invFun (Set.Infinite.natEmbedding M hMi))
     (hf.comp (Function.invFun_surjective (Set.Infinite.natEmbedding M hMi).injective))
+
+alias lemma217 := jung_lemma_2_17
 
 end Lemma217
 

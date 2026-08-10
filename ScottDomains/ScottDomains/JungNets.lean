@@ -337,8 +337,10 @@ stated a fact about this module as a fact about the development.
 3. "absent from the library" — the library meant is Mathlib, and there the survey
    stands (r0046 confirmed `JungNets.lean:102` TRUE). It is not absent from this
    development: `Iwamura.lean` proves it. -/
-def Thm137 (D : Type*) [CompletePartialOrder D] : Prop :=
+def Theorem137 (D : Type*) [CompletePartialOrder D] : Prop :=
   IsAlgebraic (ScottHom D D) → IsBicomplete D
+
+alias Thm137 := Theorem137
 
 /-- **The minimal remaining obligation**, weaker than `Thm137`: infima of nonempty
 *chains* rather than of all filtered sets.
@@ -348,10 +350,15 @@ Everything below factors through this, because Zorn's lemma quantifies over chai
 Theorem 1.37 the route to Theorem 18 actually spends: not the full dual
 directed-completeness, only its restriction to chains. A later round proving
 either one discharges every theorem in this file. -/
-def Thm137Chains (D : Type*) [CompletePartialOrder D] : Prop :=
+def Theorem137Chains (D : Type*) [CompletePartialOrder D] : Prop :=
   IsAlgebraic (ScottHom D D) → HasChainInfima D
 
-theorem Thm137.toChains (h : Thm137 D) : Thm137Chains D := fun hAlg => (h hAlg).hasChainInfima
+alias Thm137Chains := Theorem137Chains
+
+theorem Theorem137.toChains (h : Theorem137 D) : Theorem137Chains D :=
+  fun hAlg => (h hAlg).hasChainInfima
+
+alias Thm137.toChains := Theorem137.toChains
 
 variable [IsAlgebraic D]
 
@@ -365,9 +372,12 @@ variable [IsAlgebraic D]
 
 This theorem is the first of the two, modulo `Thm137`. It is the shape the
 Theorem 18 assembly consumes, so nothing downstream has to restate it. -/
-theorem forall_hasCompleteMub_of_thm137 (h : Thm137 D) (hAlg : IsAlgebraic (ScottHom D D)) :
+theorem forall_hasCompleteMub_of_jung_theorem_1_37 (h : Theorem137 D)
+    (hAlg : IsAlgebraic (ScottHom D D)) :
     ∀ v : Set D, v.Finite → v ⊆ compacts D → HasCompleteMub (compacts D) v :=
   fun _ hv hvc => hasCompleteMub_of_hasChainInfima (h.toChains hAlg) hv hvc
+
+alias forall_hasCompleteMub_of_thm137 := forall_hasCompleteMub_of_jung_theorem_1_37
 
 /-- **`JungSFP.lemma217` with its property-m hypothesis discharged.**
 
@@ -375,12 +385,15 @@ theorem forall_hasCompleteMub_of_thm137 (h : Thm137 D) (hAlg : IsAlgebraic (Scot
 hypothesis because Jung's Theorem 1.37 was absent. This is the same statement with
 that hypothesis replaced by `Thm137 D`, and the proof is one application — the
 shapes agree, so `JungSFP.lean` needed no edit. -/
-theorem lemma217_of_thm137 (h : Thm137 D) (hAlg : IsAlgebraic (ScottHom D D))
+theorem jung_lemma_2_17_of_jung_theorem_1_37 (h : Theorem137 D)
+    (hAlg : IsAlgebraic (ScottHom D D))
     (hCount : (compacts (ScottHom D D)).Countable)
     {a₁ a₂ : D} (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
     (minimalUpperBounds (compacts D) ({a₁, a₂} : Set D)).Finite :=
   JungSFP.lemma217 hAlg hCount ha₁ ha₂
     (hasCompleteMub_pair (h.toChains hAlg) ha₁ ha₂)
+
+alias lemma217_of_thm137 := jung_lemma_2_17_of_jung_theorem_1_37
 
 /-- **Property M at every pair of compact elements**, modulo `Thm137` and
 countability of `K(D → D)` — the first disjunct of `JungSFP.thm214`, proved
@@ -390,11 +403,14 @@ Jung's Lemma 1.29 ("a poset with property m has property M if and only if the
 empty set and each pair of elements have a finite set of minimal upper bounds")
 lifts this from pairs to all finite sets; that is agent1's stream, and this is the
 input it takes. -/
-theorem propertyM_pairs_of_thm137 (h : Thm137 D) (hAlg : IsAlgebraic (ScottHom D D))
+theorem propertyM_pairs_of_jung_theorem_1_37 (h : Theorem137 D)
+    (hAlg : IsAlgebraic (ScottHom D D))
     (hCount : (compacts (ScottHom D D)).Countable) :
     ∀ x₁ x₂ : D, IsCompactElement x₁ → IsCompactElement x₂ →
       (minimalUpperBounds (compacts D) ({x₁, x₂} : Set D)).Finite :=
   fun _ _ hx₁ hx₂ => lemma217_of_thm137 h hAlg hCount hx₁ hx₂
+
+alias propertyM_pairs_of_thm137 := propertyM_pairs_of_jung_theorem_1_37
 
 end Thm137
 

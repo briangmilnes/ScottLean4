@@ -333,13 +333,15 @@ equation turns the left side into `im(r)`.
 
 The hypothesis is `U` a **cpo**, exactly as stated — no algebraicity, no
 countable basis, and no `Domain U`. -/
-theorem thm21 {U : Type u} [CompletePartialOrder U] {F : Cpo.{u} → Cpo.{u}}
+theorem theorem_21 {U : Type u} [CompletePartialOrder U] {F : Cpo.{u} → Cpo.{u}}
     (hF : IsRepresentable U F) : IsSolvable F := by
   obtain ⟨R, hR, hiso⟩ := hF
   obtain ⟨r, hr⟩ := exists_fixedPoint hR
   refine ⟨r.image, ?_⟩
   have h := hiso r
   rwa [hr] at h
+
+alias thm21 := theorem_21
 
 /-! ### Diagonalizing a binary representable operator
 

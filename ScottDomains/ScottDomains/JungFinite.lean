@@ -227,7 +227,7 @@ which is exactly what `JungSFP.lemma217` delivers — gives property M at every
 finite set of compact elements, which is what `isBifinite_iff_mubClosure`
 consumes. The empty-set clause is discharged by
 `minimalUpperBounds_compacts_empty`. -/
-theorem lemma129
+theorem jung_lemma_1_29
     (hm : ∀ v : Set α, v ⊆ compacts α → v.Finite → HasCompleteMub (compacts α) v)
     (hpair : ∀ a₁ a₂ : α, IsCompactElement a₁ → IsCompactElement a₂ →
       (minimalUpperBounds (compacts α) ({a₁, a₂} : Set α)).Finite)
@@ -235,6 +235,8 @@ theorem lemma129
     (minimalUpperBounds (compacts α) u).Finite :=
   minimalUpperBounds_finite_of_pairs hm (fun a ha b hb => hpair a b ha hb)
     (by rw [minimalUpperBounds_compacts_empty]; exact Set.finite_singleton _) hu huc
+
+alias lemma129 := jung_lemma_1_29
 
 end Lemma129Compacts
 
@@ -648,7 +650,7 @@ König's lemma (see the module docstring):
 5. Corollary 1.36 (`hcor`) makes `c` compact, and
    `Section62.not_isCompactElement_of_isLUB_strictMono` says the least upper bound
    of a strictly ascending sequence is not. -/
-theorem lemma22 (hcor : FixedPointOfCompactDeflationIsCompact α)
+theorem jung_lemma_2_2 (hcor : FixedPointOfCompactDeflationIsCompact α)
     (hM : ∀ v : Set α, v ⊆ compacts α → v.Finite → (minimalUpperBounds (compacts α) v).Finite)
     {u : Set α} (hu : u.Finite) (huc : u ⊆ compacts α) :
     (mubClosure (compacts α) u).Finite := by
@@ -672,6 +674,8 @@ theorem lemma22 (hcor : FixedPointOfCompactDeflationIsCompact α)
   rw [himg] at hcont
   exact not_isCompactElement_of_isLUB_strictMono hxmono hlub
     (hcor g hgcomp hgle _ (hcont.unique hlub))
+
+alias lemma22 := jung_lemma_2_2
 
 end Lemma22Main
 
@@ -703,7 +707,7 @@ Countability of `K(D → D)` enters exactly once, through `lemma217`, via
 `Domain.countable_compacts` on the function space. Without it the statement is
 false — the algebraic L-domains are the counterexamples — so its appearance here
 is not incidental. -/
-theorem thm18_of_propertyM (hcor : FixedPointOfCompactDeflationIsCompact α)
+theorem theorem_18_of_propertyM (hcor : FixedPointOfCompactDeflationIsCompact α)
     (hm : ∀ v : Set α, v ⊆ compacts α → v.Finite → HasCompleteMub (compacts α) v) :
     IsBifinite α := by
   have hpair : ∀ a₁ a₂ : α, IsCompactElement a₁ → IsCompactElement a₂ →
@@ -717,6 +721,8 @@ theorem thm18_of_propertyM (hcor : FixedPointOfCompactDeflationIsCompact α)
     fun v hvc hvfin => lemma129 hm hpair hvfin hvc
   exact isBifinite_iff_mubClosure.mpr
     ⟨fun v hvfin hvc => hm v hvc hvfin, fun u hufin huc => lemma22 hcor hM hufin huc⟩
+
+alias thm18_of_propertyM := theorem_18_of_propertyM
 
 end Assembly
 

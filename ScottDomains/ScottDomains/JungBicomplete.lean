@@ -426,9 +426,11 @@ The two halves composed: the function-space retraction pair, then "a retract of 
 continuous dcpo is continuous". This is the step Jung applies to `D′ = A ∪ αᵒᵖ`
 in the proof of Theorem 1.37, and it is the one of that proof's five ingredients
 that costs nothing beyond the function space the development already has. -/
-theorem prop122 (h : IsRetractPair r i) (hFS : IsContinuousDcpo (ScottHom D D)) :
+theorem jung_proposition_1_22 (h : IsRetractPair r i) (hFS : IsContinuousDcpo (ScottHom D D)) :
     IsContinuousDcpo (ScottHom E E) :=
   IsContinuousDcpo.of_retractPair h.sandwichHom hFS
+
+alias prop122 := jung_proposition_1_22
 
 end Retract
 
