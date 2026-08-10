@@ -1,0 +1,49 @@
+# a8-claim-check 20260810-141209 agent8
+# root /home/milnes/projects/ScottLean4-agent8
+== 1. environment dump ==
+a7-gen-dump: 118 modules -> /tmp/claude-1000/-home-milnes-projects-ScottLean4/98e1d10d-3eb9-440a-82f5-e930a0a93589/scratchpad/A8Dump.lean
+a8-r49-env: wrote /tmp/a8-claim-check.370362/env-names.tsv
+267510 /tmp/a8-claim-check.370362/env-names.tsv
+== 2. citation resolution ==
+a8-r49-cites: scanned 118 files, 9013 citations
+scanned          9013
+shape-filtered   5179
+stoplisted       14
+considered       3820
+exact            721
+pkg-suffix       2878
+module           107
+namespace        11
+ext-suffix       16
+absence-claim    20
+wrong-module-qualifier 41
+wrong-qualifier  7
+nonexistent      19
+distinct-reported 68
+shape filter discarded 4390 citations that WOULD have resolved (recall cost)
+wrote /tmp/a8-claim-check.370362/unresolved.tsv
+== 3. declaration index ==
+wrote /tmp/a8-claim-check.370362/decls.tsv (2962 lines)
+== 4. claim scan ==
+sentences      9333
+with-citation  6836
+hedged         1058
+tested-P1P2    7
+tested-P3      26
+external-suppressed 2
+unresolvable   52
+P1             0
+P2             0
+P3             2
+P3b            1
+P3c            0
+P4             0
+rows           3
+wrote /tmp/a8-claim-check.370362/claims.tsv
+== 5. absence-claim locus ==
+unbackticked absence claims: 52
+  QUOTE      3
+  MATHLIB    5
+  PKG        5
+  MATH      39
+wrote /tmp/a8-claim-check.370362/absence.tsv

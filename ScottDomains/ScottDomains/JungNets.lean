@@ -77,10 +77,18 @@ theorem below that needs it takes it as an explicit hypothesis. Two deviations
 from Jung's statement, both weakenings of what is assumed to be proved:
 
 * Jung's hypothesis is "continuous function space"; `Thm137` assumes the stronger
-  `IsAlgebraic (ScottHom D D)`, because the development has no predicate for a
-  continuous dcpo. Algebraic implies continuous, so `Thm137` is the weaker
-  proposition, and it is the one Theorem 18 consumes — `JungSFP.lean` records the
-  identical deviation for `lemma213`.
+  `IsAlgebraic (ScottHom D D)`, because **at this point in the import order** no
+  predicate for a continuous dcpo is available. Algebraic implies continuous, so
+  `Thm137` is the weaker proposition, and it is the one Theorem 18 consumes —
+  `JungSFP.lean` records the identical deviation for `lemma213`.
+
+  *Correction, r0049/agent8.* The clause read "because the development has no
+  predicate for a continuous dcpo", which was a claim about the whole package and
+  is false: `JungBicomplete.IsContinuousDcpo` is that predicate, with
+  `isContinuousDcpo_of_isAlgebraic` proving the implication this deviation
+  appeals to. `JungBicomplete.lean` imports this module, so the predicate cannot
+  be used *here* — the scope, not the claim, is what the sentence got wrong. It
+  now names its scope, per `docs/ScopedClaims.md`.
 * Jung's Theorem 1.42 ("a dcpo with algebraic function space is itself algebraic")
   is not formalized, so `[IsAlgebraic D]` stays an explicit instance hypothesis
   wherever item 3 is used rather than being derived from the function space.
@@ -188,10 +196,18 @@ def IsBicomplete (D : Type*) [Preorder D] : Prop :=
 **chain** has a greatest lower bound.
 
 Jung passes from filtered sets to chains via his Theorem 1.2 (Iwamura's lemma),
-which is not available here; but the passage is only needed in the direction
-`chains ⟹ filtered sets`, and this development never needs that direction. Stating
-the results below over `HasChainInfima` makes them strictly stronger and removes
-the dependency. -/
+which is not available **in this module**; but the passage is only needed in the
+direction `chains ⟹ filtered sets`, and this development never needs that
+direction. Stating the results below over `HasChainInfima` makes them strictly
+stronger and removes the dependency.
+
+*Correction, r0049/agent8.* The clause read "which is not available here", read
+package-wide by every later round. It is false package-wide: `Iwamura.lean`
+proves Theorem 1.2 — `exists_chain_directed_cover` is Iwamura's lemma itself and
+`hasDirectedSuprema_of_hasWellOrderedSuprema` is Markowsky's theorem — and
+`Iwamura.thm137Chains_iff_thm137` makes the chain and filtered forms the same
+proposition. `Iwamura.lean` imports this module, so the results are unavailable
+*here* and only here. -/
 def HasChainInfima (D : Type*) [Preorder D] : Prop :=
   ∀ c : Set D, c.Nonempty → IsChain (· ≤ ·) c → ∃ i : D, IsGLB c i
 
@@ -298,13 +314,29 @@ variable {D : Type*} [CompletePartialOrder D]
 > A dcpo with continuous function space is bicomplete.
 
 Stated with `IsAlgebraic (ScottHom D D)` in place of Jung's "continuous function
-space", because the development has no predicate for a continuous dcpo; algebraic
-implies continuous, so this is the weaker proposition, and it is the one Theorem
-18 consumes. **This is not proved.** No `sorry` stands in for it: it appears only
-as an explicit hypothesis of the theorems below. See the module docstring for the
-five-item dependency list its proof needs and for the Mathlib survey showing that
-the first item — Iwamura's lemma, Jung's Theorem 1.2 — is absent from the
-library. -/
+space", because no predicate for a continuous dcpo is available **in this
+module**; algebraic implies continuous, so this is the weaker proposition, and it
+is the one Theorem 18 consumes. **This is not proved here.** No `sorry` stands in
+for it: it appears only as an explicit hypothesis of the theorems below. See the
+module docstring for the five-item dependency list its proof needs and for the
+Mathlib survey showing that the first item — Iwamura's lemma, Jung's Theorem 1.2
+— is absent from **Mathlib**.
+
+*Correction, r0049/agent8.* Three clauses were stale, each in the same way: they
+stated a fact about this module as a fact about the development.
+
+1. "the development has no predicate for a continuous dcpo" —
+   `JungBicomplete.IsContinuousDcpo` is one, with
+   `isContinuousDcpo_of_isAlgebraic`.
+2. "**This is not proved.**" — `R45.Agent5.thm137` proves `Thm137 D` for every
+   `D` with `[CompletePartialOrder D] [Domain D]`. That is a discharge **at** an
+   added instance binder and not of the `def` as written, which quantifies over
+   `[CompletePartialOrder D]` alone; the open case is the non-algebraic one.
+   `PropertyM.forall_hasCompleteMub` additionally removes `Thm137` from the route
+   to Theorem 18 entirely.
+3. "absent from the library" — the library meant is Mathlib, and there the survey
+   stands (r0046 confirmed `JungNets.lean:102` TRUE). It is not absent from this
+   development: `Iwamura.lean` proves it. -/
 def Thm137 (D : Type*) [CompletePartialOrder D] : Prop :=
   IsAlgebraic (ScottHom D D) → IsBicomplete D
 

@@ -77,6 +77,18 @@ ABSENCE_CUES = (
     # A bare "no `Name`" — the commonest phrasing of a zero-hit grep in these
     # docstrings, e.g. "and Mathlib has no `OrderIso.prodCongr`".
     "no `",
+    # --- the correction protocol (added r0049/agent8) ---------------------
+    # r0046 measured that CORRECTING a false claim leaves its site matching the
+    # sweep, because the protocol requires quoting the sentence being corrected
+    # (230 candidates before four corrections, 231 after). A corrected site that
+    # keeps firing forever is what makes a standing check unreadable, so the
+    # phrasings the protocol itself uses are cues that the quoted name is being
+    # cited AS ABSENT. Measured on this tree: 3 sites — `Colimit.lean:62`,
+    # `PRepFun.lean:667`, `Effective/A2Compactness.lean:63` — each a repaired or
+    # recorded defect whose only remaining mention is the repair.
+    "formerly said", "formerly read", "sentence read", "used to read",
+    "paragraph read", "clause read", "correction, r", "resolves to no constant",
+    "resolves nowhere", "exists nowhere", "names no constant",
 )
 # Cues deliberately NOT used, each having been measured to suppress a real
 # defect: "never" (`…not_maps_compacts`. It was never the…), "no such" (the
