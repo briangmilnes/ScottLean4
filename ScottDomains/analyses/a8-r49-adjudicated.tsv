@@ -1,0 +1,44 @@
+# r0049 / agent8 — ADJUDICATION LEDGER, continuing r0046/agent5's
+# `a5-r46-adjudicated.tsv`. Same columns, same verdict vocabulary, one grade
+# added.
+#
+# Every row is decided against the environment `lake build` produced at
+# 1365 jobs / 0 errors / 0 warnings / sorry 0, by a NAMED probe. No row is
+# decided by reading a source line, and no row is carried over from a report.
+#
+# A later round MUST NOT recount the raw sweep as progress. r0046 measured that
+# correcting a false claim leaves its site still matching the grep, because the
+# correction protocol requires quoting the sentence corrected: 230 candidates
+# before four corrections, 231 after. Subtract this ledger and r0046's first.
+#
+# verdict  FALSE     refuted by a probe. `corrected` = the prose was repaired in
+#                    this round; `owner` = the file belongs to another r0049
+#                    stream and the finding is handed over unrepaired.
+#          TRUE      confirmed by a probe.
+#          TRUE-r46  the same claim carries an r0046 verdict; the SITE moved and
+#                    the verdict is carried, not re-probed. Stated as such.
+#          TRUE-AT   the claim is true of the `def` as written and the
+#                    development discharges it AT an added instance binder. Both
+#                    halves have to be said or the sentence misleads.
+#          OPEN      the instrument cannot decide it; the reason is given.
+#
+# columns: site <TAB> verdict <TAB> probe <TAB> note
+
+ScottDomains/ScottDomains/Colimit.lean:59	FALSE	a8-r49-cites.sh	etaChain_not_wellDefined is in no resolution tier of 267510 constants; witness is stgEmb_ne_mk_eta (Colimit.lean:619), which :794 already cites correctly. THIRD sighting (r0044/agent7 row 6, r0047/agent1, r0049 plan). corrected r0049/agent8
+ScottDomains/ScottDomains/JungNets.lean:80	FALSE	a4-decl-query.lean	"the development has no predicate for a continuous dcpo": JungBicomplete.IsContinuousDcpo (JungBicomplete.lean:179) is one, with isContinuousDcpo_of_isAlgebraic at 0 Prop hypotheses. SCOPE error - JungBicomplete imports JungNets, so it is unavailable HERE and present package-wide. corrected r0049/agent8
+ScottDomains/ScottDomains/JungNets.lean:190	FALSE	a4-decl-query.lean	"Theorem 1.2 (Iwamura's lemma), which is not available here": Iwamura.exists_chain_directed_cover is Iwamura's lemma and Iwamura.hasDirectedSuprema_of_hasWellOrderedSuprema is Markowsky's theorem. SCOPE error, same import-order shape. corrected r0049/agent8
+ScottDomains/ScottDomains/JungNets.lean:301	FALSE	a4-decl-query.lean	same claim as :80, restated on the def. corrected r0049/agent8
+ScottDomains/ScottDomains/JungNets.lean:303	TRUE-AT	a4-decl-query.lean	"This is not proved" of Thm137. The def quantifies over [CompletePartialOrder D] alone; R45.Agent5.thm137 proves it for [CompletePartialOrder D] [Domain D] - a discharge AT an added instance binder, not of the def. PropertyM.forall_hasCompleteMub additionally removes Thm137 from the Theorem 18 route. corrected r0049/agent8 to state both
+ScottDomains/ScottDomains/PropertyM.lean:845	FALSE	a4-decl-query.lean	"Jung's Lemma 1.29 (pairs to all finite sets) is a separate result the development does not have": PropertyM.forall_hasCompleteMub (:945) proves property m at every finite set of compacts from the pair and empty cases, 100 lines BELOW the claim in the same file, and its own docstring names Lemma 1.29 as the step. Intra-file staleness. corrected r0049/agent8
+ScottDomains/ScottDomains/JungSFP.lean:754	FALSE	a4-decl-query.lean	"Jung's Theorem 1.37, which the development does not have": R45.Agent5.thm137 : JungNets.Thm137 D at [CompletePartialOrder D] [Domain D]. owner - JungSFP.lean is agent6's file in r0049; handed over unrepaired
+ScottDomains/ScottDomains/A3Thm29.lean:388	FALSE	a4-decl-query.lean	"Lemma 30's conjuncts 1 and 2 have no route in this development": R47.Agent4.rep_arrow_of_fpImagesBifinite and rep_strictArrow_of_fpImagesBifinite are a route that does not spend [BoundedComplete U]; its hypothesis FpImagesBifinite V is open, which is a REDUCTION and not the absence of a route. owner - agent5/agent6 territory in r0049; handed over unrepaired
+ScottDomains/ScottDomains/Effective/FunctionSpace.lean:527	FALSE	a4-decl-query.lean	"this development has no strict-step-function basis to enumerate": R46.Agent3.strictHomEnum with strictHomEnum_isCompactElement (0 hypotheses), exists_strictSteps_isLUB and strictHom : EffectivePresentation. The SAME claim at :322 was corrected in r0046 and this copy was missed. owner - agent3's file in r0049; handed over unrepaired
+ScottDomains/ScottDomains/Effective/A2Compactness.lean:63	FALSE	a8-r49-cites.sh	states its consequence "as not_forall_isCompactElement_ofPairs_iff_bddAbove", which resolves nowhere; the theorem proved is not_forall_isCompactElement_ofPairs_imp_bddAbove, and :507 says in prose that no converse exists. owner - agent3/agent4 territory in r0049; handed over unrepaired
+ScottDomains/docs/PaperInventory.md:285	TRUE	a8-r49-cites.sh	"There is no lem13_plotkin to prove": no constant with that component-boundary suffix among 267510; the absence is by design, Lemma 13 naming only D] and D[
+ScottDomains/ScottDomains/JungNets.lean:306	TRUE-r46	a5-r46-mathlib.lean (r0046)	"Iwamura's lemma is absent from the library" - the library is Mathlib, where r0046 confirmed it at JungNets.lean:102 (0 hits for Iwamura|Markowsky). Site moved; verdict carried, not re-probed
+ScottDomains/ScottDomains/Effective/FunctionSpace.lean:418	TRUE-r46	a5-r46-mathlib.lean (r0046)	"Mathlib has no bitwise computability at all" - r0046 confirmed the identical claim at FunctionSpace.lean:335 and :336. Site moved; verdict carried, not re-probed
+ScottDomains/ScottDomains/Flat.lean:24	OPEN	a8-r49-env.sh	"Mathlib has no discrete-order type synonym to feed WithBot". UNDECIDABLE IN THIS WORKTREE: the environment dump runs with --no-mathlib, because only the 973 Mathlib modules ScottDomains transitively imports are built here and the Mathlib root olean is absent. A Mathlib absence claim needs the full-Mathlib dump a7 used
+ScottDomains/ScottDomains/WayBelow.lean:7	OPEN	a8-r49-env.sh	"Mathlib v4.32.2 does not have wayBelow". Same cap
+ScottDomains/ScottDomains/IdealCompletion.lean:34	OPEN	a8-r49-env.sh	"What Mathlib does not have is the order-theoretic content of Theorem 11". Same cap, and the subject is a body of content rather than a name, so even a full dump would not decide it
+ScottDomains/ScottDomains/JungNets.lean:141	OPEN	a8-r49-env.sh	"There is no ordinal-indexed chain API for posets" in Mathlib. Same cap
+ScottDomains/ScottDomains/JungBicomplete.lean:506	OPEN	a5-r46-deps.lean (r0046)	r0046 measured 11 direct users against a claim of one and REFUSED to convict. r0049 does not overturn that: the sentence is scoped and states no scope, and no global count is its denominator. This is the site that motivates docs/ScopedClaims.md

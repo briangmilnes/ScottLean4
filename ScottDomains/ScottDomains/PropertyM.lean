@@ -843,8 +843,16 @@ proof applies the hypothesis exactly twice: at `v = ∅`, to get nonemptiness of
 `N ∩ ↓x`, and at `v = {a, b}`, to get directedness. Nothing else is consumed. The
 restatement matters here because `hasCompleteMub_pair` delivers pairs and the
 empty set and **not** the general finite case: Jung's Lemma 1.29 (pairs to all
-finite sets) is a separate result the development does not have. With this form it
-is not needed. -/
+finite sets) is a separate result, and this restatement does not need it.
+
+*Correction, r0049/agent8.* The sentence read "…is a separate result the
+development does not have." That is false, and refuted 100 lines below in this
+same file: `forall_hasCompleteMub` (`:945`) proves property m at *every* finite
+set of compacts from the pair and empty cases, and its own docstring names the
+step — "The lift is Jung's Lemma 1.29 argument, which the development already
+carries as `JungFinite.exists_finite_complete_upperBoundsIn`".
+`JungFinite.lemma129` carries the property-M analogue. The claim was true when
+written and went stale inside this file. -/
 theorem isNormalIn_of_pairs {α : Type*} [PartialOrder α] {A N : Set α} (hNA : N ⊆ A)
     (hcl : IsMubClosed A N) (hempty : HasCompleteMub A (∅ : Set α))
     (hpair : ∀ a b : α, a ∈ N → b ∈ N → HasCompleteMub A ({a, b} : Set α)) : N ◁ A := by

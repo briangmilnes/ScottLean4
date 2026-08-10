@@ -97,6 +97,8 @@ Separate project from Playground; the domain-theory development lives here.
 - [scripts/mpair-stages.py](scripts/mpair-stages.py) — enumerates `I, I⁺, I⁺⁺, I⁺⁺⁺` under two candidate readings of §7.4's pre-ordering; the paper's stated sizes 1, 2, 5, 20 select one and refute the other
 - [ScottDomains/docs/PaperInventory.md](ScottDomains/docs/PaperInventory.md) — inventory of the paper's definitions & theorems (the work list) — [.pdf](ScottDomains/docs/PaperInventory.pdf)
 - [ScottDomains/docs/Performance.md](ScottDomains/docs/Performance.md) — what a whole validation costs: time, memory, and how far the build parallelizes — [.pdf](ScottDomains/docs/Performance.pdf)
+- [ScottDomains/docs/ScopedClaims.md](ScottDomains/docs/ScopedClaims.md) — the writing convention for quantified prose: every claim names its scope, from a fixed vocabulary with a probe per scope. r0049 measured 114 sweep sites no instrument can decide because their quantifier has no stated domain
+- [scripts/a8-claim-check.sh](scripts/a8-claim-check.sh) — the standing per-round check: re-asks the elaborated environment every question the prose answers and prints only NEW and RESOLVED against `ScottDomains/analyses/a8-claim-baseline.tsv`
 - [ScottDomains/plans/](ScottDomains/plans) · [ScottDomains/reports/](ScottDomains/reports) · [ScottDomains/prompts/](ScottDomains/prompts) — GRASE round artifacts: plans addressed to each agent, their reports back, and the session transcript one file per interaction
 - ScottDomains/docs/SymbolMap — reference sheet: PDF garbling→Unicode (reading the paper) + symbol↔Unicode↔Lean input↔display (reading/writing the Lean) — [.tex](ScottDomains/docs/SymbolMap.tex) · [.pdf](ScottDomains/docs/SymbolMap.pdf)
 

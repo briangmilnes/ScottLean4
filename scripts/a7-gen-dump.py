@@ -11,7 +11,14 @@ import all 100 modules explicitly, and that list has to be generated from the
 tree to stay correct as modules are added.
 
 Usage:
-    a7-gen-dump.py <src-dir> <out.lean> <out.tsv>
+    a7-gen-dump.py <src-dir> <out.lean> <out.tsv> [--no-mathlib]
+
+`--no-mathlib` (added r0049/agent8) drops the `import Mathlib` line. It exists
+because `Mathlib.olean` is only present in a worktree where all of Mathlib has
+been built; agent8's worktree has the 973 transitively-imported Mathlib modules
+and not the root, so the unmodified dump fails to elaborate. The cost of the
+flag is exactly the recall stated below: Mathlib names cited from files this
+package does not import read as unresolved and must be excluded by hand.
 """
 
 import os
@@ -32,9 +39,10 @@ def modules(src):
 
 
 def main():
-    if len(sys.argv) != 4:
+    if len(sys.argv) not in (4, 5):
         raise SystemExit(__doc__)
     src, out_lean, out_tsv = sys.argv[1:4]
+    no_mathlib = len(sys.argv) == 5 and sys.argv[4] == "--no-mathlib"
     mods = modules(src)
 
     body = [
@@ -57,7 +65,8 @@ def main():
     # names from files this package does not import (measured: 15 such names,
     # e.g. `MeasureTheory.Measure.AbsolutelyContinuous`, `TopCat`, `LawfulFix`),
     # and each read as unresolved until the universe covered them.
-    body += ["import Mathlib"]
+    if not no_mathlib:
+        body += ["import Mathlib"]
     body += ["import %s" % m for m in mods]
     body += [
         "",

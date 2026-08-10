@@ -56,8 +56,16 @@ Read the same pair one stage later: its components in `A_{N+1}` are `eta x` and
 `M(A_∞) → A_∞` to be well defined these two must agree, i.e. `eta` applied to
 `[(x, u)]` must equal `[(eta x, eta '' u)]` in `A_{N+2}`; their bases are
 `[(x, u)]` and `[(x, {x})]`, which are equal only when `↑u = ↑x`.
-`etaChain_not_wellDefined` exhibits the failure at the paper's own second stage
-with `u = ∅`.
+`stgEmb_ne_mk_eta` (line 619) exhibits the failure at the paper's own second
+stage with `u = ∅`.
+
+*Correction, r0049/agent8.* This sentence read "`etaChain_not_wellDefined`
+exhibits the failure". That name resolves to no constant in the elaborated
+environment and never has — third sighting, after r0044/agent7 row 6 and
+r0047/agent1. The theorem that does exhibit the failure is `stgEmb_ne_mk_eta`,
+and it is the same datum the sentence describes: `stgEmb 1 pointB1 ≠
+mk (eta pointB1)` at stage 1 → 2 with `u = ∅`, which is what `:794` already
+cites correctly.
 
 The chain that does have `M` as its colimit is the standard one: the connecting
 map at stage `n + 1` is `M` applied to the connecting map at stage `n`, starting

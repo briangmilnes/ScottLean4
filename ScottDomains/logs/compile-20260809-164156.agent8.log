@@ -1,0 +1,74 @@
+# r0049
+# agent8 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent8
+# started: 2026-08-09T16:41:56-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1314/1365] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✔ [1325/1365] Built ScottDomains.Effective.A3Operator (1.4s)
+✔ [1326/1365] Built Mathlib.Algebra.Group.Fin.Basic (1.5s)
+✔ [1327/1365] Built ScottDomains.Skeleton.Section6 (1.7s)
+✔ [1328/1365] Built ScottDomains.Kleene.Graph (1.5s)
+✔ [1329/1365] Built ScottDomains.A1Theorem2 (1.8s)
+✔ [1330/1365] Built Mathlib.Algebra.Group.ModEq (1.9s)
+✔ [1331/1365] Built ScottDomains.A4Lemma17Fun (1.0s)
+✔ [1332/1365] Built ScottDomains.A5Thm137 (1.0s)
+✔ [1333/1365] Built Mathlib.Data.Nat.GCD.Basic (2.2s)
+✔ [1334/1365] Built Mathlib.Data.ENat.Pow (2.2s)
+✔ [1335/1365] Built ScottDomains.PRep (2.5s)
+✔ [1336/1365] Built ScottDomains.PowerdomainMap (2.4s)
+✔ [1337/1365] Built ScottDomains.Colimit (2.6s)
+✔ [1338/1365] Built ScottDomains.Audit.Projections (1.1s)
+✔ [1339/1365] Built ScottDomains.PowerdomainCompacts (1.2s)
+✔ [1340/1365] Built Mathlib.Data.Nat.ModEq (1.7s)
+✔ [1341/1365] Built ScottDomains.LemThirty (1.5s)
+✔ [1342/1365] Built ScottDomains.PRepFun (2.0s)
+✔ [1343/1365] Built ScottDomains.PRepSum (2.1s)
+✔ [1344/1365] Built Mathlib.Data.ZMod.Defs (1.2s)
+✔ [1345/1365] Built ScottDomains.Lemma28AtU (967ms)
+✔ [1346/1365] Built ScottDomains.Effective.FunctionSpace (1.0s)
+✔ [1347/1365] Built ScottDomains.A4FunctionSpaceBifinite (1.0s)
+✔ [1348/1365] Built ScottDomains.A3Thm29 (1.0s)
+✔ [1349/1365] Built ScottDomains.Audit.SectionSeven (1.0s)
+✔ [1350/1365] Built Mathlib.SetTheory.Cardinal.Finite (1.5s)
+✔ [1351/1365] Built ScottDomains.Effective.A3FreeCarrier (1.0s)
+✔ [1352/1365] Built ScottDomains.A4RepArrow (1.1s)
+✔ [1353/1365] Built ScottDomains.PowerdomainMapRep (1.1s)
+✔ [1354/1365] Built ScottDomains.Effective.A3StrictRecursive (1.3s)
+✔ [1355/1365] Built ScottDomains.A2Lemma28 (1.0s)
+✔ [1356/1365] Built ScottDomains.Effective.A1FlatRecursive (1.1s)
+✔ [1357/1365] Built ScottDomains.A4PowerdomainRep (1.1s)
+✔ [1358/1365] Built ScottDomains.A1R46 (976ms)
+✔ [1359/1365] Built ScottDomains.A3Lemma30Schemes (1.1s)
+✔ [1360/1365] Built ScottDomains.Effective.A2Compactness (1.5s)
+✔ [1361/1365] Built ScottDomains.A5Unfinished (928ms)
+✔ [1362/1365] Built Mathlib.Data.Set.Card (3.7s)
+✔ [1363/1365] Built ScottDomains.A2Thm29Universal (1.1s)
+✔ [1364/1365] Built ScottDomains.A1Lemma24 (841ms)
+Build completed successfully (1365 jobs).
+--- times ---
+Elapsed (wall clock): 0:12.99
+Maximum resident set size (kbytes): 1855396
+--- build ---
+finished:         2026-08-09T16:42:10-07:00
+exit status:      0
+user cpu:         84.37s
+system cpu:       13.06s
+cpu use:          749%
+peak rss single:  1811 MiB (largest one process, GNU time)
+peak pss tree:    3108 MiB (process group, shared pages apportioned)
+peak rss tree:    17365 MiB (process group, shared pages counted per process)
+jobs:             1365
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   0
