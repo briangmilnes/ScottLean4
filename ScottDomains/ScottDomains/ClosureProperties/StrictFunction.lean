@@ -314,7 +314,7 @@ subposet of `K(D →⊥ E)` containing `u`:
 
 `[BoundedComplete β]` is inherited from the step-function decomposition, exactly
 as in `lem17_fun`. -/
-theorem lem17_strictFun [Domain α] [Domain β] [BoundedComplete β]
+theorem lemma_17_strictFun [Domain α] [Domain β] [BoundedComplete β]
     (h₁ : IsBifinite α) (h₂ : IsBifinite β) : IsBifinite (StrictHom α β) := by
   intro u hu husub
   have huvfin : (Subtype.val '' u : Set (ScottHom α β)).Finite := hu.image _
@@ -339,5 +339,7 @@ theorem lem17_strictFun [Domain α] [Domain β] [BoundedComplete β]
     · exact (hP.apply_of_mem_range hb).symm.trans_le ((compHom p q).monotone hbx)
   · intro f hf
     exact ⟨f.val, hfix f.val ⟨f, hf, rfl⟩⟩
+
+alias lem17_strictFun := lemma_17_strictFun
 
 end ScottDomains.ClosureProperties

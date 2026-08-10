@@ -183,7 +183,7 @@ Gunter & Scott, *Semantic Domains*, printed folio 6 (physical PDF page 7).
 The bijection produced is the paper's own `h`, built from the fixed point that
 Theorem 1 supplies for the operator `Y ↦ (T − f*(S)) ∪ f*(g*(Y))` — not Mathlib's
 `Function.Embedding.schroeder_bernstein`, which routes through Knaster–Tarski. -/
-theorem theorem2 (f : S → T) (g : T → S) (hf : Function.Injective f)
+theorem theorem_2 (f : S → T) (g : T → S) (hf : Function.Injective f)
     (hg : Function.Injective g) : ∃ h : S → T, Function.Bijective h := by
   have hY : sbOp f g (sbFix f g) = sbFix f g := sbOp_sbFix f g
   refine ⟨sbBij f g (sbFix f g), ?_, ?_⟩
@@ -214,5 +214,7 @@ theorem theorem2 (f : S → T) (g : T → S) (hf : Function.Injective f)
       rw [sbFix_sdiff hf hY] at hmem
       obtain ⟨x, hx, rfl⟩ := hmem
       exact ⟨x, sbBij_neg f fun hc => hx.2 ((mem_extension_iff g (sbFix f g) x).mpr hc)⟩
+
+alias theorem2 := theorem_2
 
 end ScottDomains.R48.Agent1

@@ -733,7 +733,7 @@ Both halves of "bifinite **domain**" are spent, and in different places:
 The root hypothesis of Gunter's Theorem 25, `rt(B) ≅ rt(V)`, is discharged by
 `isRoot_singleton_bot` on both sides and appears here only as `exists_base`,
 which starts the recursion at `⊥ ↦ ⊥`. -/
-theorem thm29Normal_of_hasFiniteExtensions (H : HasFiniteExtensions Ainf) :
+theorem theorem_29_normal_of_hasFiniteExtensions (H : HasFiniteExtensions Ainf) :
     LemThirty.Thm29Normal := by
   intro E _ _ hE
   haveI : Countable ↥(compacts E) := (Domain.countable_compacts (α := E)).to_subtype
@@ -770,6 +770,8 @@ theorem thm29Normal_of_hasFiniteExtensions (H : HasFiniteExtensions Ainf) :
       · exact IsNormalIn.mono_right (stageImage_subset H (le_max_right m n))
           (Set.subset_univ _) (stage H hP e n).normal
 
+alias thm29Normal_of_hasFiniteExtensions := theorem_29_normal_of_hasFiniteExtensions
+
 /-- **The reduction, from the missing input itself.**
 `HasNormalRealizations A∞ → LemThirty.Thm29Normal`, by
 `hasFiniteExtensions_of_hasNormalRealizations` (Gunter's Proposition 21) followed
@@ -778,9 +780,11 @@ by `thm29Normal_of_hasFiniteExtensions` (his Theorem 25).
 This is the round's result: `Thm29Normal` is no longer open, it is *reduced* — to
 one precisely stated property of `A∞`, which Gunter 1987 proves of `M(A)` in
 Lemma 24 and p. 23. -/
-theorem thm29Normal_of_hasNormalRealizations (H : HasNormalRealizations Ainf) :
+theorem theorem_29_normal_of_hasNormalRealizations (H : HasNormalRealizations Ainf) :
     LemThirty.Thm29Normal :=
   thm29Normal_of_hasFiniteExtensions (hasFiniteExtensions_of_hasNormalRealizations H)
+
+alias thm29Normal_of_hasNormalRealizations := theorem_29_normal_of_hasNormalRealizations
 
 /-- **The residue, localized to one stage.** `HasNormalRealizations A∞` follows
 from the same property asked of the stages alone: realize the type inside *some*
@@ -814,9 +818,12 @@ theorem hasNormalRealizations_of_stages
 paper's own hypothesis, by `LemThirty.thm29SecondAtDomains_of_thm29Normal`. With
 `A3Thm29.five_conjuncts_of_thm29Normal` this makes five of Lemma 30's ten
 conjuncts consequences of the realization property of `A∞` alone. -/
-theorem thm29SecondAtDomains_of_hasNormalRealizations (H : HasNormalRealizations Ainf) :
+theorem theorem_29_secondAtDomains_of_hasNormalRealizations (H : HasNormalRealizations Ainf) :
     LemThirty.Thm29SecondAtDomains :=
   LemThirty.thm29SecondAtDomains_of_thm29Normal (thm29Normal_of_hasNormalRealizations H)
+
+alias thm29SecondAtDomains_of_hasNormalRealizations :=
+  theorem_29_secondAtDomains_of_hasNormalRealizations
 
 end Main
 

@@ -75,7 +75,7 @@ variable {α β : Type u} [CompletePartialOrder α] [CompletePartialOrder β]
 domains then so are `D → E`, `D →⊥ E`, `D × E`, `D ⊗ E`, `D + E`, `D ⊕ E` and
 `D⊥`. Each component is the theorem named in the module docstring's table; the
 value of the conjunction is that the count is checked by the kernel. -/
-theorem lemma10 [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
+theorem lemma_10 [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (ScottHom α β) ∧
     BoundedComplete (StrictHom α β) ∧
     BoundedComplete (α × β) ∧
@@ -85,10 +85,12 @@ theorem lemma10 [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β
     BoundedComplete (WithBot α) :=
   ⟨inferInstance, lem10_strict, lem10_prod, lem10_smash, lem10_separated, lem10_sum, lem10_lift⟩
 
+alias lemma10 := lemma_10
+
 /-- **Lemma 17, all ten conjuncts.** If `D` and `E` are bifinite domains then so
 are `D → E`, `D →⊥ E`, `D × E`, `D ⊗ E`, `D + E`, `D ⊕ E`, `D⊥`, `D♮`, `D♯` and
 `D♭`. -/
-theorem lemma17 [Domain α] [Domain β] [BoundedComplete β]
+theorem lemma_17 [Domain α] [Domain β] [BoundedComplete β]
     (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
     IsBifinite (ScottHom α β) ∧
     IsBifinite (StrictHom α β) ∧
@@ -103,5 +105,7 @@ theorem lemma17 [Domain α] [Domain β] [BoundedComplete β]
   ⟨lem17_fun h₁ h₂, lem17_strictFun h₁ h₂, lem17_prod h₁ h₂, lem17_smash h₁ h₂,
     lem17_separated h₁ h₂, lem17_sum h₁ h₂, lem17_lift h₁,
     lem17_plotkin h₁, lem17_smyth h₁, lem17_hoare h₁⟩
+
+alias lemma17 := lemma_17
 
 end ScottDomains.ClosureProperties

@@ -357,11 +357,13 @@ theorem shape :
 
 /-- Theorem 16's **first** conjunct at `TwoMub`, so that the refutation below is
 of the second conjunct alone and not of the hypothesis. -/
-theorem thm16_first_conjunct :
+theorem theorem_16_first_conjunct :
     ∃ L : CompleteLattice ↥(Fp TwoMub),
       (∀ p q : ↥(Fp TwoMub), (letI := L; p ≤ q) ↔ ∀ x, p.val x ≤ q.val x) ∧
       @IsCompactlyGenerated _ L :=
   thm16 isBifinite
+
+alias thm16_first_conjunct := theorem_16_first_conjunct
 
 /-! ### The continuous function and the two projections below it -/
 

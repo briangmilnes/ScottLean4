@@ -408,12 +408,14 @@ theorem three_claims_of_residue.{u}
     R47.Agent3.preservesRecursivePresentation_arrowOp_iff.mpr harrow⟩
 
 /-- **The fourth**, from the strict residue. -/
-theorem theorem7StrictRecursive_of_residue.{u}
+theorem theorem_7_strictRecursive_of_residue.{u}
     (h : ∀ {α : Type u} {β : Type u} [CompletePartialOrder α] [Domain α]
       [CompletePartialOrder β] [Domain β] [BoundedComplete β] [Domain (StrictHom α β)]
       (d : EffectivePresentation α) (e : EffectivePresentation β), StrictHomCRecursive d e) :
     Effective.Theorem7StrictRecursive.{u, u} :=
   theorem7StrictRecursive_of_strictHomC fun d e hd he => h d e hd he
+
+alias theorem7StrictRecursive_of_residue := theorem_7_strictRecursive_of_residue
 
 /-! ## 8. The paper's own index set carries no guard at all
 

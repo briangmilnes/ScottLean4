@@ -191,10 +191,12 @@ places rather than asserted at one and argued at the other. -/
 agent3's namespace purely so the next theorem can refute it; `Thm29Normal` itself
 is untouched, and this is **not** a restatement of it — it is the strictly
 stronger proposition the docstring claims is refutable. -/
-def Thm29NormalWithoutDomain : Prop :=
+def Theorem29NormalWithoutDomain : Prop :=
   ∀ (E : Type) [CompletePartialOrder E], IsBifinite E →
     ∃ f : ↥(compacts E) → Ainf,
       (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf)
+
+alias Thm29NormalWithoutDomain := Theorem29NormalWithoutDomain
 
 /-- **`Thm29Normal` without `[Domain E]` is false**, as `LemThirty.lean:506–512`
 says but does not prove. `A∞` is countable and an order-reflecting map has a
@@ -222,18 +224,24 @@ theorem not_thm29NormalWithoutDomain : ¬ Thm29NormalWithoutDomain := by
 
 /-- `LemThirty.Lemma30AtV` is `LemThirty.Lemma30 Colimit.V` — the `abbrev`
 unfolds, and the kernel confirms it. -/
-theorem lemma30AtV_iff : LemThirty.Lemma30AtV ↔ LemThirty.Lemma30 Colimit.V := Iff.rfl
+theorem lemma_30_atV_iff : LemThirty.Lemma30AtV ↔ LemThirty.Lemma30 Colimit.V := Iff.rfl
+
+alias lemma30AtV_iff := lemma_30_atV_iff
 
 /-- **`Colimit.Lem30Arrow` is Lemma 30's first conjunct at `V`.**
 `Colimit.lean:1024` asserts this in a docstring; `PRep.funOp` is
 `Cpo.funSpace` by definition, so the two propositions are definitionally equal
 and `Lemma30AtV` implies `Lem30Arrow` by first projection. The docstring is
 correct. -/
-theorem lem30Arrow_iff :
+theorem lemma_30_arrow_iff :
     Colimit.Lem30Arrow ↔ BifiniteUniversal.IsPRepresentable₂ Colimit.V PRep.funOp := Iff.rfl
 
+alias lem30Arrow_iff := lemma_30_arrow_iff
+
 /-- `Lemma30AtV ⟹ Lem30Arrow`: the dependency the round asked for, as a term. -/
-theorem lem30Arrow_of_lemma30AtV (h : LemThirty.Lemma30AtV) : Colimit.Lem30Arrow := h.1
+theorem lemma_30_arrow_of_lemma30AtV (h : LemThirty.Lemma30AtV) : Colimit.Lem30Arrow := h.1
+
+alias lem30Arrow_of_lemma30AtV := lemma_30_arrow_of_lemma30AtV
 
 /-! ## Repairing `⊗`, `+` and `⊕`: they never needed `Thm29Second`
 

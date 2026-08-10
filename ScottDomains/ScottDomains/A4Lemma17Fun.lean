@@ -229,7 +229,7 @@ theorem exists_finite_projection_fixing (h₁ : IsBifinite α) (h₂ : IsBifinit
 Compare `ClosureProperties.lem17_fun`, whose binders are
 `[Domain α] [Domain β] [BoundedComplete β]`; this statement's are
 `[Domain α] [Domain β]`. -/
-theorem lem17_fun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
+theorem lemma_17_fun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
     IsBifinite (ScottHom α β) := by
   intro u hu husub
   obtain ⟨p, q, hp, hq, -, -, hPfin, hfix⟩ :=
@@ -238,10 +238,12 @@ theorem lem17_fun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
   exact ⟨Set.range ⇑(compHom p q), hPfin, isNormalIn_range_of_finite hP hPfin,
     fun f hf => ⟨f, hfix f hf⟩⟩
 
+alias lem17_fun := lemma_17_fun
+
 /-- **Lemma 17, strict-function-space conjunct, with `[BoundedComplete β]`
 removed.** The packaging is `ClosureProperties.lem17_strictFun`'s verbatim; only
 the engine underneath it changed. -/
-theorem lem17_strictFun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
+theorem lemma_17_strictFun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
     IsBifinite (StrictHom α β) := by
   intro u hu husub
   have huvfin : (Subtype.val '' u : Set (ScottHom α β)).Finite := hu.image _
@@ -267,6 +269,8 @@ theorem lem17_strictFun (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
   · intro f hf
     exact ⟨f.val, hfix f.val ⟨f, hf, rfl⟩⟩
 
+alias lem17_strictFun := lemma_17_strictFun
+
 end Approx
 
 /-! ### The bar was not lowered
@@ -276,14 +280,18 @@ The two theorems below are the kernel's record that the binder-free statements
 their content is that no hypothesis was traded for the one removed. -/
 
 /-- `lem17_fun` above implies `ClosureProperties.lem17_fun`'s statement. -/
-theorem lem17_fun_imp_old [Domain α] [Domain β] [BoundedComplete β]
+theorem lemma_17_fun_imp_old [Domain α] [Domain β] [BoundedComplete β]
     (h₁ : IsBifinite α) (h₂ : IsBifinite β) : IsBifinite (ScottHom α β) :=
   lem17_fun h₁ h₂
 
+alias lem17_fun_imp_old := lemma_17_fun_imp_old
+
 /-- `lem17_strictFun` above implies `ClosureProperties.lem17_strictFun`'s
 statement. -/
-theorem lem17_strictFun_imp_old [Domain α] [Domain β] [BoundedComplete β]
+theorem lemma_17_strictFun_imp_old [Domain α] [Domain β] [BoundedComplete β]
     (h₁ : IsBifinite α) (h₂ : IsBifinite β) : IsBifinite (StrictHom α β) :=
   lem17_strictFun h₁ h₂
+
+alias lem17_strictFun_imp_old := lemma_17_strictFun_imp_old
 
 end ScottDomains.R47.Agent4

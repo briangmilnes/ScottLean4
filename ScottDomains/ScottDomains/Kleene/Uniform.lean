@@ -123,7 +123,9 @@ operator: the class of uniform fixed point operators has exactly one member, and
 
 `UniformFixedPoint.theorem3` alone gives only the uniqueness half; the existence
 half is `kleeneOperator_isUniform`. -/
-theorem theorem3_existsUnique : ∃! F : FixedPointOperator.{u}, F.IsUniform :=
+theorem theorem_3_existsUnique : ∃! F : FixedPointOperator.{u}, F.IsUniform :=
   ⟨kleeneOperator, kleeneOperator_isUniform, fun _ hG => eq_of_isUniform hG kleeneOperator_isUniform⟩
+
+alias theorem3_existsUnique := theorem_3_existsUnique
 
 end ScottDomains.Kleene

@@ -107,15 +107,19 @@ Confidence **certain**. The operator is `\n` = `0x0A` = `cmsy` `circlemultiply`,
 read from the page content stream; Lemma 8.1 one line above carries `\002` =
 `0x02` = `multiply` in the identical position, which is what makes the pair of
 lemmas the product laws and their smash analogues. -/
-theorem lem9_1 : Nonempty (Smash α β ≃o Smash β α) :=
+theorem lemma_9_1 : Nonempty (Smash α β ≃o Smash β α) :=
   ⟨Isomorphism.smashComm⟩
+
+alias lem9_1 := lemma_9_1
 
 /-- **Lemma 9.2.** `(D ⊗ E) ⊗ F ≅ D ⊗ (E ⊗ F)` — the smash product is
 associative.
 
 Confidence **certain**; same decoding as `lem9_1`. -/
-theorem lem9_2 : Nonempty (Smash (Smash α β) γ ≃o Smash α (Smash β γ)) :=
+theorem lemma_9_2 : Nonempty (Smash (Smash α β) γ ≃o Smash α (Smash β γ)) :=
   ⟨Isomorphism.smashAssoc⟩
+
+alias lem9_2 := lemma_9_2
 
 /-- **Lemma 9.3, corrected.** `(E ⊕ F) ◦→ D ≅ (E ◦→ D) × (F ◦→ D)` — the
 coalesced sum is the coproduct in the category of pointed cpo's and strict
@@ -132,9 +136,11 @@ the universal property of `⊕`: "if `f : D ◦→ F` and `g : E ◦→ F` are s
 continuous functions, then there is a unique strict continuous function `[f, g]`
 which completes the following diagram". Uniqueness of `[f, g]` in `f` and `g` is
 exactly this isomorphism. -/
-theorem lem9_3 :
+theorem lemma_9_3 :
     Nonempty (StrictHom (CoalescedSum β γ) α ≃o StrictHom β α × StrictHom γ α) :=
   ⟨Isomorphism.coalescedSumCopair⟩
+
+alias lem9_3 := lemma_9_3
 
 /-- **Lemma 9.4.** `D ◦→ (E ◦→ F) ≅ (D ⊗ E) ◦→ F` — strict currying; the smash
 product is the tensor for which the strict function space is the internal hom.
@@ -142,9 +148,11 @@ product is the tensor for which the strict function space is the internal hom.
 Confidence **certain**. This is Lemma 8.4 (`scottHomCurry`, r0021) with `×`
 replaced by `⊗` and `→` by `◦→` throughout, and the paper supplies the two maps
 by name on the preceding page: `strict apply` and `strict curry`. -/
-theorem lem9_4 :
+theorem lemma_9_4 :
     Nonempty (StrictHom α (StrictHom β γ) ≃o StrictHom (Smash α β) γ) :=
   ⟨Isomorphism.smashCurry⟩
+
+alias lem9_4 := lemma_9_4
 
 /-- **Lemma 9.5, corrected.** `D ⊗ (E ⊕ F) ≅ (D ⊗ E) ⊕ (D ⊗ F)` — the smash
 product distributes over the coalesced sum.
@@ -156,9 +164,11 @@ positions. That form is false. On the same witness as `lem9_3` —
 `Prop ⊗ X ≅ X` — the cardinalities are: left side `5`, printed right side `3`,
 corrected right side `5`. Replacing the second `E` by `F` is the only completion
 consistent with the left-hand side, and it is the standard distributive law. -/
-theorem lem9_5 :
+theorem lemma_9_5 :
     Nonempty (Smash α (CoalescedSum β γ) ≃o CoalescedSum (Smash α β) (Smash α γ)) :=
   ⟨Isomorphism.smashDistribCoalescedSum⟩
+
+alias lem9_5 := lemma_9_5
 
 /-- **Lemma 9.6.** `D⊥ ◦→ E ≅ D → E` — lifting is left adjoint to the forgetful
 functor from pointed cpo's and strict maps to cpo's and continuous maps. This is
@@ -167,8 +177,10 @@ the sentence §4.4 already makes operationally, with `up : D → D⊥` the unit 
 
 Confidence **certain**; decoded as `D` `\077` (`0x3F` = `perpendicular`,
 subscript) `\016\041` `E` `\030=` `D` `\041` `E`. -/
-theorem lem9_6 : Nonempty (StrictHom (WithBot α) β ≃o ScottHom α β) :=
+theorem lemma_9_6 : Nonempty (StrictHom (WithBot α) β ≃o ScottHom α β) :=
   ⟨Isomorphism.liftStrictHomIso⟩
+
+alias lem9_6 := lemma_9_6
 
 end Lemma9
 
@@ -262,13 +274,15 @@ directed set of compacts with least upper bound `x`, which gives `IsAlgebraic`;
 `K(D) ⊆ ⋃_{p ∈ M} im(p)` gives countability; and a single `p` fixing a finite set
 of compacts gives the Plotkin order via
 `IsFinitaryProjection.isNormalIn_compacts`. -/
-theorem thm14 : IsBifiniteViaProjections α ↔ Domain α ∧ IsBifinite α := by
+theorem theorem_14 : IsBifiniteViaProjections α ↔ Domain α ∧ IsBifinite α := by
   constructor
   · rintro ⟨hcount, hdir, hlub⟩
     exact SFP.thm14_forward (fun _ => Iff.rfl) hcount hdir hlub
   · rintro ⟨hdom, hbif⟩
     haveI := hdom
     exact SFP.thm14_converse hbif fun _ => Iff.rfl
+
+alias thm14 := theorem_14
 
 end Theorem14
 

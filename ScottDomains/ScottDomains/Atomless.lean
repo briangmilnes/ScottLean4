@@ -643,10 +643,12 @@ theorem isNormallyRepresented_compacts (D : Type u) [CompletePartialOrder D] [Do
 
 /-- **Theorem 27, with no hypothesis.** *For any bounded complete domain `D`
 there is a projection `p : U → D`.* -/
-theorem thm27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComplete D] :
+theorem theorem_27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComplete D] :
     ∃ (e : ScottHom D Dyadic.U) (p : ScottHom Dyadic.U D),
       ScottHom.IsEmbeddingProjectionPair e p :=
   Dyadic.thm27_of_isNormallyRepresented D (isNormallyRepresented_compacts D)
+
+alias thm27 := theorem_27
 
 end Thm27
 

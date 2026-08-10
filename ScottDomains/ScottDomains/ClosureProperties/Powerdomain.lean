@@ -205,7 +205,7 @@ for each finite set of finite sets of compacts, a finite superset that selects
 greatest approximants. Collect every compact mentioned, expand that finite set to
 a finite normal `N ◁ K(D)` — this is the one use of `IsBifinite D` — and take
 `Pf(N)`. -/
-theorem lem17_hoare [Domain D] (h : IsBifinite D) : IsBifinite (Hoare.Powerdomain D) := by
+theorem lemma_17_hoare [Domain D] (h : IsBifinite D) : IsBifinite (Hoare.Powerdomain D) := by
   refine isBifinite_idealCompletion fun v hv => ?_
   have hmention : (Subtype.val ''
       (⋃ w ∈ v, (↑w.toFinset : Set ↥(compacts D))) : Set D).Finite :=
@@ -218,6 +218,8 @@ theorem lem17_hoare [Domain D] (h : IsBifinite D) : IsBifinite (Hoare.Powerdomai
   refine ⟨hoareBasisOf N, finite_hoareBasisOf hNfin, selectsGreatest_hoareBasisOf hN hNfin, ?_⟩
   intro w hw x hx
   exact hNsub ⟨x, Set.mem_biUnion hw (Hoare.Pf.mem_def.mp hx), rfl⟩
+
+alias lem17_hoare := lemma_17_hoare
 
 end Hoare
 
@@ -263,7 +265,7 @@ theorem selectsGreatest_smythBasisOf (hN : N ◁ compacts D) (hfin : N.Finite) :
 
 /-- **Lemma 17, the `D♯` conjunct.** The same reduction as `lem17_hoare`, at the
 upper pre-order. -/
-theorem lem17_smyth [Domain D] (h : IsBifinite D) : IsBifinite (Smyth.Powerdomain D) := by
+theorem lemma_17_smyth [Domain D] (h : IsBifinite D) : IsBifinite (Smyth.Powerdomain D) := by
   refine isBifinite_idealCompletion fun v hv => ?_
   have hmention : (Subtype.val ''
       (⋃ w ∈ v, (↑w.toFinset : Set ↥(compacts D))) : Set D).Finite :=
@@ -276,6 +278,8 @@ theorem lem17_smyth [Domain D] (h : IsBifinite D) : IsBifinite (Smyth.Powerdomai
   refine ⟨smythBasisOf N, finite_smythBasisOf hNfin, selectsGreatest_smythBasisOf hN hNfin, ?_⟩
   intro w hw x hx
   exact hNsub ⟨x, Set.mem_biUnion hw hx, rfl⟩
+
+alias lem17_smyth := lemma_17_smyth
 
 end Smyth
 
@@ -325,7 +329,7 @@ theorem selectsGreatest_plotkinBasisOf (hN : N ◁ compacts D) (hfin : N.Finite)
 
 /-- **Lemma 17, the `D♮` conjunct** — the case the paper writes out, here on the
 basis: `p♮` is `w ↦ p_N[w]`, and `Pf(N)` is its (finite) image. -/
-theorem lem17_plotkin [Domain D] (h : IsBifinite D) : IsBifinite (Plotkin.Powerdomain D) := by
+theorem lemma_17_plotkin [Domain D] (h : IsBifinite D) : IsBifinite (Plotkin.Powerdomain D) := by
   refine isBifinite_idealCompletion fun v hv => ?_
   have hmention : (Subtype.val '' (⋃ w ∈ v, (w.carrier : Set ↥(compacts D))) : Set D).Finite :=
     (hv.biUnion fun w _ => w.finite).image _
@@ -337,6 +341,8 @@ theorem lem17_plotkin [Domain D] (h : IsBifinite D) : IsBifinite (Plotkin.Powerd
     selectsGreatest_plotkinBasisOf hN hNfin, ?_⟩
   intro w hw x hx
   exact hNsub ⟨x, Set.mem_biUnion hw hx, rfl⟩
+
+alias lem17_plotkin := lemma_17_plotkin
 
 end Plotkin
 

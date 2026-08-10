@@ -244,7 +244,7 @@ this theorem *is* the kernel's check on the printed operator list. As a conjunct
 is proved, its hypothesis is deleted and its proof substituted — which is what
 `rep_lift_V` and `rep_prod_V` below are candidates for, once `Thm29Second`
 is discharged. -/
-theorem lemma30_of {W : Type u} [CompletePartialOrder W]
+theorem lemma_30_of {W : Type u} [CompletePartialOrder W]
     (h_arrow : IsPRepresentable₂ W PRep.funOp)
     (h_strictArrow : IsPRepresentable₂ W PRep.strictFunOp)
     (h_prod : IsPRepresentable₂ W PRep.prodOp)
@@ -259,17 +259,21 @@ theorem lemma30_of {W : Type u} [CompletePartialOrder W]
   ⟨h_arrow, h_strictArrow, h_prod, h_smash, h_sepSum, h_coalSum, h_lift, h_smyth, h_hoare,
     h_plotkin⟩
 
+alias lemma30_of := lemma_30_of
+
 /-- **Lemma 30 is Lemma 28's list plus one conjunct**, at whatever carrier both
 are read over. This is the sentence "the same nine plus `(·)♮`" turned into a
 proposition the kernel checks; the two are not definitionally equal only because
 the nesting of `∧` differs. -/
-theorem lemma30_iff_lemma28_and_plotkin (W : Type u) [CompletePartialOrder W] :
+theorem lemma_30_iff_lemma28_and_plotkin (W : Type u) [CompletePartialOrder W] :
     Lemma30 W ↔ PRep.Lemma28 W ∧ IsPRepresentable W plotkinOp := by
   constructor
   · rintro ⟨h₁, h₂, h₃, h₄, h₅, h₆, h₇, h₈, h₉, h₁₀⟩
     exact ⟨⟨h₁, h₂, h₃, h₄, h₅, h₆, h₇, h₈, h₉⟩, h₁₀⟩
   · rintro ⟨⟨h₁, h₂, h₃, h₄, h₅, h₆, h₇, h₈, h₉⟩, h₁₀⟩
     exact ⟨h₁, h₂, h₃, h₄, h₅, h₆, h₇, h₈, h₉, h₁₀⟩
+
+alias lemma30_iff_lemma28_and_plotkin := lemma_30_iff_lemma28_and_plotkin
 
 /-- Lemma 30 is a statement about §7.4's `V`, the bifinite universal domain
 `Colimit.V` — not about §7.3's bounded-complete `U`, over which §7.4's opening
@@ -292,14 +296,18 @@ load-bearing. -/
 /-- **Theorem 29's second sentence**, at the paper's own "bifinite domain".
 Implied by `Colimit.Thm29Second` (`thm29SecondAtDomains_of_thm29Second`) and
 implied by `Thm29Normal` (`thm29SecondAtDomains_of_thm29Normal`, proved below). -/
-def Thm29SecondAtDomains : Prop :=
+def Theorem29SecondAtDomains : Prop :=
   ∀ (E : Type) [CompletePartialOrder E] [Domain E], IsBifinite E →
     ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p
 
+alias Thm29SecondAtDomains := Theorem29SecondAtDomains
+
 /-- Dropping the `Domain` hypothesis strengthens the statement, so the r0036
 form implies this one. -/
-theorem thm29SecondAtDomains_of_thm29Second (h : Colimit.Thm29Second) :
+theorem theorem_29_secondAtDomains_of_thm29Second (h : Colimit.Thm29Second) :
     Thm29SecondAtDomains := fun E _ _ hE => h E hE
+
+alias thm29SecondAtDomains_of_thm29Second := theorem_29_secondAtDomains_of_thm29Second
 
 /-! ## The retraction pairs over `V`
 
@@ -501,10 +509,12 @@ because `A∞` is countable (`Colimit.instCountableAinf`) and
 the paper's word "domain" the statement is refutable, not merely unproved.
 Recorded as a `Prop` rather than a `sorry`, per this development's convention:
 the statement is fixed and citable, and nothing asserts it. -/
-def Thm29Normal : Prop :=
+def Theorem29Normal : Prop :=
   ∀ (E : Type) [CompletePartialOrder E] [Domain E], IsBifinite E →
     ∃ f : ↥(compacts E) → Ainf,
       (∀ a b, f a ≤ f b ↔ a ≤ b) ∧ Set.range f ◁ (Set.univ : Set Ainf)
+
+alias Thm29Normal := Theorem29Normal
 
 /-! ## `Thm29Normal` suffices: the reduction, proved
 
@@ -749,8 +759,10 @@ universality itself is what §7.4 defers to [Gun87].
 Composing with `retracts_of_isDomain`, this makes five of Lemma 30's ten
 retraction pairs — `×`, `(·)⊥`, `(·)♯`, `(·)♭`, `(·)♮` — consequences of
 `Thm29Normal` alone. -/
-theorem thm29SecondAtDomains_of_thm29Normal (h : Thm29Normal) : Thm29SecondAtDomains :=
+theorem theorem_29_secondAtDomains_of_thm29Normal (h : Thm29Normal) : Thm29SecondAtDomains :=
   fun E _ _ hE => exists_embeddingProjectionPair_of_thm29Normal h E hE
+
+alias thm29SecondAtDomains_of_thm29Normal := theorem_29_secondAtDomains_of_thm29Normal
 
 /-- **Conjunct 7 of Lemma 30 from `Thm29Normal`.** The composite of
 `thm29SecondAtDomains_of_thm29Normal`, `retracts_lift` and `PRep.rep_lift`. -/

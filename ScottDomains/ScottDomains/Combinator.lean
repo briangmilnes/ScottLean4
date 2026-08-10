@@ -552,7 +552,7 @@ in the cpo `D → D`; injectivity is `fst(ψ(a)) = a`, which is why the paper pa
 Hypotheses: a `LambdaModel` on `D` — that is, `D ≅ D → D` and `D ≅ D × D`, which
 is exactly what **Theorem 25** delivers — and `0 < sᵢ`. See the module docstring
 for why the positivity is a correction to the paper rather than a convenience. -/
-theorem thm26 {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i) :
+theorem theorem_26 {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i) :
     ∃ F : Fin n → Comb, ∀ o : Fin n → D, ∃ ψ : ScottHom D D,
       Function.Injective ⇑ψ ∧ (∀ a, M.fstH (ψ a) = a) ∧
       ∀ (i : Fin n) (l : List D), l.length = s i →
@@ -567,11 +567,13 @@ theorem thm26 {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i) :
       fst_sndIter_psi, slotHom_apply, iterApp_cons]
     exact iterApp_WHom M (fst_psi M s o) (s i - 1) (M.app (o i) a) l hlen
 
+alias thm26 := theorem_26
+
 /-- **Theorem 26, subalgebra form.** If a subset `A ⊆ D` is closed under the
 operations `o₁, …, o_n`, then `ψ` is injective on `A` and `ψ '' A` is closed under
 the fixed operations `F₁, …, F_n` — i.e. `A` is isomorphic to a subalgebra of
 `⟨D, F₁, …, F_n⟩`, which is the sentence Theorem 26 states. -/
-theorem thm26_subalgebra {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i) :
+theorem theorem_26_subalgebra {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i) :
     ∃ F : Fin n → Comb, ∀ (A : Set D) (o : Fin n → D),
       (∀ (i : Fin n) (l : List D), l.length = s i → (∀ b ∈ l, b ∈ A) →
         M.iterApp (o i) l ∈ A) →
@@ -583,11 +585,13 @@ theorem thm26_subalgebra {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i) :
   obtain ⟨ψ, hinj, _, heq⟩ := hF o
   exact ⟨ψ, hinj.injOn, fun i l hl hlA => ⟨M.iterApp (o i) l, hA i l hl hlA, (heq i l hl).symm⟩⟩
 
+alias thm26_subalgebra := theorem_26_subalgebra
+
 /-- **Theorem 26 at a retract.** `A` a retract of `D` — the paper's hypothesis —
 with operations induced from `D`'s. `φ = ψ ∘ e` is injective and carries the
 induced operation `p ∘ oᵢ ∘ e^{s_i}` to `Fᵢ`, which is the isomorphism onto a
 subalgebra the theorem asserts. -/
-theorem thm26_retract {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i)
+theorem theorem_26_retract {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i)
     {A : Type u} [CompletePartialOrder A] (e : ScottHom A D) (p : ScottHom D A)
     (hpe : ∀ a, p (e a) = a) (o : Fin n → D)
     (hclosed : ∀ (i : Fin n) (l : List D), l.length = s i → (∀ b ∈ l, b ∈ Set.range ⇑e) →
@@ -611,6 +615,8 @@ theorem thm26_retract {n : ℕ} (s : Fin n → ℕ) (hs : ∀ i, 0 < s i)
   show ψ (M.iterApp (o i) (List.map ⇑e l)) = ψ (e (p (M.iterApp (o i) (List.map ⇑e l))))
   rw [← hc, hpe c]
 
+alias thm26_retract := theorem_26_retract
+
 end Theorem26
 
 /-! ## Theorem 26 over the domain Theorem 25 produces -/
@@ -622,10 +628,12 @@ Theorem 26 holds over it for every signature of positive arities.
 This is the sentence §7.2 opens with — "our λ-calculus model can be considered as a
 continuous algebra of signature (2,0,0,0,0,0)" — with `D` the model Theorem 25
 constructs. -/
-theorem exists_lambdaModel_of_thm25 :
+theorem exists_lambdaModel_of_theorem_25 :
     ∃ (D : Cpo.{0}) (_ : LambdaModel D.carrier), Nontrivial D.carrier ∧
       Recursive.IsClosureOf D Recursive.powersetCpo := by
   obtain ⟨D, hnt, hcl, ⟨q⟩, ⟨e⟩⟩ := thm25_powerset
   exact ⟨D, LambdaModel.ofOrderIso e q, hnt, hcl⟩
+
+alias exists_lambdaModel_of_thm25 := exists_lambdaModel_of_theorem_25
 
 end ScottDomains.Combinator

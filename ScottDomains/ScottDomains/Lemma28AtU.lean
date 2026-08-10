@@ -101,9 +101,11 @@ theorem repSmashAtU : IsPRepresentable₂ Dyadic.U smashOp := by
 
 /-- **Lemma 28 at `U` from the two conjuncts still open.** The arity is the
 measurement: 9 for `PRep.lemma28_of`, 5 for `PRepSum.lemma28AtU_of`, 2 here. -/
-theorem lemma28AtU_of' (h_smyth : IsPRepresentable Dyadic.U smythOp)
+theorem lemma_28_atU_of' (h_smyth : IsPRepresentable Dyadic.U smythOp)
     (h_hoare : IsPRepresentable Dyadic.U hoareOp) :
     PRep.Lemma28AtU :=
   PRepSum.lemma28AtU_of repArrowAtU repStrictArrowAtU repSmashAtU h_smyth h_hoare
+
+alias lemma28AtU_of' := lemma_28_atU_of'
 
 end ScottDomains.Lemma28AtU

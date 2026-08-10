@@ -228,11 +228,13 @@ elements of `D`.
 
 The proof is `IdealCompletion.thm11` applied to `Pf ↥(compacts D)`; the three
 instances above are its whole cost. -/
-theorem thm11_hoare :
+theorem theorem_11_hoare :
     Domain (Powerdomain D) ∧
       compacts (Powerdomain D) =
         Set.range (IdealCompletion.principal : Pf ↥(compacts D) → Powerdomain D) :=
   IdealCompletion.thm11 (Pf ↥(compacts D))
+
+alias thm11_hoare := theorem_11_hoare
 
 omit [Domain D] in
 /-- An element of `D♭` is compact exactly when it is a principal ideal

@@ -77,11 +77,13 @@ the projections `p_N` with `N` finite, and `normalClosure` produces enough of
 them). The middle conjunct says the lattice order is the pointwise order, and
 holds by `Iff.rfl` because `completeLatticeOfInf` splices in the ambient
 `PartialOrder` rather than deriving a new one. -/
-theorem thm16 [Domain α] (h : IsBifinite α) :
+theorem theorem_16 [Domain α] (h : IsBifinite α) :
     ∃ L : CompleteLattice ↥(Fp α),
       (∀ p q : ↥(Fp α), (letI := L; p ≤ q) ↔ ∀ x, p.val x ≤ q.val x) ∧
       @IsCompactlyGenerated _ L :=
   ⟨Fp.completeLattice h, fun _ _ => Iff.rfl, Fp.isCompactlyGenerated h⟩
+
+alias thm16 := theorem_16
 
 /-- **Lemma 20.** If `D` is a domain, then `Fc(D)`, the finitary closures on `D`
 under the pointwise order, is a cpo.
@@ -91,9 +93,11 @@ pointwise supremum — a closure by `isClosure_sSup`, and a *finitary* closure
 because Lemma 19 at full strength (`IsClosure.domain_range`) makes the image of
 every closure over a domain a domain. The second conjunct records that the cpo
 order is the pointwise order. -/
-theorem lem20 [Domain α] :
+theorem lemma_20 [Domain α] :
     ∃ C : CompletePartialOrder ↥(Fc α),
       ∀ r s : ↥(Fc α), (letI := C; r ≤ s) ↔ ∀ x, r.val x ≤ s.val x :=
   ⟨Fc.completePartialOrder, fun _ _ => Iff.rfl⟩
+
+alias lem20 := lemma_20
 
 end ScottDomains

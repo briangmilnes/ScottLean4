@@ -142,12 +142,14 @@ signature alone, such that every continuous algebra of that signature on a domai
 Every hypothesis the printed sentence carries is granted: `A` is a `Domain`, the
 retraction pair `(e, p)` with `p ∘ e = id` is the paper's "retract of `D`", and
 the operations are continuous. The conclusion is the weakest reading. -/
-def Thm26Printed {n : ℕ} (s : Fin n → ℕ) : Prop :=
+def Theorem26Printed {n : ℕ} (s : Fin n → ℕ) : Prop :=
   ∃ F : Fin n → Comb,
     ∀ (A : Type u) [CompletePartialOrder A] [Domain A]
       (e : ScottHom A D) (p : ScottHom D A), (∀ a, p (e a) = a) →
       ∀ o : Fin n → List A → A, ArgwiseContinuous s o →
         ∃ h : A → D, IsAlgEmbedding M s F o h
+
+alias Thm26Printed := Theorem26Printed
 
 /-- **The one-point argument on record proves nothing on its own.** With every
 arity `0` and every combination interpreting to the same `c`, the constant map

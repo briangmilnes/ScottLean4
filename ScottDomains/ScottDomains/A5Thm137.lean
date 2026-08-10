@@ -174,9 +174,11 @@ end Omega
 /-- **Claim 3 discharged** for every algebraic dcpo: `PropertyM.Thm137Omega D` is
 `IsAlgebraic (ScottHom D D) → PropertyM.HasOmegaOpInfima D`, and that is
 `hasOmegaOpInfima`. -/
-theorem thm137Omega (D : Type*) [CompletePartialOrder D] [IsAlgebraic D] :
-    PropertyM.Thm137Omega D :=
+theorem jung_theorem_1_37_omega (D : Type*) [CompletePartialOrder D] [IsAlgebraic D] :
+    PropertyM.Theorem137Omega D :=
   fun hAlgF => hasOmegaOpInfima hAlgF
+
+alias thm137Omega := jung_theorem_1_37_omega
 
 /-! ## Claims 1 and 2: infima of chains, over a countable basis -/
 
@@ -271,15 +273,20 @@ end Chains
 /-- **Claim 2 discharged** for every `ω`-algebraic cpo. `Domain` is `IsAlgebraic`
 together with `Set.Countable (compacts D)`, so both hypotheses of `hasChainInfima`
 are instances. -/
-theorem thm137Chains (D : Type*) [CompletePartialOrder D] [Domain D] :
-    JungNets.Thm137Chains D :=
+theorem jung_theorem_1_37_chains (D : Type*) [CompletePartialOrder D] [Domain D] :
+    JungNets.Theorem137Chains D :=
   fun hAlgF => hasChainInfima Domain.countable_compacts hAlgF
+
+alias thm137Chains := jung_theorem_1_37_chains
 
 /-- **Claim 1 discharged** for every `ω`-algebraic cpo: `Iwamura.thm137_of_thm137Chains`
 is the order dual of Markowsky's theorem, which upgrades infima of chains to
 infima of filtered sets. -/
-theorem thm137 (D : Type*) [CompletePartialOrder D] [Domain D] : JungNets.Thm137 D :=
+theorem jung_theorem_1_37 (D : Type*) [CompletePartialOrder D] [Domain D] :
+    JungNets.Theorem137 D :=
   Iwamura.thm137_of_thm137Chains (thm137Chains D)
+
+alias thm137 := jung_theorem_1_37
 
 /-- Bicompleteness of an `ω`-algebraic cpo whose function space is algebraic,
 stated directly — `thm137` with its hypothesis supplied. -/
@@ -297,9 +304,11 @@ This declaration exists so the kernel checks that the two routes agree: the
 `Thm137Chains` discharged here is strong enough to drive the Theorem 18 assembly
 that five rounds built around it, and not merely strong enough for its own
 statement. -/
-theorem thm18_of_cor136_via_thm137Chains {α : Type*} [CompletePartialOrder α]
+theorem theorem_18_of_jung_corollary_1_36_via_chains {α : Type*} [CompletePartialOrder α]
     [Domain α] [Domain (ScottHom α α)]
     (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact α) : IsBifinite α :=
   Thm18.thm18_of_thm137Chains_and_cor136 (thm137Chains α) hcor
+
+alias thm18_of_cor136_via_thm137Chains := theorem_18_of_jung_corollary_1_36_via_chains
 
 end ScottDomains.R45.Agent5

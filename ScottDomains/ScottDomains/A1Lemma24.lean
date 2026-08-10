@@ -212,7 +212,7 @@ Three hypotheses of `HasNormalRealizations` are **not used** and are carried onl
 so the statement matches it: `T.Finite`, and `insert z (g''B) ◁ T` beyond its
 consequence `z ∈ T`. Finiteness of `B` is used exactly once, for the greatest
 element. -/
-theorem lemma24_MPair {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set.univ : Set α))
+theorem gunter87_lemma_24_MPair {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set.univ : Set α))
     (γ : Type*) [PartialOrder γ] (T : Set γ) (g : α → γ) (z : γ)
     (hg : ∀ a ∈ B, ∀ b ∈ B, (g a ≤ g b ↔ a ≤ b))
     (hgB : g '' B ◁ T) (hzB : insert z (g '' B) ◁ T) :
@@ -255,6 +255,8 @@ theorem lemma24_MPair {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set.univ : Se
     intro w hw
     exact (hUfin.mem_toFinset.mp (Finset.mem_coe.mp hw)).1
 
+alias lemma24_MPair := gunter87_lemma_24_MPair
+
 /-- **Lemma 24 after §7.4's identification.** `Step α = M(α)/≈` is the type the
 tower actually uses, and `mk` is a monotone order-reflecting surjection, so the
 realization and the normality both transport verbatim.
@@ -263,7 +265,7 @@ This is the exact shape `R46.Agent2.HasNormalRealizations` asks of one stage of
 the tower — **with `mk ∘ eta` as the connecting map**. That the tower's connecting
 map is `stgEmb`, not `mk ∘ eta` (`Colimit.stgEmb_ne_mk_eta`), is precisely why
 this does not discharge it; see `not_hasNormalRealizations_Ainf`. -/
-theorem lemma24_Step {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set.univ : Set α))
+theorem gunter87_lemma_24_Step {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set.univ : Set α))
     (γ : Type*) [PartialOrder γ] (T : Set γ) (g : α → γ) (z : γ)
     (hg : ∀ a ∈ B, ∀ b ∈ B, (g a ≤ g b ↔ a ≤ b))
     (hgB : g '' B ◁ T) (hzB : insert z (g '' B) ◁ T) :
@@ -278,6 +280,8 @@ theorem lemma24_Step {B : Set α} (hBfin : B.Finite) (hB : B ◁ (Set.univ : Set
   rw [← himg]
   exact isNormalIn_image_univ (f := (mk : MPair α → Step α)) (fun _ _ => Iff.rfl)
     mk_surjective hnorm
+
+alias lemma24_Step := gunter87_lemma_24_Step
 
 end Lemma24
 

@@ -322,9 +322,11 @@ sketch names. The hypotheses `d` and `e` are genuinely used: they supply the
 indices the enumeration runs over and the surjectivity that makes it exhaust
 `K(D → E)`. What they do not supply is the two decision procedures — see
 `Theorem7ArrowRecursive`. -/
-theorem theorem7_arrow (d : EffectivePresentation α) (e : EffectivePresentation β) :
+theorem theorem_7_arrow (d : EffectivePresentation α) (e : EffectivePresentation β) :
     Nonempty (EffectivePresentation (ScottHom α β)) :=
   ⟨scottHom d e⟩
+
+alias theorem7_arrow := theorem_7_arrow
 
 omit [BoundedComplete β] in
 /-- **Theorem 7, third sentence, for `⊸`.** "Similar facts hold for `D ⊸ E`."
@@ -349,10 +351,12 @@ The `[Domain (StrictHom α β)]` binder is not an extra hypothesis: it is what
 `PRepFun.strictHomDomain` supplies, and the `example` below discharges it. It has
 to be a binder because the *statement* mentions `EffectivePresentation (StrictHom
 α β)`, whose elaboration needs the instance before any tactic runs. -/
-theorem theorem7_strict [Domain (StrictHom α β)] (_d : EffectivePresentation α)
+theorem theorem_7_strict [Domain (StrictHom α β)] (_d : EffectivePresentation α)
     (_e : EffectivePresentation β) :
     Nonempty (EffectivePresentation (StrictHom α β)) :=
   nonempty_effectivePresentation _
+
+alias theorem7_strict := theorem_7_strict
 
 /-- `theorem7_strict`'s instance binder is dischargeable from the hypotheses
 Theorem 7 actually states. -/

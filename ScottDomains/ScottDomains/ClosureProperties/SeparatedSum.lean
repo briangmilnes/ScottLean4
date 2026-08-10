@@ -149,19 +149,23 @@ abbrev SeparatedSum (α β : Type*) [CompletePartialOrder α] [CompletePartialOr
 bounded complete domains is bounded complete by `lem10_sum`. `liftDomain` is what
 lets `lem10_sum` be applied at `D⊥` and `E⊥` — it demands *domains*, not merely
 cpo's. -/
-theorem lem10_separated [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
+theorem lemma_10_separated [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (SeparatedSum α β) := by
   haveI : BoundedComplete (WithBot α) := lem10_lift
   haveI : BoundedComplete (WithBot β) := lem10_lift
   exact lem10_sum
 
+alias lem10_separated := lemma_10_separated
+
 /-- **Lemma 17, `D + E`.** The same composition at the bifinite conjuncts:
 `lem17_lift` then `lem17_sum`. No bounded completeness is needed anywhere — this
 is the operator's whole point in §6, where `E` is not assumed bounded
 complete. -/
-theorem lem17_separated [Domain α] [Domain β] (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
+theorem lemma_17_separated [Domain α] [Domain β] (h₁ : IsBifinite α) (h₂ : IsBifinite β) :
     IsBifinite (SeparatedSum α β) :=
   lem17_sum (lem17_lift h₁) (lem17_lift h₂)
+
+alias lem17_separated := lemma_17_separated
 
 /-! ### §4.4's universal property for `+` -/
 

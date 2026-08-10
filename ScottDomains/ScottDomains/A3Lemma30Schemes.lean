@@ -253,12 +253,14 @@ both under `[BoundedComplete U]`.
 So `Lemma30AtV` is now **open at exactly two named obstructions** — [Gun87]'s
 `Thm29Normal`, and the development's own bounded-completeness route to
 `Domain (D → E)`. Neither is a missing representation scheme; that gap is closed. -/
-theorem lemma30AtV_of_thm29Normal_of_arrows (h : Thm29Normal)
+theorem lemma_30_atV_of_thm29Normal_of_arrows (h : Thm29Normal)
     (h_arrow : IsPRepresentable₂ V PRep.funOp)
     (h_strictArrow : IsPRepresentable₂ V PRep.strictFunOp) :
     LemThirty.Lemma30AtV :=
   let hs := eight_conjuncts_of_thm29Normal h
   ⟨h_arrow, h_strictArrow, hs.1, hs.2.1, hs.2.2.1, hs.2.2.2.1, hs.2.2.2.2.1,
     hs.2.2.2.2.2.1, hs.2.2.2.2.2.2.1, hs.2.2.2.2.2.2.2⟩
+
+alias lemma30AtV_of_thm29Normal_of_arrows := lemma_30_atV_of_thm29Normal_of_arrows
 
 end ScottDomains.R46.Agent3

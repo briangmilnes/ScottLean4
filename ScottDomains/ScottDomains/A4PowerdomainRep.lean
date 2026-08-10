@@ -344,8 +344,10 @@ theorem repHoareAtU : IsPRepresentable Dyadic.U hoareOp :=
 
 /-- **The `(·)♯` and `(·)♭` conjuncts of Lemma 28 over `U`, with no hypotheses.**
 `lemma28AtU_of''` had arity 4; the four are now theorems. -/
-theorem lemma28AtU : PRep.Lemma28AtU :=
+theorem lemma_28_atU : PRep.Lemma28AtU :=
   Rep.lemma28AtU_of'' smythImageIso smythFamilyLUB hoareImageIso hoareFamilyLUB
+
+alias lemma28AtU := lemma_28_atU
 
 end Consumers
 

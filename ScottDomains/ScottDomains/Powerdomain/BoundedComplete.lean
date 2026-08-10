@@ -192,9 +192,11 @@ for *every* pair of `Pf(K(D))`, so `D♭` is bounded complete for every domain `
 The hypothesis is retained because the paper states Lemma 13 that way; recording
 that it is unused is the honest report of a strengthening, not a change of
 statement. -/
-theorem lem13_hoare (α : Type u) [CompletePartialOrder α] [Domain α] [BoundedComplete α]
+theorem lemma_13_hoare (α : Type u) [CompletePartialOrder α] [Domain α] [BoundedComplete α]
     (S : Set (Hoare.Powerdomain α)) (hS : BddAbove S) : ∃ I, IsLUB S I :=
   exists_isLUB_of_bddAbove_idealCompletion (fun u v _ => hoare_exists_isLUB_pair u v) hS
+
+alias lem13_hoare := lemma_13_hoare
 
 /-- **Lemma 13's `D♭` conjunct in the class-valued form**, reinstated by the
 r0032 repair of `idealSup`: not only does every bounded subset of `D♭` have a
@@ -321,9 +323,11 @@ has a least upper bound, and `D♯` has a least element (its `OrderBot` instance
 Unlike the `D♭` conjunct, both hypotheses on `D` are consumed:
 `[BoundedComplete α]` builds `a ⊔ b` and `[Domain α]` is what makes `Basis α` a
 countable pre-order in the first place. -/
-theorem lem13_smyth (α : Type u) [CompletePartialOrder α] [Domain α] [BoundedComplete α]
+theorem lemma_13_smyth (α : Type u) [CompletePartialOrder α] [Domain α] [BoundedComplete α]
     (S : Set (Smyth.Powerdomain α)) (hS : BddAbove S) : ∃ I, IsLUB S I :=
   exists_isLUB_of_bddAbove_idealCompletion (fun _ _ h => smyth_exists_isLUB_pair h) hS
+
+alias lem13_smyth := lemma_13_smyth
 
 /-- **Lemma 13's `D♯` conjunct in the class-valued form**, reinstated by the
 r0032 repair of `idealSup`. `[BoundedComplete α]` is genuinely consumed here, by

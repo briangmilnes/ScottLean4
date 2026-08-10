@@ -105,8 +105,10 @@ theorem kleeneFix_le (hf : Monotone f) {b : α} (hb : f b ≤ b) : kleeneFix f �
 
 /-- **Theorem 1 (Fixed-Point Theorem).** For a continuous `f` on a cpo,
 `⨆ₙ fⁿ(⊥)` is the least fixed point of `f`. -/
-theorem theorem1 (hf : ScottContinuous f) : IsLeast {a | f a = a} (kleeneFix f) :=
+theorem theorem_1 (hf : ScottContinuous f) : IsLeast {a | f a = a} (kleeneFix f) :=
   ⟨map_kleeneFix hf, fun _ hb => kleeneFix_le hf.monotone (le_of_eq hb)⟩
+
+alias theorem1 := theorem_1
 
 /-- The same statement for pre-fixed points, which is what recursion arguments
 usually need. -/

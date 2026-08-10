@@ -86,12 +86,14 @@ The composite is Jung's five steps: `h137` supplies step 1 (property m at every
 finite subset of `K(D)`, through `JungNets.hasCompleteMub_of_hasChainInfima`),
 `JungFinite.thm18_of_propertyM` supplies steps 2–5 with `hcor` — Corollary 1.36 —
 as its only other hypothesis. -/
-theorem thm18_of_thm137Chains_and_cor136
-    (h137 : JungNets.Thm137Chains α)
+theorem theorem_18_of_jung_theorem_1_37_chains
+    (h137 : JungNets.Theorem137Chains α)
     (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact α) :
     IsBifinite α :=
   JungFinite.thm18_of_propertyM hcor fun _ hvc hvfin =>
     JungNets.hasCompleteMub_of_hasChainInfima (h137 inferInstance) hvfin hvc
+
+alias thm18_of_thm137Chains_and_cor136 := theorem_18_of_jung_theorem_1_37_chains
 
 /-- **Theorem 18, reduced to Jung's Theorem 1.37 and his Corollary 1.36** — the
 two propositions in the form Jung states them.
@@ -101,11 +103,13 @@ two propositions in the form Jung states them.
 Discharging `JungNets.Thm137` and `JungFinite.FixedPointOfCompactDeflationIsCompact`
 closes Theorem 18 outright; nothing else is outstanding on the route. The proof is
 `thm18_of_thm137Chains_and_cor136` after `JungNets.Thm137.toChains`. -/
-theorem thm18_of_thm137_and_cor136
-    (h137 : JungNets.Thm137 α)
+theorem theorem_18_of_jung_theorem_1_37_and_jung_corollary_1_36
+    (h137 : JungNets.Theorem137 α)
     (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact α) :
     IsBifinite α :=
   thm18_of_thm137Chains_and_cor136 h137.toChains hcor
+
+alias thm18_of_thm137_and_cor136 := theorem_18_of_jung_theorem_1_37_and_jung_corollary_1_36
 
 /-- **Theorem 18 with the paper's own conclusion**: `D` is bifinite in the sense
 of Gunter & Scott's §6 definition — the finitary projections of finite image are
@@ -116,10 +120,13 @@ The step from `IsBifinite` to `Recovered.IsBifiniteViaProjections` is
 `Domain α` conjunct is Theorem 18's own first hypothesis. This declaration exists
 so that the identification of the two readings of "bifinite" is checked by the
 kernel wherever Theorem 18 is cited, rather than left to a docstring. -/
-theorem thm18_viaProjections_of_thm137_and_cor136
-    (h137 : JungNets.Thm137 α)
+theorem theorem_18_viaProjections_of_jung_theorem_1_37
+    (h137 : JungNets.Theorem137 α)
     (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact α) :
     Recovered.IsBifiniteViaProjections α :=
   Recovered.thm14.mpr ⟨inferInstance, thm18_of_thm137_and_cor136 h137 hcor⟩
+
+alias thm18_viaProjections_of_thm137_and_cor136 :=
+  theorem_18_viaProjections_of_jung_theorem_1_37
 
 end ScottDomains.Thm18

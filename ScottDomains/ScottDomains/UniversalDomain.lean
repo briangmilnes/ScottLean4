@@ -157,7 +157,7 @@ closure `r : P N → L`.
 `hsup`. The enumeration comes from `Set.Countable.exists_eq_range` applied to
 `K(L)`, which is nonempty because `⊥` is compact — so the theorem needs no
 nontriviality assumption on `L`. -/
-theorem thm22 (L : Type*) [CompletePartialOrder L] [Domain L]
+theorem theorem_22 (L : Type*) [CompletePartialOrder L] [Domain L]
     (hsup : ∀ t : Set L, IsLUB t (sSup t)) :
     ∃ (r : ScottHom (Set ℕ) L) (s : ScottHom L (Set ℕ)), IsClosurePair r s := by
   obtain ⟨l, hl⟩ :=
@@ -181,6 +181,8 @@ theorem thm22 (L : Type*) [CompletePartialOrder L] [Domain L]
     rw [himg]
     exact (hsup _).unique (IsAlgebraic.isLUB_compactsBelow x)
   · exact (hsup _).1 ⟨n, hn, rfl⟩
+
+alias thm22 := theorem_22
 
 end Theorem22
 
@@ -216,13 +218,15 @@ theorem isAlgebraic_of_isCompactlyGenerated [IsCompactlyGenerated L] : IsAlgebra
 /-- **Theorem 22, stated with Mathlib's vocabulary for "countably based algebraic
 lattice".** `isLUB_sSup` supplies the completeness hypothesis of `thm22` for
 free, since in a `CompleteLattice` every subset has a least upper bound. -/
-theorem thm22_of_isCompactlyGenerated (L : Type*) [CompleteLattice L]
+theorem theorem_22_of_isCompactlyGenerated (L : Type*) [CompleteLattice L]
     [IsCompactlyGenerated L] (hcount : (compacts L).Countable) :
     ∃ (r : ScottHom (Set ℕ) L) (s : ScottHom L (Set ℕ)), IsClosurePair r s := by
   haveI : Domain L :=
     { __ := isAlgebraic_of_isCompactlyGenerated
       countable_compacts := hcount }
   exact thm22 L fun t => isLUB_sSup t
+
+alias thm22_of_isCompactlyGenerated := theorem_22_of_isCompactlyGenerated
 
 end CompactlyGenerated
 
@@ -710,10 +714,12 @@ The three obligations of `IsRepresentable₂` are discharged by
 `repRangeOrderIso ≫ evidentOrderIso` (the isomorphism
 `im(R→(r,s)) ≅ im(r) → im(s)`), which is the paper's proof in its two stated
 steps. -/
-theorem lem23 : IsRepresentable₂ (Set ℕ) Cpo.funSpace := by
+theorem lemma_23 : IsRepresentable₂ (Set ℕ) Cpo.funSpace := by
   obtain ⟨fn, gr, hfg, hgf⟩ := thm22 (ScottHom (Set ℕ) (Set ℕ)) isLUB_sSup_scottHom_set
   refine ⟨fun p => ⟨repFun fn gr p.1.val p.2.val, isClosure_repFun hfg hgf p.1.2 p.2.2⟩,
     scottContinuous_repClosure hfg hgf, fun p => ⟨?_⟩⟩
   exact (repRangeOrderIso hfg p.1.val p.2.val).trans (evidentOrderIso p.1.2 p.2.2)
+
+alias lem23 := lemma_23
 
 end ScottDomains

@@ -454,10 +454,12 @@ principal ideals over `A`.
 
 The paper's `x ⊢ ⊥ for each x ∈ A` is `[OrderBot A]` here — the same statement
 with the least element named rather than merely asserted to exist. -/
-theorem thm11 (A : Type u) [Preorder A] [OrderBot A] [Countable A] :
+theorem theorem_11 (A : Type u) [Preorder A] [OrderBot A] [Countable A] :
     Domain (IdealCompletion A) ∧
       compacts (IdealCompletion A) = Set.range (principal : A → IdealCompletion A) :=
   ⟨inferInstance, compacts_eq_range_principal⟩
+
+alias thm11 := theorem_11
 
 /-! ### The converse: every domain is an ideal completion
 
@@ -586,12 +588,14 @@ the ideal completion of a countable pre-order*, namely of its own basis `K(D)`.
 and (3) its codomain is again a `Domain` — for which the countability half of
 `Domain D` is exactly what is spent, since it is what makes the pre-order `K(D)`
 countable. -/
-theorem thm11_converse (D : Type u) [CompletePartialOrder D] [Domain D] :
+theorem theorem_11_converse (D : Type u) [CompletePartialOrder D] [Domain D] :
     ∃ e : D ≃o IdealCompletion ↥(compacts D),
       (∀ s : Set D, DirectedOn (· ≤ ·) s → e (sSup s) = sSup (e '' s)) ∧
         Domain (IdealCompletion ↥(compacts D)) :=
   ⟨orderIsoIdealCompletionCompacts, fun _ hs =>
     orderIsoIdealCompletionCompacts.map_sSup_of_directedOn hs, inferInstance⟩
+
+alias thm11_converse := theorem_11_converse
 
 /-! ### The construction is nondegenerate
 

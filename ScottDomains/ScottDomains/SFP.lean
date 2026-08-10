@@ -256,7 +256,7 @@ The four steps are the paper's own, in its order.
    `M` of the finitely many `p_k` (gap 4(b)); then `im(p) ∩ K(D) = im(p)` is
    finite, normal by `IsFinitaryProjection.isNormalIn_compacts`, and contains
    `u`. -/
-theorem thm14_forward
+theorem theorem_14_forward
     (hM : ∀ p : ScottHom α α,
       p ∈ M ↔ (IsFinitaryProjection p ∧ (Set.range ⇑p).Finite))
     (hcount : M.Countable) (hdir : DirectedOn (· ≤ ·) M)
@@ -324,6 +324,8 @@ theorem thm14_forward
       _ ≤ p k := hpub (P k) ⟨k, hk, rfl⟩ k
   refine ⟨Set.range ⇑p ∩ compacts α, hfin.subset Set.inter_subset_left,
     hfp.isNormalIn_compacts, fun k hk => ⟨hup hk, husub hk⟩⟩
+
+alias thm14_forward := theorem_14_forward
 
 end Forward
 
@@ -469,7 +471,7 @@ theorem isLUB_id_of_normalHom_mem (h : IsBifinite α)
 
 /-- **Theorem 14, `2 → 1`.** A domain whose basis is a Plotkin order is bifinite
 in the paper's sense. -/
-theorem thm14_converse (h : IsBifinite α)
+theorem theorem_14_converse (h : IsBifinite α)
     (hM : ∀ p : ScottHom α α,
       p ∈ M ↔ (IsFinitaryProjection p ∧ (Set.range ⇑p).Finite)) :
     M.Countable ∧ DirectedOn (· ≤ ·) M ∧ IsLUB M (ScottHom.id : ScottHom α α) := by
@@ -479,6 +481,8 @@ theorem thm14_converse (h : IsBifinite α)
     fun hN hfin => (hM _).mpr (isFinitaryProjection_and_finite_normalHom hN hfin)
   exact ⟨countable_of_subset_finiteImage hsub, directedOn_of_normalHom_mem h hsub hmem,
     isLUB_id_of_normalHom_mem h hsub hmem⟩
+
+alias thm14_converse := theorem_14_converse
 
 end Converse
 

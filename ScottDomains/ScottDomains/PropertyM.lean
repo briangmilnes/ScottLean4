@@ -747,16 +747,22 @@ variable {D : Type*} [CompletePartialOrder D] [IsAlgebraic D]
 conclusion to infima of chains; this weakens it again to infima of decreasing
 sequences, which is all the route to Theorem 18 spends once the basis is known to
 be countable. -/
-def Thm137Omega (D : Type*) [CompletePartialOrder D] : Prop :=
+def Theorem137Omega (D : Type*) [CompletePartialOrder D] : Prop :=
   IsAlgebraic (ScottHom D D) → HasOmegaOpInfima D
 
-theorem Thm137Chains.toOmega {D : Type*} [CompletePartialOrder D]
-    (h : JungNets.Thm137Chains D) : Thm137Omega D :=
+alias Thm137Omega := Theorem137Omega
+
+theorem Theorem137Chains.toOmega {D : Type*} [CompletePartialOrder D]
+    (h : JungNets.Theorem137Chains D) : Theorem137Omega D :=
   fun hAlg => HasChainInfima.hasOmegaOpInfima (h hAlg)
 
-theorem Thm137.toOmega {D : Type*} [CompletePartialOrder D] (h : JungNets.Thm137 D) :
-    Thm137Omega D :=
-  Thm137Chains.toOmega h.toChains
+alias Thm137Chains.toOmega := Theorem137Chains.toOmega
+
+theorem Theorem137.toOmega {D : Type*} [CompletePartialOrder D] (h : JungNets.Theorem137 D) :
+    Theorem137Omega D :=
+  Theorem137Chains.toOmega h.toChains
+
+alias Thm137.toOmega := Theorem137.toOmega
 
 /-- **`JungSFP.lemma217` with its property-m hypothesis discharged from
 `HasOmegaOpInfima` instead of from Jung's Theorem 1.37.**
@@ -764,13 +770,15 @@ theorem Thm137.toOmega {D : Type*} [CompletePartialOrder D] (h : JungNets.Thm137
 Compare `JungNets.lemma217_of_thm137`, which spends `Thm137 D`. The countability
 hypothesis is the same one `lemma217` already carries; `K(D)`'s countability is
 derived from it, so nothing new is assumed beyond decreasing-sequence infima. -/
-theorem lemma217_of_omega (hAlg : IsAlgebraic (ScottHom D D))
+theorem jung_lemma_2_17_of_omega (hAlg : IsAlgebraic (ScottHom D D))
     (hCount : (compacts (ScottHom D D)).Countable) (hΩ : HasOmegaOpInfima D)
     {a₁ a₂ : D} (ha₁ : IsCompactElement a₁) (ha₂ : IsCompactElement a₂) :
     (minimalUpperBounds (compacts D) ({a₁, a₂} : Set D)).Finite :=
   JungSFP.lemma217 hAlg hCount ha₁ ha₂
     (hasCompleteMub_pair_of_countable (countable_compacts_of_scottHom hCount) ha₁ ha₂
       (hΩ.hasOmegaOpBoundsAbove _))
+
+alias lemma217_of_omega := jung_lemma_2_17_of_omega
 
 /-- **Property M at every pair of compact elements**, modulo `Thm137Omega` —
 `JungNets.propertyM_pairs_of_thm137` with the same weakening. -/
@@ -1005,11 +1013,14 @@ This is the round's deliverable stated against the assembly the development
 already has: `ScottDomains.Thm18.thm18_of_thm137Chains_and_cor136` takes
 `JungNets.Thm137Chains α` and `FixedPointOfCompactDeflationIsCompact α`; this
 takes the second and nothing else. -/
-theorem thm18_of_cor136 (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact D) :
+theorem theorem_18_of_jung_corollary_1_36
+    (hcor : JungFinite.FixedPointOfCompactDeflationIsCompact D) :
     IsBifinite D :=
   JungFinite.thm18_of_propertyM hcor fun v hvc hvfin =>
     forall_hasCompleteMub (inferInstance : IsAlgebraic (ScottHom D D))
       (Domain.countable_compacts (α := ScottHom D D)) v hvfin hvc
+
+alias thm18_of_cor136 := theorem_18_of_jung_corollary_1_36
 
 end Thm18
 

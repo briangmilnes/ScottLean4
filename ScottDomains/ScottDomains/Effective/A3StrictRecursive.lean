@@ -259,9 +259,11 @@ noncomputable def strictHom [Domain (StrictHom α β)] (d : EffectivePresentatio
 /-- **Theorem 7's third sentence with its hypotheses used.** The same statement as
 `Effective.theorem7_strict`, but the witness is `strictHom d e` rather than
 `nonempty_effectivePresentation _`, so `d` and `e` are consumed. -/
-theorem theorem7_strict_ofEnum [Domain (StrictHom α β)] (d : EffectivePresentation α)
+theorem theorem_7_strict_ofEnum [Domain (StrictHom α β)] (d : EffectivePresentation α)
     (e : EffectivePresentation β) : Nonempty (EffectivePresentation (StrictHom α β)) :=
   ⟨strictHom d e⟩
+
+alias theorem7_strict_ofEnum := theorem_7_strict_ofEnum
 
 /-! ## 4. What `Theorem7StrictRecursive` still needs, and what it no longer needs -/
 
@@ -293,7 +295,7 @@ IsRecursive (strictHom d e)` rather than the bare conclusion, for the reason
 r0045's agent1 records for the arrow: the paper's proof sentence says "using the
 effective presentations of `D` and `E`", so the recursiveness of the *inputs* is
 available to the argument. -/
-theorem theorem7StrictRecursive_of_strictStepFunctionsDecidable.{u, v}
+theorem theorem_7_strictRecursive_of_strictStepFunctionsDecidable.{u, v}
     (h : ∀ {α : Type u} {β : Type v} [CompletePartialOrder α] [Domain α]
       [CompletePartialOrder β] [Domain β] [BoundedComplete β] [Domain (StrictHom α β)]
       (d : EffectivePresentation α) (e : EffectivePresentation β),
@@ -301,6 +303,9 @@ theorem theorem7StrictRecursive_of_strictStepFunctionsDecidable.{u, v}
     Effective.Theorem7StrictRecursive.{u, v} := by
   intro α β _ _ _ _ _ _ d e hd he
   exact ⟨strictHom d e, h d e hd he⟩
+
+alias theorem7StrictRecursive_of_strictStepFunctionsDecidable :=
+  theorem_7_strictRecursive_of_strictStepFunctionsDecidable
 
 /-- The `[Domain (StrictHom α β)]` binder used above is discharged from the
 hypotheses Theorem 7 actually states — the same check `Effective.lean`'s

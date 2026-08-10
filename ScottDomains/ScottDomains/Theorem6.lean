@@ -172,7 +172,7 @@ Recorded as the five facts that constitute the isomorphism: each map lands in th
 other's domain, the two round trips are identities, and both maps are monotone.
 Stated this way rather than as a bundled `OrderIso` between subtypes, for the
 same reason Lemma 4.4 was: it is the form the later results cite. -/
-theorem theorem6 :
+theorem theorem_6 :
     (∀ {N : Set α} (hN : N ◁ compacts α),
         IsFinitaryProjection (normalHom hN) ∧
         Set.range ⇑(normalHom hN) ∩ compacts α = N) ∧
@@ -187,6 +187,8 @@ theorem theorem6 :
     fun hp => ⟨hp.isNormalIn_compacts, normalFun_range_inter_compacts hp⟩,
     fun hN hN' h => normalHom_mono hN hN' h,
     fun hp hq hpq => IsProjection.range_mono hp hq hpq⟩
+
+alias theorem6 := theorem_6
 
 end Theorem6Section
 

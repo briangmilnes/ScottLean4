@@ -207,11 +207,13 @@ theorem not_forall_lemma28_bcd :
 two — `Lemma28AtU.lemma28AtU_of'`'s hypotheses are necessary as well as
 sufficient. The forward direction is projection out of the nine-fold
 conjunction; the backward direction is `lemma28AtU_of'` itself. -/
-theorem lemma28AtU_iff :
+theorem lemma_28_atU_iff :
     PRep.Lemma28AtU ↔
       IsPRepresentable Dyadic.U PRep.smythOp ∧ IsPRepresentable Dyadic.U PRep.hoareOp :=
   ⟨fun h => ⟨h.2.2.2.2.2.2.2.1, h.2.2.2.2.2.2.2.2⟩,
     fun h => Lemma28AtU.lemma28AtU_of' h.1 h.2⟩
+
+alias lemma28AtU_iff := lemma_28_atU_iff
 
 /-- **The four `PowerdomainMap.Rep` obligations imply the two-conjunct residue.**
 Recorded as a theorem so the dependency of this stream on that cluster is
@@ -292,7 +294,7 @@ cannot close the row on their own, and by `not_universalForBCD_of_subsingleton`
 the hypothesis is exactly what the counterexample lacks. The four
 `PowerdomainMap.Rep` hypotheses are agent4's cluster and drop out when its
 generic discharges are merged, leaving one hypothesis and two added binders. -/
-theorem lemma28_of_universal (U : Type) [CompletePartialOrder U] [Domain U] [BoundedComplete U]
+theorem lemma_28_of_universal (U : Type) [CompletePartialOrder U] [Domain U] [BoundedComplete U]
     (hisoSmyth : PowerdomainMap.Rep.SmythImageIso U)
     (hlubSmyth : PowerdomainMap.Rep.SmythFamilyLUB U)
     (hisoHoare : PowerdomainMap.Rep.HoareImageIso U)
@@ -336,18 +338,22 @@ theorem lemma28_of_universal (U : Type) [CompletePartialOrder U] [Domain U] [Bou
     obtain ⟨_fn, _gr, hfg, hgf⟩ := huniv (IdealCompletion (Hoare.Pf ↥(compacts U)))
     exact PowerdomainMap.Rep.rep_hoare_of hisoHoare hlubHoare hfg hgf
 
+alias lemma28_of_universal := lemma_28_of_universal
+
 /-- **The generic theorem specialises back to the paper's carrier.** A
 consistency check on `lemma28_of_universal`: at `Dyadic.U` the universality
 hypothesis is `universalForBCD_dyadicU`, so this has exactly the four hypotheses
 of `PowerdomainMapRep.lemma28AtU_of''` and re-derives it by the generic route
 instead of the `U`-specific one. Nothing in the seven non-powerdomain conjuncts
 needed `Dyadic.U` beyond the retraction pair. -/
-theorem lemma28AtU_of_universal
+theorem lemma_28_atU_of_universal
     (hisoSmyth : PowerdomainMap.Rep.SmythImageIso Dyadic.U)
     (hlubSmyth : PowerdomainMap.Rep.SmythFamilyLUB Dyadic.U)
     (hisoHoare : PowerdomainMap.Rep.HoareImageIso Dyadic.U)
     (hlubHoare : PowerdomainMap.Rep.HoareFamilyLUB Dyadic.U) :
     PRep.Lemma28AtU :=
   lemma28_of_universal Dyadic.U hisoSmyth hlubSmyth hisoHoare hlubHoare universalForBCD_dyadicU
+
+alias lemma28AtU_of_universal := lemma_28_atU_of_universal
 
 end ScottDomains.R45.Agent2

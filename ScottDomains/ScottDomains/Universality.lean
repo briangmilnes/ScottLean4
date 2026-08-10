@@ -311,13 +311,15 @@ existential is wider. -/
 inside `Fc(U)` (`Recursive.exists_fixedPoint`, which is Lemma 20 plus Theorem 1)
 gives `r` with `R_F(r) = r`; representability gives `im(R_F(r)) ≅ F(im(r))`; the
 fixed-point equation rewrites the left side to `im(r)`. -/
-theorem thm21_image {U : Type u} [CompletePartialOrder U] {F : Cpo.{u} → Cpo.{u}}
+theorem theorem_21_image {U : Type u} [CompletePartialOrder U] {F : Cpo.{u} → Cpo.{u}}
     (hF : IsRepresentable U F) : ∃ r : ClosurePoset U, Iso r.image (F r.image) := by
   obtain ⟨R, hR, hiso⟩ := hF
   obtain ⟨r, hr⟩ := exists_fixedPoint hR
   refine ⟨r, ?_⟩
   have h := hiso r
   rwa [hr] at h
+
+alias thm21_image := theorem_21_image
 
 /-! ## The two derived operators Lemma 24 represents -/
 
@@ -391,7 +393,7 @@ paper's "This cpo is non-trivial because `E` is".
 Stated over a cpo and concluding about `Cpo`, not `Domain` — see the module
 docstring for why the paper's word "domains" is not what its own proof
 delivers. -/
-theorem lem24 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
+theorem lemma_24 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
     (hprod : IsRepresentable₂ U prodCpo) (hfun : IsRepresentable₂ U Cpo.funSpace) :
     ∃ D E : Cpo.{u}, Nontrivial D.carrier ∧ Nontrivial E.carrier ∧
       IsClosureOf D (cpoOf U) ∧ IsClosureOf E (cpoOf U) ∧
@@ -421,6 +423,8 @@ theorem lem24 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
   refine ⟨Dcl.image, E, hD.nontrivial (nontrivial_scottHom hEnt), hEnt,
     ⟨Dcl, Iso.refl _⟩, hEcl, hEiso, hD⟩
 
+alias lem24 := lemma_24
+
 /-! ## Theorem 25 -/
 
 /-- **Theorem 25.** If `U` is a non-trivial cpo representing products and function
@@ -443,7 +447,7 @@ The hypothesis is `U` a **cpo**, weaker than the paper's "non-trivial domain":
 no step spends algebraicity or countability of `K(U)`. `IsClosureOf D (cpoOf U)`
 is the paper's "`D` is the image of a closure on `U`", and it is the relation
 `Recursive.IsUniversal` is defined by. -/
-theorem thm25 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
+theorem theorem_25 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
     (hprod : IsRepresentable₂ U prodCpo) (hfun : IsRepresentable₂ U Cpo.funSpace) :
     ∃ D : Cpo.{u}, Nontrivial D.carrier ∧ IsClosureOf D (cpoOf U) ∧
       Iso D (prodCpo D D) ∧ Iso D (Cpo.funSpace D D) := by
@@ -457,6 +461,8 @@ theorem thm25 (U : Type u) [CompletePartialOrder U] [Nontrivial U]
     ((((Iso.funSpaceCongr (Iso.refl D) hDiso).trans (iso_curry D D E)).trans
       (Iso.funSpaceCongr hprodD (Iso.refl E))).trans hDiso.symm)
   exact ⟨D, hDnt, hDcl, hprodD.symm, hfunD.symm⟩
+
+alias thm25 := theorem_25
 
 /-! ## The instance at `U = P N`
 
@@ -474,10 +480,12 @@ closure on `P N`, with `D ≅ D × D` and `D ≅ D → D`.
 `ScottDomains.PowerdomainRep.isRepresentable_prod` (r0031) and
 `ScottDomains.lem23` (r0028), and `Nontrivial (Set ℕ)` is
 `Set.nontrivial_of_nonempty`. -/
-theorem thm25_powerset :
+theorem theorem_25_powerset :
     ∃ D : Cpo.{0}, Nontrivial D.carrier ∧ IsClosureOf D powersetCpo ∧
       Iso D (prodCpo D D) ∧ Iso D (Cpo.funSpace D D) :=
   thm25 (Set ℕ) isRepresentable_prod lem23
+
+alias thm25_powerset := theorem_25_powerset
 
 /-- **`P N` is universal for the isomorphism class of the domain Theorem 25
 produces.**
@@ -494,11 +502,13 @@ This is deliberately not a new definition of universality. The other universal
 statement about `P N` in the development, `Recursive.powersetCpo_isUniversal`,
 is Theorem 22's — universality for the countably based algebraic lattices — and
 uses the same predicate. -/
-theorem thm25_isUniversal :
+theorem theorem_25_isUniversal :
     ∃ D : Cpo.{0}, Nontrivial D.carrier ∧ Iso D (prodCpo D D) ∧
       Iso D (Cpo.funSpace D D) ∧ IsUniversal powersetCpo (fun X => Iso X D) := by
   obtain ⟨D, hnt, hcl, hp, hf⟩ := thm25_powerset
   exact ⟨D, hnt, hp, hf, fun X hX => IsClosureOf.of_iso hX hcl⟩
+
+alias thm25_isUniversal := theorem_25_isUniversal
 
 end ScottDomains.Universality
 

@@ -471,7 +471,7 @@ right (`isPlotkinOrder_univ_subtype`), `M` preserves that
 
 The second sentence of Theorem 29 — universality of a `D` with `D ≅ D⁺` — is not
 proved; the paper defers its proof to [Gun87]. -/
-theorem thm29 (h : IsBifinite D) : IsBifinite (Plus D) := by
+theorem theorem_29 (h : IsBifinite D) : IsBifinite (Plus D) := by
   have h₂ : IsPlotkinOrder (Set.univ : Set (MPair ↥(compacts D))) :=
     isPlotkinOrder_MPair (isPlotkinOrder_univ_subtype h)
   have h₃ := isPlotkinOrder_image (f := (principal : MPair ↥(compacts D) → Plus D))
@@ -479,6 +479,8 @@ theorem thm29 (h : IsBifinite D) : IsBifinite (Plus D) := by
   rw [Set.image_univ] at h₃
   rw [IsBifinite, compacts_eq_range_principal]
   exact h₃
+
+alias thm29 := theorem_29
 
 end Plus
 

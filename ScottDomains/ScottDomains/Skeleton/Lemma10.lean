@@ -72,13 +72,15 @@ of least upper bounds. Boundedness passes to each coordinate image, so each
 coordinate supremum is a least upper bound by bounded completeness of the factor.
 No case split — unlike `ScottHom`, `WithBot` and `Smash`, the product's `sSup` is
 correct on every set on which the factors' `sSup` is. -/
-theorem lem10_prod [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
+theorem lemma_10_prod [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (α × β) where
   isLUB_sSup_of_bddAbove s hs := by
     have hsup : (sSup s : α × β) = (sSup (Prod.fst '' s), sSup (Prod.snd '' s)) := rfl
     rw [isLUB_prod, hsup]
     exact ⟨isLUB_sSup_of_bddAbove (bddAbove_fst_image hs),
       isLUB_sSup_of_bddAbove (bddAbove_snd_image hs)⟩
+
+alias lem10_prod := lemma_10_prod
 
 end Prod
 
@@ -109,7 +111,7 @@ bounded above by `↑((True, True), True)` and not directed. `Smash.lean` now
 branches on the coordinatewise supremum landing in `NonBotPair` — the condition
 that makes it an element of `D ⊗ E` — and its module docstring carries the full
 account. -/
-theorem lem10_smash [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
+theorem lemma_10_smash [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (Smash α β) where
   isLUB_sSup_of_bddAbove s hs := by
     haveI : BoundedComplete (α × β) := lem10_prod
@@ -151,6 +153,8 @@ theorem lem10_smash [Domain α] [BoundedComplete α] [Domain β] [BoundedComplet
       · intro _ _
         exact bot_le
 
+alias lem10_smash := lemma_10_smash
+
 end Smash
 
 section Lift
@@ -177,7 +181,7 @@ point `ScottHom`'s module docstring makes about splitting on continuity rather
 than directedness. On the nonempty branch the value is `↑(sSup (liftBase s))`, and
 bounded completeness of `D` makes that inner supremum a least upper bound; on the
 empty branch `s ⊆ {⊥}` and the value is `⊥`. -/
-theorem lem10_lift [Domain α] [BoundedComplete α] : BoundedComplete (WithBot α) where
+theorem lemma_10_lift [Domain α] [BoundedComplete α] : BoundedComplete (WithBot α) where
   isLUB_sSup_of_bddAbove s hs := by
     show IsLUB s (liftSup s)
     by_cases hne : (liftBase s).Nonempty
@@ -204,6 +208,8 @@ theorem lem10_lift [Domain α] [BoundedComplete α] : BoundedComplete (WithBot �
       · intro _ _
         exact bot_le
 
+alias lem10_lift := lemma_10_lift
+
 end Lift
 
 section Strict
@@ -215,7 +221,7 @@ transports along the subtype: a bound in `D →⊥ E` gives a bound on the image
 `D → E`, `ScottHom`'s own `BoundedComplete` instance (Theorem 7's first sentence)
 supplies the least upper bound there, and the order on the subtype is the ambient
 order restricted, so the same element is least upper bound of `s`. -/
-theorem lem10_strict [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
+theorem lemma_10_strict [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (StrictHom α β) where
   isLUB_sSup_of_bddAbove s hs := by
     obtain ⟨u, hu⟩ := hs
@@ -229,6 +235,8 @@ theorem lem10_strict [Domain α] [BoundedComplete α] [Domain β] [BoundedComple
     · intro v hv
       show sSup (Subtype.val '' s) ≤ v.val
       exact hlub.2 (by rintro _ ⟨f, hf, rfl⟩; exact hv hf)
+
+alias lem10_strict := lemma_10_strict
 
 end Strict
 

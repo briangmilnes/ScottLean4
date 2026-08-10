@@ -98,7 +98,7 @@ theorem isCompactElement_prod_iff {x : α × β} :
 /-- **Lemma 17, product conjunct.** Take the two coordinate projections of the
 finite `u`, expand each to a finite normal subposet, and use the rectangle. Since
 `N ∩ ↓x` splits as `(N₁ ∩ ↓x.1) × (N₂ ∩ ↓x.2)`, directedness is coordinatewise. -/
-theorem lem17_prod [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsBifinite β) :
+theorem lemma_17_prod [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsBifinite β) :
     IsBifinite (α × β) := by
   intro u hu husub
   have hfst : Prod.fst '' u ⊆ compacts α := by
@@ -126,6 +126,8 @@ theorem lem17_prod [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsBi
       exact ⟨(a, b), ⟨⟨ha, hb⟩, hax, hbx⟩, ⟨hpa, hpb⟩, ⟨hqa, hqb⟩⟩
   · intro p hp
     exact ⟨hsub₁ ⟨p, hp, rfl⟩, hsub₂ ⟨p, hp, rfl⟩⟩
+
+alias lem17_prod := lemma_17_prod
 
 /-! ### The basis of a lift
 
@@ -201,7 +203,7 @@ theorem isCompactElement_coe_iff {a : α} :
 finite normal `N ◁ K(D)`, and push forward, adjoining `⊥`. Normality at the
 adjoined bottom is trivial because `↓⊥ = {⊥}`; at a coercion `↑c` the compact `c`
 is exactly what `N ◁ K(D)` is stated for. -/
-theorem lem17_lift [Domain α] (_h : IsBifinite α) : IsBifinite (WithBot α) := by
+theorem lemma_17_lift [Domain α] (_h : IsBifinite α) : IsBifinite (WithBot α) := by
   intro u hu husub
   have hu'fin : ((fun a : α => (↑a : WithBot α)) ⁻¹' u).Finite :=
     hu.preimage fun _ _ _ _ h => WithBot.coe_injective h
@@ -236,6 +238,8 @@ theorem lem17_lift [Domain α] (_h : IsBifinite α) : IsBifinite (WithBot α) :=
     induction y using WithBot.recBotCoe with
     | bot => exact Or.inl rfl
     | coe a => exact Or.inr ⟨a, hNsub hy, rfl⟩
+
+alias lem17_lift := lemma_17_lift
 
 /-! ### Projections with a finite image
 
@@ -400,7 +404,7 @@ projection with finite image, so `im(P)` is a finite normal subposet of
 `K(D → E)`; and `P` fixes each `f ∈ u`, because `P f ≥ step(k, e)` for every step
 function in the join — `k ∈ N₁` gives `k ≤ p_{N₁} x` whenever `k ≤ x`, and
 `e ∈ N₂` gives `p_{N₂} e = e`. -/
-theorem lem17_fun [Domain α] [Domain β] [BoundedComplete β]
+theorem lemma_17_fun [Domain α] [Domain β] [BoundedComplete β]
     (_h₁ : IsBifinite α) (_h₂ : IsBifinite β) : IsBifinite (ScottHom α β) := by
   intro u hu husub
   have hstep : ∀ f : ScottHom α β, f ∈ u →
@@ -448,5 +452,7 @@ theorem lem17_fun [Domain α] [Domain β] [BoundedComplete β]
       _ ≤ normalFun N₂ (f (normalFun N₁ x)) := monotone_normalFun hN₂ hle
   · rw [hgfun, stepFun_of_not_le hkx]
     exact bot_le
+
+alias lem17_fun := lemma_17_fun
 
 end ScottDomains
