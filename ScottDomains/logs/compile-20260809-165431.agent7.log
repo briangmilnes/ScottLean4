@@ -1,0 +1,59 @@
+# r0049
+# agent7 — lake build ScottDomains.A7SneqRows
+# checkout: /home/milnes/projects/ScottLean4-agent7
+# started: 2026-08-09T16:54:31-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.A7SneqRows ===
+✖ [835/835] Building ScottDomains.A7SneqRows (646ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent7/ScottDomains/ScottDomains/A7SneqRows.lean -o /home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/lib/lean/ScottDomains/A7SneqRows.olean -i /home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/lib/lean/ScottDomains/A7SneqRows.ilean -c /home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/ir/ScottDomains/A7SneqRows.c --setup /home/milnes/projects/ScottLean4-agent7/ScottDomains/.lake/build/ir/ScottDomains/A7SneqRows.setup.json --json
+error: ScottDomains/A7SneqRows.lean:84:4: failed to synthesize instance of type class
+  IsAlgebraic β
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/A7SneqRows.lean:83:9: Tactic `rcases` failed: `x✝ : ?m.149` is not an inductive datatype
+warning: ScottDomains/A7SneqRows.lean:154:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ScottDomains/A7SneqRows.lean:156:34: Invalid field `ncard`: The environment does not contain `Function.ncard`, so it is not possible to project the field `ncard` from an expression
+  mubIter A u n
+of type `α → Prop`
+error: ScottDomains/A7SneqRows.lean:156:64: Invalid field `ncard`: The environment does not contain `Function.ncard`, so it is not possible to project the field `ncard` from an expression
+  mubIter A u (n + 1)
+of type `α → Prop`
+error: ScottDomains/A7SneqRows.lean:157:4: Unknown constant `Set.ncard_lt_ncard`
+error: ScottDomains/A7SneqRows.lean:152:48: unsolved goals
+α : Type u_1
+inst✝ : PartialOrder α
+A N u : Set α
+hN : N ◁ A
+hfin : N.Finite
+huN : u ⊆ N
+hno : ∀ (n : ℕ), mubIter A u n ≠ mubIter A u (n + 1)
+hsub : ∀ (n : ℕ), mubIter A u n ⊆ N
+⊢ False
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.A7SneqRows
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.33
+Maximum resident set size (kbytes): 1689832
+--- build ---
+finished:         2026-08-09T16:54:33-07:00
+exit status:      1
+user cpu:         1.12s
+system cpu:       0.46s
+cpu use:          118%
+peak rss single:  1650 MiB (largest one process, GNU time)
+peak pss tree:    1767 MiB (process group, shared pages apportioned)
+peak rss tree:    2440 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 6
+lake errors:      2
+sorry decls:      0
+other warnings:   1
