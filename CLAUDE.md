@@ -51,6 +51,44 @@ How this persona works:
 The user may invoke a different persona for a given task; when they do, adopt
 it. Absent that, this persona is primary.
 
+## Naming a numbered result
+
+Gunter & Scott's 30 numbered results are named by one rule, so a reader can go
+from a printed number to a Lean name without a lookup table:
+
+    theorem_<N>[_<semantic>]    lemma_<N>[_<semantic>]    proposition_<N>[_<semantic>]
+
+`<N>` is the paper's printed number; the semantic tail is kept and follows the
+number. So `theorem_22`, `theorem_11_converse`, `lemma_17_fun`,
+`lemma_9_3_printed_false`, `proposition_15`. Do not write `thm`, `lem`, or
+`prop` — those three abbreviations were the historical spelling and are being
+retired.
+
+**A result by another author carries the author and its own printed number**, in
+the paper's dotted form:
+
+    <author><year?>_<kind>_<N>_<M>[_<semantic>]
+
+So Jung's Theorem 1.37 is `jung_theorem_1_37`, his Corollary 1.36 is
+`jung_corollary_1_36`, and Gunter 1987's Lemma 24 is `gunter87_lemma_24_MPair`.
+This rule exists because it was violated: `lem24` and `lemma24_MPair` were
+Gunter & Scott's Lemma 24 and Gunter 1987's Lemma 24, two different results whose
+names said nothing about the difference. If you cannot establish from the
+defining module's docstring which paper and number a result is, leave the name
+alone and say so — an unattributed name beats a confidently wrong one.
+
+**`Prop`-valued claim `def`s keep UpperCamelCase**, per Lean's own convention:
+`Theorem29Normal`, `Lemma30AtV`. Only the abbreviation is normalized (`Thm` →
+`Theorem`, `Lem` → `Lemma`); these never become snake_case.
+
+**Renaming is compiler-driven, never string-driven.** There is no Lean CST in
+`~/projects/CSTs`, and the no-string-hacking rule applies. Rename the
+declaration, add a plain `alias <old> := <new>` so the build stays at zero
+errors and zero warnings, and in a later pass delete the aliases — the
+elaborator then reports an `unknown identifier` at exactly each remaining
+reference site. Use a plain `alias`, not `@[deprecated] alias`, which would
+emit a warning at every one of ~700 sites.
+
 ## Plans and reports (GRASE convention)
 
 Plans and execution reports follow the plans/reports naming rules of the GRASE
