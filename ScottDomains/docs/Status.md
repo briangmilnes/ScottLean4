@@ -1,6 +1,6 @@
 # Status of the Gunter & Scott 1990 Development in Lean
 
-`main` at `5a1d8bc`. Build 1372 jobs, 0 errors, 3 `sorry` warnings, 0 other
+`main` at `fc313e9`. Build 1372 jobs, 0 errors, 3 `sorry` warnings, 0 other
 warnings. 124 modules, 46,442 lines, 2,122 theorems.
 
 ## 1. Extractions — what the paper contains

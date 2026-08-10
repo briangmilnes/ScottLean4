@@ -1,0 +1,48 @@
+# r0052
+# orchestrator — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4
+# started: 2026-08-10T16:05:00-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+ℹ [1345/1372] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+⚠ [1361/1372] Built ScottDomains.LemThirty (1.7s)
+warning: ScottDomains/LemThirty.lean:537:8: declaration uses `sorry`
+⚠ [1362/1372] Built ScottDomains.Effective.A3StepDecidable (1.6s)
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✔ [1363/1372] Built ScottDomains.A1R46 (1.3s)
+✔ [1364/1372] Built ScottDomains.A4RepArrow (1.4s)
+✔ [1365/1372] Built ScottDomains.A3Thm29 (1.4s)
+✔ [1366/1372] Built ScottDomains.A2Thm29Universal (1.0s)
+✔ [1367/1372] Built ScottDomains.A3Lemma30Schemes (1.4s)
+✔ [1368/1372] Built ScottDomains.A1Lemma24 (1.6s)
+✔ [1369/1372] Built ScottDomains.A5Unfinished (1.3s)
+✔ [1370/1372] Built ScottDomains.A6ProjectionBifinite (1.5s)
+✔ [1371/1372] Built ScottDomains.A5Thm29Finite (1.4s)
+Build completed successfully (1372 jobs).
+--- times ---
+Elapsed (wall clock): 0:08.71
+Maximum resident set size (kbytes): 1839484
+--- build ---
+finished:         2026-08-10T16:05:09-07:00
+exit status:      0
+user cpu:         20.35s
+system cpu:       5.14s
+cpu use:          292%
+peak rss single:  1796 MiB (largest one process, GNU time)
+peak pss tree:    2440 MiB (process group, shared pages apportioned)
+peak rss tree:    7692 MiB (process group, shared pages counted per process)
+jobs:             1372
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      3
+other warnings:   0
