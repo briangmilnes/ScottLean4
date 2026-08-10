@@ -1048,9 +1048,11 @@ seven declarations take it as a hypothesis and are vacuous in consequence, which
 is a fact about them that only survives if this statement survives. The r0046
 detector reads the refutation out of the environment (`REFUTEDBY` in
 `scripts/a6-query.lean`) and no longer counts this as an open claim. -/
-def Thm29Second : Prop :=
+def Theorem29Second : Prop :=
   ∀ (E : Type) [CompletePartialOrder E], IsBifinite E →
     ∃ (g : ScottHom E V) (p : ScottHom V E), ScottHom.IsEmbeddingProjectionPair g p
+
+alias Thm29Second := Theorem29Second
 
 /-- **Lemma 30's `→` conjunct**, the first conjunct of the lemma to become
 type-correct. Unproved, and blocked twice over: it needs the retraction pair
@@ -1058,6 +1060,8 @@ type-correct. Unproved, and blocked twice over: it needs the retraction pair
 needs `IsBifinite (ScottHom V V)`, whose only route here is
 `ClosureProperties.lem17_fun` with its `[BoundedComplete β]`. See
 `LemThirty.retracts_fun_of_boundedComplete`. -/
-def Lem30Arrow : Prop := IsPRepresentable₂ V Cpo.funSpace
+def Lemma30Arrow : Prop := IsPRepresentable₂ V Cpo.funSpace
+
+alias Lem30Arrow := Lemma30Arrow
 
 end ScottDomains.Colimit
