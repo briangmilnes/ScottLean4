@@ -142,7 +142,7 @@ witness is `N = lubClosure u`:
   least upper bound; that bound is again in `N`, being the least upper bound of
   `{y ∈ u | y ⊑ z for some z ∈ S}`; and it is `⊑ x`. So `S` has a greatest
   element, which makes it nonempty and directed. -/
-theorem prop15 [Domain α] [BoundedComplete α] : IsBifinite α := by
+theorem proposition_15 [Domain α] [BoundedComplete α] : IsBifinite α := by
   intro u hu husub
   have hNfin : (lubClosure u).Finite := by
     refine Set.Finite.subset (hu.finite_subsets.image sSup) ?_
@@ -168,6 +168,8 @@ theorem prop15 [Domain α] [BoundedComplete α] : IsBifinite α := by
       exact hvlub.2 fun y hy => hb ⟨hvu hy, z, hz, hvlub.1 hy⟩
   have hmemS : sSup S ∈ S := ⟨hmemN, hlub.2 fun _ hy => hy.2⟩
   exact ⟨⟨sSup S, hmemS⟩, fun a ha b hb => ⟨sSup S, hmemS, hlub.1 ha, hlub.1 hb⟩⟩
+
+alias prop15 := proposition_15
 
 /-- **Theorem 18.** If `D` and `D → D` are domains, then `D` is bifinite.
 
@@ -226,8 +228,10 @@ So the proof below spends five of Jung's steps and replaces the sixth. `Thm137`,
 `Thm137Chains`, `Iwamura` and `JungBicomplete` remain in the development as
 results in their own right — Iwamura's lemma and Markowsky's theorem are not in
 Mathlib — but Theorem 18 does not route through any of them. -/
-theorem thm18 [Domain α] [Domain (ScottHom α α)] : IsBifinite α :=
+theorem theorem_18 [Domain α] [Domain (ScottHom α α)] : IsBifinite α :=
   PropertyM.thm18_of_cor136 JungCor136.fixedPointOfCompactDeflationIsCompact
+
+alias thm18 := theorem_18
 
 /-- **Lemma 19.** If `r : D → D` is a closure, then `im(r)` is a domain.
 
@@ -235,9 +239,11 @@ Stated as the existence of the cpo structure on the image rather than by first
 building it — that construction is part of the proof, and fixing it here would
 prejudge how it is done. Compare `IsProjection.rangeCompletePartialOrder`
 (r0013), which is the projection analogue and a likely model. -/
-theorem lem19 (r : ScottHom α α) (_hr : IsClosure r) :
+theorem lemma_19 (r : ScottHom α α) (_hr : IsClosure r) :
     ∃ _ : CompletePartialOrder ↥(Set.range ⇑r), True :=
   ⟨_hr.rangeCompletePartialOrder, trivial⟩
+
+alias lem19 := lemma_19
 
 end Statements
 

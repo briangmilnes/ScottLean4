@@ -127,7 +127,7 @@ contained in `{⊥}` and the value is `⊥`.
 
 Unlike `lem10_smash`, this conjunct was not merely unproved before r0028: it was
 unstatable, because `CoalescedSum α β` had no `CompletePartialOrder` instance. -/
-theorem lem10_sum [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
+theorem lemma_10_sum [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete β] :
     BoundedComplete (CoalescedSum α β) where
   isLUB_sSup_of_bddAbove s hs := by
     show IsLUB s (sumSup s)
@@ -163,6 +163,8 @@ theorem lem10_sum [Domain α] [BoundedComplete α] [Domain β] [BoundedComplete 
           exact (Sum.inr_injective hy'.symm) ▸ hle'
         exact isLUB_sumSup_right hq₀ hright (isLUB_sSup_of_bddAbove hbdd)
     · exact isLUB_sumSup_of_empty_base hne
+
+alias lem10_sum := lemma_10_sum
 
 /-! ### Directed sets with the bottom element removed
 
@@ -558,7 +560,7 @@ Normality is where the coalesced sum is *easier* than the product: two elements 
 `N ∩ ↓z` other than `⊥` force `z` to be a coercion, and then everything in sight
 lies in one summand, so directedness is inherited from that summand's `N ◁ K(D)`
 with no rectangle to build. -/
-theorem lem17_sum [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsBifinite β) :
+theorem lemma_17_sum [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsBifinite β) :
     IsBifinite (CoalescedSum α β) := by
   intro u hu husub
   have hfinL : ((sumInl β : α → CoalescedSum α β) ⁻¹' u).Finite :=
@@ -677,6 +679,8 @@ theorem lem17_sum [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsBif
           Subtype.ext hq.symm
         rw [hqe]
         exact hz
+
+alias lem17_sum := lemma_17_sum
 
 /-! ### The pairing of `D ⊗ E`, made total
 
@@ -917,7 +921,7 @@ forward direction of `isCompactElement_coe_smash_iff`.
 
 This conjunct was omitted from the r0026 skeleton by oversight; nothing about it
 was open. -/
-theorem lem17_smash [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsBifinite β) :
+theorem lemma_17_smash [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsBifinite β) :
     IsBifinite (Smash α β) := by
   intro u hu husub
   have hbfin : (smashBase u).Finite := by
@@ -976,6 +980,8 @@ theorem lem17_smash [Domain α] [Domain β] (_h₁ : IsBifinite α) (_h₂ : IsB
     | bot => exact Or.inl rfl
     | coe q =>
       exact Or.inr ⟨q, rfl, hN₁sub ⟨q, hz, rfl⟩, hN₂sub ⟨q, hz, rfl⟩⟩
+
+alias lem17_smash := lemma_17_smash
 
 /- Axiom audit, by `#print axioms` (run, then removed so the build emits no `info`
 lines): `lem10_sum`, `lem17_sum`, `lem17_smash`, the three basis characterizations
