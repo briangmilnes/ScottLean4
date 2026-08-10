@@ -286,13 +286,15 @@ The three components are all read off the greatest element `s f`:
 membership gives `i ∘ s ⊑ id`; the upper-bound half applied to `s f ⊑ f ⊑ g`
 gives monotonicity; and applied to `p ⊑ p` together with membership it gives
 `s (i p) = p` by antisymmetry. -/
-theorem thm16_positive (h : HasGreatestStableNormal α) :
+theorem theorem_16_positive (h : HasGreatestStableNormal α) :
     ∃ s : ScottHom α α → ↥(Fp α),
       Monotone s ∧ (∀ p : ↥(Fp α), s p.val = p) ∧ ∀ g : ScottHom α α, (s g).val ≤ g := by
   choose s hs using isGreatest_fp_le_of_hasGreatestStableNormal h
   refine ⟨s, fun f g hfg => ?_, fun p => ?_, fun g => (hs g).1⟩
   · exact (hs g).2 (le_trans (hs f).1 hfg)
   · exact le_antisymm (hs p.val).1 ((hs p.val).2 (le_refl p.val))
+
+alias thm16_positive := theorem_16_positive
 
 end Sufficient
 
@@ -417,7 +419,7 @@ order it inherits as a subtype.
 The round trip `fpSection (i p) = p` is the sketch's own correct half: for a
 finitary projection `p`, `S_p = im(p) ∩ K(D)` (`stableCompacts_val`), so the two
 bases agree and `Fp.le_iff_fpBasis_subset` gives equality by antisymmetry. -/
-theorem thm16_positive_isEmbeddingProjectionPair
+theorem theorem_16_positive_isEmbeddingProjectionPair
     (i : ScottHom ↥(Fp α) (ScottHom α α)) (hi : ∀ p, i p = p.val) :
     ScottHom.IsEmbeddingProjectionPair i (fpSection (α := α)) := by
   refine ⟨fun p => ?_, fun g => ?_⟩
@@ -429,6 +431,9 @@ theorem thm16_positive_isEmbeddingProjectionPair
   · show i (fpOfStable g) ≤ g
     rw [hi (fpOfStable g)]
     exact fpOfStable_le g
+
+alias thm16_positive_isEmbeddingProjectionPair :=
+  theorem_16_positive_isEmbeddingProjectionPair
 
 end BoundedComplete
 

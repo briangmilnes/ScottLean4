@@ -381,9 +381,11 @@ theorem isCompactElement_iff {I : U} :
 
 /-- **Theorem 11 at `U₀`**, both conjuncts: `U` is a domain and `K(U)` is the set
 of principal ideals. -/
-theorem thm11_at_U :
+theorem theorem_11_at_U :
     Domain U ∧ compacts U = Set.range (IdealCompletion.principal : U₀ → U) :=
   IdealCompletion.thm11 U₀
+
+alias thm11_at_U := theorem_11_at_U
 
 /-! ## Theorem 27
 
@@ -637,22 +639,26 @@ isomorphism between `K(D)` and a normal subposet of `U₀`, the pair `(e, p)`
 built above is an embedding–projection pair `D ⇄ U`; in particular `p : U → D`
 is the projection the theorem asserts. Bounded completeness of `D` is not used —
 it is spent in the hypothesis. -/
-theorem thm27_of_isNormallyRepresented (D : Type u) [CompletePartialOrder D] [Domain D]
+theorem theorem_27_of_isNormallyRepresented (D : Type u) [CompletePartialOrder D] [Domain D]
     (h : IsNormallyRepresented ↥(compacts D)) :
     ∃ (e : ScottHom D U) (p : ScottHom U D), ScottHom.IsEmbeddingProjectionPair e p := by
   obtain ⟨N, hN, ⟨φ⟩⟩ := h
   exact ⟨embHom φ, projHom φ hN,
     projElem_embIdeal φ hN, embIdeal_projElem_le φ hN⟩
 
+alias thm27_of_isNormallyRepresented := theorem_27_of_isNormallyRepresented
+
 /-- **Theorem 27** as the paper states it, with the Boolean-algebra step carried
 as a named hypothesis: *for any bounded complete domain `D` there is a projection
 `p : U → D`*. `Atomless.thm27` is the same statement with the hypothesis
 discharged; this form is kept because it is the one whose proof lives here, and
 because it records exactly where the paragraph was cut. -/
-theorem thm27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComplete D]
+theorem theorem_27 (D : Type u) [CompletePartialOrder D] [Domain D] [BoundedComplete D]
     (h : IsNormallyRepresented ↥(compacts D)) :
     ∃ (e : ScottHom D U) (p : ScottHom U D), ScottHom.IsEmbeddingProjectionPair e p :=
   thm27_of_isNormallyRepresented D h
+
+alias thm27 := theorem_27
 
 end Thm27
 

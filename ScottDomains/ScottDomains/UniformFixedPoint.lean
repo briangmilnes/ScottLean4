@@ -127,7 +127,7 @@ noncomputable def kleeneOperator : FixedPointOperator.{u} where
 The proof is the paper's: restrict to `↓fix(f)`, where `f` has `fix(f)` as its
 *unique* fixed point, and let uniformity transport the operator's value along the
 inclusion. -/
-theorem theorem3 (F : FixedPointOperator.{u}) (hF : F.IsUniform)
+theorem theorem_3 (F : FixedPointOperator.{u}) (hF : F.IsUniform)
     (D : Type u) [CompletePartialOrder D] (f : ScottHom D D) :
     F.op D f = kleeneFix ⇑f := by
   have hfa : ⇑f (kleeneFix ⇑f) = kleeneFix ⇑f := map_kleeneFix f.scottContinuous
@@ -164,6 +164,8 @@ theorem theorem3 (F : FixedPointOperator.{u}) (hF : F.IsUniform)
     congrArg Subtype.val (F.isFixedPt _ f₀)
   rw [← huniform]
   exact le_antisymm (F.op _ f₀).2 ((theorem1 f.scottContinuous).2 hyval)
+
+alias theorem3 := theorem_3
 
 /-- `fix` is itself uniform is left to the reader by the paper; what Theorem 3
 establishes is that **no other** uniform operator exists. Combined with

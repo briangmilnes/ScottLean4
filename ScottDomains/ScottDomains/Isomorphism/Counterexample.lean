@@ -97,7 +97,7 @@ isomorphism exists.
 The corrected law `lem9_3` is not touched by this witness: its right side is
 `StrictHom Prop PUnit × StrictHom Prop PUnit`, which has one element, as the
 left side does. -/
-theorem lem9_3_printed_false :
+theorem lemma_9_3_printed_false :
     ¬ Nonempty (StrictHom (CoalescedSum Prop Prop) PUnit ≃o
       StrictHom Prop PUnit × StrictHom Prop Prop) := by
   rintro ⟨e⟩
@@ -111,6 +111,8 @@ theorem lem9_3_printed_false :
         ((⊥ : StrictHom Prop PUnit), propId))
   have h3 : (⊥ : StrictHom Prop Prop).val True = propId.val True := by rw [h2]
   exact (iff_of_eq h3).mpr trivial
+
+alias lem9_3_printed_false := lemma_9_3_printed_false
 
 /-! ### Item 5: `D ⊗ (E ⊕ F) ≅ (D ⊗ E) ⊕ (D ⊗ E)` is false -/
 
@@ -148,7 +150,7 @@ and the pair `(True, ↑(Sum.inr True))`.
 The corrected law `lem9_5` is not touched by this witness: its right side is
 `(Prop ⊗ PUnit) ⊕ (Prop ⊗ Prop)`, whose second summand supplies the second
 element. `F` is precisely the variable the printed form drops. -/
-theorem lem9_5_printed_false :
+theorem lemma_9_5_printed_false :
     ¬ Nonempty (Smash Prop (CoalescedSum PUnit Prop) ≃o
       CoalescedSum (Smash Prop PUnit) (Smash Prop PUnit)) := by
   rintro ⟨e⟩
@@ -158,5 +160,7 @@ theorem lem9_5_printed_false :
   refine WithBot.coe_ne_bot (a := ?_) (hsub.allEq _ ⊥)
   exact ⟨(True, ((⟨Sum.inr True, true_ne_bot⟩ : NonBotSum PUnit Prop) : CoalescedSum PUnit Prop)),
     true_ne_bot, WithBot.coe_ne_bot⟩
+
+alias lem9_5_printed_false := lemma_9_5_printed_false
 
 end ScottDomains.Isomorphism

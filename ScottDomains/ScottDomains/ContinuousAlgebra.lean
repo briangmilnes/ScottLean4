@@ -995,7 +995,7 @@ Both halves are stated: `∃!` carries existence *and* uniqueness, and the
 predicate carries *both* that `h` is a homomorphism (hence continuous) and that
 it factors `f`. Countability of `K(D)` — the last clause of "domain" — is not
 used; `[IsAlgebraic D]` is the whole hypothesis on `D`. -/
-theorem thm12 (hf : ScottContinuous f) (hmono : Monotone (foldGen (A := A) f)) :
+theorem theorem_12 (hf : ScottContinuous f) (hmono : Monotone (foldGen (A := A) f)) :
     ∃! h : IdealCompletion A → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
   refine ⟨ext f, ⟨isHom_ext hmono, ext_unit hmono hf⟩, ?_⟩
   rintro h ⟨hhom, hdiag⟩
@@ -1004,6 +1004,8 @@ theorem thm12 (hf : ScottContinuous f) (hmono : Monotone (foldGen (A := A) f)) :
       = fun k : ↥(compacts D) => f (k : D) := funext fun k => hdiag (k : D)
   rw [principal_eq_fold_unit, hhom.map_fold, hcomp]
   rfl
+
+alias thm12 := theorem_12
 
 end Theorem12
 
@@ -1076,12 +1078,14 @@ one homomorphism `D♭ → E` with `h ∘ {|·|} = f`.
 The single fact that carries the instantiation is `fold_le_fold_of_hoare`, and it
 consumes precisely the Hoare conjunct `∀ x ∈ u, ∃ y ∈ v, x ⊑ y` that
 `Hoare.Pf.le_def` gives. -/
-theorem thm12_hoare [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
+theorem theorem_12_hoare [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
     [IsLower E] {f : D → E} (hf : ScottContinuous f) :
     ∃! h : Hoare.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
   refine thm12 hf fun u v huv => ?_
   exact fold_le_fold_of_hoare _ _ (fun _ _ h => hf.monotone h) fun a ha =>
     Hoare.Pf.le_def.mp huv a ha
+
+alias thm12_hoare := theorem_12_hoare
 
 /-! ### `D♯`, the Smyth (upper) powerdomain -/
 
@@ -1117,12 +1121,14 @@ instance instIsUpperSmyth : IsUpper (Smyth.Powerdomain D) :=
 /-- **Theorem 12 at `D♯`.** Under `T♯` the Smyth (upper) powerdomain is the free
 continuous algebra over `D`. `fold_le_fold_of_smyth` consumes the Smyth conjunct
 `∀ y ∈ v, ∃ x ∈ u, x ⊑ y` that `Smyth.Basis.le_def` gives, and needs `4♯`. -/
-theorem thm12_smyth [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
+theorem theorem_12_smyth [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
     [IsUpper E] {f : D → E} (hf : ScottContinuous f) :
     ∃! h : Smyth.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
   refine thm12 hf fun u v huv => ?_
   exact fold_le_fold_of_smyth _ _ (fun _ _ h => hf.monotone h) fun b hb =>
     Smyth.Basis.le_def.mp huv b hb
+
+alias thm12_smyth := theorem_12_smyth
 
 /-! ### `D♮`, the Plotkin (convex) powerdomain -/
 
@@ -1181,7 +1187,7 @@ This is the case the paper states as Theorem 12 proper; `thm12_hoare` and
 `thm12_smyth` are the two it adds in the paragraph after the proof. It is also
 the case where `fold_le_fold_of_convex` must do real work, since under `T♮` the
 operation `⋓` is unrelated to the domain order. -/
-theorem thm12_plotkin [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
+theorem theorem_12_plotkin [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Binop E]
     [IsSemilattice E] {f : D → E} (hf : ScottContinuous f) :
     ∃! h : Plotkin.Powerdomain D → E, IsHom h ∧ ∀ x : D, h (unit x) = f x := by
   refine thm12 hf fun u v huv => ?_
@@ -1192,6 +1198,8 @@ theorem thm12_plotkin [IsAlgebraic D] {E : Type u} [CompletePartialOrder E] [Bin
   · intro b hb
     obtain ⟨a, ha, hab⟩ := huv.2 b ((Set.Finite.mem_toFinset _).mp hb)
     exact ⟨a, (Set.Finite.mem_toFinset _).mpr ha, hab⟩
+
+alias thm12_plotkin := theorem_12_plotkin
 
 end Instances
 
