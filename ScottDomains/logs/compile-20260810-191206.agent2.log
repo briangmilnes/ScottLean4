@@ -1,0 +1,86 @@
+# r0053
+# agent2 — lake build ScottDomains.Effective.StrictHomCRecursive
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-10T19:12:06-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.StrictHomCRecursive ===
+⚠ [1026/1027] Replayed ScottDomains.Effective.A3StepDecidable
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✖ [1027/1027] Building ScottDomains.Effective.StrictHomCRecursive (14s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Effective/StrictHomCRecursive.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/StrictHomCRecursive.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/StrictHomCRecursive.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/StrictHomCRecursive.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/StrictHomCRecursive.setup.json --json
+error: ScottDomains/Effective/StrictHomCRecursive.lean:421:29: failed to synthesize instance of type class
+  Decidable (d.enum a.1 = ⊥ → e.enum a.2 = ⊥)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+warning: ScottDomains/Effective/StrictHomCRecursive.lean:418:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent2.strictTest_eqv`:
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Effective/StrictHomCRecursive.lean:443:40: failed to synthesize instance of type class
+  Decidable (d.enum (Denumerable.ofNat (ℕ × ℕ) k).1 = ⊥ → e.enum (Denumerable.ofNat (ℕ × ℕ) k).2 = ⊥)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ScottDomains/Effective/StrictHomCRecursive.lean:445:8: Unknown constant `Bool.not_eq_true.mp`
+error: ScottDomains/Effective/StrictHomCRecursive.lean:533:49: Application type mismatch: The argument
+  ClosureProperties.strictHom_val_le x
+has type
+  ↑(ClosureProperties.strictHom x) ≤ x
+but is expected to have type
+  ClosureProperties.strictHom x ≤ ?m.38
+in the application
+  LE.le.trans h (ClosureProperties.strictHom_val_le x)
+error: ScottDomains/Effective/StrictHomCRecursive.lean:682:24: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Subtype.val ∘ strictConsistentEnum d e
+in the target expression
+  (fun x => ↑(strictConsistentEnum d e x)) '' ↑(Denumerable.ofNat (Finset ℕ) n) ◁ compacts (ScottHom α β) ↔
+    consistentEnum d e ∘ strictCode d e '' ↑(Denumerable.ofNat (Finset ℕ) n) ◁ compacts (ScottHom α β)
+
+α : Type u_1
+β : Type u_2
+inst✝⁵ : CompletePartialOrder α
+inst✝⁴ : Domain α
+inst✝³ : CompletePartialOrder β
+inst✝² : Domain β
+inst✝¹ : BoundedComplete β
+inst✝ : Domain (StrictHom α β)
+d : EffectivePresentation α
+e : EffectivePresentation β
+hd : RecursiveLE d
+he : RecursiveLE e
+h : RecursiveNormal (scottHomC d e)
+f : ℕ → Bool
+hf : Computable f
+hfE :
+  (fun n => (scottHomC d e).enum '' ↑(Denumerable.ofNat (Finset ℕ) n) ◁ compacts (ScottHom α β)) = fun a => f a = true
+hσ : Computable (strictCode d e)
+n : ℕ
+himg :
+  ↑(Denumerable.ofNat (Finset ℕ) (imageCode (strictCode d e) n)) = strictCode d e '' ↑(Denumerable.ofNat (Finset ℕ) n)
+hval : Subtype.val ∘ strictConsistentEnum d e = fun m => consistentEnum d e (strictCode d e m)
+⊢ (fun x => ↑(strictConsistentEnum d e x)) '' ↑(Denumerable.ofNat (Finset ℕ) n) ◁ compacts (ScottHom α β) ↔
+    consistentEnum d e ∘ strictCode d e '' ↑(Denumerable.ofNat (Finset ℕ) n) ◁ compacts (ScottHom α β)
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.StrictHomCRecursive
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:15.06
+Maximum resident set size (kbytes): 1811676
+--- build ---
+finished:         2026-08-10T19:12:22-07:00
+exit status:      1
+user cpu:         18.06s
+system cpu:       0.55s
+cpu use:          123%
+peak rss single:  1769 MiB (largest one process, GNU time)
+peak pss tree:    1913 MiB (process group, shared pages apportioned)
+peak rss tree:    2585 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 5
+lake errors:      2
+sorry decls:      2
+other warnings:   1

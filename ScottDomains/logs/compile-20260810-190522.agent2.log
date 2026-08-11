@@ -1,0 +1,46 @@
+# r0053
+# agent2 — lake build ScottDomains.Effective.StrictHomCRecursive
+# checkout: /home/milnes/projects/ScottLean4-agent2
+# started: 2026-08-10T19:05:22-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.StrictHomCRecursive ===
+⚠ [1026/1027] Replayed ScottDomains.Effective.A3StepDecidable
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✖ [1027/1027] Building ScottDomains.Effective.StrictHomCRecursive (8.9s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent2/ScottDomains/ScottDomains/Effective/StrictHomCRecursive.lean -o /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/StrictHomCRecursive.olean -i /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/StrictHomCRecursive.ilean -c /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/StrictHomCRecursive.c --setup /home/milnes/projects/ScottLean4-agent2/ScottDomains/.lake/build/ir/ScottDomains/Effective/StrictHomCRecursive.setup.json --json
+error: ScottDomains/Effective/StrictHomCRecursive.lean:354:24: Application type mismatch: The argument
+  Primrec.nat_lt
+has type
+  PrimrecRel fun x1 x2 => x1 < x2
+but is expected to have type
+  Primrec₂ fun a b => decide (a < b)
+in the application
+  Primrec₂.to_comp Primrec.nat_lt
+error: ScottDomains/Effective/StrictHomCRecursive.lean:338:0: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.StrictHomCRecursive
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:09.63
+Maximum resident set size (kbytes): 1790944
+--- build ---
+finished:         2026-08-10T19:05:32-07:00
+exit status:      1
+user cpu:         10.42s
+system cpu:       0.54s
+cpu use:          113%
+peak rss single:  1748 MiB (largest one process, GNU time)
+peak pss tree:    1890 MiB (process group, shared pages apportioned)
+peak rss tree:    2563 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      2
+other warnings:   0
