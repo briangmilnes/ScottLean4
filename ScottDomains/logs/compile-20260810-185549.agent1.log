@@ -1,0 +1,51 @@
+# r0053
+# agent1 — lake build ScottDomains.Effective.ScottHomCRecursive
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-10T18:55:49-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.ScottHomCRecursive ===
+⚠ [1026/1029] Replayed ScottDomains.Effective.A3StepDecidable
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+⚠ [1029/1029] Built ScottDomains.Effective.ScottHomCRecursive (753ms)
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:86:52: Variable name `L` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:170:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.exists_setCodeAt`:
+  [Primcodable A]
+  [Primcodable σ]
+  [Inhabited σ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Primcodable A] [Primcodable σ] [Inhabited σ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:188:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.mem_ofn_setCode`:
+  [Primcodable A]
+  [Primcodable σ]
+  [Inhabited σ]
+  [DecidableEq σ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Primcodable A] [Primcodable σ] [Inhabited σ] [DecidableEq σ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Build completed successfully (1029 jobs).
+--- times ---
+Elapsed (wall clock): 0:01.52
+Maximum resident set size (kbytes): 1793676
+--- build ---
+finished:         2026-08-10T18:55:51-07:00
+exit status:      0
+user cpu:         1.43s
+system cpu:       0.51s
+cpu use:          127%
+peak rss single:  1751 MiB (largest one process, GNU time)
+peak pss tree:    1862 MiB (process group, shared pages apportioned)
+peak rss tree:    2535 MiB (process group, shared pages counted per process)
+jobs:             1029
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      2
+other warnings:   3
