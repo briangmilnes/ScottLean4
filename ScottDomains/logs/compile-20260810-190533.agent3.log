@@ -1,0 +1,72 @@
+# r0053
+# agent3 — lake build (whole library)
+# checkout: /home/milnes/projects/ScottLean4-agent3
+# started: 2026-08-10T19:05:33-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+⚠ [1218/1373] Replayed ScottDomains.Lemma30
+warning: ScottDomains/Lemma30.lean:535:8: declaration uses `sorry`
+⚠ [1327/1373] Replayed ScottDomains.Effective.A3StepDecidable
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+ℹ [1351/1373] Replayed ScottDomains.ExistingTheories
+info: ScottDomains/ExistingTheories.lean:15:0: OmegaCompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:16:0: CompletePartialOrder : Type u_1 → Type u_1
+info: ScottDomains/ExistingTheories.lean:19:0: @ScottContinuous : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:20:0: @ScottContinuousOn : {α : Type u_1} → {β : Type u_2} → [Preorder α] → [Preorder β] → Set (Set α) → (α → β) → Prop
+info: ScottDomains/ExistingTheories.lean:23:0: Topology.IsScott : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:24:0: Topology.IsScottHausdorff : (α : Type u_1) → Set (Set α) → [Preorder α] → [TopologicalSpace α] → Prop
+info: ScottDomains/ExistingTheories.lean:27:0: @OrderHom.lfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+info: ScottDomains/ExistingTheories.lean:28:0: @OrderHom.gfp : {α : Type u_1} → [inst : CompleteLattice α] → (α →o α) →o α
+✖ [1372/1373] Building ScottDomains.Theorem29NormalInfinite (760ms)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent3/ScottDomains/ScottDomains/Theorem29NormalInfinite.lean -o /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Theorem29NormalInfinite.olean -i /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/lib/lean/ScottDomains/Theorem29NormalInfinite.ilean -c /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Theorem29NormalInfinite.c --setup /home/milnes/projects/ScottLean4-agent3/ScottDomains/.lake/build/ir/ScottDomains/Theorem29NormalInfinite.setup.json --json
+error: ScottDomains/Theorem29NormalInfinite.lean:294:16: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (stgEmb (m + 1)) (mkEmpty (liftStg hm x))
+in the target expression
+  (stgEmb (m + 1)) (mkEmpty (liftStg hm x)) = mkEmpty (liftStg ⋯ x)
+
+case succ
+n m✝ m : ℕ
+hm : n ≤ m
+ih : ∀ (x : Stg n) (h' : n + 1 ≤ m + 1), liftStg h' (mkEmpty x) = mkEmpty (liftStg hm x)
+x : Stg n
+h' : n + 1 ≤ m + 1 + 1
+hm1 : n + 1 ≤ m + 1
+e1 : liftStg h' (mkEmpty x) = (stgEmb (m + 1)) (liftStg hm1 (mkEmpty x))
+e2 : liftStg hm1 (mkEmpty x) = mkEmpty (liftStg hm x)
+e3 : (stgEmb (m + 1)) (mkEmpty (liftStg hm x)) = mkEmpty ((stgEmb m) (liftStg hm x))
+e4 : liftStg ⋯ x = (stgEmb m) (liftStg hm x)
+⊢ (stgEmb (m + 1)) (mkEmpty (liftStg hm x)) = mkEmpty (liftStg ⋯ x)
+
+Note: The target expression is not type-correct under the `instances` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    mkEmpty (liftStg hm x)
+  has type
+    Step (Stg m)
+  but is expected to have type
+    Stg (m + 1)
+  in the application
+    (stgEmb (m + 1)) (mkEmpty (liftStg hm x))
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Theorem29NormalInfinite
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:01.53
+Maximum resident set size (kbytes): 1810036
+--- build ---
+finished:         2026-08-10T19:05:36-07:00
+exit status:      1
+user cpu:         1.59s
+system cpu:       0.55s
+cpu use:          139%
+peak rss single:  1767 MiB (largest one process, GNU time)
+peak pss tree:    1863 MiB (process group, shared pages apportioned)
+peak rss tree:    2535 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 1
+lake errors:      2
+sorry decls:      3
+other warnings:   0
