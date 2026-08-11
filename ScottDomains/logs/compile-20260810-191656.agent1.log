@@ -1,0 +1,57 @@
+# r0053
+# agent1 — lake build ScottDomains.Effective.ScottHomCRecursive
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-10T19:16:56-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.ScottHomCRecursive ===
+⚠ [1026/1029] Replayed ScottDomains.Effective.A3StepDecidable
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✖ [1029/1029] Building ScottDomains.Effective.ScottHomCRecursive (88s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/Effective/ScottHomCRecursive.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/ScottHomCRecursive.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/ScottHomCRecursive.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Effective/ScottHomCRecursive.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Effective/ScottHomCRecursive.setup.json --json
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:528:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.bddAbove_basisSet_belowValCode`:
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:536:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.enum_joinBelow`:
+  [BoundedComplete α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:802:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.isNormalIn_basisSet_iff`:
+  [BoundedComplete α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Effective/ScottHomCRecursive.lean:906:0: (deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: ScottDomains/Effective/ScottHomCRecursive.lean:926:8: (kernel) unknown constant 'ScottDomains.R53.Agent1.computablePred_union_eq'
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.ScottHomCRecursive
+error: build failed
+--- times ---
+Elapsed (wall clock): 1:29.37
+Maximum resident set size (kbytes): 1837716
+--- build ---
+finished:         2026-08-10T19:18:27-07:00
+exit status:      1
+user cpu:         90.87s
+system cpu:       0.59s
+cpu use:          102%
+peak rss single:  1794 MiB (largest one process, GNU time)
+peak pss tree:    1936 MiB (process group, shared pages apportioned)
+peak rss tree:    2609 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 2
+lake errors:      2
+sorry decls:      2
+other warnings:   3

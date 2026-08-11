@@ -1,0 +1,228 @@
+# r0053
+# agent1 — lake build ScottDomains.Effective.ScottHomCRecursive
+# checkout: /home/milnes/projects/ScottLean4-agent1
+# started: 2026-08-10T19:08:02-07:00
+# lean: leanprover/lean4:v4.32.2
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build ScottDomains.Effective.ScottHomCRecursive ===
+⚠ [1026/1029] Replayed ScottDomains.Effective.A3StepDecidable
+warning: ScottDomains/Effective/A3StepDecidable.lean:200:8: declaration uses `sorry`
+warning: ScottDomains/Effective/A3StepDecidable.lean:386:8: declaration uses `sorry`
+✖ [1029/1029] Building ScottDomains.Effective.ScottHomCRecursive (8.0s)
+trace: .> LEAN_PATH=/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Cli/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/batteries/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/Qq/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/aesop/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/importGraph/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/plausible/.lake/build/lib/lean:/home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib/lean:/home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean /home/milnes/.elan/toolchains/leanprover--lean4---v4.32.2/bin/lean /home/milnes/projects/ScottLean4-agent1/ScottDomains/ScottDomains/Effective/ScottHomCRecursive.lean -o /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/ScottHomCRecursive.olean -i /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/lib/lean/ScottDomains/Effective/ScottHomCRecursive.ilean -c /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Effective/ScottHomCRecursive.c --setup /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/build/ir/ScottDomains/Effective/ScottHomCRecursive.setup.json --json
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:506:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.basisSet_belowValCode`:
+  [BoundedComplete α]
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete α] [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:653:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.le_ofPairs_apply`:
+  [BoundedComplete α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Effective/ScottHomCRecursive.lean:656:2: don't know how to synthesize implicit argument `a`
+  @Iff.mp (ScottHom.step (?m.80 le_ofPairs_apply hP hcptP hc hp) p.2 ≤ ScottHom.ofPairs P)
+    (p.2 ≤ (ScottHom.ofPairs P) p.1) (ScottHom.step_le_iff (?m.80 le_ofPairs_apply hP hcptP hc hp))
+    ((isLUB_stepsOf_ofPairs hP hcptP hc).left (Exists.intro p ⟨hp, ⟨(hcptP hp).left, ⟨(hcptP hp).right, rfl⟩⟩⟩))
+context:
+α : Type u_3
+β : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : BoundedComplete α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+p : α × β
+hp : p ∈ P
+⊢ Prop
+error: ScottDomains/Effective/ScottHomCRecursive.lean:657:5: don't know how to synthesize implicit argument `a`
+  @And.left (ScottHom.ofPairs P ∈ upperBounds (ScottHom.stepsOf P))
+    (ScottHom.ofPairs P ∈ lowerBounds (upperBounds (ScottHom.stepsOf P))) (isLUB_stepsOf_ofPairs hP hcptP hc)
+    (ScottHom.step (?m.80 le_ofPairs_apply hP hcptP hc hp) p.2)
+    (Exists.intro p ⟨hp, ⟨(hcptP hp).left, ⟨(hcptP hp).right, rfl⟩⟩⟩)
+context:
+α : Type u_3
+β : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : BoundedComplete α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+p : α × β
+hp : p ∈ P
+⊢ ScottHom α β
+error: ScottDomains/Effective/ScottHomCRecursive.lean:658:6: don't know how to synthesize implicit argument `p`
+  @Exists.intro (α × β)
+    (fun p_1 => p_1 ∈ P ∧ (ScottHom.step (?m.80 le_ofPairs_apply hP hcptP hc hp) p.2).IsStepPair p_1) p
+    ⟨hp, ⟨(hcptP hp).left, ⟨(hcptP hp).right, rfl⟩⟩⟩
+context:
+α : Type u_3
+β : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : BoundedComplete α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+p : α × β
+hp : p ∈ P
+⊢ α × β → Prop
+error: ScottDomains/Effective/ScottHomCRecursive.lean:658:6: don't know how to synthesize implicit argument `b`
+  @And.intro (p ∈ P) ((ScottHom.step (?m.80 le_ofPairs_apply hP hcptP hc hp) p.2).IsStepPair p) hp
+    ⟨(hcptP hp).left, ⟨(hcptP hp).right, rfl⟩⟩
+context:
+α : Type u_3
+β : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : BoundedComplete α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+p : α × β
+hp : p ∈ P
+⊢ Prop
+error: ScottDomains/Effective/ScottHomCRecursive.lean:658:14: don't know how to synthesize implicit argument `b`
+  @And.intro (IsCompactElement p.1)
+    (IsCompactElement p.2 ∧ ⇑(ScottHom.step (?m.80 le_ofPairs_apply hP hcptP hc hp) p.2) = ScottHom.stepFun p.1 p.2)
+    (hcptP hp).left ⟨(hcptP hp).right, rfl⟩
+context:
+α : Type u_3
+β : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : BoundedComplete α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+p : α × β
+hp : p ∈ P
+⊢ Prop
+error: ScottDomains/Effective/ScottHomCRecursive.lean:658:14: don't know how to synthesize implicit argument `b`
+  @And.intro (IsCompactElement p.2)
+    (⇑(ScottHom.step (?m.80 le_ofPairs_apply hP hcptP hc hp) p.2) = ScottHom.stepFun p.1 p.2) (hcptP hp).right rfl
+context:
+α : Type u_3
+β : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : BoundedComplete α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+p : α × β
+hp : p ∈ P
+⊢ Prop
+error: ScottDomains/Effective/ScottHomCRecursive.lean:658:43: don't know how to synthesize implicit argument `a`
+  @rfl (α → β) ⇑(ScottHom.step (?m.80 le_ofPairs_apply hP hcptP hc hp) p.2)
+context:
+α : Type u_3
+β : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : BoundedComplete α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+p : α × β
+hp : p ∈ P
+⊢ α → β
+error: ScottDomains/Effective/ScottHomCRecursive.lean:656:24: don't know how to synthesize placeholder for argument `hk`
+context:
+α : Type u_3
+β : Type u_4
+inst✝³ : CompletePartialOrder α
+inst✝² : BoundedComplete α
+inst✝¹ : CompletePartialOrder β
+inst✝ : BoundedComplete β
+P : Set (α × β)
+hP : P.Finite
+hcptP : P ⊆ compacts α ×ˢ compacts β
+hc : Consistent P
+p : α × β
+hp : p ∈ P
+⊢ IsCompactElement p.1
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:713:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.consistent_unionPairCode_of_le`:
+  [BoundedComplete α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ScottDomains/Effective/ScottHomCRecursive.lean:774:0: automatically included section variable(s) unused in theorem `ScottDomains.R53.Agent1.consistentEnum_emptyPairCode`:
+  [BoundedComplete α]
+  [BoundedComplete β]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [BoundedComplete α] [BoundedComplete β] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+error: ScottDomains/Effective/ScottHomCRecursive.lean:805:12: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (scottHomC d e).enum a
+in the target expression
+  consistentEnum d e a ≤ consistentEnum d e emptyPairCode
+
+α : Type u_3
+β : Type u_4
+inst✝⁵ : CompletePartialOrder α
+inst✝⁴ : Domain α
+inst✝³ : BoundedComplete α
+inst✝² : CompletePartialOrder β
+inst✝¹ : Domain β
+inst✝ : BoundedComplete β
+d : EffectivePresentation α
+e : EffectivePresentation β
+n : ℕ
+hN : basisSet (scottHomC d e) n ◁ compacts (ScottHom α β)
+a : ℕ
+ha : a ∈ ↑(Denumerable.ofNat (Finset ℕ) n)
+hEq : (scottHomC d e).enum a = ⊥
+⊢ consistentEnum d e a ≤ consistentEnum d e emptyPairCode
+error: ScottDomains/Effective/ScottHomCRecursive.lean:874:0: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: ScottDomains/Effective/ScottHomCRecursive.lean:932:8: (kernel) unknown constant 'ScottDomains.R53.Agent1.recursiveNormal_scottHomC'
+error: ScottDomains/Effective/ScottHomCRecursive.lean:937:0: Invalid name after `end`: Expected `R53.Agent1.Order`, but found `ScottDomains.R53.Agent1`
+
+Hint: If you meant to end the outer scope(s) `ScottDomains.R53.Agent1`, you must end all the intervening scopes `ScottDomains.R53.Agent1.Order`:
+  end ScottDomains.R53.Agent1.̲O̲r̲d̲e̲r̲
+error: Lean exited with code 1
+Some required targets logged failures:
+- ScottDomains.Effective.ScottHomCRecursive
+error: build failed
+--- times ---
+Elapsed (wall clock): 0:08.75
+Maximum resident set size (kbytes): 1831952
+--- build ---
+finished:         2026-08-10T19:08:12-07:00
+exit status:      1
+user cpu:         10.24s
+system cpu:       0.55s
+cpu use:          123%
+peak rss single:  1789 MiB (largest one process, GNU time)
+peak pss tree:    1936 MiB (process group, shared pages apportioned)
+peak rss tree:    2609 MiB (process group, shared pages counted per process)
+jobs:             n/a
+lean diagnostics: 12
+lake errors:      2
+sorry decls:      2
+other warnings:   4
