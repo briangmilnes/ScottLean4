@@ -13,18 +13,28 @@ numbers in the Lean names are the printed ones.
 tracker. It records what the kernel has accepted, what is stated but owed, and
 what is not yet stated — so progress is a measurement rather than an impression.
 
-## §3 is complete: **zero `sorry`**
+## §3: zero `sorry`, but **Theorem 3.10 is proved in two of its four clauses**
 
-Every numbered result of §3 is kernel-checked — Definitions 3.2, 3.4, 3.9, 3.11
-and Theorems 3.5, 3.6, 3.7, 3.8, 3.10, 3.12, 3.13 — along with the categories
-`Equ`, `PEqu` and `ALat`. §4 and §5 are untouched; see the end of this file.
+Zero `sorry` is *not* the same as §3 being finished, and the difference is worth
+stating plainly, because a `Prop`-valued `def` carries no `sorry` and so is
+invisible to the count — the very defect this project's own tally rules warn
+about.
 
-Two things are deliberately *not* asserted, and both are recorded as
-`Prop`-valued claims rather than proved or `sorry`'d: the two
-regular-well-poweredness halves of 3.10, for which Mathlib has no
-`RegularWellPowered` class, and footnote 4's "`Equ` is not well-powered", whose
-`Small.{u}` encoding has not been checked against Johnstone's unexhibited
+**Proved:** Definitions 3.2, 3.4, 3.9, 3.11; Theorems 3.5, 3.6, 3.7, 3.8, 3.12,
+3.13; the categories `Equ`, `PEqu`, `ALat`.
+
+**Theorem 3.10** asserts `Equ` is *complete, cocomplete, regular well-powered and
+regular co-well-powered*. The first two are proved. The last two are
+`Theorem310RegularWellPowered` and `Theorem310RegularCoWellPowered` —
+**statements, not theorems**. `RegularSubobjects.lean` has the argument worked
+out and its `Equ`-specific half proved; what remains is the passage to an
+abstract regular mono and the `Subobject` bookkeeping.
+
+**Deliberately unasserted:** footnote 4's "`Equ` is not well-powered", whose
+`Small.{u}` encoding has never been checked against Johnstone's unexhibited
 counterexample.
+
+§4 and §5 are untouched; see the end of this file.
 
 ## Relation to `ScottLean/Scott/Scott1998ANewCategory.lean`
 
@@ -55,7 +65,8 @@ Results here are attributed to the 2004 paper.
 | `EquLimits.lean` | 198 | **0** | **Theorem 3.10's completeness half, proved**: products, equalizers, `HasLimitsOfSize Equ` |
 | `EquColimits.lean` | 239 | **0** | **Theorem 3.10's cocompleteness half, proved**; `T0Space` for a sigma type, proved |
 | `Theorems3.lean` | 174 | **0** | **Theorems 3.10 and 3.13, proved**; footnote 4 as a claim |
-| **Total** | **3348** | **0** | |
+| `RegularSubobjects.lean` | 127 | **0** | saturated subsets; (★) for the concrete equalizer. 3.10's regular halves still owed |
+| **Total** | **3475** | **0** | |
 
 ### Theorem 3.13: what is still owed, precisely
 
