@@ -1,6 +1,7 @@
 import ScottDomains.EquilogicalSpaces.CartesianClosure
 import ScottDomains.EquilogicalSpaces.ALatClosed
 import ScottDomains.EquilogicalSpaces.PowersetRetract
+import Mathlib.CategoryTheory.Limits.Shapes.BinaryProducts
 
 /-!
 # Cartesian closure of `PEqu`
@@ -226,5 +227,54 @@ theorem prodLift_unique {T A B : PartialEquilogicalSpace.{u}}
   fun x y hxy => ⟨h₁ x y hxy, h₂ x y hxy⟩
 
 end PartialEquilogicalSpace
+
+/-! ## The cone as a Mathlib limit
+
+    Every obligation here is an equality of `MapEquiv`-**classes**, so each one
+    is discharged by inducting on representatives and then applying the
+    corresponding equation between `PEquivariant` maps. That is the difference
+    from `ALatProducts.lean`, where morphisms are functions and the same
+    obligations were `rfl`. -/
+
+open CategoryTheory CategoryTheory.Limits
+
+/-- The binary fan on `𝒜 × ℬ` in `PEqu`. -/
+def pequProdFan (A B : PartialEquilogicalSpace.{u}) : BinaryFan A B :=
+  BinaryFan.mk (P := A.prod B)
+    (Quotient.mk _ (PartialEquilogicalSpace.prodFst A B))
+    (Quotient.mk _ (PartialEquilogicalSpace.prodSnd A B))
+
+/-- The fan is a limit. -/
+def pequProdIsLimit (A B : PartialEquilogicalSpace.{u}) :
+    IsLimit (pequProdFan A B) :=
+  BinaryFan.isLimitMk
+    (fun s => Quotient.map₂ PartialEquilogicalSpace.prodLift
+      (fun _ _ hf _ _ hg => PartialEquilogicalSpace.prodLift_congr hf hg)
+      (BinaryFan.fst s) (BinaryFan.snd s))
+    (fun s => by
+      refine Quotient.inductionOn₂ (BinaryFan.fst s) (BinaryFan.snd s)
+        (fun f g => ?_)
+      exact congrArg (Quotient.mk _)
+        (PartialEquilogicalSpace.prodFst_comp_prodLift f g))
+    (fun s => by
+      refine Quotient.inductionOn₂ (BinaryFan.fst s) (BinaryFan.snd s)
+        (fun f g => ?_)
+      exact congrArg (Quotient.mk _)
+        (PartialEquilogicalSpace.prodSnd_comp_prodLift f g))
+    (fun s m h₁ h₂ => by
+      revert h₁ h₂
+      refine Quotient.inductionOn m (fun m => ?_)
+      refine Quotient.inductionOn₂ (BinaryFan.fst s) (BinaryFan.snd s)
+        (fun f g => ?_)
+      intro h₁ h₂
+      exact Quotient.sound
+        (PartialEquilogicalSpace.prodLift_unique m
+          (Quotient.exact h₁) (Quotient.exact h₂)))
+
+instance pequHasLimitPair (A B : PartialEquilogicalSpace.{u}) : HasLimit (pair A B) :=
+  HasLimit.mk ⟨pequProdFan A B, pequProdIsLimit A B⟩
+
+instance : HasBinaryProducts PartialEquilogicalSpace.{u} :=
+  hasBinaryProducts_of_hasLimit_pair _
 
 end ScottDomains.EquilogicalSpaces

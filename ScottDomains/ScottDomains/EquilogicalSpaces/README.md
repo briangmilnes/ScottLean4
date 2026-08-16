@@ -36,10 +36,10 @@ Results here are attributed to the 2004 paper.
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Restriction.lean` | 155 | **0** | **the functor `R : PEqu ⥤ Equ`, faithful and full, proved** |
 | `EssSurj.lean` | 202 | **0** | **essential surjectivity and Theorem 3.12, proved** |
-| `PEquClosed.lean` | 230 | **0** | `PEqu`'s product and exponential objects, the currying bijection, and **the product cone, proved** |
+| `PEquClosed.lean` | 280 | **0** | `PEqu`'s objects, the currying bijection, and **`HasBinaryProducts PEqu`, proved** |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **2482** | **4** | |
+| **Total** | **2532** | **4** | |
 
 ### Theorem 3.13: what is still owed, precisely
 
@@ -49,10 +49,12 @@ partial equivalence relation and whose morphisms are `MapEquiv`-classes. The
 paper does the work in `PEqu` and transports to `Equ` across Theorem 3.12, so
 three steps remain:
 
-1. **Products in `PEqu`.** The cone is **proved** (`PEquClosed.lean`):
-   `prodFst`, `prodSnd`, `prodLift`, `prodLift_congr` and `prodLift_unique`.
-   What remains is wrapping it as a Mathlib `BinaryFan` / `IsLimit`, where the
-   universal property is an equality of *classes*.
+1. **Products in `PEqu` — done.** `HasBinaryProducts PartialEquilogicalSpace`
+   is an instance (`PEquClosed.lean`), via `pequProdFan` and `pequProdIsLimit`.
+   Every limit obligation is an equality of `MapEquiv`-*classes*, so each is
+   discharged by `Quotient.inductionOn` on representatives and then the
+   corresponding equation between `PEquivariant` maps — the difference from
+   `ALatProducts.lean`, where the same obligations were `rfl`.
 
    Two things were needed to get there, each verified necessary by deleting it
    and watching the module fail: `Wrap`, a non-reducible type synonym on the
