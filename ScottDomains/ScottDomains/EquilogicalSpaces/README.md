@@ -29,9 +29,9 @@ Results here are attributed to the 2004 paper.
 | `SigmaTopology.lean` | 194 | **0** | Definition 3.4; **Theorems 3.4↔Scott and 3.5, proved** |
 | `PartialEquilogical.lean` | 258 | 3 | Definition 3.11; the category `PEqu`; Def 3.2 proved; Theorems 3.6, 3.7, 3.12 stated |
 | `CartesianClosure.lean` | 154 | **0** | **Theorem 3.13's currying step, proved**; what Theorem 3.8 still owes |
-| `ALat.lean` | 113 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice` |
+| `ALat.lean` | 186 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice`; `ScottHom` is a complete lattice |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **1081** | **7** | |
+| **Total** | **1154** | **7** | |
 
 Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1538 jobs, 0 errors.
 Library `sorry` count 3 → 10 (the 3 pre-existing are in `Lemma30` and
@@ -132,14 +132,35 @@ Together they yield `isAlgebraic_scottHom`, **proved by `inferInstance`**: the
 exponential's carrier is an algebraic object. The `inferInstance` succeeding *is*
 the evidence that item 1 unblocked `FunctionSpaceDomain`.
 
-**What Theorem 3.8 still owes**, now down to one concrete obstruction: an
-exponential must be an *object of `ALat`*, so `ScottHom X Y` needs a
-`CompleteLattice` structure, and the package gives it only a
-`CompletePartialOrder`. The pointwise lattice structure on a function space
-between complete lattices is standard but is not in the package. After that,
-finite products in `ALat` and the adjunction assembled from `scottHomCurry`.
-This is why `CartesianClosure.lean` still states only
-`Theorem38CurryingBijection`, named for what it actually is.
+3. `scottHomCompleteLattice` — `ScottHom α β` is a complete lattice when `β` is,
+   built on the package's **existing** `SupSet`, so no second one is introduced
+   and no `SupSet` diamond arises.
+
+   Why that works is worth recording. `ScottHom.lean` defines `sSup` by a `dite`
+   on *continuity of the pointwise supremum*, not on directedness, and says so
+   deliberately: "Directedness and boundedness are then two *sufficient*
+   conditions, neither privileged in the definition." A complete-lattice codomain
+   is a third such condition, and it makes the pointwise supremum continuous for
+   **every** set — suprema commute, `⨆ᵢ ⨆ₓ = ⨆ₓ ⨆ᵢ`, unconditionally. So the
+   `dite` always takes the positive branch and the `const ⊥` junk value never
+   fires. One application of the package's own
+   `scottContinuous_pointwiseSup_of_forall_isLUB` proves it.
+
+   It is a **`def`, not an `instance`**, on purpose. Mathlib's
+   `completeLatticeOfSup` documents itself as having "bad definitional
+   properties": it sets `bot := sSup ∅`, whereas the package's
+   `CompletePartialOrder (ScottHom α β)` sets `bot := const ⊥`. Those agree
+   propositionally but not definitionally, and registering the instance globally
+   would create an `OrderBot` diamond across a 1538-job library — the same hazard
+   `ScottHom.lean` records as having broken an `Iff.rfl` in r0004. Opt in with
+   `letI`. Proving `sSup ∅ = const ⊥` and hand-rolling `bot` would let it become
+   a safe instance; that is the next small task.
+
+**What Theorem 3.8 still owes**: finite products in `ALat`, and the adjunction
+assembled from `scottHomCurry`. Both mathematical prerequisites — the
+exponential's carrier being an algebraic lattice — are now in hand. This is why
+`CartesianClosure.lean` still states only `Theorem38CurryingBijection`, named for
+what it actually is.
 
 Definition 3.11 deliberately uses the package's `ScottDomains.IsAlgebraic` (over
 `CompletePartialOrder`, reached from `CompleteLattice` by

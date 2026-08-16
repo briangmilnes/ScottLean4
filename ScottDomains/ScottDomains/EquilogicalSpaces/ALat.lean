@@ -110,4 +110,77 @@ theorem isAlgebraic_scottHom (A B : AlgebraicLattice.{u}) :
     ScottDomains.IsAlgebraic (ScottHom A.carrier B.carrier) :=
   inferInstance
 
+/-! ## The function space is a complete lattice
+
+    The second half of "the exponential is an object": `ScottHom X Y` must be a
+    *lattice*, and the package gives it only a `CompletePartialOrder`. -/
+
+section ScottHomLattice
+
+variable {α : Type u} [Preorder α] {β : Type u} [CompleteLattice β]
+
+/-- With a complete-lattice codomain, the pointwise supremum of an **arbitrary**
+    set of Scott-continuous maps is Scott-continuous — no directedness, no
+    boundedness.
+
+    The mathematics is that suprema commute: for directed `D` with `⋁ D = a`,
+
+        (⨆ᵢ fᵢ)(a) = ⨆ᵢ fᵢ(a) = ⨆ᵢ ⨆_{x∈D} fᵢ(x) = ⨆_{x∈D} ⨆ᵢ fᵢ(x) = ⨆_{x∈D} (⨆ᵢ fᵢ)(x)
+
+    and the interchange holds unconditionally in a complete lattice.
+
+    In Lean it is one application of the package's own
+    `scottContinuous_pointwiseSup_of_forall_isLUB`, which was deliberately
+    stated *without* directedness — "only that each evaluation image attains its
+    least upper bound at `sSup`". A complete-lattice codomain is a third
+    sufficient condition alongside the directed and bounded-complete ones, and
+    the existing design accommodates it for free. -/
+theorem scottContinuous_pointwiseSup_of_completeLattice (d : Set (ScottHom α β)) :
+    ScottContinuous fun x => sSup ((fun f : ScottHom α β => f x) '' d) :=
+  ScottHom.scottContinuous_pointwiseSup_of_forall_isLUB fun _ => isLUB_sSup _
+
+/-- Consequently the package's `sSup` is pointwise on **every** set: the `dite`
+    in its definition always takes the positive branch, so the `const ⊥` junk
+    value never fires when the codomain is a lattice.
+
+    This is why no second `SupSet` is introduced below, and hence no `SupSet`
+    diamond — the very hazard `ScottHom.lean` records as having broken an
+    `Iff.rfl` in r0004. Branching the definition on *continuity* rather than on
+    directedness is what makes this work. -/
+theorem coe_sSup_of_completeLattice (d : Set (ScottHom α β)) (x : α) :
+    (sSup d) x = sSup ((fun f : ScottHom α β => f x) '' d) :=
+  ScottHom.coe_sSup_of_continuous (scottContinuous_pointwiseSup_of_completeLattice d) x
+
+/-- Every set of Scott-continuous maps into a complete lattice has a least upper
+    bound, namely the package's own `sSup`. -/
+theorem isLUB_sSup_scottHom (d : Set (ScottHom α β)) : IsLUB d (sSup d) := by
+  constructor
+  · intro f hf x
+    dsimp only
+    rw [coe_sSup_of_completeLattice]
+    exact le_sSup ⟨f, hf, rfl⟩
+  · intro g hg x
+    dsimp only
+    rw [coe_sSup_of_completeLattice]
+    refine sSup_le ?_
+    rintro _ ⟨f, hf, rfl⟩
+    exact hg hf x
+
+/-- **`ScottHom α β` is a complete lattice** when `β` is, with the *existing*
+    `SupSet` — the order and suprema are the package's, not new ones.
+
+    **Deliberately a `def`, not an `instance`.** Mathlib's `completeLatticeOfSup`
+    documents itself as having "bad definitional properties": it defines
+    `bot := sSup ∅`, whereas the package's `CompletePartialOrder (ScottHom α β)`
+    defines `bot := const ⊥`. The two agree propositionally — the pointwise
+    supremum of the empty family is `⊥` at every point — but not definitionally,
+    so registering this globally would create an `OrderBot` diamond across a
+    1500-job library. Opt in with `letI` at the point of use until the
+    `bot`-compatibility lemma is proved and the instance can be given a
+    hand-rolled `bot := const ⊥`. -/
+@[reducible] noncomputable def scottHomCompleteLattice : CompleteLattice (ScottHom α β) :=
+  completeLatticeOfSup _ isLUB_sSup_scottHom
+
+end ScottHomLattice
+
 end ScottDomains.EquilogicalSpaces
