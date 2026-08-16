@@ -1,4 +1,6 @@
 import ScottDomains.EquilogicalSpaces.Basic
+import ScottDomains.EquilogicalSpaces.EquProducts
+import ScottDomains.EquilogicalSpaces.PEquClosed
 import Mathlib.CategoryTheory.Limits.HasLimits
 import Mathlib.CategoryTheory.Limits.Shapes.FiniteProducts
 import Mathlib.CategoryTheory.Limits.Shapes.RegularMono
@@ -138,24 +140,32 @@ def Theorem310NotWellPowered : Prop :=
 
 /-! ## Theorem 3.13: cartesian closure -/
 
-/-- `Equ` has finite products — the fragment of Theorem 3.10 that Theorem 3.13
-    depends on, split out so the adjunction below can be stated at all.
-    Obligation. -/
+/-- **Theorem 3.10**, the finite-products fragment: `Equ` has finite products.
+
+    **Proved**, in `EquProducts.lean`: `PUnit` is terminal and `A.prod B` — the
+    product topology with the componentwise equivalence relation — is a binary
+    product, whence Mathlib's
+    `hasFiniteProducts_of_has_binary_and_terminal`. Restated here under the
+    paper's number. -/
 instance bauerBirkedalScott04_theorem_3_10_hasFiniteProducts :
-    HasFiniteProducts EquilogicalSpace.{u} := by
-  sorry
+    HasFiniteProducts EquilogicalSpace.{u} := inferInstance
 
 /-- **Theorem 3.13**: `Equ` is cartesian closed — the paper's headline result,
     and the property `Top₀` does not share.
 
-    Stated as the paper states cartesian closure in §2: "the functor `· × B` is
-    adjoint to `B → ·` for all objects `B`". Phrasing it as an adjunction rather
-    than via Mathlib's `CartesianMonoidalCategory` + `MonoidalClosed` pair keeps
-    the statement in the paper's own terms and free of chosen-product data.
+    **Proved**, in `PEquClosed.lean`, as `bauerBirkedalScott04_theorem_3_13_equ`:
+    cartesian closure is established in `PEqu`, where the paper establishes it,
+    and transported along Theorem 3.12.
 
-    Obligation. The paper proves it for `PEqu` and transports along 3.12. -/
+    Stated with the concrete functor `equProdFunctorRight B`, which is `· × B`.
+    An earlier draft of this file used Mathlib's `Limits.prod.functor.obj B`;
+    that is `B ⨯ ·`, the *opposite* order, and it routes through `limit`, which
+    picks a cone by `Classical.choice` and so is only isomorphic to the concrete
+    product rather than equal to it. The paper's own §2 phrasing is "the functor
+    `· × B` is adjoint to `B → ·`", so the concrete functor is both the faithful
+    reading and the workable one. -/
 theorem bauerBirkedalScott04_theorem_3_13 (B : EquilogicalSpace.{u}) :
-    Functor.IsLeftAdjoint (Limits.prod.functor.obj B) := by
-  sorry
+    Functor.IsLeftAdjoint (equProdFunctorRight B) :=
+  bauerBirkedalScott04_theorem_3_13_equ B
 
 end ScottDomains.EquilogicalSpaces
