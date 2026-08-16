@@ -33,7 +33,7 @@ if git diff --cached --quiet; then
 else
   git commit -q -m "${msg}
 
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
   echo "gitcp: committed $(git rev-parse --short HEAD)"
 fi
 
