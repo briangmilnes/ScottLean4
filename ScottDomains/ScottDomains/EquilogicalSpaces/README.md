@@ -35,9 +35,10 @@ Results here are attributed to the 2004 paper.
 | `ALatProducts.lean` | 103 | **0** | **`HasFiniteProducts ALat`, proved**: terminal object and binary products |
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Restriction.lean` | 155 | **0** | **the functor `R : PEqu ⥤ Equ`, faithful and full, proved** |
+| `EssSurj.lean` | 107 | **0** | **the essential-surjectivity witness, its total part, and the forward embedding, proved** |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **2056** | **5** | |
+| **Total** | **2163** | **5** | |
 
 ### Theorem 3.12: two of four pieces done
 
@@ -49,7 +50,7 @@ that structure exactly keeps the remaining work named rather than diffuse:
 | the functor `R` | **proved** (`Restriction.lean`) |
 | `R` faithful | **proved** — `MapEquiv` only tests maps at `≡`-related arguments, and `A.Rel x y` already forces `x` and `y` total |
 | `R` full | **proved** — pick a representative on the total parts, regard it as a continuous map into `\|B\|`, extend by `extension_into_algebraicLattice`. Equivariance of the extension is free: `A.Rel x y` forces `x` and `y` total, and there the extension agrees with the representative. |
-| `R` essentially surjective | owed: the witness is `𝒫 Ω_ℰ` with the relation transported along `nbhdFilter`, whose total part is `range nbhdFilter`, homeomorphic to `ℰ` by Theorem 3.6 (**proved**). `IsAlgebraic (Set X)` is available from `ScottDomains.Powerset`, so the witness *is* an object; what remains is building it and the isomorphism. |
+| `R` essentially surjective | **partly done** (`EssSurj.lean`). The witness object `witness ℰ` is built and proved to be an object of `PEqu`; `witness_total` proves its total part is exactly `range nbhdFilter`; `witnessEmbed` is the forward equivariant map and `witnessEmbed_injective` its injectivity. **Owed:** the backward morphism and the two composite conditions, i.e. the `Equ`-isomorphism `ℰ ≅ R (witness ℰ)`. The backward map is the inverse of the embedding, continuous by Theorem 3.6; the Mathlib route is `Equiv.ofInjective` then `Equiv.toHomeomorphOfIsInducing`, transported across `witness_total` with `Homeomorph.setCongr`. |
 
 Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1546 jobs, 0 errors.
 
