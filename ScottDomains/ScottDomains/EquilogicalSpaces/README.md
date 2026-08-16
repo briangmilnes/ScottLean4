@@ -28,10 +28,11 @@ Results here are attributed to the 2004 paper.
 | `Basic.lean` | 201 | **0** | Definition 3.9; the category `Equ` |
 | `SigmaTopology.lean` | 194 | **0** | Definition 3.4; **Theorems 3.4↔Scott and 3.5, proved** |
 | `PartialEquilogical.lean` | 258 | 3 | Definition 3.11; the category `PEqu`; Def 3.2 proved; Theorems 3.6, 3.7, 3.12 stated |
+| `CartesianClosure.lean` | 154 | **0** | **Theorem 3.13's currying step, proved**; what Theorem 3.8 still owes |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **814** | **7** | |
+| **Total** | **968** | **7** | |
 
-Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1536 jobs, 0 errors.
+Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1537 jobs, 0 errors.
 Library `sorry` count 3 → 10 (the 3 pre-existing are in `Lemma30` and
 `Effective/A3StepDecidable`).
 
@@ -97,23 +98,39 @@ formulation.
 
 ## Not yet stated
 
-### §3, the remaining link
+### §3, Theorem 3.8 — partly done, see `CartesianClosure.lean`
 
-**Theorem 3.8: `ALat` is cartesian closed.** Needs a bundled category of
-algebraic lattices. Most of the mathematical content already exists in this
-package and should be reused rather than reproved:
+The paper's proof of 3.13 names two halves. They are now separated, and one is
+closed:
 
-- `ScottDomains/FunctionSpaceDomain.lean` — `IsAlgebraic (ScottHom α β)` for `α`
-  algebraic and `β` algebraic and bounded complete. That is the exponential's
-  carrier being an object.
-- `ScottDomains/Currying.lean` — `D → (E → F) ≅ (D × E) → F`, the currying
-  isomorphism, with the joint-vs-separate continuity argument already done.
-- `ScottDomains/StepFunction.lean`, `ScottDomains/Product.lean`.
+| Half | Source | Status |
+| ---- | ------ | ------ |
+| the currying isomorphism of algebraic lattices | `ScottDomains.Currying.scottHomCurry` | already in this package |
+| that it preserves the partial equivalence relation | `scottHomCurry_homRel` | **proved** |
 
-Definition 3.11 above deliberately uses the package's `ScottDomains.IsAlgebraic`
-(over `CompletePartialOrder`, reached from `CompleteLattice` by
+The paper calls the second half "self-proving … just a matter of unpacking the
+definitions", and it is: the two sides are the same quantifier prefix with the
+pair `(x, u)` split or joined, and the proof is a single term. `ProdRel` and
+`HomRel` there are Definition 3.11's product and exponential relations, taken
+unbundled so the result does not depend on the exponential being an object.
+
+**What Theorem 3.8 still owes** is packaging, not mathematics:
+
+1. A bundled category `ALat` of algebraic lattices with Scott-continuous maps,
+   its finite products, and the adjunction assembled from `scottHomCurry`. Until
+   `ALat` exists, "`ALat` is cartesian closed" cannot be given a type at all —
+   which is why `CartesianClosure.lean` states only
+   `Theorem38CurryingBijection`, named for what it actually is.
+2. A `BoundedComplete` instance for `CompleteLattice`. `FunctionSpaceDomain.lean`
+   proves `IsAlgebraic (ScottHom α β)` for `α` algebraic and `β` algebraic *and
+   bounded complete*; every complete lattice is bounded complete, but the
+   instance is not in the package. One instance, not a proof.
+
+Definition 3.11 deliberately uses the package's `ScottDomains.IsAlgebraic` (over
+`CompletePartialOrder`, reached from `CompleteLattice` by
 `CompleteLattice.toCompletePartialOrder`) rather than a Mathlib equivalent,
-precisely so this interoperation is available.
+precisely so this interoperation is available. Also relevant:
+`ScottDomains/StepFunction.lean`, `ScottDomains/Product.lean`.
 
 ### The dependency chain for the headline theorem
 
