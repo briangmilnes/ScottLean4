@@ -262,25 +262,19 @@ theorem bauerBirkedalScott04_theorem_3_7_extension {A : Type u}
 
 end EmbeddingExtension
 
-/-- **Theorem 3.12**: the categories `Equ` and `PEqu` are equivalent.
+/-! ## Theorem 3.12
 
-    Obligation, and the hinge of the whole section. The paper's functor
-    `R : PEqu → Equ` restricts a partial equilogical space to its total part
-    `{ x ∣ x ≡ x }` with the subspace topology, on which the relation becomes
-    total. Then:
+    **Proved**, in `EssSurj.lean`, and not restated here: it needs the
+    restriction functor `R : PEqu ⥤ Equ`, which is built in `Restriction.lean`
+    downstream of this module, so the statement cannot be phrased at this point
+    in the import order.
 
-    * `R` is **faithful** by definition;
-    * `R` is **full** by Theorem 3.7, since a continuous map between `T₀`-spaces
-      extends to any algebraic lattices embedding them;
-    * `R` is **essentially surjective** by Theorem 3.6 — and note that the
-      equivalence relation on the `T₀`-space does not have to be extended, it
-      remains partial.
+    The paper's proof structure, and where each piece lives:
 
-    Theorem 3.13 is proved by transporting cartesian closure of `PEqu` across
-    this equivalence, so discharging 3.13 honestly means discharging this
-    first. -/
-theorem bauerBirkedalScott04_theorem_3_12 :
-    Nonempty (CategoryTheory.Equivalence PartialEquilogicalSpace.{u} EquilogicalSpace.{u}) := by
-  sorry
+    * `R` is **faithful** by definition — `Restriction.lean`;
+    * `R` is **full** by the Extension Theorem in its algebraic-lattice form —
+      `Restriction.lean`, on `PowersetRetract.lean`;
+    * `R` is **essentially surjective** by the Embedding Theorem 3.6 above —
+      `EssSurj.lean`. -/
 
 end ScottDomains.EquilogicalSpaces

@@ -27,7 +27,7 @@ Results here are attributed to the 2004 paper.
 | ------ | ----: | ------: | -------- |
 | `Basic.lean` | 201 | **0** | Definition 3.9; the category `Equ` |
 | `SigmaTopology.lean` | 194 | **0** | Definition 3.4; **Theorems 3.4↔Scott and 3.5, proved** |
-| `PartialEquilogical.lean` | 286 | 1 | Definition 3.11; the category `PEqu`; Defs 3.2 and **Theorem 3.6 proved**; 3.12 stated |
+| `PartialEquilogical.lean` | 280 | **0** | Definition 3.11; the category `PEqu`; Def 3.2 and **Theorem 3.6, proved** |
 | `Extension.lean` | 189 | **0** | **Theorem 3.7, proved**; Σ-open subbasis, finite character, `continuous_of_preimage_memSet` |
 | `CartesianClosure.lean` | 154 | **0** | **Theorem 3.13's currying step, proved**; what Theorem 3.8 still owes |
 | `ALat.lean` | 196 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice`; `ScottHom` is a complete lattice |
@@ -35,22 +35,22 @@ Results here are attributed to the 2004 paper.
 | `ALatProducts.lean` | 103 | **0** | **`HasFiniteProducts ALat`, proved**: terminal object and binary products |
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Restriction.lean` | 155 | **0** | **the functor `R : PEqu ⥤ Equ`, faithful and full, proved** |
-| `EssSurj.lean` | 107 | **0** | **the essential-surjectivity witness, its total part, and the forward embedding, proved** |
+| `EssSurj.lean` | 202 | **0** | **essential surjectivity and Theorem 3.12, proved** |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **2163** | **5** | |
+| **Total** | **2252** | **4** | |
 
-### Theorem 3.12: two of four pieces done
+### Theorem 3.12: **proved**
 
-The paper's proof names three properties of the restriction functor. Following
-that structure exactly keeps the remaining work named rather than diffuse:
+`bauerBirkedalScott04_theorem_3_12 : PEqu ≌ Equ`, in `EssSurj.lean`, assembled
+from the three properties exactly as the paper assembles them:
 
 | Piece | Status |
 | ----- | ------ |
 | the functor `R` | **proved** (`Restriction.lean`) |
 | `R` faithful | **proved** — `MapEquiv` only tests maps at `≡`-related arguments, and `A.Rel x y` already forces `x` and `y` total |
 | `R` full | **proved** — pick a representative on the total parts, regard it as a continuous map into `\|B\|`, extend by `extension_into_algebraicLattice`. Equivariance of the extension is free: `A.Rel x y` forces `x` and `y` total, and there the extension agrees with the representative. |
-| `R` essentially surjective | **partly done** (`EssSurj.lean`). The witness object `witness ℰ` is built and proved to be an object of `PEqu`; `witness_total` proves its total part is exactly `range nbhdFilter`; `witnessEmbed` is the forward equivariant map and `witnessEmbed_injective` its injectivity. **Owed:** the backward morphism and the two composite conditions, i.e. the `Equ`-isomorphism `ℰ ≅ R (witness ℰ)`. The backward map is the inverse of the embedding, continuous by Theorem 3.6; the Mathlib route is `Equiv.ofInjective` then `Equiv.toHomeomorphOfIsInducing`, transported across `witness_total` with `Homeomorph.setCongr`. |
+| `R` essentially surjective | **proved** (`EssSurj.lean`). Witness `𝒫 (𝒫 \|ℰ\|)` with the relation transported along `nbhdFilter`; `witness_total` shows its total part is exactly `range nbhdFilter`. The inverse `witnessInv` is continuous **directly from `IsInducing`** — an open `U` is `nbhdFilter ⁻¹' V`, and then `witnessInv ⁻¹' U = Subtype.val ⁻¹' V` — so no homeomorphism transport was needed after all. |
 
 Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1546 jobs, 0 errors.
 

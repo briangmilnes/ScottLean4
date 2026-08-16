@@ -104,4 +104,99 @@ theorem witnessEmbed_injective : Function.Injective (witnessEmbed E).toFun := by
   intro x y h
   exact nbhdFilter_injective (congrArg Subtype.val h)
 
+/-! ## The inverse -/
+
+/-- The backward map: a total element of the witness *is* a neighbourhood filter,
+    by `witness_total`, so it has a point. Chosen with `Exists.choose`; the choice
+    is harmless because `T₀` makes the point unique. -/
+noncomputable def witnessInv (p : ↥(witness E).Total) : E.carrier := p.2.choose
+
+theorem witnessInv_spec (p : ↥(witness E).Total) :
+    p.1 = nbhdFilter (witnessInv E p) :=
+  p.2.choose_spec.choose_spec.2.1
+
+/-- The chosen point is *the* point: any other with the same filter equals it. -/
+theorem witnessInv_eq {p : ↥(witness E).Total} {x : E.carrier}
+    (h : p.1 = nbhdFilter x) : witnessInv E p = x :=
+  nbhdFilter_injective (by rw [← witnessInv_spec E p, h])
+
+/-- **The inverse is continuous** — directly from `IsInducing`, with no
+    homeomorphism transport. An open `U` of `ℰ` is `nbhdFilter ⁻¹' V` for some
+    Σ-open `V` by Theorem 3.6, and then `witnessInv ⁻¹' U` is just
+    `Subtype.val ⁻¹' V`, open in the subspace. -/
+theorem continuous_witnessInv : Continuous (witnessInv E) := by
+  rw [continuous_def]
+  intro U hU
+  obtain ⟨V, hV, hVU⟩ :=
+    (bauerBirkedalScott04_theorem_3_6_embedding
+      (X := E.carrier)).toIsInducing.isOpen_iff.mp hU
+  have hpre : witnessInv E ⁻¹' U = Subtype.val ⁻¹' V := by
+    ext p
+    show witnessInv E p ∈ U ↔ p.1 ∈ V
+    rw [← hVU, Set.mem_preimage, witnessInv_spec E p]
+    rfl
+  rw [hpre]
+  exact hV.preimage continuous_subtype_val
+
+/-- The backward equivariant map. -/
+noncomputable def witnessProject : Equivariant (witness E).restrict E where
+  toFun := witnessInv E
+  continuous_toFun := continuous_witnessInv E
+  equivariant := by
+    rintro p q ⟨x, y, hxy, hp, hq⟩
+    rw [witnessInv_eq E hp, witnessInv_eq E hq]
+    exact hxy
+
+/-! ## The isomorphism -/
+
+theorem witnessProject_comp_witnessEmbed :
+    Equivariant.MapEquiv (Equivariant.comp (witnessProject E) (witnessEmbed E))
+      (Equivariant.id E) := by
+  intro x y hxy
+  have h : witnessInv E ((witnessEmbed E).toFun x) = x := witnessInv_eq E rfl
+  show E.Rel (witnessInv E ((witnessEmbed E).toFun x)) y
+  rw [h]
+  exact hxy
+
+theorem witnessEmbed_comp_witnessProject :
+    Equivariant.MapEquiv (Equivariant.comp (witnessEmbed E) (witnessProject E))
+      (Equivariant.id (witness E).restrict) := by
+  rintro p q ⟨x, y, hxy, hp, hq⟩
+  refine ⟨x, y, hxy, ?_, hq⟩
+  show nbhdFilter (witnessInv E p) = nbhdFilter x
+  rw [witnessInv_eq E hp]
+
+/-- **The isomorphism `R (witness ℰ) ≅ ℰ`.** Both composites are identities *as
+    classes*, which is what the two lemmas above establish. -/
+noncomputable def witnessIso : restrictFunctor.obj (witness E) ≅ E where
+  hom := by exact Quotient.mk _ (witnessProject E)
+  inv := by exact Quotient.mk _ (witnessEmbed E)
+  hom_inv_id := Quotient.sound (witnessEmbed_comp_witnessProject E)
+  inv_hom_id := Quotient.sound (witnessProject_comp_witnessEmbed E)
+
+/-- **`R` is essentially surjective**, completing the third of the three
+    properties the paper's proof of Theorem 3.12 names. -/
+instance : restrictFunctor.{u}.EssSurj where
+  mem_essImage Y := ⟨witness Y, ⟨witnessIso Y⟩⟩
+
+/-! ## Theorem 3.12 -/
+
+/-- `R` is an equivalence. The three fields are exactly the three properties the
+    paper's proof establishes; each is discharged by `infer_instance` from the
+    instances in `Restriction.lean` and above. -/
+instance restrictFunctor_isEquivalence : restrictFunctor.{u}.IsEquivalence := {}
+
+/-- **Theorem 3.12**: `Equ` and `PEqu` are equivalent.
+
+    Assembled from the three properties, exactly as the paper assembles it:
+    `R` is faithful by definition (`Restriction.lean`), full by the Extension
+    Theorem, and essentially surjective by the Embedding Theorem. Mathlib's
+    `Equivalence.ofFullyFaithfullyEssSurj` does the packaging.
+
+    Note the direction: the functor goes `PEqu ⥤ Equ`, so the equivalence is
+    stated that way round. -/
+noncomputable def bauerBirkedalScott04_theorem_3_12 :
+    PartialEquilogicalSpace.{u} ≌ EquilogicalSpace.{u} :=
+  restrictFunctor.asEquivalence
+
 end ScottDomains.EquilogicalSpaces
