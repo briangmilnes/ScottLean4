@@ -36,10 +36,10 @@ Results here are attributed to the 2004 paper.
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Restriction.lean` | 155 | **0** | **the functor `R : PEqu ⥤ Equ`, faithful and full, proved** |
 | `EssSurj.lean` | 202 | **0** | **essential surjectivity and Theorem 3.12, proved** |
-| `PEquClosed.lean` | 447 | **0** | **Theorem 3.13 for `PEqu`, proved**: `(- × B) ⊣ (B ⟹ -)` |
+| `PEquClosed.lean` | 490 | **0** | **Theorem 3.13, proved** — for `PEqu`, and for `Equ` by transport across 3.12 |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **2699** | **4** | |
+| **Total** | **2742** | **4** | |
 
 ### Theorem 3.13: what is still owed, precisely
 
@@ -75,8 +75,18 @@ three steps remain:
    `rfl` — `scottHomCurry` is an isomorphism on the nose and currying a pair is
    definitional — and both naturality squares hold on representatives.
 
-   **Still owed: transport to `Equ` across Theorem 3.12.** That is the only gap
-   left between here and the `Theorems3.lean` statement of 3.13.
+4. **Transport to `Equ` — done.** `equProdExpAdjunction` and
+   `bauerBirkedalScott04_theorem_3_13_equ`. With `e : PEqu ≌ Equ` from Theorem
+   3.12, conjugation gives
+   `e.inverse ⋙ F ⋙ e.functor ⊣ e.inverse ⋙ G ⋙ e.functor`, assembled from
+   `e.symm.toAdjunction`, the `PEqu` adjunction, and `e.toAdjunction` by
+   `Adjunction.comp`.
+
+**One statement remains `sorry` in `Theorems3.lean`**, and it is a *different*
+formulation, not the same theorem: it is phrased with Mathlib's
+`Limits.prod.functor.obj B`, which routes through `HasBinaryProducts Equ` — part
+of Theorem 3.10, still owed. Theorem 3.13 itself is proved, in the paper's own
+§2 phrasing, as `bauerBirkedalScott04_theorem_3_13_equ`.
 
 ### Theorem 3.12: **proved**
 

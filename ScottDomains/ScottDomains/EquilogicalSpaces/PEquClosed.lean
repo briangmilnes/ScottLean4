@@ -1,6 +1,7 @@
 import ScottDomains.EquilogicalSpaces.CartesianClosure
 import ScottDomains.EquilogicalSpaces.ALatClosed
 import ScottDomains.EquilogicalSpaces.PowersetRetract
+import ScottDomains.EquilogicalSpaces.EssSurj
 import Mathlib.CategoryTheory.Limits.Shapes.BinaryProducts
 
 /-!
@@ -443,5 +444,47 @@ noncomputable def pequProdExpAdjunction (B : PartialEquilogicalSpace.{u}) :
 theorem bauerBirkedalScott04_theorem_3_13_pequ (B : PartialEquilogicalSpace.{u}) :
     CategoryTheory.Functor.IsLeftAdjoint (pequProdFunctorRight B) :=
   ⟨⟨_, ⟨pequProdExpAdjunction B⟩⟩⟩
+
+/-! ## Theorem 3.13 for `Equ`, by transport across Theorem 3.12
+
+    The paper proves cartesian closure in `PEqu` and carries it to `Equ` along
+    the equivalence. Formally that is conjugation: with `e : PEqu ≌ Equ`, an
+    adjunction `F ⊣ G` on `PEqu` gives
+
+        e.inverse ⋙ F ⋙ e.functor  ⊣  e.inverse ⋙ G ⋙ e.functor
+
+    assembled from `e.symm.toAdjunction`, the `PEqu` adjunction, and
+    `e.toAdjunction` by `Adjunction.comp`. -/
+
+open CategoryTheory in
+/-- `- × B` on `Equ`, transported. -/
+noncomputable def equProdFunctorRight (B : EquilogicalSpace.{u}) :
+    EquilogicalSpace.{u} ⥤ EquilogicalSpace.{u} :=
+  (bauerBirkedalScott04_theorem_3_12.inverse ⋙
+      pequProdFunctorRight (bauerBirkedalScott04_theorem_3_12.inverse.obj B)) ⋙
+    bauerBirkedalScott04_theorem_3_12.functor
+
+open CategoryTheory in
+/-- `B ⟹ -` on `Equ`, transported. -/
+noncomputable def equExpFunctor (B : EquilogicalSpace.{u}) :
+    EquilogicalSpace.{u} ⥤ EquilogicalSpace.{u} :=
+  bauerBirkedalScott04_theorem_3_12.inverse ⋙
+    (pequExpFunctor (bauerBirkedalScott04_theorem_3_12.inverse.obj B) ⋙
+      bauerBirkedalScott04_theorem_3_12.functor)
+
+open CategoryTheory in
+/-- **Theorem 3.13**: `Equ` is cartesian closed. -/
+noncomputable def equProdExpAdjunction (B : EquilogicalSpace.{u}) :
+    equProdFunctorRight B ⊣ equExpFunctor B :=
+  (bauerBirkedalScott04_theorem_3_12.symm.toAdjunction.comp
+      (pequProdExpAdjunction _)).comp
+    bauerBirkedalScott04_theorem_3_12.toAdjunction
+
+/-- **Theorem 3.13**, in the paper's §2 phrasing: for every object `B` of `Equ`,
+    the functor `· × B` is a left adjoint. This is the headline result, and the
+    property `Top₀` does not share. -/
+theorem bauerBirkedalScott04_theorem_3_13_equ (B : EquilogicalSpace.{u}) :
+    CategoryTheory.Functor.IsLeftAdjoint (equProdFunctorRight B) :=
+  ⟨⟨_, ⟨equProdExpAdjunction B⟩⟩⟩
 
 end ScottDomains.EquilogicalSpaces
