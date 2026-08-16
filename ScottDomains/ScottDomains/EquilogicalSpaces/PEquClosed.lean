@@ -42,22 +42,68 @@ namespace ScottDomains.EquilogicalSpaces
 
 open ScottDomains
 
+/-! ## A protected carrier
+
+    `Wrap` is a type synonym in the manner of Mathlib's `WithScott` and
+    `WithLower`, and it exists for one reason: **instance lookup keys**.
+
+    A carrier that reduces to `A.carrier × B.carrier` has discrimination key
+    `Prod _ _`, and `PartialEquilogicalSpace.isScott` is keyed on
+    `PartialEquilogicalSpace.carrier _`. Once the goal's key has reduced past the
+    projection, that instance is never considered — synthesis fails even though
+    the term discharges the goal by hand (r0077 measured exactly this).
+
+    Because `Wrap α` is a plain `def`, it is *definitionally* `α`, so every
+    instance transports by identity — `‹CompleteLattice α›` and friends, no
+    construction and no proof obligations. But because it is **not reducible**,
+    the ambient `Prod` instances are not candidates on it, and the instances
+    declared here are found instead.
+
+    ## Two changes are needed, and each was verified necessary by deleting it
+
+    `Wrap` alone is not enough, and `@[reducible]` alone is not enough:
+
+    * **`@[reducible]` on `prod`.** Instance resolution runs at `instances`
+      transparency, which does not unfold a plain `def`. Without it, matching
+      `PartialEquilogicalSpace.isScott` against the goal requires comparing
+      `(A.prod B).topologicalSpace` with the ambient candidate, and resolution
+      cannot unfold `prod` far enough to do so — synthesis fails even though the
+      term `(A.prod B).isScott` discharges the goal by hand at default
+      transparency. This is what r0075–r0077 kept failing to name.
+    * **`Wrap` on the carrier.** Removing it while keeping `@[reducible]` was
+      tried: the carrier reduces to a bare `A.carrier × B.carrier`, the ambient
+      product instances become candidates again, and the module fails with
+      nineteen errors starting at the object's own `IsScott` field.
+
+    So the two are complementary — `@[reducible]` lets resolution *reach* the
+    carrier, `Wrap` controls *what it finds there*. -/
+
+def Wrap (α : Type u) : Type u := α
+
+instance [CompleteLattice α] : CompleteLattice (Wrap α) := ‹CompleteLattice α›
+
+instance [CompleteLattice α] [ScottDomains.IsAlgebraic α] :
+    ScottDomains.IsAlgebraic (Wrap α) := ‹ScottDomains.IsAlgebraic α›
+
+instance [CompleteLattice α] : TopologicalSpace (Wrap α) :=
+  Topology.scott (Wrap α) Set.univ
+
+instance [CompleteLattice α] : Topology.IsScott (Wrap α) Set.univ := ⟨rfl⟩
+
 /-! ## The product object -/
 
-/-- The binary product of two partial equilogical spaces: the product lattice
-    with the componentwise partial equivalence relation. -/
-def PartialEquilogicalSpace.prod (A B : PartialEquilogicalSpace.{u}) :
-    PartialEquilogicalSpace.{u} :=
-  letI : TopologicalSpace (A.carrier × B.carrier) :=
-    Topology.scott (A.carrier × B.carrier) Set.univ
-  haveI : Topology.IsScott (A.carrier × B.carrier) Set.univ := ⟨rfl⟩
-  { carrier := A.carrier × B.carrier
-    Rel := ProdRel A.Rel B.Rel
-    rel_symm := fun h => ⟨A.rel_symm h.1, B.rel_symm h.2⟩
-    rel_trans := fun h₁ h₂ => ⟨A.rel_trans h₁.1 h₂.1, B.rel_trans h₁.2 h₂.2⟩ }
+/-- The binary product of two partial equilogical spaces: the product lattice,
+    behind `Wrap`, with the componentwise partial equivalence relation.
 
-@[simp] theorem PartialEquilogicalSpace.prod_carrier (A B : PartialEquilogicalSpace.{u}) :
-    (A.prod B).carrier = (A.carrier × B.carrier) := rfl
+    `Wrap` costs nothing definitionally — `ProdRel A.Rel B.Rel` is accepted here
+    unchanged, because `Wrap (|𝒜| × |ℬ|)` *is* `|𝒜| × |ℬ|` — and it is what makes
+    the projections below typecheck at all. -/
+@[reducible] def PartialEquilogicalSpace.prod (A B : PartialEquilogicalSpace.{u}) :
+    PartialEquilogicalSpace.{u} where
+  carrier := Wrap (A.carrier × B.carrier)
+  Rel := ProdRel A.Rel B.Rel
+  rel_symm := fun h => ⟨A.rel_symm h.1, B.rel_symm h.2⟩
+  rel_trans := fun h₁ h₂ => ⟨A.rel_trans h₁.1 h₂.1, B.rel_trans h₁.2 h₂.2⟩
 
 /-! ## The exponential object -/
 
@@ -110,45 +156,75 @@ theorem scottContinuous_of_continuous {α β : Type u} [Preorder α] [Topologica
     ((Topology.IsScott.scottContinuousOn_iff_continuous (D := Set.univ)
       fun _ _ _ => Set.mem_univ _).mpr hf)
 
-/-! ## Blocked: the product cone in `PEqu`
+/-! ## The product cone in `PEqu`
 
-    The projections `𝒜 × ℬ ⟶ 𝒜` and `𝒜 × ℬ ⟶ ℬ` cannot yet be built, because
-    `continuous_of_scottContinuous` needs
+    With the carrier behind `Wrap`, `Topology.IsScott (A.prod B).carrier Set.univ`
+    is found by synthesis and the cone goes through. Each Scott-continuity fact
+    is still stated at the object's carrier first, so that unification does not
+    pin the domain to a bare product via the ambient `Prod` instances before the
+    goal's own are consulted. -/
 
-        Topology.IsScott (A.prod B).carrier Set.univ
+namespace PartialEquilogicalSpace
 
-    and **instance synthesis does not find it**. What follows is what was
-    measured, not what was guessed; three hypotheses were tested and two of them
-    were wrong.
+theorem scottContinuous_fst (A B : PartialEquilogicalSpace.{u}) :
+    ScottContinuous (Prod.fst : (A.prod B).carrier → A.carrier) :=
+  ScottContinuous.fst
 
-    * **Not resolution order.** Raising the priority of the structure's instance
-      fields to 2000 changes nothing (r0076).
-    * **Not a `Preorder` diamond.** `(A.prod B).isScott` typechecks against the
-      goal *both* with the object's own `Preorder`, via `completeLattice`, *and*
-      with Mathlib's ambient `Prod.instPreorder` substituted. Two probes, both
-      accepted, so those two `Preorder` instances are interchangeable here.
-    * **Not the term.** Writing `(A.prod B).isScott` explicitly discharges the
-      goal. It is only *synthesis* that fails.
+theorem scottContinuous_snd (A B : PartialEquilogicalSpace.{u}) :
+    ScottContinuous (Prod.snd : (A.prod B).carrier → B.carrier) :=
+  ScottContinuous.snd
 
-    The remaining explanation consistent with all three measurements is
-    **discrimination-key reduction**. `(A.prod B).carrier` is
-    `PartialEquilogicalSpace.carrier (prod A B)`; unfolding `prod` and reducing
-    the projection gives `A.carrier × B.carrier`, whose key is `Prod _ _`. The
-    instance `PartialEquilogicalSpace.isScott` is keyed on
-    `PartialEquilogicalSpace.carrier _`, so once the goal's key has reduced to a
-    product the instance is never even considered — which is exactly the
-    observed behaviour: defeq succeeds, lookup does not.
+theorem scottContinuous_pair {T A B : PartialEquilogicalSpace.{u}}
+    (f : PEquivariant T A) (g : PEquivariant T B) :
+    ScottContinuous (fun t : T.carrier => ((f.toFun t, g.toFun t) : (A.prod B).carrier)) :=
+  ScottContinuous.prodMk (scottContinuous_of_continuous f.continuous_toFun)
+    (scottContinuous_of_continuous g.continuous_toFun)
 
-    Marking `prod` irreducible would stop the reduction but breaks more than it
-    fixes: `prod_carrier`, the `ProdRel` unfolding behind `equivariant`, and
-    `toFun := Prod.fst` all depend on the carrier being visibly a product.
+/-- First projection. -/
+def prodFst (A B : PartialEquilogicalSpace.{u}) : PEquivariant (A.prod B) A where
+  toFun := Prod.fst
+  continuous_toFun := continuous_of_scottContinuous (scottContinuous_fst A B)
+  equivariant := fun h => h.1
 
-    So the fix is the wrapper after all — a one-field structure around the
-    carrier, so that it is not a product under any amount of reduction. Mathlib's
-    `WithScott` is not reusable: it transports `Nonempty`, `Inhabited` and
-    `Preorder` only, and a `PEqu` carrier needs `CompleteLattice` and
-    `IsAlgebraic` transported too. Those transports are the work, and they are
-    what remains.
-    Everything above this note is independent of the problem and is proved. -/
+/-- Second projection. -/
+def prodSnd (A B : PartialEquilogicalSpace.{u}) : PEquivariant (A.prod B) B where
+  toFun := Prod.snd
+  continuous_toFun := continuous_of_scottContinuous (scottContinuous_snd A B)
+  equivariant := fun h => h.2
+
+/-- The pairing of two equivariant maps. -/
+def prodLift {T A B : PartialEquilogicalSpace.{u}}
+    (f : PEquivariant T A) (g : PEquivariant T B) : PEquivariant T (A.prod B) where
+  toFun := fun t => (f.toFun t, g.toFun t)
+  continuous_toFun := continuous_of_scottContinuous (scottContinuous_pair f g)
+  equivariant := fun h => ⟨f.equivariant h, g.equivariant h⟩
+
+/-- Pairing respects `MapEquiv` in both arguments, so it descends to the
+    quotient — the step with no counterpart in `ALatProducts.lean`, where
+    morphisms are functions rather than classes. -/
+theorem prodLift_congr {T A B : PartialEquilogicalSpace.{u}}
+    {f f' : PEquivariant T A} {g g' : PEquivariant T B}
+    (hf : PEquivariant.MapEquiv f f') (hg : PEquivariant.MapEquiv g g') :
+    PEquivariant.MapEquiv (prodLift f g) (prodLift f' g') :=
+  fun x y hxy => ⟨hf x y hxy, hg x y hxy⟩
+
+theorem prodFst_comp_prodLift {T A B : PartialEquilogicalSpace.{u}}
+    (f : PEquivariant T A) (g : PEquivariant T B) :
+    PEquivariant.comp (prodFst A B) (prodLift f g) = f := rfl
+
+theorem prodSnd_comp_prodLift {T A B : PartialEquilogicalSpace.{u}}
+    (f : PEquivariant T A) (g : PEquivariant T B) :
+    PEquivariant.comp (prodSnd A B) (prodLift f g) = g := rfl
+
+/-- Uniqueness up to `MapEquiv`: a map into the product is determined by its two
+    components. -/
+theorem prodLift_unique {T A B : PartialEquilogicalSpace.{u}}
+    (m : PEquivariant T (A.prod B)) {f : PEquivariant T A} {g : PEquivariant T B}
+    (h₁ : PEquivariant.MapEquiv (PEquivariant.comp (prodFst A B) m) f)
+    (h₂ : PEquivariant.MapEquiv (PEquivariant.comp (prodSnd A B) m) g) :
+    PEquivariant.MapEquiv m (prodLift f g) :=
+  fun x y hxy => ⟨h₁ x y hxy, h₂ x y hxy⟩
+
+end PartialEquilogicalSpace
 
 end ScottDomains.EquilogicalSpaces
