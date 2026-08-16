@@ -167,19 +167,29 @@ theorem isLUB_sSup_scottHom (d : Set (ScottHom α β)) : IsLUB d (sSup d) := by
     exact hg hf x
 
 /-- **`ScottHom α β` is a complete lattice** when `β` is, with the *existing*
-    `SupSet` — the order and suprema are the package's, not new ones.
+    `SupSet` and the *existing* `⊥`.
 
-    **Deliberately a `def`, not an `instance`.** Mathlib's `completeLatticeOfSup`
-    documents itself as having "bad definitional properties": it defines
-    `bot := sSup ∅`, whereas the package's `CompletePartialOrder (ScottHom α β)`
-    defines `bot := const ⊥`. The two agree propositionally — the pointwise
-    supremum of the empty family is `⊥` at every point — but not definitionally,
-    so registering this globally would create an `OrderBot` diamond across a
-    1500-job library. Opt in with `letI` at the point of use until the
-    `bot`-compatibility lemma is proved and the instance can be given a
-    hand-rolled `bot := const ⊥`. -/
-@[reducible] noncomputable def scottHomCompleteLattice : CompleteLattice (ScottHom α β) :=
-  completeLatticeOfSup _ isLUB_sSup_scottHom
+    Now a real `instance`, where the previous revision had a `def`. Mathlib's
+    `completeLatticeOfSup` documents itself as having "bad definitional
+    properties" and sets `bot := sSup ∅`, whereas the package's
+    `CompletePartialOrder (ScottHom α β)` sets `bot := const ⊥`. Registering that
+    globally would have put an `OrderBot` diamond across the library — the hazard
+    `ScottHom.lean` records as having broken an `Iff.rfl` in r0004.
+
+    The fix is to override the one bad field: `bot` is hand-rolled back to
+    `const ⊥`, so the `OrderBot` this instance carries is *definitionally* the
+    one `CompletePartialOrder` already carried, and the diamond collapses. `sSup`
+    was never at risk — it is the package's own, by
+    `coe_sSup_of_completeLattice`. Verified by rebuilding all 1538 jobs. -/
+noncomputable instance scottHomCompleteLattice : CompleteLattice (ScottHom α β) :=
+  { completeLatticeOfSup (ScottHom α β) isLUB_sSup_scottHom with
+    bot := ScottHom.const ⊥
+    bot_le := fun _ _ => bot_le }
+
+/-- The two descriptions of `⊥` agree: the least upper bound of the empty family
+    is the constant-`⊥` function. This is the compatibility fact the instance
+    above is built to respect rather than to prove after the fact. -/
+theorem scottHom_bot_eq_const : (⊥ : ScottHom α β) = ScottHom.const ⊥ := rfl
 
 end ScottHomLattice
 
