@@ -1,5 +1,6 @@
 import ScottDomains.EquilogicalSpaces.CartesianClosure
 import ScottDomains.EquilogicalSpaces.ALatClosed
+import ScottDomains.EquilogicalSpaces.PowersetRetract
 
 /-!
 # Cartesian closure of `PEqu`
@@ -95,5 +96,45 @@ theorem PartialEquilogicalSpace.homRel_curry_iff (A B C : PartialEquilogicalSpac
     HomRel A.Rel (HomRel B.Rel C.Rel) g₁ g₂ ↔
       HomRel (ProdRel A.Rel B.Rel) C.Rel (scottHomCurry g₁) (scottHomCurry g₂) :=
   scottHomCurry_homRel A.Rel B.Rel C.Rel g₁ g₂
+
+/-! ## Scott continuity and topological continuity, both ways
+
+    `PowersetRetract.lean` has the Scott-to-topological direction. Objects of
+    `PEqu` carry topological continuity in their morphisms but the order-theoretic
+    machinery is stated with `ScottContinuous`, so the converse is needed too. -/
+
+theorem scottContinuous_of_continuous {α β : Type u} [Preorder α] [TopologicalSpace α]
+    [Topology.IsScott α Set.univ] [Preorder β] [TopologicalSpace β]
+    [Topology.IsScott β Set.univ] {f : α → β} (hf : Continuous f) : ScottContinuous f :=
+  scottContinuousOn_univ.mp
+    ((Topology.IsScott.scottContinuousOn_iff_continuous (D := Set.univ)
+      fun _ _ _ => Set.mem_univ _).mpr hf)
+
+/-! ## Blocked: the product cone in `PEqu`
+
+    Building the projections `A × B ⟶ A` and `A × B ⟶ B` requires
+    `Topology.IsScott (A.prod B).carrier Set.univ`, and **instance resolution
+    does not find it**, although `PartialEquilogicalSpace.isScott` is an
+    instance and `(A.prod B).isScott` is exactly that fact.
+
+    The cause is an instance clash, not a missing lemma. `(A.prod B).carrier` is
+    *definitionally* `A.carrier × B.carrier`, so Mathlib's product-topology
+    instance `instTopologicalSpaceProd` is a candidate for
+    `TopologicalSpace (A.prod B).carrier` alongside the object's own
+    `(A.prod B).topologicalSpace`. When the product topology wins,
+    `IsScott (A.prod B).carrier Set.univ` becomes a statement about the *product*
+    topology — which is a different topology from the Scott topology of the
+    product lattice, and generally strictly coarser. No instance exists for it,
+    and none should.
+
+    The fix is structural: the carrier of a `PEqu` object must be protected from
+    ambient instances, by a one-field type synonym in the manner of Mathlib's
+    `WithLower` / `WithScott`, so that `(A.prod B).carrier` is not syntactically
+    a product and only the object's own topology applies. That is a change to
+    `PartialEquilogicalSpace` itself, affecting every module downstream of
+    `PartialEquilogical.lean`, so it is recorded here rather than attempted as a
+    side effect of this one.
+
+    Everything above this comment is independent of the problem and is proved. -/
 
 end ScottDomains.EquilogicalSpaces
