@@ -112,39 +112,43 @@ theorem scottContinuous_of_continuous {α β : Type u} [Preorder α] [Topologica
 
 /-! ## Blocked: the product cone in `PEqu`
 
-    Building the projections `A × B ⟶ A` and `A × B ⟶ B` requires
-    `Topology.IsScott (A.prod B).carrier Set.univ`, and **instance resolution
-    does not find it**, although `PartialEquilogicalSpace.isScott` is an
-    instance and `(A.prod B).isScott` is exactly that fact.
+    The projections `𝒜 × ℬ ⟶ 𝒜` and `𝒜 × ℬ ⟶ ℬ` cannot yet be built, because
+    `continuous_of_scottContinuous` needs
 
-    The cause is an instance clash, not a missing lemma. `(A.prod B).carrier` is
-    *definitionally* `A.carrier × B.carrier`, so Mathlib's product-topology
-    instance `instTopologicalSpaceProd` is a candidate for
-    `TopologicalSpace (A.prod B).carrier` alongside the object's own
-    `(A.prod B).topologicalSpace`. When the product topology wins,
-    `IsScott (A.prod B).carrier Set.univ` becomes a statement about the *product*
-    topology — which is a different topology from the Scott topology of the
-    product lattice, and generally strictly coarser. No instance exists for it,
-    and none should.
+        Topology.IsScott (A.prod B).carrier Set.univ
 
-    **Raising the priority of the structure's instance fields does not fix it** —
-    tried, at priority 2000, and the same three goals still fail. So the clash is
-    not resolution *order*. The remaining candidate is the `Preorder` argument
-    rather than the topology: `IsScott α D` takes `[Preorder α]` as well as
-    `[TopologicalSpace α]`, and on a carrier that is syntactically a product
-    `Prod.instPreorder` competes with the path through the object's
-    `completeLattice` field. `PartialEquilogicalSpace.isScott` is stated with the
-    latter, so if the goal carries the former the instance cannot apply however
-    it is prioritised. This has **not** been confirmed by a resolution trace.
+    and **instance synthesis does not find it**. What follows is what was
+    measured, not what was guessed; three hypotheses were tested and two of them
+    were wrong.
 
-    The fix is structural: the carrier must be protected from ambient instances
-    by a one-field wrapper in the manner of Mathlib's `WithLower` / `WithScott`,
-    so that it is not syntactically a product and no ambient `Prod` instance is
-    a candidate. Mathlib's `WithScott` is not directly reusable here — it
-    transports only `Nonempty`, `Inhabited` and `Preorder`, whereas a `PEqu`
-    carrier needs `CompleteLattice` and `IsAlgebraic` transported too, and those
-    transports are the actual work.
+    * **Not resolution order.** Raising the priority of the structure's instance
+      fields to 2000 changes nothing (r0076).
+    * **Not a `Preorder` diamond.** `(A.prod B).isScott` typechecks against the
+      goal *both* with the object's own `Preorder`, via `completeLattice`, *and*
+      with Mathlib's ambient `Prod.instPreorder` substituted. Two probes, both
+      accepted, so those two `Preorder` instances are interchangeable here.
+    * **Not the term.** Writing `(A.prod B).isScott` explicitly discharges the
+      goal. It is only *synthesis* that fails.
 
-    Everything above this comment is independent of the problem and is proved. -/
+    The remaining explanation consistent with all three measurements is
+    **discrimination-key reduction**. `(A.prod B).carrier` is
+    `PartialEquilogicalSpace.carrier (prod A B)`; unfolding `prod` and reducing
+    the projection gives `A.carrier × B.carrier`, whose key is `Prod _ _`. The
+    instance `PartialEquilogicalSpace.isScott` is keyed on
+    `PartialEquilogicalSpace.carrier _`, so once the goal's key has reduced to a
+    product the instance is never even considered — which is exactly the
+    observed behaviour: defeq succeeds, lookup does not.
+
+    Marking `prod` irreducible would stop the reduction but breaks more than it
+    fixes: `prod_carrier`, the `ProdRel` unfolding behind `equivariant`, and
+    `toFun := Prod.fst` all depend on the carrier being visibly a product.
+
+    So the fix is the wrapper after all — a one-field structure around the
+    carrier, so that it is not a product under any amount of reduction. Mathlib's
+    `WithScott` is not reusable: it transports `Nonempty`, `Inhabited` and
+    `Preorder` only, and a `PEqu` carrier needs `CompleteLattice` and
+    `IsAlgebraic` transported too. Those transports are the work, and they are
+    what remains.
+    Everything above this note is independent of the problem and is proved. -/
 
 end ScottDomains.EquilogicalSpaces
