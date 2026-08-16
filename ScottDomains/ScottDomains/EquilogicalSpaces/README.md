@@ -27,15 +27,15 @@ Results here are attributed to the 2004 paper.
 | ------ | ----: | ------: | -------- |
 | `Basic.lean` | 201 | **0** | Definition 3.9; the category `Equ` |
 | `SigmaTopology.lean` | 194 | **0** | Definition 3.4; **Theorems 3.4↔Scott and 3.5, proved** |
-| `PartialEquilogical.lean` | 260 | 2 | Definition 3.11; the category `PEqu`; Def 3.2 proved; Theorems 3.6, 3.12 stated |
-| `Extension.lean` | 164 | **0** | **Theorem 3.7, proved**; Σ-open subbasis and finite character |
+| `PartialEquilogical.lean` | 286 | 1 | Definition 3.11; the category `PEqu`; Defs 3.2 and **Theorem 3.6 proved**; 3.12 stated |
+| `Extension.lean` | 189 | **0** | **Theorem 3.7, proved**; Σ-open subbasis, finite character, `continuous_of_preimage_memSet` |
 | `CartesianClosure.lean` | 154 | **0** | **Theorem 3.13's currying step, proved**; what Theorem 3.8 still owes |
 | `ALat.lean` | 196 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice`; `ScottHom` is a complete lattice |
 | `ProductAlgebraic.lean` | 118 | **0** | **`IsAlgebraic (α × β)`, proved**; `AlgebraicLattice.prod` |
 | `ALatProducts.lean` | 103 | **0** | **`HasFiniteProducts ALat`, proved**: terminal object and binary products |
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **1683** | **6** | |
+| **Total** | **1734** | **5** | |
 
 Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1546 jobs, 0 errors.
 

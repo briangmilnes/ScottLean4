@@ -203,21 +203,47 @@ theorem nbhdFilter_injective [T0Space X] :
     `x ↦ 𝒯(x)` is a topological embedding of `𝒯` into `𝒫 Ω_𝒯` under the
     Σ-topology.
 
-    Obligation — but now only the *topological* half. Injectivity is discharged
-    above by `nbhdFilter_injective`, so what remains is that the map induces the
-    topology: the Σ-open sets of `𝒫 Ω_𝒯` are exactly those of "finite
-    character", which the paper describes as the product topology on `2^A` where
-    the two-element set has one open and one closed point. With
-    `sigmaOpen_iff_isOpen` now proved in `SigmaTopology.lean`, that side can be
-    attacked through Definition 3.4's own wording rather than through Mathlib's
-    directed-set formulation.
+    **Proved.** The subbasic preimage is the key computation:
+
+        nbhdFilter ⁻¹' (memSet U) = { x | IsOpen U ∧ x ∈ U }
+
+    which is `U` when `U` is open and `∅` otherwise — open either way. So
+    `continuous_of_preimage_memSet` gives continuity, and the same computation
+    read backwards exhibits every open `U` of `𝒯` as a preimage, which is the
+    other half of inducing. Injectivity is `nbhdFilter_injective`, where the `T₀`
+    hypothesis is spent.
 
     This is one of the three Scott facts of 1970/71 that carry §3, and it is what
     makes Theorem 3.12's restriction functor essentially surjective. -/
+theorem nbhdFilter_preimage_memSet
+    [TopologicalSpace (Set (Set X))] [IsScott (Set (Set X)) univ] (U : Set X) :
+    (nbhdFilter : X → Set (Set X)) ⁻¹' memSet U = { x | IsOpen U ∧ x ∈ U } := rfl
+
+theorem isOpen_nbhdFilter_preimage_memSet
+    [TopologicalSpace (Set (Set X))] [IsScott (Set (Set X)) univ] (U : Set X) :
+    IsOpen ((nbhdFilter : X → Set (Set X)) ⁻¹' memSet U) := by
+  rw [nbhdFilter_preimage_memSet]
+  by_cases hU : IsOpen U
+  · simp [hU]
+  · simp [hU]
+
+theorem continuous_nbhdFilter
+    [TopologicalSpace (Set (Set X))] [IsScott (Set (Set X)) univ] :
+    Continuous (nbhdFilter : X → Set (Set X)) :=
+  continuous_of_preimage_memSet _ isOpen_nbhdFilter_preimage_memSet
+
 theorem bauerBirkedalScott04_theorem_3_6_embedding [T0Space X]
     [TopologicalSpace (Set (Set X))] [IsScott (Set (Set X)) univ] :
     Topology.IsEmbedding (nbhdFilter : X → Set (Set X)) := by
-  sorry
+  refine ⟨⟨le_antisymm ?_ ?_⟩, nbhdFilter_injective⟩
+  · -- Every induced-open set is open: this is continuity.
+    exact continuous_nbhdFilter.le_induced
+  · -- Every open `U` is a preimage, namely of `memSet U`.
+    intro U hU
+    exact ⟨memSet U, isOpen_memSet U, by
+      rw [nbhdFilter_preimage_memSet]
+      ext x
+      simp [hU]⟩
 
 /-- **Theorem 3.7 (The Extension Theorem)**: if `𝒴` is a subspace of `𝒳` and
     `f : |𝒴| → 𝒫 A` is continuous, then `f` extends continuously to all of `𝒳`.

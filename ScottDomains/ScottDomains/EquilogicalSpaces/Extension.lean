@@ -98,6 +98,48 @@ theorem exists_finite_subset_mem_of_isOpen {U : Set (Set A)} (hU : IsOpen U)
 
 end Powerset
 
+/-! ## Continuity into a powerset space, from the subbasic preimages -/
+
+section ContinuousInto
+
+variable {X : Type u} [TopologicalSpace X] {A : Type u}
+  [TopologicalSpace (Set A)] [IsScott (Set A) univ]
+
+/-- **A map into `𝒫 A` is continuous as soon as each subbasic preimage
+    `h ⁻¹' (memSet a)` is open.**
+
+    This is the finite-character property doing its work. For Σ-open `U`,
+
+        h ⁻¹' U = ⋃ { ⋂_{a ∈ F} h ⁻¹' (memSet a)  |  F finite, F ∈ U }
+
+    which is open because each inner intersection is *finite*: `⊆` supplies a
+    finite `F ⊆ h x` in `U` by `exists_finite_subset_mem_of_isOpen`, and `⊇` is
+    upward closure of `U`.
+
+    Both Theorem 3.7 and Theorem 3.6 reduce to this, which is why it is stated
+    once rather than inlined twice. -/
+theorem continuous_of_preimage_memSet (h : X → Set A)
+    (hopen : ∀ a : A, IsOpen (h ⁻¹' memSet a)) : Continuous h := by
+  rw [continuous_def]
+  intro U hU
+  have key : h ⁻¹' U
+      = ⋃₀ { W | ∃ F : Set A, F.Finite ∧ F ∈ U ∧ W = ⋂ a ∈ F, h ⁻¹' memSet a } := by
+    ext x
+    simp only [Set.mem_preimage, Set.mem_sUnion, Set.mem_setOf_eq]
+    constructor
+    · intro hx
+      obtain ⟨F, hFsub, hFfin, hFU⟩ := exists_finite_subset_mem_of_isOpen hU hx
+      exact ⟨_, ⟨F, hFfin, hFU, rfl⟩, Set.mem_iInter₂.mpr fun a ha => hFsub ha⟩
+    · rintro ⟨W, ⟨F, -, hFU, rfl⟩, hxW⟩
+      exact (IsScott.isUpperSet_of_isOpen (D := univ) hU)
+        (fun a ha => Set.mem_iInter₂.mp hxW a ha) hFU
+  rw [key]
+  refine isOpen_sUnion ?_
+  rintro W ⟨F, hFfin, -, rfl⟩
+  exact hFfin.isOpen_biInter fun a _ => hopen a
+
+end ContinuousInto
+
 /-! ## The Extension Theorem -/
 
 section Extension
@@ -127,25 +169,8 @@ theorem bauerBirkedalScott04_theorem_3_7 (s : Set X) (f : s → Set A)
     exact ⟨V, hV, hVeq.symm⟩
   choose V hVopen hVeq using hpre
   refine ⟨fun x => { a | x ∈ V a }, ?_, ?_⟩
-  · -- Continuity, via finite character.
-    rw [continuous_def]
-    intro U hU
-    have key : (fun x => { a | x ∈ V a }) ⁻¹' U
-        = ⋃₀ { W | ∃ F : Set A, F.Finite ∧ F ∈ U ∧ W = ⋂ a ∈ F, V a } := by
-      ext x
-      simp only [Set.mem_preimage, Set.mem_sUnion, Set.mem_setOf_eq]
-      constructor
-      · intro hx
-        obtain ⟨F, hFsub, hFfin, hFU⟩ := exists_finite_subset_mem_of_isOpen hU hx
-        exact ⟨⋂ a ∈ F, V a, ⟨F, hFfin, hFU, rfl⟩,
-          Set.mem_iInter₂.mpr fun a ha => hFsub ha⟩
-      · rintro ⟨W, ⟨F, -, hFU, rfl⟩, hxW⟩
-        exact (IsScott.isUpperSet_of_isOpen (D := univ) hU)
-          (fun a ha => Set.mem_iInter₂.mp hxW a ha) hFU
-    rw [key]
-    refine isOpen_sUnion ?_
-    rintro W ⟨F, hFfin, -, rfl⟩
-    exact hFfin.isOpen_biInter fun a _ => hVopen a
+  · -- Continuity: each subbasic preimage is `V a`, which is open by choice.
+    exact continuous_of_preimage_memSet _ fun a => hVopen a
   · intro y
     ext a
     show (y : X) ∈ V a ↔ a ∈ f y
