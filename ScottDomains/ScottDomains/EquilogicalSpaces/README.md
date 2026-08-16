@@ -32,10 +32,11 @@ Results here are attributed to the 2004 paper.
 | `ALat.lean` | 196 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice`; `ScottHom` is a complete lattice |
 | `ProductAlgebraic.lean` | 118 | **0** | **`IsAlgebraic (α × β)`, proved**; `AlgebraicLattice.prod` |
 | `ALatProducts.lean` | 103 | **0** | **`HasFiniteProducts ALat`, proved**: terminal object and binary products |
+| `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **1385** | **7** | |
+| **Total** | **1517** | **7** | |
 
-Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1544 jobs, 0 errors.
+Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1545 jobs, 0 errors.
 Library `sorry` count 3 → 10 (the 3 pre-existing are in `Lemma30` and
 `Effective/A3StepDecidable`).
 
@@ -192,15 +193,28 @@ the evidence that item 1 unblocked `FunctionSpaceDomain`.
    `homFunLike` re-exports the instance and `hom_ext` the extensionality lemma;
    with those in place the limit proofs are one line each.
 
-**What Theorem 3.8 still owes** — the last item:
+6. **Theorem 3.8 is proved** (`ALatClosed.lean`): `prodExpAdjunction` gives
+   `(- × B) ⊣ (B ⟹ -)`, and `isLeftAdjoint_prodFunctorRight` states it in the
+   paper's §2 phrasing — "the functor `· × B` is adjoint to `B → ·` for all
+   objects `B`". No `sorry`.
 
-- the exponential functor `B ⟹ -` as a `Functor ALat ALat` (its object part is
-  available: the carrier is a complete lattice and algebraic), and
-- `Adjunction.mkOfHomEquiv` with `scottHomCurry.symm` as the hom-equivalence,
-  plus naturality in both variables.
+   Two things were needed beyond the products. `scottContinuous_postcomp`:
+   post-composing with a fixed `q` is Scott-continuous *as a map on the function
+   space*, which is the exponential's morphism part. The package proves this for
+   endomorphisms as `Skeleton.Lemma17.scottContinuous_compFun`; the argument
+   generalizes verbatim to `q : β ⟶ γ`, which is what a functor between
+   different objects needs. And `prodFunctorRight`, the concrete functor
+   `X ↦ X × B`, built here rather than taken as Mathlib's
+   `Limits.prod.functor.obj B` — the latter goes through `limit`, which selects
+   a cone by `Classical.choice`, so it is *isomorphic* to `prodFan` but not
+   *definitionally* it, and every naturality obligation would need transport
+   before any `rfl` could fire. With the product on the nose they are all `rfl`.
 
-This is why `CartesianClosure.lean` still states only
-`Theorem38CurryingBijection`, named for what it actually is.
+   The adjunction itself is `scottHomCurry` from `ScottDomains.Currying`,
+   packaged by `Adjunction.mkOfHomEquiv`.
+
+`CartesianClosure.lean` still states only `Theorem38CurryingBijection` because
+that is what *it* contains; the full Theorem 3.8 now lives in `ALatClosed.lean`.
 
 Definition 3.11 deliberately uses the package's `ScottDomains.IsAlgebraic` (over
 `CompletePartialOrder`, reached from `CompleteLattice` by
