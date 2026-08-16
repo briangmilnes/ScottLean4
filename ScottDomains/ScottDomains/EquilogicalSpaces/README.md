@@ -34,10 +34,10 @@ Results here are attributed to the 2004 paper.
 | `ProductAlgebraic.lean` | 118 | **0** | **`IsAlgebraic (α × β)`, proved**; `AlgebraicLattice.prod` |
 | `ALatProducts.lean` | 103 | **0** | **`HasFiniteProducts ALat`, proved**: terminal object and binary products |
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
-| `Restriction.lean` | 114 | **0** | **the functor `R : PEqu ⥤ Equ` and its faithfulness, proved** |
+| `Restriction.lean` | 155 | **0** | **the functor `R : PEqu ⥤ Equ`, faithful and full, proved** |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **2015** | **5** | |
+| **Total** | **2056** | **5** | |
 
 ### Theorem 3.12: two of four pieces done
 
@@ -48,7 +48,7 @@ that structure exactly keeps the remaining work named rather than diffuse:
 | ----- | ------ |
 | the functor `R` | **proved** (`Restriction.lean`) |
 | `R` faithful | **proved** — `MapEquiv` only tests maps at `≡`-related arguments, and `A.Rel x y` already forces `x` and `y` total |
-| `R` full | `extension_into_algebraicLattice` is **proved** — the Extension Theorem in the form the paper's proof actually cites, "continuous functions between `T₀`-spaces can be extended to any algebraic lattices embedding them". What remains is reading fullness off it: given `h : R A ⟶ R B`, extend a representative from `A.Total` to `A.carrier` and check the extension is equivariant. |
+| `R` full | **proved** — pick a representative on the total parts, regard it as a continuous map into `\|B\|`, extend by `extension_into_algebraicLattice`. Equivariance of the extension is free: `A.Rel x y` forces `x` and `y` total, and there the extension agrees with the representative. |
 | `R` essentially surjective | owed: the witness is `𝒫 Ω_ℰ` with the relation transported along `nbhdFilter`, whose total part is `range nbhdFilter`, homeomorphic to `ℰ` by Theorem 3.6 (**proved**). `IsAlgebraic (Set X)` is available from `ScottDomains.Powerset`, so the witness *is* an object; what remains is building it and the isomorphism. |
 
 Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1546 jobs, 0 errors.

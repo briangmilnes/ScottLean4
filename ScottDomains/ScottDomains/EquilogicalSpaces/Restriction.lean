@@ -1,4 +1,5 @@
 import ScottDomains.EquilogicalSpaces.PartialEquilogical
+import ScottDomains.EquilogicalSpaces.PowersetRetract
 import ScottDomains.Powerset
 
 /-!
@@ -110,5 +111,45 @@ instance : restrictFunctor.{u}.Faithful where
     exact Quotient.exact h
       ⟨x, PartialEquilogicalSpace.rel_refl_left hxy⟩
       ⟨y, PartialEquilogicalSpace.rel_refl_right hxy⟩ hxy
+
+/-! ## `R` is full -/
+
+/-- **`R` is full — by the Extension Theorem**, in the algebraic-lattice form
+    `extension_into_algebraicLattice`.
+
+    Given a morphism `h : R A ⟶ R B`, pick a representative `e` on the total
+    parts, regard it as a continuous map `A.Total → |B|` by composing with the
+    inclusion, and extend it to all of `|A|`. The extension is equivariant for
+    free: `A.Rel x y` already forces `x` and `y` total, so at those points the
+    extension agrees with `e`, and `e` is equivariant.
+
+    The Scott topology on `𝒫 (K |B|)` is not an ambient instance — no object of
+    `PEqu` carries one — so it is introduced locally with `letI`, and `IsScott`
+    then holds by `rfl`. -/
+instance : restrictFunctor.{u}.Full where
+  map_surjective := by
+    rintro A B ⟨e⟩
+    -- `restrictFunctor.obj` does not unfold for unification, so retype once.
+    -- This must be `let`, not `have`: `have` erases the body and `e'` would be
+    -- an opaque local, breaking the definitional equality with `e` that the
+    -- final goal needs.
+    let e' : Equivariant A.restrict B.restrict := e
+    letI : TopologicalSpace (Set ↥(compacts B.carrier)) :=
+      Topology.scott (Set ↥(compacts B.carrier)) Set.univ
+    haveI : Topology.IsScott (Set ↥(compacts B.carrier)) Set.univ := ⟨rfl⟩
+    obtain ⟨g, hgcont, hgeq⟩ :=
+      extension_into_algebraicLattice (X := A.carrier) A.Total
+        (fun y => (e'.toFun y).1)
+        (continuous_subtype_val.comp e'.continuous_toFun)
+    refine ⟨Quotient.mk _ ⟨g, hgcont, ?_⟩, Quotient.sound ?_⟩
+    · intro x y hxy
+      have hx : x ∈ A.Total := PartialEquilogicalSpace.rel_refl_left hxy
+      have hy : y ∈ A.Total := PartialEquilogicalSpace.rel_refl_right hxy
+      rw [hgeq ⟨x, hx⟩, hgeq ⟨y, hy⟩]
+      exact e'.equivariant (x := ⟨x, hx⟩) (y := ⟨y, hy⟩) hxy
+    · intro x y hxy
+      show B.Rel (g x.1) (e'.toFun y).1
+      rw [hgeq x]
+      exact e'.equivariant hxy
 
 end ScottDomains.EquilogicalSpaces
