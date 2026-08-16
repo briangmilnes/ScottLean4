@@ -35,8 +35,9 @@ Results here are attributed to the 2004 paper.
 | `ALatProducts.lean` | 103 | **0** | **`HasFiniteProducts ALat`, proved**: terminal object and binary products |
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Restriction.lean` | 114 | **0** | **the functor `R : PEqu ⥤ Equ` and its faithfulness, proved** |
+| `PowersetRetract.lean` | 113 | **0** | **every algebraic lattice is a continuous retract of a powerset, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **1848** | **5** | |
+| **Total** | **1961** | **5** | |
 
 ### Theorem 3.12: two of four pieces done
 
@@ -47,7 +48,7 @@ that structure exactly keeps the remaining work named rather than diffuse:
 | ----- | ------ |
 | the functor `R` | **proved** (`Restriction.lean`) |
 | `R` faithful | **proved** — `MapEquiv` only tests maps at `≡`-related arguments, and `A.Rel x y` already forces `x` and `y` total |
-| `R` full | owed: needs every algebraic lattice to be a continuous **retract of a powerset**, `x ↦ compactsBelow x` with retraction `S ↦ sSup S`, then transport of Theorem 3.7 along it. The paper flags this itself — 3.7 "in fact holds for all the continuous retracts of the powerset spaces". Not in the package. |
+| `R` full | the **retraction is now proved** (`PowersetRetract.lean`); what remains is transporting Theorem 3.7 along it — embed into `𝒫 (K L)`, extend there, retract back — and reading off fullness |
 | `R` essentially surjective | owed: the witness is `𝒫 Ω_ℰ` with the relation transported along `nbhdFilter`, whose total part is `range nbhdFilter`, homeomorphic to `ℰ` by Theorem 3.6 (**proved**). `IsAlgebraic (Set X)` is available from `ScottDomains.Powerset`, so the witness *is* an object; what remains is building it and the isomorphism. |
 
 Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1546 jobs, 0 errors.
