@@ -2,6 +2,7 @@ import ScottDomains.EquilogicalSpaces.Basic
 import ScottDomains.EquilogicalSpaces.EquProducts
 import ScottDomains.EquilogicalSpaces.EquLimits
 import ScottDomains.EquilogicalSpaces.EquColimits
+import ScottDomains.EquilogicalSpaces.RegularSubobjects
 import ScottDomains.EquilogicalSpaces.PEquClosed
 import Mathlib.CategoryTheory.Limits.HasLimits
 import Mathlib.CategoryTheory.Limits.Shapes.FiniteProducts
@@ -115,11 +116,17 @@ def RegularQuotient (A : EquilogicalSpace.{u}) : Type (u + 1) :=
     Mathlib's own `WellPowered` renders "constitute a set" — Lean's type theory
     has no proper classes.
 
-    A `Prop`-valued claim rather than an instance: Mathlib has no
-    `RegularWellPowered` class, and see the module docstring on why no
-    `WellPowered` instance may be declared for this category. -/
-def Theorem310RegularWellPowered : Prop :=
-  ∀ A : EquilogicalSpace.{u}, Small.{u} (RegularSubobject A)
+    **Proved**, in `RegularSubobjects.lean`. A regular subobject is determined by
+    its `≡`-saturated set of points — the 1998 manuscript's "selecting some
+    equivalence classes and taking the union of them to form a subspace" — and
+    those live in `Set A.carrier`, a `Type u`.
+
+    A `theorem` rather than an instance: Mathlib has no `RegularWellPowered`
+    class to instantiate, and see the module docstring on why no `WellPowered`
+    instance may be declared for this category. -/
+theorem bauerBirkedalScott04_theorem_3_10_regularWellPowered
+    (A : EquilogicalSpace.{u}) : Small.{u} (RegularSubobject A) :=
+  regularWellPowered A
 
 /-- **Theorem 3.10** (regular co-well-poweredness): no object has a proper class
     of non-isomorphic regular quotients. -/
