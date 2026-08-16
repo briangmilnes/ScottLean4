@@ -127,13 +127,23 @@ theorem scottContinuous_of_continuous {α β : Type u} [Preorder α] [Topologica
     product lattice, and generally strictly coarser. No instance exists for it,
     and none should.
 
-    The fix is structural: the carrier of a `PEqu` object must be protected from
-    ambient instances, by a one-field type synonym in the manner of Mathlib's
-    `WithLower` / `WithScott`, so that `(A.prod B).carrier` is not syntactically
-    a product and only the object's own topology applies. That is a change to
-    `PartialEquilogicalSpace` itself, affecting every module downstream of
-    `PartialEquilogical.lean`, so it is recorded here rather than attempted as a
-    side effect of this one.
+    **Raising the priority of the structure's instance fields does not fix it** —
+    tried, at priority 2000, and the same three goals still fail. So the clash is
+    not resolution *order*. The remaining candidate is the `Preorder` argument
+    rather than the topology: `IsScott α D` takes `[Preorder α]` as well as
+    `[TopologicalSpace α]`, and on a carrier that is syntactically a product
+    `Prod.instPreorder` competes with the path through the object's
+    `completeLattice` field. `PartialEquilogicalSpace.isScott` is stated with the
+    latter, so if the goal carries the former the instance cannot apply however
+    it is prioritised. This has **not** been confirmed by a resolution trace.
+
+    The fix is structural: the carrier must be protected from ambient instances
+    by a one-field wrapper in the manner of Mathlib's `WithLower` / `WithScott`,
+    so that it is not syntactically a product and no ambient `Prod` instance is
+    a candidate. Mathlib's `WithScott` is not directly reusable here — it
+    transports only `Nonempty`, `Inhabited` and `Preorder`, whereas a `PEqu`
+    carrier needs `CompleteLattice` and `IsAlgebraic` transported too, and those
+    transports are the actual work.
 
     Everything above this comment is independent of the problem and is proved. -/
 
