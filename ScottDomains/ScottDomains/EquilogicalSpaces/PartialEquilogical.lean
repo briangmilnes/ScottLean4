@@ -1,4 +1,5 @@
 import ScottDomains.EquilogicalSpaces.SigmaTopology
+import ScottDomains.EquilogicalSpaces.Extension
 import ScottDomains.Domain
 import Mathlib.CategoryTheory.Equivalence
 
@@ -221,16 +222,17 @@ theorem bauerBirkedalScott04_theorem_3_6_embedding [T0Space X]
 /-- **Theorem 3.7 (The Extension Theorem)**: if `𝒴` is a subspace of `𝒳` and
     `f : |𝒴| → 𝒫 A` is continuous, then `f` extends continuously to all of `𝒳`.
 
-    Obligation. Stated for a subset `s ⊆ X` with the subspace topology. The paper
-    notes the result in fact holds for every continuous retract of a powerset —
-    the continuous lattices — but that the powerset case suffices here.
+    **Proved**, in `Extension.lean`; restated here under the paper's number so
+    that §3 reads in order. The extension is `g x = { a | x ∈ V a }` with `V a`
+    an open set cutting out `f ⁻¹' { S | a ∈ S }` on the subspace, and continuity
+    is the finite-character property of Σ-open sets.
 
     This is what makes Theorem 3.12's restriction functor **full**. -/
 theorem bauerBirkedalScott04_theorem_3_7_extension {A : Type u}
     [TopologicalSpace (Set A)] [IsScott (Set A) univ]
     (s : Set X) (f : s → Set A) (hf : Continuous f) :
-    ∃ g : X → Set A, Continuous g ∧ ∀ y : s, g y = f y := by
-  sorry
+    ∃ g : X → Set A, Continuous g ∧ ∀ y : s, g y = f y :=
+  bauerBirkedalScott04_theorem_3_7 s f hf
 
 end EmbeddingExtension
 

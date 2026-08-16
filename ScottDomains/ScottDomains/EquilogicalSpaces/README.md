@@ -27,16 +27,34 @@ Results here are attributed to the 2004 paper.
 | ------ | ----: | ------: | -------- |
 | `Basic.lean` | 201 | **0** | Definition 3.9; the category `Equ` |
 | `SigmaTopology.lean` | 194 | **0** | Definition 3.4; **Theorems 3.4↔Scott and 3.5, proved** |
-| `PartialEquilogical.lean` | 258 | 3 | Definition 3.11; the category `PEqu`; Def 3.2 proved; Theorems 3.6, 3.7, 3.12 stated |
+| `PartialEquilogical.lean` | 260 | 2 | Definition 3.11; the category `PEqu`; Def 3.2 proved; Theorems 3.6, 3.12 stated |
+| `Extension.lean` | 164 | **0** | **Theorem 3.7, proved**; Σ-open subbasis and finite character |
 | `CartesianClosure.lean` | 154 | **0** | **Theorem 3.13's currying step, proved**; what Theorem 3.8 still owes |
 | `ALat.lean` | 196 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice`; `ScottHom` is a complete lattice |
 | `ProductAlgebraic.lean` | 118 | **0** | **`IsAlgebraic (α × β)`, proved**; `AlgebraicLattice.prod` |
 | `ALatProducts.lean` | 103 | **0** | **`HasFiniteProducts ALat`, proved**: terminal object and binary products |
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **1517** | **7** | |
+| **Total** | **1683** | **6** | |
 
-Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1545 jobs, 0 errors.
+Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1546 jobs, 0 errors.
+
+### Theorem 3.7, proved
+
+`Extension.lean` discharges the Extension Theorem. `memSet a = { S | a ∈ S }` is
+Σ-open; `f ⁻¹' (memSet a)` is therefore cut out on the subspace by an open
+`V a ⊆ X`, and `g x = { a | x ∈ V a }` is the extension. Continuity is the
+finite-character property: for Σ-open `U`,
+
+    g ⁻¹' U = ⋃ { ⋂_{a ∈ F} V a  |  F finite, F ∈ U }
+
+which is open because each inner intersection is finite. `⊆` uses
+`exists_finite_subset_mem_of_isOpen`, `⊇` uses upward closure.
+
+That finite subset comes from `sigmaOpen_iff_isOpen` — **Definition 3.4's literal
+wording, with its arbitrary `S` and finite `S₀`, is exactly what the proof
+needs**, and Mathlib's directed-set formulation would not have handed it over.
+The bridging lemma proved in r0057 paid for itself here.
 Library `sorry` count 3 → 10 (the 3 pre-existing are in `Lemma30` and
 `Effective/A3StepDecidable`).
 
