@@ -24,8 +24,10 @@
     * equilogical spaces and equivariant maps, with the equivalence of maps
       (Definition 3.1), and the category `EQU`;
     * partial equilogical spaces `PEQU` (Definition 3.3);
-    * the principal theorems 3.2 (`EQU` is complete, cocomplete, regular
-      well-powered) and cartesian closedness, as target statements.
+    * the principal theorem 3.2 (`EQU` is complete, cocomplete, regular
+      well-powered and regular co-well-powered), stated with its universal
+      properties and left as proof obligations;
+    * cartesian closedness, as a target statement.
 
   Core Lean 4 only; no Mathlib.  A minimal topological-space structure is defined
   here since Mathlib's `TopologicalSpace` is unavailable.
@@ -151,10 +153,13 @@ structure PEquiSpace where
   per_symm : ∀ x y, per x y → per y x
   per_trans : ∀ x y z, per x y → per y z → per x z
 
-/-! ## Principal theorems (target statements)
+/-! ## The categorical structure of `EQU`
 
-    These are the deep results the paper sketches; we record their statements.
-    Cartesian closedness is the headline theorem. -/
+    Morphisms of `EQU` are `MapEquiv`-classes of equivariant maps (Definition
+    3.1), so every universal property below is stated *up to `MapEquiv`*, never
+    up to Lean's `Eq`.  This is the point the paper concedes is "sketchy in the
+    handling of equivalence classes of maps"; making it explicit is what turns
+    Theorem 3.2 into a checkable statement. -/
 
 /-- The identity equivariant map on an equilogical space (a basic instance,
     witnessing that `EQU` has identities). -/
@@ -163,11 +168,207 @@ def idEqui (A : EquiSpace) : Equivariant A A where
   cont := fun _ hV => hV
   preserves := fun _ _ h => h
 
-/-- Theorem 3.2: `EQU` is complete, co-complete and regular well-powered.
-    We abstract the (co)completeness content as: the class of equilogical spaces
-    is closed under a chosen product former.  Stated as a target obligation. -/
-def EQU_complete_cocomplete : Prop :=
-  ∀ (I : Type u) (_A : I → EquiSpace.{u}), True  -- schematic placeholder for §3.2
+/-- Composition of equivariant maps.  Continuity composes by pulling the
+    preimage of an open set back through `g` and then through `f`. -/
+def compEqui {A B C : EquiSpace.{u}} (g : Equivariant B C) (f : Equivariant A B) :
+    Equivariant A C where
+  f := fun x => g.f (f.f x)
+  cont := fun _ hV => f.cont _ (g.cont _ hV)
+  preserves := fun _ _ h => g.preserves _ _ (f.preserves _ _ h)
+
+/-! ### Limits and colimits
+
+    Completeness is products plus equalizers; cocompleteness is coproducts plus
+    coequalizers.  The paper's §3.2 proof constructs exactly these four. -/
+
+/-- `π` exhibits `P` as the **product** of the family `A`: every cone factors
+    through `π`, uniquely up to `MapEquiv`.  The paper builds `P` as the product
+    topology with the product equivalence relation, and notes that picking
+    representatives of the cone's `MapEquiv`-classes uses the Axiom of Choice. -/
+structure IsProduct {I : Type u} (A : I → EquiSpace.{u}) {P : EquiSpace.{u}}
+    (π : ∀ i, Equivariant P (A i)) : Prop where
+  factors : ∀ (T : EquiSpace.{u}) (t : ∀ i, Equivariant T (A i)),
+    ∃ u : Equivariant T P, ∀ i, MapEquiv (compEqui (π i) u) (t i)
+  unique : ∀ (T : EquiSpace.{u}) (u v : Equivariant T P),
+    (∀ i, MapEquiv (compEqui (π i) u) (compEqui (π i) v)) → MapEquiv u v
+
+/-- `e` exhibits `E` as the **equalizer** of the parallel pair `f, g`.  The paper
+    takes `E = { x ∈ |A| | f x ≡_B g x }` with the subspace topology and the
+    restriction of `≡_A`. -/
+structure IsEqualizer {A B : EquiSpace.{u}} (f g : Equivariant A B)
+    {E : EquiSpace.{u}} (e : Equivariant E A) : Prop where
+  equalizes : MapEquiv (compEqui f e) (compEqui g e)
+  factors : ∀ (T : EquiSpace.{u}) (t : Equivariant T A),
+    MapEquiv (compEqui f t) (compEqui g t) →
+      ∃ u : Equivariant T E, MapEquiv (compEqui e u) t
+  unique : ∀ (T : EquiSpace.{u}) (u v : Equivariant T E),
+    MapEquiv (compEqui e u) (compEqui e v) → MapEquiv u v
+
+/-- `ι` exhibits `S` as the **coproduct** of the family `A`: the disjoint union
+    of the carriers, topologized by the union of the topologies, with the union
+    of the equivalence relations (an equivalence relation because the carriers
+    are disjoint). -/
+structure IsCoproduct {I : Type u} (A : I → EquiSpace.{u}) {S : EquiSpace.{u}}
+    (ι : ∀ i, Equivariant (A i) S) : Prop where
+  factors : ∀ (T : EquiSpace.{u}) (t : ∀ i, Equivariant (A i) T),
+    ∃ u : Equivariant S T, ∀ i, MapEquiv (compEqui u (ι i)) (t i)
+  unique : ∀ (T : EquiSpace.{u}) (u v : Equivariant S T),
+    (∀ i, MapEquiv (compEqui u (ι i)) (compEqui v (ι i))) → MapEquiv u v
+
+/-- `q` exhibits `Q` as the **coequalizer** of the parallel pair `f, g`.  The
+    paper keeps the topology of `B` and coarsens the equivalence relation to the
+    least one containing `≡_B` together with `{ (f x, g x) | x ∈ |A| }`;
+    note that no topology is placed on the quotient. -/
+structure IsCoequalizer {A B : EquiSpace.{u}} (f g : Equivariant A B)
+    {Q : EquiSpace.{u}} (q : Equivariant B Q) : Prop where
+  coequalizes : MapEquiv (compEqui q f) (compEqui q g)
+  factors : ∀ (T : EquiSpace.{u}) (t : Equivariant B T),
+    MapEquiv (compEqui t f) (compEqui t g) →
+      ∃ u : Equivariant Q T, MapEquiv (compEqui u q) t
+  unique : ∀ (T : EquiSpace.{u}) (u v : Equivariant Q T),
+    MapEquiv (compEqui u q) (compEqui v q) → MapEquiv u v
+
+/-- `EQU` has all (small) products. -/
+def HasProducts : Prop :=
+  ∀ (I : Type u) (A : I → EquiSpace.{u}),
+    ∃ (P : EquiSpace.{u}) (π : ∀ i, Equivariant P (A i)), IsProduct A π
+
+/-- `EQU` has equalizers of all parallel pairs. -/
+def HasEqualizers : Prop :=
+  ∀ (A B : EquiSpace.{u}) (f g : Equivariant A B),
+    ∃ (E : EquiSpace.{u}) (e : Equivariant E A), IsEqualizer f g e
+
+/-- `EQU` has all (small) coproducts. -/
+def HasCoproducts : Prop :=
+  ∀ (I : Type u) (A : I → EquiSpace.{u}),
+    ∃ (S : EquiSpace.{u}) (ι : ∀ i, Equivariant (A i) S), IsCoproduct A ι
+
+/-- `EQU` has coequalizers of all parallel pairs. -/
+def HasCoequalizers : Prop :=
+  ∀ (A B : EquiSpace.{u}) (f g : Equivariant A B),
+    ∃ (Q : EquiSpace.{u}) (q : Equivariant B Q), IsCoequalizer f g q
+
+/-- **Complete**: all small products and all equalizers. -/
+def IsComplete : Prop := HasProducts.{u} ∧ HasEqualizers.{u}
+
+/-- **Cocomplete**: all small coproducts and all coequalizers. -/
+def IsCocomplete : Prop := HasCoproducts.{u} ∧ HasCoequalizers.{u}
+
+/-! ### Regular subobjects and regular quotients
+
+    Theorem 3.2 asserts well-poweredness only in its *regular* form.  Footnote 3
+    of the paper records why: Peter Johnstone pointed out that, contrary to the
+    assertion in the first draft, `EQU` is not well-powered for arbitrary
+    subobjects.  The qualifier is therefore load bearing and is kept in the
+    names below. -/
+
+/-- A **monomorphism**: left-cancellable up to `MapEquiv`. -/
+def IsMono {S A : EquiSpace.{u}} (m : Equivariant S A) : Prop :=
+  ∀ (T : EquiSpace.{u}) (u v : Equivariant T S),
+    MapEquiv (compEqui m u) (compEqui m v) → MapEquiv u v
+
+/-- A **regular monomorphism**: one arising as the equalizer of a parallel pair.
+    Per §3.2 these are obtained by selecting some equivalence classes of `A` and
+    taking their union as a subspace — and the paper warns that there are
+    subobjects not formed in this way. -/
+def IsRegularMono {S A : EquiSpace.{u}} (m : Equivariant S A) : Prop :=
+  ∃ (B : EquiSpace.{u}) (f g : Equivariant A B), IsEqualizer f g m
+
+/-- Every regular mono is a mono: the cancellation law is exactly the uniqueness
+    clause of the equalizer that exhibits it.  Proved, not assumed — it is the
+    check that `IsEqualizer.unique` and `IsMono` are oriented consistently, and
+    it is what licenses the two-triangle form of `SubobjEquiv` below. -/
+theorem isMono_of_isRegularMono {S A : EquiSpace.{u}} {m : Equivariant S A} :
+    IsRegularMono m → IsMono m
+  | ⟨_, _, _, he⟩ => fun T u v huv => he.unique T u v huv
+
+/-- A **regular epimorphism**: one arising as the coequalizer of a parallel pair.
+    Per §3.2 forming a regular quotient is coarsening the equivalence relation,
+    putting equivalence classes together. -/
+def IsRegularEpi {A Q : EquiSpace.{u}} (q : Equivariant A Q) : Prop :=
+  ∃ (B : EquiSpace.{u}) (f g : Equivariant B A), IsCoequalizer f g q
+
+/-- Two monos into `A` name the **same subobject** when each factors through the
+    other.  The two triangles suffice: cancelling the monos forces the mediating
+    maps to be mutually inverse up to `MapEquiv`. -/
+def SubobjEquiv {S S' A : EquiSpace.{u}}
+    (m : Equivariant S A) (m' : Equivariant S' A) : Prop :=
+  ∃ (u : Equivariant S S') (v : Equivariant S' S),
+    MapEquiv (compEqui m' u) m ∧ MapEquiv (compEqui m v) m'
+
+/-- Dually, two epis out of `A` name the **same quotient**. -/
+def QuotEquiv {A Q Q' : EquiSpace.{u}}
+    (q : Equivariant A Q) (q' : Equivariant A Q') : Prop :=
+  ∃ (u : Equivariant Q Q') (v : Equivariant Q' Q),
+    MapEquiv (compEqui u q) q' ∧ MapEquiv (compEqui v q') q
+
+/-- **Regular well-powered at `A`**: the regular subobjects of `A` constitute a
+    *set*.  Since Lean's type theory has no proper classes, "constitute a set" is
+    rendered as essential smallness — some family indexed by a type in the same
+    universe `u` as the carriers meets every regular subobject of `A`. -/
+def RegularWellPoweredAt (A : EquiSpace.{u}) : Prop :=
+  ∃ (I : Type u) (S : I → EquiSpace.{u}) (m : ∀ i, Equivariant (S i) A),
+    (∀ i, IsRegularMono (m i)) ∧
+    ∀ (T : EquiSpace.{u}) (n : Equivariant T A), IsRegularMono n →
+      ∃ i, SubobjEquiv (m i) n
+
+/-- **Regular co-well-powered at `A`**: no object has a proper class of
+    non-isomorphic regular quotients, rendered as essential smallness. -/
+def RegularCoWellPoweredAt (A : EquiSpace.{u}) : Prop :=
+  ∃ (I : Type u) (Q : I → EquiSpace.{u}) (q : ∀ i, Equivariant A (Q i)),
+    (∀ i, IsRegularEpi (q i)) ∧
+    ∀ (T : EquiSpace.{u}) (p : Equivariant A T), IsRegularEpi p →
+      ∃ i, QuotEquiv (q i) p
+
+/-- `EQU` is regular well-powered. -/
+def RegularWellPowered : Prop := ∀ A : EquiSpace.{u}, RegularWellPoweredAt A
+
+/-- `EQU` is regular co-well-powered. -/
+def RegularCoWellPowered : Prop := ∀ A : EquiSpace.{u}, RegularCoWellPoweredAt A
+
+/-- Plain (unqualified) well-poweredness, for arbitrary subobjects. -/
+def WellPoweredAt (A : EquiSpace.{u}) : Prop :=
+  ∃ (I : Type u) (S : I → EquiSpace.{u}) (m : ∀ i, Equivariant (S i) A),
+    (∀ i, IsMono (m i)) ∧
+    ∀ (T : EquiSpace.{u}) (n : Equivariant T A), IsMono n →
+      ∃ i, SubobjEquiv (m i) n
+
+/-! ### Theorem 3.2 -/
+
+/-- **Theorem 3.2** (completeness half): `EQU` is a complete category.
+    Proof obligation: products are the product topology with the product
+    equivalence relation; equalizers are the subspace
+    `{ x | f x ≡ g x }`. -/
+theorem scott98_theorem_3_2_complete : IsComplete.{u} := by
+  sorry
+
+/-- **Theorem 3.2** (cocompleteness half): `EQU` is a cocomplete category.
+    Proof obligation: coproducts are disjoint unions; coequalizers coarsen the
+    equivalence relation on `B` to include `{ (f x, g x) | x }`. -/
+theorem scott98_theorem_3_2_cocomplete : IsCocomplete.{u} := by
+  sorry
+
+/-- **Theorem 3.2** (regular well-poweredness): inherited from the corresponding
+    property of `Top₀` and of the category of equivalence relations. -/
+theorem scott98_theorem_3_2_regular_wellPowered : RegularWellPowered.{u} := by
+  sorry
+
+/-- **Theorem 3.2** (regular co-well-poweredness). -/
+theorem scott98_theorem_3_2_regular_coWellPowered : RegularCoWellPowered.{u} := by
+  sorry
+
+/-- **Footnote 3** to Theorem 3.2, recorded as a `Prop`-valued claim rather than
+    a proved theorem: `EQU` is *not* well-powered, "for there are fairly simple
+    examples of objects in the category with an unbounded number of
+    non-isomorphic subobjects" (Johnstone, cited by Scott).
+
+    Left unproved and unasserted.  Whether the paper's "unbounded" is faithfully
+    captured by failure of `u`-smallness in `WellPoweredAt` has not been checked
+    against Johnstone's examples, which the paper does not exhibit; asserting it
+    as a `theorem ... := sorry` would claim a statement whose encoding is
+    unverified.  Discharging it requires the counterexample. -/
+def Scott98NotWellPowered : Prop :=
+  ¬ ∀ A : EquiSpace.{u}, WellPoweredAt A
 
 /-- **Main theorem** (the paper's central claim): `EQU` is cartesian closed —
     the exponential (function-space) equilogical space exists and the currying

@@ -13,9 +13,9 @@
 | Other papers downloaded (Coquand, CADE, LPTP, PFPL) | 4 |
 | Dana Scott CMU Mathematica notebooks (Wayback) | 37 |
 | **Lean modules generated & building** | **38** |
-| — compiling **clean** (0 `sorry`) | 16 |
-| — compiling **with `sorry`** | 22 |
-| **Total proof holes (`sorry` terms)** | **100** |
+| — compiling **clean** (0 `sorry`) | 15 |
+| — compiling **with `sorry`** | 23 |
+| **Total proof holes (`sorry` terms)** | **104** |
 | Whole-project `lake build` | **PASS** (Lean 4.32.2, 42 jobs, 0 errors) |
 
 `sorry` counts are actual terms with comments stripped. **Caveat:** a few modules
@@ -44,6 +44,7 @@ still contain open obligations. The "clean" count is therefore an upper bound on
 | `Scott1972ContinuousLattices.lean` | 309 | 4 | with-sorry |
 | `Scott1979IdentityAndExistence.lean` | 216 | 4 | with-sorry |
 | `Scott1980LambdaCalculusModelsPhilosophy.lean` | 345 | 4 | with-sorry |
+| `Scott1998ANewCategory.lean` | 386 | 4 | with-sorry |
 | `Scott1962AlgebrasOfSets.lean` | 151 | 3 | with-sorry |
 | `Scott1982SomeOrderedSetsComputerScience.lean` | 366 | 3 | with-sorry |
 | `Scott1967ExistenceAndDescription.lean` | 214 | 2 | with-sorry |
@@ -63,7 +64,6 @@ still contain open obligations. The "clean" count is therefore an upper bound on
 | `Scott1974AxiomatizingSetTheory.lean` | 148 | 0 | clean (0) |
 | `Scott1974DoesManyValuedLogicHaveAnyUse.lean` | 119 | 0 | clean (0) |
 | `Scott1975CombinatorsAndClasses.lean` | 296 | 0 | clean (0) |
-| `Scott1998ANewCategory.lean` | 185 | 0 | clean (0) |
 | `TiemensScottBenzmullerBenda2019CategoricalAxiomatizationOfModeloids.lean` | 202 | 0 | clean (0) |
 | `TypeTheoreticalAlternative.lean` | 181 | 0 | clean (0) |
 
