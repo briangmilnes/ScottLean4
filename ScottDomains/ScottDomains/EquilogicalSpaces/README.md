@@ -31,10 +31,11 @@ Results here are attributed to the 2004 paper.
 | `CartesianClosure.lean` | 154 | **0** | **Theorem 3.13's currying step, proved**; what Theorem 3.8 still owes |
 | `ALat.lean` | 196 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice`; `ScottHom` is a complete lattice |
 | `ProductAlgebraic.lean` | 118 | **0** | **`IsAlgebraic (α × β)`, proved**; `AlgebraicLattice.prod` |
+| `ALatProducts.lean` | 103 | **0** | **`HasFiniteProducts ALat`, proved**: terminal object and binary products |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **1282** | **7** | |
+| **Total** | **1385** | **7** | |
 
-Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1538 jobs, 0 errors.
+Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1544 jobs, 0 errors.
 Library `sorry` count 3 → 10 (the 3 pre-existing are in `Lemma30` and
 `Effective/A3StepDecidable`).
 
@@ -177,13 +178,24 @@ the evidence that item 1 unblocked `FunctionSpaceDomain`.
    need it, so it is not proved; noted in the module in case the general case is
    ever wanted.
 
-**What Theorem 3.8 still owes** is now purely categorical assembly, with every
-mathematical prerequisite in hand:
+5. `HasFiniteProducts AlgebraicLattice` — **done** (`ALatProducts.lean`).
+   `alatIsTerminal` exhibits `PUnit` as terminal, `prodIsLimit` exhibits
+   `AlgebraicLattice.prod` as a binary product, and Mathlib's
+   `hasFiniteProducts_of_has_binary_and_terminal` assembles the rest. No new
+   mathematics: projections are `Morphism.prodFst`/`prodSnd`, the pairing is
+   `Combinator.prodMkHom`, and every obligation is `ext` then `rfl` or a
+   projection of a hypothesis.
 
-- a terminal object (`PUnit` as an algebraic lattice);
-- `HasTerminal` and `HasBinaryProducts` instances for `ALat`, i.e. wrapping
-  `AlgebraicLattice.prod` in Mathlib limit cones;
-- the exponential functor `B ⟹ -`, unblocked by the complete-lattice instance;
+   One piece of bundled-category friction worth knowing: typeclass search will
+   **not** unfold `A ⟶ B` to `ScottHom A.carrier B.carrier`, so neither function
+   application nor `DFunLike.congr_fun` works on a morphism written with `⟶`.
+   `homFunLike` re-exports the instance and `hom_ext` the extensionality lemma;
+   with those in place the limit proofs are one line each.
+
+**What Theorem 3.8 still owes** — the last item:
+
+- the exponential functor `B ⟹ -` as a `Functor ALat ALat` (its object part is
+  available: the carrier is a complete lattice and algebraic), and
 - `Adjunction.mkOfHomEquiv` with `scottHomCurry.symm` as the hom-equivalence,
   plus naturality in both variables.
 
