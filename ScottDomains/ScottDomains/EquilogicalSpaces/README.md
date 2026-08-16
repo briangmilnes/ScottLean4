@@ -40,8 +40,9 @@ Results here are attributed to the 2004 paper.
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `EquProducts.lean` | 156 | **0** | **`HasFiniteProducts Equ`, proved**: terminal object and binary products |
 | `EquLimits.lean` | 198 | **0** | **Theorem 3.10's completeness half, proved**: products, equalizers, `HasLimitsOfSize Equ` |
+| `EquColimits.lean` | 110 | **0** | 3.10's **coequalizer, proved**; coproducts blocked on `T0Space` for a sigma type |
 | `Theorems3.lean` | 174 | 1 | **3.10 products/completeness and 3.13, proved**; cocompleteness owed; footnote 4 as a claim |
-| **Total** | **3109** | **1** | |
+| **Total** | **3219** | **1** | |
 
 ### Theorem 3.13: what is still owed, precisely
 
