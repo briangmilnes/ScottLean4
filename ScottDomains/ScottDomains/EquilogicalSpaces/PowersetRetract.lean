@@ -110,4 +110,58 @@ theorem compactsRetract_compactsEmbed (x : L) :
 
 end Retract
 
+/-! ## Transport: extension into an algebraic lattice
+
+    Theorem 3.7 extends into a powerset. The retraction upgrades that to any
+    algebraic lattice, which is the form Theorem 3.12's fullness half needs. -/
+
+section Transport
+
+variable {L : Type u} [CompleteLattice L]
+  [TopologicalSpace L] [Topology.IsScott L Set.univ]
+  [TopologicalSpace (Set ↥(compacts L))]
+  [Topology.IsScott (Set ↥(compacts L)) Set.univ]
+
+/-- Scott continuity is topological continuity between Scott topologies.
+    Mathlib's `scottContinuousOn_iff_continuous` at `D = Set.univ`, where the
+    side condition `∀ a b, a ≤ b → {a, b} ∈ D` is vacuous. -/
+theorem continuous_of_scottContinuous {α β : Type u} [Preorder α] [TopologicalSpace α]
+    [Topology.IsScott α Set.univ] [Preorder β] [TopologicalSpace β]
+    [Topology.IsScott β Set.univ]
+    {f : α → β} (hf : ScottContinuous f) : Continuous f :=
+  (Topology.IsScott.scottContinuousOn_iff_continuous (D := Set.univ)
+    fun _ _ _ => Set.mem_univ _).mp (scottContinuousOn_univ.mpr hf)
+
+theorem continuous_compactsEmbed : Continuous (compactsEmbed : L → Set ↥(compacts L)) :=
+  continuous_of_scottContinuous scottContinuous_compactsEmbed
+
+theorem continuous_compactsRetract :
+    Continuous (compactsRetract : Set ↥(compacts L) → L) :=
+  continuous_of_scottContinuous scottContinuous_compactsRetract
+
+variable [ScottDomains.IsAlgebraic L]
+
+/-- **The Extension Theorem for an algebraic lattice codomain.**
+
+    This is the form the paper uses in its proof of Theorem 3.12 — "continuous
+    functions between `T₀`-spaces can be extended to any algebraic lattices
+    embedding them" — as opposed to the powerset form proved in `Extension.lean`.
+
+    The transport is three steps and no new mathematics: push `f` into
+    `𝒫 (K L)` along `compactsEmbed`, extend there by Theorem 3.7, and pull the
+    extension back along `compactsRetract`. It restricts correctly because
+    `compactsRetract ∘ compactsEmbed = id`, which is the retraction identity and
+    the only place algebraicity is used. -/
+theorem extension_into_algebraicLattice {X : Type u} [TopologicalSpace X]
+    (s : Set X) (f : s → L) (hf : Continuous f) :
+    ∃ g : X → L, Continuous g ∧ ∀ y : s, g y = f y := by
+  obtain ⟨h, hhcont, hheq⟩ :=
+    bauerBirkedalScott04_theorem_3_7 s (fun y => compactsEmbed (f y))
+      (continuous_compactsEmbed.comp hf)
+  refine ⟨fun x => compactsRetract (h x), continuous_compactsRetract.comp hhcont, fun y => ?_⟩
+  show compactsRetract (h y) = f y
+  rw [hheq y, compactsRetract_compactsEmbed]
+
+end Transport
+
 end ScottDomains.EquilogicalSpaces
