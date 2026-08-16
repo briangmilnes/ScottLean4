@@ -1,5 +1,6 @@
 import ScottDomains.EquilogicalSpaces.Basic
 import ScottDomains.EquilogicalSpaces.EquProducts
+import ScottDomains.EquilogicalSpaces.EquLimits
 import ScottDomains.EquilogicalSpaces.PEquClosed
 import Mathlib.CategoryTheory.Limits.HasLimits
 import Mathlib.CategoryTheory.Limits.Shapes.FiniteProducts
@@ -69,14 +70,16 @@ open CategoryTheory CategoryTheory.Limits
 
 /-- **Theorem 3.10** (completeness half): `Equ` is complete.
 
-    Obligation. The paper's construction: the product is the product topology
-    with the product equivalence relation, and the equalizer of `f, g : ℰ → ℱ`
-    is `{ x ∈ |ℰ| ∣ f x ≡_ℱ g x }` under the subspace topology with `≡_ℰ`
-    restricted. Choosing representatives of the `MapEquiv`-classes of a cone
-    consumes the Axiom of Choice, which the paper states explicitly. -/
+    **Proved**, in `EquLimits.lean`. Products over an arbitrary index type are
+    the product topology with the componentwise relation; the equalizer of
+    `f, g : ℰ → ℱ` is the subspace `{ x ∣ f x ≡_ℱ g x }` with `≡_ℰ` restricted;
+    and Mathlib's `has_limits_of_hasEqualizers_and_products` assembles the rest.
+
+    The paper's "after applying the Axiom of Choice to pick representatives" is
+    `Quotient.out`, wrapped as `homOut` because `⟶` does not unfold for field
+    notation. -/
 instance bauerBirkedalScott04_theorem_3_10_hasLimits :
-    HasLimitsOfSize.{u, u} EquilogicalSpace.{u} := by
-  sorry
+    HasLimitsOfSize.{u, u} EquilogicalSpace.{u} := inferInstance
 
 /-- **Theorem 3.10** (cocompleteness half): `Equ` is cocomplete.
 

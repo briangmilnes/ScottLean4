@@ -39,9 +39,9 @@ Results here are attributed to the 2004 paper.
 | `PEquClosed.lean` | 490 | **0** | **Theorem 3.13, proved** — for `PEqu`, and for `Equ` by transport across 3.12 |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `EquProducts.lean` | 156 | **0** | **`HasFiniteProducts Equ`, proved**: terminal object and binary products |
-| `EquLimits.lean` | 151 | **0** | 3.10's product and **equalizer constructions, proved**; the Mathlib limit-API packaging owed |
-| `Theorems3.lean` | 171 | 2 | **3.10 finite products and 3.13, proved**; 3.10's limits/colimits owed; footnote 4 as a claim |
-| **Total** | **3059** | **2** | |
+| `EquLimits.lean` | 198 | **0** | **Theorem 3.10's completeness half, proved**: products, equalizers, `HasLimitsOfSize Equ` |
+| `Theorems3.lean` | 174 | 1 | **3.10 products/completeness and 3.13, proved**; cocompleteness owed; footnote 4 as a claim |
+| **Total** | **3109** | **1** | |
 
 ### Theorem 3.13: what is still owed, precisely
 
