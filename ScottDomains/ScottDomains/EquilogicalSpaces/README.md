@@ -36,9 +36,31 @@ Results here are attributed to the 2004 paper.
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Restriction.lean` | 155 | **0** | **the functor `R : PEqu ⥤ Equ`, faithful and full, proved** |
 | `EssSurj.lean` | 202 | **0** | **essential surjectivity and Theorem 3.12, proved** |
+| `PEquClosed.lean` | 99 | **0** | the product and exponential **objects** of `PEqu`, and the currying bijection on their relations |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **2252** | **4** | |
+| **Total** | **2351** | **4** | |
+
+### Theorem 3.13: what is still owed, precisely
+
+`ALatClosed.lean` proves cartesian closure of **`ALat`** — algebraic lattices and
+plain Scott-continuous maps. That is **not** `PEqu`, whose objects carry a
+partial equivalence relation and whose morphisms are `MapEquiv`-classes. The
+paper does the work in `PEqu` and transports to `Equ` across Theorem 3.12, so
+three steps remain:
+
+1. **Products in `PEqu`.** The object `PartialEquilogicalSpace.prod` exists
+   (`PEquClosed.lean`); the binary fan and its limit property do not. Note the
+   morphisms are quotients, so the fan's universal property is an equality of
+   classes — the pattern is the one `Basic.lean` uses for the category laws, not
+   the simpler `ext`-then-`rfl` of `ALatProducts.lean`.
+2. **The exponential functor in `PEqu`.** The object
+   `PartialEquilogicalSpace.exp` exists; its action on morphisms is
+   post-composition, which needs `scottContinuous_postcomp` (proved, r0064) plus
+   a check that post-composition respects `MapEquiv`.
+3. **The adjunction, and transport to `Equ`.** The hom-level content is done —
+   `homRel_curry_iff` says currying matches the product and exponential
+   relations — so this is assembly plus `Equivalence`-transport across 3.12.
 
 ### Theorem 3.12: **proved**
 
