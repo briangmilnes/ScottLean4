@@ -329,4 +329,119 @@ noncomputable def pequExpFunctor (B : PartialEquilogicalSpace.{u}) :
     exact Quotient.sound
       (fun _ _ h x y hxy => g.equivariant (f.equivariant (h x y hxy)))
 
+/-! ## The product functor `- × B` -/
+
+namespace PartialEquilogicalSpace
+
+/-- `f × B`, the action of `- × B` on a morphism. -/
+noncomputable def prodMapRight (B : PartialEquilogicalSpace.{u})
+    {X Y : PartialEquilogicalSpace.{u}} (f : PEquivariant X Y) :
+    PEquivariant (X.prod B) (Y.prod B) :=
+  prodLift (PEquivariant.comp f (prodFst X B)) (prodSnd X B)
+
+theorem prodMapRight_congr (B : PartialEquilogicalSpace.{u})
+    {X Y : PartialEquilogicalSpace.{u}} {f f' : PEquivariant X Y}
+    (hf : PEquivariant.MapEquiv f f') :
+    PEquivariant.MapEquiv (prodMapRight B f) (prodMapRight B f') :=
+  fun _ _ h => ⟨hf _ _ h.1, h.2⟩
+
+end PartialEquilogicalSpace
+
+open CategoryTheory in
+/-- **The functor `- × B` on `PEqu`**, with object part `prod` on the nose. -/
+noncomputable def pequProdFunctorRight (B : PartialEquilogicalSpace.{u}) :
+    PartialEquilogicalSpace.{u} ⥤ PartialEquilogicalSpace.{u} where
+  obj X := X.prod B
+  map f := Quotient.map (PartialEquilogicalSpace.prodMapRight B)
+    (fun _ _ h => PartialEquilogicalSpace.prodMapRight_congr B h) f
+  map_id := by
+    rintro X
+    exact Quotient.sound (fun _ _ h => h)
+  map_comp := by
+    rintro X Y Z ⟨f⟩ ⟨g⟩
+    exact Quotient.sound (fun _ _ h => ⟨g.equivariant (f.equivariant h.1), h.2⟩)
+
+/-! ## Currying and uncurrying `PEqu` morphisms
+
+    The bijection `(𝒜 × ℬ ⟶ 𝒞) ≃ (𝒜 ⟶ ℬ ⟹ 𝒞)` at the level of representatives.
+    The underlying order isomorphism is `ScottDomains.Currying.scottHomCurry`;
+    what is added here is that both directions are equivariant, and that both
+    respect `MapEquiv` so they descend to the quotient. -/
+
+namespace PartialEquilogicalSpace
+
+/-- Currying a representative. -/
+noncomputable def pequCurry {X B Y : PartialEquilogicalSpace.{u}}
+    (F : PEquivariant (X.prod B) Y) : PEquivariant X (B.exp Y) where
+  toFun := ScottHom.curry F.toScottHom
+  continuous_toFun :=
+    continuous_of_scottContinuous (ScottHom.curry F.toScottHom).scottContinuous
+  equivariant := fun hxy _ _ hbb' => F.equivariant ⟨hxy, hbb'⟩
+
+/-- Uncurrying a representative. -/
+noncomputable def pequUncurry {X B Y : PartialEquilogicalSpace.{u}}
+    (G : PEquivariant X (B.exp Y)) : PEquivariant (X.prod B) Y where
+  toFun := ScottHom.uncurry G.toScottHom
+  continuous_toFun :=
+    continuous_of_scottContinuous (ScottHom.uncurry G.toScottHom).scottContinuous
+  equivariant := fun h => G.equivariant h.1 _ _ h.2
+
+/-- Both sides of the correspondence unpack to the same statement — the paper's
+    "self-proving" step, now at the level of `MapEquiv` between morphisms rather
+    than `HomRel` inside one function space. -/
+theorem pequCurry_congr {X B Y : PartialEquilogicalSpace.{u}}
+    {F F' : PEquivariant (X.prod B) Y} (h : PEquivariant.MapEquiv F F') :
+    PEquivariant.MapEquiv (pequCurry F) (pequCurry F') :=
+  fun _ _ hxy _ _ hbb' => h _ _ ⟨hxy, hbb'⟩
+
+theorem pequUncurry_congr {X B Y : PartialEquilogicalSpace.{u}}
+    {G G' : PEquivariant X (B.exp Y)} (h : PEquivariant.MapEquiv G G') :
+    PEquivariant.MapEquiv (pequUncurry G) (pequUncurry G') :=
+  fun _ _ hpq => h _ _ hpq.1 _ _ hpq.2
+
+@[simp] theorem pequUncurry_pequCurry {X B Y : PartialEquilogicalSpace.{u}}
+    (F : PEquivariant (X.prod B) Y) : pequUncurry (pequCurry F) = F := rfl
+
+@[simp] theorem pequCurry_pequUncurry {X B Y : PartialEquilogicalSpace.{u}}
+    (G : PEquivariant X (B.exp Y)) : pequCurry (pequUncurry G) = G := rfl
+
+end PartialEquilogicalSpace
+
+/-! ## Theorem 3.13 for `PEqu` -/
+
+open CategoryTheory in
+/-- **`PEqu` is cartesian closed**: `(- × B) ⊣ (B ⟹ -)`.
+
+    This is the paper's Theorem 3.13, proved where the paper proves it. The
+    hom-equivalence is `pequCurry`/`pequUncurry` descended to classes; both
+    round-trips are `rfl`, because the underlying `scottHomCurry` is an
+    isomorphism on the nose and currying a pair is definitional.
+
+    Both naturality squares are equalities of classes and both hold on
+    representatives — the two sides evaluate a curried map at the same point in
+    each case. -/
+noncomputable def pequProdExpAdjunction (B : PartialEquilogicalSpace.{u}) :
+    pequProdFunctorRight B ⊣ pequExpFunctor B :=
+  Adjunction.mkOfHomEquiv
+    { homEquiv := fun _ _ =>
+        { toFun := Quotient.map PartialEquilogicalSpace.pequCurry
+            (fun _ _ h => PartialEquilogicalSpace.pequCurry_congr h)
+          invFun := Quotient.map PartialEquilogicalSpace.pequUncurry
+            (fun _ _ h => PartialEquilogicalSpace.pequUncurry_congr h)
+          left_inv := by rintro ⟨F⟩; rfl
+          right_inv := by rintro ⟨G⟩; rfl }
+      homEquiv_naturality_left_symm := by
+        rintro X' X Y ⟨f⟩ ⟨g⟩
+        exact Quotient.sound (fun _ _ h => g.equivariant (f.equivariant h.1) _ _ h.2)
+      homEquiv_naturality_right := by
+        rintro X Y Y' ⟨f⟩ ⟨g⟩
+        exact Quotient.sound
+          (fun _ _ hxy _ _ hbb' => g.equivariant (f.equivariant ⟨hxy, hbb'⟩)) }
+
+/-- **Theorem 3.13 for `PEqu`**, in the paper's §2 phrasing: `- × B` is a left
+    adjoint for every `B`. -/
+theorem bauerBirkedalScott04_theorem_3_13_pequ (B : PartialEquilogicalSpace.{u}) :
+    CategoryTheory.Functor.IsLeftAdjoint (pequProdFunctorRight B) :=
+  ⟨⟨_, ⟨pequProdExpAdjunction B⟩⟩⟩
+
 end ScottDomains.EquilogicalSpaces

@@ -36,10 +36,10 @@ Results here are attributed to the 2004 paper.
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Restriction.lean` | 155 | **0** | **the functor `R : PEqu ⥤ Equ`, faithful and full, proved** |
 | `EssSurj.lean` | 202 | **0** | **essential surjectivity and Theorem 3.12, proved** |
-| `PEquClosed.lean` | 332 | **0** | `PEqu`'s objects, **`HasBinaryProducts PEqu`** and **the exponential functor**, proved |
+| `PEquClosed.lean` | 447 | **0** | **Theorem 3.13 for `PEqu`, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **2584** | **4** | |
+| **Total** | **2699** | **4** | |
 
 ### Theorem 3.13: what is still owed, precisely
 
@@ -69,9 +69,14 @@ three steps remain:
    space needs, and `expMap_congr` shows post-composition respects `MapEquiv` so
    it descends to the quotient. `map_id` and `map_comp` are `Quotient.sound`,
    not `rfl` — `map_comp` in particular needs both equivariance steps.
-3. **The adjunction, and transport to `Equ`.** The hom-level content is done —
-   `homRel_curry_iff` says currying matches the product and exponential
-   relations — so this is assembly plus `Equivalence`-transport across 3.12.
+3. **The adjunction — done for `PEqu`.** `pequProdExpAdjunction` gives
+   `(- × B) ⊣ (B ⟹ -)`, and `bauerBirkedalScott04_theorem_3_13_pequ` states it
+   in the paper's §2 phrasing. Both round-trips of the hom-equivalence are
+   `rfl` — `scottHomCurry` is an isomorphism on the nose and currying a pair is
+   definitional — and both naturality squares hold on representatives.
+
+   **Still owed: transport to `Equ` across Theorem 3.12.** That is the only gap
+   left between here and the `Theorems3.lean` statement of 3.13.
 
 ### Theorem 3.12: **proved**
 
