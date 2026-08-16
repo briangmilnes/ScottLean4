@@ -52,16 +52,82 @@ open Set Topology
 def IsSigmaOpen {L : Type u} [CompleteLattice L] (U : Set L) : Prop :=
   IsUpperSet U ∧ ∀ S : Set L, sSup S ∈ U → ∃ S₀ ⊆ S, S₀.Finite ∧ sSup S₀ ∈ U
 
+/-- A finite subset of a directed set has an upper bound **inside that set**.
+
+    Proved here by induction on the finite subset because neither Mathlib nor
+    this package carries it: searched `Mathlib/Order/Directed.lean`,
+    `Mathlib/Order/Bounds/Basic.lean`, `ScottDomains/Domain.lean` and
+    `ScottDomains/IdealCompletion.lean`. Mathlib's `Finset.exists_le` is the
+    statement for a directed *order*, not for a directed *subset*, and it is the
+    subset form that Definition 3.4 needs.
+
+    The empty case is where `d.Nonempty` is spent, and it is why no separate
+    `S.Nonempty` hypothesis is required downstream: for `S = ∅` any element of
+    `d` serves. -/
+theorem DirectedOn.exists_upperBound_of_finite {α : Type u} [Preorder α]
+    {d : Set α} (hd : DirectedOn (· ≤ ·) d) (hdne : d.Nonempty)
+    {S : Set α} (hS : S.Finite) : S ⊆ d → ∃ b ∈ d, ∀ x ∈ S, x ≤ b := by
+  induction S, hS using Set.Finite.induction_on with
+  | empty =>
+      intro _
+      obtain ⟨b, hb⟩ := hdne
+      exact ⟨b, hb, by simp⟩
+  | @insert a s ha hs ih =>
+      intro hsub
+      have had : a ∈ d := hsub (Set.mem_insert a s)
+      obtain ⟨b, hbd, hb⟩ := ih fun x hx => hsub (Set.mem_insert_of_mem a hx)
+      obtain ⟨c, hcd, hac, hbc⟩ := hd a had b hbd
+      refine ⟨c, hcd, fun x hx => ?_⟩
+      rcases Set.mem_insert_iff.mp hx with rfl | hxs
+      · exact hac
+      · exact le_trans (hb x hxs) hbc
+
 /-- Definition 3.4 and Mathlib's Scott topology agree on a complete lattice.
 
-    Obligation. The forward direction is immediate; the reverse needs that the
-    finite suprema of an arbitrary `S` form a directed set whose supremum is
-    `⋁ S`, which is where completeness is spent. Until this is discharged, the
-    results below are theorems about `Topology.IsScott`, and only this lemma ties
-    them to the paper's literal Definition 3.4. -/
+    **Proved.** This is the lemma that ties every result in this file to the
+    paper's literal wording rather than to Mathlib's directed-set formulation.
+
+    Forward: given a directed `d` with `IsLUB d a` and `a ∈ U`, Definition 3.4
+    applied to `d` yields a finite `S₀ ⊆ d` with `⋁ S₀ ∈ U`, and
+    `DirectedOn.exists_upperBound_of_finite` promotes `⋁ S₀` to an actual member
+    of `d` above it, which lies in `U` because `U` is upper.
+
+    Backward: the set `d` of suprema of finite subsets of `S` is nonempty
+    (take `∅`), directed (take unions), and has `⋁ S` as least upper bound —
+    least because each singleton `{x}`, `x ∈ S`, is one of the finite subsets.
+    Inaccessibility then meets `d` inside `U`, and any such member *is* the
+    supremum of a finite subset of `S`. Completeness is spent exactly at
+    `IsLUB d (sSup S)`. -/
 theorem sigmaOpen_iff_isOpen {L : Type u} [CompleteLattice L] [TopologicalSpace L]
     [IsScott L univ] (U : Set L) : IsSigmaOpen U ↔ IsOpen U := by
-  sorry
+  rw [IsScott.isOpen_iff_isUpperSet_and_dirSupInaccOn (D := univ), dirSupInaccOn_univ]
+  constructor
+  · rintro ⟨hup, hfin⟩
+    refine ⟨hup, fun d hne hdir a hlub ha => ?_⟩
+    have hsup : sSup d = a := (isLUB_sSup d).unique hlub
+    obtain ⟨S₀, hS₀d, hS₀fin, hS₀U⟩ := hfin d (by rw [hsup]; exact ha)
+    obtain ⟨b, hbd, hb⟩ :=
+      DirectedOn.exists_upperBound_of_finite hdir hne hS₀fin hS₀d
+    exact ⟨b, hbd, hup (sSup_le hb) hS₀U⟩
+  · rintro ⟨hup, hinacc⟩
+    refine ⟨hup, fun S hS => ?_⟩
+    set d : Set L := { x | ∃ F, F ⊆ S ∧ F.Finite ∧ sSup F = x } with hd
+    have hdne : d.Nonempty := ⟨sSup ∅, ∅, Set.empty_subset S, Set.finite_empty, rfl⟩
+    have hdir : DirectedOn (· ≤ ·) d := by
+      rintro _ ⟨F₁, hF₁S, hF₁fin, rfl⟩ _ ⟨F₂, hF₂S, hF₂fin, rfl⟩
+      exact ⟨sSup (F₁ ∪ F₂), ⟨F₁ ∪ F₂, Set.union_subset hF₁S hF₂S, hF₁fin.union hF₂fin, rfl⟩,
+        sSup_le_sSup Set.subset_union_left, sSup_le_sSup Set.subset_union_right⟩
+    have hlub : IsLUB d (sSup S) := by
+      constructor
+      · rintro _ ⟨F, hFS, -, rfl⟩
+        exact sSup_le_sSup hFS
+      · intro c hc
+        refine sSup_le fun x hx => ?_
+        have : sSup {x} ≤ c := hc ⟨{x}, Set.singleton_subset_iff.mpr hx, Set.finite_singleton x, rfl⟩
+        simpa using this
+    obtain ⟨y, hyd, hyU⟩ := hinacc hdne hdir hlub hS
+    obtain ⟨F, hFS, hFfin, rfl⟩ := hyd
+    exact ⟨F, hFS, hFfin, hyU⟩
 
 /-! ## Theorem 3.5 -/
 

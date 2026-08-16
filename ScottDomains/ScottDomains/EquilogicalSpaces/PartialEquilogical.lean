@@ -180,14 +180,36 @@ variable {X : Type u} [TopologicalSpace X]
     as an element of the powerset lattice `𝒫 Ω_𝒯`. -/
 def nbhdFilter (x : X) : Set (Set X) := { U | IsOpen U ∧ x ∈ U }
 
+/-- Two points with the same neighbourhood filter are inseparable — immediate,
+    since `nbhdFilter x = nbhdFilter y` says exactly that every open set contains
+    one iff it contains the other. -/
+theorem inseparable_of_nbhdFilter_eq {x y : X} (h : nbhdFilter x = nbhdFilter y) :
+    Inseparable x y :=
+  inseparable_iff_forall_isOpen.mpr fun s hs =>
+    ⟨fun hx => (Set.ext_iff.mp h s).mp ⟨hs, hx⟩ |>.2,
+     fun hy => (Set.ext_iff.mp h s).mpr ⟨hs, hy⟩ |>.2⟩
+
+/-- **Definition 3.2**, in the form the paper gives as the alternative reading of
+    `T₀`: "for all `x, y ∈ |𝒯|`, if `𝒯(x) = 𝒯(y)`, then `x = y`".
+
+    **Proved.** This is the injectivity half of the Embedding Theorem, and it is
+    where — and the only place where — the `T₀` hypothesis is spent. -/
+theorem nbhdFilter_injective [T0Space X] :
+    Function.Injective (nbhdFilter : X → Set (Set X)) :=
+  fun _ _ h => (inseparable_of_nbhdFilter_eq h).eq
+
 /-- **Theorem 3.6 (The Embedding Theorem)**: for a `T₀`-space `𝒯`, the map
     `x ↦ 𝒯(x)` is a topological embedding of `𝒯` into `𝒫 Ω_𝒯` under the
     Σ-topology.
 
-    Obligation. Injectivity is the `T₀` axiom in the form of Definition 3.2
-    (`𝒯(x) = 𝒯(y) ⟹ x = y`); the topological half is that the Σ-open sets of
-    `𝒫 Ω_𝒯` are exactly those of "finite character", which the paper describes as
-    the product topology on `2^A` with one open and one closed point.
+    Obligation — but now only the *topological* half. Injectivity is discharged
+    above by `nbhdFilter_injective`, so what remains is that the map induces the
+    topology: the Σ-open sets of `𝒫 Ω_𝒯` are exactly those of "finite
+    character", which the paper describes as the product topology on `2^A` where
+    the two-element set has one open and one closed point. With
+    `sigmaOpen_iff_isOpen` now proved in `SigmaTopology.lean`, that side can be
+    attacked through Definition 3.4's own wording rather than through Mathlib's
+    directed-set formulation.
 
     This is one of the three Scott facts of 1970/71 that carry §3, and it is what
     makes Theorem 3.12's restriction functor essentially surjective. -/

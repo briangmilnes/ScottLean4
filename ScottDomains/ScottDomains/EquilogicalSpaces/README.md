@@ -26,13 +26,13 @@ Results here are attributed to the 2004 paper.
 | Module | Lines | `sorry` | Contents |
 | ------ | ----: | ------: | -------- |
 | `Basic.lean` | 201 | **0** | Definition 3.9; the category `Equ` |
-| `SigmaTopology.lean` | 128 | 1 | Definition 3.4; **Theorem 3.5, proved** |
-| `PartialEquilogical.lean` | 236 | 3 | Definition 3.11; the category `PEqu`; Theorems 3.6, 3.7, 3.12 stated |
+| `SigmaTopology.lean` | 194 | **0** | Definition 3.4; **Theorems 3.4↔Scott and 3.5, proved** |
+| `PartialEquilogical.lean` | 258 | 3 | Definition 3.11; the category `PEqu`; Def 3.2 proved; Theorems 3.6, 3.7, 3.12 stated |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **726** | **8** | |
+| **Total** | **814** | **7** | |
 
 Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1536 jobs, 0 errors.
-Library `sorry` count 3 → 11 (the 3 pre-existing are in `Lemma30` and
+Library `sorry` count 3 → 10 (the 3 pre-existing are in `Lemma30` and
 `Effective/A3StepDecidable`).
 
 ## Proved
@@ -67,8 +67,7 @@ Two encoding decisions, deliberate and load-bearing:
 
 | Declaration | Paper | Module |
 | ----------- | ----- | ------ |
-| `sigmaOpen_iff_isOpen` | Def 3.4 ↔ Mathlib Scott | `SigmaTopology` |
-| `bauerBirkedalScott04_theorem_3_6_embedding` | 3.6 Embedding | `PartialEquilogical` |
+| `bauerBirkedalScott04_theorem_3_6_embedding` | 3.6 Embedding (topological half only) | `PartialEquilogical` |
 | `bauerBirkedalScott04_theorem_3_7_extension` | 3.7 Extension | `PartialEquilogical` |
 | `bauerBirkedalScott04_theorem_3_12` | 3.12 `Equ ≃ PEqu` | `PartialEquilogical` |
 | `…_theorem_3_10_hasLimits` | 3.10 | `Theorems3` |
@@ -80,17 +79,21 @@ Plus three `Prop`-valued claims, asserted nowhere:
 `Theorem310RegularWellPowered`, `Theorem310RegularCoWellPowered`,
 `Theorem310NotWellPowered`.
 
-### The known obstruction in `sigmaOpen_iff_isOpen`
+### A lemma this development had to supply
 
-Definition 3.4 quantifies over **arbitrary** `S` with a **finite** `S₀ ⊆ S`;
-Mathlib's Scott topology quantifies over **directed** sets. They agree on a
-complete lattice, but the reverse direction needs the finite suprema of `S` to
-form a directed set with supremum `⋁ S`, and the forward direction needs: a
-finite subset of a directed set has an upper bound *inside* that set. **Neither
-Mathlib nor this package appears to carry that second lemma** — searched
-`Mathlib/Order/Directed.lean`, `Mathlib/Order/Bounds/Basic.lean`,
-`ScottDomains/Domain.lean`, `ScottDomains/IdealCompletion.lean`. It has to be
-proved by induction on the finite set. That is the next concrete task.
+`DirectedOn.exists_upperBound_of_finite` — a finite subset of a directed set has
+an upper bound **inside that set** — is proved in `SigmaTopology.lean` by
+induction on the finite subset, because neither Mathlib nor this package carries
+it: searched `Mathlib/Order/Directed.lean`, `Mathlib/Order/Bounds/Basic.lean`,
+`ScottDomains/Domain.lean`, `ScottDomains/IdealCompletion.lean`. Mathlib's
+`Finset.exists_le` is the statement for a directed *order*, not a directed
+*subset*, and it is the subset form Definition 3.4 needs. It is a candidate for
+upstreaming.
+
+It is what makes `sigmaOpen_iff_isOpen` go through, and that in turn is what lets
+every later result be attacked through Definition 3.4's literal wording
+(arbitrary `S`, finite `S₀`) rather than through Mathlib's directed-set
+formulation.
 
 ## Not yet stated
 
