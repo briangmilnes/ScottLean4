@@ -129,9 +129,17 @@ theorem bauerBirkedalScott04_theorem_3_10_regularWellPowered
   regularWellPowered A
 
 /-- **Theorem 3.10** (regular co-well-poweredness): no object has a proper class
-    of non-isomorphic regular quotients. -/
-def Theorem310RegularCoWellPowered : Prop :=
-  ∀ A : EquilogicalSpace.{u}, Small.{u} (RegularQuotient A)
+    of non-isomorphic regular quotients.
+
+    **Proved**, in `RegularSubobjects.lean`, and *not* as a corollary of the
+    well-powered half — the dual argument runs in `Equᵒᵖ`, where the one-point
+    space that detects points has no counterpart. What replaces it is that a
+    regular quotient is determined by its **kernel relation**
+    `{ (x, y) | q x ≡ q y }`, the manuscript's "making the equivalence relation
+    coarser", which lives in `Set (|𝒜| × |𝒜|)` — again a `Type u`. -/
+theorem bauerBirkedalScott04_theorem_3_10_regularCoWellPowered
+    (A : EquilogicalSpace.{u}) : Small.{u} (RegularQuotient A) :=
+  regularCoWellPowered A
 
 /-- **Footnote 4** to Theorem 3.10, recorded as a claim and deliberately left
     unasserted: `Equ` is *not* well-powered.

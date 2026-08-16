@@ -13,36 +13,30 @@ numbers in the Lean names are the printed ones.
 tracker. It records what the kernel has accepted, what is stated but owed, and
 what is not yet stated — so progress is a measurement rather than an impression.
 
-## §3: zero `sorry`, but **Theorem 3.10 is proved in two of its four clauses**
+## §3 is finished
 
-Zero `sorry` is *not* the same as §3 being finished, and the difference is worth
-stating plainly, because a `Prop`-valued `def` carries no `sorry` and so is
-invisible to the count — the very defect this project's own tally rules warn
-about.
+Every numbered result of §3 is kernel-checked — **all four clauses of Theorem
+3.10 included**:
 
-**Proved:** Definitions 3.2, 3.4, 3.9, 3.11; Theorems 3.5, 3.6, 3.7, 3.8, 3.12,
-3.13; the categories `Equ`, `PEqu`, `ALat`.
+| | |
+| --- | --- |
+| Definitions 3.2, 3.4, 3.9, 3.11 | proved |
+| Theorems 3.5, 3.6, 3.7, 3.8, 3.12, 3.13 | proved |
+| Theorem 3.10 — complete, cocomplete, regular well-powered, regular co-well-powered | **all four proved** |
+| categories `Equ`, `PEqu`, `ALat` | proved |
 
-**Theorem 3.10** asserts `Equ` is *complete, cocomplete, regular well-powered and
-regular co-well-powered*. The first two are proved. The last two are
-`Theorem310RegularWellPowered` and `Theorem310RegularCoWellPowered` —
-**statements, not theorems**. `RegularSubobjects.lean` has the argument worked
-out and its `Equ`-specific half proved; what remains is the passage to an
-abstract regular mono and the `Subobject` bookkeeping.
+**One statement is deliberately not asserted**, and it is the only one:
+`Theorem310NotWellPowered`, footnote 4's "`Equ` is *not* well-powered". It stays
+a `Prop`-valued claim because discharging it needs Johnstone's counterexample,
+which the paper cites but does not exhibit — so whether `Small.{u}` failure is a
+faithful encoding of "an unbounded number of non-isomorphic subobjects" has never
+been checked. A `sorry` there would assert something unverified; a claim records
+it honestly.
 
-**Deliberately unasserted:** footnote 4's "`Equ` is not well-powered", whose
-`Small.{u}` encoding has never been checked against Johnstone's unexhibited
-counterexample.
+Note that a `Prop`-valued `def` carries no `sorry`, so the `sorry` count alone
+would not have told you this. That is why this section exists.
 
 §4 and §5 are untouched; see the end of this file.
-
-## Relation to `ScottLean/Scott/Scott1998ANewCategory.lean`
-
-The paper's genesis is Scott's manuscript *A New Category?* (December 1996;
-Version 2, 19 April 1998), which has its own formalization in the sibling
-`ScottLean` library. **The two developments are independent** and stay that way:
-that one is core Lean 4 with a hand-rolled `TopSpace`; this one is Mathlib-based.
-Results here are attributed to the 2004 paper.
 
 ## Modules
 
@@ -65,8 +59,8 @@ Results here are attributed to the 2004 paper.
 | `EquLimits.lean` | 198 | **0** | **Theorem 3.10's completeness half, proved**: products, equalizers, `HasLimitsOfSize Equ` |
 | `EquColimits.lean` | 239 | **0** | **Theorem 3.10's cocompleteness half, proved**; `T0Space` for a sigma type, proved |
 | `Theorems3.lean` | 174 | **0** | **Theorems 3.10 and 3.13, proved**; footnote 4 as a claim |
-| `RegularSubobjects.lean` | 127 | **0** | saturated subsets; (★) for the concrete equalizer. 3.10's regular halves still owed |
-| **Total** | **3475** | **0** | |
+| `RegularSubobjects.lean` | 433 | **0** | **3.10's regular well-poweredness and co-well-poweredness, proved** |
+| **Total** | **3781** | **0** | |
 
 ### Theorem 3.13: what is still owed, precisely
 

@@ -316,4 +316,103 @@ theorem regularWellPowered (A : EquilogicalSpace.{u}) :
 
 end WellPowered
 
+/-! ## Regular co-well-poweredness
+
+    Not a corollary of the above. The dual argument runs in `Equᵒᵖ`, where
+    regular monos are regular *epis* of `Equ`, and the separator that made (★)
+    work — the one-point space — has no dual available. What replaces it is that
+    a regular quotient is determined by its **kernel relation**
+
+        K(q) = { (x, y) | q x ≡ q y }
+
+    which is the manuscript's "forming a regular quotient is just making the
+    equivalence relation coarser (putting equivalence classes together)". It
+    lives in `Set (|𝒜| × |𝒜|)`, again a `Type u`.
+
+    And unlike (★), no universal property is needed to *describe* `K(q)` — only
+    to prove injectivity. -/
+
+section CoWellPowered
+
+variable {A : EquilogicalSpace.{u}}
+
+/-- The kernel relation of a morphism out of `𝒜`. -/
+def kerRel {Q : EquilogicalSpace.{u}} (q : A ⟶ Q) : Set (A.carrier × A.carrier) :=
+  { p | Q.Rel ((homOut q).toFun p.1) ((homOut q).toFun p.2) }
+
+/-- If one regular epi's kernel relation is contained in another's, the other
+    coequalizes the first's pair. Dual to `arrow_equalizes_of_subset`. -/
+theorem coequalizes_of_kerRel_subset {Q R : EquilogicalSpace.{u}}
+    (q : A ⟶ Q) [IsRegularEpi q] (t : A ⟶ R) (h : kerRel q ⊆ kerRel t) :
+    IsRegularEpi.left q ≫ t = IsRegularEpi.right q ≫ t := by
+  refine hom_ext_of_rel ?_
+  intro w w' hww'
+  -- `(l w, r w)` is in `K(q)` by the coequalizer condition, hence in `K(t)`
+  have hq : ((homOut (IsRegularEpi.left q)).toFun w,
+      (homOut (IsRegularEpi.right q)).toFun w) ∈ kerRel q := by
+    have hw := IsRegularEpi.w q
+    have s1 := homOut_comp_apply (IsRegularEpi.left q) q
+      (EquilogicalSpace.Rel.refl _ w)
+    have s2 := homOut_comp_apply (IsRegularEpi.right q) q
+      (EquilogicalSpace.Rel.refl _ w)
+    have hmid := hom_apply_rel hw (EquilogicalSpace.Rel.refl _ w)
+    exact EquilogicalSpace.Rel.trans (EquilogicalSpace.Rel.symm s1)
+      (EquilogicalSpace.Rel.trans hmid s2)
+  have ht := h hq
+  -- and `r w ≡ r w'`, so `t` sends them to related points
+  have hr := (homOut (IsRegularEpi.right q)).equivariant hww'
+  have s3 := homOut_comp_apply (IsRegularEpi.left q) t
+    (EquilogicalSpace.Rel.refl _ w)
+  have s4 := homOut_comp_apply (IsRegularEpi.right q) t hww'
+  exact EquilogicalSpace.Rel.trans s3
+    (EquilogicalSpace.Rel.trans ht
+      (EquilogicalSpace.Rel.trans
+        ((homOut t).equivariant hr) (EquilogicalSpace.Rel.symm
+          (homOut_comp_apply (IsRegularEpi.right q) t
+            (EquilogicalSpace.Rel.refl _ w')))))
+
+/-- A regular quotient of `𝒜`, as a regular subobject of `op 𝒜`. -/
+noncomputable def kerImage
+    (S : { S : Subobject (Opposite.op A) // IsRegularMono S.arrow }) :
+    Set (A.carrier × A.carrier) :=
+  kerRel S.1.arrow.unop
+
+/-- **Regular quotients are determined by their kernel relation.** -/
+theorem kerImage_injective : Function.Injective (kerImage (A := A)) := by
+  rintro S T hST
+  haveI hS : IsRegularEpi S.1.arrow.unop :=
+    (isRegularEpi_unop_iff_isRegularMono _).mpr S.2
+  haveI hT : IsRegularEpi T.1.arrow.unop :=
+    (isRegularEpi_unop_iff_isRegularMono _).mpr T.2
+  have hu := coequalizes_of_kerRel_subset S.1.arrow.unop T.1.arrow.unop
+    (le_of_eq hST)
+  have hv := coequalizes_of_kerRel_subset T.1.arrow.unop S.1.arrow.unop
+    (le_of_eq hST.symm)
+  set u := IsRegularEpi.desc S.1.arrow.unop T.1.arrow.unop hu with hudef
+  set v := IsRegularEpi.desc T.1.arrow.unop S.1.arrow.unop hv with hvdef
+  have hufac : S.1.arrow.unop ≫ u = T.1.arrow.unop := IsRegularEpi.fac _ _ hu
+  have hvfac : T.1.arrow.unop ≫ v = S.1.arrow.unop := IsRegularEpi.fac _ _ hv
+  have huv : u ≫ v = 𝟙 _ := by
+    apply (cancel_epi S.1.arrow.unop).mp
+    rw [← Category.assoc, hufac, hvfac, Category.comp_id]
+  have hvu : v ≫ u = 𝟙 _ := by
+    apply (cancel_epi T.1.arrow.unop).mp
+    rw [← Category.assoc, hvfac, hufac, Category.comp_id]
+  -- Build the iso in `Equ`, then `Iso.op` it: `(S : Equᵒᵖ) ⟶ (T : Equᵒᵖ)` is
+  -- `Q_T ⟶ Q_S` in `Equ`, so the *hom* of the opposite iso is `v`, not `u`.
+  -- inlined, not bound by `have`: `have` would erase the body and `.hom` would
+  -- no longer reduce to `v`
+  refine Subtype.ext (Subobject.eq_of_comm
+    (Iso.op (⟨v, u, hvu, huv⟩ : (Subobject.underlying.obj T.1).unop
+      ≅ (Subobject.underlying.obj S.1).unop)) ?_)
+  exact Quiver.Hom.unop_inj (by simpa using hvfac)
+
+/-- **Theorem 3.10, regular co-well-poweredness**: no object of `Equ` has a
+    proper class of non-isomorphic regular quotients. -/
+theorem regularCoWellPowered (A : EquilogicalSpace.{u}) :
+    Small.{u} { S : Subobject (Opposite.op A) // IsRegularMono S.arrow } :=
+  small_of_injective (kerImage_injective (A := A))
+
+end CoWellPowered
+
 end ScottDomains.EquilogicalSpaces
