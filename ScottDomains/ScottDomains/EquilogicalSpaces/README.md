@@ -13,6 +13,19 @@ numbers in the Lean names are the printed ones.
 tracker. It records what the kernel has accepted, what is stated but owed, and
 what is not yet stated — so progress is a measurement rather than an impression.
 
+## §3 is complete: **zero `sorry`**
+
+Every numbered result of §3 is kernel-checked — Definitions 3.2, 3.4, 3.9, 3.11
+and Theorems 3.5, 3.6, 3.7, 3.8, 3.10, 3.12, 3.13 — along with the categories
+`Equ`, `PEqu` and `ALat`. §4 and §5 are untouched; see the end of this file.
+
+Two things are deliberately *not* asserted, and both are recorded as
+`Prop`-valued claims rather than proved or `sorry`'d: the two
+regular-well-poweredness halves of 3.10, for which Mathlib has no
+`RegularWellPowered` class, and footnote 4's "`Equ` is not well-powered", whose
+`Small.{u}` encoding has not been checked against Johnstone's unexhibited
+counterexample.
+
 ## Relation to `ScottLean/Scott/Scott1998ANewCategory.lean`
 
 The paper's genesis is Scott's manuscript *A New Category?* (December 1996;
@@ -40,9 +53,9 @@ Results here are attributed to the 2004 paper.
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `EquProducts.lean` | 156 | **0** | **`HasFiniteProducts Equ`, proved**: terminal object and binary products |
 | `EquLimits.lean` | 198 | **0** | **Theorem 3.10's completeness half, proved**: products, equalizers, `HasLimitsOfSize Equ` |
-| `EquColimits.lean` | 110 | **0** | 3.10's **coequalizer, proved**; coproducts blocked on `T0Space` for a sigma type |
-| `Theorems3.lean` | 174 | 1 | **3.10 products/completeness and 3.13, proved**; cocompleteness owed; footnote 4 as a claim |
-| **Total** | **3219** | **1** | |
+| `EquColimits.lean` | 239 | **0** | **Theorem 3.10's cocompleteness half, proved**; `T0Space` for a sigma type, proved |
+| `Theorems3.lean` | 174 | **0** | **Theorems 3.10 and 3.13, proved**; footnote 4 as a claim |
+| **Total** | **3348** | **0** | |
 
 ### Theorem 3.13: what is still owed, precisely
 

@@ -1,6 +1,7 @@
 import ScottDomains.EquilogicalSpaces.Basic
 import ScottDomains.EquilogicalSpaces.EquProducts
 import ScottDomains.EquilogicalSpaces.EquLimits
+import ScottDomains.EquilogicalSpaces.EquColimits
 import ScottDomains.EquilogicalSpaces.PEquClosed
 import Mathlib.CategoryTheory.Limits.HasLimits
 import Mathlib.CategoryTheory.Limits.Shapes.FiniteProducts
@@ -83,16 +84,15 @@ instance bauerBirkedalScott04_theorem_3_10_hasLimits :
 
 /-- **Theorem 3.10** (cocompleteness half): `Equ` is cocomplete.
 
-    Obligation. Coproducts are disjoint unions of the carriers, topologized by
-    the union of the topologies, carrying the union of the equivalence relations
-    — an equivalence relation precisely because the carriers are disjoint. The
-    coequalizer keeps the topology of `ℱ` and coarsens `≡_ℱ` to the least
-    equivalence relation also containing `{ (f x, g x) ∣ x ∈ |ℰ| }`. Note that
-    no topology is placed on the quotient; the paper flags this as one reason
-    `Equ` is not equivalent to `Set`. -/
+    **Proved**, in `EquColimits.lean`. Coproducts are disjoint unions with the
+    union of the relations — which needed `T0Space` for a sigma type, absent from
+    Mathlib and proved there. The coequalizer keeps `ℱ`'s topology and coarsens
+    `≡_ℱ` to `Relation.EqvGen` of it together with `{ (f x, g x) }`; **no topology
+    is placed on the quotient**, which the paper flags as one reason `Equ` is not
+    equivalent to `Set`. Mathlib's
+    `has_colimits_of_hasCoequalizers_and_coproducts` assembles the rest. -/
 instance bauerBirkedalScott04_theorem_3_10_hasColimits :
-    HasColimitsOfSize.{u, u} EquilogicalSpace.{u} := by
-  sorry
+    HasColimitsOfSize.{u, u} EquilogicalSpace.{u} := inferInstance
 
 /-! ## Theorem 3.10: the regular well-poweredness halves -/
 

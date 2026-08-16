@@ -35,24 +35,99 @@ namespace ScottDomains.EquilogicalSpaces
 
 open CategoryTheory CategoryTheory.Limits
 
-/-! ## Blocked: coproducts
+/-! ## The disjoint union of `T₀` spaces is `T₀`
 
-    The disjoint union needs `T0Space (Σ j, (A j).carrier)`, and **Mathlib has no
-    such instance** — searched `Mathlib/Topology`. The fact is true: two points in
-    different summands are separated because each summand is open, and two in the
-    same summand by that summand's own `T₀`. But it has to be proved, and it is
-    genuine content rather than plumbing, so it is recorded here rather than
-    stubbed.
+    Mathlib has no instance for this, so it is proved here. It is the one piece
+    of actual topology the coproduct needs.
 
-    Everything about the *relation* on a disjoint union is unproblematic and was
-    written before the obstacle surfaced: phrase it with equations
-    `p = ⟨j, x⟩` rather than a transport along an index equality, and `rintro`
-    substitutes, leaving transitivity to `Sigma.mk` injectivity. That is what the
-    paper's "the union of equivalence relations on **disjoint** sets is indeed an
-    equivalence relation" is doing.
+    Two points in *different* summands are separated by the summand itself,
+    which is open; two in the *same* summand by that summand's own `T₀`, pulled
+    across the fact that `Sigma.mk i` is an open map. -/
 
-    With coproducts owed, `has_colimits_of_hasCoequalizers_and_coproducts` cannot
-    be applied and Theorem 3.10's cocompleteness half stays open. -/
+instance sigmaT0Space {J : Type u} (A : J → EquilogicalSpace.{u}) :
+    T0Space (Σ j, (A j).carrier) := by
+  rw [t0Space_iff_inseparable]
+  have hsummand : ∀ k : J, IsOpen {p : Σ j, (A j).carrier | p.1 = k} := by
+    intro k
+    rw [isOpen_sigma_iff]
+    intro l
+    by_cases hlk : l = k
+    · subst hlk; simp
+    · simp [hlk]
+  rintro ⟨i, x⟩ ⟨j, y⟩ h
+  have hij : i = j :=
+    ((inseparable_iff_forall_isOpen.mp h _ (hsummand i)).mp rfl).symm
+  subst hij
+  have hxy : x = y := by
+    have : Inseparable x y := by
+      rw [inseparable_iff_forall_isOpen]
+      intro U hU
+      have hUopen : IsOpen ((Sigma.mk i '' U : Set (Σ j, (A j).carrier))) := by
+        exact @isOpenMap_sigmaMk J (fun k => (A k).carrier) _ i U hU
+      constructor
+      · intro hx
+        obtain ⟨z, hz, hzeq⟩ :=
+          (inseparable_iff_forall_isOpen.mp h _ hUopen).mp ⟨x, hx, rfl⟩
+        cases hzeq; exact hz
+      · intro hy
+        obtain ⟨z, hz, hzeq⟩ :=
+          (inseparable_iff_forall_isOpen.mp h _ hUopen).mpr ⟨y, hy, rfl⟩
+        cases hzeq; exact hz
+    exact this.eq
+  exact congrArg (Sigma.mk i) hxy
+
+/-! ## Coproducts -/
+
+/-- The relation on a disjoint union: related exactly when the two points lie in
+    the *same* summand and are related there.
+
+    Phrased with **equations** `p = ⟨j, x⟩` rather than a transport along an
+    index equality, so that `rintro` substitutes and transitivity needs only
+    `Sigma.mk` injectivity. This is the paper's "the union of equivalence
+    relations on *disjoint* sets is indeed an equivalence relation". -/
+def coprodRel {J : Type u} (A : J → EquilogicalSpace.{u}) :
+    (Σ j, (A j).carrier) → (Σ j, (A j).carrier) → Prop :=
+  fun p q => ∃ (j : J) (x y : (A j).carrier), (A j).Rel x y ∧ p = ⟨j, x⟩ ∧ q = ⟨j, y⟩
+
+theorem coprodRel_equivalence {J : Type u} (A : J → EquilogicalSpace.{u}) :
+    Equivalence (coprodRel A) where
+  refl p := ⟨p.1, p.2, p.2, (A p.1).setoid.refl p.2, rfl, rfl⟩
+  symm := by
+    rintro _ _ ⟨j, x, y, h, rfl, rfl⟩
+    exact ⟨j, y, x, (A j).setoid.symm h, rfl, rfl⟩
+  trans := by
+    rintro _ _ _ ⟨j, x, y, h₁, rfl, rfl⟩ ⟨j', x', y', h₂, heq, rfl⟩
+    cases heq
+    exact ⟨j, x, y', (A j).setoid.trans h₁ h₂, rfl, rfl⟩
+
+/-- The coproduct of a family of equilogical spaces. -/
+@[reducible] def EquilogicalSpace.sigma {J : Type u} (A : J → EquilogicalSpace.{u}) :
+    EquilogicalSpace.{u} where
+  carrier := Σ j, (A j).carrier
+  setoid := ⟨coprodRel A, coprodRel_equivalence A⟩
+
+namespace EquilogicalSpace
+
+/-- The injection of a summand. -/
+def sigmaInj {J : Type u} (A : J → EquilogicalSpace.{u}) (j : J) :
+    Equivariant (A j) (EquilogicalSpace.sigma A) where
+  toFun := fun x => ⟨j, x⟩
+  continuous_toFun := by
+    exact @continuous_sigmaMk J (fun k => (A k).carrier) _ j
+  equivariant := fun h => ⟨j, _, _, h, rfl, rfl⟩
+
+/-- The map out of the coproduct determined by a family of maps. -/
+def sigmaDesc {J : Type u} {T : EquilogicalSpace.{u}} {A : J → EquilogicalSpace.{u}}
+    (f : ∀ j, Equivariant (A j) T) : Equivariant (EquilogicalSpace.sigma A) T where
+  toFun := fun p => (f p.1).toFun p.2
+  continuous_toFun := by
+    exact (continuous_sigma (fun j => (f j).continuous_toFun) :
+      Continuous fun p : (Σ j, (A j).carrier) => (f p.1).toFun p.2)
+  equivariant := by
+    rintro _ _ ⟨j, x, y, h, rfl, rfl⟩
+    exact (f j).equivariant h
+
+end EquilogicalSpace
 
 /-! ## Coequalizers -/
 
@@ -106,5 +181,59 @@ def coeqDesc {A B T : EquilogicalSpace.{u}} {f g : Equivariant A B}
     | trans a b c _ _ ih₁ ih₂ => exact T.setoid.trans ih₁ ih₂
 
 end EquilogicalSpace
+
+/-! ## `Equ` is cocomplete -/
+
+open EquilogicalSpace in
+/-- The cofan on the coproduct. -/
+def equCofan {J : Type u} (A : J → EquilogicalSpace.{u}) : Cofan A :=
+  Cofan.mk (EquilogicalSpace.sigma A) (fun j => Quotient.mk _ (sigmaInj A j))
+
+open EquilogicalSpace in
+noncomputable def equCofanIsColimit {J : Type u} (A : J → EquilogicalSpace.{u}) :
+    IsColimit (equCofan A) :=
+  Cofan.IsColimit.mk _
+    (fun s => Quotient.mk _ (sigmaDesc fun j => homOut (s.inj j)))
+    (fun s j => homOut_spec (s.inj j))
+    (fun s m hm => by
+      revert hm
+      refine Quotient.inductionOn m (fun m => ?_)
+      intro hm
+      refine Quotient.sound ?_
+      rintro _ _ ⟨j, x, y, h, rfl, rfl⟩
+      exact Quotient.exact ((hm j).trans (homOut_spec (s.inj j)).symm) x y h)
+
+instance : HasCoproducts.{u} EquilogicalSpace.{u} :=
+  hasCoproducts_of_colimit_cofans equCofan equCofanIsColimit
+
+open EquilogicalSpace in
+instance equHasColimitParallelPair {A B : EquilogicalSpace.{u}} (f g : A ⟶ B) :
+    HasColimit (parallelPair f g) := by
+  refine Quotient.inductionOn₂ f g (fun f g => HasColimit.mk ?_)
+  refine
+    { cocone := Cofork.ofπ (P := coeqObj f g) (Quotient.mk _ (coeqProj f g))
+        (Quotient.sound (coeqProj_coequalizes f g))
+      isColimit := Cofork.IsColimit.mk _
+        (fun s => Quotient.mk _
+          (coeqDesc (homOut (Cofork.π s))
+            (Quotient.exact ((homOut_spec (Cofork.π s)).symm ▸ s.condition))))
+        (fun s => homOut_spec (Cofork.π s))
+        (fun s m hm => ?_) }
+  revert hm
+  refine Quotient.inductionOn m (fun m => ?_)
+  intro hm
+  refine Quotient.sound (fun x y hxy => ?_)
+  -- The goal is over `coeqObj`'s relation, an `EqvGen`, not over `ℬ`'s. Use `m`'s
+  -- own equivariance to move from `x` to `y`, then the hypothesis at the
+  -- reflexive point `y` — where `coeqProj` is the identity.
+  have key := Quotient.exact (hm.trans (homOut_spec (Cofork.π s)).symm)
+  exact EquilogicalSpace.Rel.trans (m.equivariant hxy) (key y y (B.setoid.refl y))
+
+instance : HasCoequalizers EquilogicalSpace.{u} :=
+  hasCoequalizers_of_hasColimit_parallelPair _
+
+/-- **Theorem 3.10, the cocompleteness half**: `Equ` is cocomplete. -/
+instance equHasColimits : HasColimitsOfSize.{u, u} EquilogicalSpace.{u} :=
+  has_colimits_of_hasCoequalizers_and_coproducts
 
 end ScottDomains.EquilogicalSpaces
