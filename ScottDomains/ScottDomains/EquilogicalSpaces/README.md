@@ -29,9 +29,10 @@ Results here are attributed to the 2004 paper.
 | `SigmaTopology.lean` | 194 | **0** | Definition 3.4; **Theorems 3.4↔Scott and 3.5, proved** |
 | `PartialEquilogical.lean` | 258 | 3 | Definition 3.11; the category `PEqu`; Def 3.2 proved; Theorems 3.6, 3.7, 3.12 stated |
 | `CartesianClosure.lean` | 154 | **0** | **Theorem 3.13's currying step, proved**; what Theorem 3.8 still owes |
-| `ALat.lean` | 186 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice`; `ScottHom` is a complete lattice |
+| `ALat.lean` | 196 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice`; `ScottHom` is a complete lattice |
+| `ProductAlgebraic.lean` | 118 | **0** | **`IsAlgebraic (α × β)`, proved**; `AlgebraicLattice.prod` |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **1154** | **7** | |
+| **Total** | **1282** | **7** | |
 
 Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1538 jobs, 0 errors.
 Library `sorry` count 3 → 10 (the 3 pre-existing are in `Lemma30` and
@@ -156,11 +157,38 @@ the evidence that item 1 unblocked `FunctionSpaceDomain`.
    `letI`. Proving `sSup ∅ = const ⊥` and hand-rolling `bot` would let it become
    a safe instance; that is the next small task.
 
-**What Theorem 3.8 still owes**: finite products in `ALat`, and the adjunction
-assembled from `scottHomCurry`. Both mathematical prerequisites — the
-exponential's carrier being an algebraic lattice — are now in hand. This is why
-`CartesianClosure.lean` still states only `Theorem38CurryingBijection`, named for
-what it actually is.
+4. `isAlgebraic_prod` — the product of two algebraic lattices is algebraic
+   (`ProductAlgebraic.lean`). `ScottDomains.Product` supplied
+   `CompletePartialOrder (α × β)` but not this, so `A × B` could not previously
+   be an object of `ALat` at all. With it, `AlgebraicLattice.prod` exists.
+
+   Directedness of `compactsBelow (x, y)` turns out to be free in the lattice
+   setting: the join of two compacts below `(x, y)` is compact by the package's
+   `isCompactElement_of_isLUB_pair`, and still below `(x, y)`. Only the
+   least-upper-bound half needs product reasoning, through
+   `isCompactElement_prod` — a pair of compacts is compact, the two coordinates
+   being located in *different* members of the directed set and merged by
+   directedness, the same move `Currying.lean` makes when it uncurries.
+
+   Stated for complete **lattices**, not arbitrary algebraic cpos. Over a general
+   cpo the join need not exist and directedness would instead need the
+   *projection* direction — `(a, b)` compact implies `a` and `b` compact — which
+   requires a separate argument through `(fun x => (x, b)) '' s`. `ALat` does not
+   need it, so it is not proved; noted in the module in case the general case is
+   ever wanted.
+
+**What Theorem 3.8 still owes** is now purely categorical assembly, with every
+mathematical prerequisite in hand:
+
+- a terminal object (`PUnit` as an algebraic lattice);
+- `HasTerminal` and `HasBinaryProducts` instances for `ALat`, i.e. wrapping
+  `AlgebraicLattice.prod` in Mathlib limit cones;
+- the exponential functor `B ⟹ -`, unblocked by the complete-lattice instance;
+- `Adjunction.mkOfHomEquiv` with `scottHomCurry.symm` as the hom-equivalence,
+  plus naturality in both variables.
+
+This is why `CartesianClosure.lean` still states only
+`Theorem38CurryingBijection`, named for what it actually is.
 
 Definition 3.11 deliberately uses the package's `ScottDomains.IsAlgebraic` (over
 `CompletePartialOrder`, reached from `CompleteLattice` by
