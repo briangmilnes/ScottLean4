@@ -111,17 +111,14 @@ instance [CompleteLattice α] : Topology.IsScott (Wrap α) Set.univ := ⟨rfl⟩
 /-- The exponential of two partial equilogical spaces: the algebraic lattice of
     Scott-continuous maps, with the partial equivalence relation of Definition
     3.11(2). -/
-noncomputable def PartialEquilogicalSpace.exp (A B : PartialEquilogicalSpace.{u}) :
-    PartialEquilogicalSpace.{u} :=
-  letI : TopologicalSpace (ScottHom A.carrier B.carrier) :=
-    Topology.scott (ScottHom A.carrier B.carrier) Set.univ
-  haveI : Topology.IsScott (ScottHom A.carrier B.carrier) Set.univ := ⟨rfl⟩
-  { carrier := ScottHom A.carrier B.carrier
-    Rel := HomRel A.Rel B.Rel
-    rel_symm := fun h => fun x y hxy =>
-      B.rel_symm (h y x (A.rel_symm hxy))
-    rel_trans := fun h₁ h₂ => fun x y hxy =>
-      B.rel_trans (h₁ x x (A.rel_trans hxy (A.rel_symm hxy))) (h₂ x y hxy) }
+@[reducible] noncomputable def PartialEquilogicalSpace.exp
+    (A B : PartialEquilogicalSpace.{u}) : PartialEquilogicalSpace.{u} where
+  carrier := Wrap (ScottHom A.carrier B.carrier)
+  Rel := HomRel A.Rel B.Rel
+  rel_symm := fun h => fun x y hxy =>
+    B.rel_symm (h y x (A.rel_symm hxy))
+  rel_trans := fun h₁ h₂ => fun x y hxy =>
+    B.rel_trans (h₁ x x (A.rel_trans hxy (A.rel_symm hxy))) (h₂ x y hxy)
 
 @[simp] theorem PartialEquilogicalSpace.exp_carrier (A B : PartialEquilogicalSpace.{u}) :
     (A.exp B).carrier = ScottHom A.carrier B.carrier := rfl
@@ -276,5 +273,60 @@ instance pequHasLimitPair (A B : PartialEquilogicalSpace.{u}) : HasLimit (pair A
 
 instance : HasBinaryProducts PartialEquilogicalSpace.{u} :=
   hasBinaryProducts_of_hasLimit_pair _
+
+/-! ## The exponential functor
+
+    Object part is `exp`; morphism part is post-composition. Two things have to
+    be checked that have no counterpart in `ALatClosed.lean`: that a `PEqu`
+    morphism's *topological* continuity gives the *Scott* continuity the function
+    space needs, and that post-composition respects `MapEquiv` so that it
+    descends to the quotient. -/
+
+/-- A `PEqu` morphism's underlying map, bundled as a `ScottHom`. Declared outside
+    the `PartialEquilogicalSpace` namespace so that dot notation on a
+    `PEquivariant` finds it. -/
+noncomputable def PEquivariant.toScottHom {A B : PartialEquilogicalSpace.{u}}
+    (f : PEquivariant A B) : ScottHom A.carrier B.carrier :=
+  ⟨f.toFun, scottContinuous_of_continuous f.continuous_toFun⟩
+
+namespace PartialEquilogicalSpace
+
+/-- Post-composition with `f`, as an equivariant map `(B ⟹ Y) ⟶ (B ⟹ Z)`.
+
+    Continuity is `scottContinuous_postcomp` (r0064). Equivariance is one step:
+    if `g₁ ≈ g₂` in `B ⟹ Y` then at `≡`-related `x`, `y` we get
+    `g₁ x ≈_Y g₂ y`, and `f` carries that to `f (g₁ x) ≈_Z f (g₂ y)`. -/
+noncomputable def expMap (B : PartialEquilogicalSpace.{u})
+    {Y Z : PartialEquilogicalSpace.{u}} (f : PEquivariant Y Z) :
+    PEquivariant (B.exp Y) (B.exp Z) where
+  toFun := fun g => Combinator.comp f.toScottHom g
+  continuous_toFun :=
+    continuous_of_scottContinuous (scottContinuous_postcomp f.toScottHom)
+  equivariant := fun h x y hxy => f.equivariant (h x y hxy)
+
+/-- Post-composition respects `MapEquiv`, so it descends to the quotient. -/
+theorem expMap_congr (B : PartialEquilogicalSpace.{u})
+    {Y Z : PartialEquilogicalSpace.{u}} {f f' : PEquivariant Y Z}
+    (hf : PEquivariant.MapEquiv f f') :
+    PEquivariant.MapEquiv (expMap B f) (expMap B f') := by
+  intro g₁ g₂ h x y hxy
+  exact hf _ _ (h x y hxy)
+
+end PartialEquilogicalSpace
+
+open CategoryTheory in
+/-- **The exponential functor `B ⟹ -` on `PEqu`.** -/
+noncomputable def pequExpFunctor (B : PartialEquilogicalSpace.{u}) :
+    PartialEquilogicalSpace.{u} ⥤ PartialEquilogicalSpace.{u} where
+  obj Y := B.exp Y
+  map f := Quotient.map (PartialEquilogicalSpace.expMap B)
+    (fun _ _ h => PartialEquilogicalSpace.expMap_congr B h) f
+  map_id := by
+    rintro Y
+    exact Quotient.sound (fun _ _ h => h)
+  map_comp := by
+    rintro X Y Z ⟨f⟩ ⟨g⟩
+    exact Quotient.sound
+      (fun _ _ h x y hxy => g.equivariant (f.equivariant (h x y hxy)))
 
 end ScottDomains.EquilogicalSpaces

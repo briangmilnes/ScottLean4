@@ -36,10 +36,10 @@ Results here are attributed to the 2004 paper.
 | `ALatClosed.lean` | 132 | **0** | **Theorem 3.8, proved**: `(- × B) ⊣ (B ⟹ -)` |
 | `Restriction.lean` | 155 | **0** | **the functor `R : PEqu ⥤ Equ`, faithful and full, proved** |
 | `EssSurj.lean` | 202 | **0** | **essential surjectivity and Theorem 3.12, proved** |
-| `PEquClosed.lean` | 280 | **0** | `PEqu`'s objects, the currying bijection, and **`HasBinaryProducts PEqu`, proved** |
+| `PEquClosed.lean` | 332 | **0** | `PEqu`'s objects, **`HasBinaryProducts PEqu`** and **the exponential functor**, proved |
 | `PowersetRetract.lean` | 167 | **0** | **the powerset retraction, and the Extension Theorem for an algebraic-lattice codomain, proved** |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **2532** | **4** | |
+| **Total** | **2584** | **4** | |
 
 ### Theorem 3.13: what is still owed, precisely
 
@@ -62,10 +62,13 @@ three steps remain:
    `@[reducible]` on `prod` so that instance resolution — which runs at
    `instances` transparency and will not unfold a plain `def` — can reach the
    carrier at all.
-2. **The exponential functor in `PEqu`.** The object
-   `PartialEquilogicalSpace.exp` exists; its action on morphisms is
-   post-composition, which needs `scottContinuous_postcomp` (proved, r0064) plus
-   a check that post-composition respects `MapEquiv`.
+2. **The exponential functor — done.** `pequExpFunctor B : PEqu ⥤ PEqu`, with
+   object part `exp` and morphism part post-composition. Two checks with no
+   counterpart in `ALatClosed.lean`: `PEquivariant.toScottHom` turns a `PEqu`
+   morphism's *topological* continuity into the *Scott* continuity the function
+   space needs, and `expMap_congr` shows post-composition respects `MapEquiv` so
+   it descends to the quotient. `map_id` and `map_comp` are `Quotient.sound`,
+   not `rfl` — `map_comp` in particular needs both equivariance steps.
 3. **The adjunction, and transport to `Equ`.** The hom-level content is done —
    `homRel_curry_iff` says currying matches the product and exponential
    relations — so this is assembly plus `Equivalence`-transport across 3.12.
