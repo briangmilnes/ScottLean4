@@ -29,10 +29,11 @@ Results here are attributed to the 2004 paper.
 | `SigmaTopology.lean` | 194 | **0** | Definition 3.4; **Theorems 3.4↔Scott and 3.5, proved** |
 | `PartialEquilogical.lean` | 258 | 3 | Definition 3.11; the category `PEqu`; Def 3.2 proved; Theorems 3.6, 3.7, 3.12 stated |
 | `CartesianClosure.lean` | 154 | **0** | **Theorem 3.13's currying step, proved**; what Theorem 3.8 still owes |
+| `ALat.lean` | 113 | **0** | **the category `ALat`, proved**; `BoundedComplete` for `CompleteLattice` |
 | `Theorems3.lean` | 161 | 4 | Theorems 3.10, 3.13 stated; footnote 4 as a claim |
-| **Total** | **968** | **7** | |
+| **Total** | **1081** | **7** | |
 
-Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1537 jobs, 0 errors.
+Build: `lake -d ~/projects/ScottLean4/ScottDomains build` — 1538 jobs, 0 errors.
 Library `sorry` count 3 → 10 (the 3 pre-existing are in `Lemma30` and
 `Effective/A3StepDecidable`).
 
@@ -114,17 +115,31 @@ pair `(x, u)` split or joined, and the proof is a single term. `ProdRel` and
 `HomRel` there are Definition 3.11's product and exponential relations, taken
 unbundled so the result does not depend on the exponential being an object.
 
-**What Theorem 3.8 still owes** is packaging, not mathematics:
+**Both items Theorem 3.8 previously owed are now done** — see `ALat.lean`:
 
-1. A bundled category `ALat` of algebraic lattices with Scott-continuous maps,
-   its finite products, and the adjunction assembled from `scottHomCurry`. Until
-   `ALat` exists, "`ALat` is cartesian closed" cannot be given a type at all —
-   which is why `CartesianClosure.lean` states only
-   `Theorem38CurryingBijection`, named for what it actually is.
-2. A `BoundedComplete` instance for `CompleteLattice`. `FunctionSpaceDomain.lean`
-   proves `IsAlgebraic (ScottHom α β)` for `α` algebraic and `β` algebraic *and
-   bounded complete*; every complete lattice is bounded complete, but the
-   instance is not in the package. One instance, not a proof.
+1. `completeLattice_boundedComplete` — a complete lattice is bounded complete.
+   One line, and sound because `CompleteLattice.toCompletePartialOrder` is
+   defined with `sSup := sSup`, so the `SupSet` the `CompletePartialOrder`
+   carries is literally the lattice's own and `isLUB_sSup` discharges the field
+   with no compatibility condition. This is what had blocked Theorem 3.8 from
+   using the package's own function-space result.
+2. `AlgebraicLattice` and `alatCategory` — the bundled category, objects
+   complete-and-algebraic lattices, morphisms `ScottHom`. Unlike `Equ` and
+   `PEqu` the morphisms are honest functions rather than equivalence classes, so
+   the laws are `ext`-then-`rfl`.
+
+Together they yield `isAlgebraic_scottHom`, **proved by `inferInstance`**: the
+exponential's carrier is an algebraic object. The `inferInstance` succeeding *is*
+the evidence that item 1 unblocked `FunctionSpaceDomain`.
+
+**What Theorem 3.8 still owes**, now down to one concrete obstruction: an
+exponential must be an *object of `ALat`*, so `ScottHom X Y` needs a
+`CompleteLattice` structure, and the package gives it only a
+`CompletePartialOrder`. The pointwise lattice structure on a function space
+between complete lattices is standard but is not in the package. After that,
+finite products in `ALat` and the adjunction assembled from `scottHomCurry`.
+This is why `CartesianClosure.lean` still states only
+`Theorem38CurryingBijection`, named for what it actually is.
 
 Definition 3.11 deliberately uses the package's `ScottDomains.IsAlgebraic` (over
 `CompletePartialOrder`, reached from `CompleteLattice` by
