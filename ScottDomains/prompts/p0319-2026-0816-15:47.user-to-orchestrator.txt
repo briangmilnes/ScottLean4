@@ -1,0 +1,82 @@
+---
+prompt: p0319
+type: interaction
+opened: 2026-0816-15:47
+closed: 2026-0816-15:50
+subject: go
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:47:14.928000-07:00
+
+go
+
+## turn — assistant 2026-08-16T15:47:51.381000-07:00
+
+The transport. Conjugating the `PEqu` adjunction with the equivalence from 3.12:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read().rstrip() tail="end 
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:48:22.715000-07:00
+
+`bauerBirkedalScott04_theorem_3_12` lives in `EssSurj`, which isn't imported here. No cycle — adding it:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() s=s.replace("import
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+    Bash grep -rn 'def Adjunction.comp\|def comp ' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Adjunction/Basic
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() s=s.replace("import
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:49:16.990000-07:00
+
+**Theorem 3.13 for `Equ` is proved.** Full build:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("| `PEquClose
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0082: Theorem 3.13 proved for Equ, by transport across Theorem 3.12  PEquClosed.lean 447 -> 490 li
+## turn — assistant 2026-08-16T15:50:10.893000-07:00
+
+**Theorem 3.13 is proved for `Equ`** — pushed as **eccc375**. §3's headline result, and the one `Top₀` doesn't have.
+
+## The transport
+
+With `e : PEqu ≌ Equ` from Theorem 3.12, conjugation gives
+
+```
+e.inverse ⋙ F ⋙ e.functor  ⊣  e.inverse ⋙ G ⋙ e.functor
+```
+
+assembled from `e.symm.toAdjunction`, the `PEqu` adjunction, and `e.toAdjunction` via `Adjunction.comp`. That's exactly the paper's own move — prove cartesian closure in `PEqu`, carry it to `Equ` along the equivalence — done as three composed adjunctions rather than by hand.
+
+(`Adjunction.comp` is in `Adjunction.Basic`; there's no `Adjunction.Composition` module in this revision.)
+
+## §3 is structurally complete
+
+Kernel-checked: **Definitions 3.2, 3.4, 3.9, 3.11** and **Theorems 3.5, 3.6, 3.7, 3.8, 3.12, 3.13**, plus the categories `Equ`, `PEqu`, `ALat`.
+
+## One thing not to misread
+
+`Theorems3.lean` still carries a `sorry` labelled 3.13. **That is a different formulation, not the theorem being unproved.** It's phrased with Mathlib's `Limits.prod.functor.obj B`, which routes through `HasBinaryProducts Equ` — part of Theorem 3.10, still owed. The theorem itself is proved as `bauerBirkedalScott04_theorem_3_13_equ`, in the paper's own §2 phrasing.
+
+I've flagged this in both the README and the commit so the `sorry` count isn't read as "3.13 is open."
+
+## State
+
+| | |
+| --- | --- |
+| Modules | 14 |
+| Lines | **2742** |
+| `sorry` | **4** (all `Theorems3.lean`) |
+| Fully proved modules | **13 of 14** |
+
+1550 jobs, 0 errors.
+
+## What's left
+
+**Theorem 3.10** — `HasLimits`/`HasColimits`/`HasFiniteProducts` for `Equ`, plus the two regular-well-poweredness claims. Products would transport across 3.12 the same way the adjunction just did, which would also let the `Theorems3` phrasing of 3.13 be discharged. **§4** (dependent type theory, including the paper's two negative results) and **§5** (Kleene–Kreisel) remain untouched and mapped in the README.
+

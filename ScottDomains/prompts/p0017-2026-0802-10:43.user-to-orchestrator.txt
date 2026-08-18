@@ -1,0 +1,46 @@
+---
+prompt: p0017
+type: interaction
+opened: 2026-0802-10:43
+closed: 2026-0802-10:45
+subject: done
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:43:46.415000-07:00
+
+done
+
+## turn — assistant 2026-08-02T10:44:11.335000-07:00
+
+All nine desktops live — nice. That closes out the hotkey thread and the whole reboot cycle.
+
+Let me finish the deliverables I owe. First a quick status check (did MacTeX finish?), then I'll write the RustSemantics README and refresh the inventory:
+
+    Bash echo "=== pdflatex / MacTeX now? ==="; ls /Library/TeX/texbin/pdflatex 2>/dev/null && /Library/TeX/texbin/pdflatex --version 2>/dev/null | head -1 || 
+## turn — assistant 2026-08-02T10:45:35.207000-07:00
+
+**MacTeX is in** — `pdflatex` (TeX Live 2026) at `/Library/TeX/texbin/pdflatex`. That leaves only Wolfram + the Chrome MD extension outstanding. Let me knock out the owed deliverables and prove the LaTeX-plotting pipeline now that TeX is here.
+
+First, the RustSemantics README (built from the actual files):
+
+    Write /Users/scott/projects/RustSemantics/README.md
+## turn — assistant 2026-08-02T10:45:58.555000-07:00
+
+The VS Code extension is called **"Lean 4"** — publisher **leanprover**, extension ID **`leanprover.lean4`**. (The old "Lean" extension was for Lean 3; you want the "Lean 4" one.)
+
+And it's **already installed** — I set it up during the VS Code install and confirmed it earlier:
+
+```bash
+code --list-extensions | grep lean
+```
+
+should show `leanprover.lean4`. To use it: open any `.lean` file in this project (e.g. `ScottLean.lean`) and the **Lean Infoview** panel opens on the right showing the goal state. First open triggers the toolchain check; since elan/Lean 4.32.2 are already installed, it'll connect without downloading anything.
+
+Want me to open the project in VS Code on a `.lean` file to confirm the Infoview comes up?
+

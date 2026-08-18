@@ -1,0 +1,88 @@
+---
+prompt: p0315
+type: interaction
+opened: 2026-0816-15:31
+closed: 2026-0816-15:35
+subject: do-the-wrapper-with-the-transports
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:31:49.463000-07:00
+
+do the wrapper with the transports
+
+## turn — assistant 2026-08-16T15:32:23.125000-07:00
+
+The right form is Mathlib's own: a **non-reducible type synonym**, not a structure. Then every instance transports by identity, and the discrimination key stays `Wrap _`:
+
+    Bash python3 - <<'PY' p='ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read()  old_prod_start = s.index("/-! ## The product object
+## turn — assistant 2026-08-16T15:32:41.026000-07:00
+
+Now the product cone, which is the whole test of whether the wrapper works:
+
+    Bash python3 - <<'PY' p='ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() i=s.index("/-! ## Blocked: the product cone in `PEqu
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:33:34.866000-07:00
+
+Still failing — so the key hypothesis is wrong too. But combined with "explicit term works, synthesis doesn't", the real culprit must be **transparency**: instance resolution can't unfold the plain `def prod` to check the instance arguments. That predicts one fix:
+
+    Bash python3 - <<'PY' p='ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() s=s.replace("""def PartialEquilogicalSpace.prod (A B
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:34:02.017000-07:00
+
+**That was it.** The product cone builds — projections, lift, congruence, and uniqueness, all 0 `sorry`. Now let me check whether `Wrap` is still needed, or whether `@[reducible]` alone suffices — I shouldn't keep machinery that isn't earning its place:
+
+    Bash cd /Users/scott/projects/ScottLean4/ScottDomains && cp ScottDomains/EquilogicalSpaces/PEquClosed.lean /tmp/pequ-backup.lean && python3 - <<'PY' p='Sco
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:34:27.065000-07:00
+
+Confirmed: **both** pieces are load-bearing. `Wrap` blocks the ambient `Prod` instances; `@[reducible]` lets resolution unfold `prod` to reach `Wrap`'s. Restoring:
+
+    Bash cp /tmp/pequ-backup.lean /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("| `PEquClose
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0078: the wrapper, and the actual cause -- instances transparency. PEqu product cone proved  PEquC
+## turn — assistant 2026-08-16T15:35:50.135000-07:00
+
+**Solved, and the `PEqu` product cone is proved.** Pushed as **6667a33**.
+
+## The actual cause — after three wrong diagnoses
+
+**Instance resolution runs at `instances` transparency, which does not unfold a plain `def`.** Matching `PartialEquilogicalSpace.isScott` against the goal requires comparing `(A.prod B).topologicalSpace` with the ambient candidate, and resolution couldn't unfold `prod` far enough to do it.
+
+That explains the one observation that never fit: the term `(A.prod B).isScott` discharges the goal *by hand* — because that check runs at default transparency — while synthesis fails. Not priority (r0076), not a `Preorder` diamond (r0077's probes), not discrimination keys (r0077's conclusion — also wrong).
+
+## Two changes, each verified necessary by deleting it
+
+| Change | What breaks without it |
+| --- | --- |
+| `@[reducible]` on `prod` | resolution can't unfold it; the original three failures |
+| `Wrap` on the carrier | ambient `Prod` instances win; **19 errors**, starting at the object's own `IsScott` field |
+
+They're complementary: **`@[reducible]` lets resolution reach the carrier, `Wrap` controls what it finds there.** I tested the second by deleting `Wrap` and rebuilding rather than assuming it was still needed.
+
+`Wrap` costs nothing definitionally — a plain `def`, so `CompleteLattice`, `IsAlgebraic`, `TopologicalSpace` and `IsScott` all transport by identity, `‹CompleteLattice α›` and friends. **No transports had to be written.** My estimate that they'd be "the actual work" was wrong; shaping it as a type synonym rather than a structure, the way Mathlib's `WithScott` does, made them free.
+
+## Proved
+
+The product cone in `PEqu`: `prodFst`, `prodSnd`, `prodLift`, `prodLift_congr`, both beta rules, `prodLift_unique`. Each Scott-continuity fact is stated at the object's carrier first, so unification doesn't pin the domain to a bare product before the goal's instances are consulted.
+
+## State
+
+**2482 lines, 4 `sorry`** (all `Theorems3.lean`), 1550 jobs, 0 errors.
+
+## Remaining for 3.13
+
+1. Wrap the cone as a Mathlib `BinaryFan` / `IsLimit` — universal property as equality of classes.
+2. The exponential functor; morphism part is post-composition, `scottContinuous_postcomp` is proved.
+3. The adjunction and transport across 3.12; `homRel_curry_iff` is the hom-level content, done.
+
+Four turns went into that instance problem, three of them producing no theorem. The lesson I'd keep: when a term typechecks by hand but synthesis fails, suspect **transparency** first — it was the one hypothesis I didn't test until last.
+

@@ -1,0 +1,63 @@
+---
+prompt: p0101
+type: interaction
+opened: 2026-0805-12:19
+closed: 2026-0805-12:23
+subject: do-example-berfoe-that
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-05T12:19:10.418000-07:00
+
+do example berfoe that
+
+## turn — assistant 2026-08-05T12:20:23.137000-07:00
+
+Good call — a concrete lead-in before the abstract η. Let me insert an example showing that in `Type` (i.e. `Set`), `curry` **is** λ-abstraction and `eval` **is** application — Curry–Howard–Lambek in one definitional line — placed just before the η example:
+
+    Edit /Users/scott/projects/ScottLean4/Playground/Playground/CartesianClosed.lean
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground out=$(timeout 300 lake env lean Playground/CartesianClosed.l
+## turn — assistant 2026-08-05T12:21:20.776000-07:00
+
+The abstract `Hom` type doesn't auto-unfold to a function at application. Let me ascribe `eval`/`curry` to their concrete `Type` function types so the application typechecks (they're defeq):
+
+    Edit /Users/scott/projects/ScottLean4/Playground/Playground/CartesianClosed.lean
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground out=$(timeout 300 lake env lean Playground/CartesianClosed.l
+## turn — assistant 2026-08-05T12:22:37.378000-07:00
+
+The concrete-application version fights the abstract `Hom` type. Let me use a cleaner "before η" example that stays with morphisms — **injectivity of the transpose** (`curry f = curry g → f = g`), a direct consequence of the β law:
+
+    Edit /Users/scott/projects/ScottLean4/Playground/Playground/CartesianClosed.lean
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground out=$(timeout 300 lake env lean Playground/CartesianClosed.l
+## turn — assistant 2026-08-05T12:23:05.431000-07:00
+
+**0 errors, 0 `sorry`s** — both examples check now. Opening at the new one:
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" code -g "$HOME/projects/ScottLean4/Playground/Playground/CartesianClosed.lean:133" echo "=== the derived example
+## turn — assistant 2026-08-05T12:23:22.019000-07:00
+
+Done, Dr. Scott — the new example is in, and it sits right before the η one, so the end of the file now reads as a natural progression:
+
+1. **Surjective pairing** (products η): `⟨fst, snd⟩ = 𝟙`
+2. **Transpose injective** (the new one, from β): `curry f = curry g → f = g`
+3. **η for exponentials** (via the `simp` solver): `curry eval = 𝟙`
+
+The new middle example is short and clean:
+
+```lean
+example {Obj} [CartesianClosed Obj] (f g : Hom (prod Z A) B) (h : curry f = curry g) : f = g := by
+  have hf := curry_eval f
+  have hg := curry_eval g
+  rw [h] at hf
+  exact hf.symm.trans hg
+```
+
+It uses only the **β law** (`curry_eval`): both `f` and `g` are recovered as `⟨fst ⨟ curry _, snd⟩ ⨟ eval`, so if their curries agree, they agree. Read through Curry–Howard–Lambek, it's the statement that **distinct maps out of a product have distinct λ-abstractions** — the injectivity half, with the η example giving the surjectivity/uniqueness half. Together they're the two triangle identities of the currying adjunction.
+
+All three check: **0 errors, 0 `sorry`s**. The file is uncommitted with these additions — commit and push, or leave local?
+

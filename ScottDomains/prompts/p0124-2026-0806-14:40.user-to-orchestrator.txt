@@ -1,0 +1,82 @@
+---
+prompt: p0124
+type: interaction
+opened: 2026-0806-14:40
+closed: 2026-0806-14:59
+subject: continue-specifying-and-prooving-this-al
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T14:40:18-07:00
+
+continue specifying and prooving this all in rounds. Be sure to update the paperinventory pdf after each and commit/push.
+
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/papers; pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | sed -n '525,580p'
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/papers; pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | sed -n '505,526p'; echo "=== nor
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/papers; pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | sed -n '492,510p'
+## turn — assistant 2026-08-06T14:41:57-07:00
+
+Continuing. r0012 — the §3.1 definitions and Lemma 4, with the paper's text in hand.
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/plans/r0012-plan-from-orchestrator-to-orchestrator-normal-subposets.md
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/NormalSubposet.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -35
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/NormalSubposet.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/NormalSubposet.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/NormalSubposet.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/NormalSubposet.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -25
+## turn — assistant 2026-08-06T14:43:53-07:00
+
+Lemma 4 complete, 0 warnings. Now the embedding–projection pairs:
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -25
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -15; ech
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; SP=/tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+## turn — assistant 2026-08-06T14:57:51-07:00
+
+Understood — the heredoc (`cat > file <<EOF`) is a write, not covered by `Bash(cat:*)`. Switching to the Write tool for scratch check files; `lake env lean` on them is already allowlisted.
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/reports/r0012-report-from-orchestrator-to-user-normal-subposets.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/plans/r0012-plan-from-orchestrator-to-orchestrator-normal-subposets.md
+    Edit /home/milnes/projects/ScottLean4/INDEX.md
+    Bash cd /home/milnes/projects/ScottLean4; scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md ScottDomains/docs 2>&1 | tail -1; scripts/gitcp.sh "r0012: 
+## turn — assistant 2026-08-06T14:59:31-07:00
+
+r0012 done and pushed as `c5139d1`. The heredoc was the culprit — scratch files now go through the Write tool.
+
+## r0012 — Lemma 4 proved, the second of the 28
+
+Two modules: `NormalSubposet.lean` (the relation `N ◁ A` and Lemma 4) and `Projection.lean` (embedding–projection pairs). 0 `sorry`, 0 warnings.
+
+**The nonemptiness reading decided Lemma 4.3 outright.** "If `A ◁ C`, then `⊥ ∈ A`" is *false* under Mathlib's `DirectedOn`, which holds vacuously on `∅` — the empty set would be normal in everything and would not contain `⊥`. The paper's *directed* asks every finite subset, `∅` included, for an upper bound in the set, hence nonemptiness. That is the third time the convention chosen in r0003 has decided a statement, after `bot_wayBelow` and `compactsBelow_nonempty`.
+
+Part 4 — "`⟨P(C), ◁⟩` is a cpo with `{⊥}` least" — is recorded as the five facts constituting it, stated about sets and `◁` directly rather than by building a `CompletePartialOrder` on a subtype of `Set α`. Same content, none of the `SupSet`-totality plumbing `ScottHom` needed, and it is the form Lemma 5 and Theorem 6 will cite. The linter again sharpened it: the union facts need **no least element at all**, so they now sit in a `[Preorder α]` section.
+
+Two more paper claims fell out in a line each and are **axiom-free**: an embedding is injective, a projection is surjective — `g` has a left inverse and `f` a right inverse, and that is the entire content.
+
+## State
+
+| # | Quantity | Count |
+| -- | -------- | ----- |
+| 1 | Numbered results proved | **2 of 28** — Lemma 4, Theorem 7 |
+| 2 | Definitions | **6 of ≈13** |
+| 3 | Modules / lines | 10 / 1567 |
+| 4 | `sorry` / warnings | 0 / 0 |
+
+## What blocks the next results
+
+Lemma 5 and Theorem 6 both quantify over **finitary** projections, and the finitary condition — "`im(p)` is a domain" — is the one thing r0012 could not state. It needs `Set.range p` to carry `CompletePartialOrder` and `Domain` instances as a subtype. The image of a continuous idempotent is closed under directed suprema, so the sub-cpo exists; constructing it is r0013, and the inventory marks that row `~` rather than `✓` to be honest about it.
+
+That is the next round.
+

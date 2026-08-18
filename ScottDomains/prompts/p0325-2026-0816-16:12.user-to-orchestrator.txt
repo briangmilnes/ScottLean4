@@ -1,0 +1,54 @@
+---
+prompt: p0325
+type: interaction
+opened: 2026-0816-16:12
+closed: 2026-0816-16:13
+subject: is-section-3-finished
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T16:12:38.111000-07:00
+
+is section 3 finished
+
+## turn — assistant 2026-08-16T16:12:56.512000-07:00
+
+Not quite — and my headline last turn ("§3 is complete") overstated it. Let me check the actual state rather than rely on the `sorry` count.
+
+    Bash grep -n 'theorem \|instance \|^def Theorem' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean
+## turn — assistant 2026-08-16T16:13:15.221000-07:00
+
+**No — Theorem 3.10 is half finished.** My "§3 is complete" headline last turn was wrong, and the zero `sorry` count is what made it look true.
+
+## What 3.10 actually asserts
+
+> The category `Equ` is complete, co-complete, regular well-powered, **and regular co-well-powered**.
+
+Four assertions. Two are proved:
+
+| | |
+| --- | --- |
+| complete | `..._hasLimits` — **proved** |
+| cocomplete | `..._hasColimits` — **proved** |
+| regular well-powered | `Theorem310RegularWellPowered` — a `Prop`-valued **`def`**, never proved |
+| regular co-well-powered | `Theorem310RegularCoWellPowered` — same |
+
+Those last two are *statements*, not theorems. They carry no `sorry` because a `def` can't — which is exactly the "`sorry`-invisible-claim" failure mode I flagged in the very first session turn, when I found `EQU_complete_cocomplete := ∀ I A, True` in the 1998 file. I then let a zero count stand for completeness anyway.
+
+## So the honest §3 tally
+
+**Proved:** Definitions 3.2, 3.4, 3.9, 3.11; Theorems 3.5, 3.6, 3.7, 3.8, 3.12, 3.13; the categories `Equ`, `PEqu`, `ALat`; and **half of 3.10**.
+
+**Not proved:** 3.10's two regular-well-poweredness halves. Discharging them needs a genuine argument — per the 1998 manuscript, that regular subobjects are "obtained by selecting some equivalence classes and taking the union of them to form a subspace", and regular quotients by "making the equivalence relation coarser" — plus a smallness bound on those. Mathlib has no `RegularWellPowered` class, so the class-level scaffolding would also have to be built.
+
+**Deliberately unasserted:** footnote 4 (`Equ` is not well-powered), whose `Small.{u}` encoding I've never checked against Johnstone's unexhibited counterexample. That one I'd leave as a claim even if asked to push on — asserting it would be asserting something I can't verify.
+
+**Untouched:** §4 and §5.
+
+So: §3's *structural* content — every construction and the four Scott theorems that carry the section — is done and kernel-checked at 3348 lines. §3 as a numbered list of results is not, by one theorem's worth of two clauses. Want me to take those two?
+

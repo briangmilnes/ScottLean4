@@ -1,0 +1,45 @@
+---
+prompt: p0030
+type: interaction
+opened: 2026-0802-11:48
+closed: 2026-0802-11:49
+subject: open-the-classes-folder-in-chrome-and-le
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T11:48:08.384000-07:00
+
+open the classes folder in chrome and let's talk mathematica.
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== ScottClasses structure ===" ls ScottClasses 2>/dev/null echo "=== .nb count +
+    Bash URL="https://github.com/briangmilnes/ScottLean4/tree/main/ScottClasses" open -a "Google Chrome" "$URL" 2>&1 && echo "opened $URL"
+## turn — assistant 2026-08-02T11:49:13.934000-07:00
+
+Opened the `ScottClasses/` folder on GitHub in Chrome — you'll see the two CMU courses **15-491** and **15-499**, **37 `.nb` notebooks** total (lectures, homework, a final).
+
+Now, Mathematica. Here's the lay of the land, because there are a few traps:
+
+**1. GitHub won't preview these.** Unlike Jupyter `.ipynb`, GitHub does **not** render Mathematica `.nb` files — click one and you get raw/no preview. So to actually *read or run* Dana's notebooks you need a Wolfram app locally (or Wolfram Cloud in a browser). The GitHub view is only good for the file structure.
+
+**2. The thing we tried to install is the wrong tool.** `wolfram-engine` (the one whose download failed on the CDN reset) is a **CLI kernel only — no notebook GUI**. It can't open a `.nb` for viewing. So even if that download had worked, it wouldn't do what you want here.
+
+**3. The three real options, by fit:**
+
+| Option | Opens/runs `.nb`? | Edit & save? | Cost | Notes |
+|---|---|---|---|---|
+| **Mathematica** (full) | ✅ | ✅ | license | Best. CMU has a site license; emeritus faculty usually still qualify. Also covers the **plotting→LaTeX** route we discussed (`Export[…, ".pdf"]`). |
+| **Wolfram Player** (free) | ✅ view + interact | ❌ view-only | free | Perfect for *reading* Dana's course notebooks. GUI download from wolfram.com. |
+| **Wolfram Cloud** (free tier) | ✅ in browser | limited | free | No install — upload a `.nb`, view/run in Chrome. Good fallback. |
+
+**The deciding question:** **does Dana have a Mathematica license** — e.g. through CMU (site license / emeritus access)?
+
+- **If yes** → install full **Mathematica**; it opens the notebooks *and* becomes our plotting engine for LaTeX figures. One install covers both needs.
+- **If no** → **Wolfram Player** (free) to read the 37 notebooks, and we lean on **pgfplots/matplotlib** (already available / one `pip install`) for plotting rather than Wolfram.
+
+Which is it — does he have a CMU Mathematica license? That single fact picks the path.
+

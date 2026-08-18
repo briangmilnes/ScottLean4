@@ -1,0 +1,79 @@
+---
+prompt: p0127
+type: interaction
+opened: 2026-0806-15:22
+closed: 2026-0806-15:27
+subject: keep-going
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T15:22:25-07:00
+
+keep going
+
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/.lake/packages/mathlib; echo "=== schroederBernstein ==="; grep -rn "schroederBernstein\|schroeder_be
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/papers; pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | sed -n '380,415p'
+## turn — assistant 2026-08-06T15:23:34-07:00
+
+r0017 — Theorem 1 for the paper's actual setting.
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/FixedPoint.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | grep -B2 -A10
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/FixedPoint.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/FixedPoint.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | grep -B2 -A10
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | tail -2; lake build 2>&1 | grep -ci "warning:"; grep -c sorry ScottDomains/FixedPo
+## turn — assistant 2026-08-06T15:25:17-07:00
+
+Theorem 1 proved for the paper's setting. This changes the counts — the "28 outstanding" figure was wrong.
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Write /home/milnes/projects/ScottLean4/ScottDomains/plans/r0017-plan-from-orchestrator-to-orchestrator-fixed-point.md
+    Write /home/milnes/projects/ScottLean4/ScottDomains/reports/r0017-report-from-orchestrator-to-user-fixed-point.md
+    Bash cd /home/milnes/projects/ScottLean4; wc -l ScottDomains/ScottDomains/*.lean | tail -1; cd ScottDomains/ScottDomains; grep -c '^theorem\|^@\[simp\] the
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash cd /home/milnes/projects/ScottLean4; scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md ScottDomains/docs 2>&1 | tail -1; scripts/gitcp.sh "r0017: 
+## turn — assistant 2026-08-06T15:27:23-07:00
+
+Two rounds done and pushed since your last message — `3298348` (Theorem 6) and `67c1f1a` (Theorem 1).
+
+## Your question about Theorems 1–3 found a real defect
+
+The inventory excluded Theorems 1 and 2 from the work list as "reuse from Mathlib," which is why the outstanding count read 28 rather than 30. Neither claim had ever been checked by building anything. I checked both:
+
+| # | Result | Claim | Measured |
+| -- | ------ | ----- | -------- |
+| 1 | Thm 1, Fixed-Point | `✓ OrderHom.lfp` | **Wrong.** `OrderHom.lfp` is Knaster–Tarski — complete lattice, monotone `f`, fixed point as an infimum of pre-fixed points. Theorem 1 is Kleene's — cpo with `⊥`, *continuous* `f`, fixed point as `⨆ₙ fⁿ(⊥)`. Neither implies the other: a cpo need not be a lattice, and Knaster–Tarski never exhibits the fixed point as a limit of finite approximations, which is the whole point in a semantics of recursion |
+| 2 | Thm 2, Schröder–Bernstein | `Function.Embedding.schroederBernstein` | Theorem present, **name wrong** — it is `Function.schroeder_bernstein` |
+| 3 | Thm 3 | `✗ prove` | Correctly marked. I skipped it, ordering work by dependency rather than paper order — defensible, but I should have said so |
+
+So **the denominator was wrong: 29 numbered results need proof, not 28.** Theorem 1 is now proved in the paper's setting (`CompletePartialOrder` + `ScottContinuous`) rather than assumed free.
+
+## State
+
+| # | Quantity | Count |
+| -- | -------- | ----- |
+| 1 | Numbered results proved | **5 of 29** — Thm 1, Lem 4, Lem 5, Thm 6, Thm 7 |
+| 2 | Unnumbered prose claims proved | 11 |
+| 3 | Definitions | 7 of ≈13 |
+| 4 | Modules / lines / theorems | 15 / 2228 / 119 |
+| 5 | `sorry` / warnings | 0 / 0 |
+
+§2 is complete apart from Theorem 3; §3.1 apart from §3.2's effective presentations. The top table now carries the prose-claim count as you asked, and the PDF is regenerated each round.
+
+## What Theorem 3 needs before it can be attempted
+
+It is not a proof problem first, it is a formalization decision. The paper:
+
+> A fixed point operator `F` is a **class** of continuous functions `F_D : (D → D) → D` such that, for each cpo `D` and continuous `f : D → D`, `F_D(f) = f(F_D(f))`.
+
+An operator indexed by *all* cpos is not a function in Lean — it is a family over a universe of types. Stating it needs a structure carrying a field for every `CompletePartialOrder` type in a universe, with uniformity quantifying over pairs of them joined by a strict continuous map. That choice determines whether the theorem is provable as stated or only in a restricted form, so it is the first thing r0018 must settle rather than something to discover mid-proof.
+

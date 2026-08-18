@@ -1,0 +1,63 @@
+---
+prompt: p0195
+type: interaction
+opened: 2026-0808-12:03
+closed: 2026-0808-12:06
+subject: who-has-published-in-domain-theory-and-h
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-08T12:03:55.740000-07:00
+
+Who has published in domain theory and has contributed to lean four?
+
+    ToolSearch select:WebSearch,WebFetch
+    Bash find /Users/scott/projects/ScottLean4 -path "*Mathlib/Order/OmegaCompletePartialOrder.lean" -not -path "*/.git/*"
+    Bash grep -h -A 3 "^Authors:" /Users/scott/projects/ScottLean4/mathlib/Mathlib/Order/OmegaCompletePartialOrder.lean /Users/scott/projects/ScottLean4/mathli
+    WebSearch domain theory researcher Mathlib Lean 4 contributor denotational semantics formalization
+    Bash grep -rl -i "scott\|domain theory\|way.below\|IsCompactElement" /Users/scott/projects/ScottLean4/mathlib/Mathlib/Order/ /Users/scott/projects/ScottLea
+    WebSearch Christopher Hoskin domain theory Scott topology papers Mathlib
+    Bash grep -h -B 2 -A 2 "^Authors:" /Users/scott/projects/ScottLean4/mathlib/Mathlib/Topology/Order/ScottTopology.lean /Users/scott/projects/ScottLean4/math
+    WebSearch Ira Fesefeldt Lean Mathlib omega complete partial order publications fixed point
+    WebSearch "Christopher Hoskin" mathematician publications arXiv
+    WebSearch domain theory researcher who contributes to Lean 4 Mathlib Scott topology Lawson topology author
+    WebFetch 
+## turn — assistant 2026-08-08T12:06:35.573000-07:00
+
+Short answer: I could not establish that anyone is both a **published domain theorist** and a **Lean 4 contributor**. The two communities are close to disjoint — domain theory's formalization effort lives in Agda, not Lean. But the question has three concrete partial answers, and one of them is probably what you want.
+
+**Who actually wrote Mathlib's domain theory** — measured directly from the copyright headers in `/Users/scott/projects/ScottLean4/mathlib`, so this part is hard data, not recall:
+
+| Mathlib module | Authors |
+|---|---|
+| `Order/ScottContinuity.lean` | Christopher Hoskin |
+| `Order/ScottContinuity/Complete.lean` | Christopher Hoskin |
+| `Order/CompletePartialOrder.lean` | Christopher Hoskin |
+| `Topology/Order/ScottTopology.lean` | Christopher Hoskin |
+| `Topology/Order/LawsonTopology.lean` | Christopher Hoskin |
+| `Topology/Order/LowerUpperTopology.lean` | Christopher Hoskin |
+| `Order/OmegaCompletePartialOrder.lean` | Simon Hudon |
+| `Topology/OmegaCompletePartialOrder.lean` | Simon Hudon, Ira Fesefeldt |
+| `Order/CompactlyGenerated/Basic.lean` | Oliver Nash |
+
+Six of the nine are Christopher Hoskin. Every Mathlib definition your project reuses or generalizes — `ScottContinuous`, `CompletePartialOrder`, the Scott and Lawson topologies — traces to those headers.
+
+Now, publication records:
+
+- **Christopher Hoskin** — wrote most of Mathlib's domain theory, but publishes in **operator algebras**, not domain theory: JB\*-triples, and "The Banach-Lie\*-algebra of multiplication operators on a W\*-algebra" (2012). Listed as a Senior DevOps Engineer. So: a Lean 4 domain-theory contributor whose papers are in another field.
+- **Ira Fesefeldt** — the closest to a genuine yes. PhD student in the MOVES group at RWTH Aachen under J.-P. Katoen; works on quantitative separation logic, probabilistic and heap-manipulating program verification (ESOP 2022, CONCUR 2022), and explicitly lists Lean, Coq and Iris as tools. That is fixed-point/denotational semantics of probabilistic programs — adjacent to domain theory, not domain theory proper.
+- **Simon Hudon** — I did not establish a publication record; treat as unknown.
+
+**The other direction — domain theorists who formalize — chose Agda.** Martín Escardó and Tom de Jong's "Domain Theory in Constructive and Predicative Univalent Foundations" and "Continuous and algebraic domains in univalent foundations" are the substantial modern formalization of domain theory, and they are in Agda's TypeTopology, not Lean.
+
+**One find worth your attention:** [arXiv:2606.30782](https://arxiv.org/abs/2606.30782), "A Lean 4 Formalization of Scott's *Continuous Lattices* (1972)", by **Lars Warren Ericson** (June 2026, no affiliation listed). It machine-checks 43 numbered results from Scott 1972, follows Scott's own proof-dependency order, and documents where the Lean proof forced choices the paper left implicit. That is the same genre as what you're doing with Gunter–Scott 1990 and `PaperInventory.md` — numbered results tracked against a Scott paper, with the paper's gaps recorded. Ericson is not, as far as I found, a published domain theorist; they are a formalizer.
+
+Caveat on the negative claim: four searches is not an exhaustive survey, and Mathlib headers credit the file's originator, not every later contributor. I'm reporting what I could establish, not proving a non-existence.
+
+Sources: [Mathlib.Topology.Order.ScottTopology docs](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Topology/Order/ScottTopology.html) · [Ira Fesefeldt, RWTH Aachen](https://moves.rwth-aachen.de/people/fesefeldt/) · [dblp: Ira Fesefeldt](https://dblp.org/pid/296/0440.html) · [Christopher Hoskin](https://www.cshoskin.net/) · [Hoskin on ResearchGate](https://www.researchgate.net/scientific-contributions/78438116_Christopher_S_Hoskin) · [Ericson, Lean 4 formalization of Scott 1972](https://arxiv.org/pdf/2606.30782) · [de Jong & Escardó, Domain Theory in Univalent Foundations](https://arxiv.org/abs/2301.12405) · [Abramsky & Jung, Domain Theory handbook chapter](https://www.cs.ox.ac.uk/files/298/handbook.pdf)
+

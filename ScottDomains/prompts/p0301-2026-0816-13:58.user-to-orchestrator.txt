@@ -1,0 +1,107 @@
+---
+prompt: p0301
+type: interaction
+opened: 2026-0816-13:58
+closed: 2026-0816-14:04
+subject: go
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T13:58:05.844000-07:00
+
+go
+
+## turn — assistant 2026-08-16T13:58:25.518000-07:00
+
+Now the exponential functor and adjunction. First, whether the package already has continuity of post-composition — that's the functoriality obligation:
+
+    Bash grep -rn 'compHom\|postcomp\|postCompHom\|precomp\|def apHom' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/*.lean | head -15
+    Bash grep -rn -B3 -A10 'def compHom' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+## turn — assistant 2026-08-16T13:59:00.155000-07:00
+
+`Skeleton/Lemma17.lean` has `scottContinuous_compFun`, but only for *endomorphisms* — the functor needs `Y ⟶ Z` between different objects. Reading the proof to generalize it:
+
+    Bash grep -n -B5 -A30 'theorem scottContinuous_compFun' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Skeleton/Lemma17.lean
+## turn — assistant 2026-08-16T13:59:44.674000-07:00
+
+The proof generalizes directly. Writing the functor and adjunction — and I'll use my own product functor rather than Mathlib's `prod.functor`, since `limit` goes through `Classical.choice` and isn't definitionally our cone:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALatClosed
+## turn — assistant 2026-08-16T14:00:58.560000-07:00
+
+Same `⟶`-unfolding friction, now at the type level. Unification uses reducible transparency; `by exact` uses default. Switching to tactic mode:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatClosed.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALatClosed
+## turn — assistant 2026-08-16T14:01:33.508000-07:00
+
+`refine` can't type the binder before unifying; `apply` unifies the conclusion first:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatClosed.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALatClosed
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatClosed.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALatClosed
+## turn — assistant 2026-08-16T14:02:50.233000-07:00
+
+**Theorem 3.8 is proved.** `(- × B) ⊣ (B ⟹ -)`, 0 `sorry`. Full build and land it:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/*.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0064: Theorem 3.8 proved -- ALat is cartesian closed  New ALatClosed.lean (132 lines, 0 sorry). Th
+## turn — assistant 2026-08-16T14:03:55.954000-07:00
+
+Backticks in my commit message were interpreted by zsh as command substitution. Checking what actually landed:
+
+    Bash git -C /Users/scott/projects/ScottLean4 log -1 --format=%B ac083ec
+## turn — assistant 2026-08-16T14:04:15.815000-07:00
+
+**Theorem 3.8 is proved.** `ALat` is cartesian closed — pushed as **ac083ec**.
+
+## What closed it
+
+**`scottContinuous_postcomp`** — post-composing with a fixed `q` is Scott-continuous *as a map on the function space*. That's the exponential's morphism part. `Skeleton/Lemma17.lean` had it for endomorphisms as `scottContinuous_compFun`; the argument generalizes verbatim to `q : β ⟶ γ`, which is what a functor between different objects needs.
+
+**`prodFunctorRight`** — the concrete `X ↦ X × B`, built rather than taken as Mathlib's `Limits.prod.functor.obj B`. The latter goes through `limit`, which selects a cone by `Classical.choice` from the `Nonempty (LimitCone _)` that `HasLimit.mk` supplies. So it's *isomorphic* to `prodFan` but not *definitionally* it, and every naturality obligation would need transport before any `rfl` could fire. With the product on the nose they're all `rfl`.
+
+**`prodExpAdjunction`** — the hom-equivalence is `scottHomCurry`, already proved in `Currying.lean`, packaged by `Adjunction.mkOfHomEquiv`. Plus `isLeftAdjoint_prodFunctorRight` in the paper's §2 phrasing.
+
+## A lesson that cost three iterations
+
+**Unification during elaboration uses *reducible* transparency and will not unfold `A ⟶ B` to `ScottHom`.** So term-mode `ScottHom.ext` — and even the `@[ext]`-tagged `hom_ext` — fail against a functor field's goal, and type ascription doesn't rescue it. Tactic mode works because `exact` checks at *default* transparency. Every field is therefore `by exact ScottHom.ext …`.
+
+## Two corrections
+
+**Backticks in my commit message were executed by zsh.** Two sentences in ac083ec lost their content — "Tactic mode works because  checks" and "is therefore  rather than the term". The technical record is damaged but the message is otherwise intact; I'd rather note it than force-push a pushed commit. I'll avoid backticks in future commit messages.
+
+Earlier I said the adjunction's hard part would be naturality. It wasn't — naturality was `rfl` once the product was on the nose. The real cost was the transparency issue above.
+
+## State
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic.lean` | 201 | **0** |
+| `SigmaTopology.lean` | 194 | **0** |
+| `PartialEquilogical.lean` | 258 | 3 |
+| `CartesianClosure.lean` | 154 | **0** |
+| `ALat.lean` | 196 | **0** |
+| `ProductAlgebraic.lean` | 118 | **0** |
+| `ALatProducts.lean` | 103 | **0** |
+| `ALatClosed.lean` | 132 | **0** |
+| `Theorems3.lean` | 161 | 4 |
+| **Total** | **1517** | **7** |
+
+1545 jobs, 0 errors. **Seven of nine modules fully proved.**
+
+Of §3, Theorems 3.4↔Scott, 3.5, 3.8 and Definition 3.2 are proved, along with both categories `Equ` and `PEqu`. The seven remaining holes are 3.6 (topological half only), 3.7, 3.12, and 3.10/3.13 for `Equ`. Note 3.13 for `Equ` now needs only 3.12 — the `ALat` side it transports from is done.
+

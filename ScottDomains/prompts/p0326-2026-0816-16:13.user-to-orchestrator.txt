@@ -1,0 +1,76 @@
+---
+prompt: p0326
+type: interaction
+opened: 2026-0816-16:13
+closed: 2026-0816-16:18
+subject: do-those-two
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T16:13:43.928000-07:00
+
+do those two
+
+## turn — assistant 2026-08-16T16:14:44.943000-07:00
+
+These two need a real argument, not assembly — so let me be upfront about the shape before starting.
+
+The 1998 manuscript says regular subobjects are *"obtained by selecting some equivalence classes and taking the union of them to form a subspace"*. That's the proof: classify regular subobjects by their **≡-saturated set of points**, which lands in `Set A.carrier` — a `Type u` — and `small_of_injective` finishes. Let me check the Mathlib API I'd be working against:
+
+    Bash grep -rn 'theorem small_of_injective\|def Subobject.mk\|theorem Subobject.mk_eq_mk_of_comm\|theorem Subobject.eq_of_comm' /Users/scott/projects/ScottL
+    Bash grep -rn 'def mk \|theorem mk_eq_mk_of_comm\|theorem eq_of_comm\|def underlying\|theorem mk_arrow' /Users/scott/projects/ScottLean4/ScottDomains/.lake
+## turn — assistant 2026-08-16T16:15:44.615000-07:00
+
+The proof is the manuscript's, and I've worked it out concretely. Let me write the heart of it — the fact that makes the classification work:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/RegularSubobjects.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.RegularSubobjects 2>&1 | grep -E '^(error|warning)' -A8 | h
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/RegularSubobjects.lean' s=open(p).read() s=s.replace(
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.RegularSubobjects 2>&1 | grep -E '^(error|warning)' -A8 | h
+## turn — assistant 2026-08-16T16:17:09.983000-07:00
+
+Builds. But I should correct the docstring — the `⊇` half turned out **not** to need the one-point argument for the concrete equalizer:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/RegularSubobjects.lean' s=open(p).read() s=s.replace(
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build 2>&1 | grep -E 'declaration uses|^error|Build completed'
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("""## §3 is c
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0088: regular subobjects -- the Equ-specific half; and a correction to r0087's claim  r0087's head
+## turn — assistant 2026-08-16T16:18:34.277000-07:00
+
+**I did not finish the two.** I got the `Equ`-specific half and the argument worked out. Pushed as **16ab003**.
+
+## Proved
+
+- **`sat`** and its lemmas — "selecting some equivalence classes and taking the union of them," which is literally the manuscript's phrase.
+- **`pointMap`** — a point of `𝒜` as a map out of the terminal object; equivariance is reflexivity, available because `Equ`'s relations are total.
+- **`sat_range_eqInc`** — the characterisation `T = { a | l a ≡ r a }` for the **concrete** equalizer.
+
+One thing came out simpler than I'd written: for the concrete equalizer the hard-looking inclusion needs **no** one-point argument — `a` together with its own proof *is* a point of the subspace. I corrected the docstring rather than leave it overstating, and kept `pointMap` because the abstract case does need it.
+
+## Still owed — and these *are* the theorems
+
+The characterisation for an **abstract** regular mono (unpacking `IsRegularMono` into a `Fork` and feeding `pointMap` through its universal property), then the injectivity argument: two subobjects with the same saturated image each equalize the other's pair, so each factors through the other, the composites are identities by monicity, and `Subobject.eq_of_comm` closes it.
+
+## A correction
+
+**My r0087 headline "§3 is complete" was wrong.** Theorem 3.10 asserts four things; two are proved. The other two are `Prop`-valued `def`s — statements, not theorems — and they carry no `sorry` because a `def` can't. So the zero count hid them.
+
+That is precisely the `sorry`-invisible-claim defect this project's tally rules warn about, and the same one I identified in the very first round of this work when I found `EQU_complete_cocomplete := ∀ I A, True` in the 1998 file. I then let a zero count stand for completeness anyway. The README header now states the distinction.
+
+## Honest §3 tally
+
+| | |
+| --- | --- |
+| Definitions 3.2, 3.4, 3.9, 3.11 | proved |
+| Theorems 3.5, 3.6, 3.7, 3.8, 3.12, 3.13 | proved |
+| Theorem 3.10 | **2 of 4 clauses** |
+| Footnote 4 | deliberately unasserted |
+| §4, §5 | untouched |
+
+3475 lines, 0 `sorry`, 1560 jobs, 0 errors.
+

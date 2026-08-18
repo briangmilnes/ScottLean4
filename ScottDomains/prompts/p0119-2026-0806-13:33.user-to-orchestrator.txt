@@ -1,0 +1,112 @@
+---
+prompt: p0119
+type: interaction
+opened: 2026-0806-13:33
+closed: 2026-0806-13:46
+subject: commit-it-and-start-r0004
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T13:33:37-07:00
+
+commit it and start r0004.
+
+    Bash cd /home/milnes/projects/ScottLean4 && scripts/gitcp.sh "r0003: the way-below relation ≪ — definition, 7 theorems, IsCompactElement bridge by Iff.rfl"
+    Bash cd ScottDomains/.lake/packages/mathlib && echo "=== ConditionallyCompletePartialOrder ===" && ls Mathlib/Order/ConditionallyCompletePartialOrder/ && s
+## turn — assistant 2026-08-06T13:34:55-07:00
+
+Committed `265532e`. Before writing the r0004 plan, one design question turns on what the paper actually says — let me check the source rather than guess.
+
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/papers && pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | grep -n -i "bounded complete\|
+    Bash pdftotext -f 1 -l 45 "Gunter Scott 1990.pdf" - 2>/dev/null | sed -n '455,480p;594,612p'
+## turn — assistant 2026-08-06T13:35:36-07:00
+
+Decisive, and it corrects the inventory a third time. The paper (p. 9, and the §4 definition):
+
+> "The cpo `D` is said to be **algebraic** if, for every `x ∈ D`, the set `M = {x' ∈ K(D) | x' ⊑ x}` is directed and `⨆M = x`. … If `D` is algebraic **and `K(D)` is countable**, then we will say that `D` is a **domain**."
+>
+> "A poset `A` is said to be **bounded complete** if `A` has a least element and every bounded subset of `A` has a least upper bound."
+
+Countability of the basis is part of *domain*, which the inventory's "domain = algebraic cpo" drops. And *bounded complete* is a separate predicate — the paper writes "bounded complete domain" as a compound (Thm 7, Lem 10, Lem 13), so `ScottDomain` cannot name the bare algebraic cpo without making that compound unreadable.
+
+    Bash TZ=America/Los_Angeles date "+%Y-%m%d-%H:%M"
+    Write /home/milnes/projects/ScottLean4/ScottDomains/plans/r0004-plan-from-orchestrator-to-orchestrator-algebraic-domain.md
+## turn — assistant 2026-08-06T13:37:03-07:00
+
+Now the module:
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains && lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -40
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Bash lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -40
+    Bash ls .lake/packages/mathlib/Mathlib/Data/Set/Countable.lean .lake/packages/mathlib/Mathlib/Data/Countable/Defs.lean 2>&1
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Bash lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -40
+    Bash SP=/tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad cat > $SP/AxiomCheck2.lean <<'EOF' import ScottDo
+## turn — assistant 2026-08-06T13:40:12-07:00
+
+All 15 declarations kernel-checked, 14 of them axiom-free. One check the plan did not ask for but should have — three classes with no instance would be unfalsifiable. Testing non-vacuity:
+
+    Bash SP=/tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad cat > $SP/Vacuity.lean <<'EOF' import ScottDomain
+    Bash SP=/tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad cat > $SP/Vacuity.lean <<'EOF' import ScottDomain
+## turn — assistant 2026-08-06T13:41:25-07:00
+
+It compiles. Adding it to the module with the two unused-binder warnings fixed:
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Bash lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | tail -20; echo "=== counts ==="; lake build 2>&1 | grep -ci "wa
+    Bash SP=/tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad cat >> $SP/AxiomCheck2.lean <<'EOF' #print axioms
+## turn — assistant 2026-08-06T13:42:21-07:00
+
+All 19 declarations kernel-checked. Now the documentation updates:
+
+    Bash cd /home/milnes/projects/ScottLean4 && sed -n '12,30p' ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/INDEX.md
+    Bash TZ=America/Los_Angeles date "+%Y-%m%d-%H:%M"
+    Write /home/milnes/projects/ScottLean4/ScottDomains/reports/r0004-report-from-orchestrator-to-user-algebraic-domain.md
+    Bash sed -i 's/^status: pending$/status: done/' ScottDomains/plans/r0004-plan-from-orchestrator-to-orchestrator-algebraic-domain.md && grep -n "^status\|^r
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/plans/r0004-plan-from-orchestrator-to-orchestrator-algebraic-domain.md
+    Bash scripts/gitcp.sh "r0004: algebraic cpo, domain (countable basis), bounded complete — 19 declarations, Domain Prop witness" ScottDomains/ScottDomains/D
+## turn — assistant 2026-08-06T13:46:50-07:00
+
+r0003 pushed as `265532e`; r0004 written, executed, and pushed as `c42f7e7`.
+
+## r0004 result
+
+`ScottDomains/Domain.lean` — 193 lines, 3 classes, 2 definitions, 10 theorems, 2 instances, 0 `sorry`, 0 warnings. All 19 declarations kernel-checked; 18 are axiom-free or use `propext` alone.
+
+The plan's first act was to run `pdftotext` over the paper rather than trust the inventory, and that found two errors — one consequential.
+
+**The inventory dropped a condition from *domain*.** The paper, p. 9: "If `D` is algebraic **and `K(D)` is countable**, then we will say that `D` is a domain." The inventory said "domain = algebraic cpo". That condition is load-bearing several rounds out: §3.2's effective presentation is a surjection `ℕ → K(D)`, and Theorem 11 concerns the ideal completion of a *countable* pre-order. Formalizing the paraphrase would have surfaced as a typecheck failure later with the cause buried here.
+
+**`ScottDomain` was reserved for the wrong notion.** The paper defines *bounded complete* separately and then writes the compound "bounded complete domain" (Thm 7, Lem 10, Lem 13, Thm 14) — which is what the literature calls a Scott domain. Naming the bare algebraic cpo `ScottDomain` makes that compound unreadable. So: `Domain` for the paper's notion, `BoundedComplete` for the predicate, and the compound written as the two instance arguments `[Domain α] [BoundedComplete α]`.
+
+The round's substantive theorem is `wayBelow_iff_exists_compact`: in an algebraic cpo, `x ≪ y ↔ ∃ k, IsCompactElement k ∧ x ≤ k ∧ k ≤ y`. Its reverse direction needs no algebraicity — it is `LE.le.trans_wayBelow` composed with `WayBelow.trans_le` around the compact element's own `k ≪ k`, all r0003 API. Algebraicity is spent only forward, applying `x ≪ y` to `compactsBelow y`. Proving the two directions in different sections makes that claim checkable rather than assertable. And `isCompactElement_bot` is r0003 paying back: `bot_wayBelow` gives `⊥ ≪ ⊥`, and the bridge is an `Iff.rfl`, so it is a rewrite along a definitional identity with no directed-set argument.
+
+## Two deviations from the plan
+
+**Added:** satisfiability witnesses — `isAlgebraic_of_forall_isCompactElement`, `isCompactElement_prop`, and instances `Domain Prop` / `BoundedComplete Prop`. Three `Prop`-valued classes with no instance cannot be falsified; an error in either conjunct of `IsAlgebraic` would have passed the build, the axiom check, and review. `Prop` is degenerate — every element is compact — so it proves satisfiability and little else. It is also the only place `Classical.choice` enters: `by_cases` on an arbitrary proposition *is* excluded middle, and it is not removable, since producing a member of `s` above `p` requires knowing whether `p` holds.
+
+**Dropped:** `isLUB_sSup_pair`. Written out it is `isLUB_sSup_of_bddAbove` at `s := {x, y}` and nothing more — a name without content.
+
+Three elaboration failures, one of them r0003's lesson repeating: `(compacts α).Countable` failed because `Set α` had already unfolded to `α → Prop`, so dot notation searched `Function`. Dot notation resolves against the head constant of the type as elaborated, not as written.
+
+Inventory now reads **9 definitions and 28 results remaining** of ≈13 and 28.
+
+Three things worth your decision, in the r0004 report:
+
+1. **Next target.** I would take the continuous function space as a cpo — Thm 7 needs it, and so do Lem 10, Lem 17, Thm 18, Lem 23. The alternative is Lem 4/5, which first need embedding–projection pairs.
+2. **`P N` as a nondegenerate witness** — the paper's own example, `Set ℕ` with the finite subsets as basis. Real proof, real test of the definitions.
+3. **Whether `ScottDomain` should exist as a class** for the bounded-complete compound. Decide before Thm 7 is stated; its signature is where the choice shows.
+

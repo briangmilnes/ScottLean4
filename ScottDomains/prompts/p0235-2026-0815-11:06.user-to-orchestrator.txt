@@ -1,0 +1,39 @@
+---
+prompt: p0235
+type: interaction
+opened: 2026-0815-11:06
+closed: 2026-0815-11:06
+subject: open-example-scott-domains-in-versus-cod
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T11:06:16.785000-07:00
+
+Open example Scott domains in Versus Code.
+
+    Bash code --reuse-window /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash grep -n "^#" /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+## turn — assistant 2026-08-15T11:06:45.739000-07:00
+
+`docs/ScottDomainExamples.md` is now open in the same window, alongside the two Lean modules.
+
+It is a 358-line catalogue in 9 sections:
+
+| § | contents |
+| --- | --- |
+| 1–2 | definitions used, plus a summary table |
+| 3 | the obvious examples — 𝟙, Sierpiński 𝕊, flat A⊥, vertical naturals ω+1, finite bounded-complete pointed posets, powersets, partial functions ℕ ⇀ ℕ, streams |
+| 4 | Sierpiński space in depth — the one already witnessed in Lean as `sierp` |
+| 5 | the harder ones — function spaces [D → E], parallel-or, the graph model Pω, term and tree domains, D∞, ideal completion |
+| 6 | **near misses, with the failing condition named** — bounded completeness, directed completeness, algebraicity (interval domain I[0,1], and [0,1] ⊆ ℝ), powerdomains |
+| 7–9 | closure properties, formalization status, sources |
+
+Section 6 is the part that pairs directly with the axioms in `Domains/LRSODInCIC.lean` — each near miss identifies which of D1–D4 (or bounded completeness) breaks, which is what makes a candidate witness fail to typecheck rather than merely feel wrong.
+
+Section 8, "Formalization status," is the natural worklist for `ScottDomainExamples.lean`. Want me to read it and report which entries are already discharged by the `sierp` witness versus still open?
+

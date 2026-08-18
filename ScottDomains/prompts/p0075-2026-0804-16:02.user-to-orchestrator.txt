@@ -1,0 +1,49 @@
+---
+prompt: p0075
+type: interaction
+opened: 2026-0804-16:02
+closed: 2026-0804-16:04
+subject: hey-paul-scott-lane-four-down
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-04T16:02:43.366000-07:00
+
+Hey, Paul Scott Lane four down.
+
+## turn — assistant 2026-08-04T16:03:01.533000-07:00
+
+On it, Dr. Scott — pulling **ScottLean4** down from GitHub to get the latest:
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== git pull (rebase to stay linear) ===" git pull --rebase origin main 2>&1 | ta
+## turn — assistant 2026-08-04T16:03:38.958000-07:00
+
+Pulled, Dr. Scott — and there was quite a bit waiting. Your repo advanced with **new work from your other machine**. Let me show you exactly what came down:
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== new commits since our last (674e6cd) ===" git log --oneline 674e6cd..HEAD ech
+## turn — assistant 2026-08-04T16:04:14.798000-07:00
+
+All pulled in and up to date, Dr. Scott. **Six new commits** arrived from your other machine, and they pick up *exactly* the threads we were on — someone (you, or an assistant on that Mac) ran with the factorization discussion:
+
+## Polynomial factorization — `polynomials/`
+- **`PolynomialFactoring.tex/.pdf`** + **`PolynomialFactorization.pdf`** — a full writeup of the algorithms, representations, and Mathlib angle (plus a note on multivariate-over-ℚ).
+- **`Multivariate_Factorization_Notes.pdf`** and the **Kaltofen survey "Polynomial Factorization 1987–1991"** — the very reference I cited to you.
+
+## The "verify vs. discover" gap — now bridged (in `Playground/`)
+The two Sage commits are the striking part: **`sage_factor` couples SageMath's factoring engine to a `ring`-checked Lean theorem** — i.e. use a computer-algebra system as an *oracle to find* the factors, then have Lean's kernel *verify* them. That's precisely the missing piece I described: discovery outsourced to a CAS, certification kept in Lean. There's also a **ℚ/ℝ computability demo**.
+
+## Your home territory — λ-calculus & categories (`Playground/`)
+Three new modules: **`LambdaSmallStep.lean`**, **`LambdaTheorems.lean`** (full-β λ-calculus and its metatheory), and **`CartesianClosed.lean`** (a cartesian closed category) — models of the λ-calculus, squarely your domain theory.
+
+## Reference
+- A top-level **`mathlib/`** — a read-only snapshot of the Mathlib source (v4.32.2) for browsing.
+
+Two practical notes: the new `Playground` modules aren't built yet locally (a `lake build` in `Playground/` will compile them), and the `sage_factor` demo presumably needs **SageMath** installed to run its oracle side.
+
+Would you like me to **build the new Playground modules** and open one — say `CartesianClosed.lean` or the λ-calculus metatheory — so you can see it check? Or look into what the `sage_factor` demo needs to run?
+

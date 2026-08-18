@@ -1,0 +1,115 @@
+---
+prompt: p0158
+type: interaction
+opened: 2026-0806-18:50
+closed: 2026-0806-18:57
+subject: so-i-dont-understand-the-costs-of-runnin
+session: 57a99ce0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/57a99ce0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T18:50:58-07:00
+
+So I don't understand the costs of running the lean validation on this model yet. Generally I move to running things from a fixed script (scripts dir) that generate logs (logs dir) and has timing and a memory measure. Can you set that up while these five run?
+
+    Bash which zsh time; ls -l /usr/bin/time 2>&1; /usr/bin/time -v true 2>&1 | tail -4
+    Read /home/milnes/projects/ScottLean4/scripts/gitcp.sh
+    Bash head -20 ScottDomains/logs/lake-build.2026-0806-12:30.agent1.log
+    Bash ls ScottDomains/logs/; head -12 "ScottDomains/logs/$(ls ScottDomains/logs | grep lake-build | head -1)"
+    Bash pwd; ls /home/milnes/projects/ScottLean4/ScottDomains/logs/
+## turn — assistant 2026-08-06T18:51:54-07:00
+
+My shell's working directory had drifted into agent5's worktree from the verification build — moving back to the main checkout before anything else.
+
+    Bash cd /home/milnes/projects/ScottLean4 && pwd && head -14 ScottDomains/logs/lake-build.2026-0806-12:30.agent1.log
+## turn — assistant 2026-08-06T18:51:58-07:00
+
+Good — there is a header convention to follow. Writing the wrapper.
+
+    Write /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Bash chmod +x /home/milnes/projects/ScottLean4/scripts/compile.sh && zsh -n /home/milnes/projects/ScottLean4/scripts/compile.sh && echo "syntax ok"
+    Bash ls /home/milnes/projects/GRASE/ /home/milnes/projects/GRASE/standards/ 2>/dev/null
+    Bash grep -nE "^#|^##|naming|filename|YYYY|MMDD|ANSI|round" /home/milnes/projects/GRASE/standards/LoggingStandard.md | head -40
+    Read /home/milnes/projects/GRASE/standards/LoggingStandard.md
+    Read /home/milnes/projects/GRASE/standards/LoggingStandard.md
+## turn — assistant 2026-08-06T18:52:52-07:00
+
+Reading the authoritative standard changed the details — I'll conform the script to it rather than to the older log in the repo.
+
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Bash zsh -n scripts/compile.sh && scripts/compile.sh -r r0028
+## turn — assistant 2026-08-06T18:53:46-07:00
+
+`status` is read-only in zsh — it aliases `$?`. Renaming.
+
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Edit /home/milnes/projects/ScottLean4/scripts/compile.sh
+    Bash scripts/compile.sh -r r0028 2>&1 | tail -3
+    Bash head -8 ScottDomains/logs/compile-20260806-185400.orchestrator.log; echo "..."; tail -16 ScottDomains/logs/compile-20260806-185400.orchestrator.log
+## turn — assistant 2026-08-06T18:54:18-07:00
+
+The 0.74 s figure is a fully-cached replay, which tells you nothing about validation cost. One cheap real measurement — force a single module to re-elaborate:
+
+    Bash touch ScottDomains/ScottDomains/Skeleton/Lemma17.lean && scripts/compile.sh -r r0028 ScottDomains.Skeleton.Lemma17 2>&1 | tail -2
+## turn — assistant 2026-08-06T18:54:45-07:00
+
+`touch` doesn't invalidate Lake's cache — it traces content hashes, not mtimes. Removing the module's build artifacts instead:
+
+    Bash ls ScottDomains/.lake/build/lib/lean/ScottDomains/Skeleton/ 2>/dev/null | head
+    Bash rm -f ScottDomains/.lake/build/lib/lean/ScottDomains/Skeleton/Lemma17.* && scripts/compile.sh -r r0028 ScottDomains.Skeleton.Lemma17 2>&1 | tail -2
+## turn — assistant 2026-08-06T18:55:19-07:00
+
+Setup done and it measures real work: cached replay 0.74 s / 795 MiB versus 1.67 s / 1674 MiB when one module actually re-elaborates. Gathering machine facts for the performance doc.
+
+    Bash grep -m1 "model name" /proc/cpuinfo; grep -c ^processor /proc/cpuinfo; grep -E "^MemTotal|^MemAvailable" /proc/meminfo; grep -m1 "cpu MHz" /proc/cpuin
+    Bash du -sh ScottDomains/.lake/packages ScottDomains/.lake/build 2>/dev/null; cat /proc/loadavg
+## turn — assistant 2026-08-06T18:55:42-07:00
+
+Load average is 0.81, so the machine is quiet enough to measure. Taking the whole-validation number now — removing our library's build artifacts (Mathlib stays prebuilt):
+
+    Bash cat /proc/loadavg; rm -rf ScottDomains/.lake/build/lib/lean/ScottDomains ScottDomains/.lake/build/lib/lean/ScottDomains.olean ScottDomains/.lake/build
+    Bash scripts/compile.sh -r r0028 2>&1 | tail -2; cat /proc/loadavg
+## turn — assistant 2026-08-06T18:56:02-07:00
+
+Whole library from scratch: **7.34 s, 1674 MiB peak**. Extracting the per-module breakdown from that log:
+
+    Bash grep -oE "Built ScottDomains[^ ]* \([0-9]+m?s\)" ScottDomains/logs/compile-20260806-185547.orchestrator.log | sed 's/Built //' | sort -t'(' -k2 -rn | 
+    Bash grep -oE "Built ScottDomains[^ ]* \([0-9]+m?s\)" ScottDomains/logs/compile-20260806-185547.orchestrator.log | wc -l; grep -oE "\([0-9]+ms\)" ScottDoma
+    Write /home/milnes/projects/ScottLean4/ScottDomains/docs/Performance.md
+## turn — assistant 2026-08-06T18:57:01-07:00
+
+Now the logs convention in `CLAUDE.md`, as you asked, taken from the GRASE standard rather than from the older log in the repo.
+
+    Edit /home/milnes/projects/ScottLean4/CLAUDE.md
+    Edit /home/milnes/projects/ScottLean4/.claude/settings.json
+    Bash jq -e '.permissions.allow | index("Bash(scripts/compile.sh:*)")' .claude/settings.json && git status --short | head
+    Bash scripts/gitcp.sh "r0028: compile.sh — lake build under GNU time with GRASE-standard logs; measure whole-library validation cost in docs/Performance.md
+## turn — assistant 2026-08-06T18:57:38-07:00
+
+Set up and measured; pushed as `e338658`. The five agents are still running.
+
+**`scripts/compile.sh`** wraps `lake build` in GNU `/usr/bin/time -v`. It detects its GRASE role from the checkout path (`*-agentN` ⇒ `agentN`, else `orchestrator`), strips ANSI, takes `-r rNNNN` for the round tag, and exits with `lake build`'s own status so it drops into any existing check. Two corrections during the build: `status` is read-only in zsh (it aliases `$?`), and — after reading `~/projects/GRASE/standards/LoggingStandard.md` — the filename is the standard's second-resolution `compile-YYYYMMDD-HHMMSS.<role>.log`, not rule 4.1's minute form that the one older log in the repo used. The standard says so explicitly and keeps the role slot only where agent attribution is needed, which is our case. That convention is now in `CLAUDE.md`.
+
+**Whole-validation cost** (`ScottDomains/docs/Performance.md`):
+
+| # | What | Wall | Peak RSS |
+| -- | ---- | ---- | -------- |
+| 1 | Cached replay, nothing changed | 0.74 s | 795 MiB |
+| 2 | One module re-elaborated | 1.67 s | 1674 MiB |
+| 3 | **Whole library from scratch**, Mathlib prebuilt | **7.34 s** | **1674 MiB** |
+
+Row 1 is the number not to quote — it measures trace-checking, not proof-checking. Getting row 2 honestly required deleting the `.olean`/`.ilean`/`.trace`; `touch` does nothing, because Lake traces content hashes.
+
+**Work and span:** work 21.72 s summed over 26 modules, span 7.34 s, so parallelism **2.96× on 20 cores**. The build is dependency-bound, not core-bound — the import chain is narrow, and more cores will not shorten it. Per-module cost is flat at 0.8–1.0 s across the twelve most expensive, which says the cost is dominated by loading Mathlib's `.olean`s into each worker rather than by any proof's difficulty. There is no hot spot to optimize.
+
+**Constraints for the five-wide layout:** ≥1.7 GiB peak per build against 31 GiB RAM, so ≥8.4 GiB at five agents — memory is not binding. Disk is 327 MiB per worktree plus 7.4 GiB of Mathlib shared once by symlink, against 37 GiB if each vendored its own.
+
+Two honest caveats, both written into the doc. The 1674 MiB is GNU time's maximum over the process *and its children* — the largest single peak, not the sum across concurrent Lean workers, so the true system-wide peak is higher; treat it as a lower bound on headroom. And these were taken with the five agents running, load average 0.68 before and 1.44 after — near-idle, but not quiet-machine figures. Worth a repeat on an idle machine before using them as a regression baseline; I can take that when the agents finish.
+

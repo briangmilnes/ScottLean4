@@ -1,0 +1,83 @@
+---
+prompt: p0330
+type: interaction
+opened: 2026-0817-18:12
+closed: 2026-0817-18:14
+subject: how-do-i-read-section-3-results
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-17T18:12:00.470000-07:00
+
+how do I read section 3 results
+
+## turn — assistant 2026-08-17T18:12:49.436000-07:00
+
+Let me build the index from the source rather than from memory:
+
+    Bash cd /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces && grep -n '^theorem bauerBirkedalScott04\|^instance bauerBirkedalScot
+    Bash grep -n 'theorem38\|isLeftAdjoint_prodFunctorRight\|prodExpAdjunction' ALatClosed.lean CartesianClosure.lean | grep -E 'theorem|def' ; echo "--- stale
+## turn — assistant 2026-08-17T18:13:18.496000-07:00
+
+Two things that hurt exactly what you're asking. Let me fix them first.
+
+    Bash python3 - <<'PY' p='RegularSubobjects.lean' s=open(p).read() old=s[s.index("## Status"):s.index("clauses.\n-/")+len("clauses.\n-/")] new='''## Status 
+    Bash python3 - <<'PY' p='ALatClosed.lean' s=open(p).read().rstrip() tail="end ScottDomains.EquilogicalSpaces" assert s.endswith(tail) s=s[:-len(tail)].rstr
+    Bash cd /Users/scott/projects/ScottLean4 && scripts/gitcp.sh "r0091: reading fixes -- Theorem 3.8 gets its paper-numbered name; RegularSubobjects header wa
+## turn — assistant 2026-08-17T18:14:21.723000-07:00
+
+Two things were blocking exactly this, now fixed and pushed as **ac6d379**:
+
+- **Theorem 3.8 had no declaration carrying its number** — grepping `theorem_3_8` found nothing. Added `bauerBirkedalScott04_theorem_3_8`.
+- **`RegularSubobjects.lean`'s header was stale** — still said its two theorems were "not done, statements not theorems", written in r0088 and never updated when r0089/r0090 proved them.
+
+## The one command
+
+```bash
+grep -rn 'bauerBirkedalScott04_theorem_3_' ~/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces
+```
+
+Every numbered result of §3 now answers to that. The index:
+
+| Paper | Lean name | File |
+| --- | --- | --- |
+| 3.5 (T₀) | `…_theorem_3_5_t0` | `SigmaTopology.lean` |
+| 3.5 (specialization) | `…_theorem_3_5_specialization` | `SigmaTopology.lean` |
+| 3.6 Embedding | `…_theorem_3_6_embedding` | `PartialEquilogical.lean` |
+| 3.7 Extension | `…_theorem_3_7` | `Extension.lean` |
+| 3.8 `ALat` ccc | `…_theorem_3_8` | `ALatClosed.lean` |
+| 3.10 complete | `…_theorem_3_10_hasLimits` | `Theorems3.lean` |
+| 3.10 cocomplete | `…_theorem_3_10_hasColimits` | `Theorems3.lean` |
+| 3.10 reg. well-powered | `…_theorem_3_10_regularWellPowered` | `Theorems3.lean` |
+| 3.10 reg. co-well-powered | `…_theorem_3_10_regularCoWellPowered` | `Theorems3.lean` |
+| 3.12 `Equ ≃ PEqu` | `…_theorem_3_12` | `EssSurj.lean` |
+| 3.13 for `Equ` | `…_theorem_3_13` | `Theorems3.lean` |
+
+## Three ways in, depending on what you want
+
+**The summary** — `EquilogicalSpaces/README.md`. It's the program tracker: what's proved, what isn't, and the "§3 is finished" section explaining the one thing still unasserted.
+
+**The statements** — `Theorems3.lean`. All of 3.10 and 3.13 in one place, each with a docstring saying where the proof lives and why the statement is phrased as it is.
+
+**The mathematics** — follow the dependency order, which is also the paper's:
+
+```
+SigmaTopology (3.4, 3.5)
+  → Extension (3.7) → PowersetRetract → PartialEquilogical (3.6)
+  → Restriction → EssSurj (3.12)
+CartesianClosure → ALat → ProductAlgebraic → ALatProducts → ALatClosed (3.8)
+  → PEquClosed (3.13)
+EquProducts → EquLimits → EquColimits (3.10) → RegularSubobjects (3.10 regular)
+```
+
+## Two reading cautions
+
+**A `Prop`-valued `def` is a statement, not a theorem.** `Theorem310NotWellPowered` — footnote 4's "`Equ` is not well-powered" — is the one such left. It carries no `sorry`, so a zero count doesn't tell you it's unproved. That's why the README leads with the distinction, and why I got it wrong myself at r0087.
+
+**The module docstrings carry the mathematics.** Each quotes the paper passage it formalizes and says where the encoding departs, and why — e.g. 3.13 is stated with `· × B` rather than Mathlib's `prod.functor`, which is `B ⨯ ·` and routes through `Classical.choice`. If you read only the statements you'll miss those.
+

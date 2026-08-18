@@ -1,0 +1,23 @@
+---
+prompt: p0045
+type: interaction
+opened: 2026-0802-18:11
+closed: 2026-0802-18:12
+subject: rust-semantics-are-all-in-roqc-iris-in-r
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T18:11:48.208000-07:00
+
+Rust semantics are all in roqc + iris (in rocq).
+
+## turn — assistant 2026-08-02T18:12:17.603000-07:00
+
+Mostly right — let me confirm the exact breakdown, because there's one exception and a version gotcha worth flagging:
+
+    Bash cd ~/projects/RustSemantics/artifacts for d in */; do   n=${d%/}   v=$(find "$d" -name '*.v' 2>/dev/null | wc -l | tr -d ' ')   rs=$(find "$d" -name '

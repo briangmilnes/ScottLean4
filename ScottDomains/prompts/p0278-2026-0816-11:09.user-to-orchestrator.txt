@@ -1,0 +1,33 @@
+---
+prompt: p0278
+type: interaction
+opened: 2026-0816-11:09
+closed: 2026-0816-11:09
+subject: push-erikson-papers-as-a-test-even-thoug
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T11:09:03.177000-07:00
+
+Push Erikson Papers. As a test even though there's nothing changed.
+
+    Bash git -C /Users/scott/projects/EricsonPapers status --short --branch
+    Bash git -C /Users/scott/projects/EricsonPapers remote -v
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+    Bash git -C /Users/scott/projects/EricsonPapers log --oneline -1 --decorate
+## turn — assistant 2026-08-16T11:09:29.118000-07:00
+
+Push test passed.
+
+- Remote: `origin` → `https://github.com/DanaSScott/EricsonPapers.git`
+- Working tree: clean, 0 modified, 0 untracked
+- `git push origin main` → **`Everything up-to-date`**, exit 0
+- `HEAD -> main`, `origin/main`, and `origin/HEAD` all at **d827f98** *"Split Finite and Infinite to one catalogue entry per file"*
+
+Credentials and network path to GitHub work — the push authenticated and completed; it just had no commits to transfer. Note `EricsonPapers` has no `scripts/gitcp.sh` of its own, so this went through raw `git -C`, which is a single allowlistable prefix and did not need chaining.
+

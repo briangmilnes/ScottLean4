@@ -1,0 +1,74 @@
+---
+prompt: p0299
+type: interaction
+opened: 2026-0816-13:39
+closed: 2026-0816-13:43
+subject: do-isalgebraic
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T13:39:36.569000-07:00
+
+do IsAlgebraic (α × β)
+
+    Bash sed -n '55,115p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Bash grep -rn -A4 'def IsCompactElement' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/*.lean /Users/scott/projects/ScottLean4/ScottDomains/.l
+    Bash grep -rn 'theorem directedOn_fst_image\|theorem directedOn_snd_image' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+    Bash sed -n '62,70p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Order/CompactlyGenerated/Basic.lean
+## turn — assistant 2026-08-16T13:41:15.284000-07:00
+
+All the pieces are identifiable. One simplification: in the `ALat` setting (complete lattices) directedness comes free from `isCompactElement_of_isLUB_pair`, so I only need the *pairing* direction of compactness, not the projection direction.
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ProductAlgebraic.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ProductAlgebraic
+## turn — assistant 2026-08-16T13:42:03.072000-07:00
+
+Proved first try, 0 `sorry`. Full build to check the new global `isAlgebraic_prod` instance doesn't disturb anything:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/*.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0062: the product of algebraic lattices is algebraic  New ProductAlgebraic.lean (118 lines, 0 sorr
+## turn — assistant 2026-08-16T13:43:14.920000-07:00
+
+Pushed **1be5ebc**. `IsAlgebraic (α × β)` proved, first build, 0 `sorry`.
+
+## The proof split unevenly, in a useful way
+
+**Directedness of `compactsBelow (x, y)` turned out to be free.** The join of two compacts below `(x, y)` is compact by the package's own `isCompactElement_of_isLUB_pair` — "a least upper bound of two compact elements is compact", stated for a bare `PartialOrder` with the LUB as a hypothesis — and is still below `(x, y)`. No product reasoning enters that half at all.
+
+**Only the least-upper-bound half needed real work**, via `isCompactElement_prod`: given directed `s` with `IsLUB s u` and `(a,b) ≤ u`, compactness of `a` against the first-projection image gives `p₁ ∈ s` with `a ≤ p₁.1`, compactness of `b` gives `p₂ ∈ s` with `b ≤ p₂.2`, and directedness merges them. The two coordinates are found in **different** members of `s` — the same move `Currying.lean` makes when it uncurries.
+
+Then for an upper bound `(u,v)` of `compactsBelow (x,y)`: every `a ∈ compactsBelow x` yields a compact `(a, ⊥) ≤ (x,y)`, hence `a ≤ u`, so `u` bounds `compactsBelow x` and `x ≤ u` by algebraicity of the first factor.
+
+## One scoping decision
+
+Stated for complete **lattices**, not arbitrary algebraic cpos. Over a general cpo the join need not exist, and directedness would instead need the *projection* direction — `(a,b)` compact implies `a` and `b` compact — which takes a separate argument through the image of `fun x => (x, b)`. `ALat` doesn't need it, so I didn't prove it; noted in the module in case the general case is ever wanted.
+
+## Where the original request stands
+
+You asked for finite products **and** the adjunction. I have **not** delivered either as Mathlib structures — what I delivered is the mathematics underneath them. Honestly: `AlgebraicLattice.prod` exists as an object, but `HasBinaryProducts ALat` (limit cones), `HasTerminal`, the exponential functor, and `Adjunction.mkOfHomEquiv` are still not written.
+
+The difference now is that **nothing mathematical remains** — the four commits r0059–r0062 cleared, in order: `BoundedComplete`, the exponential's carrier being algebraic, `ScottHom` being a complete lattice with the diamond collapsed, and the product being algebraic. What's left is assembly against Mathlib's limit API, and `scottHomCurry.symm` is already the hom-equivalence `Adjunction.mkOfHomEquiv` wants.
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic.lean` | 201 | **0** |
+| `SigmaTopology.lean` | 194 | **0** |
+| `PartialEquilogical.lean` | 258 | 3 |
+| `CartesianClosure.lean` | 154 | **0** |
+| `ALat.lean` | 196 | **0** |
+| `ProductAlgebraic.lean` | 118 | **0** |
+| `Theorems3.lean` | 161 | 4 |
+| **Total** | **1282** | **7** |
+
+1539 jobs, 0 errors; the new global instance causes no regression. Five of seven modules fully proved.
+
+Next is `HasTerminal` + `HasBinaryProducts`, then the adjunction — say go and I'll continue.
+

@@ -1,0 +1,58 @@
+---
+prompt: p0249
+type: interaction
+opened: 2026-0815-12:49
+closed: 2026-0815-12:54
+subject: do-54
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T12:49:55.332000-07:00
+
+do 5.4
+
+## turn — assistant 2026-08-15T12:52:29.372000-07:00
+
+§5.4. The decisive design choice: make finite partial terms an **inductive type**, so prefix-closure and single-valuedness hold by construction — that dodges the validity predicate and the decidability problem that would otherwise block `enum`:
+
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 10 "2703:23"
+    Bash grep -rn "theorem getD_eq\|getD_eq_get" /Users/scott/.elan/toolchains/leanprover--lean4---v4.32.2/src/lean/Init/Data/List/Lemmas.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "tree"
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize term and tree domains (catalogue 5.4) as treeDomain, via the ideal completion" -m "T-
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T12:54:43.359000-07:00
+
+§5.4 done and pushed — `c31bb7d`, +221 lines. Build: 4 jobs, zero errors, zero warnings, zero `sorry`.
+
+`treeDomain : (S : TreeSig) → DInfinityFoundations (TokenIdeal (treeTokens S))` — T^∞(Σ) as the ideals of the finite Σ-terms, again through §5.6.
+
+**The decisive choice was representation.** A finite partial term is an *inductive type*, `FinTree := hole | node sym FinTree FinTree`, not a set of (position, symbol) pairs. A pair-set carries two side conditions — single-valued, and prefix-closed so no position is labelled above an unlabelled one — and §3.8 already proved they cannot be dropped: a basis element that is not prefix-closed has no least member, and `basisCpt` fails. As an inductive type both hold **by construction**, and the undecidable validity predicate that would otherwise block `enum` without choice — precisely the §5.1 obstruction — never arises. Two entries' worth of hard-won structure, avoided by picking the right type.
+
+`treeLe_lub` is **axiom-free**: the least upper bound of two terms below a common one is built by recursion *on that bound*, so no total join function is needed and the unbounded case never has to be assigned a value.
+
+| declaration | axioms |
+| --- | --- |
+| `treeLe_lub` | none |
+| `treeTokens` | `[propext, Quot.sound]` |
+| `treeDomain` | `[lem, propext, Quot.sound]` |
+
+Countability is `treesUpTo n` — trees of height ≤ n over the first n symbols — with monotonicity in n, indexed through `pairDecode`. Scope: binary signatures with countable symbols; any finite signature binarizes, and §3.8 is the unary case, one unary symbol per letter, exactly as the catalogue says.
+
+Three build errors, all mechanical: a reversed `Eq.symm`, `omega` unable to work against a metavariable bound (fixed by naming the bound), and `List.getD_eq_getElem` not existing — it is `List.getD_eq_getElem?_getD` composed with `List.getElem?_eq_getElem`.
+
+Remaining: §6.3/§6.4 (Mathlib for ℝ, separate module), §5.5 D∞ — now much more approachable, since `funSpace` gives the D_{n+1} = [D_n → D_n] step and what is missing is the embedding–projection tower and its bilimit — and §5.2/§6.5, which need a PCF syntax and a powerdomain construction.
+

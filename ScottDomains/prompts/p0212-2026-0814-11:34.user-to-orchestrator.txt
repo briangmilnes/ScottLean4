@@ -1,0 +1,47 @@
+---
+prompt: p0212
+type: interaction
+opened: 2026-0814-11:34
+closed: 2026-0814-11:35
+subject: this-is-the-new-github-repository-just-p
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-14T11:34:21.715000-07:00
+
+This is the new GitHub repository just pulled into the project subdirectory named Ericsson Papers.
+
+    Bash ls -la /Users/scott/projects/ScottLean4/Ericson /Users/scott/projects/ScottLean4/Ericson/logs
+    Bash find /Users/scott/projects/ScottLean4 -maxdepth 3 -name ".git" -newermt "2026-08-01" -not -path "*/mathlib/*" 2>/dev/null
+    Bash find /Users/scott/projects/ScottLean4 -maxdepth 2 -type d -iname "*eric*" -o -maxdepth 2 -type d -iname "*paper*"
+    Bash ls -ldt /Users/scott/projects/ScottLean4/*/
+    Read /Users/scott/projects/ScottLean4/Ericson/README.md
+    Bash ls /Users/scott/projects/ScottLean4/scripts | grep -i ericson
+    Read /Users/scott/projects/ScottLean4/scripts/ericson-clone.sh
+    Bash grep -rn -i "ericson\|scott197\|scott198\|scott_models" /Users/scott/projects/ScottLean4/.gitignore
+## turn — assistant 2026-08-14T11:35:10.800000-07:00
+
+Found it. Measured state on this machine:
+
+**`Ericson/`** — [Ericson/README.md](Ericson/README.md) documents four vendored checkouts of Lars Ericson's Lean 4 formalizations of Dana Scott's papers (`scott1972`, `scott1980`, `scott1982`, `scott_models` from `github.com/catskillsresearch`) — 299 Lean files, 107,287 lines.
+
+**But the checkouts are not here.** `Ericson/` contains exactly two tracked items: `README.md` (6,589 bytes) and `logs/` (one build log). [.gitignore:25](.gitignore:25) ignores `/Ericson/*/` except `logs/`, so the clones never travel through git — they were assembled on the other machine and must be re-fetched here.
+
+**The re-fetch script is broken on this machine.** [scripts/ericson-clone.sh:18](scripts/ericson-clone.sh:18) hardcodes:
+
+```
+root=/home/milnes/projects/ScottLean4
+```
+
+That path does not exist under macOS `/Users/scott`; `mkdir -p` would fail and the loop would clone nothing. Line 66's `df -h /home/milnes/projects` has the same defect. [scripts/ericson-build.sh](scripts/ericson-build.sh) likely shares it — I have not read it yet.
+
+Two questions before I act:
+
+1. Do you want me to fix the root resolution in the two `ericson-*.sh` scripts (derive it from the script's own location, as `compile.sh` does) and then run the clone here?
+2. Disk: the README measures `scott1972` at 7.2 GiB including `.lake/packages`. Source-only clones are far smaller, but I should check free space before pulling four repos. Want all four, or just one to start?
+

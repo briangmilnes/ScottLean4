@@ -1,0 +1,54 @@
+---
+prompt: p0166
+type: interaction
+opened: 2026-0806-20:14
+closed: 2026-0806-20:16
+subject: and-commit-those-prompts-logs
+session: 57a99ce0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/57a99ce0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T20:14:41-07:00
+
+and commit those prompts, logs.
+
+    Bash git status --short | head -20; echo "--- untracked logs:"; git status --short ScottDomains/logs | wc -l
+## turn — assistant 2026-08-06T20:15:06-07:00
+
+Working tree is clean — the prompts went up in `f46c54e` and the logs with their compile commits. But the session has continued since I extracted, so those interactions aren't in the files yet. Refreshing from the recording:
+
+    Bash zsh /tmp/claude-1000/-home-milnes-projects-ScottLean4/57a99ce0-15df-4d5e-8cfa-1fb76c62ed79/scratchpad/save-prompts.sh 2>&1 | tail -2; ls ScottDomains/
+    Bash cp /tmp/claude-1000/-home-milnes-projects-ScottLean4/57a99ce0-15df-4d5e-8cfa-1fb76c62ed79/scratchpad/save-prompts.sh scripts/save-prompts.sh && chmod 
+    Edit /home/milnes/projects/ScottLean4/scripts/save-prompts.sh
+    Bash cd ScottDomains/prompts && chars=$(cat *.txt | wc -c) && words=$(cat *.txt | wc -w) && lines=$(cat *.txt | wc -l) && printf "files: %s\nlines: %s\nwor
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/prompts && awk 'END{}' /dev/null; cat *.txt | awk '{c+=length($0)+1; w+=NF} END {printf "chars %d  wo
+    Bash for f in p0001-* p0033-* p0065-*; do printf "%-52s %6d chars  ~%5.0f tok\n" "$(basename $f)" "$(wc -c < $f)" "$(( $(wc -c < $f) / 4 ))"; done; echo "-
+    Bash cd /home/milnes/projects/ScottLean4 && scripts/gitcp.sh "prompts: refresh to 65 interactions and install scripts/save-prompts.sh so the transcript can
+## turn — assistant 2026-08-06T20:16:44-07:00
+
+Committed and pushed (`cb6f6fb`): 65 interactions — the refresh picked up one more since the last extraction — plus `scripts/save-prompts.sh`, so the transcript can be regenerated from the session recording whenever you want rather than depending on my context. It is idempotent: re-running rewrites every file and picks up whatever has happened since.
+
+The logs were already committed with their `compile.sh` runs; the working tree was clean before this.
+
+**Token estimate for the prompt corpus:**
+
+| # | Measure | Value |
+| -- | ------- | ----- |
+| 1 | Files | 65 |
+| 2 | Lines | 4,556 |
+| 3 | Words | 43,265 |
+| 4 | Characters | 335,337 |
+| 5 | **Estimate at chars ÷ 4** | **~84,000 tokens** |
+| 6 | Estimate at chars ÷ 3.6 | ~93,000 tokens |
+| 7 | Estimate at words × 1.33 | ~58,000 tokens |
+
+Call it **80–95k tokens**, with ~84k the best single number. The spread is real and worth knowing why: chars ÷ 4 is the usual English rule of thumb, but this corpus is denser than prose — Lean identifiers (`isCompactElement_of_isLUB_finite`), file paths, SHAs and mathematical Unicode all tokenize worse than ordinary words, so the true figure sits toward the upper end. The word-based estimate is the least reliable here for the same reason: a single identifier is one "word" but five or six tokens.
+
+Per-interaction: ~5,200 characters or **~1,300 tokens** on average. The distribution is skewed — the largest three are `p0061` (~3,300), `p0059` (~3,200) and `p0020` (~2,900), all interactions where I returned long measurement tables; the smallest are one-line exchanges like `p0065` at ~167.
+
+For scale: the whole day's transcript is about 8% of a 1M-token context window, so it can be read back in full without special handling.
+

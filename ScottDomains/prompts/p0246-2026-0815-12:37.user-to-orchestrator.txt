@@ -1,0 +1,65 @@
+---
+prompt: p0246
+type: interaction
+opened: 2026-0815-12:37
+closed: 2026-0815-12:40
+subject: push-onto-scottdomainexampleslean
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T12:37:05.941000-07:00
+
+push onto ScottDomainExamples.lean
+
+## turn — assistant 2026-08-15T12:37:55.134000-07:00
+
+Already pushed and clean at `33433d7` — so taking that as "keep going in that file". Next is §5.6, the ideal completion, which is the general theorem standing behind §3.6–§3.8:
+
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+## turn — assistant 2026-08-15T12:39:02.541000-07:00
+
+`show … at` is not valid syntax — that broke the structure literal downstream:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "ideal"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash grep -n "cheapest next witness\|§5.4 (ω" /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash grep -n "^- " /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|Build completed"
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize the ideal completion (catalogue 5.6) as idealDomain, the theorem behind 3.6-3.8" -m "
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T12:40:16.975000-07:00
+
+§5.6 done and pushed — `0d29568`, +278 lines. Build: 4 jobs, zero errors, zero warnings, zero `sorry`, 40 audited declarations.
+
+`idealDomain : (P : TokenPoset) → DInfinityFoundations (TokenIdeal P)` — any countable poset of tokens with a least element and bounded joins yields a witness on its ideals. That is §5.6's own claim: an ω-algebraic domain is nothing but the ideal completion of a countable poset of finite approximations, so choosing a Scott domain is choosing a countable poset of tokens.
+
+**It is cheaper than the three entries it generalizes**, and that is the measurement worth keeping:
+
+| declaration | axioms |
+| --- | --- |
+| `idealTop` | **none** |
+| `ideal_common_extension` | `[lem]` |
+| `idealDomain` | `[lem, propext, Quot.sound]` |
+
+Compare `psetTop`, `pfunTop`, `streamTop`, each `[propext]`, and their common-extension lemmas, each `[lem, propext]` or worse. Every one of those extra axioms came from the **list machinery** their finite approximations required. An ideal is directed, so any finite set of its tokens already lies below one member — the finite approximation is a *single token*. The bit masks, `pairDecode` and `List.mem_append` all vanish, and the basis is just `n ↦ ↑(enum n)`.
+
+D2 uses irreducibility in exactly one place: directedness of ⋃C, because two tokens drawn from C sit inside a common member, which is itself directed.
+
+§5.6 is not one of §2's 16 rows, so the settled count stays at **10 of 16** — I did not inflate it.
+
+One syntax casualty worth noting: `show … at h` does not exist; it has to be `have h2 : T := h`.
+
+Remaining: §5.1 function spaces (next real construction — needs Scott-continuity in the topological vocabulary and a step-function basis), §6.3/§6.4 with Mathlib for ℝ in a separate module, §5.4 term domains, §5.5 D∞ as its own program, and §5.2/§6.5 which need a PCF syntax and a powerdomain construction respectively.
+

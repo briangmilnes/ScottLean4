@@ -1,0 +1,55 @@
+---
+prompt: p0036
+type: interaction
+opened: 2026-0802-17:27
+closed: 2026-0802-17:31
+subject: well-lets-start-with-mathematics-in-lean
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T17:27:33.565000-07:00
+
+Well lets start with mathematics in lean. Set it up open the first page for me. And I need a cheat sheet up in chrome please.
+
+## turn — assistant 2026-08-02T17:28:16.785000-07:00
+
+On it — three things: build MIL's Mathlib, open it correctly in VS Code, and get a cheat sheet up. Let me first check our `cheatsheets/` folder and MIL's first files:
+
+    Bash cd ~/projects/ScottLean4 echo "=== cheatsheets/ ==="; ls -la cheatsheets/ 2>/dev/null echo "=== any Lean cheat sheet (pdf/md)? ==="; find cheatsheets 
+## turn — assistant 2026-08-02T17:29:12.790000-07:00
+
+Everything's here. We have **`cheatsheets/lean-tactics.pdf`** — Chrome renders PDFs natively (no extension needed, unlike the `.md`), so that'll just work. Let me kick off MIL's Mathlib build, open the cheat sheet, and open MIL in VS Code as its own workspace.
+
+First, the Mathlib cache for MIL (this also pulls the v4.30.0 toolchain) — in the background:
+
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/tutorials/mathematics_in_lean echo "toolchain: $(cat lean-toolchain)" e
+## turn — assistant 2026-08-02T17:30:15.149000-07:00
+
+Now the cheat sheet in Chrome and MIL in VS Code (as its own workspace so it uses MIL's v4.30.0 toolchain, not ScottLean4's):
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" CS="$HOME/projects/ScottLean4/cheatsheets/lean-tactics.pdf" MILDIR="$HOME/projects/ScottLean4/tutorials/mathemat
+## turn — assistant 2026-08-02T17:31:43.704000-07:00
+
+All three are up. Paths:
+
+| What | Path |
+|---|---|
+| **MIL workspace** (opened as VS Code root) | `~/projects/ScottLean4/tutorials/mathematics_in_lean` |
+| **First hands-on file** (open now) | `tutorials/mathematics_in_lean/MIL/C02_Basics/S01_Calculating.lean` |
+| First intro page (just setup prose) | `MIL/C01_Introduction/S01_Getting_Started.lean` |
+| **Cheat sheet** (in Chrome) | `~/projects/ScottLean4/cheatsheets/lean-tactics.pdf` |
+| Answers, if stuck | `MIL/C02_Basics/solutions/` |
+
+**Important — give it a few minutes:** MIL's Mathlib is still downloading in the background. Until it finishes, the Lean **Infoview will show "Loading…" or red errors** on the `import Mathlib` line — that's expected, not a real problem. **Don't start editing until it's ready.** When the cache download completes I'll tell you; then do **⇧⌘P → "Developer: Reload Window"** in the MIL window for a clean start, and the goals will appear.
+
+I opened `S01_Calculating.lean` because it's the *first page where you actually prove things* — it teaches `rw` (rewriting with equations) and `ring`, building up from `example`s you complete. C01 is just "run cache get" instructions.
+
+The cheat sheet (native PDF in Chrome) has the tactic reference — `rw`, `ring`, `intro`, `apply`, `exact`, `calc`, etc. — handy to keep alongside.
+
+Once I confirm Mathlib's built, I'll walk you through completing the very first `example` in `S01_Calculating.lean` step by step, watching the Infoview goal shrink to `No goals`. Sit tight for the cache to finish.
+

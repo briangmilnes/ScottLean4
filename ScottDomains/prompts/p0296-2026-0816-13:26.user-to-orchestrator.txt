@@ -1,0 +1,108 @@
+---
+prompt: p0296
+type: interaction
+opened: 2026-0816-13:26
+closed: 2026-0816-13:31
+subject: do-the-boundedcomplete-instance-and-bund
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T13:26:23.038000-07:00
+
+do the BoundedComplete instance and bundle ALat
+
+    Bash sed -n '100,120p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Order/CompletePartialOrder.lean
+    Bash grep -n 'def ScottHom.id\|ScottHom.id\b\|def ScottHom.comp\|\.comp\b\|structure ScottHom\|instance.*FunLike.*ScottHom\|ext' /Users/scott/projects/Scot
+    Bash grep -rn 'ScottHom.id\|ScottHom.comp\|def id \|def comp ' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/ScottHom.lean /Users/scott/projec
+    Bash grep -rn 'ScottHom.id :=\|def id :\|def comp \|theorem comp_id\|theorem id_comp\|theorem comp_assoc' /Users/scott/projects/ScottLean4/ScottDomains/Sco
+    Bash grep -rn 'protected def id\|protected def comp\|^def id\|^def comp\|namespace ScottHom' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Sco
+    Bash grep -rn 'ScottHom.id\|ScottHom.comp' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains --include='*.lean' -l
+    Bash grep -rn -B2 -A6 'def id :\|def comp (' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Bash grep -rn 'def id\b\|def comp\b' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/*.lean
+    Bash sed -n '100,125p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Combinator.lean
+    Bash grep -rn 'ScottHom.id' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Combinator.lean /Users/scott/projects/ScottLean4/ScottDomains/ScottD
+    Bash grep -rn 'id' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/ScottHom.lean | grep -v 'identity\|consider\|provide\|id-' | head -20
+    Bash grep -rn 'ScottHom.id\s*:\|def ScottHom.id\|ScottHom.id :=' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Morphism.lean | head; grep -rn 
+    Bash sed -n '70,100p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/ScottHom.lean
+    Bash grep -rn 'def id' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+## turn — assistant 2026-08-16T13:28:47.389000-07:00
+
+`ScottHom.id` isn't defined in the package under that name (only `ContinuousConstruction.idHom`), so I'll construct the identity directly. Writing the module:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALat.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALat
+    Bash grep -n 'namespace\|^end ' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Combinator.lean | head -20
+## turn — assistant 2026-08-16T13:29:51.399000-07:00
+
+`comp` lives in `ScottDomains.Combinator`. Fixing that and dropping the two `simp` helpers, which don't unfold through the `Hom` abbreviation:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALat.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALat
+## turn — assistant 2026-08-16T13:30:21.979000-07:00
+
+ALat builds, 0 `sorry` — and `isAlgebraic_scottHom` closed by `inferInstance`, which confirms the `BoundedComplete` instance did unblock `FunctionSpaceDomain`'s result.
+
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/*.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0059: BoundedComplete instance and the bundled ALat category  New ALat.lean (113 lines, 0 sorry). 
+## turn — assistant 2026-08-16T13:31:26.836000-07:00
+
+Pushed **4947a41**. Both items are done, and the second one paid off immediately.
+
+## `completeLattice_boundedComplete`
+
+One line:
+
+```lean
+instance completeLattice_boundedComplete {L : Type u} [CompleteLattice L] :
+    ScottDomains.BoundedComplete L where
+  isLUB_sSup_of_bddAbove s _ := isLUB_sSup s
+```
+
+The `BddAbove` hypothesis is discarded — `sSup s` bounds every subset, bounded or not. It's sound without a compatibility side condition because `CompleteLattice.toCompletePartialOrder` is defined with `sSup := sSup`, so the `SupSet` the `CompletePartialOrder` carries is literally the lattice's own.
+
+## `ALat`
+
+`AlgebraicLattice` (complete + `IsAlgebraic`) with `ScottHom` morphisms, as a `LargeCategory`. Unlike `Equ` and `PEqu`, morphisms here are honest functions rather than equivalence classes — nothing to quotient by — so the laws are `ext`-then-`rfl`.
+
+## The payoff
+
+```lean
+theorem isAlgebraic_scottHom (A B : AlgebraicLattice.{u}) :
+    ScottDomains.IsAlgebraic (ScottHom A.carrier B.carrier) :=
+  inferInstance
+```
+
+**`inferInstance` succeeding is the evidence.** `FunctionSpaceDomain`'s `IsAlgebraic (ScottHom α β)` demands a bounded-complete codomain; before the instance above, that side condition couldn't be met for lattices and the result was unreachable. Now the exponential's carrier is an algebraic object, by synthesis.
+
+## Two package facts found the hard way
+
+**There is no `ScottHom.id`** under that name — `Combinator.lean` and `Morphism.lean` reference it, but the only identity definition in the package is `ContinuousConstruction.idHom`. I built the identity the same way, from `_root_.id` and `ScottContinuous.id`. Worth a look at some point: those references presumably resolve to something, but not to a `def` I could find in the package.
+
+**Bundled composition is `ScottDomains.Combinator.comp`**, not `ScottDomains.comp`.
+
+## Where Theorem 3.8 stands
+
+Down to **one concrete obstruction**: an exponential must be an *object of `ALat`*, so `ScottHom X Y` needs a `CompleteLattice` structure — the package gives it only a `CompletePartialOrder`. The pointwise lattice structure on a function space between complete lattices is standard, just absent here. After that: finite products in `ALat`, then the adjunction from `scottHomCurry`.
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic.lean` | 201 | **0** |
+| `SigmaTopology.lean` | 194 | **0** |
+| `PartialEquilogical.lean` | 258 | 3 |
+| `CartesianClosure.lean` | 154 | **0** |
+| `ALat.lean` | 113 | **0** |
+| `Theorems3.lean` | 161 | 4 |
+| **Total** | **1081** | **7** |
+
+1538 jobs, 0 errors. Four of six modules fully proved.
+
+Next: the `CompleteLattice (ScottHom X Y)` instance, which is the last thing between here and stating 3.8 properly.
+

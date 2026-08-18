@@ -1,0 +1,44 @@
+---
+prompt: p0073
+type: interaction
+opened: 2026-0803-14:21
+closed: 2026-0803-14:21
+subject: where-are-the-projective-geometry-texts
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T14:21:21.289000-07:00
+
+Where are the projective geometry texts in this project?
+
+## turn — assistant 2026-08-03T14:21:33.619000-07:00
+
+Let me locate the projective-geometry material in the repo:
+
+    Bash cd ~/projects/ScottLean4 echo "=== files/dirs mentioning projective or geometry (names) ===" find . -path ./.git -prune -o \( -path '*/.lake' -prune \
+## turn — assistant 2026-08-03T14:21:57.616000-07:00
+
+Right here, Dr. Scott — **`MathTexts/ProjectiveGeometry/`**. It's a collection of the classic texts, each as a **PDF plus an extracted `.txt`** (and a `README.md`):
+
+| Text | Author(s), year |
+|---|---|
+| *Elements of Projective Geometry* | **Cremona**, 1893 |
+| *The Axioms of Projective Geometry* | **Whitehead**, 1906 |
+| *Introduction to Projective Geometry* | **Filon**, 1908 |
+| *Projective Geometry, Vol. 1* | **Veblen & Young**, 1910 |
+| *Projective Geometry, Vol. 2* | **Veblen & Young**, 1918 |
+
+So the great early-20th-century axiomatic/synthetic tradition — Cremona through Veblen–Young — is all here, in full.
+
+Related geometry material elsewhere in the project:
+- **`ScottClasses/15-491/`** — *your own* projective-geometry course (the 34 Mathematica notebooks: Lectures, Homework, StartUp).
+- **`MathTexts/DifferentialGeometry/`** — Shifrin, do Carmo, Robbin–Salamon, Sharipov, etc.
+- **`GeometryPapers/`** — the modern *Autoformalizing Euclidean Geometry* (LeanEuclid) paper.
+
+The `.txt` extractions sit alongside each PDF (they're the readable text the paper→Lean pipeline would draw on) — but I'll leave any of *that* for the live session you and Brian planned. Would you like me to open one of these texts for you to read — say Veblen–Young Vol. 1, the standard reference?
+

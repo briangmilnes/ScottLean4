@@ -1,0 +1,61 @@
+---
+prompt: p0089
+type: interaction
+opened: 2026-0804-18:08
+closed: 2026-0804-18:19
+subject: okay-you-definitely-punted-too-much-in-t
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-04T18:08:22.229000-07:00
+
+Okay. You definitely punted too much in there. Fill in some more proofs.
+
+## turn — assistant 2026-08-04T18:14:16.487000-07:00
+
+Fair, Dr. Scott — let me actually close **α-transitivity**, which completes α as a genuine equivalence relation. It needs a composition of name correspondences (with the middle names aligned). Writing it:
+
+    Edit /Users/scott/projects/ScottLean4/Playground/Playground/LambdaNamed.lean
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground echo "=== elaborate LambdaNamed.lean (transitivity now prove
+## turn — assistant 2026-08-04T18:16:44.814000-07:00
+
+Just one fix — `compose [] []` needs to reduce to `[]` (it's definitionally equal, but `simpa` didn't reduce it). Using `exact` (which uses defeq):
+
+    Edit /Users/scott/projects/ScottLean4/Playground/Playground/LambdaNamed.lean
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground echo "=== elaborate (expect 0 errors, 0 sorry) ===" out=$(ti
+## turn — assistant 2026-08-04T18:19:01.677000-07:00
+
+**0 errors, 0 `sorry`s** — α-transitivity is closed. So α is now a *complete* equivalence relation, all kernel-checked. Let me update the file's status notes to match (honesty about what's proved vs. future work):
+
+    Edit /Users/scott/projects/ScottLean4/Playground/Playground/LambdaNamed.lean
+    Edit /Users/scott/projects/ScottLean4/Playground/Playground/LambdaNamed.lean
+## turn — assistant 2026-08-04T18:19:18.605000-07:00
+
+Let me do a final clean-compile check, then report:
+
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground out=$(timeout 300 lake env lean Playground/LambdaNamed.lean 
+## turn — assistant 2026-08-04T18:19:43.147000-07:00
+
+Done, Dr. Scott — filled in and fully checked. **`LambdaNamed.lean` now has 0 errors and 0 `sorry`s.**
+
+What got proved (all kernel-checked, no holes):
+
+- **α is reflexive** — `alpha_refl`
+- **α is symmetric** — `alpha_symm` (via the name-swap lemma `related_swap`)
+- **α is transitive** — `alpha_trans` — the one I'd punted, now closed
+
+So **α is a genuine equivalence relation** on named terms, done *without* de Bruijn indices.
+
+The transitivity was the real work, and it's the interesting part: I introduced **`compose`**, the composition of two name correspondences, and proved `related_comp` — that composition respects `related` **provided the middle names align** (`R₁.map snd = R₂.map fst`). That alignment is exactly the invariant the two derivations maintain as they descend in lockstep through the shared middle term `s`. Then `alphaR_trans` threads it through by induction, and `alpha_trans` is the empty-context case.
+
+The naive-substitution **capture** example is still there (`decide`-checked) — the standing reminder of *why* all this α machinery is needed.
+
+Honest remaining scope (now noted as *future work*, not sorries): capture-avoiding substitution, β-reduction, and confluence. That's genuinely where the named representation's cost bites — even *defining* capture-avoiding substitution needs a fresh-name supply and well-founded recursion, which de Bruijn indices hand you for free.
+
+It's open in the Playground window (reload the server to see it green). Want me to push on to capture-avoiding substitution next, or is this the right place to rest it?
+

@@ -1,0 +1,98 @@
+---
+prompt: p0251
+type: interaction
+opened: 2026-0815-13:00
+closed: 2026-0815-13:09
+subject: do-63
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:00:48.045000-07:00
+
+do 6.3
+
+## turn — assistant 2026-08-15T13:01:43.609000-07:00
+
+§6.3 needs ℝ, so this is where Mathlib comes in — in a **separate module**, keeping `LRSODInCIC.lean` and `ScottDomainExamples.lean` import-free. First, finding a Mathlib revision that matches our pinned toolchain:
+
+    Bash git ls-remote --tags https://github.com/leanprover-community/mathlib4 2>/dev/null | grep -E "v4\.3[123]\.[0-9]+$"
+## turn — assistant 2026-08-15T13:02:06.369000-07:00
+
+Mathlib tag `v4.32.2` exists — an exact match for our pinned toolchain, so no toolchain change is needed. Adding it:
+
+    Read /Users/scott/projects/EricsonPapers/lakefile.toml
+    Edit /Users/scott/projects/EricsonPapers/lakefile.toml
+    Bash lake -d ~/projects/EricsonPapers update mathlib 2>&1 | tail -25
+## turn — assistant 2026-08-15T13:03:47.162000-07:00
+
+Mathlib is in place (cache was already local — 8,638 files, no download needed). Writing §6.3 as its own module:
+
+    Write /Users/scott/projects/EricsonPapers/Domains/IntervalDomain.lean
+    Bash lake -d ~/projects/EricsonPapers build Domains.IntervalDomain 2>&1 | grep -E "error:|Build completed|build failed|warning:" | head -30
+## turn — assistant 2026-08-15T13:05:02.012000-07:00
+
+Several proofs fought back — `max`/`min` inside structure literals make the rewrite motive ill-typed. Simplifying: the families are totally ordered, so directedness needs no construction at all, and the midpoint stays in range without `max`:
+
+    Write /Users/scott/projects/EricsonPapers/Domains/IntervalDomain.lean
+    Bash lake -d ~/projects/EricsonPapers build Domains.IntervalDomain 2>&1 | grep -E "error:|Build completed|build failed|warning:|depends on|does not depend"
+    Bash lake -d ~/projects/EricsonPapers build Domains.IntervalDomain 2>&1 | grep -A 12 "84:37"
+    Edit /Users/scott/projects/EricsonPapers/Domains/IntervalDomain.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/IntervalDomain.lean
+    Bash lake -d ~/projects/EricsonPapers build Domains.IntervalDomain 2>&1 | grep -E "error:|Build completed|build failed|warning:|depends on|does not depend"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers status --short
+    Bash git -C /Users/scott/projects/EricsonPapers add Domains/IntervalDomain.lean
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize the interval domain (catalogue 6.3): K(I[0,1]) = {bottom}, so algebraicity fails" -m 
+## turn — assistant 2026-08-15T13:07:06.403000-07:00
+
+2,189 deletions is not what I expected — checking before pushing:
+
+    Bash git -C /Users/scott/projects/EricsonPapers show --stat HEAD
+    Bash wc -l /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash git -C /Users/scott/projects/EricsonPapers show HEAD~1:Domains/ScottDomainExamples.lean | wc -l
+    Bash grep -n "§3.7\|§5.6\|§5.1\|§5.4\|§5.5\|§6.1" /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean | head
+## turn — assistant 2026-08-15T13:08:15.120000-07:00
+
+Stopping — that deletion is not mine and I need to flag it. `Domains/ScottDomainExamples.lean` was **2,922 lines at `96ae2c1`** and is **734 lines** in the working tree: everything from §3.7 onward (partial functions, streams, ideal completion, function space, tree domains, the D∞ tower, §6.1, §6.2) is gone from the file, and my commit just recorded that deletion. Restoring from git before anything is pushed:
+
+    Bash git -C /Users/scott/projects/EricsonPapers checkout HEAD~1 -- Domains/ScottDomainExamples.lean
+    Bash wc -l /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+## turn — assistant 2026-08-15T13:08:36.552000-07:00
+
+Two warnings surfaced that my earlier greps had filtered out. Fixing them, and noting my "zero warnings" claims for §5.6 onward were unverified:
+
+    Read /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+    Bash git -C /Users/scott/projects/EricsonPapers commit --amend -a --no-edit
+## turn — assistant 2026-08-15T13:09:03.197000-07:00
+
+§6.3 is proved — but **I need to flag something before pushing.**
+
+## The deletion
+
+`Domains/ScottDomainExamples.lean` was **2,922 lines** at `96ae2c1` (the §5.5 commit, already on `origin/main`) and appeared as **734 lines** in the working tree when I went to commit. Everything from §3.7 onward — partial functions, streams, ideal completion, function space, tree domains, the D∞ tower, §6.1, §6.2 — was absent. My commit initially recorded that as a 2,188-line deletion.
+
+I restored the file from `HEAD~1` and amended the commit, which is now **+296 / −2** across 5 files. Nothing was lost — the content was safely in git and on `origin` — and **nothing has been pushed**. If you trimmed that file deliberately, say so and I'll re-apply the trim; I assumed accident because the alternative discards work you had just asked for.
+
+## §6.3
+
+[Domains/IntervalDomain.lean](../EricsonPapers/Domains/IntervalDomain.lean) — `compact_iff_eq_bot : IsCompactEl I ↔ I = ivalBot`. **K(I[0,1]) = {⊥}**, so the interval domain is not algebraic and not a Scott domain, which is the entry's claim.
+
+For I ≠ ⊥ the refuting family is the widenings of I — same right endpoint, strictly smaller left endpoint, or the mirror image. Each family is **totally ordered**, so directedness needs no construction at all: the upper bound of two members is whichever is sharper. Its supremum is I, with no member above I.
+
+Mathlib is now a dependency, pinned to tag **`v4.32.2`** — an exact match for `lean-toolchain`, so no toolchain change. The cache was already on this machine (8,638 files, nothing downloaded). This is the **only** module that imports it; the audit reads `[propext, Classical.choice, Quot.sound]`, and that `Classical.choice` is ℝ's, not the development's.
+
+## A correction to my own reporting
+
+Two warnings were live at `ScottDomainExamples.lean:2242` (unreferenced binders in `principalIdeal`). My build greps from §5.6 onward matched `error:` but not `warning:`, so my "zero warnings" claims for §5.6, §5.1, §5.4 and §5.5 were unverified rather than false-but-checked. Fixed now, and the full build reports **846 jobs, zero errors, zero warnings**.
+
+Say the word and I'll push; I did not want to push over an anomaly I couldn't explain.
+

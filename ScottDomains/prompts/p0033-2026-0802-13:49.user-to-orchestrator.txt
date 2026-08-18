@@ -1,0 +1,48 @@
+---
+prompt: p0033
+type: interaction
+opened: 2026-0802-13:49
+closed: 2026-0802-13:50
+subject: what-was-the-bug-in-my-emacs-file-comple
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T13:49:56.894000-07:00
+
+What was the bug in my emacs file complete?
+
+## turn — assistant 2026-08-02T13:50:32.664000-07:00
+
+The bug was in the shell **directory-tracking** (`dirtrack`) setup in `~/.emacs` — that's what made filename completion in `M-x shell` "could not complete." Here's the precise diagnosis (proven with a live-zsh test harness):
+
+**Symptom.** In `M-x shell`, after `cd ScottLean4`, Emacs's `default-directory` did *not* follow into the new directory. So when you tried to complete a filename, comint looked in the *old* directory and found nothing → "could not complete."
+
+**Root cause — a leading carriage return.** zsh's line editor (ZLE) **repaints the prompt prefixed with a carriage return** `\r`. So the text `dirtrack` actually received was:
+
+```
+"\r/Users/scott/projects/ScottLean4 % "
+```
+
+Your `dirtrack-list` regexp was `^\([^ ]+\) [#%] ` — and it failed on that input for two combining reasons:
+1. `^` anchors at the **start of the string**, which is *before* the `\r`.
+2. `[^ ]+` (“non-space”) happily **matches the `\r`** — a carriage return isn't a space.
+
+So capture group 1 came out as `"\r/Users/scott/projects/ScottLean4"` — a string that **starts with `\r`, not `/`**. Emacs's `file-name-absolute-p` therefore returned `nil`, dirtrack decided it wasn't a real absolute path, **skipped its cd-tracking branch**, and left `default-directory` unchanged. Hence: no directory tracking, and broken completion.
+
+(There was also an earlier, shallower version of the problem: your original `~/.emacs` regexp `"[^ ]* \([^\$]+\) \$ $"` was written for the old **bash** prompt ending in ` $ `, and didn't match a **zsh** `%#` prompt at all. Switching shells exposed it; the `\r` was the deeper reason the first fix still failed.)
+
+**The fix (two coupled edits):**
+- `~/.zshrc` (in-Emacs branch): emit the **absolute** path — `PROMPT='%d %# '` instead of `%~ %# ` — so the captured path always begins with `/`.
+- `~/.emacs`: change the regexp to capture from the literal `/`, excluding CR/space/newline, and drop the `^` anchor:
+
+```elisp
+(set-variable 'dirtrack-list '("\\(/[^ \r\n]*\\) [#%] " 1 nil))
+```
+
+The `[^ \r\n]*` explicitly excludes the carriage return (and space/newline), so the leading `\r` can no longer sneak into the captured path. Verified afterward: `cd`, `up1`, and absolute `cd /tmp` all update `default-directory` correctly.
+

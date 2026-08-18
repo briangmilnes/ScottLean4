@@ -1,0 +1,60 @@
+---
+prompt: p0240
+type: interaction
+opened: 2026-0815-11:30
+closed: 2026-0815-11:36
+subject: do-34
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T11:30:32-07:00
+
+do 3.4
+
+## turn — assistant 2026-08-15T11:33:44.855000-07:00
+
+§3.4 (ω+1) is the first infinite carrier, and the first where `basisCpt` has real content — the finite-subcover proof has to be done by induction rather than by exhibiting a bound, and it cannot use choice to pick a covering open per point.
+
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build
+## turn — assistant 2026-08-15T11:34:59.409000-07:00
+
+Three errors, all the same root cause: `hb : vertUp (b+1) (some b)` is *definitionally* `b+1 ≤ b` but not syntactically, so `omega` sees no arithmetic. Type ascriptions force the unfolding:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash lake -d ~/projects/EricsonPapers build
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize the vertical naturals omega+1 (catalogue 3.4) as vertNat : DInfinityFoundations (Opti
+## turn — assistant 2026-08-15T11:36:10.575000-07:00
+
+§3.4 done — `vertNat : DInfinityFoundations (Option Nat)`, kernel-checked. Committed as `de01fef` (2 files, +326/−5). Build: 4 jobs, zero errors, zero warnings, zero `sorry`.
+
+**The topology carries the catalogue's point.** Openness is three conditions, not one: up-closed among finite points, up-closed to ∞, and `U ∞ → ∃ a, U a`. That third conjunct is inaccessibility, and it is exactly what excludes {∞} — an up-set that is not open. `vert_top_not_isOpen` proves it, axiom-free. That is the topological form of ∞ ∉ K(ℕ^∞), and why the base has one member per finite point and none for ∞.
+
+**Both remaining fields change character on an infinite carrier:**
+
+- **D2** — a closed set is now an arbitrary bounded set of naturals, so the generic point cannot be produced by case analysis. It is the **maximum**, constructed by induction on the bound (`vert_max_of_bounded`). The other branch, a closed set containing ∞, is forced to be everything.
+- **D3 `basisCpt`** — first real content. The open covering ∞ contains an entire tail, leaving finitely many points below it. Assembling a subcover for those is done **one open at a time** (`vert_finite_cover`), because turning `∀ m, ∃ i, U i m` into a function `m ↦ i` is countable choice, which this development does not admit — `lem` is the only classical principle in scope. The induction is legitimate precisely because the goal is a `Prop`, so each existential is eliminated inside the proof rather than escaping as data.
+
+| declaration | axioms |
+| --- | --- |
+| `vertTop`, `vert_top_not_isOpen` | none |
+| `vert_finite_cover` | `[propext, Quot.sound]` |
+| `vert_max_of_bounded` | `[lem, propext, Quot.sound]` |
+| `vertNat` | `[lem, propext, Quot.sound]` |
+
+Worth noting against my own prediction: I wrote `[lem]` in the audit comment for `vert_max_of_bounded` and the kernel reported `[lem, propext, Quot.sound]`. The extra two come from `omega` discharging arithmetic side conditions — `vert_finite_cover` picks them up the same way despite using no excluded middle. The comments now state the measured values.
+
+**One elaboration lesson for later witnesses**, recorded in the commit: `vertUp n (some b)` is *definitionally* `n ≤ b` but not syntactically, so `omega` reports "no usable constraints" until the hypothesis gets an explicit type ascription. That was all three of the build's errors.
+
+§8 now reads 4 of 16. Remaining nearby: §3.5 (finite bounded-complete posets), §3.6–3.8, and §6.1 — the first non-example, where the work is *refuting* bounded completeness rather than inhabiting the structure. Four commits unpushed.
+

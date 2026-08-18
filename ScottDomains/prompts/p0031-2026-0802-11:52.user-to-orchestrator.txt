@@ -1,0 +1,36 @@
+---
+prompt: p0031
+type: interaction
+opened: 2026-0802-11:52
+closed: 2026-0802-11:52
+subject: how-many-mathematic-notebooks-did-we-fin
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T11:52:22.891000-07:00
+
+How many mathematic notebooks did we find?
+
+## turn — assistant 2026-08-02T11:52:29.038000-07:00
+
+**37** Mathematica notebooks (`.nb`), all under `ScottClasses/`. Let me give you the exact breakdown by course:
+
+    Bash cd ~/projects/ScottLean4 echo "total .nb: $(find ScottClasses -iname '*.nb' | wc -l | tr -d ' ')" for c in 15-491 15-499; do   echo "=== $c: $(find Sc
+## turn — assistant 2026-08-02T11:52:41.610000-07:00
+
+**37 Mathematica notebooks total**, split across the two courses:
+
+| Course | Notebooks | Contents |
+|---|---|---|
+| **15-491** | **34** | 21 Lectures + 13 Homework (incl. `14.Final.nb`) |
+| **15-499** | **3** | `IntroMathematica`, `Topic01`, `Topic02` |
+
+The **15-491** set is clearly a **projective/algebraic geometry** course — the lecture titles trace a full arc: Complex Numbers → Coordinates → Incidence → Cross-ratio → Transformations → Curves → Conics → Polars → Cubics → Classification → Euclidean → Weierstrass ℘. That's 21 lectures + 12 weekly homeworks + a final.
+
+So: **37 notebooks** (34 + 3), and none of them will render on GitHub — you'll need one of the three Wolfram options (Mathematica / Player / Cloud) to open them, which comes back to the one question: **does Dana have a CMU Mathematica license?**
+

@@ -1,0 +1,94 @@
+---
+prompt: p0297
+type: interaction
+opened: 2026-0816-13:31
+closed: 2026-0816-13:36
+subject: do-the-completelattice-instance-on-scott
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T13:31:48.489000-07:00
+
+do the CompleteLattice instance on ScottHom
+
+## turn — assistant 2026-08-16T13:32:18.366000-07:00
+
+The mathematical point: the pointwise sup of an *arbitrary* family of Scott-continuous maps into a complete lattice is Scott-continuous, since `⨆ᵢ ⨆ₓ = ⨆ₓ ⨆ᵢ` holds unconditionally. Let me check how the package already defines `sSup` on `ScottHom`.
+
+    Bash sed -n '100,175p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/ScottHom.lean
+## turn — assistant 2026-08-16T13:32:42.829000-07:00
+
+`scottContinuous_pointwiseSup_of_forall_isLUB` is exactly the general lemma needed — deliberately stated without directedness. But the file warns of an instance diamond, and `const` is documented as "the junk value of `sSup` on a non-directed set". Let me see the actual `sSup`:
+
+    Bash sed -n '175,258p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/ScottHom.lean
+## turn — assistant 2026-08-16T13:33:12.579000-07:00
+
+This is the key: the package's `sSup` branches on **continuity of the pointwise sup**, not on directedness. With a complete-lattice codomain the pointwise sup is *always* continuous, so the `dite` always takes the positive branch — the junk value never fires and there's no new `SupSet` to create. Checking Mathlib's constructor:
+
+    Bash grep -rn -A8 'def completeLatticeOfSSup' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Order/CompleteLattice/Basic.lean
+    Bash grep -rn 'completeLatticeOfSSup' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Order/ | head -5
+    Bash grep -rn 'completeLatticeOf\|CompleteLattice.ofSSup\|def completeLatticeOfInf' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Ma
+    Bash sed -n '213,236p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Order/CompleteLattice/Defs.lean
+## turn — assistant 2026-08-16T13:34:13.354000-07:00
+
+Mathlib itself warns `completeLatticeOfSup` "has bad definitional properties" (`bot := sSup ∅`), which would diamond against the package's `bot := const ⊥`. So I'll supply it as a `def`, not a global instance.
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALat.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALat
+## turn — assistant 2026-08-16T13:34:50.730000-07:00
+
+Two fixes: a beta-redex from `PartialOrder.lift` needs `dsimp only` first (as the package's own `lubOfDirected` does), and a `def` of class type needs `@[reducible]`.
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALat.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALat.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALat
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALat.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0060: ScottHom is a complete lattice when the codomain is, on the existing SupSet  ALat.lean 113 -
+## turn — assistant 2026-08-16T13:36:32.414000-07:00
+
+Pushed **3bc45a3**. This one turned on a design decision already in the package.
+
+## The crux
+
+`ScottHom.lean` defines `sSup` by a `dite` on **continuity of the pointwise supremum** — not on directedness — and the docstring says why deliberately:
+
+> Directedness and boundedness are then two *sufficient* conditions, neither privileged in the definition.
+
+A complete-lattice codomain is a **third** such condition. Suprema commute, `⨆ᵢ ⨆ₓ = ⨆ₓ ⨆ᵢ`, unconditionally in a complete lattice — so the pointwise sup of an *arbitrary* set of Scott-continuous maps is continuous, with no directedness and no boundedness. The `dite` therefore always takes the positive branch and the `const ⊥` junk value never fires.
+
+The consequence that matters: **no second `SupSet`, so no `SupSet` diamond** — the hazard `ScottHom.lean` records as having broken an `Iff.rfl` in r0004. And in Lean it's one application of the package's own `scottContinuous_pointwiseSup_of_forall_isLUB`, which was written without directedness precisely to allow this.
+
+## One judgment call
+
+`scottHomCompleteLattice` is a **`def`, not an `instance`**. Mathlib's `completeLatticeOfSup` documents itself as having "bad definitional properties": it sets `bot := sSup ∅`, while the package's `CompletePartialOrder (ScottHom α β)` sets `bot := const ⊥`. Those agree *propositionally* but not definitionally, and registering it globally would put an `OrderBot` diamond across a 1538-job library. Opt in with `letI`.
+
+Proving `sSup ∅ = const ⊥` and hand-rolling `bot` would make it a safe instance — small, and the obvious next step.
+
+## Two Lean details
+
+`PartialOrder.lift` leaves a beta-redex, so the `IsLUB` proof needs `dsimp only` before `rw` — exactly as the package's own `lubOfDirected` does. And a `def` whose type is a class must be `@[reducible]`.
+
+## State
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic.lean` | 201 | **0** |
+| `SigmaTopology.lean` | 194 | **0** |
+| `PartialEquilogical.lean` | 258 | 3 |
+| `CartesianClosure.lean` | 154 | **0** |
+| `ALat.lean` | 186 | **0** |
+| `Theorems3.lean` | 161 | 4 |
+| **Total** | **1154** | **7** |
+
+1538 jobs, 0 errors.
+
+**Both mathematical prerequisites for the exponential being an object of `ALat` are now in hand** — its carrier is algebraic (r0059) and it is a complete lattice (here). Theorem 3.8 is down to finite products in `ALat` plus the adjunction from `scottHomCurry`; that's categorical assembly, not new mathematics.
+

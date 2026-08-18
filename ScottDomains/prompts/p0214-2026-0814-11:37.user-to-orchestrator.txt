@@ -1,0 +1,33 @@
+---
+prompt: p0214
+type: interaction
+opened: 2026-0814-11:37
+closed: 2026-0814-11:38
+subject: fix-the-two-defects-in-claudemd
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-14T11:37:07.956000-07:00
+
+fix the two defects in CLAUDE.md
+
+    Edit /Users/scott/projects/EricsonPapers/CLAUDE.md
+    Edit /Users/scott/projects/EricsonPapers/CLAUDE.md
+## turn — assistant 2026-08-14T11:38:02.932000-07:00
+
+Both edits are in [EricsonPapers/CLAUDE.md](../EricsonPapers/CLAUDE.md), scoped to that file as you asked:
+
+1. **Build path** ([:99–109](../EricsonPapers/CLAUDE.md:99)) — `/Users/milnes/…` → `/Users/scott/projects/EricsonPapers/docs/LRSODInCIC.lean`, plus three lines recording that the root differs by machine (`/Users/scott` macOS, `/home/milnes` Linux) while the repo-relative path `docs/LRSODInCIC.lean` is invariant.
+
+2. **Duplicates** ([:111–119](../EricsonPapers/CLAUDE.md:111)) — the layout entry now states the measurement (`diff` reports no difference on either the `.lean` or the `.pdf`) and that the `(1)` pair is to be deleted, rather than describing it as a standing feature of `docs/`.
+
+Two things left, both outside the file you scoped:
+
+- The duplicates are still tracked — `docs/LRSODInCIC (1).lean` and `.pdf`, byte-identical to their originals. Say the word and I'll `git rm` them in that repo; that makes the doc's "are to be deleted" true.
+- `EricsonPapers` is a separate git repository with its own remote, so `scripts/gitcp.sh` here does not cover it. Nothing is committed there yet — `CLAUDE.md` is modified in its working tree.
+

@@ -1,0 +1,34 @@
+---
+prompt: p0059
+type: interaction
+opened: 2026-0803-07:30
+closed: 2026-0803-07:30
+subject: oh-no-thats-what-i-wanted-its-a-very-dif
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T07:30:12.363000-07:00
+
+Oh no that's what I wanted. It's a very different algorithm than hindley-milner which is interesting.
+
+## turn — assistant 2026-08-03T07:30:51.630000-07:00
+
+Right — glad it's the one. And yes, it's a genuinely different beast from Hindley–Milner, in a way that's worth making precise:
+
+**Hindley–Milner** solves *type inference*: given un-annotated ML code, find a **principal (most general) type**. It works because the setting is deliberately restricted — no dependency (types can't mention terms), rank-1 let-polymorphism — so the constraints are **first-order unification**, which is decidable and has most-general unifiers. Algorithm W is **complete**: no annotations needed, ever.
+
+**Lean's elaboration** isn't inference in that sense — it's *elaboration*: translating high-level surface syntax into fully explicit core dependent type theory. Because types depend on terms (Π-types, universes), full inference is **undecidable**, so completeness is off the table by design. What replaces Algorithm W:
+
+- **Bidirectional** flow — checking against an *expected type* vs. synthesizing one — so information propagates inward from context instead of being solved globally.
+- **Higher-order / pattern unification** (Huet-style) for metavariables, not first-order — undecidable, so it leans on the decidable *pattern fragment* plus heuristics, and **postpones** constraints it can't yet solve until more is known.
+- Interleaved **implicit-argument insertion, coercions, typeclass resolution, overloading, and universe inference** — none of which exist in HM.
+
+So the trade is stark: HM buys **decidable, annotation-free, principal-type** inference by staying non-dependent; Lean gives all three of those up to gain full dependent types, and compensates with bidirectional expected-type propagation, user-marked implicits (`{…}`), and heuristic unification with backtracking/postponement. It's less "solve for the type" and more "run the program of turning your sketch into an explicit term, asking for help where it can't decide."
+
+(Aside, still pending whenever you want it: the `papers/` addition and the LeanEuclid status update are uncommitted — say the word to commit + push.)
+

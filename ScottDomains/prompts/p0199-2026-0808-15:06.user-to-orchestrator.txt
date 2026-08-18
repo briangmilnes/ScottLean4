@@ -1,0 +1,60 @@
+---
+prompt: p0199
+type: interaction
+opened: 2026-0808-15:06
+closed: 2026-0808-15:08
+subject: from-git-uh-sorry-github-brian-gmailms-s
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-08T15:06:15.202000-07:00
+
+from Git, uh, sorry, GitHub, Brian Gmailms, Scott, bibliography. That's m i l n e s.
+
+    Bash gh repo list briangmilnes --limit 100
+## turn — assistant 2026-08-08T15:06:32.046000-07:00
+
+`briangmilnes/ScottBibliography` — "An attempt to get all of Dana Scott's papers collected in one place." Public, last updated 2026-08-07. Cloning it to `/Users/scott/projects/ScottBibliography`, matching where you said it lives:
+
+    Bash git clone https://github.com/briangmilnes/ScottBibliography.git /Users/scott/projects/ScottBibliography
+    Bash ls -la /Users/scott/projects/ScottBibliography
+    Bash du -sh /Users/scott/projects/ScottBibliography
+    Bash grep -c "^@" /Users/scott/projects/ScottBibliography/scott.bib
+    Bash ls /Users/scott/projects/ScottBibliography/papers/
+    Read /Users/scott/projects/ScottBibliography/MissingPapers.md
+    Bash ls -1 /Users/scott/projects/ScottBibliography/papers/ | wc -l
+    Bash open /Users/scott/projects/ScottBibliography/ScottBibliography.pdf
+    Bash code -g /Users/scott/projects/ScottBibliography/MissingPapers.md:3 -g /Users/scott/projects/ScottBibliography/scott.bib:1
+## turn — assistant 2026-08-08T15:08:03.779000-07:00
+
+Already done — that's what I cloned. It's on this disk at `/Users/scott/projects/ScottBibliography`, 594 MB, sibling to `ScottLean4`.
+
+What's in it:
+
+| Item | Count / size |
+|---|---|
+| `scott.bib` — the actual BibTeX file | **103 entries**, 39 KB |
+| `papers/` | **78 PDFs** |
+| Books at top level | 5 PDFs — the 1980 *Compendium of Continuous Lattices* (40 MB), the 2003 *Continuous Lattices and Domains* front-matter only, Scott 1959 *Dimension in Elementary Euclidean Geometry*, and both 1982 volumes |
+| `ScottBibliography.md` / `.pdf` | 11 KB / 108 KB — open in your viewer now |
+| `ScottBibliographyCited.md` | 29 KB |
+| `MissingPapers.md` | the gap analysis — open in VS Code at its coverage line |
+| `plans/`, `reports/` | GRASE round artifacts, same convention as ScottLean4 |
+
+`MissingPapers.md` states coverage as **74/99 papers + 2/4 books held → 25 papers + 2 books still missing**, with each gap routed: 🟢 open-access-but-curl-blocked, 🔵 CMU-subscription, 📖 book-chapter, ⚫ not digitized. Batch 4 (1992–2025) is complete. The two flagged as fastest wins are the 1956 *Indagationes* geometry papers, free in a browser.
+
+Three things worth knowing given today's work:
+
+- **`papers/Scott-1972-Continuous-Lattices.pdf` is here** — the source paper Ericson formalized, which `ContinuousLatticeComparison.md` compares your development against. So the comparison's primary source is now local, even though the `scott1972/` Lean artifact still isn't.
+- **`Scott-2000-Reflections-on-Strachey.pdf`** pairs with your `notes/ScottStracheyCriticisms.tex`.
+- **Missing item #72 is "Teaching projective geometry", MCS News '90, CMU, 1990**, routed ⚫ — CMU archives or Dana's own files.
+
+One count doesn't reconcile: `papers/` holds 78 PDFs against the document's "74 held". The difference is probably entries outside the 99 (the 2003 review is marked BONUS, and several are co-authored), but I haven't checked it against `ScottBibliography.md` — flagging rather than guessing.
+
+Still outstanding from before the redirect: [scripts/bibliography-cites.sh](scripts/bibliography-cites.sh) in ScottLean4, written but never run. With a real `scott.bib` now in hand it's the wrong tool — say the word and I'll delete it.
+

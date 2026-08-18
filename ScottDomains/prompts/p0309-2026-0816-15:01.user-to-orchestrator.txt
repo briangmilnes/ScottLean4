@@ -1,0 +1,83 @@
+---
+prompt: p0309
+type: interaction
+opened: 2026-0816-15:01
+closed: 2026-0816-15:06
+subject: do-essential-surjectivity
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:01:44.368000-07:00
+
+do essential surjectivity
+
+## turn — assistant 2026-08-16T15:02:11.467000-07:00
+
+Essential surjectivity needs the inverse of the embedding. Checking Mathlib for the homeomorphism-onto-image constructor:
+
+    Bash grep -rn 'def Homeomorph.ofEmbedding\|ofIsEmbedding\|toHomeomorph' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Topolo
+    Bash grep -rn 'toHomeomorphOfIsInducing\|IsEmbedding.toHomeomorph\|toHomeomorphOfSurjective\|homeomorphOfIsInducing' /Users/scott/projects/ScottLean4/Scott
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:03:39.638000-07:00
+
+The witness, its PER, and the total-part characterization all build first try. Adding the forward half of the isomorphism:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:04:37.279000-07:00
+
+Two issues: the `variable` binder toggle is disturbing local-instance resolution, and an elaboration-order problem. Removing the toggle and moving to tactic mode:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0072: the essential-surjectivity witness  New EssSurj.lean (107 lines, 0 sorry). The mathematical 
+## turn — assistant 2026-08-16T15:06:38.742000-07:00
+
+Pushed **f020a89**. I got the **mathematical core** of essential surjectivity, **not** the property itself — being clear about that up front.
+
+## Proved
+
+- **`witness ℰ`** — the powerset `𝒫(𝒫|ℰ|)` under its Σ-topology (algebraic by `ScottDomains.Powerset`), carrying the relation transported along `nbhdFilter`. It is an object of `PEqu`.
+- **`witness_total`** — its total part is **exactly** `range nbhdFilter`. This is the content of the paper's parenthesis, *"note that the equivalence relation on the `T₀`-space does not have to be extended but remains partial"*: the transported relation is reflexive on the image of the embedding and nowhere else.
+- **`witnessRel_trans`** — the only clause needing an argument, and **where `T₀` is spent a second time**: from `S ≈ T` and `T ≈ U` the two middle witnesses have equal neighbourhood filters, and only injectivity of `nbhdFilter` makes them equal so `≡_ℰ` can compose.
+- **`witnessEmbed`** and its injectivity — the forward equivariant map. Equivariance is immediate because the relation was *defined* so that filters are related exactly when the points are.
+
+107 lines, 0 `sorry`.
+
+## Not done
+
+**The `Equ`-isomorphism `ℰ ≅ R (witness ℰ)`.** The backward morphism — the inverse of the embedding, continuous by Theorem 3.6 — plus the two composite conditions. So `Functor.EssSurj` is not instantiated and 3.12 is still `sorry`.
+
+I located the Mathlib route rather than guess at it: `Equiv.ofInjective` then `Equiv.toHomeomorphOfIsInducing`, transported across `witness_total` via `Homeomorph.setCongr`. That transport across a *set equality* into a subtype is the fiddly part, and I'd rather start it fresh than half-land it.
+
+## One Lean detail
+
+Toggling a section `variable` between explicit and implicit binders broke resolution of local instances declared *before* the toggle — the `IsScott` instance simply stopped being found. Removing the toggle and passing `E` explicitly to the two PER lemmas fixed it.
+
+## State
+
+| | |
+| --- | ---: |
+| Modules | 13 |
+| Lines | **2163** |
+| `sorry` | **5** |
+| Fully proved modules | **12 of 13** |
+
+1549 jobs, 0 errors.
+
+**Theorem 3.12's four pieces:** functor ✅, faithful ✅, full ✅, essentially surjective — witness ✅, isomorphism owed. That isomorphism is the single thing between here and 3.12, and 3.13 for `Equ` then transports from the `ALat` side, which is complete.
+

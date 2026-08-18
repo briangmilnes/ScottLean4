@@ -1,0 +1,58 @@
+---
+prompt: p0261
+type: interaction
+opened: 2026-0815-18:24
+closed: 2026-0815-18:26
+subject: yes-reorder-it-in-catalogue-order
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T18:24:17.424000-07:00
+
+yes, reorder it in catalogue order
+
+## turn — assistant 2026-08-15T18:25:15.748000-07:00
+
+Pure block reordering will do it — no declaration needs to move, because each shared utility (`pairDecode`, `psetBits`, `listsUpTo`) already sits in the earliest section that uses it, and that section stays earlier. Mapping the blocks first:
+
+    Bash grep -n "^/- -\{10,\}\|^/- =\{10,\}" /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Write /private/tmp/claude-501/-Users-scott-projects-ScottLean4/c6fa38c7-8fa5-4da5-88d6-80bbe34fda4c/scratchpad/reorder.py
+    Bash python3 /private/tmp/claude-501/-Users-scott-projects-ScottLean4/c6fa38c7-8fa5-4da5-88d6-80bbe34fda4c/scratchpad/reorder.py
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head
+## turn — assistant 2026-08-15T18:25:54.548000-07:00
+
+Reordered, and it builds — same 3,776 lines, same 217 declarations. Verifying the new sequence and documenting it in the header:
+
+    Bash grep -n "^   §" /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Read /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+    Bash git -C /Users/scott/projects/EricsonPapers diff --stat
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Reorder ScottDomainExamples.lean into catalogue order" -m "Pure block reordering: no declaratio
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T18:26:51.035000-07:00
+
+Reordered and pushed — `3f19bf0`. The file now reads in catalogue order:
+
+```
+3.1 · 3.2/4 · 3.3 · 3.4 · 3.5 · 3.6 · 3.7 · 3.8
+5.6 · 5.1 · 5.2 · 5.3 · 5.4 · 5.5
+6.1 · 6.2 · 6.5
+```
+
+**Verified mechanically, not by eye.** The reorder was a pure block move — no declaration left its section, no proof changed — and I checked it two ways before building: the file is the same **3,776 lines** with the same **217 top-level declarations** before and after (the script exits rather than writing if either differs). Build: 846 jobs, zero errors, zero warnings.
+
+What this fixes for a reader: §6.1 and §6.2 no longer interrupt the §3 series, and **§5.5's two halves are now adjacent** — the tower, then the flat encoding that unblocked it, then D∞ — instead of being separated by §5.3.
+
+**Two deviations remain, both forced by definition-before-use rather than chosen**, and both now stated in the file header:
+
+1. **§5.6 comes first within §5**, because `idealDomain` is what §5.1, §5.4, §5.5 and §6.5 are built on. That is also the mathematical order — §5.6 is the general theorem and the rest are instances of it.
+2. **Shared utilities stay where they were first needed** — `psetBits` in §3.6, `pairDecode` in §3.7, `listsUpTo` in §5.5 — rather than being hoisted into a preliminaries block. Each of those sections precedes every later user, so nothing forward-references. Hoisting them would have meant moving declarations across blocks, which is where a reorder like this actually breaks; I preferred the check I could verify.
+
+The header also now records what is *not* in the file: §6.3/§6.4 in `IntervalDomain.lean` (they need ℝ, hence Mathlib, and this file stays import-free), and §3.2's witness `sierp` in `LRSODInCIC.lean`, with only its three-opens enumeration here.
+

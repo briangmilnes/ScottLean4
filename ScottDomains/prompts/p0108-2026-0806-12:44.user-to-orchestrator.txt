@@ -1,0 +1,35 @@
+---
+prompt: p0108
+type: interaction
+opened: 2026-0806-12:44
+closed: 2026-0806-12:45
+subject: write-me-a-scriptsmanualsetupsh-with-the
+session: aad537a0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/aad537a0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T12:44:16-07:00
+
+Write me a scripts/manualsetup.sh with the lines I have to run. I'll read them and do them.
+
+    Bash head -25 /home/milnes/projects/ScottLean4/scripts/md2pdf.sh; echo "=== gitcp head ==="; head -15 /home/milnes/projects/ScottLean4/scripts/gitcp.sh
+    Write /home/milnes/projects/ScottLean4/scripts/manualsetup.sh
+    Bash cd /home/milnes/projects/ScottLean4 && chmod +x scripts/manualsetup.sh && bash -n scripts/manualsetup.sh && echo "syntax: ok" && ls -l scripts/manuals
+## turn — assistant 2026-08-06T12:45:52-07:00
+
+`scripts/manualsetup.sh` written, executable, `bash -n` passes. Nine steps, only five of which are shell commands — steps 2, 6, and 8 are GUI or mac-side actions, written as comments so the file stays a complete record rather than pretending they're runnable.
+
+Two things to flag about it:
+
+**Steps 3 and 4 are still unconfirmed.** I marked them so in the file. The `fonts-stix` and TeX Live package lists are my estimate; agent3 is running the `dpkg` survey that will confirm or shrink them. Re-read those two steps before running — I'll revise the file when agent3 reports.
+
+**A new portability problem, from writing this.** `scripts/md2pdf.sh` is `#!/bin/zsh` and uses zsh-only syntax (`${0:A:h}` to locate the header file), and it hardcodes macOS paths (`/Library/TeX/texbin`, `/opt/homebrew/bin`) onto `PATH`. So the fonts are not the only reason it fails here — the script itself is mac-only. That's inside agent3's scope and I've left it to that agent rather than editing the file while it's working there.
+
+I skipped Live Share entirely per your call.
+
+The remaining sequencing: your denied permission → agent3 finishes → I correct steps 3–5 → you run them.
+

@@ -1,0 +1,48 @@
+---
+prompt: p0236
+type: interaction
+opened: 2026-0815-11:14
+closed: 2026-0815-11:17
+subject: do-the-one-point-example
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T11:14:42.664000-07:00
+
+do the one point example
+
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Read /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build
+## turn — assistant 2026-08-15T11:17:45.121000-07:00
+
+Done — `onePoint : DInfinityFoundations Unit` is kernel-checked. Build: **4 jobs, zero errors, zero warnings, zero `sorry`.**
+
+**What was proved.** For carrier `Unit` with `isOpen _ := True`, all four D-axioms hold: D1 `t0`, D2 `sober`, D3 the basis quartet (`basisOpen`, `basisCpt`, `basisGen`, `basisCap`), D4 `botAx` with `bot := ()`. Per catalogue §2 row 3.1 that is 𝟙 — ω-algebraic, bounded complete, a lattice — now the second of the 16 entries with a witness.
+
+**Why the topology is `True`.** §3.1 gives the Scott topology as {∅, {⊥}}. On a one-element poset every subset is an up-set and is vacuously inaccessible by directed suprema, so every subset is open; with subsets rendered as `Unit → Prop` that is `isOpen _ := True`. It is exactly `sierpTop`'s `U ⊥ → U ⊤` with the implication emptied of content, there being no second point.
+
+**The step worth keeping.** Every obligation is discharged by **definitional eta for structures**: `Unit` is a structure with one constructor, so any `x : Unit` is *definitionally* `()`. That is why `t0` closes by `rfl` rather than a case split, and why `botAx` is `exact h` — the hypothesis about ⊥ already *is* the goal about an arbitrary point. On `Bool` the corresponding proofs each needed `cases x`.
+
+**The measured result I did not expect to be this clean:**
+
+| declaration | axioms |
+| --- | --- |
+| `onePointTop` | none |
+| `onePoint_leq` | none |
+| `onePoint` | `[propext, Quot.sound]` |
+
+`lem` is **absent**. `sierp` consumes it to case split on `C ⊤` inside sobriety; here there is no second point to split on, so D2 goes through constructively. What survives is `propext` and `Quot.sound` (the latter via `funext`), both entering at the same field — the closure equation `C = clSingleton ⊥` is an equality of predicates. So 𝟙 has no classical frontier, and the comparison localizes exactly what excluded middle buys in the Sierpiński case. That is recorded in the audit comment at the end of the file.
+
+One stale line this creates: `docs/ScottDomainExamples.md` §8 says "1 of the 16 entries in §2 is formally verified." It is now 2. Want me to update §8 and commit both?
+

@@ -1,0 +1,35 @@
+---
+prompt: p0267
+type: interaction
+opened: 2026-0815-18:40
+closed: 2026-0815-18:40
+subject: commit
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T18:40:21.043000-07:00
+
+commit
+
+    Bash git -C /Users/scott/projects/EricsonPapers status --short --branch
+## turn — assistant 2026-08-15T18:40:32.184000-07:00
+
+Nothing to commit — working tree clean, `main` level with `origin/main` at `6e5011e`. The bijection was committed and pushed a moment ago.
+
+Current state of the development:
+
+| module | lines | contents |
+| --- | --- | --- |
+| `LRSODInCIC.lean` | 324 | layers L, R, S, O, D; `sierp` |
+| `ScottDomainExamples.lean` | ~4,000 | §3.1–3.8, §5.1–5.6, §6.1, §6.2, §6.5 — catalogue order |
+| `IntervalDomain.lean` | 260 | §6.3, §6.4 (the only Mathlib importer) |
+
+Build: 846 jobs, zero errors, zero warnings, zero `sorry`. All 16 rows of catalogue §2 settled with no outstanding scope limits, plus §5.6, §6.5's Hoare half, and §5.2's semantic content.
+
+Two things remain open, both because they need machinery outside the D1–D4 vocabulary rather than more work in it: the Plotkin bounded-completeness counterexample, and PCF-undefinability for parallel-or. Both are stated in §8 with the reason and, for Plotkin, the small cases I checked before concluding.
+

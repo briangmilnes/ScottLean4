@@ -1,0 +1,57 @@
+---
+prompt: p0186
+type: interaction
+opened: 2026-0807-11:22
+closed: 2026-0807-11:23
+subject: i-just-pulled-down-the-scott-lean-four-p
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-07T11:22:25.188000-07:00
+
+I just pulled down the Scott lean four project, Scott lean four, and we want to find in the Scott domain's subdirectory where the thirteen definitions from the paper are look in paper inventory dot m d for
+
+    Bash find /Users/scott/projects/ScottLean4 -iname "PaperInventory*" -not -path "*/.git/*"
+    Bash ls -la /Users/scott/projects/ScottLean4/ScottDomains
+    Bash grep -n -i "definition" /Users/scott/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Read /Users/scott/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Read /Users/scott/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Read /Users/scott/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash ls /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Powerdomain
+    Bash cd /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains && grep -n -E "^(noncomputable )?(def|structure|class|abbrev|instance) (WayBelow|wayBelo
+    Bash grep -n -E "^(noncomputable )?(def|structure|class|abbrev) " Powerdomain/Hoare.lean Powerdomain/Smyth.lean Powerdomain/Plotkin.lean ComputableFunction
+    Bash grep -n -E "Plotkin order|IsPlotkinOrder|plotkinOrder|def .*Plotkin" Bifinite.lean
+    Bash grep -n -E "instance.*(LE|Preorder|PartialOrder)|EgliMilner|def .*[Ll]e " Powerdomain/Hoare.lean Powerdomain/Plotkin.lean
+    Bash grep -n -E "^(noncomputable )?(def|structure|class|abbrev) (Solves|IsSolvable|IsUniversal|IsUniversalRetract)" RecursiveDomain.lean
+## turn — assistant 2026-08-07T11:23:30.079000-07:00
+
+Your message cut off at "look in paper inventory dot m d for" — but here's the answer to the part that's clear. The 13-definition list is at [PaperInventory.md:391](ScottDomains/docs/PaperInventory.md:391) ("Definitions to define — new (≈13…)"), and the landing table at [PaperInventory.md:334](ScottDomains/docs/PaperInventory.md:334) maps them to modules. All of them are in `ScottDomains/ScottDomains/`. Grepped locations:
+
+| # | Paper definition | Lean declaration | Location |
+|---|---|---|---|
+| 1 | way-below `≪` | `WayBelow` | [WayBelow.lean:51](ScottDomains/ScottDomains/WayBelow.lean:51) |
+| 2 | algebraic cpo | `IsAlgebraic` | [Domain.lean:119](ScottDomains/ScottDomains/Domain.lean:119) |
+| 3 | domain (algebraic cpo, countable basis) | `Domain` | [Domain.lean:128](ScottDomains/ScottDomains/Domain.lean:128) |
+| 4 | bounded complete | `BoundedComplete` | [Domain.lean:168](ScottDomains/ScottDomains/Domain.lean:168) |
+| 5 | embedding–projection pair | `IsEmbeddingProjectionPair` | [Projection.lean:44](ScottDomains/ScottDomains/Projection.lean:44) |
+| 6 | projection / finitary projection | `IsProjection`, `IsFinitaryProjection` | [Projection.lean:48](ScottDomains/ScottDomains/Projection.lean:48), [Projection.lean:170](ScottDomains/ScottDomains/Projection.lean:170) |
+| 7 | normal subposet `◁` | `IsNormalIn` | [NormalSubposet.lean:46](ScottDomains/ScottDomains/NormalSubposet.lean:46) |
+| 8 | effective presentation (§3.2) | `EffectivePresentation` | [EffectivePresentation.lean:57](ScottDomains/ScottDomains/EffectivePresentation.lean:57) |
+| 9 | smash product `D ⊗ E` (§4.3) | `Smash` | [Smash.lean:65](ScottDomains/ScottDomains/Smash.lean:65) |
+| 10 | Hoare (lower) powerdomain | `Pf` + `instPreorder` + `Powerdomain` | [Powerdomain/Hoare.lean:103](ScottDomains/ScottDomains/Powerdomain/Hoare.lean:103), [:139](ScottDomains/ScottDomains/Powerdomain/Hoare.lean:139), [:222](ScottDomains/ScottDomains/Powerdomain/Hoare.lean:222) |
+| 11 | Smyth (upper) powerdomain | `finsetLE`, `Basis`, `Powerdomain` | [Powerdomain/Smyth.lean:104](ScottDomains/ScottDomains/Powerdomain/Smyth.lean:104), [:150](ScottDomains/ScottDomains/Powerdomain/Smyth.lean:150), [:254](ScottDomains/ScottDomains/Powerdomain/Smyth.lean:254) |
+| 12 | Plotkin (convex) powerdomain, Egli–Milner | `FinCompacts`, `Plotkin.le`, `Powerdomain` | [Powerdomain/Plotkin.lean:87](ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:87), [:140](ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:140), [:256](ScottDomains/ScottDomains/Powerdomain/Plotkin.lean:256) |
+| 13 | Plotkin order / bifinite (§6.1) | `IsPlotkinOrder`, `IsBifinite` | [Bifinite.lean:38](ScottDomains/ScottDomains/Bifinite.lean:38), [Bifinite.lean:62](ScottDomains/ScottDomains/Bifinite.lean:62) |
+
+Two notes the inventory records:
+
+- **`D∞` is the 14th entry on that line and has no module** — [PaperInventory.md:145](ScottDomains/docs/PaperInventory.md:145) states §7 never builds an inverse limit; what stands in its place is `Recursive.Solves` ([RecursiveDomain.lean:79](ScottDomains/ScottDomains/RecursiveDomain.lean:79)), `IsSolvable` (:84), `IsUniversal` (:116) and `IsUniversalRetract` (:122). So 13 definitions landed, not 14.
+- **Computable function** (§3.2, called "the last definition" in r0031) is a separate item: `IsComputable` at [ComputableFunction.lean:96](ScottDomains/ScottDomains/ComputableFunction.lean:96), on Mathlib's `REPred`.
+
+What did you want from PaperInventory.md — the theorem side too, the `sorry` tally, or something else?
+

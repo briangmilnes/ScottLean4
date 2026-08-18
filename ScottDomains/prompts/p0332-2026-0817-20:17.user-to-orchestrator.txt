@@ -1,0 +1,52 @@
+---
+prompt: p0332
+type: interaction
+opened: 2026-0817-20:17
+closed: 2026-0817-20:22
+subject: sat-pls-save-the-prompts
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-17T20:17:44.773000-07:00
+
+sat pls save the prompts
+
+    Bash ls -la scripts/save-prompts.sh 2>/dev/null && echo "--- head ---" && head -40 scripts/save-prompts.sh
+## turn — assistant 2026-08-17T20:18:37.684000-07:00
+
+The script has hardcoded Linux paths — `SRC=~/.claude/projects/-home-milnes-…` and `OUT=/home/milnes/…` — neither of which exists on this Mac. Let me see the rest before deciding how to handle it:
+
+    Bash sed -n '40,130p' scripts/save-prompts.sh; echo "=== jq? ==="; command -v jq || echo "jq MISSING"
+## turn — assistant 2026-08-17T20:19:14.431000-07:00
+
+`jq` is present, but two things stop it here: the hardcoded Linux paths, and `date -d`, which is GNU-only. Same portability class as `compile.sh`. Since you work from two machines, let me fix it properly rather than run a one-off:
+
+    Bash cp scripts/save-prompts.sh /tmp/save-prompts.bak && python3 - <<'PY' p='scripts/save-prompts.sh' s=open(p).read()  # 1. derive SRC and OUT instead of 
+    Bash scripts/save-prompts.sh
+    Bash cd ScottDomains/prompts && ls | tail -5 && echo "=== total ===" && ls | wc -l && echo "=== newest file, head ===" && cat "$(ls | tail -1)" | head -25
+## turn — assistant 2026-08-17T20:20:36.903000-07:00
+
+248 written, but the directory holds 332 — let me check what the other 84 are before reporting this as clean:
+
+    Bash cd ScottDomains/prompts && echo "=== files NOT written just now (older mtime) ===" && find . -maxdepth 1 -name 'p*.txt' -not -newermt '-10 minutes' | 
+    Bash find . -maxdepth 1 -name 'p*.txt' -not -newermt '-10 minutes' | wc -l && echo "=== sample of the older ones ===" && find . -maxdepth 1 -name 'p*.txt' 
+    Bash ls -1 | sed -E 's/^(p[0-9]{4})-([0-9]{4})-.*/\1 \2/' | awk '{print $2}' | sort | uniq -c | sort -k2 && echo "=== duplicate p-numbers? ===" && ls -1 | 
+## turn — assistant 2026-08-17T20:21:16.469000-07:00
+
+**84 duplicate prompt numbers.** The run didn't overwrite the old files — it created a second series alongside them. Let me confirm what happened:
+
+    Bash for n in $(ls -1 | sed -E 's/^(p[0-9]{4}).*/\1/' | sort | uniq -d | head -3); do echo "=== $n ==="; ls -1 | grep "^$n"; done
+    Bash cd /Users/scott/projects/ScottLean4 && git status --short ScottDomains/prompts | awk '{print $1}' | sort | uniq -c && echo "=== is the 0801 series tra
+    Bash cd /Users/scott/projects/ScottLean4 && echo "tracked in prompts:" && git ls-files ScottDomains/prompts | wc -l && echo "untracked:" && git status --sh
+## turn — assistant 2026-08-17T20:22:22.733000-07:00
+
+Now it's clear, and it's the opposite of what I assumed. Let me verify before touching anything:
+
+    Bash cd ScottDomains/prompts && echo "=== the 84 TRACKED files are the 0806-onward series ===" && git ls-files . | sed 's/.*\///' | sed -E 's/^p[0-9]{4}-([
+    Bash cd ScottDomains/prompts && echo "files stamped 2026-0806:" && ls -1 | grep -c '2026-0806' && echo "their p-numbers:" && ls -1 | grep '2026-0806' | sed
+    Bash echo "count stamped 0806:" && ls -1 | grep -c '2026-0806' && echo "p-numbers used by 0806 files:" && ls -1 | grep '2026-0806' | sed -E 's/^(p[0-9]{4})

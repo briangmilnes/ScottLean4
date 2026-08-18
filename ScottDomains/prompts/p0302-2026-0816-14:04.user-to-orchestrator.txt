@@ -1,0 +1,102 @@
+---
+prompt: p0302
+type: interaction
+opened: 2026-0816-14:04
+closed: 2026-0816-14:09
+subject: do-37-then-312
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T14:04:44.074000-07:00
+
+do 3.7 then 3.12
+
+## turn — assistant 2026-08-16T14:05:31.671000-07:00
+
+3.7 is the biggest remaining item and 3.12 depends on it, so I'll take 3.7 first and be honest if 3.12 doesn't fit. The route: `sigmaOpen_iff_isOpen` (proved in r0057) gives the finite-character property, which is exactly what the extension needs.
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Extension.lean
+## turn — assistant 2026-08-16T14:06:31.714000-07:00
+
+Let me finish the continuity argument properly rather than leave it stubbed:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Extension.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.Extension
+## turn — assistant 2026-08-16T14:06:55.818000-07:00
+
+**Theorem 3.7 is proved**, no `sorry`. Clearing the one linter warning:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Extension.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.Extension
+## turn — assistant 2026-08-16T14:07:34.361000-07:00
+
+Theorem 3.7 proved: 0 errors, 0 warnings, 0 `sorry`. Now discharging the stub in `PartialEquilogical.lean` by delegation:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PartialEquilogical.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PartialEquilogical.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Extension.lean /Users/scott/projects/ScottLean4/ScottDomains/ScottD
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0065: Theorem 3.7, the Extension Theorem, proved  New Extension.lean (164 lines, 0 sorry).    * me
+## turn — assistant 2026-08-16T14:09:14.299000-07:00
+
+**Theorem 3.7 is proved** — pushed as **b0b114b**. 3.12 I did not attempt, and the reason is structural rather than effort.
+
+## 3.7
+
+`Extension.lean`, 164 lines, 0 `sorry`, 0 warnings. Three steps:
+
+- **`isOpen_memSet`** — each `memSet a = { S | a ∈ S }` is Σ-open: upward closed, and inaccessible by directed suprema because a point of a union of a directed family already lies in one member.
+- **`exists_finite_subset_mem_of_isOpen`** — finite character. Writing `T` as the supremum of its singletons, `sigmaOpen_iff_isOpen` produces a finite subfamily whose supremum lies in `U`, and that supremum is a finite subset of `T`.
+- **The theorem** — `f ⁻¹' (memSet a)` is cut out on the subspace by an open `V a ⊆ X`; the extension is `g x = { a | x ∈ V a }`. Continuity is
+
+```
+g ⁻¹' U = ⋃ { ⋂_{a ∈ F} V a  |  F finite, F ∈ U }
+```
+
+open because each inner intersection is **finite**.
+
+**The r0057 bridging lemma paid for itself here.** Definition 3.4's literal wording — arbitrary `S`, finite `S₀` — is exactly what this proof needs, and Mathlib's directed-set formulation would not have handed the finite subset over. Transcribing the paper's definition and proving the bridge, rather than silently adopting Mathlib's, turned out to be load-bearing rather than pedantic.
+
+`PartialEquilogical.lean` now discharges its `theorem_3_7_extension` by delegation, so the paper-numbered statement still sits in the §3 module.
+
+## Why 3.12 is blocked
+
+The restriction functor `R : PEqu → Equ` needs three properties:
+
+| | Source | Status |
+| --- | --- | --- |
+| faithful | by definition | free |
+| **full** | Theorem 3.7 | **now available** |
+| essentially surjective | Theorem 3.6 | **still owed** |
+
+3.6's *injectivity* half is proved (`nbhdFilter_injective`, r0056), but its **topological** half — that `x ↦ 𝒯(x)` induces the topology — is still `sorry`. Proving 3.12 without it would mean assuming essential surjectivity, which is the whole content. So 3.6 comes first, and it's now the single blocking item for the rest of §3.
+
+Good news: 3.6's topological half should reuse `isOpen_memSet` and `exists_finite_subset_mem_of_isOpen` directly — the same finite-character machinery, applied to `𝒫 Ω_𝒯` instead of `𝒫 A`.
+
+## State
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic.lean` | 201 | **0** |
+| `SigmaTopology.lean` | 194 | **0** |
+| `Extension.lean` | 164 | **0** |
+| `PartialEquilogical.lean` | 260 | 2 |
+| `CartesianClosure.lean` | 154 | **0** |
+| `ALat.lean` | 196 | **0** |
+| `ProductAlgebraic.lean` | 118 | **0** |
+| `ALatProducts.lean` | 103 | **0** |
+| `ALatClosed.lean` | 132 | **0** |
+| `Theorems3.lean` | 161 | 4 |
+| **Total** | **1683** | **6** |
+
+1546 jobs, 0 errors. **Eight of ten modules fully proved**; library `sorry` 10 → 9.
+
+Remaining: 3.6 (topological half), 3.12, and 3.10/3.13 for `Equ`. I'd do 3.6 next — say go.
+

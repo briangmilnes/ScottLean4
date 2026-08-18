@@ -1,0 +1,50 @@
+---
+prompt: p0042
+type: interaction
+opened: 2026-0802-18:03
+closed: 2026-0802-18:04
+subject: okay-can-sort-of-do-the-simplest-things
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T18:03:35.522000-07:00
+
+Okay can sort of do the simplest things. But I need to read about the tactics and how they are applied. Is there a pdf with this?
+
+## turn — assistant 2026-08-02T18:03:56.576000-07:00
+
+Let me see exactly which PDFs we already have on disk (beyond the cheat sheet), so I point you at the best *reading* one:
+
+    Bash cd ~/projects/ScottLean4 echo "=== all PDFs under cheatsheets/ and tutorials/ ===" find cheatsheets tutorials -iname '*.pdf' 2>/dev/null | while read 
+## turn — assistant 2026-08-02T18:04:27.252000-07:00
+
+Yes — several, and one is the **exact book behind the exercises you're in**. Here's the map:
+
+| PDF | Path | Best for |
+|---|---|---|
+| **Mathematics in Lean** ⭐ | `tutorials/mathematics_in_lean/mathematics_in_lean.pdf` | The companion to the file you're doing — introduces each tactic (`rw`, `ring`, `linarith`, `apply`, `rcases`…) *as it's used* |
+| **Hitchhiker's Guide to Logical Verification** | `tutorials/logical_verification_2024/hitchhikers_guide_2024_desktop.pdf` | A fuller, textbook treatment of tactics + logic (great for Dana); `_tablet` variant also there |
+| lean-tactics cheat sheet | `cheatsheets/lean-tactics.pdf` | Quick one-page lookup (already open in Chrome) |
+| de Moura–Ullrich CADE 2021 | `tutorials/Lean4-deMoura-Ullrich-CADE2021.pdf` | Short tour by Lean's authors |
+
+There's also **Theorem Proving in Lean 4's dedicated "Tactics" chapter** — that repo ships it as literate source (`theorem_proving_in_lean4/book/TPiL/Tactics.lean`) and as a rendered web book; it's the canonical prose reference for what each tactic does.
+
+Since you're in the MIL exercises right now, I'll open its book PDF in Chrome (native render) — read it side-by-side with the `.lean` file:
+
+    Bash P="$HOME/projects/ScottLean4/tutorials/mathematics_in_lean/mathematics_in_lean.pdf" open -a "Google Chrome" "$P" && echo "opened $P in Chrome"
+## turn — assistant 2026-08-02T18:04:43.312000-07:00
+
+Opened **Mathematics in Lean** in Chrome. For where you are right now, jump to **Chapter 2 "Basics," §2.1 "Calculating"** — that's the exact section behind `S01_Calculating.lean`, and it explains `rw` (including the first-match behavior we just hit) and `ring`. Each later section introduces the next tactics as the math demands them, so reading it top-to-bottom *is* the tactic tutorial, applied.
+
+Quick guide to using it alongside VS Code:
+- **Read a paragraph → try the tactic** in the open `.lean` file → watch the Infoview goal change. That loop is the fastest way to internalize them.
+- When you hit a tactic you don't recognize mid-proof, the **`cheatsheets/lean-tactics.pdf`** (also in Chrome) is the fast lookup; the MIL/TPIL prose is the "why/how."
+- For a deeper, logic-first treatment later (well suited to Dana), the **Hitchhiker's Guide** desktop PDF is at `tutorials/logical_verification_2024/hitchhikers_guide_2024_desktop.pdf`.
+
+So: MIL PDF = read-along for these exercises; cheat sheet = quick reference; TPIL "Tactics" chapter / Hitchhiker's Guide = the comprehensive references. Want me to also open the Hitchhiker's Guide, or is the MIL book enough to start?
+

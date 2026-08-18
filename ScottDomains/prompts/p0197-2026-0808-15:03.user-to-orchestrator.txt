@@ -1,0 +1,37 @@
+---
+prompt: p0197
+type: interaction
+opened: 2026-0808-15:03
+closed: 2026-0808-15:04
+subject: show-me-what-you-have-about-the-scott-bi
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-08T15:03:49.595000-07:00
+
+Show me what you have about the Scott bibliography
+
+    Bash find /Users/scott/projects/ScottLean4 -iname "*biblio*" -o -iname "*.bib" -o -iname "*reference*" -not -path "*/.lake/*" -not -path "*/.git/*"
+    Bash ls -la /Users/scott/projects/ScottLean4/ScottDomains/papers/ /Users/scott/projects/ScottLean4/ScottDomains/docs/
+    Bash grep -rn -i "papers/" --include='*.md' /Users/scott/projects/ScottLean4/INDEX.md /Users/scott/projects/ScottLean4/ScottDomains/README.md
+    Bash grep -rc -E "Abramsky|Jung|Plotkin|Gunter|Mosses|Ericson|Scott" --include='*.lean' -r /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/ --in
+    Read /Users/scott/projects/ScottLean4/INDEX.md
+    Bash grep -rhoc -E "Abramsky" --include='*.lean' -r /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+    Bash ls -la /Users/scott/projects/ScottLean4/notes/
+    Bash grep -c -E "bibitem|\\\\cite\{|thebibliography" /Users/scott/projects/ScottLean4/notes/DanaScottBio.tex /Users/scott/projects/ScottLean4/notes/ScottDo
+## turn — assistant 2026-08-08T15:04:35.699000-07:00
+
+No bibliography exists. That's a measurement, not an impression:
+
+- **0 `.bib` files** in the project — the five `references.bib` hits are all Mathlib's own, vendored under `.lake/packages/`.
+- **0 `\bibitem`, `\cite{}` or `thebibliography`** across all four Scott notes in `notes/`.
+
+What stands in its place is two things. Let me measure which of the papers the development actually leans on:
+
+    Write /Users/scott/projects/ScottLean4/scripts/bibliography-cites.sh
+    Bash bash /Users/scott/projects/ScottLean4/scripts/bibliography-cites.sh

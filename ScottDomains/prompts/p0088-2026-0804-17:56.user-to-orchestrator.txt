@@ -1,0 +1,57 @@
+---
+prompt: p0088
+type: interaction
+opened: 2026-0804-17:56
+closed: 2026-0804-18:03
+subject: named-variables-with-explicit-equivalenc
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-04T17:56:22.625000-07:00
+
+named variables with explicit α-equivalence
+
+## turn — assistant 2026-08-04T18:01:45.268000-07:00
+
+Named variables it is, Dr. Scott — the honest hard case. Let me build it, being careful to define α-equivalence *explicitly* (via a name-correspondence, so it stays structural — no hidden de Bruijn, no renaming), and I'll be candid about exactly which theorems the kernel accepts versus what stays open. Writing the file:
+
+    Write /Users/scott/projects/ScottLean4/Playground/Playground/LambdaNamed.lean
+## turn — assistant 2026-08-04T18:02:14.187000-07:00
+
+Now let me check it against the kernel and iterate on any errors:
+
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground echo "=== elaborate LambdaNamed.lean ===" timeout 240 lake e
+## turn — assistant 2026-08-04T18:02:35.240000-07:00
+
+**It compiles — 0 errors**, one intended `sorry` (line 110, `alpha_trans`). Opening it for you and here's the honest ledger:
+
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground echo "=== proved vs sorry ===" lake env lean Playground/Lamb
+## turn — assistant 2026-08-04T18:03:04.732000-07:00
+
+It's open, Dr. Scott — **`LambdaNamed.lean`**, the λ-calculus with genuine names and no de Bruijn indices anywhere.
+
+**How α is defined (explicitly, structurally):** a *name correspondence* `R : List (String × String)`. Crossing a binder pair `λx.t` / `λy.s` extends `R` with `(x,y)`; two variables match if the innermost pair binds them together, else they must be equal. So α stays a clean structural relation — **no renaming, no size recursion, no hidden indices.**
+
+**Kernel-checked (proved):**
+- α is **reflexive** (`alpha_refl`)
+- α is **symmetric** (`alpha_symm`, via a name-swap lemma on the correspondence)
+
+**Demonstrated concretely** (`decide`-checked): naive substitution *captures* —
+```
+substNaive "x" (var "y") (λy. x)  =  λy. y      -- the y got captured!
+```
+which is exactly *why* α-equivalence is unavoidable.
+
+**The open holes** — and this is your point made measurable:
+- α **transitivity** (composing two correspondences — genuinely harder than refl/symm),
+- capture-avoiding substitution, β-reduction, confluence.
+
+So the ledger tells the story: the **de Bruijn** file (`LambdaTheorems.lean`) has **one** hole — confluence — with everything below it free. The **named** file already opens a hole at **α-transitivity**, *before* you even reach substitution and β. That extra cost, sitting right there in the `sorry` count, is precisely the trade-off de Bruijn indices buy away.
+
+If you'd like, I can push further into the named version — close `alpha_trans`, or build the capture-avoiding substitution with a fresh-name supply — though each is real work. Or leave it here as the honest illustration. What's your pleasure, Dr. Scott?
+

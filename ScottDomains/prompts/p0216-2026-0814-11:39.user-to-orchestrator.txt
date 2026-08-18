@@ -1,0 +1,29 @@
+---
+prompt: p0216
+type: interaction
+opened: 2026-0814-11:39
+closed: 2026-0814-11:40
+subject: open-lean-individual-studio-on-big-scree
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-14T11:39:53.713000-07:00
+
+Open lean individual studio on big screen.
+
+    Bash which code code-insiders cursor
+    Bash code --new-window /Users/scott/projects/EricsonPapers "/Users/scott/projects/EricsonPapers/docs/LRSODInCIC.lean"
+    Bash code --list-extensions
+## turn — assistant 2026-08-14T11:40:22.737000-07:00
+
+VS Code is open in a new window on the `EricsonPapers` folder with `docs/LRSODInCIC.lean` as the active editor. `leanprover.lean4` is installed, so the file gets the language server.
+
+Which display it lands on I cannot set from the CLI — `code` has no monitor argument, and macOS gives the position to the window server. VS Code does remember position per workspace, so drag this window to the big screen once and subsequent `code /Users/scott/projects/EricsonPapers` opens there. (⌃⌘F for full screen once it is there.)
+
+One thing to expect in that window: there is no `lakefile.toml` in this repo, so the Lean extension runs the file in standalone mode against elan's default toolchain — Lean 4.32.2, the same one the command-line check used. That is correct for this file, which imports nothing, but there is no Mathlib available in that editor session.
+

@@ -1,0 +1,73 @@
+---
+prompt: p0254
+type: interaction
+opened: 2026-0815-13:13
+closed: 2026-0815-13:16
+subject: do-53
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:13:04.147000-07:00
+
+do 5.3
+
+## turn — assistant 2026-08-15T13:14:15.671000-07:00
+
+§5.3's domain half is `psetNat` (§3.6). What remains is the λ-model structure — the retraction that makes self-application interpretable. That needs an *injective* pairing, so first a Cantor encode inverse to the existing `pairDecode`:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 14 "2975:12"
+## turn — assistant 2026-08-15T13:15:06.684000-07:00
+
+`unfold` left `match 0 + s with …` as an opaque atom that omega can't relate to `tri s`. Using `show` with the reduced form instead:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 14 "2984:47"
+## turn — assistant 2026-08-15T13:15:38.839000-07:00
+
+The induction was mis-structured: the step (n, m+1) → (n+1, m) *preserves* the sum, so it needs the inner induction hypothesis, not the outer one — same shape as `pairDecode_hits`:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "cantor|powApp"
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize the Pomega lambda-model (catalogue 5.3): Fun after Graph is the identity" -m "The dom
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T13:16:53.488000-07:00
+
+§5.3 is complete and pushed — `f2a6806`. Build: **846 jobs, zero errors, zero warnings, zero `sorry`, 56 audited declarations.**
+
+The domain half was already `psetNat` (§3.6). This adds the λ-model structure — Scott's 1976 construction:
+
+- `powApp A B` = { m | ∃ k, ⟨k,m⟩ ∈ A and e_k ⊆ B }
+- `powGraph f` = { ⟨k,m⟩ | m ∈ f(e_k) }
+- **`powApp_powGraph`** : `powApp (powGraph f) B m ↔ f B m` for continuous f — **Fun ∘ Graph = id**, so [Pω → Pω] is a retract of Pω.
+
+`powApp_continuous` confirms `Fun A` really lands in the function space, so the retraction runs between the right objects, and `powSelfApp A = A · A` is then definable. Self-application is interpretable **with no inverse limit** — which is precisely why §5.5 is needed only for Scott's *original* model, not for *a* model.
+
+**One ingredient had to be added.** `pairDecode` is a surjection ℕ ↠ ℕ×ℕ — enough to enumerate a basis, but reading k and m back out of ⟨k,m⟩ needs **injectivity**, i.e. a section. `cantor` is that section, built from triangular numbers so no division appears anywhere, with `pairDecode_cantor` proving it inverse to the walk on the nose.
+
+The one real error: I first wrote that induction with a `cases m`, but the step (n, m+1) → (n+1, m) *preserves* the antidiagonal, so it needs the **inner** induction hypothesis on m, not the outer one on the sum — the same shape `pairDecode_hits` needed, for the same reason.
+
+The whole λ-model layer is **`lem`-free**; `powApp_continuous` needs no axioms at all.
+
+## Where the catalogue stands
+
+**15 of 16 rows settled** — eleven inhabited, four refuted — plus §5.6 as a general theorem outside the table.
+
+**One row open: §5.5's bilimit.** The tower, embeddings and per-level domains are done; the colimit needs the level-indexed token redesign, because cross-level comparison currently requires transporting along a propositional type equality.
+
+Outside the 16: §5.2 (parallel-or, needs a PCF syntax) and §6.5 (powerdomains, needs a powerdomain construction).
+

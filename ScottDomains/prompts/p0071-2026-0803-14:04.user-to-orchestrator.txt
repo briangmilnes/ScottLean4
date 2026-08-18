@@ -1,0 +1,27 @@
+---
+prompt: p0071
+type: interaction
+opened: 2026-0803-14:04
+closed: 2026-0803-14:04
+subject: commit-and-push
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T14:04:14.751000-07:00
+
+Commit and push.
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== uncommitted (tracked) changes ==="; git status --short git add notes/ echo "=
+## turn — assistant 2026-08-03T14:04:52.178000-07:00
+
+Done, Dr. Scott — committed and pushed, in sync with the remote (`af25de1 → b6b3519`). Both `notes/HomogeneousFactorization.tex` and `.pdf` are now on GitHub.
+
+One honest heads-up worth flagging: the **Lean factoring file** we made (`HomogeneousFactoring.lean`) lives inside the `mathematics_in_lean` tutorial folder, which is **gitignored** (it's a third-party clone) — so this commit did *not* capture it, and it wouldn't survive re-cloning. It sits there because it needs Mathlib (for `ring`), and the main `ScottLean4` project is deliberately Mathlib-free.
+
+If you'd like that demo kept under version control, I can move it into a **tracked, Mathlib-enabled** spot — the `Beeson/lean4` project already has Mathlib and *is* committed, so it's a natural home. Want me to relocate it there and commit it too, or leave it as a scratch file for now?
+

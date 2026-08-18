@@ -1,0 +1,38 @@
+---
+prompt: p0015
+type: interaction
+opened: 2026-0802-10:40
+closed: 2026-0802-10:42
+subject: alas-did-not-which-page-in-the-seetings
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:40:37.251000-07:00
+
+Alas did not which page in the seetings? I remember I had to add them by hand last mac I setup.
+
+## turn — assistant 2026-08-02T10:41:07.063000-07:00
+
+There isn't a **Settings** page that adds desktops — that's the confusion. On every recent macOS (including what you did "by hand" last time), desktops/Spaces are added **only from inside Mission Control itself**, via the faint **➕** at the top-right. System Settings → Desktop & Dock → Mission Control only has *options* (rearrange, separate Spaces), no "add" button.
+
+The ➕ is easy to miss — it's very faint until you hover the exact top-right corner. Let me just open Mission Control for you so you don't have to rely on F3:
+
+    Bash open -a "Mission Control" 2>&1 && echo "Mission Control opened — look at the top edge for the desktop thumbnails"
+## turn — assistant 2026-08-02T10:42:04.464000-07:00
+
+Mission Control is now open. Now:
+
+1. Look at the **very top edge** — you'll see a strip of thumbnails: **Desktop 1 … Desktop 6**. (If the strip is hidden, nudge the pointer to the top edge to reveal it.)
+2. Move the pointer to the **far top-right of that strip** — a dim **➕** button fades in. Click it.
+3. **Click ➕ until the strip shows 9 tiles** (Desktop 1 … Desktop 9).
+4. Click any desktop (or press Esc) to exit.
+
+That's the "by hand" method you remembered — it was always Mission Control, never a Settings page. Once you have 9 tiles, **Ctrl-1 … Ctrl-9** all jump directly, since the bindings are already enabled.
+
+If the ➕ still won't appear when you hover the top-right, tell me — the usual cause is the thumbnail strip being collapsed, and there's a setting (Desktop & Dock → Mission Control → "Displays have separate Spaces") that affects it.
+

@@ -1,0 +1,77 @@
+---
+prompt: p0003
+type: interaction
+opened: 2026-0801-14:11
+closed: 2026-0801-14:14
+subject: so-i-put-emacs-in-with-brew-but-its-not
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-01T14:11:22.673000-07:00
+
+So I put emacs in with brew but it's not an app. So I can't pin it to the app bar. How do I put it in as an app?
+
+## turn — assistant 2026-08-01T14:11:44.605000-07:00
+
+Right — `brew install emacs` (the **formula**) gives you a command-line Emacs in `/opt/homebrew/bin`, but no `Emacs.app`, so there's nothing to pin to the Dock. You want the **cask**, which installs a real `/Applications/Emacs.app` bundle. That was actually the plan's intent (step notes say `brew install --cask emacs`).
+
+They can coexist, but two Emacsen is confusing. Cleanest is to drop the formula and install the cask. No password needed for either — I can run it now. Let me do that:
+
+    Bash echo "=== before ==="; /opt/homebrew/bin/brew list --formula 2>/dev/null | grep -x emacs && echo "formula emacs present" /opt/homebrew/bin/brew uninst
+## turn — assistant 2026-08-01T14:13:52.198000-07:00
+
+It's downloading the app bundle in the background (~200 MB, so it exceeded the 2-min foreground window). Let me check progress.
+
+    Read /private/tmp/claude-501/-Users-scott-projects-ScottLean4/88e3cea7-d557-4341-b091-37819f0fb116/tasks/bab3jbifq.output
+## turn — assistant 2026-08-01T14:14:02.642000-07:00
+
+While it finishes, here's the answer to your actual question, so it's clear for next time:
+
+**Why it happened:** `brew install emacs` installs the *formula* — a terminal binary only, no `.app`. Homebrew keeps GUI apps as *casks*. The one that gives you a dockable app is:
+
+```bash
+brew install --cask emacs
+```
+
+That drops a genuine `/Applications/Emacs.app`, which you can then drag to the Dock (or right-click → Options → Keep in Dock) and pin like any other app.
+
+I've already kicked that off — uninstalled the formula (it also cleaned up three now-orphaned dependencies) and the cask is downloading now. Once it lands in `/Applications`, you can pin it. I'll confirm when it's done.
+
+One note for after it installs: the cask's command-line binary lives *inside* the bundle at `/Applications/Emacs.app/Contents/MacOS/Emacs`, so if you also want `emacs` on your `PATH` in the terminal, I can add a small alias or symlink to `~/.zshrc` when I write the dotfiles. I'll wait for the download to finish before doing anything else.
+
+    Read /private/tmp/claude-501/-Users-scott-projects-ScottLean4/88e3cea7-d557-4341-b091-37819f0fb116/tasks/bab3jbifq.output
+## turn — assistant 2026-08-01T14:14:11.504000-07:00
+
+Done — installed cleanly. The cask is `emacs-app` (Emacs 30.2), and it did two nice things at once:
+
+1. **Moved `Emacs.app` to `/Applications`** → you can pin it to the Dock now.
+2. **Linked the CLI binaries to `/opt/homebrew/bin`** (`emacs`, `emacsclient`, `etags`, `ebrowse`) → so terminal `emacs` works too, and no alias is needed after all.
+
+Let me verify both:
+
+    Bash ls -ld /Applications/Emacs.app && echo "---" && /opt/homebrew/bin/emacs --version 2>/dev/null | head -1 && echo "---" && ls -l /opt/homebrew/bin/emacs
+## turn — assistant 2026-08-01T14:14:29.333000-07:00
+
+Both confirmed:
+
+- **`/Applications/Emacs.app`** exists → **drag it to the Dock to pin it** (or right-click the running icon → Options → Keep in Dock).
+- **`emacs --version` → GNU Emacs 30.2**, with `/opt/homebrew/bin/emacs` symlinked into the bundle, so the terminal command works everywhere too.
+
+So your original problem is solved: it's now a real app you can pin, *and* the CLI still works.
+
+That knocks out the Emacs line on the plan's checklist. Remaining `[claude]` work I can run without your password whenever you're ready:
+
+1. Write `~/.zshrc` + `~/.emacs` (the exact blocks from the plan's Appendix — including the `M-x shell` dirtrack/echo fixes).
+2. Clone `ComputAItionalThinking` + `GRASE`, and symlink `ComputAItionalThinking` into `ScottLean4/` so the `CLAUDE.md` import resolves.
+3. Install `elan` + Lean toolchain, `poppler`, `tesseract`.
+4. Run the Lean builds (`lake exe cache get` + `lake build`).
+
+The `[you]` (password/GUI) leftovers are: `sudo scutil --set ComputerName milnes`, VS Code, MacTeX, Wolfram, Chrome.
+
+Want me to start the `[claude]` batch now?
+

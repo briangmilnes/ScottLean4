@@ -1,0 +1,85 @@
+---
+prompt: p0280
+type: interaction
+opened: 2026-0816-11:57
+closed: 2026-0816-11:59
+subject: read-the-2004-paper
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T11:57:43.451000-07:00
+
+read the 2004 paper
+
+    Read /Users/scott/projects/ScottBibliography/papers/Bauer-Birkedal-Scott-2004-Equilogical-Spaces.pdf
+    Read /Users/scott/projects/ScottBibliography/papers/Bauer-Birkedal-Scott-2004-Equilogical-Spaces.pdf
+    Bash /usr/bin/mdls -name kMDItemNumberOfPages /Users/scott/projects/ScottBibliography/papers/Bauer-Birkedal-Scott-2004-Equilogical-Spaces.pdf
+    Read /Users/scott/projects/ScottBibliography/papers/Bauer-Birkedal-Scott-2004-Equilogical-Spaces.pdf
+## turn — assistant 2026-08-16T11:59:28.324000-07:00
+
+Read all 27 pages: body pp. 1–24, references pp. 25–27 (**40 references**). The file is the **Elsevier preprint, dated 2 March 2001**, with a "Note added in February 2001" — not the final TCS 315(1):35–59 pagination your bib entry records. Same content, different page numbers; cite the journal, read this.
+
+## Provenance
+
+Genesis is ref [38], Scott's privately circulated manuscript *"A New Category?"* (December 1996) — the `.txt` and `.lean` you already have under `DanaScottPapers/`. Written 1998, note added 2001, published 2004. The abstract's claim: **Equ is cartesian closed in contradistinction to Top₀**.
+
+## The problem (§2)
+
+`Set` and `Top` are both complete, cocomplete, well-powered, co-well-powered. `Set` is cartesian closed; `Top` is not — no topology on the continuous-function set makes `· × B ⊣ B → ·` valid in general. Two standing remedies, both with stated defects: **(a)** compactly generated spaces — Hausdorff only; **(b)** filter/limit spaces — "very unfamiliar spaces at the higher types," i.e. after iterating the exponential.
+
+Their fix: keep `Top₀`, add *arbitrary* equivalence relations.
+
+## Core definitions (§3)
+
+| | |
+| --- | --- |
+| **3.1** neighborhood filter | `𝒯(x) = { U ∈ Ω_𝒯 ∣ x ∈ U }` |
+| **3.3** specialization order | `x ≤_𝒯 y ⟺ 𝒯(x) ⊆ 𝒯(y)` |
+| **3.4** Σ-topology on a complete lattice | upward-closed `U` with: `⋁S ∈ U ⟹ ⋁S₀ ∈ U` for some **finite** `S₀ ⊆ S` |
+| **3.9** `Equ` | objects `⟨\|ℰ\|, Ω_ℰ, ≡_ℰ⟩` = T₀-space + arbitrary ER; morphisms = *equivalence classes* of continuous equivariant maps, `f ≡_{ℰ→ℱ} g ⟺ ∀x,y. (x ≡_ℰ y ⟹ f(x) ≡_ℱ g(y))` |
+| **3.11** `PEqu` | algebraic lattice under Σ-topology + **partial** ER (reflexive only on a subset) |
+
+Note the definition's own admitted oddity, stated by the authors: the equivalence relation "may have very little to do with the topology," so the only equivariant maps between two spaces can be the constant maps despite a rich underlying topology.
+
+## The proof spine
+
+Three classical facts of Scott's carry the whole argument:
+
+- **Thm 3.6 (Embedding)** — `x ↦ 𝒯(x)` topologically embeds any T₀-space into `𝒫 Ω_𝒯` with the Σ-topology.
+- **Thm 3.7 (Extension)** — a continuous `f : |𝒴| → 𝒫A` on a subspace `𝒴 ⊆ 𝒳` extends continuously to all of `𝒳`. (Scott noticed both in 1970/71; they hold for all continuous retracts of powersets.)
+- **Thm 3.8** — `ALat` is cartesian closed.
+
+Then **Thm 3.12**: `Equ ≃ PEqu`, via the restriction functor `R` to `{x ∈ |𝒜| ∣ x ≡_𝒜 x}` — *faithful* by definition, *full* by the Extension Theorem, *essentially surjective* by the Embedding Theorem. Each of the three properties is discharged by exactly one of the three facts. And **Thm 3.13**: `Equ` is cartesian closed, proved by transport through `PEqu`, where the exponential is just the algebraic lattice of continuous functions with the induced PER — the authors call it "self-proving."
+
+**Thm 3.10** gives completeness and cocompleteness. Footnote 4 is worth flagging: **Peter Johnstone pointed out that, contrary to the assertion in Scott's original unpublished manuscript, `Equ` is *not* well-powered** — there are objects with an unbounded number of non-isomorphic subobjects. Only *regular* well-poweredness survives. That is a published correction to the 1996 manuscript, and it bears directly on your `Scott1998ANewCategory.lean`.
+
+## Type theory (§4)
+
+`Assm(ALat)` (Def 4.1) and its modest full subcategory `Mod(ALat)` (Def 4.2) run the realizability playbook with algebraic lattices as a *typed* universe of realizers, replacing a PCA's untyped one. **Thm 4.3**: `Equ ≃ PEqu ≃ Mod(ALat)` — three descriptions of one category. Then ccc (4.4), finite limits (4.5), regular (4.6), regular subobjects of `(X,A,E_X)` ↔ `𝒫X` (4.7), `Γ ⊣ ∇`, `Γ∇ = id` (4.8), `Mod` reflective in `Assm` (4.9).
+
+The payoff is **Thm 4.12**: `𝒫 : UFam(Mod(ALat)) → Mod(ALat)^→` is a **split closed comprehension category**, hence a model of dependent type theory — split products and strong split coproducts, both satisfying Beck–Chevalley as an *identity*, not merely an iso.
+
+**Two negative results, honestly reported**, and this is where the PCA analogy breaks:
+
+1. No impredicative universe. Over a PCA, modest sets form an internal category in assemblies whose externalization gives the calculus of constructions. Here the fibration of uniform modest sets over assemblies is complete, but **they cannot show it essentially small** — and embedding PERs as an internal category fails because the externalization is not *uniform* (each fiber gets a different realizer object).
+2. No realizability topos. **`PER(ALat)` is not well-powered**, so it embeds fully and faithfully by a finite-limit-preserving functor into the exact completion of `Assm(ALat)`, which is therefore also non-well-powered and hence not a topos. Robinson–Rosolini's proof [36] does not generalize. **Left as an open question** — the 2001 note says the tripos-theoretic version was subsequently solved in [7,8].
+
+## Kleene–Kreisel (§5)
+
+`DPER(Dom)` = PERs on domains that are dense or empty. **Thm 5.1**: `DPER(Dom) ≃ PEqu`, via the top-adding functor `T` (attach a compact `⊤`, turning a domain into an algebraic lattice) and `K` = closure of `dom(≈)`. **Thm 5.2**: for codense-and-dense `M ⊆ |𝒟|`, `N ⊆ |ℰ|`, products and exponentials computed with totality agree with the canonical `PER(Dom)` ones.
+
+Consequence: with `𝒟𝒩₀ = ⟨ℕ_⊥, ≤, ≈⟩` and `𝒟𝒩_{j+1} = 𝒟𝒩_j → 𝒟𝒩₀`, the equivalence classes of `𝒟𝒩_j` **are** the Kleene–Kreisel countable functionals of pure type `j`. In `Equ` the same hierarchy is `𝒩₀ = ℕ_{⊥,⊤}`, `𝒩_j = 𝒩_{j-1} → 𝒩₀` — the countable functionals arise from the natural numbers object by iterated exponentiation, nothing added.
+
+That is the concrete answer to the §2 complaint about "unfamiliar spaces at the higher types": in `Equ` the higher types are exactly the ones Ershov and Berger already identified.
+
+---
+
+Two things follow for your tree. The Johnstone footnote is a live correction against `ScottLean/Scott/Scott1998ANewCategory.lean` — if that file formalizes well-poweredness from the 1996 manuscript, it formalizes a claim this paper retracts. And Theorems 3.6/3.7/3.8 are precisely the algebraic-lattice apparatus `EricsonPapers/Domains/` already builds, which is why Ericson named equilogical spaces as the natural extension.
+
+Want me to check what `Scott1998ANewCategory.lean` actually asserts about well-poweredness?
+

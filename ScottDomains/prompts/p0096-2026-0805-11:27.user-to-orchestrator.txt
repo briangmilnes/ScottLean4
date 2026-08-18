@@ -1,0 +1,47 @@
+---
+prompt: p0096
+type: interaction
+opened: 2026-0805-11:27
+closed: 2026-0805-11:28
+subject: does-lean-have-formalizations-about-scot
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-05T11:27:24.876000-07:00
+
+does Lean have formalizations about Scott Domains?
+
+## turn — assistant 2026-08-05T11:27:47.237000-07:00
+
+Let me check the actual Mathlib source rather than answer from memory — searching for Scott-domain-related material:
+
+    Bash MLB=~/projects/ScottLean4/Beeson/lean4/.lake/packages/mathlib/Mathlib echo "=== files with 'Scott' in the path ===" find "$MLB" -iname '*scott*' 2>/de
+## turn — assistant 2026-08-05T11:28:40.964000-07:00
+
+Yes — and pleasingly, some of it carries **your name in the source**. Here's the honest picture, straight from the v4.32.2 tree.
+
+## What Mathlib *does* have (the foundations you laid)
+
+- **Scott continuity** — `Order/ScottContinuity.lean` (with `Prod` and `Complete` companions). A function preserving directed suprema; the file's own docstring reads *"Scott continuous (referring to Dana Scott)."*
+- **The Scott topology** — `Topology/Order/ScottTopology.lean` (plus the **Lawson topology**, `LawsonTopology.lean`, and Scott-Hausdorff separation).
+- **ω-complete partial orders** — `Order/OmegaCompletePartialOrder.lean` and `Topology/OmegaCompletePartialOrder.lean`: ωCPOs and ω-continuous maps — the directed-complete setting for denotational semantics — referenced across ~13 files. Also `Order/CompletePartialOrder.lean`.
+- **Fixed-point theory** — `Order/FixedPoints.lean` (**Knaster–Tarski** least/greatest fixed points, `OrderHom.lfp`/`gfp`) and `Order/BourbakiWitt.lean`. And a **`LawfulFix`** operator giving the Kleene least fixed point `⨆ fⁿ(⊥)` of an ω-continuous map (~22 files) — *your* account of recursion, used in Mathlib to define partial/recursive functions on the `Part` monad.
+
+So the **core apparatus** — Scott continuity, the Scott topology, cpos, and least-fixed-point recursion — is genuinely formalized.
+
+## What it does *not* have
+
+- **No named "Scott domain."** There's no `DCPO`/`DirectedCompletePartialOrder` class (it works through `OmegaCompletePartialOrder`), and no development of **bounded-complete algebraic dcpos** or **Scott information systems** as such.
+- **No continuous-lattice theory** developed under that name (the Lawson topology is there, but not the continuous-lattices monograph material).
+- **The big absence: no D∞.** The **reflexive object** `D ≅ [D → D]` — your model of the untyped λ-calculus — is *not* in Mathlib, nor is the category of domains packaged as a cartesian-closed category for denotational semantics. The inverse-limit / solution-of-recursive-domain-equations construction simply hasn't been formalized.
+
+## The upshot
+Mathlib has the **ingredients** (Scott continuity, Scott topology, ωCPOs, least fixed points) but not the **signature constructions** of domain theory as a model of computation (D∞, the CCC of domains, continuous lattices). That gap is, frankly, an opportunity: formalizing **D∞** in Lean would be a genuinely new contribution — and a rather fitting one.
+
+Would you like me to **open `Order/ScottContinuity.lean`** (so you can see your own notion stated in Lean), or **save this as a `notes/` PDF**?
+

@@ -1,0 +1,45 @@
+---
+prompt: p0014
+type: interaction
+opened: 2026-0802-10:37
+closed: 2026-0802-10:38
+subject: latex-installing-ctrn-keys-working-just
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:37:38.789000-07:00
+
+latex installing ctr-N keys working just 5 by default can you create 6-9?
+
+## turn — assistant 2026-08-02T10:38:05.252000-07:00
+
+Good — that confirms it's all working; the only reason Ctrl-6…9 do nothing is that **those desktops don't exist yet**. The shortcuts (already enabled) can only switch to a Space that's actually been created, and you have 5.
+
+Here's the honest limitation: **macOS has no supported API to create Spaces**, and I won't do it by hacking `com.apple.spaces.plist` — on Tahoe that's unreliable and can corrupt the Spaces state (the only tools that create Spaces programmatically, like yabai, require partially disabling SIP, which isn't worth it here). So this one's a **10-second GUI step**:
+
+1. Open **Mission Control** — press **F3** (or **Control-↑**, or swipe up with 3–4 fingers).
+2. Move the pointer to the **top-right corner** — a **➕** appears.
+3. Click **➕ four times** → you now have **9 desktops**.
+4. Click any desktop to exit. Test **Ctrl-6 … Ctrl-9** — they'll jump straight there (already bound).
+
+Let me confirm your current count so you know exactly how many to add:
+
+    Bash defaults read com.apple.spaces 2>/dev/null | grep -c ManagedSpaceID | awk '{print "current desktops/spaces:", $1}' echo "-> add (9 - that number) more
+## turn — assistant 2026-08-02T10:38:37.099000-07:00
+
+It reports **6** right now (note: that `ManagedSpaceID` count can include a full-screen-app space or per-display spaces, so trust the **visual tile count** in Mission Control over this number). Either way:
+
+- Open Mission Control (F3) and **add desktops with the ➕ until you see 9 desktop tiles** across the top.
+- Then **Ctrl-6 … Ctrl-9** will work — the bindings are already in place, they just needed real desktops to land on.
+
+That's purely a GUI action (no supported programmatic way to add Spaces, as noted). Once you've got 9 tiles, all of Ctrl-1…9 are live.
+
+Glad **MacTeX is installing** — once it finishes, open a new terminal and `pdflatex --version` should resolve (it adds itself to PATH via `/etc/paths.d/TeX`). When it's done I can build one of the pgfplots examples end-to-end to confirm the plotting→LaTeX pipeline actually compiles on this box.
+
+Nothing else needs you right now; I'll continue finalizing the RustSemantics README and the software-inventory refresh.
+

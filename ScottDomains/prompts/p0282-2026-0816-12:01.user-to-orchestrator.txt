@@ -1,0 +1,128 @@
+---
+prompt: p0282
+type: interaction
+opened: 2026-0816-12:01
+closed: 2026-0816-12:07
+subject: yes-state-32-with-real-content-and-sorry
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T12:01:20.845000-07:00
+
+yes, state 3.2 with real content and sorry the proofs
+
+    Bash grep -rn 'EQU_complete_cocomplete\|EQU_cartesianClosed\|EQU_equiv_PEQU\|Scott1998' /Users/scott/projects/ScottLean4 --include='*.lean' --include='*.md
+    Read /Users/scott/projects/ScottLean4/DanaScottPapers/Scott-1998-A-New-Category.txt
+    Read /Users/scott/projects/ScottLean4/lakefile.toml
+    Read /Users/scott/projects/ScottLean4/lean-toolchain
+## turn — assistant 2026-08-16T12:04:06.452000-07:00
+
+Nothing outside the module references those defs ([ScottLean.lean:37](ScottLean.lean:37) only imports it), so I can replace the placeholder outright. Writing the real statements now.
+
+    Edit /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean
+    Edit /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean
+    Bash /Users/scott/projects/ScottLean4/scripts/compile.sh ScottLean.Scott.Scott1998ANewCategory
+## turn — assistant 2026-08-16T12:05:22.216000-07:00
+
+`compile.sh` fails on macOS — BSD `tail` has no `--pid` (and its `/usr/bin/time -v` is GNU-only). Falling back to bare `lake build` per CLAUDE.md.
+
+    Bash lake -d /Users/scott/projects/ScottLean4 build ScottLean.Scott.Scott1998ANewCategory
+## turn — assistant 2026-08-16T12:05:51.830000-07:00
+
+Builds. Adding one *proved* lemma to validate the encoding coheres — if my field orientations were wrong this would not go through.
+
+    Edit /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean
+    Bash lake -d /Users/scott/projects/ScottLean4 build ScottLean.Scott.Scott1998ANewCategory
+## turn — assistant 2026-08-16T12:06:07.795000-07:00
+
+The lemma is kernel-accepted (no fifth warning). Building the full library and checking the axiom audit:
+
+    Bash lake -d /Users/scott/projects/ScottLean4 build ScottLean
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean
+    Bash git -C /Users/scott/projects/ScottLean4 status --short --branch
+    Read /Users/scott/projects/ScottLean4/docs/PapersToLeanStatus.md
+    Bash grep -n 'Lines\|sorry\|^|---\|^| ---' /Users/scott/projects/ScottLean4/docs/PapersToLeanStatus.md
+    Read /Users/scott/projects/ScottLean4/docs/PapersToLeanStatus.md
+    Edit /Users/scott/projects/ScottLean4/docs/PapersToLeanStatus.md
+    Edit /Users/scott/projects/ScottLean4/docs/PapersToLeanStatus.md
+    Edit /Users/scott/projects/ScottLean4/docs/PapersToLeanStatus.md
+    Bash git -C /Users/scott/projects/ScottLean4 status --short --branch
+    Bash grep -c 'sorry' /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean
+## turn — assistant 2026-08-16T12:07:46.405000-07:00
+
+Done — Theorem 3.2 now has checkable content. And to answer your question mid-stream: **nothing is committed yet.** Details at the end.
+
+## What replaced the placeholder
+
+The old statement was `∀ (I : Type u) (_A : I → EquiSpace.{u}), True` — provable by `fun _ _ => trivial`. Gone. In its place, [Scott1998ANewCategory.lean](ScottLean/Scott/Scott1998ANewCategory.lean) grew from **185 to 386 lines**:
+
+**Categorical infrastructure** — `compEqui` (composition; continuity composes by pulling preimages back through `g` then `f`), then four universal properties as `Prop`-valued structures: `IsProduct`, `IsEqualizer`, `IsCoproduct`, `IsCoequalizer`. Each has `factors` and `unique` fields, and **every one is stated up to `MapEquiv`, never up to `Eq`** — morphisms of `EQU` are `MapEquiv`-classes, so `Eq` would be the wrong notion. That is exactly the point the paper concedes it handles sketchily ("sketchy in the handling of equivalence classes of maps," [line 536](DanaScottPapers/Scott-1998-A-New-Category.txt:536)).
+
+**Smallness** — `IsMono`, `IsRegularMono` (equalizer of some parallel pair), `IsRegularEpi`, `SubobjEquiv`, `QuotEquiv`, then:
+
+```
+def RegularWellPoweredAt (A : EquiSpace.{u}) : Prop :=
+  ∃ (I : Type u) (S : I → EquiSpace.{u}) (m : ∀ i, Equivariant (S i) A),
+    (∀ i, IsRegularMono (m i)) ∧
+    ∀ (T : EquiSpace.{u}) (n : Equivariant T A), IsRegularMono n →
+      ∃ i, SubobjEquiv (m i) n
+```
+
+Lean has no proper classes, so "the regular subobjects constitute a *set*" is rendered as **essential smallness**: indexed by a type in the same universe `u` as the carriers. That is the honest translation, and it's stated in the docstring rather than left implicit.
+
+**The four theorems**, named per the CLAUDE.md rule for another author's printed number:
+
+| Declaration | Statement |
+| --- | --- |
+| `scott98_theorem_3_2_complete` | `HasProducts ∧ HasEqualizers` |
+| `scott98_theorem_3_2_cocomplete` | `HasCoproducts ∧ HasCoequalizers` |
+| `scott98_theorem_3_2_regular_wellPowered` | `∀ A, RegularWellPoweredAt A` |
+| `scott98_theorem_3_2_regular_coWellPowered` | `∀ A, RegularCoWellPoweredAt A` |
+
+All four `sorry`. Each docstring names the construction the paper owes — product topology with product ER; the subspace `{x | f x ≡ g x }`; disjoint union; coarsening `≡_B` to contain `{(f x, g x)}`.
+
+## Two judgment calls you should check
+
+**One lemma is proved, not `sorry`'d.** `isMono_of_isRegularMono` — the cancellation law *is* the equalizer's `unique` field, so it's a three-token term proof. I added it as a check on my own encoding: if `IsEqualizer.unique` and `IsMono` were oriented inconsistently it would not typecheck. The kernel accepted it (no fifth warning appeared), which is the evidence that the definitions cohere and that the two-triangle form of `SubobjEquiv` is licensed.
+
+**Footnote 3 is a `Prop`-valued claim, not a `sorry`'d theorem.** I wrote `Scott98NotWellPowered : Prop := ¬ ∀ A, WellPoweredAt A` in the project's UpperCamelCase claim convention rather than `theorem … := sorry`. Reason: I can't establish that the paper's "unbounded number of non-isomorphic subobjects" is faithfully captured by failure of `u`-smallness in *this* encoding — Johnstone's examples aren't exhibited in the paper, and a `sorry`'d theorem asserts the statement is true as written. A false statement behind a `sorry` is worse than an unasserted claim. Say the word if you'd rather have it as a theorem.
+
+## Build
+
+```
+lake -d ~/projects/ScottLean4 build ScottLean
+```
+
+**42 jobs, 0 errors.** The module emits exactly 4 warnings, all `declaration uses 'sorry'`. Library-wide `sorry` count goes 100 → 104; [docs/PapersToLeanStatus.md](docs/PapersToLeanStatus.md) updated — the module moves out of the "clean (0)" group into with-sorry at 4 holes, clean count 16 → 15.
+
+That move is the real accounting change. The file was previously counted "clean," which is the precise defect the doc's own caveat at [line 21](docs/PapersToLeanStatus.md:21) warns about — target `def`s hiding obligations that no `sorry` tally catches. It now declares its holes.
+
+**`scripts/compile.sh` is broken on macOS**: it pipes to `tail --pid=`, a GNU option BSD `tail` rejects (exit 127), and it wraps `/usr/bin/time -v`, also GNU-only. It still wrote a stub log, `ScottDomains/logs/compile-20260816-120511.orchestrator.log`, now sitting untracked — delete it or let me. I used bare `lake build` instead, which CLAUDE.md permits.
+
+## Git — nothing committed
+
+Working tree on `main`, in sync with `origin/main`, **0 commits made**:
+
+| File | State | Mine? |
+| --- | --- | --- |
+| `ScottLean/Scott/Scott1998ANewCategory.lean` | modified | yes |
+| `docs/PapersToLeanStatus.md` | modified | yes |
+| `Playground/Playground/CartesianClosed.lean` | modified | no — pre-existing |
+| `ScottDomains/logs/compile-20260816-120511.orchestrator.log` | untracked | side effect of the failed `compile.sh` |
+| `scripts/bibliography-cites.sh` | untracked | no — pre-existing |
+
+`EricsonPapers` is unchanged since the push test — still clean at d827f98.
+
+Want me to commit the two files I touched? That would be:
+
+```bash
+scripts/gitcp.sh "r0054: state Scott 1998 Theorem 3.2 with real universal properties; four proof obligations declared" ScottLean/Scott/Scott1998ANewCategory.lean docs/PapersToLeanStatus.md
+```
+
+That helper stages, commits, rebases onto origin, and pushes in one step — so it would push, not just commit. Confirm before I run it, and tell me whether to include or delete the stray compile log.
+

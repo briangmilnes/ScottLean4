@@ -1,0 +1,38 @@
+---
+prompt: p0011
+type: interaction
+opened: 2026-0801-15:24
+closed: 2026-0801-15:25
+subject: that-lean-tutorial-is-ok-is-there-anothe
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-01T15:24:51.522000-07:00
+
+That lean tutorial is ok is there another that Dana might like?
+
+## turn — assistant 2026-08-01T15:25:31.713000-07:00
+
+Yes — and I'd match it to who Dana *is*: the founder of denotational semantics and domain theory, a logician steeped in type theory, modal logic, and foundations. The de Moura–Ullrich tutorial you have is **programming-language flavored**. For Dana, a **proof-and-logic-first** tutorial fits far better.
+
+My picks, in order for him:
+
+| Tutorial | Authors | Why Dana would like it |
+|---|---|---|
+| **Theorem Proving in Lean 4** ⭐ | Avigad, de Moura, Kong, Ullrich | The official proof-assistant tutorial: dependent type theory, **propositions-as-types / Curry–Howard**, inductive types, quantifiers. This is Dana's native territory — reading Lean goals *as types to inhabit*. |
+| **The Hitchhiker's Guide to Logical Verification** | Baanen, Bentkamp, Blanchette, Hölzl, Limperg | Literally a **logic course** built on Lean 4 — natural deduction, induction, semantics of a small language, proof theory. Closest to a logician's curriculum. |
+| **Mathematics in Lean** | Avigad & Massot | Hands-on with **Mathlib** — sets, algebra, topology, real analysis. Best if he wants to *prove actual mathematics*, not just learn the system. |
+
+If I had to hand Dana exactly one, it's **Theorem Proving in Lean 4** — it's authored by Lean's creators plus Jeremy Avigad (a logician at Dana's own CMU), and it frames everything through the logic/type-theory correspondence rather than programming.
+
+All three are open-source (source repos + free web books), so I can pull one straight into `tutorials/` alongside the CADE 2021 file. Want me to:
+- **Clone Theorem Proving in Lean 4** into `tutorials/` (the `.lean` exercise sources + book), and/or
+- add the Hitchhiker's Guide / Mathematics in Lean too?
+
+One aside worth flagging: none of the standard tutorials touch **domain theory or denotational semantics** — Dana's own creations. Once he's warmed up, formalizing a Scott domain / fixed-point construction in Lean could be a tailor-made exercise. Happy to sketch that as a bespoke tutorial if you'd like.
+

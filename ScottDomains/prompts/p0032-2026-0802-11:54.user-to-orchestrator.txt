@@ -1,0 +1,52 @@
+---
+prompt: p0032
+type: interaction
+opened: 2026-0802-11:54
+closed: 2026-0802-11:55
+subject: what-can-we-do-for-mathematica-on-this-h
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T11:54:09.986000-07:00
+
+What can we do for mathematica on this host and at this date? How do we open them?
+
+## turn — assistant 2026-08-02T11:54:41.572000-07:00
+
+Let me check what's actually installable via Homebrew right now (versions/casks) so this is grounded in today's reality, not generic advice:
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" echo "=== brew casks matching wolfram/mathematica ===" brew search wolfram 2>/dev/null; brew search mathematica 
+## turn — assistant 2026-08-02T11:55:13.680000-07:00
+
+Homebrew only ships `wolfram-engine` (15.0.0.0) — **no Player or Mathematica cask** — and the Engine is a headless kernel, wrong tool for *viewing* notebooks. Since you asked "at this date," let me verify the current free-viewer situation rather than rely on memory:
+
+    WebSearch Wolfram Player free download open Mathematica notebook 2026 macOS
+## turn — assistant 2026-08-02T11:55:53.895000-07:00
+
+Confirmed and current (Wolfram Player is at v14.3, still free). Here's the concrete answer **for this host (macOS 26.6, Apple Silicon) at this date**:
+
+**To *open* the 37 `.nb` files you need a Wolfram front end. Homebrew can't give you one** — its only cask is the headless `wolfram-engine` (15.0.0.0), a kernel with no notebook GUI. So the real options:
+
+| Path | Opens notebooks | Edit/save | Install source | Cost |
+|---|---|---|---|---|
+| **Wolfram Player** ⭐ | ✅ view + interact + print | ❌ read-only | manual `.dmg` from [wolfram.com/player](https://www.wolfram.com/player/) (not in brew) | **free** |
+| **Mathematica** (full) | ✅ | ✅ | [user.wolfram.com](https://www.wolfram.com/download-center/) after license activation | CMU license |
+| **Wolfram Cloud** | ✅ in browser | limited | none — upload `.nb` at wolframcloud.com | free tier |
+
+Key facts so you don't chase dead ends:
+- **`wolfram-engine` won't open them** — no front end. Even converting `.nb` → PDF headlessly needs the front end (Player or Mathematica), so the Engine alone can't render a readable notebook. Its earlier download also failed on a CDN reset; I can retry, but it's the wrong tool for viewing.
+- All three viewers are **[you]** steps: they're GUI downloads that require a **free Wolfram ID** (account creation) and, for Mathematica, license activation — I can't create accounts or activate licenses, and these aren't in Homebrew, so I can't script the install.
+
+**My recommendation:**
+- **If Dana has a CMU Mathematica license** → install full **Mathematica**. One app opens all 37 notebooks *and* becomes our plotting engine for LaTeX (`Export[…,".pdf"]`).
+- **If not** → **Wolfram Player** (free) to read every notebook, plus **Wolfram Cloud** for a zero-install quick look; and we use **pgfplots/matplotlib** for plotting.
+
+What I *can* do right now: **open the Wolfram Player download page in Chrome** so you can grab the free viewer, and/or **retry the `wolfram-engine` download** if you want the CLI kernel for scripting. Want me to open the Player page?
+
+Sources: [Wolfram Player](https://www.wolfram.com/player/) · [Player download/installation support](https://support.wolfram.com/topic/wolfram-player/download-installation) · [Wolfram Download Center](https://www.wolfram.com/download-center/)
+

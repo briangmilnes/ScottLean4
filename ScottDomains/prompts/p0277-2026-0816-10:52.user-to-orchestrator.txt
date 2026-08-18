@@ -1,0 +1,57 @@
+---
+prompt: p0277
+type: interaction
+opened: 2026-0816-10:52
+closed: 2026-0816-10:53
+subject: go-look-at-the-structure-of-scottlean-fo
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T10:52:15.818000-07:00
+
+Go look at the structure of Scottlean four and Ericsson papers, both in projects, and read the Ericsson papers lean code Oh, wait
+
+    Bash ls /Users/scott/projects
+    Bash ls -F /Users/scott/projects/EricsonPapers
+    Bash ls -F /Users/scott/projects/ScottLean4
+    Bash find /Users/scott/projects/EricsonPapers -name '*.lean' -o -name '*.md' -o -name '*.toml' | head -60
+    Bash ls -F /Users/scott/projects/ScottLean4/Ericson
+    Bash wc -l /Users/scott/projects/EricsonPapers/Domains/*.lean
+    Read /Users/scott/projects/EricsonPapers/README.md
+    Read /Users/scott/projects/EricsonPapers/CLAUDE.md
+    Read /Users/scott/projects/ScottLean4/Ericson/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/counts.sh 2>/dev/null || find /Users/scott/projects/ScottLean4 -name '*.lean' -not -path '*/.lake/*' -not -pa
+    Bash ls -F /Users/scott/projects/ScottLean4/ScottDomains
+    Bash grep -n -m3 -H '^/-!' -A4 /Users/scott/projects/EricsonPapers/Domains/*.lean
+    Bash grep -n -H -m2 '^--\|^/-' /Users/scott/projects/EricsonPapers/Domains/DInfinity.lean /Users/scott/projects/EricsonPapers/Domains/FunctionSpace.lean /U
+    Bash grep -c 'sorry' /Users/scott/projects/EricsonPapers/Domains/*.lean
+## turn — assistant 2026-08-16T10:53:37.879000-07:00
+
+Structural pass done on both. Here's what's there — and one ambiguity your "oh, wait" may have been about.
+
+## Two different things are named "Ericson"
+
+**1. `~/projects/EricsonPapers`** — a small standalone lake package, Lars Ericson's continuous-lattices work.
+
+- 20 modules under `Domains/`, **4,822 lines**, **0 `sorry`**
+- No dependencies at all: no Mathlib, no batteries. Toolchain pinned `leanprover/lean4:v4.32.2`
+- `lakefile.toml` declares one library `Domains` with glob `Domains.+` — no root aggregator
+- Largest: `DInfinity.lean` (557), `FunctionSpace.lean` (471), `Streams.lean` (433), `PartialFunctions.lean` (358), `LRSODInCIC.lean` (324)
+- Its `CLAUDE.md` names `LRSODInCIC.lean` as *the* artifact: a deep embedding of layers **L, R, S, O, D** (logic / inference rules / set theory / point-set topology / D∞ axioms) as `structure`s over abstract carriers. Deliberately constrained: no `import Mathlib`, `Classical.choice` never invoked — classical reasoning enters only through one local `axiom lem : ∀ (p : Prop), p ∨ ¬p`, so the classical frontier stays visible. Every witness ends in a `#print axioms` audit.
+- `ScottDomainExamples.lean` (52 lines) imports it and is otherwise empty — reserved for Dana's witnesses, catalogued in `docs/ScottDomainExamples.md`
+
+**2. `~/projects/ScottLean4/Ericson/`** — vendored, **git-ignored** checkouts of Ericson's four GitHub repos (scott1972, scott1980, scott1982, scott_models): **107,287 lines across 299 files**. Only `README.md` and `logs/` are tracked. Of the four, only `scott_models` has been built here: 959 jobs, 0 errors, 9 warnings, 0 `sorry`.
+
+## ScottLean4 itself
+
+- **127 modules, 48,413 lines, 2,239 theorems, 3 `sorry` in 2 files** — [A3StepDecidable.lean:202](ScottDomains/ScottDomains/Effective/A3StepDecidable.lean:202) and `:389`, plus [Lemma30.lean:536](ScottDomains/ScottDomains/Lemma30.lean:536)
+- Main development is `ScottDomains/` (Gunter & Scott, *Semantic Domains*, HTCS Vol. B 1990), alongside `Playground/`, `ScottClasses/`, `ScottLean/`, `polynomials/`, and paper directories (`DanaScottPapers/`, `GeometryPapers/`, `Beeson/`, `HarperBook/`, `MathTexts/`)
+- Working tree: `Playground/Playground/CartesianClosed.lean` modified, `scripts/bibliography-cites.sh` untracked
+
+I've only read module headers and structure so far, not the 4,822 lines of proof text. Which did you mean by "the Ericson papers lean code" — `EricsonPapers/Domains` (4,822 lines, readable in full), or the vendored 107k-line set (which would need a targeted subset)? And what was the "oh, wait"?
+

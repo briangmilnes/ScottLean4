@@ -1,0 +1,30 @@
+---
+prompt: p0231
+type: interaction
+opened: 2026-0815-10:01
+closed: 2026-0815-10:01
+subject: why-do-you-need-to-rebase
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T10:01:16.751000-07:00
+
+Why do you need to rebase ?
+
+## turn — assistant 2026-08-15T10:01:25.711000-07:00
+
+You don't, here. `--rebase` only does something when there are local commits not on the remote — it replays them on top of the fetched head instead of creating a merge commit. As of the push, `main` and `origin/main` are the same commit and the tree is clean, so there is nothing to replay: a plain pull fast-forwards, and the two forms produce an identical result.
+
+I reached for `--rebase` out of the ScottLean4 habit — that repo's CLAUDE.md says always rebase because it is written from two machines in parallel. The reason is real for this repo too (you just proved it, with `3599aa7` landing while I had local commits), but it applies when I'm holding unpushed work, which I'm not.
+
+```bash
+git -C /Users/scott/projects/EricsonPapers pull
+```
+
+Want me to run that instead?
+

@@ -1,0 +1,65 @@
+---
+prompt: p0305
+type: interaction
+opened: 2026-0816-14:45
+closed: 2026-0816-14:46
+subject: commit-push
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T14:45:26.154000-07:00
+
+commit push
+
+    Bash git -C /Users/scott/projects/ScottLean4 status --short --branch
+## turn — assistant 2026-08-16T14:45:58.077000-07:00
+
+Everything from this session is already pushed (**ed2a77c**), and `main` is in sync. The only thing of mine still outstanding is the `gitcp.sh` trailer fix from earlier. Checking it's only that:
+
+    Bash git -C /Users/scott/projects/ScottLean4 diff scripts/gitcp.sh
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0068: correct gitcp.sh co-author trailer to Claude Opus 5  One line. The helper hardcoded Claude O
+    Bash git -C /Users/scott/projects/ScottLean4 status --short --branch
+## turn — assistant 2026-08-16T14:46:39.717000-07:00
+
+Everything of mine is committed and pushed. **`main` is in sync with `origin/main`.**
+
+The equilogical-spaces work was already pushed as **ed2a77c** before you asked — so the only thing outstanding was the `gitcp.sh` trailer fix, now **acacf04**. Verified the diff first: one line, `Claude Opus 4.8` → `Claude Opus 5`, nothing else.
+
+Two files remain in the working tree, both **yours, not mine** — untouched all session:
+
+```
+ M Playground/Playground/CartesianClosed.lean
+?? scripts/bibliography-cites.sh
+```
+
+## This session's commits on `briangmilnes/ScottLean4`
+
+| Commit | What |
+| --- | --- |
+| a5e0b26 | Scott 1998 Theorem 3.2 stated with real content |
+| 4f5d07e | Bauer–Birkedal–Scott §3: `Equ`, Theorems 3.10/3.13 stated |
+| caafbcf | Theorem 3.5 proved; `PEqu` proved |
+| 124e169 | Definition 3.4 bridge + `nbhdFilter` injectivity |
+| bb1e562 | Theorem 3.13's currying step proved |
+| 4947a41 | `BoundedComplete`; the `ALat` category |
+| 3bc45a3 | `ScottHom` is a complete lattice |
+| dd34d44 | that promoted to an instance, diamond collapsed |
+| 1be5ebc | `IsAlgebraic (α × β)` proved |
+| e811307 | `HasFiniteProducts ALat` |
+| ac083ec | **Theorem 3.8 proved** — `ALat` cartesian closed |
+| b0b114b | **Theorem 3.7 proved** — Extension Theorem |
+| 92ed751 | **Theorem 3.6 proved** — Embedding Theorem |
+| ed2a77c | restriction functor `R` and its faithfulness |
+| acacf04 | gitcp.sh trailer |
+
+Plus **eb7a9a9** on `DanaSScott/ScottProjects` (the new package).
+
+**Net:** `ScottDomains/ScottDomains/EquilogicalSpaces/` is 1848 lines across 11 modules, 5 `sorry`, 10 of 11 modules fully proved; library builds 1547 jobs, 0 errors.
+
+Of the paper's §3: Definitions 3.2, 3.4, 3.9, 3.11 and Theorems 3.5, 3.6, 3.7, 3.8 are kernel-checked, along with the categories `Equ`, `PEqu`, and `ALat`. Outstanding: 3.12 (needs the powerset-retraction lemma for fullness, plus the essential-surjectivity witness), then 3.10 and 3.13 for `Equ`. §4 and §5 are untouched and mapped in the directory README.
+

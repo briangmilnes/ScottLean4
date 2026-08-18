@@ -1,0 +1,69 @@
+---
+prompt: p0258
+type: interaction
+opened: 2026-0815-13:37
+closed: 2026-0815-13:41
+subject: do-52
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:37:49.452000-07:00
+
+do 5.2
+
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+## turn — assistant 2026-08-15T13:39:01.400000-07:00
+
+§5.2. The definability claim needs a PCF syntax, but the *mathematical* content — por is a legitimate element of the function domain, and its parallelism is the absence of a sequentiality index — is provable here:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 10 "3753:29"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 8 "3754:29"
+    Bash cd /Users/scott/projects/EricsonPapers && sed -i '' -e 's/    exact Option.noConfusion h2/    cases h2/' Domains/ScottDomainExamples.lean && grep -n -
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "por_|lor_"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize parallel-or (catalogue 5.2) as far as this vocabulary reaches" -m "Proved: por is mon
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T13:41:01.780000-07:00
+
+§5.2 — pushed as `e06ddb7`. Build: **846 jobs, zero errors, zero warnings, zero `sorry`.**
+
+**Proved — the section's first claim.** por is monotone in both arguments (`por_mono_left`, `por_mono_right`), hence continuous, hence a genuine element of the function domain. On a flat domain monotone *is* continuous: a directed subset of 𝔹⊥ is a chain with a greatest element, so preserving directed suprema is monotonicity.
+
+**Not proved, and not provable in this vocabulary — undefinability in PCF.** Definability is a statement about a *syntax* and its operational semantics; it needs a PCF term language and an adequacy theorem, neither of which the D1–D4 setting carries. That is a boundary of the framework, not a gap I can close by working harder.
+
+**What stands in its place** is the semantic hallmark that separates por from every sequential function:
+
+| theorem | content |
+| --- | --- |
+| `por_not_seq` | por has **no sequentiality index** — strict in neither argument, so evaluation cannot begin anywhere |
+| `lor_seq` | the notion is not vacuous: sequential left-strict or *has* one |
+| `por_lor_agree` | the two agree on total data — the whole difference is the behaviour at ⊥ |
+
+That is precisely what "parallel" names, and it is the property Plotkin's undefinability result exploits.
+
+The entry is **`lem`-free**; `lor_seq` needs no axioms at all.
+
+## The catalogue is now covered end to end
+
+Every numbered entry in `docs/ScottDomainExamples.md` has been formalized to the limit of what the D1–D4 vocabulary can express, with each boundary stated in §8 rather than left silent:
+
+- **All 16 rows of §2** — twelve inhabited, four refuted
+- **§5.6** ideal completion, as the general theorem behind §3.6–§3.8
+- **§6.5** Hoare powerdomain proved; Plotkin refutation left open, with the reason and my check of the small cases recorded
+- **§5.2** monotonicity/continuity proved; PCF-undefinability out of frame, replaced by the sequentiality-index refutation
+- **§5.1** carries its two stated scope limits
+
+`Domains/ScottDomainExamples.lean` is ~3,800 lines from the 19 it began at, plus `Domains/IntervalDomain.lean`. Everything outside the ℝ module remains free of `Classical.choice` — including D∞, which came within one stray `omega` of acquiring it.
+

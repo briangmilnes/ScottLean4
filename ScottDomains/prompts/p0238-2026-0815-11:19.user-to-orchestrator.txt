@@ -1,0 +1,52 @@
+---
+prompt: p0238
+type: interaction
+opened: 2026-0815-11:19
+closed: 2026-0815-11:20
+subject: do-32
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T11:19:22.707000-07:00
+
+do 3.2
+
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+## turn — assistant 2026-08-15T11:20:00.789000-07:00
+
+§3.2 is already discharged — it is `sierp : DInfinityFoundations Bool` in `LRSODInCIC.lean`, kernel-checked, and §8 counts it. So the useful work is the one §4 claim about 𝕊 that is *not* yet checked: that the opens are **exactly** ∅, {⊤}, {⊥,⊤}. Nothing in Lean currently proves that enumeration.
+
+    Read /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Check the Sierpinski open-set enumeration of catalogue section 4: exactly three opens" -m "Sect
+    Bash code --reuse-window /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.
+## turn — assistant 2026-08-15T11:20:57.360000-07:00
+
+Both open in the existing window: `Domains/ScottDomainExamples.lean` and `docs/ScottDomainExamples.md`.
+
+Committed as `23a9052` (2 files, +76). Build: 4 jobs, zero errors, zero warnings, zero `sorry`.
+
+**§3.2 was already proved** — `sierp : DInfinityFoundations Bool` in `LRSODInCIC.lean` discharges D1–D4. What §4 asserted with no Lean proof behind it was the *enumeration*, so that is what I added:
+
+| declaration | claim | axioms |
+| --- | --- | --- |
+| `sierp_open_cases` | every open is ∅, {⊤}, or {⊥,⊤} | `[lem, propext, Quot.sound]` |
+| `sierp_empty_ne_top` | ∅ ≠ {⊤} | none |
+| `sierp_top_ne_full` | {⊤} ≠ {⊥,⊤} | none |
+| `sierp_empty_ne_full` | ∅ ≠ {⊥,⊤} | none |
+
+Together: at most three, and pairwise distinct, hence exactly three.
+
+**The measurement worth your attention.** The enumeration consumes `lem`; the three separations consume nothing. A subset here is a `Bool → Prop`, so an open is any `U` with `U ⊥ → U ⊤`, and `U ⊥` may be an undecided proposition — constructively there are *more* opens than three, one for each undecided truth value. Excluded middle is what collapses them to three. So this is the first result in the development whose **statement** is classical, not merely its proof: `sierp`'s `lem` sat inside a proof of a constructively-meaningful claim, whereas "there are exactly three opens" is false without it.
+
+§4 of the catalogue now records that, and §8 stays at 2 of 16 — §3.2 was already counted.
+
+Unpushed: two commits ahead (`5a60ec2`, `23a9052`).
+

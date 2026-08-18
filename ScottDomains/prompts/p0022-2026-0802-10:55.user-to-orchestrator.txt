@@ -1,0 +1,41 @@
+---
+prompt: p0022
+type: interaction
+opened: 2026-0802-10:55
+closed: 2026-0802-10:55
+subject: well-where-are-the-papers-also
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:55:10.597000-07:00
+
+Well where are the papers also?
+
+## turn — assistant 2026-08-02T10:55:17.906000-07:00
+
+The source papers live in `DanaScottPapers/` at the repo root. Let me show you what's there:
+
+    Bash cd ~/projects/ScottLean4 echo "=== DanaScottPapers/ ===" ls -la DanaScottPapers/ 2>/dev/null | head -60 echo echo "=== counts by type ===" echo "PDFs:
+## turn — assistant 2026-08-02T10:55:47.982000-07:00
+
+They're in **`DanaScottPapers/`** at the repo root — a corpus of **41 papers**, each stored as a **PDF + a matching extracted `.txt`** (41 + 41), plus an **`EXTRACTION_REPORT.md`**. The `.txt` files are exactly the extracted source the `ScottLean/Scott/*.lean` skeletons are generated from (the 1980 file names its `.txt` in the header).
+
+Span: **1958** (his dissertation, *Convergent Sequences of Complete Theories*) through **2023** (*Category Theory in Isabelle/HOL*) — the whole arc, including the domain-theory landmarks (*Continuous Lattices* 1972, *Outline of a Mathematical Theory of Computation* 1970, the 1980 λ-calculus-models paper you're looking at).
+
+One measured flag worth noting: the extraction isn't uniformly clean. For example:
+
+```bash
+DanaScottPapers/Scott-1973-Models-for-Various-Type-Free-Calculi.txt
+```
+
+is only **16 bytes** — i.e. the text extraction essentially **failed** for that paper (almost certainly a scanned/image PDF that `pdftotext` couldn't read, and would need **OCR**). That's precisely what `tesseract` (which we installed) is for.
+
+`DanaScottPapers/EXTRACTION_REPORT.md` should have the per-paper quality detail. Want me to:
+- read that report and **tally which `.txt` extractions are thin/empty** (a quick quality scan across all 41), and/or
+- **re-OCR the failed ones** (like the 1973 paper) with `tesseract` so their Lean skeletons can be generated too?
+

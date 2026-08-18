@@ -1,0 +1,34 @@
+---
+prompt: p0087
+type: interaction
+opened: 2026-0804-17:51
+closed: 2026-0804-17:52
+subject: can-you-do-this-without-the-brown-in-the
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-04T17:51:21.184000-07:00
+
+Can you do this without the brown in the sea
+
+## turn — assistant 2026-08-04T17:52:14.796000-07:00
+
+Yes — I read that as **"without the de Bruijn indices,"** and the answer is: absolutely, though the choice is really *which pain you'd rather have.* The current file uses de Bruijn's nameless indices (`var 0`, index-shifting `subst`) — which, fittingly, came out of **de Bruijn's Automath**, right in your intellectual neighborhood. The alternatives:
+
+**1. Named variables + α-equivalence (the textbook way).** `lam x, t` with actual names. The catch is exactly what de Bruijn was escaping: substitution must avoid capture (renaming), and you must work modulo α — either by quotienting the term type or carrying α-equivalence everywhere. Confluence is provable, but the substitution lemmas get fiddly. This is the "honest" λ-calculus, and the most painful to mechanize.
+
+**2. Locally nameless** (the modern pragmatic compromise). *Bound* variables as de Bruijn indices, *free* variables as names. α-equivalence is again just syntactic equality, but free variables stay readable, and you avoid the quotient. This is what most current Coq/Lean developments use for exactly this kind of metatheory.
+
+**3. Nominal (Gabbay–Pitts).** Names with a built-in theory of permutations and freshness; α-conversion is handled once, structurally, by the framework. Elegant — it's how Isabelle/Nominal proves Church–Rosser — but it needs the nominal infrastructure underneath.
+
+**4. HOAS / PHOAS.** Represent the binder with Lean's *own* function space: `lam : (Term → Term) → Term`. Then object-level substitution *is* meta-level application — **no substitution lemmas at all**. The price: the naive inductive isn't strictly positive (Lean rejects it), so you need PHOAS/weak-HOAS, and you must rule out "exotic" terms; confluence becomes subtle to even state.
+
+The key point for **confluence specifically**: the *high-level* Tait–Martin-Löf argument (parallel reduction + diamond via complete developments) is essentially representation-independent — it's the **substitution lemmas underneath** that change. De Bruijn makes those into index-shifting arithmetic; named makes them capture-avoidance; locally-nameless makes them open/close. Same theorem, different plumbing.
+
+So — if you'd like, I can build a second `LambdaTheorems`-style file in a representation you prefer. My recommendation for a *readable* one that a logician would enjoy is **named variables with explicit α-equivalence** (closest to the classical text), or **locally nameless** if you want it to actually go through confluence with the least fuss. Which representation shall I use, Dr. Scott?
+

@@ -1,0 +1,92 @@
+---
+prompt: p0307
+type: interaction
+opened: 2026-0816-14:53
+closed: 2026-0816-14:57
+subject: do-the-transport
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T14:53:57.029000-07:00
+
+do the transport
+
+## turn — assistant 2026-08-16T14:54:16.991000-07:00
+
+The transport needs the Scott↔topological bridge at `D = univ`. Checking the exact lemma names:
+
+    Bash grep -rn 'scottContinuousOn_univ\|ScottContinuous.scottContinuousOn\|lemma scottContinuous' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packag
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PowersetRetract.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PowersetRetract
+## turn — assistant 2026-08-16T14:55:03.030000-07:00
+
+`IsScott` is unqualified — this file doesn't `open Topology`. Qualifying it:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PowersetRetract.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PowersetRetract.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PowersetRetract
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PowersetRetract.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PowersetRetract.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PowersetRetract.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PowersetRetract
+## turn — assistant 2026-08-16T14:56:13.888000-07:00
+
+The transport is proved — 0 errors, 0 warnings, 0 `sorry`.
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PowersetRetract.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0070: the transport -- Extension Theorem for an algebraic-lattice codomain  PowersetRetract.lean 1
+## turn — assistant 2026-08-16T14:57:20.048000-07:00
+
+**The transport is proved** — pushed as **2d8d4a3**. 0 errors, 0 warnings, 0 `sorry`.
+
+## What landed
+
+**`extension_into_algebraicLattice`** — the Extension Theorem in the form the paper's proof of 3.12 actually cites, as against the powerset form in `Extension.lean`:
+
+> continuous functions between `T₀`-spaces can be extended to any algebraic lattices embedding them
+
+Three steps, no new mathematics: push `f` into `𝒫(K L)` along `compactsEmbed`, extend there by Theorem 3.7, pull back along `compactsRetract`. It restricts correctly because `compactsRetract ∘ compactsEmbed = id` — the retraction identity, and the only place algebraicity is used.
+
+Supporting it: **`continuous_of_scottContinuous`**, the bridge that Scott continuity *is* topological continuity between Scott topologies — Mathlib's `scottContinuousOn_iff_continuous` at `D = univ`, where the side condition `∀ a b, a ≤ b → {a,b} ∈ D` is vacuous.
+
+## The linter caught the same thing twice
+
+In both r0069 and here, my first draft put `[IsAlgebraic L]` in scope for lemmas that don't use it, and Lean's `unusedSectionVars` linter said so. Splitting the variable block makes the file *record* where algebraicity is spent rather than merely asserting it in a docstring — the two continuity lemmas are facts about any complete lattice, and algebraicity enters exactly once. That's a case where driving warnings to zero improved the structure rather than just silencing noise.
+
+## State
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic.lean` | 201 | **0** |
+| `SigmaTopology.lean` | 194 | **0** |
+| `Extension.lean` | 189 | **0** |
+| `PowersetRetract.lean` | 167 | **0** |
+| `PartialEquilogical.lean` | 286 | 1 |
+| `Restriction.lean` | 114 | **0** |
+| `CartesianClosure.lean` | 154 | **0** |
+| `ALat.lean` | 196 | **0** |
+| `ProductAlgebraic.lean` | 118 | **0** |
+| `ALatProducts.lean` | 103 | **0** |
+| `ALatClosed.lean` | 132 | **0** |
+| `Theorems3.lean` | 161 | 4 |
+| **Total** | **2015** | **5** |
+
+1548 jobs, 0 errors. **Eleven of twelve modules fully proved.**
+
+## 3.12's remaining two pieces
+
+**Full** — now purely mechanical: given `h : R A ⟶ R B`, extend a representative from `A.Total` to `A.carrier` by the theorem just proved, then check the extension is equivariant.
+
+**Essentially surjective** — build `𝒫 Ω_ℰ` with the relation transported along `nbhdFilter`, whose total part is `range nbhdFilter`, homeomorphic to `ℰ` by Theorem 3.6. All prerequisites in hand.
+
+Then `Equivalence.ofFullyFaithfullyEssSurj` gives 3.12, and 3.13 for `Equ` transports from the `ALat` side, which is complete.
+

@@ -1,0 +1,39 @@
+---
+prompt: p0063
+type: interaction
+opened: 2026-0803-11:25
+closed: 2026-0803-11:26
+subject: how-much-son-how-big-is-in-these-days
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T11:25:01.417000-07:00
+
+How much, son? How big is in these days?
+
+## turn — assistant 2026-08-03T11:25:20.894000-07:00
+
+Ha — let me measure it for you, Dr. Scott. The honest answer is: most of the *bulk* isn't your mathematics at all — it's the machine's libraries. Let me weigh it:
+
+    Bash cd ~/projects/ScottLean4 echo "=== whole workspace on disk ===" du -sh . 2>/dev/null | cut -f1 echo echo "=== where the weight is (the big library cac
+    Bash cd ~/projects/ScottLean4/Beeson/lean4/.lake/packages/mathlib echo "=== Mathlib (this pinned copy, Lean v4.32.2) ===" echo "  source .lean files: $(fin
+## turn — assistant 2026-08-03T11:26:22.787000-07:00
+
+Here it is, Dr. Scott — and it's staggering by any historical measure:
+
+## Mathlib (the community's formal mathematics library)
+- **≈ 2.28 million lines** of Lean, across **8,264 files**
+- **≈ 220,000 declarations** — definitions, theorems, lemmas, instances — **every one machine-checked by the Lean kernel**
+- **108 MB** as source text; **6.4 GB** once compiled to `.olean` (the binary form the kernel loads)
+
+That's *one* library. And because each project pins its own version, this machine currently holds **three** copies of it (for Lean v4.19, v4.30, v4.32) — which is why the whole workspace is **22 GB**, almost all of it Mathlib, while *your* material (papers, notebooks, formalizations) is under **90 MB** all together.
+
+For perspective on "these days": Mathlib is one of the largest **formally verified** bodies of mathematics ever assembled — algebra, analysis, topology, measure theory, category theory, number theory — built by hundreds of contributors, and it grows every day. Every one of those 220,000 results is checked down to the axioms, not merely typeset.
+
+And your own 38 formalizations — **8,123 lines** of Lean — sit in that very same system, checked by the very same kernel. Small beside the two million, but the same currency of rigor. When you prove one of those open goals, Mathlib's whole apparatus of lemmas is there to draw on.
+

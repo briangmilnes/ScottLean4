@@ -1,0 +1,41 @@
+---
+prompt: p0272
+type: interaction
+opened: 2026-0816-10:39
+closed: 2026-0816-10:40
+subject: how-am-i-loogd-in
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T10:39:59.075000-07:00
+
+how am I loogd in
+
+    Bash git -C /Users/scott/projects/EricsonPapers config --list --show-origin | grep -E "user\.|credential|remote.origin.url"
+    Bash gh auth status 2>&1 | head -20
+## turn — assistant 2026-08-16T10:40:48.888000-07:00
+
+Four separate things, and they don't all name the same person:
+
+| layer | value | source |
+| --- | --- | --- |
+| macOS account | `scott` | this machine (Dana's) |
+| Git author | **Brian Milnes** `<briangmilnes@gmail.com>` | `/Users/scott/.gitconfig` |
+| GitHub account | **briangmilnes** | `gh auth status` — token in the keyring, scopes `gist`, `read:org`, `repo`, `workflow` |
+| Credential path | `credential.helper=osxkeychain` | `/Library/Developer/CommandLineTools/usr/share/git-core/gitconfig` |
+
+The remote is HTTPS — `https://github.com/DanaSScott/EricsonPapers.git` — so every push this session authenticated as the GitHub user **briangmilnes**, using a credential from the macOS Keychain (or gh's keyring token, which gh installs as a git credential helper). That account must hold write access to `DanaSScott/EricsonPapers` as a collaborator, since the repo is under Dana's account and the pushes succeeded.
+
+The consequence worth knowing: **every commit today is authored as Brian Milnes even though it was made on Dana's machine** — the `user.name`/`user.email` are Brian's, set globally in `~/.gitconfig`. If you'd rather these read as Dana's, set a repo-local identity:
+
+```bash
+git -C /Users/scott/projects/EricsonPapers config user.name "Dana S. Scott"
+```
+
+That affects future commits only; the 20 already pushed keep Brian's name.
+

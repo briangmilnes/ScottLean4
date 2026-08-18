@@ -1,0 +1,86 @@
+---
+prompt: p0328
+type: interaction
+opened: 2026-0816-16:26
+closed: 2026-0816-16:30
+subject: go
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T16:26:33.019000-07:00
+
+go
+
+## turn — assistant 2026-08-16T16:27:00.104000-07:00
+
+The dual. Checking the `IsRegularEpi` accessors and the op-conversion lemma:
+
+    Bash grep -n 'def IsRegularEpi.desc\|lemma IsRegularEpi.fac\|IsRegularEpi.desc\|IsRegularEpi.fac\|isRegularEpi_unop_iff_isRegularMono' /Users/scott/project
+    Bash sed -n '415,436p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Limits/Shapes/RegularMono.lean
+## turn — assistant 2026-08-16T16:27:17.329000-07:00
+
+The API mirrors exactly. Writing the dual:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/RegularSubobjects.lean' s=open(p).read().rstrip() tai
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.RegularSubobjects 2>&1 | grep -E '^(error|warning)' -A10 | 
+## turn — assistant 2026-08-16T16:28:31.673000-07:00
+
+Two fixes — a reflexivity at the wrong point, and the op-bookkeeping needs `Iso.op` rather than opping the components:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/RegularSubobjects.lean' s=open(p).read() s=s.replace(
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.RegularSubobjects 2>&1 | grep -E '^(error|warning)' -A10 | 
+## turn — assistant 2026-08-16T16:29:04.239000-07:00
+
+`have` erased the body again — the same lesson as r0071. Inlining:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/RegularSubobjects.lean' s=open(p).read() s=s.replace(
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.RegularSubobjects 2>&1 | grep -E '^(error|warning)' -A10 | 
+## turn — assistant 2026-08-16T16:29:27.722000-07:00
+
+Both proved. Wiring the second into `Theorems3`:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean' s=open(p).read() s=s.replace('''/-- *
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build 2>&1 | grep -E 'declaration uses|^error|Build completed' | head
+    Bash grep -n 'def Theorem310\|theorem bauerBirkedalScott04_theorem_3_10' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theor
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() i=s.index("## §3: zero `s
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0090: Theorem 3.10's regular co-well-poweredness proved -- section 3 is finished  All four clauses
+## turn — assistant 2026-08-16T16:30:51.990000-07:00
+
+**Both proved. §3 is finished.** Pushed as **827d9d3**.
+
+## Regular co-well-poweredness
+
+Not a corollary of the well-powered case, as I flagged. The dual runs in `Equᵒᵖ`, where the one-point space that detected points has no counterpart. What replaces it is the manuscript's other half — *"forming a regular quotient is just making the equivalence relation coarser"* — made precise: a regular quotient is determined by its **kernel relation** `{(x,y) | q x ≡ q y}`, living in `Set (|𝒜| × |𝒜|)`, again `Type u`.
+
+There's a real asymmetry worth noting: **no universal property is needed to *describe* the kernel relation**, only to prove injectivity — whereas (★) needed it for the harder inclusion.
+
+## Two Lean details
+
+The op-bookkeeping is far easier through `Iso.op` on an iso built in `Equ` than by opping components — and the **hom** of the opposite iso is `v`, not `u`, since `S ⟶ T` in `Equᵒᵖ` is `Q_T ⟶ Q_S` here.
+
+And the iso must be **inlined, not bound by `have`** — `have` erases the body, after which `.hom` no longer reduces to `v`. That's the `have`-versus-`let` lesson from r0071, in its third appearance this session.
+
+## §3, final
+
+| | |
+| --- | --- |
+| Definitions 3.2, 3.4, 3.9, 3.11 | proved |
+| Theorems 3.5, 3.6, 3.7, 3.8, 3.12, 3.13 | proved |
+| **Theorem 3.10** — complete, cocomplete, regular well-powered, regular co-well-powered | **all four proved** |
+| categories `Equ`, `PEqu`, `ALat` | proved |
+
+**18 modules, 3781 lines, 0 `sorry`.** 1560 jobs, 0 errors. Library `sorry` is 3, all pre-existing and unrelated.
+
+## The one thing still not asserted
+
+`Theorem310NotWellPowered` — footnote 4's "`Equ` is *not* well-powered." It stays a claim because discharging it needs Johnstone's counterexample, which the paper cites but doesn't exhibit, so I've never checked whether `Small.{u}` failure faithfully encodes "an unbounded number of non-isomorphic subobjects." A `sorry` there would assert something unverified.
+
+I've added a README section making this visible, because a `Prop`-valued `def` carries no `sorry` and the count alone wouldn't tell you — the same trap that made my r0087 "§3 is complete" claim wrong.
+
+**§4** (dependent type theory, with the paper's two negative results) and **§5** (Kleene–Kreisel) remain untouched.
+

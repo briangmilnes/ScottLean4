@@ -1,0 +1,32 @@
+---
+prompt: p0271
+type: interaction
+opened: 2026-0815-18:59
+closed: 2026-0815-18:59
+subject: commit-and-push
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T18:59:31.958000-07:00
+
+commit and push
+
+    Bash git -C /Users/scott/projects/EricsonPapers status --short --branch
+## turn — assistant 2026-08-15T18:59:44.967000-07:00
+
+Nothing to commit or push — working tree clean, `main` level with `origin/main` at `d827f98`. The per-entry split was the last change and went up with it; opening files in VS Code changes nothing on disk.
+
+Final state of the repository:
+
+- **20 Lean modules**, one per catalogue entry, none over 557 lines
+- **`lake build`**: 863 jobs, zero errors, zero warnings, zero `sorry`, 83 axiom audits
+- **All 16 rows of catalogue §2 settled**, no outstanding scope limits, plus §5.6, §6.5's Hoare half, and §5.2's semantic content
+- **`Classical.choice` confined to `IntervalDomain.lean`**, where it arrives with ℝ; the other nineteen modules import nothing outside the repository
+
+Open in the catalogue with reasons recorded in §8, both needing machinery outside the D1–D4 vocabulary: the Plotkin bounded-completeness counterexample, and PCF-undefinability for parallel-or.
+

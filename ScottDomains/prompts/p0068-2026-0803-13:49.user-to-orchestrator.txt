@@ -1,0 +1,73 @@
+---
+prompt: p0068
+type: interaction
+opened: 2026-0803-13:49
+closed: 2026-0803-13:53
+subject: set-up-a-lead-file-with-a-homogeneous-po
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T13:49:55.301000-07:00
+
+Set up a lead file with a homogeneous polynomial, uh, and show us how to write tactics that factor it.
+
+## turn — assistant 2026-08-03T13:51:29.760000-07:00
+
+A perfect example, Dr. Scott — homogeneous forms are the language of projective geometry, and factoring a binary quadratic into two linear forms is exactly a **degenerate conic (a pair of lines)**. Let me set up a Lean file that demonstrates it, and I'll explain the key point: Lean *verifies* a factorization you propose (via the `ring` tactic) rather than *discovering* it like a CAS.
+
+    Write /Users/scott/projects/ScottLean4/tutorials/mathematics_in_lean/BriansLean/HomogeneousFactoring.lean
+## turn — assistant 2026-08-03T13:52:03.043000-07:00
+
+Let me verify it all checks (every `ring` proof) before opening it — this loads Mathlib's tactics, so give it a moment:
+
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/tutorials/mathematics_in_lean echo "=== elaborate the file (0 errors ex
+## turn — assistant 2026-08-03T13:52:32.911000-07:00
+
+**It all checks — 0 errors, everything the kernel accepts.** Opening it in the editor:
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" code -g "$HOME/projects/ScottLean4/tutorials/mathematics_in_lean/BriansLean/HomogeneousFactoring.lean" echo "ope
+## turn — assistant 2026-08-03T13:53:10.728000-07:00
+
+Open now, Dr. Scott. Here's how the tactics do the work — try each with the cursor in the editor, watching the Infoview.
+
+## The one tactic that matters here: `ring`
+
+`ring` is a **decision procedure** for equalities in any commutative ring. It normalizes *both* sides to a canonical polynomial form and checks they're identical. So a factorization proof is just:
+
+```lean
+example : x^2 - y^2 = (x - y) * (x + y) := by ring
+```
+
+You *state* the factored form; `ring` multiplies out `(x−y)(x+y)`, gets `x² − y²`, sees the two sides match, and closes the goal. Put your cursor right after `by ring` and the Infoview says **`No goals`** — the kernel has accepted it. Move the cursor *before* `ring` and you'll see the goal it's about to discharge.
+
+The degree-3 forms (`x³ − y³`, `x³ + y³`) and the ternary form (`x·y − x·z = x·(y − z)`) all close the same way — `ring` doesn't care about the degree.
+
+## Factoring framed as divisibility
+
+To say *"(x − y) is a factor of x² − y²"* is `(x - y) ∣ (x² - y²)`, which unfolds to `∃ c, x² − y² = (x − y)·c`. You supply the **cofactor** as the witness, and `ring` proves the equation — the *entire proof is a term*:
+
+```lean
+example : (x - y) ∣ (x^2 - y^2) := ⟨x + y, by ring⟩
+```
+
+That `⟨x + y, by ring⟩` is the factorization made explicit: the divisor is `x − y`, the quotient is `x + y`.
+
+## `ring_nf` — watch it multiply out
+
+Where `ring` *proves* a stated equality, `ring_nf` **normalizes** an expression in place. Cursor after the `ring_nf` line and the Infoview shows `(x − y)(x + y)` expanded to its canonical `x² − y²`.
+
+## The honest point — verify, not discover
+
+This is the key thing, and it's the opposite of Mathematica's `Factor[]`: **Lean has no built-in tactic that *finds* a factorization for you.** `ring` *checks* the factors you propose. To *discover* them you'd use a CAS (or your own head) and bring the answer to Lean. Formal factorization *theory* — irreducibility, unique factorization — lives in Mathlib's `Polynomial`/`MvPolynomial` types, where those become theorems to prove rather than `ring` identities.
+
+And the geometry ties it together: a binary quadratic that factors into two **linear** forms is a **degenerate conic** — `x² − y² = (x−y)(x+y)` is the pair of lines `x = y` and `x = −y`.
+
+Two ways we could go deeper, if you'd like:
+1. **Do one live** — you type a factorization, we watch `ring` accept (or reject) it.
+2. **Actually write a tactic** — Lean lets you *metaprogram* new tactics; I could show a tiny custom tactic that tries a proposed factorization, so you see how a tactic is built, not just used.
+

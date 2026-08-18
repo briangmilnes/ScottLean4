@@ -1,0 +1,45 @@
+---
+prompt: p0260
+type: interaction
+opened: 2026-0815-18:22
+closed: 2026-0815-18:23
+subject: are-all-the-results-readable-at-scottdom
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T18:22:59.127000-07:00
+
+Are all the results readable at ScottDomainExample.lean
+
+    Bash wc -l /Users/scott/projects/EricsonPapers/Domains/*.lean
+    Bash grep -c "^theorem \|^def \|^structure \|^inductive " /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash grep -n "^   §\|^   D∞ itself\|^   Where this stops" /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+## turn — assistant 2026-08-15T18:23:44.212000-07:00
+
+Almost — three exceptions, and one caveat about order.
+
+**In the file**: 3,776 lines, **217** top-level declarations, 20 section banners, one per catalogue entry.
+
+**Not in it:**
+
+1. **§3.2's witness** — `sierp : DInfinityFoundations Bool` lives in [LRSODInCIC.lean](../EricsonPapers/Domains/LRSODInCIC.lean), Ericson's original file. What's here is only the §4 enumeration proving those three opens are all of them.
+2. **§6.3 and §6.4** — in [IntervalDomain.lean](../EricsonPapers/Domains/IntervalDomain.lean) (260 lines), because they need ℝ and therefore Mathlib. Keeping them out is deliberate: it is what lets `ScottDomainExamples.lean` stay import-free apart from `Domains.LRSODInCIC`.
+
+**The caveat: the file is in the order I proved things, not §2's order.**
+
+```
+3.1 · 3.2/4 · 3.3 · 3.4 · 3.5 · 3.6 · 6.1 · 6.2 · 3.7 · 3.8 ·
+5.6 · 5.1 · 5.4 · 5.5 tower · 5.3 · 5.5 revisited · D∞ · 6.5 · 5.2
+```
+
+So §6.1/§6.2 interrupt the §3 series, and **§5.5 is split in two** — the tower at line 2816, then "revisited" at 3049 with D∞ at 3149 — separated by §5.3. A reader following the catalogue has to jump.
+
+Part of that order is **forced by dependencies**, not just history: `pairDecode` is defined in §3.7 and used by §5.1, §5.3, §5.4 and §5.5; `psetBits`/`pset_mem_bits` come from §3.6 and are used by §5.1 and §3.7. Strict catalogue order would need those extracted into a preliminaries section first.
+
+If you want it to read in catalogue order, the clean shape is: a **preliminaries** section (`pairDecode`, `cantor`, `psetBits`, `listsUpTo` and their lemmas), then §3.1–3.8, §5.1–5.6, §6.1–6.5, with §5.5's two halves merged. That is mechanical but touches the whole file, so I'd do it as one commit with a build check and no proof changes. Want me to?
+

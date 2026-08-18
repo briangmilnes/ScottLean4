@@ -1,0 +1,61 @@
+---
+prompt: p0276
+type: interaction
+opened: 2026-0816-10:46
+closed: 2026-0816-10:47
+subject: looking-up-git-and-lake-in-my-user-direc
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T10:46:39.399000-07:00
+
+Looking up Git and Lake in my user directory dot Claude settings dot JSON.
+
+    Bash ls -l /Users/scott/.claude/settings.json /Users/scott/.claude/settings.local.json 2>&1
+    Read /Users/scott/.claude/settings.json
+## turn — assistant 2026-08-16T10:47:03.229000-07:00
+
+Correct — they're **not** there. `~/.claude/settings.json` has only:
+
+```json
+{ "theme": "light", "tui": "fullscreen" }
+```
+
+The rules I added went to the **project** file, `/Users/scott/projects/ScottLean4/.claude/settings.local.json`, so they apply only when working in ScottLean4 — not in EricsonPapers or anywhere else. Moving them up to the user level, where you were looking:
+
+    Write /Users/scott/.claude/settings.json
+    Bash python3 -c " import json p='/Users/scott/projects/ScottLean4/.claude/settings.local.json' d=json.load(open(p)) a=d['permissions']['allow'] moved={'Bas
+    Bash jq -e '.permissions.allow' /Users/scott/.claude/settings.json
+    Bash jq -e '.permissions.allow | length' /Users/scott/projects/ScottLean4/.claude/settings.local.json
+## turn — assistant 2026-08-16T10:47:29.299000-07:00
+
+Moved. Both files validate.
+
+**`~/.claude/settings.json`** — now carries the rules, so they apply in **every** project, including EricsonPapers:
+
+```json
+{
+  "theme": "light",
+  "tui": "fullscreen",
+  "permissions": {
+    "allow": [
+      "Bash(git *)", "Bash(git)",
+      "Bash(lake *)", "Bash(lake)",
+      "Bash(lean *)", "Bash(lean)",
+      "Bash(elan *)"
+    ]
+  }
+}
+```
+
+Your `theme` and `tui` are untouched.
+
+**`ScottLean4/.claude/settings.local.json`** — the same seven rules removed as duplicates, 93 → 86. What remains there is the project-specific accumulation: `brew`, `emacs`, `open`, `code`, `sqlite3`, the `scripts/*.sh` wrappers, and the WebFetch domains.
+
+Worth knowing about how these combine: allow lists **merge** across sources in the order user → project → local, so a rule in any of them is enough. That is why the move is safe — nothing was weakened, and the git/lake rules now reach projects where the local file does not apply. It also means the seven rules were only ever active in ScottLean4 until now; today's EricsonPapers work prompted, or matched one of the one-off entries, rather than the broad rule.
+

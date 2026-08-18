@@ -1,0 +1,54 @@
+---
+prompt: p0279
+type: interaction
+opened: 2026-0816-11:56
+closed: 2026-0816-11:56
+subject: find-scott-bauer-birkedal-equilogical-sp
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T11:56:28.200000-07:00
+
+find Scott Bauer Birkedal Equilogical Spaces 2004
+
+    Bash find /Users/scott/projects -iname '*equilog*' -not -path '*/.lake/*' -not -path '*/.git/*'
+    Bash grep -ril 'equilogical' /Users/scott/projects --include='*.md' --include='*.bib' --include='*.tex' --include='*.lean' --include='*.txt' --exclude-dir=
+    Bash grep -n -A14 -i 'equilogical' /Users/scott/projects/ScottBibliography/scott.bib
+    Bash ls -l /Users/scott/projects/ScottBibliography/papers/Bauer-Birkedal-Scott-2004-Equilogical-Spaces.pdf
+## turn — assistant 2026-08-16T11:56:55.954000-07:00
+
+Found — you already have it locally.
+
+**PDF:** [Bauer-Birkedal-Scott-2004-Equilogical-Spaces.pdf](/Users/scott/projects/ScottBibliography/papers/Bauer-Birkedal-Scott-2004-Equilogical-Spaces.pdf) — 317,241 bytes, dated Aug 8 15:06.
+
+**BibTeX** ([scott.bib:948](/Users/scott/projects/ScottBibliography/scott.bib:948)):
+
+```
+@article{bauer-birkedal-scott-2004-equilogical,
+  author  = {Andrej Bauer and Lars Birkedal and Dana S. Scott},
+  title   = {Equilogical spaces},
+  journal = {Theoretical Computer Science},
+  volume  = {315}, number = {1}, pages = {35--59},
+  year    = {2004},
+  doi     = {10.1016/j.tcs.2003.11.012}
+}
+```
+
+Note the author order is **Bauer, Birkedal, Scott** — not Scott-first as you said it.
+
+**Two related items also present:**
+
+| Item | Location |
+| --- | --- |
+| Scott 1998, *Effective versions of equilogical spaces* (PDF) | [papers/Scott-1998-Effective-Versions-of-Equilogical-Spaces.pdf](/Users/scott/projects/ScottBibliography/papers/Scott-1998-Effective-Versions-of-Equilogical-Spaces.pdf) — bib key `scott-1998-effective-equilogical` at [scott.bib:908](/Users/scott/projects/ScottBibliography/scott.bib:908), year disputed (ENTCS index shows 2000), DOI not resolved |
+| Scott 1996/98, *A new category? Domains, spaces and equivalence relations* | text at [DanaScottPapers/Scott-1998-A-New-Category.txt](/Users/scott/projects/ScottLean4/DanaScottPapers/Scott-1998-A-New-Category.txt), Lean formalization at [ScottLean/Scott/Scott1998ANewCategory.lean](/Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean) |
+
+That last one is the direct precursor — the paper where the equilogical-spaces category is introduced, and the only one of the three with Lean code in your tree. It's also the extension Ericson names in his letter ("the equilogical spaces approach is in the same family and you could add that").
+
+Want me to read the 2004 PDF, or compare it against the existing `Scott1998ANewCategory.lean`?
+

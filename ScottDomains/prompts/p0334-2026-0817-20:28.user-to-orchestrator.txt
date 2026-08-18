@@ -1,0 +1,27 @@
+---
+prompt: p0334
+type: interaction
+opened: 2026-0817-20:28
+closed: 2026-0817-20:30
+subject: run-it
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-17T20:28:57.354000-07:00
+
+run it
+
+    Bash /Users/scott/projects/ScottLean4/scripts/save-prompts.sh
+    Bash cd /Users/scott/projects/ScottLean4/ScottDomains/prompts; echo "files: $(ls -1 | wc -l)"; echo "distinct ids: $(ls -1 | sed -E 's/^(p[0-9]{4}).*/\1/' 
+## turn — assistant 2026-08-17T20:30:00.782000-07:00
+
+334 files, zero duplicates, contiguous, ascending with time. One defect: the 84 carried-forward files still carry their **old** id in frontmatter, because the `sed` only rewrote the `pending` placeholder:
+
+    Bash cd /Users/scott/projects/ScottLean4/ScottDomains/prompts; f=$(ls -1 *2026-0806-12:25*); echo "filename: $f"; head -8 "$f"
+    Edit /Users/scott/projects/ScottLean4/scripts/save-prompts.sh
+    Bash zsh -n /Users/scott/projects/ScottLean4/scripts/save-prompts.sh && /Users/scott/projects/ScottLean4/scripts/save-prompts.sh

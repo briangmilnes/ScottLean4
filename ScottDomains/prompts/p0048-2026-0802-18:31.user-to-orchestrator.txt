@@ -1,0 +1,46 @@
+---
+prompt: p0048
+type: interaction
+opened: 2026-0802-18:31
+closed: 2026-0802-18:34
+subject: lets-make-a-brianslean-dir-how-do-i-open
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T18:31:55.621000-07:00
+
+Let's make a BriansLean dir. How do I open a new file in it?
+
+## turn — assistant 2026-08-02T18:33:10.062000-07:00
+
+For a new `.lean` file to actually get Lean support (Infoview, goals), it has to live **inside a lake project with a toolchain** — a bare folder won't do. Since you're practicing MIL material (which uses `ℝ`, `rw`, `ring`, etc. from Mathlib), the frictionless choice is to put `BriansLean` **inside the mathematics_in_lean project** so it reuses that already-built Mathlib. Let me create it with a starter file:
+
+    Bash DIR="$HOME/projects/ScottLean4/tutorials/mathematics_in_lean/BriansLean" mkdir -p "$DIR" cat > "$DIR/Scratch.lean" <<'EOF' import Mathlib.Data.Real.Ba
+## turn — assistant 2026-08-02T18:33:28.509000-07:00
+
+Now to open it (and to answer "how do I open a new file in it" going forward):
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" code -g "$HOME/projects/ScottLean4/tutorials/mathematics_in_lean/BriansLean/Scratch.lean" echo "opened Scratch.l
+## turn — assistant 2026-08-02T18:34:17.852000-07:00
+
+Opened — `BriansLean/Scratch.lean` should be up in the **mathematics_in_lean** window (VS Code auto-routes a file to the window whose project contains it). Give it a moment to load Mathlib, then the Infoview shows two goals to practice on.
+
+**How to make a new file in `BriansLean/` (three ways):**
+
+1. **Explorer (easiest):** in the left sidebar, find the **`BriansLean`** folder → hover it → click the **New File** icon (📄⁺), or right-click → **New File…** → type a name ending in **`.lean`** (e.g. `Practice.lean`). It opens ready to edit.
+2. **Keyboard:** **⌘N** (new untitled buffer) → write code → **⌘S**, navigate into `BriansLean/`, and save it as `something.lean`.
+3. **Terminal:** `touch …/BriansLean/Foo.lean` then `code -g …/BriansLean/Foo.lean`.
+
+Two rules for it to actually work with Lean:
+- **Name must end in `.lean`** — the Lean server only activates on `.lean` files.
+- **Keep it inside this project folder** (`mathematics_in_lean/…`) — that's what gives it the v4.30.0 toolchain **and** Mathlib. A file outside a lake project gets no goals/Infoview.
+
+Every file in `BriansLean/` can start with `import Mathlib.Data.Real.Basic` (or `import Mathlib.Tactic` for all tactics) and use everything you're seeing in MIL.
+
+One note on placement: I put `BriansLean/` *inside* the MIL clone so Mathlib "just works" with zero setup. If you'd rather it live somewhere of its own (e.g. a standalone `BriansLean` project, or under `ScottLean4/` for core-Lean-only practice), say the word and I'll relocate it — just know a standalone Mathlib project means another ~6 GB cache fetch.
+

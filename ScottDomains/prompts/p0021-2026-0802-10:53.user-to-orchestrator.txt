@@ -1,0 +1,42 @@
+---
+prompt: p0021
+type: interaction
+opened: 2026-0802-10:53
+closed: 2026-0802-10:54
+subject: wow-we-generated-that-from-the-1980-pape
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:53:47.067000-07:00
+
+Wow we generated that from the 1980 paper?
+
+## turn — assistant 2026-08-02T10:53:57.912000-07:00
+
+Let me look at the file itself rather than guess — the header should say what it's formalizing and how it came to be:
+
+    Read /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1980LambdaCalculusModelsPhilosophy.lean
+## turn — assistant 2026-08-02T10:54:23.193000-07:00
+
+Yes — and the header says exactly how. It's an **auto-generated "faithful skeleton"** of:
+
+> D. Scott, *"Lambda Calculus: Some Models, Some Philosophy"*, in *The Kleene Symposium* (North-Holland, 1980), pp. 223–265.
+
+The pipeline is spelled out at the top of the file: the **source text was extracted** to `DanaScottPapers/Scott-1980-Lambda-Calculus-Some-Models-Some-Philosophy.txt`, then transcribed into Lean 4. That's the same paper→text→Lean pipeline the OCR tools we just installed (`pdftotext`/`tesseract`) feed.
+
+What it actually captures from the paper (measured, not vague):
+- The **untyped λ-calculus** (de Bruijn indices), β-reduction, and combinators **I, K, S, B, Y**.
+- A **λ-model as a reflexive object** — carrier `D` with a retraction `D → [D→D]` (`Fun`/`Graph`, `Fun ∘ Graph = id`), i.e. Scott's own **D∞** construction (§5).
+- A **proof** that `Fun`/`Graph` yield a combinatory algebra (K- and S-identities *derived* from the retraction law).
+- Interpretation of λ-terms with **β-soundness** stated as a theorem.
+- **Plotkin/Scott's Pω graph model**.
+
+Important caveat so we're precise about status: it's a **skeleton/pilot**, not a complete formalization. Some results are proved; others are holes. The `sorry` at **line 26** is specifically the **full syntactic substitution lemma** — interpretation-level β is proved, but the substitution lemma is left as a TODO. So the kernel has *not* accepted a complete proof here yet.
+
+And this isn't a one-off — `ScottLean/Scott/` has a whole series (`Scott1962…`, `Scott1967…`, `Scott1980…`, etc.), each a generated skeleton of one of Dana's papers. Want me to tally how many there are and how many `sorry`/holes remain across the set? That'd give a real completion metric for the collection.
+

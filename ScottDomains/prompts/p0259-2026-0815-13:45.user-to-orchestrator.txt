@@ -1,0 +1,54 @@
+---
+prompt: p0259
+type: interaction
+opened: 2026-0815-13:45
+closed: 2026-0815-13:46
+subject: push
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:45:44.845000-07:00
+
+push
+
+    Bash git -C /Users/scott/projects/EricsonPapers status --short --branch
+## turn — assistant 2026-08-15T13:46:02.380000-07:00
+
+Nothing to push — `main` is level with `origin/main` at `e06ddb7`, working tree clean. The §5.2 commit went up a moment ago.
+
+Session total on `origin/main`, all pushed and all building at **846 jobs, zero errors, zero warnings, zero `sorry`**:
+
+| commit | entry |
+| --- | --- |
+| `5a60ec2` | §3.1 one-point |
+| `23a9052` | §4 three-opens enumeration |
+| `5b9102c` | §3.3 flat 𝔹⊥ |
+| `de01fef` | §3.4 vertical naturals |
+| `5ebec6a` | §3.5 finite bounded-complete posets |
+| `edb687d` | §3.6 powerset |
+| `16dcdc5` | §3.7 partial functions, §6.1, §6.2 |
+| `33433d7` | §3.8 streams |
+| `0d29568` | §5.6 ideal completion |
+| `03ff7c6` | §5.1 function space |
+| `c31bb7d` | §5.4 term/tree domains |
+| `96ae2c1` | §5.5 tower (bilimit stated as blocked) |
+| `f1fb37d` | §6.3 interval domain + Mathlib dependency |
+| `28c95fa` | §6.4 unit interval |
+| `f2a6806` | §5.3 Pω λ-model |
+| `9ea0c1e` | §5.5 flat encoding — obstruction removed |
+| `36ecba3` | §5.5 D∞ finished |
+| `5418608` | §6.5 Hoare powerdomain |
+| `e06ddb7` | §5.2 parallel-or |
+
+Two things worth carrying forward from today, both recorded in the files rather than only here:
+
+- **`omega` is choice-free on arithmetic goals, not on arbitrary ones** — it discharges a non-arithmetic goal via `Classical.byContradiction`. That nearly put `Classical.choice` into D∞, and `absurd h (by omega)` is the fix.
+- **The §5.5 obstruction was type-theoretic, not mathematical.** Carrying the level in the *order* rather than the type turned an impossible bookkeeping problem into ordinary `Prop` work — the same lesson as §5.4, where an inductive type made two side conditions hold by construction.
+
+Still open, each with its reason in §8: the Plotkin bounded-completeness refutation, PCF-undefinability for por, and §5.1's two scope limits.
+

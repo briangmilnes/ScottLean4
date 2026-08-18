@@ -1,0 +1,54 @@
+---
+prompt: p0100
+type: interaction
+opened: 2026-0805-12:14
+closed: 2026-0805-12:17
+subject: an-example-at-the-end-of-cartesian-close
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-05T12:14:51.166000-07:00
+
+an example at the end of cartesian closed on lean and the SIMP A solver.
+
+## turn — assistant 2026-08-05T12:15:08.890000-07:00
+
+Let me read `CartesianClosed.lean` fully so the example fits its definitions and I know which `simp` lemmas are available:
+
+    Read /Users/scott/projects/ScottLean4/Playground/Playground/CartesianClosed.lean
+## turn — assistant 2026-08-05T12:16:35.423000-07:00
+
+This file has a Category + CartesianClosed development with one derived example at the end (surjective pairing, via `simpa`). Let me add another — **η for exponentials, `curry eval = 𝟙`** — closed with the `simp` solver rewriting by the universal-property equations (the same idea behind Mathlib's `aesop_cat`):
+
+    Edit /Users/scott/projects/ScottLean4/Playground/Playground/CartesianClosed.lean
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground echo "=== elaborate CartesianClosed.lean (expect 0 errors, 0
+## turn — assistant 2026-08-05T12:17:13.898000-07:00
+
+**Compiles — 0 errors.** The new example checks. Opening it for you:
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" F="$HOME/projects/ScottLean4/Playground/Playground/CartesianClosed.lean" code -g "$F:139" echo "opened Cartesian
+## turn — assistant 2026-08-05T12:17:36.312000-07:00
+
+It's open at the new example (bottom of `CartesianClosed.lean`), Dr. Scott.
+
+```lean
+example {Obj : Type u} [CartesianClosed Obj] (A B : Obj) :
+    curry (eval : Hom (prod (exp A B) A) B) = Category.id (exp A B) := by
+  symm
+  refine curry_unique eval (Category.id (exp A B)) ?_
+  have pairing : pair fst snd = Category.id _ := by
+    simpa [Category.id_comp] using pair_unique _
+  simp [Category.comp_id, pairing, Category.id_comp]
+```
+
+**What it says:** currying evaluation gives the identity, `curry eval = 𝟙` — the **exponential η law** in any cartesian-closed category. Through Curry–Howard–Lambek this *is* **η-conversion**: `λx. f x = f`. So your λ-calculus η, read categorically, is exactly "the transpose of application is the identity."
+
+**How the solver finishes it:** after `curry_unique` reduces the goal to the equation `⟨fst ⨟ 𝟙, snd⟩ ⨟ eval = eval`, the last line hands `simp` three rewrite facts — `comp_id` (so `fst ⨟ 𝟙 → fst`), the surjective-pairing lemma (`⟨fst, snd⟩ → 𝟙`), and `id_comp` (`𝟙 ⨟ eval → eval`) — and it chases the diagram down to `eval = eval` on its own. That's the miniature of what `aesop_cat` automates across all of Mathlib's category theory.
+
+The file's now uncommitted with this addition. Want me to commit + push it, or leave it local?
+

@@ -1,0 +1,43 @@
+---
+prompt: p0225
+type: interaction
+opened: 2026-0815-09:40
+closed: 2026-0815-09:41
+subject: do-the-corrections
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T09:40:43.785000-07:00
+
+do the corrections
+
+    Read /Users/scott/projects/EricsonPapers/CLAUDE.md
+    Edit /Users/scott/projects/EricsonPapers/CLAUDE.md
+    Edit /Users/scott/projects/EricsonPapers/CLAUDE.md
+    Bash lake -d ~/projects/EricsonPapers build
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Correct the build path to the tilde form and the docs/ layout entry in CLAUDE.md" -m "The build
+## turn — assistant 2026-08-15T09:41:24.758000-07:00
+
+Both corrections are in, committed as `1ea0ff4` (1 file, +10/−3):
+
+**Build path** — [CLAUDE.md:106](../EricsonPapers/CLAUDE.md:106) now reads
+
+```bash
+lake -d ~/projects/EricsonPapers build
+```
+
+with five lines saying why the tilde form rather than a spelled-out path: the two checkouts are at `$HOME/projects/EricsonPapers` under different home directories (`/home/milnes`, `/Users/scott`), so `~` is correct on both while staying one constant prefix for the allowlist. I ran the line exactly as documented — 4 jobs, zero errors, zero warnings, axiom audit unchanged.
+
+Worth noting the old line was wrong on *both* machines, not just Dana's: `/Users/milnes` is the macOS form of the Linux username, a path that exists nowhere.
+
+**`docs/` layout entry** — replaced the claim that `LRSODInCIC (1).*` are present (your `3599aa7` deleted them) with the deletion and the byte-identical measurement behind it, plus the instruction not to re-add a `(1)` copy.
+
+`main` is now one commit ahead of `origin/main`, not pushed. The `local-restructure-superseded` branch is still sitting there if you want to look at it before I delete it.
+
+Still open from the last round: the ∀. Neither probe has come back yet — the `⋯` overflow at the right of the editor tab bar, or `Lean 4: Show Setup Information` from the palette.
+

@@ -1,0 +1,63 @@
+---
+prompt: p0079
+type: interaction
+opened: 2026-0804-16:20
+closed: 2026-0804-16:23
+subject: sage-is-in
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-04T16:20:51.024000-07:00
+
+Sage is in
+
+## turn — assistant 2026-08-04T16:21:06.627000-07:00
+
+Let me verify Sage, wire it onto your PATH, and test it:
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" echo "=== SageMath app ===" APP=$(ls -d /Applications/SageMath*.app 2>/dev/null | head -1); echo "app: $APP" ech
+## turn — assistant 2026-08-04T16:21:57.823000-07:00
+
+The direct symlink broke Sage's self-location (it hunts for `runpath.sh` relative to itself). Let me remove it and see whether the real launcher works when invoked directly — and whether the app needs a one-time relocation:
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" rm -f /opt/homebrew/bin/sage APP=/Applications/SageMath-10-9.app SAGE="$APP/Contents/Frameworks/Sage.framework/V
+## turn — assistant 2026-08-04T16:22:32.316000-07:00
+
+**Sage works** — invoked directly it factored `2²⁰−1 = 3·5²·11·31·41` correctly. The symlink was the only problem (it broke Sage's self-location). A **wrapper** fixes that — it execs the real launcher, so Sage sees its true path:
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" REAL="/Applications/SageMath-10-9.app/Contents/Frameworks/Sage.framework/Versions/10.9/local/bin/sage" cat > /op
+## turn — assistant 2026-08-04T16:22:54.758000-07:00
+
+**Sage is live on your PATH**, Dr. Scott — and it already factored `x³ − y³ = (x − y)(x² + xy + y²)` exactly as the demo needs (and `1729 = 7·13·19`, fittingly). Now the real test — running `SageFactorProved.lean` end-to-end, so Sage discovers and Lean's kernel certifies:
+
+    Bash export PATH="/opt/homebrew/bin:$HOME/.elan/bin:$PATH" cd ~/projects/ScottLean4/Playground echo "=== lake env lean SageFactorProved.lean (Sage discover
+## turn — assistant 2026-08-04T16:23:36.179000-07:00
+
+It works, Dr. Scott — **end to end, exit 0.** Sage discovered the factorizations and Lean's kernel certified every one:
+
+```
+Sage:  x³ − y³  =  (x − y)(x² + xy + y²)
+  ⊢ cube_diff : ∀ (x y : ℚ), x³ − y³ = (x − y)(x² + xy + y²)
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Sage:  x³ + y³ + z³ − 3xyz  =  (x + y + z)(x² − xy + y² − xz − yz + z²)
+  ⊢ fermat3 : ∀ (x y z : ℚ), …
+
+Sage:  x⁴ − y⁴ + x²z² − y²z²  =  (x − y)(x + y)(x² + y² + z²)
+  ⊢ quartic : ∀ (x y z : ℚ), …
+```
+
+Two things worth savoring:
+
+- The middle one is a gem — **`x³ + y³ + z³ − 3xyz = (x + y + z)(x² − xy + y² − xz − yz + z²)`**, the classic symmetric factorization. Sage found it; Lean *proved* it.
+- That **`depends on axioms: [propext, Classical.choice, Quot.sound]`** line is the honest ledger you'd want: those are Lean's three standard axioms and nothing else — no `sorry`, no trust in Sage. Sage's answer is a *guess*; the theorem's truth rests only on the kernel. Discovery outsourced, certification kept in-house — exactly the gap, now closed and running on your machine.
+
+To see it **green in the editor**: in the VS Code Playground window, ⇧⌘P → **"Lean 4: Restart Server"** (or "Developer: Reload Window") so the running Lean server picks up `sage` on the PATH and re-elaborates `SageFactorProved.lean`. The three `sage_factor` lines should go from red to checked.
+
+Shall I add a couple more of your own forms to it — say a binary quartic, or one of the projective cubics from your 15-491 course — and watch Sage-and-Lean certify those too?
+

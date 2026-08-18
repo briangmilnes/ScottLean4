@@ -1,0 +1,43 @@
+---
+prompt: p0252
+type: interaction
+opened: 2026-0815-13:09
+closed: 2026-0815-13:09
+subject: push
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:09:24.020000-07:00
+
+push
+
+    Bash git -C /Users/scott/projects/EricsonPapers status --short --branch
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T13:09:45.443000-07:00
+
+Pushed:
+
+```
+96ae2c1..f1fb37d  main -> main
+```
+
+Working tree clean, `main` level with `origin/main`. The commit is +296/−2 across 5 files — the restored `ScottDomainExamples.lean` went up intact at 2,922 lines, so nothing from §3.7–§5.5 was lost.
+
+Contents of `f1fb37d`:
+- **`Domains/IntervalDomain.lean`** (new, 173 lines) — §6.3, `compact_iff_eq_bot`
+- **`lakefile.toml`** — Mathlib required at tag `v4.32.2`, with a comment saying which single module needs it and why the others must stay import-free
+- **`lake-manifest.json`** — the resolved dependency
+- **`docs/ScottDomainExamples.md`** — §6.3 recorded in §8
+- **`Domains/ScottDomainExamples.lean`** — the two-warning fix in `principalIdeal`
+
+Full build: **846 jobs, zero errors, zero warnings, zero `sorry`.**
+
+One thing worth knowing for the other checkout: `git pull` there will now pull a package that needs Mathlib. `lake exe cache get` before `lake build`, or the first build tries to compile Mathlib from source.
+
+Remaining catalogue work: **§6.4** ([0,1] ⊆ ℝ, K = {0} — the lattice version of the same failure, and cheap now that `IntervalDomain.lean` exists and the vocabulary is in place), **§5.5's bilimit** (needs the level-indexed token redesign I described), and **§5.2 / §6.5**, which need a PCF syntax and a powerdomain construction respectively.
+

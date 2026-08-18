@@ -1,0 +1,39 @@
+---
+prompt: p0028
+type: interaction
+opened: 2026-0802-11:21
+closed: 2026-0802-11:21
+subject: i-added-a-markdown-extension-but-its-not
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T11:21:10.176000-07:00
+
+I added a markdown extension but it's not working. I even restarted chrome.
+
+## turn — assistant 2026-08-02T11:21:25.290000-07:00
+
+Restarting Chrome won't fix it — the blocker is almost certainly a **per-extension permission that's OFF by default**: **"Allow access to file URLs."** Chrome disables file access for every extension until you explicitly grant it, and that's exactly what a `file://` Markdown page needs. A restart doesn't change it; only the toggle does.
+
+Let me open the extensions page for you:
+
+    Bash open -a "Google Chrome" "chrome://extensions" 2>&1 && echo "opened chrome://extensions"
+## turn — assistant 2026-08-02T11:21:36.709000-07:00
+
+Now on `chrome://extensions`:
+
+1. Find your **Markdown** extension in the grid → click its **Details** button.
+2. Scroll down to **"Allow access to file URLs"** → toggle it **ON**.
+3. Go back to the `file:///…/README.md` tab and **⌘R** to reload.
+
+That's the fix ~90% of the time. If it *still* shows raw text after enabling file access + reload, then it's the specific extension — some don't render `file://` at all. In that case tell me **which extension you installed** (its name on the card) and I'll tell you whether it supports local files or point you to one that definitely does (**Markdown Viewer** by *simov* is the reliable one for `file://`).
+
+Two quick sanity checks while you're there:
+- Is the extension's own toggle (top-right of its card) **enabled** (blue)?
+- Does its Details page list **"Site access"** — some need it set to **"On all sites"** to touch `file://`.
+

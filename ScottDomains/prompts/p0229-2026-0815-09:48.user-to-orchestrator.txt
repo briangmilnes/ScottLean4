@@ -1,0 +1,47 @@
+---
+prompt: p0229
+type: interaction
+opened: 2026-0815-09:48
+closed: 2026-0815-09:49
+subject: commit-push-ill-see-if-it-runs-on-mine
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T09:48:05.097000-07:00
+
+commit. push. I'll see if it runs on mine.
+
+    Bash git -C /Users/scott/projects/EricsonPapers status --short --branch
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T09:49:43.756000-07:00
+
+Nothing to commit — the tree was already clean; `1ea0ff4` held the corrections. Pushed:
+
+```
+3599aa7..1ea0ff4  main -> main
+```
+
+On your machine:
+
+```bash
+git -C ~/projects/EricsonPapers pull --rebase
+```
+
+```bash
+lake -d ~/projects/EricsonPapers build
+```
+
+Expect 4 jobs, zero errors, zero warnings, and three `info:` lines that are the `#print axioms` audit, not diagnostics. If elan does not already have `leanprover/lean4:v4.32.2` there, the first build downloads it — the `lean-toolchain` pin drives that automatically.
+
+Two things that will differ on Linux:
+
+1. **Workspace trust again.** It is per-machine and per-folder, stored in VS Code's global storage, so nothing we pushed carries it. If the ∀ is missing there, it is the same cause — ⇧⌘P (⇧⌃P on Linux) → `Workspaces: Manage Workspace Trust`, and trust the parent `~/projects` while you are in there.
+2. **The tilde path is the point of the correction.** `lake -d ~/projects/EricsonPapers build` is what [CLAUDE.md](../EricsonPapers/CLAUDE.md) now documents, and it resolves to `/home/milnes/projects/EricsonPapers` on yours without a second variant.
+
+The one assumption I could not check from here: that your checkout is at `~/projects/EricsonPapers`. If it sits elsewhere, the documented command needs the real location and I should fix the doc rather than have you remember an exception.
+

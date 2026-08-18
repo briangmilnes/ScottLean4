@@ -1,0 +1,64 @@
+---
+prompt: p0250
+type: interaction
+opened: 2026-0815-12:54
+closed: 2026-0815-13:00
+subject: do-55
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T12:54:53.506000-07:00
+
+do 5.5
+
+## turn — assistant 2026-08-15T12:56:16.448000-07:00
+
+§5.5. Building the tower first — that part is directly supported by `funSpace`:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 8 "2838:21"
+## turn — assistant 2026-08-15T12:57:00.103000-07:00
+
+`(funTokens Q.base Q).T` doesn't unfold during instance synthesis, so `++` can't resolve. Using `List.append` directly:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "funJoin|tower|emb_mono|liftTok"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Build the D-infinity tower (catalogue 5.5) and state precisely where the bilimit stops" -m "Bui
+    Bash git -C /Users/scott/projects/EricsonPapers commit --amend -m "Build the D-infinity tower (catalogue 5.5) and state precisely where the bilimit stops" 
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T13:00:06.148000-07:00
+
+§5.5 is **partially done, and I am wedged on the bilimit** — that is the honest report. Pushed as `96ae2c1`. Build: 4 jobs, zero errors, zero warnings, zero `sorry`.
+
+**Built and kernel-checked:**
+
+- `tower : Nat → JoinTokens` — D₀ = 𝕊, D<sub>n+1</sub> = [D<sub>n</sub> → D<sub>n</sub>]
+- `towerDomain n` — every level is a Scott domain
+- `emb` — the embedding e(x) = λy.x, at token level the one-element step function ⊥ ↦ t
+- `emb_mono`, `liftTok`, `liftTok_mono` — monotonicity, and the iterated embedding into any later level
+
+The iteration works only because §5.1's function space **closes on `JoinTokens`**: tokens of [D → D] join by concatenation, which is total, so `funJoin` carries `JoinTokens` to `JoinTokens`. That was not a given — it is why the tower is expressible at all.
+
+**Not built: the bilimit, and the obstacle is type-theoretic, not mathematical.** D∞ is the colimit, tokens `Σ n, (tower n).base.T`, ordered by lifting both sides to a common level:
+
+```
+⟨n,t⟩ ⊑ ⟨m,u⟩  iff  liftTok n k₁ t ⊑ liftTok m k₂ u  for some k₁ k₂ with n + k₁ = m + k₂
+```
+
+I stated `liftTok` additively precisely so each *single* step typechecks without transport. The comparison still cannot: the two sides inhabit `tower (n+k₁)` and `tower (m+k₂)`, types equal only **propositionally**. So the relation needs `h ▸ …`, and then transitivity, `bounded_lub` and `enum_onto` each must compose transports and appeal to `Nat.add_assoc` as a propositional type equality. The mathematics is routine; the bookkeeping is what defeats this encoding.
+
+The way through is a **redesign, not a continuation**: give the tower a level-indexed inductive token type so one type carries all levels and cross-level comparison becomes structural recursion instead of transport. I have not started that, and I would not want to begin it inside this already very long session without you knowing the cost — it means reworking `funTokens` and `tower` rather than adding to them.
+
+Both the file and catalogue §8 record this boundary explicitly.
+
+Still open: §6.3/§6.4 (Mathlib for ℝ, separate module — straightforward by comparison), §5.2 and §6.5 (need a PCF syntax and a powerdomain construction), and the D∞ redesign above.
+

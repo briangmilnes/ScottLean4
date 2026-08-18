@@ -1,0 +1,73 @@
+---
+prompt: p0253
+type: interaction
+opened: 2026-0815-13:09
+closed: 2026-0815-13:12
+subject: do-64
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:09:58.850000-07:00
+
+do 6.4
+
+## turn — assistant 2026-08-15T13:10:30.204000-07:00
+
+§6.4 is the lattice version of the same failure. First generalizing the order-theoretic vocabulary so both entries share it rather than duplicating:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/IntervalDomain.lean
+    Bash cd /Users/scott/projects/EricsonPapers && grep -n "IsCompactEl \|IsDirectedFam \|IsLubFam " Domains/IntervalDomain.lean
+    Bash sed -i '' -e 's/IsCompactEl ivalBot/IsCompactEl ivalLe ivalBot/; s/IsDirectedFam (widenL I)/IsDirectedFam ivalLe (widenL I)/; s/IsLubFam (widenL I) I/
+## turn — assistant 2026-08-15T13:11:13.751000-07:00
+
+Now §6.4, sharing that vocabulary:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/IntervalDomain.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+    Edit /Users/scott/projects/EricsonPapers/Domains/IntervalDomain.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed|axioms"
+## turn — assistant 2026-08-15T13:12:03.441000-07:00
+
+All 52 audited declarations present, zero warnings. Updating the status section, which is now due a recount:
+
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize the unit interval (catalogue 6.4): K([0,1]) = {0}, and prove its continuity half" -m 
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T13:12:49.705000-07:00
+
+§6.4 done and pushed — `28c95fa`. Build: **846 jobs, zero errors, zero warnings, zero `sorry`, 52 audited declarations.**
+
+`ui_compact_iff : IsCompactEl uiLe x ↔ x = uiBot` — **K([0,1]) = {0}**, so the unit interval under ≤ is not algebraic. It is the cleaner half of the pair: the refuting family is simply "everything strictly below x", again totally ordered, so directedness is one case split on which of two elements is larger — none of §6.3's interval bookkeeping.
+
+I also proved the **positive** half the catalogue asserts: `ui_way_below_of_lt`, that x ≪ y whenever x < y. So what fails at §6.4 is algebraicity *alone*, and §6.3 + §6.4 together now demonstrate continuous ⊋ algebraic with both halves checked rather than one asserted.
+
+The order-theoretic vocabulary is shared, not duplicated — `IsDirectedFam`, `IsLubFam`, `WayBelow`, `IsCompactEl` take the order as a parameter, with §6.3's statements threading `ivalLe` through.
+
+## Recount of §8
+
+**14 of the 16 rows are settled** — ten inhabited, four refuted:
+
+| settled | |
+| --- | --- |
+| §3.1–3.8 | eight concrete domains |
+| §5.1, §5.4 | function space, term/tree domains (both via §5.6's ideal completion) |
+| §6.1–6.4 | four refutations |
+
+Plus §5.6 itself as a general theorem, outside the 16.
+
+**Two rows remain open**, both with the reason recorded in the file:
+- **§5.3** — Pω's *domain* half is done (it is 𝒫(ℕ), §3.6); the λ-model structure — `Fun`, `Graph`, `Fun ∘ Graph = id` — is not.
+- **§5.5** — the tower and embeddings are done; the bilimit needs the level-indexed token redesign, since cross-level comparison currently requires transporting along a propositional type equality.
+
+§5.1 carries its two stated scope limits: the value side needs total joins, and the identification of ideals with Scott-continuous maps is not proved.
+
+Also still outstanding from earlier: **§6.5** (powerdomains) and **§5.2** (parallel-or), which need a powerdomain construction and a PCF syntax respectively — machinery outside the D1–D4 vocabulary rather than more of the same.
+

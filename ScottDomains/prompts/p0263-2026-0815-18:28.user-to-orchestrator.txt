@@ -1,0 +1,31 @@
+---
+prompt: p0263
+type: interaction
+opened: 2026-0815-18:28
+closed: 2026-0815-18:28
+subject: open-lrsodinciclean-too
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T18:28:25.460000-07:00
+
+Open LRSODInCIC.lean too
+
+    Bash code --reuse-window /Users/scott/projects/EricsonPapers/Domains/LRSODInCIC.lean
+## turn — assistant 2026-08-15T18:28:42.868000-07:00
+
+`Domains/LRSODInCIC.lean` is open in the same window, alongside the other two. All three result files are now up:
+
+| file | contents | imports |
+| --- | --- | --- |
+| `LRSODInCIC.lean` | 324 lines — layers L, R, S, O, D; `sierp` | nothing |
+| `ScottDomainExamples.lean` | 3,776 lines — §3.1–3.8, §5.1–5.6, §6.1, §6.2, §6.5 | `Domains.LRSODInCIC` |
+| `IntervalDomain.lean` | 260 lines — §6.3, §6.4 | Mathlib (ℝ) |
+
+That is the whole development, and the import column is the thing worth keeping true: the first two are import-free apart from each other, so layer S's restrictions cannot be bypassed through Lean's ambient library, and every declaration in them is free of `Classical.choice`. The reals are quarantined in the third.
+

@@ -1,0 +1,49 @@
+---
+prompt: p0035
+type: interaction
+opened: 2026-0802-17:24
+closed: 2026-0802-17:25
+subject: dont-we-have-mathlib-built
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T17:24:32.893000-07:00
+
+Don't we have mathlib built?
+
+## turn — assistant 2026-08-02T17:24:51.179000-07:00
+
+Good question — let me be precise, because "we built Mathlib" is true but **only in one project**. Each lake project vendors its own Mathlib; they don't share. Let me check the pins:
+
+    Bash cd ~/projects/ScottLean4 echo "=== where we built Mathlib: Beeson/lean4 ===" cat Beeson/lean4/lean-toolchain ls Beeson/lean4/.lake/packages/mathlib >/
+## turn — assistant 2026-08-02T17:25:31.295000-07:00
+
+Yes — but **only in one project, and it doesn't carry over to the tutorials.** Here's the precise situation:
+
+| Project | Lean toolchain | Mathlib | Built? |
+|---|---|---|---|
+| **Beeson/lean4** | **v4.32.2** | dep | ✅ **built — 6.9 GB oleans** |
+| tutorials/**mathematics_in_lean** | **v4.30.0** | dep | ❌ not built |
+| tutorials/**logical_verification_2024** | **v4.6.0** | dep | ❌ not built |
+
+Two reasons Beeson's Mathlib can't be reused:
+1. **Version lock.** Mathlib oleans are compiled against an exact Lean + Mathlib commit. The tutorials pin **different Lean versions** (v4.30.0 and the quite-old v4.6.0) than Beeson's v4.32.2 — so Beeson's oleans are binary-incompatible with them.
+2. **Per-project vendoring.** Each lake project keeps its own Mathlib under its own `.lake/packages/`; nothing is shared between them.
+
+So to actually *do* proofs in Mathematics in Lean, we'd need to run `lake exe cache get` **inside that project** (it fetches the v4.30.0-matching prebuilt oleans — a download, not a source build, *if* that commit is still in the upstream cache), and elan will pull the v4.30.0 toolchain. Same for the Hitchhiker's Guide (v4.6.0 — old enough that its cache is a small risk). Each is ~5–7 GB more on disk.
+
+One more practical gotcha: in VS Code you must **open each tutorial as its own folder/workspace** — if you open `ScottLean4` as the root and navigate into `tutorials/mathematics_in_lean`, the Lean server uses ScottLean4's v4.32.2 toolchain and everything red-errors on the version mismatch.
+
+**Bottom line for right now:** the only place with a *ready* Lean environment for an immediate proof is **ScottLean4 itself** (core Lean, already built, no Mathlib needed). 
+
+Want me to:
+- **(a)** create `Scratch.lean` in ScottLean4 and open it in VS Code for an instant first proof, and
+- **(b)** kick off `lake exe cache get` for **Mathematics in Lean** in the background so the structured curriculum is ready in a few minutes?
+
+I'd do both. Go?
+

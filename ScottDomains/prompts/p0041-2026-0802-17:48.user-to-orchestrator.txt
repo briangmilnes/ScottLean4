@@ -1,0 +1,49 @@
+---
+prompt: p0041
+type: interaction
+opened: 2026-0802-17:48
+closed: 2026-0802-17:49
+subject: so-i-could-not-apply-mulcomm-and-have-it
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T17:48:44.616000-07:00
+
+So I could not apply mul_comm and have it find an inner term? Why not?
+
+## turn — assistant 2026-08-02T17:49:32.615000-07:00
+
+Right — and the "why not" is the important lesson about how `rw` works.
+
+**`rw` is not search; it's first-match rewriting.** The lemma is
+```
+mul_comm : ∀ (a b : α), a * b = b * a
+```
+When you write `rw [mul_comm]` with no arguments, Lean takes the **left-hand side of the equation as a pattern** — `?a * ?b`, with `?a, ?b` as metavariables — and matches it against the goal. Two mechanical rules govern what happens:
+
+1. It rewrites the **first occurrence** the pattern matches, in a fixed **outside-in, left-to-right traversal**. It does *not* look for "the occurrence that will make the proof go through" — it has no goal-directed intelligence here.
+2. Once that first match fixes the metavariables (say `?a := a`, `?b := b`), it rewrites **every occurrence of that now-concrete term** `a * b` — not every product.
+
+**Why that fails on the inner term.** Your goal is
+```
+a * b * c = b * (a * c)
+```
+and `a * b * c` parses as **`(a * b) * c`**. The *first* thing the pattern `?x * ?y` matches, going outside-in, is the **outer** product `(a * b) * c`. So bare `rw [mul_comm]` gives you
+```
+c * (a * b) = b * (a * c)     -- flipped the OUTER product, not what you wanted
+```
+It genuinely *did* find "a term" — just the outermost one, not the inner `a * b`. `mul_comm` can't know you meant the inner multiplication, because syntactically **every** product matches `?a * ?b`; the ambiguity is resolved by "first in traversal," not by intent.
+
+**How to target the inner term** (any of these):
+- **Give the arguments** — what the example does: `rw [mul_comm a b]` pins `?a := a, ?b := b`, so it rewrites exactly `a * b`.
+- **Pick the occurrence:** `nth_rewrite 2 [mul_comm]` (or `nth_rw 2`) rewrites the *second* matching product instead of the first.
+- **Navigate first:** `conv` to zoom into the subterm, then `rw [mul_comm]` there.
+- **Skip the bookkeeping entirely:** `ring` normalizes any commutative-ring expression and closes `a * b * c = b * (a * c)` in one shot — you only fight with `rw` while *learning* how rewriting works.
+
+So the short version: you *can* apply bare `mul_comm`, but it rewrites the **first (outermost) match**, and to hit an inner product you must disambiguate — with explicit arguments, `nth_rw`, or `conv`.
+

@@ -1,0 +1,78 @@
+---
+prompt: p0320
+type: interaction
+opened: 2026-0816-15:50
+closed: 2026-0816-15:53
+subject: do-310
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:50:35.536000-07:00
+
+do 3.10
+
+## turn — assistant 2026-08-16T15:50:58.224000-07:00
+
+Theorem 3.10. Products in `Equ` are much simpler than in `PEqu` — objects are plain T₀ spaces, so the ambient product topology is exactly what's wanted and no `Wrap` is needed:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquProducts.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquProducts
+## turn — assistant 2026-08-16T15:51:56.533000-07:00
+
+`HasFiniteProducts Equ` proved first try. Now discharging the corresponding `sorry` in `Theorems3`:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean' s=open(p).read() s=s.replace("import 
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.Theorems3
+## turn — assistant 2026-08-16T15:52:32.681000-07:00
+
+`sorry` 4 → 3. Now 3.13's statement there: it's phrased with Mathlib's `prod.functor.obj B`, which is `B ⨯ -` — the *opposite* order from the paper's `· × B`. Restating it faithfully lets it be discharged:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean' s=open(p).read() s=s.replace("import 
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.Theorems3
+## turn — assistant 2026-08-16T15:52:59.106000-07:00
+
+`sorry` 4 → 2. Full build and land:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquProducts.lean /Users/scott/projects/ScottLean4/ScottDomains/Scot
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("| `Theorems3
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0083: finite products in Equ; Theorem 3.10's product half and Theorem 3.13 discharged  New EquProd
+## turn — assistant 2026-08-16T15:53:51.778000-07:00
+
+Pushed **ee9e26a**. Two of `Theorems3`'s four `sorry`s are gone.
+
+## `HasFiniteProducts Equ` — proved, first try
+
+The paper's construction exactly: *"The product of topological spaces is a space with a product topology. The product of equivalence relations is an equivalence relation. The projection mappings are clearly equivariant."* Plus `PUnit` with the total relation as terminal.
+
+**Far shorter than the `PEqu` version, and the reason is instructive.** An object of `Equ` is a bare T₀ space with an equivalence relation — no lattice, no Σ-topology — so the *ambient* product topology is the right one and `Prod.instT0Space` gives separation. None of `PEquClosed`'s machinery was needed: no `Wrap`, no `@[reducible]`, no Scott-continuity bridge. 156 lines against 490.
+
+## Two `sorry`s discharged in `Theorems3`
+
+- `theorem_3_10_hasFiniteProducts` — now `inferInstance`.
+- **`theorem_3_13` — now proved**, by delegation to r0082.
+
+I changed 3.13's statement, and want to be explicit about it. It was phrased with Mathlib's `Limits.prod.functor.obj B`, which is `B ⨯ ·` — the **opposite order** from the paper — and which routes through `limit`, so it's only *isomorphic* to the concrete product, not equal. It's now phrased with `equProdFunctorRight B`, i.e. `· × B`. The paper's §2 wording is "the functor `· × B` is adjoint to `B → ·`", so the concrete functor is both the faithful reading and the workable one. The docstring records the change so nobody finds a silently different statement.
+
+## State
+
+| | |
+| --- | --- |
+| Modules | 15 |
+| Lines | **2908** |
+| `sorry` | **2** |
+| Library `sorry` | 7 → **5** |
+
+1551 jobs, 0 errors. **14 of 15 modules fully proved.**
+
+## What's left of 3.10
+
+The two remaining holes are the genuinely general halves — `HasLimitsOfSize` and `HasColimitsOfSize`. Those need products over *arbitrary* index types, equalizers, coproducts and coequalizers, each with quotient morphisms. The paper's constructions are stated in the docstrings; the coequalizer is the interesting one, since it coarsens the equivalence relation and puts **no topology on the quotient** — which the paper flags as why `Equ` isn't equivalent to `Set`.
+
+Also still outstanding: the two regular-well-poweredness claims (`Prop`-valued, deliberately unasserted), and §4 and §5 entirely.
+

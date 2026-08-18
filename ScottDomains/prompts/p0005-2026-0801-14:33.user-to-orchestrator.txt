@@ -1,0 +1,64 @@
+---
+prompt: p0005
+type: interaction
+opened: 2026-0801-14:33
+closed: 2026-0801-14:47
+subject: launch-background-tasks-to-get-in-the-so
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-01T14:33:48.821000-07:00
+
+Launch background tasks to get in the software we need and launch a background task to fix the emacs complete.
+
+## turn — assistant 2026-08-01T14:34:42.101000-07:00
+
+Got it — the dirtrack bug reproduces on the original Mac too, so it's a config bug, not machine-specific. Good: that means fixing `~/.emacs` fixes both. I'll delegate that to a background agent and fan out the software installs as background tasks in parallel.
+
+One reality check on what can run headless: **VS Code** and **Chrome** casks install without a password, so I'll fully install those now. **MacTeX** and **Wolfram** run a `.pkg` via `sudo`, which needs your password — I can't do that headless, but I *can* pre-download them so your only remaining step is the quick `sudo` install. Let me set all this up.
+
+    Write /private/tmp/claude-501/-Users-scott-projects-ScottLean4/88e3cea7-d557-4341-b091-37819f0fb116/scratchpad/install-guis.sh
+    Bash chmod +x /private/tmp/claude-501/-Users-scott-projects-ScottLean4/88e3cea7-d557-4341-b091-37819f0fb116/scratchpad/install-guis.sh zsh /private/tmp/cla
+## turn — assistant 2026-08-01T14:44:27.807000-07:00
+
+Now the pre-downloads for the two `sudo` casks (MacTeX ~6 GB, Wolfram), and separately the Lean/Mathlib builds:
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" # Pre-download only (no install, no sudo). User later runs the quick sudo install from cache. brew fetch --cask 
+    Bash export PATH="/opt/homebrew/bin:$PATH" cd ~/projects/ScottLean4/Beeson/lean4 echo "=== Beeson: mathlib cache get (~5,500 oleans) ===" lake exe cache ge
+## turn — assistant 2026-08-01T14:47:03.241000-07:00
+
+Now the background agent to fix the Emacs dirtrack/completion bug. I'll hand it the reproduction harness I built so it can iterate empirically:
+
+    Agent Fix Emacs dirtrack/completion bug
+## turn — assistant 2026-08-01T14:47:41.358000-07:00
+
+All launched. Four things now running in parallel in the background:
+
+| # | Background job | What it does | Password needed? |
+|---|---|---|---|
+| 1 | **VS Code + Chrome** | installs both casks, adds `code` to PATH, installs **Lean 4** + **Live Share** extensions headlessly | No — fully automated |
+| 2 | **MacTeX + Wolfram pre-download** | `brew fetch` both (~6 GB MacTeX) into cache so the install is instant | Downloads only, no sudo |
+| 3 | **Lean/Mathlib builds** | `lake exe cache get` + Beeson build + core `ScottLean4` build (0 errors, ~100 `sorry` expected) | No |
+| 4 | **Emacs dirtrack agent** | reproduces the `cd` tracking bug with a live-zsh harness, fixes `~/.emacs`/`~/.zshrc`, re-verifies | No |
+
+I've left `~/.emacs` and `~/.zshrc` to the agent so nothing collides with it.
+
+**Two steps will still need your password afterward** — they run a `.pkg` via `sudo`, which I can't do headless. Once job #2 finishes the downloads, run these in **Terminal.app or `M-x ansi-term`** (not `M-x shell` — the plan's gotcha):
+
+```bash
+brew install --cask mactex-no-gui
+```
+
+```bash
+brew install --cask wolfram-engine
+```
+
+They'll install from the pre-fetched cache, so no re-download. The other remaining `[you]` item is unchanged: `sudo scutil --set ComputerName milnes`.
+
+I'll report back as each job completes — first notifications should be the Lean cache fetch and the VS Code install. Nothing more for you to do right now unless you want to knock out the two `sudo` installs once the downloads land.
+

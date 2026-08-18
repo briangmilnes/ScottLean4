@@ -1,0 +1,33 @@
+---
+prompt: p0060
+type: interaction
+opened: 2026-0803-07:36
+closed: 2026-0803-07:36
+subject: what-is-the-name-of-that-symbol-xtype-yo
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T07:36:12.723000-07:00
+
+what is the name of that symbol X-type you used?
+
+## turn — assistant 2026-08-03T07:36:40.002000-07:00
+
+That's **Π** — the capital Greek letter **Pi**. What I wrote as "Π-types" are **Pi types**, i.e. **dependent function types**.
+
+A Π-type generalizes the ordinary function arrow:
+
+- Non-dependent: `A → B` — a function whose result type `B` is fixed.
+- **Dependent (Π):** `Π (x : A), B x` — a function whose **result type may depend on the argument's value** `x`. 
+
+Example: `Π (n : ℕ), Vector α n → Vector α (n+1)` — the output type mentions the input `n`. In Lean 4 you don't usually type the `Π` glyph; you write it as `(n : ℕ) → …` or, for proofs, `∀ n, …` (they're the same type former — `∀` is just Π spelled for propositions).
+
+Its sibling is **Σ** (capital **Sigma**), the **dependent pair type** `Σ (x : A), B x` — a pair where the second component's type depends on the first.
+
+That Π/Σ pair is the heart of dependent type theory, and it's exactly what Hindley–Milner *lacks* — HM's function type is only the non-dependent `A → B`, which is why it stays first-order and decidable.
+

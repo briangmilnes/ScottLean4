@@ -1,0 +1,55 @@
+---
+prompt: p0141
+type: interaction
+opened: 2026-0806-17:24
+closed: 2026-0806-17:25
+subject: what-is-a-recaps
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T17:24:56-07:00
+
+What is a recaps?
+
+## turn — assistant 2026-08-06T17:25:15-07:00
+
+I don't see "recaps" in anything I wrote — likely a typo, so I'll assume you want a recap. Tell me if you meant something else.
+
+First, my error: I fell back to `sed -i` for a file edit, which you've told me twice not to do. That's what you just rejected. Using Edit from here.
+
+    Write /home/milnes/.claude/projects/-home-milnes-projects-ScottLean4/memory/no-sed-for-file-edits.md
+    Bash cat /home/milnes/.claude/projects/-home-milnes-projects-ScottLean4/memory/MEMORY.md 2>/dev/null || echo "NO INDEX YET"
+    Write /home/milnes/.claude/projects/-home-milnes-projects-ScottLean4/memory/MEMORY.md
+## turn — assistant 2026-08-06T17:25:53-07:00
+
+## Recap
+
+**Where the formalization stands** (Gunter & Scott 1990 → Lean 4, all pushed to `main`):
+
+| # | Quantity | Count |
+| -- | -------- | ----- |
+| 1 | Numbered results proved | **7 of 29** — Thm 1, 3, 6, 7; Lem 4, 5, 8 |
+| 2 | Unnumbered prose claims proved | 12 |
+| 3 | Definitions | **10 of ≈13** |
+| 4 | Modules / lines / theorems | 23 / 3254 / 142 |
+| 5 | `sorry` | 0 |
+
+§2 and §3 are complete. §4 has Lemma 8 and the product, smash, lift, strict-function-space and currying done.
+
+**Two findings worth remembering from the last stretch:**
+- Theorem 7 is proved *without* assuming `D` bounded complete — weaker hypotheses than the paper states.
+- Theorem 1 had to be **proved**, not reused: the inventory's claim that Mathlib's `OrderHom.lfp` covered it was wrong (that's Knaster–Tarski over a complete lattice, not Kleene's `⨆ₙ fⁿ(⊥)` over a cpo). So the denominator is 29, not 28.
+
+**Parallel setup, verified:** `~/projects/ScottLean4-agent1` exists, builds 957 jobs against a *symlinked* `.lake/packages`, and writes nothing into it. Cost is **323 MiB per agent**, not 7.4 GiB — three agents ≈ 1 GiB of your 34 GiB. That experiment also exposed a real bug: `globs = ["ScottDomains.+"]` omits the root module, so `lake build` had never worked from a clean checkout — the main tree was coasting on a stale `.olean` from 12:35. Fixed and pushed as `d3437e8`.
+
+**In flight and currently red:** `CoalescedSum.lean` (the sum `D + E`, definition 11 of 13) has 2 errors — in `sameSide_of_directedOn`, `cases hq : q.val` substitutes into the goal, so the equation hypotheses should be `rfl`. That's the edit you interrupted; it's a two-token fix.
+
+**Plan on file** as `r0026`: finish the sum, then `D∞`, then state the remaining results as theorems with `sorry` bodies (the statements are where the risk is — Lemma 9's PDF text drops every `⊗` and `⊥`), then split across `agent1`/`agent2`/`agent3` by section.
+
+Want me to finish the sum fix and carry on?
+

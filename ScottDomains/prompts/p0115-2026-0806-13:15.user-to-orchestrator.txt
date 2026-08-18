@@ -1,0 +1,28 @@
+---
+prompt: p0115
+type: interaction
+opened: 2026-0806-13:15
+closed: 2026-0806-13:15
+subject: commit-push
+session: aad537a0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/aad537a0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T13:15:42-07:00
+
+commit. push.
+
+    Bash git status --short .claude/
+    Bash scripts/gitcp.sh "claude: project permission allowlist for the Lean and PDF workflows  Entries that recur every session and prompted repeatedly during
+## turn — assistant 2026-08-06T13:15:59-07:00
+
+Committed `203577a`, pushed to `origin/main`. Working tree clean.
+
+Only `settings.json` went up — `settings.local.json` is gitignored, so your `TZ` entry and the machine-specific `code`/`dpkg`/`apt-cache` grants stay on this host, which is the right scope for them.
+
+You're set to restart. On the next session the recurring commands — `gitcp.sh`, `lake build`, the PDF scripts, read-only git — won't prompt, and the macs pick up the same allowlist on their next pull. If something still prompts that shouldn't, it's a rule I under-specified rather than a missing one; tell me the command and I'll widen it.
+

@@ -1,0 +1,51 @@
+---
+prompt: p0062
+type: interaction
+opened: 2026-0803-11:07
+closed: 2026-0803-11:08
+subject: hi-im-dana-the-project-has-been-just-bui
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T11:07:33.296000-07:00
+
+Hi, I'm Dana. The project has been just built for me. Tell me what's in it.
+
+## turn — assistant 2026-08-03T11:08:01.382000-07:00
+
+Welcome, Dana — it's a genuine honor. Let me give you an accurate tour; one moment while I confirm the current layout:
+
+    Bash cd ~/projects/ScottLean4 echo "=== top-level ==="; ls -1 | grep -v '^\.' echo echo "=== your formalized papers ===" echo "  Lean modules (ScottLean/Sc
+## turn — assistant 2026-08-03T11:08:40.492000-07:00
+
+Here's what's in the workspace, Dana — it was built around **your** work.
+
+## The heart of it: your papers, formalized in Lean 4
+- **38 Lean modules** in `ScottLean/Scott/` — one per paper of yours, spanning **1958–2023** (your dissertation through the recent category-theory work). Each transcribes the paper's definitions and theorems into Lean 4, where the kernel machine-checks the proofs.
+- Their status is honestly tracked (kernel-checked, not just claimed): **all 38 compile, 16 are fully proved (zero gaps), and 100 `sorry` goals remain open** across the other 22. The scoreboard — each paper linked to its Lean file and its remaining holes — is in **[DanaScottPapers/README.md](DanaScottPapers/README.md)**.
+- The **source papers** sit alongside: `DanaScottPapers/` has **41** of your papers as PDF + extracted text (the text is what the Lean skeletons were generated from).
+
+## Your course material
+- `ScottClasses/` — **37 Mathematica notebooks** from your CMU courses (15-491 projective geometry: lectures, homeworks, the final; and 15-499). These need a Wolfram app to open — that's a still-pending install.
+
+## Learning Lean (to work these proofs yourself)
+- `tutorials/` — four Lean 4 tutorials, including **Theorem Proving in Lean 4** and **Mathematics in Lean** (both by your CMU colleague Jeremy Avigad), plus the logic-focused **Hitchhiker's Guide**.
+- `cheatsheets/lean-tactics.pdf` — a one-page tactic reference.
+- A scratch space (`BriansLean/`) for experiments, and VS Code is set up with the Lean extension so you see the **goal state update live** as you write.
+
+## Tools built for you
+- `scripts/` + `generated-latex/` — a **Lean → LaTeX → PDF** pipeline and **plotting** (pgfplots). It already produced, e.g., your *Data Types as Lattices* formalization typeset, a plot gallery (2D + 3D surfaces), and a proof-trees document. See **[scripts/README.md](scripts/README.md)**.
+- Installed and working: Lean 4 + Mathlib, **Verus** (Rust verifier, Z3-backed), **Rocq** (the renamed Coq), MacTeX, VS Code.
+
+## Reference shelf
+- `papers/` — foundations (Avigad et al.'s *Elaboration in Dependent Type Theory* — how Lean's elaborator works — and the *Calculus of Constructions*).
+- `GeometryPapers/` — the *Autoformalizing Euclidean Geometry* (LeanEuclid) paper.
+- `Beeson/`, `HarperBook/`, `MathTexts/` — related developments and texts.
+
+**A good first step:** open one of your own results and watch Lean check it. I'd suggest **Data Types as Lattices (1976)** — your domain-theory work, and one of the *fully proved* ones. Want me to open it in the editor and walk you through reading the goal state, or would you rather start with a gentle tutorial exercise?
+

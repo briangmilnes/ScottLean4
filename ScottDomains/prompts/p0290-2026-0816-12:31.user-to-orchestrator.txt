@@ -1,0 +1,124 @@
+---
+prompt: p0290
+type: interaction
+opened: 2026-0816-12:31
+closed: 2026-0816-12:44
+subject: put-this-put-this-in-scottlean-for-scott
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T12:31:30.036000-07:00
+
+Put this put this in Scottlean for Scottlean for and in a new directory. Oh, no. Under Scott domains. called ecological spaces. And right lane code for this paper.
+
+    Read /Users/scott/projects/ScottLean4/ScottDomains/lakefile.toml
+    Bash ls -F /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains
+    Bash head -60 /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains.lean
+    Bash head -60 /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/JungCorollary136.lean
+    Bash ls -d /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/.lake/build/lib 2>/dev/null && echo MATHLIB_BUILT || echo MATHLIB_NOT_BUILT
+    Bash grep -rhon 'theorem [a-z][a-zA-Z0-9]*[0-9][0-9]_[a-z_0-9]*' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains --include='*.lean' | head -20
+    Bash grep -rln 'class T0Space' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib
+    Bash ls /Users/scott/projects/ScottLean4/ScottDomains/papers
+## turn — assistant 2026-08-16T12:34:01.667000-07:00
+
+Copying the source PDF into the package's `papers/`, matching how the Jung modules cite theirs:
+
+    Bash cp "/Users/scott/projects/ScottBibliography/papers/Bauer-Birkedal-Scott-2004-Equilogical-Spaces.pdf" "/Users/scott/projects/ScottLean4/ScottDomains/pa
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Basic.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.Basic
+## turn — assistant 2026-08-16T12:35:45.666000-07:00
+
+Implicit-lambda insertion on `MapEquiv`'s `{x y}` binders. Making them explicit removes the whole class of problem:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Basic.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Basic.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.Basic
+## turn — assistant 2026-08-16T12:36:47.618000-07:00
+
+Category `Equ` builds fully proved — 0 errors, 0 warnings, 0 `sorry`. Now the §3 theorems:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.Theorems3
+## turn — assistant 2026-08-16T12:39:03.888000-07:00
+
+`Mathlib.CategoryTheory.Closed.Cartesian` doesn't exist in this Mathlib revision. Locating `CartesianClosed`:
+
+    Bash grep -rln 'class CartesianClosed' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib
+    Bash ls /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Closed
+    Bash ls /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory
+    Bash grep -rl 'CartesianClosed' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Monoidal /Users/scott/projects/
+    Bash grep -n 'abbrev CartesianClosed\|class CartesianClosed\|def CartesianClosed\|^abbrev\|^class\|CartesianMonoidalCategory' /Users/scott/projects/ScottLe
+## turn — assistant 2026-08-16T12:40:03.055000-07:00
+
+`CartesianClosed` was refactored into `CartesianMonoidalCategory` + `MonoidalClosed` in this revision. I'll state Theorem 3.13 the way the paper itself phrases it — as an adjunction — which avoids the monoidal machinery entirely.
+
+    Bash grep -rln 'class RegularMono' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory
+    Bash grep -rn 'class IsLeftAdjoint' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Adjunction/Basic.lean
+    Bash grep -rn 'class RegularMono' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/RegularCategory /Users/scott/
+    Bash grep -rn 'RegularMono' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib.lean
+    Bash grep -n 'RegularMono\b' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Limits/Shapes/RegularMono.lean
+    Bash grep -n 'class WellPowered\|abbrev WellPowered\|IsWellPowered' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTh
+    Bash sed -n '40,60p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Subobject/WellPowered.lean
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.Theorems3
+## turn — assistant 2026-08-16T12:42:04.624000-07:00
+
+Both modules build. Checking whether the root module needs the imports, then building the whole library:
+
+    Bash grep -n 'import ScottDomains' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains.lean
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Basic.lean /Users/scott/projects/ScottLean4/ScottDomains/ScottDomai
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+## turn — assistant 2026-08-16T12:43:18.752000-07:00
+
+Full library builds — 1534 jobs, 0 errors. Now the directory README with the tally:
+
+    Bash grep -c '^theorem \|^instance \|^def \|^structure \|^  theorem \|^noncomputable instance ' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+## turn — assistant 2026-08-16T12:44:27.330000-07:00
+
+**`ScottDomains/ScottDomains/EquilogicalSpaces/`** created, building at 0 errors.
+
+## The two modules
+
+| Module | Lines | `sorry` | Contents |
+| --- | ---: | ---: | --- |
+| [Basic.lean](ScottDomains/ScottDomains/EquilogicalSpaces/Basic.lean) | 201 | **0** | Definition 3.9 and the category `Equ` |
+| [Theorems3.lean](ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean) | 161 | 4 | Theorems 3.10, 3.13; footnote 4 |
+
+Plus [README.md](ScottDomains/ScottDomains/EquilogicalSpaces/README.md) with the tally and roadmap, and the paper copied to `ScottDomains/papers/`, matching how the Jung modules cite theirs. No root-module edit needed — `ScottDomains.lean` imports no submodules; the lakefile's `ScottDomains.+` glob picks these up.
+
+**Whole library: 1534 jobs, 0 errors.** `sorry` goes 3 → 7 (pre-existing: `Lemma30`, two in `Effective/A3StepDecidable`).
+
+## What's actually proved
+
+`Basic.lean` has no proof holes. The category `Equ` is real, not stubbed: `Hom A B` is a genuine `Quotient` of `Equivariant A B` by `MapEquiv`, and `id_comp`, `comp_id`, `assoc` are proved as equalities *of classes*. `comp_congr` — composition respects `MapEquiv` in both arguments — is what lets composition descend to the quotient; without it there's no category at all.
+
+Two encoding points I made deliberately, both departures from the 1998 file we looked at earlier:
+
+**`MapEquiv` uses the paper's two-point form**, `∀ x y. x ≡_A y → f x ≡_B g y`, not pointwise `f x ≡ g x`. The 1998 module used the diagonal reading, which is strictly weaker. The two-point form has a consequence worth the trouble: `MapEquiv f f` *is* equivariance of `f`, so `mapEquiv_refl` is literally `f.equivariant`. And `mapEquiv_trans` derives `A.Rel x x` from `A.Rel x y` by symmetry-then-transitivity rather than taking it from reflexivity — so the same proof survives the move to *partial* equivalence relations in Definition 3.11.
+
+**Morphisms are equivalence classes.** Stating the laws up to `Eq` on representatives would be a different, false claim.
+
+## What's stated, not proved
+
+Four `sorry`s: `HasLimitsOfSize`, `HasColimitsOfSize`, `HasFiniteProducts`, and Theorem 3.13. Each docstring records the construction the paper owes — product topology with product ER, the equalizer `{x | f x ≡ g x}`, disjoint unions, coarsening `≡_ℱ`.
+
+Theorem 3.13 is stated as `∀ B, Functor.IsLeftAdjoint (prod.functor.obj B)` — the paper's own §2 phrasing. This Mathlib revision has **no `CartesianClosed` class**; it was refactored into `CartesianMonoidalCategory` + `MonoidalClosed`, which would drag in chosen-product data the statement doesn't need.
+
+## Footnote 4 shaped the design
+
+Because `Equ` is *not* well-powered, **no `WellPowered EquilogicalSpace` instance may be declared** — it sits right next to the completeness instances and looks natural, and declaring it would let typeclass resolution silently prove false things. That's why every name carries `regular`, and why the two regular halves of 3.10 are `Prop`-valued claims over `Small.{u}` rather than instances (Mathlib has no `RegularWellPowered`). Footnote 4 itself is `Theorem310NotWellPowered`, a claim `def` — the same call as in the 1998 file, for the same reason: Johnstone's counterexample isn't exhibited in the paper, so the `Small.{u}` encoding is unchecked and a `sorry` would assert it.
+
+## Two things for you to check
+
+**Scope.** I formalized §3's category and its two statable theorems. Theorems 3.5, 3.6 (Embedding), 3.7 (Extension), 3.8 and 3.12 are **not stated** — they need the Σ-topology and `PEqu` first, and stubbing them now would mean inventing encodings the modules can't yet express. Since 3.12 is what 3.13 is proved *through*, that's the natural next tranche. §4 (dependent type theory) and §5 (Kleene–Kreisel) are listed in the README, untouched.
+
+**Naming.** `CLAUDE.md` gives only single-author examples for the `<author><year>_` slot. For three authors I read it as `bauerBirkedalScott04_theorem_3_13`. That's my reading, not the rule's text — cheap to change now while only two modules use it. Say if you'd rather have `bbs04_` or something else.
+
+Nothing committed; four new files are untracked plus the copied PDF.
+

@@ -1,0 +1,36 @@
+---
+prompt: p0016
+type: interaction
+opened: 2026-0802-10:42
+closed: 2026-0802-10:42
+subject: no-i-opened-the-desktops-i-have-9-up-whe
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:42:13.651000-07:00
+
+No I opened the desktops I have 9 up where do I set the ctr-N?
+
+## turn — assistant 2026-08-02T10:42:28.015000-07:00
+
+You want **System Settings → Keyboard → Keyboard Shortcuts… → Mission Control**. Now that 9 desktops exist, that page will show **"Switch to Desktop 1 … 9"** rows (before, only rows for existing desktops appeared — that's why 6–9 weren't there earlier). Let me open it:
+
+    Bash open "x-apple.systempreferences:com.apple.Keyboard-Settings.extension" 2>&1 && echo "opened System Settings → Keyboard" echo "--- reminder: our defaul
+## turn — assistant 2026-08-02T10:42:46.551000-07:00
+
+System Settings → Keyboard is open, and Ctrl-6…9 are already `enabled=1` in the config. Finish it in the GUI:
+
+1. Click **"Keyboard Shortcuts…"** (button near the bottom).
+2. Left column → select **Mission Control**.
+3. Click the disclosure triangle to expand the **Mission Control** group.
+4. Scroll to **"Switch to Desktop 6", "7", "8", "9"** — these rows now exist because you have 9 desktops. They should already show **^6 … ^9** checked (from our writes).
+5. Do the same **commit trick** you did for 1–5: **uncheck each of 6–9, then re-check it** (that's what makes the WindowServer actually bind them). If a row's key field is blank, click it and press **Control-6** (etc.).
+6. Close Settings and test **Ctrl-6 … Ctrl-9**.
+
+That's the same page and the same fix that made 1–5 work — the 6–9 rows just weren't visible until the desktops existed. Once you've toggled them, all nine are live.
+

@@ -1,0 +1,50 @@
+---
+prompt: p0029
+type: interaction
+opened: 2026-0802-11:23
+closed: 2026-0802-11:29
+subject: that-readme-is-awful-due-to-long-cells-i
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T11:23:32.057000-07:00
+
+That readme is awful due to long cells. It has to read better.
+
+## turn — assistant 2026-08-02T11:24:54.757000-07:00
+
+Fair — the full filenames as link text blow the columns out. Let me rebuild it with short, human titles (paper *titles*, not filenames) and a compact link column:
+
+    Bash cd ~/projects/ScottLean4 python3 - <<'PY' import os, re, glob kern={} for line in open("/private/tmp/claude-501/-Users-scott-projects-ScottLean4/88e3c
+## turn — assistant 2026-08-02T11:26:10.225000-07:00
+
+Good options — I'll take your second one: numeric columns (**defs / holes**) first, then the **paper title kept on one line** (non-breaking), then the **full Lean filename last** so it runs off the right edge and scrolls, instead of squeezing everything. Regenerating:
+
+    Bash cd ~/projects/ScottLean4 python3 - <<'PY' import os, re, glob kern={} for line in open("/private/tmp/claude-501/-Users-scott-projects-ScottLean4/88e3c
+## turn — assistant 2026-08-02T11:27:39.720000-07:00
+
+Let me ground my answer by checking the actual commit history behind that column:
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== recent history ==="; git log --oneline -8 echo "=== which commit last touched
+## turn — assistant 2026-08-02T11:28:12.089000-07:00
+
+That column is the **last commit message** GitHub shows per folder — and yes, several are unhelpful (`ScottLean` → "Formalize 38 Dana Scott papers…", and `tutorials`/`papers`/`cheatsheets` literally say **"All the stuff"**). Let me first do the commit+push you asked for (the README layout), then answer the rename question:
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== pending changes ==="; git status --short git add DanaScottPapers/README.md gi
+## turn — assistant 2026-08-02T11:29:01.430000-07:00
+
+Committed + pushed: `7a1e54d..2bc1ee4` — the README now leads with **Defs / Holes / Year**, keeps the **paper title on one line**, and puts the **long Lean filename last** so it scrolls off the right.
+
+Now, your question about the folder labels. Straight answer:
+
+**Changing them *in place* is not easy/clean.** That column is each folder's **last commit message**, i.e. git history. To rewrite it you'd reword those old commits and **force-push** (rewriting SHAs on the shared repo) — and interactive rebase isn't even available in this environment. On an already-pushed repo I'd avoid that.
+
+**But there's an easy, safe fix that's actually *better* for Dana:** that row updates automatically the next time a folder's files are committed. So instead of fighting history, add a short **`README.md` in each folder** — GitHub then (a) relabels the row with that commit's message and (b) shows the README description when Dana clicks into the folder. The offenders are the three showing **"All the stuff"**: `papers/`, `cheatsheets/`, `tutorials/` (and optionally a nicer message for `ScottLean/`).
+
+Want me to add a one-paragraph orienting `README.md` to `papers/`, `cheatsheets/`, and `tutorials/`, and commit each with a clear message (e.g. *"papers: add index of source papers"*)? That fixes both the confusing labels and Dana's first-click experience, with zero history rewriting. Say go and I'll do all three.
+

@@ -1,0 +1,42 @@
+---
+prompt: p0194
+type: interaction
+opened: 2026-0807-15:09
+closed: 2026-0807-15:09
+subject: open-diagram-one-from-section-four-point
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-07T15:09:11.222000-07:00
+
+Open diagram one from section four point three in VSCode.
+
+## turn — assistant 2026-08-07T15:09:25.206000-07:00
+
+Diagram 1 has no Lean declaration to open — as I said, its statement isn't formalized: `bistrict` is undefined, the triangle `g ∘ smash = f` is unstated, and there's no uniqueness clause. What exists is the diagram's two arrows, under two independent name pairs. Opened both:
+
+    Bash code -g /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:85 -g /Users/scott/projects/ScottLean4/ScottDomains/Sc
+## turn — assistant 2026-08-07T15:09:48.862000-07:00
+
+Focus is on [PRepFun.lean:684](ScottDomains/ScottDomains/PRepFun.lean:684). The correspondence to the paper's arrows:
+
+| §4.3 | `PRepFun.lean` | `Isomorphism/StrictCurry.lean` |
+|---|---|---|
+| `smash : D × E → D ⊗ E` (the projection) | `smashCollapse` [:695](ScottDomains/ScottDomains/PRepFun.lean:695) | `smashPair` [:134](ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:134) |
+| `unsmash : D ⊗ E → D × E` (the embedding) | `smashEmbed` [:684](ScottDomains/ScottDomains/PRepFun.lean:684) | `smashVal` [:85](ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:85) |
+| continuity of each | `scottContinuous_smashCollapse` [:766](ScottDomains/ScottDomains/PRepFun.lean:766), `scottContinuous_smashEmbed` [:722](ScottDomains/ScottDomains/PRepFun.lean:722) | `scottContinuous_smashPair` [:158](ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:158), `scottContinuous_smashVal` [:93](ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:93) |
+
+The naming inverts the paper's, which is worth knowing while reading: `smashEmbed`/`smashVal` are the paper's **`unsmash`** — the paper says `smash` is the projection and `unsmash` its corresponding embedding, so the Lean name tracks the embedding–projection role, not the paper's function name.
+
+Two things this shows:
+
+- **The pair is duplicated.** `smashCollapse`/`smashEmbed` and `smashPair`/`smashVal` are the same two functions defined twice, in modules from different rounds, each with its own continuity proof. Neither cites the other. Nothing is wrong with the build, but one of the two is redundant.
+- **`smashEmbed`/`smashCollapse` is never proved to be an embedding–projection pair.** `IsEmbeddingProjectionPair` exists at [Projection.lean:44](ScottDomains/ScottDomains/Projection.lean:44), and the paper's sentence at §4.3 asserts exactly that; no module applies the one to the other.
+
+If you want diagram 1 actually stated, it is three declarations: `IsBistrict f := ∀ x y, x = ⊥ ∨ y = ⊥ → f (x, y) = ⊥`, then `g := f ∘ smashEmbed` with `IsStrict g` and `g ∘ smashCollapse = f`, then the uniqueness half. Say the word and I'll write it and build it.
+

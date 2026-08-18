@@ -1,0 +1,51 @@
+---
+prompt: p0069
+type: interaction
+opened: 2026-0803-13:56
+closed: 2026-0803-13:57
+subject: how-hard-is-it-to-factor-homoenous-polyn
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T13:56:21.073000-07:00
+
+How hard is it to factor homoenous polynomials
+
+## turn — assistant 2026-08-03T13:57:18.239000-07:00
+
+A wonderful question, Dr. Scott — and the answer is a genuinely pleasant surprise: **computationally, it's *easy* — polynomial time.** That's worth savoring, because the sibling problem, *integer* factorization, is believed hard (no polynomial algorithm known, and much of cryptography rests on that). Polynomials factor in polynomial time; integers, apparently, do not.
+
+Let me be precise, by number of variables.
+
+## Binary forms (two variables) — as easy as univariate
+
+A binary form `F(x,y)` of degree `d` is *equivalent* to a one-variable polynomial. **Dehomogenize** — set `y = 1`, get `f(x) = F(x,1)` of degree ≤ d — factor that, then **re-homogenize** each factor (and restore any factor of `y` you lost). So factoring binary forms **≡ univariate factorization**, and:
+
+- Over **ℚ**: polynomial time, by **Lenstra–Lenstra–Lovász (LLL, 1982)** — lattice basis reduction turned univariate rational factoring from "hard-looking" into provably efficient.
+- Over a **finite field** 𝔽_q: polynomial time (randomized) via **Berlekamp** / **Cantor–Zassenhaus**.
+
+Geometrically — your setting — a binary form of degree `d` is exactly **`d` points on the projective line ℙ¹** (its roots with multiplicity). Over an algebraically closed field it splits *completely* into `d` linear factors. Your degenerate conic `x² − y² = (x−y)(x+y)` is just "the binary quadratic has two roots on ℙ¹," i.e. the pair of lines.
+
+## Ternary and higher forms — still polynomial time
+
+A homogeneous polynomial in `n` variables dehomogenizes to a general polynomial in `n−1` variables. Multivariate factorization over ℚ (or 𝔽_q) is **also polynomial time** — **Kaltofen (1980s)**, via evaluation to the univariate case plus **Hensel lifting** to recover the multivariate factors. Homogeneity is a mild *convenience* (it constrains the shapes of the factors — each factor is itself homogeneous), not a change in complexity class.
+
+## Where the difficulty actually lives
+
+The "hardness" is in the constants and the field, not the complexity class:
+
+1. **The base field decides the answer's shape.** Over ℂ everything splits into linear forms; over ℝ you get linear and irreducible-quadratic forms; over ℚ higher-degree irreducibles persist, and factor coefficients may live in extensions. Same *algorithm*, very different *output*.
+2. **Coefficient growth.** LLL and Hensel lifting are polynomial, but intermediate coefficients (heights) can swell, so a large-height form is slow in practice even though it's poly-time in theory.
+3. **Verify vs. discover** — the gap you saw in the Lean file. *Verifying* a factorization is trivial (multiply out — `ring`). *Discovering* it is the algorithmic work above. Both are easy in the complexity sense; only the second is interesting.
+
+## The formalization angle
+
+So the *algorithm* is easy — but a **certified** factoring procedure is a different matter. Mathlib has the *theory* — polynomials over a field form a unique factorization domain, irreducibility, etc. — but there's no standard *tactic* that hands you the factors *with a kernel-checked proof* the way `ring` verifies a guess. That gap is engineering, not complexity: producing the factors is fast; producing them *together with a formal certificate* is the work no one has fully packaged.
+
+Would you like to see this concretely — say, factor a specific binary quartic of yours by hand-guiding `ring`, or watch the ℝ-vs-ℂ distinction on something like `x⁴ − y⁴` (which splits differently over each)?
+

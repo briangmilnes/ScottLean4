@@ -1,0 +1,76 @@
+---
+prompt: p0204
+type: interaction
+opened: 2026-0813-11:12
+closed: 2026-0813-11:14
+subject: git-pull
+session: de244442
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/de244442….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-13T11:12:48.793000-07:00
+
+git pull
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint:
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # repbase
+hint:   git config pull.ff only       # fast-forward only
+hint:
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
+
+    Bash git -C /Users/scott/projects/ScottBibliography fetch origin
+    Bash git -C /Users/scott/projects/ScottLean4 fetch origin
+    Bash git -C /Users/scott/projects/ScottBibliography rev-list --left-right --count origin/main...main
+    Bash git -C /Users/scott/projects/ScottLean4 rev-list --left-right --count origin/main...main
+    Bash git -C /Users/scott/projects/ScottBibliography log --oneline --left-right origin/main...main
+    Bash git -C /Users/scott/projects/ScottBibliography show --stat --oneline 0423a6c
+    Bash git -C /Users/scott/projects/ScottBibliography diff --stat main origin/main
+    Bash git -C /Users/scott/projects/ScottBibliography pull --rebase origin main
+    Bash ps -Ao pid,lstart,command | grep -c '[g]it '
+    Bash ls -la /Users/scott/projects/ScottBibliography/.git/index.lock
+    Bash ps -Ao pid,lstart,command | grep '[g]it '
+## turn — assistant 2026-08-13T11:13:48.043000-07:00
+
+No git process is running; the `index.lock` is a 0-byte leftover from 11:10 today (your interrupted pull). Removing it and rebasing:
+
+    Bash rm /Users/scott/projects/ScottBibliography/.git/index.lock
+    Bash git -C /Users/scott/projects/ScottBibliography pull --rebase origin main
+    Bash find /Users/scott/projects/ScottBibliography/.git -name '*.lock' -ls
+    Bash rm /Users/scott/projects/ScottBibliography/.git/ORIG_HEAD.lock
+    Bash git -C /Users/scott/projects/ScottBibliography log --oneline -4
+    Bash git -C /Users/scott/projects/ScottBibliography status --short --branch
+## turn — assistant 2026-08-13T11:14:18.966000-07:00
+
+Rebased cleanly. The repo was ScottBibliography (ScottLean4 was only behind, no divergence).
+
+**What diverged**
+
+- `origin/main` had 2 commits you didn't: `c8adc4e` "Fix coverage counts in ScottBibliography.md", `dbecf9c` "Add papers #2, #3, #4 (1956); coverage 74 → 77 of 99".
+- Local had 1: `0423a6c` "Add docs/overview.html" (401 lines, one new file).
+- File sets were disjoint, so the rebase applied with zero conflicts. Your commit is now `58af494` on top of `dbecf9c`.
+
+**The lock files** — the pull also failed twice on stale `.git/*.lock` files, not on the divergence. `ps` showed no git process running; both were 0 bytes, timestamped 11:10 today, left by your interrupted pull. I removed `index.lock` and `ORIG_HEAD.lock`.
+
+Two older ones remain, which I left alone: `.git/objects/maintenance.lock` (Aug 12 11:51, blocks `git maintenance` from running) and a `.git/_recovered_stale/` directory holding `index.lock` and `HEAD.lock` from the same minute — something previously quarantined stale locks there. Three separate incidents of git being killed mid-write in this repo is a pattern worth tracking down.
+
+State now: `main` ahead of `origin/main` by 1 commit, working tree clean, 77 of 99 papers covered.
+
+To settle the reconcile policy for this repo:
+
+```bash
+git -C /Users/scott/projects/ScottBibliography config pull.rebase true
+```
+
+Want me to push `58af494`? And separately, ScottLean4 is 162 commits behind `origin/main` with 0 ahead — a fast-forward — but you have uncommitted changes in [CartesianClosed.lean](Playground/Playground/CartesianClosed.lean), so say the word before I touch that one.
+

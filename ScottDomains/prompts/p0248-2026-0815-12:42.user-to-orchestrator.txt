@@ -1,0 +1,71 @@
+---
+prompt: p0248
+type: interaction
+opened: 2026-0815-12:42
+closed: 2026-0815-12:48
+subject: do-51
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T12:42:33.285000-07:00
+
+do 5.1
+
+## turn — assistant 2026-08-15T12:43:54.575000-07:00
+
+§5.1 is the big one. The tractable route is via §5.6: build the *token* poset of step functions and apply `idealDomain`, which is Scott's information-systems presentation of the function space. First, one thing to check — whether `idealDomain` actually used antisymmetry, since step-function tokens form only a preorder:
+
+    Bash grep -n "le_antisymm" /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+## turn — assistant 2026-08-15T12:45:11.058000-07:00
+
+Two things to fix in the §5.6 interface first — both are real findings rather than conveniences:
+
+**`le_antisymm` is never used** by `idealDomain` (grep shows uses only in the §3.5 block, all below line 1000). And `enum_onto` demanding *exact* equality is too strong: step-function tokens are only a preorder, and a bit-mask enumeration can never reproduce a list's order and duplicates. Mutual entailment suffices, because `↑t` depends only on the ⊑-class:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+## turn — assistant 2026-08-15T12:47:00.148000-07:00
+
+TokenPoset weakened, `idealDomain` still compiles. Now the function space, as step-function tokens fed to `idealDomain`:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+## turn — assistant 2026-08-15T12:47:59.067000-07:00
+
+The `Prod` equation juggling was wrong — `injection` is the right tool, and I had two of the four order facts backwards:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "funTokens|funSpace|idealDomain|idealTop"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|Build completed"
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize the function space (catalogue 5.1) as funSpace, built on the ideal completion" -m "Th
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T12:48:59.924000-07:00
+
+§5.1 done and pushed — `03ff7c6`. Build: 4 jobs, zero errors, zero warnings, zero `sorry`.
+
+`funSpace : (P : TokenPoset) → (Q : JoinTokens) → DInfinityFoundations (TokenIdeal (funTokens P Q))`. Built on §5.6 rather than topologically: give the *tokens* of [D → E] and let `idealDomain` discharge D1–D4. A token is a finite list of step functions `(a,b)`, ordered by entailment — **b is below every upper bound of what the other list contributes at a**. That phrasing says `b ⊑ ⊔{b' | (a',b') ∈ m, a' ⊑ a}` without having to assert the join exists, which is what keeps the definition first-order and join-free.
+
+**Two limits, stated rather than glossed:**
+
+1. The **value** side must carry total binary joins. For a general value domain a finite set of step functions is a token only when *consistent*, consistency is not decidable from a bare `TokenPoset`, so the carrier would be a subtype with an undecidable predicate and `enum` could not be constructed without choice — which this development still does not admit. Carrying joins as data removes the condition. §4's dualizing object **[D → 𝕊] is covered**; `sierpTokens` supplies `or`.
+2. **Not proved**: that these ideals biject with the Scott-continuous maps D → E. That is the information-systems *definition* of the function space; identifying it with actual functions needs a notion of continuous map the D1–D4 vocabulary does not carry.
+
+**Two interface weakenings to `TokenPoset` were required, and both are findings, not conveniences:**
+
+- **Antisymmetry is never used** by `idealDomain` — a preorder suffices. This matters concretely: step-function tokens genuinely are only preordered, since `[(a,b)]` and `[(a,b),(a,b)]` entail each other without being equal. Demanding antisymmetry would have forced a quotient for no gain.
+- **`enum_onto` needs only mutual entailment**, not equality, because ↑t depends solely on t's ⊑-class and ideals are down-closed. A bit-mask enumeration cannot reproduce a list's order or duplicates, so exact surjectivity was unattainable as well as unnecessary.
+
+Audit: `funTokens` is `[propext, Quot.sound]` — **building the tokens is `lem`-free** — and `funSpace` is `[lem, propext, Quot.sound]`, excluded middle entering only through `idealDomain`'s D2.
+
+Remaining: §6.3/§6.4 (Mathlib for ℝ, separate module), §5.4 term domains, §5.5 D∞, and §5.2/§6.5 which need a PCF syntax and a powerdomain construction.
+

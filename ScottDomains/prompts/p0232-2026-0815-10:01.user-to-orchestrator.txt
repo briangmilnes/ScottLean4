@@ -1,0 +1,29 @@
+---
+prompt: p0232
+type: interaction
+opened: 2026-0815-10:01
+closed: 2026-0815-10:01
+subject: you-should-just-be-able-to-pull-and-ther
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T10:01:27.043000-07:00
+
+You should just be able to pull and there will be one tiny change.
+
+    Bash git -C /Users/scott/projects/EricsonPapers pull
+## turn — assistant 2026-08-15T10:01:43.425000-07:00
+
+Pulled, fast-forward `1ea0ff4..a828f48`, CLAUDE.md only, 3 lines changed.
+
+Your correction stands: both machines are macOS with different user names, so Brian's root really is `/Users/milnes/projects/EricsonPapers`. My commit message claimed that path existed on neither machine and inferred a Linux `/home/milnes` — wrong on both counts. The tilde form is still the right fix, but for the reason your edit gives: `$HOME` differs by user name, not by operating system.
+
+That also drops the Linux-specific advice I gave you for testing on your side — the trust grant and the keybindings are the same macOS ones (⇧⌘P, ⇧⌘X, ⇧⌘↵).
+
+Tree is clean at `a828f48`, level with `origin/main`. Nothing under `Domains/` changed, so the build is unaffected.
+

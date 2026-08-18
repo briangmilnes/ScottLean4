@@ -1,0 +1,78 @@
+---
+prompt: p0266
+type: interaction
+opened: 2026-0815-18:35
+closed: 2026-0815-18:40
+subject: do-the-bijection-with-continuous-maps
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T18:35:46.928000-07:00
+
+do the bijection with continuous maps
+
+## turn — assistant 2026-08-15T18:36:41.949000-07:00
+
+The last piece. Building it in stages — first the two helper lemmas the round trips need:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed" | head
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed" | head
+## turn — assistant 2026-08-15T18:37:54.778000-07:00
+
+Now the graph construction and both round trips:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed" | head
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 8 "2720:17"
+## turn — assistant 2026-08-15T18:38:33.895000-07:00
+
+`(funTokens P Q.base).T` doesn't reduce for instance synthesis — same trap as `funJoin` earlier. Annotating the binder:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed" | head
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 6 "2728:14"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed" | head
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "ofFun|funApply_ofFun|contributions_in|funApply_continuous"
+## turn — assistant 2026-08-15T18:39:10.062000-07:00
+
+Both round trips compile. Updating the header, which now claims something false:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Prove the bijection between ideals of step functions and continuous maps (5.1)" -m "This closes
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T18:40:03.446000-07:00
+
+The bijection is proved — pushed as `6e5011e`. Build: **846 jobs, zero errors, zero warnings, zero `sorry`.**
+
+With `IdealContinuous` as the finite-approximation form of Scott continuity — monotone, and every output token already produced by a single input token — the two directions invert each other:
+
+| theorem | content |
+| --- | --- |
+| `funApply_ofFun` | **Fun ∘ Graph = id** — applying a map's graph recovers the map |
+| `ofFun_funApply` | **Graph ∘ Fun = id** — the graph of an ideal's action is that ideal |
+| `funApply_continuous` | every ideal's action is itself continuous, so `ofFun` needs no side hypothesis |
+
+So the ideals of `funTokens P Q` **are** the continuous maps, not a stand-in for them, and §5.1 now carries no scope limit at all.
+
+**Two lemmas carry the weight**, and both exist to keep the development's discipline:
+
+- `contributions_in` bounds a step-set's contributions *inside the output ideal*, by induction with `lem` deciding each comparison. That is what makes `ofFun`'s ideal down-closed, and supplies one half of each round trip.
+- `stepEntails_of_stepLe` and `stepEntails_mono_arg` transfer entailment along the order on step-sets and along the argument — which lets the other half collect finitely many witnesses into a single ideal member **by induction rather than by choosing one per element**. That is the same move that kept §3.7, §3.8 and §5.5 free of choice.
+
+`ideal_finite_bound` — an ideal contains an upper bound of any finite set of its members — depends on **no axioms**; `contributions_in` on **`[lem]` alone**; the three main theorems on `[lem, propext, Quot.sound]`. No `Classical.choice` anywhere outside the ℝ module.
+
+Two build errors, both the same trap I hit in `funJoin`: `(funTokens P Q.base).T` does not reduce during instance synthesis, so `p ∈ l` had no `Membership` instance and `++` had no `HAppend`. Annotating the binder and writing `List.append` explicitly fixes it.
+
+§8 now reads: **all 16 rows settled, no outstanding scope limits.** What remains open in the catalogue is only what needs machinery outside this vocabulary — the Plotkin counterexample and PCF-undefinability — each with its reason recorded.
+

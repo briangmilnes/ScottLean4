@@ -1,0 +1,33 @@
+---
+prompt: p0027
+type: interaction
+opened: 2026-0802-11:19
+closed: 2026-0802-11:19
+subject: no-i-want-to-test-the-md-in-chrome-so-op
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T11:19:07.536000-07:00
+
+no I want to test the md in chrome so open it from disk
+
+## turn — assistant 2026-08-02T11:19:14.611000-07:00
+
+Opening the local file from disk in Chrome so you can see whether the Markdown extension renders it:
+
+    Bash F="$HOME/projects/ScottLean4/DanaScottPapers/README.md" open -a "Google Chrome" "$F" 2>&1 && echo "opened file://$F in Chrome"
+## turn — assistant 2026-08-02T11:19:27.438000-07:00
+
+Opened `file:///Users/scott/projects/ScottLean4/DanaScottPapers/README.md`. What you see tells you the state:
+
+- **Renders as a formatted table** → Markdown Viewer is installed *and* file-URL access is on. 
+- **Raw Markdown text** (most common) → the extension is installed but **"Allow access to file URLs" is off**. Fix: `chrome://extensions` → **Markdown Viewer** → **Details** → toggle **"Allow access to file URLs"** on, then reload the tab (⌘R).
+- **Prompts to download the file** → the extension isn't installed yet.
+
+Tell me which of the three you got and I'll get you to rendered from there.
+

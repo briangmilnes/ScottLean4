@@ -1,0 +1,39 @@
+---
+prompt: p0084
+type: interaction
+opened: 2026-0804-17:40
+closed: 2026-0804-17:41
+subject: and-the-calculus-files-and-the-category
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-04T17:40:23.445000-07:00
+
+and the calculus files and the category, the theory files that Brian made yesterday.\
+
+## turn — assistant 2026-08-04T17:40:38.375000-07:00
+
+Yes — those came down in the same pull, Dr. Scott. They're from Brian's commit **`7334957` "full-β λ-calculus, its metatheory, and a cartesian closed category,"** which is part of the history we're now in sync with. Let me confirm they're all present and tracked:
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== the calculus + category files (present + tracked?) ===" for f in Playground/P
+## turn — assistant 2026-08-04T17:41:03.187000-07:00
+
+All three are here, tracked, and fully in sync, Dr. Scott — they're part of that same commit `7334957`, which sits in our history (`== origin/main`), so **nothing is missing**:
+
+| File | Lines | What it is |
+|---|---|---|
+| `LambdaSmallStep.lean` | 151 | the full-β λ-calculus, small-step operational semantics |
+| `LambdaTheorems.lean` | 111 | its metatheory (theorems about reduction) |
+| `CartesianClosed.lean` | 132 | a cartesian closed category — the categorical model |
+
+And `Playground.lean` imports all three, so they're part of the library.
+
+This is very much your territory: the operational side (β-reduction) and the categorical side (the CCC), which is the setting where `Type` becomes the prototype cartesian-closed category and currying *is* λ-abstraction — the Curry–Howard–Lambek correspondence.
+
+One practical note: these three modules aren't *built* locally yet (Playground's Mathlib cache was compiled for the factoring file; these will compile on demand). If you'd like, I can **build them and open `CartesianClosed.lean`** — you'd see the category laws and the exponential/`curry` construction check in the Infoview. Shall I?
+

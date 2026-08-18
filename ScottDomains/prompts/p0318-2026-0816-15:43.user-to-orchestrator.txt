@@ -1,0 +1,77 @@
+---
+prompt: p0318
+type: interaction
+opened: 2026-0816-15:43
+closed: 2026-0816-15:46
+subject: go
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:43:32.891000-07:00
+
+go
+
+## turn — assistant 2026-08-16T15:44:08.554000-07:00
+
+Step 3. Starting with the product functor and the curry/uncurry maps on representatives:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read().rstrip() tail="end 
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:44:54.432000-07:00
+
+Both round-trips are `rfl` — the currying is definitional. Fixing the two warnings and assembling the adjunction:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() s=s.replace("  equi
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:45:38.668000-07:00
+
+Wrong shape in the left-naturality term — `g`'s domain isn't a product, so its equivariance yields a `HomRel` to be applied, not consumed:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() s=s.replace("      
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:46:02.118000-07:00
+
+**`PEqu` is cartesian closed** — the paper's Theorem 3.13, proved where the paper proves it. Full build and land:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("| `PEquClose
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0081: Theorem 3.13 proved for PEqu -- PEqu is cartesian closed  PEquClosed.lean 332 -> 447 lines, 
+## turn — assistant 2026-08-16T15:46:57.733000-07:00
+
+**Theorem 3.13 is proved for `PEqu`** — pushed as **605168f**. That's the theorem in the category where the paper proves it.
+
+## What landed
+
+- **`pequProdFunctorRight`** — the functor `- × B`, object part `prod` on the nose, so no transport along Mathlib's chosen limit (same reasoning as `ALatClosed`, r0064).
+- **`pequCurry` / `pequUncurry`** — the bijection on representatives, on `Currying.lean`'s `ScottHom.curry`/`uncurry`. Equivariance each way is one step: currying turns a `ProdRel` hypothesis into a pair, uncurrying turns it back.
+- **`pequCurry_congr` / `pequUncurry_congr`** — both respect `MapEquiv`, so both descend to the quotient. This is the paper's "self-proving" step a third time, now at the level of `MapEquiv` *between morphisms* rather than `HomRel` inside one function space.
+- **Both round-trips by `rfl`** — `scottHomCurry` is an isomorphism on the nose and currying a pair reduces.
+- **`pequProdExpAdjunction`** and `bauerBirkedalScott04_theorem_3_13_pequ`.
+
+## One correction during the work
+
+I first wrote the left-naturality square with the composite's equivariance applied to a *pair*. Wrong shape: the outer morphism's domain isn't a product, so its equivariance yields a `HomRel` that must then be **applied** at the two related points, not consumed. The right-naturality square *does* take a pair — and that asymmetry is exactly the currying.
+
+## State
+
+**2699 lines, 4 `sorry`** (all `Theorems3.lean`), 1550 jobs, 0 errors. 13 of 14 modules fully proved.
+
+## Where §3 stands
+
+Every theorem of §3 is now proved except in the `Equ` phrasing of 3.10 and 3.13:
+
+| | |
+| --- | --- |
+| 3.5, 3.6, 3.7, 3.8, 3.12 | proved |
+| 3.13 for `PEqu` | **proved** |
+| 3.13 for `Equ` | needs transport across 3.12 |
+| 3.10 for `Equ` | limits/colimits, untouched |
+
+**The only gap between here and the `Theorems3` statement of 3.13 is the transport across Theorem 3.12** — carrying an adjunction along an equivalence of categories. Mathlib has the pieces (`Adjunction.comp`, `Equivalence.toAdjunction`), so it's assembly, though the `Equ`-side product functor will need to be the transported one rather than Mathlib's `prod.functor` unless I also do 3.10's `HasBinaryProducts Equ`.
+

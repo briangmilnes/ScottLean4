@@ -1,0 +1,50 @@
+---
+prompt: p0193
+type: interaction
+opened: 2026-0807-15:04
+closed: 2026-0807-15:06
+subject: were-the-diagrams-in-section-43-formaliz
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-07T15:04:49.690000-07:00
+
+were the diagrams in section 4.3 formalized
+
+    Bash ls /Users/scott/projects/ScottLean4/ScottDomains/papers/
+    Bash grep -n -A 30 "^## §4" /Users/scott/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash which pdftotext mutool qpdf
+    Bash grep -rn -i "figure" --include='*.md' /Users/scott/projects/ScottLean4/ScottDomains/docs/
+    Bash pdftotext "/Users/scott/projects/ScottLean4/ScottDomains/papers/Gunter Scott 1990.pdf" /private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dce
+    Bash grep -n -i "figure" /private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dcecc-5458-4014-8773-d9de1e623d98/scratchpad/gs1990.txt
+    Bash grep -n -E "^4\.3|^4\.4|Smash|smash" /private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dcecc-5458-4014-8773-d9de1e623d98/scratchpad/gs1990.t
+    Read /private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dcecc-5458-4014-8773-d9de1e623d98/scratchpad/gs1990.txt
+    Bash grep -rn -E "unsmash|smashEmbed|smashCollapse|bistrict|Bistrict|smashMap|smashCurry|strictApply|strictCurry" --include='*.lean' /Users/scott/projects/
+    Bash grep -n -E "^(theorem|def|abbrev|instance|noncomputable def)" /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Smash.lean
+    Bash grep -n -E "^(theorem|def|noncomputable def|abbrev)" /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean
+    Bash grep -rn -E "ExistsUnique|∃!" --include='*.lean' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Isomorphism/ /Users/scott/projects/ScottLe
+## turn — assistant 2026-08-07T15:06:09.006000-07:00
+
+§4.3 has **no numbered Figure** — the paper's four figures are elsewhere: Figure 1 cpo examples (§2), Figure 2 the lift (§4.4), Figure 3 posets that are not Plotkin orders (§6), Figure 4 the domain for operators on bifinites (§7.4). What §4.3 contains is **three unnumbered commutative diagrams**, at lines 915, 937 and 964 of the extracted text. Answering for those:
+
+**The objects and arrows are formalized. The commuting equations and uniqueness clauses are not.**
+
+| §4.3 diagram | Arrows in Lean | Equation | Uniqueness |
+|---|---|---|---|
+| 1. universal property: bistrict `f : D×E → F` ⟹ `g = f ∘ unsmash` unique strict with `g ∘ smash = f` | ✓ `smash`/`unsmash` twice over — `PRepFun.smashCollapse`/`smashEmbed` ([PRepFun.lean:695](ScottDomains/ScottDomains/PRepFun.lean:695), [:684](ScottDomains/ScottDomains/PRepFun.lean:684)) and `Isomorphism.smashPair`/`smashVal` ([StrictCurry.lean:134](ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:134), [:85](ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:85)), each with a `ScottContinuous` proof | ✗ not stated | ✗ |
+| 2. functoriality: `f ⊗ g = smash ∘ (f × g) ∘ unsmash` | ✓ the term is `PRepFun.smashMap` at [PRepFun.lean:1028](ScottDomains/ScottDomains/PRepFun.lean:1028), literally that composite | ✗ the square `smash ∘ (f × g) = (f ⊗ g) ∘ smash` is not stated | ✗ |
+| 3. strict apply/curry: `strict_apply ∘ (strict_curry(f) ⊗ id) = f` | ~ as a bijection, `Isomorphism.smashCurry : D ◦→ (E ◦→ F) ≃o (D⊗E) ◦→ F` at [StrictCurry.lean:271](ScottDomains/ScottDomains/Isomorphism/StrictCurry.lean:271) (Lemma 9 item 4, r0034) | ✗ no `strictApply` declaration exists | subsumed — an `≃o` gives uniqueness of the transpose, but not of a map completing the printed triangle |
+
+Three specific gaps, measured:
+
+- **`bistrict` is not defined anywhere** in the codebase. Diagram 1's hypothesis has no Lean statement, so the diagram cannot be stated as written. (`IsStrict` exists, at [PRepFun.lean:405](ScottDomains/ScottDomains/PRepFun.lean:405); bistrictness on a product is a different predicate.)
+- **Zero `∃!`/`ExistsUnique` occurrences** in `Isomorphism/` or `Smash.lean`. All three diagrams assert uniqueness; none of it is stated. Contrast Theorem 12, where `ContinuousAlgebra.thm12_plotkin` et al. do carry `∃!` with existence *and* uniqueness — so the codebase does state universal properties this way when a round targets one.
+- **`smashMap` is fixed at `U`**, `ScottHom U U → ScottHom U U → ScottHom (Smash U U) (Smash U U)`, not the general `f : D → D'`, `g : E → E'` the diagram takes. What is proved about it is what Lemma 28 consumes — `isProjection_smashMap`, `smashMap_mono`, `smashMap_bot` — not functoriality.
+
+Two caveats on this answer: it is read off source, not kernel-checked in this session; and the paper text comes from `pdftotext` over the 1990 Type-3 fonts, which mangles math — line 899 extracts as `x 6= ? and x 6= ?` where the second conjunct must be `y ≠ ⊥`. The diagram structure survives extraction, but I have not opened the PDF pages to confirm the arrow labels visually.
+

@@ -1,0 +1,55 @@
+---
+prompt: p0026
+type: interaction
+opened: 2026-0802-11:16
+closed: 2026-0802-11:18
+subject: commit-push
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T11:16:04.028000-07:00
+
+commit. push.
+
+## turn — assistant 2026-08-02T11:16:39.893000-07:00
+
+On it. Let me review the current git state before committing so I stage exactly the right files (and nothing gitignored slips in):
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== branch ==="; git branch --show-current echo "=== status (short) ==="; git sta
+## turn — assistant 2026-08-02T11:17:29.101000-07:00
+
+On `main`. The four intended new/changed files are there; the tutorial clones are correctly ignored (`!!`). One thing: the `ComputAItionalThinking` **symlink** shows as untracked `??` — the ignore rule `/ComputAItionalThinking/` (trailing slash) matches a directory but not the symlink. Since that symlink is a machine-specific absolute path, I'll tighten the rule so it's never committed, then stage only the intended files:
+
+    Edit /Users/scott/projects/ScottLean4/.gitignore
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== symlink now ignored? (should NOT appear) ===" git status --short | grep Compu
+## turn — assistant 2026-08-02T11:17:58.944000-07:00
+
+Staged clean — exactly the 4 files, symlink now properly ignored. Let me commit and push (you asked for that), then open the README in Chrome:
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" git commit -q -F - <<'MSG' Add Dana Scott proof-status index, software inventory, round
+## turn — assistant 2026-08-02T11:18:42.773000-07:00
+
+Committed and **pushed to main** (`f14f248..7a1e54d`). Since it's now on GitHub — which renders Markdown natively (the local `file://` would show raw text until the Chrome Markdown extension is installed) — I'll open the **rendered** version in Chrome:
+
+    Bash URL="https://github.com/briangmilnes/ScottLean4/blob/main/DanaScottPapers/README.md" open -a "Google Chrome" "$URL" 2>&1 && echo "opened in Chrome: $U
+## turn — assistant 2026-08-02T11:18:53.786000-07:00
+
+Opened in Chrome — the **rendered** proof-status scoreboard on GitHub:
+
+[github.com/briangmilnes/ScottLean4/…/DanaScottPapers/README.md](https://github.com/briangmilnes/ScottLean4/blob/main/DanaScottPapers/README.md)
+
+I pointed it at GitHub rather than the local file because GitHub renders Markdown server-side, so the table, links, and ✅/🕳️ statuses all display properly. The paper and Lean links in it are clickable there too (they resolve within the repo on GitHub).
+
+Recap of what just landed on `main` (commit `7a1e54d`):
+- **`DanaScottPapers/README.md`** — kernel-checked scoreboard: 38/38 compile, 16 fully proved, 100 `sorry`-holes.
+- **`docs/SoftwareInventory.md`** — the installed-program inventory.
+- **`plans/r0001-…`** — the patch/reboot/restart plan.
+- **`.gitignore`** — ignores the local tutorial clones + the `ComputAItionalThinking` symlink.
+
+If you'd rather also view local `.md` files (not just GitHub) in Chrome, that's the pending **Markdown Viewer** extension + "Allow access to file URLs" step. Want me to refresh `docs/SoftwareInventory.md` to all-green next, or leave it here?
+

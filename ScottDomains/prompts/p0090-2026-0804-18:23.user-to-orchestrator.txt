@@ -1,0 +1,30 @@
+---
+prompt: p0090
+type: interaction
+opened: 2026-0804-18:23
+closed: 2026-0804-18:24
+subject: met-and-po-commit-and-push
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-04T18:23:30.744000-07:00
+
+Met and Po Commit and push.
+
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" echo "=== pending changes ==="; git status --short git add Playground/Playground/Lambda
+    Bash cd ~/projects/ScottLean4 export PATH="/opt/homebrew/bin:$PATH" git commit -q -F - <<'MSG' Playground: named-variable λ-calculus with α as an equivalen
+## turn — assistant 2026-08-04T18:24:33.248000-07:00
+
+Committed and pushed, Dr. Scott — **`0ea7043 → 6411feb`**, in sync with GitHub. Three things landed:
+
+- **`Playground/LambdaNamed.lean`** — the named-variable λ-calculus with α proved a full equivalence relation (0 `sorry`)
+- **`SageFactorProved.lean`** — your cuspidal cubic `x³ − y²z`
+- **`notes/DanaScottBio.{tex,pdf}`** — the biography
+
+All safely on GitHub now. (One small note for later: `LambdaNamed.lean` is committed as a standalone module — it's not yet imported by `Playground.lean`, so `lake build` won't pull it into the library build until we add one `import` line. Say the word if you'd like it wired in.) Anything else?
+

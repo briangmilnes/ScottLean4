@@ -1,0 +1,49 @@
+---
+prompt: p0044
+type: interaction
+opened: 2026-0802-18:10
+closed: 2026-0802-18:11
+subject: so-when-we-sucked-down-other-papers-we-d
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T18:10:43.341000-07:00
+
+So when we sucked down other papers we did not try formulating the new ones in Lean? Where are the formalizations again? And is it's mathlib 'vendored' and ready for working on?
+
+## turn — assistant 2026-08-02T18:11:08.203000-07:00
+
+Let me verify the specifics so I don't misstate — what language the RustSemantics artifacts are in, and whether the Scott formalizations need Mathlib:
+
+    Bash echo "=== RustSemantics artifacts: are any of them Lean? (vs Coq/Rust) ===" for l in lean v rs; do   n=$(find ~/projects/RustSemantics/artifacts -name
+## turn — assistant 2026-08-02T18:11:45.723000-07:00
+
+Clear answers, all three:
+
+**1. Did we formalize the new (RustSemantics) papers in Lean? No.** We pulled each paper *plus its existing mechanized artifact* — but those artifacts are **Coq/Rocq and Rust, not Lean**:
+- **1,212 `.v` files** (Coq/Rocq: `iris`, `rustbelt`/λRust, `leaf`, `logical-type-soundness`, `verusbelt`/lambda-verus)
+- **993 `.rs` files** (Rust: the RustHorn tool)
+- **0 `.lean` files**
+
+So we imported the *published* formalizations in their native provers; we did **not** re-formulate any of those papers in Lean. (That — porting, say, RustBelt or a VerusBelt-style result into Lean — would be a substantial from-scratch project, not something we did.)
+
+**2. Where are the formalizations?** Two distinct places:
+
+| Formalizations | Location | Language |
+|---|---|---|
+| **Dana Scott's papers** (the only *Lean* ones) | `~/projects/ScottLean4/ScottLean/Scott/*.lean` — **38 modules** | Lean 4 |
+| RustSemantics papers' artifacts | `~/projects/RustSemantics/artifacts/` (6 subdirs) | Coq/Rocq + Rust |
+
+The 38 Lean modules are exactly what the proof-status README indexes.
+
+**3. Mathlib for the Scott formalizations — vendored and ready?** Here's the good news: **there is no Mathlib to vendor.** The ScottLean4 core has **no Mathlib dependency** — it's **pure core Lean 4** (confirmed: nothing in `lakefile.toml` or `lake-manifest.json`). So:
+- The Scott formalizations are **already built (0 errors) and ready to work on *right now*** — no 6 GB download, no cache, instant server startup. That's why opening a Scott file "just worked" earlier while MIL needed the whole Mathlib fetch.
+- (For contrast: **MIL** now has Mathlib vendored + built — 6.1 GB — and **Beeson** has its own — 6.9 GB. Those two need it; the Scott work doesn't.)
+
+So if you want to *do proofs on Scott's papers*, that's the zero-setup path — open any file in `ScottLean/Scott/`, in the **ScottLean4** window, and the goals are live immediately (no MIL-style wait). Want me to open one of the Scott files with holes so you can work a real goal from one of *his* papers rather than a textbook exercise?
+

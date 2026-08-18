@@ -1,0 +1,64 @@
+---
+prompt: p0138
+type: interaction
+opened: 2026-0806-16:51
+closed: 2026-0806-16:54
+subject: so-we-have-to-revendor-mathlib-to-do-thi
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T16:51:58-07:00
+
+So we have to re-vendor mathlib to do this? git branches can't do it without fully copying? How much space would it need to run like 3 agents?
+
+## turn — assistant 2026-08-06T16:52:16-07:00
+
+Good challenge — my "7.4 GiB each" was pessimistic and I should measure rather than assert. Let me break down what's actually in there.
+
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/.lake; du -sh packages build 2>/dev/null; echo "--- inside packages ---"; du -sh packages/* 2>/dev/nu
+    Bash cd /home/milnes/projects/ScottLean4; echo "--- repo working tree (what a worktree copies) ---"; du -sh --exclude=.git --exclude=.lake . 2>/dev/null | 
+    Bash findmnt -no FSTYPE,SOURCE /; echo "--- shared olean cache ---"; du -sh ~/.cache/mathlib 2>/dev/null | cut -f1; echo "--- existing agent worktrees? ---
+## turn — assistant 2026-08-06T16:54:06-07:00
+
+**No, we don't have to re-vendor Mathlib — and my earlier "7.4 GiB each" was wrong by about 20×.** Here's the actual breakdown:
+
+| # | Component | Size | Duplicated per worktree? |
+| -- | --------- | ---- | ------------------------ |
+| 1 | `.lake/packages` (Mathlib 7.0 G, of which 6.4 G is its oleans) | **7.4 GiB** | **No — shareable** |
+| 2 | `.lake/build` — *our* 23 modules | **15 MiB** | Yes, must be per-agent |
+| 3 | Working tree (incl. the 113 MiB `mathlib/` source copy) | **307 MiB** | Yes |
+| 4 | `.git` | — | **No** — git worktrees share the object store |
+
+We never rebuild Mathlib; those oleans are read-only for us. So each agent worktree needs its own `.lake/build` (15 MiB) and can symlink `.lake/packages` at the main checkout.
+
+**Three agents ≈ 1 GiB**, not 22 GiB:
+
+```
+3 × (307 MiB worktree + ~15 MiB own build) ≈ 970 MiB
+```
+
+The naive route — letting each worktree populate its own `.lake` from the shared `~/.cache/mathlib` (874 MiB) — costs 3 × 7.4 = **22 GiB** of your 34, plus ~200 s each. That's the version I was pricing before, and it's the wrong version.
+
+One thing I'd want to test before trusting the symlink: whether `lake build` writes trace files *into* `.lake/packages` even when those packages are up to date. If it does, three agents sharing that directory could race. Filesystem is **ext4**, so `cp --reflink` isn't available as a copy-on-write fallback — the fallbacks would be a read-only bind mount, or accepting the 22 GiB. I'll verify with one worktree before creating three.
+
+## Plan, in your `X-agentN` convention
+
+Finish the definitions first, as you said. Three remain: **sum `D + E`** (ready), **`D∞`** (ready but large — inverse limits), and **the three powerdomains** (blocked on the ideal completion, Theorem 11).
+
+Then `~/projects/ScottLean4-agent1..3` on branches `agent1..3`, per the GRASE worktree convention. The natural partition of the 22 remaining numbered results follows the paper's own dependency structure:
+
+| # | Agent | Scope | Depends on |
+| -- | ----- | ----- | ---------- |
+| 1 | agent1 | §4.5 — Lemmas 9, 10, 13; Theorems 11, 12, 14 | §4 operators (done) — **can start immediately** |
+| 2 | agent2 | §6 — Proposition 15; Theorems 16, 18; Lemmas 17, 19, 20 | §3 and `Fp(D)` (done) — **can start immediately** |
+| 3 | agent3 | §7 — Theorems 21, 22, 25, 26, 27, 29; Lemmas 23, 24, 28, 30 | needs `D∞` and representability, which is why `D∞` should land before the split |
+
+agent1 and agent2 are genuinely independent. agent3 is the one with a real prerequisite, so `D∞` is the right last definition to do myself before splitting.
+
+Continuing with the sum now, then `D∞`.
+

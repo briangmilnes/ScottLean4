@@ -1,0 +1,37 @@
+---
+prompt: p0064
+type: interaction
+opened: 2026-0803-11:30
+closed: 2026-0803-11:30
+subject: open-some-example-plots-from-latex
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T11:30:14.146000-07:00
+
+Open some example plots from latex.
+
+## turn — assistant 2026-08-03T11:30:20.691000-07:00
+
+Of course, Dr. Scott — here are the plots we generated from LaTeX (pgfplots). Opening them in the browser:
+
+    Bash cd ~/projects/ScottLean4/generated-latex echo "opening the plot PDFs..." open -a "Google Chrome" plots.pdf open -a "Google Chrome" plot-demo.pdf echo 
+## turn — assistant 2026-08-03T11:30:35.160000-07:00
+
+They should be open now, Dr. Scott. Two documents:
+
+**`plots.pdf`** (two pages):
+- Page 1 — *Two functions*: **f(x) = x** (blue line) and **g(x) = x²** (red parabola).
+- Page 2 — *Two surfaces*: a **saddle** `z = x² − y²` and a **Gaussian bump** `z = e^(−(x²+y²))`, both rendered as shaded 3-D surfaces.
+
+**`plot-demo.pdf`** (one page): three curves together — a Gaussian `e^(−x²)`, a cubic `x³/6 − x`, and `sin 2x`.
+
+Every one of these is drawn **natively in LaTeX** (the `pgfplots` package) — the plotting commands live in a small text file and compile straight to PDF, no separate plotting program. That covers the same ground as the Mathematica plots in your 15-491 notebooks: 2-D function plots, 3-D surfaces, parametric curves, and contour/level plots.
+
+Would you like me to plot something specific — a function, a curve, a surface of your choosing? Just tell me the formula (say, a conic, or a cubic from your projective-geometry course), and I'll generate it and open it for you.
+

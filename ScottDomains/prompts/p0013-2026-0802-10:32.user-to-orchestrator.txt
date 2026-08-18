@@ -1,0 +1,62 @@
+---
+prompt: p0013
+type: interaction
+opened: 2026-0802-10:32
+closed: 2026-0802-10:35
+subject: patched-and-rebooted
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:32:12.715000-07:00
+
+patched and rebooted.
+
+## turn — assistant 2026-08-02T10:32:27.815000-07:00
+
+Welcome back. Let me run the Step 3 verification checklist to confirm everything survived the update to Tahoe 26.6:
+
+    Bash echo "=== OS version ==="; sw_vers | tr '\n' ' '; echo echo "=== tools on a fresh LOGIN shell (real user PATH) ===" zsh -lic ' for t in brew git gh la
+## turn — assistant 2026-08-02T10:33:01.426000-07:00
+
+All green post-reboot:
+
+- **OS: macOS 26.6** (25G72) — patch applied ✅
+- **All 14 tools resolve** on the login-shell PATH: brew, git, gh, lake, lean, elan, **verus, rocq, cargo, rustc**, emacs, pdftotext, tesseract, code ✅
+- **Ctrl-1…9 hotkeys: 9/9 enabled** (now armed by the re-login — test Ctrl-1…5) ✅
+- **ComputerName: `milnes`** — you got that one ✅
+
+Still pending (the `[you]` cache/GUI items): **MacTeX** (not installed — the quick `brew install --cask mactex-no-gui` from cache), **Wolfram**, and the Chrome Markdown extension.
+
+Now let me finish the Step 4 `[claude]` deliverables. First, gather the exact RustSemantics contents so the README is truthful, then write it and refresh the inventory:
+
+    Bash cd ~/projects/RustSemantics echo "=== papers ==="; for f in papers/*.pdf; do printf "%s|%s\n" "$(basename $f)" "$(du -h "$f" | cut -f1)"; done echo "=
+## turn — assistant 2026-08-02T10:34:20.890000-07:00
+
+The keys are correctly stored (I just re-confirmed **9/9 enabled**, and they survived the reboot), so this isn't a config problem — it's a known macOS quirk: **"Switch to Desktop N" shortcuts written via `defaults` often aren't honored by the WindowServer until they're registered through the System Settings GUI**, even after a reboot. The entries are there; they just need the GUI to "commit" them.
+
+Let me open the exact settings pane for you:
+
+    Bash echo "=== re-confirm entries survived the OS update ===" defaults export com.apple.symbolichotkeys - | plutil -convert json -o - - | python3 -c ' impo
+## turn — assistant 2026-08-02T10:35:21.861000-07:00
+
+Settings is open (all 5 entries confirmed still `enabled=1`). Now the GUI needs to "commit" them. In the **System Settings → Keyboard** window that just opened:
+
+1. Click **"Keyboard Shortcuts…"** (button near the bottom).
+2. In the left list, select **Mission Control**.
+3. Click the disclosure triangle to expand **Mission Control** — you'll see **"Switch to Desktop 1", "…2" … "…5"**.
+4. They'll likely already show **checked** (from our `defaults` writes) with **^1 … ^5** on the right. Here's the key part: **uncheck one, then re-check it** (or toggle the checkboxes off and back on). That forces the WindowServer to actually register them — which `defaults` alone doesn't trigger.
+5. Close Settings and test **Ctrl-1…5**.
+
+Two things to watch for while you're in there:
+- **A yellow ⚠️ triangle** next to a row means Ctrl-N collides with another shortcut — tell me which and I'll clear the conflict.
+- If a row shows **the wrong key** (not `^1`), click it and re-type Control-1.
+
+If they *still* don't fire after toggling in the GUI, that points to something deeper (rare on a fresh install) and I'd suggest a tiny remapper as a reliable fallback — but the GUI toggle fixes it the vast majority of the time. Tell me how it goes.
+
+Meanwhile I'll keep finishing the RustSemantics README and inventory refresh in parallel — those don't depend on this.
+

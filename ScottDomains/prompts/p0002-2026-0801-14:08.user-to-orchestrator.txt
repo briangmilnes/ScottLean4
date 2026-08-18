@@ -1,0 +1,41 @@
+---
+prompt: p0002
+type: interaction
+opened: 2026-0801-14:08
+closed: 2026-0801-14:09
+subject: fix-it
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-01T14:08:15.671000-07:00
+
+Fix it.
+
+## turn — assistant 2026-08-01T14:08:34.445000-07:00
+
+"It" = the `ComputerName` still reading "Dana's MacBook Pro". Let me fix it so all three names agree on `milnes`. This needs `sudo`, so let me check whether sudo works non-interactively here first.
+
+    Bash echo "current:"; scutil --get ComputerName; scutil --get HostName 2>/dev/null; scutil --get LocalHostName echo "--- sudo check ---"; sudo -n true 2>&1
+## turn — assistant 2026-08-01T14:09:28.282000-07:00
+
+`sudo` needs a password, which I can't enter — so this one is a **[you]** step. Only `ComputerName` is off; `HostName` and `LocalHostName` are already `milnes`.
+
+Run this (it'll prompt for your password):
+
+```bash
+sudo scutil --set ComputerName milnes
+```
+
+After that, verify all three agree:
+
+```bash
+scutil --get ComputerName; scutil --get HostName; scutil --get LocalHostName
+```
+
+Once you've done that, say the word and I'll kick off the `[claude]` batch (dotfiles → clone sibling repos + wire the CompAI import → elan + poppler + tesseract → Lean builds). Or if by "Fix it" you actually meant "just get on with the whole setup," tell me and I'll start the batch now and you can run the `sudo` rename in parallel.
+

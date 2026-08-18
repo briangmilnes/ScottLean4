@@ -1,0 +1,66 @@
+---
+prompt: p0323
+type: interaction
+opened: 2026-0816-16:02
+closed: 2026-0816-16:06
+subject: do-the-colimits
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T16:02:41.598000-07:00
+
+do the colimits
+
+## turn — assistant 2026-08-16T16:03:23.750000-07:00
+
+Last piece. Writing coproducts and coequalizers, mirroring the limits file:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquColimits 2>&1 | grep -E '^error' -A8 | head -50
+    Bash grep -rn 'instance.*T0Space.*Sigma\|Sigma.*t0Space\|instT0SpaceSigma' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Top
+## turn — assistant 2026-08-16T16:04:46.916000-07:00
+
+Mathlib has **no `T0Space` instance for a sigma type** — so the coproduct needs that proved first. The coequalizer doesn't depend on it (same carrier as `ℬ`), so let me keep that half and cut the rest:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean' s=open(p).read() i=s.index("/-! ## 
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquColimits 2>&1 | grep -E '^(error|warning)' -A6 | head -3
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build 2>&1 | grep -E 'declaration uses|error|Build completed'
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean; python3 - <<'PY' p='/Users/scott/projects/ScottLe
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0086: the coequalizer in Equ; coproducts blocked on a missing Mathlib instance  New EquColimits.le
+## turn — assistant 2026-08-16T16:06:07.025000-07:00
+
+**Partial.** The coequalizer is proved; coproducts are blocked on a genuinely missing Mathlib instance. Pushed as **d187783**. `Theorems3`'s last `sorry` is unchanged.
+
+## Proved — the coequalizer
+
+- **`coeqRel`** — the paper's *"least equivalence relation containing both `≡_ℱ` and the set of pairs `(f(x), g(x))`"*, which is `Relation.EqvGen`.
+- **`coeqObj`** — and note it is *the same space* as `ℬ`, only the relation coarsened. **No topology is placed on a quotient**, which the paper flags as a reason `Equ` isn't equivalent to `Set`.
+- **`coeqProj_coequalizes`** — the projection is the *identity* on points. It coequalizes because `f a` is identified with `g a` by a generator, then `g`'s equivariance moves along `≡_ℬ`. Same two-step shape as `eqInc_equalizes` (r0084), for the same reason: `MapEquiv` compares maps at *related* points, not the same point.
+- **`coeqDesc`** — the factorisation, by induction over `EqvGen`.
+
+## Blocked — coproducts
+
+`T0Space (Σ j, (A j).carrier)`, and **Mathlib has no such instance** (searched across `Mathlib/Topology`). The fact is true — points in different summands are separated because each summand is open, points in the same summand by that summand's own T₀ — but it must be *proved*, and that's content, not plumbing. I recorded it rather than stubbing it.
+
+The *relation* on the disjoint union isn't the problem, and the working form is in the module: phrase it with equations `p = ⟨j, x⟩` rather than a transport along an index equality, so `rintro` substitutes and transitivity needs only `Sigma.mk` injectivity. That's exactly what the paper's "the union of equivalence relations on **disjoint** sets" is doing.
+
+Without coproducts, `has_colimits_of_hasCoequalizers_and_coproducts` can't fire.
+
+## State
+
+| | |
+| --- | --- |
+| Modules | 17 |
+| Lines | **3219** |
+| `sorry` | **1** — `theorem_3_10_hasColimits` |
+| Library `sorry` | 4 (3 pre-existing, unrelated) |
+
+1559 jobs, 0 errors.
+
+**One statement open in all of §3.** The path to it is now fully mapped and has exactly one piece of real mathematics left: prove the disjoint union of T₀ spaces is T₀. Everything downstream — the coproduct object, its cofan, and the colimit assembly — is written or straightforward, and the coequalizer half is done.
+

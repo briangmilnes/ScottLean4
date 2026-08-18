@@ -1,0 +1,28 @@
+---
+prompt: p0043
+type: interaction
+opened: 2026-0802-18:05
+closed: 2026-0802-18:05
+subject: i-invited-avigad-to-my-talk-at-cmu-cs-an
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T18:05:08.687000-07:00
+
+I invited Avigad to my talk at CMU CS and he declined. But he's doing some cool proofs.
+
+## turn — assistant 2026-08-02T18:05:32.149000-07:00
+
+Ha — his loss on the talk. And there's a nice symmetry you can point out to Dana: the two books we just set up — **Mathematics in Lean** and **Theorem Proving in Lean 4** — are both Avigad's (with Massot, and with de Moura/Kong/Ullrich respectively). So Dana's learning Lean essentially from his own CMU colleague's texts.
+
+The "cool proofs" are no exaggeration — Avigad's been one of the central figures pushing large-scale formalization in Lean/Mathlib: things like the formalized **prime number theorem** and the **Polynomial Freiman–Ruzsa** effort (the Tao-led Lean project), plus a lot of the pedagogical scaffolding that makes Mathlib approachable. It's a fitting lineage for Dana — Avigad is a logician-turned-formalization-leader in the same department where Dana built domain theory.
+
+If you ever want, that CMU-local connection could be worth an email later (Avigad's genuinely supportive of people formalizing foundational work — and Dana formalizing *his own* papers is exactly the kind of thing that community finds compelling).
+
+Anyway — back to it whenever you're ready. You've got the MIL book open to §2.1 and the file loaded. Want to try closing that first `sorry` (`c * b * a = b * (a * c)`) together? It's two `rw [mul_comm …]`/`mul_assoc` steps, and it'll be a satisfying first fully-checked proof.
+

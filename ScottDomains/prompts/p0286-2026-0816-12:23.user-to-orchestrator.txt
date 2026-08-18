@@ -1,0 +1,77 @@
+---
+prompt: p0286
+type: interaction
+opened: 2026-0816-12:23
+closed: 2026-0816-12:25
+subject: ok-logged-in-as-danasscott-push-it-and-c
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T12:23:51.086000-07:00
+
+ok logged in as DanaSScott, push it. And check that you can push ScottLean4.
+
+    Bash gh auth status
+    Bash gh api repos/DanaSScott/ScottProjects --jq '.permissions'
+## turn — assistant 2026-08-16T12:24:13.597000-07:00
+
+`push: true` now (admin, in fact). Pushing:
+
+    Bash git -C /Users/scott/projects/ScottProjects push -u origin main
+    Bash git -C /Users/scott/projects/ScottProjects status --short --branch
+    Bash git -C /Users/scott/projects/ScottLean4 remote -v
+## turn — assistant 2026-08-16T12:24:35.145000-07:00
+
+ScottProjects is pushed. Now checking ScottLean4 — note its remote is under **briangmilnes**, not DanaSScott, so the account switch may have broken it:
+
+    Bash gh api repos/briangmilnes/ScottLean4 --jq '{full_name,private,permissions}'
+    Read /Users/scott/projects/ScottLean4/ScottDomains/logs/compile-20260816-120511.orchestrator.log
+## turn — assistant 2026-08-16T12:25:27.628000-07:00
+
+**ScottProjects is pushed.** And yes, ScottLean4 is pushable — but let me be precise about what that claim rests on this time.
+
+## ScottProjects
+
+```
+* [new branch]      main -> main
+branch 'main' set up to track 'origin/main'
+```
+
+Commit **eb7a9a9** is live at `https://github.com/DanaSScott/ScottProjects.git`. Local `main` reports `## main...origin/main` — in sync, nothing ahead or behind. As DanaSScott you hold `admin: true` on that repo, which is why it went through.
+
+## ScottLean4
+
+Its remote is **`briangmilnes/ScottLean4`** — a different owner from ScottProjects, so the account switch was a real risk. It's fine:
+
+| | `pull` | `push` | `admin` |
+| --- | ---: | ---: | ---: |
+| `briangmilnes/ScottLean4` (as DanaSScott) | true | **true** | false |
+
+DanaSScott is a collaborator with write access. Switching the active account did not cost you ScottLean4.
+
+**What this evidence is and isn't.** This is GitHub's own permission record for the authenticated account — the authoritative check, and the one I should have run on EricsonPapers instead of reading `Everything up-to-date` as proof. But no bytes have moved: `main` is level with `origin/main`, so there's nothing to transfer and no end-to-end write has actually happened. If you want that proven rather than inferred, the honest test is a real push.
+
+Which conveniently settles the item pending since earlier. The working tree holds:
+
+- `ScottLean/Scott/Scott1998ANewCategory.lean` — Theorem 3.2 with real universal properties, 4 declared `sorry`s, one proved lemma
+- `docs/PapersToLeanStatus.md` — the counts updated to match
+- `Playground/Playground/CartesianClosed.lean` — modified, **not mine**, pre-existing
+- `scripts/bibliography-cites.sh` — untracked, **not mine**, pre-existing
+
+Say go and I'll commit and push the first two only, leaving your two alone:
+
+```bash
+git -C /Users/scott/projects/ScottLean4 add ScottLean/Scott/Scott1998ANewCategory.lean docs/PapersToLeanStatus.md
+```
+
+Note CLAUDE.md wants this to go through `scripts/gitcp.sh`, which rebases onto origin before pushing — sensible here, since this repo is written from two machines. I'd use it rather than raw git, unless it shares `compile.sh`'s GNU-only problem; I'll check before running.
+
+## The stray log — recommend deleting
+
+I read it. `ScottDomains/logs/compile-20260816-120511.orchestrator.log` is a stub recording the failure itself: `exit status: 127`, empty wall clock, empty CPU fields, `jobs: n/a`, `peak rss 0 MiB`. Its `lake errors: 0` and `sorry decls: 0` are misleading — the build never ran, so those zeros measure nothing. As committed telemetry it would misreport a build that didn't happen. Delete it; the GNU-only defect is already recorded in the new `CLAUDE.md`. Want me to remove it?
+

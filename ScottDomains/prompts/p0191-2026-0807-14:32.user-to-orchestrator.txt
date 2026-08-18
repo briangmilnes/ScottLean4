@@ -1,0 +1,42 @@
+---
+prompt: p0191
+type: interaction
+opened: 2026-0807-14:32
+closed: 2026-0807-14:33
+subject: open-lemma-28-in-vs-code
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-07T14:32:26.260000-07:00
+
+open lemma 28 in VS code
+
+    Bash grep -rn -E "^(theorem|lemma) (lem28|lemma28)" --include='*.lean' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+    Bash grep -rln -i "Lemma 28" --include='*.lean' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+    Read /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/PRep.lean
+    Bash grep -n -E "^theorem isPRepresentable" /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/PRepFun.lean /Users/scott/projects/ScottLean4/ScottD
+    Bash grep -n -E "^(theorem|abbrev|def) " /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/PRepFun.lean
+    Read /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Lemma28AtU.lean
+    Bash code -g /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/PRepSum.lean:1066 -g /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/PRe
+## turn — assistant 2026-08-07T14:33:08.363000-07:00
+
+Lemma 28 isn't one declaration — it's a nine-conjunct proposition spread over four modules. Opened all four, focus on the statement:
+
+| Tab | Declaration | What it is |
+|---|---|---|
+| [PRep.lean:226](ScottDomains/ScottDomains/PRep.lean:226) | `PRep.Lemma28` | the statement — nine conjuncts: `funOp`, `strictFunOp`, `prodOp`, `smashOp`, `sepSumOp`, `coalSumOp`, `liftOp`, `smythOp`, `hoareOp`. Assembly at :241, `Lemma28AtU := Lemma28 Dyadic.U` at :258 |
+| [Lemma28AtU.lean:87](ScottDomains/ScottDomains/Lemma28AtU.lean:87) | `lemma28AtU_of'` | the current frontier — **2 hypotheses left**, `smythOp` and `hoareOp` |
+| [PRepFun.lean:368](ScottDomains/ScottDomains/PRepFun.lean:368) | `rep_arrow` | function-space conjuncts; also `rep_strictArrow` :632, `rep_smash` :1255 |
+| [PRepSum.lean:1066](ScottDomains/ScottDomains/PRepSum.lean:1066) | `lemma28AtU_of` | sums and powerdomains, 5 hypotheses |
+
+The arity chain is the measurement of progress, and the docstring at :85 says so explicitly: **9** open at `PRep.lemma28_of` → **5** at `PRepSum.lemma28AtU_of` → **2** at `Lemma28AtU.lemma28AtU_of'`. Seven of nine conjuncts are discharged; the two powerdomain operators remain.
+
+One note from the r0037 code: `repSmashAtU` at [Lemma28AtU.lean:79](ScottDomains/ScottDomains/Lemma28AtU.lean:79) now proves `⊗` with no hypothesis — the docstring records that r0034's refutation of this conjunct applied only to the closure reading, which turns on `r ⊥` sitting strictly above `⊥`, and a projection forbids that.
+
+I have not built any of this — the counts above are read off the source, not kernel-checked in this session.
+

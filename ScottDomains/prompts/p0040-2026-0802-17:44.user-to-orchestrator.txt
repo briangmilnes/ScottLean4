@@ -1,0 +1,45 @@
+---
+prompt: p0040
+type: interaction
+opened: 2026-0802-17:44
+closed: 2026-0802-17:45
+subject: how-do-i-see-the-goal-stack-as-i-write
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T17:44:41.616000-07:00
+
+How do I see the goal stack as I write?
+
+## turn — assistant 2026-08-02T17:45:14.812000-07:00
+
+In Lean 4 + VS Code, the goal stack lives in the **Lean Infoview** — the panel on the right — and it **follows your cursor**. You don't run a command each time; you just move the cursor and read.
+
+**Open it (if it's not already):** click the **∀** icon at the top-right of the editor, or ⇧⌘P → **"Lean 4: Toggle Infoview"**.
+
+**How to read the stack as you write:** the Infoview shows the **Tactic state** *at the cursor position* — i.e., the goals **remaining right before the tactic your cursor is on/after**:
+
+- Put the cursor **just after `by`** (or on the first tactic) → the **initial goal**: `a b c : ℝ ⊢ c * b * a = b * (a * c)`.
+- Move it **after a tactic line** (e.g. click at the end of a `rw [...]` line) → the **goal that remains** after that rewrite.
+- Step the cursor **down line by line** and watch the goal transform, shrinking to **`No goals`** when the proof is complete.
+
+**The "stack" part — multiple goals:** when a tactic splits the proof (e.g. `constructor`, `cases`, `induction`), the Infoview lists **all open goals stacked**, each shown as its hypotheses `⊢ target`:
+
+```
+⊢ goal 1      ← the current/active goal (most tactics act on this one)
+⊢ goal 2
+```
+
+You close them top-down; each disappears as it's discharged.
+
+Two things to know so it doesn't confuse you:
+- **Orange bars in the left gutter** = the server is still elaborating up to that line. Goals only appear once the bar clears past your cursor — so right after the restart, give it a moment.
+- The Infoview also has an **"All Messages"** toggle (shows every error/warning in the file) and a **📌 pin** to freeze a goal state at one spot while you edit elsewhere.
+
+Try it now on the open file: click at the end of the example's `rw [mul_comm a b]` line and you'll see the goal rewritten to `a * b * c = b * (a * c)` — that's the goal stack updating live.
+

@@ -1,0 +1,50 @@
+---
+prompt: p0202
+type: interaction
+opened: 2026-0808-15:19
+closed: 2026-0808-15:23
+subject: make-a-postscript-of-that-file-and-print
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-08T15:19:17.600000-07:00
+
+Make a postscript of that file and print
+
+    Bash which enscript pandoc pdftops paps groff
+    Bash lpstat -p -d
+    Bash grep -rl -E "md2pdf|markdown|pandoc|wkhtmltopdf|md_to_pdf" /Users/scott/projects/ScottLean4/scripts/ /Users/scott/projects/ScottBibliography/plans/
+    Read /Users/scott/projects/ScottLean4/scripts/md2pdf.sh
+    Bash ls /opt/homebrew/bin/pandoc /Library/TeX/texbin/lualatex
+## turn — assistant 2026-08-08T15:20:50.154000-07:00
+
+Understood — PDF, not PostScript.
+
+One obstacle: the repo's own pipeline, [scripts/md2pdf.sh](scripts/md2pdf.sh), needs `pandoc`, and **pandoc is not installed on this machine** (LuaLaTeX is, at `/Library/TeX/texbin/lualatex`). Rather than install anything, I'll render through Chrome, which is already here and handles the 🟢🔵📖⚫ route-key emoji better than LaTeX would.
+
+    Write /private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dcecc-5458-4014-8773-d9de1e623d98/scratchpad/MissingPapers.html
+    Bash "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=/private/tmp/claude-501/
+    Bash pdfinfo /private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dcecc-5458-4014-8773-d9de1e623d98/scratchpad/MissingPapers.pdf
+    Read /private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dcecc-5458-4014-8773-d9de1e623d98/scratchpad/MissingPapers.pdf
+## turn — assistant 2026-08-08T15:21:52.001000-07:00
+
+Renders correctly — 3 pages, all four tables intact, route-key emoji preserved. Printing to your default:
+
+    Bash lp -d EPSON_WF_4830_Series -t "Scott Missing Papers" /private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dcecc-5458-4014-8773-d9de1e623d98/scr
+    Bash lpstat -W not-completed -o EPSON_WF_4830_Series
+## turn — assistant 2026-08-08T15:23:46.896000-07:00
+
+Sent to the printer — job `EPSON_WF_4830_Series-9`, 3 pages, letter. The queue is now empty, so it went through to the EPSON rather than stalling.
+
+The PDF is at `/private/tmp/claude-501/-Users-scott-projects-ScottLean4/7e4dcecc-5458-4014-8773-d9de1e623d98/scratchpad/MissingPapers.pdf` (192 KB). That's a scratch location — say the word and I'll copy it to `ScottBibliography/MissingPapers.pdf`, which would match the `.md` + `.pdf` pairing every other document in your repos uses.
+
+Two notes on what I did and didn't do:
+
+- **I reproduced the file as written, including the stale header.** The printout says "Coverage: 74 / 99 papers + 2 / 4 books held" even though `index.html` numbers 78 papers and 5 books. I didn't silently correct your document to print a different number than the source says. The tables — 25 papers, 2 books — are correct and are what you'd work from.
+- **The route to PDF was Chrome, not your pipeline.** `scripts/md2pdf.sh` uses pandoc with LuaLaTeX and the STIX Two fonts; pandoc is absent here, so this PDF is Chrome's Skia renderer with system sans fonts. It will not look identical to your other generated PDFs. `brew install pandoc` would restore the real pipeline on this machine — your call whether to install it.
+

@@ -1,0 +1,90 @@
+---
+prompt: p0009
+type: interaction
+opened: 2026-0801-15:21
+closed: 2026-0801-15:22
+subject: well-need-to-understand-how-to-plot-math
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-01T15:21:58.431000-07:00
+
+We'll need to understand how to plot mathematical functions and include them in latex.
+
+## turn — assistant 2026-08-01T15:22:48.384000-07:00
+
+Good thing to nail down early — you'll want a repeatable pipeline. There are three routes on this box; they differ mainly in *who renders the plot* and *whether the fonts match your document*.
+
+## The three routes
+
+| Route | How it works | Fonts match doc? | Best when |
+|---|---|---|---|
+| **pgfplots / TikZ** (native LaTeX) | LaTeX itself draws the plot from your function/data | ✅ yes (same TeX engine) | Publication-quality figures, everything version-controlled as text |
+| **matplotlib** (Python) | Python renders → export PDF *or* PGF, then `\includegraphics` / `\input` | ⚠️ PDF: no; PGF backend: yes | Data-heavy plots, quick iteration, numeric work |
+| **Wolfram/Mathematica** | `Plot[…]` → `Export[…, ".pdf"]`, then `\includegraphics` | ❌ no (unless you match fonts) | Matches Dana's existing `.nb` notebooks |
+
+My recommendation for a math-tutoring/paper context: **pgfplots as the default** (text-based, reproducible, fonts match), reaching for matplotlib when you have real datasets. All of pgfplots ships with MacTeX (installing now) — nothing extra to install.
+
+## Route 1 — pgfplots (native, recommended)
+
+```latex
+\documentclass{article}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[axis lines=middle, xlabel=$x$, ylabel=$y$,
+               domain=-3:3, samples=200, grid=both, legend pos=north west]
+    \addplot[blue, thick]  {exp(-x^2)};        \addlegendentry{$e^{-x^2}$}
+    \addplot[red, dashed] {sin(deg(x))/x};      \addlegendentry{$\operatorname{sinc} x$}
+  \end{axis}
+\end{tikzpicture}
+\end{document}
+```
+
+`\addplot { <expr> }` plots a function symbolically; `\addplot table {data.dat}` plots data. Note the trig gotcha: pgfplots' `sin` takes **degrees**, so wrap with `deg(x)` for radians. For heavier expressions you can offload sampling to gnuplot with `\addplot gnuplot {…}`.
+
+## Route 2 — matplotlib → LaTeX
+
+Two sub-options. For matching fonts, use the **PGF backend** (outputs LaTeX drawing commands):
+
+```python
+import matplotlib; matplotlib.use("pgf")
+import numpy as np, matplotlib.pyplot as plt
+x = np.linspace(-3, 3, 400)
+plt.plot(x, np.exp(-x**2))
+plt.savefig("gauss.pgf")     # then \input{gauss.pgf}  (or savefig("gauss.pdf") + \includegraphics)
+```
+
+```latex
+\usepackage{pgf}
+...
+\input{gauss.pgf}
+```
+
+(This route needs `matplotlib`, which isn't installed yet — plan step 9c. I can `pip install` it when you want.)
+
+## Route 3 — Wolfram (matches Dana's notebooks)
+
+```wolfram
+Export["gauss.pdf", Plot[Exp[-x^2], {x, -3, 3}, Frame -> True]]
+```
+```latex
+\usepackage{graphicx}
+\includegraphics[width=.6\linewidth]{gauss.pdf}
+```
+
+---
+
+Since MacTeX is still downloading, I can't compile a live demo *yet*. Two ways I can make this concrete once it lands:
+
+1. **Scaffold a `tutorials/plotting/` folder** in the repo with all three examples ready to compile (`pdflatex` for pgfplots, a matplotlib script, a Wolfram snippet) + a short README — so you and Dana have runnable references.
+2. **`pip install matplotlib`** now so the Python route is ready.
+
+Want me to do either/both? And is this aimed at **static figures in a paper**, or **interactive exploration** (where Wolfram/Jupyter would matter more)? That changes which route I'd flesh out first.
+

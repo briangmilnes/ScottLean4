@@ -1,0 +1,54 @@
+---
+prompt: p0257
+type: interaction
+opened: 2026-0815-13:34
+closed: 2026-0815-13:37
+subject: do-65
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:34:57.987000-07:00
+
+do 6.5
+
+## turn — assistant 2026-08-15T13:36:20.578000-07:00
+
+§6.5 has two halves. The Hoare half is provable with the §5.6 machinery; the Plotkin half is a different matter, which I'll state precisely. Writing it:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "hoare"
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize the Hoare powerdomain (catalogue 6.5); state precisely why the Plotkin half is left o
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T13:37:36.780000-07:00
+
+§6.5 — pushed as `5418608`. Build: **846 jobs, zero errors, zero warnings, zero `sorry`.** The section makes two claims and they are not of the same kind, so one is proved and one is explicitly left open.
+
+**Proved — the Hoare (lower) powerdomain stays inside the algebraic lattices.** `hoarePowerdomain : (P : TokenPoset) → DInfinityFoundations (TokenIdeal (hoareTokens P))`. Tokens are finite sets of tokens under "every member of A is below some member of B", and `hoare_join_total` shows joins are unions and are **total** — that totality is what puts the result inside the *lattices* rather than merely the domains, which is exactly the section's wording.
+
+| declaration | axioms |
+| --- | --- |
+| `hoare_join_total` | `[propext]` |
+| `hoareTokens` | `[propext, Quot.sound]` |
+| `hoarePowerdomain` | `[lem, propext, Quot.sound]` |
+
+**Not proved — the Plotkin (convex) claim**, and I want to be exact about why rather than let it look like fatigue. It is a refutation needing a *specific* Scott domain whose convex powerdomain has a bounded pair with no least bound, and the small cases do not supply one: over 𝔹⊥, the pair {⊥,tt}, {⊥,ff} is bounded by {tt,ff} and by {⊥,tt,ff}, and under Egli–Milner the second is below the first — so a least bound *does* exist there. I checked that before concluding. A genuine counterexample is a piece of domain theory in its own right, not a re-encoding of what the catalogue asserts, and I would rather leave it open than assert one I have not verified.
+
+Recorded for the statement's sake: `egliMilnerLe`, and `egliMilner_le_hoare` showing the convex order is the lower order **plus** the upper condition — the upper half being precisely what costs bounded completeness.
+
+## Catalogue status
+
+All 16 rows of §2 settled; §5.6 proved as a general theorem; §6.5's Hoare half proved. Open, each with its reason in §8:
+
+- **§5.2** parallel-or — needs a PCF syntax and an adequacy argument; not expressible in the D1–D4 vocabulary.
+- **§6.5 Plotkin** — needs a verified counterexample, as above.
+- **§5.1's** two scope limits — value side needs total joins; ideals not identified with continuous maps.
+
+`Domains/ScottDomainExamples.lean` is ~3,670 lines, plus `Domains/IntervalDomain.lean`; everything outside the ℝ module remains free of `Classical.choice`.
+

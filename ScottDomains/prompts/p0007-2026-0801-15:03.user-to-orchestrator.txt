@@ -1,0 +1,42 @@
+---
+prompt: p0007
+type: interaction
+opened: 2026-0801-15:03
+closed: 2026-0801-15:04
+subject: yeah-the-hot-are-not-working-for-me
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-01T15:03:28.676000-07:00
+
+yeah the hot are not working for me.
+
+## turn — assistant 2026-08-01T15:03:53.676000-07:00
+
+Let me check *how* they got stored — if the `type = standard` field didn't persist, the entries look right but won't fire. Then I'll know whether it's a format problem or an "apply" problem.
+
+    Bash echo "=== full stored structure for Ctrl-1 (id 118) and Ctrl-2 (119) ===" defaults export com.apple.symbolichotkeys - | plutil -convert json -o - - | 
+## turn — assistant 2026-08-01T15:04:30.441000-07:00
+
+The config is stored **correctly** — I verified all nine entries have `enabled=1`, `type=standard`, and the right key parameters (e.g. Ctrl-1 = ascii 49 / keycode 18 / control 262144). So it's not a format problem.
+
+The issue is *when* macOS reads them: **Mission Control's "Switch to Desktop N" shortcuts are owned by the WindowServer, which only loads them at login.** `activateSettings -u` refreshes the Keyboard settings pane (so they'll show as ticked there) but does **not** arm the live space-switching — that needs a session restart. This is the standard gotcha with setting these via `defaults`.
+
+**Fix: log out and back in** (Apple menu →  → Log Out), or reboot. Then test Ctrl-1…Ctrl-5 (your existing 5 desktops).
+
+You can try the lighter option first, but don't count on it for space-switching:
+```bash
+killall Dock
+```
+
+Two quick checks if they *still* don't work after a re-login:
+1. Open **System Settings → Keyboard → Keyboard Shortcuts → Mission Control** — "Switch to Desktop 1…5" should now be **checked** (confirms the daemon read them). If they show checked but a row is greyed/conflicted, macOS found a conflict.
+2. Make sure it's plain **Ctrl** you're pressing (not ⌃⌥ or Fn). The binding is Control+digit.
+
+Want me to also add the reverse — restart isn't strictly needed for *me* to confirm, since I can't press keys — so after you re-login, just tell me if Ctrl-1…5 jump desktops. If any don't, I'll dig into conflicts. And say the word if you'd like VS Code's Ctrl-1…9 remapped to ⌘ so they stop colliding.
+

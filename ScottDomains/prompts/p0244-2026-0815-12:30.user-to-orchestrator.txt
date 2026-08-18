@@ -1,0 +1,46 @@
+---
+prompt: p0244
+type: interaction
+opened: 2026-0815-12:30
+closed: 2026-0815-12:30
+subject: push-to-scottdomainexampleslean
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T12:30:08.814000-07:00
+
+push to ScottDomainExamples.lean
+
+    Bash git -C /Users/scott/projects/EricsonPapers status --short --branch
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize partial functions (3.7) and the two non-examples (6.1, 6.2)" -m "Three catalogue entr
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T12:30:46.695000-07:00
+
+Pushed:
+
+```
+de01fef..16dcdc5  main -> main
+```
+
+Three commits went up together — the two that were sitting local plus the one just made:
+
+| commit | contents |
+| --- | --- |
+| `5ebec6a` | §3.5 `fbcDomain` — finite bounded-complete posets, as a class result |
+| `edb687d` | §3.6 `psetNat` — the powerset domain 𝒫(ℕ) |
+| `16dcdc5` | §3.7 `pfunNat`, §6.1 and §6.2 |
+
+`main` is level with `origin/main`, working tree clean. `lake -d ~/projects/EricsonPapers build`: 4 jobs, zero errors, zero warnings, zero `sorry`, 34 audited declarations. `Domains/ScottDomainExamples.lean` is now ~1730 lines, from the 19 it started at.
+
+Catalogue §8 reads **9 of 16** — seven inhabited (§3.1, 3.2/4, 3.3, 3.4, 3.5, 3.6, 3.7) and two refuted (§6.1, 6.2).
+
+The permission rules added to `settings.local.json` covered the commit and push without prompting, as intended.
+
+Remaining, in the order I'd take them: §3.8 streams (design settled — base of finite words, since a base of index–value pairs fails `basisCpt`), then §5.6 ideal completion and §5.1 function spaces, then §6.3/§6.4 with Mathlib for ℝ in a separate module, and §5.5 D∞ last as its own program. §5.2 (parallel-or) and §6.5 (powerdomains) need machinery outside the D1–D4 vocabulary — a PCF syntax and a powerdomain construction respectively — so those two I'd flag rather than force.
+

@@ -1,0 +1,75 @@
+---
+prompt: p0023
+type: interaction
+opened: 2026-0802-10:56
+closed: 2026-0802-11:00
+subject: is-there-are-readme-in-there-listing-the
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:56:01.009000-07:00
+
+Is there are README in there listing the papers and pointing to the lean. Where there should be a readme showing the proof status.
+
+## turn — assistant 2026-08-02T10:56:17.992000-07:00
+
+Let me check what's already there, then I can build the status index:
+
+    Bash cd ~/projects/ScottLean4 echo "=== existing READMEs in the relevant places ===" ls DanaScottPapers/README.md ScottLean/Scott/README.md ScottLean/READM
+## turn — assistant 2026-08-02T10:57:47.691000-07:00
+
+**No — there's no such README** (I checked `DanaScottPapers/`, `ScottLean/`, and `ScottLean/Scott/` — only `EXTRACTION_REPORT.md` exists). And you're right that there should be one. I have the raw data now: **38 Lean formalizations** under `ScottLean/Scott/`. Let me generate an accurate paper→Lean→status index. First let me build the pairing programmatically so the mapping is right, then I'll verify it before writing the file:
+
+    Bash cd ~/projects/ScottLean4 python3 - <<'PY' import os, re, glob  papers = glob.glob("DanaScottPapers/*.pdf") def toks(s): return set(re.findall(r'[a-z]+
+## turn — assistant 2026-08-02T10:58:07.274000-07:00
+
+(Noted — MacTeX's in, confirmed.) My regex had a stray bad line — let me fix and regenerate the pairing:
+
+    Bash cd ~/projects/ScottLean4 python3 - <<'PY' import os, re, glob papers = [os.path.basename(p) for p in glob.glob("DanaScottPapers/*.pdf")] def toks(s): 
+## turn — assistant 2026-08-02T10:58:35.739000-07:00
+
+The token-heuristic mis-paired several (same-year papers collide — e.g. it put the 1980 λ-models file against "Relating-Theories"). But the Lean headers themselves cite their exact source paper (`Source text extracted from: DanaScottPapers/…`). Let me use that authoritative link instead:
+
+    Bash cd ~/projects/ScottLean4 python3 - <<'PY' import os, re, glob rows=[] for lf in sorted(glob.glob("ScottLean/Scott/*.lean")):     base=os.path.basename
+## turn — assistant 2026-08-02T10:59:07.656000-07:00
+
+Authoritative mapping recovered — **36/38** Lean files cite their exact source paper in-header (I'll fill the 2 stragglers manually: Furber-2021 and Scott-1967-Definitional-Suggestions). Now let me generate the status README from the real citations + hole counts and write it into `DanaScottPapers/`:
+
+    Bash cd ~/projects/ScottLean4 python3 - <<'PY' import os, re, glob manual={'Furber2021InterpretingLambdaCalculus.lean':'Furber-Mardare-Panangaden-Scott-202
+## turn — assistant 2026-08-02T10:59:37.414000-07:00
+
+Let me verify the generated README renders correctly:
+
+    Read /Users/scott/projects/ScottLean4/DanaScottPapers/README.md
+## turn — assistant 2026-08-02T10:59:47.438000-07:00
+
+One bug — the README lives *inside* `DanaScottPapers/`, so the paper links shouldn't carry the `DanaScottPapers/` prefix (they'd resolve to a doubled path). The Lean links (`../ScottLean/…`) are correct. Let me fix the paper hrefs:
+
+    Bash cd ~/projects/ScottLean4 python3 - <<'PY' import os, re, glob manual={'Furber2021InterpretingLambdaCalculus.lean':'Furber-Mardare-Panangaden-Scott-202
+## turn — assistant 2026-08-02T11:00:33.267000-07:00
+
+Done — created [DanaScottPapers/README.md](DanaScottPapers/README.md), a **paper → Lean → proof-status index**. Headline metrics (measured, source-level):
+
+- **38 formalizations**, one per Dana Scott paper, each linking the **source PDF** and its **Lean file**.
+- **14 have zero `sorry` holes** (complete skeletons *by text*); **24 have holes**.
+- **281** defs/thms total; **122 `sorry` holes** total.
+
+The table is sorted by year (1958 → 2023), columns: `Year | Paper (PDF) | Lean file | defs/thms | holes | status`. A few landmarks:
+
+| Paper | Lean | holes |
+|---|---|---|
+| 1972 Continuous Lattices | Scott1972ContinuousLattices | 5 |
+| 1970 Outline of a Mathematical Theory of Computation | Scott1970Outline… | 5 |
+| 1980 Lambda Calculus: Some Models… (the file you opened) | Scott1980Lambda… | 5 |
+| 1980 Relating Theories of the λ-Calculus | Scott1980Relating… | 10 |
+| 1959 Rabin–Scott Finite Automata | RabinScottFiniteAutomata | ✅ 0 |
+
+**One honest caveat, front-and-center in the README:** these are **source-level** counts (`sorry` textual occurrences + `theorem`/`lemma`/`example` keywords), **not kernel-checked**. A `sorry`-free file is a complete skeleton *by text*, not a machine-verified proof until `lake build` accepts it — and earlier the core build only emitted **13** `sorry` warnings, versus 122 textual, which means **most `ScottLean/Scott/` modules aren't in the default build target** (so they haven't been kernel-elaborated at all).
+
+That gap is worth closing. Want me to do a **kernel-checked pass** — add the Scott modules to the build (or build them individually), record which actually compile, and replace the source-level holes with the authoritative `declaration uses 'sorry'` count? That would turn this into a true verification scoreboard rather than a text estimate.
+

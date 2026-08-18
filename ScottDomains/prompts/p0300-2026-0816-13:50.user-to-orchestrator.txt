@@ -1,0 +1,106 @@
+---
+prompt: p0300
+type: interaction
+opened: 2026-0816-13:50
+closed: 2026-0816-13:55
+subject: go
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T13:50:09.418000-07:00
+
+go
+
+## turn — assistant 2026-08-16T13:50:34.593000-07:00
+
+Continuing with terminal and binary products. Checking the Mathlib constructors and the package's projection maps:
+
+    Bash grep -rn 'def IsTerminal.ofUnique\|IsTerminal.ofUnique' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Li
+    Bash grep -rn -A8 'def BinaryFan.IsLimit.mk\|theorem BinaryFan.IsLimit.mk\|def BinaryFan.isLimitMk' /Users/scott/projects/ScottLean4/ScottDomains/.lake/pac
+    Bash grep -n 'namespace\|^end ' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Morphism.lean | head -10
+    Bash sed -n '100,120p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Morphism.lean
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALatProducts
+## turn — assistant 2026-08-16T13:52:16.681000-07:00
+
+Four fixes. Finding the right name for the finite-products constructor:
+
+    Bash grep -rn 'hasFiniteProducts_of\|instance.*HasFiniteProducts.*of' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Category
+    Bash grep -rn 'HasFiniteProducts' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Limits/Constructions/FinitePr
+## turn — assistant 2026-08-16T13:52:34.496000-07:00
+
+All four fixes:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALatProducts
+## turn — assistant 2026-08-16T13:53:32.956000-07:00
+
+The `⟶` doesn't unfold for `DFunLike` instance search. Adding a helper that forces the identification:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALatProducts
+## turn — assistant 2026-08-16T13:54:20.030000-07:00
+
+The `⟶` needs its own `FunLike` instance — the standard bundled-category fix. Replacing the helper:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/ALatProducts.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.ALatProducts
+## turn — assistant 2026-08-16T13:54:52.054000-07:00
+
+`HasFiniteProducts ALat` is now an instance, 0 `sorry`. Full build and land it:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/*.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0063: finite products in ALat  New ALatProducts.lean (103 lines, 0 sorry). HasFiniteProducts Algeb
+## turn — assistant 2026-08-16T13:55:57.494000-07:00
+
+Pushed **e811307**. `HasFiniteProducts AlgebraicLattice` is now an instance, 0 `sorry`.
+
+## What landed
+
+- `isAlgebraic_punit`, `alatTerminal`, `alatIsTerminal` — `PUnit` is terminal. Uniqueness is `rfl`: `PUnit` is a structure with no fields, so eta gives `f x = PUnit.unit` definitionally.
+- `prodFan`, `prodIsLimit` — the binary fan on `AlgebraicLattice.prod`, projections `Morphism.prodFst`/`prodSnd`, lift `Combinator.prodMkHom`. Both factorizations `rfl`; uniqueness is `Prod.ext` on the two hypotheses.
+- `HasBinaryProducts`, then `HasFiniteProducts` via Mathlib's `hasFiniteProducts_of_has_binary_and_terminal`.
+
+103 lines, and short precisely because r0062 already made `A × B` an object. No new mathematics — this was the assembly.
+
+## One thing that cost three build iterations
+
+**Typeclass search will not unfold `A ⟶ B` to `ScottHom A.carrier B.carrier`.** So neither function application nor `DFunLike.congr_fun` works on a morphism written with the arrow, and — the part that surprised me — *type ascription doesn't fix it either*. `(f : ScottHom A.carrier B.carrier) x` still elaborates `f` at type `A ⟶ B` and fails with "Function expected".
+
+The fix is to re-export the instance: `homFunLike` giving `FunLike (A ⟶ B) A.carrier B.carrier` via `inferInstanceAs`, plus a `@[ext]` `hom_ext`. After that each limit proof is one line. Recorded in the module.
+
+## State
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic.lean` | 201 | **0** |
+| `SigmaTopology.lean` | 194 | **0** |
+| `PartialEquilogical.lean` | 258 | 3 |
+| `CartesianClosure.lean` | 154 | **0** |
+| `ALat.lean` | 196 | **0** |
+| `ProductAlgebraic.lean` | 118 | **0** |
+| `ALatProducts.lean` | 103 | **0** |
+| `Theorems3.lean` | 161 | 4 |
+| **Total** | **1385** | **7** |
+
+1544 jobs, 0 errors. Six of eight modules fully proved.
+
+## The adjunction is still owed
+
+You asked for products *and* the adjunction; I have the products. The adjunction needs the exponential functor `B ⟹ -` as a `Functor ALat ALat` — its object part is available (carrier is a complete lattice from r0060/r0061, algebraic from r0059), but the *morphism* part and functoriality aren't written — and then `Adjunction.mkOfHomEquiv` with `scottHomCurry.symm`, plus naturality in both variables.
+
+Given the `⟶`-unfolding friction just discovered, naturality is where I'd expect the remaining work to sit. Say go and I'll take it.
+

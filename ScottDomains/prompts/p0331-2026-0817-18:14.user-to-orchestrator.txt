@@ -1,0 +1,48 @@
+---
+prompt: p0331
+type: interaction
+opened: 2026-0817-18:14
+closed: 2026-0817-18:15
+subject: is-your-memory-too-full
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-17T18:14:40.843000-07:00
+
+is your memory too full
+
+    Bash ls -la /Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/memory/ 2>/dev/null && echo "--- index ---" && cat /Users/scott/.claude/projects
+## turn — assistant 2026-08-17T18:15:18.726000-07:00
+
+Two different things, so let me answer both.
+
+**Persistent memory: nearly empty.** One file, 1.2 KB, one index line. Nothing to prune.
+
+**Conversation context: I can't measure it,** and I won't guess at a number. But there's real evidence in the last few turns, and it points the way you're suspecting.
+
+The two defects I just fixed are exactly the failure mode of a long session:
+
+- **Theorem 3.8 had no paper-numbered declaration.** I'd been *saying* "3.8 proved" for a dozen turns. It was, but under `isLeftAdjoint_prodFunctorRight` — I was recalling my summary of the work, not the code.
+- **`RegularSubobjects.lean`'s header said its own theorems were unproved.** I appended proofs in r0089/r0090 and never re-read the header I'd written in r0088.
+
+Both are the same error: trusting my account of the work over the artifact. And earlier in this session: the **r0087 "§3 is complete"** headline that was wrong, and **three consecutive wrong diagnoses** of the instance problem (r0075–r0077) before I ran a probe instead of reasoning from memory.
+
+What *has* held up is anything I checked against the build. Every `sorry` count, line count, and job count I reported came from a command, not recall.
+
+## What I'd suggest
+
+The work is at a natural boundary — **§3 finished, 3781 lines, 0 `sorry`, everything pushed through ac6d379**, nothing uncommitted. §4 and §5 are untouched and independent.
+
+Starting §4 fresh would be better than continuing here. Everything a new session needs is on disk rather than in my head:
+
+- `EquilogicalSpaces/README.md` — the program tracker, with §4's roadmap including the paper's **two negative results** (no impredicative universe; `PER(ALat)` not well-powered, left open in the paper)
+- module docstrings carrying the encoding decisions and the paper passages
+- 40 commit messages recording what was tried and what failed
+
+If you want to keep going in this session, I can — but I'd want to re-read files before claiming anything about them, which is slower, and you've now seen three cases where I didn't and should have.
+

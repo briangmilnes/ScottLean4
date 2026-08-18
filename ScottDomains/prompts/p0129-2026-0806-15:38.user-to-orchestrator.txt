@@ -1,0 +1,50 @@
+---
+prompt: p0129
+type: interaction
+opened: 2026-0806-15:38
+closed: 2026-0806-15:40
+subject: why-so-many-theorems-that-you-had-to-pro
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T15:38:06-07:00
+
+Why so many theorems that you had to prove? 124 - 6 - 11 ?
+
+## turn — assistant 2026-08-06T15:38:29-07:00
+
+Fair question, and worth answering with data rather than impression. Per-module counts:
+
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains; grep -c '^theorem\|^@\[simp\] theorem\|^protected theorem' WayBelow.lean Domain.lean Po
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains; grep -h '^theorem \|^@\[simp\] theorem \|^protected theorem ' *.lean | sed 's/^@\[simp\
+    Write /tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-e39e207949f0/scratchpad/names.txt
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains; grep -ohw -f /tmp/claude-1000/-home-milnes-projects-ScottLean4/a2827760-b659-436e-9449-
+## turn — assistant 2026-08-06T15:40:31-07:00
+
+Sharp question — I ran the audit rather than guessing. Here is where the 124 go.
+
+## The 107 that are not paper statements
+
+| # | Category | Count (approx) | Why they exist |
+| -- | -------- | -------------- | -------------- |
+| 1 | Mathlib gaps rebuilt | ~22 | `≪` does not exist in Mathlib at all (7). `IsCompactElement`'s *entire* lemma API is `CompleteLattice`-only, so the dcpo API had to be re-proved (13). Compacts of a powerset absent (2) |
+| 2 | Structures Mathlib lacks | ~29 | The dcpo function space does not exist (only ω-based) — 13. `im(p)` as a cpo — 11. `↓a` as a cpo — 5. Each sub-cpo costs the same four lemmas: directedness of the image, lub transfer *both* ways, and one lemma to strip the `dite` that `SupSet`'s totality forces |
+| 3 | The paper's "it is easy to check" | ~22 | One sentence covering step functions (10) and `p_N` (12). E.g. the paper never mentions that `N ◁ K(D)` gives directedness only at *compact* `x`, while defining `p_N` needs it everywhere |
+| 4 | Splits that *reduce* work | ~8 | `scottContinuous_pointwiseSup_of_forall_isLUB` exists so the directed and bounded cases share one script instead of two |
+| 5 | Definitional plumbing | ~26 | `coe_step`, `le_def`, `mem_compactsBelow`, `stepFun_of_le/_not_le` — one-liners so later proofs read as mathematics |
+
+## And 16 are never referenced
+
+Of those, nine are *terminal by design* — they are the paper's content, so nothing should cite them: `injective_embedding`, `surjective_projection` (prose claims 9–10), the four `isNormalIn_sUnion*` and `mono_right` (Lemma 4 parts 2 and 4), `isLeast_kleeneFix_le` and `eq_kleeneOperator_op` (restatements of Theorems 1 and 3).
+
+**Seven are genuinely speculative and I should not have written them** — `sSup_compactsBelow`, `step_mono`, `isProjection_comp`, `coe_const`, `mem_compacts`, `toFun_eq_coe`, `singleton_bot_isNormalIn`. That is a rule-2 violation: API written for callers that never appeared. Three of them are `@[simp]`, so removal needs a rebuild to confirm nothing used them implicitly rather than by name.
+
+So the honest ratio is not 17 useful out of 124. It is roughly **101 load-bearing, 16 terminal results, 7 waste** — and the dominant cost is that Mathlib gives nothing for free here: no way-below relation, no dcpo function space, no sub-cpo construction, and a compact-element API locked to complete lattices.
+
+Want me to delete the seven as a cleanup round, or leave them? Meanwhile I'm continuing to §4 — smash product, sum and lift, then Lemmas 8 and 9.
+

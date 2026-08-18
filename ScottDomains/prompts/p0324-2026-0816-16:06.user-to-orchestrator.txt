@@ -1,0 +1,101 @@
+---
+prompt: p0324
+type: interaction
+opened: 2026-0816-16:06
+closed: 2026-0816-16:12
+subject: prove-t0space-for-the-sigma-type-and-fin
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T16:06:24.187000-07:00
+
+prove T0Space for the sigma type and finish colimits
+
+## turn — assistant 2026-08-16T16:07:00.246000-07:00
+
+Proving the T₀ fact first — that's the real content:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean' s=open(p).read() i=s.index("/-! ## 
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquColimits 2>&1 | grep -E '^(error|warning)' -A8 | head -4
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean' s=open(p).read() s=s.replace("    ·
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquColimits 2>&1 | grep -E '^(error|warning)' -A8 | head -3
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean' s=open(p).read() s=s.replace("     
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquColimits 2>&1 | grep -E '^(error|warning)' -A6 | head -3
+## turn — assistant 2026-08-16T16:08:47.793000-07:00
+
+Lean is picking the wrong family — inferring the index as `A i` rather than `i : J`. Pinning explicitly:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean' s=open(p).read() s=s.replace("     
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquColimits 2>&1 | grep -E '^(error|warning)' -A6 | head -3
+## turn — assistant 2026-08-16T16:09:19.513000-07:00
+
+T₀ for the sigma type and the coproduct both build. Now the assembly:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean' s=open(p).read().rstrip() tail="end
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquColimits 2>&1 | grep -E '^(error|warning)' -A8 | head -4
+## turn — assistant 2026-08-16T16:10:03.644000-07:00
+
+One error left. The uniqueness goal is over `coeqObj`'s relation (an `EqvGen`), not `ℬ`'s — so it needs `m`'s own equivariance plus the hypothesis at a reflexive point:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquColimits.lean' s=open(p).read() s=s.replace('''  r
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquColimits 2>&1 | grep -E '^(error|warning)' -A8 | head -3
+## turn — assistant 2026-08-16T16:10:26.424000-07:00
+
+**`Equ` is cocomplete.** Discharging the last `sorry`:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean' s=open(p).read() s=s.replace("import 
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build 2>&1 | grep -E 'declaration uses|^error|Build completed'
+## turn — assistant 2026-08-16T16:10:52.536000-07:00
+
+**Zero `sorry` in the entire EquilogicalSpaces development.** Only the three pre-existing, unrelated ones remain in the library.
+
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/*.lean | tail -3
+    Bash grep -c 'sorry' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/*.lean | grep -v ':0' || echo "no sorry in any module"
+    Bash grep -n 'sorry' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/Theorems3.lean /Users/scott/projects/ScottLean4/ScottDoma
+## turn — assistant 2026-08-16T16:11:10.800000-07:00
+
+All prose mentions — no `sorry` terms. Updating the tracker's stale header and table:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("| `EquColimi
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0087: Equ is cocomplete -- section 3 complete, zero sorry  The disjoint union of T0 spaces is T0, 
+## turn — assistant 2026-08-16T16:12:01.900000-07:00
+
+**§3 is complete. Zero `sorry`.** Pushed as **cc96870**.
+
+## The blocker cleared
+
+**`sigmaT0Space`** — the disjoint union of T₀ spaces is T₀, absent from Mathlib and proved here. Points in *different* summands are separated by the summand (open); points in the *same* summand by that summand's own T₀, pulled across `Sigma.mk` being an open map. That was the one piece of real topology the coproduct needed.
+
+Then `coprodRel`, `sigma`, `sigmaInj`, `sigmaDesc`, `HasCoproducts`, and `has_colimits_of_hasCoequalizers_and_coproducts`. The relation is phrased with **equations** rather than a transport along an index equality, so `rintro` substitutes and transitivity needs only `Sigma.mk` injectivity — which is exactly what the paper's "the union of equivalence relations on *disjoint* sets" is doing.
+
+## Two things worth recording
+
+**Lean inferred the wrong sigma family.** For `isOpenMap_sigmaMk` and `continuous_sigmaMk` it read the index type as `EquilogicalSpace` and the family as the carrier projection — a valid alternative reading, just not mine. Both needed the family pinned with an explicit `@`.
+
+**The coequalizer's uniqueness clause is stated over `coeqObj`'s relation — an `EqvGen` — not over `ℬ`'s.** The proof is `m`'s own equivariance to move `x` to `y`, then the hypothesis at the reflexive point `y`, where `coeqProj` is the identity.
+
+## Final state of §3
+
+| | |
+| --- | --- |
+| Modules | **17** |
+| Lines | **3348** |
+| `sorry` | **0** |
+| Library `sorry` | 3 — all pre-existing, unrelated |
+
+1559 jobs, 0 errors.
+
+**Kernel-checked:** Definitions 3.2, 3.4, 3.9, 3.11 and Theorems 3.5, 3.6, 3.7, 3.8, 3.10, 3.12, 3.13, plus the categories `Equ`, `PEqu`, `ALat`.
+
+**Two statements are deliberately unasserted**, as `Prop`-valued claims rather than proved or `sorry`'d — I want these visible rather than buried in a zero count:
+
+- the two **regular-well-poweredness** halves of 3.10, since Mathlib has no `RegularWellPowered` class;
+- footnote 4's "`Equ` is not well-powered", whose `Small.{u}` encoding I've never checked against Johnstone's counterexample, which the paper cites but doesn't exhibit.
+
+**§4** (dependent type theory, including the paper's two negative results) and **§5** (Kleene–Kreisel) remain untouched, mapped in the README.
+

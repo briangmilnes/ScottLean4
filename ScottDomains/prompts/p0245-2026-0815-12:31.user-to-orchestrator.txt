@@ -1,0 +1,52 @@
+---
+prompt: p0245
+type: interaction
+opened: 2026-0815-12:31
+closed: 2026-0815-12:35
+subject: do-38
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T12:31:30.545000-07:00
+
+do 3.8
+
+## turn — assistant 2026-08-15T12:32:37.012000-07:00
+
+§3.8. The base has to be finite **words**, not finite sets of index–value pairs — a pair set like {(5,tt)} has no least stream above it, so `basisCpt` would fail. Writing it with `pairDecode k = (length, bit-mask)`:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 8 "1779:34"
+## turn — assistant 2026-08-15T12:34:22.455000-07:00
+
+Two fixes — the existential binder needs its type (same trap as before), and in the `head` case the pattern substitutes the variable away:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "stream|word"
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Formalize streams (catalogue 3.8) as streamDomain : DInfinityFoundations BStream" -m "A stream 
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T12:35:21.333000-07:00
+
+§3.8 done and pushed — `33433d7`, +439 lines. Build: 4 jobs, zero errors, zero warnings, zero `sorry`, 37 audited declarations. Catalogue §8 now reads **10 of 16**.
+
+`streamDomain : DInfinityFoundations BStream`, `[lem, propext, Quot.sound]`. A stream is a graph that is single-valued *and* **prefix-closed** — defined at n+1 implies defined at n — so the defined indices form an initial segment, finite or all of ℕ, and graph inclusion is exactly the prefix order.
+
+**The base change is forced, not stylistic**, and it is the entry's real content. The base that served §3.7 — up-sets of finite sets of index/value pairs — **fails `basisCpt`** here: {(5,tt)} has no least stream above it, because prefix-closedness leaves indices 0–4 unconstrained, so that up-set is not principal and compactness breaks. The compact opens are up-sets of finite **words**, so `basis (k+1)` is the word of length `(pairDecode k).1` with letters read off the bits of `(pairDecode k).2`, and `basis 0` is ∅ — which `basisCap` needs, since two incompatible words intersect emptily and some index has to name that.
+
+`basisGen` is where prefix-closure earns its keep: `stream_defined_below` fills in every index below the largest one a finite approximation mentions, then `stream_exists_mask` packs those values into a bit mask **by induction**, never extracting a function `i ↦ value` — that would be unique choice, and the development still has none.
+
+Two build errors, both familiar: an `∃ m` whose body used `m.testBit` (dot notation can't drive inference — needs `∃ m : Nat`), and a `show` in a `head` case still naming the pattern variable the constructor had substituted away.
+
+Standing at 10 of 16. Remaining: §5.6 (ideal completion) and §5.1 (function spaces) as the next real constructions; §6.3/§6.4 needing Mathlib for ℝ, which I'd put in a separate module so `LRSODInCIC.lean` stays import-free; §5.4 term domains; §5.5 D∞ as its own program; and §5.2/§6.5, which need machinery outside the D1–D4 vocabulary — a PCF syntax and a powerdomain construction — and which I'd flag rather than force.
+

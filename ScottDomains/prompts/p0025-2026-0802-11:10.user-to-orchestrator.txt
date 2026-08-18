@@ -1,0 +1,62 @@
+---
+prompt: p0025
+type: interaction
+opened: 2026-0802-11:10
+closed: 2026-0802-11:12
+subject: continute
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T11:10:59.169000-07:00
+
+continute
+
+## turn — assistant 2026-08-02T11:11:12.572000-07:00
+
+All **38/38 modules compile — 0 errors, 0 failures**. The authoritative counts differ from the textual estimate (as expected): **16 fully proved** (not 14 — two files had their only `sorry` in a comment), and **100 real `sorry`-declarations** (not 122). Now let me rewrite the README with these kernel-checked columns:
+
+    Bash cd ~/projects/ScottLean4 python3 - <<'PY' import os, re, glob # kernel-checked results kern={} for line in open("/private/tmp/claude-501/-Users-scott-
+## turn — assistant 2026-08-02T11:12:11.182000-07:00
+
+README rewritten with kernel-checked columns. Let me fix one markdown-escaping glitch (nested backticks around `` `sorry` `` won't render) and verify the table:
+
+    Read /Users/scott/projects/ScottLean4/DanaScottPapers/README.md
+## turn — assistant 2026-08-02T11:12:18.030000-07:00
+
+The table is accurate. Two markdown escaping glitches (nested backticks around `` `sorry` `` won't render) — let me fix those two lines:
+
+    Edit /Users/scott/projects/ScottLean4/DanaScottPapers/README.md
+    Edit /Users/scott/projects/ScottLean4/DanaScottPapers/README.md
+## turn — assistant 2026-08-02T11:12:55.275000-07:00
+
+Done — [DanaScottPapers/README.md](DanaScottPapers/README.md) is now a **kernel-checked verification scoreboard**, not a text estimate. The authoritative results:
+
+## Scoreboard (kernel-checked, `lake env lean` per module)
+
+| Metric | Count |
+|---|---|
+| Modules **compile** (0 errors) | **38 / 38** |
+| **Fully proved** (0 `sorry`) | **16** |
+| Have holes | 22 |
+| Total **`sorry`-declarations** | **100** |
+| defs/thms (size) | 281 |
+
+Text-vs-kernel reconciliation, so the numbers are honest:
+- Textual `sorry` count was **122**; kernel count is **100** — the 22-difference were header-comment mentions, not real holes.
+- "Fully proved" rose **14 → 16**: two files (*1974 Does Many-Valued Logic…*, *1975 Combinators and Classes*) had their only `sorry` in a comment and are actually complete.
+
+**Every one of Dana's 38 formalizations compiles clean.** 16 are complete skeletons with **zero proof holes** — including domain-theory-relevant ones: *Data Types as Lattices (1976)* ✅, *Combinators and Classes (1975)* ✅, plus *Finite Automata (Rabin–Scott 1959)*, *A New Category (1998)*, and the recent Benzmüller/Scott category-theory papers.
+
+The remaining work is concentrated: the biggest holes are *Extending Topological Interpretation II (1970)* — 14, *Constructing Models (1959)* — 8, and *Relating Theories of the λ-Calculus (1980)* — 7. The file you opened, *Lambda Calculus: Some Models… (1980)*, has **4** real holes (the substitution lemma among them).
+
+That closes the proof-status deliverable. Two small follow-ups still open from the reboot plan whenever you want them:
+- refresh `docs/SoftwareInventory.md` to all-green (Verus/Rocq/Rust/KeePassXC/VS Code/Chrome/MacTeX now done),
+- the plotting scaffold (`tutorials/plotting/` + `pip install matplotlib`) now that TeX compiles.
+
+Want either of those, or shall I leave it here?
+

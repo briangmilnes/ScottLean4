@@ -1,0 +1,44 @@
+---
+prompt: p0019
+type: interaction
+opened: 2026-0802-10:49
+closed: 2026-0802-10:50
+subject: were-gonna-need-to-increase-the-default
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T10:49:39.344000-07:00
+
+We're gonna need to increase the default font size there. Is that a you or a me?
+
+## turn — assistant 2026-08-02T10:50:01.843000-07:00
+
+**That's a me** — VS Code's font/zoom lives in a user `settings.json` I can edit directly (macOS: `~/Library/Application Support/Code/User/settings.json`), and it applies live. Let me look at what's there and bump it:
+
+    Bash S="$HOME/Library/Application Support/Code/User/settings.json" echo "path: $S" if [ -f "$S" ]; then echo "=== current settings.json ==="; cat "$S"; els
+## turn — assistant 2026-08-02T10:50:15.481000-07:00
+
+Existing file just has the color theme — I'll preserve that and add font/zoom. The key one for the **Lean Infoview** (it's a webview) is `window.zoomLevel`, which scales the whole UI including that panel; `editor.fontSize` handles the code text:
+
+    Write /Users/scott/Library/Application Support/Code/User/settings.json
+    Read /Users/scott/Library/Application Support/Code/User/settings.json
+    Write /Users/scott/Library/Application Support/Code/User/settings.json
+## turn — assistant 2026-08-02T10:50:39.135000-07:00
+
+Done — applied live (VS Code watches `settings.json`, so your open window should have jumped just now). I set:
+
+- **`editor.fontSize: 16`** — the code text (up from the default 12).
+- **`window.zoomLevel: 1`** — scales the **whole UI including the Lean Infoview** (the goal-state panel), which is the one that doesn't follow `editor.fontSize` since it's a webview.
+- **`terminal.integrated.fontSize: 14`** — the integrated terminal.
+
+Fine-tuning from here:
+- Quickest live nudge: **⌘ =** (zoom in) / **⌘ -** (zoom out) — that bumps `window.zoomLevel` for everything.
+- Or just tell me a target (e.g. "editor 18, UI zoom 2") and I'll set exact numbers.
+
+If it didn't visibly change, ⇧⌘P → **"Developer: Reload Window"** will force it. Want it bigger?
+

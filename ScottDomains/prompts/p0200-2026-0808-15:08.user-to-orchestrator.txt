@@ -1,0 +1,35 @@
+---
+prompt: p0200
+type: interaction
+opened: 2026-0808-15:08
+closed: 2026-0808-15:09
+subject: open-the-list-of-missing-files-in-chrome
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-08T15:08:12.148000-07:00
+
+Open the list of missing files in Chrome.
+
+    Bash grep -n -i -E "missing|href" /Users/scott/projects/ScottBibliography/index.html
+    Bash gh repo view briangmilnes/ScottBibliography --json defaultBranchRef,homepageUrl,hasPages
+    Bash gh repo view briangmilnes/ScottBibliography --json defaultBranchRef,homepageUrl
+    Bash open -a "Google Chrome" "https://github.com/briangmilnes/ScottBibliography/blob/main/MissingPapers.md"
+## turn — assistant 2026-08-08T15:09:00.204000-07:00
+
+Open in Chrome: [github.com/briangmilnes/ScottBibliography/blob/main/MissingPapers.md](https://github.com/briangmilnes/ScottBibliography/blob/main/MissingPapers.md).
+
+I sent Chrome to the GitHub blob view rather than the local file. Chrome renders a local `.md` as plain text — the four route tables and the 🟢🔵📖⚫ key would come out as unformatted lines. GitHub renders them. The file is identical; you're at commit `main`, which is what you just cloned. If you'd rather have the local copy despite the formatting, it's `file:///Users/scott/projects/ScottBibliography/MissingPapers.md`.
+
+Reading `index.html` while finding the branch settled the count discrepancy I flagged: **the "74 / 99 papers" line in `MissingPapers.md` is stale.** The site index lists papers numbered 1–78 plus books b1–b5, matching the 78 PDFs in `papers/` and 5 at top level. So held is 78 papers + 5 book PDFs, not 74 + 2 — the missing-list tables themselves name 25 papers and 2 books, which is what the header line was derived from and no longer matches. The tables are the reliable part; the coverage header needs recomputing.
+
+Two entries in that list connect to work in this session:
+
+- **#72, "Teaching projective geometry", MCS News '90, CMU, 1990** — routed ⚫ not digitized, CMU archives or Dana's own files.
+- **Book c, *Continuous Lattices and Domains* (CUP 2003)** — only the 28-page front matter is held. That's the modern successor to the 1972 *Continuous Lattices* that `ContinuousLatticeComparison.md` compares your development against, and the 1980 *Compendium* by the same six authors is held in full.
+

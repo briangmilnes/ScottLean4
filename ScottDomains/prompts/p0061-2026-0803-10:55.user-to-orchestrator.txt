@@ -1,0 +1,37 @@
+---
+prompt: p0061
+type: interaction
+opened: 2026-0803-10:55
+closed: 2026-0803-10:55
+subject: can-i-change-my-password
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-03T10:55:17.916000-07:00
+
+can I change my password
+
+## turn — assistant 2026-08-03T10:55:50.744000-07:00
+
+Yes — it's your account, so you can change it. Two ways (this is a **[you]** action; I can't set passwords for you — it's a security operation that needs your current password):
+
+**Recommended — System Settings (keeps your login keychain in sync):**
+System Settings → **Users & Groups** → click your account (**`scott`**) → **Change Password…**, or under **Touch ID & Password**. Enter old password, then the new one twice.
+
+**Terminal alternative:**
+```bash
+passwd
+```
+Changes the logged-in user's password (prompts old → new; no `sudo` needed for your own).
+
+Two things worth knowing on this box:
+- **FileVault is on** (from the setup). That's fine — FileVault unlocks with your account password, and both routes update it. No separate step needed.
+- Prefer the **System Settings** route over bare `passwd`: the GUI also re-syncs your **login keychain** to the new password. Changing via `passwd` alone can leave the keychain still expecting the old password (you'd then get keychain prompts later).
+
+Want me to open the Settings pane for you? (I can launch it; you'd do the actual change.) And note this is about the **`scott`** account — if you also want to set/rotate the **`milnes`** account password, that's the same steps while logged into that account (the round-0 plan flagged account ownership as a to-do for handing the box to Dana).
+

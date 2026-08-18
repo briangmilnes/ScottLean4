@@ -1,0 +1,42 @@
+---
+prompt: p0215
+type: interaction
+opened: 2026-0814-11:38
+closed: 2026-0814-11:39
+subject: delete-the-duplicates-and-commit
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-14T11:38:20.477000-07:00
+
+delete the duplicates and commit
+
+    Bash git -C /Users/scott/projects/EricsonPapers rm "docs/LRSODInCIC (1).lean" "docs/LRSODInCIC (1).pdf"
+    Edit /Users/scott/projects/EricsonPapers/CLAUDE.md
+    Bash git -C /Users/scott/projects/EricsonPapers add CLAUDE.md
+    Bash git -C /Users/scott/projects/EricsonPapers status --short
+    Bash git -C /Users/scott/projects/EricsonPapers commit -m "Delete the byte-identical LRSODInCIC (1) duplicates; correct the build path in CLAUDE.md" -m "Th
+    Bash lean "/Users/scott/projects/EricsonPapers/docs/LRSODInCIC.lean"
+## turn — assistant 2026-08-14T11:39:09.187000-07:00
+
+Committed as `db038f0` on `main` in `EricsonPapers` — 3 files changed, 10 insertions, 327 deletions:
+
+- `D docs/LRSODInCIC (1).lean`
+- `D docs/LRSODInCIC (1).pdf`
+- `M CLAUDE.md` — build path corrected, and the `docs/` layout entry now records the deletion instead of describing the duplicates as a standing feature.
+
+Working tree is clean. Post-deletion re-check of the surviving file:
+
+```bash
+lean /Users/scott/projects/EricsonPapers/docs/LRSODInCIC.lean
+```
+
+Lean 4.32.2: zero errors, zero warnings, zero `sorry`. Axiom audit unchanged — `sierpTop` and `sierp_not_leq_top_bot` depend on no axioms; `sierp` depends on `[lem, propext, Quot.sound]`, all three entering through `sober` (D2).
+
+Not pushed — `origin` is `github.com/DanaSScott/EricsonPapers.git`, and pushing is a separate call whenever you want it.
+

@@ -1,0 +1,81 @@
+---
+prompt: p0157
+type: interaction
+opened: 2026-0806-18:43
+closed: 2026-0806-18:46
+subject: create-the-worktrees-for-agent4-and-agen
+session: 57a99ce0
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/57a99ce0….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T18:43:01-07:00
+
+create the worktrees for agent4 and agent5. Get it running.
+
+    Bash ls -la /home/milnes/projects/ScottLean4-agent1/ScottDomains/.lake/ 2>/dev/null | head; echo "=== main"; ls -la /home/milnes/projects/ScottLean4/ScottD
+    Bash git worktree add /home/milnes/projects/ScottLean4-agent4 -b agent4 2>&1 | tail -3
+    Bash git worktree add /home/milnes/projects/ScottLean4-agent5 -b agent5 2>&1 | tail -3
+    Bash mkdir -p /home/milnes/projects/ScottLean4-agent4/ScottDomains/.lake /home/milnes/projects/ScottLean4-agent5/ScottDomains/.lake && ln -sfn /home/milnes
+    Bash mkdir -p /home/milnes/projects/ScottLean4-agent4/.claude /home/milnes/projects/ScottLean4-agent5/.claude && cp /home/milnes/projects/ScottLean4/.claud
+## turn — assistant 2026-08-06T18:43:48-07:00
+
+Now the r0027 lesson applied — verify writes and builds work in the new worktrees **before** launching anything.
+
+    Write /home/milnes/projects/ScottLean4-agent4/.write-check
+    Write /home/milnes/projects/ScottLean4-agent5/.write-check
+    Bash cd /home/milnes/projects/ScottLean4-agent4/ScottDomains && lake build 2>&1 | tail -3
+    Bash cd /home/milnes/projects/ScottLean4-agent5/ScottDomains && lake build 2>&1 | tail -2
+    Bash rm -f /home/milnes/projects/ScottLean4-agent4/.write-check /home/milnes/projects/ScottLean4-agent5/.write-check && du -sh /home/milnes/projects/ScottL
+## turn — assistant 2026-08-06T18:44:35-07:00
+
+Both worktrees verified before launch: writes succeed without prompting, and each builds `962 jobs` against the shared Mathlib at 327 MiB. No restart is needed — `/home/milnes/projects` is already in `additionalDirectories`, and that covers the children. Syncing the three older branches to `main` so all five start from the same commit.
+
+    Bash for n in 1 2 3; do echo "== agent$n"; git -C /home/milnes/projects/ScottLean4-agent$n merge --ff-only main 2>&1 | tail -2; done
+    Bash for n in 1 2 3; do echo "== agent$n"; git -C /home/milnes/projects/ScottLean4-agent$n merge main -m "r0028: sync agent$n to main (r0027 merges, plan, 
+## turn — assistant 2026-08-06T18:44:47-07:00
+
+All five worktrees at `main`. Launching the five streams.
+
+    Agent Finish coalesced sum and its conjuncts
+    Agent Prove Theorem 11 ideal completion
+    Agent Prove Theorem 16 and Lemma 20
+    Agent Prove Theorem 18 via Smyth
+    Agent Prove Theorem 22 and Lemma 23
+## turn — assistant 2026-08-06T18:46:31-07:00
+
+Five worktrees, five agents, running.
+
+**Setup, verified before launch** — the r0027 lesson was that a permission assumption went unchecked, so I checked it:
+
+| # | Step | Result |
+| -- | ---- | ------ |
+| 1 | `git worktree add` ×2 | `agent4`, `agent5` created at `40c461d` |
+| 2 | `.lake/packages` symlink | both point at the main checkout's Mathlib |
+| 3 | `settings.local.json` copied | present in both `.claude/` |
+| 4 | Write probe into each | succeeded, no prompt — **no session restart needed**, because `/home/milnes/projects` is already in `additionalDirectories` and covers the children |
+| 5 | `lake build` in each | `Build completed successfully (962 jobs).` — the symlink works |
+| 6 | Disk | 327 MiB per worktree, not the ~7 GiB a vendored Mathlib would cost |
+| 7 | `agent1`–`agent3` synced to `main` | all five branches now start from the same commit |
+
+Probe files removed.
+
+**The five streams:**
+
+| # | Agent | Owns | Target |
+| -- | ----- | ---- | ------ |
+| 1 | agent1 | `CoalescedSum.lean`, `Skeleton/Sum.lean` | Finish `D + E` as a cpo, then `lem10_sum`, `lem17_sum`, `lem17_smash` — takes Lemma 10 to 6 of 6 conjuncts and Lemma 17 to 5 of 5 |
+| 2 | agent2 | `IdealCompletion.lean` | Theorem 11 — unblocks all of §5 |
+| 3 | agent3 | `FinitaryProjectionPoset.lean`, `Skeleton/Section6b.lean` | Theorem 16, Lemma 20 — after building `Fp(D)`/`Fc(D)` as posets |
+| 4 | agent4 | `MinimalUpperBounds.lean`, `thm18`'s body | Theorem 18 — the last `sorry` |
+| 5 | agent5 | `UniversalDomain.lean` | Theorem 22, Lemma 23 — opens §7 |
+
+Ownership is disjoint except two named exceptions, both stated in the plan and in the prompts: agent1 may edit `CoalescedSum.lean`, agent4 may edit `thm18`'s body and nothing else in `Section6.lean`. Agents 3 and 5 both need `IsClosure` from that file and are told it is read-only. Every prompt carries the bare-`lake build` rule, Edit/Write only, never weaken a statement, and commit-but-never-push.
+
+Agent1's prompt makes the `sSup` guard the explicit point: branch on membership in `NonBotSum`, not on directedness. That defect has now cost two repairs — `ScottHom`, then `Smash` — and the coalesced sum is where it would land a third time.
+
+I'll review each diff as it reports, merge, rebuild, run `#print axioms`, and push. If Theorem 18 lands, the development goes to zero `sorry`.
+

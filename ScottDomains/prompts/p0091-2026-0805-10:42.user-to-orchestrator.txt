@@ -1,0 +1,45 @@
+---
+prompt: p0091
+type: interaction
+opened: 2026-0805-10:42
+closed: 2026-0805-10:43
+subject: scott-streichi-programming-language-sema
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-05T10:42:15.594000-07:00
+
+Scott Streichi programming language semantics has have many criticisms. Can you summarize them?
+
+## turn — assistant 2026-08-05T10:43:48.111000-07:00
+
+A fair question to put to one of its creators, Dr. Scott — and the criticisms are real and well-documented. Here is a summary, grouped by the substantive ones.
+
+## 1. Full abstraction — the central technical critique
+The standard continuous-function (Scott-domain) model of PCF is **not fully abstract** (Plotkin and Milner, 1977): the model contains elements — famously **parallel-or** — that are *not definable* by any program, so the model distinguishes terms that are operationally indistinguishable. Denotational equality is strictly *finer* than observational equivalence; the model has "junk." Restoring the exact match required either extending the language (add parallel-or) or building far more intricate models — **sequential algorithms** (Berry–Curien) and, decades later, **game semantics** (Abramsky–Jagadeesan–Malacaria; Hyland–Ong). That it took ~20 years to model a tiny language *exactly* is the most-cited limitation.
+
+## 2. Continuity captures too much — sequentiality escapes it
+Closely related: **continuity is weaker than sequential computability.** Continuous functions include inherently parallel ones, so the order-theoretic notion of a "computable" function overshoots what a sequential machine can do. Capturing sequentiality needed additional structure — Kahn–Plotkin sequential functions, Berry's **stable functions and dI-domains**, coherence spaces — none of it forced by the original domain axioms.
+
+## 3. It is extensional — the intensional life of a program is lost
+A program denotes an input–output *function*, so two programs computing the same function have the **same denotation even if one is exponentially slower**. Denotational semantics therefore says nothing directly about **cost, evaluation order, or complexity** — the whole intensional dimension is abstracted away. For reasoning about *how* a program computes, one is pushed back to operational accounts.
+
+## 4. Effects, nondeterminism, and concurrency are heavy or ad hoc
+Control needed **continuations** (Strachey–Wadsworth); state needed threading a store; nondeterminism needed **powerdomains** (Plotkin, Smyth) — and *no* powerdomain construction validates all the equivalences one wants. **True concurrency** is served poorly by domain theory, which drove the whole separate development of process calculi and event structures. And each effect originally demanded bespoke domain surgery — later reorganized more cleanly by **Moggi's monads (1989)**, itself an implicit criticism that the original treatment of effects was unstructured.
+
+## 5. The mathematics is heavy — and operational semantics is often "more real"
+Solving recursive domain equations like **D ≅ [D→D]** (inverse limits, embedding–projection pairs, algebraically compact categories) is sophisticated, and the semantics of a real language becomes a large, unwieldy object. This accessibility cost contributed to the rise of **structural operational semantics** (Plotkin, 1981) as simpler, more direct, and — for many — *primary*, with denotational semantics relegated to a harder-to-build complement that must be tied back by a **computational-adequacy** proof. Later tools (logical relations, bisimulation, step-indexing) reinforced the operational-first stance.
+
+## 6. Deeper reservations
+- **Compositionality**, its great virtue, is also a straitjacket: some features (dynamic scope, reflection, unrestricted concurrency) resist a natural compositional denotation.
+- A **philosophical** worry: a Scott-domain element is *one mathematical model*, laden with modeling choices (the treatment of ⊥, the "extra" limit points), not a canonical account of "meaning" — so the claim that it *is* the meaning of a program is contestable.
+
+---
+
+The honest through-line: denotational semantics gave the field its first rigorous, compositional notion of program meaning and its account of recursion via least fixed points — an enormous success — but (i) the naïve models don't exactly match observation (full abstraction), (ii) continuity ≠ sequentiality, (iii) it is blind to intensional cost, and (iv) effects/concurrency strain the machinery. Much of PL semantics since — game semantics, monads, operational methods — can be read as responses to precisely these points. If you'd like, I can save this as a typeset note in `notes/`, or expand any one strand (full abstraction and game semantics is the richest).
+

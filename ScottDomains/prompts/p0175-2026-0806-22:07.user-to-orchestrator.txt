@@ -1,0 +1,57 @@
+---
+prompt: p0175
+type: interaction
+opened: 2026-0806-22:07
+closed: 2026-0806-22:08
+subject: read-your-restart-plan
+session: 5d1a7664
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/5d1a7664….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T22:07:39-07:00
+
+Read your restart plan.
+
+## turn — assistant 2026-08-06T22:07:41-07:00
+
+I'll find the restart plan.
+
+    Bash ls -t /home/milnes/projects/ScottLean4/plans/ | head -20
+    Bash find /home/milnes/projects/ScottLean4 -name "*session-restart*" -o -name "*restart*" | grep -v node_modules | head -30
+    Read /home/milnes/projects/ScottLean4/ScottDomains/plans/r0033-plan-from-orchestrator-to-orchestrator-session-restart.md
+## turn — assistant 2026-08-06T22:07:59-07:00
+
+Read: `ScottDomains/plans/r0033-plan-from-orchestrator-to-orchestrator-session-restart.md` — right, it's under `ScottDomains/plans/`, not the repo-root `plans/`.
+
+Let me check step 4 of the resume steps, since it's the reason the restart happened.
+
+    Bash git -C /home/milnes/projects/ScottLean4 log --oneline -1 && git -C /home/milnes/projects/ScottLean4 status --porcelain | wc -l
+## turn — assistant 2026-08-06T22:08:14-07:00
+
+Plan read. Summary of the state it hands off:
+
+**Why the restart:** permission rules and the `PreToolUse` hook `scripts/allow-bash.sh` bind at session start, so everything written to `.claude/settings*.json` last session was inert until now. That compound `git log … && git status …` above ran with no prompt — **the allowlist and hook are live.**
+
+**State at restart** (working tree clean, `main` at `180ae8f`; the plan's `c41a57e` predates the final r0032 commits):
+
+| # | Quantity | Value |
+| -- | -------- | ----- |
+| 1 | Build | 1072 jobs, 0 errors, 0 warnings beyond `sorry` |
+| 2 | Numbered results proved | 20 of 29 |
+| 3 | Partial | Lem 10 at 6 of 7 conjuncts; Lem 17 at 5 of 10 |
+| 4 | Modules / lines / theorems | 45 / 14048 / 659 |
+| 5 | `sorry` | 8 — `thm18` plus 7 in `Skeleton/Recovered.lean` |
+| 6 | Whole-validation cost | 7–11 s wall, ~2.3 GiB PSS |
+
+**In flight: nothing.** All five agent branches merged; agent3's Theorem 12 (all three powerdomains) reviewed, merged, rebuilt and audited.
+
+**Five open decisions**, of which the live ones are: whether to put Lemma 9's two decoded misprints under the kernel (items 3 and 5 are false as printed; `D = E = Prop`, `F = Prop × Prop` refutes both by cardinality); Theorem 18 still blocked before Smyth's case analysis, with the remaining reduction *equivalent* to Thm 18 rather than below it; Theorem 16's positive form unstated; and Lemmas 28/30 needing §7.3's `U`, §7.4's `V` and p-representability over `Fp(U)`, none of which exist.
+
+**Next: r0032 wave 2**, five agents — Thm 26, Thm 27, Thm 29, Lemma 17's three powerdomain conjuncts plus the `+` conjuncts, and the seven `sorry`s in `Skeleton/Recovered.lean`.
+
+Remaining resume steps are 1–3 (`git pull --rebase`, `scripts/compile.sh -r r0033`, `scripts/counts.sh`) and 5 (sync the five worktrees, verifying with `git merge-base --is-ancestor`, before launching wave 2). Want me to run them?
+

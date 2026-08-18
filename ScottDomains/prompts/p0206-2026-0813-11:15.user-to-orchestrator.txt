@@ -1,0 +1,55 @@
+---
+prompt: p0206
+type: interaction
+opened: 2026-0813-11:15
+closed: 2026-0813-11:16
+subject: show-me-the-index
+session: de244442
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/de244442….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-13T11:15:41.619000-07:00
+
+Show me the index
+
+    Bash wc -l /Users/scott/projects/ScottBibliography/index.html /Users/scott/projects/ScottBibliography/docs/overview.html
+    Read /Users/scott/projects/ScottBibliography/index.html
+    mcp__Claude_Browser__preview_start 
+    Bash grep -c 'href="papers/' /Users/scott/projects/ScottBibliography/index.html
+    Write /private/tmp/claude-501/-Users-scott-projects-ScottLean4/de244442-6a72-4a69-9e87-74015efc226d/scratchpad/index-link-check.sh
+    Bash bash /private/tmp/claude-501/-Users-scott-projects-ScottLean4/de244442-6a72-4a69-9e87-74015efc226d/scratchpad/index-link-check.sh
+    Bash ls -1 /Users/scott/projects/ScottBibliography/papers | wc -l
+    Bash grep -o 'href="papers/[^"]*"' /Users/scott/projects/ScottBibliography/index.html | sort -u | wc -l
+    mcp__Claude_Browser__computer 
+    mcp__Claude_Browser__navigate 
+    mcp__Claude_Browser__computer 
+## turn — assistant 2026-08-13T11:16:45.197000-07:00
+
+It's open in the preview pane. [index.html](../ScottBibliography/index.html) — 132 lines, self-contained (inline CSS, no external assets, light/dark via `prefers-color-scheme`).
+
+**Structure**
+
+| Section | Rows |
+|---|---|
+| Header + links to README.md, ScottBibliography.pdf, scott.bib, MissingPapers.md | — |
+| Book-length items (root PDFs) | 5: 1959, 1980, 1982 ×2, 2003 |
+| Papers (ordered by year) | 81: #1 Scott & Kalicki 1955 → #81 Benzmüller & Scott 2025 |
+
+**Link integrity — checked, not assumed.** All 81 `papers/` hrefs plus the 5 book links and 4 sibling-file links resolve to files on disk; every one of the 81 files in `papers/` is linked exactly once. Zero broken links, zero orphans.
+
+That also corrects a number I gave earlier: `papers/` holds **81** files, not 78 — I counted before the pull, and `dbecf9c` added the three 1956 papers (Roth & Scott vector method, equationally complete extensions, symmetric primitive notion), which are rows 2–4.
+
+**One stale value.** Line 7's `<meta name="description">` still says "78 PDFs spanning 1955-2025" while the table body says 81 (line 44 was updated, the meta tag was not). That string is what Google shows as the snippet, and the site has a search-console verification file, so it is the user-visible count.
+
+Fix is one line:
+
+```bash
+grep -n '78 PDFs' /Users/scott/projects/ScottBibliography/index.html
+```
+
+Want me to update it to 81 — and while there, should the description say 86 (81 papers + 5 book-length items), which is the actual PDF count in the repo?
+

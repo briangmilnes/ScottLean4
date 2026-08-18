@@ -1,0 +1,118 @@
+---
+prompt: p0256
+type: interaction
+opened: 2026-0815-13:21
+closed: 2026-0815-13:34
+subject: finish-55
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:21:32.406000-07:00
+
+finish 5.5
+
+## turn — assistant 2026-08-15T13:24:21.706000-07:00
+
+Finishing it. The design that works: tokens are `Nat × DTok` — a declared level and a token — with the order comparing at the max of the declared levels. No subtype, no dependent types. Chunk one, the order machinery:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+## turn — assistant 2026-08-15T13:25:10.342000-07:00
+
+Three fixes: `le_max_*` and `set` are Mathlib-only (this module has none), and `(a+1)+b` doesn't reduce definitionally — `Nat.succ_add` is needed:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 10 "3171:23"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Bash grep -rn "theorem sizeOf_lt_of_mem" /Users/scott/.elan/toolchains/leanprover--lean4---v4.32.2/src/lean/Init/Data/List/*.lean | head -3
+## turn — assistant 2026-08-15T13:28:27.540000-07:00
+
+`List.sizeOf_lt_of_mem` exists in core, so the nested induction is available after all. Continuing — first the join and its lifting lemma:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 12 "3306:8"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+## turn — assistant 2026-08-15T13:30:25.468000-07:00
+
+Now the enumeration. Using **mutual** theorems over `DTok` and its list, which handles the nested inductive without `sizeOf` juggling:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head -20
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head -20
+## turn — assistant 2026-08-15T13:31:18.511000-07:00
+
+The covering proof works. Final assembly — the token poset and D∞ itself:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head -20
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -A 12 "3479:33"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed" | head -20
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "dInf|dLe_lub|leAt"
+## turn — assistant 2026-08-15T13:32:15.923000-07:00
+
+D∞ compiles — but `Classical.choice` has appeared, which breaks the development's invariant. Locating it before I call this done:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "cmpTok_eq|dLe_refl|dLe_trans|dLe_bot|joinLift|mem_listsUpTo|dtoksUpTo_covers|dLe_lub"
+    Bash grep -rn "theorem eq_zero_or_pos" /Users/scott/.elan/toolchains/leanprover--lean4---v4.32.2/src/lean/Init/Data/Nat/Basic.lean /Users/scott/.elan/toolc
+    Bash grep -rn "protected theorem eq_zero_or_pos\|theorem Nat.eq_zero_or_pos" /Users/scott/projects/ScottLean4/mathlib/Mathlib/Algebra/Order/Group/Nat.lean 
+## turn — assistant 2026-08-15T13:33:08.074000-07:00
+
+The choice comes from `dLe_lub` alone. Likely `omega` discharging a *non*-arithmetic goal via `Classical.byContradiction`. Replacing those two spots with an explicit arithmetic contradiction:
+
+    Bash grep -n "| zero => omega" /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash cd /Users/scott/projects/EricsonPapers && sed -i '' -e 's/      | zero => omega/      | zero => exact absurd hN (by omega)/' Domains/ScottDomainExampl
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|dLe_lub|dInfinity|Build completed"
+## turn — assistant 2026-08-15T13:33:28.134000-07:00
+
+`Classical.choice` is gone — and the cause is worth recording. Cleaning up the audit block:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error|warning|Build completed"
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Finish D-infinity (catalogue 5.5): the bilimit, via levelled tokens over the flat encoding" -m 
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T13:34:36.721000-07:00
+
+**§5.5 is finished.** `dInfinity : DInfinityFoundations (TokenIdeal dInfTokens)` — pushed as `36ecba3`. Build: **846 jobs, zero errors, zero warnings, zero `sorry`.**
+
+**How the obstruction fell.** A token is a pair `(n, x) : Nat × DTok` — a *declared level* and a flat token — compared after lifting both to the max of the declared levels. `cmpTok_up`/`cmpTok_eq` show any admissible comparison level gives the same answer; that is `leAt_embTok` plus arithmetic.
+
+The step that made it work: **nothing forces `x` to be well formed at level `n`, and nothing needs to.** A token declared too low is read through `isTopTok` and is therefore order-equivalent to ⊥ — and extra copies of ⊥ change no ideal. That is what lets the carrier be a plain product instead of a subtype, and it is exactly why the whole construction avoids dependent types and transports, which is what stopped the indexed tower.
+
+Joins are total (inherited from D₀ = 𝕊 being a lattice) and are concatenation of step-sets; `joinLift` carries that through lifting by induction on the number of lifts, with the comparison level dropping alongside. Countability is `dtoksUpTo`, proved covering by a **mutual** recursion over `DTok` and its list.
+
+**One measurement worth your attention.** `dInfinity` consumes `[lem, propext, Quot.sound]` — exactly what every other witness consumes, and **no `Classical.choice`**. It nearly did: an earlier `dLe_lub` closed an impossible branch with a bare `omega` whose *goal was not arithmetic*, and omega discharges such goals through `Classical.byContradiction`. That would have been the development's first use of choice outside the ℝ module. `absurd hN (by omega)` — omega proving the arithmetic fact, `absurd` doing the eliminating — removes it. Worth knowing generally: `omega` is choice-free on arithmetic goals, not on arbitrary ones.
+
+## The catalogue is complete
+
+**All 16 rows of §2 are settled** — twelve inhabited, four refuted — plus §5.6 as a general theorem outside the table:
+
+| | |
+| --- | --- |
+| §3.1–3.8 | eight concrete domains |
+| §5.1, 5.3, 5.4, 5.5 | function space, Pω λ-model, term/tree domains, D∞ |
+| §6.1–6.4 | four refutations |
+
+`Domains/ScottDomainExamples.lean` stands at ~3,500 lines from the 19 it started at, plus `Domains/IntervalDomain.lean`.
+
+Two caveats stated in §8 rather than glossed: §5.1's value side needs total joins, and its ideals are not identified with Scott-continuous maps. Outside the 16: §5.2 (parallel-or, needs a PCF syntax) and §6.5 (powerdomains) remain.
+

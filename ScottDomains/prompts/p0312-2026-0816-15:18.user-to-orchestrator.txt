@@ -1,0 +1,67 @@
+---
+prompt: p0312
+type: interaction
+opened: 2026-0816-15:18
+closed: 2026-0816-15:21
+subject: go
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:18:38.620000-07:00
+
+go
+
+## turn — assistant 2026-08-16T15:19:28.291000-07:00
+
+Products in `PEqu`. First the topological↔Scott bridge in the other direction, then the projections and lift:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:20:09.201000-07:00
+
+`continuous_of_scottContinuous` lives in `PowersetRetract`, which isn't in this module's import closure:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:20:49.177000-07:00
+
+`(A.prod B).carrier` is definitionally `A.carrier × B.carrier`, so **Mathlib's product-topology instance fires instead of the object's Scott topology** — and `IsScott` then has no instance for it. That's a real design problem, not a missing lemma. Backing out the cone and keeping what builds:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0075: PEqu product cone blocked by an instance clash -- recorded, not worked around  PEquClosed.le
+## turn — assistant 2026-08-16T15:21:52.707000-07:00
+
+**3.13 is still not proved, and I hit a structural blocker.** Pushed as **558ebf2**.
+
+## What stopped it
+
+The product projections in `PEqu` need `Topology.IsScott (A.prod B).carrier Set.univ`. Instance resolution won't find it — even though `PartialEquilogicalSpace.isScott` *is* an instance and `(A.prod B).isScott` is exactly that fact.
+
+**It's an instance clash, not a missing lemma.** `(A.prod B).carrier` is definitionally `A.carrier × B.carrier`, so Mathlib's `instTopologicalSpaceProd` competes with the object's own `topologicalSpace` field. When the product topology wins, `IsScott` of that carrier becomes a claim about the **product** topology — a different, generally strictly coarser topology than the Scott topology of the product lattice. No instance exists for it, and none should: the statement is false.
+
+This is the mirror of what I told you last turn. I said nothing needed proving about Scott topologies and products because the field asks for the Scott topology *of the product lattice*. That's still true **of the object** — what fails is that Lean can't tell which topology is meant once the carrier is syntactically a product.
+
+## The fix, and why I didn't do it
+
+The carrier of a `PEqu` object must be protected from ambient instances by a one-field type synonym, in the manner of Mathlib's own `WithLower` / `WithScott`. That's a change to `PartialEquilogicalSpace` itself, affecting **every module downstream of `PartialEquilogical.lean`** — `Restriction`, `EssSurj`, `PEquClosed`, and Theorem 3.12's proof. Doing it as a side effect of "prove 3.13" would be the wrong call; it's its own piece of work with its own risk.
+
+So I reverted the cone rather than leave broken or `sorry`'d code, and recorded the diagnosis in the module and commit.
+
+## What did land
+
+`scottContinuous_of_continuous` — the converse of r0070's bridge, proved. `PEqu` morphisms carry topological continuity while the order machinery is stated with `ScottContinuous`, so both directions are needed. Plus the r0074 objects, unchanged.
+
+## State
+
+**2351 lines, 4 `sorry`** (all in `Theorems3.lean`), 1550 jobs, 0 errors. Unchanged from last turn — this was a diagnostic turn, not a proving one.
+
+Theorem 3.13 is blocked on the `WithScott`-style refactor, **not on any mathematics**. Every mathematical ingredient is proved: `ALat` cartesian closed (r0064), the currying step for PERs (r0058), both objects (r0074), 3.12 (r0073).
+
+Want me to do the type-synonym refactor? It's the right next move, but it touches five modules and I'd rather you know that before I start.
+

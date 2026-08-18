@@ -1,0 +1,40 @@
+---
+prompt: p0203
+type: interaction
+opened: 2026-0812-10:41
+closed: 2026-0812-10:42
+subject: were-gonna-work-on-scott-bibliography-is
+session: de244442
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/de244442….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-12T10:41:44.560000-07:00
+
+We're gonna work on Scott bibliography. Is it checked out in projects?
+
+    Bash ls /Users/scott/projects
+    Bash cat /Users/scott/projects/ScottLean4/scripts/bibliography-cites.sh
+    Bash ls -la /Users/scott/projects/ScottBibliography
+    Bash git -C /Users/scott/projects/ScottBibliography log --oneline -10
+    Bash git -C /Users/scott/projects/ScottBibliography status --short --branch
+    Bash ls /Users/scott/projects/ScottBibliography/papers | wc -l; ls /Users/scott/projects/ScottBibliography/plans /Users/scott/projects/ScottBibliography/re
+## turn — assistant 2026-08-12T10:42:12.745000-07:00
+
+Yes — `/Users/scott/projects/ScottBibliography`, a separate git repo from ScottLean4.
+
+State as measured:
+
+- Branch `main`, in sync with `origin/main`, working tree clean (no modified or untracked files).
+- 5 commits, latest `2ed9a6f` "Disable Jekyll on Pages; add static index.html" — so it is also published as a GitHub Pages site (`.nojekyll`, `index.html`, a Google site-verification file).
+- 78 files under `papers/`, plus 4 large PDFs at the root (Gierz–Scott et al. 1980 Compendium, 40 MB; Scott 1982 ICALP LNCS 140, 47 MB; Scott 1982 Lectures, 64 MB; Scott 1959 Dimension in Elementary Euclidean Geometry, 29 MB) — ~180 MB total.
+- Bibliography artifacts: `scott.bib` (39 KB), `ScottBibliography.md` (11 KB) and its PDF, `ScottBibliographyCited.md` (29 KB), `MissingPapers.md` (5 KB) — commit `69be4a4` records coverage at 74/99.
+- GRASE plans/reports: rounds r0001 (4 agents, batches 1–4) and r0002 (agent5, citations). Next round would be r0003.
+
+Separately, ScottLean4 has an untracked [scripts/bibliography-cites.sh](scripts/bibliography-cites.sh) that counts, per cited surname, how many Lean modules and lines mention it — the link between the two repos.
+
+What do you want to do with it?
+

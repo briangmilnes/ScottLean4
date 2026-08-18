@@ -1,0 +1,66 @@
+---
+prompt: p0316
+type: interaction
+opened: 2026-0816-15:36
+closed: 2026-0816-15:39
+subject: keep-going
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:36:46.062000-07:00
+
+keep going
+
+## turn — assistant 2026-08-16T15:37:22.872000-07:00
+
+Wrapping the cone as a Mathlib limit. The universal property is an equality of quotient classes, so each obligation needs induction on representatives:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() s=s.replace("import
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:38:16.981000-07:00
+
+Case-name and hypothesis-generalization issues. Fixing both:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() old = s[s.index("de
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:38:39.804000-07:00
+
+**`HasBinaryProducts PEqu` is proved.** Full build and land:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("| `PEquClose
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0079: HasBinaryProducts PEqu  PEquClosed.lean 230 -> 280 lines, still 0 sorry. Step one of the thr
+## turn — assistant 2026-08-16T15:39:27.325000-07:00
+
+**`HasBinaryProducts PEqu` is proved** — pushed as **4005a40**. Step 1 of 3 for Theorem 3.13.
+
+## What landed
+
+`pequProdFan` and `pequProdIsLimit`, then the `HasBinaryProducts` instance. Every limit obligation is an equality of `MapEquiv`-**classes**, so each is discharged by `Quotient.inductionOn` on representatives and then the corresponding equation between `PEquivariant` maps:
+
+- the two beta rules — `congrArg (Quotient.mk _)` on `prodFst_comp_prodLift` / `prodSnd_comp_prodLift`
+- uniqueness — `Quotient.sound` on `prodLift_unique`
+
+That's the whole difference from `ALatProducts.lean`, where morphisms are functions and the same obligations were `rfl`.
+
+## Two Lean details
+
+`induction … using Quotient.inductionOn₂ … with | h f g` didn't bind its case variables here, so the proofs use `refine Quotient.inductionOn₂ … (fun f g => ?_)` directly. And in the uniqueness clause the two factorisation hypotheses mention the fan's projections, so they must be **reverted before inducting** or they aren't generalised along with the goal.
+
+## State
+
+**2532 lines, 4 `sorry`** (all `Theorems3.lean`), 1550 jobs, 0 errors. 13 of 14 modules fully proved.
+
+## Remaining for 3.13
+
+2. **The exponential functor** — object part done (`PartialEquilogicalSpace.exp`); morphism part is post-composition, with `scottContinuous_postcomp` proved (r0064), plus a check that post-composition respects `MapEquiv`.
+3. **The adjunction and transport across 3.12** — hom-level content done (`homRel_curry_iff`).
+
+Worth flagging before I continue: step 3's transport will hit the same `prod.functor`-vs-`Classical.choice` issue I met in `ALatClosed`, where I sidestepped it by using a concrete product functor. The `Theorems3` statement of 3.13 is phrased with Mathlib's `Limits.prod.functor`, so discharging *that exact statement* may need either `HasFiniteProducts Equ` transported too, or restating 3.13 against a concrete functor as I did for `ALat`. I'll take the concrete route unless you'd rather I match the existing statement.
+

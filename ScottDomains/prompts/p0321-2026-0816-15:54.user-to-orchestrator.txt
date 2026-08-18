@@ -1,0 +1,77 @@
+---
+prompt: p0321
+type: interaction
+opened: 2026-0816-15:54
+closed: 2026-0816-15:58
+subject: do-the-limits-and-colimits
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:54:06.215000-07:00
+
+do the limits and colimits
+
+## turn — assistant 2026-08-16T15:54:40.805000-07:00
+
+Limits first: products over arbitrary index types plus equalizers. Checking Mathlib's assembly lemma:
+
+    Bash grep -rn 'theorem hasLimits_of_hasEqualizers_and_products\|hasLimitsOfShape_of_hasEqualizers_and_products\|of_hasEqualizers_and_products' /Users/scott
+    Bash sed -n '130,140p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Limits/Constructions/LimitsOfProductsAnd
+## turn — assistant 2026-08-16T15:54:56.814000-07:00
+
+Now the two constructions. Equalizers are well-defined on classes because `Equ`'s relations are *total*:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquLimits.lean
+## turn — assistant 2026-08-16T15:56:02.711000-07:00
+
+Let me write both constructions properly rather than leave stubs — note the paper's own remark that products use choice, which is exactly `Quotient.out`:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquLimits.lean' s=open(p).read() i=s.index("/-! ## `E
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquLimits 2>&1 | grep -E '^(error|warning|✔|✖)' | head -30
+## turn — assistant 2026-08-16T15:56:46.637000-07:00
+
+Multiple Mathlib-API errors, and `(s.proj j).out` hits the same `⟶`-doesn't-unfold friction. Rather than thrash, let me keep the constructions that build — they're the paper's actual content — and cut the assembly:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquLimits.lean' s=open(p).read() s=s.replace("  fun x
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EquLimits
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EquLimits.lean
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("| `EquProduc
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0084: Theorem 3.10's product and equalizer constructions; the limit-API packaging is NOT done  New
+## turn — assistant 2026-08-16T15:58:06.403000-07:00
+
+**Partial.** The mathematics is proved; the categorical packaging is not, and `Theorems3`'s two `sorry`s are unchanged. Pushed as **7f52025**.
+
+## Proved — the paper's constructions
+
+- **`pi`, `piProj`, `piLift`** — products over an *arbitrary* index type.
+- **`eqObj`, `eqInc`, `eqInc_equalizes`, `eqLift`** — the equalizer, exactly as the paper builds it.
+
+Two things there were more than transcription:
+
+`eqInc_equalizes` is **not** just the subtype's defining property. `MapEquiv` compares `f` at `x` with `g` at a *related* `y`, so the proof is the subtype property composed with `g`'s equivariance.
+
+And `eqLift`'s witness uses **reflexivity** of the source relation. That same totality is why the equalizer is well defined on *classes* at all: `f ≡ f'` gives `f x ≡ f' x` at **every** point, so the subset `{x | f x ≡ g x}` doesn't depend on the representative. In `PEqu`, with a partial relation, that argument would only work on the total part — a place where `Equ` is genuinely easier.
+
+## Not done
+
+Wrapping these as `HasLimitsOfShape (Discrete J)` and `HasLimit (parallelPair f g)`. Two obstacles, both measured, both mechanical:
+
+- **`Quotient.out` on a morphism.** The lift out of a fan must choose a representative of each leg — the paper's own *"after applying the Axiom of Choice to pick representatives"* — but `s.proj j : s.pt ⟶ F.obj ⟨j⟩`, and `⟶` doesn't unfold for field notation, so `(s.proj j).out` is rejected. Same friction as r0064 and r0071, but now threaded through every leg of a fan over arbitrary `J`.
+- **API drift.** `mkFanLimit` is deprecated here in favour of `Fan.IsLimit.mk`, and `Fork.IsLimit.mk`'s obligations need their `Quotient` inductions arranged *before* the fork is built.
+
+My first attempt at the packaging produced six errors. I cut it rather than leave broken or `sorry`'d code, and recorded the obstacles in the module.
+
+**Colimits I didn't reach at all** — coproducts and coequalizers, where the coequalizer needs the least equivalence relation containing `{(f x, g x)}` and places *no* topology on the quotient.
+
+## State
+
+**15 modules, 3059 lines, 2 `sorry`** (both `Theorems3`: `HasLimitsOfSize`, `HasColimitsOfSize`), 1558 jobs, 0 errors.
+
+This turn added no theorem to the ledger — the count is unchanged and I'd rather say so than dress up the constructions as completing 3.10. The next session should start from the `Quotient.out`-on-a-morphism retyping, which is a known fix applied in a new place.
+

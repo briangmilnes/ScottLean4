@@ -1,0 +1,43 @@
+---
+prompt: p0196
+type: interaction
+opened: 2026-0808-12:52
+closed: 2026-0808-15:02
+subject: pull-and-open-the-continuous-lattice-com
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-08T12:52:35.561000-07:00
+
+Pull and open the continuous lattice comparison documents.
+
+    Bash git -C /Users/scott/projects/ScottLean4 pull --ff-only origin main
+    Bash code -g /Users/scott/projects/ScottLean4/ScottDomains/docs/ContinuousLatticeComparison.md:1
+    Bash open /Users/scott/projects/ScottLean4/ScottDomains/docs/ContinuousLatticeComparison.pdf
+    Read /Users/scott/projects/ScottLean4/ScottDomains/docs/ContinuousLatticeComparison.md
+    Bash ls -d /Users/scott/projects/ScottLean4/scott1972
+    Bash git -C /Users/scott/projects/ScottLean4 show b3f997a --stat -- .gitignore
+    Read /Users/scott/projects/ScottLean4/.gitignore
+## turn — assistant 2026-08-08T15:02:53.428000-07:00
+
+Pulled `628181e..b3f997a` — 139 files, 13141 insertions, fast-forward, no conflicts. Both comparison documents are open: [ContinuousLatticeComparison.md](ScottDomains/docs/ContinuousLatticeComparison.md) in VS Code, `ContinuousLatticeComparison.pdf` (66152 bytes) in the viewer.
+
+It answers the question from two turns ago with local measurement. It compares your `ScottDomains/` against Ericson's arXiv 2606.30782 artifact — the paper I found in that search is now tracked at [ScottDomains/papers/](ScottDomains/papers/). Both developments are `sorry`-free on `[propext, Classical.choice, Quot.sound]`, checked by `scripts/scott1972-verify.sh` (936 jobs, exit 0), not read off abstracts.
+
+The load-bearing findings:
+
+- **Different subjects, not rival formalizations.** Theirs: complete lattices, *continuous* (`y = ⊔{x ∣ x ≪ y}`), topological entry via injective `T₀` spaces, `D ≅ [D → D]` by inverse limit. Yours: cpos, *algebraic*, order-theoretic, no inverse limit. §1 puts it sharply — the artifact formalizes the construction Gunter & Scott deliberately decline to use.
+- **`≪` is defined differently in the two.** Theirs is `∃ U, ScottOpen U ∧ y ∈ U ∧ U ⊆ Ici x` on a `CompleteLattice`; yours is the directed-set quantification at `[Preorder α]`. Yours needs no suprema and makes `x ≪ x ↔ IsCompactElement x` hold by `Iff.rfl`. §6 names the open result: proving the two equivalent on a complete lattice is in neither development.
+- **Their function-space layer is 110 theorems / 1633 lines against your 41 / 887**, for a smaller stated result — the cost of working through Scott-open sets rather than directed sets and step functions.
+
+Also landed alongside it: `PropertiesVsTheorems.{md,pdf}`, 22 new `GunterScott90Images/` TikZ figures with PDFs — including four named `p19-*`, which are exactly the three §4.3 diagrams you asked about — six `Audit/*.lean` modules, and r0038–r0040 plans and reports.
+
+**One thing that will bite you here:** §7's reproduce commands won't run on this machine. The document depends on a `scott1972/` clone at the repo root, and it is absent — deliberately, per [.gitignore:16-21](.gitignore:16), because it pins `leanprover/lean4:v4.30.0` against this project's v4.32.2 and carries its own ~7 GB Mathlib. `scripts/scott1972-verify.sh` and `scripts/scott1972-axioms.sh` will fail until you clone it. The figures in the document are still valid — they were measured on the other machine on 2026-08-08 against commit `a8474d3`.
+
+Your 32 uncommitted lines in `Playground/Playground/CartesianClosed.lean` are still untouched.
+

@@ -1,0 +1,131 @@
+---
+prompt: p0310
+type: interaction
+opened: 2026-0816-15:06
+closed: 2026-0816-15:15
+subject: do-the-isomorphism
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:06:54.166000-07:00
+
+do the isomorphism
+
+## turn — assistant 2026-08-16T15:07:43.962000-07:00
+
+The isomorphism. Continuity of the inverse comes straight from `IsInducing`, avoiding the homeomorphism transport:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:08:38.514000-07:00
+
+Coercion ascriptions to `Set (Set E.carrier)` fail — `(witness E).carrier` doesn't reducibly unfold. Rewriting with `.1` throughout:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:09:41.007000-07:00
+
+One goal left, `X ↔ X` — `rw` only auto-closes `Eq`, not `Iff`:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:10:15.935000-07:00
+
+All pieces build. Packaging into the isomorphism and `EssSurj`:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:10:46.587000-07:00
+
+Name clash with the `sorry`'d version in `PartialEquilogical`. Removing that one — the real theorem now lives in `EssSurj`:
+
+    Bash sed -n '255,290p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PartialEquilogical.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PartialEquilogical.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:11:23.285000-07:00
+
+`asEquivalence` wants an `IsEquivalence` instance; the direct constructor is what I want:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+    Bash grep -rn 'ofFullyFaithfullyEssSurj\|isEquivalence_of_\|def Equivalence.of' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathli
+    Bash grep -rn 'class IsEquivalence\|instance.*IsEquivalence.*EssSurj\|Full.*Faithful.*EssSurj' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages
+    Bash grep -rn 'IsEquivalence' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Functor/FullyFaithful.lean /Users
+    Bash grep -rln 'class IsEquivalence' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/
+    Bash grep -rn -B3 -A8 'class IsEquivalence' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/EquivalenceRelation
+    Bash grep -rn 'Functor.IsEquivalence\b' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Equivalence.lean | head
+    Bash sed -n '608,660p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/CategoryTheory/Equivalence.lean
+## turn — assistant 2026-08-16T15:12:42.260000-07:00
+
+`IsEquivalence` isn't auto-derived from the three — it must be declared, and its fields default to `infer_instance`:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:13:14.312000-07:00
+
+Two problems: an empty `where` and two consecutive docstrings. Reordering:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.EssSurj
+## turn — assistant 2026-08-16T15:13:40.742000-07:00
+
+**Theorem 3.12 is proved** — `PEqu ≌ Equ`, 0 `sorry`. Full build:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/EssSurj.lean /Users/scott/projects/ScottLean4/ScottDomains/ScottDom
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0073: Theorem 3.12 proved -- Equ and PEqu are equivalent  EssSurj.lean 107 -> 202 lines, 0 sorry. 
+## turn — assistant 2026-08-16T15:15:15.607000-07:00
+
+**Theorem 3.12 is proved** — `PEqu ≌ Equ`. Pushed as **5b9f331**.
+
+## The isomorphism came cheaper than I predicted
+
+Last turn I said the inverse would need `Equiv.ofInjective` → `toHomeomorphOfIsInducing` → `Homeomorph.setCongr`. **That was pessimistic.** Continuity of `witnessInv` falls straight out of `IsInducing`: an open `U` of `ℰ` is `nbhdFilter ⁻¹' V` for some Σ-open `V` by Theorem 3.6, and then
+
+```
+witnessInv ⁻¹' U = Subtype.val ⁻¹' V
+```
+
+open in the subspace. No homeomorphism, no transport across the set equality.
+
+The rest: `witnessInv_eq` records that the `Exists.choose` is harmless because `T₀` makes the point unique; both composites are identities *as classes*; then `EssSurj`, `IsEquivalence`, `asEquivalence`.
+
+## §3's structural content is complete
+
+Kernel-checked: **Definitions 3.2, 3.4, 3.9, 3.11** and **Theorems 3.5, 3.6, 3.7, 3.8, 3.12**, plus the categories `Equ`, `PEqu`, `ALat`.
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic` · `SigmaTopology` · `Extension` | 584 | **0** |
+| `PowersetRetract` · `PartialEquilogical` | 447 | **0** |
+| `Restriction` · `EssSurj` | 357 | **0** |
+| `CartesianClosure` · `ALat` · `ProductAlgebraic` · `ALatProducts` · `ALatClosed` | 703 | **0** |
+| `Theorems3` | 161 | 4 |
+| **Total** | **2252** | **4** |
+
+1549 jobs, 0 errors. **12 of 13 modules fully proved**; library `sorry` 10 → 7 across the session.
+
+## Four Lean details, one build iteration each
+
+- Type ascriptions to `Set (Set E.carrier)` fail — the witness carrier doesn't reducibly unfold — so projections must be `.1`.
+- `rw` auto-closes a trailing `Eq` by reflexivity but **not** an `Iff`.
+- `Functor.IsEquivalence` is **not** derived automatically from Full + Faithful + EssSurj; it must be declared.
+- An instance whose fields all default needs `:= {}`, not an empty `where`.
+
+## What's left
+
+`Theorems3.lean`'s four holes: `theorem_3_10` (limits/colimits/finite products in `Equ`) and `theorem_3_13` (`Equ` cartesian closed). **3.13 should now transport across 3.12 from the `ALat` side, which is complete** — that's the payoff of the last several commits. §4 and §5 remain untouched and mapped in the README.
+

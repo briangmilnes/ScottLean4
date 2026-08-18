@@ -1,0 +1,124 @@
+---
+prompt: p0293
+type: interaction
+opened: 2026-0816-13:06
+closed: 2026-0816-13:15
+subject: show-equ-is-carftesian-closed
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T13:06:27.174000-07:00
+
+show Equ is carftesian closed
+
+## turn — assistant 2026-08-16T13:07:02.243000-07:00
+
+This is the paper's headline theorem, and its proof runs through 3.6, 3.7, 3.8 and 3.12 — none of which are stated yet. Before I estimate that, let me check what this package already has; `Currying.lean` and `FunctionSpaceDomain.lean` may carry most of the work.
+
+    Bash head -40 /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Currying.lean
+    Bash head -40 /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/FunctionSpaceDomain.lean
+## turn — assistant 2026-08-16T13:07:29.107000-07:00
+
+Real machinery exists — `Currying.lean` has `D → (E → F) ≅ (D × E) → F`, `FunctionSpaceDomain.lean` has `IsAlgebraic (ScottHom α β)`. Checking what Mathlib gives for the Σ-topology, which is where Theorem 3.5 lives:
+
+    Bash grep -n 'T0Space\|specialization\|IsScott.instT0\|scottTopology' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Topology
+    Bash grep -rn 'Specializes\|specializationOrder\|isUpperSet_of_isOpen\|IsOpen.isUpperSet' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/math
+## turn — assistant 2026-08-16T13:08:29.643000-07:00
+
+Mathlib proves `Topology.IsScott.instT0Space`. Let me read the API precisely before writing Theorem 3.5.
+
+    Bash sed -n '150,215p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Topology/Order/ScottTopology.lean
+    Bash grep -n 'isClosed_Iic\|lemma isOpen_compl_Iic\|instance (priority := 90) : T0Space' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathl
+    Bash sed -n '218,236p;265,280p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Topology/Order/ScottTopology.lean
+## turn — assistant 2026-08-16T13:09:14.493000-07:00
+
+Mathlib gives Theorem 3.5's T₀ half outright. Writing the module:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/SigmaTopology.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.SigmaTopology
+## turn — assistant 2026-08-16T13:10:23.612000-07:00
+
+Theorem 3.5 is proved, both halves. Before moving on, let me discharge that `sorry` — it's the one thing tying the file to the paper's literal Definition 3.4.
+
+    Bash grep -n 'def DirSupInacc\b\|def DirSupInaccOn\|lemma dirSupInaccOn_univ\|theorem dirSupInaccOn_univ' /Users/scott/projects/ScottLean4/ScottDomains/.la
+    Bash sed -n '40,66p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Order/DirSupInacc.lean
+    Bash sed -n '40,66p' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Order/DirSupClosed.lean
+    Bash grep -rn 'theorem DirectedOn.exists_mem_upperBounds\|exists_mem_upperBounds_of_finite\|lemma DirectedOn.finset_le\|Set.Finite.exists_le' /Users/scott/
+    Bash grep -rn 'DirectedOn.*Finite\|Finite.*DirectedOn' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathlib/Mathlib/Order/Directed.lean
+    Bash grep -rn 'DirectedOn' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean /Users/scott/projects/ScottLean4/ScottDomains/ScottDomain
+## turn — assistant 2026-08-16T13:11:42.246000-07:00
+
+Leaving that bridge `sorry`'d — the missing piece is a finite-subset-of-a-directed-set upper bound lemma that neither Mathlib nor this package appears to have. Moving to Definition 3.11. Checking which `IsAlgebraic` the package uses, since Theorem 3.8 will need to interop with `FunctionSpaceDomain`:
+
+    Bash grep -rn 'def IsAlgebraic\|class IsAlgebraic\|structure IsAlgebraic\|abbrev IsAlgebraic\|def BoundedComplete\|class BoundedComplete' /Users/scott/proj
+    Bash sed -n '112,130p;164,178p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Bash grep -rn 'instance.*CompleteLattice.*CompletePartialOrder\|toCompletePartialOrder' /Users/scott/projects/ScottLean4/ScottDomains/.lake/packages/mathli
+## turn — assistant 2026-08-16T13:12:35.200000-07:00
+
+`CompleteLattice.toCompletePartialOrder` exists, so the package's `IsAlgebraic` applies to lattices. Writing Definition 3.11 and the `PEqu` category:
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PartialEquilogical.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PartialEquilogical
+## turn — assistant 2026-08-16T13:13:39.711000-07:00
+
+Line 232 — the `≌` notation needs `Mathlib.CategoryTheory.Equivalence`, and `CategoryTheory` isn't open there (my `open … in` scoped to one declaration).
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PartialEquilogical.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PartialEquilogical.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PartialEquilogical
+## turn — assistant 2026-08-16T13:14:09.613000-07:00
+
+`PEqu` builds with its category laws proved. Full library check and line counts:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/*.lean
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+## turn — assistant 2026-08-16T13:15:26.208000-07:00
+
+I have to be straight with you about the goal before reporting progress.
+
+**The entire paper is not a one-session task, and I won't pretend otherwise.** It's 24 pages of dense category theory: §3 alone needs `ALat` cartesian closed, §4 needs a split closed comprehension category and a fibrational model of dependent type theory, §5 needs Berger's totality theory. Realistically several thousand lines. What I can do is drive it link by link with the build green and the tally honest, which is what I did here — and keep going in subsequent turns.
+
+## Progress this turn
+
+| Module | Lines | `sorry` | Contents |
+| --- | ---: | ---: | --- |
+| `Basic.lean` | 201 | **0** | Def 3.9; category `Equ` |
+| `SigmaTopology.lean` | 128 | 1 | Def 3.4; **Theorem 3.5 proved** |
+| `PartialEquilogical.lean` | 236 | 3 | Def 3.11; **category `PEqu` proved**; 3.6, 3.7, 3.12 stated |
+| `Theorems3.lean` | 161 | 4 | 3.10, 3.13 stated |
+| **Total** | **726** | **8** | |
+
+Whole library: **1536 jobs, 0 errors.**
+
+**Theorem 3.5 is proved, both halves.** The T₀ half by citation — Mathlib's `Topology.IsScott.instT0Space` already has it, so the right move was to locate it, not reprove it. The specialization half is two steps: forward by instantiating at `(Iic y)ᶜ`, open because `Iic y` is Scott-closed; backward because Scott opens are upper sets.
+
+**`PEqu` is proved** (Def 3.11). Worth noting why it was cheap: `Basic.lean`'s `mapEquiv_trans` derives `A.Rel x x` from `A.Rel x y` by symmetry-then-transitivity rather than reading it off reflexivity. I wrote it that way deliberately, and the identical argument then survives the weakening to a *partial* equivalence relation — `PartialEquilogical.lean` is a near-copy rather than new mathematics.
+
+## Why 3.13 was not the thing to attack
+
+Your ask was "show Equ is cartesian closed." **It isn't provable directly in `Equ`** — `Equ` has no evident exponential, which is precisely why `Top₀` fails to be cartesian closed. That's the paper's entire device. The real chain:
+
+```
+3.5 ─┬─→ 3.6 (Embedding) ──┐
+     └─→ 3.7 (Extension) ──┼─→ 3.12 (Equ ≃ PEqu) ──┐
+                3.8 (ALat ccc) ───────────────────┴─→ 3.13
+```
+
+3.13 is the **last** link to fall. So I spent the turn on 3.5 (proved) and on stating 3.6, 3.7, 3.12 with real content, which is what 3.13 will be proved *through*.
+
+## Two concrete findings for the next step
+
+**A missing lemma, located.** `sigmaOpen_iff_isOpen` — bridging Definition 3.4's literal wording (arbitrary `S`, finite `S₀`) to Mathlib's directed-set Scott topology — needs "a finite subset of a directed set has an upper bound inside it." I searched `Mathlib/Order/Directed.lean`, `Mathlib/Order/Bounds/Basic.lean`, `ScottDomains/Domain.lean`, `IdealCompletion.lean`: **not there.** It has to be proved by induction on the finite set. That's the next concrete task, and it's small.
+
+**Theorem 3.8 is largely already in this package.** `FunctionSpaceDomain.lean` proves `IsAlgebraic (ScottHom α β)` — the exponential's carrier being an object. `Currying.lean` proves `D → (E → F) ≅ (D × E) → F`, joint-vs-separate continuity included. That's most of `ALat` cartesian closed. I defined `PEqu` over the package's `ScottDomains.IsAlgebraic` rather than a Mathlib equivalent specifically so this interoperates.
+
+`README.md` in that directory is now the program tracker — proved / owed / not-yet-stated, with §4's two *negative* results flagged so they get formalized as such rather than skipped.
+
+Not committed. Say the word and I'll push this, then continue with the finite-directed-subset lemma and Theorem 3.8 via `Currying.lean`.
+

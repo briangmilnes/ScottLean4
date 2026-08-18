@@ -1,0 +1,41 @@
+---
+prompt: p0188
+type: interaction
+opened: 2026-0807-12:26
+closed: 2026-0807-12:26
+subject: where-are-lemma-five-and-lemma-six
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-07T12:26:02.926000-07:00
+
+Where are lemma five and lemma six?
+
+    Bash grep -rn -E "^(theorem|lemma) (lem5|lemma5|thm6|theorem6)" /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+    Bash grep -rn -i -E "Lemma 5|Theorem 6|Lemma 6" /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/ --include=*.lean
+    Bash grep -rn -i -E "Lemma 5|Theorem 6|Lemma 6" --include='*.lean' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/
+    Bash grep -n -E "^(theorem|lemma|protected theorem)" /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/FinitaryProjection.lean
+    Read /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Theorem6.lean
+## turn — assistant 2026-08-07T12:26:30.768000-07:00
+
+There is no Lemma 6 in the paper — numbered result 6 is **Theorem 6**. The inventory's result list ([PaperInventory.md:397](ScottDomains/docs/PaperInventory.md:397)) has Lemmas 4, 5, 8–10, 13, 17, 19, 20, 23, 24, 28, 30 and Theorems 3, 6, 7, 11, …; 6 and 7 are theorems, and the lemma numbering jumps 5 → 8.
+
+**Lemma 5** — the basis of `im(p)` — is [FinitaryProjection.lean](ScottDomains/ScottDomains/FinitaryProjection.lean), landed r0014. Split into its two sentences:
+
+| Sentence | Declaration | Location |
+|---|---|---|
+| compacts of `im(p)` are `im(p) ∩ K(D)` | `IsProjection.isCompactElement_iff` | [FinitaryProjection.lean:58](ScottDomains/ScottDomains/FinitaryProjection.lean:58) |
+| `im(p) ∩ K(D) ◁ K(D)` | `IsFinitaryProjection.isNormalIn_compacts` | [FinitaryProjection.lean:101](ScottDomains/ScottDomains/FinitaryProjection.lean:101) |
+| supporting: `im(p)` is a domain | `IsFinitaryProjection.domain` | [FinitaryProjection.lean:92](ScottDomains/ScottDomains/FinitaryProjection.lean:92) |
+
+The first sentence needs only `IsProjection`, not finitarity — which is why `PRep.lean` and `Skeleton/Lemma17.lean` cite it separately.
+
+**Theorem 6** — the correspondence between normal substructures of `K(D)` and finitary projections on `D` — is `theorem6` at [Theorem6.lean:175](ScottDomains/ScottDomains/Theorem6.lean:175), landed r0016. It is stated as a conjunction of five facts (both maps land in the other's domain, both round trips, both monotonicity directions) rather than a bundled `OrderIso`, per the docstring at :168. Its two halves were built first in [NormalProjection.lean:105](ScottDomains/ScottDomains/NormalProjection.lean:105) (`im(p_N) ∩ K(D) = N`, r0015) and restated as an actual order isomorphism in [FinitaryProjectionPoset.lean:579](ScottDomains/ScottDomains/FinitaryProjectionPoset.lean:579).
+
+Want these opened in VS Code alongside the thirteen?
+

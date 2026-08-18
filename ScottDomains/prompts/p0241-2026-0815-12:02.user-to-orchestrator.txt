@@ -1,0 +1,41 @@
+---
+prompt: p0241
+type: interaction
+opened: 2026-0815-12:02
+closed: 2026-0815-12:02
+subject: commit-push
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T12:02:02.195000-07:00
+
+commit push
+
+    Bash git -C /Users/scott/projects/EricsonPapers status --short --branch
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T12:02:18.347000-07:00
+
+Nothing to commit — tree was already clean. Pushed:
+
+```
+a828f48..de01fef  main -> main
+```
+
+Four commits now on `origin/main`:
+
+| commit | contents |
+| --- | --- |
+| `5a60ec2` | §3.1 `onePoint` — one-point domain 𝟙 |
+| `23a9052` | §4 enumeration — 𝕊 has exactly three opens |
+| `5b9102c` | §3.3 `flatBool` — flat 𝔹⊥ |
+| `de01fef` | §3.4 `vertNat` — vertical naturals ω+1 |
+
+`main` level with `origin/main`, working tree clean. `lake -d ~/projects/EricsonPapers build`: 4 jobs, zero errors, zero warnings, zero `sorry`; catalogue §8 at 4 of 16.
+
+On your machine `git pull` fast-forwards. Expect the build to take a moment longer than before — `Domains/ScottDomainExamples.lean` has grown from 19 lines to roughly 740.
+

@@ -1,0 +1,84 @@
+---
+prompt: p0295
+type: interaction
+opened: 2026-0816-13:21
+closed: 2026-0816-13:25
+subject: 38-through-curryinglean-first
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T13:21:45.709000-07:00
+
+3.8 through Currying.lean first
+
+    Read /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Currying.lean
+    Bash sed -n '112,200p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Currying.lean
+## turn — assistant 2026-08-16T13:22:39.153000-07:00
+
+`scottHomCurry : ScottHom α (ScottHom β γ) ≃o ScottHom (α × β) γ` is exactly the bijection Theorem 3.13 needs. The paper says the only remaining content is that it preserves the PER — "self-proving, just a matter of unpacking the definitions." Let me hold it to that.
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/CartesianClosure.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.CartesianClosure
+## turn — assistant 2026-08-16T13:23:44.823000-07:00
+
+Built, 0 `sorry`. But one of my own names overclaims — `Theorem38ALatCartesianClosed` holds only the currying bijection, not cartesian closure of `ALat`. Fixing that before it propagates:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/CartesianClosure.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.CartesianClosure
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/*.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0058: Theorem 3.13's currying step proved via Currying.lean; Theorem 3.8 split into what is done a
+## turn — assistant 2026-08-16T13:25:32.117000-07:00
+
+Pushed **bb1e562**. `Currying.lean` carried more than expected.
+
+## The result
+
+`ScottDomains/Currying.lean` already proves `scottHomCurry : ScottHom α (ScottHom β γ) ≃o ScottHom (α × β) γ` — an *order* isomorphism, with the joint-versus-separate continuity argument (the genuinely hard part) done. That is precisely the first half of the paper's three-sentence proof of 3.13.
+
+So the only thing left was the paper's second half:
+
+> It only remains to show that the isomorphism preserves the partial equivalence relation. This is a "self-proving" theorem, in the sense that once the question is stated it is just a matter of unpacking the definitions.
+
+**That is now proved**, as `scottHomCurry_homRel`. And the paper is right that it's self-proving — the two sides are the same quantifier prefix with the pair `(x, u)` split or joined:
+
+```
+∀ x y, rX x y → ∀ u v, rY u v → rZ (g₁ x u) (g₂ y v)
+∀ p q, (rX p.1 q.1 ∧ rY p.2 q.2) → rZ (g₁ p.1 p.2) (g₂ q.1 q.2)
+```
+
+The whole proof is one term. `CartesianClosure.lean`: 154 lines, **0 `sorry`**.
+
+I took `ProdRel`/`HomRel` with the relations as plain arguments rather than read off `PartialEquilogicalSpace`s. Bundling would have been circular — the exponential being an *object* needs `IsAlgebraic (ScottHom X Y)`, which `FunctionSpaceDomain` gives only for a bounded-complete codomain. The preservation result doesn't need that, so it's proved without it.
+
+## A naming error I caught in myself
+
+I first called the proved statement `Theorem38ALatCartesianClosed`. It isn't — it's the currying bijection, not cartesian closure of `ALat`. Renamed to `Theorem38CurryingBijection` before committing. That's the same failure mode the `regular`/`WellPowered` discipline elsewhere in this directory exists to prevent, and it nearly went in.
+
+## What Theorem 3.8 now owes — packaging, not mathematics
+
+1. **A bundled `ALat` category** with finite products and the adjunction assembled from `scottHomCurry`. Until `ALat` exists, the sentence "`ALat` is cartesian closed" cannot be given a type in Lean at all.
+2. **A `BoundedComplete` instance for `CompleteLattice`**, so `FunctionSpaceDomain`'s `IsAlgebraic (ScottHom X Y)` applies. Every complete lattice is bounded complete; the instance just isn't in the package. One instance, not a proof.
+
+## State
+
+| Module | Lines | `sorry` |
+| --- | ---: | ---: |
+| `Basic.lean` | 201 | **0** |
+| `SigmaTopology.lean` | 194 | **0** |
+| `PartialEquilogical.lean` | 258 | 3 |
+| `CartesianClosure.lean` | 154 | **0** |
+| `Theorems3.lean` | 161 | 4 |
+| **Total** | **968** | **7** |
+
+1537 jobs, 0 errors. Three of five modules fully proved.
+
+Next I'd do the `BoundedComplete` instance and bundle `ALat` — that closes 3.8 and is mostly mechanical — or switch to Theorem 3.7 (Extension), which 3.6 and 3.12 both need. Your call.
+

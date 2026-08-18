@@ -1,0 +1,58 @@
+---
+prompt: p0131
+type: interaction
+opened: 2026-0806-15:48
+closed: 2026-0806-15:51
+subject: eliminate-them-but-by-commenting-out-i-h
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T15:48:54-07:00
+
+Eliminate them but by commenting out. I have shit tot learn there.
+
+## turn — assistant 2026-08-06T15:49:17-07:00
+
+Commenting out, not deleting. One correction first: `singleton_bot_isNormalIn` I mis-classified — it is Lemma 4.4 content (`{⊥}` must be *in* `P(C)` for it to be the least element), so it stays. That leaves six.
+
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Domain.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ScottHom.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/ScottHom.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/StepFunction.lean
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Projection.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | grep -B2 -A8 
+## turn — assistant 2026-08-06T15:50:36-07:00
+
+Clean build — so none of the three `@[simp]` lemmas was firing implicitly either. That's the measurement that matters, since "unreferenced by name" doesn't rule out `simp` using them.
+
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains; echo "grep-counted (includes commented-out):"; grep -c '^theorem\|^@\[simp\] theorem\|^
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash cd /home/milnes/projects/ScottLean4; scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md ScottDomains/docs 2>&1 | tail -1; scripts/gitcp.sh "r0020: 
+## turn — assistant 2026-08-06T15:51:40-07:00
+
+Done and pushed as `15c4d37`. Six commented out in place, each with a note on why it exists and what's worth reading in it:
+
+| # | Theorem | File | The note says |
+| -- | ------- | ---- | ------------- |
+| 1 | `mem_compacts` | `Domain.lean` | membership in a `setOf` is *definitionally* the predicate — hence `Iff.rfl` |
+| 2 | `sSup_compactsBelow` | `Domain.lean` | the idiom for turning "is a least upper bound" into "equals `sSup`": `IsLUB.unique` against `DirectedOn.isLUB_sSup`. Unused because every proof works with `IsLUB` directly — it needs no `SupSet` and transfers across subtypes |
+| 3 | `toFun_eq_coe` | `ScottHom.lean` | the Mathlib idiom that stops `simp` leaving goals in terms of the raw structure field |
+| 4 | `coe_const` | `ScottHom.lean` | `const` *is* used — as `⊥` and as the `sSup` junk value — but always as a term, never rewritten |
+| 5 | `step_mono` | `StepFunction.lean` | shortest demonstration that the adjunction is the only tool: one `mpr` and a rewrite. Unused because `step_le_iff` against an arbitrary `f` is strictly more general |
+| 6 | `isProjection_comp` | `Projection.lean` | a real fact the paper alludes to, and the note flags the workaround in its statement — there is no composition on `ScottHom`, so the composite is passed in with a defining equation. First customer if §4 needs it |
+
+**One correction to my own audit:** I had listed `singleton_bot_isNormalIn` among the seven. It isn't waste — it is Lemma 4.4 content, since `{⊥}` has to be *in* `P(C)` for it to be the least element. It stays. So six, not seven.
+
+The build is byte-for-byte unchanged, which settles the open question about the three `@[simp]` lemmas: they were not firing implicitly either, so nothing depended on them silently.
+
+Live count is now **120 theorems**, with the 6 preserved as commented reading material. `PaperInventory.md` records the audit — 16 unreferenced, nine terminal by design, six speculative — and the PDF is regenerated.
+
+Next round is currying: `D → (E → F) ≅ (D × E) → F`, Lemma 8's fourth part, which turns on the equivalence of joint and separate Scott continuity.
+

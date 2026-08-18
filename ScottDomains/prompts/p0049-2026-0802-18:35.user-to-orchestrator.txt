@@ -1,0 +1,46 @@
+---
+prompt: p0049
+type: interaction
+opened: 2026-0802-18:35
+closed: 2026-0802-18:35
+subject: how-do-i-type-n-for-the-natural-numbers
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T18:35:19.127000-07:00
+
+how do I type N for the natural numbers?
+
+## turn — assistant 2026-08-02T18:35:38.034000-07:00
+
+In the Lean 4 VS Code editor you type Unicode with **backslash abbreviations**. For ℕ:
+
+**Type `\N` then press Space (or Tab)** → it converts to **ℕ**.
+
+(Alternatives that also work: `\nat` or `\bbN` — "blackboard-bold N".)
+
+How the mechanism works:
+- Type **`\`** to start an abbreviation, then the name; a little suggestion popup appears. **Space, Tab, or Enter commits** it to the symbol. (If you type `\N` and then a letter that would form a different abbreviation, keep going or hit Space to force the conversion.)
+- The same pattern gives you the other number types you'll use constantly:
+
+| Symbol | Type |
+|---|---|
+| ℕ | `\N` |
+| ℤ | `\Z` |
+| ℚ | `\Q` |
+| ℝ | `\R` |
+| ℂ | `\C` |
+| → | `\to` or `\r` |
+| ∀ | `\forall` or `\all` |
+| ∃ | `\exists` or `\ex` |
+| ≤ | `\le` |
+| ∧ / ∨ | `\and` / `\or` |
+| ⊢ | `\vdash` |
+
+Handy trick: **hover over any symbol** already in a file and VS Code shows you the abbreviation to type it. So in your `Scratch.lean`, you could write `example (n : ℕ) : n + 0 = n := by simp` — type `ℕ` as `\N␣`.
+

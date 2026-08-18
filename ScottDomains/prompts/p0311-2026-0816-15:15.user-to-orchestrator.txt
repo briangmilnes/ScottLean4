@@ -1,0 +1,65 @@
+---
+prompt: p0311
+type: interaction
+opened: 2026-0816-15:15
+closed: 2026-0816-15:18
+subject: do-313
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:15:47.365000-07:00
+
+do 3.13
+
+## turn — assistant 2026-08-16T15:16:27.635000-07:00
+
+Before starting: 3.13 is **not** a short step. My `ALatClosed` proves cartesian closure for `ALat` (algebraic lattices, plain maps) — but the paper transports to `Equ` through **`PEqu`**, which I have not yet shown cartesian closed. That needs products and exponentials *in `PEqu`* with its quotient morphisms, then transport across 3.12. Let me start with the objects and the currying bijection, which is the core.
+
+    Write /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:17:07.991000-07:00
+
+Builds, 0 `sorry`. Clearing the five unused-binder warnings:
+
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Edit /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0074: the product and exponential objects of PEqu  New PEquClosed.lean (99 lines, 0 sorry). Ground
+## turn — assistant 2026-08-16T15:18:28.381000-07:00
+
+**3.13 is not proved.** I built its groundwork and hit a scope issue I should have flagged before starting — pushed as **4c1cb61**.
+
+## The scope issue
+
+I said last turn that "3.13 should now transport across 3.12 from the `ALat` side, which is complete." **That was wrong.** `ALatClosed.lean` proves cartesian closure of **`ALat`** — algebraic lattices with *plain* Scott-continuous maps. `PEqu` is a different category: its objects carry a partial equivalence relation and its morphisms are `MapEquiv`-*classes*. 3.13 doesn't follow from `ALat` directly; the paper does the work in `PEqu` and transports from there.
+
+## What landed
+
+`PEquClosed.lean`, 99 lines, 0 `sorry`:
+
+- **`PartialEquilogicalSpace.prod`** — product lattice with `ProdRel`. Algebraic from `isAlgebraic_prod` (r0062).
+- **`PartialEquilogicalSpace.exp`** — the `ScottHom` lattice with `HomRel`. Complete lattice from r0061, algebraic from r0059. Transitivity of `HomRel` again derives reflexivity-at-a-point from `A.Rel x y` rather than assuming it — the design choice from the very first module still paying off.
+- **`homRel_curry_iff`** — the paper's "self-proving" step restated at the bundled objects, saying the product and exponential relations match under `scottHomCurry`.
+
+One thing worth noting: in both objects the Σ-topology is **chosen**, not derived. The `PEqu` field asks for the Scott topology *of the lattice*, so `Topology.scott` is supplied and `IsScott` holds by `rfl`. No claim about how Scott topologies interact with products was needed — which is fortunate, since the general claim is false.
+
+## What 3.13 still needs
+
+1. **Binary products in `PEqu` as a limit.** The object exists; the fan and its universal property don't. Morphisms are quotients, so the universal property is an equality *of classes* — the `Basic.lean` pattern, not the `ext`-then-`rfl` of `ALatProducts.lean`.
+2. **The exponential functor.** Morphism part is post-composition; `scottContinuous_postcomp` is proved (r0064), but it also needs a check that post-composition respects `MapEquiv`.
+3. **The adjunction and transport across 3.12.** The hom-level content is done.
+
+## State
+
+**2351 lines, 4 `sorry`** (all in `Theorems3.lean`: 3.10's three parts and 3.13), 1550 jobs, 0 errors. 13 of 14 modules fully proved.
+
+Say go and I'll take the three steps above; realistically that's the same shape of work as r0059–r0064 took for `ALat`.
+

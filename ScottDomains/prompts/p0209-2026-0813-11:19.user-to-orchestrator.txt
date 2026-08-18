@@ -1,0 +1,59 @@
+---
+prompt: p0209
+type: interaction
+opened: 2026-0813-11:19
+closed: 2026-0813-11:22
+subject: open-overview-for-me
+session: de244442
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/de244442….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-13T11:19:50.322000-07:00
+
+Open overview for me.
+
+    mcp__Claude_Browser__navigate 
+    Bash grep -c '<section' /Users/scott/projects/ScottBibliography/docs/overview.html
+    Read /Users/scott/projects/ScottBibliography/docs/overview.html
+    Bash grep -c 'class="card"' /Users/scott/projects/ScottBibliography/docs/overview.html
+    Bash grep -o 'class="badge b-[a-z]*"' /Users/scott/projects/ScottBibliography/docs/overview.html | sort | uniq -c
+    Read /Users/scott/projects/ScottBibliography/docs/overview.html
+    Write /private/tmp/claude-501/-Users-scott-projects-ScottLean4/de244442-6a72-4a69-9e87-74015efc226d/scratchpad/overview-stats.sh
+    Bash bash /private/tmp/claude-501/-Users-scott-projects-ScottLean4/de244442-6a72-4a69-9e87-74015efc226d/scratchpad/overview-stats.sh
+    mcp__Claude_Browser__get_page_text 
+## turn — assistant 2026-08-13T11:20:32.324000-07:00
+
+My path check had a bug — BSD `sed` doesn't take `\?`, so the prefix never got stripped and everything read as missing. Fixing and re-running:
+
+    Edit /private/tmp/claude-501/-Users-scott-projects-ScottLean4/de244442-6a72-4a69-9e87-74015efc226d/scratchpad/overview-stats.sh
+    Bash open /Users/scott/projects/ScottBibliography/docs/overview.html
+    Bash bash /private/tmp/claude-501/-Users-scott-projects-ScottLean4/de244442-6a72-4a69-9e87-74015efc226d/scratchpad/overview-stats.sh
+    Bash ls /Users/scott/projects/ScottBibliography/papers/Scott-2013-Homotopy-Type-Theory.pdf
+    Bash grep -c '^ *{n:.*pdf:null' /Users/scott/projects/ScottBibliography/docs/overview.html
+## turn — assistant 2026-08-13T11:22:05.405000-07:00
+
+I opened it in your default browser with `open` — it should be up now.
+
+**Why the preview pane showed it wrong:** the pane renders files outside the project folder as static snapshots, and this page has no static content to snapshot. `<main id="list">` ([overview.html:123](../ScottBibliography/docs/overview.html:123)) is empty in the source; all 103 entries are built at runtime by the `<script>` from the `BOOKS` and `PAPERS` array literals. With the script not running you get the header, the search box, and nothing else. `index.html` rendered fine because its rows are literal HTML. In a real browser the search box, the All/Held/Missing/Has abstract filters, and the cards all work.
+
+**What the page contains** — measured from the data arrays, not the DOM:
+
+| | count |
+|---|---|
+| entries | 103 (4 books + 99 papers) |
+| held (`pdf` non-null) | 77 — 3 of 4 books, 74 of 99 papers |
+| not held | 26, each with a retrieval route noted |
+| verbatim abstracts | 24 |
+| DOIs | 64 |
+| secondary PDFs (`pdf2`, the PRG-7 and PRG-19 precursors) | 2 |
+
+**One broken link.** Every `pdf` path resolves from `docs/` except book entry `d`, Homotopy Type Theory ([overview.html:140](../ScottBibliography/docs/overview.html:140)): it points to `../Scott-2013-Homotopy-Type-Theory.pdf`, but the file is at `papers/Scott-2013-Homotopy-Type-Theory.pdf`. `index.html` links it correctly, so the fix is `../` → `../papers/` in that one entry.
+
+Also worth noting for the numbers you publish: this page counts 74 of 99 papers held, while commit `dbecf9c` and `ScottBibliography.md` say 77 of 99. The three 1956 papers that commit added are still recorded as `pdf:null` here (entries #2, #3, #4, lines 145–147) even though the PDFs are now in `papers/` — `overview.html` was written against the pre-pull state and never updated.
+
+Want me to fix both — the HoTT path and the three 1956 entries — and push?
+

@@ -1,0 +1,38 @@
+---
+prompt: p0198
+type: interaction
+opened: 2026-0808-15:04
+closed: 2026-0808-15:05
+subject: i-believe-the-scott-bibliography-is-out
+session: 7e4dcecc
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/7e4dcecc….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-08T15:04:55.010000-07:00
+
+I believe the Scott bibliography is out in projects Scott bibliography.
+
+    Bash ls -d /Users/scott/projects/*ibliograph* /Users/scott/projects/*Scott*
+    Bash ls /Users/scott/projects/
+    Bash find /Users/scott -maxdepth 3 -iname "*biblio*" -not -path "*/.lake/*" -not -path "*/Library/*"
+## turn — assistant 2026-08-08T15:05:53.296000-07:00
+
+Not on this machine. `/Users/scott/projects/` holds seven directories — `APAS-VERUS`, `ComputAItionalThinking`, `GRASE`, `RustSemantics`, `ScottLean4`, `rocq`, `verus` — and none is a bibliography. A case-insensitive search for `*biblio*` across your home directory to depth 3 returned nothing either (the output is only permission errors from `Library/`, no matches).
+
+It isn't inside the repo under another name, either: the earlier `find` over `ScottLean4` turned up no `.bib` outside Mathlib's vendored copies, and no `\bibitem` in any of the four Scott notes.
+
+It's also not listed in [.gitignore](.gitignore) — `scott1972/`, the tutorials, `LeanEuclid` and `ComputAItionalThinking` each have an entry explaining they're cloned locally and deliberately not vendored. A bibliography has no such entry, so nothing in the repo records that it's expected to be present.
+
+Most likely it lives only on the machine you normally write this repo from, and this checkout is fresh.
+
+Two things would let me get to it:
+
+1. **The exact directory name**, if it's something I wouldn't guess from "Scott bibliography" — I searched for `*biblio*` and `*Scott*` under `projects/`.
+2. **Whether it's a git repo I should clone**, and from where. If it is, it probably wants the same treatment as `scott1972/` — clone at the repo root, add a `.gitignore` entry saying why it isn't vendored — so a future fresh checkout knows it's missing rather than silently having nothing.
+
+I also left an unrun script at [scripts/bibliography-cites.sh](scripts/bibliography-cites.sh) from the approach you interrupted — it counts, per work in `papers/`, how many Lean modules cite it. Say the word and I'll delete it, or keep it if a per-work citation count is still useful once the real bibliography is in hand.
+

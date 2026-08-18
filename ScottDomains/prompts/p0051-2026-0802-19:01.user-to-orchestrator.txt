@@ -1,0 +1,73 @@
+---
+prompt: p0051
+type: interaction
+opened: 2026-0802-19:01
+closed: 2026-0802-19:37
+subject: so-i-would-like-to-test-the-lean-to-late
+session: 88e3cea7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/88e3cea7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-02T19:01:29.663000-07:00
+
+So I would like to test the Lean to latex to viewer and then plotting. Find one of Dana's paper's formulations and latex it for me. Make a scripts directory also. We're going to bundle this up to help dana and the next AI instance.
+
+## turn — assistant 2026-08-02T19:04:22.341000-07:00
+
+Good — this is a great thing to lock in, and MacTeX is ready. Let me build a reusable **Lean → LaTeX → PDF** script (the pipeline you want to bundle), run it on one of Dana's *complete* formalizations, and open the result. I'll pick **`DataTypesAsLattices`** (Scott 1976 — domain theory, his signature area, and 0 proof holes).
+
+First the `scripts/` dir and the converter:
+
+    Bash mkdir -p ~/projects/ScottLean4/scripts echo "created scripts/" echo "=== confirm xelatex is available (Unicode-capable engine) ===" /Library/TeX/texbi
+## turn — assistant 2026-08-02T19:33:52.093000-07:00
+
+xelatex is there (TeX Live 2026), file is 151 lines. Now the converter script — XeLaTeX + macOS's Menlo font renders Lean's Unicode (ℕ, ∀, →, ⊑) natively:
+
+    Write /Users/scott/projects/ScottLean4/scripts/lean2tex.sh
+    Bash chmod +x ~/projects/ScottLean4/scripts/lean2tex.sh echo "=== run: Lean -> LaTeX -> PDF ===" PDF=$(~/projects/ScottLean4/scripts/lean2tex.sh ~/projects
+## turn — assistant 2026-08-02T19:34:19.622000-07:00
+
+The pipeline ran end-to-end — Lean → XeLaTeX → PDF → Chrome. Let me verify the PDF is real and the Unicode rendered (not a blank page):
+
+    Bash export PATH="/opt/homebrew/bin:$PATH" PDF=~/projects/ScottLean4/build/lean2tex/DataTypesAsLattices.pdf echo "=== pdfinfo ==="; pdfinfo "$PDF" 2>/dev/n
+## turn — assistant 2026-08-02T19:35:10.157000-07:00
+
+**Lean → LaTeX → viewer works.** Verified: `lean2tex.sh` produced a **3-page letter PDF** (XeLaTeX/`xdvipdfmx`) from `DataTypesAsLattices.lean`, and the content is intact — the docstring, the citation *"D. Scott, Data Types as Lattices"*, the theorem list (continuity, graph theorem, fixed-point theorem), **and the Unicode rendered** (`f : Pω → Pω` came through with `ω` and `→`). It's open in Chrome now.
+
+The reusable pipeline is [scripts/lean2tex.sh](scripts/lean2tex.sh) — `scripts/lean2tex.sh <file.lean>` → PDF. Now the **plotting** half — a pgfplots demo (native LaTeX, no matplotlib needed):
+
+    Write /Users/scott/projects/ScottLean4/scripts/plot-demo.tex
+## turn — assistant 2026-08-02T19:35:46.967000-07:00
+
+Good call — `build/…` is a throwaway path (and gitignored). Let me make a proper **`generated-latex/`** directory for Dana and point the pipeline there. First, retarget the script:
+
+    Edit /Users/scott/projects/ScottLean4/scripts/lean2tex.sh
+    Bash export PATH="/Library/TeX/texbin:/opt/homebrew/bin:$PATH" cd ~/projects/ScottLean4 mkdir -p generated-latex # clean up the old throwaway location rm -
+## turn — assistant 2026-08-02T19:36:39.247000-07:00
+
+Both are now in `generated-latex/` and open in Chrome (the Lean formalization PDF and the pgfplots demo) — so both halves of the pipeline are confirmed on this box.
+
+Now the simple plot for Dana: **f(x)=x** and **g(x)=x²**. Let me also add a small reusable `tex2pdf.sh` (compiles any `.tex` → `generated-latex/`, no aux-file mess) so this is part of the bundle:
+
+    Write /Users/scott/projects/ScottLean4/scripts/tex2pdf.sh
+## turn — assistant 2026-08-02T19:37:11.605000-07:00
+
+Understood — stopping there, not building the f(x)=x / g(x)=x² plot. The `plot-demo.pdf` already proves the plotting chain, so that'll do.
+
+Where things stand for the bundle:
+
+**`scripts/`** (the reusable pipeline, for Dana + the next AI):
+- `lean2tex.sh` — Lean file → PDF (XeLaTeX, renders Unicode)
+- `tex2pdf.sh` — any `.tex` → PDF (pdflatex)
+- `plot-demo.tex` — pgfplots example to copy from
+
+**`generated-latex/`** (browsable output for Dana):
+- `DataTypesAsLattices.pdf` — Scott's 1976 formalization, typeset
+- `plot-demo.pdf` — the plotting demo
+
+Both pipelines are verified end-to-end on this box (Lean→LaTeX→viewer and plotting→LaTeX→viewer). I'll leave the plotting there and won't add more. What's next?
+

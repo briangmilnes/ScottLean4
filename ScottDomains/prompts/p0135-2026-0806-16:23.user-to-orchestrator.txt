@@ -1,0 +1,70 @@
+---
+prompt: p0135
+type: interaction
+opened: 2026-0806-16:23
+closed: 2026-0806-16:26
+subject: keep-going
+session: a2827760
+---
+# Reconstructed from Claude Code's session recording
+# (~/.claude/projects/-home-milnes-projects-ScottLean4/a2827760….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-06T16:23:18-07:00
+
+keep going
+
+## turn — assistant 2026-08-06T16:23:48-07:00
+
+r0023 — the lift `D⊥` as a cpo, the prerequisite for Lemma 9 and the smash product.
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Lift.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -v "^info: ScottDomains/ExistingTheories" | grep -v "^trace:" | grep -A8 "err
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | tail -2; lake build 2>&1 | grep -ci "warning:"; grep -c sorry ScottDomains/Lift.le
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | grep -B3 -A6 "warning:" | head -20
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains/Lift.lean
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains; lake build 2>&1 | tail -1; lake build 2>&1 | grep -ci "warning:"
+## turn — assistant 2026-08-06T16:25:29-07:00
+
+Lift builds clean. Closing r0023 here — the strict function space is the natural next piece but is a subtype cpo with its own case split, so it gets its own round.
+
+    Write /home/milnes/projects/ScottLean4/ScottDomains/reports/r0023-report-from-orchestrator-to-user-lift.md
+    Bash cd /home/milnes/projects/ScottLean4/ScottDomains/ScottDomains; grep -c '^theorem\|^@\[simp\] theorem\|^protected theorem' *.lean | awk -F: '{s+=$2} EN
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Edit /home/milnes/projects/ScottLean4/ScottDomains/docs/PaperInventory.md
+    Bash cd /home/milnes/projects/ScottLean4; scripts/md2pdf.sh ScottDomains/docs/PaperInventory.md ScottDomains/docs 2>&1 | tail -1; pdfinfo ScottDomains/docs
+## turn — assistant 2026-08-06T16:26:56-07:00
+
+r0023 pushed as `8bb5971` — the lift `D⊥` as a cpo, built on the first attempt.
+
+## The one step with content
+
+Mathlib's `WithBot α` gives the order, the coercion and `⊥` for free; only the cpo structure is new. For `s ⊆ D⊥`, take the base `t = {a : D | ↑a ∈ s}` — if empty the supremum is `⊥`, otherwise `↑(⨆t)`. The step that needs an argument is that **`t` inherits directedness**: given `↑a₁, ↑a₂ ∈ s`, directedness produces `c ∈ s` above both, and `c` cannot be the adjoined bottom because `↑a₁ ≤ ⊥` is false. So `c` is again a coercion. That single fact — `WithBot.not_coe_le_bot` — is what makes the lift a cpo rather than merely a pointed order, and it's the only place the new element needs separate reasoning.
+
+A pattern has now stabilised across every cpo construction in the development, worth recording:
+
+| # | Construction | `SupSet`-totality split on |
+| -- | ------------ | -------------------------- |
+| 1 | `ScottHom α β` | continuity of the pointwise supremum |
+| 2 | `↓a` | whether the supremum stays below `a` |
+| 3 | `D⊥` | whether the base is empty |
+| 4 | `im(p)` | **none** — applying `p` always lands in range |
+| 5 | `D × E` | **none** — coordinatewise suprema are always correct |
+
+| # | Quantity | Count |
+| -- | -------- | ----- |
+| 1 | Numbered results | 7 of 29 |
+| 2 | Prose claims | 11 |
+| 3 | Definitions | 8 of ≈13 |
+| 4 | Modules / lines / live theorems | 20 / 2921 / 129 |
+| 5 | `sorry` / warnings | 0 / 0 |
+
+PDF regenerated, 7 pages, with the progress heading now current at r0023 — I've folded that update into the per-round routine so it can't freeze again.
+
+Next is the **strict function space** `D →⊥ E`. The paper claims it is a cpo (p. 5), which would be prose claim 12, and Lemma 9 quantifies over it throughout. It's a subtype of `ScottHom` and brings its own case split, so it's a round rather than an addendum. Then the smash product `D ⊗ E` — and I'll flag again that Lemma 9's PDF text drops every `⊗` and `⊥` subscript, so I'll reconstruct each part from the definitions and mark any I can't read with confidence rather than guess.
+

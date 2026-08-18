@@ -1,0 +1,72 @@
+---
+prompt: p0281
+type: interaction
+opened: 2026-0816-11:59
+closed: 2026-0816-12:01
+subject: check-what-scott1998anewcategorylean-say
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T11:59:52.881000-07:00
+
+check what Scott1998ANewCategory.lean says about well-poweredness
+
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean
+    Bash grep -n -i 'power\|subobject\|Johnstone\|WellPow\|regular' /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean
+    Read /Users/scott/projects/ScottLean4/ScottLean/Scott/Scott1998ANewCategory.lean
+    Bash grep -n -i 'well.powered\|Johnstone' /Users/scott/projects/ScottLean4/DanaScottPapers/Scott-1998-A-New-Category.txt
+    Read /Users/scott/projects/ScottLean4/DanaScottPapers/Scott-1998-A-New-Category.txt
+## turn — assistant 2026-08-16T12:01:04.888000-07:00
+
+No defect on well-poweredness. The concern I flagged doesn't materialize — here's the measurement.
+
+## What the Lean file says
+
+Two places, both correct:
+
+- [Scott1998ANewCategory.lean:27](ScottLean/Scott/Scott1998ANewCategory.lean:27) — "the principal theorems 3.2 (`EQU` is complete, cocomplete, **regular** well-powered)"
+- [Scott1998ANewCategory.lean:166](ScottLean/Scott/Scott1998ANewCategory.lean:166) — "Theorem 3.2: `EQU` is complete, co-complete and **regular** well-powered."
+
+## Why it's already right
+
+The source text is **Version 2, 19 April 1998** — not the December 1996 first draft. Version 2 had already absorbed the correction. [Scott-1998-A-New-Category.txt:488](DanaScottPapers/Scott-1998-A-New-Category.txt:488):
+
+> 3.2 Theorem. The category EQU is complete, co-complete, regular well-powered, and regular co-well-powered
+
+and footnote 3 at [line 508](DanaScottPapers/Scott-1998-A-New-Category.txt:508) is the same Johnstone acknowledgment that reappears as footnote 4 in the 2004 paper — there attributed to "Scott's original unpublished manuscript," here to "the first draft of this paper." So the 1996 → 1998 → 2004 chain is: assertion, retraction, retraction restated. The Lean file was generated from the post-retraction text and inherited the correct qualifier.
+
+One gap, minor: the Lean docstring drops **"regular co-well-powered."** The source states both halves; the formalization records one. Worth adding for faithfulness.
+
+## The larger finding
+
+The statement is correct but carries no logical content. 185 lines, and all three "principal theorem" declarations are vacuous `Prop`s:
+
+```
+EQU_complete_cocomplete := ∀ (I : Type u) (_A : I → EquiSpace.{u}), True
+EQU_cartesianClosed     := ∀ (_B _C : EquiSpace.{u}), ∃ _exp : EquiSpace.{u}, True
+EQU_equiv_PEQU          := ∀ _A : PEquiSpace.{u}, ∃ _B : EquiSpace.{u}, True
+```
+
+Each is inhabited immediately: the first by `fun _ _ => trivial`; the second and third by any witness, and `EquiSpace.{u}` is inhabited (`PUnit` with the indiscrete topology satisfies `IsT0` since `x = y` always holds). **Well-poweredness in any form appears nowhere in the Lean — only in the docstring.** The `True` payload means the word "regular" is doing no work the kernel can check.
+
+**Measured content of the file:**
+
+| Kind | Count | What |
+| --- | --- | --- |
+| Structures/defs with real content | 9 | `TopSpace`, `specLe`, `IsT0`, `T0Space`, `Continuous`, `CompleteLattice`, `Directed`, `IsCompact`, `IsAlgebraic` |
+| Objects of the category | 3 | `EquiSpace`, `Equivariant`, `PEquiSpace` |
+| Theorems actually proved | 3 | `MapEquiv.refl` / `.symm` / `.trans` — the paper's "elementary exercise" |
+| Vacuous target `Prop`s | 3 | above |
+| `sorry` | **0** | because nothing hard is stated |
+
+That last row is the point: zero `sorry` here is not evidence of completeness. It's the `sorry`-invisible-claim pattern your `ScottDomains/analyses/` census already tracks — a proof hole hidden in a `True` rather than declared with `sorry`, so no tally catches it.
+
+The definitions that *are* present check out against the 2004 paper: `specLe` matches Def 3.3, `IsT0` matches Def 3.2 in its `𝒯(x) = 𝒯(y) ⟹ x = y` form, and `MapEquiv` matches the `f ≡_{ℰ→ℱ} g` of Def 3.9 — restricted to the diagonal `x = y`, which is equivalent for equivariant maps but is a strictly weaker relation as written.
+
+Want me to state Theorem 3.2 with actual content — define regular subobject and regular quotient, then give `EQU_regular_wellPowered` and `EQU_regular_coWellPowered` as real propositions with `sorry` where the proof is owed?
+

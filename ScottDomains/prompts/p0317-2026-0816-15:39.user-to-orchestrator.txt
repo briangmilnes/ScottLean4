@@ -1,0 +1,74 @@
+---
+prompt: p0317
+type: interaction
+opened: 2026-0816-15:39
+closed: 2026-0816-15:43
+subject: go
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-16T15:39:44.788000-07:00
+
+go
+
+## turn — assistant 2026-08-16T15:40:13.933000-07:00
+
+Step 2: the exponential functor. First making `exp` match `prod`'s shape, since the same instance lesson applies:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() old = s[s.index("no
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() s=s.rstrip() tail="
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:41:19.824000-07:00
+
+Four fixes — namespace, two elaboration issues, and the functor laws need `Quotient.sound` rather than `rfl`:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() old = s[s.index("na
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:41:58.311000-07:00
+
+`map_comp` needs the two equivariance steps, not just the hypothesis:
+
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean' s=open(p).read() s=s.replace('''  ma
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build ScottDomains.EquilogicalSpaces.PEquClosed
+## turn — assistant 2026-08-16T15:42:18.277000-07:00
+
+The exponential functor is proved. Full build and land:
+
+    Bash lake -d /Users/scott/projects/ScottLean4/ScottDomains build
+    Bash wc -l /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/PEquClosed.lean
+    Bash python3 - <<'PY' p='/Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/EquilogicalSpaces/README.md' s=open(p).read() s=s.replace("| `PEquClose
+    Bash /Users/scott/projects/ScottLean4/scripts/gitcp.sh "r0080: the exponential functor on PEqu  PEquClosed.lean 280 -> 332 lines, still 0 sorry. Step two o
+## turn — assistant 2026-08-16T15:43:14.686000-07:00
+
+**The exponential functor on `PEqu` is proved** — pushed as **a6abb84**. Step 2 of 3.
+
+## What landed
+
+- **`exp` rebuilt like `prod`** — carrier behind `Wrap`, marked `@[reducible]`, rather than `letI` in the body. Its carrier is a `ScottHom` with no ambient competitor, but the reducibility is needed for the same reason: resolution runs at `instances` transparency and won't unfold a plain `def`.
+- **`PEquivariant.toScottHom`** — a `PEqu` morphism carries *topological* continuity while the function space is built from `ScottHom`; this converts one to the other via r0078's `scottContinuous_of_continuous`.
+- **`expMap` / `expMap_congr`** — post-composition as an equivariant map, continuity from `scottContinuous_postcomp` (r0064), plus the check that it respects `MapEquiv`.
+- **`pequExpFunctor B : PEqu ⥤ PEqu`.**
+
+The contrast with `ALatClosed`'s `expFunctor` is the whole story of why `PEqu` costs more: there `map_id` and `map_comp` were `rfl`; here morphisms are classes, so both are `Quotient.sound`, and `map_comp` needs *both* equivariance steps rather than the hypothesis alone.
+
+## State
+
+**2584 lines, 4 `sorry`** (all `Theorems3.lean`), 1550 jobs, 0 errors.
+
+## Theorem 3.13's three steps
+
+| Step | Status |
+| --- | --- |
+| Products in `PEqu` | **proved** (r0079) |
+| Exponential functor | **proved** (r0080) |
+| Adjunction + transport across 3.12 | remaining |
+
+The hom-level content of step 3 is already proved as `homRel_curry_iff` — currying matches the product and exponential relations. What's left is assembling `Adjunction.mkOfHomEquiv` over quotients, where the hom-equivalence must be shown well-defined on classes in both directions, and then transporting to `Equ`.
+
+That last transport is where I flagged the `prod.functor`/`Classical.choice` issue. I'll take the concrete route as in `ALatClosed` unless you say otherwise — which will discharge 3.13 in the paper's §2 phrasing rather than the exact `Theorems3` statement, and I'll restate that one to match.
+

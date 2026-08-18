@@ -1,0 +1,65 @@
+---
+prompt: p0255
+type: interaction
+opened: 2026-0815-13:17
+closed: 2026-0815-13:21
+subject: do-55
+session: c6fa38c7
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/c6fa38c7….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-15T13:17:07.489000-07:00
+
+do 5.5
+
+## turn — assistant 2026-08-15T13:18:51.094000-07:00
+
+§5.5 again. I found the redesign that removes the obstruction: keep a **flat, unindexed** token type and make the *order* a level-indexed family. Then cross-level work is arithmetic in `Prop`, never transport. Building the core of it:
+
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "leAt"
+    Edit /Users/scott/projects/EricsonPapers/Domains/ScottDomainExamples.lean
+    Bash lake -d ~/projects/EricsonPapers build 2>&1 | grep -E "error:|warning:|Build completed|build failed"
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash grep -n "redesign" /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Read /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Edit /Users/scott/projects/EricsonPapers/docs/ScottDomainExamples.md
+    Bash git -C /Users/scott/projects/EricsonPapers commit -am "Unblock the D-infinity bilimit: flat token type with a level-indexed order family" -m "The earl
+    Bash git -C /Users/scott/projects/EricsonPapers push origin main
+## turn — assistant 2026-08-15T13:21:18.912000-07:00
+
+Pushed — `9ea0c1e`. Build: **846 jobs, zero errors, zero warnings, zero `sorry`, 60 audited declarations.**
+
+**The obstruction I reported as a wedge is gone.** The fix was the redesign I sketched, and it works:
+
+Keep one **flat, unindexed** token type `DTok`, and carry the level in the *order* rather than the type:
+
+```
+leAt : Nat → DTok → DTok → Prop
+```
+
+level 0 is 𝕊's order; level n+1 is §5.1's entailment between step-function sets, phrased over `leAt n`. Comparing any two tokens at any level is now a `Prop` about two ordinary terms — **no indices, no casts**, which is exactly what defeated the indexed tower.
+
+The second half of the trick is `stepOf`, reading *any* token as a finite set of step functions — ⊥ as the empty set (λy.⊥), ⊤ through one embedding (λy.⊤). One recursion then handles all levels uniformly instead of case-splitting on which token is "lower".
+
+Proved on it, each `[propext]` and nothing more:
+
+| theorem | content |
+| --- | --- |
+| `leAt_refl`, `leAt_trans` | `leAt n` is a preorder at every level |
+| `leAt_bot_le` | ⊥ is below everything at every level |
+| **`leAt_embTok`** | **e is an order-embedding**: `leAt (n+1) (embTok x) (embTok y) ↔ leAt n x y` |
+
+`leAt_embTok` is the one that matters — the coherence the colimit runs on, and precisely the statement the indexed encoding could not express without transport.
+
+**D∞ itself is not finished.** What remains is `depth`, iterated embedding, the stability lemma (comparing at any level above both depths gives the same answer — `leAt_embTok` by induction), then `bounded_lub` and a `treesUpTo`-style enumeration. That is ordinary `Prop`-level work now, roughly the size of §5.4, with no known obstacle — but it is not done, and §5.5's row stays open in §8 until it is.
+
+One caution worth flagging on my earlier reasoning: I briefly thought the colimit order could be `∃ n, leAt n (eⁿ x) (eⁿ y)`, which `leAt_embTok` would make independent of n — and therefore equal to `leAt 0`, collapsing D∞ to 𝕊. That is wrong because eⁿ does not put a depth-d token "at level n"; the comparison has to happen at `max (depth x) (depth y)`. Worth recording so the next pass does not repeat it.
+

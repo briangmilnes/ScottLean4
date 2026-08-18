@@ -1,0 +1,59 @@
+---
+prompt: p0329
+type: interaction
+opened: 2026-0817-17:41
+closed: 2026-0817-17:43
+subject: can-you-put-into-words-the-definitions-o
+session: b8f2003b
+---
+# Reconstructed from Claude Code's session recording
+# (/Users/scott/.claude/projects/-Users-scott-projects-ScottLean4/b8f2003b….jsonl),
+# not from context: this conversation was compacted, so the assistant's
+# own recollection covers only its tail. Timestamps are the recorded
+# per-message times in America/Los_Angeles, second resolution.
+
+## turn — user 2026-08-17T17:41:58.011000-07:00
+
+can you put into words the definitions of the two categories Equ and PEqu
+
+    Bash sed -n '/^structure EquilogicalSpace/,/^  setoid/p;/^def MapEquiv/,/g.toFun y)/p' /Users/scott/projects/ScottLean4/ScottDomains/ScottDomains/Equilogic
+## turn — assistant 2026-08-17T17:43:14.409000-07:00
+
+Both are formalized in this repo, so here they are in words, with the Lean names alongside.
+
+## `Equ` — the category of equilogical spaces
+
+**An object** is a topological space that is **T₀**, together with **an arbitrary equivalence relation on its points**. Three pieces: a carrier set, a topology, a relation. `EquilogicalSpace` carries exactly those (plus the T₀ proof).
+
+The word *arbitrary* is load-bearing. The relation is not required to interact with the topology in any way — it need not have open or closed classes, the quotient is never topologized. The paper flags the consequence: sometimes the only equivariant maps between two objects are the constant ones, despite both spaces being rich.
+
+**A morphism** is *not* a map. It is an **equivalence class of maps**. A map qualifies — is *equivariant* — when it is continuous **and** carries related points to related points. Two equivariant maps are then identified when
+
+> `f ≡ g` iff for all `x, y`: `x ≡ y` implies `f x ≡ g y`
+
+and `Hom A B` is the quotient by that. In Lean: `Equivariant`, `MapEquiv`, and `Hom A B := Quotient (mapSetoid A B)`.
+
+## `PEqu` — the category of partial equilogical spaces
+
+**An object** is an **algebraic lattice**, carrying **its own Σ-topology** (the Scott topology), together with a **partial** equivalence relation — symmetric and transitive, but *not* reflexive: `x ≡ x` may fail. `PartialEquilogicalSpace` has `rel_symm` and `rel_trans` and no `rel_refl`.
+
+Two differences from `Equ`, and both matter:
+
+- The topology is **forced**, not chosen. An `Equ` object may be any T₀ space; a `PEqu` object must be an algebraic lattice under the Scott topology of *that* lattice.
+- The relation is **partial**. The points where `x ≡ x` holds form the *total part*, `A.Total`, and that is the only place the relation does anything.
+
+**Morphisms are the same shape** — classes of continuous, relation-preserving maps under the identical two-point identification.
+
+## The subtlety both share
+
+That two-point form, `∀ x y, x ≡ y → f x ≡ g y`, is stronger than pointwise `f x ≡ g x`, and getting it right is what makes everything work:
+
+- **Reflexivity of the identification is exactly equivariance.** `MapEquiv f f` unfolds to "`x ≡ y` implies `f x ≡ f y`" — so the relation on maps is an equivalence relation only on *equivariant* maps, never on bare continuous ones.
+- **Transitivity needs `x ≡ x`, and derives it** rather than assuming it: from `x ≡ y` by symmetry and transitivity. That is why the identical proof survives the move to `PEqu`, where reflexivity is unavailable. `PartialEquilogical.lean`'s `mapSetoid` is a near-copy of `Basic.lean`'s rather than a new argument.
+
+## Why two categories
+
+`Equ` is the one you want — it extends `Top₀` and is cartesian closed, which `Top₀` is not. But `Equ` has no evident exponential: there is no good topology on a set of continuous functions, which is precisely why `Top₀` fails.
+
+`PEqu` is where the exponential *does* exist, because the function space between algebraic lattices is again an algebraic lattice. Theorem 3.12 says the two categories are equivalent — restrict a `PEqu` object to its total part, where the partial relation becomes total — and Theorem 3.13 transports cartesian closure back across that equivalence. Both are proved here.
+
