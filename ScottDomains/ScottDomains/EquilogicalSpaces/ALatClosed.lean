@@ -129,4 +129,13 @@ theorem isLeftAdjoint_prodFunctorRight (B : AlgebraicLattice.{u}) :
     Functor.IsLeftAdjoint (prodFunctorRight B) :=
   ⟨⟨_, ⟨prodExpAdjunction B⟩⟩⟩
 
+/-- **Theorem 3.8**, under the paper's number.
+
+    Restated so that a reader looking for "3.8" finds it by name, as
+    `CLAUDE.md`'s naming rule intends. The content is
+    `isLeftAdjoint_prodFunctorRight` above. -/
+theorem bauerBirkedalScott04_theorem_3_8 (B : AlgebraicLattice.{u}) :
+    CategoryTheory.Functor.IsLeftAdjoint (prodFunctorRight B) :=
+  isLeftAdjoint_prodFunctorRight B
+
 end ScottDomains.EquilogicalSpaces

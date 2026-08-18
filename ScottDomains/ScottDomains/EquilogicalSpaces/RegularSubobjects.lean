@@ -5,7 +5,7 @@ import Mathlib.CategoryTheory.Subobject.Basic
 import Mathlib.Logic.Small.Basic
 
 /-!
-# Towards Theorem 3.10's regular well-poweredness halves
+# Theorem 3.10's regular well-poweredness halves
 
 The 1998 manuscript's proof sketch is the plan:
 
@@ -47,17 +47,16 @@ Injectivity of `S ↦ T`, hence smallness.
 
 ## Status
 
-**Proved:** the saturation lemmas, `pointMap`, and `sat_range_eqInc` — which is
-(★) for the *concrete* equalizer of `EquLimits.lean`. That last is the
-`Equ`-specific content of the argument.
+**All proved.** `sat_range_eq_agreeSet` is (★) for an abstract regular mono;
+`regularWellPowered` and `regularCoWellPowered` are Theorem 3.10's two regular
+clauses, restated under the paper's number in `Theorems3.lean` as
+`bauerBirkedalScott04_theorem_3_10_regularWellPowered` and
+`…_regularCoWellPowered`.
 
-**Not done, and these are the theorems:** (★) for an *abstract* regular mono,
-which needs Mathlib's `IsRegularMono` unpacked into a `Fork` and `pointMap` fed
-through its universal property; and then the injectivity argument closing with
-`Subobject.eq_of_comm`. So `Theorem310RegularWellPowered` and
-`Theorem310RegularCoWellPowered` remain `Prop`-valued claims in `Theorems3.lean`
-— **statements, not theorems** — and Theorem 3.10 is proved in two of its four
-clauses.
+The co-well-powered half is **not** a corollary of the well-powered one: it runs
+in `Equᵒᵖ`, where the one-point space has no dual, and is carried instead by the
+*kernel relation* `{ (x, y) | q x ≡ q y }` — the manuscript's "making the
+equivalence relation coarser".
 -/
 
 universe u
