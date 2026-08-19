@@ -110,6 +110,22 @@ theorem isAlgebraic_scottHom (A B : AlgebraicLattice.{u}) :
     ScottDomains.IsAlgebraic (ScottHom A.carrier B.carrier) :=
   inferInstance
 
+/-- `CartesianClosure.Theorem38ExponentialIsObject`, **discharged**.
+
+    That claim was recorded unasserted because the `BoundedComplete` instance for
+    a complete lattice was missing, which is what blocked `FunctionSpaceDomain`'s
+    result from applying. `completeLattice_boundedComplete` above supplies it, so
+    the claim is now `isAlgebraic_scottHom` with the two lattices bundled.
+
+    It is discharged *here* rather than in `CartesianClosure.lean`: that module
+    is imported by this one, so the reverse direction would close an import
+    cycle. -/
+theorem theorem38_exponentialIsObject : Theorem38ExponentialIsObject.{u} := by
+  intro X Y iX iY hX hY _
+  exact isAlgebraic_scottHom
+    { carrier := X, completeLattice := iX, isAlgebraic := hX }
+    { carrier := Y, completeLattice := iY, isAlgebraic := hY }
+
 /-! ## The function space is a complete lattice
 
     The second half of "the exponential is an object": `ScottHom X Y` must be a

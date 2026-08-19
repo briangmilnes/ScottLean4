@@ -43,7 +43,9 @@ to be an object, i.e. needs `IsAlgebraic (ScottHom α β)`, which
 `ScottDomains.FunctionSpaceDomain` supplies only for `β` bounded complete. That
 side condition is real and is recorded as `Theorem38ExponentialIsObject` below
 rather than assumed. The preservation result does not need it, so it is proved
-without it.
+without it. The side condition itself was later discharged, by
+`ALat.theorem38_exponentialIsObject` — in `ALat.lean` rather than here, since
+that module imports this one.
 -/
 
 universe u
@@ -107,7 +109,10 @@ theorem scottHomCurry_symm_homRel (f₁ f₂ : ScottHom (X × Y) Z) :
 
 end Preservation
 
-/-! ## What remains of Theorem 3.8 -/
+/-! ## The two halves of Theorem 3.8, stated separately
+
+    Both are now proved — the first in `ALat.lean`, the second here. The section
+    heading formerly read "What remains of Theorem 3.8"; nothing remains. -/
 
 /-- The exponential of two objects of `PEqu` is again an object: the function
     space of algebraic lattices is an algebraic lattice.
@@ -118,8 +123,12 @@ end Preservation
     bounded or not — so the side condition is discharged for `ALat`; but the
     `BoundedComplete` instance for a `CompleteLattice` is not in the package and
     has to be supplied before `FunctionSpaceDomain`'s result can be applied here.
-    That is the remaining obligation, and it is a one-instance job rather than a
-    mathematical one. -/
+    That was the remaining obligation, and it was a one-instance job rather than
+    a mathematical one.
+
+    **Discharged**, by `ALat.completeLattice_boundedComplete` supplying that
+    instance and `ALat.theorem38_exponentialIsObject` closing the claim. It is
+    stated here and proved there because `ALat.lean` imports this module. -/
 def Theorem38ExponentialIsObject : Prop :=
   ∀ (X Y : Type u) (_ : CompleteLattice X) (_ : CompleteLattice Y),
     ScottDomains.IsAlgebraic X → ScottDomains.IsAlgebraic Y →
@@ -131,9 +140,11 @@ def Theorem38ExponentialIsObject : Prop :=
     one-one correspondence the paper points at when it says "there is a
     particular one-one correspondence that is an isomorphism of the underlying
     algebraic lattices". Cartesian closure additionally requires the categorical
-    packaging — a bundled `ALat`, its finite products, and the adjunction — none
-    of which exists in the package yet, so full Theorem 3.8 cannot presently be
-    given a type at all. -/
+    packaging — a bundled `ALat`, its finite products, and the adjunction. All
+    three now exist (`ALat.lean`, `ALatProducts.lean`, `ALatClosed.lean`), and
+    full Theorem 3.8 is `ALatClosed.bauerBirkedalScott04_theorem_3_8`. This
+    bijection remains stated separately because it is the part `PEquClosed.lean`
+    transports along, and it holds under weaker hypotheses than closure does. -/
 def Theorem38CurryingBijection : Prop :=
   ∀ (X Y Z : Type u) (_ : CompleteLattice X) (_ : CompleteLattice Y) (_ : CompleteLattice Z),
     ScottDomains.IsAlgebraic X → ScottDomains.IsAlgebraic Y → ScottDomains.IsAlgebraic Z →
@@ -143,11 +154,13 @@ def Theorem38CurryingBijection : Prop :=
     algebraicity and lattice hypotheses go unused, since the bijection holds for
     arbitrary complete partial orders.
 
-    Recording it separates what this package already establishes (the bijection)
-    from what Theorem 3.8 still owes (the categorical packaging, and that the
-    exponential is an *object* of `ALat`). Overstating this as cartesian closure
-    would be the error the `regular`/`WellPowered` discipline elsewhere in this
-    directory exists to prevent. -/
+    Recording it separately keeps the bijection distinct from what Theorem 3.8
+    additionally needs — the categorical packaging, and that the exponential is
+    an *object* of `ALat`. Both were owed when this was written and are now
+    supplied (`ALatClosed.bauerBirkedalScott04_theorem_3_8`,
+    `ALat.theorem38_exponentialIsObject`); the separation is kept because
+    overstating a bijection as cartesian closure is exactly the error the
+    `regular`/`WellPowered` discipline elsewhere in this directory prevents. -/
 theorem theorem38_curryingBijection : Theorem38CurryingBijection.{u} :=
   fun _ _ _ _ _ _ _ _ _ => ⟨scottHomCurry⟩
 

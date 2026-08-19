@@ -30,9 +30,13 @@ quantifies over **arbitrary** subsets `S` and asks for a **finite** `S₀ ⊆ S`
 On a complete lattice the two agree — the finite suprema of an arbitrary `S` form
 a directed set with the same supremum — but that identification is a real step,
 not a definitional unfolding. It is written out below as `IsSigmaOpen` together
-with `sigmaOpen_iff_isOpen`, which is **an obligation carrying `sorry`**.
-Everything proved in this file is proved for Mathlib's Scott topology; the
-bridge to Definition 3.4's literal wording is the outstanding piece.
+with `sigmaOpen_iff_isOpen`, **which is proved**, in both directions. Everything
+else in this file is proved for Mathlib's Scott topology, and that lemma is what
+ties those results to Definition 3.4's literal wording, so the gap is stated and
+closed rather than assumed away. The one fact its proof needs and Mathlib does
+not supply — an upper bound *inside* a directed subset for a finite subset of it,
+as opposed to `Finset.exists_le` for a directed order — is
+`DirectedOn.exists_upperBound_of_finite`, also proved here.
 -/
 
 universe u
@@ -176,8 +180,8 @@ end Theorem35
     This is what Theorem 3.5 is *for*: objects of `Equ` must be `T₀`, and
     `bauerBirkedalScott04_theorem_3_5_t0` is exactly that hypothesis. The
     `t0Space` field below is filled by instance resolution from Mathlib's
-    `IsScott.instT0Space` — no `sorry`, and no appeal to the outstanding
-    `sigmaOpen_iff_isOpen`, since nothing here needs Definition 3.4's wording.
+    `IsScott.instT0Space` — and with no appeal to `sigmaOpen_iff_isOpen`, since
+    nothing here needs Definition 3.4's wording.
 
     Definition 3.11's `PEqu` will restrict the lattices to the *algebraic* ones
     and weaken the relation to a partial equivalence relation; this constructor

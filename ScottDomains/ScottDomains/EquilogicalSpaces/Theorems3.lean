@@ -17,9 +17,25 @@ A. Bauer, L. Birkedal and D. S. Scott, *Equilogical Spaces*, TCS **315**(1):35�
 2004, §3, as printed in
 `ScottDomains/papers/Bauer Birkedal Scott 2004 Equilogical Spaces.pdf`.
 
-Everything here is an **obligation** carried by `sorry`, or a `Prop`-valued claim.
-The category structure they are about is proved in
-`ScottDomains.EquilogicalSpaces.Basic`, which has no `sorry`.
+Every result named here is **proved**: §3 is formalized end to end, and no
+`sorry` occurs anywhere under `ScottDomains/EquilogicalSpaces/`. The single
+exception is `Theorem310NotWellPowered` at the foot of this file, footnote 4's
+negative result, deliberately recorded as an unasserted `Prop`-valued claim
+rather than as a `sorry` — its docstring says why.
+
+Beware that a zero `sorry` count does not by itself certify a section: a
+`Prop`-valued claim `def` carries no `sorry` and yet asserts nothing. Read the
+count together with a grep for such `def`s. This directory has three, named by
+the UpperCamelCase convention `Theorem<N><Semantic>`:
+
+| claim | status |
+| ----- | ------ |
+| `CartesianClosure.Theorem38CurryingBijection` | discharged by `theorem38_curryingBijection` |
+| `CartesianClosure.Theorem38ExponentialIsObject` | discharged by `ALat.theorem38_exponentialIsObject` |
+| `Theorem310NotWellPowered` (below) | **unasserted**, deliberately |
+
+The lowercase predicate `def`s — `Rel`, `MapEquiv`, `IsSigmaOpen`, `witnessRel` —
+are ordinary definitions, not claims, and are not part of this tally.
 
 ## The proof spine the paper uses
 
@@ -40,10 +56,20 @@ equivalence relation, and the currying bijection is already an isomorphism of
 algebraic lattices, so only preservation of the relation remains. The paper calls
 that step "self-proving".
 
-Neither `PEqu` nor the Σ-topology is defined yet, so **3.6, 3.7, 3.8 and 3.12 are
-not stated here** — writing them would mean inventing encodings this module
-cannot yet express faithfully. They are listed in `README.md` as the next
-tranche. Only what can be said with content about `Equ` itself appears below.
+3.5, 3.6, 3.7, 3.8 and 3.12 are proved in the modules that define what they are
+about, and are not restated here; this file collects the results concerning
+`Equ` itself. Each carries its paper-numbered name where it is proved, so a
+reader with a printed number can reach the declaration without a lookup table:
+
+| # | declaration | module |
+| -- | ----------- | ------ |
+| 3.5 | `bauerBirkedalScott04_theorem_3_5_t0`, `…_3_5_specialization` | `SigmaTopology.lean` |
+| 3.6 | `bauerBirkedalScott04_theorem_3_6_embedding` | `PartialEquilogical.lean` |
+| 3.7 | `bauerBirkedalScott04_theorem_3_7` | `Extension.lean` |
+| 3.7 | `bauerBirkedalScott04_theorem_3_7_extension` (the `PEqu` form) | `PartialEquilogical.lean` |
+| 3.8 | `bauerBirkedalScott04_theorem_3_8` | `ALatClosed.lean` |
+| 3.12 | `bauerBirkedalScott04_theorem_3_12` | `EssSurj.lean` |
+| 3.13 | `bauerBirkedalScott04_theorem_3_13_pequ`, `…_3_13_equ` | `PEquClosed.lean` |
 
 ## Why the names say `regular`
 
