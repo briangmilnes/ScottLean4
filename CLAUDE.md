@@ -176,7 +176,18 @@ authoritative and supersedes GRASE rule 4.1's minute-resolution form:
 - A heavy step records wall clock and peak resident set size in a `--- times ---`
   footer, with the field names spelled exactly as the standard gives them.
 
-Measured build costs live in `ScottDomains/docs/Performance.md`.
+Measured build costs live in `~/projects/ScottProjects/ScottDomains/docs/Performance.md`.
+
+**The `ScottDomains` Lean package no longer lives in this repository.** It moved
+to Dana Scott's own, `DanaSScott/ScottProjects`, at
+`~/projects/ScottProjects/ScottDomains` — 145 modules, 52,261 lines, `lake build`
+completing 1560 jobs with zero errors. Build it there; `scripts/compile.sh`,
+`counts.sh`, `axioms.sh`, `module-counts.sh`, `numbered-status.sh`,
+`unused-theorems.sh` and `mathlib-imports.sh` were repointed and still write
+their logs to `ScottDomains/logs/` here. `ScottDomains/` in this repository is
+now the process record — logs, prompts, plans, reports, analyses, and the cited
+`papers/`, which stayed because they are third-party PDFs and are not
+republished in `ScottProjects`. See `ScottDomains/README.md`.
 
 ## Repository workflow and file index
 

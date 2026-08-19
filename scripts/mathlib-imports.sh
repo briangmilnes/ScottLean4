@@ -15,7 +15,7 @@
 #
 # USAGE: scripts/mathlib-imports.sh
 set -u
-SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/ScottDomains/ScottDomains"
+SRC="$HOME/projects/ScottProjects/ScottDomains/ScottDomains"
 
 echo "files:   $(find "$SRC" -name '*.lean' | wc -l)"
 echo "lines:   $(find "$SRC" -name '*.lean' -exec cat {} + | wc -l)"

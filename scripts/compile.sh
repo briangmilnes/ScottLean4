@@ -40,7 +40,7 @@ case "$root" in
   *)          role="orchestrator" ;;
 esac
 
-pkg="$root/ScottDomains"
+pkg="$HOME/projects/ScottProjects/ScottDomains"
 logdir="$pkg/logs"
 mkdir -p "$logdir"
 

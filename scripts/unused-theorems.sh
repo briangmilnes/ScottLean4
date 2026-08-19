@@ -28,7 +28,7 @@
 # Usage: scripts/unused-theorems.sh [--names-only]
 set -e
 cd "${0:A:h}/.."
-pkg="ScottDomains/ScottDomains"
+pkg="$HOME/projects/ScottProjects/ScottDomains/ScottDomains"
 
 srcfiles=(${(f)"$(find $pkg -name '*.lean' | sort)"})
 

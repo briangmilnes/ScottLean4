@@ -18,7 +18,7 @@
 # Usage: scripts/module-counts.sh [--csv]
 set -e
 cd "${0:A:h}/.."
-pkg="ScottDomains/ScottDomains"
+pkg="$HOME/projects/ScottProjects/ScottDomains/ScottDomains"
 
 fmt=${1:---table}
 srcfiles=(${(f)"$(find $pkg -name '*.lean' | sort)"})

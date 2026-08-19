@@ -21,7 +21,7 @@
 set -e
 cd "${0:A:h}/.."
 root="$PWD"
-pkg="$root/ScottDomains"
+pkg="$HOME/projects/ScottProjects/ScottDomains"
 
 imports=()
 decls=()

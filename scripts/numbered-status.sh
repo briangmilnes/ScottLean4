@@ -17,7 +17,7 @@
 
 set -uo pipefail
 root=/home/milnes/projects/ScottLean4
-pkg="$root/ScottDomains"
+pkg="$HOME/projects/ScottProjects/ScottDomains"
 out="$pkg/analyses/numbered-status.$(date +%Y%m%d-%H%M%S).orchestrator.tsv"
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT

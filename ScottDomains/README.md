@@ -1,40 +1,48 @@
-# ScottDomains
+# ScottDomains — moved
 
-A Lean 4 / Mathlib formalization of **domain theory**, developed directly from
-one paper:
+The Lean package that was here now lives in **Dana Scott's own repository**:
 
-> **C. A. Gunter and D. S. Scott, "Semantic Domains,"** in *Handbook of
-> Theoretical Computer Science*, Volume B (ed. J. van Leeuwen), North-Holland,
-> 1990, pp. 633–674.
+- on disk: `~/projects/ScottProjects/ScottDomains`
+- on GitHub: <https://github.com/DanaSScott/ScottProjects/tree/main/ScottDomains>
 
-That paper is our **specification**. We work through its development in order —
+145 modules, 52,261 lines, `lake build` completing 1560 jobs with zero errors —
+including the 18-module `EquilogicalSpaces/` formalization of §3 of Bauer,
+Birkedal and Scott, *Equilogical Spaces*, TCS **315**(1):35–59, 2004.
 
-1. §2 cpo's and the Fixed-Point Theorem
-2. §3 effectively presented domains (compact elements, algebraic, bounded-complete, finitary projections)
-3. §4 operators and functions (products, smash products, sums, lifts, function spaces)
-4. §5 powerdomains
-5. §6 bifinite (SFP) domains
-6. §7 recursive definitions of domains (`D∞`)
+The move was mechanical rather than a refactor. Measured with
+`scripts/import-closure.sh`, the library's only external dependency is Mathlib,
+and no Lean file outside the package imports it, so not one `import` line
+changed and the pinned Mathlib revision is identical in both repositories.
 
-— formalizing each definition and theorem in Lean, **reusing Mathlib** where it
-already provides a piece and **defining the rest** (notably the way-below
-relation `≪`, which Mathlib lacks).
+## What stayed here, and why
 
-The paper — a copy provided by **D. Scott** himself, whose distribution to us is
-permitted under the publisher's author terms — is in
-[`papers/Gunter Scott 1990.pdf`](papers/Gunter%20Scott%201990.pdf).
+This directory is now the **process record** for that work — ScottLean4's
+history, not the library's:
 
-## Layout
+| directory | files | what it is |
+| --------- | ----- | ---------- |
+| `logs/` | 707 | GRASE build telemetry, per `standards/LoggingStandard.md` |
+| `prompts/` | 334 | reconstructed user↔assistant interactions, `scripts/save-prompts.sh` |
+| `reports/` | 122 | GRASE execution reports |
+| `plans/` | 78 | GRASE plans |
+| `analyses/` | 37 | analytical data-products about the codebase |
+| `GunterScott90Images/` | 41 | figures extracted from Gunter–Scott 1990 |
+| `papers/` | 11 | the cited sources |
 
-- [`ScottDomains.lean`](ScottDomains.lean) — root module; re-exports the Mathlib foundations we build on.
-- [`ScottDomains/ExistingTheories.lean`](ScottDomains/ExistingTheories.lean) — clickable `#check` catalog of the Mathlib pieces we reuse.
-- [`docs/PaperInventory.md`](docs/PaperInventory.md) — every definition and theorem in the paper, with a column for its Lean/Mathlib status (the work list).
-- [`papers/`](papers/) — the source paper.
+`papers/` stayed for a specific reason: those are third-party copyrighted PDFs,
+and they are `.gitignore`d in `ScottProjects` rather than republished there, so
+this repository remains their only tracked copy. The module docstrings in the
+moved library still name them by the package-relative path
+`ScottDomains/papers/…`, which resolves against *this* directory.
 
-## Status
+`docs/` did move, so `docs/Performance.md` — the measured build costs — is now
+at `~/projects/ScottProjects/ScottDomains/docs/Performance.md`.
 
-Framing complete: the project builds green (`lake build` → 924 jobs, 0 errors,
-0 `sorry`). The domain-theory development itself — the classes, the `≪`
-relation, and the theorems — is **not yet started**. `docs/PaperInventory.md` is
-the plan, mapped section-by-section to the paper; the next step is to fill in its
-"In Lean / Mathlib?" column, then formalize.
+## Building it
+
+```
+cd ~/projects/ScottProjects/ScottDomains && lake build
+```
+
+`scripts/compile.sh` in this repository was repointed at the new location and
+still writes its logs to `ScottDomains/logs/` here.

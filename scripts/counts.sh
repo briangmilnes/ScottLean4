@@ -9,7 +9,7 @@
 # attribute group — the rule `docs/PaperInventory.md` row 5 cites.
 set -e
 cd "${0:A:h}/.."
-pkg="ScottDomains/ScottDomains"
+pkg="$HOME/projects/ScottProjects/ScottDomains/ScottDomains"
 
 # Note: `modules`, `lines` and several other plain names are read-only specials
 # in zsh once zsh/parameter is loaded, so every local here is prefixed.
