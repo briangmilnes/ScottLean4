@@ -121,12 +121,58 @@ instance : CartesianClosed (Type u) where
 /-! ## A derived fact, proved once for every cartesian closed category
 
 From the product's universal property alone, `⟨fst, snd⟩ = 𝟙` — the "surjective
-pairing"/η law for products. -/
+pairing"/η law for products. Named rather than left as an `example`, because the
+η law for exponentials below consumes it. -/
 
 open Category CartesianClosed in
-example {Obj : Type u} [CartesianClosed Obj] (X Y : Obj) :
+/-- **Surjective pairing**, the η law for products: `⟨fst, snd⟩ = 𝟙`.
+
+`pair_unique` says the mediating morphism is unique — `⟨h ⨟ fst, h ⨟ snd⟩ = h`
+for every `h`. At `h = 𝟙` the two components reduce by `id_comp`, which is what
+`simpa` discharges, leaving `⟨fst, snd⟩ = 𝟙`. -/
+theorem pair_fst_snd {Obj : Type u} [CartesianClosed Obj] (X Y : Obj) :
     pair (fst : Hom (prod X Y) X) (snd : Hom (prod X Y) Y) = Category.id (prod X Y) := by
   have h := pair_unique (Category.id (prod X Y))
   simpa [Category.id_comp] using h
+
+/-! ## The transpose is injective — β makes `curry` one-to-one
+
+Before the η law, a basic consequence of β (`curry_eval`): the transpose is
+**injective**, `curry f = curry g → f = g`. Distinct maps out of a product name
+distinct λ-abstractions. -/
+
+open Category CartesianClosed in
+/-- **The transpose is injective**: `curry f = curry g → f = g`.
+
+β (`curry_eval`) exhibits every `f : Z × A → B` as `⟨fst ⨟ curry f, snd⟩ ⨟ eval`,
+a term in which `f` occurs only through `curry f`. Rewriting the hypothesis into
+that identity therefore turns it into one about `g`, and the two chain. Only β is
+used: `curry_unique` is not needed, and neither is any property of `eval`. -/
+theorem curry_injective {Obj : Type u} [CartesianClosed Obj] {Z A B : Obj}
+    (f g : Hom (prod Z A) B) (h : curry f = curry g) : f = g := by
+  have hf := curry_eval f
+  have hg := curry_eval g
+  rw [h] at hf
+  exact hf.symm.trans hg
+
+/-! ## η for exponentials, via the `simp` solver
+
+Currying the evaluation map returns the identity — `curry eval = 𝟙` — the
+exponential η law, in *any* cartesian closed category. With `pair_fst_snd` in
+hand, the **`simp` solver** finishes in one step, rewriting with that lemma and
+the two identity laws (`comp_id`, `id_comp`) — the same principle behind Mathlib's
+`aesop_cat`. -/
+
+open Category CartesianClosed in
+/-- **η for exponentials**: `curry eval = 𝟙`.
+
+The round trip of the currying bijection at the identity. `curry_unique` reduces
+it to showing that `𝟙 : B^A → B^A` satisfies β's equation for `eval` itself, and
+`⟨fst ⨟ 𝟙, snd⟩ ⨟ eval` collapses to `eval` by `comp_id` and `pair_fst_snd`. -/
+theorem curry_eval_id {Obj : Type u} [CartesianClosed Obj] (A B : Obj) :
+    curry (eval : Hom (prod (exp A B) A) B) = Category.id (exp A B) := by
+  symm
+  refine curry_unique eval (Category.id (exp A B)) ?_
+  simp [Category.comp_id, pair_fst_snd, Category.id_comp]
 
 end Playground.CCC
