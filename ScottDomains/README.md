@@ -44,5 +44,8 @@ at `~/projects/ScottProjects/ScottDomains/docs/Performance.md`.
 cd ~/projects/ScottProjects/ScottDomains && lake build
 ```
 
-`scripts/compile.sh` in this repository was repointed at the new location and
-still writes its logs to `ScottDomains/logs/` here.
+`scripts/compile.sh` in this repository was repointed at the new location, and
+writes its logs to `~/projects/ScottProjects/ScottDomains/logs/` — beside the
+package it measures, tracked in that repository. The 707 logs here are the
+historical record of the runs made while the package still lived in this
+repository; no new ones are written to them.

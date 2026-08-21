@@ -183,8 +183,12 @@ to Dana Scott's own, `DanaSScott/ScottProjects`, at
 `~/projects/ScottProjects/ScottDomains` — 145 modules, 52,261 lines, `lake build`
 completing 1560 jobs with zero errors. Build it there; `scripts/compile.sh`,
 `counts.sh`, `axioms.sh`, `module-counts.sh`, `numbered-status.sh`,
-`unused-theorems.sh` and `mathlib-imports.sh` were repointed and still write
-their logs to `ScottDomains/logs/` here. `ScottDomains/` in this repository is
+`unused-theorems.sh` and `mathlib-imports.sh` were repointed, and their logs
+moved with the package: they write to `~/projects/ScottProjects/ScottDomains/logs/`,
+which is tracked in that repository. The path template above still governs
+scripts whose target lives here — `compile-scott1972.sh` writes to
+`ScottDomains/logs/` in this checkout. The rule is that a log lands beside the
+package it measures. `ScottDomains/` in this repository is
 now the process record — logs, prompts, plans, reports, analyses, and the cited
 `papers/`, which stayed because they are third-party PDFs and are not
 republished in `ScottProjects`. See `ScottDomains/README.md`.
