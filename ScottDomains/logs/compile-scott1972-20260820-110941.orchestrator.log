@@ -1,0 +1,119 @@
+# r0095
+# orchestrator — lake build (whole library)
+# package: /home/milnes/projects/ScottLean4/Ericson/scott1972
+# started: 2026-08-20T11:09:41-07:00
+# lean: leanprover/lean4:v4.30.0
+# host: Linux 7.0.0-28-generic x86_64, 20 cores
+### === lake build  ===
+✔ [925/936] Built Scott1972.ContinuousLattice.Injective (1.1s)
+✔ [926/936] Built Scott1972.ContinuousLattice.WayBelow (1.2s)
+✔ [927/936] Built Scott1972.ContinuousLattice.Specialization (897ms)
+✔ [928/936] Built Scott1972.ContinuousLattice.MilnerCorrection (1.1s)
+✔ [929/936] Built Scott1972.ContinuousLattice.ScottMaps (1.3s)
+⚠ [930/936] Built Scott1972.ContinuousLattice.Constructions (1.4s)
+warning: Scott1972/ContinuousLattice/Constructions.lean:269:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottExtend_aux_nonempty`:
+  [TopologicalSpace X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/Constructions.lean:275:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottExtend_aux_directed`:
+  [TopologicalSpace X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/Constructions.lean:357:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottExtend_maximal`:
+  [TopologicalSpace X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/Constructions.lean:373:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottExtend_maximal_le`:
+  [TopologicalSpace X]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/Constructions.lean:397:7: unused variable `f'`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [931/936] Built Scott1972.ContinuousLattice.FunctionSpaces (2.6s)
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:758:8: This simp argument is unused:
+  Set.image_id
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵S̵e̵t̵.̵i̵m̵a̵g̵e̵_̵i̵d̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:1131:5: unused variable `hi`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:1201:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottMap_eq_sSup_openInfs`:
+  [TopologicalSpace Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:1231:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottSubspaceExtendInf_eq_of_comp`:
+  [TopologicalSpace X]
+  [TopologicalSpace Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] [TopologicalSpace Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:1281:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottSubspaceExtend_mono`:
+  [TopologicalSpace X]
+  [TopologicalSpace Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] [TopologicalSpace Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:1291:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottSubspaceExtendInf_eq_of_ext`:
+  [TopologicalSpace X]
+  [TopologicalSpace Y]
+  [CompleteLattice Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] [TopologicalSpace Y] [CompleteLattice Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:1305:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottSubspaceExtendInf_mono_retr`:
+  [TopologicalSpace X]
+  [TopologicalSpace Y]
+  [CompleteLattice Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] [TopologicalSpace Y] [CompleteLattice Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:1314:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottSubspaceExtendInf_mono_incl`:
+  [TopologicalSpace X]
+  [TopologicalSpace Y]
+  [CompleteLattice Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] [TopologicalSpace Y] [CompleteLattice Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Scott1972/ContinuousLattice/FunctionSpaces.lean:1326:0: automatically included section variable(s) unused in theorem `Scott1972.ContinuousLattice.scottSubspaceExtendInf_mono_incl_apply`:
+  [TopologicalSpace X]
+  [TopologicalSpace Y]
+  [CompleteLattice Y]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace X] [TopologicalSpace Y] [CompleteLattice Y] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [932/936] Built Scott1972.ContinuousLattice.Theorem212 (1.2s)
+✔ [933/936] Built Scott1972.ContinuousLattice.InverseLimits (1.6s)
+✔ [934/936] Built Scott1972.ContinuousLattice.FunctionSpaceTower (1.6s)
+✔ [935/936] Built Scott1972 (834ms)
+Build completed successfully (936 jobs).
+--- times ---
+Elapsed (wall clock): 0:10.74
+Maximum resident set size (kbytes): 2120668
+--- build ---
+finished:         2026-08-20T11:09:51-07:00
+exit status:      0
+jobs:             936
+lean diagnostics: 0
+lake errors:      0
+sorry decls:      0
+other warnings:   14
