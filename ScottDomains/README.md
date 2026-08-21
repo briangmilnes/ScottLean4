@@ -38,6 +38,38 @@ moved library still name them by the package-relative path
 `docs/` did move, so `docs/Performance.md` — the measured build costs — is now
 at `~/projects/ScottProjects/ScottDomains/docs/Performance.md`.
 
+### One paper in `papers/` is two chapters, not one
+
+`Gunter Mosses Scott 1989 … MS-CIS-89-16.pdf` reads from its filename like a
+three-author paper. It is not. The Penn tech report (LOGIC & COMPUTATION 04,
+dated February 14, 1989, marked *"To appear in North Holland's Handbook of
+Theoretical Computer Science"*) binds together the preprints of **two** Handbook
+chapters:
+
+| # | pages | chapter | authors | published as |
+| - | ----- | ------- | ------- | ------------ |
+| 1 | 1–46 | Semantic Domains | Gunter & Scott | HTCS Vol. B (1990), pp. 633–674 — held as `papers/Gunter Scott 1990.pdf` |
+| 2 | 47– | Denotational Semantics | Mosses | its own HTCS chapter |
+
+So Mosses authored the half that has nothing to do with the chapter this
+development formalizes, which is why `scripts/bibliography-cites.sh` reports him
+cited by zero modules and zero documents while "Gunter" appears in 101 of 145
+modules. That zero is correct, not a missing citation.
+
+Chapter 1 and the published chapter are the same seven sections with the chapter
+prefix dropped, subsection titles matching one for one, so a citation converts by
+deleting the `1.`:
+
+    report §1.2.3  =  published §2.3        report §1.3.1  =  published §3.1
+    report §1.6.2  =  published §6.2        report §1.7.4  =  published §7.4
+
+The module docstrings cite the **published** numbering. The report is therefore
+usable as an independent witness to a printed sentence thirteen months earlier —
+worth reaching for where a printed statement is under suspicion, as with the
+results this development had to name `…_printed_false`. Whether the preprint's
+proofs differ from the published ones has not been checked; only the titles and
+tables of contents were compared.
+
 ## Building it
 
 ```
